@@ -2,6 +2,347 @@ import type { FootballProgramEditorial } from './program-editorial';
 
 // Five individually sourced programs in Batch 009. No unlicensed imagery or inferred final 2026 record.
 const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "cherokee": {
+    "slug": "cherokee",
+    "intro": "Cherokee's Fighting Indians are a six-man football program in San Saba County, assigned to UIL 1A Division II District 8 for 2026–28. Cherokee ISD calls its campus the Home of the Fighting Indians and publishes athletics updates, but some indexed scores on its athletics site come from older seasons, not a certified 2026 final-results ledger. Dave Campbell's Texas Football independently credits Cherokee with three historic state titles; those reported titles are history, not a current district standing.",
+    "theme": {
+      "accentHex": "#765338",
+      "label": "Original TexasDefined warm-brown football identity panel, not an officially licensed Cherokee Indians school mark."
+    },
+    "seo": {
+      "title": "Cherokee Indians Six-Man Football | 2026 UIL District 8 & History",
+      "description": "Cherokee Fighting Indians football, 2026 UIL 1A Division II District 8, three reported historic state titles and school-controlled athletics resources in San Saba County."
+    },
+    "schedule": {
+      "label": "Cherokee ISD official athletics and district calendar",
+      "sourceUrl": "https://www.cherokeeisd.net/o/cherokee-isd/athletics",
+      "sourceLabel": "Cherokee Independent School District athletics listing, with individually dated events that may be from earlier seasons",
+      "verifiedAt": "2026-10-27"
+    },
+    "notice": {
+      "title": "Older Cherokee athletics scores are not 2026 finals",
+      "body": "The current Cherokee ISD athletics feed includes visibly dated past-season events alongside newer district material. Verify the actual season and opponent before reporting a 2026 win–loss record, and do not convert secondary schedule summaries into official standings.",
+      "sourceUrl": "https://www.cherokeeisd.net/o/cherokee-isd/athletics",
+      "sourceLabel": "Cherokee ISD source event dates and mixed historical entries",
+      "verifiedAt": "2026-10-27"
+    },
+    "development": {
+      "title": "Six-man traditions without invented game logistics",
+      "body": "Cherokee ISD lists its district at 305 S Indian Avenue, Cherokee, TX 76832. That is a school contact address, not a certified football spectator entrance. Check organizer updates for field access, weather changes and admission conditions.",
+      "sourceUrl": "https://www.cherokeeisd.net/",
+      "sourceLabel": "Cherokee ISD first-party district contacts and school identity",
+      "verifiedAt": "2026-10-27"
+    },
+    "milestones": [
+      {
+        "date": "2026–2028",
+        "title": "UIL 1A Division II District 8",
+        "body": "UIL placed Cherokee in six-man Division II District 8 alongside Brookesmith, Lohn, Richland Springs and Rochelle.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 official six-man realignment"
+      },
+      {
+        "date": "Historical",
+        "title": "Three championship seasons in historical tracking",
+        "body": "Dave Campbell's Texas Football records three state titles and four championship-game appearances in Cherokee program history; specific title-year claims are not inferred without primary-school corroboration.",
+        "sourceUrl": "https://www.texasfootball.com/team/cherokee-indians/",
+        "sourceLabel": "Dave Campbell's independent Cherokee program-history index"
+      }
+    ],
+    "overview": [
+      "The campus represents Cherokee in San Saba County; UIL 2026–28 places the football team in 1A Division II District 8.",
+      "Cherokee ISD itself uses the Fighting Indians identity for the district.",
+      "Dave Campbell's independent school-history index attributes three past state championships; individual year claims need their own sources.",
+      "Past-season activity in the official athletics calendar is not evidence of a 2026 final score or current coaching appointment."
+    ],
+    "faq": [
+      {
+        "question": "Which six-man district includes Cherokee in 2026?",
+        "answer": "Cherokee is in UIL Class 1A Division II District 8 for the 2026–28 cycle."
+      },
+      {
+        "question": "How many state titles does Cherokee football have?",
+        "answer": "Dave Campbell's Texas Football historical record credits Cherokee with three state titles, but this page does not invent title years or claim current scores from that historical total."
+      },
+      {
+        "question": "Where can Cherokee fans confirm current football information?",
+        "answer": "Use Cherokee Independent School District's athletics and announcements, checking the dates carefully because some visible calendar entries are from older seasons."
+      }
+    ]
+  },
+  "chester": {
+    "slug": "chester",
+    "intro": "Chester Yellowjackets football is a six-man UIL 1A Division I District 13 program in Tyler County. Chester ISD's athletics department identifies Coleman Butter as athletic director and head football coach, alongside named assistant football coaches. The first-party staff list is more reliable for current roles than older scraped football directories, while the official school schedule remains the place to confirm each competition.",
+    "theme": {
+      "accentHex": "#A67A29",
+      "label": "Original TexasDefined gold-accent typography only; no Chester ISD Yellowjackets seal, player image or official mark."
+    },
+    "seo": {
+      "title": "Chester Yellowjackets Football | Coleman Butter & 2026 UIL Six-Man",
+      "description": "Chester ISD Yellowjackets football in Tyler County, first-party coach Coleman Butter, UIL 1A Division I District 13 and official current schedules."
+    },
+    "coach": {
+      "name": "Coleman Butter",
+      "title": "Athletic Director and Head Football Coach (district-listed)",
+      "sourceUrl": "https://www.chesterisd.com/page/athletics",
+      "sourceLabel": "Chester ISD official athletics coaching and staff directory",
+      "verifiedAt": "2026-10-27"
+    },
+    "schedule": {
+      "label": "Chester ISD school-controlled athletics schedules",
+      "sourceUrl": "https://www.chesterisd.com/page/athletics",
+      "sourceLabel": "Chester ISD athletics schedules and named coaches",
+      "verifiedAt": "2026-10-27"
+    },
+    "development": {
+      "title": "Chester Yellowjacket game-day planning",
+      "body": "The district lists 273 Yellowjacket Drive, Chester, TX 75936 as its school contact address. Football spectator parking, exact entrance, ticket terms and venue accessibility must be verified for the individual game.",
+      "sourceUrl": "https://www.chesterisd.com/",
+      "sourceLabel": "Chester ISD first-party district contact information",
+      "verifiedAt": "2026-10-27"
+    },
+    "milestones": [
+      {
+        "date": "2026–2028",
+        "title": "UIL Division I District 13 six-man alignment",
+        "body": "The official UIL reclassification places Chester in 1A Division I District 13 with other East Texas six-man schools.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 1A six-man Division I alignment"
+      },
+      {
+        "date": "2026-10-27",
+        "title": "District-confirmed 2026 football staff",
+        "body": "The current official Chester ISD athletics page lists Coleman Butter as athletic director and head football coach; Evan Stewart and Matthew Bryan appear as assistant football coaches.",
+        "sourceUrl": "https://www.chesterisd.com/page/athletics",
+        "sourceLabel": "First-party Chester ISD football staff listing"
+      }
+    ],
+    "overview": [
+      "Chester represents Tyler County in UIL six-man 1A Division I District 13.",
+      "First-party Chester ISD athletics identifies Coleman Butter as current head football coach and athletic director.",
+      "The district also names its assistant football staff, making this a current program guide rather than an inferred historic roster.",
+      "A campus mailing or district-address record cannot substitute for current spectator gate, ADA or ticket details."
+    ],
+    "faq": [
+      {
+        "question": "Is Chester football six-man?",
+        "answer": "Yes. UIL's 2026–28 alignment lists Chester in six-man Class 1A Division I District 13."
+      },
+      {
+        "question": "Who coaches the Chester Yellowjackets?",
+        "answer": "Chester ISD's athletics page names Coleman Butter as athletic director and head football coach."
+      },
+      {
+        "question": "Where can visitors check Chester's schedule and admission?",
+        "answer": "Follow the school's official athletics page for current game information; confirm parking, gate and ticket details with the district rather than an older venue directory."
+      }
+    ]
+  },
+  "chico": {
+    "slug": "chico",
+    "intro": "The Chico Dragons represent Wise County in UIL 2A Division I District 6 for 2026–28, a move from the prior 2A Division II grouping in older team histories. The official Texas school district is Chico ISD at chicoisdtx.net—not Chico Unified School District in California or Southlake Carroll's Dragon program. Current dated MaxPreps and Dave Campbell schedule snapshots are secondary sources and do not jointly establish a final season record or a named 2026 head coach.",
+    "theme": {
+      "accentHex": "#4B6B50",
+      "label": "Original TexasDefined moss-green football identity; Chico official team logos, colors and photographic marks are not reproduced."
+    },
+    "seo": {
+      "title": "Chico Dragons Football | Wise County UIL 2A Division I 2026 Guide",
+      "description": "Texas Chico Dragons football, Wise County, 2026 UIL 2A Division I District 6, qualified schedule records and source-safe visitor guidance."
+    },
+    "notice": {
+      "title": "Chico coaching and 2026 results require current school confirmation",
+      "body": "Team-history sources do not establish a named 2026 varsity head coach. MaxPreps updates its 2026 scores on different dates than Dave Campbell's secondary snapshots. Do not treat either rolling record as a district-certified final standing.",
+      "sourceUrl": "https://www.maxpreps.com/tx/chico/chico-dragons/football/history/",
+      "sourceLabel": "Current-season MaxPreps history has no listed head coach and differing date-stamped score views",
+      "verifiedAt": "2026-10-27"
+    },
+    "schedule": {
+      "label": "Chico Dragons 2026 team schedule (dated independent listing)",
+      "sourceUrl": "https://www.maxpreps.com/tx/chico/chico-dragons/football/schedule/",
+      "sourceLabel": "MaxPreps current team schedule, checked against separate Dave Campbell coverage; not district-certified scoreboard",
+      "verifiedAt": "2026-10-27"
+    },
+    "development": {
+      "title": "Use the Texas Chico ISD site, not California school results",
+      "body": "Chico Independent School District's official domain is chicoisdtx.net. Team schedules, home-field parking, ticket outlets and eligibility questions need a school-confirmed update before a trip; Chico, CA, sports pages refer to a different institution.",
+      "sourceUrl": "https://www.chicoisdtx.net/",
+      "sourceLabel": "Texas Chico Independent School District official website",
+      "verifiedAt": "2026-10-27"
+    },
+    "milestones": [
+      {
+        "date": "2026–2028",
+        "title": "Football alignment changes to 2A Division I",
+        "body": "UIL places Chico in 2A Division I District 6 in the 2026–28 alignment; 2025 season-history entries carry previous classifications and must be labeled by year.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 Class 2A Division I football alignment"
+      },
+      {
+        "date": "2025",
+        "title": "Prior-season reconstruction is not the 2026 record",
+        "body": "Dave Campbell's independent school archive lists 2025 at 1–9; that prior year should not be conflated with newer 2026 games appearing in a separately maintained MaxPreps feed.",
+        "sourceUrl": "https://www.texasfootball.com/team/chico-dragons",
+        "sourceLabel": "Dave Campbell's Chico past seasons and program history"
+      }
+    ],
+    "overview": [
+      "Chico Dragons represent Wise County, Texas, not a similarly named California campus.",
+      "UIL's current 2026–28 assignment is 2A Division I District 6; older seasons used 2A Division II.",
+      "Secondary sources date their scores differently; this guide makes no independently unverified 2026 final-season claim.",
+      "No school-controlled current head football coach or game-day stadium entrance has been verified for the program."
+    ],
+    "faq": [
+      {
+        "question": "Which district is Chico football in for 2026?",
+        "answer": "UIL places Chico in Class 2A Division I District 6 for 2026–28."
+      },
+      {
+        "question": "Is Chico football the same school as Chico High in California?",
+        "answer": "No. This is Chico Independent School District in Wise County, Texas. California's Chico Unified School District is unrelated."
+      },
+      {
+        "question": "Who is Chico's current 2026 football coach?",
+        "answer": "The currently reviewed school and secondary pages do not establish a school-verified named varsity coach. Check directly with Chico ISD before citing an appointment."
+      }
+    ]
+  },
+  "childress": {
+    "slug": "childress",
+    "intro": "Childress Bobcats football represents Childress County in UIL Class 3A Division II District 1 for 2026–28. Childress ISD's live staff directory names Bo Helm as athletic director and head football coach and separately maintains a 2026 Bobcat varsity football schedule, JV calendar and current school sports ticket links. A MaxPreps staff table includes both 'Bo Heim' and 'Bo Helm'; the school-controlled spellings take precedence.",
+    "theme": {
+      "accentHex": "#8C4F37",
+      "label": "Original TexasDefined rust editorial identity; the district's copyrighted Bobcat imagery and uniform marks are not used."
+    },
+    "seo": {
+      "title": "Childress Bobcats Football | Bo Helm & Official 2026 Schedule",
+      "description": "Childress Bobcats 2026 football: first-party head coach Bo Helm, UIL 3A Division II District 1, district varsity calendar and school-controlled tickets."
+    },
+    "coach": {
+      "name": "Bo Helm",
+      "title": "Childress ISD Athletic Director and Head Football Coach",
+      "sourceUrl": "https://www.childressisd.net/staff",
+      "sourceLabel": "Childress ISD first-party current staff directory; more authoritative than MaxPreps Bo Heim typo",
+      "verifiedAt": "2026-10-27"
+    },
+    "schedule": {
+      "label": "Childress ISD 2026 Bobcat varsity football schedule",
+      "sourceUrl": "https://www.childressisd.net/page/athletic-schedules/",
+      "sourceLabel": "Childress ISD current official varsity and JV 2026 schedule resources",
+      "verifiedAt": "2026-10-27",
+      "officialScheduleUrl": "https://www.childressisd.net/page/athletic-schedules/"
+    },
+    "development": {
+      "title": "Official Childress school ticket route",
+      "body": "The Childress ISD athletics schedules page links to Hometown Ticketing for current 2026–27 events. An outbound ticketing gateway does not guarantee a specific game's inventory or prices, and official parking and ADA details still require event confirmation.",
+      "sourceUrl": "https://www.childressisd.net/page/athletic-schedules/",
+      "sourceLabel": "Childress ISD first-party athletics tickets and calendars",
+      "verifiedAt": "2026-10-27"
+    },
+    "milestones": [
+      {
+        "date": "2026–2028",
+        "title": "UIL 3A Division II District 1",
+        "body": "UIL's 2026–28 realignment assigns Childress football to Class 3A Division II District 1.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL official current 3A Division II district alignment"
+      },
+      {
+        "date": "2026-10-27",
+        "title": "School-controlled coaching and event schedules",
+        "body": "Childress ISD's staff directory lists Bo Helm as AD and head football coach; the separately maintained athletics page publishes the 2026 Bobcats varsity football schedule and ticketing entry point.",
+        "sourceUrl": "https://www.childressisd.net/page/athletic-schedules/",
+        "sourceLabel": "Childress ISD source pages for current football and admission navigation"
+      }
+    ],
+    "overview": [
+      "Childress represents Childress County in the 2026–28 UIL 3A Division II District 1 grouping.",
+      "Childress ISD's current staff page names Bo Helm the athletic director and head football coach.",
+      "The school itself publishes a 2026 football schedule and Hometown Ticketing resource rather than relying only on syndicated scores.",
+      "No completed 2026 season record, ticket availability or stadium-access promise is inferred from these links."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Childress Bobcats football?",
+        "answer": "Childress ISD's current staff directory identifies Bo Helm as athletic director and head football coach. Another site has a misspelled entry, so the district spelling is controlling."
+      },
+      {
+        "question": "Where is the official Childress varsity football schedule?",
+        "answer": "Childress ISD's athletics schedules page lists its 2026 Bobcat football schedule and related programs."
+      },
+      {
+        "question": "Can I get Childress football tickets through the school?",
+        "answer": "The district links to Hometown Ticketing for 2026–27 athletic events. Check the individual game's availability and conditions with the school provider."
+      }
+    ]
+  },
+  "chillicothe": {
+    "slug": "chillicothe",
+    "intro": "Chillicothe Eagles are a six-man program based in Hardeman County, assigned to UIL 1A Division II District 2 in 2026–28. Chillicothe ISD identifies Zack Ryan as its athletic director, but its publicly linked high-school football schedule is labeled 2025–26. Current third-party football coaching listings name Zack Ryan or Sean Berry inconsistently, so a definitive 2026 varsity head-football-coach attribution is withheld pending a dated district confirmation.",
+    "theme": {
+      "accentHex": "#925A4C",
+      "label": "Original TexasDefined clay-red typographic football panel; no school logo, licensed game photo or official color claim."
+    },
+    "seo": {
+      "title": "Chillicothe Eagles Six-Man Football | 2026 UIL District 2",
+      "description": "Chillicothe Eagles in Hardeman County, UIL 1A Division II District 2, school-listed Zack Ryan as athletic director and qualified 2026 schedule/coaching notes."
+    },
+    "notice": {
+      "title": "Do not treat last year's schedule or mixed coach entries as current",
+      "body": "The district's athletics page labels the available high-school football schedule 2025–26 and names Zack Ryan athletic director. Third-party roster pages disagree about the 2026 head football coach, and neither source alone resolves the current appointment.",
+      "sourceUrl": "https://www.cisd-tx.net/215133_2",
+      "sourceLabel": "Chillicothe ISD actual posted 2025–26 athletics schedule and official AD line",
+      "verifiedAt": "2026-10-27"
+    },
+    "schedule": {
+      "label": "Chillicothe ISD athletics schedules and policy",
+      "sourceUrl": "https://www.cisd-tx.net/215133_2",
+      "sourceLabel": "First-party district athletics page; HS schedule presently marked 2025–26, not verified 2026–27",
+      "verifiedAt": "2026-10-27"
+    },
+    "development": {
+      "title": "Eagles' Hardeman County school contact",
+      "body": "Chillicothe ISD gives its office address as 1610 South 6th Street, Chillicothe, TX 79225. This is not evidence of the exact six-man stadium entrance or a current ticket outlet. Confirm with the district before visiting.",
+      "sourceUrl": "https://www.cisd-tx.net/",
+      "sourceLabel": "Chillicothe ISD current district contact/address page",
+      "verifiedAt": "2026-10-27"
+    },
+    "milestones": [
+      {
+        "date": "2026–2028",
+        "title": "UIL 1A Division II District 2 six-man football",
+        "body": "UIL places Chillicothe in six-man 1A Division II District 2 with Crowell, Guthrie, Matador Motley County, Paducah and Turkey Valley.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL official current 1A six-man Division II placement"
+      },
+      {
+        "date": "2026-10-27",
+        "title": "First-party athletics versus coaching feed inconsistency",
+        "body": "Chillicothe ISD identifies Zack Ryan as athletic director; MaxPreps current-season coaching history alternately names Sean Berry and Zack Ryan. Without the school's current dated head coach confirmation, no definitive varsity head-coach title is published.",
+        "sourceUrl": "https://www.cisd-tx.net/215133_2",
+        "sourceLabel": "District athletics director page contrasted against independently maintained team coach histories"
+      }
+    ],
+    "overview": [
+      "Chillicothe plays six-man football in UIL 1A Division II District 2 and represents Hardeman County.",
+      "The school-controlled athletics department identifies Zack Ryan as AD; this is not proof of his 2026 varsity head-coach role.",
+      "The displayed district HS football schedule is labeled 2025–26 and cannot certify the 2026–27 games.",
+      "Third-party coaching records conflict on the current head coach, and score feeds are not treated as official district standings."
+    ],
+    "faq": [
+      {
+        "question": "Which 2026 six-man district contains Chillicothe?",
+        "answer": "UIL lists Chillicothe in Class 1A Division II District 2 for 2026–28."
+      },
+      {
+        "question": "Who is the head football coach at Chillicothe?",
+        "answer": "The district identifies Zack Ryan as athletic director, but the reviewed 2026 coaching listings are inconsistent; the current head football coach remains unverified."
+      },
+      {
+        "question": "Where can I find Chillicothe football schedules?",
+        "answer": "Use Chillicothe ISD's athletics page, but confirm the season label: its currently linked high-school football schedule has been displayed as 2025–26."
+      }
+    ]
+  },
   "center": {
     "slug": "center",
     "intro": "The Center Roughriders enter the 2026–28 UIL alignment in 4A Division II District 8, representing Center in Shelby County. Center ISD lists Jack Alvarez as athletic director; a January 2026 East Texas news report identifies him as the incoming athletic director and head football coach. The district athletic office is at 658 Roughrider Drive, but a specific stadium spectator gate, ticket policy and late-season scores must be checked against the event organizer.",
