@@ -22,7 +22,11 @@ async function inspect(label, width, height, failApi = false) {
   try {
     const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
     assert.equal(response?.status(), 200, 'County HTTP status');
-    await page.getByRole('heading', { name: 'Van Zandt County', exact: true }).waitFor();
+    // The route and county sections hydrate asynchronously after DOMContentLoaded.
+    // Wait for their actual elements before inspecting links or SEO; do not confuse
+    // a transient document state with a published-page regression.
+    await page.locator('h1').filter({ hasText: 'Van Zandt County' }).waitFor({ state: 'visible', timeout: 25000 });
+    await page.locator('a[href*="openstreetmap.org/search?query="]').first().waitFor({ state: 'attached', timeout: 25000 });
     const seo = await page.evaluate(() => ({
       canonical: document.querySelector('link[rel="canonical"]')?.href,
       robots: document.querySelector('meta[name="robots"]')?.content || '',
@@ -44,13 +48,13 @@ async function inspect(label, width, height, failApi = false) {
       'a[href="/texas-high-school-football-teams/wills-point"]'
     ]) assert.ok(await page.locator(href).count(), 'Missing important destination: ' + href);
     const body = page.locator('body');
-    await page.getByRole('heading', { name: 'Taxing units in Van Zandt County' }).scrollIntoViewIfNeeded();
+    await page.getByRole('heading', { name: 'Taxing units in Van Zandt County' }).waitFor({ state: 'attached', timeout: 25000 });
     await page.waitForFunction(fail => {
       const txt = document.body.innerText;
       return fail ? txt.includes('Detailed rate tables are unavailable right now.')
         : /20\d{2} finalized statewide file/.test(txt);
     }, failApi, { timeout: 26000 });
-    await page.getByRole('heading', { name: 'High school football in Van Zandt County' }).scrollIntoViewIfNeeded();
+    await page.getByRole('heading', { name: 'High school football in Van Zandt County' }).waitFor({ state: 'attached', timeout: 25000 });
     await page.waitForFunction(fail => {
       const txt = document.body.innerText;
       return fail ? !txt.includes('Loading current UIL football programs…') && /Failed to fetch|football lookup timed out|Football programs could not be loaded/i.test(txt)
@@ -73,6 +77,7 @@ async function inspect(label, width, height, failApi = false) {
     await page.screenshot({ path: output + '/' + label + (failApi ? '-fallback' : '-loaded') + '.png', fullPage: true });
     console.log('PASS ' + label + (failApi ? ' failure fallback' : ' normal load') + ': ' + JSON.stringify(dimensions));
   } catch (e) {
+    console.error('DOM diagnostic ' + label + ' fallback=' + failApi + ': ' + JSON.stringify(await page.evaluate(() => ({url:location.href,title:document.title,h1:[...document.querySelectorAll('h1')].map(x=>x.textContent),headings:[...document.querySelectorAll('h1,h2')].slice(0,14).map(x=>x.textContent),mapLinks:document.querySelectorAll('a[href*="openstreetmap.org"]').length,bodyLength:document.body?.innerText.length})).catch(()=>({error:'inspection unavailable'}))));
     await page.screenshot({ path: output + '/' + label + '-FAIL.png', fullPage: true }).catch(() => {});
     failures.push(label + (failApi ? ' fallback' : '') + ': ' + (e?.message || e));
   } finally { await context.close(); }
