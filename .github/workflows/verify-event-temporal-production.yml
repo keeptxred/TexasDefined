@@ -11,6 +11,7 @@ on:
       - 'src/data/texas-this-weekend.server.ts'
       - 'src/data/event-collection-page.server.ts'
       - 'src/routes/events.$collection.tsx'
+      - 'src/routes/events.$collection.lazy.tsx'
   schedule:
     - cron: '23 11 * * *'
   workflow_dispatch:
