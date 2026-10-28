@@ -1,52 +1,52 @@
 {
-  "releaseMonth": "2026-08",
-  "publishedDate": "2026-09-30",
-  "sourceUrl": "https://www.bls.gov/news.release/archives/metro_09302026.htm",
+  "releaseMonth": "2026-09",
+  "publishedDate": "2026-10-28",
+  "sourceUrl": "https://www.bls.gov/news.release/archives/metro_10282026.htm",
   "units": "total nonfarm payroll jobs, not seasonally adjusted",
   "rows": [
     {
       "label": "Dallas–Fort Worth–Arlington",
-      "value": 4357000
+      "value": 4352100
     },
     {
       "label": "Houston–Pasadena–The Woodlands",
-      "value": 3495300
+      "value": 3489400
     },
     {
       "label": "Austin–Round Rock–San Marcos",
-      "value": 1415900
+      "value": 1416600
     },
     {
       "label": "San Antonio–New Braunfels",
-      "value": 1191700
+      "value": 1189000
     },
     {
       "label": "El Paso",
-      "value": 363500
+      "value": 363100
     },
     {
       "label": "McAllen–Edinburg–Mission",
-      "value": 308100
+      "value": 308800
     },
     {
       "label": "Corpus Christi",
-      "value": 202300
+      "value": 202200
     },
     {
       "label": "Lubbock",
-      "value": 176300
+      "value": 175700
     },
     {
       "label": "Brownsville–Harlingen",
-      "value": 159500
+      "value": 158800
     },
     {
       "label": "College Station–Bryan",
-      "value": 142100
+      "value": 147000
     },
     {
       "label": "Waco",
-      "value": 142900
+      "value": 142500
     },
     {
       "label": "Amarillo",
@@ -54,7 +54,7 @@
     },
     {
       "label": "Tyler",
-      "value": 122600
+      "value": 121600
     }
   ]
 }
