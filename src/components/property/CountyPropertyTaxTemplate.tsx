@@ -31,7 +31,7 @@ export function CountyPropertyTaxTemplate({ county }: { county: CountyPropertyRe
   // Source: Texas Comptroller county directory, "Collecting Unit" for each
   // named county. These assessor-collectors do NOT collect property taxes.
   // The actual collecting unit still depends on the parcel and taxing unit.
-  const assessorDoesNotCollectPropertyTaxes = ['lubbock', 'rockwall', 'taylor', 'van-zandt'].includes(county.slug);
+  const assessorDoesNotCollectPropertyTaxes = ['lubbock', 'rockwall', 'taylor', 'throckmorton', 'van-zandt'].includes(county.slug);
   const localDirectoryUrl = county.links.countyWebsiteUrl ?? county.officialDirectoryUrl;
   const countyGuide = countyEntity('county', county.slug);
   const localAuthorityLinks = [
