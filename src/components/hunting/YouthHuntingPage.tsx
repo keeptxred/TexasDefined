@@ -43,7 +43,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
         <h1 className="mt-3 max-w-5xl font-display text-4xl leading-tight md:text-5xl">{topic.title}</h1>
         <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">Exact youth-only deer, turkey, duck and squirrel dates, age requirements, license costs, public-land routes, mentored hunts and a practical checklist for a first Texas hunt.</p>
         <figure className="mt-7 max-w-5xl">
-          <img src={YOUTH_HUNTING_IMAGE.src} alt={YOUTH_HUNTING_IMAGE.alt} width={YOUTH_HUNTING_IMAGE.width} height={YOUTH_HUNTING_IMAGE.height} decoding="async" loading="eager" className="aspect-[16/9] w-full object-cover object-center" />
+          <img src={YOUTH_HUNTING_IMAGE.src} alt={YOUTH_HUNTING_IMAGE.alt} width={YOUTH_HUNTING_IMAGE.width} height={YOUTH_HUNTING_IMAGE.height} decoding="async" loading="eager" className="w-full object-cover" />
           <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">Illustrative U.S. youth-hunting photograph (not a Texas location). <a href={YOUTH_HUNTING_IMAGE.source} rel="noopener noreferrer" target="_blank" className="underline">{YOUTH_HUNTING_IMAGE.credit}</a> · {YOUTH_HUNTING_IMAGE.license}.</figcaption>
         </figure>
         <div className="mt-6 flex flex-wrap gap-3 text-sm">
