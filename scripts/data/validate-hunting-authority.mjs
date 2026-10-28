@@ -37,6 +37,11 @@ const huntingLazyRoute = read('src/routes/hunting.lazy.tsx');
 const huntingTopicRoute = read('src/routes/hunting.$slug.lazy.tsx');
 const huntingTopicPage = read('src/components/hunting/HuntingTopicPage.tsx');
 const huntingHub = read('src/components/hunting/HuntingAuthority.tsx');
+const speciesCalendar = JSON.parse(read('src/data/hunting/species-season-calendar.json'));
+const speciesMonitor = read('scripts/data/refresh-hunting-species-seasons.mjs');
+const speciesWorkflow = read('.github/workflows/refresh-hunting-species-calendar.yml');
+const boundedLive = read('scripts/data/monitor-hunting-live-freshness.mjs');
+const boundedLiveWorkflow = read('.github/workflows/monitor-hunting-live-freshness.yml');
 const destinationBooking = read('src/components/editorial/DestinationViatorBooking.tsx');
 const huntingSearch = read('src/data/hunting/search.ts');
 const queries = read('src/data/queries.ts');
@@ -198,4 +203,14 @@ for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texa
   }
 }
 
+if (speciesCalendar.sections.length !== 17 || speciesCalendar.sections.reduce((n, s) => n + s.rows.length, 0) !== 37) throw new Error('Species TPWD season calendar missing 17 groups / 37 dates');
+if (new Set(speciesCalendar.sections.map(s => s.heading)).size !== 17) throw new Error('Duplicate TPWD season headings');
+requireText(huntingHub, '<SpeciesSeasonSnapshot slug={topic.slug} />', 'governed TPWD species dates not visible in guide');
+requireText(huntingHub, 'rulesReviewedForSameSeason', '2027 historical legal text requires warning');
+requireText(speciesMonitor, 'yearAt(date)', 'season-year boundary not governed');
+requireText(speciesMonitor, 'changed zone or season identity', 'TPWD zone drift must fail closed');
+requireText(speciesWorkflow, 'schedule:', 'species season dates not scheduled');
+requireText(speciesWorkflow, 'gh pr merge --auto --squash', 'verified date-only PR not automatically merged');
+requireText(boundedLiveWorkflow, 'schedule:', 'bounded live hunting checker not scheduled');
+requireText(boundedLive, 'cache-bypass', 'canonical/cache-bypass freshness check missing');
 console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, lazy child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and rendered-text v2 production smoke governance.`);
