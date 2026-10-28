@@ -1,4 +1,5 @@
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { YOUTH_HUNTING_IMAGE, YOUTH_HUNTING_SECTIONS, YOUTH_HUNTING_SOURCES } from "@/data/hunting/youth-hunting-data";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
 import { HUNTING_REGULATION_FRESHNESS } from "@/data/hunting/freshness";
 import { texasDeerSeason } from "@/data/hunting/deer-season-format";
@@ -48,7 +49,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
   const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
   const homeUrl = absoluteUrl(texasDefinedBrand, "/");
   const huntingUrl = absoluteUrl(texasDefinedBrand, "/hunting");
-  const isAuthorityArticle = topic.slug === "texas-deer-hunting" || topic.slug === "turkey-hunting";
+  const isAuthorityArticle = topic.slug === "texas-deer-hunting" || topic.slug === "turkey-hunting" || topic.slug === "youth-hunting";
 
   return <JsonLd value={{
     "@context": "https://schema.org",
@@ -70,25 +71,32 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         "@id": `${pageUrl}#article`,
         headline: topic.title,
         description: topic.description,
-        image: topic.slug === "texas-deer-hunting" ? { "@type": "ImageObject", url: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt", width: 1300, height: 863, creditText: "Tom Koerner / US Fish and Wildlife Service", license: "https://www.fws.gov/media/white-tailed-deer-buck-0" } : { "@type": "ImageObject", url: "https://www.fws.gov/carp/carp/sites/default/files/2021-06/rio_grande_wild_turkey_pair_buffalo_lake_nwr_robert_burton_usfws.jpg", width: 900, height: 650, creditText: "Robert Burton / U.S. Fish & Wildlife Service" },
+        image: topic.slug === "texas-deer-hunting" ? { "@type": "ImageObject", url: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt", width: 1300, height: 863, creditText: "Tom Koerner / US Fish and Wildlife Service", license: "https://www.fws.gov/media/white-tailed-deer-buck-0" } : topic.slug === "youth-hunting" ? { "@type": "ImageObject", url: YOUTH_HUNTING_IMAGE.src, width: YOUTH_HUNTING_IMAGE.width, height: YOUTH_HUNTING_IMAGE.height, creditText: YOUTH_HUNTING_IMAGE.credit, license: YOUTH_HUNTING_IMAGE.source } : { "@type": "ImageObject", url: "https://www.fws.gov/carp/carp/sites/default/files/2021-06/rio_grande_wild_turkey_pair_buffalo_lake_nwr_robert_burton_usfws.jpg", width: 900, height: 650, creditText: "Robert Burton / U.S. Fish & Wildlife Service" },
         dateModified: topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         mainEntityOfPage: { "@id": `${pageUrl}#page` },
         author: { "@type": "Organization", name: "TexasDefined" },
         publisher: { "@type": "Organization", name: "TexasDefined" },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
-        citation: [...new Set(topic.sections.flatMap((section) => (section.links ?? []).filter((link) => link.external).map((link) => link.href)))],
+        citation: topic.slug === "youth-hunting" ? [...new Set(Object.values(YOUTH_HUNTING_SOURCES))] : [...new Set(topic.sections.flatMap((section) => (section.links ?? []).filter((link) => link.external).map((link) => link.href)))],
       }] : []),
       {
         "@type": "ItemList",
         "@id": `${pageUrl}#sections`,
         name: `${topic.title} guide sections`,
-        numberOfItems: topic.sections.length,
-        itemListElement: topic.sections.map((section, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: section.heading,
-          description: section.paragraphs.join(" "),
-        })),
+        numberOfItems: topic.slug === "youth-hunting" ? YOUTH_HUNTING_SECTIONS.length : topic.sections.length,
+        itemListElement: topic.slug === "youth-hunting"
+          ? YOUTH_HUNTING_SECTIONS.map((section, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: section.label,
+              url: pageUrl + "#" + section.id,
+            }))
+          : topic.sections.map((section, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: section.heading,
+              description: section.paragraphs.join(" "),
+            })),
       },
       {
         "@type": "BreadcrumbList",
