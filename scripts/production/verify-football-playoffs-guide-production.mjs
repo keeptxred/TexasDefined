@@ -1,7 +1,15 @@
 import { expectedCjAccountClick, expectedHotelsClick } from '../ci/cj-account-link-contract.mjs';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 
 const slug = '/article/texas-high-school-football-playoffs-explained';
+// Assert the current fixture's publication byline, not an old source-review date.
+const fixture = readFileSync(new URL('../../src/data/fixtures/texas-high-school-football-playoffs.ts', import.meta.url), 'utf8');
+const updatedAt = fixture.match(/\bupdatedAt:\s*["'](\d{4}-\d{2}-\d{2})["']/)?.[1];
+assert.ok(updatedAt, 'Football playoff fixture is missing its updatedAt date');
+const expectedArticleUpdate = 'Updated ' + new Intl.DateTimeFormat('en-US', {
+  month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+}).format(new Date(updatedAt + 'T00:00:00Z'));
 const endpoints = [
   { label: 'direct-worker', origin: 'https://texasdefined-site.freddy-coppola.workers.dev' },
   { label: 'canonical', origin: 'https://texasdefined.com' },
@@ -9,7 +17,7 @@ const endpoints = [
 const checks = [
   ['Celina football hero alt text', 'Celina High School football field at night'],
   ['2026 official bracket navigation', 'View all 2026 playoff brackets'],
-  ['updated article date', 'October 20, 2026'],
+  ['updated article byline', expectedArticleUpdate],
   ['image author credit', 'Heidi Knapp'],
   ['five-round six-man path', '1A six-man · five rounds'],
   ['six-round eleven-man path', '2A–6A · six rounds'],
