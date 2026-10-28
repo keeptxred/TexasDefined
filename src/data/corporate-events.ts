@@ -1,4 +1,4 @@
-import { houstonBuild2VerifiedProviders } from './corporate-events-houston-build2';
+import { houstonBuild2VerifiedProviders } from './corporate-events-houston-build2.ts';
 
 export type GroupEventCategory = 'team-building' | 'company-parties' | 'private-dining' | 'meetings' | 'outdoor-adventure' | 'client-entertainment';
 export type CorporateEventProvider = {
