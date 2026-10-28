@@ -132,6 +132,7 @@ test('unlicensed real venue imagery is not eligible', () => {
 test('packages have separate verified capacity, validity and price fields', () => {
   const pkg: MarketplacePackage = {
     id: 'package-1', experienceId: base.id, name: 'Lunch and games',
+    includedActivities: ['Escape room'], foodAndBeverageDetails: 'Confirm lunch menu',
     minParticipants: 20, maxParticipants: 35, durationMinutes: 180,
     pricePerPersonCents: null, minimumSpendCents: null,
     validFrom: null, validUntil: null,
@@ -151,6 +152,7 @@ test('legacy editorial venues remain independent locations, never invented activ
     sourceUrl: 'https://example.org/venues', verifiedOn: '2026-10-28',
   });
   assert.equal(legacy.publishedVenueMaximum, 250);
+  assert.equal(legacy.groupSuitability, 'supported');
   assert.equal(legacy.locationId, null);
   assert.equal(legacy.setting, 'unknown');
   assert.equal(legacy.provider.legacySlug, 'example');
@@ -167,6 +169,7 @@ test('unconfirmed group booking and food are not treated as verified facts', () 
 test('expired and not-yet-valid packages do not qualify', () => {
   const pkg: MarketplacePackage = {
     id: 'dated-package', experienceId: base.id, name: 'Seasonal',
+    includedActivities: [], foodAndBeverageDetails: null,
     minParticipants: 10, maxParticipants: 80, durationMinutes: 120,
     pricePerPersonCents: null, minimumSpendCents: null,
     validFrom: '2026-10-01', validUntil: '2026-10-31', source: base.source,
