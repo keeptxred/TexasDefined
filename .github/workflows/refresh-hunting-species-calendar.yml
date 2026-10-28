@@ -22,8 +22,8 @@ permissions:
   pull-requests: write
   issues: write
 concurrency:
-  group: hunting-species-calendar-${ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
-  cancel-in-progress: ${ github.event_name == 'pull_request' }}
+  group: hunting-species-calendar-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   species-source-check:
     runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${ github.event_name == 'pull_request' && github.sha || 'main' }}
+          ref: ${{ github.event_name == 'pull_request' && github.sha || 'main' }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -49,14 +49,14 @@ jobs:
       - name: Open one season/calendar review issue if official check fails
         if: github.event_name != 'pull_request' && steps.official.outcome == 'failure'
         env:
-          GH_TOKEN: ${ github.token }}
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
           title='Hunting TPWD species calendar requires editorial review'
           existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
           if [[ -z "$existing" ]]; then
-            gh issue create --title "$title" --body "TPWD changed a species, zone, calendar schema or publication year unexpectedly, or the source is unavailable. Preserve verified dates; resolve only from authoritative species and county sources. Source run: https://github.com/${ github.repository }}/actions/runs/${ github.run_id }}"
+            gh issue create --title "$title" --body "TPWD changed a species, zone, calendar schema or publication year unexpectedly, or the source is unavailable. Preserve verified dates; resolve only from authoritative species and county sources. Source run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           else
             echo "Existing source review issue #$existing; no duplicate."
           fi
@@ -66,7 +66,7 @@ jobs:
       - name: Create protected date-only PR for verified season changes
         if: github.event_name != 'pull_request' && steps.official.outcome == 'success'
         env:
-          GH_TOKEN: ${ github.token }}
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
