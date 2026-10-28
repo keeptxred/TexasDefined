@@ -92,23 +92,9 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "beaumont-pardi-gras",
-    image: {
-      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Beaumont_February_16_023.JPG?width=1600",
-      alt: "The David Cargill sculpture and plaza outside the Beaumont Civic Center in Beaumont, Texas, photographed in February 2015; contextual photo of the actual fundraiser venue, not the 2027 Pardi Gras event",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:Beaumont_February_16_023.JPG",
-      sourceType: "wikimedia",
-      licenseName: "CC BY-SA 4.0 — LUSportsFan",
-      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
-      rightsNote: "LUSportsFan photographed the David Cargill sculpture in the plaza between Beaumont Civic Center and Beaumont City Hall, Beaumont, Texas on February 16, 2015. Wikimedia Commons confirms original 4608×3456 own-work photo, uploader, exact Texas venue and CC BY-SA 4.0 license permitting commercial editorial use with attribution and share-alike adaptation terms. The image depicts the fundraiser's actual Civic Center campus but NOT the 2027 Beaumont Pardi Gras benefit. Credit LUSportsFan, link source and license; a responsive 1600px resize/hero layout crop is an adaptation shared on CC BY-SA 4.0.",
-      exactLocation: true,
-      approvedForCommercialUse: true,
-    },
     organizer: { type: "Organization", name: "Southeast Texas Circle of Hope", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" },
-    sources: [
-      { label: "Official benefit organizer / January 23, 2027 venue", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" },
-      { label: "Beaumont Civic Center actual 2015 plaza photo by LUSportsFan — CC BY-SA 4.0", url: "https://commons.wikimedia.org/wiki/File:Beaumont_February_16_023.JPG" },
-    ],
-    verifiedAt: "2026-10-28",
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" }],
+    verifiedAt: "2026-10-21",
   },
   {
     slug: "mardi-gras-on-the-sabine-orange",
