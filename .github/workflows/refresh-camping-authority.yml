@@ -1,5 +1,12 @@
 name: Texas camping daily TPWD and NPS official park advisory refresh
 on:
+  # One bounded end-to-end source check when the maintained workflows change.
+  # Generated notice PRs edit only data, so they cannot retrigger this.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-camping-authority.yml'
+      - '.github/workflows/finish-camping-authority-refresh.yml'
   schedule:
     - cron: '19 12 * * *'
   workflow_dispatch:
@@ -54,18 +61,6 @@ jobs:
       - name: Hand off generated PR to the protected owner-side finisher
         if: steps.refresh.outcome == 'success' && steps.update-pr.outputs.pull-request-number != ''
         run: echo "Generated source PR opened. The Finish Camping Authority Refresh workflow dispatches exact-SHA canonical CI and protected auto-merge. GITHUB_TOKEN PRs do not run required pull_request checks unattended." >> "$GITHUB_STEP_SUMMARY"
-      - name: Close resolved advisory review issue
-        if: steps.refresh.outcome == 'success' && steps.refresh.outputs.needs_review != 'true'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const title = 'Camping authority: official park advisory needs verification';
-            const {data: issues} = await github.rest.issues.listForRepo({owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
-            const issue = issues.find(x => x.title === title && !x.pull_request);
-            if (issue) {
-              await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:issue.number,body:'All monitored advisory statements confirmed by official park sources in this run; automated issue reconciliation only, not a blanket campground research refresh.'});
-              await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:issue.number,state:'closed'});
-            }
       - name: Flag ambiguous source changes or unreachable source
         if: steps.refresh.outcome != 'success' || steps.refresh.outputs.needs_review == 'true'
         uses: actions/github-script@v7

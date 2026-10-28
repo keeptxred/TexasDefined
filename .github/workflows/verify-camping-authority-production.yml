@@ -76,6 +76,43 @@ jobs:
               await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:prior.number,body:'Targeted live camping verifier recovered. GitHub run: ' + context.runId});
               await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:prior.number,state:'closed'});
             }
+      - name: Reconcile advisory review only after source recovery and live publication
+        if: steps.verify.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const file = fs.readFileSync('src/data/camping/official-alerts.generated.ts', 'utf8');
+            const match = file.match(/export const CAMPING_OPERATIONAL_ALERTS = (\[[\s\S]*?\]) as const;/);
+            if (!match) throw Error('Cannot safely inspect advisory snapshot');
+            const snapshot = JSON.parse(match[1]);
+            if (snapshot.length !== 5 || snapshot.some(item => item.status !== 'confirmed')) {
+              core.info('Some official advisories still require verification; preserving review issue.');
+              return;
+            }
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const {data: issues} = await github.rest.issues.listForRepo({owner,repo,state:'open',per_page:100});
+            const title = 'Camping authority: official park advisory needs verification';
+            const prior = issues.find(x => x.title === title && !x.pull_request);
+            if (!prior) return;
+            const {data: runs} = await github.rest.actions.listWorkflowRuns({
+              owner, repo, workflow_id:'refresh-camping-authority.yml', branch:'main', per_page:10,
+            });
+            const newest = runs.workflow_runs[0];
+            if (!newest || newest.conclusion !== 'success' ||
+                new Date(newest.updated_at) < new Date(prior.updated_at)) {
+              core.info('Latest daily official-source refresh has not cleared this issue; preserve it.');
+              return;
+            }
+            const {data: prs} = await github.rest.pulls.list({owner,repo,state:'open',per_page:100});
+            const branch = 'automation/camping-official-alert-refresh-' + newest.id;
+            if (prs.some(pr => pr.head.ref === branch)) {
+              core.info('New verified snapshot still awaits protected merge; preserve review issue.');
+              return;
+            }
+            await github.rest.issues.createComment({owner,repo,issue_number:prior.number,
+              body:'Latest official-source refresh succeeded and the matching five-record public snapshot passed live canonical verification in run ' + context.runId + '. Closing after publication, not during source fetch.'});
+            await github.rest.issues.update({owner,repo,issue_number:prior.number,state:'closed'});
       - name: Fail if production is stale
         if: steps.verify.outcome == 'failure'
         run: exit 1

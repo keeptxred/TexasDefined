@@ -6,6 +6,8 @@ const alerts = read("src/data/camping/official-alerts.generated.ts");
 const monitor = read(".github/workflows/refresh-camping-authority.yml");
 const health = read(".github/workflows/audit-camping-guide-sources.yml");
 const finisher = read(".github/workflows/finish-camping-authority-refresh.yml");
+const live = read(".github/workflows/verify-camping-authority-production.yml");
+const audit = read("scripts/data/audit-camping-guide-freshness.mjs");
 for (const [src,needle] of [
   [component,"reservationDestination(profile).url"],
   [component,"profile.sources.find"],
@@ -20,6 +22,8 @@ for (const [src,needle] of [
   [read("scripts/data/refresh-camping-alerts.mjs"),"Alerts & Conditions"],
   [monitor,"schedule:"],
   [monitor,"19 12 * * *"],
+  [monitor,"push:"],
+  [health,"github.event_name == 'push'"],
   [monitor,"needs-review"],
   [monitor,"automation/camping-official-alert-refresh-${{ github.run_id }}"],
   [finisher,"workflow_run:"],
@@ -33,7 +37,16 @@ for (const [src,needle] of [
   [read("scripts/data/refresh-camping-alerts.mjs"),"sourceOutcome(sources[0]"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"unchanged ? previous.checkedAt : day"],
   [health,"schedule:"],
-  [health,"audit-camping-guide-freshness.mjs"]
+  [health,"audit-camping-guide-freshness.mjs"],
+  [audit,"temporary-http-failure"],
+  [audit,"source-content-changed"],
+  [audit,"relevantSourceDigest"],
+  [health,"CAMPING_PREVIOUS_SOURCE_REPORT"],
+  [audit,"access-restricted"],
+  [audit,"redirected-source"],
+  [health,"Reconcile resolved source-health issue"],
+  [live,"Reconcile advisory review only after source recovery and live publication"],
+  [live,"newest.conclusion !== 'success'"]
 ]) if (!src.includes(needle)) throw Error("Camping authority missing: " + needle);
 const sourceMonitor = read("scripts/data/refresh-camping-alerts.mjs");
 for (const pattern of ["park is under a burn ban", "Expect intermittent closures for sites", "Hot Springs Road beyond the overflow parking area", "You may use charcoal or containerized stoves", "windows.every(w => w.end < asOf)"]) if (!sourceMonitor.includes(pattern)) throw Error("Camping safety source guard missing: " + pattern);

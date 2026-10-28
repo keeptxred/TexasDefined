@@ -1,5 +1,11 @@
 name: Camping guide official source and review-date audit
 on:
+  # Bootstrap the first real source-health report as soon as this guard ships.
+  # Do not rerun on routine generated campground data changes.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-camping-guide-sources.yml'
   schedule:
     - cron: '37 13 * * 4'
   workflow_dispatch:
@@ -24,7 +30,9 @@ jobs:
         with:
           node-version: '22'
       - name: Verify official sources and verification-date coverage without network requests
-        run: node scripts/data/audit-camping-guide-freshness.mjs --offline
+        run: |
+          node scripts/data/audit-camping-guide-freshness.mjs --self-test
+          node scripts/data/audit-camping-guide-freshness.mjs --offline
       - name: Validate camping page, bookings, alert snapshot and scheduler contract
         run: |
           node --check scripts/data/refresh-camping-alerts.mjs
@@ -33,17 +41,33 @@ jobs:
           node scripts/data/validate-camping-authority-upgrade.mjs
 
   official-source-health:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
       contents: read
       issues: write
+      actions: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Load last scoped camping source report for content-change detection
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          prior="$(gh run list --workflow audit-camping-guide-sources.yml --branch main --limit 15 --json databaseId,status --jq '[.[] | select(.status == "completed")][0].databaseId // empty')"
+          if [[ -n "$prior" ]] && gh run download "$prior" -n camping-source-health -D .artifacts/camping-previous >/dev/null 2>&1; then
+            if [[ -f .artifacts/camping-previous/camping-authority-source-health.json ]]; then
+              echo "CAMPING_PREVIOUS_SOURCE_REPORT=.artifacts/camping-previous/camping-authority-source-health.json" >> "$GITHUB_ENV"
+              echo "Comparing current official campsite facts with prior audit artifact $prior."
+            fi
+          else
+            echo "No prior camping source artifact is available; this run establishes the baseline."
+          fi
       - name: Verify only camping-specific official pages and dated source batches
         id: audit
         continue-on-error: true
@@ -62,11 +86,23 @@ jobs:
         with:
           script: |
             const title = 'Camping guide: official source or verification date needs review';
-            const body = 'The weekly scoped campground audit found broken/unreachable official pages or research verification dates older than 120 days. Review the report artifact and correct the primary records only after source verification. No artificial date refresh or fabricated booking details. Workflow: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
+            const body = 'The scoped campground audit found a changed official camping/reservation facts fingerprint, unavailable source, HTTP 403/429/5xx or unexpected redirect, or a profile verification date older than 120 days. Provider blocking/rate limits are NOT evidence of campground closure. Inspect the categorized source-health artifact; update only verified primary-source facts and never artificially restamp dates. Workflow: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
             const { data: issues } = await github.rest.issues.listForRepo({ owner:context.repo.owner, repo:context.repo.repo, state:'open', per_page:100 });
             const previous = issues.find(x => x.title === title && !x.pull_request);
             if (previous) await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:previous.number,body});
             else await github.rest.issues.create({owner:context.repo.owner,repo:context.repo.repo,title,body});
+      - name: Reconcile resolved source-health issue after complete successful audit
+        if: steps.audit.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Camping guide: official source or verification date needs review';
+            const {data: issues} = await github.rest.issues.listForRepo({owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
+            const previous = issues.find(x => x.title === title && !x.pull_request);
+            if (previous) {
+              await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:previous.number,body:'The full scoped source-health audit and profile-date checks passed again. Resolved in run ' + context.runId + '.'});
+              await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:previous.number,state:'closed'});
+            }
       - name: Fail on unresolved source health degradation
         if: steps.audit.outcome == 'failure'
         run: exit 1
