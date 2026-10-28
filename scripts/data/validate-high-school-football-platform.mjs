@@ -2118,9 +2118,79 @@ function batch009Cohort(registry) {
 // Never conflate this technical certification with photo rights or human signoff.
 const batch009Certification = JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const batch009Certified = batch009Cohort(batch009Certification)?.state === 'VERIFIED_BATCH_009_COMPLETE';
+const batch010Certification = batch009Certification.completedBatches.find(b => b.number === 10 && b.state === 'VERIFIED_BATCH_010_COMPLETE');
+const batch010Certified = Boolean(batch010Certification);
+const batch010ExpectedStatus = batch010Certified ? 'VERIFIED' : 'IMPLEMENTED';
+const batch010ExpectedProduction = batch010Certified;
+const batch010ExpectedTotalVerified = batch010Certified ? 230 : 205;
+const batch010ExpectedImplemented = batch010Certified ? 0 : 25;
+const batch010ExpectedRemaining = batch010Certified ? 0 : 25;
+if (batch010Certified) {
+  const r = batch009Certification;
+  const proof = batch010Certification.technicalAcceptance;
+  const cohorts = ['first-five','second-five','third-five','fourth-five','fifth-five'];
+  const counties = [5,5,3,5,4];
+  const shots = [20,26,21,20,19];
+  const validSha = /^[a-f0-9]{40}$/;
+  const validWorker = /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/;
+  const recordedWorker = proof?.observedWorkerVersions?.[0];
+  const sourceCommit = proof?.productionDeploymentGitSha;
+  const deploymentRun = proof?.productionDeploymentRun;
+  const groups = proof?.groups;
+  if (r.batch.number !== 10 || r.batch.slugs.length !== 25 ||
+      r.batch.individuallyVerified !== 25 || r.batch.remainingToVerify !== 0 ||
+      r.batch.remainingAssigned !== 0 || r.batch.remainingToImplement !== 0 ||
+      r.schoolRecords.filter(x=>x.status==='VERIFIED').length !== 230 ||
+      r.schoolRecords.filter(x=>x.status==='IMPLEMENTED' && x.batch===10).length !== 0 ||
+      r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length !== 1062 ||
+      r.schoolRecords.filter(x=>x.status==='VERIFIED' && x.batch!==10).length !== 205 ||
+      batch010Certification.individuallyVerified !== 25 ||
+      batch010Certification.remainingToVerify !== 0 ||
+      batch010Certification.slugs.length !== 25 ||
+      JSON.stringify(batch010Certification.slugs) !== JSON.stringify(r.batch.slugs) ||
+      proof?.schoolCount !== 25 || proof?.schoolCasesPassed !== 75 ||
+      proof?.schoolCasesFailed !== 0 || proof?.countyCasesPassed !== 22 ||
+      proof?.countyCasesFailed !== 0 || proof?.screenshotsSaved !== 106 ||
+      proof?.sitemapUrlsPassed !== 25 || proof?.workerVersionMatchesDeploy !== true ||
+      proof?.observedWorkerVersions?.length !== 1 || !validWorker.test(recordedWorker || '') ||
+      !validSha.test(sourceCommit || '') || !Number.isSafeInteger(deploymentRun) || deploymentRun <= 0 ||
+      proof?.editorialHumanSignoffsClaimed !== 0 || proof?.manualAccessibilityAccepted !== false ||
+      proof?.schoolPhotoReuseRightsAccepted !== false || !Array.isArray(groups) || groups.length !== 5) {
+    errors.push('Batch010 certification requires all 25 sourced schools, 75 browser cases, 22 counties, 106 screenshots and a single real deployed Worker.');
+  }
+  for (let i=0;i<5;i++) {
+    const group = groups?.[i];
+    const slugs = r.batch.slugs.slice(i*5,(i+1)*5);
+    const runId = group?.runId;
+    const artifactId = group?.artifactId;
+    if(group?.label !== cohorts[i] || !Number.isSafeInteger(runId) || runId<=0 ||
+       !Number.isSafeInteger(artifactId) || artifactId<=0 ||
+       group?.schoolCasesPassed !== 15 || group?.countyCasesPassed !== counties[i] ||
+       group?.screenshotsSaved !== shots[i] || group?.workerVersion !== recordedWorker ||
+       JSON.stringify(group?.schoolSlugs) !== JSON.stringify(slugs) ||
+       group?.runUrl !== 'https://github.com/keeptxred/TexasDefined/actions/runs/'+runId ||
+       group?.artifactUrl !== group?.runUrl+'/artifacts/'+artifactId) {
+      errors.push('Batch010 cohort lacks exact archived Chrome acceptance metadata: '+cohorts[i]);
+    }
+    for (const slug of slugs) {
+      const row = r.schoolRecords.find(x => x.slug===slug);
+      if(!row || row.batch !== 10 || row.status !== 'VERIFIED' ||
+         row.actualProductionVerified !== true || row.technicalBrowserRun !== runId ||
+         row.acceptanceEvidenceArtifact !== artifactId ||
+         row.productionWorkerVersion !== recordedWorker ||
+         row.verifiedDeploymentRun !== deploymentRun ||
+         row.verifiedDeploymentGitSha !== sourceCommit ||
+         row.manualAccessibilityAccepted !== false ||
+         row.schoolPhotoReuseRightsAccepted !== false ||
+         row.editorialHumanSignoff !== false) {
+        errors.push('Batch010 school lacks matching published Chrome and release evidence: '+slug);
+      }
+    }
+  }
+}
 const batch009ExpectedStatus = batch009Certified ? 'VERIFIED' : 'IMPLEMENTED';
 const batch009ExpectedProduction = batch009Certified;
-const batch009ExpectedTotalVerified = batch009Certified ? 205 : 180;
+const batch009ExpectedTotalVerified = batch009Certified ? batch010ExpectedTotalVerified : 180;
 const batch009ExpectedImplemented = batch009Certified ? 0 : 25;
 const batch009ExpectedPending = batch009Certified ? 0 : 25;
 if(batch009Certified) {
@@ -2183,7 +2253,7 @@ if(batch009Certified) {
       }
     }
   }
-  if(r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==205 ||
+  if(r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==batch009ExpectedTotalVerified ||
      r.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===9).length!==0 ||
      r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==(1087-(r.batch.number===10?r.batch.implementedOnBranch:0)) ||
      r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==9).length!==180 ||
@@ -2615,9 +2685,9 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
   const checker = read('scripts/ci/verify-football-b010-first-five-production.mjs');
   const wf = read('.github/workflows/verify-football-b010-first-five-production.yml');
   if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==25 ||
-     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==0 || reg.batch.remainingToVerify!==25 ||
-     reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==205 ||
-     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==25 ||
+     reg.batch.individuallyVerified!==(batch010Certified?25:0) || reg.batch.remainingToImplement!==0 || reg.batch.remainingToVerify!==batch010ExpectedRemaining ||
+     reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==batch010ExpectedTotalVerified ||
+     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===10).length!==batch010ExpectedImplemented ||
      reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1062 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==10).length!==205 ||
      reg.completedBatches.find(x=>x.number===9)?.individuallyVerified!==25) {
@@ -2627,7 +2697,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
   const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] ?? '';
   for(let i=0;i<first.length;i++) {
     const slug = first[i], row=reg.schoolRecords.find(x=>x.slug===slug);
-    if(!row || row.batch!==10 || row.status!=='IMPLEMENTED' || row.actualProductionVerified!==false) errors.push('Batch010 school must be source IMPLEMENTED but technically pending: '+slug);
+    if(!row || row.batch!==10 || row.status!==batch010ExpectedStatus || row.actualProductionVerified!==batch010ExpectedProduction) errors.push('Batch010 school must be source IMPLEMENTED but technically pending: '+slug);
     for(const [source,marker,label] of [
       [editorial,'"'+slug+'": {','unique school editorial'],
       [editorial,facts[i],'distinct first-party coaching evidence'],
@@ -2680,12 +2750,12 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
  ];
  const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
  if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
-   reg.batch.remainingToImplement!==0||reg.batch.remainingToVerify!==25||
-   reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==205)
+   reg.batch.remainingToImplement!==0||reg.batch.remainingToVerify!==batch010ExpectedRemaining||
+   reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==batch010ExpectedTotalVerified)
    errors.push('Batch010 second-five registry must preserve all 205 previously verified school profiles and no remaining Batch010 source assignments');
  for(const [slug,countySlug,coach] of five){
    const row=reg.schoolRecords.find(s=>s.slug===slug);
-   if(!row||row.batch!==10||row.status!=='IMPLEMENTED'||row.actualProductionVerified!==false)
+   if(!row||row.batch!==10||row.status!==batch010ExpectedStatus||row.actualProductionVerified!==batch010ExpectedProduction)
      errors.push('Second five not source-IMPLEMENTED or falsely certified: '+slug);
    for(const [body,marker,label] of [
      [editorial,'"'+slug+'": {','individualized original football profile'],
@@ -2735,12 +2805,12 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
  ];
  const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
  if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
-    reg.batch.remainingToImplement!==0||reg.batch.remainingToVerify!==25||
-    reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==205)
+    reg.batch.remainingToImplement!==0||reg.batch.remainingToVerify!==batch010ExpectedRemaining||
+    reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==batch010ExpectedTotalVerified)
    errors.push('Batch010 third five registry must retain 205 protected VERIFIED and zero NOT_REVIEWED assigned schools');
  for(const [slug,countySlug,coach] of five){
    const row=reg.schoolRecords.find(s=>s.slug===slug);
-   if(!row||row.batch!==10||row.status!=='IMPLEMENTED'||row.actualProductionVerified!==false)
+   if(!row||row.batch!==10||row.status!==batch010ExpectedStatus||row.actualProductionVerified!==batch010ExpectedProduction)
      errors.push('Batch010 third five unverified source-implementation status missing: '+slug);
    for(const [source,term,label] of [
      [editorial,'"'+slug+'": {','original researched editorial'],
@@ -2787,13 +2857,13 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
  const totals=reg.schoolRecords.reduce((a,row)=>(a[row.status]=(a[row.status]||0)+1,a),{});
  if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
    reg.batch.remainingToImplement!==0||reg.batch.nextSchool!==null||
-   reg.batch.remainingToVerify!==25||totals.VERIFIED!==205||totals.IMPLEMENTED!==25||
+   reg.batch.remainingToVerify!==batch010ExpectedRemaining||totals.VERIFIED!==batch010ExpectedTotalVerified||(totals.IMPLEMENTED||0)!==batch010ExpectedImplemented||
    totals.NOT_REVIEWED!==1062)
    errors.push('Batch010 fourth cohort must maintain 205 VERIFIED / 25 IMPLEMENTED / 1062 NOT_REVIEWED, all assigned schools authored');
  const graphicList=team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
  for(const [slug,countySlug,coach] of schools) {
    const row=reg.schoolRecords.find(r=>r.slug===slug);
-   if(!row||row.batch!==10||row.status!=='IMPLEMENTED'||row.actualProductionVerified!==false)
+   if(!row||row.batch!==10||row.status!==batch010ExpectedStatus||row.actualProductionVerified!==batch010ExpectedProduction)
      errors.push('Fourth-cohort school must be IMPLEMENTED, not production VERIFIED: '+slug);
    const dossier=read('docs/football-authority/schools/'+slug+'.md');
    if(dossier.length<950||!dossier.includes('https://')||!dossier.includes('NOT merged'))
@@ -2846,13 +2916,13 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
  const counts=reg.schoolRecords.reduce((a,row)=>(a[row.status]=(a[row.status]||0)+1,a),{});
  if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
     reg.batch.remainingToImplement!==0||reg.batch.nextSchool!==null||
-    reg.batch.remainingToVerify!==25||counts.VERIFIED!==205||
-    counts.IMPLEMENTED!==25||counts.NOT_REVIEWED!==1062)
+    reg.batch.remainingToVerify!==batch010ExpectedRemaining||counts.VERIFIED!==batch010ExpectedTotalVerified||
+    (counts.IMPLEMENTED||0)!==batch010ExpectedImplemented||counts.NOT_REVIEWED!==1062)
    errors.push('Batch010 final source-only state must retain 205 VERIFIED / 25 IMPLEMENTED / 1062 NOT_REVIEWED; no new batch assigned before live acceptance');
  const graphicList=team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
  for(const [slug,countySlug,coach] of five){
   const rec=reg.schoolRecords.find(x=>x.slug===slug);
-  if(!rec||rec.status!=='IMPLEMENTED'||rec.batch!==10||rec.actualProductionVerified!==false)
+  if(!rec||rec.status!==batch010ExpectedStatus||rec.batch!==10||rec.actualProductionVerified!==batch010ExpectedProduction)
     errors.push('Batch010 fifth-cohort school is not safely pending verification: '+slug);
   const dossier=read('docs/football-authority/schools/'+slug+'.md');
   if(dossier.length<950||!dossier.includes('https://')||!dossier.includes('NOT merged'))
