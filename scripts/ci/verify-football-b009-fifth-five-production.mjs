@@ -26,8 +26,19 @@ const route = await readFile('src/routes/texas-high-school-football-teams_.$slug
 const countyPage = await readFile('src/routes/$kind.$slug.lazy.tsx','utf8');
 assert.equal(batch009.number,9,'Use latest Batch 009 registry');
 assert.equal(batch009.slugs.length,25);
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,batch009.state==='VERIFIED_BATCH_009_COMPLETE'?205:180,'180 historical and 25 accepted Batch009 school certifications must remain');
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch!==9).length,180,'Historical independently verified schools must remain');
+// A future Batch010 Chrome certificate must not make a historical Batch009
+// regression check fail merely because 25 *additional* schools were verified.
+// The canonical platform validator independently authenticates Batch010
+// cohort run IDs, artifacts, source commit and current-release metadata.
+const batch010Certified=reg.completedBatches.some(x=>
+  x.number===10 && x.state==='VERIFIED_BATCH_010_COMPLETE');
+if(batch010Certified) {
+  assert.equal(reg.schoolRecords.filter(x=>x.batch===10 && x.status==='VERIFIED' &&
+    x.actualProductionVerified===true).length,25,
+    'Batch010 cannot count toward verified totals without 25 technical records');
+}
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,batch009.state==='VERIFIED_BATCH_009_COMPLETE'?(batch010Certified?230:205):180,'180 historical and 25 accepted Batch009 school certifications must remain');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch!==9).length,batch010Certified?205:180,'Historical independently verified schools must remain');
 for(const batch of reg.completedBatches.filter(b=>b.number<=8)) for(const slug of batch.slugs) {
   assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'VERIFIED','Historical protected school regressed: '+slug);
 }
