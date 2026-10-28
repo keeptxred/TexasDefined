@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 229, "The 229 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 231, "The 231 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -82,6 +82,13 @@ check("rosenberg-hometown-holiday-festival-2026", "2026-12-05");
 check("lake-jackson-festival-lights-tree-lighting-2026", "2026-11-20");
 check("lake-jackson-festival-lights-day-parade-2026", "2026-11-21");
 check("lake-jackson-light-up-2026", "2026-11-21", "2027-01-03");
+check("katy-nutcracker-exchange-tree-lighting-2026", "2026-12-05");
+check("old-town-spring-hometown-tree-lighting-2026", "2026-11-14");
+assert.ok(bySlug.get("old-town-spring-hometown-tree-lighting-2026").summary.includes("November 15 UTC"),
+  "Protect organizer-stated Saturday evening over its UTC timestamp");
+assert.ok(bySlug.get("katy-nutcracker-exchange-tree-lighting-2026").summary.includes("not an official listing"),
+  "Do not merge the unverified Katy Light Tall Pines lead with the city event");
+
 assert.ok(bySlug.get("la-porte-christmas-on-main-2026").summary.includes("La Porte, Indiana"),
   "Holiday sources must distinguish Texas La Porte from the Indiana city");
 assert.ok(bySlug.get("lake-jackson-festival-lights-day-parade-2026").summary.includes("7 p.m."),
