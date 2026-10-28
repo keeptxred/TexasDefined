@@ -155,6 +155,39 @@ async function getText(url) {
   }
   throw lastError;
 }
+function buildVerifiedSnapshot(officialText, calendarText) {
+const next=parseDeerPage(officialText);
+if (next.startYear < existing.startYear || next.startYear > existing.startYear + 1) {
+  throw new Error('TPWD deer calendar year changed unexpectedly; refusing a nonconsecutive rollover.');
+}
+const currentCalendarUrl=existing.officialCalendarUrl.replace(
+  /\d{4}-\d{4}-hunting-season-dates$/,
+  next.startYear+'-'+(next.startYear+1)+'-hunting-season-dates',
+);
+if (currentCalendarUrl === existing.officialCalendarUrl && next.startYear !== existing.startYear) {
+  throw new Error('Could not derive the new official TPWD hunting-season calendar URL.');
+}
+const calendar=calendarText;
+if (!calendar.includes(String(next.startYear)) || !calendar.includes(String(next.startYear+1))) {
+  throw new Error('Official TPWD hunting calendar does not identify the current season year.');
+}
+const deerCalendar=take(calendar,'White-tailed Deer','Upland Game Birds');
+const calendarDates=ranges(deerCalendar);
+for (const row of next.rows) {
+  if(!calendarDates.some(item=>item.start===row.start&&item.end===row.end))throw new Error('TPWD statewide calendar conflicts with deer page on '+row.id);
+}
+const updated={
+  ...existing,
+  seasonYear:next.startYear+'–'+String(next.startYear+1).slice(-2),
+  startYear:next.startYear,
+  officialCalendarUrl:currentCalendarUrl,
+  regulations:next.regulations,
+  rows:next.rows,
+};
+checkDataset(updated);
+return updated;
+}
+
 if (process.argv.includes('--self-test')) {
   const sample = [
     'White-tailed Deer 2026-2027 Seasons & Regulations',
@@ -184,41 +217,44 @@ if (process.argv.includes('--self-test')) {
   if(rollover.startYear!==2030||rollover.rows[0].start!=='2030-10-03'||
      rollover.rows[2].end!=='2031-01-17'||rollover.regulations.annualBuckMax!==4||rollover.regulations.annualBagMax!==6||rollover.regulations.reportingHours!==36||rollover.regulations.specialAntlerSpreadInches!==15||!rollover.regulations.buckAndAntlerlessReportingCounties.includes('Zavala'))
      throw new Error('New-year TPWD deer season parser rollover fixture failed');
+
+  const futureStart=existing.startYear+1;
+  const futureSample=nextYearSample.replaceAll('2030', String(futureStart)).replaceAll('2031',String(futureStart+1));
+  const futureCalendar = 'Statewide hunting season calendar ' + futureStart + '-' + (futureStart+1) +
+    ' White-tailed Deer ' + futureSample + ' Upland Game Birds';
+  const generated=buildVerifiedSnapshot(futureSample,futureCalendar);
+  if (generated.startYear !== futureStart ||
+      generated.seasonYear !== futureStart+'–'+String(futureStart+1).slice(-2) ||
+      generated.officialCalendarUrl !==
+        'https://tpwd.texas.gov/regulations/outdoor-annual/hunting/'+futureStart+'-'+(futureStart+1)+'-hunting-season-dates' ||
+      generated.rows.length !== 8 || generated.regulations.annualBagMax !== 6 ||
+      generated.regulations.specialAntlerSpreadInches !== 15 ||
+      !generated.regulations.buckAndAntlerlessReportingCounties.includes('Zavala'))
+    throw new Error('Full future-season generated snapshot failed.');
+  const failures=[
+    [futureSample, futureCalendar.replace('Oct. 3 - Nov. 6, '+futureStart, 'Oct. 4 - Nov. 6, '+futureStart)],
+    [futureSample.replaceAll(String(futureStart),String(futureStart+3))
+      .replaceAll(String(futureStart+1),String(futureStart+4)), futureCalendar],
+  ];
+  for (const [official, statewide] of failures) {
+    let rejected=false;
+    try { buildVerifiedSnapshot(official,statewide); } catch { rejected=true; }
+    if (!rejected) throw new Error('Full rollover validation failed to reject conflicting/unsafe official sources');
+  }
   console.log('TPWD deer parser verified all eight official season date ranges including cross-year and same-month formats.');
   process.exit(0);
 }
 
 
 const official=await getText(existing.officialDeerUrl);
-const next=parseDeerPage(official);
-if (next.startYear < existing.startYear || next.startYear > existing.startYear + 1) {
-  throw new Error('TPWD deer calendar year changed unexpectedly; refusing a nonconsecutive rollover.');
-}
-const currentCalendarUrl=existing.officialCalendarUrl.replace(
-  /\d{4}-\d{4}-hunting-season-dates$/,
-  next.startYear+'-'+(next.startYear+1)+'-hunting-season-dates',
-);
-if (currentCalendarUrl === existing.officialCalendarUrl && next.startYear !== existing.startYear) {
-  throw new Error('Could not derive the new official TPWD hunting-season calendar URL.');
-}
-const calendar=await getText(currentCalendarUrl);
-if (!calendar.includes(String(next.startYear)) || !calendar.includes(String(next.startYear+1))) {
-  throw new Error('Official TPWD hunting calendar does not identify the current season year.');
-}
-const deerCalendar=take(calendar,'White-tailed Deer','Upland Game Birds');
-const calendarDates=ranges(deerCalendar);
-for (const row of next.rows) {
-  if(!calendarDates.some(item=>item.start===row.start&&item.end===row.end))throw new Error('TPWD statewide calendar conflicts with deer page on '+row.id);
-}
-const updated={
-  ...existing,
-  seasonYear:next.startYear+'–'+String(next.startYear+1).slice(-2),
-  startYear:next.startYear,
-  officialCalendarUrl:currentCalendarUrl,
-  regulations:next.regulations,
-  rows:next.rows,
-};
-checkDataset(updated);
+const newYear=official.match(/White-tailed Deer\s+(\d{4})-(\d{4})\s+Seasons\s*&\s*Regulations/i);
+if (!newYear) throw new Error('TPWD did not publish a parseable white-tailed deer season year');
+const targetYear=Number(newYear[1]);
+if (targetYear < existing.startYear || targetYear > existing.startYear+1) throw new Error('TPWD published a nonconsecutive deer season year');
+const targetCalendarUrl=existing.officialCalendarUrl.replace(/\d{4}-\d{4}-hunting-season-dates$/,targetYear+'-'+(targetYear+1)+'-hunting-season-dates');
+const calendar=await getText(targetCalendarUrl);
+const updated=buildVerifiedSnapshot(official, calendar);
+
 const before=JSON.stringify(existing,{});
 const after=JSON.stringify(updated,{});
 const changed=before!==after;
