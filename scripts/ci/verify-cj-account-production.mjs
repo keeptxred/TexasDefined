@@ -56,6 +56,17 @@ try {
   assert.ok(school.includes('href="https://www.reallygoodstuff.com/"'));
   assert.ok(school.includes('TexasDefined does not earn an affiliate commission from this link'));
   assert.ok(!school.includes('click-101876465-17106455') && !school.includes('data-commercial-partner="really-good-stuff"'), 'Expired RGS relationship must remain non-affiliate');
+  // Check only first-party SSR HTML; do not follow CJ redirects or generate paid clicks.
+  for (const [route, program] of [
+    ['/hunting', 'kings-camo-shop'],
+    ['/hunting/turkey-hunting', 'kings-camo-turkey-accessories'],
+    ['/hunting/youth-hunting', 'kings-camo-kids'],
+    ['/best-places-to-go-camping-in-texas', 'kings-camo-camping'],
+  ]) {
+    verifyAnchor(await read(route), 'kings-camo', expectedCjAccountClick(program, route));
+  }
+  const licensed = await read('/hunting/texas-hunting-license');
+  assert.ok(!licensed.includes('data-commercial-partner="kings-camo"'), 'license rules must not be commercially interrupted');
   const angi = await read('/angi-home-services.js');
   assert.equal(hash(angi), hash(readFileSync('public/angi-home-services.js', 'utf8')), 'Angi production code must match its verified service-specific registry');
   passed = true;
