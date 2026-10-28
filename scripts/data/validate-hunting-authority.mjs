@@ -40,6 +40,7 @@ const huntingHub = read('src/components/hunting/HuntingAuthority.tsx');
 const speciesCalendar = JSON.parse(read('src/data/hunting/species-season-calendar.json'));
 const speciesMonitor = read('scripts/data/refresh-hunting-species-seasons.mjs');
 const speciesWorkflow = read('.github/workflows/refresh-hunting-species-calendar.yml');
+const speciesFinisher = read('.github/workflows/finish-hunting-species-calendar.yml');
 const boundedLive = read('scripts/data/monitor-hunting-live-freshness.mjs');
 const boundedLiveWorkflow = read('.github/workflows/monitor-hunting-live-freshness.yml');
 const destinationBooking = read('src/components/editorial/DestinationViatorBooking.tsx');
@@ -211,6 +212,9 @@ requireText(speciesMonitor, 'yearAt(date)', 'season-year boundary not governed')
 requireText(speciesMonitor, 'changed zone or season identity', 'TPWD zone drift must fail closed');
 requireText(speciesWorkflow, 'schedule:', 'species season dates not scheduled');
 requireText(speciesWorkflow, 'gh pr merge --auto --squash', 'verified date-only PR not automatically merged');
+requireText(speciesFinisher, 'workflow_run:', 'GitHub token-created date PRs need a trusted automatic finisher');
+requireText(speciesFinisher, 'dispatch-validate-branch.sh', 'date-only PRs must run protected exact-branch CI');
+requireText(speciesFinisher, 'gh workflow run deploy-production.yml', 'protected date PR merge must dispatch production');
 requireText(boundedLiveWorkflow, 'schedule:', 'bounded live hunting checker not scheduled');
 requireText(boundedLive, 'cache-bypass', 'canonical/cache-bypass freshness check missing');
 console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, lazy child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and rendered-text v2 production smoke governance.`);
