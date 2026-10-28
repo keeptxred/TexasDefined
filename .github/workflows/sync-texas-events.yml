@@ -11,6 +11,8 @@ on:
       - "scripts/events/sync-texas-events-safe.mjs"
       - "scripts/events/retain-verified-official-events.mjs"
       - "scripts/events/retain-verified-official-events.test.mjs"
+      - "scripts/events/check-mardi-gras-official-sources.mjs"
+      - "scripts/events/check-mardi-gras-official-sources.test.mjs"
       - "scripts/events/sync-tpwd-calendar.mjs"
       - "scripts/events/sync-tpwd-calendar.test.mjs"
       - "src/data/events/tpwd-event-records.server.ts"
@@ -36,6 +38,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write # Only for precise official Mardi Gras source discrepancy review; do not alter event dates blindly.
   actions: write
 
 concurrency:
@@ -57,6 +60,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+
+      - name: Test Mardi Gras official-source watch safety and date fixtures
+        run: node --test scripts/events/check-mardi-gras-official-sources.test.mjs
+
+      # Reuse this daily Texas-events workflow: no separate scheduler, no auto-rollover of dates.
+      # A changed official source opens or reuses a bounded review issue and preserves last-known-good records.
+      - name: Check official Mardi Gras 2027 sources for material changes
+        id: mardi_gras_sources
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/events/check-mardi-gras-official-sources.mjs
+
+      - name: Escalate Mardi Gras watcher infrastructure failure without blocking other Texas events
+        if: steps.mardi_gras_sources.outcome == 'failure'
+        run: echo "::warning title=Mardi Gras source-check failed::See this run and fix the watcher; existing guide data must not be overwritten."
 
       - name: Test strict retention of still-current source-verified festival dates
         run: node --test scripts/events/retain-verified-official-events.test.mjs
