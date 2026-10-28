@@ -221,7 +221,7 @@
       "title": "Temple Nature In Lights",
       "submittedRegion": "Hill Country & Central Texas",
       "status": "candidate-needs-source-reconciliation",
-      "researchNote": "Discover Temple Nature In Lights landing page lists dates inconsistent with Thanksgiving 2026 and appears to mix older year schedules; no full organizer-dated 2026 BLORA nightly calendar verified, so hold dates."
+      "researchNote": "Discover Temple confirms the Nov 28 Santa Fe Plaza tree lighting and Dec 7 Christmas Parade, now listed separately. They do NOT confirm Fort Cavazos BLORA Nature in Lights 2026 operating dates; military organizer's accessible schedules include prior-season details only."
     },
     {
       "intakeId": 25,
@@ -812,7 +812,11 @@
       "intakeId": 95,
       "title": "Corsicana Palace Theatre Holiday Shows",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "corsicana-palace-theatre-dean-martin-christmas-2026"
+      ],
+      "researchNote": "The theatre's 2026–27 schedule specifically confirms the December 10 2026 Dean Martin Story Christmas Special at 7:30 p.m.; do not assume additional seasonal performances."
     },
     {
       "intakeId": 96,
@@ -1111,13 +1115,18 @@
       "intakeId": 133,
       "title": "Port Lavaca Festival of Trees",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Calhoun County Events confirms Port Lavaca Christmas Parade Dec 4 and Christmas at the Bayfront Dec 12, now in the calendar. Neither establishes a 2026 Festival of Trees at Port Lavaca; keep this distinct candidate unverified."
     },
     {
       "intakeId": 134,
       "title": "Victoria Christmas Parade of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "victoria-christmas-lighted-parade-tree-lighting-2026"
+      ],
+      "researchNote": "City of Victoria confirms Dec 5 2026 tree lighting and lighted parade; the Dec 11 Merry on Main downtown market is a separate organizer-confirmed event."
     },
     {
       "intakeId": 135,
@@ -1429,7 +1438,11 @@
       "intakeId": 180,
       "title": "Kingsville Ranch Hand Festival",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kingsville-ranch-hand-weekend-holiday-2026"
+      ],
+      "researchNote": "Official Visit Kingsville and King Ranch confirm 2026 Nov20–21 Ranch Hand Weekend with Nov20 tree lighting, free downtown festival and separately paid Nov21 King Ranch Breakfast/Rodeo."
     },
     {
       "intakeId": 181,
@@ -1775,7 +1788,11 @@
       "intakeId": 232,
       "title": "Plainview Holiday Parade",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "plainview-christmas-parade-of-lights-2026"
+      ],
+      "researchNote": "Plainview Chamber's 34th annual Christmas Parade of Lights confirmed Dec3 2026 6:30 p.m. Though the URL slug mentions an older edition, the page headline is 34th and explicitly dates 2026."
     },
     {
       "intakeId": 233,
@@ -1889,8 +1906,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-27",
-    "calendarCandidates": 79,
+    "calendarCandidates": 83,
     "authorityCandidates": 12,
-    "remainingCandidates": 159
+    "remainingCandidates": 155
   }
 }
