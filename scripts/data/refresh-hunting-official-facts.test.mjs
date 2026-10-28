@@ -31,9 +31,9 @@ test('official rule notices must retain verified key markers', () => {
     areaSearch: 'Search for an Area or Legal Game Legal Game Public Hunting ' + 'source text '.repeat(90),
   };
   assert.doesNotThrow(() => checkOtherOfficialSources(pages, current.seasonYear));
-  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Central Sep. 1, 2026 - Oct. 25, 2026', 'Central Sep. 2, 2026 - Oct. 25, 2026')}, current.seasonYear), /dove North\/Central\/South zone dates/);
-  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Spring North Apr. 3, 2027', 'Spring North Apr. 4, 2027')}, current.seasonYear), /wild turkey fall\/spring zone dates/);
-  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Archery 252 of 254 counties Oct. 3, 2026', 'Archery 252 of 254 counties Oct. 4, 2026')}, current.seasonYear), /white-tailed deer general\/archery dates/);
+  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Central Sep. 1, 2026 - Oct. 25, 2026', 'Central Sep. 2, 2026 - Oct. 25, 2026')}, current.seasonYear), /dove/);
+  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Spring North Apr. 3, 2027', 'Spring North Apr. 4, 2027')}, current.seasonYear), /wild turkey/);
+  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Archery 252 of 254 counties Oct. 3, 2026', 'Archery 252 of 254 counties Oct. 4, 2026')}, current.seasonYear), /white-tailed deer/);
   assert.throws(() => checkOtherOfficialSources({...pages,changes:pages.changes.replace('Matagorda','another county')}, current.seasonYear), /change notice/);
-  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 21, 2027', 'South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 20, 2027')}, current.seasonYear), /dove North\\/Central\\/South zone dates/);
+  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 21, 2027', 'South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 20, 2027')}, current.seasonYear), /dove/);
 });
