@@ -20,7 +20,7 @@ All other 69 baseline Houston records remain legacy editorial listings requiring
 | --- | --- | --- |
 | Cypress Event Hall | Cypress | https://www.cypresseventhall.com/Prices.html — up to 100 guests, AV and prep area; published flat rentals depend on day/hours/extra requirements |
 | Lindsay Lakes | Cypress | https://www.lindsaylakes.com/weddings-events-venue-cypress-texas — corporate events and catering; no verified total headcount; buffet price is not total event price |
-| The Lakehouse at Towne Lake | Cypress | https://townelaketexas.com/lakehouse-rental — 200-seat ballroom/patio, separate 12-person meeting room |
+| The Union Kitchen — Towne Lake | Cypress | https://www.theunionkitchen.com/private-events-cypress — 32-person semi-private lakeview dining; meal-specific minimums, 8.25% sales tax, 22% gratuity and refundable-status-specific deposit terms must be read carefully |
 | Escapology Cypress | Cypress | https://www.escapology.com/en/cypress-tx/groups-parties — 60-minute private games, group events; combined capacity unknown |
 | Escapology Sugar Land | Sugar Land | https://www.escapology.com/en/sugar-land-tx — seven rooms, VIP group inquiry; summed occupancy unknown |
 | County Line Event Center | Pearland | https://www.countylineeventcenter.com/corporate-party-venue — 3,200 sq ft, group events and catering; square footage is not a guest capacity |
@@ -41,6 +41,6 @@ All other 69 baseline Houston records remain legacy editorial listings requiring
 
 ## Research queue, not published inventory
 
-Prioritize: neighborhood-specific escape rooms for Cypress/Pearland, alternative Pearland experiences, group dining near suburban activities, local family-reunion halls, charter dock and boarding/accessibility procedures, official photos with rights, and individual venue capacities for operator brands and multi-site groups. Research candidates are **not included** in the 12 additions unless sourced above.
+The Lakehouse at Towne Lake (https://townelaketexas.com/lakehouse-rental) is **research only**, not part of the 12 published-directory additions: it is a community-association amenity whose public event-rental page advertises a 200-seat space, but the reservation inquiry explicitly asks whether the renter is a Towne Lake resident; eligibility for unrelated outside corporate organizers needs operator confirmation. Do not advertise unconditional outside access.\n\nPrioritize: neighborhood-specific escape rooms for Cypress/Pearland, alternative Pearland experiences, group dining near suburban activities, local family-reunion halls, charter dock and boarding/accessibility procedures, official photos with rights, and individual venue capacities for operator brands and multi-site groups. Research candidates are **not included** in the 12 additions unless sourced above.
 
 Source re-verification should check change-sensitive rates, capacity, opening/closure and operating limits; no automated updater should overwrite a previously substantiated fact with guessed content. 
