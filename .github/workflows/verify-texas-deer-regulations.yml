@@ -98,6 +98,18 @@ jobs:
         id: live
         if: success() && steps.changes.outputs.changed == 'false' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         run: node scripts/data/verify-texas-deer-production.mjs
+      - name: Resolve a previous TPWD source alert after verified recovery
+        if: success() && steps.official.outcome == 'success' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: \${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='TPWD deer rules verification needs review'
+          numbers="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "TPWD deer rules verification needs review") | .number')"
+          for number in $numbers; do
+            gh issue close "$number" --comment "The current TPWD deer page and official year-matched statewide calendar now passed source verification. Resolved automatically by https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}."
+          done
       - name: Open one review issue on source, parsing or scheduling failure
         if: failure() && steps.official.outcome == 'failure' && github.event_name != 'pull_request'
         env:
@@ -112,6 +124,18 @@ jobs:
             echo "Existing editorial review issue #$existing; skipping duplicate."
           fi
 
+      - name: Resolve a previous deer production alert after verified recovery
+        if: success() && steps.live.outcome == 'success' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: \${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Texas deer guide live production verification failed'
+          numbers="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Texas deer guide live production verification failed") | .number')"
+          for number in $numbers; do
+            gh issue close "$number" --comment "The live deer guide's eight ranges, canonical, attribution, schema and navigation now pass automated verification. Resolved by https://github.com/\${{ github.repository }}/actions/runs/\${{ github.run_id }}."
+          done
       - name: Open one review issue if the published deer guide fails verification
         if: failure() && steps.live.outcome == 'failure' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         env:
