@@ -47,9 +47,10 @@ jobs:
           fi
           # A CI success with skipped Chrome steps never certifies the release.
           # Only run automatically on a matching football source/validator/registry deploy;
+          # The certification validator itself is a material football change.
           # manual dispatch remains available for another exact-version acceptance.
           git diff --name-only HEAD^ HEAD > /tmp/b010-changed-paths.txt
-          if grep -Eq '^(docs/football-authority/REGISTRY[.]json|src/data/high-school-football/(program-editorial-b010.*|football-program-profile[.]server[.]ts|school-identities[.]ts)|src/routes/(texas-high-school-football-teams_[.][$]slug[.]lazy[.]tsx|[$]kind[.][$]slug[.]lazy[.]tsx)|scripts/ci/verify-football-b010-second-five-production[.]mjs|[.]github/workflows/verify-football-b010-second-five-production[.]yml)$' /tmp/b010-changed-paths.txt; then
+          if grep -Eq '^(docs/football-authority/REGISTRY[.]json|src/data/high-school-football/(program-editorial-b010.*|football-program-profile[.]server[.]ts|school-identities[.]ts)|src/routes/(texas-high-school-football-teams_[.][$]slug[.]lazy[.]tsx|[$]kind[.][$]slug[.]lazy[.]tsx)|scripts/data/validate-high-school-football-platform[.]mjs|scripts/ci/verify-football-b010-second-five-production[.]mjs|[.]github/workflows/verify-football-b010-second-five-production[.]yml)$' /tmp/b010-changed-paths.txt; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             echo "Batch 010 second-five source changed: executing strict Chrome acceptance."
           else
