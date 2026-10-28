@@ -2,6 +2,7 @@ import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
 
 import { HuntingAuthorityTopicPage } from "./HuntingAuthority";
 import { HuntingTopicSchema } from "./HuntingSchema";
+import YouthHuntingPage from "./YouthHuntingPage";
 
 function HuntingPublicLandDiscovery() {
   return (
@@ -21,6 +22,7 @@ function HuntingPublicLandDiscovery() {
 }
 
 export default function HuntingTopicPage({ topic }: { topic: HuntingAuthorityTopic }) {
+  if (topic.slug === "youth-hunting") return <><HuntingTopicSchema topic={topic} /><YouthHuntingPage topic={topic} /></>;
   const showPublicLandDiscovery = topic.slug === "public-hunting" || topic.slug === "annual-public-hunting-permit" || topic.slug === "drawn-hunts";
   return <><HuntingTopicSchema topic={topic} /><HuntingAuthorityTopicPage topic={topic} />{showPublicLandDiscovery ? <HuntingPublicLandDiscovery /> : null}</>;
 }
