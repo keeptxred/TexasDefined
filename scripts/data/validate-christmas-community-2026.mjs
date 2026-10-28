@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 const eventFile = read("src/data/events/christmas-community-2026.server.ts");
+const temporalCollectionsSource = read("src/data/event-temporal-collections.server.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const collection = read("src/data/event-collection-page.server.ts");
 const page = `${read("src/routes/events.$collection.tsx")}\n${read("src/routes/events.$collection.lazy.tsx")}`;
@@ -29,6 +30,16 @@ const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim(
 const events = JSON.parse(json);
 assert.ok(events.length >= 239, "The 239 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
+const seasonStarts = events.map((event) => event.startDate).sort();
+const seasonEnds = events.map((event) => event.endDate ?? event.startDate).sort();
+assert.equal(seasonStarts[0], "2026-11-06", "The 2026 Christmas community calendar begins before the old November 15 guide-only cutoff");
+assert.equal(seasonEnds.at(-1), "2027-01-18", "The 2026 season includes a verified winter ice-rink attraction beyond January 5");
+assert.ok(temporalCollectionsSource.includes("getVerifiedChristmasCommunityEvents2026(now)"),
+  "The Christmas collection must compute its presented season from confirmed community dates");
+assert.ok(temporalCollectionsSource.includes("activeCommunityDates.map((event) => event.startDate).sort()[0]"),
+  "The header must show the earliest verified Christmas event, not November 15");
+assert.ok(temporalCollectionsSource.includes("activeCommunityDates.map((event) => event.endDate ?? event.startDate).sort().at(-1)"),
+  "The header must show the final verified January attraction rather than an outdated January 5 bound");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
 for (const event of events) {
