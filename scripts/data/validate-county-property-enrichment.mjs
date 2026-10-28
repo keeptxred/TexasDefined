@@ -26,6 +26,24 @@ if (!sourceCodec.includes('export function preserveSourcedCountyLinks(') ||
   failures.push('Official county contact refresh must preserve only source-proven, fresh same-office search/payment links.');
 }
 
+const officeLinkGate = fs.readFileSync('scripts/data/county-office-link-normalization.mjs', 'utf8');
+for (const feature of [
+  'export function normalizeVerifiedCountyOfficeUrl(',
+  'userlockedout|accessdenied',
+  "url.searchParams.delete('time')",
+]) {
+  if (!officeLinkGate.includes(feature)) failures.push('Official county office HTTPS link quarantine missing '+feature);
+}
+for (const feature of [
+  "normalizeVerifiedCountyOfficeUrl(url.toString())",
+  "normalizeVerifiedCountyOfficeUrl(resolved.toString())",
+]) {
+  if (!sync.includes(feature)) failures.push('County office importer bypasses verified HTTPS destination safety: '+feature);
+}
+if (!refreshWorkflow.includes('scripts/data/county-office-link-normalization.test.mjs')) {
+  failures.push('County source workflow must execute office link safety unit tests before opening generated PRs');
+}
+
 const SOURCE_MAX_AGE_DAYS = 730;
 const LOCAL_VERIFICATION_MAX_AGE_DAYS = 400;
 
