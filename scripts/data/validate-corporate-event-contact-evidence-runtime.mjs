@@ -186,7 +186,7 @@ runInNewContext(output.outputText, {
 const snapshot = await listModule.exports.loadCorporateEventOperations(syntheticKey);
 assert.equal(listAccessChecks, 1, 'Only an authorized staff operation can inspect private evidence');
 assert.equal(snapshot.leads.length, rows.length, 'Mocked private rows must not be silently dropped');
-assert.deepEqual(snapshot.leads.map(lead => lead.first_contact_evidence_recorded),
+assert.deepEqual(JSON.parse(JSON.stringify(snapshot.leads.map(lead => lead.first_contact_evidence_recorded))),
   [true, false, false, false],
   'Only bounded real evidence references can count as present');
 for (const lead of snapshot.leads) {
