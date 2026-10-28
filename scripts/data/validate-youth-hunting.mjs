@@ -19,6 +19,7 @@ for (const region of ["North & South — early","North — late","North — fall
 for (const anchor of ["youth-season-calendar","youth-eligibility","youth-access","youth-checklist","youth-harvest","youth-faq"])check(page,anchor,"accessible section");
 check(page,"YOUTH_HUNTING_SEASONS.map","rendered official calendar");
 check(page,"YOUTH_HUNTING_FAQ.map","rendered FAQs");
+check(page,"Prior season archive","stale-calendar reader warning");
 check(route,'topic.slug === "youth-hunting"',"dedicated route");
 check(schema,'topic.slug === "youth-hunting" ? YOUTH_HUNTING_LAST_CHECKED',"accurate schema modification date");
 check(authority,'faq: [...YOUTH_HUNTING_FAQ]',"FAQ and schema agreement");
