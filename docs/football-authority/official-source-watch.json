@@ -5,18 +5,32 @@
   "safety": {
     "approvedDomains": [
       "athletics.c-isd.com",
+      "bwhs.brazosportisd.net",
       "chs.clevelandisd.org",
       "chs.clintweb.net",
+      "cpisd.net",
       "hhs.clintweb.net",
       "mvhs.clintweb.net",
       "realignment.uiltexas.org",
+      "www.centerisd.org",
+      "www.centerville.k12.tx.us",
+      "www.charlotteisd.net",
+      "www.cherokeeisd.net",
+      "www.chesterisd.com",
+      "www.chicoisdtx.net",
+      "www.childressisd.net",
       "www.chiltonisd.org",
       "www.chinaspringisd.net",
       "www.christovalisd.org",
       "www.ciscoisd.net",
+      "www.cisd-tx.net",
       "www.clarendonisd.net",
       "www.claudeisd.net",
       "www.cliftonisd.org",
+      "www.clydeisd.org",
+      "www.coahomaisd.com",
+      "www.cocisd.org",
+      "www.cvisd.org",
       "www.scucisd.org",
       "www.tarkingtonisd.net"
     ],
@@ -134,6 +148,104 @@
       "slug": "uil-2026-alignment",
       "url": "https://realignment.uiltexas.org/",
       "reviewAfter": "2026-12-01",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "center",
+      "url": "https://www.centerisd.org/page/dis.athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "center-point",
+      "url": "https://cpisd.net/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "centerville",
+      "url": "https://www.centerville.k12.tx.us/46669_3",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "channelview",
+      "url": "https://www.cvisd.org/page/athletics/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "charlotte",
+      "url": "https://www.charlotteisd.net/vnews/display.v/SEC/Athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cherokee",
+      "url": "https://www.cherokeeisd.net/live-feed/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "chester",
+      "url": "https://www.chesterisd.com/page/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "childress",
+      "url": "https://www.childressisd.net/o/childress/page/athletic-schedules",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "chillicothe",
+      "url": "https://www.cisd-tx.net/215133_2",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "chico",
+      "url": "https://www.chicoisdtx.net/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clute-brazoswood",
+      "url": "https://bwhs.brazosportisd.net/activities/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clyde",
+      "url": "https://www.clydeisd.org/page/athleticinformation",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coahoma",
+      "url": "https://www.coahomaisd.com/o/chs/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coldspring-oakhurst",
+      "url": "https://www.cocisd.org/departments/athletics/schedules",
+      "reviewAfter": "2026-11-07",
       "contentFingerprint": null,
       "lastObservedAt": null
     }
