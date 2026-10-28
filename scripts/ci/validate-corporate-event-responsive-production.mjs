@@ -8,6 +8,9 @@ const existing = readFileSync('src/routes/corporate-events.lazy.tsx','utf8');
 for (const marker of [
   "name: 'mobile', width: 390", "name: 'tablet', width: 768",
   "name: 'desktop', width: 1365", "getByRole('spinbutton', { name: 'Number of guests' })",
+  "await page.keyboard.press('Tab')",
+  "await page.keyboard.press('Shift+Tab')",
+  "nextFocusInsideMain",
   "getByRole('combobox', { name: 'Maximum budget per person' })",
   "getByRole('button', { name: 'Compare', exact: true })",
   "getByRole('button', { name: 'Copy share link' })",

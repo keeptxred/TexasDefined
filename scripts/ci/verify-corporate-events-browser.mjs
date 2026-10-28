@@ -88,6 +88,26 @@ try {
       result.checks.push('No horizontal viewport overflow');
 
       const guests = page.getByRole('spinbutton', { name: 'Number of guests' });
+      // Exercise real keyboard focus traversal in the fully hydrated public
+      // finder at every viewport, not just static axe field labels. This is
+      // read-only and does not submit a form or put personal data in artifacts.
+      await guests.focus();
+      assert.equal(await guests.evaluate(el => document.activeElement === el), true,
+        view.name + ': Number of guests must accept keyboard focus');
+      await page.keyboard.press('Tab');
+      const nextFocusInsideMain = await page.evaluate(() => {
+        const focused = document.activeElement;
+        const bounds = focused?.getBoundingClientRect();
+        return !!focused && focused !== document.body
+          && !!focused.closest('main#main')
+          && !!bounds && bounds.width > 0 && bounds.height > 0;
+      });
+      assert(nextFocusInsideMain,
+        view.name + ': Tab from the headcount input must reach a visible control inside the finder');
+      await page.keyboard.press('Shift+Tab');
+      assert.equal(await guests.evaluate(el => document.activeElement === el), true,
+        view.name + ': reverse keyboard traversal must return to the headcount input');
+      result.checks.push('Live Tab/Shift+Tab keyboard traversal keeps accessible focus in the finder');
       await guests.fill('8001');
       await page.getByText('Choose a whole-number group of 2 to 8,000 guests.').waitFor();
       assert.equal(await guests.getAttribute('aria-invalid'), 'true',
