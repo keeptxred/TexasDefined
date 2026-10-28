@@ -38,6 +38,7 @@ jobs:
       - name: Validate date dataset, content and primary-source contracts
         run: |
           node scripts/data/sync-texas-deer-seasons.mjs --offline
+          node scripts/data/sync-texas-deer-seasons.mjs --self-test
           node scripts/data/verify-texas-deer-regulations.mjs --offline
           node scripts/data/validate-hunting-authority.mjs
       - name: Compare TPWD animal and statewide calendars
