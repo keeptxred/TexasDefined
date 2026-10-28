@@ -2,7 +2,7 @@ import type { FootballProgramEditorial } from './program-editorial';
 
 // Keep individually researched Batch010 guides on a conditional server-only import;
 // no official marks, unsourced season results or client-visible dataset costs.
-export const BATCH010_FOOTBALL_SLUGS = new Set<string>(['chilton','china-spring','christoval','cibolo-steele','cisco','clarendon','clarksville','claude','cleburne','cleveland']);
+export const BATCH010_FOOTBALL_SLUGS = new Set<string>(['chilton','china-spring','christoval','cibolo-steele','cisco','clarendon','clarksville','claude','cleburne','cleveland','cleveland-tarkington','clifton','clint','clint-horizon','clint-mountain-view']);
 export async function loadBatch010FootballProgramEditorial(slug: string): Promise<FootballProgramEditorial | undefined> {
   if (!BATCH010_FOOTBALL_SLUGS.has(slug)) return undefined;
   const { getBatch010FootballProgramEditorial } = await import('./program-editorial-b010');
