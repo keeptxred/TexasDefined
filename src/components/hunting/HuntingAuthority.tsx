@@ -87,11 +87,11 @@ function DeerCountyRegulationsFinder() {
               {TEXAS_COUNTIES.map(item => <option key={item.slug} value={item.slug}>{item.name} County</option>)}
             </select>
           </div>
-          {county ? <a className="inline-flex min-h-11 items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+          {county ? <a className="inline-flex items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
             href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + (county.slug === "la-salle" ? "lasalle" : county.slug) + "/"}
             target="_blank" rel="noopener noreferrer">
             Open TPWD rules for {county.name} County ↗
-          </a> : <span className="inline-flex min-h-11 items-center justify-center border border-border px-5 py-3 text-sm text-muted-foreground">
+          </a> : <span className="inline-flex items-center justify-center border border-border px-5 py-3 text-sm text-muted-foreground">
             Select a county to open official rules
           </span>}
         </div>
