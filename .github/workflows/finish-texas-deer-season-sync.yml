@@ -56,7 +56,7 @@ jobs:
           number="$(jq -r '.[0].number' <<< "$pr_json")"
           title="$(jq -r '.[0].title' <<< "$pr_json")"
           author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
-          [[ "$title" == 'Refresh verified TPWD deer season dates' && "$author" == 'github-actions[bot]' ]] || {
+          [[ "$title" == 'Refresh verified TPWD deer season and regulations' && "$author" == 'github-actions[bot]' ]] || {
             echo "::error title=Untrusted deer update::The PR title or author differs from the scoped Actions bot."
             exit 1
           }
@@ -91,10 +91,20 @@ jobs:
             exit 1
           }
           file=src/data/hunting/deer-season-dates.json
-          previous="$(git show "$base:$file" | jq -cS 'del(.sourceCheckedAt) | .rows |= map(del(.start,.end))')"
-          proposed="$(git show "origin/$BRANCH:$file" | jq -cS 'del(.sourceCheckedAt) | .rows |= map(del(.start,.end))')"
+          previous="$(git show "$base:$file" | jq -cS 'del(.sourceCheckedAt,.startYear,.seasonYear,.officialCalendarUrl,.regulations) | .rows |= map(del(.start,.end))')"
+          proposed="$(git show "origin/$BRANCH:$file" | jq -cS 'del(.sourceCheckedAt,.startYear,.seasonYear,.officialCalendarUrl,.regulations) | .rows |= map(del(.start,.end))')"
+          old_year="$(git show "$base:$file" | jq -r '.startYear')"
+          new_year="$(git show "origin/$BRANCH:$file" | jq -r '.startYear')"
+          if (( new_year < old_year || new_year > old_year + 1 )); then
+            echo "::error title=Invalid TPWD rollover::Only the current or immediately following season is allowed."
+            exit 1
+          fi
+          [[ "$(git show "origin/$BRANCH:$file" | jq -r '.seasonYear')" == "$(printf '%d–%02d' "$new_year" "$(( (new_year+1)%100 ))")" ]] || {
+            echo "::error title=Invalid season label::Rejecting inconsistent annual season data."
+            exit 1
+          }
           [[ "$previous" == "$proposed" ]] || {
-            echo "::error title=Unauthorized deer data change::Year, URL, labels, row identities or editorial metadata changed."
+            echo "::error title=Unauthorized deer data change::Unexpected deer source URL, schema, row labels or editorial metadata changed."
             exit 1
           }
 
@@ -111,12 +121,14 @@ jobs:
           sha="$(git rev-parse HEAD)"
           node scripts/data/sync-texas-deer-seasons.mjs --offline
           node scripts/data/verify-texas-deer-regulations.mjs --offline
+          node scripts/data/verify-texas-deer-production.mjs --self-test
           node scripts/data/validate-hunting-authority.mjs
 
+          # Re-fetch the current-year or next-year official TPWD pages on the exact branch.
           # Re-fetch official TPWD pages on the actual branch being merged.
           node scripts/data/sync-texas-deer-seasons.mjs
           git diff --exit-code -- src/data/hunting/deer-season-dates.json || {
-            echo "::error title=TPWD source changed during review::The proposed dates no longer match both official sources."
+            echo "::error title=TPWD source changed during review::The proposed season dates or structured regulations no longer match current official sources."
             exit 1
           }
 

@@ -92,7 +92,10 @@ requireText(deer, 'reviewedOn: "2026-10-28"', 'deer-specific review metadata mis
 requireText(deer, 'deerSeasonRange(', 'deer guide does not use centralized TPWD dates');
 requireText(deerSeasonDates, '"generalNorth"', 'deer date dataset must include North Zone');
 requireText(deerSeasonSync, 'parseDeerPage', 'official deer date synchronizer missing');
-for (const text of ['county', 'antler', 'within 24 hours', 'within 48 hours', 'public hunting', 'rut', 'CWD']) {
+requireText(deerSeasonSync, 'parseRegulatoryFacts', 'official deer regulatory fact parser missing');
+requireText(deerSeasonSync, 'currentCalendarUrl', 'automated TPWD season-year rollover missing');
+requireText(deerSeasonDates, '"regulations"', 'structured current deer legal facts missing');
+for (const text of ['county', 'antler', 'regulations.reportingHours', 'regulations.specialAntlerSpreadInches', 'public hunting', 'rut', 'CWD']) {
   requireText(deer, text, 'deer guide missing useful authority depth: ' + text);
 }
 requireText(huntingHub, 'function DeerSeasonTable()', 'deer season table missing');

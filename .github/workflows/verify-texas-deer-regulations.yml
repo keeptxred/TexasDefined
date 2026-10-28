@@ -92,12 +92,24 @@ jobs:
           git commit -m 'data(hunting): sync verified TPWD deer season dates'
           git push origin "$branch"
           gh pr create --base main --head "$branch" \
-            --title 'Refresh verified TPWD deer season dates' \
-            --body 'Automated same-season deer date correction. Both official TPWD calendars agree on all eight ranges. Only src/data/hunting/deer-season-dates.json is editable by this job. The separate, trusted finisher validates the exact diff, full branch CI and protected merge gate before auto-merge and deploy. New season years, source drift and non-date regulatory changes fail closed and require review.'
+            --title 'Refresh verified TPWD deer season and regulations' \
+            --body 'Automated TPWD deer season and structured-regulation sync, including consecutive annual season rollover. Both current official TPWD calendars must match all eight date ranges. Structured legal facts (bag limits, harvest reporting, antler spread and special-late eligibility) must parse from the current official deer page, and only src/data/hunting/deer-season-dates.json can change. The trusted finisher independently re-fetches the sources and validates protected CI, auto-merge and production deployment. Unparseable/contradictory official sources fail safely with a deduplicated issue; routine annual rollovers do not require manual approval.'
       - name: Verify live deer guide, all eight dates, image and structured data
         id: live
         if: success() && steps.changes.outputs.changed == 'false' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         run: node scripts/data/verify-texas-deer-production.mjs
+      - name: Resolve a previous TPWD source alert after verified recovery
+        if: success() && steps.official.outcome == 'success' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='TPWD deer rules verification needs review'
+          numbers="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "TPWD deer rules verification needs review") | .number')"
+          for number in $numbers; do
+            gh issue close "$number" --comment "The current TPWD deer page and official year-matched statewide calendar now passed source verification. Resolved automatically by https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+          done
       - name: Open one review issue on source, parsing or scheduling failure
         if: failure() && steps.official.outcome == 'failure' && github.event_name != 'pull_request'
         env:
@@ -112,6 +124,18 @@ jobs:
             echo "Existing editorial review issue #$existing; skipping duplicate."
           fi
 
+      - name: Resolve a previous deer production alert after verified recovery
+        if: success() && steps.live.outcome == 'success' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Texas deer guide live production verification failed'
+          numbers="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Texas deer guide live production verification failed") | .number')"
+          for number in $numbers; do
+            gh issue close "$number" --comment "The live deer guide's eight ranges, canonical, attribution, schema and navigation now pass automated verification. Resolved by https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+          done
       - name: Open one review issue if the published deer guide fails verification
         if: failure() && steps.live.outcome == 'failure' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         env:
