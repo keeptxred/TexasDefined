@@ -8,6 +8,7 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  actions: write
 
 concurrency:
   group: texasdefined-camping-official-source-refresh
@@ -19,6 +20,9 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -39,21 +43,19 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ github.token }}
-          branch: automation/camping-official-alert-refresh
+          branch: automation/camping-official-alert-refresh-${{ github.run_id }}
           delete-branch: true
           commit-message: 'data(camping): refresh verified TPWD operational notices'
           title: 'Camping: refresh official park operational notices'
           body: |
-            Generated from official TPWD and NPS park advisories. Confirmed statements must match source text; changed statements become needs-review and are never automatically declared resolved.
+            Generated from official TPWD and NPS park advisories. Confirmed claims must match source text; changed statements are automatically downgraded to a generic linked needs-review warning, never declared resolved. An unreachable source fails closed without changing the public notice.
             This PR changes only the bounded camping alert snapshot on substantive source-verified changes. The verification date is not restamped on no-op checks.
           add-paths: src/data/camping/official-alerts.generated.ts
-      - name: Enable protected automatic merge of fully verified notices
+      - name: Hand off generated PR to the protected owner-side finisher
         if: steps.refresh.outcome == 'success' && steps.update-pr.outputs.pull-request-number != ''
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh pr merge "${{ steps.update-pr.outputs.pull-request-number }}" --auto --squash
+        run: echo "Generated source PR opened. The Finish Camping Authority Refresh workflow dispatches exact-SHA canonical CI and protected auto-merge. GITHUB_TOKEN PRs do not run required pull_request checks unattended." >> "$GITHUB_STEP_SUMMARY"
       - name: Close resolved advisory review issue
-        if: steps.refresh.outcome == 'success'
+        if: steps.refresh.outcome == 'success' && steps.refresh.outputs.needs_review != 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -65,16 +67,19 @@ jobs:
               await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:issue.number,state:'closed'});
             }
       - name: Flag ambiguous source changes or unreachable source
-        if: steps.refresh.outcome != 'success'
+        if: steps.refresh.outcome != 'success' || steps.refresh.outputs.needs_review == 'true'
         uses: actions/github-script@v7
         with:
           script: |
             const title = 'Camping authority: official park advisory needs verification';
-            const body = 'Daily TPWD/NPS park-advisory refresh failed or found an advisory it could not confirm verbatim. Review the workflow logs and the official TPWD pages. Never infer an alert was lifted. Run: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
+            const body = 'Daily TPWD/NPS source refresh found a changed advisory and safely downgraded the public-facing claim, or an unreachable source caused a failed run (old snapshot preserved). Review the official sources; never infer an advisory lifted. Run: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
             const {data: issues} = await github.rest.issues.listForRepo({owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
             const issue = issues.find(x => x.title === title && !x.pull_request);
             if (issue) await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:issue.number,body});
             else await github.rest.issues.create({owner:context.repo.owner,repo:context.repo.repo,title,body});
-      - name: Report degraded source confidence
+      - name: Report published advisory safety downgrade
+        if: steps.refresh.outputs.needs_review == 'true'
+        run: echo "::warning title=Camping advisory changed::The verified source no longer supports a published claim. Its record was downgraded to a linked needs-review notice; the owner-side finisher will deploy it after protected CI."
+      - name: Fail on unreachable or invalid official source
         if: steps.refresh.outcome != 'success'
         run: exit 1

@@ -5,6 +5,7 @@ const page = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
 const alerts = read("src/data/camping/official-alerts.generated.ts");
 const monitor = read(".github/workflows/refresh-camping-authority.yml");
 const health = read(".github/workflows/audit-camping-guide-sources.yml");
+const finisher = read(".github/workflows/finish-camping-authority-refresh.yml");
 for (const [src,needle] of [
   [component,"reservationDestination(profile).url"],
   [component,"profile.sources.find"],
@@ -20,8 +21,16 @@ for (const [src,needle] of [
   [monitor,"schedule:"],
   [monitor,"19 12 * * *"],
   [monitor,"needs-review"],
-  [monitor,"--auto --squash"],
+  [monitor,"automation/camping-official-alert-refresh-${{ github.run_id }}"],
+  [finisher,"workflow_run:"],
+  [finisher,"dispatch-validate-branch.sh \"$branch\" validate.yml"],
+  [finisher,"dispatch-validate-branch.sh \"$branch\" merge-gate.yml"],
+  [finisher,"src/data/camping/official-alerts.generated.ts"],
+  [finisher,"--auto --match-head-commit"],
   [monitor,"steps.refresh.outcome == 'success'"],
+  [monitor,"steps.refresh.outputs.needs_review"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"fs.appendFileSync(process.env.GITHUB_OUTPUT"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"sourceOutcome(sources[0]"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"unchanged ? previous.checkedAt : day"],
   [health,"schedule:"],
   [health,"audit-camping-guide-freshness.mjs"]

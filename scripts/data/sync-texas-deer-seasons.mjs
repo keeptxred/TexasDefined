@@ -128,11 +128,32 @@ function parseDeerPage(text) {
 }
 async function getText(url) {
   if(!url.startsWith('https://tpwd.texas.gov/'))throw new Error('Refusing non-TPWD date source.');
-  const resp=await fetch(url,{headers:{'user-agent':'TexasDefined-TPWD-deer-verified-season-sync/1.0'},signal:AbortSignal.timeout(25000)});
-  if(!resp.ok)throw new Error('TPWD fetch failed '+resp.status+' at '+url);
-  const text=visibleText(await resp.text());
-  if(text.length<1500)throw new Error('TPWD response was unexpectedly small at '+url);
-  return text;
+  const delays=[0,4000,9000,18000];
+  let lastError;
+  for(let attempt=0;attempt<delays.length;attempt++) {
+    if(delays[attempt])await new Promise(resolve=>setTimeout(resolve,delays[attempt]));
+    try {
+      const resp=await fetch(url,{
+        headers:{'user-agent':'TexasDefined-TPWD-deer-verified-season-sync/1.0','accept':'text/html'},
+        signal:AbortSignal.timeout(25000),
+      });
+      if(!resp.ok) {
+        const err=new Error('TPWD fetch failed '+resp.status+' at '+url);
+        if(resp.status!==429&&resp.status<500)throw Object.assign(err,{permanent:true});
+        throw err;
+      }
+      if(new URL(resp.url).hostname!=='tpwd.texas.gov')throw new Error('Official TPWD source redirected to an untrusted hostname.');
+      const body=visibleText(await resp.text());
+      if(body.length<1500)throw new Error('TPWD response was unexpectedly small at '+url);
+      if(attempt)console.log('TPWD source succeeded on network attempt '+(attempt+1)+'.');
+      return body;
+    } catch(error) {
+      lastError=error;
+      if(error.permanent)throw error;
+      if(attempt<delays.length-1)console.warn('TPWD request attempt '+(attempt+1)+' failed ('+(error.cause?.code||error.message)+'); retrying official source.');
+    }
+  }
+  throw lastError;
 }
 if (process.argv.includes('--self-test')) {
   const sample = [

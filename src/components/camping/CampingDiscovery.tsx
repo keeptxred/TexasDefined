@@ -437,8 +437,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             {alert ? <aside className="mt-4 border-l-4 border-primary bg-muted/30 p-4 text-sm leading-6 text-foreground" aria-label={`Official park notice for ${profile.name}`}>
               <strong>{alert.status === "confirmed" ? "Official park advisory" : "Park notice changed — recheck"}</strong>
               <p className="mt-1">{alert.notice}</p>
-              <p className="mt-1 text-xs">Advisory last verified for publication: {alert.checkedAt}. Conditions may change sooner.</p>
-              <a className="underline font-semibold" href={alert.sourceUrl} target="_blank" rel="noopener noreferrer">Read current TPWD park alerts ↗</a>
+              <p className="mt-1 text-xs">{alert.status === "confirmed" ? "Advisory verified" : "Advisory last checked"}: {alert.checkedAt}. Conditions may change sooner.</p>
+              <a className="underline font-semibold" href={alert.sourceUrl} target="_blank" rel="noopener noreferrer">{alert.sourceUrl.includes("nps.gov") ? "Read current NPS conditions ↗" : "Read current TPWD park alerts ↗"}</a>
             </aside> : null}
             {!isParentDestination ? <p className="mt-2 text-sm font-semibold text-primary">Campground profile</p> : null}
             {profile.whyCampHere ? <div className="mt-4 border-t border-border pt-4">

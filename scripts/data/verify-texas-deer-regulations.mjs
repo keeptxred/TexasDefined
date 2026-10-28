@@ -42,12 +42,33 @@ function visibleText(html) {
     .trim();
 }
 
-const response = await fetch(pageUrl, {
-  headers: { 'user-agent': 'TexasDefined-deer-regulation-review/1.0 (editorial monitoring)' },
-  signal: AbortSignal.timeout(25_000),
-});
-if (!response.ok) throw new Error('TPWD deer page fetch failed: HTTP ' + response.status + '. Verify availability manually.');
-const body = visibleText(await response.text());
+async function fetchOfficialDeerPage() {
+  const delays=[0,4000,9000,18000];
+  let lastError;
+  for(let attempt=0;attempt<delays.length;attempt++) {
+    if(delays[attempt])await new Promise(resolve=>setTimeout(resolve,delays[attempt]));
+    try {
+      const response=await fetch(pageUrl, {
+        headers:{'user-agent':'TexasDefined-deer-regulation-review/1.0 (editorial monitoring)','accept':'text/html'},
+        signal:AbortSignal.timeout(25_000),
+      });
+      if (!response.ok) {
+        const error=new Error('TPWD deer page fetch failed: HTTP '+response.status);
+        if(response.status!==429&&response.status<500)throw Object.assign(error,{permanent:true});
+        throw error;
+      }
+      if(new URL(response.url).hostname!=='tpwd.texas.gov')throw new Error('TPWD regulatory source redirected off the official domain.');
+      if(attempt)console.log('TPWD regulatory spot-check succeeded after retry '+(attempt+1)+'.');
+      return visibleText(await response.text());
+    }catch(error){
+      lastError=error;
+      if(error.permanent)throw error;
+      if(attempt<delays.length-1)console.warn('TPWD legal spot-check network retry: '+(error.cause?.code||error.message));
+    }
+  }
+  throw lastError;
+}
+const body=await fetchOfficialDeerPage();
 if (body.length < 1500) throw new Error('TPWD deer page returned too little content for trustworthy checks.');
 
 const expected = [
