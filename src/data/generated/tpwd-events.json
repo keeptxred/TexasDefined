@@ -1,13 +1,7 @@
 {
-  "generatedAt": "2026-10-28T17:14:02.443Z",
+  "generatedAt": "2026-10-28T23:00:54.224Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "The Great Village Creek Pumpkin Hunt",
-      "startDate": "2026-10-28",
-      "parkKey": "village-creek",
-      "officialUrl": "https://tpwd.texas.gov/calendar/village-creek/copy_of_pumpkin-hunt/2026-10-28"
-    },
     {
       "title": "Critters of East Texas",
       "startDate": "2026-10-29",
@@ -237,6 +231,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/pollinator-bioblitz/2026-11-01"
     },
     {
+      "title": "Sunday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-11-01",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-11-01"
+    },
+    {
       "title": "Morning Nature Walk",
       "startDate": "2026-11-04",
       "parkKey": "davis-mountains",
@@ -345,6 +345,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-07"
     },
     {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-11-07",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-07"
+    },
+    {
       "title": "Saturday Morning Check-In (Online)",
       "startDate": "2026-11-07",
       "parkKey": "lake-casa-blanca",
@@ -385,6 +391,12 @@
       "startDate": "2026-11-08",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/paws-and-paths-exploring-the-bauer-unit-registration-required/2026-11-08"
+    },
+    {
+      "title": "Sunday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-11-08",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-11-08"
     },
     {
       "title": "Nature's Classroom Homeschool Program",
@@ -489,6 +501,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-11-14"
     },
     {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-11-14",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-14"
+    },
+    {
       "title": "The Forest You Almost Missed",
       "startDate": "2026-11-14",
       "parkKey": "buescher",
@@ -517,6 +535,12 @@
       "startDate": "2026-11-15",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/guided-bird-walk-at-honey-creek-ranch/2026-11-15"
+    },
+    {
+      "title": "Sunday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-11-15",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-11-15"
     },
     {
       "title": "Armadillo Antics",
@@ -789,6 +813,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-11-28"
     },
     {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-11-28",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-28"
+    },
+    {
       "title": "Track Talk",
       "startDate": "2026-11-28",
       "parkKey": "dinosaur-valley",
@@ -921,6 +951,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/park-2-park-hike/2026-12-05"
     },
     {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-12-05",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-05"
+    },
+    {
       "title": "Star Party",
       "startDate": "2026-12-05",
       "parkKey": "abilene",
@@ -937,6 +973,12 @@
       "startDate": "2026-12-06",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/guided-bird-walk-at-honey-creek-ranch/2026-12-06"
+    },
+    {
+      "title": "Sunday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-12-06",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-12-06"
     },
     {
       "title": "Nature's Classroom Homeschool Program",
@@ -1041,6 +1083,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-12-12"
     },
     {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-12-12",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-12"
+    },
+    {
       "title": "Star Party",
       "startDate": "2026-12-12",
       "parkKey": "dinosaur-valley",
@@ -1057,6 +1105,12 @@
       "startDate": "2026-12-13",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/paws-and-paths-exploring-the-bauer-unit-registration-required/2026-12-13"
+    },
+    {
+      "title": "Sunday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-12-13",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-12-13"
     },
     {
       "title": "Morning Nature Walk",
@@ -1113,6 +1167,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-19"
     },
     {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-12-19",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-19"
+    },
+    {
       "title": "Trail of Lights",
       "startDate": "2026-12-19",
       "parkKey": "lake-mineral-wells",
@@ -1135,6 +1195,12 @@
       "startDate": "2026-12-20",
       "parkKey": "galveston-island",
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/copy2_of_prairie-adventure-hike/2026-12-20"
+    },
+    {
+      "title": "Sunday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-12-20",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-12-20"
     },
     {
       "title": "Morning Nature Walk",
@@ -1167,10 +1233,22 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-12-26"
     },
     {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-12-26",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-26"
+    },
+    {
       "title": "Winter Birding",
       "startDate": "2026-12-26",
       "parkKey": "galveston-island",
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2026-12-26"
+    },
+    {
+      "title": "Sunday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-12-27",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-12-27"
     },
     {
       "title": "Morning Nature Walk",
