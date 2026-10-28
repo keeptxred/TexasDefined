@@ -12,7 +12,7 @@ const sources = [
   {
     destinationSlug: "goose-island-state-park", parkName: "Goose Island State Park",
     sourceUrl: "https://tpwd.texas.gov/state-parks/goose-island/alert",
-    required: [/Water Outage/i, /Water is out at the Bayfront camping area/i],
+    required: [/Water Outage/i, /Water is out at the Bayfront camping area/i, /Burn Ban/i, /park is under a burn ban/i, /Construction Alerts/i, /Expect intermittent closures for sites 1\s*-\s*24/i],
     notice: "Bayfront camping-area water outage reported October 23, 2026. Fill fresh-water tanks before arriving; TPWD also reports a burn ban and possible intermittent campsite disruptions.",
   },
   {
@@ -27,13 +27,13 @@ const sources = [
   {
     destinationSlug: "big-bend-national-park", parkName: "Big Bend National Park",
     sourceUrl: "https://www.nps.gov/bibe/planyourvisit/conditions.htm",
-    required: [/weather-related road closures/i, /paved road between Cottonwood Campground and Santa Elena Canyon/i, /River Road West to Glenn Springs Road/i, /Black Gap Road/i],
+    required: [/weather-related road closures/i, /paved road between Cottonwood Campground and Santa Elena Canyon/i, /Hot Springs Road beyond the overflow parking area/i, /Paint Gap Road/i, /River Road West to Glenn Springs Road/i, /Black Gap Road is c\s*los/i],
     notice: "NPS reports weather-related closures of the paved road between Cottonwood Campground and Santa Elena Canyon, Hot Springs Road beyond overflow parking, Paint Gap Road, River Road West to Glenn Springs Road, and Black Gap Road. Verify current access before planning a backcountry drive.",
   },
   {
     destinationSlug: "brazos-bend-state-park", parkName: "Brazos Bend State Park",
     sourceUrl: "https://tpwd.texas.gov/state-parks/brazos-bend/alert",
-    required: [/Burn Ban/i, /No wood fires allowed/i, /Park Closures/i],
+    required: [/Burn Ban/i, /No wood fires allowed/i, /You may use charcoal or containerized stoves/i],
     notice: text => {
       const futureClosures = [
         { end: "2026-11-19", label: "November 17–19, 2026", pattern: /Nov\. 17 to Nov\. 19/i },
@@ -75,7 +75,8 @@ for (const source of sources) {
   if (!expectedHeading.test(text) || text.length < 500) throw new Error("Invalid official alert page: " + source.sourceUrl);
   const confirmed = source.required.every(re => re.test(text))
     && (source.destinationSlug !== "enchanted-rock-state-natural-area"
-      || windows.some(w => w.end >= day && w.pattern.test(text)));
+      || windows.some(w => w.end >= day && w.pattern.test(text))
+      || windows.every(w => w.end < day));
   const notice = confirmed ? (typeof source.notice === "function" ? source.notice(text) : source.notice)
     : "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.";
   const status = confirmed ? "confirmed" : "needs-review";
