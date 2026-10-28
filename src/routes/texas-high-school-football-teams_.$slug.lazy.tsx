@@ -171,6 +171,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'cleveland-tarkington': 'liberty', // Current school physical campus county; never infer stadium entrance or ticket policy.
+    'clifton': 'bosque', // Current school physical campus county; never infer stadium entrance or ticket policy.
+    'clint': 'el-paso', // Current school physical campus county; never infer stadium entrance or ticket policy.
+    'clint-horizon': 'el-paso', // Current school physical campus county; never infer stadium entrance or ticket policy.
+    'clint-mountain-view': 'el-paso', // Current school physical campus county; never infer stadium entrance or ticket policy.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
     'claude': 'armstrong', // Claude ISD 500 West 5th Street campus in Armstrong County.
