@@ -1,4 +1,5 @@
 import type { TexasEvent, TexasRegion } from "./types";
+import { getVerifiedChristmasCommunityEvents2026 } from "./events/christmas-community-2026.server";
 
 export interface TemporalEventDirectoryItem {
   slug: string;
@@ -500,9 +501,19 @@ function resolveFilter(definition: TemporalEventCollectionDefinition, events: Te
       break;
     }
     case "christmas": {
-      const year = parts.month === 1 && parts.day <= 5 ? parts.year - 1 : parts.year;
-      start = isoFromParts(year, 11, 15);
-      end = isoFromParts(year + 1, 1, 5);
+      // The dated Christmas hub includes community occurrences beginning as
+      // early as November 6 and verified winter attractions into mid-January.
+      // Do not falsely advertise a fixed Nov 15–Jan 5 verified window.
+      const year = parts.month === 1 && parts.day <= 31 ? parts.year - 1 : parts.year;
+      const earliestSeasonDate = isoFromParts(year, 11, 1);
+      const latestSeasonDate = isoFromParts(year + 1, 1, 31);
+      const activeCommunityDates = getVerifiedChristmasCommunityEvents2026(now)
+        .filter((event) => event.startDate <= latestSeasonDate
+          && (event.endDate ?? event.startDate) >= earliestSeasonDate);
+      start = activeCommunityDates.map((event) => event.startDate).sort()[0]
+        ?? isoFromParts(year, 11, 15);
+      end = activeCommunityDates.map((event) => event.endDate ?? event.startDate).sort().at(-1)
+        ?? isoFromParts(year + 1, 1, 5);
       filtered = events.filter((event) => holidayName(event.name) && overlaps(event, start, end));
       break;
     }
