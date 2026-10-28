@@ -11,6 +11,7 @@ on:
       - 'src/data/hunting/deer-season-dates.json'
       - 'scripts/data/verify-texas-deer-regulations.mjs'
       - 'scripts/data/sync-texas-deer-seasons.mjs'
+      - 'scripts/data/verify-texas-deer-production.mjs'
       - '.github/workflows/verify-texas-deer-regulations.yml'
   pull_request:
     paths:
@@ -19,6 +20,7 @@ on:
       - 'src/data/hunting/deer-season-format.ts'
       - 'scripts/data/verify-texas-deer-regulations.mjs'
       - 'scripts/data/sync-texas-deer-seasons.mjs'
+      - 'scripts/data/verify-texas-deer-production.mjs'
       - '.github/workflows/verify-texas-deer-regulations.yml'
       - '.github/workflows/finish-texas-deer-season-sync.yml'
 
@@ -49,12 +51,17 @@ jobs:
           node scripts/data/sync-texas-deer-seasons.mjs --self-test
           node scripts/data/verify-texas-deer-regulations.mjs --offline
           node scripts/data/validate-hunting-authority.mjs
+          node scripts/data/verify-texas-deer-production.mjs --self-test
       - name: Compare TPWD animal and statewide calendars
         if: github.event_name != 'pull_request'
         id: official
         run: |
           node scripts/data/sync-texas-deer-seasons.mjs
           node scripts/data/verify-texas-deer-regulations.mjs
+      - name: Verify live deer guide, all eight dates, image and structured data
+        id: live
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/data/verify-texas-deer-production.mjs
       - name: Detect data changes
         if: success() && github.event_name != 'pull_request'
         id: changes
@@ -93,4 +100,19 @@ jobs:
             gh issue create --title "$title" --body "The official TPWD deer check did not validate. Review the deer rules and the exact source response before editing. An annual season rollover, county rule change or ambiguous data must NOT auto-merge. Workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           else
             echo "Existing editorial review issue #$existing; skipping duplicate."
+          fi
+
+      - name: Open one review issue if the published deer guide fails verification
+        if: failure() && steps.live.outcome == 'failure' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Texas deer guide live production verification failed'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "The scheduled check could not confirm the live Texas deer hunting authority guide, its verified eight date rows, canonical, public-domain deer image, or structured data. Review production HTML and source before making changes. Workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            echo "Existing live deer guide review issue #$existing; no duplicate."
           fi
