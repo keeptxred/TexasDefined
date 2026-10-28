@@ -1,5 +1,5 @@
 import type { HuntingAuthorityLink, HuntingAuthorityTopic } from "./authority";
-import { YOUTH_HUNTING_FAQ, YOUTH_HUNTING_SEASON_YEAR, YOUTH_HUNTING_SEASONS } from "./youth-hunting-data";
+import { YOUTH_HUNTING_FAQ, YOUTH_HUNTING_LAST_CHECKED, YOUTH_HUNTING_SEASON_YEAR, YOUTH_HUNTING_SEASONS } from "./youth-hunting-data";
 
 const tpwd = (label: string, href: string): HuntingAuthorityLink => ({ label, href, external: true });
 const internal = (label: string, href: string): HuntingAuthorityLink => ({ label, href });
@@ -76,6 +76,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
   "youth-hunting": topic({
     slug: "youth-hunting",
     eyebrow: "Texas youth hunting",
+    reviewedOn: YOUTH_HUNTING_LAST_CHECKED,
     title: `Texas Youth Hunting Guide: ${YOUTH_HUNTING_SEASON_YEAR} Youth-Only Seasons & Requirements`,
     description: `Official ${YOUTH_HUNTING_SEASON_YEAR} Texas youth-only deer, turkey, waterfowl and squirrel dates, $7 youth license rules, hunter education, mentored hunts and public-land access.`,
     quickAnswer: `Texas youth-only seasons are generally for licensed hunters age 16 or younger. Early deer youth dates are ${YOUTH_HUNTING_SEASONS[0].dates}; dates and access vary by species and zone. The youth hunting license costs $7.`,
