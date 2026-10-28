@@ -28,7 +28,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 255, "The 255 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 263, "The 263 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 const seasonStarts = events.map((event) => event.startDate).sort();
 const seasonEnds = events.map((event) => event.endDate ?? event.startDate).sort();
@@ -585,12 +585,39 @@ assert.ok(christmasLiveVerifier.includes("expectedActiveCommunityCount") && chri
 assert.ok(christmasLiveVerifier.includes("expectedLiveWitnesses") && christmasLiveVerifier.includes("sampleSlugs"), "Live smoke must verify date-filtered new-source Christmas witness events");
 assert.ok(christmasLiveVerifier.includes("activePerformances"), "Live smoke must retain date-scoped curated concert and ticket verification");
 assert.ok(christmasLiveVerifier.includes("verify-christmas-release="), "Live smoke must bypass caches when probing stale source data");
+for (const slug of ["san-antonio-pearl-holiday-tree-lighting-2026","san-antonio-pearl-holiday-night-market-dec-23-2026"]) {
+  assert.ok(christmasLiveVerifier.includes(`"${slug}"`), `${slug}: source-qualified Christmas production witness missing`);
+}
 assert.ok(christmasLiveVerifier.includes("data-ad-slot="), "Do not accidentally activate AdSense display units before approval");
 assert.ok(productionWorkflow.includes("node scripts/ci/verify-christmas-hub-production.mjs"), "Existing protected production deploy must verify Christmas hub freshness");
 assert.ok(productionWorkflow.includes("id: live_christmas_hub"), "Protected Christmas production smoke step missing");
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
 assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
+for (const [slug, day] of [
+  ["san-antonio-pearl-holiday-tree-lighting-2026", "2026-11-27"],
+  ["san-antonio-pearl-holiday-night-market-dec-02-2026", "2026-12-02"],
+  ["san-antonio-pearl-holiday-night-market-dec-09-2026", "2026-12-09"],
+  ["san-antonio-pearl-holiday-night-market-dec-16-2026", "2026-12-16"],
+  ["san-antonio-pearl-holiday-night-market-dec-23-2026", "2026-12-23"],
+]) {
+  check(slug, day);
+  assert.equal(bySlug.get(slug).sourceVerifiedAt, "2026-10-27", `${slug}: preserve actual review date`);
+  assert.equal(bySlug.get(slug).officialEventUrl, "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    `${slug}: official Pearl organizer announcement required`);
+}
+for (const [slug, date, url] of [
+  ["highland-village-our-village-glows-2026", "2026-11-21", "https://www.highlandvillage.org/588/Our-Village-Glows"],
+  ["highland-village-christmas-at-the-ranch-2026", "2026-12-12", "https://www.highlandvillage.org/m/calendar/event/detail/2576"],
+  ["forney-downtown-tree-lighting-2026", "2026-12-03", "https://www.forneytx.gov/761/Downtown-Tree-Lighting"],
+]) {
+  check(slug, date);
+  assert.equal(bySlug.get(slug).officialEventUrl, url, `${slug}: city first-party event source required`);
+  assert.equal(bySlug.get(slug).sourceVerifiedAt, "2026-10-27", `${slug}: preserve actual source review date`);
+}
+assert.ok(!bySlug.has("forney-2026-christmas-on-main-duplicate"), "Forney Christmas on Main exists already; do not create duplicate cards");
+assert.ok(!bySlug.has("san-antonio-pearl-holiday-night-market-2026-daily"),
+  "Pearl's four Wednesday markets must not become a fabricated nightly date span");
 check("santas-ranch-new-braunfels", "2026-11-06", "2027-01-03");
 check("sugar-land-holiday-lights-constellation-field", "2026-11-20", "2027-01-03");
 check("jefferson-candlelight-tour-dec3", "2026-12-03", "2026-12-05");

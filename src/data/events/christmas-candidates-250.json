@@ -777,7 +777,8 @@
       "intakeId": 91,
       "title": "Highland Village Celebrate the Holidays",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City-confirmed Highland Village events are Our Village Glows (Nov 21, 2026) and Christmas at the Ranch (Dec 12, 2026), now separately listed. The submitted broad 'Celebrate the Holidays' title is not a verified standalone event and remains pending source reconciliation."
     },
     {
       "intakeId": 92,
@@ -842,7 +843,8 @@
       "intakeId": 98,
       "title": "Rockwall Harbor Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Rockwall's official 2026 Hometown Christmas (Dec 5) is already on the verified calendar, but 'Rockwall Harbor Lights' is a different unverified event label; do not duplicate the city listing."
     },
     {
       "intakeId": 99,
@@ -855,7 +857,7 @@
       "title": "Forney Christmas in the Park",
       "submittedRegion": "North Texas & DFW Metroplex",
       "status": "candidate-needs-source-reconciliation",
-      "researchNote": "The City/Arts Council confirms Dec 5 Christmas on Main 12–5 p.m. downtown. This is NOT proof of the submitted 'Forney Christmas in the Park' event identity or dates; added as a separate Christmas-on-Main calendar occurrence."
+      "researchNote": "Forney's official Christmas on Main (Dec 5, 2026) is already listed separately, and its Bell Park Tree Lighting (Dec 3, 2026) is also source-confirmed. The submitted 'Christmas in the Park' alias is not verified as an additional distinct event."
     },
     {
       "intakeId": 101,
@@ -1293,7 +1295,14 @@
       "intakeId": 157,
       "title": "San Antonio Pearl Brewery Holiday Markets",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-pearl-holiday-night-market-dec-02-2026",
+        "san-antonio-pearl-holiday-night-market-dec-09-2026",
+        "san-antonio-pearl-holiday-night-market-dec-16-2026",
+        "san-antonio-pearl-holiday-night-market-dec-23-2026"
+      ],
+      "researchNote": "Pearl's August 11, 2026 official festival announcement confirms four Wednesday holiday night markets December 2, 9, 16, and 23. Its separate November 27 tree lighting is independently listed. Do not conflate ordinary Wednesday fall markets ending November 25 with the December holiday events."
     },
     {
       "intakeId": 158,
@@ -1918,8 +1927,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-27",
-    "calendarCandidates": 85,
+    "calendarCandidates": 86,
     "authorityCandidates": 12,
-    "remainingCandidates": 153
+    "remainingCandidates": 152
   }
 }
