@@ -196,12 +196,12 @@ for (const source of [scheduledBls, finishingBls]) {
     if (!source.includes(required)) failures.push('BLS scheduled publication workflow missing: ' + required);
   }
 }
-if (!scheduledBls.includes("cron: '41 12 5 * *'") ||
+if (!scheduledBls.includes("cron: '41 16 25-31,1-5 * *'") ||
     !scheduledBls.includes('scripts/data/refresh-texas-metro-payrolls.mjs') ||
     !scheduledBls.includes('gh pr create') ||
     !finishingBls.includes('bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml') ||
     !finishingBls.includes('gh pr merge "$url"')) {
-  failures.push('GitHub-owned monthly BLS refresh and protected exact-branch finisher must remain connected.');
+  failures.push('GitHub-owned official-release-window BLS checks and protected exact-branch finisher must remain connected.');
 }
 
 if (failures.length) {
