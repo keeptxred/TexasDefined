@@ -39,8 +39,24 @@ try{
    // populated table rows for all nine counties represented in the 255-node
    // initial audit, or fail closed rather than reporting a false zero.
    if(!isSchool && slug!=='county-ellis'){
-     await page.locator('main [role="region"][aria-label$="property tax rates table"] table tbody tr').first()
-       .waitFor({state:'visible',timeout:28000});
+     // The tax rate table loads from a live API. One transient API timeout is
+     // not evidence of missing data or acceptable contrast. Revisit once,
+     // inspect the actual page status and fail closed if no rows render.
+     const rateRows=page.locator('main [role="region"][aria-label$="property tax rates table"] table tbody tr').first();
+     let firstError=null;
+     try { await rateRows.waitFor({state:'visible',timeout:23000}); }
+     catch(e) {
+       firstError=String(e).slice(0,200);
+       console.log('B004 county tax table initial load unavailable; bounded retry',slug,firstError);
+       await page.reload({waitUntil:'domcontentloaded',timeout:50000});
+       await page.locator('main h1').first().waitFor({state:'visible',timeout:30000});
+       try { await rateRows.waitFor({state:'visible',timeout:23000}); }
+       catch(retryError) {
+         const currentStatus=await page.locator('main [role="status"]').allInnerTexts().catch(()=>[]);
+         throw Error('Required published tax table unavailable after two actual browser loads: '+slug+
+           ' status='+JSON.stringify(currentStatus)+' initial='+firstError+' retry='+String(retryError).slice(0,180));
+       }
+     }
    }
    if(slug==='austin-westlake'){
      await page.locator('main [role="region"] table tbody tr').first()

@@ -15,6 +15,41 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'chilton',
+    mascot: 'Pirates',
+    sourceUrl: 'https://www.chiltonisd.org/athletics',
+    sourceLabel: 'Chilton ISD official athletics feed identifies Pirates varsity football',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'china-spring',
+    mascot: 'Cougars',
+    sourceUrl: 'https://www.chinaspringisd.net/page/athletics',
+    sourceLabel: 'China Spring ISD official Cougar athletics and current coach',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'christoval',
+    mascot: 'Cougars',
+    sourceUrl: 'https://www.christovalisd.org/events',
+    sourceLabel: 'Christoval ISD 2026 official Cougars football events and district activities',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'cibolo-steele',
+    mascot: 'Knights',
+    sourceUrl: 'https://www.scucisd.org/o/steele/page/athletics/',
+    sourceLabel: 'Steele High first-party Knights athletics, schedules and David Saenz',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'cisco',
+    mascot: 'Loboes',
+    sourceUrl: 'https://ciscoisd.net/50644_2',
+    sourceLabel: 'Cisco ISD first-party Lobo athletics and Chesley Field source',
+    verifiedAt: '2026-10-27',
+  },
+  {
     slug: 'cherokee',
     mascot: 'Fighting Indians',
     sourceUrl: 'https://www.cherokeeisd.net/',

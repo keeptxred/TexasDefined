@@ -18,6 +18,7 @@ import { footballMatchups } from './football-matchups';
 import { applyFootballMatchupSnapshot } from './football-team-season-overlay';
 import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';
 import { loadBatch009FootballProgramEditorial } from './program-editorial-b009-loader.server';
+import { loadBatch010FootballProgramEditorial } from './program-editorial-b010-loader.server';
 import { applyAubreyAutoResults } from './aubrey-auto-results';
 import { buildFootballProfileFaq, buildFootballProfileQuickFacts, buildFootballProfileSummary } from './football-profile-content';
 import {
@@ -267,7 +268,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   // Preserve Batch 008's validated precedence; only replace the result on a
   // source-backed, individually implemented Batch 009 slug.
   const batch008OrBaseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
-  const baseEditorial = (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
+  const baseEditorial = (await loadBatch010FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
   const aubreyAdjustedEditorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;

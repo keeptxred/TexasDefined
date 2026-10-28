@@ -23,12 +23,13 @@ const schoolTerms = {
 };
 const expectedGraphics = new Set(); // No date-by-date verified 2026 finals have been authored for this cohort.
 const reg = JSON.parse(await readFile('docs/football-authority/REGISTRY.json','utf8'));
+const batch009 = reg.batch.number===9 ? reg.batch : reg.completedBatches.find(x=>x.number===9 && x.state==='VERIFIED_BATCH_009_COMPLETE');
 const editorial = await readFile('src/data/high-school-football/program-editorial-b009.ts','utf8');
 const route = await readFile('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx','utf8');
 const countyPage = await readFile('src/routes/$kind.$slug.lazy.tsx','utf8');
-assert.equal(reg.batch.number,9,'Use latest Batch 009 registry');
-assert.equal(reg.batch.slugs.length,25);
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,reg.batch.state==='VERIFIED_BATCH_009_COMPLETE'?205:180,'180 historical and 25 accepted Batch009 school certifications must remain');
+assert.equal(batch009.number,9,'Use latest Batch 009 registry');
+assert.equal(batch009.slugs.length,25);
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,batch009.state==='VERIFIED_BATCH_009_COMPLETE'?205:180,'180 historical and 25 accepted Batch009 school certifications must remain');
 assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch!==9).length,180,'Historical independently verified schools must remain');
 for(const batch of reg.completedBatches.filter(b=>b.number<=8)) for(const slug of batch.slugs) {
   assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'VERIFIED','Historical protected school regressed: '+slug);

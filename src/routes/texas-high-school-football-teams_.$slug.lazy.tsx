@@ -17,6 +17,7 @@ import { footballIdentityAccentFromColors } from '@/data/high-school-football/fo
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'aubrey', // Original reported 2026 results illustration replaces unrelated Colorado stock photo.
   'celeste',
   'carrollton-turner',
   'carthage',
@@ -168,6 +169,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'chilton': 'falls', // Chilton ISD Falls County campus; no claimed stadium gate.
+    'china-spring': 'mclennan', // China Spring school in McLennan County; athletics contact distinct from visitor entrance.
+    'christoval': 'tom-green', // Christoval ISD Tom Green County; home venue entry needs confirmation.
+    'cibolo-steele': 'guadalupe', // Byron P Steele II campus in Cibolo, Guadalupe County; school address is not stadium gate.
+    'cisco': 'eastland', // Cisco ISD Eastland County; official Chesley Field venue directions separately sourced.
     'center': 'shelby', // Center ISD school campus in Shelby County; athletics office not stadium entry.
     'center-point': 'kerr', // Center Point ISD campus in Kerr County; conflicting AD pages noted.
     'centerville': 'leon', // Centerville ISD campus in Leon County; cash-gate event policy not guaranteed.

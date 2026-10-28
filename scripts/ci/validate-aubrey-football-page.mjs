@@ -29,13 +29,13 @@ assert.ok(aubrey.seo.title.includes('Schedule, Scores & Tickets'));
 assert.ok(identities.includes("slug: 'aubrey'") && identities.includes("mascot: 'Chaparrals'"), 'Aubrey Chaparrals identity must come from the verified identity registry');
 assert.ok(!route.includes("slug === 'aubrey' ? 'Aubrey Chaparrals Football'"), 'Aubrey team nickname must not be hardcoded in the shared route');
 assert.ok(!route.includes("repeating-linear-gradient(90deg"), 'Decorative yard-line overlay must not cover hero text or obstruct automated contrast inspection');
-assert.equal(aubrey.photo?.src, 'https://images.unsplash.com/photo-1508209495879-445d5febf597?auto=format&fit=crop&w=1400&q=78', 'Sourced representative photo identity must remain governed');
-assert.equal(aubrey.photo?.caption, 'Representative high-school football photo, not an Aubrey team or stadium image.', 'Never imply representative image depicts Aubrey');
-assert.equal(aubrey.photo?.alt, 'High school American football under stadium lights at dusk, pictured at a game in Aurora, Colorado, not an Aubrey game');
-assert.equal(aubrey.photo?.credit, 'Tim Mossholder / Unsplash', 'Preserve photographer attribution');
-assert.equal(aubrey.photo?.sourceUrl, 'https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI');
-assert.equal(aubrey.photo?.license, 'Unsplash License');
-assert.equal(aubrey.photo?.licenseUrl, 'https://unsplash.com/license');
+// Sitewide original school-identity policy: a Colorado game photo is not
+// an Aubrey-specific image. Preserve the photo-credit/rights requirements for
+// any other genuinely sourced football hero without mandating a generic one.
+assert.equal(aubrey.photo, undefined, 'No unrelated Colorado representative football photo on the Aubrey school guide');
+const timelineSet = route.slice(route.indexOf('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS'),route.indexOf(']);',route.indexOf('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS')));
+assert.ok(timelineSet.includes("'aubrey'"), 'Aubrey must show its original 2026 source-backed results graphic instead of a generic photo');
+assert.ok(route.includes('<ReportedFormIllustration'), 'Original results graphic component must remain available');
 assert.ok(route.includes('editorial?.photo ? (') && route.includes('photo={editorial.photo}'), 'Every rights-governed football image renders at hero, with original fallback otherwise');
 for(const token of ['function FootballSourcedPhoto(', 'src={photo.src}', 'alt={photo.alt}', '{photo.caption}', '{photo.credit}', 'href={photo.sourceUrl}', 'href={photo.licenseUrl}', '{photo.license}', "priority={slug === 'aubrey' || slug === 'katy' || slug === 'fort-davis'}"]) assert.ok(route.includes(token), 'Sourced media hero contract missing: '+token);
 assert.ok(!route.includes('src="https://images.unsplash.com/photo-1508209495879'), 'Do not hardcode Aubrey image in JSX');

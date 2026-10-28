@@ -330,6 +330,11 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'falls': [{ name: 'Chilton Pirates', slug: 'chilton', context: 'Falls County Class 2A Division II District 13, Bennie Huitt 2026 KWTX preview and Chilton ISD athletics' }],
+  'mclennan': [{ name: 'China Spring Cougars', slug: 'china-spring', context: 'McLennan County 4A Division I District 12; December 2025 official Josh Gregory head-coach appointment' }],
+  'tom-green': [{ name: 'Christoval Cougars', slug: 'christoval', context: 'Tom Green County 2A Division I District 4; official 2026 calendar and Tanner McLean district appointment' }],
+  'guadalupe': [{ name: 'Cibolo Steele Knights', slug: 'cibolo-steele', context: 'Cibolo Guadalupe County 6A District 27; Steele ISD David Saenz current athletics and ticket guidance' }],
+  'eastland': [{ name: 'Cisco Loboes', slug: 'cisco', context: 'Eastland County 2A Division I District 5; first-party Kevin Stennett and Chesley Field' }],
   'hunt': [{ name: 'Celeste Blue Devils', slug: 'celeste', context: 'Celeste ISD 2026 official Blue Devils football schedule and source-qualified Demetrius Rector coach in 2A Division II District 9' }],
   'collin': [{ name: 'Celina Bobcats', slug: 'celina', context: 'Nine UIL football state titles through 2024, March 2026 Marc Bindel appointment and new 5A Division II District 4' }],
   'san-saba': [{ name: 'Cherokee Fighting Indians', slug: 'cherokee', context: 'San Saba County 2026 six-man Division II District 8; school-published fixture revisions' }],
