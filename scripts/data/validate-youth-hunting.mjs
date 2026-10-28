@@ -7,6 +7,9 @@ const schema = read("src/components/hunting/HuntingSchema.tsx");
 const authority = read("src/data/hunting/authority-v2.ts");
 const monitor = read(".github/workflows/monitor-youth-hunting.yml");
 const importer = read("scripts/data/refresh-youth-hunting-calendar.mjs");
+const productionScope = read("scripts/ci/production-change-scope.mjs");
+const productionSmoke = read("scripts/ci/verify-changed-production-pages.mjs");
+const deployWorkflow = read(".github/workflows/deploy-production.yml");
 const check = (body,needle,label) => {if(!body.includes(needle))throw new Error("Youth hunting contract missing "+label+": "+needle);};
 const year = /YOUTH_HUNTING_SEASON_YEAR = "(20\d{2})–(\d{2})"/.exec(source);
 if (!year || Number(year[1]) + 1 !== Number(year[1].slice(0,2)+year[2])) throw new Error("Invalid maintained season year");
@@ -28,6 +31,10 @@ check(authority,'YOUTH_HUNTING_SEASON_YEAR',"dynamic title");
 check(importer,"parseYouthCalendar","source calendar parser");
 check(monitor,"schedule:","GitHub-owned recurrence");
 check(monitor,"gh pr create","governed proposed publication");
+check(productionScope,"candidates.add('/hunting/youth-hunting')","bounded youth release canary");
+check(productionSmoke,"assertYouthHuntingAuthority(visitorHtml","ordinary visitor authority content check");
+check(productionSmoke,"assertYouthHuntingAuthority(html","cache-busted authority content check");
+check(deployWorkflow,"https://texasdefined.com/hunting/youth-hunting","exact youth page Cloudflare targeted cache purge");
 console.log("Youth hunting authority contract passed for verified season "+year[0]+".");
 
 if (process.argv.includes("--online")) {
