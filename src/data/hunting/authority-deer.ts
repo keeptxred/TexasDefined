@@ -5,9 +5,9 @@ import { deerSeasonRange, deerSeasonStart, deerSeasonYear, texasDeerSeason } fro
  * Texas white-tailed deer authority guide with TPWD-synced season dates.
  * Human-reviewed against TPWD Outdoor Annual on 2026-10-28.
  *
- * Regulatory dates and county requirements are season-specific. Never advance
- * the review date or roll over season dates solely because a scheduled fetch
- * succeeds: verify the official TPWD content before publishing amendments.
+ * Annual season dates, official calendar and structured legal facts are synchronized
+ * only after dual-source TPWD verification, protected CI and production deployment.
+ * The historical editorial review date is not changed by automated data updates.
  */
 export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   slug: "texas-deer-hunting",
@@ -30,8 +30,8 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       heading: `${deerSeasonYear} Texas white-tailed deer season dates`,
       paragraphs: [
         `For counties with an open season, archery-only season is ${deerSeasonRange("archery")}. General season is ${deerSeasonRange("generalNorth")} in the North Zone and ${deerSeasonRange("generalSouth")} in the South Zone. These are different from the mule-deer calendar.`,
-        `The early youth-only season is ${deerSeasonRange("earlyYouth")}. The North Zone also has a late youth-only season ${deerSeasonRange("lateYouthNorth")}. Muzzleloader season is ${deerSeasonRange("muzzleloader")} only in designated counties. Special late season runs ${deerSeasonRange("specialNorth")} (North) and ${deerSeasonRange("specialSouth")} (South) where offered; it is restricted to antlerless and qualifying unbranched-antlered deer.`,
-        "TPWD lists white-tailed deer seasons in 252 of Texas's 254 counties, but county exceptions, land-management permits and restrictions on methods or sex of deer matter. Use the official county selector rather than assuming a North/South date applies automatically. Properties in the Managed Lands Deer Program (MLDP) can have a different authorized framework.",
+        `The early youth-only season is ${deerSeasonRange("earlyYouth")}. The North Zone also has a late youth-only season ${deerSeasonRange("lateYouthNorth")}. Muzzleloader season is ${deerSeasonRange("muzzleloader")} only in designated counties. Special late season runs ${deerSeasonRange("specialNorth")} (North) and ${deerSeasonRange("specialSouth")} (South) where offered; TPWD currently restricts eligible harvest to ${texasDeerSeason.regulations.specialLateRestriction}; confirm the county.`,
+        `TPWD lists white-tailed deer seasons in ${texasDeerSeason.regulations.openCountyCount} of Texas\'s 254 counties for ${deerSeasonYear}, but county exceptions, land-management permits and restrictions on methods or sex of deer matter. Use the official county selector rather than assuming a North/South date applies automatically. MLDP properties can have different authorized frameworks.`,
       ],
       links: [
         { label: "Official TPWD deer dates, county selector and zone map", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true },
@@ -55,8 +55,8 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "Bag limits and what counts as a legal buck",
       paragraphs: [
-        "TPWD sets deer bag limits by county. Across ordinary hunting-license-tag harvest, no hunter may exceed five white-tailed deer annually, no more than three of them bucks; that statewide annual limit does not apply on MLDP properties. A county may allow substantially fewer deer, so five is a ceiling, not a county-specific entitlement.",
-        "In counties with special antler restrictions, TPWD defines a legal buck as one with at least one unbranched antler or an inside spread of 13 inches or more. In those counties, the maximum is two legal bucks, with no more than one buck meeting the specified branched-antler/13-inch category; check the full TPWD wording and the county before making a harvest decision. The familiar ear-tip-to-ear-tip comparison is only an estimation aid, not a guarantee of a legal measurement.",
+        `TPWD sets deer bag limits by county. Its current statewide ceiling for regular license-tag harvest is ${texasDeerSeason.regulations.annualBagMax} white-tailed deer annually, no more than ${texasDeerSeason.regulations.annualBuckMax} of them bucks; that statewide annual limit does not apply on MLDP properties. County-specific limits may be substantially lower.`,
+        `In counties with special antler restrictions, TPWD currently describes a legal buck as one with at least one unbranched antler or an inside spread of ${texasDeerSeason.regulations.specialAntlerSpreadInches} inches or greater. Limits on legal bucks and branched antlers also apply: check the complete TPWD wording and county listing before harvest. The ear-tip-to-ear-tip comparison is an estimation aid, not a legal measurement.`,
         "Do not assume any antlerless deer can be taken on any general-season day. County restrictions, antlerless-only days, legal means and MLDP conditions may change the answer. The person taking the animal must also have an appropriate available tag or permit.",
       ],
       links: [
@@ -69,8 +69,8 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       heading: "Licenses, archery endorsement and hunter education",
       paragraphs: [
         "Obtain the appropriate current Texas hunting license for your residency and age before hunting; a public-land hunt may require an additional permit. TPWD requires an archery endorsement when hunting during archery-only season. Confirm legal equipment and county-specific means and methods rather than treating archery, firearm and muzzleloader seasons as interchangeable.",
-        `For the ${deerSeasonYear} license year, hunters born on or after September 2, 1971 generally must satisfy Texas hunter-education requirements or an applicable supervision/deferral provision. Rules differ by age, and TPWD lists certain military and law-enforcement exemptions. Certification is separate from buying a hunting license; retain acceptable proof in the field.`,
-        "Youth-only white-tailed deer seasons are for licensed hunters age 16 and younger, with other supervision and education requirements applying as relevant. Check those requirements before booking a family hunt.",
+        `For the ${deerSeasonYear} license year, review TPWD\'s current hunter-education birthdate, age, supervision, deferral and exemption requirements. The requirements are distinct from buying a hunting license, and acceptable proof of education should be available in the field.`,
+        "Youth-only white-tailed deer seasons have TPWD age, licensing, supervision and education requirements. Use TPWD’s current eligibility rules rather than relying on an old age cutoff before booking a family hunt.",
       ],
       links: [
         { label: "TPWD hunter education and age requirements", href: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/hunter-education", external: true },
@@ -96,8 +96,8 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "Which counties require deer harvest reporting?",
       paragraphs: [
-        `For hunting-license-tag harvest in ${deerSeasonYear}, TPWD requires reporting within 24 hours for bucks and antlerless deer taken in Collin, Dallas, Grayson and Rockwall counties. Those counties also have special legal-method rules, so review their entire county entry.`,
-        "An additional group of counties, and specified portions of some counties, requires reporting of antlerless deer. Examples include Austin, Bastrop, Fayette, Guadalupe, Waller and Washington counties; parts of Comal, Goliad, Hays, Jackson, Travis, Victoria and Wharton also have designated requirements. This is not a substitute for the complete current TPWD list.",
+        `For hunting-license-tag harvest in ${deerSeasonYear}, TPWD currently requires buck and antlerless deer reporting within ${texasDeerSeason.regulations.reportingHours} hours in these counties: ${texasDeerSeason.regulations.buckAndAntlerlessReportingCounties}. Confirm the county’s complete legal-method requirements before hunting.`,
+        `TPWD currently requires antlerless deer reporting in these additional counties or portions of counties: ${texasDeerSeason.regulations.antlerlessReportingCounties}. Boundary qualifiers matter; check the latest official county map and listing.`,
         "Report as required through Texas Hunt & Fish or TPWD's online reporting service. Executing a valid digital tag also serves as mandatory reporting where applicable. Do not assume the absence of a statewide reporting rule means your county has none.",
       ],
       links: [
@@ -109,7 +109,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       heading: "Chronic wasting disease: testing and carcass movement",
       paragraphs: [
         "Chronic wasting disease (CWD) is a fatal neurological disease affecting deer and certain other cervids. TPWD uses containment, surveillance and other designated zones where harvest testing, carcass movement and disposal restrictions may apply. Zone boundaries and check-station details can change, so consult the current map for the exact property.",
-        "In areas with mandatory CWD testing, TPWD requires the intact, unfrozen head of a hunter-harvested deer to be presented at a designated check station within 48 hours of harvest. Confirm the precise zone requirements before field dressing or transporting the animal; some locations have additional carcass-handling restrictions.",
+        "TPWD may require timely testing, designated check-station submission, and specific specimen handling in CWD zones. Testing windows and requirements vary by zone and season; consult the current TPWD CWD zone instructions before field dressing or transporting a deer.",
         "Avoid moving high-risk carcass parts contrary to TPWD requirements, and use available voluntary testing outside mandatory zones when appropriate. Report visibly sick animals to TPWD rather than assuming symptoms are harmless.",
       ],
       links: [
@@ -190,15 +190,15 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     },
     {
       question: "How many bucks can I shoot in Texas?",
-      answer: "TPWD's statewide annual ceiling for regular license-tag harvest is three bucks within a total of five white-tailed deer, but individual counties can impose lower bag limits and special antler restrictions. MLDP properties use a different permit framework. Always look up your county.",
+      answer: `TPWD currently sets a statewide regular license-tag ceiling of ${texasDeerSeason.regulations.annualBuckMax} bucks within ${texasDeerSeason.regulations.annualBagMax} white-tailed deer, but counties can have lower limits and antler restrictions. MLDP uses a different permit framework; check the official county entry.`,
     },
     {
       question: "Is a 13-inch spread required for every Texas buck?",
-      answer: "No. Antler restrictions only apply in designated counties, and even there the legal-buck definition includes some bucks with an unbranched antler. Check the full TPWD county rules and diagrams; do not decide legality from a general statewide summary.",
+      answer: `No. The current ${texasDeerSeason.regulations.specialAntlerSpreadInches}-inch inside-spread measure is part of the rules only in designated counties, and unbranched-antler exceptions may apply. Check the full official county rules and diagrams.`,
     },
     {
       question: "Do Texas deer hunters need to report every harvest?",
-      answer: "No statewide 24-hour reporting requirement applies identically to every deer. TPWD requires reporting for buck and antlerless deer in four named counties and for antlerless deer in additional counties or county portions; some special tags have their own rules. Digital-tag execution satisfies mandatory reporting where applicable.",
+      answer: `Not every county has identical reporting rules. TPWD currently requires reporting within ${texasDeerSeason.regulations.reportingHours} hours for applicable license-tag deer in ${texasDeerSeason.regulations.buckAndAntlerlessReportingCounties}, plus antlerless-only reporting in additional counties and county portions. Special tags and fully digital licenses may have different procedures.`,
     },
     {
       question: "Can I hunt deer on public land with just a hunting license?",
@@ -210,7 +210,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     },
     {
       question: "When is CWD testing mandatory for a Texas deer?",
-      answer: "It depends on whether the deer is harvested inside a TPWD CWD zone with mandatory testing. In such zones, the intact, unfrozen head must generally be presented at a designated check station within 48 hours. Check current zone maps and movement rules before the hunt.",
+      answer: "It depends on the current TPWD CWD zone requirements, designated check-station procedures, and specimen rules. Look up the exact property and current testing deadline before the hunt; restrictions also govern carcass movement.",
     },
     {
       question: "What is the best time for the rut in Texas?",
