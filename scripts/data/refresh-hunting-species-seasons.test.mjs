@@ -39,7 +39,7 @@ test('zone, missing species, duplicate source headings and bad dates stop update
   assert.throws(()=>reconcile(seed,mock().replace('Panhandle/South Plains','Unapproved zone'),'2026-10-28'),/changed zone/);
   assert.throws(()=>reconcile(seed,mock().replace('<h3>Quail</h3>','<h3>Other</h3>'),'2026-10-28'),/Missing TPWD species/);
   assert.throws(()=>reconcile(seed,mock().replace('Oct. 3-18, 2026','Oct. 3-18, 2029'),'2026-10-28'),/Invalid year/);
-  assert.throws(()=>readSection(mock().replace('</tbody></table>','<tr><td>General</td><td>North</td><td>Sep. 2, 2026</td></tr></tbody></table>'),'Javelina'),/Duplicate TPWD/);
+  assert.throws(()=>readSection(mock().replace('</tbody></table>','<tr><td>General</td><td>North</td><td>Sep. 2, 2026</td></tr></tbody></table>'),'Javelina'),/duplicate\/missing rows/);
 });
 test('source parsing decodes HTML entities without treating formatting as rules',()=>{
   assert.equal(clean('<strong>North</strong>&nbsp;&amp; South &ndash; Zone'),'North & South - Zone');
