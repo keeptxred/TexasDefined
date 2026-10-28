@@ -121,11 +121,11 @@ if (ambiguousWithdrawals.length) {
     const detail = ambiguousWithdrawals.map(result =>
       '| '+result.county.slug+' | '+result.county.url+' | '+
       (result.audit?.appraisalSourceUpdated ?? 'unknown')+' | '+
-      (result.audit?.taxOfficeSourceUpdated ?? 'unknown')+' |').join('\\n');
+      (result.audit?.taxOfficeSourceUpdated ?? 'unknown')+' |').join('\n');
     await fs.appendFile(process.env.GITHUB_STEP_SUMMARY,
-      '\\n### Unresolved official county contacts (not advanced or removed)\\n\\n'+
-      '| County | Official source | Appraisal source date | Tax source date |\\n'+
-      '| --- | --- | --- | --- |\\n'+detail+'\\n');
+      '\n### Unresolved official county contacts (not advanced or removed)\n\n'+
+      '| County | Official source | Appraisal source date | Tax source date |\n'+
+      '| --- | --- | --- | --- |\n'+detail+'\n');
   }
 }
 merged = applyQuarantinedCountyRefresh(merged, results, ambiguousSlugs);
