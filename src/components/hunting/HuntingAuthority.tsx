@@ -88,7 +88,7 @@ function DeerCountyRegulationsFinder() {
             </select>
           </div>
           {county ? <a className="inline-flex min-h-11 items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
-            href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + county.slug + "/"}
+            href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + (county.slug === "la-salle" ? "lasalle" : county.slug) + "/"}
             target="_blank" rel="noopener noreferrer">
             Open TPWD rules for {county.name} County ↗
           </a> : <span className="inline-flex min-h-11 items-center justify-center border border-border px-5 py-3 text-sm text-muted-foreground">
