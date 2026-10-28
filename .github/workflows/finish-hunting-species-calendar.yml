@@ -1,0 +1,104 @@
+name: Finish Verified Hunting Species Calendar
+
+on:
+  workflow_run:
+    workflows: [Refresh TPWD Hunting Species Calendar]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Source-verified hunting species calendar run
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: finish-hunting-species-season-calendar
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.event != 'pull_request')
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate exact date-only TPWD PR and run protected gate
+        env:
+          GH_TOKEN: ${ github.token }}
+          REPO: ${ github.repository }}
+          SOURCE_RUN: ${ github.event.workflow_run.id || inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$SOURCE_RUN" =~ ^[0-9]+$ ]] || { echo 'Invalid TPWD source run id'; exit 1; }
+          branch="automation/hunting-species-dates-$SOURCE_RUN"
+          prs="$(gh pr list --repo "$REPO" --base main --head "$branch" --state open --limit 2 --json number,url,title,headRefOid)"
+          count="$(jq 'length' <<< "$prs")"
+          if [[ "$count" == '0' ]]; then
+            echo 'TPWD date-only source run made no PR; no work needed.'
+            exit 0
+          fi
+          [[ "$count" == '1' ]] || { echo 'Ambiguous generated species PR'; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$prs")"
+          url="$(jq -r '.[0].url' <<< "$prs")"
+          title="$(jq -r '.[0].title' <<< "$prs")"
+          who="$(gh api "repos/$REPO/pulls/$number" --jq '.user.login')"
+          [[ "$who" == 'github-actions[bot]' && "$title" == 'Refresh TPWD 17-species verified season dates' ]] || { echo 'Untrusted generated PR identity'; exit 1; }
+          git fetch --no-tags origin main "$branch"
+          api_sha="$(gh api "repos/$REPO/pulls/$number" --jq '.head.sha')"
+          [[ "$api_sha" == "$(git rev-parse "origin/$branch")" ]] || { echo 'PR head and repository branch disagree'; exit 1; }
+          base="$(git merge-base origin/main "origin/$branch")"
+          [[ "$(git diff --name-only "$base" "origin/$branch")" == 'src/data/hunting/species-season-calendar.json' ]] || { echo 'Reject modifications outside governed hunting date data'; exit 1; }
+          file=src/data/hunting/species-season-calendar.json
+          old="$(git show "$base:$file" | jq -cS 'del(.seasonYear,.source,.checkedAt) | .sections |= map(.rows |= map(del(.dates)))')"
+          new="$(git show "origin/$branch:$file" | jq -cS 'del(.seasonYear,.source,.checkedAt) | .sections |= map(.rows |= map(del(.dates)))')"
+          [[ "$old" == "$new" ]] || { echo 'Species, zone, labels or non-date metadata changed'; exit 1; }
+          git config user.name 'TexasDefined Hunting Season Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B "$branch" "origin/$branch"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            if ! git diff --quiet "$base" origin/main -- "$file"; then
+              echo 'Concurrent main hunting calendar edit; editorial reconciliation required'
+              exit 1
+            fi
+            git merge --no-edit origin/main
+            git push origin "HEAD:$branch"
+          fi
+          sha="$(git rev-parse HEAD)"
+          node --test scripts/data/refresh-hunting-species-seasons.test.mjs
+          node scripts/data/validate-hunting-authority.mjs
+          node scripts/data/refresh-hunting-species-seasons.mjs
+          git diff --exit-code -- "$file"
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$sha" == "$(git rev-parse "origin/$branch")" ]] || { echo 'Validated head moved'; exit 1; }
+          git merge-base --is-ancestor origin/main "origin/$branch" || { echo 'Main advanced after validation'; exit 1; }
+          gh api --method POST "repos/$REPO/statuses/$sha" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Exact-SHA TPWD-only season calendar validation passed' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPO" --auto --merge --match-head-commit "$sha"
+          merged=false
+          for attempt in $(seq 1 12); do
+            merged="$(gh api "repos/$REPO/pulls/$number" --jq '.merged')"
+            [[ "$merged" == 'true' ]] && break
+            sleep 5
+          done
+          [[ "$merged" == 'true' ]] || { echo 'Protected PR still pending; no deployment dispatched'; exit 1; }
+          git fetch --no-tags origin main
+          git merge-base --is-ancestor "$sha" origin/main || { echo 'Merged commit not on main'; exit 1; }
+          gh workflow run deploy-production.yml --ref main --repo "$REPO"
+          echo 'Verified hunting species dates merged and protected production deployment dispatched.'
