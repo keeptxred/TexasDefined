@@ -40,6 +40,7 @@ for (const path of [
   'src/data/acs-county-housing-costs.snapshot.json',
 ]) expect(smokeWorkflow.includes(path), 'Live data smoke must run when maintained source changes: '+path);
 expect(smokeWorkflow.includes("'src/routes/texas-data*'"), 'All Texas Data routes must trigger scoped public acceptance');
+expect(smokeWorkflow.includes("if [[ \"$GITHUB_EVENT_NAME\" == 'workflow_dispatch' ]]; then"), 'Manual Texas Data live acceptance must never be skipped by unrelated commits');
 expect(liveDataSmoke.includes('currentTdiPremiumLabel'), 'Live premium acceptance must follow the maintained official TDI series');
 expect(liveDataSmoke.includes('currentBlsReleaseLabel') && liveDataSmoke.includes('currentBlsHubPayrolls'), 'Live acceptance must verify current official BLS observation month and four metro values');
 expect(!liveDataSmoke.includes("'$3,489'"), 'Live acceptance must not freeze the historic TDI premium');
