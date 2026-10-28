@@ -17,6 +17,7 @@ import { footballIdentityAccentFromColors } from '@/data/high-school-football/fo
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'clint-mountain-view', // Oct 27 source snapshot of eight specific 2026 football finals through Oct 23.
   'clarksville', // October 24 dated Big Sandy district final, no invented full-season graphic.
   'cleburne', // Eight first-party 2026 Cleburne game finals through Oct 23.
   'aubrey', // Original reported 2026 results illustration replaces unrelated Colorado stock photo.
@@ -171,6 +172,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'cleveland-tarkington': 'liberty', // Tarkington ISD school in north Liberty County, separate Cleveland High.
+    'clifton': 'bosque', // Clifton High on N Avenue Q, Bosque County; stadium gate distinct.
+    'clint': 'el-paso', // Clint High Lions campus on Alameda Ave, El Paso County.
+    'clint-horizon': 'el-paso', // Horizon High Scorpions campus on Horizon Blvd in Horizon City.
+    'clint-mountain-view': 'el-paso', // Mountain View Lobos school on Greg Dr, eastern El Paso County.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
     'claude': 'armstrong', // Claude ISD 500 West 5th Street campus in Armstrong County.
