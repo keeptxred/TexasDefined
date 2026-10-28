@@ -17,6 +17,7 @@ import { footballIdentityAccentFromColors } from '@/data/high-school-football/fo
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'aubrey', // Original reported 2026 results illustration replaces unrelated Colorado stock photo.
   'celeste',
   'carrollton-turner',
   'carthage',
