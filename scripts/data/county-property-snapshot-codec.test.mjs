@@ -162,3 +162,28 @@ test('scheduled importer permanently invokes quarantined non-destructive reconci
   assert.match(importer,/Prior records and their verification dates were preserved, not reverified/);
   assert.doesNotMatch(importer,/else if \(fetched\) delete merged\[county\.slug\]/);
 });
+
+test('protected finisher pins the exact official Comptroller source path for all 108 existing county records',()=>{
+  const current={...parseExistingCountySnapshot(curated),
+    ...parseExistingCountySnapshot(extra,'COUNTY_PROPERTY_SUPPLEMENT')};
+  const officialExceptions={
+    'deaf-smith':'deafsmith',
+    'fort-bend':'fortbend',
+    'jim-hogg':'jimhogg',
+    'san-augustine':'sanaugustine',
+    'san-patricio':'sanpatricio',
+  };
+  const finisher=readFileSync('.github/workflows/finish-county-property-refresh.yml','utf8');
+  assert.match(finisher,/const officialSourceUrl = slug =>/);
+  assert.equal((finisher.match(/officialSourceUrl\(slug\)/g)??[]).length,2,
+    'Both retained and newly added county records require exact source identity');
+  for(const [slug,record] of Object.entries(current)){
+    const expected='https://comptroller.texas.gov/taxes/property-tax/county-directory/'+
+      (officialExceptions[slug]??slug)+'.php';
+    assert.equal(record.sourceUrls[0],expected,'County provenance mismatch: '+slug);
+  }
+  for(const [slug,path] of Object.entries(officialExceptions)){
+    assert.ok(finisher.includes("['"+slug+"','"+path+"']"),
+      'Finisher must preserve official directory exception: '+slug);
+  }
+});
