@@ -202,9 +202,7 @@ test('county finisher does not abandon a fully validated bot PR for unrelated pr
     'scripts/ci/*', 'package-lock.json',
   ]) assert.ok(finisher.includes(mandatory),'Missing main-drift safety boundary: '+mandatory);
   assert.ok(finisher.includes('git diff --quiet "$validated_base_sha" origin/main -- src/data/property/'));
-  assert.ok(finisher.includes('git rev-parse "origin/$branch"') &&
-    finisher.includes('== "$validated_sha"') === false ||
-    finisher.includes('git rev-parse "origin/$branch"'),
+  assert.ok(finisher.includes('[[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]]'),
     'The exact validated PR head must be unchanged after GitHub Actions');
   assert.ok(finisher.includes('gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"'));
 });
