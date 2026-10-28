@@ -36,3 +36,14 @@ export function normalizeVerifiedCountyOfficeUrl(raw) {
   url.hash = '';
   return url.toString();
 }
+
+/**
+ * A number of genuine county-government sites reject anonymous HEAD (403)
+ * yet expose a public homepage on GET. Only these explicit status codes
+ * justify a bounded second request. Final HTTPS URL, public-path and
+ * HTTP-success checks remain mandatory. Do not retry 404, 429 or 5xx as
+ * permission to re-verify an office.
+ */
+export function retryPublicOfficeGetAfterHeadStatus(status) {
+  return status === 403 || status === 405 || status === 501;
+}

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal, applyQuarantinedCountyRefresh } from './county-property-snapshot-codec.mjs';
-import { normalizeVerifiedCountyOfficeUrl } from './county-office-link-normalization.mjs';
+import { normalizeVerifiedCountyOfficeUrl, retryPublicOfficeGetAfterHeadStatus } from './county-office-link-normalization.mjs';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
@@ -183,13 +183,36 @@ async function secureOfficeUrl(raw) {
   };
   try {
     let response = await fetch(url.toString(), { ...options, method: 'HEAD' });
-    if (response.status === 405 || response.status === 501) {
+    if (retryPublicOfficeGetAfterHeadStatus(response.status)) {
+      // HEAD-only 403 is common for otherwise public offices. A same-URL
+      // bounded GET must still independently succeed, without a challenge.
       response = await fetch(url.toString(), { ...options, method: 'GET' });
-      if (response.body) await response.body.cancel();
+      if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') {
+        console.warn('::notice title=County HTTPS GET rejected::Host '+url.hostname+
+          ', GET status '+response.status+', challenge='+Boolean(response.headers.get('cf-mitigated')));
+        return null;
+      }
+      // Reject successful HTTP responses which are actually authentication
+      // gateways or account-lockout pages. A real office landing page should
+      // be public HTML rather than a login or binary attachment.
+      const mime = (response.headers.get('content-type') ?? '').toLowerCase();
+      if (!mime.startsWith('text/html') && !mime.startsWith('application/xhtml+xml')) return null;
+      const publicHtml = (await response.text()).slice(0, 128000);
+      if (/<title[^>]*>[ ]*(?:log[ ]*in|sign[ ]*in|access[ ]*denied|unauthorized|forbidden|account[ ]*locked)/i.test(publicHtml) ||
+          /<input[^>]+type=['"]password['"]/i.test(publicHtml)) return null;
+    }
+    if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') {
+      console.warn('::notice title=County HTTPS HEAD rejected::Host '+url.hostname+
+        ', status '+response.status+', challenge='+Boolean(response.headers.get('cf-mitigated')));
+      return null;
     }
     const resolved = new URL(response.url);
-    return response.ok ? normalizeVerifiedCountyOfficeUrl(resolved.toString()) : null;
-  } catch { return null; }
+    return normalizeVerifiedCountyOfficeUrl(resolved.toString());
+  } catch (error) {
+    console.warn('::notice title=County HTTPS source check failed::Host '+url.hostname+
+      ', error '+(error instanceof Error ? error.name : 'Unknown'));
+    return null;
+  }
 }
 
 function parseCountyDirectory(html) {
