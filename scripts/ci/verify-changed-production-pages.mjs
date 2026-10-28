@@ -417,7 +417,7 @@ for (const path of plan.selectedPaths) {
                 throw new Error('Oak Cliff Mardi Gras ' + surface + ' missing current date, source or licensed history: ' + required);
               }
             }
-            if (/<meta\\b[^>]*\\bname=["']robots["'][^>]*\\bnoindex\\b/i.test(body)) {
+            if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
               throw new Error('Oak Cliff Mardi Gras ' + surface + ' is unexpectedly noindex despite compliant image');
             }
           }
