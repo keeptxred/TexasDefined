@@ -943,7 +943,8 @@
       "intakeId": 112,
       "title": "Katy Light Tall Pines",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "October 27 source check: City of Katy verifies a Dec 5 2026 Annual Tree Lighting and Nutcracker Exchange in Historic Town Square, now separately listed. The submitted 'Light Tall Pines' is NOT verified as the same attraction and remains a research lead."
     },
     {
       "intakeId": 113,
@@ -958,13 +959,15 @@
       "intakeId": 114,
       "title": "Spring Old Town Spring Home for the Holidays",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "October 27 source check: Old Town Spring event listing confirms its Nov 14, 2026 Hometown Holiday Tree Lighting at dusk, now listed separately. The submitted 'Home for the Holidays' may mean the wider unannounced season; do not treat every planned weekend as a confirmed operating date."
     },
     {
       "intakeId": 115,
       "title": "Conroe Christmas Boat Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "2026-10-27: The event organizer Lake Conroe LIVE explicitly says there was NO official Lake Conroe boat parade in 2025 and describes only a possible different 2026 community event, without a 2026 date or confirmed boat-parade format. Do not substitute the independently confirmed December 12 Downtown Conroe Christmas Parade (land event) for the lake parade."
     },
     {
       "intakeId": 116,
@@ -976,7 +979,8 @@
       "intakeId": 117,
       "title": "Rosenberg Christmas Nights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City of Rosenberg confirms Hometown Holiday Festival Dec 5, 2026. The submitted 'Christmas Nights' name is not confirmed as an alias; keep this one pending rather than duplicate the verified city festival."
     },
     {
       "intakeId": 118,
@@ -1003,7 +1007,8 @@
       "intakeId": 121,
       "title": "La Porte Christmas on the Coast",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City/tourism office confirms Christmas on Main for Dec 3, 2026, but supplied 'Christmas on the Coast' name is not verified as the same event; keep as a separate lead."
     },
     {
       "intakeId": 122,
@@ -1068,7 +1073,13 @@
       "intakeId": 129,
       "title": "Lake Jackson Festival of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lake-jackson-festival-lights-tree-lighting-2026",
+        "lake-jackson-festival-lights-day-parade-2026",
+        "lake-jackson-light-up-2026"
+      ],
+      "researchNote": "City of Lake Jackson's 2026 Festival of Lights lists Nov 20 Mayor's Tree Lighting, Nov 21 daytime festival and 7 p.m. parade; separate Light Up Lake Jackson selfie-light stations run Nov 21–Jan 3. Carnival and neighborhood display schedules differ."
     },
     {
       "intakeId": 130,
@@ -1869,9 +1880,9 @@
     }
   ],
   "reconciliation": {
-    "asOf": "2026-10-26",
-    "calendarCandidates": 77,
+    "asOf": "2026-10-27",
+    "calendarCandidates": 78,
     "authorityCandidates": 12,
-    "remainingCandidates": 161
+    "remainingCandidates": 160
   }
 }
