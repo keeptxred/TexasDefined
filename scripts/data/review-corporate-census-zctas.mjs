@@ -6,7 +6,7 @@
  * node scripts/data/review-corporate-census-zctas.mjs \
  *   --gazetteer .artifacts/corporate-events/2026_Gaz_zcta_national.txt \
  *   --counties .artifacts/corporate-events/tab20_zcta520_county20_natl.txt \
- *   --zips 77030,77058,77020,77034,77056 \
+ *   --zips 77030,77058,77020,77034,77056,77007 \
  *   --output .artifacts/corporate-events/zcta-review.json
  */
 import { readFile, writeFile, mkdir, lstat } from 'node:fs/promises';
