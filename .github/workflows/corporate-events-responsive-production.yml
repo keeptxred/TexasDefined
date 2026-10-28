@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'scripts/ci/verify-corporate-events-browser.mjs'
+      - 'scripts/ci/corporate-browser-request-policy.mjs'
+      - 'scripts/ci/validate-corporate-event-responsive-production.mjs'
       - '.github/workflows/corporate-events-responsive-production.yml'
   # Run the real browser suite only after GitHub has finished deploying this SHA.
   # Source-push-triggered browser tests race the protected production workflow,
@@ -35,7 +37,9 @@ jobs:
         with:
           node-version: '22'
       - name: Verify bounded GET-only corporate Chrome smoke syntax
-        run: node --check scripts/ci/verify-corporate-events-browser.mjs
+        run: |
+          node --check scripts/ci/verify-corporate-events-browser.mjs
+          node scripts/ci/validate-corporate-event-responsive-production.mjs
 
   verify:
     if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}

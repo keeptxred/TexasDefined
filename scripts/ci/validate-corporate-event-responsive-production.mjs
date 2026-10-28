@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { isCloudflareRumTelemetryRequest } from './corporate-browser-request-policy.mjs';
 import { readFileSync } from 'node:fs';
 
 const browser = readFileSync('scripts/ci/verify-corporate-events-browser.mjs','utf8');
@@ -50,9 +51,32 @@ for (const marker of [
   "unexpectedAdminWrites",
   "const adminPage = await context.newPage()",
   "adminPage.on('request'",
-  "unexpectedAdminWrites.push(request.method() + ' ' + new URL(request.url()).pathname)",
+  "unexpectedAdminWrites.push(request.method() + ' ' + requestUrl.pathname)",
   "noProductionInquiriesSubmitted: true",
 ]) assert(browser.includes(marker),'Missing real responsive browser acceptance contract: ' + marker);
+
+// Cloudflare's first-party RUM beacon is expected instrumentation and must
+// not be conflated with any inquiry/admin POST. All other writes still fail.
+const origin = 'https://texasdefined.com';
+assert.equal(isCloudflareRumTelemetryRequest('POST', origin + '/cdn-cgi/rum', origin), true);
+for (const [method, url] of [
+  ['GET', origin + '/cdn-cgi/rum'],
+  ['PUT', origin + '/cdn-cgi/rum'],
+  ['POST', origin + '/cdn-cgi/rum?x=1'],
+  ['POST', origin + '/cdn-cgi/rum-extra'],
+  ['POST', origin + '/cdn-cgi/trace'],
+  ['POST', origin + '/corporate-events'],
+  ['POST', origin + '/admin/sports-partners'],
+  ['POST', 'https://example.com/cdn-cgi/rum'],
+  ['POST', 'not-a-url'],
+]) {
+  assert.equal(isCloudflareRumTelemetryRequest(method, url, origin), false,
+    'Only the exact same-origin POST RUM beacon is exempt: ' + method + ' ' + url);
+}
+assert(browser.includes('isCloudflareRumTelemetryRequest(request.method(), request.url(), origin)'),
+  'The anonymous staff browser request gate must exempt only the tested RUM beacon.');
+assert(browser.includes("unexpectedAdminWrites.push(request.method() + ' ' + requestUrl.pathname)"),
+  'Anonymous admin write failures must still report only redacted method and path.');
 
 assert(!browser.includes("form.submit(") && !browser.includes("form.requestSubmit(")
   && !browser.includes("submitGroupEventRequest") && !browser.includes("submitGroupEventPartnerApplication"),
