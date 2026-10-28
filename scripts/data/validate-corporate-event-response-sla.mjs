@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { summarizeCorporateEventResponseTimes, isCorporateEventLeadOverdue } from '../../src/data/corporate-event-response-sla.ts';
+import { summarizeCorporateEventResponseTimes, isCorporateEventLeadOverdue, hasRecordedCorporateEventFirstContact } from '../../src/data/corporate-event-response-sla.ts';
 
 const now = new Date('2026-10-24T12:00:00.000Z');
 const twoDays = new Date(now.getTime() - 49 * 3600000).toISOString();
@@ -11,6 +11,8 @@ const newLead = (hoursAgo, status, firstContactHoursAfterCreated=null) => {
     status,
     first_contacted_at: firstContactHoursAfterCreated == null
       ? null : new Date(createdAt.getTime()+firstContactHoursAfterCreated*3600000).toISOString(),
+    first_contact_evidence_reference: firstContactHoursAfterCreated == null
+      ? null : 'SYNTHETIC offline reference for real contact evidence regression',
   };
 };
 const leads=[
@@ -25,7 +27,7 @@ assert.equal(stats.contactedWithinTarget,2);
 assert.equal(stats.contactedAfterTarget,1);
 assert.equal(stats.recordedContacts,3);
 assert.equal(stats.averageFirstContactHours,22.3);
-assert(isCorporateEventLeadOverdue({created_at:twoDays,status:'new',first_contacted_at:null},now));
+assert(isCorporateEventLeadOverdue({created_at:twoDays,status:'new',first_contacted_at:null,first_contact_evidence_reference:null},now));
 assert(!isCorporateEventLeadOverdue(newLead(49,'contacted',4),now));
 assert(!isCorporateEventLeadOverdue(newLead(49,'spam'),now));
 assert(!isCorporateEventLeadOverdue(newLead(47,'reviewing'),now));
@@ -40,15 +42,21 @@ const untrustedContactDates = [
   { ...newLead(72,'new'), first_contacted_at: 'not-a-date' },
   newLead(72,'contacted',96), // false contacted label must not hide invalid future contact
   newLead(72,'contacted'), // false contacted label without actual evidence
+  { ...newLead(72,'contacted',12), first_contact_evidence_reference: null }, // plausible timestamp alone
+  { ...newLead(72,'reviewing',12), first_contact_evidence_reference: 'short' },
+  { ...newLead(72,'contacted',12), first_contact_evidence_reference: 'x'.repeat(501) }, // bloated evidence
 ];
 const untrustedSummary = summarizeCorporateEventResponseTimes(untrustedContactDates, now);
 assert.equal(untrustedSummary.recordedContacts, 0, 'Future/invalid dates cannot count as completed contacts');
-assert.equal(untrustedSummary.awaitingFirstContact, 5, 'Unverified first contacts, including falsely-contacted labels, stay in staff queue');
-assert.equal(untrustedSummary.overdueFirstContact, 5, 'Unverified first contacts may still be overdue');
+assert.equal(untrustedSummary.awaitingFirstContact, 8, 'Unverified first contacts, including falsely-contacted labels and missing references, stay in staff queue');
+assert.equal(untrustedSummary.overdueFirstContact, 8, 'Unverified first contacts may still be overdue');
 assert.equal(untrustedSummary.averageFirstContactHours, null, 'Invalid contact dates cannot skew averages');
 for (const lead of untrustedContactDates) {
   assert(isCorporateEventLeadOverdue(lead, now), 'Invalid contact date must not hide an overdue lead');
 }
+assert(hasRecordedCorporateEventFirstContact(newLead(24, 'reviewing', 4), now));
+assert(!hasRecordedCorporateEventFirstContact({ ...newLead(24, 'contacted', 4), first_contact_evidence_reference: null }, now),
+  'A plausible contact timestamp without independent reference is not proof');
 assert(!isCorporateEventLeadOverdue(newLead(24, 'reviewing', 4), now),
   'A genuine contact within the test clock still resolves first-contact overdue tracking');
 
@@ -66,7 +74,8 @@ assert(server.includes('priorContact < createdAt || priorContact > now') &&
   server.includes('createdAt > now'),
   'A malformed, premature or future contact must not be certified through the status editor');
 assert(server.includes("first_contacted_at: new Date().toISOString()"),'Timestamp must be server-generated');
-assert(server.includes('provider_outreach_consented_at,first_contacted_at'), 'Protected inbox must load timing data');
+assert(server.includes('provider_outreach_consented_at,first_contacted_at,first_contact_evidence_reference'),
+  'Protected inbox must load actual private evidence reference for the SLA integrity check');
 assert(panel.includes('awaiting first contact') || panel.includes('Awaiting first contact'), 'Staff queue must show overdue count');
 assert(panel.includes("isCorporateEventLeadOverdue(lead)"),'Operator must see which leads need review');
 assert(panel.includes("needsRealContactEvidence = status === 'contacted' && !existing?.first_contacted_at"),
@@ -78,6 +87,14 @@ assert(panel.includes('Do not paste private message bodies') &&
   panel.includes('Do not mark an unsent draft as contacted'),
   'Never mistake an unsent email draft or private contact message for successful first contact');
 assert(panel.includes('not proof of delivery'), 'No delivery receipts or automatic sending implied');
+assert(panel.includes('hasRecordedCorporateEventFirstContact(lead)')
+  && panel.includes('Incomplete first-contact record')
+  && panel.includes('reconcile the original external contact record'),
+  'Staff inbox must label unusable contact history, not falsely display verified delivery');
+const slaSource = read('src/data/corporate-event-response-sla.ts');
+assert(slaSource.includes('first_contact_evidence_reference?.trim()')
+  && slaSource.includes('evidence.length >= 20 && evidence.length <= 500'),
+  'All SLA metrics must require the private independent contact evidence reference');
 const evidenceSql=read('supabase/migrations/20261024143500_group_event_first_contact_evidence.sql');
 const adminFns=read('src/data/corporate-events.admin.functions.ts');
 const canonical=read('scripts/ci/run-premerge-validation.mjs');
