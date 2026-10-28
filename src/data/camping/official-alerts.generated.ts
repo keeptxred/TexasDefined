@@ -17,14 +17,6 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "status": "confirmed"
   },
   {
-    "destinationSlug": "palo-pinto-mountains-state-park",
-    "parkName": "Palo Pinto Mountains State Park",
-    "sourceUrl": "https://tpwd.texas.gov/state-parks/palo-pinto-mountains/park-alert",
-    "notice": "TPWD says final construction work is ongoing. Follow posted safety signs; weekend and holiday capacity may be reached, so reserve entry before visiting.",
-    "checkedAt": "2026-10-28",
-    "status": "confirmed"
-  },
-  {
     "destinationSlug": "big-bend-national-park",
     "parkName": "Big Bend National Park",
     "sourceUrl": "https://www.nps.gov/bibe/planyourvisit/conditions.htm",
@@ -37,6 +29,14 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "parkName": "Brazos Bend State Park",
     "sourceUrl": "https://tpwd.texas.gov/state-parks/brazos-bend/alert",
     "notice": "TPWD reports a wood-fire burn ban (charcoal or containerized fuel cooking allowed). The park lists closures November 17–19, 2026 and December 15–17, 2026; only permitted hunters may enter during those closures. Check the current park notice before booking.",
+    "checkedAt": "2026-10-28",
+    "status": "confirmed"
+  },
+  {
+    "destinationSlug": "palo-pinto-mountains-state-park",
+    "parkName": "Palo Pinto Mountains State Park",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/palo-pinto-mountains/park-alert",
+    "notice": "TPWD says final construction work is ongoing. Follow posted safety signs; weekend and holiday capacity may be reached, so reserve entry before visiting.",
     "checkedAt": "2026-10-28",
     "status": "confirmed"
   }
