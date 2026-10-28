@@ -146,7 +146,6 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     || p.startsWith('src/routes/hunting')
     || p.startsWith('scripts/data/refresh-hunting-official-facts.')
     || p === '.github/workflows/monitor-hunting-tpwd-sources.yml'
-    || p === 'scripts/ci/production-change-scope.mjs'
     || p === 'src/brand/texasdefined.ts'
   )) {
     for (const page of ['/hunting', '/hunting/public-hunting', '/hunting/texas-deer-hunting']) {
