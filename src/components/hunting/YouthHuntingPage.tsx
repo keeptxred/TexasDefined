@@ -26,7 +26,7 @@ const nav = [
 export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTopic }) {
   const seasonExpired = Date.now() >= Date.UTC(Number(YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)) + 1, 8, 1);
   return <main id="main-content">
-    <section className="border-b border-border bg-muted/30 py-12 md:py-18">
+    <section className="border-b border-border bg-muted/30 py-12 md:py-16">
       <Container>
         <nav aria-label="Breadcrumb" className="mb-7 text-xs uppercase tracking-[0.14em] text-muted-foreground">
           <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/hunting">Hunting</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">Youth hunting</span>
@@ -91,7 +91,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
           <div className="border border-border p-6"><h3 className="font-display text-2xl">Youth license: $7</h3><p className="mt-3 leading-7 text-muted-foreground">TPWD's Type 169 youth hunting license is for residents or nonresidents who are <strong>under 17 at purchase</strong>. The license remains valid for the license year if the buyer turns 17, but only hunters <strong>16 or younger</strong> may take part in youth-only seasons. Youth are exempt from most Texas state hunting endorsements, not from applicable HIP certification or federal duck-stamp rules.</p><p className="mt-4 text-sm"><Official href={YOUTH_HUNTING_SOURCES.licenses}>License eligibility and price</Official></p></div>
           <div className="border border-border p-6"><h3 className="font-display text-2xl">Hunter education: from age 9</h3><p className="mt-3 leading-7 text-muted-foreground">Texas certification has a minimum age of 9. Children under 9 must hunt with a qualified accompanying person; ages 9–16 must be certified <em>or</em> accompanied under TPWD rules. The in-person certification fee is $15. Mentored hunts, public properties and drawn hunts may require more than the statewide baseline.</p><p className="mt-4 text-sm"><Official href={YOUTH_HUNTING_SOURCES.education}>Full hunter-education rule</Official></p></div>
         </div>
-        <h3 className="mt-9 font-display text-2xl md:text-3xl">Which age rule applies?</h3>
+        <h3 className="mt-9 font-display text-2xl md:text-4xl">Which age rule applies?</h3>
         <div className="mt-5 overflow-x-auto border border-border">
           <table className="w-full text-left text-sm" style={{ minWidth: 660 }}><caption className="sr-only">Texas youth hunting eligibility and supervision matrix</caption><thead className="bg-muted/30"><tr><th scope="col" className="px-4 py-3">Situation</th><th scope="col" className="px-4 py-3">Rule to plan around</th></tr></thead><tbody>
             <tr className="border-t border-border"><th scope="row" className="px-4 py-4">Statewide, under age 9</th><td className="px-4 py-4 leading-7">Must be accompanied by a licensed, hunter-education-qualified person age 17 or older, within normal voice control.</td></tr>
