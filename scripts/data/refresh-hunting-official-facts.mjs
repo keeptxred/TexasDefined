@@ -47,7 +47,7 @@ export function checkOtherOfficialSources(sourceHtml, seasonYear) {
   const areaSearch = visibleText(sourceHtml.areaSearch);
   const required = [
     [changes, ['Doe Days', 'Special White-winged Dove Days', 'Matagorda', 'Wharton', 'unbearded'], '2026 season change notice'],
-    [seasons, ['Hunting Season Dates', 'Dove', 'Duck', 'Turkey', seasonYear.replace('–', '-')], 'TPWD season tables'],
+    [seasons, ['Hunting Season Dates', 'Dove', 'Duck', 'Turkey', seasonYear.slice(0, 4), '20' + seasonYear.slice(-2)], 'TPWD season tables'],
     [hogs, ['Feral Hogs', 'Hunter Education', 'No hunting license is required to hunt feral hogs on private'], 'feral hog license exception'],
     [areaSearch, ['Search for an Area or Legal Game', 'Legal Game', 'Public Hunting'], 'public hunt legal-game search'],
   ];
@@ -101,6 +101,6 @@ export async function main() {
   }
 }
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === fileURLToPath(new URL('file://' + process.argv[1]).href)) {
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   main().catch(error => { console.error(error.message); process.exitCode = 1; });
 }
