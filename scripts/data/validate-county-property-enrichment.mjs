@@ -15,6 +15,26 @@ const premergeRunner = fs.readFileSync('scripts/ci/run-premerge-validation.mjs',
 const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
 const failures = [];
 
+const countyTemplate = fs.readFileSync('src/components/property/CountyPropertyTaxTemplate.tsx', 'utf8');
+for (const countySlug of ['lubbock', 'rockwall', 'taylor', 'throckmorton', 'van-zandt']) {
+  if (!countyTemplate.includes("'" + countySlug + "'")) {
+    failures.push('County tax office collection exception missing: ' + countySlug);
+  }
+}
+for (const requiredText of [
+  'assessorDoesNotCollectPropertyTaxes',
+  'does not collect property taxes',
+  'the actual collecting unit on your property-tax statement',
+  'The appraisal district may collect some or all local property taxes',
+]) {
+  if (!countyTemplate.includes(requiredText)) {
+    failures.push('County payment guidance must preserve verified non-collection disclaimer: ' + requiredText);
+  }
+}
+if (countyTemplate.includes('The appraisal district does not collect the tax bill.')) {
+  failures.push('False blanket statement that appraisal districts never collect property taxes');
+}
+
 const sourceCodec = fs.readFileSync('scripts/data/county-property-snapshot-codec.mjs', 'utf8');
 if (!sourceCodec.includes('export function preserveSourcedCountyLinks(') ||
     !sourceCodec.includes('preserveSourcedCountyLinks(next[county.slug], enrichment)') ||
