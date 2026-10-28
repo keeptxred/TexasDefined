@@ -154,6 +154,21 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The free synchronized music-and-light show runs nightly 6–10 p.m. from November 20 through January 4, 2027. Any additional activities, private events or vendors have separate schedules."
   },
   {
+    "slug": "kingsville-ranch-hand-weekend-holiday-2026",
+    "title": "Kingsville Ranch Hand Weekend · tree lighting and festival",
+    "city": "Kingsville",
+    "countySlug": "kleberg",
+    "countyName": "Kleberg County",
+    "region": "south-texas",
+    "startDate": "2026-11-20",
+    "endDate": "2026-11-21",
+    "venueName": "Downtown Kingsville and historic King Ranch",
+    "officialEventUrl": "https://kingsvilletexas.com/ranch-hand-weekend/",
+    "sourceName": "Visit Kingsville / King Ranch and City of Kingsville",
+    "summary": "Kingsville's 2026 Ranch Hand Weekend is confirmed November 20–21. Friday's free downtown Christmas tree lighting is 5–9 p.m.; Saturday's downtown ranch-hand festival and BBQ program is separately scheduled. King Ranch's ticketed Ranch Hand Breakfast and Ranch Rodeo on November 21 cost $15 per person, with a shuttle from J.K. Northway; general parking on King Ranch is not included. Festival and breakfast have distinct admission conditions.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "lake-jackson-festival-lights-tree-lighting-2026",
     "title": "Lake Jackson Festival of Lights · Mayor's Tree Lighting",
     "city": "Lake Jackson",
@@ -1206,6 +1221,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/",
     "sourceName": "Grapevine Convention & Visitors Bureau",
     "summary": "The organizer's 2026 schedule specifically moves December 3 North Pole Express departures to Historic Stockyards Station in Fort Worth, with boarding times beginning at 1:30 p.m. Do not travel to Grapevine Station for this date."
+  },
+  {
+    "slug": "plainview-christmas-parade-of-lights-2026",
+    "title": "Plainview 34th Annual Christmas Parade of Lights",
+    "city": "Plainview",
+    "countySlug": "hale",
+    "countyName": "Hale County",
+    "region": "panhandle",
+    "startDate": "2026-12-03",
+    "venueName": "Broadway Avenue · Downtown Plainview",
+    "officialEventUrl": "https://www.plainviewtexaschamber.com/event/chamber-of-commerce-30th-christmas-parade-of-lights/",
+    "sourceName": "Plainview Texas Chamber of Commerce",
+    "summary": "The Plainview Chamber's dated 2026 listing confirms the 34th Annual Christmas Parade of Lights for Thursday December 3, starting at 6:30 p.m., with the theme Christmas in Toyland. Entrants stage earlier at Broadway Park; viewers should confirm road closures and the current parade route with the Chamber. The source URL retains an outdated edition number even though the event headline and date are for 2026.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "salado-lighted-christmas-parade",
@@ -2303,6 +2332,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-12-12"
   },
   {
+    "slug": "corsicana-palace-theatre-dean-martin-christmas-2026",
+    "title": "The Dean Martin Story — Christmas Special · Corsicana",
+    "city": "Corsicana",
+    "countySlug": "navarro",
+    "countyName": "Navarro County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-10",
+    "venueName": "Historic Palace Theatre · 112 W. 6th Avenue",
+    "officialEventUrl": "https://corsicanapalace.com/live-performances/",
+    "sourceName": "Historic Palace Theatre Corsicana",
+    "summary": "The Corsicana Historic Palace Theatre's official 2026–27 performance calendar lists The Dean Martin Story — Christmas Special for Thursday December 10, 2026, 7:30–9 p.m. This is one dated holiday stage performance, not an invented multi-week Christmas festival. Tickets and seat availability should be checked with the theatre's box office.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "tpwd-lake-bob-sandlin-christmas-2026",
     "title": "14th Annual Christmas in the Park · Lake Bob Sandlin",
     "city": "Pittsburg",
@@ -3355,7 +3398,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;
+];;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
