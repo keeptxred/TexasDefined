@@ -57,7 +57,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         url: pageUrl,
         name: topic.title,
         description: topic.description,
-        dateModified: HUNTING_REGULATION_FRESHNESS.lastVerified,
+        dateModified: topic.slug === "youth-hunting" ? "2026-10-28" : HUNTING_REGULATION_FRESHNESS.lastVerified,
         isPartOf: { "@id": `${homeUrl}#website` },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
         mainEntity: { "@id": `${pageUrl}#sections` },
