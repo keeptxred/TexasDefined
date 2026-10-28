@@ -156,6 +156,29 @@ export function assertKatyFootballContents(html, surface = 'release') {
 
 // Check cache-busted and ordinary visitor URLs. A deployed Worker alone
 // cannot certify youth-season advice while a stale canonical HTML copy persists.
+// A healthy URL is not sufficient: reject the old generic turkey page and
+// verify the legally important sections in both canonical and cache-busted SSR.
+export function assertTurkeyHuntingAuthority(html, surface) {
+  const visible = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&#160;/gi, ' ')
+    .replace(/\s+/g, ' ');
+  for (const marker of [
+    'Texas Turkey Hunting: 2026–27 Seasons, Regulations',
+    'Texas turkey dates, without the guesswork',
+    'Official 2026–27 wild turkey season dates',
+    'No unbearded hens',
+    'Matagorda and Wharton are closed',
+    'Official Texas turkey hunting zone maps',
+    'National Refuge Spring Turkey drawings',
+  ]) {
+    if (!visible.includes(marker)) throw new Error('Turkey hunting ' + surface + ' authority section missing: ' + marker);
+  }
+}
+
 function assertYouthHuntingAuthority(html, surface) {
   const visible = html
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
@@ -253,6 +276,24 @@ for (const path of plan.selectedPaths) {
           .map(href => href.replace(/&amp;/g, '&')));
         for (const href of expectedHrefs) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
+        }
+      }
+      if (path === '/hunting/turkey-hunting') {
+        assertTurkeyHuntingAuthority(html, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Turkey-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Turkey hunting canonical visitor URL failed: HTTP ' + visitor.status);
+        }
+        const visitorHtml = await visitor.text();
+        assertTurkeyHuntingAuthority(visitorHtml, 'canonical visitor');
+        const visitorCanonical = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonical.length !== 1 || !visitorCanonical[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Turkey hunting canonical visitor link missing or incorrect');
         }
       }
       if (path === '/hunting/youth-hunting') {

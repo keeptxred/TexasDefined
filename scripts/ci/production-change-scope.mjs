@@ -173,6 +173,13 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add('/hunting/youth-hunting');
     huntingAuthorityPages.add('/hunting/youth-hunting');
   }
+  // Changing the verifier must exercise the upgraded turkey content on both
+  // the release URL and the ordinary visitor URL, even when article files are
+  // unchanged. This selects only the one affected hunting page.
+  if (changedFiles.includes('scripts/ci/verify-changed-production-pages.mjs')) {
+    candidates.add('/hunting/turkey-hunting');
+    huntingAuthorityPages.add('/hunting/turkey-hunting');
+  }
   // The statewide Mardi Gras hub has a static route and its own event-directory
   // links. Verify it on production when either of its route files changes.
   const mardiGrasHubPages = new Set();

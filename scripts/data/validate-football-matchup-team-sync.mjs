@@ -55,4 +55,28 @@ assert.ok(route.includes('game.matchupPath'), 'schedule table has sourced matchu
 assert.ok(identities.includes("colors: 'Red, Navy and White'"), 'identity must reflect sourced school colors');
 assert.ok(team.theme.accentHex !== '#315F4D', 'unsourced green Lions accent removed');
 assert.ok(!team.overview.some((line) => line.includes('Upcoming Stratford') || line.includes('5–1 overall and 3–1')), 'no stale game copy');
+// Past, unconfirmed fixtures must not be promoted into future kickoffs,
+// reported finals or EventCompleted schema. Keep unknown results unknown.
+const sourceMatchup = read('src/data/high-school-football/football-matchups.ts');
+const listMatchup = read('src/routes/texas-high-school-football-matchups.tsx');
+const detailMatchup = read('src/routes/texas-high-school-football-matchups_.$slug.tsx');
+const oct23Game = snapshot.games.find((g) => g.slug === '2026-10-23-houston-lamar-at-houston-memorial');
+assert.equal(oct23Game?.status, 'scheduled', 'the example has no verified final; never manufacture one');
+assert.ok(Date.parse('2026-10-28T12:00:00Z') >=
+  Date.parse(oct23Game.date + 'T00:00:00Z') + 48 * 60 * 60 * 1000,
+  'fixture is genuinely past, beyond the Texas/UTC date-change safety buffer');
+assert.ok(sourceMatchup.includes("if (game.status === 'final') return false;"),
+  'a sourced final must never be reclassified as unconfirmed');
+assert.ok(sourceMatchup.includes("nowMillis >= startOfDateUtc + 48 * 60 * 60 * 1000"),
+  'avoid calling a Texas Friday-night kickoff past prematurely');
+assert.ok(listMatchup.includes("'Past fixture · final not verified'") &&
+  listMatchup.includes('footballMatchupIsPastUnconfirmed(game)'),
+  'past unconfirmed fixture must not be advertised as scheduled in the list');
+assert.ok(detailMatchup.includes("'Past fixture · no verified final'") &&
+  detailMatchup.includes("'Game date passed; no final verified.'"),
+  'individual matchup title/meta and body must say the final is not verified');
+assert.ok(detailMatchup.includes("eventStatus: 'https://schema.org/EventCompleted'") &&
+  detailMatchup.includes("eventStatus: 'https://schema.org/EventScheduled'") &&
+  detailMatchup.includes("? {} // The outcome is unknown"),
+  'schema may say completed only for sourced finals, not unverified past fixtures');
 console.log('Alief Taylor: verified finals, schedule, links, school colors, and snapshot reconciliation contract OK');

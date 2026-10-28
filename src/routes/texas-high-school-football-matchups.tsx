@@ -2,7 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
-import { footballMatchups, footballMatchupPath, footballSnapshotUpdatedAt } from '@/data/high-school-football/football-matchups';
+import { footballMatchups, footballMatchupPath, footballSnapshotUpdatedAt, footballMatchupIsPastUnconfirmed } from '@/data/high-school-football/football-matchups';
 
 const canonicalPath = '/texas-high-school-football-matchups';
 
@@ -42,7 +42,7 @@ function Page() {
             <p className="text-xs font-semibold uppercase tracking-wider text-primary">{game.date} · {game.classification}{game.district ? ' · District ' + game.district : ''}</p>
             <h3 className="mt-3 font-display text-2xl">{game.away.name} at {game.home.name}</h3>
             <div className="mt-4 flex items-center justify-between border-t border-border pt-4 text-sm">
-              <span>{game.status === 'final' ? 'Reported final' : 'Scheduled · ' + game.kickoff}</span>
+              <span>{game.status === 'final' ? 'Reported final' : footballMatchupIsPastUnconfirmed(game) ? 'Past fixture · final not verified' : 'Scheduled · ' + game.kickoff}</span>
               <strong>{game.status === 'final' ? String(game.awayScore) + '–' + String(game.homeScore) : 'Game details →'}</strong>
             </div>
             <p className="mt-3 text-xs text-muted-foreground">Checked {game.verifiedAt} · View sources and teams →</p>
