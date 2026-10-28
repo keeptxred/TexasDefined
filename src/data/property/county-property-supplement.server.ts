@@ -1,8 +1,6 @@
 import type { CountyPropertyEnrichment } from './county-property-enrichment.generated';
 
-// Server-only extra official county-directory records ported from PR #5289.
-// Not downloaded in the site-wide client bundle; merged on demand for
-// county property-tax SSR loaders. Current curated 17 entries remain intact.
+// Server-only verified county contacts; do not include in shared client bundles.
 export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment> = {
   anderson: {
     appraisalDistrict: {
@@ -27,7 +25,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-24',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/anderson.php', 'https://www.andersoncad.net/', 'https://www.andersoncountytx.gov/']
   },
   aransas: {
@@ -53,7 +51,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/aransas.php', 'https://aransascad.org/', 'https://www.aransascountytx.gov/main/']
   },
   bandera: {
@@ -79,7 +77,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bandera.php', 'https://bancad.org/', 'https://www.banderacounty.gov/']
   },
   bastrop: {
@@ -105,7 +103,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-24'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bastrop.php', 'https://bastropcad.org/', 'https://www.bastropcounty.gov/']
   },
   baylor: {
@@ -131,7 +129,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-08-26',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/baylor.php', 'https://baylorcad.southwestdatasolutions.com/', 'https://www.co.baylor.tx.us/']
   },
   bosque: {
@@ -157,7 +155,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bosque.php', 'https://bosquecad.com/', 'https://www.bosquecountytaxoffice.com/']
   },
   brazoria: {
@@ -183,7 +181,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-07-29',
       taxOffice: '2025-03-05'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/brazoria.php', 'https://brazoriacad.org/', 'https://www.brazoriacountytx.gov/']
   },
   brewster: {
@@ -209,7 +207,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/brewster.php', 'https://brewstercotad.org/', 'https://www.brewstercounty.gov/']
   },
   burnet: {
@@ -235,7 +233,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-06-23',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/burnet.php', 'https://burnet-cad.org/', 'https://www.burnetcountytexas.org/']
   },
   caldwell: {
@@ -261,7 +259,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-09-02',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/caldwell.php', 'https://caldwellcad.org/', 'https://www.co.caldwell.tx.us/']
   },
   cameron: {
@@ -287,7 +285,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-10-15',
       taxOffice: '2026-10-15'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/cameron.php', 'https://www.cameroncad.org/', 'https://www.cameroncountytx.gov/']
   },
   camp: {
@@ -313,7 +311,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-03-05',
       taxOffice: '2025-03-05'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/camp.php', 'https://campcad.org/', 'https://www.co.camp.tx.us/']
   },
   carson: {
@@ -339,7 +337,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-08-20',
       taxOffice: '2025-02-21'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/carson.php', 'https://www.carsoncad.org/', 'https://www.carsoncountytax.org/']
   },
   cochran: {
@@ -365,7 +363,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-09-03',
       taxOffice: '2025-03-13'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/cochran.php', 'https://cochrancad.com/', 'https://www.co.cochran.tx.us/']
   },
   coke: {
@@ -391,7 +389,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-13'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/coke.php', 'https://cokecad.org/', 'https://www.co.coke.tx.us/']
   },
   collin: {
@@ -443,7 +441,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-13'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/comanche.php', 'https://comanchecad.org/', 'https://www.co.comanche.tx.us/']
   },
   coryell: {
@@ -469,7 +467,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-03-11',
       taxOffice: '2025-03-14'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/coryell.php', 'https://coryellcad.org/', 'https://coryellcountytax.com/']
   },
   culberson: {
@@ -495,7 +493,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-27',
       taxOffice: '2025-03-13'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/culberson.php', 'https://www.culbersoncad.org/', 'https://www.co.culberson.tx.us/']
   },
   dawson: {
@@ -521,10 +519,10 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-04-24',
       taxOffice: '2025-03-24'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/dawson.php', 'https://www.dawsoncad.org/', 'https://www.co.dawson.tx.us/']
   },
-  'deaf-smith': {
+  "deaf-smith": {
     appraisalDistrict: {
       name: 'Mark Powers',
       websiteUrl: 'https://deafsmithcad.org/',
@@ -547,7 +545,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-24'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/deafsmith.php', 'https://deafsmithcad.org/', 'https://www.co.deaf-smith.tx.us/']
   },
   eastland: {
@@ -573,7 +571,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-11-24',
       taxOffice: '2025-11-24'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/eastland.php', 'https://www.eastlandcad.org/', 'https://www.eastlandcounty.gov/']
   },
   ellis: {
@@ -599,7 +597,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-06-11',
       taxOffice: '2025-03-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/ellis.php', 'https://www.elliscad.org/', 'https://ellistaxoffice.com/']
   },
   fayette: {
@@ -625,7 +623,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/fayette.php', 'https://fayettecad.org/', 'https://www.co.fayette.tx.us/']
   },
   foard: {
@@ -651,10 +649,10 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/foard.php', 'https://www.foardcad.org/', 'https://www.foardcounty.texas.gov/']
   },
-  'fort-bend': {
+  "fort-bend": {
     appraisalDistrict: {
       name: 'Jordan Wise',
       websiteUrl: 'https://www.fbcad.org/',
@@ -677,7 +675,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-07-09',
       taxOffice: '2025-03-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/fortbend.php', 'https://www.fbcad.org/', 'https://www.fortbendcountytx.gov/']
   },
   franklin: {
@@ -703,7 +701,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-01-12',
       taxOffice: '2025-03-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/franklin.php', 'https://www.franklin-cad.org/', 'https://www.co.franklin.tx.us/']
   },
   garza: {
@@ -729,7 +727,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-27',
       taxOffice: '2025-03-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/garza.php', 'https://garzacad.org/', 'https://www.garzacounty.gov/']
   },
   grayson: {
@@ -755,7 +753,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-10-20',
       taxOffice: '2025-03-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/grayson.php', 'https://graysonappraisal.org/', 'https://www.co.grayson.tx.us/']
   },
   hardeman: {
@@ -781,7 +779,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-26'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hardeman.php', 'https://www.hardemancad.org/', 'https://www.co.hardeman.tx.us/']
   },
   hardin: {
@@ -807,7 +805,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-26'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hardin.php', 'https://hardin-cad.org/', 'https://www.hardincountytx.gov/']
   },
   harris: {
@@ -833,7 +831,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-09-25',
       taxOffice: '2025-03-26'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/harris.php', 'https://hcad.org/', 'https://www.hctax.net/']
   },
   henderson: {
@@ -859,7 +857,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-27',
       taxOffice: '2025-03-26'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/henderson.php', 'https://henderson-cad.org/', 'https://www.henderson-county.com/']
   },
   hill: {
@@ -885,7 +883,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-03-04',
       taxOffice: '2026-07-09'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hill.php', 'https://hillcad.org/', 'https://www.hilltax.org/']
   },
   hood: {
@@ -911,13 +909,13 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-09-18',
       taxOffice: '2025-03-26'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hood.php', 'https://hoodcad.net/', 'https://www.hoodcounty.texas.gov/']
   },
   hopkins: {
     appraisalDistrict: {
       name: 'Cathy N. Singleton',
-      websiteUrl: 'https://iswdataclient.azurewebsites.net/webindex.aspx?dbkey=HOPKINSCAD&time=202610191245012',
+      websiteUrl: 'https://iswdataclient.azurewebsites.net/webindex.aspx?dbkey=HOPKINSCAD&time=202610281533042',
       phone: '903-885-2173',
       address: '858 Gilmer St. Sulphur Springs, TX 75482-4317',
       email: 'help@hopkinscad.com'
@@ -930,15 +928,15 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       email: 'ccampbell@hopkinscountytx.org'
     },
     links: {
-      appraisalDistrictUrl: 'https://iswdataclient.azurewebsites.net/webindex.aspx?dbkey=HOPKINSCAD&time=202610191245012',
+      appraisalDistrictUrl: 'https://iswdataclient.azurewebsites.net/webindex.aspx?dbkey=HOPKINSCAD&time=202610281533042',
       taxOfficeUrl: 'https://www.hopkinscountytx.org/'
     },
     sourceUpdatedAt: {
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-26'
     },
-    lastVerifiedAt: '2026-10-19',
-    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hopkins.php', 'https://iswdataclient.azurewebsites.net/webindex.aspx?dbkey=HOPKINSCAD&time=202610191245012', 'https://www.hopkinscountytx.org/']
+    lastVerifiedAt: '2026-10-28',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hopkins.php', 'https://iswdataclient.azurewebsites.net/webindex.aspx?dbkey=HOPKINSCAD&time=202610281533042', 'https://www.hopkinscountytx.org/']
   },
   hutchinson: {
     appraisalDistrict: {
@@ -963,7 +961,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-14',
       taxOffice: '2025-02-14'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hutchinson.php', 'https://www.hutchinsoncad.org/', 'https://www.co.hutchinson.tx.us/']
   },
   jack: {
@@ -989,10 +987,10 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-08-04',
       taxOffice: '2025-03-26'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/jack.php', 'https://www.jackcad.org/', 'https://www.jackcounty.org/']
   },
-  'jim-hogg': {
+  "jim-hogg": {
     appraisalDistrict: {
       name: 'Celina Sauceda',
       websiteUrl: 'https://jimhogg-cad.org/',
@@ -1015,7 +1013,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-08-24',
       taxOffice: '2025-04-15'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/jimhogg.php', 'https://jimhogg-cad.org/', 'https://www.jimhoggcountytax.org/']
   },
   johnson: {
@@ -1041,7 +1039,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-10-06',
       taxOffice: '2025-04-15'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/johnson.php', 'https://johnsoncad.com/', 'https://www.johnsoncountytaxoffice.org/']
   },
   kaufman: {
@@ -1093,7 +1091,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-27',
       taxOffice: '2025-04-15'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/kimble.php', 'https://kimblecad.org/', 'https://www.co.kimble.tx.us/']
   },
   kleberg: {
@@ -1119,7 +1117,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-02-02',
       taxOffice: '2025-04-15'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/kleberg.php', 'https://kleberg-cad.org/', 'https://www.co.kleberg.tx.us/']
   },
   lamb: {
@@ -1145,7 +1143,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-27',
       taxOffice: '2025-04-22'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/lamb.php', 'https://lambcad.org/', 'https://www.co.lamb.tx.us/']
   },
   lampasas: {
@@ -1171,7 +1169,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-28',
       taxOffice: '2025-04-16'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/lampasas.php', 'https://lampasascad.com/', 'https://www.co.lampasas.tx.us/']
   },
   liberty: {
@@ -1197,7 +1195,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-07-14',
       taxOffice: '2025-05-17'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/liberty.php', 'https://libertycad.com/', 'https://www.co.liberty.tx.us/']
   },
   loving: {
@@ -1223,7 +1221,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-06',
       taxOffice: '2025-04-17'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/loving.php', 'https://www.lovingcad.org/', 'https://www.co.loving.tx.us/']
   },
   lynn: {
@@ -1249,7 +1247,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-08-13',
       taxOffice: '2025-04-17'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/lynn.php', 'https://www.lynncad.org/', 'https://www.co.lynn.tx.us/']
   },
   matagorda: {
@@ -1275,7 +1273,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-09-18',
       taxOffice: '2025-02-18'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/matagorda.php', 'https://matagorda-cad.org/', 'https://www.matagordatx.gov/']
   },
   mcculloch: {
@@ -1301,7 +1299,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-28',
       taxOffice: '2025-04-22'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/mcculloch.php', 'https://www.mccullochcad.org/', 'https://www.co.mcculloch.tx.us/']
   },
   mcmullen: {
@@ -1327,7 +1325,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-18',
       taxOffice: '2025-02-21'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/mcmullen.php', 'https://mcmullencad.org/', 'https://mcmullencounty.org/county-tax-assessorcollector/']
   },
   midland: {
@@ -1379,7 +1377,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-06-30',
       taxOffice: '2025-04-17'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/milam.php', 'https://www.milamad.org/', 'https://www.milamcounty.net/']
   },
   mills: {
@@ -1405,7 +1403,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-06',
       taxOffice: '2025-02-18'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/mills.php', 'https://millscad.org/', 'https://www.millscountytx.gov/']
   },
   mitchell: {
@@ -1431,7 +1429,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-10-06',
       taxOffice: '2025-04-17'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/mitchell.php', 'https://mitchellcad.southwestdatasolutions.com/', 'https://www.co.mitchell.tx.us/']
   },
   montgomery: {
@@ -1457,7 +1455,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-07-15',
       taxOffice: '2025-04-22'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/montgomery.php', 'https://www.mcad-tx.org/', 'https://www.mctotx.org/']
   },
   moore: {
@@ -1483,13 +1481,13 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-03-30',
       taxOffice: '2025-04-22'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/moore.php', 'https://moorecad.org/', 'https://www.co.moore.tx.us/']
   },
   navarro: {
     appraisalDistrict: {
       name: 'Bud Black',
-      websiteUrl: 'https://www.navarrocad.com/',
+      websiteUrl: 'https://www.navarrocad.com/Home/UserLockedOut',
       phone: '903-872-6161',
       address: '1250 N. 45th St. Corsicana, TX 75110-3172',
       email: 'general.info@navarrocad.com'
@@ -1502,15 +1500,15 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       email: 'mdowd@navarrocounty.org'
     },
     links: {
-      appraisalDistrictUrl: 'https://www.navarrocad.com/',
+      appraisalDistrictUrl: 'https://www.navarrocad.com/Home/UserLockedOut',
       taxOfficeUrl: 'https://www.co.navarro.tx.us/'
     },
     sourceUpdatedAt: {
       appraisalDistrict: '2025-03-04',
       taxOffice: '2025-05-02'
     },
-    lastVerifiedAt: '2026-10-19',
-    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/navarro.php', 'https://www.navarrocad.com/', 'https://www.co.navarro.tx.us/']
+    lastVerifiedAt: '2026-10-28',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/navarro.php', 'https://www.navarrocad.com/Home/UserLockedOut', 'https://www.co.navarro.tx.us/']
   },
   newton: {
     appraisalDistrict: {
@@ -1535,7 +1533,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-07-09',
       taxOffice: '2026-07-09'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/newton.php', 'https://newtoncad.org/', 'https://www.co.newton.tx.us/']
   },
   nolan: {
@@ -1561,7 +1559,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-06-23',
       taxOffice: '2025-04-24'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/nolan.php', 'https://www.nolan-cad.org/', 'https://www.co.nolan.tx.us/']
   },
   nueces: {
@@ -1587,7 +1585,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-04-24',
       taxOffice: '2025-02-18'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/nueces.php', 'https://nuecescad.net/', 'https://www.nuecesco.com/']
   },
   ochiltree: {
@@ -1613,7 +1611,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-18',
       taxOffice: '2025-02-18'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/ochiltree.php', 'https://www.ochiltreecad.org/', 'https://www.co.ochiltree.tx.us/']
   },
   oldham: {
@@ -1639,7 +1637,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-19',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/oldham.php', 'https://oldhamcad.org/', 'https://www.co.oldham.tx.us/']
   },
   panola: {
@@ -1665,7 +1663,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-06',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/panola.php', 'https://www.panolacad.org/', 'https://www.co.panola.tx.us/']
   },
   parker: {
@@ -1717,7 +1715,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-02-17',
       taxOffice: '2026-09-18'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/polk.php', 'https://polkcad.org/', 'https://polk-tax.com/']
   },
   potter: {
@@ -1743,7 +1741,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-19',
       taxOffice: '2025-02-21'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/potter.php', 'https://www.prad.org/', 'https://www.co.potter.tx.us/']
   },
   rains: {
@@ -1769,7 +1767,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-06',
       taxOffice: '2025-05-02'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/rains.php', 'https://rainscad.org/', 'https://www.co.rains.tx.us/']
   },
   real: {
@@ -1795,7 +1793,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-08-13',
       taxOffice: '2025-04-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/real.php', 'https://realcad.org/', 'https://www.co.real.tx.us/']
   },
   reeves: {
@@ -1821,7 +1819,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-07',
       taxOffice: '2026-05-07'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/reeves.php', 'https://www.reeves-cad.org/', 'https://www.reevescounty.org/']
   },
   robertson: {
@@ -1847,7 +1845,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-29',
       taxOffice: '2025-04-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/robertson.php', 'https://robertsoncad.com/', 'https://www.co.robertson.tx.us/']
   },
   rockwall: {
@@ -1899,10 +1897,10 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-05-02',
       taxOffice: '2025-05-02'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/rusk.php', 'https://www.ruskcad.org/', 'https://www.ruskcountytx.gov/']
   },
-  'san-augustine': {
+  "san-augustine": {
     appraisalDistrict: {
       name: 'Evelyn Watts',
       websiteUrl: 'https://www.sanaugustinecad.org/',
@@ -1925,10 +1923,10 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-03-04',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sanaugustine.php', 'https://www.sanaugustinecad.org/', 'https://www.co.san-augustine.tx.us/']
   },
-  'san-patricio': {
+  "san-patricio": {
     appraisalDistrict: {
       name: 'Jordan Light',
       websiteUrl: 'https://sanpatcad.org/',
@@ -1951,7 +1949,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-06-11',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sanpatricio.php', 'https://sanpatcad.org/', 'https://www.sanpatriciocountytx.gov/']
   },
   schleicher: {
@@ -1977,7 +1975,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-29',
       taxOffice: '2025-04-25'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/schleicher.php', 'https://www.schleichercad.org/', 'https://www.schleichercounty.gov/']
   },
   shackelford: {
@@ -2003,7 +2001,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-29',
       taxOffice: '2025-05-02'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/shackelford.php', 'https://shackelfordcad.com/', 'https://www.shackelfordcounty.org/']
   },
   stephens: {
@@ -2029,7 +2027,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-19',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/stephens.php', 'https://stephenscad.com/', 'https://www.co.stephens.tx.us/']
   },
   stonewall: {
@@ -2055,7 +2053,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-19',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/stonewall.php', 'https://www.stonewallcad.org/', 'https://www.stonewallcounty.org/']
   },
   sutton: {
@@ -2081,7 +2079,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-10-02',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sutton.php', 'https://suttoncad.com/', 'https://www.co.sutton.tx.us/']
   },
   tarrant: {
@@ -2107,7 +2105,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-21',
       taxOffice: '2025-02-21'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/tarrant.php', 'https://www.tad.org/', 'https://www.tarrantcounty.com/en/tax.html']
   },
   taylor: {
@@ -2159,7 +2157,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-08-24',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/throckmorton.php', 'https://www.throckmortoncad.org/', 'https://www.throckmortoncounty.org/']
   },
   tyler: {
@@ -2185,7 +2183,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-08-19',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/tyler.php', 'https://tylercad.net/', 'https://www.co.tyler.tx.us/']
   },
   uvalde: {
@@ -2211,13 +2209,13 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-30',
       taxOffice: '2025-04-29'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/uvalde.php', 'https://uvaldecad.org/', 'https://www.uvaldecounty.gov/']
   },
   victoria: {
     appraisalDistrict: {
       name: 'Keri Wickliffe',
-      websiteUrl: 'https://victoriacad.org/',
+      websiteUrl: 'https://www.victoriacad.org/',
       phone: '361-576-3621',
       address: '2805 N. Navarro St., Ste. 300 Victoria, TX 77901-3947',
       email: 'openrecords@victoriacad.org'
@@ -2230,15 +2228,15 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       email: 'victoriacountytax@vctx.org'
     },
     links: {
-      appraisalDistrictUrl: 'https://victoriacad.org/',
+      appraisalDistrictUrl: 'https://www.victoriacad.org/',
       taxOfficeUrl: 'https://www.victoriacountytx.gov/'
     },
     sourceUpdatedAt: {
       appraisalDistrict: '2025-02-03',
       taxOffice: '2025-05-02'
     },
-    lastVerifiedAt: '2026-10-19',
-    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/victoria.php', 'https://victoriacad.org/', 'https://www.victoriacountytx.gov/']
+    lastVerifiedAt: '2026-10-28',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/victoria.php', 'https://www.victoriacad.org/', 'https://www.victoriacountytx.gov/']
   },
   waller: {
     appraisalDistrict: {
@@ -2260,10 +2258,10 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       taxOfficeUrl: 'https://www.co.waller.tx.us/'
     },
     sourceUpdatedAt: {
-      appraisalDistrict: '2026-06-23',
+      appraisalDistrict: '2026-10-23',
       taxOffice: '2025-04-29'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/waller.php', 'https://waller-cad.org/', 'https://www.co.waller.tx.us/']
   },
   wheeler: {
@@ -2289,7 +2287,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-04-24',
       taxOffice: '2025-04-29'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/wheeler.php', 'https://www.wheelercad.org/', 'https://www.wheelercounty.texas.gov/']
   },
   wise: {
@@ -2341,7 +2339,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-30',
       taxOffice: '2025-04-29'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/young.php', 'https://youngcad.org/', 'https://www.co.young.tx.us/']
   },
   zapata: {
@@ -2367,7 +2365,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-01-16',
       taxOffice: '2025-04-29'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/zapata.php', 'https://zapatacad.com/', 'https://www.co.zapata.tx.us/']
   },
 };
