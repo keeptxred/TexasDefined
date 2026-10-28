@@ -1,5 +1,5 @@
-// 2026–27 youth-only opportunities, checked against the TPWD Outdoor Annual on 2026-10-28.
-// Do not roll these dates into a new license year without checking every zone and county.
+// Current published youth-only opportunities from the official TPWD Outdoor Annual.
+// The GitHub updater must validate all eleven zone/category windows before changing dates.
 export const YOUTH_HUNTING_LAST_CHECKED = "2026-10-28";
 export const YOUTH_HUNTING_SEASON_YEAR = "2026–27";
 
