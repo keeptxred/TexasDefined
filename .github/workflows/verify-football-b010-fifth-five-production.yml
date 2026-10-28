@@ -61,7 +61,13 @@ jobs:
           node-version: '22'
       - name: Check strict Batch 010 script
         if: steps.scope.outputs.run == 'true'
-        run: node --check scripts/ci/verify-football-b010-fifth-five-production.mjs
+        run: |
+          node --check scripts/ci/verify-football-b010-fifth-five-production.mjs
+          grep -Fq "/tmp/td-b010-fifth-chrome/node_modules/playwright-core" scripts/ci/verify-football-b010-fifth-five-production.mjs
+          if grep -Fq "/tmp/td-b010-third-chrome/node_modules/playwright-core" scripts/ci/verify-football-b010-fifth-five-production.mjs; then
+            echo "::error::Fifth cohort must not import the third-cohort browser driver"
+            exit 1
+          fi
       - name: Install isolated Chrome driver
         if: steps.scope.outputs.run == 'true'
         run: |
