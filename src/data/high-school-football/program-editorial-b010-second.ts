@@ -21,7 +21,7 @@ const BATCH010_SECOND: Record<string, FootballProgramEditorial> = {
     },
     "development": {
       "title": "Verify stadium and game-day visitor arrangements",
-      "body": "Clarendon CISD's October 16 senior-night listing identifies Kenny King Field at Bronco Stadium and notes accessibility parking and press-box-side seating; check the actual game's details.",
+      "body": "Clarendon CISD's October 16 senior-night listing identifies Kenny King Field at Bronco Stadium and notes accessibility parking and press-box-side seating; check the actual game's details. The school's dated athletics sources name Kenny King Field at Bronco Stadium as a playing venue, but no official current spectator gate or verified numeric stadium address is supplied here.",
       "sourceUrl": "https://www.clarendonisd.net/live-feed/?page_no=1",
       "sourceLabel": "First-party school athletics/event scheduling; event-specific restrictions",
       "verifiedAt": "2026-10-27"
@@ -67,14 +67,6 @@ const BATCH010_SECOND: Record<string, FootballProgramEditorial> = {
       "title": "Dated 2026 head football coach, source-qualified; first-party district confirms athletic leadership where noted",
       "sourceUrl": "https://www.clarendonlive.com/2026/05/ccisd-names-new-athletic-director/",
       "sourceLabel": "Named dated coaching source; separate district office records where applicable",
-      "verifiedAt": "2026-10-27"
-    },
-    "venue": {
-      "name": "Kenny King Field at Bronco Stadium",
-      "address": "",
-      "note": "Named by district schedule. Exact attendee gate, ADA route and parking must be confirmed by event host.",
-      "sourceUrl": "https://www.clarendonisd.net/live_feeds/12948944",
-      "sourceLabel": "First-party published venue name, not a spectator entry guarantee",
       "verifiedAt": "2026-10-27"
     }
   },
@@ -233,7 +225,7 @@ const BATCH010_SECOND: Record<string, FootballProgramEditorial> = {
     },
     "development": {
       "title": "Verify stadium and game-day visitor arrangements",
-      "body": "Cleburne's official October 23 school feed lists a 7–55 loss to Mansfield Summit; the October 30 Cedar Hill and November 5 DeSoto entries are future scheduled fixtures as of October 27.",
+      "body": "Cleburne's official October 23 school feed lists a 7–55 loss to Mansfield Summit; the October 30 Cedar Hill and November 5 DeSoto entries are future scheduled fixtures as of October 27. The school's dated athletics sources name Yellow Jacket Stadium as a playing venue, but no official current spectator gate or verified numeric stadium address is supplied here.",
       "sourceUrl": "https://athletics.c-isd.com/sport/football/boys/",
       "sourceLabel": "First-party school athletics/event scheduling; event-specific restrictions",
       "verifiedAt": "2026-10-27"
@@ -279,14 +271,6 @@ const BATCH010_SECOND: Record<string, FootballProgramEditorial> = {
       "title": "Dated 2026 head football coach, source-qualified; first-party district confirms athletic leadership where noted",
       "sourceUrl": "https://athletics.c-isd.com/athletic-office",
       "sourceLabel": "Named dated coaching source; separate district office records where applicable",
-      "verifiedAt": "2026-10-27"
-    },
-    "venue": {
-      "name": "Yellow Jacket Stadium",
-      "address": "",
-      "note": "Named by district schedule. Exact attendee gate, ADA route and parking must be confirmed by event host.",
-      "sourceUrl": "https://athletics.c-isd.com/sport/football/boys/",
-      "sourceLabel": "First-party published venue name, not a spectator entry guarantee",
       "verifiedAt": "2026-10-27"
     }
   },
