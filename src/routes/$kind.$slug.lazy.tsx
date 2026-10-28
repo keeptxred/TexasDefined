@@ -354,7 +354,9 @@ const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug
   'red-river': [{ name: 'Clarksville Tigers', slug: 'clarksville', context: 'Red River County Clarksville Tigers, 2026 coach Thavis Miller and dated Oct. 24 Big Sandy result' }],
   'armstrong': [{ name: 'Claude Mustangs', slug: 'claude', context: 'Armstrong County Claude ISD six-man 1A Division I District 1 schedule under Brantlee Lemons' }],
   'johnson': [{ name: 'Cleburne Yellow Jackets', slug: 'cleburne', context: 'Cleburne ISD school-reported 2026 scores, Yellow Jacket Stadium and District 8-5A Division I' }],
-  'liberty': [{ name: 'Cleveland Indians', slug: 'cleveland', context: 'Cleveland ISD high-school athletics staff Ajani Sanders in Liberty County; 2026 UIL 6A District 13' }],
+  'liberty': [{ name: 'Cleveland Indians', slug: 'cleveland', context: 'Cleveland ISD high-school athletics staff Ajani Sanders in Liberty County; 2026 UIL 6A District 13' }, { name: 'Cleveland Tarkington Longhorns', slug: 'cleveland-tarkington', context: 'Distinct Liberty County 3A Division I Tarkington program; official Jake Howard 2026 athletic director and current head coach' }],
+  'bosque': [{ name: 'Clifton Cubs', slug: 'clifton', context: 'Clifton ISD Brent Finney current football coach and 2025 district-championship history; 2026 3A Division II' }],
+  'el-paso': [{ name: 'Clint Lions', slug: 'clint', context: 'Clint High official Rosuel Martinez 4A Division II football and Alameda Avenue campus, not Horizon school' }, { name: 'Horizon Scorpions', slug: 'clint-horizon', context: 'Horizon City 5A Division I Scorpions under Omar Garcia; separate varsity and JV calendars' }, { name: 'Mountain View Lobos', slug: 'clint-mountain-view', context: 'Clint ISD DJ Check 4A Division II Mountain View High in El Paso, separate from Horizon' }],
 };
 
 const siteUrl = 'https://texasdefined.com';
