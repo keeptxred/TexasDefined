@@ -41,7 +41,7 @@ const representativeTopics = [
     needles: ['Texas Youth Hunting Guide:', 'Season calendar', 'Youth hunting FAQs', 'Official regulations and updates'],
   },
   {
-    path: '/hunting/mule-deer-hunting',
+    path: '/hunting/mule-deer',
     needles: ['Texas Mule Deer Hunting Guide', 'TPWD ' + speciesSeasons.seasonYear + ' season dates', 'Panhandle', 'Trans-Pecos', 'View the official TPWD source calendar'],
   },
   {
