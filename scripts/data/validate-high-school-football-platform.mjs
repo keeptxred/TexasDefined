@@ -2581,6 +2581,65 @@ if(batch009Certified) {
   }
 }
 
+// Batch010 first-five sourced contract. Do not confuse implementation with
+// successful published Chrome acceptance or official source rights.
+{
+  const reg = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const first = ['chilton','china-spring','christoval','cibolo-steele','cisco'];
+  const counties = ['falls','mclennan','tom-green','guadalupe','eastland'];
+  const facts = ['Bennie Huitt','Josh Gregory','Tanner McLean','David Saenz','Kevin Stennett'];
+  const editorial = read('src/data/high-school-football/program-editorial-b010.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+  const profile = read('src/data/high-school-football/football-program-profile.server.ts');
+  const identities = read('src/data/high-school-football/school-identities.ts');
+  const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const county = read('src/routes/$kind.$slug.lazy.tsx');
+  const checker = read('scripts/ci/verify-football-b010-first-five-production.mjs');
+  const wf = read('.github/workflows/verify-football-b010-first-five-production.yml');
+  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==5 ||
+     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==20 || reg.batch.remainingToVerify!==25 ||
+     reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==205 ||
+     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==5 ||
+     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1082 ||
+     reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==10).length!==205 ||
+     reg.completedBatches.find(x=>x.number===9)?.individuallyVerified!==25) {
+     errors.push('Batch010 first-five registry must retain 205 VERIFIED / five IMPLEMENTED / 1,082 NOT_REVIEWED and archived Batch009 evidence.');
+  }
+  if(!profile.includes('loadBatch010FootballProgramEditorial(canonicalSlug)')) errors.push('Batch010 isolated SSR editorial precedence missing.');
+  const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] ?? '';
+  for(let i=0;i<first.length;i++) {
+    const slug = first[i], row=reg.schoolRecords.find(x=>x.slug===slug);
+    if(!row || row.batch!==10 || row.status!=='IMPLEMENTED' || row.actualProductionVerified!==false) errors.push('Batch010 school must be source IMPLEMENTED but technically pending: '+slug);
+    for(const [source,marker,label] of [
+      [editorial,'"'+slug+'": {','unique school editorial'],
+      [editorial,facts[i],'distinct first-party coaching evidence'],
+      [loader,"'"+slug+"'",'conditional SSR loader'],
+      [identities,"slug: '"+slug+"'",'source-backed school mascot'],
+      [team,"'"+slug+"': '"+counties[i]+"'",'school's physical county'],
+      [county,"slug: '"+slug+"'",'reciprocal county card'],
+      [checker,"'"+slug+"'",'actual Chrome school target'],
+    ]) if(!source.includes(marker)) errors.push('Batch010 missing '+label+': '+slug);
+    const dossier=read('docs/football-authority/schools/'+slug+'.md');
+    if(dossier.length<500 || !dossier.includes('https://') || !dossier.includes('NOT')) errors.push('Batch010 source dossier incomplete or falsely certified: '+slug);
+    if(graphicList.includes("'"+slug+"'")) errors.push('Do not invent source-scored 2026 timeline graphic for Batch010 '+slug);
+  }
+  for(const exact of [
+    "workflows: ['Deploy TexasDefined production']",
+    "github.event.workflow_run.conclusion == 'success'",
+    'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+    'scripts/ci/verify-football-b010-first-five-production.mjs',
+    'path: artifacts/b010-first-five-production-chrome/',
+    'echo "run=true" >> "$GITHUB_OUTPUT"',
+    'echo "run=false" >> "$GITHUB_OUTPUT"',
+  ]) if(!wf.includes(exact)) errors.push('Batch010 protected live Chrome workflow contract missing: '+exact);
+  if((wf.split('      - uses: actions/setup-node@v4').length-1)!==1 ||
+     (wf.split('      - name: Verify 5 school pages').length-1)!==1 ||
+     !checker.includes('report.schoolChecks.length!==15') ||
+     !checker.includes('report.countyChecks.length!==5') ||
+     !checker.includes('report.screenshots!==20') ||
+     !checker.includes('versions.size!==1')) errors.push('Batch010 must require 15 school views, five county pages, 20 archived screenshots and one Worker.');
+}
+
 if (errors.length) {
   console.error('High-school football platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);
