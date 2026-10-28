@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
 import { TEXAS_COUNTIES } from "@/data/texas-places";
-import { youthSeasonWindows } from "@/data/hunting/youth-hunting-status";
+import { texasTodayKey, youthSeasonWindows } from "@/data/hunting/youth-hunting-status";
 import {
   YOUTH_HUNTING_FAQ,
   YOUTH_HUNTING_IMAGE,
@@ -28,7 +28,7 @@ function SeasonDateWindows({ dates }: { dates: string }) {
 }
 
 export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTopic }) {
-  const seasonExpired = Date.now() >= Date.UTC(Number(YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)) + 1, 8, 1);
+  const seasonExpired = texasTodayKey() >= (Number(YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)) + 1) * 10000 + 901;
   const [countySlug, setCountySlug] = useState("");
   const selectedCounty = TEXAS_COUNTIES.find((county) => county.slug === countySlug);
   // TPWD omits the space in La Salle although TexasDefined uses a hyphenated display slug.
