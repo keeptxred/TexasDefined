@@ -176,6 +176,11 @@ function Page() {
     'clifton': 'bosque', // Clifton High on N Avenue Q, Bosque County; stadium gate distinct.
     'clint': 'el-paso', // Clint High Lions campus on Alameda Ave, El Paso County.
     'clint-horizon': 'el-paso', // Horizon High Scorpions campus on Horizon Blvd in Horizon City.
+    'clute-brazoswood': 'brazoria', // School campus county; venue gate is separate.
+    'clyde': 'callahan', // School campus county; venue gate is separate.
+    'coahoma': 'howard', // School campus county; venue gate is separate.
+    'coldspring-oakhurst': 'san-jacinto', // School campus county; venue gate is separate.
+    'coleman': 'coleman', // School campus county; venue gate is separate.
     'clint-mountain-view': 'el-paso', // Mountain View Lobos school on Greg Dr, eastern El Paso County.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
