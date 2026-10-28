@@ -20,6 +20,11 @@ export const marketplaceAmenities = [
   'bar-available','separate-alcohol-billing','parking','wheelchair-accessibility',
   'audiovisual-equipment','private-meeting-space',
 ] as const;
+export const marketplaceEnvironmentTags = [
+  'indoor','outdoor','covered-outdoor','climate-controlled','waterfront',
+  'private-room','exclusive-group-use',
+] as const;
+export type EnvironmentKey = typeof marketplaceEnvironmentTags[number];
 export type OccasionKey = typeof marketplaceOccasions[number];
 export type ActivityKey = typeof marketplaceActivities[number];
 export type AmenityKey = typeof marketplaceAmenities[number];
@@ -83,6 +88,7 @@ export type MarketplaceExperience = {
   occasions: readonly OccasionKey[];
   activities: readonly ActivityKey[];
   verifiedAmenities: readonly AmenityKey[];
+  environmentTags: readonly EnvironmentKey[];
   participation: MarketplaceParticipation;
   participationApprovedAt: string | null;
   /** Server-verified partner agreement/identity approval; never inferred from an application. */
@@ -102,6 +108,7 @@ export type MarketplaceSearch = {
   indoorOnly?: boolean;
   foodRequired?: boolean;
   amenities?: readonly AmenityKey[];
+  environment?: readonly EnvironmentKey[];
   participatingOnly?: boolean;
 };
 export type MarketplaceMatch = {
@@ -149,6 +156,9 @@ export function validateMarketplaceExperience(item: MarketplaceExperience): stri
   for (const amenity of item.verifiedAmenities) {
     if (!(marketplaceAmenities as readonly string[]).includes(amenity)) errors.push('Unsupported amenity');
   }
+  for (const tag of item.environmentTags) {
+    if (!(marketplaceEnvironmentTags as readonly string[]).includes(tag)) errors.push('Unsupported environment tag');
+  }
   return errors;
 }
 export function marketplaceCapacityFit(
@@ -180,6 +190,7 @@ export function findMarketplaceExperiences(
     if (search.foodRequired && item.foodStatus !== 'available') continue;
     if (search.groupSize !== undefined && item.groupBookingStatus !== 'eligible') continue;
     if (search.amenities?.some(amenity => !item.verifiedAmenities.includes(amenity))) continue;
+    if (search.environment?.some(tag => !item.environmentTags.includes(tag))) continue;
     const fit = marketplaceCapacityFit(item, search.groupSize);
     if (fit === null) continue;
     matches.push({ experience: item, fit });
