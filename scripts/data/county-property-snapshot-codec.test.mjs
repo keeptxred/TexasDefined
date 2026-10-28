@@ -201,6 +201,21 @@ test('county finisher does not abandon a fully validated bot PR for unrelated pr
     '.github/workflows/validate.yml', '.github/workflows/merge-gate.yml',
     'scripts/ci/*', 'package-lock.json',
   ]) assert.ok(finisher.includes(mandatory),'Missing main-drift safety boundary: '+mandatory);
+  assert.ok(finisher.includes('scripts/ci/prepare-football-b010-*') &&
+    finisher.includes('scripts/ci/verify-football-b009-*'),
+    'Only B009/B010 helpers isolated from required validation may bypass county merge drift');
+  assert.ok(!finisher.includes('scripts/ci/validate-football-*') &&
+    !finisher.includes('scripts/ci/verify-football-*|'),
+    'Football validators used in required CI must not be broadly excluded');
+  assert.ok(finisher.includes('scripts/ci/*'),
+    'Shared and unclassified CI helpers still invalidate the county merge');
+  for (const runner of ['scripts/ci/run-premerge-validation.mjs', 'scripts/ci/run-validation-suite.mjs']) {
+    const requiredSuite=readFileSync(runner,'utf8');
+    for (const prefix of ['prepare-football-b010-', 'verify-football-b009-']) {
+      assert.ok(!requiredSuite.includes(prefix),
+        'Do not exempt helpers newly invoked by required protected CI: '+runner+' / '+prefix);
+    }
+  }
   assert.ok(finisher.includes('git diff --quiet "$validated_base_sha" origin/main -- src/data/property/'));
   assert.ok(finisher.includes('[[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]]'),
     'The exact validated PR head must be unchanged after GitHub Actions');

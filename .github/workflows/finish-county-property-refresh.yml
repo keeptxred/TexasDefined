@@ -205,6 +205,12 @@ jobs:
             }
             for file in "${main_changes[@]}"; do
               case "$file" in
+                # Only isolated B009/B010 football certification helpers which
+                # are not referenced by the required full CI suite may pass.
+                # Shared and other football validators still fail closed.
+                scripts/ci/prepare-football-b010-*|scripts/ci/verify-football-b009-*)
+                  continue
+                  ;;
                 src/data/property/*|src/routes/property-tax*|src/components/property/*|src/components/content/*Property*|src/data/local-government-profile.ts|src/data/texas-data-center*|scripts/data/county-*|scripts/data/sync-county-property-data.mjs|scripts/data/validate-county-property-enrichment.mjs|scripts/ci/*|.github/workflows/finish-county-property-refresh.yml|.github/workflows/sync-county-property-data.yml|.github/workflows/validate.yml|.github/workflows/merge-gate.yml|package.json|package-lock.json|pnpm-lock.yaml)
                   echo "::error::Main changed county-data or its validation contract after required checks: $file"
                   exit 1
