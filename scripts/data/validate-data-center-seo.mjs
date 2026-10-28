@@ -197,6 +197,7 @@ for (const source of [scheduledBls, finishingBls]) {
   }
 }
 if (!scheduledBls.includes("cron: '41 16 25-31,1-5 * *'") ||
+    !scheduledBls.includes("cron: '41 16 9,12,16 * *'") ||
     !scheduledBls.includes('scripts/data/refresh-texas-metro-payrolls.mjs') ||
     !scheduledBls.includes('gh pr create') ||
     !finishingBls.includes('bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml') ||
