@@ -37,19 +37,19 @@ WITH batch AS (
     "source_url": "https://www.lindsaylakes.com/weddings-events-venue-cypress-texas"
   },
   {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "legacy_provider_slug": "towne-lake-lakehouse-events",
-    "name": "The Lakehouse at Towne Lake",
-    "description": "Waterfront rental venue with ballroom, patio, meeting room, lawn and catering kitchen.",
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "legacy_provider_slug": "the-union-kitchen-towne-lake-cypress-private-dining",
+    "name": "The Union Kitchen — Towne Lake",
+    "description": "Restaurant with semi-private lakeview dining and published food-and-beverage minimums for group meals and celebrations.",
     "service_cities": [
       "Cypress"
     ],
-    "max_participants": 200,
-    "simultaneous_capacity": 200,
-    "setting": "mixed",
-    "food_status": "unknown",
+    "max_participants": 32,
+    "simultaneous_capacity": 32,
+    "setting": "indoor",
+    "food_status": "available",
     "typical_duration_minutes": null,
-    "source_url": "https://townelaketexas.com/lakehouse-rental"
+    "source_url": "https://www.theunionkitchen.com/private-events-cypress"
   },
   {
     "slug": "houston-b2-escapology-cypress-group-events",
@@ -310,51 +310,6 @@ WITH tags AS (
     "slug": "houston-b2-lindsay-lakes-cypress-events",
     "category": "setting",
     "tag_key": "ge_setting_outdoor"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "occasion",
-    "tag_key": "ge_occasion_corporate_events"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "occasion",
-    "tag_key": "ge_occasion_company_parties"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "occasion",
-    "tag_key": "ge_occasion_weddings"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "occasion",
-    "tag_key": "ge_occasion_family_reunions"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "amenity",
-    "tag_key": "ge_amenity_private_meeting_space"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "amenity",
-    "tag_key": "ge_amenity_audiovisual_equipment"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "setting",
-    "tag_key": "ge_setting_indoor"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "setting",
-    "tag_key": "ge_setting_outdoor"
-  },
-  {
-    "slug": "houston-b2-towne-lake-lakehouse-events",
-    "category": "setting",
-    "tag_key": "ge_setting_waterfront"
   },
   {
     "slug": "houston-b2-escapology-cypress-group-events",
@@ -725,6 +680,51 @@ WITH tags AS (
     "slug": "houston-b2-houston-party-boat-49-passengers",
     "category": "setting",
     "tag_key": "ge_setting_waterfront"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "occasion",
+    "tag_key": "ge_occasion_corporate_events"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "occasion",
+    "tag_key": "ge_occasion_company_parties"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "occasion",
+    "tag_key": "ge_occasion_client_entertainment"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "occasion",
+    "tag_key": "ge_occasion_anniversaries"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "occasion",
+    "tag_key": "ge_occasion_private_gatherings"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "activity",
+    "tag_key": "ge_activity_private_dining"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "amenity",
+    "tag_key": "ge_amenity_full_restaurant"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "amenity",
+    "tag_key": "ge_amenity_food_available"
+  },
+  {
+    "slug": "houston-b2-the-union-kitchen-towne-lake-cypress-private-dining",
+    "category": "setting",
+    "tag_key": "ge_setting_indoor"
   }
 ]$houston_b2_tags$::jsonb) AS v(
     slug text, category text, tag_key text
