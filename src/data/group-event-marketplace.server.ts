@@ -9,19 +9,20 @@ import { corporateEventProviders } from './corporate-events.ts';
 import { corporateEventTexasToday } from './corporate-event-dates.ts';
 import {
   findMarketplaceExperiences, packageFitsGroup,
-  marketplaceActivities, marketplaceAmenities, marketplaceOccasions,
+  marketplaceActivities, marketplaceAmenities, marketplaceOccasions, marketplaceEnvironmentTags,
   type MarketplaceExperience, type MarketplaceMatch, type MarketplacePackage,
-  type MarketplaceSearch, type MarketplaceVerification,
+  type MarketplaceSearch, type MarketplaceVerification, type EnvironmentKey,
   type MarketplaceParticipation, type OccasionKey, type ActivityKey, type AmenityKey,
 } from './group-event-marketplace-foundation.ts';
 
 const admin = supabaseAdmin as any;
 const legacyProviders = new Map(corporateEventProviders.map(p => [p.slug, p]));
-type TagCategory = 'occasion'|'activity'|'amenity';
+type TagCategory = 'occasion'|'activity'|'amenity'|'setting';
 const legalTags: Record<TagCategory, readonly string[]> = {
   occasion: marketplaceOccasions,
   activity: marketplaceActivities,
   amenity: marketplaceAmenities,
+  setting: marketplaceEnvironmentTags,
 };
 type VerifiedTag = {
   experience_id: string;
@@ -67,18 +68,19 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
     if (vocabularyError) throw new Error('Marketplace category verification is temporarily unavailable.');
     for (const tag of vocabulary ?? []) tagIndex.set(tag.id, tag);
   }
-  const tagsByExperience = new Map<string, { occasions: OccasionKey[]; activities: ActivityKey[]; amenities: AmenityKey[] }>();
+  const tagsByExperience = new Map<string, { occasions: OccasionKey[]; activities: ActivityKey[]; amenities: AmenityKey[]; environment: EnvironmentKey[] }>();
   for (const item of tags) {
-    if (!['occasion','activity','amenity'].includes(item.category)) continue;
+    if (!['occasion','activity','amenity','setting'].includes(item.category)) continue;
     if (!item.source_url?.startsWith('https://') || !item.verified_at) continue;
     const vocab = tagIndex.get(item.tag_id);
     if (!vocab || vocab.tag_group !== 'group_event_' + item.category) continue;
     const key = vettedTagKey(vocab.key, item.category);
     if (!key) continue;
-    const entry = tagsByExperience.get(item.experience_id) ?? { occasions: [], activities: [], amenities: [] };
+    const entry = tagsByExperience.get(item.experience_id) ?? { occasions: [], activities: [], amenities: [], environment: [] };
     if (item.category === 'occasion') entry.occasions.push(key as OccasionKey);
     else if (item.category === 'activity') entry.activities.push(key as ActivityKey);
-    else entry.amenities.push(key as AmenityKey);
+    else if (item.category === 'amenity') entry.amenities.push(key as AmenityKey);
+    else entry.environment.push(key as EnvironmentKey);
     tagsByExperience.set(item.experience_id, entry);
   }
 
@@ -160,7 +162,7 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
     if (verifiedCity && !cities.some((city: string) => city.toLowerCase() === verifiedCity.toLowerCase())) {
       cities.push(verifiedCity);
     }
-    const classified = tagsByExperience.get(row.id) ?? { occasions: [], activities: [], amenities: [] };
+    const classified = tagsByExperience.get(row.id) ?? { occasions: [], activities: [], amenities: [], environment: [] };
     experiences.push({
       id: row.id,
       provider: {
@@ -184,6 +186,7 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
       occasions: classified.occasions,
       activities: classified.activities,
       verifiedAmenities: classified.amenities,
+      environmentTags: classified.environment,
       participation: row.participation_status as MarketplaceParticipation,
       participationApprovedAt: row.participation_approved_at,
       participationEvidenceVerified: !!partnerEvidence,
