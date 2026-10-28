@@ -302,28 +302,28 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
   lubbock: {
     appraisalDistrict: {
       name: 'Tim Radloff',
-      websiteUrl: 'https://www.lubbockcad.org',
+      websiteUrl: 'https://www.lubbockcad.org/',
       phone: '806-762-5000',
-      address: '2109 Avenue Q, Lubbock, TX 79411-1524',
+      address: '2109 Avenue Q Lubbock, TX 79411-1524',
       email: 'info@lubbockcad.org'
     },
     taxOffice: {
       name: 'Ronnie Keister',
-      websiteUrl: 'https://www.lubbockcounty.gov',
+      websiteUrl: 'https://www.lubbockcounty.gov/',
       phone: '806-775-1344',
-      address: '916 Main St., Suite 102, Lubbock, TX 79401-3412',
+      address: '916 Main St., Suite 102 Lubbock, Texas 79401-3412',
       email: 'taxoffice@lubbockcounty.gov'
     },
     links: {
-      appraisalDistrictUrl: 'https://www.lubbockcad.org',
-      taxOfficeUrl: 'https://www.lubbockcounty.gov'
+      appraisalDistrictUrl: 'https://www.lubbockcad.org/',
+      taxOfficeUrl: 'https://www.lubbockcounty.gov/'
     },
     sourceUpdatedAt: {
       appraisalDistrict: '2026-02-25',
       taxOffice: '2025-04-22'
     },
-    lastVerifiedAt: '2026-08-16',
-    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/lubbock.php', 'https://www.lubbockcad.org', 'https://www.lubbockcounty.gov']
+    lastVerifiedAt: '2026-10-28',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/lubbock.php', 'https://www.lubbockcad.org/', 'https://www.lubbockcounty.gov/']
   },
   sabine: {
     appraisalDistrict: {
