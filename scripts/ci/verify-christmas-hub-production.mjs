@@ -49,6 +49,8 @@ const sampleSlugs = [
   "livingston-christmas-train-village-2026-5",
   "clearlake-65th-christmas-boat-lane-parade-2026",
   "pearland-hometown-christmas-parade-2026",
+  "downtown-conroe-christmas-parade-2026",
+  "lake-jackson-festival-lights-day-parade-2026",
 ];
 const expectedLiveWitnesses = remainingCommunityEvents.filter((event) =>
   sampleSlugs.includes(event.slug)
