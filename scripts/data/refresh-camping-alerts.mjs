@@ -66,6 +66,9 @@ function isVerified(source, text, asOf = day) {
     if (listed.some(match => !knownEnchantedClosure.some(pattern => pattern.test(match[0])))) return false;
     return windows.some(w => w.end >= asOf && w.pattern.test(text)) || windows.every(w => w.end < asOf);
   }
+  if (source.destinationSlug === "big-bend-national-park") {
+    if (/\b(?:Paint Gap Road|Hot Springs Road|Black Gap Road|River Road West|Cottonwood Campground and Santa Elena Canyon)\s+(?:has\s+)?(?:reopened|is\s+open)\b/i.test(text)) return false;
+  }
   if (source.destinationSlug === "brazos-bend-state-park") {
     const activeClosure = /Nov\. 17 to Nov\. 19|Dec\. 15 to Dec\. 17/i.test(text)
       && asOf <= "2026-12-17";
@@ -89,8 +92,8 @@ if (process.argv.includes("--self-test")) {
   }
   assert.equal(isVerified(sources[0], fixtures[0].replace("Oct. 23, 2026", "Oct. 25, 2026")), false, "changed dated outage must get review");
   assert.equal(isVerified(sources[0], fixtures[0].replace("under a burn ban", "not under a burn ban")), false, "burn ban withdrawal is not confirmed");
-  assert.equal(isVerified(sources[1], fixtures[1] + " 12:30 p.m. on Nov. 8 to 2 p.m. on Nov. 10"), false, "unknown closure is not silently ignored");
-  assert.equal(isVerified(sources[2], fixtures[2].replace("Paint Gap Road", "Paint Gap Road reopened")), true, "fixture text presence alone does not assess context");
+  assert.equal(isVerified(sources[1], fixtures[1].replace("Only permitted hunters will be allowed", "12:30 p.m. on Nov. 8 to 2 p.m. on Nov. 10 Only permitted hunters will be allowed")), false, "unknown closure is not silently ignored");
+  assert.equal(isVerified(sources[2], fixtures[2].replace("Paint Gap Road", "Paint Gap Road reopened")), false, "reopened access is not a confirmed closure");
   assert.equal(isVerified(sources[2], fixtures[2].replace("Paint Gap Road", "Reopened side road")), false, "removed road closure triggers review");
   assert.equal(isVerified(sources[3], fixtures[3].replace("Only permitted hunters will be allowed on these dates", "")), false, "hunting access claim requires source");
   const enchanted = sources[1].notice(fixtures[1], "2026-11-07");
