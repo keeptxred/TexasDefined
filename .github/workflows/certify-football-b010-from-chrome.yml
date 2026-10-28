@@ -9,7 +9,7 @@ on:
     - cron: '41 14 * 8-12 *'
     - cron: '41 14 * 1-7 3'
 permissions:
-  actions: read
+  actions: write
   contents: write
   pull-requests: write
 concurrency:
