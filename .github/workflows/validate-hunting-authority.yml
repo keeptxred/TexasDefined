@@ -8,6 +8,9 @@ on:
       - 'src/data/hunting/**'
       - 'src/routes/hunting*'
       - 'src/components/hunting/**'
+      - 'scripts/data/check-turkey-regulations.mjs'
+      - 'scripts/data/refresh-turkey-season-calendar.mjs'
+      - 'scripts/data/refresh-turkey-season-calendar.test.mjs'
       - 'src/brand/texasdefined.ts'
       - 'scripts/data/refresh-hunting-official-facts.mjs'
       - 'scripts/data/refresh-hunting-official-facts.test.mjs'
@@ -31,4 +34,7 @@ jobs:
         with:
           node-version: 22
       - name: Validate hunting authority contract
-        run: node scripts/data/validate-hunting-authority.mjs
+        run: |
+          node scripts/data/validate-hunting-authority.mjs
+          node --test scripts/data/refresh-turkey-season-calendar.test.mjs
+          node --check scripts/data/refresh-turkey-season-calendar.mjs

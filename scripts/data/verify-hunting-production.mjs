@@ -27,6 +27,10 @@ const representativeTopics = [
     needles: ['Texas White-Tailed Deer Hunting Guide', 'Texas white-tailed deer hunting dates', deerDate('generalNorth', 'start'), deerDate('generalSouth', 'end'), 'Chronic wasting disease: testing and carcass movement', 'TPWD season source', 'Texas Parks and Wildlife', 'Current official sources'],
   },
   {
+    path: '/hunting/turkey-hunting',
+    needles: ['Texas Turkey Hunting: 2026–27 Seasons, Regulations & Where to Hunt', 'Official 2026–27 wild turkey season dates', 'Matagorda and Wharton', 'No unbearded hens', 'National Refuge Spring Turkey drawings', 'Current official sources'],
+  },
+  {
     path: '/hunting/youth-hunting',
     needles: ['Texas Youth Hunting Guide:', 'Season calendar', 'Youth hunting FAQs', 'Official regulations and updates'],
   },
