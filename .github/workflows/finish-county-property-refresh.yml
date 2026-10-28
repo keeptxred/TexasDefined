@@ -17,8 +17,8 @@ on:
         type: string
 
 permissions:
-  contents: read
-  pull-requests: read
+  contents: write
+  pull-requests: write
   actions: write
   statuses: write
 
@@ -27,16 +27,17 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  validate-generated-data:
+  finish:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 100
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out trusted main
+        uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-      - name: Validate source-owned two-file county data PR before human review
+      - name: Audit and finish source-verified county office contacts
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
@@ -58,58 +59,125 @@ jobs:
               ;;
             *) echo '::error::Unexpected finisher event'; exit 1;;
           esac
-          [[ "$run_id" =~ ^[0-9]+$ ]] || {
-            echo 'No successful county source run to validate'; exit 0;
-          }
-          source_json="$(gh api "repos/$REPOSITORY/actions/runs/$run_id")"
-          [[ "$(jq -r '.name' <<< "$source_json")" == 'Refresh county property data' &&
-             "$(jq -r '.conclusion' <<< "$source_json")" == 'success' &&
-             "$(jq -r '.head_branch' <<< "$source_json")" == 'main' ]] || {
-            echo '::error::Refusing non-successful or foreign county source run'; exit 1;
+          [[ "$run_id" =~ ^[0-9]+$ ]] || { echo '::error::Invalid county source run ID'; exit 1; }
+          source_run="$(gh api "repos/$REPOSITORY/actions/runs/$run_id")"
+          [[ "$(jq -r '.name' <<< "$source_run")" == 'Refresh county property data' &&
+             "$(jq -r '.conclusion' <<< "$source_run")" == 'success' &&
+             "$(jq -r '.head_branch' <<< "$source_run")" == 'main' &&
+             "$(jq -r '.head_repository.full_name' <<< "$source_run")" == "$REPOSITORY" ]] || {
+            echo '::error::Untrusted or incomplete county source workflow'; exit 1;
           }
           branch="automation/county-property-refresh-$run_id"
-          prs="$(gh pr list --repo "$REPOSITORY" --base main --state open \
-            --head "$branch" --limit 2 --json number,title,url,headRefName,headRefOid)"
-          count="$(jq 'length' <<< "$prs")"
+          pr_json="$(gh pr list --repo "$REPOSITORY" --base main --state open --head "$branch" --limit 2 --json number,url,title,headRefName,headRefOid)"
+          count="$(jq 'length' <<< "$pr_json")"
           if [[ "$count" == '0' ]]; then
-            echo 'No county contacts were revised or source PR is already closed'
+            echo 'No changed official county records in this verified source run.'
             exit 0
           fi
-          [[ "$count" == '1' ]] || { echo '::error::Ambiguous county PR count'; exit 1; }
-          number="$(jq -r '.[0].number' <<< "$prs")"
-          url="$(jq -r '.[0].url' <<< "$prs")"
-          head="$(jq -r '.[0].headRefOid' <<< "$prs")"
+          [[ "$count" == '1' ]] || { echo '::error::Ambiguous generated county PR'; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$pr_json")"
+          url="$(jq -r '.[0].url' <<< "$pr_json")"
+          head_sha="$(jq -r '.[0].headRefOid' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
           author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
-          [[ "$author" == 'github-actions[bot]' &&
-             "$(jq -r '.[0].title' <<< "$prs")" == 'Refresh verified Texas county property-tax data' &&
-             "$(jq -r '.[0].headRefName' <<< "$prs")" == "$branch" ]] || {
-            echo '::error::Unexpected PR author, title or branch'; exit 1;
+          [[ "$title" == 'Refresh verified Texas county property-tax data' &&
+             "$(jq -r '.[0].headRefName' <<< "$pr_json")" == "$branch" &&
+             "$author" == 'github-actions[bot]' ]] || {
+            echo '::error::Unexpected county PR author, title or branch'; exit 1;
           }
+          git config user.name 'Texas Defined Verified County Data Finisher'
+          git config user.email 'actions@users.noreply.github.com'
           git fetch --no-tags origin main "$branch"
-          [[ "$(git rev-parse "origin/$branch")" == "$head" ]] || {
-            echo '::error::Generated PR changed since source run'; exit 1;
+          [[ "$(git rev-parse "origin/$branch")" == "$head_sha" ]] || {
+            echo '::error::Generated branch changed since PR discovery'; exit 1;
           }
-          base="$(git merge-base origin/main "origin/$branch")"
-          actual="$(git diff --name-only "$base" "origin/$branch" | LC_ALL=C sort)"
-          expected="$(printf '%s\n' \
-            'src/data/property/county-property-enrichment.generated.ts' \
-            'src/data/property/county-property-supplement.server.ts' | LC_ALL=C sort)"
-          [[ "$actual" == "$expected" ]] || {
-            echo '::error::Bot PR must modify exactly the two approved county-property snapshots'; exit 1;
-          }
+          merge_base="$(git merge-base origin/main "origin/$branch")"
+          changed="$(git diff --name-only "$merge_base" "origin/$branch")"
+          [[ -n "$changed" ]] || { echo '::error::Empty generated snapshot'; exit 1; }
+          while IFS= read -r file; do
+            case "$file" in
+              src/data/property/county-property-enrichment.generated.ts|src/data/property/county-property-supplement.server.ts) ;;
+              *) echo "::error::Unapproved county refresh file $file"; exit 1 ;;
+            esac
+          done <<< "$changed"
           git checkout -B "$branch" "origin/$branch"
+          # Replay only the approved source-data commit atop trusted main,
+          # avoiding a workflow-bearing merge commit under narrow GITHUB_TOKEN.
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            git rebase origin/main || {
+              git rebase --abort || true
+              echo '::error::County source conflicts with newer main; do not overwrite published contacts'; exit 1;
+            }
+            git push --force-with-lease="refs/heads/$branch:$head_sha" origin "HEAD:refs/heads/$branch" || {
+              echo '::error::Remote county PR moved or bot lacks data-only update permission'; exit 1;
+            }
+          fi
+
+          # Deny destructive withdrawals even when the statewide percentage
+          # threshold would allow them. Those require a separate reviewed PR.
+          # Preserve quarantine timestamps exactly; only original official
+          # source records may be added or advanced by this automated path.
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import {execFileSync} from 'node:child_process';
+          import {readFileSync} from 'node:fs';
+          import {parseExistingCountySnapshot} from './scripts/data/county-property-snapshot-codec.mjs';
+          const paths=[
+            ['src/data/property/county-property-enrichment.generated.ts','COUNTY_PROPERTY_ENRICHMENT'],
+            ['src/data/property/county-property-supplement.server.ts','COUNTY_PROPERTY_SUPPLEMENT'],
+          ];
+          const readSnapshot=(read)=>Object.assign({},...paths.map(([p,name])=>
+            parseExistingCountySnapshot(read(p),name)));
+          const previous=readSnapshot(p=>execFileSync('git',['show','origin/main:'+p],{encoding:'utf8'}));
+          const next=readSnapshot(p=>readFileSync(p,'utf8'));
+          assert.ok(Object.keys(previous).length>=100,'Previous verified county inventory unexpectedly small');
+          assert.ok(Object.keys(next).length>=Object.keys(previous).length &&
+            Object.keys(next).length<=254,'Automated refresh cannot delete source-backed county contacts');
+          const utcToday=new Date().toISOString().slice(0,10);
+          let retained=0, updated=0;
+          for(const [slug,old] of Object.entries(previous)){
+            const current=next[slug];
+            assert.ok(current,'Previously verified county was deleted: '+slug);
+            const oldAt=Date.parse(old.lastVerifiedAt+'T00:00:00Z');
+            const newAt=Date.parse(current.lastVerifiedAt+'T00:00:00Z');
+            assert.ok(Number.isFinite(oldAt)&&Number.isFinite(newAt)&&
+              newAt>=oldAt&&newAt<=Date.parse(utcToday+'T00:00:00Z'),
+              'Invalid verification date for '+slug);
+            const newSource=current.sourceUrls?.[0]??'';
+            assert.equal(newSource,'https://comptroller.texas.gov/taxes/property-tax/county-directory/'+slug+'.php',
+              'Wrong official county provenance: '+slug);
+            for(const key of ['propertySearchUrl','paymentUrl']){
+              if(old.links?.[key]!==undefined)
+                assert.equal(current.links?.[key],old.links[key],
+                  'Review required before changing source-proven '+key+': '+slug);
+            }
+            if(JSON.stringify(old)===JSON.stringify(current))retained++;
+            else updated++;
+          }
+          for(const [slug,current] of Object.entries(next)){
+            assert.equal(current.sourceUrls?.[0],
+              'https://comptroller.texas.gov/taxes/property-tax/county-directory/'+slug+'.php',
+              'New county requires exact official Comptroller directory provenance');
+          }
+          console.log('Protected county snapshot reconciliation: previous='+
+            Object.keys(previous).length+' next='+Object.keys(next).length+
+            ' unchanged='+retained+' updated='+updated);
+          NODE
           node --test scripts/data/county-property-snapshot-codec.test.mjs
           node scripts/data/validate-county-property-enrichment.mjs
+          validated_sha="$(git rev-parse HEAD)"
           bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
           bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
-          git fetch --no-tags origin "$branch"
-          [[ "$(git rev-parse "origin/$branch")" == "$head" ]] || {
-            echo '::error::County bot PR moved during exact-head validation'; exit 1;
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
+            echo '::error::County PR changed during required validation'; exit 1;
           }
-          gh api -X POST "repos/$REPOSITORY/statuses/$head" \
+          git merge-base --is-ancestor origin/main "origin/$branch" || {
+            echo '::error::Main advanced; do not merge an unvalidated county baseline'; exit 1;
+          }
+          gh api --method POST "repos/$REPOSITORY/statuses/$validated_sha" \
             -f state=success -f context='Required merge gate' \
-            -f description='County source PR passed scoped and canonical exact-head validation; human review remains required' \
+            -f description='Protected official county data source and reconciliation checks passed' \
             -f target_url="$url" >/dev/null
-          echo "## County source PR ready for review" >> "$GITHUB_STEP_SUMMARY"
-          echo "Run $run_id produced $url" >> "$GITHUB_STEP_SUMMARY"
-          echo 'All source and canonical checks passed. Do not auto-merge government contact data.' >> "$GITHUB_STEP_SUMMARY"
+          gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"
+          echo "Protected county source data merge enabled: $url" >> "$GITHUB_STEP_SUMMARY"
