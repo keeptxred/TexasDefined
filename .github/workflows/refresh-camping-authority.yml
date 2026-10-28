@@ -22,6 +22,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test offline advisory source and date-change safeguards
+        run: node scripts/data/refresh-camping-alerts.mjs --self-test
       - name: Refresh only supported official TPWD and NPS notices
         id: refresh
         continue-on-error: true
