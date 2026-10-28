@@ -31,5 +31,13 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "notice": "NPS reports weather-related closures of the paved road between Cottonwood Campground and Santa Elena Canyon, Hot Springs Road beyond overflow parking, Paint Gap Road, River Road West to Glenn Springs Road, and Black Gap Road. Verify current access before planning a backcountry drive.",
     "checkedAt": "2026-10-28",
     "status": "confirmed"
+  },
+  {
+    "destinationSlug": "brazos-bend-state-park",
+    "parkName": "Brazos Bend State Park",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/brazos-bend/alert",
+    "notice": "TPWD reports a wood-fire burn ban (charcoal or containerized fuel cooking allowed). The park lists closures November 17–19, 2026 and December 15–17, 2026; only permitted hunters may enter during those closures. Check the current park notice before booking.",
+    "checkedAt": "2026-10-28",
+    "status": "confirmed"
   }
 ] as const;
