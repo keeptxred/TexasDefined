@@ -2596,14 +2596,14 @@ if(batch009Certified) {
   const county = read('src/routes/$kind.$slug.lazy.tsx');
   const checker = read('scripts/ci/verify-football-b010-first-five-production.mjs');
   const wf = read('.github/workflows/verify-football-b010-first-five-production.yml');
-  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==15 ||
-     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==10 || reg.batch.remainingToVerify!==25 ||
+  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==20 ||
+     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==5 || reg.batch.remainingToVerify!==25 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==205 ||
-     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==15 ||
-     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1072 ||
+     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==20 ||
+     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1067 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==10).length!==205 ||
      reg.completedBatches.find(x=>x.number===9)?.individuallyVerified!==25) {
-     errors.push('Batch010 protected third-cohort registry must preserve 205 VERIFIED / fifteen individually IMPLEMENTED / 1,072 NOT_REVIEWED and archived Batch009 evidence.');
+     errors.push('Batch010 protected third-cohort registry must preserve 205 VERIFIED / twenty individually IMPLEMENTED / 1,067 NOT_REVIEWED and archived Batch009 evidence.');
   }
   if(!profile.includes('loadBatch010FootballProgramEditorial(canonicalSlug)')) errors.push('Batch010 isolated SSR editorial precedence missing.');
   const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] ?? '';
@@ -2661,10 +2661,10 @@ if(batch009Certified) {
    ['cleveland','liberty','Ajani Sanders']
  ];
  const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
- if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==15||
-   reg.batch.remainingToImplement!==10||reg.batch.remainingToVerify!==25||
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==20||
+   reg.batch.remainingToImplement!==5||reg.batch.remainingToVerify!==25||
    reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==205)
-   errors.push('Batch010 second-five registry must preserve all 205 previously verified school profiles and 15 unimplemented assignments');
+   errors.push('Batch010 second-five registry must preserve all 205 previously verified school profiles and five remaining source assignments');
  for(const [slug,countySlug,coach] of five){
    const row=reg.schoolRecords.find(s=>s.slug===slug);
    if(!row||row.batch!==10||row.status!=='IMPLEMENTED'||row.actualProductionVerified!==false)
@@ -2716,10 +2716,10 @@ if(batch009Certified) {
  ['clint-mountain-view','el-paso','DJ Check']
  ];
  const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
- if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==15||
-    reg.batch.remainingToImplement!==10||reg.batch.remainingToVerify!==25||
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==20||
+    reg.batch.remainingToImplement!==5||reg.batch.remainingToVerify!==25||
     reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==205)
-   errors.push('Batch010 third five registry must retain 205 protected VERIFIED and ten NOT_REVIEWED assigned schools');
+   errors.push('Batch010 third five registry must retain 205 protected VERIFIED and five NOT_REVIEWED assigned schools');
  for(const [slug,countySlug,coach] of five){
    const row=reg.schoolRecords.find(s=>s.slug===slug);
    if(!row||row.batch!==10||row.status!=='IMPLEMENTED'||row.actualProductionVerified!==false)
@@ -2746,6 +2746,65 @@ if(batch009Certified) {
    if(!wf.includes(marker))errors.push('Third-five scoped Chrome workflow missing: '+marker);
  for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==3','report.screenshots!==21','versions.size!==1'])
    if(!checker.includes(marker))errors.push('Third five acceptance counts and one-worker guard missing: '+marker);
+}
+
+// Batch010 fourth cohort: five newly researched, separately sourced programs.
+// A prepared GitHub branch is not proof of a published release or non-skipped Chrome.
+{
+ const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+ const editorial=read('src/data/high-school-football/program-editorial-b010.ts');
+ const loader=read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+ const identities=read('src/data/high-school-football/school-identities.ts');
+ const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+ const county=read('src/routes/$kind.$slug.lazy.tsx');
+ const verifier=read('scripts/ci/verify-football-b010-fourth-five-production.mjs');
+ const wf=read('.github/workflows/verify-football-b010-fourth-five-production.yml');
+ const schools=[
+   ['clute-brazoswood','brazoria','Eric Luster'],
+   ['clyde','callahan','Danny Dudgeon'],
+   ['coahoma','howard','Chris Joslin'],
+   ['coldspring-oakhurst','san-jacinto','Chad Allen'],
+   ['coleman','coleman','Zach Edington']
+ ];
+ const totals=reg.schoolRecords.reduce((a,row)=>(a[row.status]=(a[row.status]||0)+1,a),{});
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==20||
+   reg.batch.remainingToImplement!==5||reg.batch.nextSchool!=='college-station'||
+   reg.batch.remainingToVerify!==25||totals.VERIFIED!==205||totals.IMPLEMENTED!==20||
+   totals.NOT_REVIEWED!==1067)
+   errors.push('Batch010 fourth cohort must maintain 205 VERIFIED / 20 IMPLEMENTED / 1067 NOT_REVIEWED, five remaining assigned');
+ const graphicList=team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
+ for(const [slug,countySlug,coach] of schools) {
+   const row=reg.schoolRecords.find(r=>r.slug===slug);
+   if(!row||row.batch!==10||row.status!=='IMPLEMENTED'||row.actualProductionVerified!==false)
+     errors.push('Fourth-cohort school must be IMPLEMENTED, not production VERIFIED: '+slug);
+   const dossier=read('docs/football-authority/schools/'+slug+'.md');
+   if(dossier.length<950||!dossier.includes('https://')||!dossier.includes('NOT merged'))
+     errors.push('Fourth-cohort independently researched dossier missing: '+slug);
+   for(const [source,marker,label] of [
+     [editorial,'"'+slug+'": {','individual original source-backed editorial'],
+     [editorial,coach,'coach verification with role caveats'],
+     [loader,"'"+slug+"'","conditional server-only profile import"],
+     [identities,"slug: '"+slug+"'","independently sourced school mascot"],
+     [team,"'"+slug+"': '"+countySlug+"'","campus-county outbound navigation"],
+     [county,"slug: '"+slug+"'","reciprocal county school card"],
+     [verifier,"'"+slug+"'","strict postdeployment Chrome school target"]
+   ])if(!source.includes(marker))errors.push('Fourth cohort '+label+' missing: '+slug);
+   if(graphicList.includes("'"+slug+"'"))
+     errors.push('Fourth cohort unverified 2026 final-score illustration forbidden: '+slug);
+ }
+ for(const marker of ["workflows: ['Deploy TexasDefined production']",
+    "github.event.workflow_run.conclusion == 'success'",
+    "scripts/ci/verify-football-b010-fourth-five-production.mjs",
+    "path: artifacts/b010-fourth-five-production-chrome/",
+    "SCHEDULED_ACCEPTANCE",
+    "github.event_name == 'workflow_dispatch'"])
+   if(!wf.includes(marker))errors.push('Fourth-cohort protected Chrome workflow missing: '+marker);
+ for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==5',
+   'report.screenshots!==20','versions.size!==1'])
+   if(!verifier.includes(marker))errors.push('Fourth-cohort 15 viewport / 5 county / 20 screenshot / one Worker guard missing: '+marker);
+ if(!editorial.includes('Hopper Field')||!editorial.includes('interim')||
+   !editorial.includes('Clyde')||!editorial.includes('Coahoma Community College'))
+   errors.push('Fourth cohort venue, interim-coach, district and similar-name evidence missing');
 }
 
 if (errors.length) {
