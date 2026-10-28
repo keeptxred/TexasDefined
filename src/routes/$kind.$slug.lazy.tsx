@@ -330,6 +330,9 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'brazos': [{ name: 'College Station Cougars', slug: 'college-station', context: 'School lists Stoney Pryor as head football coach; 5A Division I District 12, separate from A&M Consolidated Tigers' }, { name: 'A&M Consolidated Tigers', slug: 'college-station-a-and-m-consolidated', context: 'School lists Brandon Schmidt as head football coach; 5A Division I District 12, distinct from College Station High Cougars' }],
+  'tarrant': [{ name: 'Colleyville Heritage Panthers', slug: 'colleyville-heritage', context: 'GCISD identifies Jerry Edwards head coach; UIL 5A Division II District 3, distinguish old 2025 records' }],
+  'grayson': [{ name: 'Collinsville Pirates', slug: 'collinsville', context: 'Texas 2A Division II District 9; Garrett Patterson on season-qualified varsity roster, not Illinois Collinsville Kahoks' }],
   'brazoria': [{ name: 'Brazoswood Buccaneers', slug: 'clute-brazoswood', context: 'Brazosport ISD names Eric Luster football head coach; 6A District 19 and home calendar at Hopper Field in Freeport' }],
   'callahan': [{ name: 'Clyde Bulldogs', slug: 'clyde', context: '2026 3A Division I District 2 and source-qualified Danny Dudgeon coaching; older fan headings still mention District 3' }],
   'howard': [{ name: 'Coahoma Bulldogs', slug: 'coahoma', context: 'Chris Joslin district athletic director and 2026-listed head football coach; 3A Division II District 3, not Mississippi college' }],
@@ -345,7 +348,7 @@ const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug
   'hunt': [{ name: 'Celeste Blue Devils', slug: 'celeste', context: 'Celeste ISD 2026 official Blue Devils football schedule and source-qualified Demetrius Rector coach in 2A Division II District 9' }],
   'collin': [{ name: 'Celina Bobcats', slug: 'celina', context: 'Nine UIL football state titles through 2024, March 2026 Marc Bindel appointment and new 5A Division II District 4' }],
   'san-saba': [{ name: 'Cherokee Fighting Indians', slug: 'cherokee', context: 'San Saba County 2026 six-man Division II District 8; school-published fixture revisions' }],
-  'tyler': [{ name: 'Chester Yellowjackets', slug: 'chester', context: 'Tyler County 2026 six-man Division I District 13; school-listed head coach Coleman Butter' }],
+  'tyler': [{ name: 'Chester Yellowjackets', slug: 'chester', context: 'Tyler County 2026 six-man Division I District 13; school-listed head coach Coleman Butter' }, { name: 'Colmesneil Bulldogs', slug: 'colmesneil', context: 'Chad Coker current director of athletics and 2026 season-listed head coach; earlier schedule still identifies predecessor Chris Hicks' }],
   'childress': [{ name: 'Childress Bobcats', slug: 'childress', context: 'Childress County 2026 3A Division II District 1; school-listed coach Bo Helm' }],
   'hardeman': [{ name: 'Chillicothe Eagles', slug: 'chillicothe', context: 'Hardeman County six-man Division II District 2; district schedule year needs updating' }],
   'shelby': [{ name: 'Center Roughriders', slug: 'center', context: 'Shelby County 4A Division II District 8, January 2026 Jack Alvarez appointment, Center ISD stadium-entry source caveats' }],
