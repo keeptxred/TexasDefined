@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -14,6 +15,29 @@ const label = status => {
   return "unexpected-http-status";
 };
 const shouldRetry = status => [408, 425, 429, 500, 502, 503, 504].includes(status);
+
+const campingFacts = /\bcamp(?:ing|ground|site)?s?\b|reserv|facilit|amenit|electric|hookup|shower|restroom|toilet|dump.station|water|generator|accessib|permit|clos(?:ure|ed)|fire|primitive|overnight|trailer|motorhome|rv\b/i;
+// Do not hash raw HTML, menus, timestamps, analytics or site scripts. This
+// fingerprint is a CHANGE SIGNAL only, never a license to restamp facts.
+function relevantSourceDigest(raw) {
+  const cleaned = raw.replace(/<(?:script|style|noscript|nav|header|footer|svg)\b[^>]*>[\s\S]*?<\/(?:script|style|noscript|nav|header|footer|svg)>/gi, ' ');
+  const facts = [...cleaned.matchAll(/<(?:p|li|h[1-6]|td|dt|dd)\b[^>]*>([\s\S]*?)<\/(?:p|li|h[1-6]|td|dt|dd)>/gi)]
+    .map(m => m[1].replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|amp|quot|#39|#x27);/gi,' ')
+      .replace(/\s+/g,' ').trim().toLowerCase())
+    .filter(line => line.length >= 18 && line.length <= 600 && campingFacts.test(line));
+  const unique = [...new Set(facts)].sort();
+  if (unique.length < 2) return null;
+  return createHash('sha256').update(unique.join('\n')).digest('hex');
+}
+const previousPath = process.env.CAMPING_PREVIOUS_SOURCE_REPORT;
+let previous = new Map();
+if (previousPath && fs.existsSync(previousPath)) {
+  const saved = JSON.parse(fs.readFileSync(previousPath,'utf8'));
+  if (saved.scope !== 'TexasDefined camping profile sources only' || !Array.isArray(saved.checked))
+    throw Error('Previous camping audit artifact has an invalid source scope');
+  previous = new Map(saved.checked.filter(x => x.fingerprint && x.url).map(x => [x.url,x.fingerprint]));
+}
+
 if (process.argv.includes("--self-test")) {
   for (const status of [200, 201, 206]) assert.equal(label(status), "healthy");
   for (const status of [404, 410]) assert.equal(label(status), "missing");
@@ -23,6 +47,10 @@ if (process.argv.includes("--self-test")) {
   assert.equal(shouldRetry(429), true);
   assert.equal(shouldRetry(503), true);
   assert.equal(shouldRetry(404), false);
+  const sample = "<main><p>Campground reservations require advance booking.</p><li>RV sites have electric hookups and showers.</li></main>";
+  assert.equal(relevantSourceDigest(sample), relevantSourceDigest("<script>var updated=Date.now()</script>" + sample), "analytics timestamps do not change campground fingerprint");
+  assert.notEqual(relevantSourceDigest(sample), relevantSourceDigest(sample.replace("require advance booking", "are first come first served")), "reservation policy changes must be detected");
+  assert.equal(relevantSourceDigest("<html><script>no campsites</script></html>"), null, "no evidence must not be treated as a verified fingerprint");
   console.log("Camping source health classification self-test passed: 2xx, missing, restricted, rate-limited, server failure and redirect.");
   process.exit(0);
 }
@@ -71,8 +99,13 @@ if (process.argv.includes("--offline")) {
         const requested = new URL(url);
         const reached = new URL(response.url);
         const crossHost = requested.hostname !== reached.hostname;
-        const category = classification === "healthy" && crossHost ? "redirected-source" : classification;
-        const check = { url, status: response.status, category, attempts, finalUrl: response.url, files: refs.get(url) };
+        let category = classification === "healthy" && crossHost ? "redirected-source" : classification;
+        let fingerprint = null;
+        if (category === "healthy" && /(?:text\/html|application\/xhtml\+xml)/i.test(response.headers.get("content-type") || "")) {
+          fingerprint = relevantSourceDigest((await response.text()).slice(0, 2_000_000));
+          if (fingerprint && previous.has(url) && previous.get(url) !== fingerprint) category = "source-content-changed";
+        }
+        const check = { url, status: response.status, category, attempts, finalUrl: response.url, files: refs.get(url), fingerprint };
         report.checked.push(check);
         report.categories[category] = (report.categories[category] || 0) + 1;
         if (category !== "healthy") report.failures.push(check);
