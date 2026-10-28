@@ -58,6 +58,12 @@ Official BLS employment, Census statewide population, ACS county housing, TDI ho
 - `Finish Census County Growth Refresh` only accepts the expected bot-authored, run-linked, single-snapshot PR, reconciles current main, runs the repository's required validation and merge gate, then enables protected auto-merge. No ChatGPT automation and no direct Cloudflare publication are involved.
 - Older Census vintages and standalone migration research are intentionally dated publications; do not join data from differing Census vintages or silently rewrite historical analysis. On the next decennial population estimates-base reset, automated county population publication stops until the methodology is explicitly reviewed.
 
+## County office source-date contradiction protection
+
+- The weekly 254-county official Texas Comptroller directory importer retains a previously source-current appraisal/tax-office contact **and its original lastVerifiedAt** whenever a reachable page's later date or HTTPS redirect is ambiguous, contradictory or inaccessible. A newer apparently stale date is not evidence that a previously valid county government office has vanished; the affected office is quarantined for manual review with a GitHub warning and source-date diagnostics.
+- An existing county record may be automatically withdrawn only when its **own prior official office dates are already outside the 730-day limit and the newly parsed official office dates independently prove the entry is stale**. The retained last-verified date is never silently advanced for a quarantined office; source and indexing gates still age out stale evidence. Human review remains required for generated county-government contact PRs.
+- Published office URLs cannot point to access-denied or account-lockout redirects. Only time-token suffixes on the two explicitly researched public property-search vendors may be removed, while preserving their original county-specific dbkey and any meaningful query fields. No arbitrary URL or stale source is promoted by this normalization.
+
 ## Registry coverage and publication semantics
 
 The following are the 13 maintained briefs in the Texas Data server registry. The four featured cross-vertical datasets are separate.
