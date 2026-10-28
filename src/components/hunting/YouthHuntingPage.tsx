@@ -37,7 +37,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
           <a href="#youth-season-calendar" className="inline-flex bg-primary px-5 py-3 font-semibold text-primary-foreground">See 2026–27 season dates ↓</a>
           <Official href={YOUTH_HUNTING_SOURCES.youthOnly}>TPWD youth-only regulations</Official>
         </div>
-        <p className="mt-6 text-xs uppercase tracking-[0.14em] text-muted-foreground">Sources checked <time dateTime={YOUTH_HUNTING_LAST_CHECKED}>October 28, 2026</time> · Current season only · TexasDefined is independent of TPWD</p>
+        <p className="mt-6 text-xs uppercase tracking-[0.14em] text-muted-foreground">Sources checked <time dateTime={YOUTH_HUNTING_LAST_CHECKED}>{new Date(`${YOUTH_HUNTING_LAST_CHECKED}T12:00:00Z`).toLocaleDateString("en-US", { timeZone: "UTC", month: "long", day: "numeric", year: "numeric" })}</time> · Current season only · TexasDefined is independent of TPWD</p>
       </Container>
     </section>
 
@@ -46,7 +46,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
         <div className="grid gap-5 lg:grid-cols-2">
           <div className="border-l-2 border-primary pl-5">
             <p className="eyebrow text-primary">The quick answer</p>
-            <p className="mt-2 text-base leading-8">Texas youth-only seasons generally allow <strong>licensed hunters 16 or younger</strong> to hunt specified game on dates outside or alongside standard seasons. The <strong>2026–27 early youth deer and fall turkey dates begin October 30, 2026</strong>. Youth hunting licenses cost <strong>$7</strong>, but hunter education, adult supervision, property access and harvest rules must be checked separately.</p>
+            <p className="mt-2 text-base leading-8">Texas youth-only seasons generally allow <strong>licensed hunters 16 or younger</strong> to hunt specified game on dates outside or alongside standard seasons. The <strong>{YOUTH_HUNTING_SEASON_YEAR} early youth deer dates run {YOUTH_HUNTING_SEASONS[0].dates}</strong>. Youth hunting licenses cost <strong>$7</strong>, but hunter education, adult supervision, property access and harvest rules must be checked separately.</p>
           </div>
           <div className="border border-border bg-surface p-5">
             <p className="font-display text-xl">Know the exceptions</p>
@@ -62,8 +62,8 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
     <section id="youth-season-calendar" className="py-12 md:py-16">
       <Container>
         <p className="eyebrow text-primary">Season calendar</p>
-        <h2 className="mt-2 font-display text-3xl md:text-4xl">Texas youth-only hunting dates for 2026–27</h2>
-        <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">These are TPWD's published season windows, not a statewide permission to hunt. The species, individual county, unit, bag limit, legal take, landowner permission and public-land notices still determine whether a particular hunt is lawful. These dates expire after the 2026–27 license year; do not reuse them for 2027–28.</p>
+        <h2 className="mt-2 font-display text-3xl md:text-4xl">Texas youth-only hunting dates for {YOUTH_HUNTING_SEASON_YEAR}</h2>
+        <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">These are TPWD's published season windows, not a statewide permission to hunt. The species, individual county, unit, bag limit, legal take, landowner permission and public-land notices still determine whether a particular hunt is lawful. These dates expire after the {YOUTH_HUNTING_SEASON_YEAR} license year; do not reuse them for later seasons.</p>
         <div className="mt-7 overflow-x-auto border border-border">
           <table className="w-full border-collapse text-left text-sm" style={{ minWidth: 720 }}>
             <caption className="sr-only">2026–27 Texas youth-only hunting dates by species and zone</caption>
@@ -136,7 +136,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
     </section>
 
     <section className="py-12 md:py-16">
-      <Container><div className="max-w-5xl"><p className="eyebrow text-primary">Verification and editorial policy</p><h2 className="mt-2 font-display text-3xl">Official regulations and updates</h2><p className="mt-4 leading-8 text-muted-foreground">Season dates, costs and program conditions on this page were checked against official TPWD sources on <time dateTime={YOUTH_HUNTING_LAST_CHECKED}>October 28, 2026</time>. They describe the <strong>2026–27</strong> license year only, not the next year's seasons. This independent guide is for planning; TPWD and applicable federal rules are legally controlling. If an official source has changed, use the current official rule, not an older summary.</p><div className="mt-6 grid gap-3 text-sm sm:grid-cols-2">{[
+      <Container><div className="max-w-5xl"><p className="eyebrow text-primary">Verification and editorial policy</p><h2 className="mt-2 font-display text-3xl">Official regulations and updates</h2><p className="mt-4 leading-8 text-muted-foreground">Season dates, costs and program conditions on this page were checked against official TPWD sources on <time dateTime={YOUTH_HUNTING_LAST_CHECKED}>October 28, 2026</time>. They describe the <strong>{YOUTH_HUNTING_SEASON_YEAR}</strong> license year only, not the next year's seasons. This independent guide is for planning; TPWD and applicable federal rules are legally controlling. If an official source has changed, use the current official rule, not an older summary.</p><div className="mt-6 grid gap-3 text-sm sm:grid-cols-2">{[
         ["Youth-only seasons and county eligibility", YOUTH_HUNTING_SOURCES.youthOnly],
         ["All 2026–27 hunting season dates", YOUTH_HUNTING_SOURCES.seasonDates],
         ["Youth hunting license, Type 169", YOUTH_HUNTING_SOURCES.licenses],
