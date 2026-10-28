@@ -6,6 +6,9 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/audit-camping-guide-sources.yml'
+      - 'src/data/camping/discovery.ts'
+      - 'src/data/camping/profiles.ts'
+      - 'src/data/camping/profiles-wave*.ts'
   schedule:
     - cron: '37 13 * * 4'
   workflow_dispatch:
