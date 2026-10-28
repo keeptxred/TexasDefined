@@ -24,6 +24,7 @@ const nav = [
 ];
 
 export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTopic }) {
+  const seasonExpired = Date.now() >= Date.UTC(Number(YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)) + 1, 8, 1);
   return <main id="main-content">
     <section className="border-b border-border bg-muted/30 py-12 md:py-18">
       <Container>
@@ -37,7 +38,8 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
           <a href="#youth-season-calendar" className="inline-flex bg-primary px-5 py-3 font-semibold text-primary-foreground">See 2026–27 season dates ↓</a>
           <Official href={YOUTH_HUNTING_SOURCES.youthOnly}>TPWD youth-only regulations</Official>
         </div>
-        <p className="mt-6 text-xs uppercase tracking-[0.14em] text-muted-foreground">Sources checked <time dateTime={YOUTH_HUNTING_LAST_CHECKED}>{new Date(`${YOUTH_HUNTING_LAST_CHECKED}T12:00:00Z`).toLocaleDateString("en-US", { timeZone: "UTC", month: "long", day: "numeric", year: "numeric" })}</time> · Current season only · TexasDefined is independent of TPWD</p>
+        {seasonExpired ? <p role="status" className="mt-6 border border-border p-5 font-semibold">Prior season archive: these youth-only dates are no longer current. Use the latest TPWD regulations linked below until the next season is source-verified.</p> : null}
+        <p className="mt-6 text-xs uppercase tracking-[0.14em] text-muted-foreground">Sources checked <time dateTime={YOUTH_HUNTING_LAST_CHECKED}>{new Date(`${YOUTH_HUNTING_LAST_CHECKED}T12:00:00Z`).toLocaleDateString("en-US", { timeZone: "UTC", month: "long", day: "numeric", year: "numeric" })}</time> · {seasonExpired ? "Archived season" : "Current season"} · TexasDefined is independent of TPWD</p>
       </Container>
     </section>
 
