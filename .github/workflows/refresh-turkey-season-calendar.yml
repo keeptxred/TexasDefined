@@ -1,0 +1,87 @@
+name: Refresh TPWD Turkey Season Calendar
+
+on:
+  schedule:
+    - cron: '23 14 * * 1'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-turkey-season-calendar.yml'
+      - 'scripts/data/refresh-turkey-season-calendar.mjs'
+      - 'scripts/data/refresh-turkey-season-calendar.test.mjs'
+  pull_request:
+    paths:
+      - '.github/workflows/refresh-turkey-season-calendar.yml'
+      - 'scripts/data/refresh-turkey-season-calendar.mjs'
+      - 'scripts/data/refresh-turkey-season-calendar.test.mjs'
+      - 'src/data/hunting/turkey-season-calendar.json'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: texas-turkey-season-refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test exact 13-row season extraction and fail-closed contracts
+        run: node --test scripts/data/refresh-turkey-season-calendar.test.mjs
+      - name: Prove live TPWD official pages match the governed data on PRs
+        if: github.event_name == 'pull_request'
+        run: node scripts/data/refresh-turkey-season-calendar.mjs --check-only
+      - name: Check official TPWD sources and update dates when independently verified
+        if: github.event_name != 'pull_request'
+        id: tpwd
+        run: node scripts/data/refresh-turkey-season-calendar.mjs
+      - name: Raise one review issue for source failure, legal drift or new season
+        if: failure() && steps.tpwd.outcome == 'failure' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          title="TPWD turkey source or new-season editorial review required"
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" \
+              --body "The TPWD turkey season updater refused to change the published guide. Check current county closures, legal methods, bag limits, tagging, reporting and newly published season dates. Only within-year changes confirmed on BOTH official TPWD pages can be automatically published. Workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
+      - name: Open protected data-only PR for confirmed seasonal date changes
+        if: steps.tpwd.outcome == 'success' && github.event_name != 'pull_request' && github.ref_name == 'main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          file='src/data/hunting/turkey-season-calendar.json'
+          if git diff --quiet -- "$file"; then
+            echo 'TPWD dates unchanged; no PR required.'
+            exit 0
+          fi
+          existing="$(gh pr list --base main --state open --json headRefName --jq '[.[].headRefName | select(startswith("automation/turkey-season-"))] | length')"
+          if [[ "$existing" != '0' ]]; then
+            echo 'A TPWD date refresh PR is already open; skipping duplicate.'
+            exit 0
+          fi
+          branch="automation/turkey-season-$GITHUB_RUN_ID"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add "$file"
+          git commit -m 'data: refresh verified TPWD turkey season dates'
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title 'Refresh verified Texas turkey season dates' \
+            --body 'Source-only calendar change. The updater independently confirms exact dates against both current TPWD wild turkey regulations and the 2026–27 statewide hunting date table, checks unchanged legal guidance, and refuses a new season year. The protected follow-up validates and auto-merges this sole data file after checks pass.'

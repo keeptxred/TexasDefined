@@ -148,7 +148,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     || p === '.github/workflows/monitor-hunting-tpwd-sources.yml'
     || p === 'src/brand/texasdefined.ts'
   )) {
-    for (const page of ['/hunting', '/hunting/public-hunting', '/hunting/texas-deer-hunting']) {
+    for (const page of ['/hunting', '/hunting/public-hunting', '/hunting/texas-deer-hunting', '/hunting/turkey-hunting']) {
       candidates.add(page);
       huntingAuthorityPages.add(page);
     }
@@ -156,6 +156,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       '/hunting/public-hunting',
       '/hunting/texas-hunting-license',
       '/hunting/texas-deer-hunting',
+      '/hunting/turkey-hunting',
     ];
   }
   // The statewide Mardi Gras hub has a static route and its own event-directory

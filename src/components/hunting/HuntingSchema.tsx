@@ -48,6 +48,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
   const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
   const homeUrl = absoluteUrl(texasDefinedBrand, "/");
   const huntingUrl = absoluteUrl(texasDefinedBrand, "/hunting");
+  const isAuthorityArticle = topic.slug === "texas-deer-hunting" || topic.slug === "turkey-hunting";
 
   return <JsonLd value={{
     "@context": "https://schema.org",
@@ -61,15 +62,15 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         dateModified: topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         isPartOf: { "@id": `${homeUrl}#website` },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
-        mainEntity: { "@id": `${pageUrl}#${topic.slug === "texas-deer-hunting" ? "article" : "sections"}` },
+        mainEntity: { "@id": `${pageUrl}#${isAuthorityArticle ? "article" : "sections"}` },
         breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
       },
-      ...(topic.slug === "texas-deer-hunting" ? [{
+      ...(isAuthorityArticle ? [{
         "@type": "Article",
         "@id": `${pageUrl}#article`,
         headline: topic.title,
         description: topic.description,
-        image: { "@type": "ImageObject", url: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt", width: 1300, height: 863, creditText: "Tom Koerner / US Fish and Wildlife Service", license: "https://www.fws.gov/media/white-tailed-deer-buck-0" },
+        image: topic.slug === "texas-deer-hunting" ? { "@type": "ImageObject", url: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt", width: 1300, height: 863, creditText: "Tom Koerner / US Fish and Wildlife Service", license: "https://www.fws.gov/media/white-tailed-deer-buck-0" } : { "@type": "ImageObject", url: "https://www.fws.gov/carp/carp/sites/default/files/2021-06/rio_grande_wild_turkey_pair_buffalo_lake_nwr_robert_burton_usfws.jpg", width: 900, height: 650, creditText: "Robert Burton / U.S. Fish & Wildlife Service" },
         dateModified: topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         mainEntityOfPage: { "@id": `${pageUrl}#page` },
         author: { "@type": "Organization", name: "TexasDefined" },
