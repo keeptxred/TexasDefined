@@ -79,6 +79,14 @@ function isVerified(source, text, asOf = day) {
 
 // Synthetic source fragments deliberately exercise the exact official-source
 // wording contract without touching the network or date-stamping snapshots.
+const REVIEW_NOTICE = "The previously recorded advisory could not be verified verbatim. Check the park\'s current official alerts before travel; no resolution is assumed.";
+const sourceOutcome = (source, text, asOf = day) => {
+  const confirmed = isVerified(source, text, asOf);
+  return { status: confirmed ? "confirmed" : "needs-review", notice: confirmed
+    ? (typeof source.notice === "function" ? source.notice(text, asOf) : source.notice)
+    : REVIEW_NOTICE };
+};
+
 if (process.argv.includes("--self-test")) {
   const fixtures = [
     "Park Alerts Burn Ban Aug. 11, 2026 - The park is under a burn ban. Water Outage Oct. 23, 2026 - Water is out at the Bayfront camping area. Construction Alerts Expect intermittent closures for sites 1 - 24",
@@ -123,13 +131,6 @@ const normalize = html => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " 
 const oldFile = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, "utf8") : "";
 const priorMatch = oldFile.match(/export const CAMPING_OPERATIONAL_ALERTS = (\[[\s\S]*?\]) as const;/);
 const oldAlerts = priorMatch ? JSON.parse(priorMatch[1]) : [];
-const REVIEW_NOTICE = "The previously recorded advisory could not be verified verbatim. Check the park\'s current official alerts before travel; no resolution is assumed.";
-const sourceOutcome = (source, text, asOf = day) => {
-  const confirmed = isVerified(source, text, asOf);
-  return { status: confirmed ? "confirmed" : "needs-review", notice: confirmed
-    ? (typeof source.notice === "function" ? source.notice(text, asOf) : source.notice)
-    : REVIEW_NOTICE };
-};
 const rows = [];
 for (const source of sources) {
   const controller = new AbortController();
