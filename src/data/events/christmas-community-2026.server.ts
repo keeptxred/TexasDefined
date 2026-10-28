@@ -921,6 +921,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Merry Wells Christmas Festival operates Saturday November 28, 2026 from 11 a.m.–5 p.m., with the lighted Christmas parade at 6 p.m. Downtown shops and vendors operate on their own schedules."
   },
   {
+    "slug": "temple-santa-fe-plaza-christmas-tree-lighting-2026",
+    "title": "Temple Santa Fe Plaza Christmas Tree Lighting",
+    "city": "Temple",
+    "countySlug": "bell",
+    "countyName": "Bell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Santa Fe Plaza · Downtown Temple",
+    "officialEventUrl": "https://www.discovertemple.com/events/hollyjolly/christmas-parade/",
+    "sourceName": "Discover Temple / City of Temple",
+    "summary": "Discover Temple's 2026 official holiday parade page specifically announces its Santa Fe Plaza tree lighting for Saturday November 28. The exact ceremony time is not yet confirmed on that page; consult the city before arriving. This is separate from the December 7 downtown parade.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "wimberley-trail-of-lights",
     "title": "Wimberley Trail of Lights",
     "city": "Wimberley",
@@ -1535,6 +1549,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Pearland Parks & Recreation dates its free Hometown Christmas Festival Friday December 4, 2026 from 6–9 p.m. at Independence Park. Stage entertainment, H-E-B Winter Wonderland and food trucks lead to a scheduled drone show around 8:30 p.m. Parking and ADA entry differ; food and purchases may cost extra. This named festival is NOT proof of a separate season-long 'Pearland Festival of Lights' exhibit."
   },
   {
+    "slug": "port-lavaca-christmas-parade-2026",
+    "title": "Port Lavaca Christmas Parade",
+    "city": "Port Lavaca",
+    "countySlug": "calhoun",
+    "countyName": "Calhoun County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "venueName": "Port Lavaca downtown parade route",
+    "officialEventUrl": "https://portlavacaevents.com/events/list/page/2/",
+    "sourceName": "Calhoun County Events / local Chamber events calendar",
+    "summary": "The 2026 Calhoun County holiday calendar confirms Port Lavaca's Christmas Parade on Friday December 4, listed as a free community event. Specific start time, lineup and final route have not yet been published; check the organizer for updated details. Prior-season parade times must not be reused.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "salado-christmas-stroll-first",
     "title": "Salado Christmas Stroll · first weekend",
     "city": "Salado",
@@ -2068,6 +2096,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
   },
   {
+    "slug": "victoria-christmas-lighted-parade-tree-lighting-2026",
+    "title": "Victoria Christmas Tree Lighting & Lighted Christmas Parade",
+    "city": "Victoria",
+    "countySlug": "victoria",
+    "countyName": "Victoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "DeLeon Plaza Pavilion · 101 N. Main Street",
+    "officialEventUrl": "https://www.victoriatx.gov/Calendar.aspx?EID=3992",
+    "sourceName": "City of Victoria Parks & Recreation",
+    "summary": "The City of Victoria confirms its 2026 Christmas Tree Lighting and Lighted Christmas Parade for Saturday December 5, 5–9 p.m. at and near DeLeon Plaza downtown. Parade registration closes October 31; visitors should check the city for final route and street closures.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "weatherford-2026-christmas-on-square",
     "title": "Weatherford Christmas on the Square · Gingerbread Christmas",
     "city": "Weatherford",
@@ -2133,6 +2175,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
     "sourceName": "City of Richardson",
     "summary": "The city advertises Santa's Village as open to stroll through and view December 7–9. Full interactive programs and Santa visits are not advertised for this window; use separately listed weekend programs for those activities."
+  },
+  {
+    "slug": "temple-80th-annual-christmas-parade-2026",
+    "title": "Temple 80th Annual Christmas Parade",
+    "city": "Temple",
+    "countySlug": "bell",
+    "countyName": "Bell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-07",
+    "venueName": "Downtown Temple · Adams Avenue parade corridor",
+    "officialEventUrl": "https://www.discovertemple.com/events/hollyjolly/christmas-parade/",
+    "sourceName": "Discover Temple / City of Temple",
+    "summary": "The City of Temple confirms its 80th annual Christmas Parade for Monday December 7, 2026, starting at 6:30 p.m. The theme is An 80s Christmas. Road closures begin before the procession; check final downtown parade routing and parking before traveling. Parade-entry application fees do not imply spectators must buy admission.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "houston-alley-theatre-christmas-carol-2026-6",
@@ -2454,6 +2510,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 18th annual Christmas market runs Friday December 11 6–10 p.m., Saturday December 12 10 a.m.–10 p.m., and Sunday December 13 10 a.m.–6 p.m. Organizers list free admission and parking."
   },
   {
+    "slug": "victoria-merry-on-main-2026",
+    "title": "Victoria Merry on Main · holiday market",
+    "city": "Victoria",
+    "countySlug": "victoria",
+    "countyName": "Victoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-11",
+    "venueName": "Historic Downtown Victoria",
+    "officialEventUrl": "https://victoriatx.gov/merryonmain",
+    "sourceName": "City of Victoria Parks & Recreation",
+    "summary": "Merry on Main is confirmed for Friday December 11, 2026, 6–10 p.m. in Downtown Victoria. City-organized market vendors, food trucks, live music, children's activities, and downtown holiday shopping take place separately from the December 5 parade.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "burton-milk-honey-ranch-christmas-story-2026",
     "title": "Walk the Christmas Story · Milk & Honey Ranch",
     "city": "Burton",
@@ -2746,6 +2816,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/",
     "sourceName": "City of Pearland Parks and Recreation official 2026 special-events roster",
     "summary": "Pearland's official 2026 Parks and Recreation special-events schedule lists Tour De Lites Saturday December 12 from approximately 4:30 to 8 p.m. at Independence Park. This is a separate cycling-focused holiday event from the December 4 festival and December 5 parade. Detailed ride registration, routes, ticket costs and participating bike requirements have not yet been confirmed for 2026—check the event organizer before traveling."
+  },
+  {
+    "slug": "port-lavaca-christmas-at-bayfront-2026",
+    "title": "Port Lavaca Christmas at the Bayfront",
+    "city": "Port Lavaca",
+    "countySlug": "calhoun",
+    "countyName": "Calhoun County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Bayfront Peninsula Park · 501 E. Main Street",
+    "officialEventUrl": "https://portlavacaevents.com/events/list/page/2/",
+    "sourceName": "Calhoun County Events / local Chamber events calendar",
+    "summary": "The Calhoun County 2026 events calendar confirms Christmas at the Bayfront for Saturday December 12 at Bayfront Peninsula Park, with free festival entry and family-focused seasonal activities. Organizer schedule details remain subject to change; do not reuse the December 13, 2025 timetable or mistake this event for a Festival of Trees.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "san-antonio-river-of-lights",
@@ -3271,7 +3355,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];
+];;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
