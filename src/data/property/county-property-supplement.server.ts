@@ -51,7 +51,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/aransas.php', 'https://aransascad.org/', 'https://www.aransascountytx.gov/main/']
   },
   bandera: {
@@ -1507,7 +1507,7 @@ export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-03-04',
       taxOffice: '2025-05-02'
     },
-    lastVerifiedAt: '2026-10-19',
+    lastVerifiedAt: '2026-10-28',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/navarro.php', 'https://www.navarrocad.com/', 'https://www.co.navarro.tx.us/']
   },
   newton: {
