@@ -15,6 +15,41 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'college-station',
+    mascot: 'Cougars',
+    sourceUrl: 'https://cshs.csisd.org/about-us/directory',
+    sourceLabel: 'College Station High School 2026 staff directory and campus athletics',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'college-station-a-and-m-consolidated',
+    mascot: 'Tigers',
+    sourceUrl: 'https://amchs.csisd.org/about-us/staff-directory',
+    sourceLabel: 'A&M Consolidated High School campus staff and Tigers athletics',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'colleyville-heritage',
+    mascot: 'Panthers',
+    sourceUrl: 'https://chhs.gcisd.net/staff?page_no=3',
+    sourceLabel: 'GCISD Colleyville Heritage current campus football coaching directory',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'collinsville',
+    mascot: 'Pirates',
+    sourceUrl: 'https://collinsvilleisd.org/football-schedules',
+    sourceLabel: 'Collinsville ISD 2026 varsity Texas Pirates football schedules',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'colmesneil',
+    mascot: 'Bulldogs',
+    sourceUrl: 'https://www.colmesneilisd.net/page/athletics/',
+    sourceLabel: 'Colmesneil ISD district athletics and football schedule',
+    verifiedAt: '2026-10-28',
+  },
+  {
     slug: 'clute-brazoswood',
     mascot: 'Buccaneers',
     sourceUrl: 'https://www.brazosportisd.net/programs/b_i_s_d_athletics/athletic_contacts/brazoswood_high_school_athletic_staff',
