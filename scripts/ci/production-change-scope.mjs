@@ -167,7 +167,6 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     'src/components/hunting/YouthHuntingPage.tsx',
     'src/data/hunting/authority-v2.ts',
     'src/components/hunting/HuntingTopicPage.tsx',
-    'scripts/ci/production-change-scope.mjs',
     'scripts/ci/verify-changed-production-pages.mjs',
     '.github/workflows/deploy-production.yml',
   ].includes(p))) {
