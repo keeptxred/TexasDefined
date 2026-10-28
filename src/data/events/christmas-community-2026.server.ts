@@ -14,7 +14,7 @@ import type { TexasEventRecord } from "./texas-event-record";
 const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
   "slug" | "title" | "summary" | "city" | "countySlug" | "countyName" |
   "region" | "startDate" | "endDate" | "venueName" | "officialEventUrl" | "sourceName"
-> & { sourceVerifiedAt?: string }> = [
+>> = [
   {
     "slug": "santas-ranch-new-braunfels",
     "title": "Santa's Ranch Christmas Drive-Through Lights",
@@ -814,6 +814,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official Visit Mineral Wells page confirms tree lighting Friday November 27, 2026, beginning the Merry Wells Christmas weekend. The next day's festival and lighted parade have their own date."
   },
   {
+    "slug": "san-antonio-pearl-holiday-tree-lighting-2026",
+    "title": "Pearl Holiday Tree Lighting Ceremony 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-11-27",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl's official 2026 calendar confirms its Holiday Tree Lighting Ceremony on Friday, November 27. Expect carolers, hot chocolate and holiday activities near the San Antonio River; check Pearl's live event page for ceremony time and parking details. This is separate from the weekly Holiday Night Markets."
+  },
+  {
     "slug": "san-antonio-river-walk-holiday-lights",
     "title": "San Antonio River Walk Holiday Lights",
     "city": "San Antonio",
@@ -1073,6 +1086,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.southpoleoftexas.com/",
     "sourceName": "City of McAllen / South Pole Illuminated Festival",
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
+    "slug": "san-antonio-pearl-holiday-night-market-dec-02-2026",
+    "title": "Pearl Holiday Night Market · December 2, 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-02",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates."
   },
   {
     "slug": "baytown-stars-stripes-christmas-parade-2026",
@@ -2347,6 +2373,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "san-antonio-pearl-holiday-night-market-dec-09-2026",
+    "title": "Pearl Holiday Night Market · December 9, 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-09",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates."
+  },
+  {
     "slug": "longview-arboretum-bright-2026-3",
     "title": "BRIGHT! A Season of Lights · Longview Arboretum window 3",
     "city": "Longview",
@@ -3137,6 +3176,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "san-antonio-pearl-holiday-night-market-dec-16-2026",
+    "title": "Pearl Holiday Night Market · December 16, 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-16",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates."
+  },
+  {
     "slug": "longview-arboretum-bright-2026-4",
     "title": "BRIGHT! A Season of Lights · Longview Arboretum window 4",
     "city": "Longview",
@@ -3372,6 +3424,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "san-antonio-pearl-holiday-night-market-dec-23-2026",
+    "title": "Pearl Holiday Night Market · December 23, 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-23",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates."
+  },
+  {
     "slug": "livingston-christmas-train-village-2026-5",
     "title": "Livingston Christmas Train Village · public session window 5",
     "city": "Livingston",
@@ -3497,7 +3562,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;;
+];;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
