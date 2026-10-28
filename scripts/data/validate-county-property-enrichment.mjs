@@ -178,7 +178,7 @@ if (/gh\s+pr\s+merge/m.test(refreshWorkflow)) failures.push('County property ref
 // Generated source PRs are authored with GITHUB_TOKEN and cannot themselves
 // trigger standard pull_request checks. Their owner-side finisher must validate
 // an exact scoped source run and the two-file bot PR; never auto-merge contacts.
-const countyFinisher = readFileSync('.github/workflows/finish-county-property-refresh.yml', 'utf8');
+const countyFinisher = fs.readFileSync('.github/workflows/finish-county-property-refresh.yml', 'utf8');
 for (const feature of [
   'workflows: [Refresh county property data]',
   "paths: ['.github/workflows/finish-county-property-refresh.yml']",
