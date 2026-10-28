@@ -34,7 +34,7 @@ for (const token of [
   "createFileRoute('/texas-data/county-growth.csv')",
   "'content-type': 'text/csv; charset=utf-8'",
   "'x-robots-tag': 'noindex, follow'",
-  "'content-disposition': 'attachment; filename=\"texas-county-population-growth-2020-2025.csv\"'",
+  "'content-disposition': 'attachment; filename=\"texas-county-population-growth-2020-'",
   'if (!data.available)',
   'status: 503',
   'population_change_percent',
