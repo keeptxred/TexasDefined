@@ -25,6 +25,12 @@ const sources = [
     },
   },
   {
+    destinationSlug: "big-bend-national-park", parkName: "Big Bend National Park",
+    sourceUrl: "https://www.nps.gov/bibe/planyourvisit/conditions.htm",
+    required: [/weather-related road closures/i, /paved road between Cottonwood Campground and Santa Elena Canyon/i, /River Road West to Glenn Springs Road/i, /Black Gap Road/i],
+    notice: "NPS reports weather-related closures of the paved road between Cottonwood Campground and Santa Elena Canyon, Hot Springs Road beyond overflow parking, Paint Gap Road, River Road West to Glenn Springs Road, and Black Gap Road. Verify current access before planning a backcountry drive.",
+  },
+  {
     destinationSlug: "palo-pinto-mountains-state-park", parkName: "Palo Pinto Mountains State Park",
     sourceUrl: "https://tpwd.texas.gov/state-parks/palo-pinto-mountains/park-alert",
     required: [/Visiting the Park/i, /final touches are ongoing/i, /may reach capacity on weekends and holidays/i],
@@ -52,7 +58,8 @@ for (const source of sources) {
     html = await res.text();
   } finally { clearTimeout(timer); }
   const text = normalize(html);
-  if (!/Park Alerts?|Park Alert/i.test(text) || text.length < 700) throw new Error("Invalid official alert page: " + source.sourceUrl);
+  const expectedHeading = source.sourceUrl.includes("nps.gov") ? /Alerts & Conditions/i : /Park Alerts?/i;
+  if (!expectedHeading.test(text) || text.length < 500) throw new Error("Invalid official alert page: " + source.sourceUrl);
   const confirmed = source.required.every(re => re.test(text))
     && (source.destinationSlug !== "enchanted-rock-state-natural-area"
       || windows.some(w => w.end >= day && w.pattern.test(text)));

@@ -14,6 +14,8 @@ for (const [src,needle] of [
   [alerts,"goose-island-state-park"],
   [alerts,"enchanted-rock-state-natural-area"],
   [alerts,"palo-pinto-mountains-state-park"],
+  [alerts,"big-bend-national-park"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"Alerts & Conditions"],
   [monitor,"schedule:"],
   [monitor,"needs-review"],
   [monitor,"--auto --squash"],
