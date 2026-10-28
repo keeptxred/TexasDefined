@@ -33,7 +33,11 @@ export function normalizeVisibleText(html) {
 
 export function validateLedger(data, registry, today) {
   assert.equal(data.schemaVersion, 1);
-  assert.ok(Array.isArray(data.sources) && data.sources.length >= 10 && data.sources.length <= 30);
+  assert.ok(Array.isArray(data.sources) && data.sources.length >= 10 && data.sources.length <= 1500);
+  assert.ok(Number.isInteger(data.nextSourceIndex) && data.nextSourceIndex >= 0 && data.nextSourceIndex < data.sources.length,
+    'Rotating football review cursor must reference a real source');
+  assert.ok(Number.isInteger(data.safety.perRunSourceCap) && data.safety.perRunSourceCap >= 1 && data.safety.perRunSourceCap <= 25,
+    'Never check more than 25 official sources in one scheduled run');
   assert.ok(data.sources.length <= data.safety.sourceCountCap);
   assert.ok(data.safety.perSourceTimeoutMs >= 1000 && data.safety.perSourceTimeoutMs <= 15000);
   assert.ok(data.safety.maxBodyBytes >= 50000 && data.safety.maxBodyBytes <= 2000000);
@@ -53,6 +57,15 @@ export function validateLedger(data, registry, today) {
     assert.ok(row.lastObservedAt === null || DATE.test(row.lastObservedAt));
   }
   return names.size;
+}
+
+// Deterministic persistent rolling source selection: after a successful run,
+// the protected fingerprint PR moves nextSourceIndex forward. No entire-site
+// crawl, no Cloudflare Worker schedule and no unbounded background scanning.
+export function selectSourceCohort(data) {
+  const start = data.nextSourceIndex;
+  const count = Math.min(data.safety.perRunSourceCap, data.sources.length);
+  return Array.from({ length: count }, (_, offset) => data.sources[(start + offset) % data.sources.length]);
 }
 
 export async function probeSource(row, opts) {
@@ -99,13 +112,17 @@ async function main() {
     return;
   }
   if (!process.argv.includes('--probe')) throw Error('Pass --validate or --probe (explicit network opt-in)');
-  const summary = { checkedAt: today, sourceCount: ledger.sources.length, baselineInitialized:[],
+  const selected = selectSourceCohort(ledger);
+  const startingIndex = ledger.nextSourceIndex;
+  const summary = { checkedAt: today, sourceCount: ledger.sources.length,
+    checkedSourceCount: selected.length, startingIndex, nextSourceIndex: null,
+    baselineInitialized:[],
     sourceChanges:[], reviewDue:[], failures:[], unchanged:[], policy:
     'Hashes and HTTP availability are not verified score results, coaching changes or permission to reuse source text.' };
   const allowed = new Set(ledger.safety.approvedDomains);
   let dirty = false;
   // Serial bounded requests: no broad search or site-wide crawl.
-  for (const row of ledger.sources) {
+  for (const row of selected) {
     if (isDue(row.reviewAfter,today)) summary.reviewDue.push({slug:row.slug,reviewAfter:row.reviewAfter,url:row.url});
     try {
       const observed = await probeSource(row,{
@@ -128,11 +145,18 @@ async function main() {
         error:String(error?.message||error).slice(0,180)});
     }
   }
+  const nextIndex = (startingIndex + selected.length) % ledger.sources.length;
+  summary.nextSourceIndex = nextIndex;
+  if (nextIndex !== startingIndex) {
+    ledger.nextSourceIndex = nextIndex;
+    dirty = true;
+  }
   if (dirty) await writeFile(CONFIG_PATH,JSON.stringify(ledger,null,2)+'\n');
   await mkdir(dirname(REPORT_PATH),{recursive:true});
   await writeFile(REPORT_PATH,JSON.stringify(summary,null,2)+'\n');
   console.log('Football official source freshness',JSON.stringify({
-    sources:summary.sourceCount, initialized:summary.baselineInitialized.length,
+    sources:summary.sourceCount, checked:summary.checkedSourceCount,
+    nextCursor:summary.nextSourceIndex, initialized:summary.baselineInitialized.length,
     changes:summary.sourceChanges.length, due:summary.reviewDue.length,
     inaccessible:summary.failures.length, ledgerChanged:dirty }));
 }

@@ -154,6 +154,29 @@ export function assertKatyFootballContents(html, surface = 'release') {
   }
 }
 
+// Check cache-busted and ordinary visitor URLs. A deployed Worker alone
+// cannot certify youth-season advice while a stale canonical HTML copy persists.
+function assertYouthHuntingAuthority(html, surface) {
+  const visible = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;|&#160;/gi, ' ')
+    .replace(/\s+/g, ' ');
+  for (const marker of [
+    'Texas youth-only hunting dates for',
+    'Youth age, license and hunter-education rules',
+    'Four ways to arrange a first Texas hunt',
+    'First youth hunt: preparation and safety checklist',
+    'Tagging, harvest reports and CWD checks',
+    'Youth hunting FAQs',
+    'Official regulations and updates',
+  ]) {
+    if (!visible.includes(marker)) throw new Error('Youth hunting '+surface+' authority section missing: '+marker);
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
@@ -230,6 +253,24 @@ for (const path of plan.selectedPaths) {
           .map(href => href.replace(/&amp;/g, '&')));
         for (const href of expectedHrefs) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
+        }
+      }
+      if (path === '/hunting/youth-hunting') {
+        assertYouthHuntingAuthority(html, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Youth-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Youth hunting canonical visitor URL failed: HTTP '+visitor.status);
+        }
+        const visitorHtml = await visitor.text();
+        assertYouthHuntingAuthority(visitorHtml, 'canonical visitor');
+        const visitorCanonical = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonical.length !== 1 || !visitorCanonical[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Youth hunting canonical visitor link missing or incorrect');
         }
       }
       if (corporateEventPages.includes(path)) {

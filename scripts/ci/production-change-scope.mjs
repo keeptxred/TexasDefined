@@ -148,7 +148,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     || p === '.github/workflows/monitor-hunting-tpwd-sources.yml'
     || p === 'src/brand/texasdefined.ts'
   )) {
-    for (const page of ['/hunting', '/hunting/public-hunting', '/hunting/texas-deer-hunting']) {
+    for (const page of ['/hunting', '/hunting/public-hunting', '/hunting/texas-deer-hunting', '/hunting/turkey-hunting']) {
       candidates.add(page);
       huntingAuthorityPages.add(page);
     }
@@ -156,7 +156,22 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       '/hunting/public-hunting',
       '/hunting/texas-hunting-license',
       '/hunting/texas-deer-hunting',
+      '/hunting/turkey-hunting',
     ];
+  }
+  // Verify the youth authority when its seasonal snapshot or dedicated page changes,
+  // and whenever this production smoke/cache-purge contract itself is changed.
+  // This is one exact page, not a statewide hunting crawl.
+  if (changedFiles.some(p => [
+    'src/data/hunting/youth-hunting-data.ts',
+    'src/components/hunting/YouthHuntingPage.tsx',
+    'src/data/hunting/authority-v2.ts',
+    'src/components/hunting/HuntingTopicPage.tsx',
+    'scripts/ci/verify-changed-production-pages.mjs',
+    '.github/workflows/deploy-production.yml',
+  ].includes(p))) {
+    candidates.add('/hunting/youth-hunting');
+    huntingAuthorityPages.add('/hunting/youth-hunting');
   }
   // The statewide Mardi Gras hub has a static route and its own event-directory
   // links. Verify it on production when either of its route files changes.

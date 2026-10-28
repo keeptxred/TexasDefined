@@ -58,6 +58,12 @@ Official BLS employment, Census statewide population, ACS county housing, TDI ho
 - `Finish Census County Growth Refresh` only accepts the expected bot-authored, run-linked, single-snapshot PR, reconciles current main, runs the repository's required validation and merge gate, then enables protected auto-merge. No ChatGPT automation and no direct Cloudflare publication are involved.
 - Older Census vintages and standalone migration research are intentionally dated publications; do not join data from differing Census vintages or silently rewrite historical analysis. On the next decennial population estimates-base reset, automated county population publication stops until the methodology is explicitly reviewed.
 
+## County office source-date contradiction protection
+
+- The weekly 254-county official Texas Comptroller directory importer retains a previously source-current appraisal/tax-office contact **and its original lastVerifiedAt** whenever a reachable page's later date or HTTPS redirect is ambiguous, contradictory or inaccessible. A newer apparently stale date is not evidence that a previously valid county government office has vanished; the affected office is quarantined for manual review with a GitHub warning and source-date diagnostics.
+- An existing county record may be automatically withdrawn only when its **own prior official office dates are already outside the 730-day limit and the newly parsed official office dates independently prove the entry is stale**. The retained last-verified date is never silently advanced for a quarantined office; source and indexing gates still age out stale evidence. Human review remains required for generated county-government contact PRs.
+- Published office URLs cannot point to access-denied or account-lockout redirects. Only time-token suffixes on the two explicitly researched public property-search vendors may be removed, while preserving their original county-specific dbkey and any meaningful query fields. No arbitrary URL or stale source is promoted by this normalization.
+
 ## Registry coverage and publication semantics
 
 The following are the 13 maintained briefs in the Texas Data server registry. The four featured cross-vertical datasets are separate.
@@ -81,3 +87,7 @@ The following are the 13 maintained briefs in the Texas Data server registry. Th
 Separate featured distributions: county growth (new monthly source-controlled Census verification), county housing (existing monthly ACS five-year refresh), city-to-county relationships (canonical maintained geography), sports venues (verified venue-directory reference values). The two directory-derived distributions should not have artificial official numeric updates; their source of truth is their maintained underlying directories.
 
 A successful check run is not proof that newly published statistics reached users. Require evidence of source validation, changed source snapshot or registry, generated PR, merge validation, matching deployed commit, and updated public values. A missing next official release should explicitly preserve the verified previous vintage.
+
+## Continuous bounded production data acceptance
+
+A successful Cloudflare deployment must execute the existing `TexasDefined publication production smoke` GitHub workflow. Its small Texas Data acceptance verifies the public site and direct Worker hub, the current official BLS 13-metro detail and Census county vintage detail on both hosts, and four fixed-size CSV exports (254 Census county growth, 254 ACS housing, 57 city/county relationships and 84 sports venues). This check is now **unconditional after each successful production deploy**: a burst of commits can cancel the deployment that first changed the statistical snapshot and leave an unrelated later commit as the successful deployment. Diffing only that final commit incorrectly skipped official-vintage verification. The acceptance uses bounded public HTTP reads and no whole-site scan or paid service. A failure blocks the smoke and demands investigation; it cannot manufacture or roll back a source snapshot.

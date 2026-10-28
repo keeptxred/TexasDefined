@@ -22,27 +22,23 @@ const iconsCsv = await read('src/routes/things-that-define-texas[.]csv.ts');
 const iconsJson = await read('src/routes/things-that-define-texas[.]json.ts');
 const iconsReferenceData = await read('src/data/things-unique-to-texas-reference.ts');
 
-// The existing post-deploy smoke must run on *data-only* source updates, not
-// just route changes; it also must not freeze next year's TDI premium.
+// The existing post-deploy smoke must test the currently deployed verified
+// Texas Data after *every* successful deploy, even if an intermediate data
+// release was superseded before deployment. Never freeze future TDI premiums.
 const smokeWorkflow = await read('.github/workflows/texasdefined-publication-production-smoke.yml');
 const liveDataSmoke = await read('scripts/ci/verify-texas-data-production.mjs');
 
 const errors = [];
 const expect = (condition, message) => { if (!condition) errors.push(message); };
 
-for (const path of [
-  'src/data/texas-data-center.ts',
-  'src/data/generated/texas-metro-payrolls-current.json',
-  'src/data/generated/tdi-homeowners-current.json',
-  'src/data/generated/texas-state-population-current.json',
-  'src/data/generated/texas-reference-facts-current.json',
-  'src/data/generated/texas-county-growth-current.json',
-  'src/data/acs-county-housing-costs.snapshot.json',
-]) expect(smokeWorkflow.includes(path), 'Live data smoke must run when maintained source changes: '+path);
-expect(smokeWorkflow.includes("'src/routes/texas-data*'"), 'All Texas Data routes must trigger scoped public acceptance');
-expect(smokeWorkflow.includes("if [[ \"$GITHUB_EVENT_NAME\" == 'workflow_dispatch' ]]; then"), 'Manual Texas Data live acceptance must never be skipped by unrelated commits');
+expect(smokeWorkflow.includes("if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}"), 'Texas Data smoke must only run on manual request or successful deployment');
+expect(smokeWorkflow.includes('run: node --check scripts/ci/verify-texas-data-production.mjs'), 'Texas Data smoke must check live verifier syntax');
+expect(smokeWorkflow.includes('run: node scripts/ci/verify-texas-data-production.mjs'), 'Every successful deployment must verify the live Texas Data hub, release vintages and CSVs');
+expect(!smokeWorkflow.includes('texas_data_scope'), 'Data-only publication must not be skipped because a later unrelated merge won deployment');
 expect(liveDataSmoke.includes('currentTdiPremiumLabel'), 'Live premium acceptance must follow the maintained official TDI series');
 expect(liveDataSmoke.includes('currentBlsReleaseLabel') && liveDataSmoke.includes('currentBlsHubPayrolls'), 'Live acceptance must verify current official BLS observation month and four metro values');
+expect(liveDataSmoke.includes("const metroDetailPath = '/texas-data/texas-metro-payrolls-latest'") && liveDataSmoke.includes("for (const row of currentBls.rows)"), 'Public live acceptance must validate exact latest BLS dataset page and all 13 current metro counts');
+expect(liveDataSmoke.includes("const countyGrowthDetailPath = '/texas-data/county-growth'") && liveDataSmoke.includes("'live-Census-county-detail'"), 'Public live acceptance must validate the verified Census county vintage detail');
 expect(!liveDataSmoke.includes("'$3,489'"), 'Live acceptance must not freeze the historic TDI premium');
 
 

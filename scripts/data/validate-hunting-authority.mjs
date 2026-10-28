@@ -13,6 +13,15 @@ const requireRouteLiteral = (source, routePath, label) => {
 const authority = read('src/data/hunting/authority.ts');
 const authorityV2 = read('src/data/hunting/authority-v2.ts');
 const deer = read('src/data/hunting/authority-deer.ts');
+const turkey = read('src/data/hunting/turkey-guide.ts');
+const turkeyTable = read('src/components/hunting/TurkeySeasonGuide.tsx');
+const turkeyMonitor = read('scripts/data/check-turkey-regulations.mjs');
+const turkeyWorkflow = read('.github/workflows/check-turkey-regulations.yml');
+const turkeyCalendar = read('src/data/hunting/turkey-season-calendar.json');
+const turkeyDateUpdater = read('scripts/data/refresh-turkey-season-calendar.mjs');
+const turkeyDateTests = read('scripts/data/refresh-turkey-season-calendar.test.mjs');
+const turkeyUpdateWorkflow = read('.github/workflows/refresh-turkey-season-calendar.yml');
+const turkeyFinishWorkflow = read('.github/workflows/finish-turkey-season-calendar.yml');
 const deerSeasonDates = read('src/data/hunting/deer-season-dates.json');
 const deerSeasonSync = read('scripts/data/sync-texas-deer-seasons.mjs');
 const deerCheck = read('scripts/data/verify-texas-deer-regulations.mjs');
@@ -64,6 +73,21 @@ for (const slug of v2Topics) requireText(authorityV2, `"${slug}"`, `missing v2 t
 for (const slug of expectedTopics) requireRouteLiteral(sitemap, `/hunting/${slug}`, `sitemap missing ${slug}`);
 
 requireText(authority, '"texas-deer-hunting": TEXAS_DEER_AUTHORITY_TOPIC', 'deer guide still using generic species template');
+requireText(authority, '"turkey-hunting": TURKEY_HUNTING_TOPIC', 'turkey not dedicated guide');
+for (const term of ['2026–27', 'Matagorda and Wharton', 'mandatory harvest reporting', 'unbearded', 'November 1, 2026', 'reviewedOn: turkeyCalendar.checkedAt']) requireText(turkey, term, 'turkey guide missing ' + term);
+requireText(turkeyTable, 'TURKEY_SEASONS_2026_27.map', 'turkey season table missing');
+requireText(turkeyTable, 'Robert Burton', 'turkey photo attribution missing');
+requireText(turkeyTable, 'turkeyCalendar.checkedAt', 'date provenance missing');
+requireText(huntingHub, '<TurkeySeasonGuide />', 'turkey table not rendered');
+requireText(turkeyMonitor, 'process.exit(2)', 'TPWD legal monitor missing');
+requireText(turkeyWorkflow, 'schedule:', 'legal source monitor not scheduled');
+requireText(turkeyCalendar, '"spring-youth-north"', 'governed turkey season data missing');
+requireText(turkey, 'turkeyCalendar.rows', 'turkey guide not using governed seasons');
+requireText(turkeyDateUpdater, 'checkCompanion', 'TPWD date dual-source check missing');
+requireText(turkeyDateUpdater, 'YEAR_ROLLOVER', 'new season must fail closed');
+requireText(turkeyDateTests, 'conflicting TPWD source dates stop publication', 'date source safety test missing');
+requireText(turkeyUpdateWorkflow, 'cron:', 'scheduled TPWD season refresh missing');
+requireText(turkeyFinishWorkflow, 'dispatch-validate-branch.sh', 'protected TPWD PR finisher missing');
 requireText(deer, 'reviewedOn: "2026-10-28"', 'deer-specific review metadata missing');
 requireText(deer, 'deerSeasonRange(', 'deer guide does not use centralized TPWD dates');
 requireText(deerSeasonDates, '"generalNorth"', 'deer date dataset must include North Zone');

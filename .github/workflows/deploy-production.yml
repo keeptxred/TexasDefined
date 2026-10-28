@@ -427,6 +427,8 @@ jobs:
           CLOUDFLARE_ZONE_NAME: texasdefined.com
           CLOUDFLARE_PURGE_METRO_PROXIMITY: 'true'
           CLOUDFLARE_PURGE_URLS: |
+            https://texasdefined.com/hunting/youth-hunting
+            https://texasdefined.com/best-places-to-go-camping-in-texas
             https://texasdefined.com/texas-data
             https://texasdefined.com/article/texas-high-school-football-playoffs-explained
             https://texasdefined.com/texas-data/texas-homeowners-premium-history

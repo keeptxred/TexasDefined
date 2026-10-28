@@ -12,6 +12,7 @@ import {
   type HuntingAuthorityTopic,
 } from "@/data/hunting/authority";
 import { HUNTING_AUTHORITY_TOPICS_V2, HUNTING_V2_HUB_GROUPS } from "@/data/hunting/authority-v2";
+import { TurkeySeasonGuide } from "./TurkeySeasonGuide";
 import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
 import { deerSeasonRange, deerSeasonYear, deerSourceCheckLabel, texasDeerSeason, type DeerSeasonId } from "@/data/hunting/deer-season-format";
 
@@ -114,6 +115,7 @@ export function HuntingAuthorityTopicPage({ topic }: { topic: HuntingAuthorityTo
 </figure> : null}</Container></section>
     <section className="border-b border-border py-8"><Container><div className="max-w-4xl border-l-2 border-primary pl-5"><p className="eyebrow text-primary">Quick answer</p><p className="mt-3 text-lg leading-8">{topic.quickAnswer}</p></div></Container></section>
     {topic.slug === "texas-deer-hunting" ? <DeerSeasonTable /> : null}
+    {topic.slug === "turkey-hunting" ? <TurkeySeasonGuide /> : null}
     <FreshnessPanel topic={topic} />
     {topic.slug === "texas-deer-hunting" ? <nav aria-label="Contents of the deer hunting guide" className="border-b border-border bg-muted/20 py-8">
       <Container><div className="max-w-5xl"><p className="eyebrow text-primary">In this guide</p>

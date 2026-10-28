@@ -39,6 +39,24 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
   for (const guard of ['verify-production-health.mjs','capture-active-worker-version.mjs','verified-worker-ledger.mjs record','verify-changed-production-pages.mjs']) assert.ok(deploy.includes(guard));
 });
 
+test('turkey authority updates require a bounded production smoke on the actual turkey URL', () => {
+  for (const changed of [
+    'src/data/hunting/turkey-guide.ts',
+    'src/data/hunting/turkey-season-calendar.json',
+    'src/components/hunting/TurkeySeasonGuide.tsx',
+  ]) {
+    const plan = buildChangePlan({ baseline, head, changedFiles: [changed] });
+    for (const route of [
+      '/hunting',
+      '/hunting/public-hunting',
+      '/hunting/texas-deer-hunting',
+      '/hunting/turkey-hunting',
+    ]) assert.ok(plan.selectedPaths.includes(route), changed + ' missing production check for ' + route);
+    assert.ok(plan.selectedPaths.length <= PAGE_BUDGET, 'unbounded hunting production crawl');
+    assert.ok(plan.expectedHrefsByPage['/hunting'].includes('/hunting/turkey-hunting'), 'hub must link to turkey guide');
+  }
+});
+
 test('new water park registry rows receive four bounded route-specific production checks', () => {
   const file = 'src/data/texas-water-parks.ts';
   const wrap = records => 'export const texasWaterParks: WaterParkGuide[] = ' + JSON.stringify(records)
