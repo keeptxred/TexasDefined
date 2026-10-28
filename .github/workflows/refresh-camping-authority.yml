@@ -1,7 +1,7 @@
-name: Texas camping TPWD and NPS official park advisory refresh
+name: Texas camping daily TPWD and NPS official park advisory refresh
 on:
   schedule:
-    - cron: '19 12 * * 1'
+    - cron: '19 12 * * *'
   workflow_dispatch:
 
 permissions:
@@ -68,7 +68,7 @@ jobs:
         with:
           script: |
             const title = 'Camping authority: official park advisory needs verification';
-            const body = 'Weekly TPWD/NPS park-advisory refresh failed or found an advisory it could not confirm verbatim. Review the workflow logs and the official TPWD pages. Never infer an alert was lifted. Run: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
+            const body = 'Daily TPWD/NPS park-advisory refresh failed or found an advisory it could not confirm verbatim. Review the workflow logs and the official TPWD pages. Never infer an alert was lifted. Run: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
             const {data: issues} = await github.rest.issues.listForRepo({owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
             const issue = issues.find(x => x.title === title && !x.pull_request);
             if (issue) await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:issue.number,body});
