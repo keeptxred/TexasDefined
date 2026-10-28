@@ -13,6 +13,8 @@ const requireRouteLiteral = (source, routePath, label) => {
 const authority = read('src/data/hunting/authority.ts');
 const authorityV2 = read('src/data/hunting/authority-v2.ts');
 const deer = read('src/data/hunting/authority-deer.ts');
+const deerSeasonDates = read('src/data/hunting/deer-season-dates.json');
+const deerSeasonSync = read('scripts/data/sync-texas-deer-seasons.mjs');
 const deerCheck = read('scripts/data/verify-texas-deer-regulations.mjs');
 const deerWorkflow = read('.github/workflows/verify-texas-deer-regulations.yml');
 const allAuthority = `${authority}\n${authorityV2}`;
@@ -59,7 +61,10 @@ for (const slug of expectedTopics) requireRouteLiteral(sitemap, `/hunting/${slug
 
 requireText(authority, '"texas-deer-hunting": TEXAS_DEER_AUTHORITY_TOPIC', 'deer guide still using generic species template');
 requireText(deer, 'reviewedOn: "2026-10-28"', 'deer-specific review metadata missing');
-for (const text of ['2026–27 Texas white-tailed deer season', 'county', 'antler', 'within 24 hours', 'within 48 hours', 'public hunting', 'rut', 'CWD']) {
+requireText(deer, 'deerSeasonRange(', 'deer guide does not use centralized TPWD dates');
+requireText(deerSeasonDates, '"generalNorth"', 'deer dates dataset missing North Zone');
+requireText(deerSeasonSync, 'parseDeerPage', 'deer official date verifier missing');
+for (const text of ['county', 'antler', 'within 24 hours', 'within 48 hours', 'public hunting', 'rut', 'CWD']) {
   requireText(deer, text, 'deer guide missing useful authority depth: ' + text);
 }
 requireText(huntingHub, 'function DeerSeasonTable()', 'deer season table missing');
