@@ -4,11 +4,15 @@
   "purpose": "Official-source availability and stable-content-change detection only. A digest change is NOT a verified football score or factual correction.",
   "safety": {
     "approvedDomains": [
+      "amchs.csisd.org",
       "athletics.c-isd.com",
       "bwhs.brazosportisd.net",
+      "chhs.gcisd.net",
       "chs.clevelandisd.org",
       "chs.clintweb.net",
+      "collinsvilleisd.org",
       "cpisd.net",
+      "cshs.csisd.org",
       "hhs.clintweb.net",
       "mvhs.clintweb.net",
       "realignment.uiltexas.org",
@@ -30,14 +34,18 @@
       "www.clydeisd.org",
       "www.coahomaisd.com",
       "www.cocisd.org",
+      "www.colemanisd.net",
+      "www.colmesneilisd.net",
       "www.cvisd.org",
       "www.scucisd.org",
       "www.tarkingtonisd.net"
     ],
-    "sourceCountCap": 30,
+    "sourceCountCap": 1500,
     "perSourceTimeoutMs": 12000,
-    "maxBodyBytes": 1600000
+    "maxBodyBytes": 1600000,
+    "perRunSourceCap": 25
   },
+  "nextSourceIndex": 0,
   "sources": [
     {
       "slug": "chilton",
@@ -245,6 +253,48 @@
     {
       "slug": "coldspring-oakhurst",
       "url": "https://www.cocisd.org/departments/athletics/schedules",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coleman",
+      "url": "https://www.colemanisd.net/departments/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "college-station",
+      "url": "https://cshs.csisd.org/about-us/directory",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "college-station-a-and-m-consolidated",
+      "url": "https://amchs.csisd.org/about-us/staff-directory",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "colleyville-heritage",
+      "url": "https://chhs.gcisd.net/staff?page_no=3",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "collinsville",
+      "url": "https://collinsvilleisd.org/football-schedules",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "colmesneil",
+      "url": "https://www.colmesneilisd.net/page/athletics/",
       "reviewAfter": "2026-11-07",
       "contentFingerprint": null,
       "lastObservedAt": null
