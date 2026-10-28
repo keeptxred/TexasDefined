@@ -133,6 +133,19 @@ jobs:
           assert.ok(Object.keys(previous).length>=100,'Previous verified county inventory unexpectedly small');
           assert.ok(Object.keys(next).length>=Object.keys(previous).length &&
             Object.keys(next).length<=254,'Automated refresh cannot delete source-backed county contacts');
+          // Official Comptroller filenames omit hyphens for five multiword counties.
+          // Keep this a strict county-by-county allowlist; do not loosen domain,
+          // path, county identity, or the verified-source provenance check.
+          const officialDirectorySlugs = new Map([
+            ['deaf-smith','deafsmith'],
+            ['fort-bend','fortbend'],
+            ['jim-hogg','jimhogg'],
+            ['san-augustine','sanaugustine'],
+            ['san-patricio','sanpatricio'],
+          ]);
+          const officialSourceUrl = slug =>
+            'https://comptroller.texas.gov/taxes/property-tax/county-directory/'+
+            (officialDirectorySlugs.get(slug) ?? slug)+'.php';
           const utcToday=new Date().toISOString().slice(0,10);
           let retained=0, updated=0;
           for(const [slug,old] of Object.entries(previous)){
@@ -144,7 +157,7 @@ jobs:
               newAt>=oldAt&&newAt<=Date.parse(utcToday+'T00:00:00Z'),
               'Invalid verification date for '+slug);
             const newSource=current.sourceUrls?.[0]??'';
-            assert.equal(newSource,'https://comptroller.texas.gov/taxes/property-tax/county-directory/'+slug+'.php',
+            assert.equal(newSource,officialSourceUrl(slug),
               'Wrong official county provenance: '+slug);
             for(const key of ['propertySearchUrl','paymentUrl']){
               if(old.links?.[key]!==undefined)
@@ -155,8 +168,7 @@ jobs:
             else updated++;
           }
           for(const [slug,current] of Object.entries(next)){
-            assert.equal(current.sourceUrls?.[0],
-              'https://comptroller.texas.gov/taxes/property-tax/county-directory/'+slug+'.php',
+            assert.equal(current.sourceUrls?.[0],officialSourceUrl(slug),
               'New county requires exact official Comptroller directory provenance');
           }
           console.log('Protected county snapshot reconciliation: previous='+
