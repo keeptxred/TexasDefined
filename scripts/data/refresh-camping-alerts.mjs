@@ -102,7 +102,14 @@ if (process.argv.includes("--self-test")) {
   const brazos = sources[3].notice(fixtures[3], "2026-11-20");
   assert(!brazos.includes("November 17–19"), "elapsed Brazos closure must expire");
   assert(brazos.includes("December 15–17"), "later Brazos closure must remain");
-  console.log("Camping advisories: 5 positive source fixtures; changed dates, new closures, withdrawn restrictions and date rollovers guarded.");
+  const staleGooseIsland = sourceOutcome(sources[0], fixtures[0].replace("Oct. 23, 2026", "Oct. 25, 2026"));
+  assert.equal(staleGooseIsland.status, "needs-review");
+  assert.equal(staleGooseIsland.notice, REVIEW_NOTICE);
+  assert(!staleGooseIsland.notice.includes("water outage reported"), "stale date-specific advisory must not remain visible");
+  const stillConfirmed = sourceOutcome(sources[0], fixtures[0]);
+  assert.equal(stillConfirmed.status, "confirmed");
+  assert(stillConfirmed.notice.includes("water outage"), "confirmed source retains authoritative notice");
+  console.log("Camping advisories: 5 positive source fixtures; changed dates, new closures, withdrawn restrictions, safe downgrades and date rollovers guarded.");
   process.exit(0);
 }
 
@@ -116,6 +123,13 @@ const normalize = html => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " 
 const oldFile = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, "utf8") : "";
 const priorMatch = oldFile.match(/export const CAMPING_OPERATIONAL_ALERTS = (\[[\s\S]*?\]) as const;/);
 const oldAlerts = priorMatch ? JSON.parse(priorMatch[1]) : [];
+const REVIEW_NOTICE = "The previously recorded advisory could not be verified verbatim. Check the park\'s current official alerts before travel; no resolution is assumed.";
+const sourceOutcome = (source, text, asOf = day) => {
+  const confirmed = isVerified(source, text, asOf);
+  return { status: confirmed ? "confirmed" : "needs-review", notice: confirmed
+    ? (typeof source.notice === "function" ? source.notice(text, asOf) : source.notice)
+    : REVIEW_NOTICE };
+};
 const rows = [];
 for (const source of sources) {
   const controller = new AbortController();
@@ -129,16 +143,13 @@ for (const source of sources) {
   const text = normalize(html);
   const expectedHeading = source.sourceUrl.includes("nps.gov") ? /Alerts & Conditions/i : /Park Alerts?/i;
   if (!expectedHeading.test(text) || text.length < 500) throw new Error("Invalid official alert page: " + source.sourceUrl);
-  const confirmed = isVerified(source, text, day);
-  const notice = confirmed ? (typeof source.notice === "function" ? source.notice(text, day) : source.notice)
-    : "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.";
-  const status = confirmed ? "confirmed" : "needs-review";
+  const { status, notice } = sourceOutcome(source, text, day);
   const previous = oldAlerts.find(old => old.destinationSlug === source.destinationSlug);
   const unchanged = previous && previous.parkName === source.parkName
     && previous.sourceUrl === source.sourceUrl && previous.notice === notice && previous.status === status;
   rows.push({ destinationSlug: source.destinationSlug, parkName: source.parkName, sourceUrl: source.sourceUrl,
     notice, checkedAt: unchanged ? previous.checkedAt : day, status });
-  console.log(source.parkName + ": " + (confirmed ? "confirmed" : "changed — needs review"));
+  console.log(source.parkName + ": " + (status === "confirmed" ? "confirmed" : "changed — needs review"));
 }
 const output = "/** Generated from official TPWD alert pages; do not manually restamp verified dates. */\nexport const CAMPING_OPERATIONAL_ALERTS = " + JSON.stringify(rows, null, 2) + " as const;\n";
 if (process.argv.includes("--write")) {
@@ -147,4 +158,10 @@ if (process.argv.includes("--write")) {
 } else {
   console.log(JSON.stringify(rows, null, 2));
 }
-if (rows.some(row => row.status === "needs-review")) process.exitCode = 2;
+if (rows.some(row => row.status === "needs-review")) {
+  // A reachable, valid official page that no longer supports the recorded
+  // assertion is enough evidence to withdraw that assertion, NOT enough to
+  // claim a park reopened. Publish a linked, generic needs-review notice.
+  console.warn("One or more official sources changed: publish a safety downgrade and open a review issue.");
+  if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, "needs_review=true\n");
+}

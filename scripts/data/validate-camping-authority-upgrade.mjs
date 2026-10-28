@@ -28,6 +28,9 @@ for (const [src,needle] of [
   [finisher,"src/data/camping/official-alerts.generated.ts"],
   [finisher,"--auto --match-head-commit"],
   [monitor,"steps.refresh.outcome == 'success'"],
+  [monitor,"steps.refresh.outputs.needs_review"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"fs.appendFileSync(process.env.GITHUB_OUTPUT"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"sourceOutcome(sources[0]"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"unchanged ? previous.checkedAt : day"],
   [health,"schedule:"],
   [health,"audit-camping-guide-freshness.mjs"]
