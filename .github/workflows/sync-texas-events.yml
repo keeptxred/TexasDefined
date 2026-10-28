@@ -9,6 +9,8 @@ on:
       - "scripts/events/reconcile-ticketing-refresh-conflicts.mjs"
       - "scripts/events/reconcile-ticketing-refresh-conflicts.test.mjs"
       - "scripts/events/sync-texas-events-safe.mjs"
+      - "scripts/events/retain-verified-official-events.mjs"
+      - "scripts/events/retain-verified-official-events.test.mjs"
       - "scripts/events/sync-tpwd-calendar.mjs"
       - "scripts/events/sync-tpwd-calendar.test.mjs"
       - "src/data/events/tpwd-event-records.server.ts"
@@ -55,6 +57,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+
+      - name: Test strict retention of still-current source-verified festival dates
+        run: node --test scripts/events/retain-verified-official-events.test.mjs
 
       - name: Sync authoritative Texas events
         run: node scripts/events/sync-texas-events-safe.mjs
