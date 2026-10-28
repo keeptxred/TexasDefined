@@ -134,8 +134,8 @@ WITH batch AS (
     "service_cities": [
       "Houston"
     ],
-    "max_participants": null,
-    "simultaneous_capacity": null,
+    "max_participants": 600,
+    "simultaneous_capacity": 600,
     "setting": "indoor",
     "food_status": "unknown",
     "typical_duration_minutes": null,
