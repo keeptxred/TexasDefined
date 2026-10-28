@@ -2862,6 +2862,9 @@ if(batch009Certified) {
     if(!wf.includes(marker))errors.push('Batch010 fifth cohort scoped workflow protection missing: '+marker);
  for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==4','report.screenshots!==19','versions.size!==1'])
     if(!verifier.includes(marker))errors.push('Fifth-cohort 15 school / four county / 19 screenshot / Worker identity guard missing: '+marker);
+ if(!verifier.includes('/tmp/td-b010-fifth-chrome/node_modules/playwright-core') ||
+    verifier.includes('/tmp/td-b010-third-chrome/node_modules/playwright-core'))
+   errors.push('Fifth-cohort verifier must import its own Playwright install; third-cohort dependency forbidden');
  if(!editorial.includes('Stoney Pryor')||!editorial.includes('Brandon Schmidt')||
     !editorial.includes('Jerry Edwards')||!editorial.includes('Garrett Patterson')||
     !editorial.includes('Chad Coker')||!editorial.includes('Chris Hicks')||
