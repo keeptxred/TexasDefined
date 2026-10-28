@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const censusCountyVintage = JSON.parse(readFileSync(new URL('../../src/data/generated/texas-county-growth-current.json', import.meta.url), 'utf8')).vintage;
 
 // Bounded public HTTP acceptance, run by the existing post-deployment smoke workflow.
 // No Cloudflare Browser Rendering, direct cache purge, or authenticated API calls.
@@ -7,7 +9,7 @@ const directWorker = 'https://texasdefined-site.freddy-coppola.workers.dev';
 const csvSpecs = [
   {
     path: '/texas-data/county-growth.csv',
-    columns: ['fips', 'county_name', 'population_base_2020', 'population_estimate_2025', 'population_change', 'population_change_percent'],
+    columns: ['fips', 'county_name', 'population_base_2020', 'population_estimate_' + censusCountyVintage, 'population_change', 'population_change_percent'],
     rows: 254,
     uniqueColumn: 'fips',
   },
