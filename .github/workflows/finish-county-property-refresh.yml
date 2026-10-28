@@ -117,6 +117,9 @@ jobs:
           # threshold would allow them. Those require a separate reviewed PR.
           # Preserve quarantine timestamps exactly; only original official
           # source records may be added or advanced by this automated path.
+          # Keep the precise main commit whose county directory and CI contract
+          # the following source audit and both protected checks validate.
+          validated_base_sha="$(git rev-parse origin/main)"
           node --input-type=module <<'NODE'
           import assert from 'node:assert/strict';
           import {execFileSync} from 'node:child_process';
@@ -184,9 +187,35 @@ jobs:
           [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
             echo '::error::County PR changed during required validation'; exit 1;
           }
-          git merge-base --is-ancestor origin/main "origin/$branch" || {
-            echo '::error::Main advanced; do not merge an unvalidated county baseline'; exit 1;
-          }
+          if ! git merge-base --is-ancestor origin/main "origin/$branch"; then
+            # Other protected PRs often land during the multi-minute full suite.
+            # Their merge cannot invalidate this *data-only* snapshot if every
+            # county source/data, code-contract and gate file is unchanged.
+            # Never bypass a changed county baseline: in that case a fresh
+            # validation on a rebased head is still required.
+            git merge-base --is-ancestor "$validated_base_sha" origin/main || {
+              echo '::error::Main history was rewritten after validation'; exit 1;
+            }
+            [[ "$(git merge-base origin/main "origin/$branch")" == "$validated_base_sha" ]] || {
+              echo '::error::County branch baseline is not the exact validated main'; exit 1;
+            }
+            mapfile -t main_changes < <(git diff --name-only "$validated_base_sha" origin/main)
+            [[ "${#main_changes[@]}" -gt 0 ]] || {
+              echo '::error::Unexpected main ancestry drift'; exit 1;
+            }
+            for file in "${main_changes[@]}"; do
+              case "$file" in
+                src/data/property/*|src/routes/property-tax*|src/components/property/*|src/components/content/*Property*|src/data/local-government-profile.ts|src/data/texas-data-center*|scripts/data/county-*|scripts/data/sync-county-property-data.mjs|scripts/data/validate-county-property-enrichment.mjs|scripts/ci/*|.github/workflows/finish-county-property-refresh.yml|.github/workflows/sync-county-property-data.yml|.github/workflows/validate.yml|.github/workflows/merge-gate.yml|package.json|package-lock.json|pnpm-lock.yaml)
+                  echo "::error::Main changed county-data or its validation contract after required checks: $file"
+                  exit 1
+                  ;;
+              esac
+            done
+            git diff --quiet "$validated_base_sha" origin/main -- src/data/property/ || {
+              echo '::error::Main published different county records after validation'; exit 1;
+            }
+            echo "::notice::Main advanced only in unrelated files; county source baseline, PR head and exact-head protected CI remain unchanged."
+          fi
           gh api --method POST "repos/$REPOSITORY/statuses/$validated_sha" \
             -f state=success -f context='Required merge gate' \
             -f description='Protected official county data source and reconciliation checks passed' \
