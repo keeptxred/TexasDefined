@@ -196,7 +196,7 @@ for (const feature of [
 ]) {
   if (!countyFinisher.includes(feature)) failures.push('County bot PR finisher missing protected feature '+feature);
 }
-if (/gh\\s+pr\\s+merge/.test(countyFinisher)) failures.push('County source finisher must not auto-merge verified contacts.');
+if (/gh\s+pr\s+merge/.test(countyFinisher)) failures.push('County source finisher must not auto-merge verified contacts.');
 
 const legacyStandaloneProtection = validateWorkflow.includes('Validate county property enrichment') && validateWorkflow.includes('node scripts/data/validate-county-property-enrichment.mjs');
 const centralizedProtection = validateWorkflow.includes('node scripts/ci/run-premerge-validation.mjs')
