@@ -36,8 +36,8 @@ const sources = [
     required: [/Burn Ban/i, /No wood fires allowed/i, /Park Closures/i],
     notice: text => {
       const futureClosures = [
-        { end: "2026-11-19", label: "November 17–19, 2026", pattern: /Nov\\. 17 to Nov\\. 19/i },
-        { end: "2026-12-17", label: "December 15–17, 2026", pattern: /Dec\\. 15 to Dec\\. 17/i }
+        { end: "2026-11-19", label: "November 17–19, 2026", pattern: /Nov\. 17 to Nov\. 19/i },
+        { end: "2026-12-17", label: "December 15–17, 2026", pattern: /Dec\. 15 to Dec\. 17/i }
       ].filter(window => window.end >= day && window.pattern.test(text));
       if (futureClosures.length === 0) return "TPWD reports a wood-fire burn ban; charcoal or containerized fuel cooking is allowed. Check park alerts for the latest closures and access conditions.";
       return "TPWD reports a wood-fire burn ban (charcoal or containerized fuel cooking allowed). The park lists closures " + futureClosures.map(w => w.label).join(" and ") + "; only permitted hunters may enter during those closures. Check the current park notice before booking.";
