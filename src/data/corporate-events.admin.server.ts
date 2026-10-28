@@ -21,7 +21,7 @@ export type CorporateEventLeadRecord = {
   budget_per_person: number | null; provider_slugs: string[]; notes: string | null;
   allow_provider_outreach: boolean; provider_outreach_consented_at: string | null;
   first_contacted_at: string | null;
-  first_contact_evidence_reference: string | null;
+  first_contact_evidence_recorded: boolean;
 };
 export type CorporateEventApplicationRecord = {
   id: string; created_at: string; status: CorporateEventApplicationStatus;
@@ -64,7 +64,17 @@ export async function loadCorporateEventOperations(accessKey: string) {
   if (leadQuery.error || applicationQuery.error || offerQuery.error || clickQuery.error) {
     throw new Error('Corporate event dashboard data is temporarily unavailable.');
   }
-  const leads = (leadQuery.data ?? []) as CorporateEventLeadRecord[];
+  // Only the authorized server examines contact evidence text. The browser
+  // receives a bounded presence flag, never a message identifier or note.
+  const leads = ((leadQuery.data ?? []) as Array<Record<string, unknown>>).map(row => {
+    const { first_contact_evidence_reference, ...safeFields } = row;
+    const reference = typeof first_contact_evidence_reference === 'string'
+      ? first_contact_evidence_reference.trim() : '';
+    return {
+      ...safeFields,
+      first_contact_evidence_recorded: reference.length >= 20 && reference.length <= 500,
+    } as CorporateEventLeadRecord;
+  });
   const applications = (applicationQuery.data ?? []) as CorporateEventApplicationRecord[];
   const offers = (offerQuery.data ?? []) as CorporateEventOfferRecord[];
   const clickRows = (clickQuery.data ?? []) as { offer_id: string; clicks: number }[];
