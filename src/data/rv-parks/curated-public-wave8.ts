@@ -97,7 +97,7 @@ const WAVE8: Record<(typeof RV_PARK_CURATED_PUBLIC_WAVE8_SLUGS)[number], Curated
       "The campground is part of a larger recreation area rather than only a place to park an RV. The lake has a designated swim area, fishing piers and a boat ramp, while the surrounding forest supports hiking and wildlife viewing. Three trails connect at the recreation area, including the 20-mile Four C National Recreation Trail. The Forest Service also notes the site's Civilian Conservation Corps history, dating the recreation area to 1936.",
       "The Forest Service places Ratcliff Lake at 31.3835, -95.1533, east of Crockett on State Highway 7, with the Davy Crockett National Forest district office at 18551 State Highway 7 East in Kennard. Camping is available year-round, but travelers should confirm current reservation status, electrical service, vehicle length and any fire or lake restrictions for the specific site. Texas Defined's hero remains clearly labeled representative editorial imagery.",
     ],
-    officialUrl: "https://www.fs.usda.gov/r08/texas/recreation/ratcliff-lake-936-655-2299",
+    officialUrl: "https://www.recreation.gov/camping/campgrounds/234362",
     sourceCheckedAt: "2026-09-13",
     address: "18551 State Highway 7 East, Kennard, TX 75847",
     managingAuthority: USFS,
