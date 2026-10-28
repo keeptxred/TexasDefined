@@ -1,0 +1,65 @@
+{
+  "seasonYear": "2026–27",
+  "startYear": 2026,
+  "sourceCheckedAt": "2026-10-28",
+  "officialDeerUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer",
+  "officialCalendarUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/2026-2027-hunting-season-dates",
+  "rows": [
+    {
+      "id": "archery",
+      "season": "Archery only",
+      "area": "Counties with an open season",
+      "start": "2026-10-03",
+      "end": "2026-11-06"
+    },
+    {
+      "id": "generalNorth",
+      "season": "General season",
+      "area": "North Zone",
+      "start": "2026-11-07",
+      "end": "2027-01-03"
+    },
+    {
+      "id": "generalSouth",
+      "season": "General season",
+      "area": "South Zone",
+      "start": "2026-11-07",
+      "end": "2027-01-17"
+    },
+    {
+      "id": "earlyYouth",
+      "season": "Early youth-only",
+      "area": "Eligible counties",
+      "start": "2026-10-30",
+      "end": "2026-11-01"
+    },
+    {
+      "id": "lateYouthNorth",
+      "season": "Late youth-only",
+      "area": "North Zone",
+      "start": "2027-01-04",
+      "end": "2027-01-17"
+    },
+    {
+      "id": "muzzleloader",
+      "season": "Muzzleloader-only",
+      "area": "Designated counties",
+      "start": "2027-01-04",
+      "end": "2027-01-17"
+    },
+    {
+      "id": "specialNorth",
+      "season": "Special late",
+      "area": "North Zone, where offered",
+      "start": "2027-01-04",
+      "end": "2027-01-17"
+    },
+    {
+      "id": "specialSouth",
+      "season": "Special late",
+      "area": "South Zone, where offered",
+      "start": "2027-01-18",
+      "end": "2027-01-31"
+    }
+  ]
+}

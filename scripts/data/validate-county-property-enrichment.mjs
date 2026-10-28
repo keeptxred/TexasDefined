@@ -17,9 +17,10 @@ const failures = [];
 
 const sourceCodec = fs.readFileSync('scripts/data/county-property-snapshot-codec.mjs', 'utf8');
 if (!sourceCodec.includes('export function preserveSourcedCountyLinks(') ||
-    !sync.includes('preserveSourcedCountyLinks(merged[county.slug], enrichment)') ||
+    !sourceCodec.includes('preserveSourcedCountyLinks(next[county.slug], enrichment)') ||
     !sync.includes('isAmbiguousCountyWithdrawal(merged[result.county.slug], result)') ||
     !sourceCodec.includes('export function isAmbiguousCountyWithdrawal(') ||
+    !sourceCodec.includes('export function applyQuarantinedCountyRefresh(') ||
     !sourceCodec.includes("['propertySearchUrl','paymentUrl']") ||
     !sourceCodec.includes("sourceUrls: [...new Set(")) {
   failures.push('Official county contact refresh must preserve only source-proven, fresh same-office search/payment links.');
@@ -108,6 +109,8 @@ for (const feature of [
   'nextCount < Math.floor(previousCount * MIN_RETAINED_RATIO)',
   'Refusing statewide county-property refresh that would shrink verified coverage',
   'parseCountyPage',
+  'const ambiguousSlugs = new Set(ambiguousWithdrawals.map(result => result.county.slug))',
+  'Prior records and their verification dates were preserved, not reverified.',
   'appraisal.websiteUrl',
   'taxOffice.websiteUrl',
   'isFreshSourceDate(appraisal.lastUpdated)',
@@ -115,7 +118,7 @@ for (const feature of [
   'sourceUpdatedAt:',
   'appraisalDistrict: appraisalUpdated',
   'taxOffice: taxUpdated',
-  'else if (fetched) delete merged[county.slug]',
+  'applyQuarantinedCountyRefresh(merged, results, ambiguousSlugs)',
   'lastVerifiedAt: sourceChecked',
   'sourceUrls: [sourceUrl, appraisal.websiteUrl, taxOffice.websiteUrl]',
 ]) {
@@ -158,6 +161,11 @@ for (const feature of [
   'node scripts/data/validate-crawl-demand.mjs',
   'node scripts/data/validate-freshness-signals.mjs',
   'node scripts/data/validate-sitemap-routes.mjs',
+  '.github/workflows/sync-county-property-data.yml',
+  'GH_TOKEN: ${{ github.token }}',
+  'base_sha="$(git rev-parse main)"',
+  'gh api -X POST "repos/${GITHUB_REPOSITORY}/git/refs"',
+  '-f ref="refs/heads/$branch" -f sha="$base_sha" >/dev/null',
   'git checkout -b "$branch"',
   'gh pr create',
   "--base main",

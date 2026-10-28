@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
@@ -23,6 +24,9 @@ function primarySitemapCacheRequest(request: Request): Request {
 
 
 const PRIORITY_SEO_LASTMOD = "2026-08-20";
+// Independently source-checked campground operations are page edits, not a
+// blanket restamping of the underlying campground research.
+const CAMPING_GUIDE_LASTMOD = CAMPING_OPERATIONAL_ALERTS.map((alert) => alert.checkedAt).sort().at(-1) ?? "2026-09-02";
 const AUTHORITY_LASTMOD = "2026-09-01";
 const AUTHORITY_STATIC_PATHS = [
   "/track-texas-drivers-license",
@@ -34,7 +38,7 @@ const AUTHORITY_STATIC_PATHS = [
   "/what-does-chud-mean",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
-  "/best-places-to-go-camping-in-texas": PRIORITY_SEO_LASTMOD,
+  "/best-places-to-go-camping-in-texas": CAMPING_GUIDE_LASTMOD,
   "/texas-state-fair": PRIORITY_SEO_LASTMOD,
   "/texas-two-step": PRIORITY_SEO_LASTMOD,
   "/texas-fishing-license": PRIORITY_SEO_LASTMOD,

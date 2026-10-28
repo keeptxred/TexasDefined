@@ -15,6 +15,34 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'cleveland-tarkington',
+    mascot: 'Longhorns',
+    sourceUrl: 'https://www.tarkingtonisd.net/departments/athletics',
+    sourceLabel: 'Tarkington ISD official athletics roster and calendar',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'clifton',
+    mascot: 'Cubs',
+    sourceUrl: 'https://www.cliftonisd.org/o/cisda/staff',
+    sourceLabel: 'Clifton ISD school-controlled Cubs athletics directory',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'clint',
+    mascot: 'Lions',
+    sourceUrl: 'https://chs.clintweb.net/athletics/football',
+    sourceLabel: 'Clint High official 2026 varsity football staff',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'clint-mountain-view',
+    mascot: 'Lobos',
+    sourceUrl: 'https://mvhs.clintweb.net/',
+    sourceLabel: 'Mountain View High School official Lobos athletics campus',
+    verifiedAt: '2026-10-28',
+  },
+  {
     slug: 'clarendon',
     mascot: 'Broncos',
     sourceUrl: 'https://www.clarendonisd.net/',

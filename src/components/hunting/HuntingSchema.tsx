@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
 import { HUNTING_REGULATION_FRESHNESS } from "@/data/hunting/freshness";
 import { YOUTH_HUNTING_LAST_CHECKED } from "@/data/hunting/youth-hunting-data";
+import { texasDeerSeason } from "@/data/hunting/deer-season-format";
 import { absoluteUrl } from "@/lib/seo";
 
 function JsonLd({ value }: { value: Record<string, unknown> }) {
@@ -58,7 +59,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         url: pageUrl,
         name: topic.title,
         description: topic.description,
-        dateModified: topic.slug === "youth-hunting" ? YOUTH_HUNTING_LAST_CHECKED : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
+        dateModified: topic.slug === "youth-hunting" ? YOUTH_HUNTING_LAST_CHECKED : topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         isPartOf: { "@id": `${homeUrl}#website` },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
         mainEntity: { "@id": `${pageUrl}#${topic.slug === "texas-deer-hunting" ? "article" : "sections"}` },
@@ -69,7 +70,8 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         "@id": `${pageUrl}#article`,
         headline: topic.title,
         description: topic.description,
-        dateModified: topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified,
+        image: { "@type": "ImageObject", url: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt", width: 1300, height: 863, creditText: "Tom Koerner / US Fish and Wildlife Service", license: "https://www.fws.gov/media/white-tailed-deer-buck-0" },
+        dateModified: topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         mainEntityOfPage: { "@id": `${pageUrl}#page` },
         author: { "@type": "Organization", name: "TexasDefined" },
         publisher: { "@type": "Organization", name: "TexasDefined" },

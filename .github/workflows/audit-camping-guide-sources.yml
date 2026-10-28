@@ -1,0 +1,69 @@
+name: Camping guide official source and review-date audit
+on:
+  schedule:
+    - cron: '37 13 * * 4'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/data/camping/**'
+      - 'scripts/data/audit-camping-guide-freshness.mjs'
+      - '.github/workflows/audit-camping-guide-sources.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  source-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify official sources and verification-date coverage without network requests
+        run: node scripts/data/audit-camping-guide-freshness.mjs --offline
+      - name: Validate camping page, bookings, alert snapshot and scheduler contract
+        run: |
+          node --check scripts/data/refresh-camping-alerts.mjs
+          node scripts/data/validate-camping-guide-decision-ux.mjs
+          node scripts/data/validate-camping-authority-upgrade.mjs
+
+  official-source-health:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify only camping-specific official pages and dated source batches
+        id: audit
+        continue-on-error: true
+        run: node scripts/data/audit-camping-guide-freshness.mjs
+      - name: Retain audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: camping-source-health
+          path: .artifacts/camping-authority-source-health.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Create or reconcile one actionable research issue
+        if: steps.audit.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Camping guide: official source or verification date needs review';
+            const body = 'The weekly scoped campground audit found broken/unreachable official pages or research verification dates older than 120 days. Review the report artifact and correct the primary records only after source verification. No artificial date refresh or fabricated booking details. Workflow: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
+            const { data: issues } = await github.rest.issues.listForRepo({ owner:context.repo.owner, repo:context.repo.repo, state:'open', per_page:100 });
+            const previous = issues.find(x => x.title === title && !x.pull_request);
+            if (previous) await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:previous.number,body});
+            else await github.rest.issues.create({owner:context.repo.owner,repo:context.repo.repo,title,body});
+      - name: Fail on unresolved source health degradation
+        if: steps.audit.outcome == 'failure'
+        run: exit 1

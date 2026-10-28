@@ -1,5 +1,15 @@
 # Football Authority — Execution Ledger
 
+## October 28, 2026 — Third Batch 010 five-school source implementation (protected release pending)
+
+- The first five Batch 010 profiles were protected-merged in PR #6124. The second five (Clarendon, Clarksville, Claude, Cleburne, Cleveland) passed protected CI in PR #6154 and have now merged; do not claim a live-browser certificate until an actual non-skipped production workflow report.
+- Third five new individual guides: **Tarkington Longhorns** (Liberty County, UIL 3A DI D10; first-party new AD Coach Howard, varsity Jake Howard, official Oct. 30 A. L. Nelson Stadium listing), **Clifton Cubs** (Bosque County, UIL 3A DII D5; first-party Brent Finney coaching despite conflicting third-party archived role), **Clint Lions** (school-listed Rosuel Martinez, 4A DII D1), **Horizon Scorpions** (district-listed Omar Garcia, school-owned 2002 founding, 5A DI D1), and **Mountain View Lobos** (district-listed DJ Check, 4A DII D1, eight specific source-dated Oct. 27 2026 game results).
+- Original researched school-specific text, UIL links, staff, venue restrictions, five source dossiers, official-identity entries, conditional server import, school-to-county and reciprocal county links, strict 15 school-viewport + 3-county Chrome workflow, 21 screen evidence files, five sitemap/meta/schema validations and Worker consistency guard are implemented. No official crest or unlicensed photography copied.
+- Registry tracks **205 prior live-VERIFIED / 15 new IMPLEMENTED / 1,072 NOT_REVIEWED**. The final ten Batch 010 assigned schools start at **Clute Brazoswood**. **All 25 Batch 010 schools still require independent deployment-era Chrome acceptance to be technically VERIFIED.**
+- Live results not automated without an authorized provider feed. Historical wins, school tickets, stadium gates/ADA compliance, late fixtures and manual accessibility are not certified.
+
+
+
 ## October 28, 2026 — Batch 010 second group individually IMPLEMENTED, never pre-VERIFIED
 
 - Pending source release: protected PR #6124 covers the first five Batch010 schools and carries 205 prior VERIFIED. Its recent independent Batch004 regression jobs flagged the Aubrey Colorado stock photo and a transient Callahan County API table load. The branch was updated to replace the irrelevant representative photo with an original sourced game-results timeline, retain all other image provenance checks, add one bounded no-false-pass browser retry, and reconcile newer unrelated main changes. No production acceptance has been claimed.

@@ -3,13 +3,13 @@ import fs from 'node:fs';
 const sourcePath = 'src/data/hunting/authority-deer.ts';
 const pageUrl = 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer';
 const source = fs.readFileSync(sourcePath, 'utf8');
+const dates = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
+if (dates.rows.length !== 8) throw new Error('Deer season dataset must include eight documented season rows');
 
 // Local contract is always checked, including on PRs without external networking.
 for (const marker of [
   'reviewedOn: "2026-10-28"',
-  'October 3–November 6, 2026',
-  'January 3, 2027',
-  'January 17, 2027',
+  'deerSeasonRange(',
   'within 24 hours',
   'within 48 hours',
   'Texas Hunt & Fish',
@@ -20,6 +20,7 @@ for (const marker of [
 }
 
 if (process.argv.includes('--offline')) {
+  if (!dates.rows.every((row)=>/^20\d\d-\d\d-\d\d$/.test(row.start)&&/^20\d\d-\d\d-\d\d$/.test(row.end))) throw new Error('Deer season dataset contains invalid dates');
   console.log('Deer authority source/season editorial contract passed (offline; no live TPWD check).');
   process.exit(0);
 }
@@ -46,15 +47,12 @@ const body = visibleText(await response.text());
 if (body.length < 1500) throw new Error('TPWD deer page returned too little content for trustworthy checks.');
 
 const expected = [
-  '2026-2027',
+  dates.startYear + '-' + (dates.startYear + 1),
   'Archery Only',
-  'Oct. 3',
-  'Nov. 6, 2026',
-  'Nov. 7, 2026',
-  'Jan. 3, 2027',
-  'Jan. 17, 2027',
-  'Jan. 18',
-  'Jan. 31, 2027',
+  'General Season',
+  'Youth-Only',
+  'Muzzleloader',
+  'Special Late',
   'Statewide Bag Limits',
   'Mandatory Harvest Reporting',
   'Special Antler Restrictions',
@@ -64,4 +62,4 @@ const missing = expected.filter((snippet) => !body.includes(snippet));
 if (missing.length) {
   throw new Error('TPWD deer regulations need an editor review; expected official facts/headings missing or changed: ' + missing.join(', '));
 }
-console.log('TPWD deer spot-check passed: 2026–27 season calendar and core regulation sections remain present. This does NOT attest that every county rule or prose change is unchanged; do not automatically update lastVerified.');
+console.log('TPWD deer spot-check passed for the season recorded in the date dataset. This is not a full county-level regulatory review; do not silently advance the separate human-review timestamp.');

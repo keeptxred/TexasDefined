@@ -47,8 +47,17 @@ jobs:
         run: |
           set -euo pipefail
           if git diff --name-only HEAD^ HEAD -- \
-            src/routes/texas-data.lazy.tsx src/routes/texas-data.tsx \
-            src/data/texas-data-center.server.ts \
+            'src/routes/texas-data*' \
+            'src/routes/sports-venues.compare*' \
+            src/data/texas-data-center.ts src/data/texas-data-center.server.ts \
+            src/data/acs-county-housing-costs.snapshot.json \
+            src/data/census-county-growth.ts \
+            src/data/generated/texas-metro-payrolls-current.json \
+            src/data/generated/tdi-homeowners-current.json \
+            src/data/generated/texas-state-population-current.json \
+            src/data/generated/texas-reference-facts-current.json \
+            src/data/generated/texas-county-growth-current.json \
+            src/data/sports-venue-comparison.ts \
             scripts/ci/verify-texas-data-production.mjs \
             scripts/ci/verify-changed-production-pages.mjs \
             .github/workflows/texasdefined-publication-production-smoke.yml | grep -q .; then

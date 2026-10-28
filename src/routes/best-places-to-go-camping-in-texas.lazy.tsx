@@ -5,6 +5,7 @@ import caddoLake from "@/assets/caddo-lake.jpg";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { Container } from "@/components/layout/Container";
+import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 
 const standoutCamping = [
   {
@@ -80,7 +81,7 @@ function CampingGuidePage() {
           <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.13em] text-muted-foreground"><Link to="/">Home</Link> · <Link to="/explore">Explore</Link> · Camping</nav>
           <p className="eyebrow mt-8 text-primary">Texas camping guide</p>
           <h1 className="mt-3 max-w-4xl font-display text-5xl leading-none md:text-7xl">Best Places to Go Camping in Texas</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with standout Texas camping destinations, then search verified public campgrounds by region, camping style and the facilities that matter to your trip. Use the destination guides for the bigger picture and the official reservation links for live booking details.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with standout Texas camping destinations, then search verified public campgrounds by region, camping style and the facilities that matter to your trip. Use the destination guides for the bigger picture, park-specific official camping information and verified booking links where available. The finder distinguishes campground booking pages from general reservation instructions.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#campground-finder" className="inline-flex border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Find a campground</a>
             <Link to="/explore/rv-parks" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Browse the RV park directory</Link>
@@ -107,6 +108,7 @@ function CampingGuidePage() {
     <nav aria-label="Camping guide sections" className="border-b border-border bg-background">
       <Container className="flex gap-2 overflow-x-auto py-4 text-sm font-semibold">
         <a href="#camping-trip-types" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Trip types</a>
+        <a href="#camping-alerts" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Park advisories</a>
         <a href="#campground-finder" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Campground finder</a>
         <a href="#camping-seasons" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">When to camp</a>
         <a href="#camping-methodology" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">How it is verified</a>
@@ -119,8 +121,8 @@ function CampingGuidePage() {
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Start here</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Visit a State Park</h2>
-          <p className="mt-4 leading-8 text-muted-foreground">Texas camping changes dramatically from Gulf beaches to Hill Country rivers, East Texas forests and West Texas desert. These are useful starting points, not a one-size-fits-all ranking.</p>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">Best camping destinations by trip type</h2>
+          <p className="mt-4 leading-8 text-muted-foreground">Six editorial picks for different trip priorities, from a family river weekend to a Gulf beach campsite or a remote national-park expedition. These are qualitative recommendations, not a claim that every visitor should choose the same park.</p>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {standoutCamping.map((item) => <Link key={item.slug} to={item.to} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
@@ -143,6 +145,22 @@ function CampingGuidePage() {
       </Container>
     </section>
 
+    <section id="camping-alerts" className="scroll-mt-24 border-y border-border bg-muted/30 py-10">
+      <Container>
+        <p className="eyebrow text-primary">Before you travel</p>
+        <h2 className="mt-2 font-display text-3xl md:text-4xl">Recent official park advisories</h2>
+        <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">These notices are verified against the parks' published alerts. The publication verification date changes only when a notice changes; the scheduled source checker runs independently. Neither is a live availability guarantee. Always open the primary source before leaving home.</p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {CAMPING_OPERATIONAL_ALERTS.map((alert) => <article key={alert.destinationSlug} className="border border-border bg-background p-5">
+            <h3 className="font-display text-xl">{alert.parkName}</h3>
+            <p className="mt-2 text-sm leading-6">{alert.notice}</p>
+            <p className="mt-2 text-xs text-muted-foreground">Advisory verified {alert.checkedAt} · {alert.status === "confirmed" ? "Notice verified" : "Changed; recheck official source"}</p>
+            <a href={alert.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Official park alerts ↗</a>
+          </article>)}
+        </div>
+      </Container>
+    </section>
+
     <section id="campground-finder" className="scroll-mt-24 border-y border-border bg-muted/30 py-12 md:py-16">
       <Container>
         <div className="max-w-4xl">
@@ -150,6 +168,7 @@ function CampingGuidePage() {
           <h2 className="mt-2 font-display text-4xl md:text-5xl">Choose the camping trip you want</h2>
           <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county, managing agency or nearby city. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
         </div>
+        <p className="mt-4 text-sm leading-6 text-muted-foreground">Prefer a statewide overview? <a href="https://tpwd.texas.gov/state-parks/parks-map" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Explore the official Texas state parks map ↗</a>. National parks and other public campgrounds are included in the finder below.</p>
         <CampingDiscovery entries={entries} />
       </Container>
     </section>

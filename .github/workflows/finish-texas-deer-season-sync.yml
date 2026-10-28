@@ -1,0 +1,164 @@
+name: Finish Texas Deer Season Sync
+
+on:
+  workflow_run:
+    workflows: ['Verify Texas deer regulations']
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: 'Successful Verify Texas deer regulations source run ID'
+        type: string
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: texas-deer-season-sync-finisher
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Resolve exactly one trusted TPWD-generated PR
+        id: target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id || inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$SOURCE_RUN_ID" =~ ^[0-9]+$ ]] || { echo 'Invalid source workflow ID'; exit 1; }
+          branch="automation/tpwd-deer-dates-${SOURCE_RUN_ID}"
+          pr_json="$(gh pr list --repo "$REPOSITORY" --base main --head "$branch" --state open --limit 2 --json number,title,url,headRefOid)"
+          count="$(jq 'length' <<< "$pr_json")"
+          if [[ "$count" == 0 ]]; then
+            echo 'has_pr=false' >> "$GITHUB_OUTPUT"
+            echo "No generated TPWD deer dates PR for $branch; nothing to merge."
+            exit 0
+          fi
+          [[ "$count" == 1 ]] || { echo 'Ambiguous generated deer PR list'; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
+          author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
+          [[ "$title" == 'Refresh verified TPWD deer season dates' && "$author" == 'github-actions[bot]' ]] || {
+            echo "::error title=Untrusted deer update::The PR title or author differs from the scoped Actions bot."
+            exit 1
+          }
+          echo 'has_pr=true' >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+          echo "url=$(jq -r '.[0].url' <<< "$pr_json")" >> "$GITHUB_OUTPUT"
+      - name: Validate official evidence, protected branch, and complete release
+        if: steps.target.outputs.has_pr == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          BRANCH: ${{ steps.target.outputs.branch }}
+          NUMBER: ${{ steps.target.outputs.number }}
+          URL: ${{ steps.target.outputs.url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Texas Defined Deer Data Finisher"
+          git config user.email "actions@users.noreply.github.com"
+          git fetch --no-tags origin main "$BRANCH"
+          api_sha="$(gh api "repos/$REPOSITORY/pulls/$NUMBER" --jq '.head.sha')"
+          [[ "$api_sha" == "$(git rev-parse "origin/$BRANCH")" ]] || {
+            echo "::error title=Deer PR head mismatch::The API head and remote branch differ."
+            exit 1
+          }
+
+          base="$(git merge-base origin/main "origin/$BRANCH")"
+          mapfile -t files < <(git diff --name-only "$base" "origin/$BRANCH")
+          [[ "${#files[@]}" == "1" && "${files[0]}" == 'src/data/hunting/deer-season-dates.json' ]] || {
+            echo "::error title=Unapproved deer update::Only the official deer date JSON file may change."
+            exit 1
+          }
+          file=src/data/hunting/deer-season-dates.json
+          previous="$(git show "$base:$file" | jq -cS 'del(.sourceCheckedAt) | .rows |= map(del(.start,.end))')"
+          proposed="$(git show "origin/$BRANCH:$file" | jq -cS 'del(.sourceCheckedAt) | .rows |= map(del(.start,.end))')"
+          [[ "$previous" == "$proposed" ]] || {
+            echo "::error title=Unauthorized deer data change::Year, URL, labels, row identities or editorial metadata changed."
+            exit 1
+          }
+
+          git checkout -B "$BRANCH" "origin/$BRANCH"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            # A concurrent manual edit to deer data must not be overwritten.
+            if ! git diff --quiet "$base" origin/main -- "$file"; then
+              echo "::error title=Concurrent deer data change::Main's deer dates advanced; review before merging."
+              exit 1
+            fi
+            git merge --no-edit origin/main
+            git push origin "HEAD:$BRANCH"
+          fi
+          sha="$(git rev-parse HEAD)"
+          node scripts/data/sync-texas-deer-seasons.mjs --offline
+          node scripts/data/verify-texas-deer-regulations.mjs --offline
+          node scripts/data/validate-hunting-authority.mjs
+
+          # Re-fetch official TPWD pages on the actual branch being merged.
+          node scripts/data/sync-texas-deer-seasons.mjs
+          git diff --exit-code -- src/data/hunting/deer-season-dates.json || {
+            echo "::error title=TPWD source changed during review::The proposed dates no longer match both official sources."
+            exit 1
+          }
+
+          # GITHUB_TOKEN-created PRs do not launch pull_request checks. Execute
+          # the same canonical validation workflows on the exact head instead.
+          bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml
+
+          git fetch --no-tags origin main "$BRANCH"
+          [[ "$sha" == "$(git rev-parse "origin/$BRANCH")" ]] || {
+            echo "::error title=Head moved during validation::Not merging an untested commit."
+            exit 1
+          }
+          shared_base="$(git merge-base origin/main "origin/$BRANCH")"
+          if ! git diff --quiet "$shared_base" origin/main -- "$file"; then
+            echo "::error title=Concurrent official deer update::Main changed deer dates during validation."
+            exit 1
+          fi
+
+          gh api --method POST -H "Accept: application/vnd.github+json" \
+            "repos/$REPOSITORY/statuses/$sha" \
+            -f state='success' -f context='Required merge gate' \
+            -f description='Exact-SHA validated deer date sync and canonical merge gate passed' \
+            -f target_url="$URL" >/dev/null
+
+          gh pr merge "$URL" --repo "$REPOSITORY" --auto --merge --match-head-commit "$sha"
+          merged=false
+          for attempt in $(seq 1 18); do
+            merged="$(gh api "repos/$REPOSITORY/pulls/$NUMBER" --jq '.merged')"
+            [[ "$merged" == 'true' ]] && break
+            sleep 5
+          done
+          [[ "$merged" == 'true' ]] || {
+            echo "::error title=Protected auto-merge pending::Leaving the PR open; production not dispatched."
+            exit 1
+          }
+          git fetch --no-tags origin main
+          git merge-base --is-ancestor "$sha" origin/main || {
+            echo "::error title=Merge ancestry mismatch::Refusing to dispatch production for unverified data."
+            exit 1
+          }
+          # Explicit dispatch is required because GITHUB_TOKEN-created merges
+          # do not trigger normal push-to-main production deployment workflows.
+          gh workflow run deploy-production.yml --ref main --repo "$REPOSITORY"
+          echo "Merged verified TPWD dates and dispatched the existing protected production deployment."
