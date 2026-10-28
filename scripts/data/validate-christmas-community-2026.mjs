@@ -28,7 +28,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 255, "The 255 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 260, "The 260 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 const seasonStarts = events.map((event) => event.startDate).sort();
 const seasonEnds = events.map((event) => event.endDate ?? event.startDate).sort();
@@ -591,6 +591,19 @@ assert.ok(productionWorkflow.includes("id: live_christmas_hub"), "Protected Chri
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
 assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
+for (const [slug, day] of [
+  ["san-antonio-pearl-holiday-tree-lighting-2026", "2026-11-27"],
+  ["san-antonio-pearl-holiday-night-market-dec-02-2026", "2026-12-02"],
+  ["san-antonio-pearl-holiday-night-market-dec-09-2026", "2026-12-09"],
+  ["san-antonio-pearl-holiday-night-market-dec-16-2026", "2026-12-16"],
+  ["san-antonio-pearl-holiday-night-market-dec-23-2026", "2026-12-23"],
+]) {
+  check(slug, day);
+  assert.equal(bySlug.get(slug).officialEventUrl, "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    `${slug}: official Pearl organizer announcement required`);
+}
+assert.ok(!bySlug.has("san-antonio-pearl-holiday-night-market-2026-daily"),
+  "Pearl's four Wednesday markets must not become a fabricated nightly date span");
 check("santas-ranch-new-braunfels", "2026-11-06", "2027-01-03");
 check("sugar-land-holiday-lights-constellation-field", "2026-11-20", "2027-01-03");
 check("jefferson-candlelight-tour-dec3", "2026-12-03", "2026-12-05");
