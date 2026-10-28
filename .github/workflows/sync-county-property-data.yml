@@ -9,6 +9,7 @@ on:
     paths:
       - 'scripts/data/sync-county-property-data.mjs'
       - '.github/workflows/sync-county-property-data.yml'
+      - '.github/workflows/finish-county-property-refresh.yml'
   workflow_dispatch:
     inputs:
       county:
@@ -113,4 +114,4 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Refresh verified Texas county property-tax data' \
-            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, crawl-demand, and noindex quality gates. Full repository validation will run on this pull request before merge.'
+            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, crawl-demand, and noindex quality gates. The trusted finisher requires source-run identity, zero existing county withdrawals, unchanged researched search/payment links and protected CI before enabling GitHub auto-merge.'
