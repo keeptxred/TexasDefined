@@ -125,4 +125,76 @@ assert.equal(reviewInvalid.writes[0].status, 'reviewing');
 assert.equal(Object.hasOwn(reviewInvalid.writes[0], 'first_contacted_at'), false,
   'Review transition must preserve old evidence for a separately audited correction');
 
+// Exercise the actual staff dashboard loader as well: even authenticated staff
+// browsers only need an evidence-present boolean, never the private contact
+// reference itself. This is an isolated mock with no production database.
+const privateMarker = 'SYNTHETIC_PRIVATE_CONTACT_REFERENCE_NEVER_EXPOSE_TO_BROWSER';
+const rawLead = (id, reference) => ({
+  id, created_at: created, status: 'contacted',
+  first_contacted_at: hoursAgo(80),
+  first_contact_evidence_reference: reference,
+});
+const rows = [
+  rawLead('00000000-0000-4000-8000-000000000011', privateMarker),
+  rawLead('00000000-0000-4000-8000-000000000012', null),
+  rawLead('00000000-0000-4000-8000-000000000013', 'short'),
+  rawLead('00000000-0000-4000-8000-000000000014', 'x'.repeat(501)),
+];
+let listAccessChecks = 0;
+const listClient = {
+  from(table) {
+    const builder = {
+      select() { return this; },
+      order() { return this; },
+      gte() { return this; },
+      limit() {
+        return Promise.resolve({
+          data: table === 'texasdefined_group_event_requests' ? rows : [],
+          error: null,
+        });
+      },
+    };
+    return builder;
+  },
+};
+const listedImports = {
+  '@/data/sports-partner-leads.server': {
+    assertSportsPartnerAccess: async key => {
+      assert.equal(key, syntheticKey);
+      listAccessChecks++;
+    },
+  },
+  '@/integrations/supabase/client.server': { supabaseAdmin: listClient },
+  '@/data/corporate-events': { corporateEventProviders: [] },
+  '@/data/corporate-event-dates': {
+    corporateEventTexasToday: () => '2026-10-27',
+    isValidCorporateEventCalendarDate: () => false,
+  },
+  '@/data/corporate-event-offer-provenance': {
+    corporateEventEvidenceTimestampIsValid: () => false,
+    corporateEventVerifiedRedemptionUrl: () => false,
+  },
+};
+const listModule = { exports: {} };
+runInNewContext(output.outputText, {
+  module: listModule, exports: listModule.exports,
+  require(name) {
+    assert(Object.hasOwn(listedImports, name), 'Unexpected dashboard dependency: ' + name);
+    return listedImports[name];
+  },
+}, { filename: 'isolated-private-dashboard.cjs', timeout: 1000 });
+const snapshot = await listModule.exports.loadCorporateEventOperations(syntheticKey);
+assert.equal(listAccessChecks, 1, 'Only an authorized staff operation can inspect private evidence');
+assert.equal(snapshot.leads.length, rows.length, 'Mocked private rows must not be silently dropped');
+assert.deepEqual(JSON.parse(JSON.stringify(snapshot.leads.map(lead => lead.first_contact_evidence_recorded))),
+  [true, false, false, false],
+  'Only bounded real evidence references can count as present');
+for (const lead of snapshot.leads) {
+  assert(!Object.hasOwn(lead, 'first_contact_evidence_reference'),
+    'Private evidence text must be stripped before the browser payload');
+}
+assert(!JSON.stringify(snapshot).includes(privateMarker),
+  'Sensitive external contact evidence must never leave the server in dashboard JSON');
+
 console.log('PASS: isolated live handler rejects false first-contact evidence and future/pre-intake dates, stamps real supported contact once, preserves existing proof, permits review; zero production access.');
+console.log('PASS: authorized dashboard returns only private evidence-present flags; no evidence reference text serialized.');
