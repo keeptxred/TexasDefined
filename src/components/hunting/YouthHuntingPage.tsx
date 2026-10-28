@@ -31,7 +31,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
           <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/hunting">Hunting</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">Youth hunting</span>
         </nav>
         <p className="eyebrow text-primary">Texas family hunting guide · {YOUTH_HUNTING_SEASON_YEAR}</p>
-        <h1 className="mt-3 max-w-5xl font-display text-4xl leading-tight sm:text-5xl md:text-6xl">{topic.title}</h1>
+        <h1 className="mt-3 max-w-5xl font-display text-4xl leading-tight md:text-5xl">{topic.title}</h1>
         <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">Exact youth-only deer, turkey, duck and squirrel dates, age requirements, license costs, public-land routes, mentored hunts and a practical checklist for a first Texas hunt.</p>
         <div className="mt-6 flex flex-wrap gap-3 text-sm">
           <a href="#youth-season-calendar" className="inline-flex bg-primary px-5 py-3 font-semibold text-primary-foreground">See 2026–27 season dates ↓</a>
@@ -43,8 +43,8 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
 
     <section className="border-b border-border py-8">
       <Container>
-        <div className="grid gap-5 lg:grid-cols-[2fr_1fr]">
-          <div className="border-l-4 border-primary pl-5">
+        <div className="grid gap-5 lg:grid-cols-2">
+          <div className="border-l-2 border-primary pl-5">
             <p className="eyebrow text-primary">The quick answer</p>
             <p className="mt-2 text-base leading-8">Texas youth-only seasons generally allow <strong>licensed hunters 16 or younger</strong> to hunt specified game on dates outside or alongside standard seasons. The <strong>2026–27 early youth deer and fall turkey dates begin October 30, 2026</strong>. Youth hunting licenses cost <strong>$7</strong>, but hunter education, adult supervision, property access and harvest rules must be checked separately.</p>
           </div>
@@ -59,15 +59,15 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
       </Container>
     </section>
 
-    <section id="youth-season-calendar" className="scroll-mt-24 py-12 md:py-16">
+    <section id="youth-season-calendar" className="py-12 md:py-16">
       <Container>
         <p className="eyebrow text-primary">Season calendar</p>
         <h2 className="mt-2 font-display text-3xl md:text-4xl">Texas youth-only hunting dates for 2026–27</h2>
         <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">These are TPWD's published season windows, not a statewide permission to hunt. The species, individual county, unit, bag limit, legal take, landowner permission and public-land notices still determine whether a particular hunt is lawful. These dates expire after the 2026–27 license year; do not reuse them for 2027–28.</p>
-        <div className="mt-7 overflow-x-auto rounded-sm border border-border">
-          <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+        <div className="mt-7 overflow-x-auto border border-border">
+          <table className="w-full border-collapse text-left text-sm" style={{ minWidth: 720 }}>
             <caption className="sr-only">2026–27 Texas youth-only hunting dates by species and zone</caption>
-            <thead className="bg-muted/60 text-foreground"><tr><th scope="col" className="px-4 py-4">Species</th><th scope="col" className="px-4 py-4">Area / opportunity</th><th scope="col" className="px-4 py-4">Dates</th><th scope="col" className="px-4 py-4">Important qualification</th></tr></thead>
+            <thead className="bg-muted/30 text-foreground"><tr><th scope="col" className="px-4 py-4">Species</th><th scope="col" className="px-4 py-4">Area / opportunity</th><th scope="col" className="px-4 py-4">Dates</th><th scope="col" className="px-4 py-4">Important qualification</th></tr></thead>
             <tbody>
               {YOUTH_HUNTING_SEASONS.map((entry) => <tr key={entry.species + entry.region} className="border-t border-border align-top">
                 <th scope="row" className="px-4 py-4 font-semibold">{entry.species}</th><td className="px-4 py-4">{entry.region}</td>
@@ -81,17 +81,17 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
       </Container>
     </section>
 
-    <section id="youth-eligibility" className="scroll-mt-24 border-y border-border bg-surface py-12 md:py-16">
+    <section id="youth-eligibility" className="border-y border-border bg-surface py-12 md:py-16">
       <Container>
         <p className="eyebrow text-primary">Legal groundwork</p>
         <h2 className="mt-2 font-display text-3xl md:text-4xl">Youth age, license and hunter-education rules</h2>
         <div className="mt-7 grid gap-5 md:grid-cols-2">
-          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Youth license: $7</h3><p className="mt-3 leading-7 text-muted-foreground">TPWD's Type 169 youth hunting license is for residents or nonresidents who are <strong>under 17 at purchase</strong>. The license remains valid for the license year if the buyer turns 17, but only hunters <strong>16 or younger</strong> may take part in youth-only seasons. Youth are exempt from most Texas state hunting endorsements, not from applicable HIP certification or federal duck-stamp rules.</p><p className="mt-4 text-sm"><Official href={YOUTH_HUNTING_SOURCES.licenses}>License eligibility and price</Official></p></div>
-          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Hunter education: from age 9</h3><p className="mt-3 leading-7 text-muted-foreground">Texas certification has a minimum age of 9. Children under 9 must hunt with a qualified accompanying person; ages 9–16 must be certified <em>or</em> accompanied under TPWD rules. The in-person certification fee is $15. Mentored hunts, public properties and drawn hunts may require more than the statewide baseline.</p><p className="mt-4 text-sm"><Official href={YOUTH_HUNTING_SOURCES.education}>Full hunter-education rule</Official></p></div>
+          <div className="border border-border p-6"><h3 className="font-display text-2xl">Youth license: $7</h3><p className="mt-3 leading-7 text-muted-foreground">TPWD's Type 169 youth hunting license is for residents or nonresidents who are <strong>under 17 at purchase</strong>. The license remains valid for the license year if the buyer turns 17, but only hunters <strong>16 or younger</strong> may take part in youth-only seasons. Youth are exempt from most Texas state hunting endorsements, not from applicable HIP certification or federal duck-stamp rules.</p><p className="mt-4 text-sm"><Official href={YOUTH_HUNTING_SOURCES.licenses}>License eligibility and price</Official></p></div>
+          <div className="border border-border p-6"><h3 className="font-display text-2xl">Hunter education: from age 9</h3><p className="mt-3 leading-7 text-muted-foreground">Texas certification has a minimum age of 9. Children under 9 must hunt with a qualified accompanying person; ages 9–16 must be certified <em>or</em> accompanied under TPWD rules. The in-person certification fee is $15. Mentored hunts, public properties and drawn hunts may require more than the statewide baseline.</p><p className="mt-4 text-sm"><Official href={YOUTH_HUNTING_SOURCES.education}>Full hunter-education rule</Official></p></div>
         </div>
         <h3 className="mt-9 font-display text-2xl md:text-3xl">Which age rule applies?</h3>
         <div className="mt-5 overflow-x-auto border border-border">
-          <table className="w-full min-w-[660px] text-left text-sm"><caption className="sr-only">Texas youth hunting eligibility and supervision matrix</caption><thead className="bg-muted/60"><tr><th scope="col" className="px-4 py-3">Situation</th><th scope="col" className="px-4 py-3">Rule to plan around</th></tr></thead><tbody>
+          <table className="w-full text-left text-sm" style={{ minWidth: 660 }}><caption className="sr-only">Texas youth hunting eligibility and supervision matrix</caption><thead className="bg-muted/30"><tr><th scope="col" className="px-4 py-3">Situation</th><th scope="col" className="px-4 py-3">Rule to plan around</th></tr></thead><tbody>
             <tr className="border-t border-border"><th scope="row" className="px-4 py-4">Statewide, under age 9</th><td className="px-4 py-4 leading-7">Must be accompanied by a licensed, hunter-education-qualified person age 17 or older, within normal voice control.</td></tr>
             <tr className="border-t border-border"><th scope="row" className="px-4 py-4">Statewide, ages 9–16</th><td className="px-4 py-4 leading-7">Complete hunter education or be accompanied by a qualified person under statewide law.</td></tr>
             <tr className="border-t border-border"><th scope="row" className="px-4 py-4">Public hunting, under 17</th><td className="px-4 py-4 leading-7">TPWD-managed public hunts require an authorized licensed supervisor age 18 or older. Under 12: within normal voice distance. Certified ages 12–16: adult may remain elsewhere on the hunt unit where rules allow.</td></tr>
@@ -104,7 +104,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
       </Container>
     </section>
 
-    <section id="youth-access" className="scroll-mt-24 py-12 md:py-16">
+    <section id="youth-access" className="py-12 md:py-16">
       <Container>
         <p className="eyebrow text-primary">Where to go</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Four ways to arrange a first Texas hunt</h2>
         <div className="mt-7 grid gap-6 md:grid-cols-2">
@@ -113,11 +113,11 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
           <article className="border border-border p-6"><p className="eyebrow text-primary">03 · Limited applications</p><h3 className="mt-2 font-display text-2xl">Youth drawn hunts</h3><p className="mt-3 leading-7 text-muted-foreground">TPWD draws applicants for limited public hunting opportunities, including youth-only and youth/adult categories. Youth-only special-permit applications generally have <strong>no application or permit fee</strong>; other categories have different conditions. Apply for the specific area and category, by its published deadline, with the required adult.</p><div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm"><Official href={YOUTH_HUNTING_SOURCES.drawn}>Youth drawn-hunt rules</Official><Link to="/hunting/drawn-hunts" className="font-semibold text-primary underline">Drawn-hunt guide</Link></div></article>
           <article className="border border-border p-6"><p className="eyebrow text-primary">04 · Learn with a mentor</p><h3 className="mt-2 font-display text-2xl">Texas Youth Hunting Program (TYHP)</h3><p className="mt-3 leading-7 text-muted-foreground">A partnership of TPWD and the Texas Wildlife Association for <strong>ages 9–17</strong>. Hunts generally include instruction, mentoring and often meals and lodging. TPWD currently lists a <strong>$200 hunt fee</strong> covering the child and accompanying adult, with financial assistance available. Some equipment may be borrowed.</p><div className="mt-4 text-sm"><Official href={YOUTH_HUNTING_SOURCES.youthProgram}>TYHP eligibility, application and fees</Official></div></article>
         </div>
-        <div className="mt-9 border-l-4 border-primary bg-muted/30 p-6"><h3 className="font-display text-2xl">How to apply for a TYHP mentored hunt</h3><ol className="mt-4 list-decimal space-y-2 pl-6 leading-7 text-muted-foreground"><li>Confirm your child is 9–17 and complete hunter education first.</li><li>Buy the appropriate Texas hunting license and gather required hunt documents.</li><li>Create a youth hunter account through <Official href="https://www.tyhp.org/">TYHP</Official>.</li><li>Review the available hunt schedule and apply for hunts that fit the family's experience and travel needs. First-time applicants receive selection priority.</li><li>If selected, complete the health-history, release and other paperwork, confirm the fee or financial aid, and follow the host's equipment and arrival instructions.</li></ol></div>
+        <div className="mt-9 border-l-2 border-primary bg-muted/30 p-6"><h3 className="font-display text-2xl">How to apply for a TYHP mentored hunt</h3><ol className="mt-4 list-decimal space-y-2 pl-6 leading-7 text-muted-foreground"><li>Confirm your child is 9–17 and complete hunter education first.</li><li>Buy the appropriate Texas hunting license and gather required hunt documents.</li><li>Create a youth hunter account through <Official href="https://www.tyhp.org/">TYHP</Official>.</li><li>Review the available hunt schedule and apply for hunts that fit the family's experience and travel needs. First-time applicants receive selection priority.</li><li>If selected, complete the health-history, release and other paperwork, confirm the fee or financial aid, and follow the host's equipment and arrival instructions.</li></ol></div>
       </Container>
     </section>
 
-    <section id="youth-checklist" className="scroll-mt-24 border-y border-border bg-surface py-12 md:py-16">
+    <section id="youth-checklist" className="border-y border-border bg-surface py-12 md:py-16">
       <Container><p className="eyebrow text-primary">For first-time families</p><h2 className="mt-2 font-display text-3xl md:text-4xl">First youth hunt: preparation and safety checklist</h2>
         <div className="mt-7 grid gap-8 lg:grid-cols-2">
           <div><h3 className="font-display text-2xl">Before booking or traveling</h3><ul className="mt-4 list-disc space-y-3 pl-6 leading-7 text-muted-foreground"><li>Pick the species and hunt date, then verify the county, zone, legal methods and public-unit rules with TPWD.</li><li>Confirm the youth's license, hunter-education pathway, adult supervisor's license, and federal duck stamp if the waterfowl hunter is 16 or older. Obtain HIP certification where required.</li><li>Get written landowner permission or a valid public-land hunt authorization and understand the boundaries and check-in procedures.</li><li>Practice muzzle discipline, safe direction, trigger-finger control and when <em>not</em> to take a shot, with a qualified adult or instructor.</li><li>Test properly fitting eye and hearing protection, weather layers, footwear and any blaze-orange requirements for the particular hunt.</li></ul></div>
@@ -127,11 +127,11 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
       </Container>
     </section>
 
-    <section id="youth-harvest" className="scroll-mt-24 py-12 md:py-16">
+    <section id="youth-harvest" className="py-12 md:py-16">
       <Container><p className="eyebrow text-primary">After the hunt</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Tagging, harvest reports and CWD checks</h2><div className="mt-6 max-w-4xl space-y-4 leading-8 text-muted-foreground"><p>Deer tags are assigned to the licensed hunter who harvests the deer. Follow TPWD's instructions for the youth's <strong>paper tag or digital tag</strong>; physical-license hunters still need physical tags, and digital app registration does not replace their paper-tag obligations.</p><p>Check the hunting-license harvest log, mandatory <strong>24-hour white-tailed deer reporting</strong> in specified counties, and mandatory chronic wasting disease (CWD) testing zones. CWD-zone check stations can have a separate <strong>48-hour</strong> requirement. Public hunts may also require checking in a harvested animal before departure.</p><p>For turkey and migratory birds, verify species-specific tagging, reporting, possession and HIP rules. Private land and public-land regulations are not interchangeable.</p></div><div className="mt-5 text-sm"><Official href={YOUTH_HUNTING_SOURCES.harvest}>TPWD after-harvest requirements</Official></div></Container>
     </section>
 
-    <section id="youth-faq" className="scroll-mt-24 border-y border-border bg-surface py-12 md:py-16">
+    <section id="youth-faq" className="border-y border-border bg-surface py-12 md:py-16">
       <Container><p className="eyebrow text-primary">Questions families ask</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Youth hunting FAQs</h2><div className="mt-6 max-w-4xl divide-y divide-border border-y border-border">{YOUTH_HUNTING_FAQ.map((faq) => <details key={faq.question} className="group py-5"><summary className="cursor-pointer font-display text-xl">{faq.question}</summary><p className="mt-3 leading-7 text-muted-foreground">{faq.answer}</p></details>)}</div></Container>
     </section>
 
