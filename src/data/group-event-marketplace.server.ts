@@ -110,6 +110,35 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
     for (const p of providers ?? []) providerNames.set(p.id,p.name);
   }
 
+  const verifiedCityByLocationId = new Map<string,string>();
+  const knownLocationIds = [...new Set([...locationLinks.values()].map(l => l.location_id).filter(Boolean))];
+  if (knownLocationIds.length) {
+    const { data: locations, error: locationError } = await admin
+      .from('explore_locations').select('id,city').in('id',knownLocationIds);
+    if (locationError) throw new Error('Marketplace physical location verification is temporarily unavailable.');
+    for (const l of locations ?? []) if (l.city) verifiedCityByLocationId.set(l.id,l.city);
+  }
+
+  const partnerIds = [...new Set(rows.map((r: any) => r.partner_application_id).filter(Boolean))];
+  const verifiedPartnerApplications = new Map<string, any>();
+  if (partnerIds.length) {
+    const { data: partners, error: partnerError } = await admin
+      .from('texasdefined_group_event_partner_applications')
+      .select('id,status,identity_verified_at,commercial_agreement_verified_at,commercial_agreement_expires_on,commercial_agreement_covers_quote_routing,commercial_agreement_covers_offers')
+      .in('id',partnerIds);
+    if (partnerError) throw new Error('Marketplace partner evidence verification is temporarily unavailable.');
+    const texasToday = corporateEventTexasToday();
+    for (const partner of partners ?? []) {
+      if (partner.status === 'approved' && partner.identity_verified_at
+        && partner.commercial_agreement_verified_at
+        && partner.commercial_agreement_covers_quote_routing === true
+        && (!partner.commercial_agreement_expires_on
+          || partner.commercial_agreement_expires_on >= texasToday)) {
+        verifiedPartnerApplications.set(partner.id, partner);
+      }
+    }
+  }
+
   const experiences: MarketplaceExperience[] = [];
   for (const row of rows) {
     const link = row.provider_location_id ? locationLinks.get(row.provider_location_id) : null;
@@ -121,6 +150,16 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
     const legacy = legacySlug ? legacyProviders.get(legacySlug) : null;
     const providerName = (entityId && providerNames.get(entityId)) || legacy?.name;
     if (!providerName) continue; // Never fabricate an operator identity.
+    const partnerEvidence = row.partner_application_id
+      ? verifiedPartnerApplications.get(row.partner_application_id) : null;
+    if (row.participation_status !== 'independent' && !partnerEvidence) continue;
+    if (row.participation_status === 'sponsored'
+      && partnerEvidence?.commercial_agreement_covers_offers !== true) continue;
+    const verifiedCity = link ? verifiedCityByLocationId.get(link.location_id) : null;
+    const cities = Array.isArray(row.service_cities) ? [...row.service_cities] : [];
+    if (verifiedCity && !cities.some((city: string) => city.toLowerCase() === verifiedCity.toLowerCase())) {
+      cities.push(verifiedCity);
+    }
     const classified = tagsByExperience.get(row.id) ?? { occasions: [], activities: [], amenities: [] };
     experiences.push({
       id: row.id,
@@ -132,7 +171,7 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
           lastVerifiedAt: row.verified_at, status: row.verification_status as MarketplaceVerification },
       },
       locationId: link?.location_id ?? null,
-      servedCities: Array.isArray(row.service_cities) ? row.service_cities : [],
+      servedCities: cities,
       name: row.name,
       minParticipants: row.min_participants,
       maxParticipants: row.max_participants,
@@ -147,6 +186,7 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
       verifiedAmenities: classified.amenities,
       participation: row.participation_status as MarketplaceParticipation,
       participationApprovedAt: row.participation_approved_at,
+      participationEvidenceVerified: !!partnerEvidence,
       sponsorshipApprovedAt: row.sponsorship_approved_at,
       source: { officialUrl: row.source_url, lastCheckedAt: row.last_checked_at,
         lastVerifiedAt: row.verified_at, status: row.verification_status as MarketplaceVerification },
