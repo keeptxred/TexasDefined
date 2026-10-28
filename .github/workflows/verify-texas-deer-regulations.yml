@@ -92,8 +92,8 @@ jobs:
           git commit -m 'data(hunting): sync verified TPWD deer season dates'
           git push origin "$branch"
           gh pr create --base main --head "$branch" \
-            --title 'Refresh verified TPWD deer season dates' \
-            --body 'Automated same-season deer date correction. Both official TPWD calendars agree on all eight ranges. Only src/data/hunting/deer-season-dates.json is editable by this job. The separate, trusted finisher validates the exact diff, full branch CI and protected merge gate before auto-merge and deploy. New season years, source drift and non-date regulatory changes fail closed and require review.'
+            --title 'Refresh verified TPWD deer season and regulations' \
+            --body 'Automated TPWD deer season and structured-regulation sync, including consecutive annual season rollover. Both current official TPWD calendars must match all eight date ranges. Structured legal facts (bag limits, harvest reporting, antler spread and special-late eligibility) must parse from the current official deer page, and only src/data/hunting/deer-season-dates.json can change. The trusted finisher independently re-fetches the sources and validates protected CI, auto-merge and production deployment. Unparseable/contradictory official sources fail safely with a deduplicated issue; routine annual rollovers do not require manual approval.'
       - name: Verify live deer guide, all eight dates, image and structured data
         id: live
         if: success() && steps.changes.outputs.changed == 'false' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
