@@ -16,6 +16,7 @@
       "www.charlotteisd.net",
       "www.cherokeeisd.net",
       "www.chesterisd.com",
+      "www.chicoisdtx.net",
       "www.childressisd.net",
       "www.chiltonisd.org",
       "www.chinaspringisd.net",
@@ -205,6 +206,13 @@
     {
       "slug": "chillicothe",
       "url": "https://www.cisd-tx.net/215133_2",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "chico",
+      "url": "https://www.chicoisdtx.net/",
       "reviewAfter": "2026-11-07",
       "contentFingerprint": null,
       "lastObservedAt": null
