@@ -1,62 +1,53 @@
-# TexasDefined — six fishing shirts: Etsy seller-side QA
+# TexasDefined — six fishing shirts: Etsy acceptance and remaining seller actions
 
-Verified October 24, 2026. Existing six listings **are publicly returned by the connected Etsy shopper catalog** (not merely queued by Heartland). **Do not republish, duplicate, or recreate them.** The Etsy shopper catalog confirms four product images and $28.00 selling price for each. Prices do not include shipping; observed buyer shipping is $4.95 per listing (may change with location/cart).
+Last audited: **October 27, 2026** using the connected Etsy buyer catalog, Printify/Heartland's real shop, and TexasDefined's existing product IDs. **Edit these listings; never create duplicates.**
 
-## Current per-listing evidence
+## Verified complete: 13 descriptive tags on every existing listing
 
-| SKU | Existing Etsy listing ID | Existing descriptive tags | Internal Heartland tag occupying an Etsy slot | Additional desired SEO tag | Production partner shown in Etsy catalog |
-| --- | --- | --- | --- | --- | --- |
-| TD-FISH-01 — Texas Bass Co. | [4602532203](https://www.etsy.com/listing/4602532203/texas-bass-co-bass-fishing-t-shirt-o) | 12 | Yes — `hp-tfeD8jgLvju8SQuO` | `texas fishing` | No |
-| TD-FISH-02 — Chasing Largemouth | [4602533233](https://www.etsy.com/listing/4602533233/chasing-largemouth-bass-fishing-t-shirt) | 12 | No | `fishing graphic` | No |
-| TD-FISH-03 — Lake Weekend | [4602558658](https://www.etsy.com/listing/4602558658/lake-weekend-t-shirt-o-vintage-texas) | 12 | No | `boating shirt` | No |
-| TD-FISH-04 — Texas Tackle Club | [4602558740](https://www.etsy.com/listing/4602558740/texas-tackle-club-t-shirt-o-vintage) | 12 | Yes — `hp-gelTpHXUVV54fGQ8` | `fishing club` | No |
-| TD-FISH-05 — Sunrise Cast | [4602558790](https://www.etsy.com/listing/4602558790/sunrise-cast-fishing-t-shirt-o-texas) | 12 | Yes — `hp-HnlZfJpFlN9FXslf` | `quiet lake` | No |
-| TD-FISH-06 — Texas Coastal Angler | [4602533093](https://www.etsy.com/listing/4602533093/texas-coastal-angler-redfish-t-shirt-o) | 12 | No | `saltwater angler` | No |
+| Shirt | Etsy listing | Printify product ID | Live descriptive tags | Internal publisher tag |
+|---|---|---|---|---|
+| Texas Bass Co. | [4602532203](https://www.etsy.com/listing/4602532203/) | `6add2977878131e6ba0c3b39` | 13/13 | None |
+| Chasing Largemouth | [4602533233](https://www.etsy.com/listing/4602533233/) | `6add29fdafea5e4b0809386a` | 13/13 | None |
+| Lake Weekend | [4602558658](https://www.etsy.com/listing/4602558658/) | `6add29cfafea5e4b0809383b` | 13/13 | None |
+| Texas Tackle Club | [4602558740](https://www.etsy.com/listing/4602558740/) | `6add29d86437b9edf205a8bb` | 13/13 | None |
+| Sunrise Cast | [4602558790](https://www.etsy.com/listing/4602558790/) | `6add29de2f0d45364d02c4a6` | 13/13 | None |
+| Texas Coastal Angler | [4602533093](https://www.etsy.com/listing/4602533093/) | `6add29e5c8a72b0cae01896a` | 13/13 | None |
 
-All six have Etsy variations, original product images and price $28.00. Each has **12 useful descriptive tags**. Items 1, 4, and 5 carry one additional internal `hp-*` tag: 13 total (Etsy's limit). Items 2, 3, and 6 have 12 total. These are Etsy facts, separate from TexasDefined's **13 descriptive site-catalog tags** and its retained internal Heartland metadata.
+These listings have been publicly returned by Etsy at $28.00 each and **13 useful SEO tags** each. Tag-only repair was deployed through existing Heartland Publisher in [KTR PR #2966](https://github.com/keeptxred/texas-heartland-hub/pull/2966); permanent 13-tag validation was deployed in [KTR PR #2968](https://github.com/keeptxred/texas-heartland-hub/pull/2968). Do **not** repeat tag repair, regenerate shirts, or use new publication jobs.
 
-The Etsy shopper connector does **not** expose listing/shop-section write actions. Heartland can create/publish products, but **not** edit production partners, Etsy tags, section placement, or description after publication. Avoid publishing them again to fix these fields.
+## Outstanding 1 — production partner association, all six
 
-## Priority 1 — disclose the real print-on-demand production partner
+As of Oct 27, Etsy returns `has_production_partners=false` for each listing. This is an actual seller compliance issue; a descriptive sentence **does not substitute** for Etsy's partner metadata.
 
-Etsy requires production-partner disclosure for physical products made from the seller's original designs.
+**Printify's documented integration behavior:** If the Etsy shop already has a partner named `Printify`, Printify can automatically associate it on new product publication; otherwise the seller must create the production partner in Etsy Shop Manager and associate the *existing* listings. Printify cannot create the Etsy partner on behalf of a merchant. [Printify guidance](https://help.printify.com/hc/en-us/articles/4578896595345-What-should-I-know-about-Etsy-s-Creative-Standards-policy).
 
-1. On **Etsy.com in a browser**, open **Shop Manager → Settings → Partners you work with**. Add the actual print/fulfillment production partner. Verify the correct Printify-connected printing provider and its location; do not invent a print-facility name or city. You may publicly describe it as an `Apparel printer`, consistent with Etsy's form.
-2. In **Shop Manager → Listings**, select **these six existing listing IDs** (do not copy or create them). Choose **Editing options → Change production partners** and assign the verified partner to all six.
-3. Confirm the partner is shown for each listing and the actual shipping origin matches the chosen provider.
+**Exact one-time seller actions on Etsy.com (desktop browser or Work connected browser):**
 
-Official instructions: https://help.etsy.com/hc/en-us/articles/360000336547-Working-with-Production-Partners-on-Etsy
+1. Sign in at [Etsy Shop Manager](https://www.etsy.com/your/shops/me/dashboard) and open **Settings → Partners you work with**. Add the genuine provider using Printify's published setup instructions: partner name **Printify**, location **Wilmington, DE, USA**, select the appropriate truthful role/disclosures. Do not invent the actual print-facility location if different.
+2. Open **Listings**, select only the **six original IDs** in the table above; use **Editing options → Change production partners**. Assign the existing/saved Printify partner to all six, then save/publish changes.
+3. Confirm each public listing now has `has_production_partners=true`. Verify actual shipping origin matches provider fulfillment information.
 
-## Priority 2 — disclose AI-assisted artwork accurately
+Official [Etsy production-partner instructions](https://help.etsy.com/hc/en-us/articles/360000336547-Working-with-Production-Partners-on-Etsy).
 
-All six shirt illustrations were produced with AI image generation and subsequently resized/QA'd before publishing. Etsy requires seller-prompted AI creations to disclose AI use.
+## Verified: AI-assisted artwork disclosure in six Etsy descriptions
 
-Suggested disclosure to **append**, preserving each existing product description:
+Completed **October 27, 2026** using the original six Heartland jobs and a selective `description:true` Printify-to-Etsy publication. Live Etsy buyer reads returned the original six listing IDs, all **13/13 SEO tags**, and the following sentence in every description:
 
-> Original fishing artwork created for Texas Defined with AI image-generation assistance and prepared for print. This shirt is printed to order by our disclosed production partner.
+> Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.
 
-Also inspect **TD-FISH-05 Sunrise Cast** description: shopper-facing content contains a double-escaped apostrophe (`it&amp;#39;s`). Replace with `it's` in the Etsy description if it appears in the editor.
+Implemented in [KTR PR #3161](https://github.com/keeptxred/texas-heartland-hub/pull/3161). **This text does not change Etsy's actual production partner setting, which remains unassigned on all six.**
 
-Etsy policy: https://help.etsy.com/hc/en-us/articles/360024112614-What-Can-I-Sell-on-Etsy
+**Verified copy correction:** [KTR PR #3165](https://github.com/keeptxred/texas-heartland-hub/pull/3165) merged. The live Sunrise Cast Etsy listing now reads “The water is still, the sun is just clearing the trees, and the first cast is ready.” It no longer contains the double-escaped apostrophe. All six public descriptions contain the AI disclosure. **No seller-side production partner has been assigned yet.**
 
-## Priority 3 — organize the exact existing listings
+## Outstanding 3 — Fishing Shirts shop section
 
-If Etsy's **Fishing Shirts** section does not exist, create it under **Shop Manager → Listings → Sections → Manage → Add section**. Then select all six existing listings → **Editing options → Change section → Fishing Shirts → Apply**.
+Etsy buyer listing data does not expose a reliable shop-section assignment; `shop_section_verified=false` for all six. On Etsy.com **Shop Manager → Listings → Sections**, create **Fishing Shirts** if absent. Then select the six existing listings and assign the section via bulk editing. Verify the section on the real seller account; do not infer it from TexasDefined.com collections.
 
-Official instructions: https://help.etsy.com/hc/en-us/articles/360000345048-How-to-Create-and-Manage-Shop-Sections
+## Acceptance rules for new shirts
 
-## Priority 4 — fill the Etsy SEO tag slots without breaking Heartland sync
-
-- TD-FISH-02: add `fishing graphic` (12 → 13).
-- TD-FISH-03: add `boating shirt` (12 → 13).
-- TD-FISH-06: add `saltwater angler` (12 → 13).
-- TD-FISH-01, 04, 05: the thirteenth slots are already occupied by `hp-*` publisher identifiers. **Do not remove or replace those tags until confirming Heartland/Printify reconciliation no longer depends on the marker.** Desired substitutions are `texas fishing`, `fishing club`, and `quiet lake`, respectively.
-- All six already have the intended 13 descriptive **TexasDefined website-catalog** tags, regardless of Etsy seller state.
-
-Etsy limits: 13 tags per listing, 20 characters per tag. https://help.etsy.com/hc/en-us/articles/360000336307-How-to-Use-Tags-to-Get-Found-in-Search
-
-## Verification handoff
-
-After the seller edits, use Etsy buyer listing reads to recheck six IDs: availability, price, images, tag counts, and `has_production_partners=true`. Seller section and shipping origin still require authenticated seller-side confirmation. Do not infer partner settings from Heartland status, which continued reporting `etsy_verified=false` after actual public listings were retrieved.
-
-**TexasDefined website launch:** All six Printify IDs active at $28 with 16 enabled variants, six records mapped to `fishing-shirts`. PR #5869 merged and the production workflow #40149818078 successfully deployed code containing merch placements. Final crawlable SSR links PR #5876 was awaiting required checks when this was written.
+- **13 distinct, relevant, descriptive Etsy SEO tags** (no `hp-*` marker in the final live listing) before claiming publication complete.
+- The actual Etsy `production_partner_ids` must be populated, matching real print/fulfillment arrangements, and shipping origins accurate.
+- Clear seller-prompted AI disclosure in the live description wherever AI image generation is used.
+- Every size selector shows apparel sizes largest to smallest, with colors alphabetized inside each size.
+- Approved original irregular-contour artwork, real finished-product mockups, accurate garment details and active shipping profile.
+- Verify the live Etsy listing and TexasDefined.com product pages. If an integration exposes only buyer/read operations, report seller-account changes as outstanding rather than inventing write success.

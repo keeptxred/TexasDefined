@@ -32,6 +32,11 @@ test("fall page excludes expired dates, Christmas, unrelated events, and guessed
     example("A Texas business expo", "2026-11-01", "2026-11-02"),
     example("Unconfirmed Pumpkin Festival", "2026-11-02", "2026-11-03", { sourceCheckedAt: undefined }),
     example("Projected Folk Festival", "2026-11-02", "2026-11-03", { detail: "Recurrence-derived planning window" }),
+    example("Hollydays Market of Corpus Christi", "2026-11-06", "2026-11-08"),
+    example("South Pole Illuminated Festival", "2026-11-27", "2026-11-29"),
+    example("Wild Bright", "2026-11-27", "2026-12-28"),
+    example("H-E-B Thanksgiving Day Parade", "2026-11-26", "2026-11-26"),
+    example("Home for the Holidays Gift Market", "2026-11-20", "2026-11-22"),
     example("Texas Bowl Festival", "2026-11-01", "2026-11-02", { category: "sport" }),
   ];
   const result = resolveTemporalEventCollectionServer("fall-festivals", rows, october);
@@ -43,6 +48,23 @@ test("fall page excludes expired dates, Christmas, unrelated events, and guessed
   ]);
   assert.equal(result.shouldIndex, false, "never pad indexable count with stale/unverified events");
   assert.equal(result.items.every((item) => (item.endDate || item.startDate) >= "2026-10-26"), true);
+});
+
+test("keep legitimate autumn festivals while excluding holiday shopping and winter lights", () => {
+  const rows = [
+    example("Hollydays Market of Corpus Christi", "2026-11-06", "2026-11-08"),
+    example("South Pole Illuminated Festival", "2026-11-27", "2026-11-29"),
+    example("Wild Bright", "2026-11-27", "2026-12-28"),
+    example("H-E-B Thanksgiving Day Parade", "2026-11-26", "2026-11-26"),
+    example("Texas Butterfly Festival", "2026-11-07", "2026-11-10"),
+    example("Houston Diwali Festival of Lights", "2026-11-14", "2026-11-14"),
+    example("Homestead Fair", "2026-11-27", "2026-11-29"),
+  ];
+  const result = resolveTemporalEventCollectionServer("fall-festivals", rows, october);
+  assert.ok(result);
+  assert.deepEqual(result.items.map((event) => event.name), [
+    "Texas Butterfly Festival", "Houston Diwali Festival of Lights", "Homestead Fair",
+  ]);
 });
 
 test("fall page rolls into next September only after November without reviving old dates", () => {
@@ -97,4 +119,12 @@ test("page exposes filter controls and machine-readable expiration attributes fo
   for (const feature of ["FallFestivalBrowser", "data-fall-end-date", "data-fall-name", "Filter festivals by Texas region", "Filter festivals by month", "Filter festivals by type", "fall-festival-hotel-search", "/events/christmas-events"]) {
     assert.ok(view.includes(feature), `missing fall feature: ${feature}`);
   }
+});
+
+test("christmas community occurrence window covers the actual verified Nov 6–Jan 18 season", () => {
+  const result = resolveTemporalEventCollectionServer("christmas-events", [],
+    new Date("2026-10-27T18:00:00Z"));
+  assert.ok(result, "Christmas authority collection should resolve");
+  assert.equal(result.dateContext, "Nov 6, 2026–Jan 18, 2027",
+    "Never publish the old Nov 15–Jan 5 range while earlier/later events are verified");
 });

@@ -190,7 +190,15 @@
       "intakeId": 21,
       "title": "Bastrop Lost Pines Christmas",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "bastrop-annual-christmas-tree-lighting-2026",
+        "bastrop-river-of-lights-2026",
+        "bastrop-wassail-fest-2026",
+        "bastrop-merry-on-main-2026",
+        "bastrop-lost-pines-christmas-parade-2026"
+      ],
+      "researchNote": "October 27: Visit Bastrop explicitly brands these downtown/riverwalk events as 2026 Lost Pines Christmas. Treat TPWD Bastrop State Park Happy Holly-Days as an unrelated venue and date."
     },
     {
       "intakeId": 22,
@@ -213,7 +221,7 @@
       "title": "Temple Nature In Lights",
       "submittedRegion": "Hill Country & Central Texas",
       "status": "candidate-needs-source-reconciliation",
-      "researchNote": "Discover Temple Nature In Lights landing page lists dates inconsistent with Thanksgiving 2026 and appears to mix older year schedules; no full organizer-dated 2026 BLORA nightly calendar verified, so hold dates."
+      "researchNote": "Discover Temple confirms the Nov 28 Santa Fe Plaza tree lighting and Dec 7 Christmas Parade, now listed separately. They do NOT confirm Fort Cavazos BLORA Nature in Lights 2026 operating dates; military organizer's accessible schedules include prior-season details only."
     },
     {
       "intakeId": 25,
@@ -769,7 +777,8 @@
       "intakeId": 91,
       "title": "Highland Village Celebrate the Holidays",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City-confirmed Highland Village events are Our Village Glows (Nov 21, 2026) and Christmas at the Ranch (Dec 12, 2026), now separately listed. The submitted broad 'Celebrate the Holidays' title is not a verified standalone event and remains pending source reconciliation."
     },
     {
       "intakeId": 92,
@@ -804,7 +813,11 @@
       "intakeId": 95,
       "title": "Corsicana Palace Theatre Holiday Shows",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "corsicana-palace-theatre-dean-martin-christmas-2026"
+      ],
+      "researchNote": "The theatre's 2026–27 schedule specifically confirms the December 10 2026 Dean Martin Story Christmas Special at 7:30 p.m.; do not assume additional seasonal performances."
     },
     {
       "intakeId": 96,
@@ -830,7 +843,8 @@
       "intakeId": 98,
       "title": "Rockwall Harbor Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Rockwall's official 2026 Hometown Christmas (Dec 5) is already on the verified calendar, but 'Rockwall Harbor Lights' is a different unverified event label; do not duplicate the city listing."
     },
     {
       "intakeId": 99,
@@ -843,7 +857,7 @@
       "title": "Forney Christmas in the Park",
       "submittedRegion": "North Texas & DFW Metroplex",
       "status": "candidate-needs-source-reconciliation",
-      "researchNote": "The City/Arts Council confirms Dec 5 Christmas on Main 12–5 p.m. downtown. This is NOT proof of the submitted 'Forney Christmas in the Park' event identity or dates; added as a separate Christmas-on-Main calendar occurrence."
+      "researchNote": "Forney's official Christmas on Main (Dec 5, 2026) is already listed separately, and its Bell Park Tree Lighting (Dec 3, 2026) is also source-confirmed. The submitted 'Christmas in the Park' alias is not verified as an additional distinct event."
     },
     {
       "intakeId": 101,
@@ -943,7 +957,8 @@
       "intakeId": 112,
       "title": "Katy Light Tall Pines",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "October 27 source check: City of Katy verifies a Dec 5 2026 Annual Tree Lighting and Nutcracker Exchange in Historic Town Square, now separately listed. The submitted 'Light Tall Pines' is NOT verified as the same attraction and remains a research lead."
     },
     {
       "intakeId": 113,
@@ -958,13 +973,15 @@
       "intakeId": 114,
       "title": "Spring Old Town Spring Home for the Holidays",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "October 27 source check: Old Town Spring event listing confirms its Nov 14, 2026 Hometown Holiday Tree Lighting at dusk, now listed separately. The submitted 'Home for the Holidays' may mean the wider unannounced season; do not treat every planned weekend as a confirmed operating date."
     },
     {
       "intakeId": 115,
       "title": "Conroe Christmas Boat Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "2026-10-27: The event organizer Lake Conroe LIVE explicitly says there was NO official Lake Conroe boat parade in 2025 and describes only a possible different 2026 community event, without a 2026 date or confirmed boat-parade format. Do not substitute the independently confirmed December 12 Downtown Conroe Christmas Parade (land event) for the lake parade."
     },
     {
       "intakeId": 116,
@@ -976,7 +993,8 @@
       "intakeId": 117,
       "title": "Rosenberg Christmas Nights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City of Rosenberg confirms Hometown Holiday Festival Dec 5, 2026. The submitted 'Christmas Nights' name is not confirmed as an alias; keep this one pending rather than duplicate the verified city festival."
     },
     {
       "intakeId": 118,
@@ -1003,7 +1021,8 @@
       "intakeId": 121,
       "title": "La Porte Christmas on the Coast",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City/tourism office confirms Christmas on Main for Dec 3, 2026, but supplied 'Christmas on the Coast' name is not verified as the same event; keep as a separate lead."
     },
     {
       "intakeId": 122,
@@ -1068,7 +1087,13 @@
       "intakeId": 129,
       "title": "Lake Jackson Festival of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lake-jackson-festival-lights-tree-lighting-2026",
+        "lake-jackson-festival-lights-day-parade-2026",
+        "lake-jackson-light-up-2026"
+      ],
+      "researchNote": "City of Lake Jackson's 2026 Festival of Lights lists Nov 20 Mayor's Tree Lighting, Nov 21 daytime festival and 7 p.m. parade; separate Light Up Lake Jackson selfie-light stations run Nov 21–Jan 3. Carnival and neighborhood display schedules differ."
     },
     {
       "intakeId": 130,
@@ -1092,13 +1117,18 @@
       "intakeId": 133,
       "title": "Port Lavaca Festival of Trees",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Calhoun County Events confirms Port Lavaca Christmas Parade Dec 4 and Christmas at the Bayfront Dec 12, now in the calendar. Neither establishes a 2026 Festival of Trees at Port Lavaca; keep this distinct candidate unverified."
     },
     {
       "intakeId": 134,
       "title": "Victoria Christmas Parade of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "victoria-christmas-lighted-parade-tree-lighting-2026"
+      ],
+      "researchNote": "City of Victoria confirms Dec 5 2026 tree lighting and lighted parade; the Dec 11 Merry on Main downtown market is a separate organizer-confirmed event."
     },
     {
       "intakeId": 135,
@@ -1265,7 +1295,14 @@
       "intakeId": 157,
       "title": "San Antonio Pearl Brewery Holiday Markets",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-pearl-holiday-night-market-dec-02-2026",
+        "san-antonio-pearl-holiday-night-market-dec-09-2026",
+        "san-antonio-pearl-holiday-night-market-dec-16-2026",
+        "san-antonio-pearl-holiday-night-market-dec-23-2026"
+      ],
+      "researchNote": "Pearl's August 11, 2026 official festival announcement confirms four Wednesday holiday night markets December 2, 9, 16, and 23. Its separate November 27 tree lighting is independently listed. Do not conflate ordinary Wednesday fall markets ending November 25 with the December holiday events."
     },
     {
       "intakeId": 158,
@@ -1374,7 +1411,8 @@
       "intakeId": 174,
       "title": "Port Isabel Lighthouse Christmas",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City of Port Isabel confirms Dec 5, 2026 parade and Beulah Lee Park tree lighting, now listed separately. This does not establish the submitted 'Port Isabel Lighthouse Christmas' attraction or admission."
     },
     {
       "intakeId": 175,
@@ -1392,7 +1430,11 @@
       "intakeId": 177,
       "title": "Rockport Christmas Tropicale",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "rockport-tropical-christmas-festival-2026"
+      ],
+      "researchNote": "The City of Rockport confirms the 2026 Tropical Christmas Festival on Dec 5, with free daytime festivities and the evening illuminated parade/fireworks. The official event name is Tropical Christmas, not Christmas Tropicale."
     },
     {
       "intakeId": 178,
@@ -1410,7 +1452,11 @@
       "intakeId": 180,
       "title": "Kingsville Ranch Hand Festival",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kingsville-ranch-hand-weekend-holiday-2026"
+      ],
+      "researchNote": "Official Visit Kingsville and King Ranch confirm 2026 Nov20–21 Ranch Hand Weekend with Nov20 tree lighting, free downtown festival and separately paid Nov21 King Ranch Breakfast/Rodeo."
     },
     {
       "intakeId": 181,
@@ -1716,7 +1762,8 @@
       "intakeId": 226,
       "title": "Midland Starry Starry Night",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Midland City confirms December 1 tree lighting and December 12 Merry Lighted Christmas Parade, now sourced separately. Neither proves a distinct 'Midland Starry Starry Night' program."
     },
     {
       "intakeId": 227,
@@ -1756,7 +1803,11 @@
       "intakeId": 232,
       "title": "Plainview Holiday Parade",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "plainview-christmas-parade-of-lights-2026"
+      ],
+      "researchNote": "Plainview Chamber's 34th annual Christmas Parade of Lights confirmed Dec3 2026 6:30 p.m. Though the URL slug mentions an older edition, the page headline is 34th and explicitly dates 2026."
     },
     {
       "intakeId": 233,
@@ -1786,7 +1837,8 @@
       "intakeId": 237,
       "title": "Sweetwater Pioneer Christmas",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Sweetwater Chamber confirms December 7 2026 Parade of Lights and Christmas on the Square, now listed independently; 'Pioneer Christmas' is not an organizer-confirmed alternate event name."
     },
     {
       "intakeId": 238,
@@ -1798,7 +1850,8 @@
       "intakeId": 239,
       "title": "Monahans Sandhills Christmas",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Monahans Chamber confirms December 4–5 2026 Christmas in the Dunes at the Ward County Event Center; cannot establish a separate 'Monahans Sandhills Christmas' attraction or equivalence."
     },
     {
       "intakeId": 240,
@@ -1852,7 +1905,11 @@
       "intakeId": 248,
       "title": "Graham America's Largest Square Christmas",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "graham-christmas-roundup-parade-2026"
+      ],
+      "researchNote": "Official Visit Graham date Dec 3, 2026 on America's Largest Downtown Square. Its actual event brand is Christmas Roundup, with a 6 p.m. square lighting and 8 p.m. parade."
     },
     {
       "intakeId": 249,
@@ -1869,9 +1926,9 @@
     }
   ],
   "reconciliation": {
-    "asOf": "2026-10-26",
-    "calendarCandidates": 77,
+    "asOf": "2026-10-27",
+    "calendarCandidates": 86,
     "authorityCandidates": 12,
-    "remainingCandidates": 161
+    "remainingCandidates": 152
   }
 }

@@ -7,13 +7,14 @@ import type { TexasEventRecord } from "./texas-event-record";
  * ticket links are introduced here. Split non-contiguous runs into windows
  * so the shared day-by-day calendar does not invent open nights.
  *
- * Sources were reviewed October 23, 2026. The 250-item intake remains a
- * research backlog; these records are the source-qualified first wave.
+ * Initial sources were reviewed October 23, 2026. Later records may carry
+ * their own sourceVerifiedAt date; do not mislabel later work as October 23.
+ * The 250-item intake remains a research backlog, not a verified calendar.
  */
 const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
   "slug" | "title" | "summary" | "city" | "countySlug" | "countyName" |
   "region" | "startDate" | "endDate" | "venueName" | "officialEventUrl" | "sourceName"
->> = [
+> & { sourceVerifiedAt?: string }> = [
   {
     "slug": "santas-ranch-new-braunfels",
     "title": "Santa's Ranch Christmas Drive-Through Lights",
@@ -98,6 +99,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
   },
   {
+    "slug": "old-town-spring-hometown-tree-lighting-2026",
+    "title": "Old Town Spring Hometown Holiday Tree Lighting",
+    "city": "Spring",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-14",
+    "venueName": "Historic Old Town Spring · 403 Main Street",
+    "officialEventUrl": "https://m.oldtownspringapp.com/events-1/i/3b9e687ffbcc9e0cb156d4c6a279ce5d/hometown-holiday-tree-lighting-old-town-spring",
+    "sourceName": "Old Town Spring event organizers",
+    "summary": "Old Town Spring's current event listing advertises the Hometown Holiday Tree Lighting for Saturday November 14, 2026, at dusk, 403 Main Street. Its site header uses a November 15 UTC timestamp; November 14 is the organizer's stated local event date. Additional holiday programs have not been fully confirmed; do not assume every following Saturday is a scheduled public event.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "houston-alley-theatre-christmas-carol-2026-1",
     "title": "Alley Theatre A Christmas Carol · November 15, 2026",
     "city": "Houston",
@@ -137,6 +152,35 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.visitfrisco.com/events/christmas-square/6842",
     "sourceName": "Visit Frisco",
     "summary": "The free synchronized music-and-light show runs nightly 6–10 p.m. from November 20 through January 4, 2027. Any additional activities, private events or vendors have separate schedules."
+  },
+  {
+    "slug": "kingsville-ranch-hand-weekend-holiday-2026",
+    "title": "Kingsville Ranch Hand Weekend · tree lighting and festival",
+    "city": "Kingsville",
+    "countySlug": "kleberg",
+    "countyName": "Kleberg County",
+    "region": "south-texas",
+    "startDate": "2026-11-20",
+    "endDate": "2026-11-21",
+    "venueName": "Downtown Kingsville and historic King Ranch",
+    "officialEventUrl": "https://kingsvilletexas.com/ranch-hand-weekend/",
+    "sourceName": "Visit Kingsville / King Ranch and City of Kingsville",
+    "summary": "Kingsville's 2026 Ranch Hand Weekend is confirmed November 20–21. Friday's free downtown Christmas tree lighting is 5–9 p.m.; Saturday's downtown ranch-hand festival and BBQ program is separately scheduled. King Ranch's ticketed Ranch Hand Breakfast and Ranch Rodeo on November 21 cost $15 per person, with a shuttle from J.K. Northway; general parking on King Ranch is not included. Festival and breakfast have distinct admission conditions.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
+    "slug": "lake-jackson-festival-lights-tree-lighting-2026",
+    "title": "Lake Jackson Festival of Lights · Mayor's Tree Lighting",
+    "city": "Lake Jackson",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-20",
+    "venueName": "Lake Jackson Civic Center",
+    "officialEventUrl": "https://www.lakejackson-tx.gov/222/Festival-of-Lights",
+    "sourceName": "City of Lake Jackson",
+    "summary": "The 2026 Festival of Lights schedule confirms the Mayor's Tree Lighting and Santa Pajama Jam on Friday November 20, 6–8 p.m. at the Civic Center. Holiday carnival operations run separately, so check the organizer for individual ride prices and daily schedules.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "bryan-2026-lights-on-downtown",
@@ -315,6 +359,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Kerrville Christmas Lighting Corporation confirms Merry on the Square Saturday November 21, 2026 starting at 4 p.m., with vendors, children's crafts, food trucks, performances and characters. Courthouse lights and its 50-foot Christmas tree switch on after the separate city-run 6 p.m. lighted parade; check event-day road closures."
   },
   {
+    "slug": "lake-jackson-festival-lights-day-parade-2026",
+    "title": "Lake Jackson Festival of Lights · Festival Day and Parade",
+    "city": "Lake Jackson",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-21",
+    "venueName": "Lake Jackson Civic Center and downtown Circle Way",
+    "officialEventUrl": "https://www.lakejackson-tx.gov/222/Festival-of-Lights",
+    "sourceName": "City of Lake Jackson",
+    "summary": "Lake Jackson's official Saturday November 21, 2026 Festival Day includes the Civic Center art and food booths (10 a.m.–5 p.m.), family winter playground, 11 a.m.–11 p.m. Yuletide Carnival, and the 7 p.m. Downtown Parade of Lights. Plan around Circle Way parking restrictions; individual carnival rides and market purchases may be extra.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "allen-watters-creek-light-the-night-2026",
     "title": "Light the Night · Watters Creek Allen",
     "city": "Allen",
@@ -326,6 +384,21 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://visitallentexas.com/events/2026-light-the-night/",
     "sourceName": "Visit Allen tourism",
     "summary": "Visit Allen confirms Watters Creek Light the Night for Saturday November 21, 2026. The tree-lighting concert begins at 6 p.m., followed by the 6:30 p.m. tree lighting and fireworks. Family activities, live music and participating retailer offers take place around the shopping village; dining and purchases are additional."
+  },
+  {
+    "slug": "lake-jackson-light-up-2026",
+    "title": "Light Up Lake Jackson · City Holiday Light Displays",
+    "city": "Lake Jackson",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-21",
+    "endDate": "2027-01-03",
+    "venueName": "Downtown Lake Jackson and participating local displays",
+    "officialEventUrl": "https://lakejackson-tx.gov/788/Light-Up-Lake-Jackson",
+    "sourceName": "City of Lake Jackson",
+    "summary": "The city's 2026 Light Up Lake Jackson program confirms public selfie-light stations November 21–January 3 and a map of holiday-home displays December 11–January 3. These activities have different schedules: do not treat every listed attraction as open every night. City-run festivities and contests are advertised as free.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "woodlands-lighting-of-the-doves-2026",
@@ -367,6 +440,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://mozartscoffee.com/pages/annual-holiday-light-show-v2",
     "sourceName": "Mozart’s Coffee Roasters",
     "summary": "The 16th annual waterfront light-show season runs November 21–January 3. Synchronized shows begin nightly at 6 p.m.; check the date-specific tickets and seating options before visiting."
+  },
+  {
+    "slug": "highland-village-our-village-glows-2026",
+    "title": "Our Village Glows · Highland Village Tree Lighting",
+    "city": "Highland Village",
+    "countySlug": "denton",
+    "countyName": "Denton County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-21",
+    "venueName": "The Shops at Highland Village · north patio, FM 2499 and Justin Road",
+    "officialEventUrl": "https://www.highlandvillage.org/588/Our-Village-Glows",
+    "sourceName": "City of Highland Village",
+    "sourceVerifiedAt": "2026-10-27",
+    "summary": "The City of Highland Village confirms Our Village Glows for Saturday November 21, 2026, starting 5:30 p.m. The free shopping-center event features its 35-foot tree lighting, musical light show, family activities and Santa's arrival. Check the organizer's parking and event-time notices before visiting."
   },
   {
     "slug": "san-antonio-fiesta-texas-holiday-1",
@@ -531,6 +618,35 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
     "sourceName": "Alley Theatre 2026–27 season and official dated box office",
     "summary": "The Alley Theatre box office confirms 2026-11-27 through 2026-11-29 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
+  },
+  {
+    "city": "Bastrop",
+    "countySlug": "bastrop",
+    "countyName": "Bastrop County",
+    "region": "hill-country",
+    "sourceName": "Discover Bastrop / City of Bastrop",
+    "sourceVerifiedAt": "2026-10-27",
+    "slug": "bastrop-annual-christmas-tree-lighting-2026",
+    "title": "Bastrop Annual Christmas Tree Lighting",
+    "startDate": "2026-11-27",
+    "venueName": "Fisherman's Park · 1200 Willow Street",
+    "officialEventUrl": "https://www.discoverbastroptx.org/events/lost-pines-christmas/bastrops-annual-tree-lighting/",
+    "summary": "Discover Bastrop confirms Friday November 27, 2026 beginning 6 p.m. in Fisherman's Park for the city's tree lighting. Bastrop ISD children's choirs perform before Santa arrives on a fire truck. Continue to the separate daily River of Lights walk afterward; do not combine this with the Dec 19 state park event."
+  },
+  {
+    "city": "Bastrop",
+    "countySlug": "bastrop",
+    "countyName": "Bastrop County",
+    "region": "hill-country",
+    "sourceName": "Discover Bastrop / City of Bastrop",
+    "sourceVerifiedAt": "2026-10-27",
+    "slug": "bastrop-river-of-lights-2026",
+    "title": "Bastrop River of Lights · June Hill Pape Riverwalk",
+    "startDate": "2026-11-27",
+    "endDate": "2027-01-04",
+    "venueName": "Fisherman's Park and June Hill Pape Riverwalk",
+    "officialEventUrl": "https://www.discoverbastroptx.org/event/bastrops-river-of-lights/8863/",
+    "summary": "The City of Bastrop confirms this FREE half-mile Riverwalk light display operates nightly 6–10 p.m. November 27, 2026–January 4, 2027. The scenic route follows the Colorado River; start at accessible Fisherman's Park on Willow Street instead of the stairs near Main and Pine Streets if needed. A city tree-lighting ceremony is a separate Nov 27 program."
   },
   {
     "slug": "boerne-dickens-on-main",
@@ -712,6 +828,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official Visit Mineral Wells page confirms tree lighting Friday November 27, 2026, beginning the Merry Wells Christmas weekend. The next day's festival and lighted parade have their own date."
   },
   {
+    "slug": "san-antonio-pearl-holiday-tree-lighting-2026",
+    "title": "Pearl Holiday Tree Lighting Ceremony 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-11-27",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl's official 2026 calendar confirms its Holiday Tree Lighting Ceremony on Friday, November 27. Expect carolers, hot chocolate and holiday activities near the San Antonio River; check Pearl's live event page for ceremony time and parking details. This is separate from the weekly Holiday Night Markets.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "san-antonio-river-walk-holiday-lights",
     "title": "San Antonio River Walk Holiday Lights",
     "city": "San Antonio",
@@ -767,6 +897,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The first confirmed 2026 Winter Lightfest walking-trail evening is November 28. Gates open at 5:30 p.m. and trail hours are 6–10 p.m.; admission is ticketed."
   },
   {
+    "city": "Bastrop",
+    "countySlug": "bastrop",
+    "countyName": "Bastrop County",
+    "region": "hill-country",
+    "sourceName": "Discover Bastrop / City of Bastrop",
+    "sourceVerifiedAt": "2026-10-27",
+    "slug": "bastrop-wassail-fest-2026",
+    "title": "Bastrop Wassail Fest · Small Business Saturday",
+    "startDate": "2026-11-28",
+    "venueName": "Historic Downtown Bastrop · Main Street",
+    "officialEventUrl": "https://www.discoverbastroptx.org/event/wassail-fest/8861/",
+    "summary": "The Bastrop Main Street Program confirms Saturday November 28, 2026, 4–8 p.m. downtown for Wassail Fest. Visitors can sample downtown businesses' wassail recipes and vote for a favorite while shopping local. Advance registration is strongly encouraged for limited complimentary souvenir cups and totes; retail purchases remain optional."
+  },
+  {
     "slug": "christmas-in-comfort-2026",
     "title": "Christmas in Comfort",
     "city": "Comfort",
@@ -818,6 +962,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://visitmineralwells.org/merry-wells-christmas-festival",
     "sourceName": "Visit Mineral Wells",
     "summary": "The Merry Wells Christmas Festival operates Saturday November 28, 2026 from 11 a.m.–5 p.m., with the lighted Christmas parade at 6 p.m. Downtown shops and vendors operate on their own schedules."
+  },
+  {
+    "slug": "temple-santa-fe-plaza-christmas-tree-lighting-2026",
+    "title": "Temple Santa Fe Plaza Christmas Tree Lighting",
+    "city": "Temple",
+    "countySlug": "bell",
+    "countyName": "Bell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Santa Fe Plaza · Downtown Temple",
+    "officialEventUrl": "https://www.discovertemple.com/events/hollyjolly/christmas-parade/",
+    "sourceName": "Discover Temple / City of Temple",
+    "summary": "Discover Temple's 2026 official holiday parade page specifically announces its Santa Fe Plaza tree lighting for Saturday November 28. The exact ceremony time is not yet confirmed on that page; consult the city before arriving. This is separate from the December 7 downtown parade.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "wimberley-trail-of-lights",
@@ -875,6 +1033,48 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 2026 free Zilker Holiday Tree lighting ceremony begins Sunday November 29 at 6 p.m., with Austin Civic Wind Ensemble music from 5:15 p.m. Seasonal nightly tree viewing follows separately through January 1."
   },
   {
+    "slug": "conroe-christmas-around-square-2026",
+    "title": "Conroe Christmas Around the Square",
+    "city": "Conroe",
+    "countySlug": "montgomery",
+    "countyName": "Montgomery County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-01",
+    "venueName": "Founders Plaza and Main Street · Downtown Conroe",
+    "officialEventUrl": "https://www.visitconroe.com/events/festivals-and-fairs/conroe-christmas-celebration/",
+    "sourceName": "Visit Conroe / Downtown Conroe",
+    "summary": "Confirmed for Tuesday December 1, 2026, 7–9:30 p.m. after the Heritage Place tree lighting. Founders Plaza and downtown shops offer an evening holiday walk, locally run stores and seasonal decorations. This is a separate downtown stroll, not a Lake Conroe boat parade.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
+    "slug": "conroe-tree-lighting-2026",
+    "title": "Conroe Downtown Christmas Tree Lighting",
+    "city": "Conroe",
+    "countySlug": "montgomery",
+    "countyName": "Montgomery County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-01",
+    "venueName": "Heritage Place · 500 Metcalf Street",
+    "officialEventUrl": "https://www.visitconroe.com/events/festivals-and-fairs/conroe-christmas-celebration/",
+    "sourceName": "Visit Conroe / City of Conroe",
+    "summary": "Visit Conroe confirms the 2026 downtown tree lighting Tuesday December 1, 6:30–7 p.m. at Heritage Place. Christmas Around the Square follows that evening nearby with shops open; these are different activities on the same date. The official festival schedule, not last year's parade listing, controls event times.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
+    "slug": "midland-merry-lights-tree-lighting-2026",
+    "title": "Midland's Merry Lights · City Tree Lighting Ceremony",
+    "city": "Midland",
+    "countySlug": "midland",
+    "countyName": "Midland County",
+    "region": "panhandle",
+    "startDate": "2026-12-01",
+    "venueName": "Centennial Park · Downtown Midland",
+    "officialEventUrl": "https://midlandtexas.gov/1244/Community-Events-Programs",
+    "sourceName": "City of Midland Community Events",
+    "summary": "Midland's city-hosted downtown holiday tree lighting is confirmed Tuesday December 1, 2026 at Centennial Park. The program runs 5–8:30 p.m., festivities start about 5:30 p.m., and the tree lights no earlier than 6:15 p.m. This is not a verified season-long event called Starry Starry Night.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "dallas-zoo-lights-dec-early",
     "title": "Dallas Zoo Lights · December 2–6",
     "city": "Dallas",
@@ -901,6 +1101,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.southpoleoftexas.com/",
     "sourceName": "City of McAllen / South Pole Illuminated Festival",
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
+    "slug": "san-antonio-pearl-holiday-night-market-dec-02-2026",
+    "title": "Pearl Holiday Night Market · December 2, 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-02",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "baytown-stars-stripes-christmas-parade-2026",
@@ -958,6 +1172,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
   },
   {
+    "slug": "forney-downtown-tree-lighting-2026",
+    "title": "Downtown Forney Tree Lighting Ceremony",
+    "city": "Forney",
+    "countySlug": "kaufman",
+    "countyName": "Kaufman County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Bell Park · Downtown Forney",
+    "officialEventUrl": "https://www.forneytx.gov/761/Downtown-Tree-Lighting",
+    "sourceName": "City of Forney",
+    "sourceVerifiedAt": "2026-10-27",
+    "summary": "The City of Forney confirms Thursday December 3, 2026, at 6 p.m. for its downtown Bell Park tree-lighting with Christmas music, hot chocolate and Santa. It is not the separate Saturday December 5 Christmas on Main street festival."
+  },
+  {
+    "slug": "graham-christmas-roundup-parade-2026",
+    "title": "Graham Christmas Roundup · Downtown Square Lighted Parade",
+    "city": "Graham",
+    "countySlug": "young",
+    "countyName": "Young County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "America's Largest Downtown Square · Graham",
+    "officialEventUrl": "https://visitgrahamtexas.com/event/christmas-roundup-parade/",
+    "sourceName": "Visit Graham / Graham Chamber of Commerce",
+    "summary": "Graham's 2026 Christmas Roundup takes place Thursday December 3 on America's Largest Downtown Square. Santa photos are advertised from 3:30–6:30 p.m., the shopping stroll from 5–7 p.m., ceremonial square lighting at 6 p.m. and the lighted parade at 8 p.m. The event's verified name is Christmas Roundup rather than a generic yearly square-lighting schedule.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "grapevine-parade-of-lights-2026",
     "title": "Grapevine Parade of Lights",
     "city": "Grapevine",
@@ -996,6 +1238,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://jeffersoncandlelight.com/",
     "sourceName": "Historic Jefferson Foundation / Candlelight Tour",
     "summary": "A ticketed self-guided tour of historic Jefferson homes with dates December 3–5. Thursday hours 3–7 p.m.; Friday and Saturday 4–8 p.m. Tickets work on any operating date, but homes and checkout conditions should be verified."
+  },
+  {
+    "slug": "la-porte-christmas-on-main-2026",
+    "title": "La Porte Christmas on Main and Tree Lighting",
+    "city": "La Porte",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown La Porte · 100 South Broadway",
+    "officialEventUrl": "https://www.visitlaportetx.com/christmas",
+    "sourceName": "Visit La Porte / City of La Porte",
+    "summary": "The city's 2026 Christmas on Main celebration is Thursday December 3, 5–9 p.m. in historic downtown La Porte. Free family activities include snow-style slides, Santa photos, train rides and face painting; the official tree lighting is at 6:30 p.m. Retail market purchases and food are separate. Do not confuse this with events in La Porte, Indiana.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "ennis-lights-of-ennis-parade-2026",
@@ -1049,6 +1305,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/",
     "sourceName": "Grapevine Convention & Visitors Bureau",
     "summary": "The organizer's 2026 schedule specifically moves December 3 North Pole Express departures to Historic Stockyards Station in Fort Worth, with boarding times beginning at 1:30 p.m. Do not travel to Grapevine Station for this date."
+  },
+  {
+    "slug": "plainview-christmas-parade-of-lights-2026",
+    "title": "Plainview 34th Annual Christmas Parade of Lights",
+    "city": "Plainview",
+    "countySlug": "hale",
+    "countyName": "Hale County",
+    "region": "panhandle",
+    "startDate": "2026-12-03",
+    "venueName": "Broadway Avenue · Downtown Plainview",
+    "officialEventUrl": "https://www.plainviewtexaschamber.com/event/chamber-of-commerce-30th-christmas-parade-of-lights/",
+    "sourceName": "Plainview Texas Chamber of Commerce",
+    "summary": "The Plainview Chamber's dated 2026 listing confirms the 34th Annual Christmas Parade of Lights for Thursday December 3, starting at 6:30 p.m., with the theme Christmas in Toyland. Entrants stage earlier at Broadway Park; viewers should confirm road closures and the current parade route with the Chamber. The source URL retains an outdated edition number even though the event headline and date are for 2026.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "salado-lighted-christmas-parade",
@@ -1270,6 +1540,21 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The city confirms Friday December 4 at 6 p.m. for the 2026 Christmas Parade of Lights, a lighted downtown parade with floats, bands and Santa; street closure and viewing arrangements may change."
   },
   {
+    "slug": "brenham-jingle-bell-market-2026",
+    "title": "Jingle Bell Market · Ant Street Inn Brenham",
+    "city": "Brenham",
+    "countySlug": "washington",
+    "countyName": "Washington County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-05",
+    "venueName": "Ant Street Inn · Historic Downtown Brenham",
+    "officialEventUrl": "https://visitbrenhamtexas.com/events/",
+    "sourceName": "Visit Brenham Texas / Ant Street Inn",
+    "summary": "The Brenham tourism calendar lists Jingle Bell Market Friday and Saturday December 4–5, 2026, from 10 a.m.–6 p.m. at Ant Street Inn. Holiday goods are sold by individual vendors, separate from the free Dec 5 downtown parade and the following weekend's Home for the Holidays shopping stroll. Verify each vendor's opening and payment methods directly.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "kemah-jingle-on-boardwalk-2026-1",
     "title": "Jingle on the Boardwalk · December holiday weekend 1",
     "city": "Kemah",
@@ -1364,6 +1649,21 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 2026 main Hometown Holidays festival is Friday December 4, 5–9 p.m., at Mansfield City Hall. Tree lighting, fireworks, market vendors, performances and family activities are planned; additional citywide holiday events run on other independently advertised dates."
   },
   {
+    "slug": "monahans-christmas-in-dunes-2026",
+    "title": "Monahans Christmas in the Dunes · Holiday Festival",
+    "city": "Monahans",
+    "countySlug": "ward",
+    "countyName": "Ward County",
+    "region": "big-bend",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-05",
+    "venueName": "Ward County Event Center · Monahans",
+    "officialEventUrl": "https://www.monahans.org/events",
+    "sourceName": "Monahans Chamber of Commerce",
+    "summary": "The Monahans Chamber of Commerce confirms Christmas in the Dunes for December 4–5, 2026 at the Ward County Event Center, with a lighted parade, seasonal craft and food vendors, and free admission to the Chamber-advertised festival. This independently named event does not establish the separate submitted 'Monahans Sandhills Christmas' listing.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "pearland-hometown-christmas-festival-2026",
     "title": "Pearland Hometown Christmas Festival and Drone Show",
     "city": "Pearland",
@@ -1375,6 +1675,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
     "sourceName": "City of Pearland Parks and Recreation",
     "summary": "Pearland Parks & Recreation dates its free Hometown Christmas Festival Friday December 4, 2026 from 6–9 p.m. at Independence Park. Stage entertainment, H-E-B Winter Wonderland and food trucks lead to a scheduled drone show around 8:30 p.m. Parking and ADA entry differ; food and purchases may cost extra. This named festival is NOT proof of a separate season-long 'Pearland Festival of Lights' exhibit."
+  },
+  {
+    "slug": "port-lavaca-christmas-parade-2026",
+    "title": "Port Lavaca Christmas Parade",
+    "city": "Port Lavaca",
+    "countySlug": "calhoun",
+    "countyName": "Calhoun County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "venueName": "Port Lavaca downtown parade route",
+    "officialEventUrl": "https://portlavacaevents.com/events/list/page/2/",
+    "sourceName": "Calhoun County Events / local Chamber events calendar",
+    "summary": "The 2026 Calhoun County holiday calendar confirms Port Lavaca's Christmas Parade on Friday December 4, listed as a free community event. Specific start time, lineup and final route have not yet been published; check the organizer for updated details. Prior-season parade times must not be reused.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "salado-christmas-stroll-first",
@@ -1402,6 +1716,21 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "startDate": "2026-12-04",
     "venueName": "Historic Downtown Seguin and Central Park",
     "summary": "The City of Seguin confirms Friday December 4, 2026, 6–9 p.m. for the Sip 'n Stroll with local businesses serving hot chocolate and remaining open late. This is a different date from Thursday's parade and Saturday's North Pole Stroll."
+  },
+  {
+    "slug": "brenham-greatest-gift-nativity-2026",
+    "title": "The Greatest Gift Nativity Display · Brenham",
+    "city": "Brenham",
+    "countySlug": "washington",
+    "countyName": "Washington County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-05",
+    "venueName": "1400 Niebuhr Street · Brenham",
+    "officialEventUrl": "https://visitbrenhamtexas.com/calendar/holidays/",
+    "sourceName": "Visit Brenham Texas / local nativity organizers",
+    "summary": "Visit Brenham's 2026 holiday calendar confirms Friday–Saturday December 4–5, 6–9 p.m. at 1400 Niebuhr Street. The public displays include over 400 international nativity scenes and a live nativity with animals both evenings. A local-artist music performance is scheduled only Friday December 4 at 7 p.m.; do not advertise it Saturday.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "waxahachie-bethlehem-revisited-first",
@@ -1629,6 +1958,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
   },
   {
+    "slug": "katy-nutcracker-exchange-tree-lighting-2026",
+    "title": "Katy Nutcracker Exchange and Annual City Tree Lighting",
+    "city": "Katy",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Historic Town Square · 904 Avenue C",
+    "officialEventUrl": "https://www.cityofkaty.com/about/calendar/-curm-12/-toggle-next30days/-sortn-EDate/-sortd-asc/-cury-2026",
+    "sourceName": "City of Katy annual calendar / Katy community events",
+    "summary": "The City of Katy's December 2026 calendar lists both the annual tree lighting and Katy Nutcracker Exchange on Saturday December 5. The local event listing gives the Town Square market and holiday festivities 2–8 p.m., with Santa photos and the city's holiday tree lighting. Check the exact tree-lighting time and street/parking restrictions with the city; vendor purchases are separate. This is not an official listing for the unverified 'Light Tall Pines' lead.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "kaufman-2026-christmas-on-the-square",
     "title": "Kaufman Christmas on the Square 2026",
     "city": "Kaufman",
@@ -1800,6 +2143,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The City of Pearland's 2026 Hometown Christmas schedule confirms the parade Saturday December 5 at 6 p.m. on FM 518 (Broadway) from Old Alvin Road toward Pearland Parkway, with the theme Red, White, and Blue Christmas. This is a DIFFERENT day and route from the December 4 Hometown Christmas Festival at Independence Park."
   },
   {
+    "slug": "port-isabel-christmas-parade-tree-lighting-2026",
+    "title": "Port Isabel Hometown Christmas Parade & Community Tree Lighting",
+    "city": "Port Isabel",
+    "countySlug": "cameron",
+    "countyName": "Cameron County",
+    "region": "south-texas",
+    "startDate": "2026-12-05",
+    "venueName": "Queen Isabella Boulevard to Beulah Lee Park",
+    "officialEventUrl": "https://portisabel-texas.com/blog/christmas-tree-lighting-parade/",
+    "sourceName": "City of Port Isabel",
+    "summary": "The City of Port Isabel confirms its 18th annual Hometown Christmas Parade on Saturday December 5, 2026, starting at 6 p.m. on Queen Isabella Boulevard, followed by the community tree-lighting ceremony at Beulah Lee Park at 7 p.m. Public street-side parking is offered; temporary Highway 100 and Gomez Street closures apply. This is a city parade/tree event, not an unverified lighthouse-specific Christmas tour.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "richardson-santas-village-week1",
     "title": "Richardson Santa's Village · December 5–6",
     "city": "Richardson",
@@ -1814,6 +2171,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The first official free Santa's Village activity weekend runs December 5–6, 6–9 p.m., with photos with Santa, live music, interactive holiday buildings and free parking."
   },
   {
+    "slug": "rockport-tropical-christmas-festival-2026",
+    "title": "Rockport Tropical Christmas Festival and Illuminated Parade",
+    "city": "Rockport",
+    "countySlug": "aransas",
+    "countyName": "Aransas County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Rockport Festival Grounds and Harbor · 212 Seabreeze Drive",
+    "officialEventUrl": "https://www.rockporttx.gov/Calendar.aspx?EID=3385",
+    "sourceName": "City of Rockport Parks & Recreation",
+    "summary": "The City of Rockport confirms a free Tropical Christmas festival Saturday December 5, 2026, with activities and vendors from 10 a.m.–6 p.m. near the harbor, followed by the 7 p.m. illuminated parade, LED night kites and fireworks. Rockport Beach Park offers free access for spectators from 4 p.m.; organizers may close the road ahead of the parade.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "rockwall-hometown-christmas-2026",
     "title": "Rockwall Hometown Christmas · parade, festival and tree lighting",
     "city": "Rockwall",
@@ -1825,6 +2196,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.rockwall.com/event_hometownchristmas.asp",
     "sourceName": "City of Rockwall Parks and Recreation",
     "summary": "The City of Rockwall confirms Saturday December 5, 2026: the Kiwanis Christmas Parade 9–10:30 a.m., downtown Hometown Christmas Festival 10 a.m.–5 p.m., then city tree lighting 6–8 p.m. at City Hall. The free trolley connects designated downtown stops; some market purchases and activities may cost extra."
+  },
+  {
+    "slug": "rosenberg-hometown-holiday-festival-2026",
+    "title": "Rosenberg Hometown Holiday Festival 2026",
+    "city": "Rosenberg",
+    "countySlug": "fort-bend",
+    "countyName": "Fort Bend County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Historic Downtown Rosenberg",
+    "officialEventUrl": "https://www.rosenbergtx.gov/839/Volunteer",
+    "sourceName": "City of Rosenberg",
+    "summary": "The City of Rosenberg's 2026 special-events calendar confirms Hometown Holiday Festival for Saturday December 5. The city has not posted a full program on this source page; verify festival times, shopping and performance details with organizers before traveling. This is not proof of a separately named 'Christmas Nights' attraction.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "region": "prairies-lakes",
@@ -1865,6 +2250,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
     "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
+  },
+  {
+    "slug": "victoria-christmas-lighted-parade-tree-lighting-2026",
+    "title": "Victoria Christmas Tree Lighting & Lighted Christmas Parade",
+    "city": "Victoria",
+    "countySlug": "victoria",
+    "countyName": "Victoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "DeLeon Plaza Pavilion · 101 N. Main Street",
+    "officialEventUrl": "https://www.victoriatx.gov/Calendar.aspx?EID=3992",
+    "sourceName": "City of Victoria Parks & Recreation",
+    "summary": "The City of Victoria confirms its 2026 Christmas Tree Lighting and Lighted Christmas Parade for Saturday December 5, 5–9 p.m. at and near DeLeon Plaza downtown. Parade registration closes October 31; visitors should check the city for final route and street closures.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "weatherford-2026-christmas-on-square",
@@ -1934,6 +2333,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The city advertises Santa's Village as open to stroll through and view December 7–9. Full interactive programs and Santa visits are not advertised for this window; use separately listed weekend programs for those activities."
   },
   {
+    "slug": "sweetwater-christmas-on-square-parade-2026",
+    "title": "Sweetwater Parade of Lights & Christmas on the Square",
+    "city": "Sweetwater",
+    "countySlug": "nolan",
+    "countyName": "Nolan County",
+    "region": "panhandle",
+    "startDate": "2026-12-07",
+    "venueName": "Downtown Sweetwater · Christmas on the Square",
+    "officialEventUrl": "https://sweetwatertexas.org/events/list/?tribe-bar-date=2026-10-22",
+    "sourceName": "Sweetwater Texas Chamber of Commerce",
+    "summary": "The Sweetwater Chamber's 2026 events calendar confirms its annual Parade of Lights and Christmas on the Square for Monday December 7 at 6:30 p.m. This is a Chamber-advertised Christmas parade, not proof of a separate event branded Pioneer Christmas. Final route and activities should be checked with the Chamber.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
+    "slug": "temple-80th-annual-christmas-parade-2026",
+    "title": "Temple 80th Annual Christmas Parade",
+    "city": "Temple",
+    "countySlug": "bell",
+    "countyName": "Bell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-07",
+    "venueName": "Downtown Temple · Adams Avenue parade corridor",
+    "officialEventUrl": "https://www.discovertemple.com/events/hollyjolly/christmas-parade/",
+    "sourceName": "Discover Temple / City of Temple",
+    "summary": "The City of Temple confirms its 80th annual Christmas Parade for Monday December 7, 2026, starting at 6:30 p.m. The theme is An 80s Christmas. Road closures begin before the procession; check final downtown parade routing and parking before traveling. Parade-entry application fees do not imply spectators must buy admission.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "houston-alley-theatre-christmas-carol-2026-6",
     "title": "Alley Theatre A Christmas Carol · December 8–13, 2026",
     "city": "Houston",
@@ -1974,6 +2401,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.southpoleoftexas.com/",
     "sourceName": "City of McAllen / South Pole Illuminated Festival",
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
+    "slug": "san-antonio-pearl-holiday-night-market-dec-09-2026",
+    "title": "Pearl Holiday Night Market · December 9, 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-09",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "longview-arboretum-bright-2026-3",
@@ -2044,6 +2485,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Sights & Sounds of Christmas organizer",
     "summary": "The festival's second verified weekend runs December 10–12; separate from the December 3–5 dates. Consult official admission and carnival rules before booking.",
     "endDate": "2026-12-12"
+  },
+  {
+    "slug": "corsicana-palace-theatre-dean-martin-christmas-2026",
+    "title": "The Dean Martin Story — Christmas Special · Corsicana",
+    "city": "Corsicana",
+    "countySlug": "navarro",
+    "countyName": "Navarro County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-10",
+    "venueName": "Historic Palace Theatre · 112 W. 6th Avenue",
+    "officialEventUrl": "https://corsicanapalace.com/live-performances/",
+    "sourceName": "Historic Palace Theatre Corsicana",
+    "summary": "The Corsicana Historic Palace Theatre's official 2026–27 performance calendar lists The Dean Martin Story — Christmas Special for Thursday December 10, 2026, 7:30–9 p.m. This is one dated holiday stage performance, not an invented multi-week Christmas festival. Tickets and seat availability should be checked with the theatre's box office.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "tpwd-lake-bob-sandlin-christmas-2026",
@@ -2253,6 +2708,35 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 18th annual Christmas market runs Friday December 11 6–10 p.m., Saturday December 12 10 a.m.–10 p.m., and Sunday December 13 10 a.m.–6 p.m. Organizers list free admission and parking."
   },
   {
+    "slug": "victoria-merry-on-main-2026",
+    "title": "Victoria Merry on Main · holiday market",
+    "city": "Victoria",
+    "countySlug": "victoria",
+    "countyName": "Victoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-11",
+    "venueName": "Historic Downtown Victoria",
+    "officialEventUrl": "https://victoriatx.gov/merryonmain",
+    "sourceName": "City of Victoria Parks & Recreation",
+    "summary": "Merry on Main is confirmed for Friday December 11, 2026, 6–10 p.m. in Downtown Victoria. City-organized market vendors, food trucks, live music, children's activities, and downtown holiday shopping take place separately from the December 5 parade.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
+    "slug": "burton-milk-honey-ranch-christmas-story-2026",
+    "title": "Walk the Christmas Story · Milk & Honey Ranch",
+    "city": "Burton",
+    "countySlug": "washington",
+    "countyName": "Washington County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-13",
+    "venueName": "Milk & Honey Ranch · Burton area",
+    "officialEventUrl": "https://visitbrenhamtexas.com/beyond-brenham/burton/events/",
+    "sourceName": "Visit Brenham Texas / Milk & Honey Ranch",
+    "summary": "Visit Brenham confirms the ranch's Christmas Story walk Friday–Sunday December 11–13, 2026, 5–9 p.m. on each night. The live nativity journey includes animals, outdoor music, lights and food; check the ranch's reservation requirements and individual activity costs. It is not the separate December 4–5 greatest-gift nativity display in Brenham.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "waxahachie-bethlehem-revisited-second",
     "title": "Waxahachie Bethlehem Revisited · December 11–13",
     "city": "Waxahachie",
@@ -2292,6 +2776,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://armadillobazaar.com/info/",
     "sourceName": "Armadillo Christmas Bazaar organizer",
     "summary": "Ten ticketed days of holiday fine-art shopping and live music December 12–21, with about 200 curated artists. Hours vary by day; the official organizer says children 12 and under receive free admission."
+  },
+  {
+    "city": "Bastrop",
+    "countySlug": "bastrop",
+    "countyName": "Bastrop County",
+    "region": "hill-country",
+    "sourceName": "Discover Bastrop / City of Bastrop",
+    "sourceVerifiedAt": "2026-10-27",
+    "slug": "bastrop-lost-pines-christmas-parade-2026",
+    "title": "Bastrop Lost Pines Christmas Lighted Parade",
+    "startDate": "2026-12-12",
+    "venueName": "Historic Downtown Bastrop · Main Street",
+    "officialEventUrl": "https://www.discoverbastroptx.org/events/lost-pines-christmas/lost-pines-christmas-parade/",
+    "summary": "Discover Bastrop confirms the free Lost Pines Christmas Parade Saturday December 12, 2026 at 6 p.m. through downtown, featuring decorated floats, marching bands, local groups and Santa's finale on a fire truck. Visitors should check the official route and closures closer to the event. Merry on Main is a separate earlier event the same day."
+  },
+  {
+    "city": "Bastrop",
+    "countySlug": "bastrop",
+    "countyName": "Bastrop County",
+    "region": "hill-country",
+    "sourceName": "Discover Bastrop / City of Bastrop",
+    "sourceVerifiedAt": "2026-10-27",
+    "slug": "bastrop-merry-on-main-2026",
+    "title": "Bastrop Merry on Main · Holiday Market and Activities",
+    "startDate": "2026-12-12",
+    "venueName": "Historic Downtown Bastrop · Main Street",
+    "officialEventUrl": "https://www.discoverbastroptx.org/event/merry-on-main/8865/",
+    "summary": "Visit Bastrop confirms free Merry on Main daytime activities Saturday December 12, 2026, 10 a.m.–3 p.m. Downtown shops, family activities and letters to Santa complement the separate 6 p.m. Lost Pines Christmas Parade. Food and shopping purchases are optional."
   },
   {
     "slug": "burleson-christmas-craft-fair-2026",
@@ -2346,6 +2858,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Chappell Hill Chamber event listing confirms Saturday December 12, 2026, 3:30–5 p.m. for the downtown Teddy Bear Parade. Families are invited to bring teddy bears and greet Santa; this is not an announcement of a separately ticketed Chappell Hill Christmas Market."
   },
   {
+    "slug": "highland-village-christmas-at-the-ranch-2026",
+    "title": "Christmas at the Ranch · Highland Village",
+    "city": "Highland Village",
+    "countySlug": "denton",
+    "countyName": "Denton County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Doubletree Ranch Park · 310 Highland Village Road",
+    "officialEventUrl": "https://www.highlandvillage.org/m/calendar/event/detail/2576",
+    "sourceName": "City of Highland Village official event calendar",
+    "sourceVerifiedAt": "2026-10-27",
+    "summary": "The City of Highland Village confirms Christmas at the Ranch at Doubletree Ranch Park on Saturday December 12, 2026, 10 a.m.–2 p.m. The city describes an annual family holiday program, but has not posted a complete 2026 activity schedule; do not assume attractions or pricing from 2025."
+  },
+  {
     "slug": "arlington-holiday-lights-parade-2026",
     "title": "Downtown Arlington Holiday Lights Parade",
     "city": "Arlington",
@@ -2370,6 +2896,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://visitbrenhamtexas.com/events/",
     "sourceName": "Visit Brenham tourism event calendar",
     "summary": "Visit Brenham confirms Saturday December 12, 2026, 11 a.m.–6 p.m. for the downtown Home for the Holidays shopping stroll. More than 30 businesses plan seasonal samples, specials and gift-shopping stops. This is a separate date from the December 4–5 lighted Christmas Stroll/parade weekend."
+  },
+  {
+    "slug": "downtown-conroe-christmas-parade-2026",
+    "title": "Downtown Conroe Christmas Parade · Americana Christmas",
+    "city": "Conroe",
+    "countySlug": "montgomery",
+    "countyName": "Montgomery County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Historic Downtown Conroe streets",
+    "officialEventUrl": "https://www.visitconroe.com/event/downtown-conroe-christmas-parade%21-an-americana-christmas-celebrating-our-country%21/5420/",
+    "sourceName": "Downtown Conroe Association / Visit Conroe",
+    "summary": "The Downtown Conroe Association confirms its free 2026 Christmas parade Saturday December 12 at noon (advertised noon–2 p.m.). The newly responsible organizer calls the 250th-anniversary theme Americana Christmas. The same day, Toby Powell Christmas activities take place at Heritage Place 11 a.m.–4 p.m. Check street closures and exact parade viewing before traveling.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "tpwd-abilene-fa-la-la-forest-2026",
@@ -2464,6 +3004,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Vision Lampasas confirms Saturday December 12, 2026, 5–8 p.m. for Christmas on the Creek, including Santa's Village, hot cocoa, a snow machine and lighted park attractions. The outdoor creek lights may continue beyond the event, but no unverified end date is listed as another calendar entry."
   },
   {
+    "slug": "midland-merry-lighted-parade-2026",
+    "title": "Midland Merry Lighted Christmas Parade",
+    "city": "Midland",
+    "countySlug": "midland",
+    "countyName": "Midland County",
+    "region": "panhandle",
+    "startDate": "2026-12-12",
+    "venueName": "A Street · Windlands Park to Midland High School",
+    "officialEventUrl": "https://midlandtexas.gov/1244/Community-Events-Programs",
+    "sourceName": "City of Midland Community Events",
+    "summary": "The City of Midland schedules the Merry Lighted Christmas Parade for Saturday December 12, 2026 at 6:30 p.m. on A Street between Windlands Park and Midland High School. This date is independent of the December 1 Centennial Park tree lighting; confirm street closures and parade route updates before travel.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "pasadena-christmas-market-2026",
     "title": "Pasadena Christmas Market · 2026 local vendors",
     "city": "Pasadena",
@@ -2488,6 +3042,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/",
     "sourceName": "City of Pearland Parks and Recreation official 2026 special-events roster",
     "summary": "Pearland's official 2026 Parks and Recreation special-events schedule lists Tour De Lites Saturday December 12 from approximately 4:30 to 8 p.m. at Independence Park. This is a separate cycling-focused holiday event from the December 4 festival and December 5 parade. Detailed ride registration, routes, ticket costs and participating bike requirements have not yet been confirmed for 2026—check the event organizer before traveling."
+  },
+  {
+    "slug": "port-lavaca-christmas-at-bayfront-2026",
+    "title": "Port Lavaca Christmas at the Bayfront",
+    "city": "Port Lavaca",
+    "countySlug": "calhoun",
+    "countyName": "Calhoun County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Bayfront Peninsula Park · 501 E. Main Street",
+    "officialEventUrl": "https://portlavacaevents.com/events/list/page/2/",
+    "sourceName": "Calhoun County Events / local Chamber events calendar",
+    "summary": "The Calhoun County 2026 events calendar confirms Christmas at the Bayfront for Saturday December 12 at Bayfront Peninsula Park, with free festival entry and family-focused seasonal activities. Organizer schedule details remain subject to change; do not reuse the December 13, 2025 timetable or mistake this event for a Festival of Trees.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "san-antonio-river-of-lights",
@@ -2528,6 +3096,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://business.terrelltexas.com/events/details/terrell-christmas-parade-5065134",
     "sourceName": "Terrell Chamber of Commerce",
     "summary": "Terrell Chamber confirms the Saturday December 12, 2026 Christmas Parade runs 10–11 a.m. along Moore Avenue from Ninth Street to Adelaide. The $10–$25 charges listed on the source page are participant FLOAT ENTRY fees, not a spectator admission price. The parade is not rescheduled in bad weather."
+  },
+  {
+    "slug": "conroe-toby-powell-christmas-2026",
+    "title": "Toby Powell Conroe Christmas Celebration",
+    "city": "Conroe",
+    "countySlug": "montgomery",
+    "countyName": "Montgomery County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Heritage Place · 500 Metcalf Street",
+    "officialEventUrl": "https://www.visitconroe.com/events/festivals-and-fairs/conroe-christmas-celebration/",
+    "sourceName": "Visit Conroe / City of Conroe",
+    "summary": "Visit Conroe confirms Saturday December 12, 2026, 11 a.m.–4 p.m. at Heritage Place, with seasonal family activities, snow slides, pony and train rides, and Santa appearances. The Downtown Conroe Association's noon parade is a related but separate downtown event; check individual activity availability.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "allen-chicken-n-pickle-holiday-market-2026",
@@ -2637,6 +3219,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.southpoleoftexas.com/",
     "sourceName": "City of McAllen / South Pole Illuminated Festival",
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
+    "slug": "san-antonio-pearl-holiday-night-market-dec-16-2026",
+    "title": "Pearl Holiday Night Market · December 16, 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-16",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "longview-arboretum-bright-2026-4",
@@ -2874,6 +3470,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "san-antonio-pearl-holiday-night-market-dec-23-2026",
+    "title": "Pearl Holiday Night Market · December 23, 2026",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-23",
+    "venueName": "Pearl · 303 Pearl Parkway",
+    "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    "sourceName": "Pearl official 2026 fall and winter events announcement",
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "livingston-christmas-train-village-2026-5",
     "title": "Livingston Christmas Train Village · public session window 5",
     "city": "Livingston",
@@ -2899,8 +3509,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
     "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
     "sourceName": "Alley Theatre 2026–27 season and official dated box office",
-    "summary": "The Alley Theatre box office confirms A Christmas Carol matinee and evening performances December 26–27, 2026 at Hubbard Theatre. This verified full source span appears in the holiday community guide; the statewide /events calendar separately features the curated December 27 final performance with its exact official ticket link, so the overlapping community card is shown there only for December 26. Children younger than six are not admitted; all shows require paid dated admission.",
-    "endDate": "2026-12-27"
+    "summary": "The Alley Theatre box office confirms A Christmas Carol matinee and evening performances December 26–27, 2026 at Hubbard Theatre. This verified full source span appears in the holiday community guide; the statewide /events calendar separately features the curated December 27 final performance with its exact official ticket link, so the overlapping community card is shown there only for December 26. Children younger than six are not admitted; all shows require paid dated admission."
   },
   {
     "slug": "baytown-holiday-hangout-mid-2026",
@@ -3000,7 +3609,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;;;;;;;;;;;;;;;;;;
+];;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
@@ -3038,8 +3647,8 @@ export function getVerifiedChristmasCommunityEvents2026(now = new Date()): Texas
       guidePath: publishedGuides[occurrence.slug] ? `/event/${publishedGuides[occurrence.slug]}` : `/events/christmas-events#christmas-community-${occurrence.slug}`,
       category: "seasonal" as const,
       status: "scheduled" as const,
-      lastVerifiedAt: "2026-10-23",
-      lastUpdatedAt: "2026-10-23",
+      lastVerifiedAt: occurrence.sourceVerifiedAt ?? "2026-10-23",
+      lastUpdatedAt: occurrence.sourceVerifiedAt ?? "2026-10-23",
     }))
     .sort((a, b) => a.startDate.localeCompare(b.startDate) || a.title.localeCompare(b.title));
 }

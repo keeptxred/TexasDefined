@@ -88,6 +88,26 @@ try {
       result.checks.push('No horizontal viewport overflow');
 
       const guests = page.getByRole('spinbutton', { name: 'Number of guests' });
+      // Exercise real keyboard focus traversal in the fully hydrated public
+      // finder at every viewport, not just static axe field labels. This is
+      // read-only and does not submit a form or put personal data in artifacts.
+      await guests.focus();
+      assert.equal(await guests.evaluate(el => document.activeElement === el), true,
+        view.name + ': Number of guests must accept keyboard focus');
+      await page.keyboard.press('Tab');
+      const nextFocusInsideMain = await page.evaluate(() => {
+        const focused = document.activeElement;
+        const bounds = focused?.getBoundingClientRect();
+        return !!focused && focused !== document.body
+          && !!focused.closest('main#main')
+          && !!bounds && bounds.width > 0 && bounds.height > 0;
+      });
+      assert(nextFocusInsideMain,
+        view.name + ': Tab from the headcount input must reach a visible control inside the finder');
+      await page.keyboard.press('Shift+Tab');
+      assert.equal(await guests.evaluate(el => document.activeElement === el), true,
+        view.name + ': reverse keyboard traversal must return to the headcount input');
+      result.checks.push('Live Tab/Shift+Tab keyboard traversal keeps accessible focus in the finder');
       await guests.fill('8001');
       await page.getByText('Choose a whole-number group of 2 to 8,000 guests.').waitFor();
       assert.equal(await guests.getAttribute('aria-invalid'), 'true',
@@ -255,6 +275,40 @@ try {
       await page.screenshot({ path: evidenceDir + '/' + view.name + '.png', fullPage: false });
       assert.deepEqual(errors, [], view.name + ': unhandled browser errors or prohibited requests');
       result.checks.push('No browser JS errors or event form POSTs');
+
+      // Exercise the real locked staff route anonymously, not just the
+      // public finder. No access key is entered and no server function is
+      // invoked. The browser context has no prior authenticated session.
+      const unexpectedAdminWrites = [];
+      page.on('request', request => {
+        if (new URL(request.url()).origin === origin
+          && request.method() !== 'GET' && request.method() !== 'HEAD') {
+          unexpectedAdminWrites.push(request.method());
+        }
+      });
+      const adminResponse = await page.goto(origin + '/admin/sports-partners?corporate_browser_verify='
+        + encodeURIComponent(view.name + '-' + (releasedSha || 'manual')), {
+        waitUntil: 'domcontentloaded', timeout: 50_000,
+      });
+      assert.equal(adminResponse?.status(), 200,
+        view.name + ': anonymous staff unlock page must render HTTP 200');
+      const adminHtml = await adminResponse.text();
+      assert(!privateHtmlLedger.test(adminHtml),
+        view.name + ': locked staff SSR response exposed a private corporate ledger name');
+      assert(!privateHtmlKeyName.test(adminHtml),
+        view.name + ': locked staff SSR response exposed a privileged service-key identifier');
+      await page.getByRole('heading', { name: 'Unlock advertiser operations' })
+        .waitFor({ state: 'visible', timeout: 25_000 });
+      await page.getByRole('button', { name: 'Unlock advertiser dashboard' })
+        .waitFor({ state: 'visible' });
+      assert.equal(await page.locator('#corporate-event-ops').count(), 0,
+        view.name + ': corporate private operator panel rendered without authentication');
+      assert.equal(await page.evaluate(() =>
+        sessionStorage.getItem('texasdefined:sports-partner-admin-key')), null,
+        view.name + ': anonymous page must not manufacture an admin credential');
+      assert.deepEqual(unexpectedAdminWrites, [],
+        view.name + ': anonymous staff page attempted non-read-only same-origin requests');
+      result.checks.push('Anonymous staff SSR shows unlock only, no private operator panel or ledger identifiers, and no POST');
       console.log('PASS ' + view.name + ': ' + result.checks.join('; '));
     } catch (error) {
       failed = true;

@@ -2,7 +2,25 @@ export type CorporateEventResponseLead = {
   created_at: string;
   status: string;
   first_contacted_at: string | null;
+  first_contact_evidence_recorded: boolean;
 };
+
+/** Staff-recorded first contact needs BOTH credible timing and private evidence.
+ * Only a server-derived evidence-present boolean is sent to the staff UI;
+ * the actual private reference never leaves the server. This is record
+ * integrity, not independent confirmation of delivery.
+ */
+export function hasRecordedCorporateEventFirstContact(
+  lead: CorporateEventResponseLead,
+  now: Date = new Date(),
+): boolean {
+  const createdAt = Date.parse(lead.created_at);
+  const contactedAt = lead.first_contacted_at ? Date.parse(lead.first_contacted_at) : NaN;
+  return Number.isFinite(createdAt) && Number.isFinite(contactedAt)
+    && contactedAt >= createdAt && contactedAt <= now.getTime()
+    && lead.first_contact_evidence_recorded === true;
+}
+
 
 /** Internal operations target, never a promised public SLA or delivery receipt. */
 export const INTERNAL_FOLLOW_UP_TARGET_HOURS = 48;
@@ -22,7 +40,7 @@ export function summarizeCorporateEventResponseTimes(
     const createdAt = Date.parse(lead.created_at);
     if (!Number.isFinite(createdAt)) continue;
     const contactedAt = lead.first_contacted_at ? Date.parse(lead.first_contacted_at) : NaN;
-    if (Number.isFinite(contactedAt) && contactedAt >= createdAt && contactedAt <= now.getTime()) {
+    if (hasRecordedCorporateEventFirstContact(lead, now)) {
       const elapsedMs = contactedAt - createdAt;
       recordedContacts += 1;
       totalHours += elapsedMs / 3_600_000;
@@ -31,7 +49,8 @@ export function summarizeCorporateEventResponseTimes(
       continue;
     }
     // Never treat a status change or a sent-button click as proof of contact.
-    if (!['new', 'reviewing'].includes(lead.status)) continue;
+    // A legacy/bad 'contacted' status without credible contact evidence must stay visible.
+    if (!['new', 'reviewing', 'contacted'].includes(lead.status)) continue;
     awaitingFirstContact += 1;
     if (now.getTime() - createdAt > deadlineMs) overdueFirstContact += 1;
   }
@@ -46,11 +65,11 @@ export function summarizeCorporateEventResponseTimes(
 }
 
 export function isCorporateEventLeadOverdue(lead: CorporateEventResponseLead, now: Date = new Date()) {
-  if (!['new', 'reviewing'].includes(lead.status)) return false;
+  if (!['new', 'reviewing', 'contacted'].includes(lead.status)) return false;
   const created = Date.parse(lead.created_at);
   if (!Number.isFinite(created)) return false;
-  const contacted = lead.first_contacted_at ? Date.parse(lead.first_contacted_at) : NaN;
-  // A malformed, backdated-before-intake, or future contact is not evidence of first contact.
-  if (Number.isFinite(contacted) && contacted >= created && contacted <= now.getTime()) return false;
+  // Never suppress a follow-up just because a timestamp exists: the private
+  // supporting evidence reference must be recorded and within valid bounds.
+  if (hasRecordedCorporateEventFirstContact(lead, now)) return false;
   return now.getTime() - created > INTERNAL_FOLLOW_UP_TARGET_HOURS * 3_600_000;
 }

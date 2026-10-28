@@ -179,7 +179,7 @@ async function verifyDynamicCollection(collection, sitemap) {
       const end = tag.match(/data-fall-end-date="([^"]+)"/i)?.[1];
       const name = decodeHtmlEntities(tag.match(/data-fall-name="([^"]+)"/i)?.[1] || '');
       assert(end && end >= texasToday, `expired fall festival card still shown: ${name} (${end})`);
-      assert(!/(christmas|holiday|polar express|santa|nutcracker|zoo lights|ice land|dickens)/i.test(name), `winter or Christmas event leaked into fall collection: ${name}`);
+      assert(!/(christmas|holiday|hollydays|home for the holidays|polar express|santa|nutcracker|zoo lights|ice land|dickens|south pole|wild bright|thanksgiving day parade)/i.test(name), `winter or Christmas event leaked into fall collection: ${name}`);
     }
     console.log(`[fall freshness] ${cardTags.length} unexpired, seasonally relevant SSR cards as of ${texasToday}`);
   }

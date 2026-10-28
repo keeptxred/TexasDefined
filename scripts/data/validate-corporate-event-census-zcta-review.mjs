@@ -69,7 +69,7 @@ for (const required of [
   'workflow_dispatch:', 'schedule:', "contents: read",
   '2026_Gaz_zcta_national.zip',
   'tab20_zcta520_county20_natl.txt',
-  '--zips 77030,77058,77020,77034,77056',
+  '--zips 77030,77058,77020,77034,77056,77007',
   '--output .artifacts/corporate-events/zcta-review.json',
   'corporate-census-zcta-private-review',
   'retention-days: 30', 'if: success()',

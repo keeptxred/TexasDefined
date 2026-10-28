@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 const eventFile = read("src/data/events/christmas-community-2026.server.ts");
+const temporalCollectionsSource = read("src/data/event-temporal-collections.server.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const collection = read("src/data/event-collection-page.server.ts");
 const page = `${read("src/routes/events.$collection.tsx")}\n${read("src/routes/events.$collection.lazy.tsx")}`;
@@ -27,8 +28,18 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 220, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 263, "The 263 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
+const seasonStarts = events.map((event) => event.startDate).sort();
+const seasonEnds = events.map((event) => event.endDate ?? event.startDate).sort();
+assert.equal(seasonStarts[0], "2026-11-06", "The 2026 Christmas community calendar begins before the old November 15 guide-only cutoff");
+assert.equal(seasonEnds.at(-1), "2027-01-18", "The 2026 season includes a verified winter ice-rink attraction beyond January 5");
+assert.ok(temporalCollectionsSource.includes("getVerifiedChristmasCommunityEvents2026(now)"),
+  "The Christmas collection must compute its presented season from confirmed community dates");
+assert.ok(temporalCollectionsSource.includes("activeCommunityDates.map((event) => event.startDate).sort()[0]"),
+  "The header must show the earliest verified Christmas event, not November 15");
+assert.ok(temporalCollectionsSource.includes("activeCommunityDates.map((event) => event.endDate ?? event.startDate).sort().at(-1)"),
+  "The header must show the final verified January attraction rather than an outdated January 5 bound");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
 for (const event of events) {
@@ -49,12 +60,148 @@ for (const event of events) {
 }
 
 const bySlug = new Map(events.map((event) => [event.slug, event]));
+for (const event of events) {
+  if (event.sourceVerifiedAt !== undefined) {
+    assert.match(event.sourceVerifiedAt, /^2026-\d{2}-\d{2}$/, `${event.slug}: source date must be a valid 2026 ISO date`);
+    assert.ok(event.sourceVerifiedAt >= "2026-10-23", `${event.slug}: source review predates initial review`);
+  }
+}
+assert.ok(eventFile.includes('lastVerifiedAt: occurrence.sourceVerifiedAt ?? "2026-10-23"'), "New source checks must display real review dates");
+assert.ok(eventFile.includes('lastUpdatedAt: occurrence.sourceVerifiedAt ?? "2026-10-23"'), "New source checks must not inherit a stale October 23 update date");
+assert.ok(!bySlug.has("lake-conroe-christmas-boat-parade-2026"), "Do not invent a 2026 lake boat parade from downtown Conroe events");
 const check = (slug, date, endDate) => {
   const event = bySlug.get(slug);
   assert.ok(event, `Missing source-qualified occurrence: ${slug}`);
   assert.equal(event.startDate, date, `Unexpected source date for ${slug}`);
   if (endDate !== undefined) assert.equal(event.endDate, endDate, `Unexpected end date for ${slug}`);
 };
+for (const [slug, date, sourceHint] of [
+  ["victoria-christmas-lighted-parade-tree-lighting-2026", "2026-12-05", "victoriatx.gov"],
+  ["victoria-merry-on-main-2026", "2026-12-11", "victoriatx.gov"],
+  ["temple-santa-fe-plaza-christmas-tree-lighting-2026", "2026-11-28", "discovertemple.com"],
+  ["temple-80th-annual-christmas-parade-2026", "2026-12-07", "discovertemple.com"],
+  ["port-lavaca-christmas-parade-2026", "2026-12-04", "portlavacaevents.com"],
+  ["port-lavaca-christmas-at-bayfront-2026", "2026-12-12", "portlavacaevents.com"],
+]) {
+  check(slug,date);
+  const record = bySlug.get(slug);
+  assert.equal(record.sourceVerifiedAt, "2026-10-27", `${slug}: source review date must be accurate`);
+  assert.ok(new URL(record.officialEventUrl).hostname.includes(sourceHint), `${slug}: organizer URL missing`);
+  assert.ok(!record.endDate, `${slug}: one-day festivals must not be padded with unsupported dates`);
+}
+assert.ok(bySlug.get("temple-santa-fe-plaza-christmas-tree-lighting-2026").summary.includes("time is not yet confirmed"),
+  "Temple's unknown tree-lighting time must not be inferred");
+assert.ok(bySlug.get("port-lavaca-christmas-parade-2026").summary.includes("have not yet been published"),
+  "Do not infer 2026 Port Lavaca parade hours from a 2025 event");
+assert.ok(bySlug.get("port-lavaca-christmas-at-bayfront-2026").summary.includes("Festival of Trees"),
+  "The Bayfront festival and unverified Festival of Trees are distinct");
+assert.equal(candidates.candidates.find(x => x.intakeId === 134)?.status, "sourced-calendar",
+  "Victoria's original 250-list event should be reconciled against its 2026 city calendar");
+assert.equal(candidates.candidates.find(x => x.intakeId === 24)?.status, "candidate-needs-source-reconciliation",
+  "Temple's unrelated military Nature in Lights dates must not be invented");
+assert.equal(candidates.candidates.find(x => x.intakeId === 133)?.status, "candidate-needs-source-reconciliation",
+  "Port Lavaca Festival of Trees cannot be inferred from the Bayfront event");
+for (const [slug, date, sourceHint, candidateId] of [
+  ["kingsville-ranch-hand-weekend-holiday-2026", "2026-11-20", "kingsvilletexas.com", 180],
+  ["plainview-christmas-parade-of-lights-2026", "2026-12-03", "plainviewtexaschamber.com", 232],
+  ["corsicana-palace-theatre-dean-martin-christmas-2026", "2026-12-10", "corsicanapalace.com", 95],
+]) {
+  check(slug, date);
+  const event = bySlug.get(slug);
+  assert.equal(event.sourceVerifiedAt, "2026-10-27", `${slug}: verified date mismatch`);
+  assert.ok(new URL(event.officialEventUrl).hostname.includes(sourceHint), `${slug}: official source mismatch`);
+  const intake = candidates.candidates.find(x => x.intakeId === candidateId);
+  assert.equal(intake?.status, "sourced-calendar", `${slug}: original candidate not reconciled`);
+  assert.ok(intake?.calendarSlugs?.includes(slug), `${slug}: original candidate mapping absent`);
+}
+assert.equal(bySlug.get("kingsville-ranch-hand-weekend-holiday-2026")?.endDate, "2026-11-21",
+  "Kingsville Christmas tree lighting and Ranch Hand Weekend must use the correct two-day window");
+assert.ok(bySlug.get("kingsville-ranch-hand-weekend-holiday-2026")?.summary.includes("$15"),
+  "Do not omit the separate paid King Ranch breakfast cost");
+assert.ok(bySlug.get("corsicana-palace-theatre-dean-martin-christmas-2026")?.summary.includes("one dated holiday stage performance"),
+  "Do not invent a multi-week run for the Corsicana one-night show");
+for (const [slug, date, endDate, sourceHost] of [
+  ["port-isabel-christmas-parade-tree-lighting-2026", "2026-12-05", undefined, "portisabel-texas.com"],
+  ["rockport-tropical-christmas-festival-2026", "2026-12-05", undefined, "rockporttx.gov"],
+  ["midland-merry-lights-tree-lighting-2026", "2026-12-01", undefined, "midlandtexas.gov"],
+  ["midland-merry-lighted-parade-2026", "2026-12-12", undefined, "midlandtexas.gov"],
+  ["graham-christmas-roundup-parade-2026", "2026-12-03", undefined, "visitgrahamtexas.com"],
+  ["sweetwater-christmas-on-square-parade-2026", "2026-12-07", undefined, "sweetwatertexas.org"],
+  ["monahans-christmas-in-dunes-2026", "2026-12-04", "2026-12-05", "monahans.org"],
+]) {
+  check(slug,date,endDate);
+  const record=bySlug.get(slug);
+  assert.equal(record.sourceVerifiedAt,"2026-10-27",`${slug}: source date must be true to review`);
+  assert.ok(new URL(record.officialEventUrl).hostname.endsWith(sourceHost),`${slug}: primary city/chamber event source required`);
+  if (endDate===undefined) assert.ok(!record.endDate,`${slug}: do not pad single-day city activities`);
+}
+assert.equal(candidates.candidates.find(x=>x.intakeId===177)?.status,"sourced-calendar",
+  "Rockport verified Tropical Christmas must reconcile submitted destination");
+assert.equal(candidates.candidates.find(x=>x.intakeId===248)?.status,"sourced-calendar",
+  "Graham verified Christmas Roundup must reconcile submitted destination");
+for (const id of [174,226,237,239]) {
+  assert.equal(candidates.candidates.find(x=>x.intakeId===id)?.status,"candidate-needs-source-reconciliation",
+    `${id}: an unrelated city holiday event cannot verify a different submitted branded event`);
+}
+assert.ok(bySlug.get("port-isabel-christmas-parade-tree-lighting-2026")?.summary.includes("7 p.m."),
+  "Port Isabel's parade and distinct tree lighting times must both be shown");
+assert.ok(bySlug.get("midland-merry-lights-tree-lighting-2026")?.summary.includes("no earlier than 6:15 p.m."),
+  "Midland City warns that lights start no earlier than 6:15 p.m.");
+for (const slug of [
+  "conroe-tree-lighting-2026",
+  "conroe-christmas-around-square-2026",
+  "conroe-toby-powell-christmas-2026",
+  "downtown-conroe-christmas-parade-2026",
+]) {
+  assert.equal(bySlug.get(slug)?.sourceVerifiedAt, "2026-10-27", `${slug}: preserve actual review date`);
+  assert.ok(bySlug.get(slug)?.officialEventUrl.includes("visitconroe.com"), `${slug}: primary source missing`);
+}
+check("conroe-tree-lighting-2026", "2026-12-01");
+check("conroe-christmas-around-square-2026", "2026-12-01");
+check("conroe-toby-powell-christmas-2026", "2026-12-12");
+check("downtown-conroe-christmas-parade-2026", "2026-12-12");
+check("la-porte-christmas-on-main-2026", "2026-12-03");
+check("rosenberg-hometown-holiday-festival-2026", "2026-12-05");
+check("lake-jackson-festival-lights-tree-lighting-2026", "2026-11-20");
+check("lake-jackson-festival-lights-day-parade-2026", "2026-11-21");
+check("lake-jackson-light-up-2026", "2026-11-21", "2027-01-03");
+check("katy-nutcracker-exchange-tree-lighting-2026", "2026-12-05");
+check("old-town-spring-hometown-tree-lighting-2026", "2026-11-14");
+check("bastrop-annual-christmas-tree-lighting-2026", "2026-11-27");
+check("bastrop-river-of-lights-2026", "2026-11-27", "2027-01-04");
+check("bastrop-wassail-fest-2026", "2026-11-28");
+check("bastrop-merry-on-main-2026", "2026-12-12");
+check("bastrop-lost-pines-christmas-parade-2026", "2026-12-12");
+check("brenham-greatest-gift-nativity-2026", "2026-12-04", "2026-12-05");
+check("brenham-jingle-bell-market-2026", "2026-12-04", "2026-12-05");
+check("burton-milk-honey-ranch-christmas-story-2026", "2026-12-11", "2026-12-13");
+assert.ok(collection.includes("...christmasCommunityEvents.map((event) => event.verifiedAt)"),
+  "Christmas hub latest source check must include the newer verified community calendar entries");
+assert.ok(collection.includes("latestGuideSourceCheck"),
+  "The permanent major event guides must still contribute to the latest source review date");
+assert.ok(bySlug.get("brenham-greatest-gift-nativity-2026").summary.includes("only Friday December 4"),
+  "Do not falsely claim the Nativity's one-night music program is held Saturday");
+assert.ok(bySlug.get("burton-milk-honey-ranch-christmas-story-2026").summary.includes("reservation requirements"),
+  "Unverified ranch admission rules require an organizer check");
+assert.ok(bySlug.get("bastrop-river-of-lights-2026").summary.includes("nightly 6–10 p.m."),
+  "Preserve City of Bastrop's exact free daily River of Lights hours");
+assert.ok(bySlug.get("bastrop-merry-on-main-2026").summary.includes("10 a.m.–3 p.m."),
+  "Do not conflate Bastrop daytime market and the 6 p.m. Christmas parade");
+assert.ok(bySlug.get("bastrop-lost-pines-christmas-parade-2026").officialEventUrl.includes("discoverbastroptx.org"),
+  "The 2026 parade requires the primary visitor bureau source");
+
+assert.ok(bySlug.get("old-town-spring-hometown-tree-lighting-2026").summary.includes("November 15 UTC"),
+  "Protect organizer-stated Saturday evening over its UTC timestamp");
+assert.ok(bySlug.get("katy-nutcracker-exchange-tree-lighting-2026").summary.includes("not an official listing"),
+  "Do not merge the unverified Katy Light Tall Pines lead with the city event");
+
+assert.ok(bySlug.get("la-porte-christmas-on-main-2026").summary.includes("La Porte, Indiana"),
+  "Holiday sources must distinguish Texas La Porte from the Indiana city");
+assert.ok(bySlug.get("lake-jackson-festival-lights-day-parade-2026").summary.includes("7 p.m."),
+  "Lake Jackson's 2026 parade time must remain linked to its organizer");
+assert.ok(bySlug.get("rosenberg-hometown-holiday-festival-2026").summary.includes("not proof"),
+  "Do not equate the verified Hometown Holiday Festival with an unverified Christmas Nights alias");
+
 // The Alley Theatre's 2026–27 official ticketing calendar has distinct
 // performance nights, not a continuous Nov 15–Dec 27 run.
 for (const [idx,begin,end] of [
@@ -438,12 +585,39 @@ assert.ok(christmasLiveVerifier.includes("expectedActiveCommunityCount") && chri
 assert.ok(christmasLiveVerifier.includes("expectedLiveWitnesses") && christmasLiveVerifier.includes("sampleSlugs"), "Live smoke must verify date-filtered new-source Christmas witness events");
 assert.ok(christmasLiveVerifier.includes("activePerformances"), "Live smoke must retain date-scoped curated concert and ticket verification");
 assert.ok(christmasLiveVerifier.includes("verify-christmas-release="), "Live smoke must bypass caches when probing stale source data");
+for (const slug of ["san-antonio-pearl-holiday-tree-lighting-2026","san-antonio-pearl-holiday-night-market-dec-23-2026"]) {
+  assert.ok(christmasLiveVerifier.includes(`"${slug}"`), `${slug}: source-qualified Christmas production witness missing`);
+}
 assert.ok(christmasLiveVerifier.includes("data-ad-slot="), "Do not accidentally activate AdSense display units before approval");
 assert.ok(productionWorkflow.includes("node scripts/ci/verify-christmas-hub-production.mjs"), "Existing protected production deploy must verify Christmas hub freshness");
 assert.ok(productionWorkflow.includes("id: live_christmas_hub"), "Protected Christmas production smoke step missing");
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
 assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
+for (const [slug, day] of [
+  ["san-antonio-pearl-holiday-tree-lighting-2026", "2026-11-27"],
+  ["san-antonio-pearl-holiday-night-market-dec-02-2026", "2026-12-02"],
+  ["san-antonio-pearl-holiday-night-market-dec-09-2026", "2026-12-09"],
+  ["san-antonio-pearl-holiday-night-market-dec-16-2026", "2026-12-16"],
+  ["san-antonio-pearl-holiday-night-market-dec-23-2026", "2026-12-23"],
+]) {
+  check(slug, day);
+  assert.equal(bySlug.get(slug).sourceVerifiedAt, "2026-10-27", `${slug}: preserve actual review date`);
+  assert.equal(bySlug.get(slug).officialEventUrl, "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
+    `${slug}: official Pearl organizer announcement required`);
+}
+for (const [slug, date, url] of [
+  ["highland-village-our-village-glows-2026", "2026-11-21", "https://www.highlandvillage.org/588/Our-Village-Glows"],
+  ["highland-village-christmas-at-the-ranch-2026", "2026-12-12", "https://www.highlandvillage.org/m/calendar/event/detail/2576"],
+  ["forney-downtown-tree-lighting-2026", "2026-12-03", "https://www.forneytx.gov/761/Downtown-Tree-Lighting"],
+]) {
+  check(slug, date);
+  assert.equal(bySlug.get(slug).officialEventUrl, url, `${slug}: city first-party event source required`);
+  assert.equal(bySlug.get(slug).sourceVerifiedAt, "2026-10-27", `${slug}: preserve actual source review date`);
+}
+assert.ok(!bySlug.has("forney-2026-christmas-on-main-duplicate"), "Forney Christmas on Main exists already; do not create duplicate cards");
+assert.ok(!bySlug.has("san-antonio-pearl-holiday-night-market-2026-daily"),
+  "Pearl's four Wednesday markets must not become a fabricated nightly date span");
 check("santas-ranch-new-braunfels", "2026-11-06", "2027-01-03");
 check("sugar-land-holiday-lights-constellation-field", "2026-11-20", "2027-01-03");
 check("jefferson-candlelight-tour-dec3", "2026-12-03", "2026-12-05");

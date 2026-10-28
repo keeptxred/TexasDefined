@@ -40,6 +40,8 @@ for (const contract of [
   requireText(eventSyncScriptPath, eventSyncScript, contract);
 }
 
+requireText(eventSyncScriptPath, eventSyncScript, 'retainVerifiedOfficialEvents(freshRows, existingRows, EVENTS');
+
 const eventsPath = '.github/workflows/sync-texas-events.yml';
 const events = read(eventsPath);
 for (const contract of [
@@ -89,6 +91,12 @@ for (const contract of [
 ]) {
   requireText(eventFinisherPath, eventFinisher, contract);
 }
+// Unrelated content releases must not repeatedly invalidate the exact-SHA
+// generated data gate. Only governed catalog drift calls for a new validation.
+requireText(eventFinisherPath, eventFinisher, 'shared_base="$(git merge-base origin/main "origin/$BRANCH")"');
+requireText(eventFinisherPath, eventFinisher, 'if allowed_path "$path"; then');
+requireText(eventFinisherPath, eventFinisher, 'if [[ "$governed_drift" == "true" ]]; then');
+
 // A GITHUB_TOKEN-authored merge cannot fire the push deploy workflow. Only
 // after the exact-SHA merge check may the finisher dispatch the established
 // serialized release; never dispatch before source validation or auto-merge.

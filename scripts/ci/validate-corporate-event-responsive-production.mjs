@@ -8,6 +8,9 @@ const existing = readFileSync('src/routes/corporate-events.lazy.tsx','utf8');
 for (const marker of [
   "name: 'mobile', width: 390", "name: 'tablet', width: 768",
   "name: 'desktop', width: 1365", "getByRole('spinbutton', { name: 'Number of guests' })",
+  "await page.keyboard.press('Tab')",
+  "await page.keyboard.press('Shift+Tab')",
+  "nextFocusInsideMain",
   "getByRole('combobox', { name: 'Maximum budget per person' })",
   "getByRole('button', { name: 'Compare', exact: true })",
   "getByRole('button', { name: 'Copy share link' })",
@@ -37,6 +40,14 @@ for (const marker of [
   "await response.text()",
   "privateHtmlLedger.test(anonymousHtml)",
   "privateHtmlKeyName.test(anonymousHtml)",
+  "origin + '/admin/sports-partners?corporate_browser_verify='",
+  "getByRole('heading', { name: 'Unlock advertiser operations' })",
+  "getByRole('button', { name: 'Unlock advertiser dashboard' })",
+  "page.locator('#corporate-event-ops').count()",
+  "sessionStorage.getItem('texasdefined:sports-partner-admin-key')",
+  "privateHtmlLedger.test(adminHtml)",
+  "privateHtmlKeyName.test(adminHtml)",
+  "unexpectedAdminWrites",
   "noProductionInquiriesSubmitted: true",
 ]) assert(browser.includes(marker),'Missing real responsive browser acceptance contract: ' + marker);
 
