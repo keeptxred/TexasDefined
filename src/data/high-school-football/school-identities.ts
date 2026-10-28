@@ -15,6 +15,41 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'clute-brazoswood',
+    mascot: 'Buccaneers',
+    sourceUrl: 'https://www.brazosportisd.net/programs/b_i_s_d_athletics/athletic_contacts/brazoswood_high_school_athletic_staff',
+    sourceLabel: 'Brazosport ISD first-party Brazoswood football staff and program identity',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'clyde',
+    mascot: 'Bulldogs',
+    sourceUrl: 'https://www.clydeisd.org/page/athleticinformation',
+    sourceLabel: 'Clyde CISD first-party athletics and Bulldog identity',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'coahoma',
+    mascot: 'Bulldogs',
+    sourceUrl: 'https://www.coahomaisd.com/o/chs/article/2480998',
+    sourceLabel: 'Coahoma High Texas first-party home football story and Bulldogs name',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'coldspring-oakhurst',
+    mascot: 'Trojans',
+    sourceUrl: 'https://www.cocisd.org/departments/athletics/coaching-staff',
+    sourceLabel: 'Coldspring-Oakhurst CISD first-party Trojan football coaching staff',
+    verifiedAt: '2026-10-28',
+  },
+  {
+    slug: 'coleman',
+    mascot: 'Bluecats',
+    sourceUrl: 'https://chs.colemanisd.net/departments/athletics',
+    sourceLabel: 'Coleman High official 2026 Bluecats school athletics',
+    verifiedAt: '2026-10-28',
+  },
+  {
     slug: 'cleveland-tarkington',
     mascot: 'Longhorns',
     sourceUrl: 'https://www.tarkingtonisd.net/departments/athletics',
