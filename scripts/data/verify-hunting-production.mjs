@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 
+const speciesSeasons = JSON.parse(fs.readFileSync('src/data/hunting/species-season-calendar.json', 'utf8'));
 const deerSeasons = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
 function deerDate(id, edge) {
   const row = deerSeasons.rows.find((item) => item.id === id);
@@ -33,6 +34,10 @@ const representativeTopics = [
   {
     path: '/hunting/youth-hunting',
     needles: ['Texas Youth Hunting Guide:', 'Season calendar', 'Youth hunting FAQs', 'Official regulations and updates'],
+  },
+  {
+    path: '/hunting/mule-deer-hunting',
+    needles: ['Texas Mule Deer Hunting Guide', 'TPWD ' + speciesSeasons.seasonYear + ' season dates', 'Panhandle', 'Trans-Pecos', 'View the official TPWD source calendar'],
   },
   {
     path: '/hunting/squirrel-hunting',
