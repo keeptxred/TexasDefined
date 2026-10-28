@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { verifyChromeReport, graduateBatch010, sharedReleaseShas } from './prepare-football-b010-certification.mjs';
+import { verifyChromeReport, graduateBatch010, sharedReleaseShas, selectCommonWorkerReports } from './prepare-football-b010-certification.mjs';
 const worker='123e4567-e89b-42d3-a456-426614174000';
 const sha='f'.repeat(40);
 const slugs=Array.from({length:25},(_,i)=>'school-'+i);
@@ -94,4 +94,21 @@ test('tries shared releases newest first and ignores malformed SHA',()=>{
     row(older,'2026-10-28T22:10:00Z'),row(newer,'2026-10-28T22:35:00Z'),
     row('invalid','2026-10-28T22:59:00Z')]);
   assert.deepEqual(sharedReleaseShas(five),[newer,older]);
+});
+
+test('selects a matching Worker among multiple deployments of the same source SHA',()=>{
+  const workerA='123e4567-e89b-42d3-a456-426614174000';
+  const workerB='123e4567-e89b-42d3-a456-426614174001';
+  const runs=[
+    [{sha,worker:workerB,id:'latest-first'},{sha,worker:workerA,id:'older-first'}],
+    [{sha,worker:workerA,id:'second'}],
+    [{sha,worker:workerA,id:'third'}],
+    [{sha,worker:workerA,id:'fourth'}],
+    [{sha,worker:workerA,id:'fifth'}]
+  ];
+  const selected=selectCommonWorkerReports(runs);
+  assert.ok(selected);
+  assert.deepEqual(selected.map(x=>x.id),['older-first','second','third','fourth','fifth']);
+  assert.equal(selectCommonWorkerReports(runs.map((xs,i)=>
+    i===4?[{sha,worker:workerB,id:'no-match'}]:xs)),null);
 });
