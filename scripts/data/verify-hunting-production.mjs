@@ -164,6 +164,10 @@ async function verify() {
   requireText(hub, 'Fur-bearing animals & trapping', 'Hunting v2 hub');
   requireText(hub, 'Texas Squirrel Hunting Guide', 'Hunting v2 hub');
   requireText(hub, 'Texas Trapping & Fur-Bearer Guide', 'Hunting v2 hub');
+  requireText(hub, 'Four decisions before choosing a hunting spot', 'Hunting hub');
+  requireText(hub, 'TPWD hunting area finder', 'Hunting hub');
+  requireText(hub, '2026–27 regulation changes', 'Hunting hub');
+  requireText(hub, 'Source review October 28, 2026', 'Hunting hub');
 
   representativeTopics.forEach((topic, index) => {
     const visibleText = topicBodies[index];

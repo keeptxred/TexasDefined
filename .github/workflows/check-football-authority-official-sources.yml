@@ -1,0 +1,118 @@
+name: Check football official sources and season dates
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Tuesday: verify school/UIL source changes year-round.
+    - cron: '43 12 * * 2'
+    # Saturday during August–December: source review after Friday games.
+    - cron: '23 12 * 8-12 6'
+  pull_request:
+    paths:
+      - 'docs/football-authority/official-source-watch.json'
+      - 'scripts/data/check-football-authority-official-sources.mjs'
+      - 'scripts/data/check-football-authority-official-sources.test.mjs'
+      - '.github/workflows/check-football-authority-official-sources.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: football-official-source-review-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Validate bounded first-party URL inventory and tests
+        run: |
+          node --check scripts/data/check-football-authority-official-sources.mjs
+          node scripts/data/check-football-authority-official-sources.mjs --validate
+          node --test scripts/data/check-football-authority-official-sources.test.mjs
+      - name: Inspect official source document changes, never unlicensed sports score feeds
+        if: github.event_name != 'pull_request'
+        env:
+          FOOTBALL_SOURCE_REVIEW_REPORT: artifacts/football-source-watch/report.json
+        run: node scripts/data/check-football-authority-official-sources.mjs --probe
+      - name: Preserve official-source change evidence
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-official-source-review-${{ github.run_id }}
+          path: artifacts/football-source-watch/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Maintain one issue for changed, overdue or unavailable first-party sources
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Football official sources: date-sensitive changes require verified editorial review'
+          if ! node -e 'const r=require("./artifacts/football-source-watch/report.json");process.exit(r.sourceChanges.length||r.reviewDue.length||r.failures.length ? 0 : 1)'; then
+            echo 'Official sources unchanged; no date-based reviews due.'
+            exit 0
+          fi
+          node --input-type=module <<'NODE' > /tmp/football-official-sources-issue.md
+          import { readFileSync } from 'node:fs';
+          const r = JSON.parse(readFileSync('artifacts/football-source-watch/report.json','utf8'));
+          console.log('# Official football source changes and calendar review');
+          console.log('');
+          console.log('Automated observation on '+r.checkedAt+' (UTC). **Do not interpret document changes as verified scores or coaching changes.**');
+          console.log('Do not copy from an unauthorized provider, invent results, replace official photos, or bypass protected checks.');
+          console.log('');
+          for(const [label,key] of [['Official-source content changed','sourceChanges'],['Football calendar review date reached','reviewDue'],['Official source unavailable/redirected','failures']]){
+            console.log('## '+label);
+            console.log('');
+            const items=r[key];
+            if(!items.length){console.log('None.');console.log('');continue;}
+            for(const item of items)console.log('- **'+item.slug+'** — '+item.url+' — '+(item.message||item.error||(item.reviewAfter?'Review date '+item.reviewAfter:'Check source and cross-verify data.')));
+            console.log('');
+          }
+          console.log('Canonical school dossiers require independent factual verification. The authorized score workflow can propose checked PRs only when an approved score feed is configured.');
+          NODE
+          current="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number,title --limit 100 --jq '.[] | select(.title == "'"$title"'") | .number' | head -n 1)"
+          if [[ -n "$current" ]]; then
+            gh issue edit "$current" --repo "$GITHUB_REPOSITORY" --body-file /tmp/football-official-sources-issue.md
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file /tmp/football-official-sources-issue.md
+          fi
+      - name: Propose protected source fingerprint changes, never direct writes to main
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ledger='docs/football-authority/official-source-watch.json'
+          if git diff --quiet -- "$ledger"; then
+            echo 'No source fingerprint changes; no PR needed.'
+            exit 0
+          fi
+          title='Update bounded official football source fingerprints'
+          if gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --json title --jq '.[].title' | grep -Fxq "$title"; then
+            echo 'Source snapshot PR already open; no overlapping update.'
+            exit 0
+          fi
+          branch="automation/football-source-watch-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add "$ledger"
+          git commit -m 'Record official football source fingerprints for factual review'
+          git push origin "$branch"
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" \
+            --title "$title" \
+            --body 'Automated technical provenance-only check of bounded primary school/UIL URLs. First observation establishes a baseline; subsequent changes open an issue for factual review. Does not claim new scores/coaches, scrape unlicensed sports feeds or bypass branch protection.'
+          gh pr merge "$branch" --repo "$GITHUB_REPOSITORY" --auto --squash

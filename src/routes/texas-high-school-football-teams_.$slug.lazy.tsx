@@ -17,6 +17,8 @@ import { footballIdentityAccentFromColors } from '@/data/high-school-football/fo
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'clarksville', // October 24 dated Big Sandy district final, no invented full-season graphic.
+  'cleburne', // Eight first-party 2026 Cleburne game finals through Oct 23.
   'aubrey', // Original reported 2026 results illustration replaces unrelated Colorado stock photo.
   'celeste',
   'carrollton-turner',
@@ -169,6 +171,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
+    'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
+    'claude': 'armstrong', // Claude ISD 500 West 5th Street campus in Armstrong County.
+    'cleburne': 'johnson', // Cleburne ISD Yellow Jackets school in Johnson County.
+    'cleveland': 'liberty', // Cleveland ISD high school in Liberty County; not other Cleveland schools.
     'chilton': 'falls', // Chilton ISD Falls County campus; no claimed stadium gate.
     'china-spring': 'mclennan', // China Spring school in McLennan County; athletics contact distinct from visitor entrance.
     'christoval': 'tom-green', // Christoval ISD Tom Green County; home venue entry needs confirmation.

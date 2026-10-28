@@ -48,11 +48,11 @@
     "assignmentBranch": "feat/football-b010-first-five-current-main-20261027",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "clarendon",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "nextSchool": "cleveland-tarkington",
+    "implementedOnBranch": 10,
+    "remainingToImplement": 15,
     "remainingToVerify": 25,
-    "notes": "First five Chilton, China Spring, Christoval, Cibolo Steele, Cisco individually sourced. Official school current coaches cited or source-qualified, no complete season W/L, school marks or stadium gate claims. Await protected Merge Gate, release and exact-Worker Chrome."
+    "notes": "First five Chilton, China Spring, Christoval, Cibolo Steele, Cisco individually sourced. Official school current coaches cited or source-qualified, no complete season W/L, school marks or stadium gate claims. Await protected Merge Gate, release and exact-Worker Chrome. Second group authored on dependent branch: Clarendon, Clarksville, Claude (1A six-man), Cleburne, Cleveland. No new VERIFIED; 205 historical VERIFIED protected; official W/L never inferred from old snapshots."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -10108,8 +10108,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/clarendon",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/clarendon.md",
+      "auditCompletedAt": "2026-10-28",
+      "researchCompletedAt": "2026-10-28",
+      "implementedAt": "2026-10-28",
+      "implementedOnBranch": "feat/football-b010-next-five-current-main-20261028",
+      "actualProductionVerified": false,
+      "implementationNotes": "School-specific 2026 UIL alignment, coaching attribution/qualification, original narrative and FAQ, authentic dates/venue cautions and source-specific audit implemented on dependent B010 second-five branch; no protected merge/deploy/Chrome acceptance yet.",
+      "mediaStatus": "TexasDefined original editorial accent only; no school mark or unlicensed photograph."
     },
     {
       "id": "uil:clarksville",
@@ -10122,8 +10130,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/clarksville",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/clarksville.md",
+      "auditCompletedAt": "2026-10-28",
+      "researchCompletedAt": "2026-10-28",
+      "implementedAt": "2026-10-28",
+      "implementedOnBranch": "feat/football-b010-next-five-current-main-20261028",
+      "actualProductionVerified": false,
+      "implementationNotes": "School-specific 2026 UIL alignment, coaching attribution/qualification, original narrative and FAQ, authentic dates/venue cautions and source-specific audit implemented on dependent B010 second-five branch; no protected merge/deploy/Chrome acceptance yet.",
+      "mediaStatus": "TexasDefined original editorial accent only; no school mark or unlicensed photograph."
     },
     {
       "id": "uil:claude",
@@ -10136,8 +10152,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/claude",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/claude.md",
+      "auditCompletedAt": "2026-10-28",
+      "researchCompletedAt": "2026-10-28",
+      "implementedAt": "2026-10-28",
+      "implementedOnBranch": "feat/football-b010-next-five-current-main-20261028",
+      "actualProductionVerified": false,
+      "implementationNotes": "School-specific 2026 UIL alignment, coaching attribution/qualification, original narrative and FAQ, authentic dates/venue cautions and source-specific audit implemented on dependent B010 second-five branch; no protected merge/deploy/Chrome acceptance yet.",
+      "mediaStatus": "TexasDefined original editorial accent only; no school mark or unlicensed photograph."
     },
     {
       "id": "uil:cleburne",
@@ -10150,8 +10174,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cleburne",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/cleburne.md",
+      "auditCompletedAt": "2026-10-28",
+      "researchCompletedAt": "2026-10-28",
+      "implementedAt": "2026-10-28",
+      "implementedOnBranch": "feat/football-b010-next-five-current-main-20261028",
+      "actualProductionVerified": false,
+      "implementationNotes": "School-specific 2026 UIL alignment, coaching attribution/qualification, original narrative and FAQ, authentic dates/venue cautions and source-specific audit implemented on dependent B010 second-five branch; no protected merge/deploy/Chrome acceptance yet.",
+      "mediaStatus": "TexasDefined original editorial accent only; no school mark or unlicensed photograph."
     },
     {
       "id": "uil:cleveland",
@@ -10164,8 +10196,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cleveland",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/cleveland.md",
+      "auditCompletedAt": "2026-10-28",
+      "researchCompletedAt": "2026-10-28",
+      "implementedAt": "2026-10-28",
+      "implementedOnBranch": "feat/football-b010-next-five-current-main-20261028",
+      "actualProductionVerified": false,
+      "implementationNotes": "School-specific 2026 UIL alignment, coaching attribution/qualification, original narrative and FAQ, authentic dates/venue cautions and source-specific audit implemented on dependent B010 second-five branch; no protected merge/deploy/Chrome acceptance yet.",
+      "mediaStatus": "TexasDefined original editorial accent only; no school mark or unlicensed photograph."
     },
     {
       "id": "uil:cleveland-tarkington",
