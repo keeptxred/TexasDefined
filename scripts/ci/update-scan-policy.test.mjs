@@ -28,12 +28,12 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
     // existing publication smoke. It may never become a scheduled full-site
     // scan or interrupt post-deploy acceptance.
     if (name === 'texasdefined-publication-production-smoke') {
-      assert.match(source, /^  schedule:\\s*\\n    - cron: '47 14 \\* \\* \\*'$/m, name);
+      assert.match(source, /^  schedule:\s*\n    - cron: '47 14 \* \* \*'$/m, name);
       assert.match(source, /group: texasdefined-publication-production-smoke-/, name);
-      assert.match(source, /github.event_name == 'schedule' && 'daily' \\|\\| 'release'/, name);
+      assert.match(source, /github.event_name == 'schedule' && 'daily' \|\| 'release'/, name);
       assert.equal((source.match(/if: github.event_name != 'schedule'/g) ?? []).length, 3,
         'Daily source acceptance must skip news, museum and affiliate audits');
-      assert.match(source, /run: node scripts\\/ci\\/verify-texas-data-production\\.mjs/, name);
+      assert.match(source, /run: node scripts\/ci\/verify-texas-data-production\.mjs/, name);
       assert.doesNotMatch(source, /texas_data_scope/, name);
     } else {
       assert.doesNotMatch(source, /^  schedule:/m, name);
