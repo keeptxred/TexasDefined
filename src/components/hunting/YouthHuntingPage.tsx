@@ -15,7 +15,7 @@ function Official({ href, children }: { href: string; children: ReactNode }) {
 }
 
 const nav = [
-  { label: "2026–27 calendar", href: "#youth-season-calendar" },
+  { label: "Season calendar", href: "#youth-season-calendar" },
   { label: "Age & education", href: "#youth-eligibility" },
   { label: "Where to hunt", href: "#youth-access" },
   { label: "First-hunt checklist", href: "#youth-checklist" },
@@ -35,7 +35,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
         <h1 className="mt-3 max-w-5xl font-display text-4xl leading-tight md:text-5xl">{topic.title}</h1>
         <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">Exact youth-only deer, turkey, duck and squirrel dates, age requirements, license costs, public-land routes, mentored hunts and a practical checklist for a first Texas hunt.</p>
         <div className="mt-6 flex flex-wrap gap-3 text-sm">
-          <a href="#youth-season-calendar" className="inline-flex bg-primary px-5 py-3 font-semibold text-primary-foreground">See 2026–27 season dates ↓</a>
+          <a href="#youth-season-calendar" className="inline-flex bg-primary px-5 py-3 font-semibold text-primary-foreground">See {YOUTH_HUNTING_SEASON_YEAR} season dates ↓</a>
           <Official href={YOUTH_HUNTING_SOURCES.youthOnly}>TPWD youth-only regulations</Official>
         </div>
         {seasonExpired ? <p role="status" className="mt-6 border border-border p-5 font-semibold">Prior season archive: these youth-only dates are no longer current. Use the latest TPWD regulations linked below until the next season is source-verified.</p> : null}
@@ -140,7 +140,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
     <section className="py-12 md:py-16">
       <Container><div className="max-w-5xl"><p className="eyebrow text-primary">Verification and editorial policy</p><h2 className="mt-2 font-display text-3xl">Official regulations and updates</h2><p className="mt-4 leading-8 text-muted-foreground">Season dates, costs and program conditions on this page were checked against official TPWD sources on <time dateTime={YOUTH_HUNTING_LAST_CHECKED}>{new Date(`${YOUTH_HUNTING_LAST_CHECKED}T12:00:00Z`).toLocaleDateString("en-US", { timeZone: "UTC", month: "long", day: "numeric", year: "numeric" })}</time>. They describe the <strong>{YOUTH_HUNTING_SEASON_YEAR}</strong> license year only, not the next year's seasons. This independent guide is for planning; TPWD and applicable federal rules are legally controlling. If an official source has changed, use the current official rule, not an older summary.</p><div className="mt-6 grid gap-3 text-sm sm:grid-cols-2">{[
         ["Youth-only seasons and county eligibility", YOUTH_HUNTING_SOURCES.youthOnly],
-        ["All 2026–27 hunting season dates", YOUTH_HUNTING_SOURCES.seasonDates],
+        [`All ${YOUTH_HUNTING_SEASON_YEAR} hunting season dates`, YOUTH_HUNTING_SOURCES.seasonDates],
         ["Youth hunting license, Type 169", YOUTH_HUNTING_SOURCES.licenses],
         ["Age and hunter education", YOUTH_HUNTING_SOURCES.education],
         ["Annual Public Hunting Permit", YOUTH_HUNTING_SOURCES.public],
