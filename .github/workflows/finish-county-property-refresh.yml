@@ -117,9 +117,10 @@ jobs:
           # threshold would allow them. Those require a separate reviewed PR.
           # Preserve quarantine timestamps exactly; only original official
           # source records may be added or advanced by this automated path.
-          # Keep the precise main commit whose county directory and CI contract
-          # the following source audit and both protected checks validate.
-          validated_base_sha="$(git rev-parse origin/main)"
+          # Re-run exact source reconciliation whenever the shared protected CI
+          # contract changes on main during multi-minute required validation.
+          # The bounded loop below never accepts an outdated protected gate.
+          validate_county_snapshot() {
           node --input-type=module <<'NODE'
           import assert from 'node:assert/strict';
           import {execFileSync} from 'node:child_process';
@@ -180,6 +181,12 @@ jobs:
           NODE
           node --test scripts/data/county-property-snapshot-codec.test.mjs
           node scripts/data/validate-county-property-enrichment.mjs
+          }
+          # Bound all GitHub validation attempts. If main keeps changing shared
+          # contracts, leave the bot PR safely open with a concrete error.
+          for attempt in 1 2 3; do
+          validated_base_sha="$(git rev-parse origin/main)"
+          validate_county_snapshot
           validated_sha="$(git rev-parse HEAD)"
           bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
           bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
@@ -203,17 +210,46 @@ jobs:
             [[ "${#main_changes[@]}" -gt 0 ]] || {
               echo '::error::Unexpected main ancestry drift'; exit 1;
             }
+            needs_revalidation=false
             for file in "${main_changes[@]}"; do
               case "$file" in
-                src/data/property/*|src/routes/property-tax*|src/components/property/*|src/components/content/*Property*|src/data/local-government-profile.ts|src/data/texas-data-center*|scripts/data/county-*|scripts/data/sync-county-property-data.mjs|scripts/data/validate-county-property-enrichment.mjs|scripts/ci/*|.github/workflows/finish-county-property-refresh.yml|.github/workflows/sync-county-property-data.yml|.github/workflows/validate.yml|.github/workflows/merge-gate.yml|package.json|package-lock.json|pnpm-lock.yaml)
-                  echo "::error::Main changed county-data or its validation contract after required checks: $file"
-                  exit 1
+                # Source data and source-run authority cannot change beneath a
+                # bot refresh, even with another validation pass.
+                src/data/property/*|scripts/data/county-*|scripts/data/sync-county-property-data.mjs|.github/workflows/finish-county-property-refresh.yml|.github/workflows/sync-county-property-data.yml)
+                  echo "::error::Main changed trusted county source/data after checks: $file"; exit 1
+                  ;;
+                # These isolated B009/B010 football helpers are not invoked
+                # by the canonical premerge/full-validation command lists.
+                scripts/ci/prepare-football-b010-*|scripts/ci/verify-football-b009-*)
+                  continue
+                  ;;
+                # Shared CI/lockfiles or county page contracts require a new
+                # exact-head gate on a freshly rebased data-only branch.
+                src/routes/property-tax*|src/components/property/*|src/components/content/*Property*|src/data/local-government-profile.ts|src/data/texas-data-center*|scripts/data/validate-county-property-enrichment.mjs|scripts/ci/*|.github/workflows/validate.yml|.github/workflows/merge-gate.yml|package.json|package-lock.json|pnpm-lock.yaml)
+                  needs_revalidation=true
                   ;;
               esac
             done
             git diff --quiet "$validated_base_sha" origin/main -- src/data/property/ || {
               echo '::error::Main published different county records after validation'; exit 1;
             }
+            if [[ "$needs_revalidation" == true ]]; then
+              if [[ "$attempt" -ge 3 ]]; then
+                echo '::error::Protected county validation changed during 3 bounded attempts; leave PR for source-safe recovery'
+                exit 1
+              fi
+              echo "::notice::Shared CI changed during attempt $attempt; rebase data-only PR and re-run full protected gates"
+              git checkout -B "$branch" "origin/$branch"
+              git rebase origin/main || {
+                git rebase --abort || true
+                echo '::error::Updated shared CI conflicts with county snapshot; do not publish'
+                exit 1
+              }
+              git push --force-with-lease="refs/heads/$branch:$validated_sha" origin "HEAD:refs/heads/$branch" || {
+                echo '::error::County PR head moved during bounded revalidation'; exit 1
+              }
+              continue
+            fi
             echo "::notice::Main advanced only in unrelated files; county source baseline, PR head and exact-head protected CI remain unchanged."
           fi
           gh api --method POST "repos/$REPOSITORY/statuses/$validated_sha" \
@@ -221,4 +257,6 @@ jobs:
             -f description='Protected official county data source and reconciliation checks passed' \
             -f target_url="$url" >/dev/null
           gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"
-          echo "Protected county source data merge enabled: $url" >> "$GITHUB_STEP_SUMMARY"
+          echo "Protected county source data merge enabled after attempt $attempt: $url" >> "$GITHUB_STEP_SUMMARY"
+          break
+          done
