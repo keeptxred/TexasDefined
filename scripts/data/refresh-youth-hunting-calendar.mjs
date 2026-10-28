@@ -72,6 +72,8 @@ export function mergeCalendar(current, calendar, today) {
   assert(y,"missing existing year");
   const prior = Number(y[1]);
   assert(calendar.startYear >= prior && calendar.startYear <= prior + 1,"non-sequential season year update");
+  const seasonExpiration = Date.UTC(prior + 1, 8, 1);
+  assert(!(Date.parse(today + "T00:00:00Z") >= seasonExpiration && calendar.startYear === prior), "TPWD has not yet published an updated season after the archived calendar expired");
   assert(Number(today.slice(0,4)) >= calendar.startYear-1 && Number(today.slice(0,4)) <= calendar.startYear+1,"suspicious update date");
   let next = current;
   for(const [animal,region,value] of calendar.rows){
