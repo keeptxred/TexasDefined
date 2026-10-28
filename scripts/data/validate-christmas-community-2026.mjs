@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 220, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 231, "The 231 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -49,12 +49,53 @@ for (const event of events) {
 }
 
 const bySlug = new Map(events.map((event) => [event.slug, event]));
+for (const event of events) {
+  if (event.sourceVerifiedAt !== undefined) {
+    assert.match(event.sourceVerifiedAt, /^2026-\d{2}-\d{2}$/, `${event.slug}: source date must be a valid 2026 ISO date`);
+    assert.ok(event.sourceVerifiedAt >= "2026-10-23", `${event.slug}: source review predates initial review`);
+  }
+}
+assert.ok(eventFile.includes('lastVerifiedAt: occurrence.sourceVerifiedAt ?? "2026-10-23"'), "New source checks must display real review dates");
+assert.ok(eventFile.includes('lastUpdatedAt: occurrence.sourceVerifiedAt ?? "2026-10-23"'), "New source checks must not inherit a stale October 23 update date");
+assert.ok(!bySlug.has("lake-conroe-christmas-boat-parade-2026"), "Do not invent a 2026 lake boat parade from downtown Conroe events");
 const check = (slug, date, endDate) => {
   const event = bySlug.get(slug);
   assert.ok(event, `Missing source-qualified occurrence: ${slug}`);
   assert.equal(event.startDate, date, `Unexpected source date for ${slug}`);
   if (endDate !== undefined) assert.equal(event.endDate, endDate, `Unexpected end date for ${slug}`);
 };
+for (const slug of [
+  "conroe-tree-lighting-2026",
+  "conroe-christmas-around-square-2026",
+  "conroe-toby-powell-christmas-2026",
+  "downtown-conroe-christmas-parade-2026",
+]) {
+  assert.equal(bySlug.get(slug)?.sourceVerifiedAt, "2026-10-27", `${slug}: preserve actual review date`);
+  assert.ok(bySlug.get(slug)?.officialEventUrl.includes("visitconroe.com"), `${slug}: primary source missing`);
+}
+check("conroe-tree-lighting-2026", "2026-12-01");
+check("conroe-christmas-around-square-2026", "2026-12-01");
+check("conroe-toby-powell-christmas-2026", "2026-12-12");
+check("downtown-conroe-christmas-parade-2026", "2026-12-12");
+check("la-porte-christmas-on-main-2026", "2026-12-03");
+check("rosenberg-hometown-holiday-festival-2026", "2026-12-05");
+check("lake-jackson-festival-lights-tree-lighting-2026", "2026-11-20");
+check("lake-jackson-festival-lights-day-parade-2026", "2026-11-21");
+check("lake-jackson-light-up-2026", "2026-11-21", "2027-01-03");
+check("katy-nutcracker-exchange-tree-lighting-2026", "2026-12-05");
+check("old-town-spring-hometown-tree-lighting-2026", "2026-11-14");
+assert.ok(bySlug.get("old-town-spring-hometown-tree-lighting-2026").summary.includes("November 15 UTC"),
+  "Protect organizer-stated Saturday evening over its UTC timestamp");
+assert.ok(bySlug.get("katy-nutcracker-exchange-tree-lighting-2026").summary.includes("not an official listing"),
+  "Do not merge the unverified Katy Light Tall Pines lead with the city event");
+
+assert.ok(bySlug.get("la-porte-christmas-on-main-2026").summary.includes("La Porte, Indiana"),
+  "Holiday sources must distinguish Texas La Porte from the Indiana city");
+assert.ok(bySlug.get("lake-jackson-festival-lights-day-parade-2026").summary.includes("7 p.m."),
+  "Lake Jackson's 2026 parade time must remain linked to its organizer");
+assert.ok(bySlug.get("rosenberg-hometown-holiday-festival-2026").summary.includes("not proof"),
+  "Do not equate the verified Hometown Holiday Festival with an unverified Christmas Nights alias");
+
 // The Alley Theatre's 2026–27 official ticketing calendar has distinct
 // performance nights, not a continuous Nov 15–Dec 27 run.
 for (const [idx,begin,end] of [
