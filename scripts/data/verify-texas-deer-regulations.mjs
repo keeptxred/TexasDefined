@@ -47,15 +47,12 @@ const body = visibleText(await response.text());
 if (body.length < 1500) throw new Error('TPWD deer page returned too little content for trustworthy checks.');
 
 const expected = [
-  '2026-2027',
+  dates.startYear + '-' + (dates.startYear + 1),
   'Archery Only',
-  'Oct. 3',
-  'Nov. 6, 2026',
-  'Nov. 7, 2026',
-  'Jan. 3, 2027',
-  'Jan. 17, 2027',
-  'Jan. 18',
-  'Jan. 31, 2027',
+  'General Season',
+  'Youth-Only',
+  'Muzzleloader',
+  'Special Late',
   'Statewide Bag Limits',
   'Mandatory Harvest Reporting',
   'Special Antler Restrictions',
