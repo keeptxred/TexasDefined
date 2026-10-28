@@ -3,6 +3,427 @@ import type { FootballProgramEditorial } from './program-editorial';
 /** First five source-controlled Batch 010 program guides. Date-specific official
  * school and UIL sources; do not turn schedules into scores or copy marks. */
 const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "clute-brazoswood": {
+    "slug": "clute-brazoswood",
+    "intro": "Brazoswood High School's Buccaneers are the Clute-based Brazosport ISD varsity program in UIL Class 6A District 19 for 2026–28. The district's current athletics staff lists Eric Luster football head coach and campus athletic coordinator, while its school newsletter calls him the boys coordinator. Older season roster summaries do not supersede that first-party appointment. Brazoswood's August 28 and September 10 home varsity games were advertised for Hopper Field, not the campus building or the junior-varsity field.",
+    "theme": {
+      "accentHex": "#6E493C",
+      "label": "Original TexasDefined rust editorial styling; not school-approved Buccaneers colors, crest or third-party football imagery."
+    },
+    "seo": {
+      "title": "Brazoswood Buccaneers Football | Eric Luster, 2026 UIL 6A District 19",
+      "description": "Brazoswood football in Clute: first-party coach Eric Luster, 2026 UIL 6A District 19, Hopper Field named home fixtures and current school athletics links."
+    },
+    "coach": {
+      "name": "Eric Luster",
+      "title": "Football Head Coach and Brazoswood Athletic Campus Coordinator",
+      "sourceUrl": "https://www.brazosportisd.net/programs/b_i_s_d_athletics/athletic_contacts/brazoswood_high_school_athletic_staff",
+      "sourceLabel": "Brazosport ISD current first-party Brazoswood athletics staff",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "302 W Brazoswood Dr, Clute, TX 77531 (school campus, not an event spectator gate)",
+      "sourceUrl": "https://www.maxpreps.com/tx/clute/brazoswood-buccaneers/football/staff/",
+      "sourceLabel": "UIL-partner school address and coach roster cross-check",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Brazoswood first-party family newsletter dated 2026 home football fixtures",
+      "sourceUrl": "https://www.brazosportisd.net/cms/One.aspx?pageId=29288932&portalId=417913",
+      "sourceLabel": "Official Brazoswood August/September 2026 weekly football notes",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.brazosportisd.net/programs/b_i_s_d_athletics"
+    },
+    "venue": {
+      "name": "Hopper Field",
+      "sourceUrl": "https://www.brazosportisd.net/cms/One.aspx?pageId=29288932&portalId=417913",
+      "sourceLabel": "First-party varsity home game venue in 2026 newsletters",
+      "verifiedAt": "2026-10-28",
+      "note": "Brazoswood's 2026 school notices distinguish varsity football at Hopper Field from freshman/JV activities. Check the event's ticket and ADA instructions independently."
+    },
+    "development": {
+      "title": "One Clute high school, one school-verified head coach, and a separately identified varsity field",
+      "body": "Brazosport ISD's official Brazoswood staff names head football coach Eric Luster, offensive coordinator Cody Glenn and assistant head coach Kirby Ennis. Its August 2026 parent newsletter publishes varsity home appearances at Hopper Field, including the 2026 home opener and homecoming week. That dated schedule does not prove any final score or guarantee a current admission policy. Do not confuse Brazoswood with a college Buccaneers program or Brazosport High's independent teams.",
+      "sourceUrl": "https://www.brazosportisd.net/programs/b_i_s_d_athletics/athletic_contacts/brazoswood_high_school_athletic_staff",
+      "sourceLabel": "District first-party 2026 football staff and assistant roles",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "March 2024",
+        "title": "Eric Luster appointed Brazoswood head football coach",
+        "body": "The district announced Luster's hiring; he remains named in the current high-school staff directory.",
+        "sourceUrl": "https://www.brazosportisd.net/2023-2024_news/eric_luster_named_brazoswood_head_football_coach",
+        "sourceLabel": "Brazosport ISD appointment release",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "August 28, 2026",
+        "title": "Official home opener planned for Hopper Field",
+        "body": "The school calendar advertised its first home varsity football game at Hopper Field, without a score claim.",
+        "sourceUrl": "https://www.brazosportisd.net/cms/One.aspx?pageId=29288932&portalId=417913",
+        "sourceLabel": "Brazoswood school newsletter dated August 2026",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "September 10, 2026",
+        "title": "Homecoming football advertised at Hopper Field",
+        "body": "The school listed varsity football at Hopper Field during homecoming, distinct from its JV schedule.",
+        "sourceUrl": "https://www.brazosportisd.net/cms/One.aspx?pageId=29288932&portalId=417913",
+        "sourceLabel": "First-party family homecoming schedule",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "Brazoswood Buccaneers compete in UIL 6A District 19 as the Clute-based Brazosport ISD program.",
+      "Eric Luster is the school-verified football head coach and campus athletic coordinator; older third-party entries may be stale.",
+      "The school itself identifies Hopper Field for specified 2026 varsity home games; campus address is not automatically the stadium gate.",
+      "No 2026 final record, playoff seed or ticket price is inferred from a school newsletter."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Brazoswood football?",
+        "answer": "Brazosport ISD's current athletics staff identifies Eric Luster head football coach and campus athletic coordinator."
+      },
+      {
+        "question": "Where do Brazoswood varsity home games take place?",
+        "answer": "The school's 2026 newsletters list specified varsity home games at Hopper Field; check the latest event for parking, entry and ticket instructions."
+      },
+      {
+        "question": "What UIL football district includes Brazoswood in 2026?",
+        "answer": "Class 6A District 19 for the 2026–28 cycle."
+      }
+    ]
+  },
+  "clyde": {
+    "slug": "clyde",
+    "intro": "The Clyde Bulldogs are a Callahan County Class 3A Division I District 2 UIL football program in 2026–28. Clyde CISD's current athletics information names Coach Dudgeon as the contact for football-related UIL paperwork, consistent with 2026 varsity staff listings identifying Danny Dudgeon head football coach. The district publishes actual high-school sports schedules and directs fans to its own HUDL TV livestream, not an unauthorized highlights feed.",
+    "theme": {
+      "accentHex": "#635463",
+      "label": "Original TexasDefined muted violet editorial tint; no official Bulldog mascot art, photo or claimed school color code."
+    },
+    "seo": {
+      "title": "Clyde Bulldogs Football | Danny Dudgeon & UIL 3A District 2",
+      "description": "Clyde Bulldogs 2026 Texas football: first-party athletics contact Coach Dudgeon, UIL 3A Division I District 2, Clyde ISD schedule and school/field distinction."
+    },
+    "coach": {
+      "name": "Danny Dudgeon",
+      "title": "Clyde district athletics director/contact and 2026 roster-reported head football coach",
+      "sourceUrl": "https://www.clydeisd.org/page/athleticinformation",
+      "sourceLabel": "Clyde CISD primary athletics/UIL contact Coach Dudgeon; current roster separately names head coach",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "500 Hays Road, Clyde, TX 79510 (school sports campus; spectator entrance not verified)",
+      "sourceUrl": "https://www.clydeisd.org/page/athleticinformation",
+      "sourceLabel": "Clyde CISD public athletics and school contact information",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Clyde CISD athletics calendar, school schedules and authorized livestream",
+      "sourceUrl": "https://www.clydeisd.org/page/athleticschedules",
+      "sourceLabel": "School district publishes official football fixtures",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.clydeisd.org/page/athleticschedules"
+    },
+    "development": {
+      "title": "School football fixtures and a permitted district video stream",
+      "body": "Clyde's first-party athletics information directs parents to paperless Rank One UIL forms and identifies Coach Dudgeon as the sports contact. The district independently publishes its own HUDL Focus livestream for the football field. Its football schedule and kickoff are event-specific; a generic HUDL TV video listing is neither an official score feed nor an independent license to republish footage. Clyde's UIL alignment for 2026 is 3A Division I District 2 rather than the adjacent 3A Division II schools.",
+      "sourceUrl": "https://www.clydeisd.org/page/athleticinformation",
+      "sourceLabel": "Clyde CISD first-party district athletics resources",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2026 realignment",
+        "title": "3A Division I District 2 assignment",
+        "body": "UIL places Clyde in Class 3A Division I District 2 for 2026–28.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
+        "sourceLabel": "UIL official two-year football alignment PDF",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 season",
+        "title": "Clyde CISD publishes schedules and HUDL TV access",
+        "body": "The district athletics information provides its official schedule and district-operated livestream links; neither grants reproduction rights.",
+        "sourceUrl": "https://www.clydeisd.org/page/athleticinformation",
+        "sourceLabel": "Clyde CISD football and livestream home",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 current staff",
+        "title": "Coach Dudgeon identified by the district",
+        "body": "Clyde sports paperwork instructions direct families to Coach Dudgeon; a current third-party roster names Danny Dudgeon head coach.",
+        "sourceUrl": "https://www.maxpreps.com/tx/clyde/clyde-bulldogs/football/staff/",
+        "sourceLabel": "2026 MaxPreps varsity staff cross-check",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "Clyde is the Bulldogs program in Callahan County, UIL 3A Division I District 2.",
+      "The primary-school athletics office identifies Coach Dudgeon, and the current varsity roster lists Danny Dudgeon football head coach.",
+      "The district offers first-party schedules and a district-owned football livestream; that does not confer external reuse rights.",
+      "No 2026 final win-loss total, stadium gate or specific ticket price is asserted without corroborated source data."
+    ],
+    "faq": [
+      {
+        "question": "Who leads Clyde Bulldog football?",
+        "answer": "The current 2026 football staff roster names Danny Dudgeon, and Clyde CISD lists Coach Dudgeon as its athletic contact."
+      },
+      {
+        "question": "Which 2026 UIL classification is Clyde in?",
+        "answer": "3A Division I District 2, according to the official UIL 2026–28 alignment."
+      },
+      {
+        "question": "Where are Clyde football schedules and streams published?",
+        "answer": "Clyde CISD's first-party athletics schedules and athletic-information pages include its football fixtures and HUDL TV viewing links."
+      }
+    ]
+  },
+  "coahoma": {
+    "slug": "coahoma",
+    "intro": "Coahoma's Bulldogs are the Coahoma ISD Texas high-school football program in Howard County, not the similarly named Mississippi community college team. Coahoma competes in UIL 3A Division II District 3 for 2026–28. The district staff directory calls Chris Joslin athletic director, while Coahoma High's own October 2025 reporting explicitly calls Joslin Bulldogs head football coach. The current 2026 varsity roster independently agrees; the older report should not be mistaken for a 2026 season result.",
+    "theme": {
+      "accentHex": "#5B514A",
+      "label": "Original TexasDefined neutral brown school-story styling; not a Bulldog logo, official uniform palette or copied sports photo."
+    },
+    "seo": {
+      "title": "Coahoma Bulldogs Football | Chris Joslin & UIL 3A District 3",
+      "description": "Coahoma Texas Bulldogs football: coach Chris Joslin, 2026 3A Division II District 3, Bill Easterling Stadium and first-party football community history."
+    },
+    "coach": {
+      "name": "Chris Joslin",
+      "title": "Official Coahoma ISD Athletic Director and school-reported Bulldogs head football coach",
+      "sourceUrl": "https://www.coahomaisd.com/o/district/staff",
+      "sourceLabel": "Coahoma ISD first-party staff; 2025 campus article separately confirms Joslin head football coach",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Coahoma ISD school football and community athletics updates",
+      "sourceUrl": "https://www.coahomaisd.com/o/chs",
+      "sourceLabel": "Official Coahoma High School news and calendar",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.coahomaisd.com/o/chs"
+    },
+    "venue": {
+      "name": "Bill Easterling Stadium",
+      "sourceUrl": "https://www.coahomaisd.com/o/chs/article/2480998",
+      "sourceLabel": "Coahoma High first-party October 2025 home stands identification",
+      "verifiedAt": "2026-10-28",
+      "note": "The school names Bill Easterling Stadium in a dated 2025 report; current ticketing, the 2026 entrance route and the confirmed 2026 home schedule require event-level verification."
+    },
+    "development": {
+      "title": "A Texas Bulldogs program with a distinct school-owned community story",
+      "body": "Coahoma High's October 2025 Gold Out article names its own Bulldogs head football coach Chris Joslin and the Bill Easterling Stadium home stands. The report discusses fundraising for childhood cancer research, which is a historical Coahoma ISD community event, not evidence of the current 2026 season record. District staffing still lists Joslin athletic director. Do not confuse the Texas school's program, athlete profiles or stadium with Mississippi-based Coahoma Community College's Tigers.",
+      "sourceUrl": "https://www.coahomaisd.com/o/chs/article/2480998",
+      "sourceLabel": "Coahoma ISD October 2025 original football community article",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2018",
+        "title": "Joslin family joins Coahoma ISD",
+        "body": "The district's first-party Gold Out retrospective identifies 2018 as the start of its continuing community fundraising tradition.",
+        "sourceUrl": "https://www.coahomaisd.com/o/district/article/67875",
+        "sourceLabel": "Coahoma ISD school retrospective",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "October 2025",
+        "title": "Bill Easterling Stadium Gold Out night",
+        "body": "Coahoma High's original school report names Bill Easterling Stadium and approximately $3,700 raised; this was in 2025, not 2026.",
+        "sourceUrl": "https://www.coahomaisd.com/o/chs/article/2480998",
+        "sourceLabel": "Coahoma school first-party dated 2025 report",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 realignment",
+        "title": "3A Division II District 3",
+        "body": "The UIL 2026–28 alignment places Coahoma in 3A Division II District 3.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL official current football alignment",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "Coahoma Bulldogs is a Howard County Texas high-school varsity program, wholly separate from Coahoma Community College in Mississippi.",
+      "Coahoma ISD lists Chris Joslin athletic director, and its own campus story names him Bulldogs head football coach.",
+      "Bill Easterling Stadium is named in a genuine school report, not necessarily a current confirmed gate or admissions map.",
+      "District classification is 3A Division II District 3 in 2026–28; no current-season record inferred from a 2025 community story."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Coahoma, Texas high-school football?",
+        "answer": "School-owned reporting calls Chris Joslin Bulldogs head football coach; the Coahoma ISD district staff list independently names him athletic director."
+      },
+      {
+        "question": "Is Coahoma Texas football the same team as Coahoma Community College?",
+        "answer": "No. Coahoma High School Bulldogs is a Texas UIL program, whereas the similarly named community college is in Mississippi."
+      },
+      {
+        "question": "What 2026 UIL classification is Coahoma in?",
+        "answer": "Class 3A Division II District 3."
+      }
+    ]
+  },
+  "coldspring-oakhurst": {
+    "slug": "coldspring-oakhurst",
+    "intro": "The Coldspring-Oakhurst Trojans compete in UIL 3A Division I District 10 for 2026–28 in San Jacinto County. The district administration, athletic coaching staff, and high-school coaching pages all name Chad Allen both athletic director and head football coach. The first-party district schedules include separate Trojan varsity/JV football and junior-high dates, and late-October changes should be checked there rather than inferred from a stale general score feed.",
+    "theme": {
+      "accentHex": "#47645D",
+      "label": "Original TexasDefined green-gray editorial appearance, not official Trojan helmet artwork or copyrighted school media."
+    },
+    "seo": {
+      "title": "Coldspring-Oakhurst Trojans Football | Chad Allen, 2026 3A",
+      "description": "Coldspring-Oakhurst Trojans: district-confirmed Chad Allen coaching, UIL 3A Division I District 10, school-run football schedules and venue guidance."
+    },
+    "coach": {
+      "name": "Chad Allen",
+      "title": "School district Athletics Director and Head Football Coach",
+      "sourceUrl": "https://www.cocisd.org/departments/athletics/coaching-staff",
+      "sourceLabel": "Coldspring-Oakhurst CISD official named coaching list",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Official COCISD Trojan varsity and junior-high football schedules",
+      "sourceUrl": "https://www.cocisd.org/departments/athletics/schedules",
+      "sourceLabel": "Current COCISD first-party athletics schedules",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.cocisd.org/departments/athletics/schedules"
+    },
+    "development": {
+      "title": "One district head coach named across three official school sources",
+      "body": "Both the district administration page and athletics coaching staff roster identify Chad Allen as AD and head varsity football coach, and the high school repeats that assignment. The current athletics schedule offers separate sections for varsity/JV and junior high. That distinction matters: an old junior-high calendar or a cropped football scorecard cannot be treated as a current varsity record. District 10 opponents include Tarkington, but nearby Tarkington's coaching staff and stadium information belong to a different program.",
+      "sourceUrl": "https://www.cocisd.org/about-us/administration",
+      "sourceLabel": "Official district administration directory corroborating Chad Allen",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2026 coaching",
+        "title": "District identifies Chad Allen as head coach",
+        "body": "Coldspring-Oakhurst CISD's athletics roster and administration directory consistently name Chad Allen head football coach.",
+        "sourceUrl": "https://www.cocisd.org/departments/athletics/coaching-staff",
+        "sourceLabel": "Official COCISD coach-role listing",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 season",
+        "title": "Current football schedules published by school",
+        "body": "The district lists Trojan varsity/JV and junior-high football separately, preventing age-group schedule confusion.",
+        "sourceUrl": "https://www.cocisd.org/departments/athletics/schedules",
+        "sourceLabel": "First-party updated athletics schedules",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 realignment",
+        "title": "3A Division I District 10 competition",
+        "body": "UIL official 2026–28 grouping includes Coldspring-Oakhurst in 3A Division I District 10.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
+        "sourceLabel": "UIL current alignment PDF",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "The Trojans are a San Jacinto County football program in 2026 UIL 3A Division I District 10.",
+      "Chad Allen is independently named head football coach and athletic director on several current district-controlled pages.",
+      "District schedules intentionally distinguish varsity/JV from junior high; do not mix scores or start times across those levels.",
+      "No invented stadium address, spectator entry, 2026 game final or claimed playoff berth is published."
+    ],
+    "faq": [
+      {
+        "question": "Who is Coldspring-Oakhurst's football coach?",
+        "answer": "Coldspring-Oakhurst CISD's administration and football staff pages identify Chad Allen head coach and athletic director."
+      },
+      {
+        "question": "Which football district includes Coldspring-Oakhurst in 2026?",
+        "answer": "UIL 3A Division I District 10."
+      },
+      {
+        "question": "Where are Coldspring-Oakhurst Trojan football schedules?",
+        "answer": "The COCISD athletics schedules page publishes separate varsity/JV and junior-high fixtures."
+      }
+    ]
+  },
+  "coleman": {
+    "slug": "coleman",
+    "intro": "Coleman High's Bluecats are a Coleman County UIL 2A Division I District 7 varsity program for 2026–28. The Coleman ISD and Coleman High current school-controlled athletics pages both explicitly name Zach Edington INTERIM head football coach and athletic director. Those official 2026 records supersede an archived roster's older John Elder attribution; the interim appointment should never be represented as permanent without a new district announcement.",
+    "theme": {
+      "accentHex": "#3E5A82",
+      "label": "Original TexasDefined restrained blue editorial panel; not an official Bluecats mark, uniform logo or licensed photo."
+    },
+    "seo": {
+      "title": "Coleman Bluecats Football | Interim Coach Zach Edington & 2026 UIL 2A",
+      "description": "Coleman Bluecats 2026 football guide: school-confirmed interim head coach Zach Edington, 2A Division I District 7 and official 2026–27 team schedule."
+    },
+    "coach": {
+      "name": "Zach Edington",
+      "title": "Interim Head Football Coach and Athletic Director for 2026–27",
+      "sourceUrl": "https://chs.colemanisd.net/departments/athletics",
+      "sourceLabel": "Coleman High official October 2026 athletics staff and 2026–27 schedule links",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "2026–27 Coleman Bluecats varsity football schedule",
+      "sourceUrl": "https://www.colemanisd.net/departments/athletics",
+      "sourceLabel": "Coleman ISD official athletics schedule, updated 2026",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.colemanisd.net/departments/athletics"
+    },
+    "development": {
+      "title": "Interim staffing and a first-party 2026–27 schedule, not historical coach guessing",
+      "body": "Coleman ISD currently lists Zach Edington athletic director and interim high-school head football coach. Assistant football coaches include James Bailey, Brock Bouldin, Rusty Clippinger, Keith Meador and David Story. The school's own updated varsity schedule is current to 2026–27, while some pages also mix old 2024–25 junior-high labels and prior-era coaching biographies. Preserve the explicit word 'interim'; do not incorrectly list an earlier full-time coach as the current 2026 Bluecats leader.",
+      "sourceUrl": "https://www.colemanisd.net/departments/athletics",
+      "sourceLabel": "Coleman district official varsity football staff and schedule",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "July 2026",
+        "title": "Interim role announced for 2026–27 season",
+        "body": "Coleman's longtime assistant Zach Edington took interim football coaching and athletics responsibilities for the 2026–27 school year.",
+        "sourceUrl": "https://sports.yahoo.com/articles/coleman-isd-taps-longtime-assistant-220406667.html",
+        "sourceLabel": "July 20, 2026 San Angelo Standard-Times school staffing report",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 staff",
+        "title": "Current district athletics lists interim coach",
+        "body": "The school and district pages independently identify Edington interim HC and athletic director.",
+        "sourceUrl": "https://chs.colemanisd.net/departments/athletics",
+        "sourceLabel": "Coleman High 2026–27 athletics staff listing",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 UIL",
+        "title": "2A Division I District 7 alignment",
+        "body": "UIL 2026–28 classification lists Coleman in 2A Division I District 7.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL current football alignment",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "Coleman Bluecats are in UIL 2A Division I District 7 in 2026–28.",
+      "Zach Edington is officially INTERIM head football coach, not a coach assumed permanent from archived feeds.",
+      "The district athletics pages provide 2026–27 high-school football fixtures separate from older junior-high page labels.",
+      "No unsourced 2026 scores, current stadium entrance, school-owned photography permission or automatic admission policy is claimed."
+    ],
+    "faq": [
+      {
+        "question": "Who is Coleman Bluecats head coach in 2026?",
+        "answer": "Coleman ISD lists Zach Edington interim head football coach and athletic director for the 2026–27 season."
+      },
+      {
+        "question": "Is Zach Edington Coleman's permanent head coach?",
+        "answer": "The school explicitly says interim. Check later school announcements before describing a permanent appointment."
+      },
+      {
+        "question": "Which UIL district has Coleman Bluecats for 2026?",
+        "answer": "Class 2A Division I District 7."
+      }
+    ]
+  },
   "cleveland-tarkington": {
     "slug": "cleveland-tarkington",
     "intro": "The Tarkington Longhorns are a separate Liberty County football program from nearby Cleveland High. UIL places Tarkington in Class 3A Division I District 10 for 2026–28. Tarkington ISD introduced Coach Howard as its new athletic director after a March 2026 vacancy, while the 2026 varsity roster identifies Jake Howard as head football coach. The district’s own October calendar names A. L. Nelson Stadium for its October 15 home contest against Kirbyville and October 30 meeting with East Chambers; that is an event venue, not the district office mailing address.",
