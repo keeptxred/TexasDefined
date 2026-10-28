@@ -42,7 +42,9 @@ test('publication sync uses the pure URL gate for source HTTPS and verified redi
   const fs = await import('node:fs/promises');
   const source = await fs.readFile('scripts/data/sync-county-property-data.mjs','utf8');
   assert.match(source,/if \(url\.protocol === 'https:'\) return normalizeVerifiedCountyOfficeUrl\(url\.toString\(\)\)/);
-  assert.match(source,/if \(!response\.ok \|\| response\.headers\.get\('cf-mitigated'\) === 'challenge'\) return null/);
+  assert.match(source,/if \(!response\.ok \|\| response\.headers\.get\('cf-mitigated'\) === 'challenge'\) \{/);
+  assert.match(source,/County HTTPS GET rejected/);
+  assert.match(source,/County HTTPS HEAD rejected/);
   assert.match(source,/return normalizeVerifiedCountyOfficeUrl\(resolved\.toString\(\)\)/);
   assert.match(source,/isAmbiguousCountyWithdrawal\(merged\[result\.county\.slug\], result\)/);
 });
