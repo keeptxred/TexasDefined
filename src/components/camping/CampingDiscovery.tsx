@@ -222,7 +222,17 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
     if (sortBy === "name") return [...matches].sort((a, b) => a.profile.name.localeCompare(b.profile.name));
     if (sortBy === "region") return [...matches].sort((a, b) => (regionLabels[a.profile.region] ?? a.profile.region).localeCompare(regionLabels[b.profile.region] ?? b.profile.region) || a.profile.name.localeCompare(b.profile.name));
     if (sortBy === "verified") return [...matches].sort((a, b) => b.profile.verifiedAt.localeCompare(a.profile.verifiedAt) || a.profile.name.localeCompare(b.profile.name));
-    return matches;
+    // Keep each national/state park overview beside its individual campgrounds
+    // without affecting explicit alphabetical, region or date sorting.
+    const firstByDestination = new Map<string, number>();
+    entries.forEach(({ profile }, index) => {
+      if (!firstByDestination.has(profile.destinationSlug)) firstByDestination.set(profile.destinationSlug, index);
+    });
+    return [...matches].sort((a, b) =>
+      (firstByDestination.get(a.profile.destinationSlug) ?? 0) - (firstByDestination.get(b.profile.destinationSlug) ?? 0)
+      || Number(profileAnchor(a.profile) !== a.profile.destinationSlug) - Number(profileAnchor(b.profile) !== b.profile.destinationSlug)
+      || a.profile.name.localeCompare(b.profile.name)
+    );
   }, [agency, amenities, entries, query, region, sortBy, styles, waterCamping]);
 
   const comparedProfiles = useMemo(
@@ -362,7 +372,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
       </fieldset>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
-        <p className="text-sm text-muted-foreground" aria-live="polite">Showing <strong className="text-foreground">{filtered.length}</strong> of {entries.length} verified profiles.</p>
+        <p className="text-sm text-muted-foreground" aria-live="polite">Showing <strong className="text-foreground">{filtered.length}</strong> of {entries.length} verified profiles. Recommended results group individual campgrounds with their parent destinations.</p>
         {hasFilters ? <button type="button" onClick={reset} className="text-sm font-semibold text-primary underline-offset-4 hover:underline">Clear all filters</button> : null}
       </div>
     </div>
