@@ -70,13 +70,13 @@ function ranges(section){
 function parseRegulatoryFacts(text) {
   // Strict, source-derived structured facts. Never assume last year's county or bag limits.
   const countyCount = text.match(/(\d+)\s+of\s+254 counties have White-tailed Deer seasons/i);
-  const bag = text.match(/annual bag limit of\s+(five|four|three|two|one|\d+)\s+white-tailed deer,\s+no more than\s+(five|four|three|two|one|\d+)\s+of which may be bucks/i);
+  const bag = text.match(/annual bag limit of\s+(ten|nine|eight|seven|six|five|four|three|two|one|\d+)\s+white-tailed deer,\s+no more than\s+(ten|nine|eight|seven|six|five|four|three|two|one|\d+)\s+of which may be bucks/i);
   const all = text.match(/Counties with mandatory buck and antlerless deer harvest reporting:\s*([^.]+)\./i);
   const antlerless = text.match(/Counties with mandatory antlerless deer harvest reporting:\s*([^.]+)\./i);
   const hours = text.match(/must be reported within\s+(\d+)\s+hours of harvest/i);
   const antler = text.match(/inside spread of\s+(\d+)\s+inches or greater/i);
   const late = text.match(/In counties with a Special Late Season,\s*harvest is restricted to\s+([^.]+)\./i);
-  const values = {one:1,two:2,three:3,four:4,five:5};
+  const values = {one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10};
   if (![countyCount,bag,all,antlerless,hours,antler,late].every(Boolean)) {
     throw new Error('TPWD regulatory text changed beyond the machine-readable contract. Do not publish stale bag, reporting, or antler claims.');
   }
@@ -95,9 +95,7 @@ function parseRegulatoryFacts(text) {
       snapshot.annualBagMax < 1 || snapshot.annualBagMax > 10 ||
       snapshot.annualBuckMax > snapshot.annualBagMax ||
       snapshot.reportingHours < 1 || snapshot.reportingHours > 168 ||
-      snapshot.specialAntlerSpreadInches < 1 || snapshot.specialAntlerSpreadInches > 40 ||
-      !/Collin|Dallas|Grayson|Rockwall/i.test(snapshot.buckAndAntlerlessReportingCounties) &&
-        existing.startYear === 2026) {
+      snapshot.specialAntlerSpreadInches < 1 || snapshot.specialAntlerSpreadInches > 40) {
     throw new Error('TPWD regulatory snapshot is implausible or has unsupported source changes.');
   }
   return snapshot;
@@ -156,10 +154,14 @@ if (process.argv.includes('--self-test')) {
       got.rows[1].end !== '2027-01-03' || got.rows[2].end !== '2027-01-17' ||
       got.rows[7].end !== '2027-01-31' || got.regulations.annualBagMax !== 5 || got.regulations.reportingHours !== 24) throw new Error('TPWD season range parser self-test failed');
 
-  const nextYearSample=sample.replace(/2026/g,'2030').replace(/2027/g,'2031');
+  const nextYearSample=sample.replace(/2026/g,'2030').replace(/2027/g,'2031')
+    .replace('five white-tailed deer, no more than three','six white-tailed deer, no more than four')
+    .replace('within 24 hours','within 36 hours')
+    .replace('Collin, Dallas, Grayson, Rockwall','Bexar, Zavala')
+    .replace('spread of 13 inches','spread of 15 inches');
   const rollover=parseDeerPage(nextYearSample);
   if(rollover.startYear!==2030||rollover.rows[0].start!=='2030-10-03'||
-     rollover.rows[2].end!=='2031-01-17'||rollover.regulations.annualBuckMax!==3)
+     rollover.rows[2].end!=='2031-01-17'||rollover.regulations.annualBuckMax!==4||rollover.regulations.annualBagMax!==6||rollover.regulations.reportingHours!==36||rollover.regulations.specialAntlerSpreadInches!==15||!rollover.regulations.buckAndAntlerlessReportingCounties.includes('Zavala'))
      throw new Error('New-year TPWD deer season parser rollover fixture failed');
   console.log('TPWD deer parser verified all eight official season date ranges including cross-year and same-month formats.');
   process.exit(0);
