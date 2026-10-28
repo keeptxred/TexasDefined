@@ -191,10 +191,10 @@ async function secureOfficeUrl(raw) {
       // Reject successful HTTP responses which are actually authentication
       // gateways or account-lockout pages. A real office landing page should
       // be public HTML rather than a login or binary attachment.
-      const mime = response.headers.get('content-type') ?? '';
-      if (!/text\\/html|application\\/xhtml\\+xml/i.test(mime)) return null;
+      const mime = (response.headers.get('content-type') ?? '').toLowerCase();
+      if (!mime.startsWith('text/html') && !mime.startsWith('application/xhtml+xml')) return null;
       const publicHtml = (await response.text()).slice(0, 128000);
-      if (/<title[^>]*>\\s*(?:log\\s*in|sign\\s*in|access\\s*denied|unauthorized|forbidden|account\\s*locked)/i.test(publicHtml) ||
+      if (/<title[^>]*>[ ]*(?:log[ ]*in|sign[ ]*in|access[ ]*denied|unauthorized|forbidden|account[ ]*locked)/i.test(publicHtml) ||
           /<input[^>]+type=['"]password['"]/i.test(publicHtml)) return null;
     }
     if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') return null;
