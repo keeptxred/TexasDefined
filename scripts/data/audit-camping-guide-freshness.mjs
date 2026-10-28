@@ -31,12 +31,24 @@ function relevantSourceDigest(raw) {
 }
 const previousPath = process.env.CAMPING_PREVIOUS_SOURCE_REPORT;
 let previous = new Map();
+let previousReviewDates = [];
 if (previousPath && fs.existsSync(previousPath)) {
   const saved = JSON.parse(fs.readFileSync(previousPath,'utf8'));
   if (saved.scope !== 'TexasDefined camping profile sources only' || !Array.isArray(saved.checked))
     throw Error('Previous camping audit artifact has an invalid source scope');
-  previous = new Map(saved.checked.filter(x => x.fingerprint && x.url).map(x => [x.url,x.fingerprint]));
+  // Keep the *approved* baseline pinned across repeated drift warnings:
+  // a changed source does not become "verified" just because it stayed
+  // changed for a week. Profile researchers explicitly advance dates after
+  // checking facts, which authorizes baseline renewal.
+  previous = new Map(saved.checked.filter(x => (x.baselineFingerprint || x.fingerprint) && x.url)
+    .map(x => [x.url,x.baselineFingerprint || x.fingerprint]));
+  previousReviewDates = Array.isArray(saved.reviewDates) ? saved.reviewDates : [];
 }
+const hasNewResearch = files => previousReviewDates.length > 0 && files.every(file => {
+  const oldDates = previousReviewDates.filter(x => x.file === file).map(x => x.date);
+  const freshDates = reviewDates.filter(x => x.file === file).map(x => x.date);
+  return oldDates.length && freshDates.length && freshDates.every(date => date > oldDates.sort().at(-1));
+});
 
 if (process.argv.includes("--self-test")) {
   for (const status of [200, 201, 206]) assert.equal(label(status), "healthy");
@@ -103,14 +115,18 @@ if (process.argv.includes("--offline")) {
         let fingerprint = null;
         if (category === "healthy" && /(?:text\/html|application\/xhtml\+xml)/i.test(response.headers.get("content-type") || "")) {
           fingerprint = relevantSourceDigest((await response.text()).slice(0, 2_000_000));
-          if (fingerprint && previous.has(url) && previous.get(url) !== fingerprint) category = "source-content-changed";
+          if (fingerprint && previous.has(url) && previous.get(url) !== fingerprint && !hasNewResearch(refs.get(url)))
+            category = "source-content-changed";
         }
-        const check = { url, status: response.status, category, attempts, finalUrl: response.url, files: refs.get(url), fingerprint };
+        const baselineFingerprint = fingerprint && (hasNewResearch(refs.get(url)) || !previous.has(url))
+          ? fingerprint : previous.get(url) || fingerprint;
+        const check = { url, status: response.status, category, attempts, finalUrl: response.url, files: refs.get(url), fingerprint, baselineFingerprint };
         report.checked.push(check);
         report.categories[category] = (report.categories[category] || 0) + 1;
         if (category !== "healthy") report.failures.push(check);
       } catch (error) {
-        const check = { url, category: "unreachable", error: String(error), files: refs.get(url) };
+        const check = { url, category: "unreachable", error: String(error), files: refs.get(url),
+          fingerprint: null, baselineFingerprint: previous.get(url) || null };
         report.checked.push(check);
         report.categories.unreachable = (report.categories.unreachable || 0) + 1;
         report.failures.push(check);
