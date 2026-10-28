@@ -64,6 +64,7 @@ jobs:
         run: |
           node --check scripts/ci/verify-football-b010-fourth-five-production.mjs
           grep -Fq "/tmp/td-b010-fourth-chrome/node_modules/playwright-core" scripts/ci/verify-football-b010-fourth-five-production.mjs
+          grep -Fq "npm install --prefix /tmp/td-b010-fourth-chrome --no-save" .github/workflows/verify-football-b010-fourth-five-production.yml
           if grep -Fq "/tmp/td-b010-third-chrome/node_modules/playwright-core" scripts/ci/verify-football-b010-fourth-five-production.mjs; then
             echo "::error::Fourth cohort must not import the third cohort Chrome driver"
             exit 1
