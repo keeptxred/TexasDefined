@@ -5,13 +5,17 @@ const pageUrl = 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/
 const source = fs.readFileSync(sourcePath, 'utf8');
 const dates = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
 if (dates.rows.length !== 8) throw new Error('Deer season dataset must include eight documented season rows');
+if (!dates.regulations || !Number.isInteger(dates.regulations.annualBagMax) || !dates.regulations.antlerlessReportingCounties) throw new Error('Deer guide requires verified TPWD regulatory facts');
 
 // Local contract is always checked, including on PRs without external networking.
 for (const marker of [
   'reviewedOn: "2026-10-28"',
   'deerSeasonRange(',
-  'within 24 hours',
-  'within 48 hours',
+  'regulations.reportingHours',
+  'regulations.specialAntlerSpreadInches',
+  'regulations.annualBagMax',
+  'regulations.annualBuckMax',
+  'regulations.antlerlessReportingCounties',
   'Texas Hunt & Fish',
   'TPWD regional study: rut in white-tailed deer',
   pageUrl,
