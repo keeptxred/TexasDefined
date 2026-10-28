@@ -45,23 +45,23 @@ export const houstonBuild2VerifiedProviders: CorporateEventProvider[] = [
     "verifiedOn": "2026-10-28"
   },
   {
-    "slug": "towne-lake-lakehouse-events",
-    "name": "The Lakehouse at Towne Lake",
+    "slug": "the-union-kitchen-towne-lake-cypress-private-dining",
+    "name": "The Union Kitchen — Towne Lake",
     "city": "Cypress",
     "metro": "Houston",
-    "area": "Towne Lake Parkway",
+    "area": "Towne Lake Boardwalk",
     "categories": [
-      "meetings",
+      "private-dining",
       "company-parties",
       "client-entertainment"
     ],
-    "description": "Waterfront rental venue with ballroom, patio, meeting room, lawn and catering kitchen.",
-    "format": "Waterfront venue",
-    "maxGroup": 200,
-    "capacityDetail": "Operator lists a 200-seat ballroom and patio and a separate 12-person conference room with AV. These are distinct layouts; 200 does not describe a meeting room or any activity package. Confirm private rental rules and availability.",
+    "description": "Restaurant with semi-private lakeview dining and published food-and-beverage minimums for group meals and celebrations.",
+    "format": "Restaurant & semi-private dining",
+    "maxGroup": 32,
+    "capacityDetail": "The Cypress operator lists a semi-private lakeview space with a maximum of 32 people; booking minimums vary by meal/day. Food and beverage minimums exclude 8.25% sales tax and 22% gratuity; required deposit is 50% of estimated event package, applied to balance as a gift card. Not a confirmed per-person price or a 32-person fully private buyout.",
     "startingPricePerPerson": null,
-    "officialUrl": "https://townelaketexas.com/lakehouse-rental",
-    "sourceUrl": "https://townelaketexas.com/lakehouse-rental",
+    "officialUrl": "https://www.theunionkitchen.com/private-events-cypress",
+    "sourceUrl": "https://www.theunionkitchen.com/private-events-cypress",
     "verifiedOn": "2026-10-28"
   },
   {
