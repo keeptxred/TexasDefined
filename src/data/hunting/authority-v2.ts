@@ -1,5 +1,5 @@
 import type { HuntingAuthorityLink, HuntingAuthorityTopic } from "./authority";
-import { YOUTH_HUNTING_FAQ } from "./youth-hunting-data";
+import { YOUTH_HUNTING_FAQ, YOUTH_HUNTING_SEASON_YEAR, YOUTH_HUNTING_SEASONS } from "./youth-hunting-data";
 
 const tpwd = (label: string, href: string): HuntingAuthorityLink => ({ label, href, external: true });
 const internal = (label: string, href: string): HuntingAuthorityLink => ({ label, href });
@@ -79,9 +79,9 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
   "youth-hunting": topic({
     slug: "youth-hunting",
     eyebrow: "Texas youth hunting",
-    title: "Texas Youth Hunting Guide: 2026–27 Youth-Only Seasons & Requirements",
-    description: "Official 2026–27 Texas youth-only deer, turkey, waterfowl and squirrel dates, $7 youth license rules, hunter education, mentored hunts and public-land access.",
-    quickAnswer: "Texas youth-only seasons are generally for licensed hunters age 16 or younger. Early deer and turkey dates begin October 30, 2026; dates and access vary by species and zone. The youth hunting license costs $7.",
+    title: `Texas Youth Hunting Guide: ${YOUTH_HUNTING_SEASON_YEAR} Youth-Only Seasons & Requirements`,
+    description: `Official ${YOUTH_HUNTING_SEASON_YEAR} Texas youth-only deer, turkey, waterfowl and squirrel dates, $7 youth license rules, hunter education, mentored hunts and public-land access.`,
+    quickAnswer: `Texas youth-only seasons are generally for licensed hunters age 16 or younger. Early deer youth dates are ${YOUTH_HUNTING_SEASONS[0].dates}; dates and access vary by species and zone. The youth hunting license costs $7.`,
     about: ["Texas youth hunting", "Texas youth-only seasons", "TPWD youth hunts", "youth deer hunting Texas", "youth duck hunting Texas"],
     sections: [
       { heading: "Use the current youth-only season page", paragraphs: ["Youth-only seasons are not one universal statewide calendar. TPWD publishes species-specific and county-specific opportunities, including separate waterfowl zones and East Texas squirrel coverage.", legalReminder], links: [OFFICIAL.youthOnly, OFFICIAL.seasonDates] },
