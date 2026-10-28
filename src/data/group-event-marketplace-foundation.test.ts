@@ -20,7 +20,7 @@ const base: MarketplaceExperience = {
   rotationsConfirmed: false, durationMinutes: 120, setting: 'indoor',
   groupBookingStatus: 'eligible', foodStatus: 'unknown',
   occasions: ['corporate-events', 'team-building'], activities: ['escape-room'],
-  verifiedAmenities: ['parking'],
+  verifiedAmenities: ['parking'], environmentTags: ['indoor'],
   participation: 'independent', participationApprovedAt: null,
   participationEvidenceVerified: false, sponsorshipApprovedAt: null,
   source: { officialUrl: 'https://example.org/groups', lastCheckedAt: '2026-10-28',
@@ -185,4 +185,13 @@ test('a claimed approved timestamp without underlying partner evidence is insuff
     participation: 'participating', participationApprovedAt: '2026-10-28',
     participationEvidenceVerified: false,
   })).includes('Partner participation must be explicitly verified and approved'));
+});
+
+test('environmental attributes require explicitly verified tags', () => {
+  assert.equal(findMarketplaceExperiences([base], { environment: ['waterfront'] }).length, 0);
+  const waterfront = fixture({ environmentTags: ['indoor','waterfront'] });
+  assert.equal(findMarketplaceExperiences([waterfront], { environment: ['waterfront'] }).length, 1);
+  assert(validateMarketplaceExperience(fixture({
+    environmentTags: ['guessed-attribute' as never],
+  })).includes('Unsupported environment tag'));
 });
