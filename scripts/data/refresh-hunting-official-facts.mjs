@@ -40,9 +40,63 @@ export function parsePermitFacts(html) {
   return { seasonYear, aphPermitUsd, limitedPublicUsePermitUsd };
 }
 
+// Compare dated rules inside their actual animal/zone table, not merely
+// dates mentioned elsewhere on TPWD's page. A new or shifted season must
+// stop the automated release and open the existing human-review issue.
+export const SEASON_ROW_CONTRACT_2026 = Object.freeze([
+  {
+    title: 'white-tailed deer general/archery dates',
+    start: 'White-tailed deer season dates',
+    end: 'Upland Game Birds',
+    rows: [
+      'General North Nov. 7, 2026 - Jan. 3, 2027',
+      'South Nov. 7, 2026 - Jan. 17, 2027',
+      'Archery 252 of 254 counties Oct. 3, 2026 - Nov. 6, 2026',
+    ],
+  },
+  {
+    title: 'wild turkey fall/spring zone dates',
+    start: 'Wild Turkey season dates',
+    end: 'Migratory Game Bird',
+    rows: [
+      'Fall North Nov. 7, 2026 - Jan. 3, 2027',
+      'South Nov. 7, 2026 - Jan. 17, 2027',
+      'Spring North Apr. 3, 2027 - May 16, 2027',
+      'South Mar. 20, 2027 - May 2, 2027',
+    ],
+  },
+  {
+    title: 'dove North/Central/South zone dates',
+    start: 'Dove season dates',
+    end: 'Duck season dates',
+    rows: [
+      'Regular North Sep. 1, 2026 - Nov. 8, 2026 & Dec. 18, 2026 - Jan. 7, 2027',
+      'Central Sep. 1, 2026 - Oct. 25, 2026 & Dec. 11, 2026 - Jan. 14, 2027',
+      'South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 21, 2027',
+    ],
+  },
+]);
+
+export function checkSeasonRows(seasonText) {
+  for (const section of SEASON_ROW_CONTRACT_2026) {
+    const start = seasonText.indexOf(section.start);
+    const end = start < 0 ? -1 : seasonText.indexOf(section.end, start + section.start.length);
+    if (start < 0 || end <= start) {
+      throw new Error('TPWD ' + section.title + ' table is missing or restructured; review before updating.');
+    }
+    const body = seasonText.slice(start, end);
+    for (const row of section.rows) {
+      if (!body.includes(row)) {
+        throw new Error('TPWD ' + section.title + ' changed or moved: ' + row + '. Manual verification required.');
+      }
+    }
+  }
+}
+
 export function checkOtherOfficialSources(sourceHtml, seasonYear) {
   const changes = visibleText(sourceHtml.changes);
   const seasons = visibleText(sourceHtml.seasons);
+  checkSeasonRows(seasons);
   const hogs = visibleText(sourceHtml.hogs);
   const areaSearch = visibleText(sourceHtml.areaSearch);
   const required = [

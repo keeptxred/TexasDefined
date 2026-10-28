@@ -26,11 +26,14 @@ test('future season rollover and implausible values stop automatic changes', () 
 test('official rule notices must retain verified key markers', () => {
   const pages = {
     changes: 'Doe Days 21 counties Special White-winged Dove Days Matagorda Wharton unbearded ' + 'source text '.repeat(90),
-    seasons: '2026-27 Hunting Season Dates Dove Duck Turkey Nov. 8, 2026 Jan. 7, 2027 Oct. 25, 2026 Dec. 11, 2026 Jan. 14, 2027 Jan. 21, 2027 ' + 'source text '.repeat(90),
+    seasons: '2026-27 Hunting Season Dates Dove Duck Turkey Nov. 8, 2026 Jan. 7, 2027 Oct. 25, 2026 Dec. 11, 2026 Jan. 14, 2027 Jan. 21, 2027 ' + "White-tailed deer season dates Season Zone Dates General North Nov. 7, 2026 - Jan. 3, 2027 South Nov. 7, 2026 - Jan. 17, 2027 Archery 252 of 254 counties Oct. 3, 2026 - Nov. 6, 2026 Upland Game Birds Wild Turkey season dates Season Zone Dates Fall North Nov. 7, 2026 - Jan. 3, 2027 South Nov. 7, 2026 - Jan. 17, 2027 Spring North Apr. 3, 2027 - May 16, 2027 South Mar. 20, 2027 - May 2, 2027 Migratory Game Bird Dove season dates Season Zone Dates Regular North Sep. 1, 2026 - Nov. 8, 2026 & Dec. 18, 2026 - Jan. 7, 2027 Central Sep. 1, 2026 - Oct. 25, 2026 & Dec. 11, 2026 - Jan. 14, 2027 South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 21, 2027 Duck season dates " + 'source text '.repeat(90),
     hogs: 'Feral Hogs Hunter Education No hunting license is required to hunt feral hogs on private ' + 'source text '.repeat(90),
     areaSearch: 'Search for an Area or Legal Game Legal Game Public Hunting ' + 'source text '.repeat(90),
   };
   assert.doesNotThrow(() => checkOtherOfficialSources(pages, current.seasonYear));
+  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Central Sep. 1, 2026 - Oct. 25, 2026', 'Central Sep. 2, 2026 - Oct. 25, 2026')}, current.seasonYear), /dove North\/Central\/South zone dates/);
+  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Spring North Apr. 3, 2027', 'Spring North Apr. 4, 2027')}, current.seasonYear), /wild turkey fall\/spring zone dates/);
+  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Archery 252 of 254 counties Oct. 3, 2026', 'Archery 252 of 254 counties Oct. 4, 2026')}, current.seasonYear), /white-tailed deer general\/archery dates/);
   assert.throws(() => checkOtherOfficialSources({...pages,changes:pages.changes.replace('Matagorda','another county')}, current.seasonYear), /change notice/);
   assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Jan. 21, 2027', 'Jan. 20, 2027')}, current.seasonYear), /dove-zone dates/);
 });
