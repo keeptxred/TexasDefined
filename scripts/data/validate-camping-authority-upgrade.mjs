@@ -32,6 +32,7 @@ for (const [src,needle] of [
   [read("scripts/data/refresh-camping-alerts.mjs"),"fs.appendFileSync(process.env.GITHUB_OUTPUT"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"sourceOutcome(sources[0]"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"new TPWD closure is published from source text"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"preserveExistingOrder(rows, oldAlerts)"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"unchanged ? previous.checkedAt : day"],
   [health,"schedule:"],
   [health,"audit-camping-guide-freshness.mjs"]

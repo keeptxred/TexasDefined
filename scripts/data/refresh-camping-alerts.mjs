@@ -117,7 +117,22 @@ const sourceOutcome = (source, text, asOf = day) => {
     : REVIEW_NOTICE };
 };
 
+// Preserve published alert order on a no-op source check. Without this,
+ // unchanged records generate spurious bot PRs simply by changing array order.
+function preserveExistingOrder(rows, prior) {
+  const order = new Map(prior.map((item, index) => [item.destinationSlug, index]));
+  return [...rows].sort((a,b) => {
+    const ai = order.get(a.destinationSlug) ?? Number.MAX_SAFE_INTEGER;
+    const bi = order.get(b.destinationSlug) ?? Number.MAX_SAFE_INTEGER;
+    return ai - bi;
+  });
+}
 if (process.argv.includes("--self-test")) {
+  const ordered = preserveExistingOrder([
+    {destinationSlug:"goose"}, {destinationSlug:"big"}, {destinationSlug:"palo"}
+  ], [{destinationSlug:"goose"}, {destinationSlug:"palo"}, {destinationSlug:"big"}]);
+  assert.deepEqual(ordered.map(row => row.destinationSlug), ["goose","palo","big"],
+    "no-op source checks must retain the published array order");
   const fixtures = [
     "Park Alerts Burn Ban Aug. 11, 2026 - The park is under a burn ban. Water Outage Oct. 23, 2026 - Water is out at the Bayfront camping area. Construction Alerts Expect intermittent closures for sites 1 - 24",
     "Park Alerts Trail Closures Oct. 20, 2026 - The backcountry trails may have intermittent closures. Park Closures The park will be closed on the following dates: 12:30 p.m. on Oct. 12 to 2 p.m. on Oct. 16 12:30 p.m. on Nov. 2 to 2 p.m. on Nov. 6 12:30 p.m. on Nov. 30 to 2 p.m. on Dec. 4 12:30 p.m. on Jan. 25 to 2 p.m. on Jan. 29 Only permitted hunters will be allowed on these dates",
@@ -185,7 +200,7 @@ for (const source of sources) {
     notice, checkedAt: unchanged ? previous.checkedAt : day, status });
   console.log(source.parkName + ": " + (status === "confirmed" ? "confirmed" : "changed — needs review"));
 }
-const output = "/** Generated from official TPWD alert pages; do not manually restamp verified dates. */\nexport const CAMPING_OPERATIONAL_ALERTS = " + JSON.stringify(rows, null, 2) + " as const;\n";
+const output = "/** Generated from official TPWD alert pages; do not manually restamp verified dates. */\nexport const CAMPING_OPERATIONAL_ALERTS = " + JSON.stringify(preserveExistingOrder(rows, oldAlerts), null, 2) + " as const;\n";
 if (process.argv.includes("--write")) {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   if (!fs.existsSync(outputPath) || fs.readFileSync(outputPath, "utf8") !== output) fs.writeFileSync(outputPath, output);
