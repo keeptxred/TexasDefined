@@ -2615,7 +2615,7 @@ if(batch009Certified) {
       [editorial,facts[i],'distinct first-party coaching evidence'],
       [loader,"'"+slug+"'",'conditional SSR loader'],
       [identities,"slug: '"+slug+"'",'source-backed school mascot'],
-      [team,"'"+slug+"': '"+counties[i]+"'",'school's physical county'],
+      [team,"'"+slug+"': '"+counties[i]+"'",'school campus physical county'],
       [county,"slug: '"+slug+"'",'reciprocal county card'],
       [checker,"'"+slug+"'",'actual Chrome school target'],
     ]) if(!source.includes(marker)) errors.push('Batch010 missing '+label+': '+slug);
