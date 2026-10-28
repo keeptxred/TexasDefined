@@ -2,6 +2,27 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const censusCountyVintage = JSON.parse(readFileSync(new URL('../../src/data/generated/texas-county-growth-current.json', import.meta.url), 'utf8')).vintage;
 
+const currentBls = JSON.parse(readFileSync(new URL('../../src/data/generated/texas-metro-payrolls-current.json', import.meta.url), 'utf8'));
+assert.equal(currentBls.rows?.length, 13, 'Verified source must include all 13 Texas BLS metros');
+const currentBlsReleaseLabel = new Date(currentBls.releaseMonth + '-01T12:00:00Z')
+  .toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const currentBlsHubPayrolls = [
+  'Dallas–Fort Worth–Arlington',
+  'Houston–Pasadena–The Woodlands',
+  'Austin–Round Rock–San Marcos',
+  'San Antonio–New Braunfels',
+].map(label => {
+  const row = currentBls.rows.find(item => item.label === label);
+  assert.ok(row && Number.isInteger(row.value), 'BLS source missing the expected hub metro: ' + label);
+  return { label, displayed: row.value.toLocaleString('en-US') };
+});
+
+const currentTdi = JSON.parse(readFileSync(new URL('../../src/data/generated/tdi-homeowners-current.json', import.meta.url), 'utf8'));
+const latestTdi = currentTdi.rows?.at(-1);
+assert.ok(latestTdi && Number.isInteger(latestTdi.premium) && latestTdi.premium > 0,
+  'Official maintained TDI premium series must have a valid latest premium');
+const currentTdiPremiumLabel = '$' + latestTdi.premium.toLocaleString('en-US');
+
 // Bounded public HTTP acceptance, run by the existing post-deployment smoke workflow.
 // No Cloudflare Browser Rendering, direct cache purge, or authenticated API calls.
 const domain = 'https://texasdefined.com';
@@ -73,12 +94,17 @@ function validateHub(body, origin) {
   for (const phrase of [
     'Texas at a glance',
     'Major Texas metro payrolls',
+    'Texas Metro Nonfarm Payroll Employment — ' + currentBlsReleaseLabel,
     'Texas Defined insurance research',
     'not an exhaustive list of every incorporated municipality',
-    '$3,489',
+    currentTdiPremiumLabel,
     'Houston–Pasadena–The Woodlands',
   ]) {
     assert.ok(body.includes(phrase), origin + ' missing new hub content: ' + phrase);
+  }
+  for (const { label, displayed } of currentBlsHubPayrolls) {
+    assert.ok(body.includes(label), origin + ' missing BLS metro: ' + label);
+    assert.ok(body.includes(displayed), origin + ' has stale official BLS payroll value for ' + label);
   }
   assert.ok(!body.includes('DFW nonfarm payrolls'), origin + ' still serves old snapshot');
   for (const { path } of csvSpecs) {
