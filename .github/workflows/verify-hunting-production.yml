@@ -6,6 +6,11 @@ on:
       - '.github/workflows/verify-hunting-production.yml'
       - 'scripts/data/verify-hunting-production.mjs'
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
 
 permissions:
   contents: read
