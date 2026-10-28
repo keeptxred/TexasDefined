@@ -58,10 +58,6 @@ jobs:
         run: |
           node scripts/data/sync-texas-deer-seasons.mjs
           node scripts/data/verify-texas-deer-regulations.mjs
-      - name: Verify live deer guide, all eight dates, image and structured data
-        id: live
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: node scripts/data/verify-texas-deer-production.mjs
       - name: Detect data changes
         if: success() && github.event_name != 'pull_request'
         id: changes
@@ -88,6 +84,10 @@ jobs:
           gh pr create --base main --head "$branch" \
             --title 'Refresh verified TPWD deer season dates' \
             --body 'Automated same-season deer date correction. Both official TPWD calendars agree on all eight ranges. Only src/data/hunting/deer-season-dates.json is editable by this job. The separate, trusted finisher validates the exact diff, full branch CI and protected merge gate before auto-merge and deploy. New season years, source drift and non-date regulatory changes fail closed and require review.'
+      - name: Verify live deer guide, all eight dates, image and structured data
+        id: live
+        if: success() && steps.changes.outputs.changed == 'false' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        run: node scripts/data/verify-texas-deer-production.mjs
       - name: Open one review issue on source, parsing or scheduling failure
         if: failure() && steps.official.outcome == 'failure' && github.event_name != 'pull_request'
         env:
