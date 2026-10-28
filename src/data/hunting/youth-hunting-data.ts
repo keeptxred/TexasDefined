@@ -3,6 +3,29 @@
 export const YOUTH_HUNTING_LAST_CHECKED = "2026-10-28";
 export const YOUTH_HUNTING_SEASON_YEAR = "2026–27";
 
+/** One verified visual shared by the page, Open Graph and its Article schema.
+ * USFWS public-domain photograph is illustrative, not a claimed Texas location. */
+export const YOUTH_HUNTING_IMAGE = {
+  src: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/2023-11/850.jpg?itok=FO52tneP",
+  alt: "A young hunter wearing blaze orange stands in an open field beneath a wide sky",
+  width: 1300,
+  height: 899,
+  credit: "Tony Ifland / U.S. Fish and Wildlife Service",
+  source: "https://www.fws.gov/media/youth-hunter",
+  license: "Public domain",
+} as const;
+
+/** Canonical six page anchors; navigation and ItemList schema must use this one set. */
+export const YOUTH_HUNTING_SECTIONS = [
+  { id: "youth-season-calendar", label: "Season calendar" },
+  { id: "youth-eligibility", label: "Age & education" },
+  { id: "youth-access", label: "Where to hunt" },
+  { id: "youth-checklist", label: "First-hunt checklist" },
+  { id: "youth-harvest", label: "Harvest rules" },
+  { id: "youth-faq", label: "FAQs & sources" },
+] as const;
+
+
 export const YOUTH_HUNTING_SOURCES = {
   youthOnly: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/season-types/youth-only",
   seasonDates: `https://tpwd.texas.gov/regulations/outdoor-annual/hunting/${YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)}-${Number(YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)) + 1}-hunting-season-dates`,

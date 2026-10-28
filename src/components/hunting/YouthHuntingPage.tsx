@@ -1,9 +1,13 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
+import { TEXAS_COUNTIES } from "@/data/texas-places";
+import { texasTodayKey, youthSeasonWindows } from "@/data/hunting/youth-hunting-status";
 import {
   YOUTH_HUNTING_FAQ,
+  YOUTH_HUNTING_IMAGE,
+  YOUTH_HUNTING_SECTIONS,
   YOUTH_HUNTING_LAST_CHECKED,
   YOUTH_HUNTING_SEASON_YEAR,
   YOUTH_HUNTING_SEASONS,
@@ -14,17 +18,21 @@ function Official({ href, children }: { href: string; children: ReactNode }) {
   return <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">{children} ↗</a>;
 }
 
-const nav = [
-  { label: "Season calendar", href: "#youth-season-calendar" },
-  { label: "Age & education", href: "#youth-eligibility" },
-  { label: "Where to hunt", href: "#youth-access" },
-  { label: "First-hunt checklist", href: "#youth-checklist" },
-  { label: "Harvest rules", href: "#youth-harvest" },
-  { label: "FAQs & sources", href: "#youth-faq" },
-];
+function SeasonDateWindows({ dates }: { dates: string }) {
+  return <div className="space-y-2">
+    {youthSeasonWindows(dates).map(({ label, status }) => <div key={label} className="flex flex-wrap items-center gap-x-3 gap-y-1">
+      <span className="font-semibold">{label}</span>
+      <span className={"border px-2 py-0.5 text-xs font-medium " + (status === "Ended" ? "border-border text-muted-foreground" : status === "In progress" ? "border-primary text-primary" : "border-border text-foreground")}>{status}</span>
+    </div>)}
+  </div>;
+}
 
 export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTopic }) {
-  const seasonExpired = Date.now() >= Date.UTC(Number(YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)) + 1, 8, 1);
+  const seasonExpired = texasTodayKey() >= (Number(YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)) + 1) * 10000 + 901;
+  const [countySlug, setCountySlug] = useState("");
+  const selectedCounty = TEXAS_COUNTIES.find((county) => county.slug === countySlug);
+  // TPWD omits the space in La Salle although TexasDefined uses a hyphenated display slug.
+  const tpwdCountySlug = countySlug === "la-salle" ? "lasalle" : countySlug;
   return <main id="main-content">
     <section className="border-b border-border bg-muted/30 py-12 md:py-16">
       <Container>
@@ -34,6 +42,10 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
         <p className="eyebrow text-primary">Texas family hunting guide · {YOUTH_HUNTING_SEASON_YEAR}</p>
         <h1 className="mt-3 max-w-5xl font-display text-4xl leading-tight md:text-5xl">{topic.title}</h1>
         <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">Exact youth-only deer, turkey, duck and squirrel dates, age requirements, license costs, public-land routes, mentored hunts and a practical checklist for a first Texas hunt.</p>
+        <figure className="mt-7 max-w-5xl">
+          <img src={YOUTH_HUNTING_IMAGE.src} alt={YOUTH_HUNTING_IMAGE.alt} width={YOUTH_HUNTING_IMAGE.width} height={YOUTH_HUNTING_IMAGE.height} decoding="async" loading="eager" className="w-full object-cover" />
+          <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">Illustrative U.S. youth-hunting photograph (not a Texas location). <a href={YOUTH_HUNTING_IMAGE.source} rel="noopener noreferrer" target="_blank" className="underline">{YOUTH_HUNTING_IMAGE.credit}</a> · {YOUTH_HUNTING_IMAGE.license}.</figcaption>
+        </figure>
         <div className="mt-6 flex flex-wrap gap-3 text-sm">
           <a href="#youth-season-calendar" className="inline-flex bg-primary px-5 py-3 font-semibold text-primary-foreground">See {YOUTH_HUNTING_SEASON_YEAR} season dates ↓</a>
           <Official href={YOUTH_HUNTING_SOURCES.youthOnly}>TPWD youth-only regulations</Official>
@@ -56,7 +68,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
           </div>
         </div>
         <nav aria-label="On this page" className="mt-7 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-5 text-sm">
-          {nav.map((item) => <a key={item.href} href={item.href} className="font-semibold text-primary underline decoration-primary/30 underline-offset-4">{item.label}</a>)}
+          {YOUTH_HUNTING_SECTIONS.map((item) => <a key={item.id} href={"#" + item.id} className="font-semibold text-primary underline decoration-primary/30 underline-offset-4">{item.label}</a>)}
         </nav>
       </Container>
     </section>
@@ -66,18 +78,41 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
         <p className="eyebrow text-primary">Season calendar</p>
         <h2 className="mt-2 font-display text-3xl md:text-4xl">Texas youth-only hunting dates for {YOUTH_HUNTING_SEASON_YEAR}</h2>
         <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">These are TPWD's published season windows, not a statewide permission to hunt. The species, individual county, unit, bag limit, legal take, landowner permission and public-land notices still determine whether a particular hunt is lawful. These dates expire after the {YOUTH_HUNTING_SEASON_YEAR} license year; do not reuse them for later seasons.</p>
-        <div className="mt-7 overflow-x-auto border border-border">
+        <div className="mt-7 border border-border bg-surface p-5">
+          <h3 className="font-display text-xl">Check youth hunting rules for your county</h3>
+          <p className="mt-2 text-sm leading-7 text-muted-foreground">Select one of Texas's 254 counties to open that county's official TPWD hunting regulations. Check each species's Youth-Only entries, any split zones, legal means, limits and property access. A statewide date alone does not mean the selected county is open.</p>
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+            <label htmlFor="youth-hunting-county" className="block flex-1 text-sm font-semibold">Texas county
+              <select id="youth-hunting-county" value={countySlug} onChange={(event) => setCountySlug(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-3 text-base">
+                <option value="">Select your county</option>
+                {TEXAS_COUNTIES.map((county) => <option key={county.code} value={county.slug}>{county.name}</option>)}
+              </select>
+            </label>
+            {selectedCounty ? <a href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + tpwdCountySlug} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Read official {selectedCounty.name} rules ↗</a> : <span className="inline-flex min-h-12 items-center justify-center border border-border px-5 py-3 text-sm text-muted-foreground">Choose a county to view TPWD rules</span>}
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">County listings are maintained by TPWD; TexasDefined does not independently infer county eligibility.</p>
+        </div>
+        <div className="mt-7 hidden overflow-x-auto border border-border md:block">
           <table className="w-full border-collapse text-left text-sm" style={{ minWidth: 720 }}>
             <caption className="sr-only">{YOUTH_HUNTING_SEASON_YEAR} Texas youth-only hunting dates by species and zone</caption>
             <thead className="bg-muted/30 text-foreground"><tr><th scope="col" className="px-4 py-4">Species</th><th scope="col" className="px-4 py-4">Area / opportunity</th><th scope="col" className="px-4 py-4">Dates</th><th scope="col" className="px-4 py-4">Important qualification</th></tr></thead>
             <tbody>
               {YOUTH_HUNTING_SEASONS.map((entry) => <tr key={entry.species + entry.region} className="border-t border-border align-top">
                 <th scope="row" className="px-4 py-4 font-semibold">{entry.species}</th><td className="px-4 py-4">{entry.region}</td>
-                <td className="whitespace-nowrap px-4 py-4 font-semibold">{entry.dates}</td>
+                <td className="px-4 py-4"><SeasonDateWindows dates={entry.dates} /></td>
                 <td className="px-4 py-4 leading-6 text-muted-foreground">{entry.detail} <a className="font-semibold text-primary underline" href={entry.source} rel="noopener noreferrer" target="_blank">Official rule ↗</a></td>
               </tr>)}
             </tbody>
           </table>
+        </div>
+        <div className="mt-6 space-y-4 md:hidden" aria-label="Youth-only season dates by species and zone">
+          {YOUTH_HUNTING_SEASONS.map((entry) => <article key={entry.species + entry.region} className="border border-border bg-surface p-5">
+            <h3 className="font-display text-xl">{entry.species}</h3>
+            <p className="mt-1 text-sm font-semibold text-muted-foreground">{entry.region}</p>
+            <div className="mt-4"><SeasonDateWindows dates={entry.dates} /></div>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">{entry.detail}</p>
+            <p className="mt-3 text-sm"><Official href={entry.source}>Official TPWD rule</Official></p>
+          </article>)}
         </div>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong>County exceptions matter:</strong> Fall turkey youth dates differ for Brooks, Kenedy, Kleberg and Willacy counties; spring youth turkey dates are limited to counties meeting TPWD criteria. Youth-only dates are not the same as ordinary deer special-late dates, general dove season or ordinary waterfowl season. See <Official href={YOUTH_HUNTING_SOURCES.seasonDates}>TPWD season dates</Official>.</p>
       </Container>
@@ -148,6 +183,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
         ["Texas Youth Hunting Program", YOUTH_HUNTING_SOURCES.youthProgram],
         ["Deer tagging and reporting", YOUTH_HUNTING_SOURCES.harvest],
       ].map(([label, href]) => <div key={href} className="border-b border-border pb-2"><Official href={href}>{label}</Official></div>)}</div></div>
+        <p className="mt-6 text-sm leading-7 text-muted-foreground">Published and maintained by the <strong>TexasDefined editorial team</strong>. Found a changed regulation or a broken official link? <a className="font-semibold text-primary underline" href="mailto:admin@texasdefined.com?subject=Youth%20hunting%20guide%20correction">Send a correction</a>; include the county, species, source and date.</p>
         <div className="mt-12 border-t border-border pt-8"><h2 className="font-display text-2xl">Continue planning on TexasDefined</h2><div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm">{[
           ["Texas hunting hub", "/hunting"], ["Hunting license", "/hunting/texas-hunting-license"], ["Hunter education", "/hunting/hunter-education"], ["Public hunting", "/hunting/public-hunting"], ["Drawn hunts", "/hunting/drawn-hunts"], ["White-tailed deer", "/hunting/texas-deer-hunting"], ["Wild turkey", "/hunting/turkey-hunting"], ["Waterfowl", "/hunting/waterfowl-hunting"], ["Browse counties", "/browse/counties"],
         ].map(([label, href]) => <Link key={href} to={href} className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{label}</Link>)}</div></div>

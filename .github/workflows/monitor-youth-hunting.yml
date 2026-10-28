@@ -11,6 +11,8 @@ on:
       - 'scripts/data/validate-youth-hunting.mjs'
       - 'scripts/data/refresh-youth-hunting-calendar.mjs'
       - 'scripts/data/refresh-youth-hunting-calendar.test.mjs'
+      - 'scripts/data/youth-hunting-calendar-status.test.mjs'
+      - 'src/data/hunting/youth-hunting-status.ts'
       - '.github/workflows/monitor-youth-hunting.yml'
       - '.github/workflows/finish-youth-hunting-refresh.yml'
   schedule:
@@ -38,7 +40,7 @@ jobs:
           node-version: '24'
       - name: Test official youth-season importer and editorial contracts
         run: |
-          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs
+          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs scripts/data/youth-hunting-calendar-status.test.mjs
           node scripts/data/validate-youth-hunting.mjs
 
   refresh:
@@ -60,12 +62,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs
+          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs scripts/data/youth-hunting-calendar-status.test.mjs
           node scripts/data/validate-youth-hunting.mjs
           node scripts/data/validate-youth-hunting.mjs --online
           node scripts/data/refresh-youth-hunting-calendar.mjs --write
           node scripts/data/validate-youth-hunting.mjs
-          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs
+          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs scripts/data/youth-hunting-calendar-status.test.mjs
       - name: File one issue for changed rules or failed official source
         if: steps.source.outcome == 'failure'
         env:

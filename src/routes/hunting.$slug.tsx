@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { YOUTH_HUNTING_IMAGE } from "@/data/hunting/youth-hunting-data";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/hunting/$slug")({
@@ -25,6 +26,14 @@ export const Route = createFileRoute("/hunting/$slug")({
           imageType: "image/jpeg",
           imageWidth: 1300,
           imageHeight: 863,
+        } : loaderData.slug === "youth-hunting" ? {
+          type: "article" as const,
+          image: YOUTH_HUNTING_IMAGE.src,
+          imageAlt: YOUTH_HUNTING_IMAGE.alt,
+          imageType: "image/jpeg",
+          imageWidth: YOUTH_HUNTING_IMAGE.width,
+          imageHeight: YOUTH_HUNTING_IMAGE.height,
+          modifiedTime: loaderData.reviewedOn ? loaderData.reviewedOn + "T12:00:00Z" : undefined,
         } : {}),
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
