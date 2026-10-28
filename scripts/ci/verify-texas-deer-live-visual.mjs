@@ -69,12 +69,20 @@ try {
       verify('eleven-section guide navigation', await page.locator('#deer-guide-11').count() === 1);
       const countySelect = page.locator('#deer-tpwd-county');
       verify('all 254 counties listed in the official-rules finder', await countySelect.locator('option').count() === 255);
+      // The first HTML response is server-rendered. A mobile browser can dispatch
+      // select events before React has attached the handler if we only wait for
+      // DOMContentLoaded. Require the completed page load before testing changes.
+      await page.waitForLoadState('load', { timeout: 30000 });
       await countySelect.selectOption('la-salle');
-      verify('TPWD exceptional La Salle route links correctly',
-        await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/lasalle/"]').count() === 1);
+      const laSalleLink = page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/lasalle/"]');
+      const laSalleShown = await laSalleLink.waitFor({ state: 'attached', timeout: 8000 })
+        .then(() => true, () => false);
+      verify('TPWD exceptional La Salle route links correctly', laSalleShown);
       await countySelect.selectOption('tarrant');
-      verify('TPWD county rules link responds to selection',
-        await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/tarrant/"]').count() === 1);
+      const tarrantLink = page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/tarrant/"]');
+      const tarrantShown = await tarrantLink.waitFor({ state: 'attached', timeout: 8000 })
+        .then(() => true, () => false);
+      verify('TPWD county rules link responds to selection', tarrantShown);
       const photo = page.locator('img[alt^="Close view of a white-tailed buck"]').first();
       verify('exact licensed deer image is present', await photo.count() === 1);
       if (await photo.count()) {
