@@ -187,7 +187,11 @@ async function secureOfficeUrl(raw) {
       // HEAD-only 403 is common for otherwise public offices. A same-URL
       // bounded GET must still independently succeed, without a challenge.
       response = await fetch(url.toString(), { ...options, method: 'GET' });
-      if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') return null;
+      if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') {
+        console.warn('::notice title=County HTTPS GET rejected::Host '+url.hostname+
+          ', GET status '+response.status+', challenge='+Boolean(response.headers.get('cf-mitigated')));
+        return null;
+      }
       // Reject successful HTTP responses which are actually authentication
       // gateways or account-lockout pages. A real office landing page should
       // be public HTML rather than a login or binary attachment.
@@ -197,10 +201,18 @@ async function secureOfficeUrl(raw) {
       if (/<title[^>]*>[ ]*(?:log[ ]*in|sign[ ]*in|access[ ]*denied|unauthorized|forbidden|account[ ]*locked)/i.test(publicHtml) ||
           /<input[^>]+type=['"]password['"]/i.test(publicHtml)) return null;
     }
-    if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') return null;
+    if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') {
+      console.warn('::notice title=County HTTPS HEAD rejected::Host '+url.hostname+
+        ', status '+response.status+', challenge='+Boolean(response.headers.get('cf-mitigated')));
+      return null;
+    }
     const resolved = new URL(response.url);
     return normalizeVerifiedCountyOfficeUrl(resolved.toString());
-  } catch { return null; }
+  } catch (error) {
+    console.warn('::notice title=County HTTPS source check failed::Host '+url.hostname+
+      ', error '+(error instanceof Error ? error.name : 'Unknown'));
+    return null;
+  }
 }
 
 function parseCountyDirectory(html) {
