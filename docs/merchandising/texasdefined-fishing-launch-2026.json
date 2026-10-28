@@ -99,7 +99,7 @@
     "etsy": "Create 13th tag with real authorized Etsy seller-management interface; Heartland currently supports max 12 tags. Ensure separate shop section Fishing Shirts if it exists or create without duplication when seller-management available.",
     "prevent_duplicates": "Reconcile Printify/Etsy/TD records before any retries. No new job IDs on uncertain operations."
   },
-  "collection_status": "PRINTIFY_CREATED_TEXASDEFINED_ACTIVE_ETSY_13_TAGS_VERIFIED_PARTNER_SECTION_AI_DISCLOSURE_PENDING",
+  "collection_status": "PRINTIFY_CREATED_TEXASDEFINED_ACTIVE_ETSY_13_TAGS_AND_AI_DISCLOSED_PARTNER_SECTION_PENDING",
   "designs": [
     {
       "id": "TD-FISH-01",
@@ -223,7 +223,10 @@
         "seller_section_verified": false,
         "tags_verified_at": "2026-10-27",
         "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
-        "ai_artwork_disclosure_verified": false
+        "ai_artwork_disclosure_verified": true,
+        "ai_artwork_disclosure_verified_at": "2026-10-27",
+        "ai_artwork_disclosure_text": "Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.",
+        "description_entity_defect_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -244,8 +247,7 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy Fishing Shirts seller section not verified",
-        "Etsy AI-assistance disclosure must be added by a seller-side edit"
+        "Etsy Fishing Shirts seller section not verified"
       ],
       "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
@@ -371,7 +373,10 @@
         "seller_section_verified": false,
         "tags_verified_at": "2026-10-27",
         "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
-        "ai_artwork_disclosure_verified": false
+        "ai_artwork_disclosure_verified": true,
+        "ai_artwork_disclosure_verified_at": "2026-10-27",
+        "ai_artwork_disclosure_text": "Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.",
+        "description_entity_defect_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -392,8 +397,7 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy Fishing Shirts seller section not verified",
-        "Etsy AI-assistance disclosure must be added by a seller-side edit"
+        "Etsy Fishing Shirts seller section not verified"
       ],
       "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
@@ -519,7 +523,10 @@
         "seller_section_verified": false,
         "tags_verified_at": "2026-10-27",
         "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
-        "ai_artwork_disclosure_verified": false
+        "ai_artwork_disclosure_verified": true,
+        "ai_artwork_disclosure_verified_at": "2026-10-27",
+        "ai_artwork_disclosure_text": "Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.",
+        "description_entity_defect_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -540,8 +547,7 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy Fishing Shirts seller section not verified",
-        "Etsy AI-assistance disclosure must be added by a seller-side edit"
+        "Etsy Fishing Shirts seller section not verified"
       ],
       "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
@@ -667,7 +673,10 @@
         "seller_section_verified": false,
         "tags_verified_at": "2026-10-27",
         "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
-        "ai_artwork_disclosure_verified": false
+        "ai_artwork_disclosure_verified": true,
+        "ai_artwork_disclosure_verified_at": "2026-10-27",
+        "ai_artwork_disclosure_text": "Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.",
+        "description_entity_defect_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -688,8 +697,7 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy Fishing Shirts seller section not verified",
-        "Etsy AI-assistance disclosure must be added by a seller-side edit"
+        "Etsy Fishing Shirts seller section not verified"
       ],
       "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
@@ -815,7 +823,10 @@
         "seller_section_verified": false,
         "tags_verified_at": "2026-10-27",
         "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
-        "ai_artwork_disclosure_verified": false
+        "ai_artwork_disclosure_verified": true,
+        "ai_artwork_disclosure_verified_at": "2026-10-27",
+        "ai_artwork_disclosure_text": "Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.",
+        "description_entity_defect_verified": true
       },
       "texasdefined": {
         "sync_verified": true,
@@ -837,7 +848,7 @@
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
         "Etsy Fishing Shirts seller section not verified",
-        "Etsy AI-assistance disclosure must be added by a seller-side edit"
+        "Sunrise Cast first sentence still contains double-escaped apostrophe in Etsy shopper catalog; corrective PR #3165 pending"
       ],
       "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
@@ -963,7 +974,10 @@
         "seller_section_verified": false,
         "tags_verified_at": "2026-10-27",
         "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
-        "ai_artwork_disclosure_verified": false
+        "ai_artwork_disclosure_verified": true,
+        "ai_artwork_disclosure_verified_at": "2026-10-27",
+        "ai_artwork_disclosure_text": "Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.",
+        "description_entity_defect_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -984,8 +998,7 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy Fishing Shirts seller section not verified",
-        "Etsy AI-assistance disclosure must be added by a seller-side edit"
+        "Etsy Fishing Shirts seller section not verified"
       ],
       "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     }
@@ -1143,6 +1156,11 @@
       "date": "2026-10-27",
       "check": "Live Etsy SEO tags corrected and read back after PR #2966",
       "result": "All six original Etsy listing IDs returned 13 unique descriptive tags each and no hp-* tags; repaired using existing Printify shop and Heartland original jobs, not new listings. The future Heartland publisher now requires exactly 13 tags (PR #2968). $28 products and variants preserved. Etsy partner field remains unassigned on all six; seller-section placement and AI artwork disclosure remain unverified at this checkpoint."
+    },
+    {
+      "date": "2026-10-27",
+      "check": "Live Etsy AI-assisted artwork disclosure after KTR PR #3161",
+      "result": "All six original Etsy listings were independently read through Etsy buyer catalog. Each description includes exact AI image-generation assistance disclosure and still has 13 descriptive tags. All six continue reporting has_production_partners=false; Etsy partner metadata not resolved by descriptive text. Sunrise Cast still showed an encoded apostrophe after first selective description publish, tracked in KTR PR #3165."
     }
   ],
   "release_approved_at": "2026-10-24",

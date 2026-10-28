@@ -29,15 +29,15 @@ As of Oct 27, Etsy returns `has_production_partners=false` for each listing. Thi
 
 Official [Etsy production-partner instructions](https://help.etsy.com/hc/en-us/articles/360000336547-Working-with-Production-Partners-on-Etsy).
 
-## Outstanding 2 — AI-created original artwork disclosure in descriptions
+## Verified: AI-assisted artwork disclosure in six Etsy descriptions
 
-All six artwork illustrations used AI image-generation assistance. Etsy requires the listing description to disclose AI creation. As audited Oct 27, **none of the six live Etsy descriptions mentions AI**; the Sunrise Cast description also reads `it&amp;#39;s` (double-escaped apostrophe). [Etsy Creativity Standards](https://www.etsy.com/legal/creativity).
-
-An in-place **description-only** Printify-to-Etsy repair is being implemented as [KTR PR #3161](https://github.com/keeptxred/texas-heartland-hub/pull/3161). Verify its production deploy and all six *live Etsy descriptions* after the six original Heartland `check_publication` jobs run before changing this section to complete. Required disclosure text:
+Completed **October 27, 2026** using the original six Heartland jobs and a selective `description:true` Printify-to-Etsy publication. Live Etsy buyer reads returned the original six listing IDs, all **13/13 SEO tags**, and the following sentence in every description:
 
 > Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.
 
-Never claim the production partner is assigned in Etsy merely because this paragraph appears.
+Implemented in [KTR PR #3161](https://github.com/keeptxred/texas-heartland-hub/pull/3161). **This text does not change Etsy's actual production partner setting, which remains unassigned on all six.**
+
+**Remaining copy defect:** The Sunrise Cast description still showed a double-escaped apostrophe (`it&amp;#39;s`) even after the first description update. A one-listing-only wording correction is in [KTR PR #3165](https://github.com/keeptxred/texas-heartland-hub/pull/3165). Keep this item open until the *live Etsy text*, not merely the Printify response, displays the corrected sentence.
 
 ## Outstanding 3 — Fishing Shirts shop section
 
