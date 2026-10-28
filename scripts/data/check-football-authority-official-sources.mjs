@@ -70,14 +70,30 @@ export function selectSourceCohort(data) {
 
 export async function probeSource(row, opts) {
   const { allowed, timeoutMs, maxBytes } = opts;
-  const res = await fetch(row.url, {
-    redirect: 'follow',
-    signal: AbortSignal.timeout(timeoutMs),
-    headers: { 'Accept': 'text/html,application/pdf;q=0.8', 'User-Agent': 'TexasDefinedOfficialSourceMonitor/1.0 (+https://texasdefined.com/)' },
-  });
+  // Validate every hop BEFORE requesting it. redirect:'follow' would first
+  // fetch an off-allowlist URL and only then reveal the final hostname.
+  let nextUrl = new URL(row.url);
+  let res;
+  for (let hop = 0; hop <= 4; hop++) {
+    if (nextUrl.protocol !== 'https:' || !allowed.has(nextUrl.hostname) ||
+        nextUrl.username || nextUrl.password || nextUrl.hash || nextUrl.port)
+      throw Error('Source redirected to an unauthorized official host or URL');
+    res = await fetch(nextUrl, {
+      redirect: 'manual',
+      signal: AbortSignal.timeout(timeoutMs),
+      headers: { 'Accept': 'text/html,application/pdf;q=0.8', 'User-Agent': 'TexasDefinedOfficialSourceMonitor/1.0 (+https://texasdefined.com/)' },
+    });
+    if (![301,302,303,307,308].includes(res.status)) break;
+    const location = res.headers.get('location');
+    if (!location) throw Error('Official source redirect missing Location');
+    if (hop === 4) throw Error('Official source exceeds four allowed redirects');
+    const destination = new URL(location, nextUrl);
+    await res.body?.cancel();
+    nextUrl = destination;
+  }
   const finalUrl = new URL(res.url);
   if (!allowed.has(finalUrl.hostname) || finalUrl.protocol !== 'https:')
-    throw Error('Source unexpectedly redirected away from an approved official domain');
+    throw Error('Source unexpectedly served from outside an approved official domain');
   if (!res.ok) throw Error('Official source HTTP ' + res.status);
   const contentType = (res.headers.get('content-type') || '').toLowerCase();
   if (!(contentType.includes('html') || contentType.includes('pdf') || contentType.includes('text/')))
