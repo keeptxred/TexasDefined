@@ -154,6 +154,7 @@ for (const feature of [
   'group: texasdefined-county-property-sync',
   'cancel-in-progress: false',
   'node scripts/data/sync-county-property-data.mjs',
+  'node --test scripts/data/county-property-snapshot-codec.test.mjs',
   'node scripts/data/validate-county-property-enrichment.mjs',
   'node scripts/data/validate-generated-page-quality.mjs',
   'node scripts/data/validate-entity-template-quality.mjs',
