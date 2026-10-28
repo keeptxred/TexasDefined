@@ -4,9 +4,9 @@ import path from "node:path";
 const outputPath = path.resolve("src/data/camping/official-alerts.generated.ts");
 const day = new Date().toISOString().slice(0, 10);
 const windows = [
-  { start: "2026-11-02", end: "2026-11-06", label: "November 2–6, 2026" },
-  { start: "2026-11-30", end: "2026-12-04", label: "November 30–December 4, 2026" },
-  { start: "2027-01-25", end: "2027-01-29", label: "January 25–29, 2027" },
+  { start: "2026-11-02", end: "2026-11-06", label: "November 2–6, 2026", pattern: /Nov\. 2 to 2 p\.m\. on Nov\. 6/i },
+  { start: "2026-11-30", end: "2026-12-04", label: "November 30–December 4, 2026", pattern: /Nov\. 30 to 2 p\.m\. on Dec\. 4/i },
+  { start: "2027-01-25", end: "2027-01-29", label: "January 25–29, 2027", pattern: /Jan\. 25 to 2 p\.m\. on Jan\. 29/i },
 ];
 const sources = [
   {
@@ -18,9 +18,9 @@ const sources = [
   {
     destinationSlug: "enchanted-rock-state-natural-area", parkName: "Enchanted Rock State Natural Area",
     sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock/alert",
-    required: [/Park Closures/i, /Nov\. 2 to 2 p\.m\. on Nov\. 6/i, /backcountry trails may have intermittent closures/i],
-    notice: () => {
-      const remaining = windows.filter(w => w.end >= day).map(w => w.label);
+    required: [/Park Closures/i, /backcountry trails may have intermittent closures/i],
+    notice: text => {
+      const remaining = windows.filter(w => w.end >= day && w.pattern.test(text)).map(w => w.label);
       return remaining.length ? "TPWD lists scheduled park closures for " + remaining.join("; ") + ". Backcountry trails may close intermittently." : "Previously listed closure windows have elapsed. Check TPWD for the latest access and backcountry-trail restrictions.";
     },
   },
@@ -47,8 +47,10 @@ for (const source of sources) {
   } finally { clearTimeout(timer); }
   const text = normalize(html);
   if (!/Park Alerts?|Park Alert/i.test(text) || text.length < 700) throw new Error("Invalid official alert page: " + source.sourceUrl);
-  const confirmed = source.required.every(re => re.test(text));
-  const notice = confirmed ? (typeof source.notice === "function" ? source.notice() : source.notice)
+  const confirmed = source.required.every(re => re.test(text))
+    && (source.destinationSlug !== "enchanted-rock-state-natural-area"
+      || windows.some(w => w.end >= day && w.pattern.test(text)));
+  const notice = confirmed ? (typeof source.notice === "function" ? source.notice(text) : source.notice)
     : "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.";
   rows.push({ destinationSlug: source.destinationSlug, parkName: source.parkName, sourceUrl: source.sourceUrl,
     notice, checkedAt: day, status: confirmed ? "confirmed" : "needs-review" });
