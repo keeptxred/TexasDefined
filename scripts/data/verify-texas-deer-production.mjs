@@ -102,6 +102,40 @@ export function verifyDeerDocument(html) {
   return { verifiedRanges: data.rows.length, checkedSnapshot: data.sourceCheckedAt };
 }
 
+
+function verifyDeerImageResponse(contentType, bytes) {
+  if (!contentType.toLowerCase().includes('image/jpeg')) {
+    throw new Error('Deer image did not return JPEG media; received ' + contentType);
+  }
+  if (bytes.length < 1024 || bytes[0] !== 0xff || bytes[1] !== 0xd8 ||
+      bytes[bytes.length - 2] !== 0xff || bytes[bytes.length - 1] !== 0xd9) {
+    throw new Error('Deer image was empty, incomplete or did not contain valid JPEG boundaries');
+  }
+}
+async function verifyDeerImage() {
+  let lastError;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const response = await fetch(imageUrl, {
+        headers: { accept: 'image/jpeg', 'user-agent': 'TexasDefined-deer-image-readiness/1.0' },
+        signal: AbortSignal.timeout(25000),
+      });
+      if (!response.ok) throw new Error('Deer image upstream HTTP ' + response.status);
+      if (new URL(response.url).hostname !== 'www.fws.gov') {
+        throw new Error('Deer image was redirected away from USFWS');
+      }
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      verifyDeerImageResponse(response.headers.get('content-type') || '', bytes);
+      console.log('USFWS deer photo verified: HTTP ' + response.status + ', JPEG bytes ' + bytes.length);
+      return;
+    } catch (error) {
+      lastError = error;
+      if (attempt < 2) await new Promise(resolve => setTimeout(resolve, 2500));
+    }
+  }
+  throw lastError;
+}
+
 function selfTest() {
   const allDates = data.rows.map(row => row.season + ' ' + displayRange(row)).join(' ');
   const article = { '@type': 'Article', image: { url: imageUrl, license: 'https://www.fws.gov/media/white-tailed-deer-buck-0' } };
@@ -114,6 +148,19 @@ function selfTest() {
     + '<a href="https://www.fws.gov/media/white-tailed-deer-buck-0">Photo rights</a>'
     + '<script type="application/ld+json">' + JSON.stringify({ '@graph': [article, faq] }) + '</script></body></html>';
   verifyDeerDocument(example);
+  const jpeg = new Uint8Array(1024);
+  jpeg[0] = 0xff; jpeg[1] = 0xd8; jpeg[1022] = 0xff; jpeg[1023] = 0xd9;
+  verifyDeerImageResponse('image/jpeg', jpeg);
+  for (const bad of [
+    ['text/html', jpeg],
+    ['image/jpeg', new Uint8Array(1024)],
+    ['image/jpeg', jpeg.subarray(0, 20)],
+  ]) {
+    let rejected = false;
+    try { verifyDeerImageResponse(...bad); } catch { rejected = true; }
+    if (!rejected) throw new Error('Deer image verifier accepted a non-image or truncated photo');
+  }
+
   for (const bad of [
     example.replace(canonical, 'https://example.org/wrong'),
     example.replace(displayRange(data.rows[0]), 'incorrect season date'),
@@ -140,7 +187,8 @@ async function main() {
       if (!response.headers.get('content-type')?.includes('text/html')) throw new Error('Deer guide served non-HTML content');
       if (new URL(response.url).hostname.replace(/^www\./, '') !== 'texasdefined.com') throw new Error('Deer guide redirected off the canonical domain');
       const result = verifyDeerDocument(await response.text());
-      console.log('Texas deer production verified: canonical, eight published date ranges, eleven-section navigation, photo, social metadata, Article and FAQ schema. TPWD snapshot ' + result.checkedSnapshot);
+      await verifyDeerImage();
+      console.log('Texas deer production verified: canonical, eight published date ranges, eleven-section navigation, real JPEG photo, social metadata, Article and FAQ schema. TPWD snapshot ' + result.checkedSnapshot);
       return;
     } catch (error) {
       lastError = error;
