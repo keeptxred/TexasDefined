@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   marketplaceOccasions, marketplaceActivities, marketplaceAmenities,
+  marketplaceEnvironmentTags,
 } from '../../src/data/group-event-marketplace-foundation.ts';
 
 const sql = readFileSync('supabase/migrations/20261028220000_group_event_marketplace_foundation.sql','utf8');
@@ -36,6 +37,7 @@ for (const [category, values] of [
   ['occasion', marketplaceOccasions],
   ['activity', marketplaceActivities],
   ['amenity', marketplaceAmenities],
+  ['setting', marketplaceEnvironmentTags],
 ]) {
   assert(sql.includes("SELECT '" + category + "', unnest(ARRAY["),
     'Missing typed controlled-vocabulary migration for ' + category);
