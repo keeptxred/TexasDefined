@@ -21,8 +21,8 @@ All other 73 baseline Houston records remain legacy editorial listings requiring
 | Added location/operator | Physical city | Official operator evidence and limitation |
 | --- | --- | --- |
 | Cypress Event Hall | Cypress | https://www.cypresseventhall.com/Prices.html — up to 100 guests, AV and prep area; published flat rentals depend on day/hours/extra requirements |
-| Lindsay Lakes | Cypress | https://www.lindsaylakes.com/weddings-events-venue-cypress-texas — corporate events and catering; no verified total headcount; buffet price is not total event price |
-| The Union Kitchen — Towne Lake | Cypress | https://www.theunionkitchen.com/private-events-cypress — 32-person semi-private lakeview dining; meal-specific minimums, 8.25% sales tax, 22% gratuity and refundable-status-specific deposit terms must be read carefully |
+| Lindsay Lakes | Cypress | https://www.lindsaylakes.com/weddings-events-venue-cypress-texas — the Lodge advertises 300 guests, while its Chapel separately seats 300; corporate activity capacity remains unknown and menus start at $25/person before tax/service |
+| The Union Kitchen — Towne Lake | Cypress | https://www.theunionkitchen.com/private-events-cypress — 32-person semi-private lakeview dining; meal-specific minimums, 8.25% sales tax, 22% gratuity and nonrefundable 50% gift-card deposit must be confirmed in the final terms |
 | Escapology Cypress | Cypress | https://www.escapology.com/en/cypress-tx/groups-parties — 60-minute private games, group events; combined capacity unknown |
 | Escapology Sugar Land | Sugar Land | https://www.escapology.com/en/sugar-land-tx — seven rooms, VIP group inquiry; summed occupancy unknown |
 | County Line Event Center | Pearland | https://www.countylineeventcenter.com/corporate-party-venue — 3,200 sq ft, group events and catering; square footage is not a guest capacity |

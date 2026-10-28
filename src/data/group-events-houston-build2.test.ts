@@ -19,6 +19,10 @@ test('Houston Build 2 extends rather than replaces statewide and legacy director
   assert.equal(houstonInventoryAudit.length,90);
   assert.equal(houstonInventoryAudit.filter(x => x.city === 'Houston' && !x.newlyResearched).length,60);
   assert.equal(corporateEventProviders.filter(x => x.city === 'Houston').length,62);
+  const lindsay = corporateEventProviders.find(x => x.slug === 'lindsay-lakes-cypress-events');
+  assert.equal(lindsay?.maxGroup,300,'Documented Lodge venue limit must not be hidden');
+  const lindsayExperience = houstonBuild2Catalog.find(x => x.provider.legacySlug === 'lindsay-lakes-cypress-events');
+  assert.equal(lindsayExperience?.maxParticipants,null,'Lodge occupancy must not become an invented corporate activity/package capacity');
   // Four historical entries declare metro before slug; no position-dependent parser may omit them.
   for (const slug of ['k1-speed-woodlands-conroe','popstroke-katy-company-golf','kemah-boardwalk-corporate','main-event-humble-corporate']) {
     assert(legacyAudit.some(x => x.slug === slug), 'Missing pre-slug Houston metro record: ' + slug);

@@ -75,9 +75,9 @@ export const houstonBuild2Evidence: Record<string, EvidenceShape> = {
     activities:[], setting:'mixed', environment:['indoor','outdoor'],
     amenities:['catering-available','food-available'], food:'available',
     activityMax:null, simultaneous:null, duration:null,
-    capacityScope:'No official guest ceiling found on corporate-events source; venue layout requires an inquiry.',
+    capacityScope:'The Lodge advertises a 300-person venue limit and the Chapel separately lists 300; no equivalent capacity for a particular corporate activity or group package is established.',
     accessibilityNote:null,
-    pricingNote:'Operator advertises buffet food from $20 per person; that is NOT a total venue or corporate package price.',
+    pricingNote:'Operator food menus start at $25 per person, excluding tax/service; rental, food and corporate layouts require separate quotes.',
   },
   'the-union-kitchen-towne-lake-cypress-private-dining': {
     venueClass:'physical', occasion:['corporate-events','company-parties','client-entertainment','anniversaries','private-gatherings'],
@@ -86,7 +86,7 @@ export const houstonBuild2Evidence: Record<string, EvidenceShape> = {
     activityMax:32, simultaneous:32, duration:null,
     capacityScope:'Semi-private lakeview dining holds at most 32; do not treat as exclusive full restaurant buyout.',
     accessibilityNote:null,
-    pricingNote:'Food and beverage minimum varies by weekday/meal, excludes 8.25% tax and 22% gratuity; gift-card deposit is 50% of estimate, not a per-person price.',
+    pricingNote:'Food and beverage minimum varies by weekday/meal, excludes 8.25% tax and 22% gratuity; 50% gift-card deposit is nonrefundable and not a per-person price.',
   },
   'escapology-cypress-group-events': {
     venueClass:'physical', occasion:['corporate-events','team-building','birthdays','company-parties'],
