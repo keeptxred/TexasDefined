@@ -14,9 +14,9 @@ export const featuredDataProducts = [
     path: '/texas-data/county-growth',
     csvPath: '/texas-data/county-growth.csv',
     category: 'Population & migration',
-    description: 'Compare Census Vintage 2025 population change across Texas counties from the 2020 estimates base through July 1, 2025.',
+    description: 'Compare the latest source-verified Census county population estimates against the official 2020 estimates base.',
     source: 'U.S. Census Bureau',
-    temporalCoverage: '2020/2025',
+    temporalCoverage: '2020 onward; latest official county population estimates',
   },
   {
     title: 'Texas County Housing Costs',

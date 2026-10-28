@@ -1,0 +1,47 @@
+name: Verify Texas deer regulations
+
+on:
+  schedule:
+    - cron: '27 13 * * 2'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/data/hunting/authority-deer.ts'
+      - 'scripts/data/verify-texas-deer-regulations.mjs'
+      - '.github/workflows/verify-texas-deer-regulations.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: texas-deer-regulations-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deer-regulation-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate researched deer guide and official-source references
+        run: node scripts/data/verify-texas-deer-regulations.mjs --offline
+      - name: Check current TPWD deer regulations (scheduled or manual only)
+        if: github.event_name != 'pull_request'
+        id: official
+        run: node scripts/data/verify-texas-deer-regulations.mjs
+      - name: Open one editorial-review issue when official check fails
+        if: failure() && steps.official.outcome == 'failure' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='TPWD deer rules verification needs review'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "The weekly official TPWD white-tailed deer spot check failed. Check the 2026–27 dates, county/antler restrictions, reporting and CWD requirements against https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer before editing the live guide. Do not automatically change the verified date or season year. Workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            echo "Existing review issue #$existing; skipping duplicate."
+          fi

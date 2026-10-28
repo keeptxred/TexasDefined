@@ -58,12 +58,24 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         url: pageUrl,
         name: topic.title,
         description: topic.description,
-        dateModified: topic.slug === "youth-hunting" ? YOUTH_HUNTING_LAST_CHECKED : HUNTING_REGULATION_FRESHNESS.lastVerified,
+        dateModified: topic.slug === "youth-hunting" ? YOUTH_HUNTING_LAST_CHECKED : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         isPartOf: { "@id": `${homeUrl}#website` },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
-        mainEntity: { "@id": `${pageUrl}#sections` },
+        mainEntity: { "@id": `${pageUrl}#${topic.slug === "texas-deer-hunting" ? "article" : "sections"}` },
         breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
       },
+      ...(topic.slug === "texas-deer-hunting" ? [{
+        "@type": "Article",
+        "@id": `${pageUrl}#article`,
+        headline: topic.title,
+        description: topic.description,
+        dateModified: topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified,
+        mainEntityOfPage: { "@id": `${pageUrl}#page` },
+        author: { "@type": "Organization", name: "TexasDefined" },
+        publisher: { "@type": "Organization", name: "TexasDefined" },
+        about: topic.about.map((name) => ({ "@type": "Thing", name })),
+        citation: [...new Set(topic.sections.flatMap((section) => (section.links ?? []).filter((link) => link.external).map((link) => link.href)))],
+      }] : []),
       {
         "@type": "ItemList",
         "@id": `${pageUrl}#sections`,
@@ -85,7 +97,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
           { "@type": "ListItem", position: 3, name: topic.title, item: pageUrl },
         ],
       },
-      {
+      ...(topic.faq.length ? [{
         "@type": "FAQPage",
         "@id": `${pageUrl}#faq`,
         mainEntity: topic.faq.map((item) => ({
@@ -93,7 +105,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
           name: item.question,
           acceptedAnswer: { "@type": "Answer", text: item.answer },
         })),
-      },
+      }] : []),
     ],
   }} />;
 }
