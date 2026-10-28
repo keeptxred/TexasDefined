@@ -51,6 +51,8 @@ const sampleSlugs = [
   "pearland-hometown-christmas-parade-2026",
   "downtown-conroe-christmas-parade-2026",
   "lake-jackson-festival-lights-day-parade-2026",
+  "katy-nutcracker-exchange-tree-lighting-2026",
+  "old-town-spring-hometown-tree-lighting-2026",
 ];
 const expectedLiveWitnesses = remainingCommunityEvents.filter((event) =>
   sampleSlugs.includes(event.slug)
