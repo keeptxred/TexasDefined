@@ -61,3 +61,26 @@ test('initial official release writes only fully validated county snapshot', asy
   assert.equal(snapshot.rows.length,254);
   assert.equal(snapshot.verifiedAt,'2026-10-28');
 });
+
+test('new official next-year vintage is eligible without changing 2020 baseline', async () => {
+  const previous = { ...parseTexasCountyGrowth(fixture(), 2025), verifiedAt:'2026-10-28' };
+  const writes = [], checked = [];
+  const changed = await refresh({
+    read: async () => JSON.stringify(previous),
+    write: async (...args) => writes.push(args),
+    fetchSource: async year => { checked.push(year); return fixture({ vintage: year }); },
+    now: new Date('2027-04-15T13:17:00Z'),
+  });
+  assert.equal(changed, true);
+  assert.deepEqual(checked,[2026]);
+  const next = JSON.parse(writes[0][1]);
+  assert.equal(next.vintage,2026);
+  assert.equal(next.asOf,'2026-07-01');
+  assert.equal(next.rows.length,254);
+});
+test('unexpected official base revisions never enter the published record', () => {
+  const previous = parseTexasCountyGrowth(fixture(),2025);
+  const invalid = parseTexasCountyGrowth(fixture({vintage:2026}),2026);
+  invalid.rows[0].populationBase2020 *= 2;
+  assert.throws(() => validateRollover(invalid, previous), /methodology review/);
+});
