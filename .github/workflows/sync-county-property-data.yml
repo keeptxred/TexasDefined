@@ -112,4 +112,4 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Refresh verified Texas county property-tax data' \
-            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, crawl-demand, and noindex quality gates. Full repository validation will run on this pull request before merge.'
+            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, crawl-demand, and noindex quality gates. The trusted owner-side finisher checks official source provenance, rejects any loss of previously verified county records, runs canonical protected validation and then enables branch-protected auto-merge. Ambiguous reachable-office sources are quarantined with original verification dates; no direct main pushes.'
