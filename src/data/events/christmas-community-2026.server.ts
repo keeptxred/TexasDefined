@@ -99,6 +99,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
   },
   {
+    "slug": "old-town-spring-hometown-tree-lighting-2026",
+    "title": "Old Town Spring Hometown Holiday Tree Lighting",
+    "city": "Spring",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-14",
+    "venueName": "Historic Old Town Spring · 403 Main Street",
+    "officialEventUrl": "https://m.oldtownspringapp.com/events-1/i/3b9e687ffbcc9e0cb156d4c6a279ce5d/hometown-holiday-tree-lighting-old-town-spring",
+    "sourceName": "Old Town Spring event organizers",
+    "summary": "Old Town Spring's current event listing advertises the Hometown Holiday Tree Lighting for Saturday November 14, 2026, at dusk, 403 Main Street. Its site header uses a November 15 UTC timestamp; November 14 is the organizer's stated local event date. Additional holiday programs have not been fully confirmed; do not assume every following Saturday is a scheduled public event.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "houston-alley-theatre-christmas-carol-2026-1",
     "title": "Alley Theatre A Christmas Carol · November 15, 2026",
     "city": "Houston",
@@ -1713,6 +1727,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
     "sourceName": "Historic Gruene / Cowboy Kringle",
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
+    "slug": "katy-nutcracker-exchange-tree-lighting-2026",
+    "title": "Katy Nutcracker Exchange and Annual City Tree Lighting",
+    "city": "Katy",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Historic Town Square · 904 Avenue C",
+    "officialEventUrl": "https://www.cityofkaty.com/about/calendar/-curm-12/-toggle-next30days/-sortn-EDate/-sortd-asc/-cury-2026",
+    "sourceName": "City of Katy annual calendar / Katy community events",
+    "summary": "The City of Katy's December 2026 calendar lists both the annual tree lighting and Katy Nutcracker Exchange on Saturday December 5. The local event listing gives the Town Square market and holiday festivities 2–8 p.m., with Santa photos and the city's holiday tree lighting. Check the exact tree-lighting time and street/parking restrictions with the city; vendor purchases are separate. This is not an official listing for the unverified 'Light Tall Pines' lead.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "kaufman-2026-christmas-on-the-square",
