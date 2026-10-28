@@ -99,7 +99,7 @@
     "etsy": "Create 13th tag with real authorized Etsy seller-management interface; Heartland currently supports max 12 tags. Ensure separate shop section Fishing Shirts if it exists or create without duplication when seller-management available.",
     "prevent_duplicates": "Reconcile Printify/Etsy/TD records before any retries. No new job IDs on uncertain operations."
   },
-  "collection_status": "PRINTIFY_CREATED_TEXASDEFINED_ACTIVE_ETSY_PUBLICLY_VERIFIED_SELLER_QA_OUTSTANDING",
+  "collection_status": "PRINTIFY_CREATED_TEXASDEFINED_ACTIVE_ETSY_13_TAGS_VERIFIED_PARTNER_SECTION_AI_DISCLOSURE_PENDING",
   "designs": [
     {
       "id": "TD-FISH-01",
@@ -207,20 +207,23 @@
         "listing_id": "4602532203",
         "url": "https://www.etsy.com/listing/4602532203/texas-bass-co-bass-fishing-t-shirt-o",
         "listing_verified": true,
-        "actual_tag_count": null,
+        "actual_tag_count": 13,
         "production_partner_disclosure_verified": false,
         "publication": "confirmed accessible in Etsy shopper catalog",
         "shop_section_verified": false,
-        "public_listing_metadata_checked_at": "2026-10-24",
+        "public_listing_metadata_checked_at": "2026-10-27",
         "seller_tags_count": 13,
-        "descriptive_tags_count": 12,
-        "internal_heartland_tag": "hp-tfeD8jgLvju8SQuO",
+        "descriptive_tags_count": 13,
+        "internal_heartland_tag": null,
         "listing_price_usd": 28,
         "buyer_shipping_quote_usd": 4.95,
         "production_partner_disclosed": false,
         "has_variations": true,
         "listing_images_count": 4,
-        "seller_section_verified": false
+        "seller_section_verified": false,
+        "tags_verified_at": "2026-10-27",
+        "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
+        "ai_artwork_disclosure_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -241,11 +244,10 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy 13th descriptive tag missing; Heartland hp-* markers must be preserved until reconciliation safety confirmed",
         "Etsy Fishing Shirts seller section not verified",
         "Etsy AI-assistance disclosure must be added by a seller-side edit"
       ],
-      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
+      "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
     {
       "id": "TD-FISH-02",
@@ -353,20 +355,23 @@
         "listing_id": "4602533233",
         "url": "https://www.etsy.com/listing/4602533233/chasing-largemouth-bass-fishing-t-shirt",
         "listing_verified": true,
-        "actual_tag_count": null,
+        "actual_tag_count": 13,
         "production_partner_disclosure_verified": false,
         "publication": "confirmed accessible in Etsy shopper catalog",
         "shop_section_verified": false,
-        "public_listing_metadata_checked_at": "2026-10-24",
-        "seller_tags_count": 12,
-        "descriptive_tags_count": 12,
+        "public_listing_metadata_checked_at": "2026-10-27",
+        "seller_tags_count": 13,
+        "descriptive_tags_count": 13,
         "internal_heartland_tag": null,
         "listing_price_usd": 28,
         "buyer_shipping_quote_usd": 4.95,
         "production_partner_disclosed": false,
         "has_variations": true,
         "listing_images_count": 4,
-        "seller_section_verified": false
+        "seller_section_verified": false,
+        "tags_verified_at": "2026-10-27",
+        "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
+        "ai_artwork_disclosure_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -387,11 +392,10 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy 13th descriptive tag missing; Heartland hp-* markers must be preserved until reconciliation safety confirmed",
         "Etsy Fishing Shirts seller section not verified",
         "Etsy AI-assistance disclosure must be added by a seller-side edit"
       ],
-      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
+      "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
     {
       "id": "TD-FISH-03",
@@ -499,20 +503,23 @@
         "listing_id": "4602558658",
         "url": "https://www.etsy.com/listing/4602558658/lake-weekend-t-shirt-o-vintage-texas",
         "listing_verified": true,
-        "actual_tag_count": null,
+        "actual_tag_count": 13,
         "production_partner_disclosure_verified": false,
         "publication": "confirmed accessible in Etsy shopper catalog",
         "shop_section_verified": false,
-        "public_listing_metadata_checked_at": "2026-10-24",
-        "seller_tags_count": 12,
-        "descriptive_tags_count": 12,
+        "public_listing_metadata_checked_at": "2026-10-27",
+        "seller_tags_count": 13,
+        "descriptive_tags_count": 13,
         "internal_heartland_tag": null,
         "listing_price_usd": 28,
         "buyer_shipping_quote_usd": 4.95,
         "production_partner_disclosed": false,
         "has_variations": true,
         "listing_images_count": 4,
-        "seller_section_verified": false
+        "seller_section_verified": false,
+        "tags_verified_at": "2026-10-27",
+        "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
+        "ai_artwork_disclosure_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -533,11 +540,10 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy 13th descriptive tag missing; Heartland hp-* markers must be preserved until reconciliation safety confirmed",
         "Etsy Fishing Shirts seller section not verified",
         "Etsy AI-assistance disclosure must be added by a seller-side edit"
       ],
-      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
+      "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
     {
       "id": "TD-FISH-04",
@@ -645,20 +651,23 @@
         "listing_id": "4602558740",
         "url": "https://www.etsy.com/listing/4602558740/texas-tackle-club-t-shirt-o-vintage",
         "listing_verified": true,
-        "actual_tag_count": null,
+        "actual_tag_count": 13,
         "production_partner_disclosure_verified": false,
         "publication": "confirmed accessible in Etsy shopper catalog",
         "shop_section_verified": false,
-        "public_listing_metadata_checked_at": "2026-10-24",
+        "public_listing_metadata_checked_at": "2026-10-27",
         "seller_tags_count": 13,
-        "descriptive_tags_count": 12,
-        "internal_heartland_tag": "hp-gelTpHXUVV54fGQ8",
+        "descriptive_tags_count": 13,
+        "internal_heartland_tag": null,
         "listing_price_usd": 28,
         "buyer_shipping_quote_usd": 4.95,
         "production_partner_disclosed": false,
         "has_variations": true,
         "listing_images_count": 4,
-        "seller_section_verified": false
+        "seller_section_verified": false,
+        "tags_verified_at": "2026-10-27",
+        "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
+        "ai_artwork_disclosure_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -679,11 +688,10 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy 13th descriptive tag missing; Heartland hp-* markers must be preserved until reconciliation safety confirmed",
         "Etsy Fishing Shirts seller section not verified",
         "Etsy AI-assistance disclosure must be added by a seller-side edit"
       ],
-      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
+      "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
     {
       "id": "TD-FISH-05",
@@ -791,20 +799,23 @@
         "listing_id": "4602558790",
         "url": "https://www.etsy.com/listing/4602558790/sunrise-cast-fishing-t-shirt-o-texas",
         "listing_verified": true,
-        "actual_tag_count": null,
+        "actual_tag_count": 13,
         "production_partner_disclosure_verified": false,
         "publication": "confirmed accessible in Etsy shopper catalog",
         "shop_section_verified": false,
-        "public_listing_metadata_checked_at": "2026-10-24",
+        "public_listing_metadata_checked_at": "2026-10-27",
         "seller_tags_count": 13,
-        "descriptive_tags_count": 12,
-        "internal_heartland_tag": "hp-HnlZfJpFlN9FXslf",
+        "descriptive_tags_count": 13,
+        "internal_heartland_tag": null,
         "listing_price_usd": 28,
         "buyer_shipping_quote_usd": 4.95,
         "production_partner_disclosed": false,
         "has_variations": true,
         "listing_images_count": 4,
-        "seller_section_verified": false
+        "seller_section_verified": false,
+        "tags_verified_at": "2026-10-27",
+        "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
+        "ai_artwork_disclosure_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -825,11 +836,10 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy 13th descriptive tag missing; Heartland hp-* markers must be preserved until reconciliation safety confirmed",
         "Etsy Fishing Shirts seller section not verified",
         "Etsy AI-assistance disclosure must be added by a seller-side edit"
       ],
-      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
+      "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
     {
       "id": "TD-FISH-06",
@@ -937,20 +947,23 @@
         "listing_id": "4602533093",
         "url": "https://www.etsy.com/listing/4602533093/texas-coastal-angler-redfish-t-shirt-o",
         "listing_verified": true,
-        "actual_tag_count": null,
+        "actual_tag_count": 13,
         "production_partner_disclosure_verified": false,
         "publication": "confirmed accessible in Etsy shopper catalog",
         "shop_section_verified": false,
-        "public_listing_metadata_checked_at": "2026-10-24",
-        "seller_tags_count": 12,
-        "descriptive_tags_count": 12,
+        "public_listing_metadata_checked_at": "2026-10-27",
+        "seller_tags_count": 13,
+        "descriptive_tags_count": 13,
         "internal_heartland_tag": null,
         "listing_price_usd": 28,
         "buyer_shipping_quote_usd": 4.95,
         "production_partner_disclosed": false,
         "has_variations": true,
         "listing_images_count": 4,
-        "seller_section_verified": false
+        "seller_section_verified": false,
+        "tags_verified_at": "2026-10-27",
+        "tags_verified_via": "Etsy buyer catalog — original listing, 13 descriptive tags, zero hp-* tracking markers",
+        "ai_artwork_disclosure_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -971,11 +984,10 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy 13th descriptive tag missing; Heartland hp-* markers must be preserved until reconciliation safety confirmed",
         "Etsy Fishing Shirts seller section not verified",
         "Etsy AI-assistance disclosure must be added by a seller-side edit"
       ],
-      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
+      "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     }
   ],
   "phase2_reservations": [
@@ -1126,6 +1138,11 @@
       "date": "2026-10-24",
       "check": "Etsy selling compliance issue",
       "result": "All six listings have has_production_partners=false even though Printify produces shirts; Etsy official policy requires partner disclosure and seller-prompted AI artwork disclosure. All six have 12 descriptive tags; three have additional hp-* internal tags occupying slot 13; three have 12 tags total. No authorized seller mutation connector available; see seller QA document."
+    },
+    {
+      "date": "2026-10-27",
+      "check": "Live Etsy SEO tags corrected and read back after PR #2966",
+      "result": "All six original Etsy listing IDs returned 13 unique descriptive tags each and no hp-* tags; repaired using existing Printify shop and Heartland original jobs, not new listings. The future Heartland publisher now requires exactly 13 tags (PR #2968). $28 products and variants preserved. Etsy partner field remains unassigned on all six; seller-section placement and AI artwork disclosure remain unverified at this checkpoint."
     }
   ],
   "release_approved_at": "2026-10-24",
