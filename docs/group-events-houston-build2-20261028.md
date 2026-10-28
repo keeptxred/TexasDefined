@@ -7,7 +7,7 @@ Reviewed October 28, 2026. **Independent editorial listings only**; none is a pa
 Exact legacy slugs and normalized same-name entries: **0 duplicate identities found** among 74 Houston metro records. Shared brands with separate verified locations are not duplicates. Do not merge Escapology Cypress and Sugar Land; do not merge Topgolf locations; separate Houston Party Boats' 49- and 75-passenger vessels. **No existing venue records deleted**.
 
 - `the-escape-game-houston` is a multi-location Houston operator (Galleria and CityCentre); no single physical street address should be assigned to the legacy provider identity.
-- `escape-it-houston-group-events` is a three-location operator: West Houston (7620 Katy Freeway), East/Humble (11501 N Sam Houston Parkway E), South/Webster (20801 Gulf Freeway). Official operator: https://escapeithouston.com/location.aspx . Its Houston-city field represents its West location and branding, *not* a verified physical address for every experience.
+- `escape-it-houston-group-events` specifically profiles the operator's **West Houston Marq'E venue** at 7620 Katy Freeway and its published 4–36 corporate game format. The operator ALSO has Humble and Webster branches (https://escapeithouston.com/location.aspx). This West Houston record must not be cloned or misrepresented as a generic multi-location listing. New branch profiles require independent source verification.
 - `game-show-experience-houston` has mobile and studio offerings; location and individual package capacities must not be collapsed.
 - `trill-on-wheels` is a moving bike experience, not an immovable activity room.
 - `houston-food-bank-corporate-volunteers` is a volunteer activity at a facility, not a generic event-hall rental.
