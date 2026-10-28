@@ -180,10 +180,14 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add('/hunting/turkey-hunting');
     huntingAuthorityPages.add('/hunting/turkey-hunting');
   }
-  // The statewide Mardi Gras hub has a static route and its own event-directory
-  // links. Verify it on production when either of its route files changes.
+  // The Dallas date is duplicated in the authority record and statewide hub.
+  // Do not accept a change to either surface while the other serves stale 2026 facts.
+  // Reuse the existing change-scoped verifier; this is exactly two canonical URLs.
+  const oakCliffAcceptanceRequired = changedFiles.some(path =>
+    path === 'src/data/major-event-expanded-authority-tranche52.server.ts'
+    || path === 'scripts/ci/verify-changed-production-pages.mjs');
   const mardiGrasHubPages = new Set();
-  if (changedFiles.some(path => path === 'src/routes/events.mardi-gras.tsx'
+  if (oakCliffAcceptanceRequired || changedFiles.some(path => path === 'src/routes/events.mardi-gras.tsx'
     || path === 'src/routes/events.mardi-gras.lazy.tsx')) {
     const page = '/events/mardi-gras';
     candidates.add(page);
@@ -193,7 +197,13 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       '/event/mardi-gras-port-arthur',
       '/event/cowboy-mardi-gras-bandera',
       '/event/kemah-yachty-gras',
+      '/event/oak-cliff-mardi-gras-parade',
     ];
+  }
+  if (oakCliffAcceptanceRequired) {
+    const oakCliff = '/event/oak-cliff-mardi-gras-parade';
+    candidates.add(oakCliff);
+    eventAuthorityPages.add(oakCliff);
   }
   // A missing Davis Hill hero survived source checks because the editorial route
   // bypasses the generic destination image. Test the live HTML and both SVGs

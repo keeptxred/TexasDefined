@@ -117,10 +117,11 @@ test('statewide Mardi Gras hub must be live, indexable by default, and link to r
     '/event/mardi-gras-port-arthur',
     '/event/cowboy-mardi-gras-bandera',
     '/event/kemah-yachty-gras',
+    '/event/oak-cliff-mardi-gras-parade',
   ];
   const html = (fresh = true) => '<html><head><title>Mardi Gras in Texas</title>'
     + '<link rel="canonical" href="https://texasdefined.com/events/mardi-gras"></head><body>'
-    + (fresh ? '<h1>Mardi Gras in Texas</h1><p>2027 dates</p>'
+    + (fresh ? '<h1>Mardi Gras in Texas</h1><p>2027 dates</p><p>Oak Cliff Mardi Gras Parade, February 7, 2027 at 1 p.m. confirmed by Dash for the Beads</p>'
         + guides.map(href => '<a href="' + href + '">Guide</a>').join('') : '<p>Stale listing 2027</p>')
     + '</body></html>';
   const requests = [];
@@ -134,7 +135,7 @@ test('statewide Mardi Gras hub must be live, indexable by default, and link to r
   const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
     new Response(html(url.searchParams.has('deploy_smoke'))) });
   assert.equal(stale[0].passed, false);
-  assert.match(stale[0].error, /Mardi Gras hub ordinary visitor URL lacks live guide/);
+  assert.match(stale[0].error, /Mardi Gras hub ordinary visitor URL is missing Oak Cliff 2027 source fact/);
   const broken = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
   assert.equal(broken[0].passed, false);
   assert.match(broken[0].error, /Expected changed internal link is missing from SSR anchors/);
@@ -142,6 +143,48 @@ test('statewide Mardi Gras hub must be live, indexable by default, and link to r
     new Response(html().replace('</head>', '<meta name="robots" content="noindex, follow"></head>')) });
   assert.equal(deindexed[0].passed, false);
   assert.match(deindexed[0].error, /Mardi Gras hub release is unexpectedly noindex/);
+});
+
+test('Oak Cliff and statewide Mardi Gras source dates must agree on the unmodified production URLs', async () => {
+  const file = 'src/data/major-event-expanded-authority-tranche52.server.ts';
+  const before = 'const records = [{ slug: "oak-cliff-mardi-gras-parade", startDate: "2026-02-15", name: "Oak Cliff Mardi Gras Parade" }];';
+  const after = 'const records = [{ slug: "oak-cliff-mardi-gras-parade", startDate: "2027-02-07", name: "Oak Cliff Mardi Gras Parade" }];';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [file], sources: { [file]: { before, after } } });
+  assert.ok(plan.mardiGrasHubPages.includes('/events/mardi-gras'), 'correcting a guide date must verify the hub');
+  assert.ok(plan.eventAuthorityPages.includes('/event/oak-cliff-mardi-gras-parade'), 'correcting a guide date must verify the Oak Cliff leaf');
+  const guides = [
+    '/event/mardi-gras-galveston', '/event/mardi-gras-port-arthur',
+    '/event/cowboy-mardi-gras-bandera', '/event/kemah-yachty-gras',
+    '/event/oak-cliff-mardi-gras-parade',
+  ];
+  const html = (url, fresh = true) => {
+    const canonical = 'https://texasdefined.com' + url.pathname;
+    const head = '<html><head><title>Texas Mardi Gras 2027</title><link rel="canonical" href="' + canonical + '"></head><body>';
+    if (url.pathname === '/events/mardi-gras') {
+      return head + '<h1>Mardi Gras in Texas</h1><p>'
+        + (fresh ? 'Oak Cliff Mardi Gras Parade, February 7, 2027 at 1 p.m. confirmed by Dash for the Beads'
+          : 'Oak Cliff Mardi Gras Parade date unannounced for 2027')
+        + '</p>' + guides.map(href => '<a href="' + href + '">Guide</a>').join('') + '</body></html>';
+    }
+    return head + '<h1>Oak Cliff Mardi Gras Parade</h1><section>Planning your visit</section>'
+      + '<section>Official event links</section><section data-event-discovery-tail="true">Explore</section>'
+      + '<p>' + (fresh
+        ? 'Sunday, February 7, 2027 at 1 p.m., confirmed by Dash for the Beads; Michael Barera photographed Davis Street in 2016'
+        : 'Sunday, February 15, 2026 at 1 p.m.; 2027 not confirmed; Michael Barera photographed Davis Street in 2016')
+      + '</p></body></html>';
+  };
+  const observed = [];
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    observed.push(url.href);
+    return new Response(html(url));
+  } });
+  assert.ok(good.every(result => result.passed), JSON.stringify(good));
+  assert.ok(observed.includes('https://texasdefined.com/events/mardi-gras'));
+  assert.ok(observed.includes('https://texasdefined.com/event/oak-cliff-mardi-gras-parade'));
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(html(url, url.searchParams.has('deploy_smoke'))) });
+  assert.ok(stale.some(result => !result.passed && /ordinary visitor URL is missing Oak Cliff 2027|ordinary visitor URL missing current date/.test(result.error)),
+    'stale cached Oak Cliff date must fail even after release HTML updates: ' + JSON.stringify(stale));
 });
 
 test('Galveston Mardi Gras archival photo and 2027 source date must reach both visitor and release HTML', async () => {
