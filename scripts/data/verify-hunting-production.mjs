@@ -17,7 +17,7 @@ const representativeTopics = [
   },
   {
     path: '/hunting/youth-hunting',
-    needles: ['Texas Youth Hunting Guide: 2026–27 Youth-Only Seasons & Requirements', 'Season calendar', 'Jan. 4–17, 2027', 'Youth hunting FAQs', 'Official regulations and updates'],
+    needles: ['Texas Youth Hunting Guide:', 'Season calendar', 'Youth hunting FAQs', 'Official regulations and updates'],
   },
   {
     path: '/hunting/squirrel-hunting',
