@@ -3,6 +3,480 @@ import type { FootballProgramEditorial } from './program-editorial';
 /** First five source-controlled Batch 010 program guides. Date-specific official
  * school and UIL sources; do not turn schedules into scores or copy marks. */
 const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "clarendon": {
+    "slug": "clarendon",
+    "intro": "The Clarendon Broncos play in UIL 2A Division II District 5 for 2026–28 against Memphis, Quanah, Shamrock, Wellington and Wheeler. Clarendon CISD offers a first-party 26/27 Bronco football schedule, and its own athletic live feed identifies Coach Whitaker. Independent 2026 staff listings name Brenton Whitaker head coach; stale October opponent feeds should not be mistaken for a finished season.",
+    "theme": {
+      "accentHex": "#6F422C",
+      "label": "Original TexasDefined saddle-brown editorial styling, not official Bronco trademarks or team photography."
+    },
+    "seo": {
+      "title": "Clarendon Broncos Football | Coach Brenton Whitaker & 2026 District 5",
+      "description": "Clarendon Broncos 2026 football: UIL 2A Division II District 5, Coach Brenton Whitaker, first-party schedules and source-dated opponent guidance."
+    },
+    "coach": {
+      "name": "Brenton Whitaker",
+      "title": "2026 varsity head coach; corroborated by school-owned athletics posts",
+      "sourceUrl": "https://www.clarendonisd.net/live-feed",
+      "sourceLabel": "Clarendon CISD official live feed uses Coach Whitaker; 2026 MaxPreps staff/history provides first name",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Clarendon CISD 2026–27 Bronco football schedules",
+      "sourceUrl": "https://www.clarendonisd.net/",
+      "sourceLabel": "First-party homepage links current printable Bronco football schedule",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.clarendonisd.net/"
+    },
+    "development": {
+      "title": "District 5-2A Division II and visitor-information cautions",
+      "body": "UIL's 2026–28 alignment joins Clarendon with Memphis, Quanah, Shamrock, Wellington and Wheeler. Clarendon CISD publishes a current varsity football schedule and event-specific ticket navigation; its September 11 Plains game-day notice specified cash-only admission for that away contest. An away-host instruction must not be generalized into a permanent Clarendon home-gate policy.",
+      "sourceUrl": "https://www.clarendonisd.net/live-feed",
+      "sourceLabel": "School-owned September game-day instructions and Whitaker posts",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2026–28",
+        "title": "UIL 2A Division II District 5",
+        "body": "Clarendon and five regional opponents are assigned to District 5 for this realignment cycle.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "UIL official football alignment"
+      },
+      {
+        "date": "2026 season",
+        "title": "Bronco printable calendar published",
+        "body": "Clarendon CISD's current website displays a 26/27 Bronco football schedule link and ticket navigation.",
+        "sourceUrl": "https://www.clarendonisd.net/",
+        "sourceLabel": "Clarendon CISD official school site"
+      },
+      {
+        "date": "2026",
+        "title": "Brenton Whitaker on current coaching list",
+        "body": "Current 2026 varsity history names Brenton Whitaker; the district posts gameday and team updates under Coach Whitaker.",
+        "sourceUrl": "https://www.maxpreps.com/tx/clarendon/clarendon-broncos/football/history/",
+        "sourceLabel": "Dated staff roster with first-party corroboration"
+      }
+    ],
+    "overview": [
+      "Clarendon is the Broncos in Donley County, not the other towns using a Broncos mascot.",
+      "The 2026–28 UIL assignment is 2A Division II District 5, with matchups against Wellington, Wheeler and Shamrock.",
+      "Current school-owned posts use Coach Whitaker, and 2026 roster history supplies Brenton Whitaker's full name.",
+      "Game dates, admission and live win-loss standings need school/host confirmation; a cash-only away notice does not set all home-ticket policies."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Clarendon football in 2026?",
+        "answer": "2026 varsity history lists Brenton Whitaker, and Clarendon CISD's current athletics feed publishes posts by Coach Whitaker."
+      },
+      {
+        "question": "What football district includes Clarendon in 2026?",
+        "answer": "UIL Class 2A Division II District 5."
+      },
+      {
+        "question": "Where are Clarendon varsity football schedules?",
+        "answer": "Clarendon CISD links its printable 26/27 Bronco football schedule from the official district site."
+      }
+    ]
+  },
+  "clarksville": {
+    "slug": "clarksville",
+    "intro": "Clarksville's Tigers compete in UIL 2A Division II District 10 in 2026–28 with Big Sandy, Detroit, Linden-Kildare, Maud and Simms Bowie. A 2026 program history listing identifies Thavis Miller as head coach, and the team's October 24 Big Sandy win was posted as a named, dated game result. That is not an official final 2026 district standing.",
+    "theme": {
+      "accentHex": "#7B4B35",
+      "label": "Original TexasDefined editorial warm-brown panel, not a Clarksville logo or published uniform palette."
+    },
+    "seo": {
+      "title": "Clarksville Tigers Football | Thavis Miller & 2026 UIL District 10",
+      "description": "Clarksville Tigers football in Red River County: 2026 UIL 2A Division II District 10, Thavis Miller and dated Big Sandy result."
+    },
+    "coach": {
+      "name": "Thavis Miller",
+      "title": "2026 head football coach in current team history and season listing",
+      "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/history/",
+      "sourceLabel": "MaxPreps 2026–27 named head-coach record; first-party role not independently located",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "1500 W Main St, Clarksville, TX 75426 (school campus, not stadium entry)",
+      "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
+      "sourceLabel": "Current MaxPreps UIL-partner school location",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Clarksville Tigers 2026 schedule and dated finals",
+      "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
+      "sourceLabel": "2026 published schedule and October 24 Big Sandy result",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/schedule/"
+    },
+    "development": {
+      "title": "Season context after the Big Sandy district fixture",
+      "body": "The October 24 2026 Big Sandy away game is listed as a 50–14 Clarksville win. UIL's district table includes Detroit, Linden-Kildare, Maud and Simms Bowie as other opponents. A third-party score must be labeled with its date and source rather than inflated into an official current UIL playoff seed or a forecast for the remaining October 30 and November 6 fixtures.",
+      "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
+      "sourceLabel": "MaxPreps October 25 ranking update and game card",
+      "verifiedAt": "2026-10-28"
+    },
+    "season": {
+      "record": "Latest individually identified district result: October 24 Big Sandy W 50–14; not a complete verified season record",
+      "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
+      "sourceLabel": "Dated October 24 Big Sandy 50–14 result and remaining fixtures",
+      "verifiedAt": "2026-10-28",
+      "games": [
+        {
+          "date": "2026-10-24",
+          "opponent": "Big Sandy",
+          "site": "Away",
+          "district": true,
+          "result": "W 50-14"
+        }
+      ]
+    },
+    "milestones": [
+      {
+        "date": "2026 realignment",
+        "title": "District 10-2A Division II",
+        "body": "Clarksville shares the UIL 2026–28 district with Big Sandy, Detroit, Linden-Kildare, Maud and Simms Bowie.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "Official UIL table"
+      },
+      {
+        "date": "October 24, 2026",
+        "title": "Tigers win at Big Sandy",
+        "body": "A current 2026 team page records Clarksville's 50–14 win; later games are still scheduled at the reporting date.",
+        "sourceUrl": "https://www.maxpreps.com/tx/clarksville/clarksville-tigers/football/",
+        "sourceLabel": "MaxPreps October 25 season snapshot"
+      }
+    ],
+    "overview": [
+      "This Clarksville football program is the Red River County Tigers, not a similarly named out-of-state school.",
+      "2026 district opponents are established by UIL's 2A Division II District 10 alignment.",
+      "The current season history names Thavis Miller; school-controlled confirmation of the full current staffing role remains desirable.",
+      "The October 24 Big Sandy final is a dated score snapshot and does not guarantee a district finish or playoff slot."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Clarksville football in 2026?",
+        "answer": "The 2026 varsity season history lists Thavis Miller as head coach; the full role is sourced to that roster, not a district appointment notice."
+      },
+      {
+        "question": "What district is Clarksville in?",
+        "answer": "UIL 2A Division II District 10 for 2026–28."
+      },
+      {
+        "question": "Did Clarksville beat Big Sandy?",
+        "answer": "Its published October 24, 2026 result is a 50–14 win at Big Sandy, subject to corrections by the official teams."
+      }
+    ]
+  },
+  "claude": {
+    "slug": "claude",
+    "intro": "Claude's Mustangs play UIL six-man Class 1A Division I football in District 1, not eleven-man 2A. Claude ISD maintains a first-party 2026 varsity schedule and head-injury return-to-play policy, while its schedule lists Brantlee Lemons head coach. A separate team source dates the program's move into six-man football to 2018.",
+    "theme": {
+      "accentHex": "#375D86",
+      "label": "Original TexasDefined royal-blue editorial treatment; no official Claude image, crest or player photo used."
+    },
+    "seo": {
+      "title": "Claude Mustangs Six-Man Football | Brantlee Lemons & 2026 UIL 1A",
+      "description": "Claude Mustangs six-man football: first-party 2026 schedule, Brantlee Lemons, UIL 1A Division I District 1 and school-controlled athletics policy."
+    },
+    "coach": {
+      "name": "Brantlee Lemons",
+      "title": "2026 varsity head football coach (school-published schedule)",
+      "sourceUrl": "https://www.claudeisd.net/athletics",
+      "sourceLabel": "Claude ISD current official athletics schedule; varsity PDF names Brantlee Lemons",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "500 W 5th St, Claude, TX 79019 (school campus, not verified football gate)",
+      "sourceUrl": "https://www.claudeisd.net/athletics",
+      "sourceLabel": "Claude ISD official contact address",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Claude ISD official 2026 six-man football schedule",
+      "sourceUrl": "https://www.claudeisd.net/athletics",
+      "sourceLabel": "Current school-owned 2026 football schedule and athletics page",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.claudeisd.net/athletics"
+    },
+    "venue": {
+      "name": "Claude Mustangs Field",
+      "sourceUrl": "https://sixmanfootball.com/teams/claude-mustangs.1108/",
+      "sourceLabel": "Six-Man Football 2026 team profile lists stadium",
+      "verifiedAt": "2026-10-28",
+      "note": "The stadium name does not prove spectator gate, cash admissions or accessibility arrangements. Verify with Claude ISD."
+    },
+    "development": {
+      "title": "A six-man program distinct from Claude's earlier formats",
+      "body": "Independent six-man program history lists Claude's transition to the six-man game in 2018. The 2025 Mustangs went 8–3 in current history records under Brantlee Lemons. The school distributes a 2026 varsity schedule and separately posts return-to-play protocols; neither historical record nor protocol establishes an outcome for unplayed 2026 fixtures.",
+      "sourceUrl": "https://sixmanfootball.com/teams/claude-mustangs.1108/",
+      "sourceLabel": "Community six-man school history, league, mascot, head coach and stadium",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2018",
+        "title": "Six-man era begins",
+        "body": "The six-man football team directory dates Claude's six-man start to 2018.",
+        "sourceUrl": "https://sixmanfootball.com/teams/claude-mustangs.1108/",
+        "sourceLabel": "Six-Man Football history listing"
+      },
+      {
+        "date": "2025",
+        "title": "Eight-win season",
+        "body": "Year-specific 2025 team history reports 8–3 under coach Brantlee Lemons.",
+        "sourceUrl": "https://www.maxpreps.com/tx/claude/claude-mustangs/football/history/",
+        "sourceLabel": "MaxPreps season history"
+      },
+      {
+        "date": "2026",
+        "title": "2026 varsity schedule and UIL 1A district",
+        "body": "Claude ISD posts the varsity schedule; UIL places Claude among the District 1 six-man Division I programs.",
+        "sourceUrl": "https://www.claudeisd.net/athletics",
+        "sourceLabel": "Official Claude ISD current athletics"
+      }
+    ],
+    "overview": [
+      "Claude Mustangs compete in UIL six-man 1A Division I District 1, rather than an eleven-man district.",
+      "Claude ISD's first-party 2026 football schedule names Brantlee Lemons as head coach; his 2025 historical record was 8–3.",
+      "The school is in Armstrong County, with a campus address on West 5th Street; the game-field name is not an admission-gate instruction.",
+      "District opponents and game times may change, so the official athletics calendar controls travel."
+    ],
+    "faq": [
+      {
+        "question": "Is Claude six-man or eleven-man football?",
+        "answer": "Claude plays UIL Conference 1A Division I six-man football."
+      },
+      {
+        "question": "Who coaches Claude football?",
+        "answer": "The published 2026 Claude ISD football schedule identifies Brantlee Lemons as head coach."
+      },
+      {
+        "question": "When did Claude begin six-man play?",
+        "answer": "Six-Man Football's team history lists a 2018 start; this is community history, not a separate UIL championship claim."
+      }
+    ]
+  },
+  "cleburne": {
+    "slug": "cleburne",
+    "intro": "The Cleburne Yellow Jackets play 2026–28 UIL 5A Division I District 8. Their school-operated athletics schedule publishes named 2026 finals, home Yellow Jacket Stadium assignments and visiting venues; as of October 23 it showed eight played varsity games and two remaining. February 2026 coverage identifies AJ Sheppard head coach. Cleburne's city address and opponent schedules must not be merged with Cedar Hill's or the former Class 5A league alignment.",
+    "theme": {
+      "accentHex": "#7B5B34",
+      "label": "Original TexasDefined ochre editorial accent, not a copied Yellow Jacket logo or football image."
+    },
+    "seo": {
+      "title": "Cleburne Yellow Jackets Football | 2026 Scores, AJ Sheppard & District 8",
+      "description": "Cleburne Yellow Jackets football: school-owned 2026 game scores and stadium listings, head coach AJ Sheppard, UIL 5A Division I District 8."
+    },
+    "coach": {
+      "name": "AJ Sheppard",
+      "title": "2026 head football coach confirmed in dated local coverage",
+      "sourceUrl": "https://www.ntxvarsitysports.com/cleburne-sports-update-2-5-2026/",
+      "sourceLabel": "February 5 2026 Cleburne team report and coach attribution",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Cleburne ISD official varsity football schedule and results",
+      "sourceUrl": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule",
+      "sourceLabel": "School-operated 2026–27 schedule, dated varsity finals and home/away venues",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule"
+    },
+    "venue": {
+      "name": "Yellow Jacket Stadium",
+      "sourceUrl": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Cleburne ISD's own 2026 home varsity venue",
+      "verifiedAt": "2026-10-28",
+      "note": "Published home game location does not certify a universal stadium entrance, parking rules, bag restrictions or ADA services."
+    },
+    "season": {
+      "record": "0–8 in eight school-listed varsity finals through October 23, 2026; October 30 and November 5 still scheduled",
+      "sourceUrl": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Cleburne High school athletics current scorecard",
+      "verifiedAt": "2026-10-28",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Granbury",
+          "site": "Home",
+          "result": "L 27-54"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Fort Worth Arlington Heights",
+          "site": "Away",
+          "result": "L 0-63"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Arlington Sam Houston",
+          "site": "Home",
+          "result": "L 0-62"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Mansfield Legacy",
+          "site": "Away",
+          "district": true,
+          "result": "L 14-62"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Burleson Centennial",
+          "site": "Home",
+          "district": true,
+          "result": "L 7-55"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Midlothian",
+          "site": "Away",
+          "district": true,
+          "result": "L 14-69"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Lancaster",
+          "site": "Home",
+          "district": true,
+          "result": "L 0-75"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Mansfield Summit",
+          "site": "Away",
+          "district": true,
+          "result": "L 7-55"
+        }
+      ]
+    },
+    "development": {
+      "title": "District 8 brings a demanding 5A Division I schedule",
+      "body": "A February Cleburne-area preview identified AJ Sheppard as head coach and a 2026 eight-team district that includes Cedar Hill, DeSoto, Lancaster, Midlothian, Burleson Centennial and two Mansfield programs. The school-owned final-score feed has eight recorded losses by October 23, but the Cedar Hill and DeSoto games had not yet been completed at that snapshot. These dated results should not be presented as a finalized 2026 record.",
+      "sourceUrl": "https://www.ntxvarsitysports.com/cleburne-sports-update-2-5-2026/",
+      "sourceLabel": "Cleburne February 2026 re-districting preview",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "February 2026",
+        "title": "New 5A Division I District 8 opponents announced",
+        "body": "Cleburne was placed in a district with DeSoto, Lancaster, Cedar Hill, Burleson Centennial, Midlothian and Mansfield schools.",
+        "sourceUrl": "https://www.ntxvarsitysports.com/cleburne-sports-update-2-5-2026/",
+        "sourceLabel": "Local Cleburne sports roundup"
+      },
+      {
+        "date": "August–October 2026",
+        "title": "Official game-by-game record",
+        "body": "Cleburne ISD published eight final scores from August 28 through October 23 while listing Cedar Hill and DeSoto as later games.",
+        "sourceUrl": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule",
+        "sourceLabel": "Cleburne High school-controlled game listing"
+      }
+    ],
+    "overview": [
+      "Cleburne's Yellow Jackets compete in 5A Division I District 8 for 2026–28.",
+      "The 2026 program was coached by AJ Sheppard according to dated Cleburne sports reporting.",
+      "Official Cleburne High schedule lists eight 2026 finals through October 23, with a further two varsity dates not yet settled in that source snapshot.",
+      "Home Yellow Jacket Stadium is a location designation; host-specific tickets, parking and entrance details require official verification."
+    ],
+    "faq": [
+      {
+        "question": "Who is the Cleburne head football coach?",
+        "answer": "February 2026 Cleburne sports coverage names AJ Sheppard as the head coach."
+      },
+      {
+        "question": "How many 2026 finals appear in the school's October 23 score feed?",
+        "answer": "Eight, with two later varsity games against Cedar Hill and DeSoto still on the school-operated calendar."
+      },
+      {
+        "question": "Where does Cleburne play home games?",
+        "answer": "School athletics lists Yellow Jacket Stadium for its 2026 varsity home games; verify the exact entrance and game-day policies directly."
+      }
+    ]
+  },
+  "cleveland": {
+    "slug": "cleveland",
+    "intro": "Cleveland High School's Indians compete in 2026 UIL Class 6A District 13. Cleveland ISD's first-party staff directory identifies Ajani Sanders as the campus athletics coordinator, and its 2026 football roster separately labels him head coach. These complementary sources should not be confused with a different Cleveland High School outside Texas or with a former coaching staff.",
+    "theme": {
+      "accentHex": "#673E36",
+      "label": "Original TexasDefined reddish-slate editorial style, not an official Cleveland Indians logo or copyrighted football photograph."
+    },
+    "seo": {
+      "title": "Cleveland Indians Football | Ajani Sanders, 2026 UIL 6A District 13",
+      "description": "Cleveland Texas High Indians football: Ajani Sanders, official campus athletics directory, 2026 UIL 6A District 13, school contacts and source-cautious results."
+    },
+    "coach": {
+      "name": "Ajani Sanders",
+      "title": "2026 head football coach on team roster; Cleveland ISD first-party campus athletics coordinator",
+      "sourceUrl": "https://www.maxpreps.com/tx/cleveland/cleveland-indians/football/staff/",
+      "sourceLabel": "2026 MaxPreps named head coach, cross-checked with Cleveland ISD staff directory",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "1600 E Houston St, Cleveland, TX 77327 (current first-party campus address; other directories may be outdated)",
+      "sourceUrl": "https://chs.clevelandisd.org/staff/?page_no=25",
+      "sourceLabel": "Cleveland High School official campus directory footer and Sanders staff listing",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Cleveland Texas 2026 varsity football schedule",
+      "sourceUrl": "https://www.maxpreps.com/tx/cleveland/cleveland-indians/football/",
+      "sourceLabel": "UIL partner current team listing",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://chs.clevelandisd.org/"
+    },
+    "development": {
+      "title": "First-party athletics coordinator versus roster title",
+      "body": "Cleveland ISD itself calls Ajani Sanders the campus athletics coordinator, and current UIL-partner football staff calls him head coach. A 2025 student athletic handbook independently names him the high-school boys coordinator; that is a year-specific organization chart, not an admission rule. Cleveland's 2025 football archive lists an 0–10 season, which must never be carried forward as its 2026 win-loss or seeding status.",
+      "sourceUrl": "https://chs.clevelandisd.org/staff/?page_no=25",
+      "sourceLabel": "Cleveland High official 2026 staff page and campus address",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "Previous coaching era",
+        "body": "The year-specific 2024 season roster attributes the team to Quirino Silva; it is a historical listing, not a present-tense head-coach claim.",
+        "sourceUrl": "https://www.maxpreps.com/tx/cleveland/cleveland-indians/football/history/",
+        "sourceLabel": "MaxPreps 2024 coach archive"
+      },
+      {
+        "date": "2025",
+        "title": "2025 rebuilding season",
+        "body": "The 2025 historical season archive reports an 0–10 mark under Ajani Sanders.",
+        "sourceUrl": "https://www.maxpreps.com/tx/cleveland/cleveland-indians/football/history/",
+        "sourceLabel": "MaxPreps 2025 football history"
+      },
+      {
+        "date": "2026",
+        "title": "UIL 6A District 13",
+        "body": "The 2026 official alignment places Cleveland in Class 6A District 13.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6AFB2026.pdf",
+        "sourceLabel": "Official UIL 2026 football realignment"
+      }
+    ],
+    "overview": [
+      "Cleveland High in this guide is the Liberty County Texas public school, not a school with the same name in another state.",
+      "The school's first-party 2026 staff directory confirms Ajani Sanders as campus athletics coordinator; MaxPreps confirms his current football head-coach role.",
+      "The 2026 UIL assignment is Conference 6A District 13; division I/II playoff placement is not predetermined by district realignment.",
+      "An 0–10 2025 historical record is not evidence for any 2026 final standings; spectator venue and ticket policies require current official school information."
+    ],
+    "faq": [
+      {
+        "question": "Who is the head coach of Cleveland, Texas football in 2026?",
+        "answer": "The current varsity staff roster names Ajani Sanders; Cleveland ISD's school directory independently lists him as campus athletics coordinator."
+      },
+      {
+        "question": "What UIL football district is Cleveland in?",
+        "answer": "Conference 6A District 13 for 2026–28."
+      },
+      {
+        "question": "Is Cleveland's 0–10 record from 2026?",
+        "answer": "No. The referenced 0–10 mark is from the 2025 historical season; check current game results before stating 2026 standings."
+      }
+    ]
+  },
   "chilton": {
     "slug": "chilton",
     "intro": "Chilton's Pirates compete in UIL Class 2A Division II District 13 for the 2026–28 cycle. Chilton ISD publishes current sports fixtures and identifies Bennie Huitt as athletic director, while an August 2026 KWTX team preview names him head football coach. That preview calls the 2025 finish 10–2; it is historical, not a verified 2026 season record.",
