@@ -136,17 +136,21 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     ];
   }
 
-  // Hunting authority changes must verify exactly the practical hub, legal
-  // public-land access guide, and researched white-tailed deer guide on the
-  // deployed Worker. Do not broaden this into a WMA, county or species crawl.
+  // Guarantee three bounded hunting canaries are selected before the generic
+  // sorted page candidate budget can truncate them during multi-PR releases.
+  // Do not expand this into a county or WMA crawl.
+  const huntingAuthorityPages = new Set();
   if (changedFiles.some(p =>
     p.startsWith('src/data/hunting/')
     || p.startsWith('src/components/hunting/')
     || p.startsWith('src/routes/hunting')
+    || p.startsWith('scripts/data/refresh-hunting-official-facts.')
+    || p === '.github/workflows/monitor-hunting-tpwd-sources.yml'
     || p === 'src/brand/texasdefined.ts'
   )) {
     for (const page of ['/hunting', '/hunting/public-hunting', '/hunting/texas-deer-hunting']) {
       candidates.add(page);
+      huntingAuthorityPages.add(page);
     }
     expectedHrefsByPage['/hunting'] = [
       '/hunting/public-hunting',
@@ -511,7 +515,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
