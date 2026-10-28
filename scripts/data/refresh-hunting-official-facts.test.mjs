@@ -25,11 +25,12 @@ test('future season rollover and implausible values stop automatic changes', () 
 });
 test('official rule notices must retain verified key markers', () => {
   const pages = {
-    changes: 'Doe Days Special White-winged Dove Days Matagorda Wharton unbearded ' + 'source text '.repeat(90),
-    seasons: '2026-27 Hunting Season Dates Dove Duck Turkey ' + 'source text '.repeat(90),
+    changes: 'Doe Days 21 counties Special White-winged Dove Days Matagorda Wharton unbearded ' + 'source text '.repeat(90),
+    seasons: '2026-27 Hunting Season Dates Dove Duck Turkey Nov. 8, 2026 Jan. 7, 2027 Oct. 25, 2026 Dec. 11, 2026 Jan. 14, 2027 Jan. 21, 2027 ' + 'source text '.repeat(90),
     hogs: 'Feral Hogs Hunter Education No hunting license is required to hunt feral hogs on private ' + 'source text '.repeat(90),
     areaSearch: 'Search for an Area or Legal Game Legal Game Public Hunting ' + 'source text '.repeat(90),
   };
   assert.doesNotThrow(() => checkOtherOfficialSources(pages, current.seasonYear));
   assert.throws(() => checkOtherOfficialSources({...pages,changes:pages.changes.replace('Matagorda','another county')}, current.seasonYear), /change notice/);
+  assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Jan. 21, 2027', 'Jan. 20, 2027')}, current.seasonYear), /dove-zone dates/);
 });
