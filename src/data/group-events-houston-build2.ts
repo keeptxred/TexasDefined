@@ -4,7 +4,7 @@
  * null locationId means no vetted Explore location join, NOT that the venue has no address.
  */
 import { corporateEventProviders } from './corporate-events.ts';
-import { houstonBuild2VerifiedProviders } from './corporate-events-houston-build2';
+import { houstonBuild2VerifiedProviders } from './corporate-events-houston-build2.ts';
 import type { MarketplaceExperience, MarketplacePackage, OccasionKey, ActivityKey, AmenityKey, EnvironmentKey, MarketplaceSetting } from './group-event-marketplace-foundation';
 
 export type HoustonLegacyKind = 'multi-site-operator' | 'mobile-experience' | 'venue-and-mobile' | 'activity-at-venue' | 'location-needs-identity-link';
