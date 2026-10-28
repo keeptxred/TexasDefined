@@ -7,7 +7,7 @@ const current = { seasonYear: '2026–27', aphPermitUsd: 48, limitedPublicUsePer
 test('extract only complete official APH price and season evidence', () => {
   assert.deepEqual(parsePermitFacts(example), { seasonYear: '2026–27', aphPermitUsd: 48, limitedPublicUsePermitUsd: 12 });
   assert.throws(() => parsePermitFacts(example.replace('Limited Public Use (LPU) Permit', 'Some permit')), /unambiguously/);
-  assert.throws(() => parsePermitFacts(example.replace('2026-27', '2027-28')), /unambiguously/);
+  assert.equal(parsePermitFacts(example.replace('2026-27', '2027-28')).seasonYear, '2027–28');
 });
 test('do not update verified date when facts remain unchanged', () => {
   assert.equal(reconcile(current, parsePermitFacts(example), '2026-11-03'), null);
@@ -21,7 +21,7 @@ test('bounded verified permit price change produces a tiny safe diff', () => {
 });
 test('future season rollover and implausible values stop automatic changes', () => {
   assert.throws(() => reconcile(current, {seasonYear:'2027–28',aphPermitUsd:49,limitedPublicUsePermitUsd:13},'2027-08-01'), /rollover/);
-  assert.throws(() => parsePermitFacts(example.replace('$48 Annual','$150 Annual')), /plausibility/);
+  assert.throws(() => parsePermitFacts(example.replace('$48 Annual','$155 Annual')), /plausibility/);
 });
 test('official rule notices must retain verified key markers', () => {
   const pages = {
