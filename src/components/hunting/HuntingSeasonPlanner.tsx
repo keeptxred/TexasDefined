@@ -75,7 +75,7 @@ export function HuntingSeasonPlanner() {
           <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
             Compare the official {speciesCalendar.seasonYear} statewide dates for deer, turkey and 17 other game categories. Select a species to see its zones and dates. A date window that includes today does not establish that hunting is legal in your county or on your property.
           </p>
-          <div className="mt-7 grid gap-5 rounded-sm border border-border bg-background p-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+          <div className="mt-7 grid gap-5 rounded-sm border border-border bg-background p-5 md:grid-cols-2 md:items-end">
             <div>
               <label htmlFor="hunting-species-select" className="block text-sm font-semibold">Species or game category</label>
               <select
@@ -87,7 +87,7 @@ export function HuntingSeasonPlanner() {
                 {calendars.map((entry) => <option key={entry.slug} value={entry.slug}>{entry.heading}</option>)}
               </select>
             </div>
-            <Link to={"/hunting/" + calendar.slug} className="inline-flex min-h-11 items-center justify-center border border-primary px-5 py-2 text-sm font-semibold text-primary hover:bg-primary/10">
+            <Link to={"/hunting/" + calendar.slug} className="inline-flex min-h-11 items-center justify-center border border-primary px-5 py-2 text-sm font-semibold text-primary hover:bg-muted">
               Read the {calendar.heading.toLowerCase()} guide →
             </Link>
           </div>
