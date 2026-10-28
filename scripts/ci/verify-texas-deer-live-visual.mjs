@@ -67,6 +67,14 @@ try {
       verify('governed deer season table has eight entries', await table.locator('tbody tr').count() === 8,
         await table.locator('tbody tr').count().catch(() => 0));
       verify('eleven-section guide navigation', await page.locator('#deer-guide-11').count() === 1);
+      const countySelect = page.locator('#deer-tpwd-county');
+      verify('all 254 counties listed in the official-rules finder', await countySelect.locator('option').count() === 255);
+      await countySelect.selectOption('la-salle');
+      verify('TPWD exceptional La Salle route links correctly',
+        await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/lasalle/"]').count() === 1);
+      await countySelect.selectOption('tarrant');
+      verify('TPWD county rules link responds to selection',
+        await page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/tarrant/"]').count() === 1);
       const photo = page.locator('img[alt^="Close view of a white-tailed buck"]').first();
       verify('exact licensed deer image is present', await photo.count() === 1);
       if (await photo.count()) {
