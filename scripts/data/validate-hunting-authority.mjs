@@ -85,6 +85,8 @@ requireText(huntingHub, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 hub topic registry mi
 requireText(huntingHub, 'Four decisions before choosing a hunting spot', 'practical access decision framework missing');
 requireText(huntingHub, 'publicAccessFacts.aphPermitUsd', 'source-backed public hunting permit prices missing');
 requireText(huntingHub, 'Matagorda and Wharton', '2026 season change notice missing');
+requireText(huntingHub, 'Muzzleloader definition', '2026 revised means-and-methods notice missing');
+requireText(huntingHub, 'last season for the printed Public Hunting Lands Map Booklet', 'final printed APH map-booklet advisory missing');
 requireText(huntingHub, 'topic.faq.length > 0', 'empty FAQs must not be emitted');
 requireText(read('src/components/hunting/HuntingSchema.tsx'), 'topic.faq.length', 'empty FAQPage schema must not be emitted');
 requireText(authority, '"texas-deer-hunting": TEXAS_DEER_AUTHORITY_TOPIC', 'researched deer source overwritten');

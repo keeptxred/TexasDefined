@@ -100,7 +100,7 @@ export function checkOtherOfficialSources(sourceHtml, seasonYear) {
   const hogs = visibleText(sourceHtml.hogs);
   const areaSearch = visibleText(sourceHtml.areaSearch);
   const required = [
-    [changes, ['Doe Days', '21 counties', 'Special White-winged Dove Days', 'Matagorda', 'Wharton', 'unbearded'], '2026 season change notice'],
+    [changes, ['Doe Days', '21 counties', 'Special White-winged Dove Days', 'Matagorda', 'Wharton', 'unbearded', 'muzzleloader modified'], '2026 season change notice'],
     [seasons, ['Hunting Season Dates', 'Dove', 'Duck', 'Turkey', seasonYear.slice(0, 4), '20' + seasonYear.slice(-2), 'Nov. 8, 2026', 'Jan. 7, 2027', 'Oct. 25, 2026', 'Dec. 11, 2026', 'Jan. 14, 2027', 'Jan. 21, 2027'], 'TPWD season tables and 2026–27 dove-zone dates'],
     [hogs, ['Feral Hogs', 'Hunter Education', 'No hunting license is required to hunt feral hogs on private'], 'feral hog license exception'],
     [areaSearch, ['Search for an Area or Legal Game', 'Legal Game', 'Public Hunting'], 'public hunt legal-game search'],
@@ -142,6 +142,9 @@ export async function main() {
   const entries = await Promise.all(Object.entries(OFFICIAL_URLS).map(async ([key,url]) => [key, await fetchOfficial(url)]));
   const pages = Object.fromEntries(entries);
   const observed = parsePermitFacts(pages.access);
+  if (baseline.seasonYear === '2026–27' && !visibleText(pages.access).includes('last season the Map Booklet for Public Hunting Lands will be printed')) {
+    throw new Error('2026–27 TPWD final printed map-booklet advisory changed; review access instructions.');
+  }
   checkOtherOfficialSources(pages, baseline.seasonYear);
   const updated = reconcile(baseline, observed, new Date().toISOString().slice(0,10));
   if (updated && process.argv.includes('--write')) {
