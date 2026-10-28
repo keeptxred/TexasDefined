@@ -2596,14 +2596,14 @@ if(batch009Certified) {
   const county = read('src/routes/$kind.$slug.lazy.tsx');
   const checker = read('scripts/ci/verify-football-b010-first-five-production.mjs');
   const wf = read('.github/workflows/verify-football-b010-first-five-production.yml');
-  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==10 ||
-     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==15 || reg.batch.remainingToVerify!==25 ||
+  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==15 ||
+     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==10 || reg.batch.remainingToVerify!==25 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==205 ||
-     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==10 ||
-     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1077 ||
+     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==15 ||
+     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1072 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==10).length!==205 ||
      reg.completedBatches.find(x=>x.number===9)?.individuallyVerified!==25) {
-     errors.push('Batch010 second-five registry must preserve 205 VERIFIED / ten individually IMPLEMENTED / 1,077 NOT_REVIEWED and archived Batch009 evidence.');
+     errors.push('Batch010 protected third-cohort registry must preserve 205 VERIFIED / fifteen individually IMPLEMENTED / 1,072 NOT_REVIEWED and archived Batch009 evidence.');
   }
   if(!profile.includes('loadBatch010FootballProgramEditorial(canonicalSlug)')) errors.push('Batch010 isolated SSR editorial precedence missing.');
   const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] ?? '';
