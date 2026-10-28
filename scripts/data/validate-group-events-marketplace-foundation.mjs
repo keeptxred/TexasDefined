@@ -26,6 +26,7 @@ for (const ref of [
   'REFERENCES public.explore_locations(id)',
   'REFERENCES public.explore_media(id)',
   'REFERENCES public.explore_tags(id)',
+  'REFERENCES public.texasdefined_group_event_partner_applications(id)',
 ]) {
   assert(sql.includes(ref), 'Reuse established Explore records; no new parallel business/location/media/tag tables: ' + ref);
 }
