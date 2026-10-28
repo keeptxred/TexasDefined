@@ -12,6 +12,12 @@ The publication authority remains `keeptxred/TexasDefined`, with protected GitHu
 | Homeowners insurance | `.github/workflows/refresh-tdi-homeowners-current.yml` plus existing Supabase TDI source monitor | GitHub weekly Mondays 12:37 UTC; Supabase Mondays 12:02 UTC | Checks paired official TDI premium/coverage chart series and policy type; when figures change, a governed GitHub PR updates the latest premium dataset and hub tile through protected auto-merge. The separately dated 2016–2025 research remains archival. |
 | Homestead exemption and TxDOT traffic coverage | `.github/workflows/refresh-texas-reference-facts.yml` | Monthly on the 10th, 13:19 UTC | Rechecks the current Comptroller 11.13(b) exemption and TxDOT published count/station thresholds; when verified values change, opens a protected PR finished through `Finish Texas Reference Facts Refresh` |
 
+## Independent live publication acceptance
+
+- The existing `TexasDefined publication production smoke` workflow checks source-vintage consistency immediately after a successful production deployment when official-source data or Texas Data delivery code changed. It also supports explicit manual runs. **Every day at 14:47 UTC**, its targeted Texas Data acceptance runs even if a data-only deployment was cancelled and superseded by an unrelated main-branch release. No new workflows, paid API requests, site-wide scans or ChatGPT schedules are required.
+- The daily check makes just ten bounded public GETs: the Texas Data hub, current BLS detail and Census county growth detail on both the custom domain and direct Worker, plus the four public CSVs. It compares the official BLS source month and all 13 metro counts, the Census county vintage, TDI premium, canonical links, CSV types, 254/254/57/84 record counts and uniqueness. It **never updates stored data** on a read or claims a source-check date is a publication date.
+- The scheduled run skips unrelated news, museum and affiliate production audits; those remain protected on deployment events. Any stale live data creates a visible failing GitHub run rather than a false success after superseded deployment checks.
+
 ## Official-source BLS update safeguards
 
 - BLS direct-source checks run around its expected late-month press release; separate GitHub checks on days 9/12/16 ensure that a FRED fallback can actually pass the conservative 40-day maturity gate after a source-blocked BLS release. Source failures never rewrite the verified snapshot.
