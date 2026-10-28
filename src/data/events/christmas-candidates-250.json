@@ -812,7 +812,11 @@
       "intakeId": 95,
       "title": "Corsicana Palace Theatre Holiday Shows",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "corsicana-palace-theatre-dean-martin-christmas-2026"
+      ],
+      "researchNote": "The theatre's 2026–27 schedule specifically confirms the December 10 2026 Dean Martin Story Christmas Special at 7:30 p.m.; do not assume additional seasonal performances."
     },
     {
       "intakeId": 96,
@@ -1434,7 +1438,11 @@
       "intakeId": 180,
       "title": "Kingsville Ranch Hand Festival",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kingsville-ranch-hand-weekend-holiday-2026"
+      ],
+      "researchNote": "Official Visit Kingsville and King Ranch confirm 2026 Nov20–21 Ranch Hand Weekend with Nov20 tree lighting, free downtown festival and separately paid Nov21 King Ranch Breakfast/Rodeo."
     },
     {
       "intakeId": 181,
@@ -1780,7 +1788,11 @@
       "intakeId": 232,
       "title": "Plainview Holiday Parade",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "plainview-christmas-parade-of-lights-2026"
+      ],
+      "researchNote": "Plainview Chamber's 34th annual Christmas Parade of Lights confirmed Dec3 2026 6:30 p.m. Though the URL slug mentions an older edition, the page headline is 34th and explicitly dates 2026."
     },
     {
       "intakeId": 233,
@@ -1894,8 +1906,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-27",
-    "calendarCandidates": 80,
+    "calendarCandidates": 83,
     "authorityCandidates": 12,
-    "remainingCandidates": 158
+    "remainingCandidates": 155
   }
 }
