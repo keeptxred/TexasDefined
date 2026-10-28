@@ -56,7 +56,7 @@ jobs:
 
       - name: Validate generated snapshot and crawl policy
         run: |
-          node --test scripts/data/county-property-snapshot-codec.test.mjs
+          node --test scripts/data/county-property-snapshot-codec.test.mjs scripts/data/county-office-link-normalization.test.mjs
           node scripts/data/validate-county-property-enrichment.mjs
           node scripts/data/validate-generated-page-quality.mjs
           node scripts/data/validate-entity-template-quality.mjs

@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal, applyQuarantinedCountyRefresh } from './county-property-snapshot-codec.mjs';
+import { normalizeVerifiedCountyOfficeUrl } from './county-office-link-normalization.mjs';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
@@ -170,7 +171,7 @@ async function secureOfficeUrl(raw) {
     url = new URL(raw);
     if (!['http:', 'https:'].includes(url.protocol) || !url.hostname
       || /^(localhost|127\.|10\.|192\.168\.|169\.254\.|0\.0\.0\.0|::1)/i.test(url.hostname)) return null;
-    if (url.protocol === 'https:') return url.toString();
+    if (url.protocol === 'https:') return normalizeVerifiedCountyOfficeUrl(url.toString());
     url.protocol = 'https:';
   } catch { return null; }
   // The directory sometimes advertises HTTP even when the office's secure
@@ -187,7 +188,7 @@ async function secureOfficeUrl(raw) {
       if (response.body) await response.body.cancel();
     }
     const resolved = new URL(response.url);
-    return response.ok && resolved.protocol === 'https:' ? resolved.toString() : null;
+    return response.ok ? normalizeVerifiedCountyOfficeUrl(resolved.toString()) : null;
   } catch { return null; }
 }
 
