@@ -1,0 +1,338 @@
+{
+  "seasonYear": "2026–27",
+  "source": "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/2026-2027-hunting-season-dates",
+  "checkedAt": "2026-10-28",
+  "sections": [
+    {
+      "heading": "Javelina",
+      "slugs": [
+        "javelina-hunting"
+      ],
+      "rows": [
+        {
+          "season": "General",
+          "zone": "North",
+          "dates": "Oct. 1, 2026 - Feb. 28, 2027"
+        },
+        {
+          "season": "General",
+          "zone": "South",
+          "dates": "Sep. 1, 2026 - Aug. 31, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Mule Deer",
+      "slugs": [
+        "mule-deer-hunting"
+      ],
+      "rows": [
+        {
+          "season": "General",
+          "zone": "Panhandle",
+          "dates": "Nov. 21, 2026 - Dec. 6, 2026"
+        },
+        {
+          "season": "General",
+          "zone": "Trans-Pecos",
+          "dates": "Nov. 27, 2026 - Dec. 13, 2026"
+        },
+        {
+          "season": "Archery",
+          "zone": "Panhandle",
+          "dates": "Oct. 3, 2026 - Nov. 20, 2026"
+        },
+        {
+          "season": "Archery",
+          "zone": "Trans-Pecos",
+          "dates": "Oct. 3, 2026 - Nov. 26, 2026"
+        }
+      ]
+    },
+    {
+      "heading": "Pronghorn",
+      "slugs": [
+        "pronghorn-hunting"
+      ],
+      "rows": [
+        {
+          "season": "General",
+          "zone": "41 of 254 counties",
+          "dates": "Oct. 3-18, 2026"
+        }
+      ]
+    },
+    {
+      "heading": "Squirrel",
+      "slugs": [
+        "squirrel-hunting"
+      ],
+      "rows": [
+        {
+          "season": "General",
+          "zone": "East Texas",
+          "dates": "Oct. 1, 2026 - Feb. 28, 2027 & May 1-31, 2027"
+        },
+        {
+          "season": "General",
+          "zone": "Other open counties",
+          "dates": "Sep. 1, 2026 - Aug. 31, 2027"
+        },
+        {
+          "season": "Youth-only",
+          "zone": "East Texas",
+          "dates": "Sep. 25-27, 2026"
+        }
+      ]
+    },
+    {
+      "heading": "Chachalaca",
+      "slugs": [
+        "chachalaca-hunting"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "Cameron, Hidalgo, Starr & Willacy Counties",
+          "dates": "Nov. 1, 2026 - Feb. 28, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Pheasant",
+      "slugs": [
+        "pheasant-hunting"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "Panhandle/South Plains",
+          "dates": "Dec. 5, 2026 - Jan. 3, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Quail",
+      "slugs": [
+        "quail-hunting"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "Statewide",
+          "dates": "Nov. 1, 2026 - Feb. 28, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Dove",
+      "slugs": [
+        "dove-hunting",
+        "migratory-game-birds"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "North",
+          "dates": "Sep. 1, 2026 - Nov. 8, 2026 & Dec. 18, 2026 - Jan. 7, 2027"
+        },
+        {
+          "season": "Regular",
+          "zone": "Central",
+          "dates": "Sep. 1, 2026 - Oct. 25, 2026 & Dec. 11, 2026 - Jan. 14, 2027"
+        },
+        {
+          "season": "Regular",
+          "zone": "South",
+          "dates": "Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 21, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Duck",
+      "slugs": [
+        "waterfowl-hunting",
+        "duck-hunting",
+        "migratory-game-birds"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "High Plains Mallard Management Unit",
+          "dates": "Oct. 24-25, 2026 & Oct. 30, 2026 - Jan. 31, 2027"
+        },
+        {
+          "season": "Regular",
+          "zone": "North",
+          "dates": "Nov. 14-29, 2026 & Dec. 5, 2026 - Jan. 31, 2027"
+        },
+        {
+          "season": "Regular",
+          "zone": "South",
+          "dates": "Nov. 7-29, 2026 & Dec. 12, 2026 - Jan. 31, 2027"
+        },
+        {
+          "season": "Youth/Veterans",
+          "zone": "High Plains Mallard Management Unit",
+          "dates": "Oct. 17-18, 2026"
+        },
+        {
+          "season": "Youth/Veterans",
+          "zone": "North",
+          "dates": "Nov. 7-8, 2026"
+        },
+        {
+          "season": "Youth/Veterans",
+          "zone": "South",
+          "dates": "Oct. 31, 2026 - Nov. 1, 2026"
+        }
+      ]
+    },
+    {
+      "heading": "Goose",
+      "slugs": [
+        "waterfowl-hunting",
+        "goose-hunting",
+        "migratory-game-birds"
+      ],
+      "rows": [
+        {
+          "season": "Early Canada Goose",
+          "zone": "East",
+          "dates": "Sep. 12-27, 2026"
+        },
+        {
+          "season": "Dark Geese",
+          "zone": "West",
+          "dates": "Nov. 7, 2026 - Feb. 7, 2027"
+        },
+        {
+          "season": "Dark Geese",
+          "zone": "East",
+          "dates": "Nov. 7, 2026 - Jan. 31, 2027"
+        },
+        {
+          "season": "Light Geese",
+          "zone": "West",
+          "dates": "Nov. 7, 2026 - Feb. 7, 2027"
+        },
+        {
+          "season": "Light Geese",
+          "zone": "East",
+          "dates": "Nov. 7, 2026 - Feb. 19, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Rails, Gallinules & Moorhens",
+      "slugs": [
+        "other-migratory-game-birds",
+        "migratory-game-birds"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "Statewide",
+          "dates": "Sep. 19-27, 2026 & Nov. 7, 2026 - Jan. 6, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Sandhill Cranes",
+      "slugs": [
+        "sandhill-crane-hunting",
+        "migratory-game-birds"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "A",
+          "dates": "Oct. 31, 2026 - Jan. 31, 2027"
+        },
+        {
+          "season": "Regular",
+          "zone": "B",
+          "dates": "Nov. 27, 2026 - Jan. 31, 2027"
+        },
+        {
+          "season": "Regular",
+          "zone": "C",
+          "dates": "Dec. 12, 2026 - Jan. 17, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Snipe",
+      "slugs": [
+        "other-migratory-game-birds",
+        "migratory-game-birds"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "Statewide",
+          "dates": "Nov. 7, 2026 - Feb. 21, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Teal",
+      "slugs": [
+        "teal-hunting",
+        "migratory-game-birds"
+      ],
+      "rows": [
+        {
+          "season": "September Teal Only",
+          "zone": "Statewide",
+          "dates": "Sep. 19-27, 2026"
+        }
+      ]
+    },
+    {
+      "heading": "Woodcock",
+      "slugs": [
+        "other-migratory-game-birds",
+        "migratory-game-birds"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "Statewide",
+          "dates": "Dec. 18, 2026 - Jan. 31, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Alligator",
+      "slugs": [
+        "alligator-hunting"
+      ],
+      "rows": [
+        {
+          "season": "General",
+          "zone": "22 Counties & Special Properties",
+          "dates": "Sep. 10-30, 2026"
+        },
+        {
+          "season": "General",
+          "zone": "All Other Counties",
+          "dates": "Apr. 1, 2027 -June 30, 2027"
+        }
+      ]
+    },
+    {
+      "heading": "Rabbits and Hares",
+      "slugs": [
+        "rabbit-hare-hunting"
+      ],
+      "rows": [
+        {
+          "season": "Regular",
+          "zone": "Statewide",
+          "dates": "No closed season"
+        }
+      ]
+    }
+  ]
+}
