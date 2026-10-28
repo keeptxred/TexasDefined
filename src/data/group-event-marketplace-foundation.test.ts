@@ -18,6 +18,7 @@ const base: MarketplaceExperience = {
   name: 'Team escape room',
   minParticipants: 8, maxParticipants: 50, simultaneousCapacity: 50,
   rotationsConfirmed: false, durationMinutes: 120, setting: 'indoor',
+  groupBookingStatus: 'eligible', foodStatus: 'unknown',
   occasions: ['corporate-events', 'team-building'], activities: ['escape-room'],
   verifiedAmenities: ['parking'],
   participation: 'independent', participationApprovedAt: null, sponsorshipApprovedAt: null,
@@ -150,4 +151,25 @@ test('legacy editorial venues remain independent locations, never invented activ
   assert.equal(legacy.locationId, null);
   assert.equal(legacy.setting, 'unknown');
   assert.equal(legacy.provider.legacySlug, 'example');
+});
+
+test('unconfirmed group booking and food are not treated as verified facts', () => {
+  const unknown = fixture({ groupBookingStatus: 'unknown', foodStatus: 'unknown' });
+  assert.equal(findMarketplaceExperiences([unknown], { groupSize: 20 }).length, 0);
+  assert.equal(findMarketplaceExperiences([unknown], { foodRequired: true }).length, 0);
+  assert.equal(findMarketplaceExperiences([
+    fixture({ foodStatus: 'available', verifiedAmenities: ['food-available'] }),
+  ], { foodRequired: true, groupSize: 20 }).length, 1);
+});
+test('expired and not-yet-valid packages do not qualify', () => {
+  const pkg: MarketplacePackage = {
+    id: 'dated-package', experienceId: base.id, name: 'Seasonal',
+    minParticipants: 10, maxParticipants: 80, durationMinutes: 120,
+    pricePerPersonCents: null, minimumSpendCents: null,
+    validFrom: '2026-10-01', validUntil: '2026-10-31', source: base.source,
+  };
+  assert.equal(packageFitsGroup(pkg, 50, '2026-10-28'), true);
+  assert.equal(packageFitsGroup(pkg, 50, '2026-11-01'), false);
+  assert.equal(packageFitsGroup(pkg, 50, '2026-09-30'), false);
+  assert.equal(packageFitsGroup(pkg, 50), false);
 });
