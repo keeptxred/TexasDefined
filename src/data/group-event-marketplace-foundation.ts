@@ -85,6 +85,8 @@ export type MarketplaceExperience = {
   verifiedAmenities: readonly AmenityKey[];
   participation: MarketplaceParticipation;
   participationApprovedAt: string | null;
+  /** Server-verified partner agreement/identity approval; never inferred from an application. */
+  participationEvidenceVerified: boolean;
   sponsorshipApprovedAt: string | null;
   source: MarketplaceSource;
   /** Only rights-cleared media may be displayed as real venue imagery. */
@@ -128,8 +130,9 @@ export function validateMarketplaceExperience(item: MarketplaceExperience): stri
     && item.maxParticipants < item.minParticipants) errors.push('Minimum group exceeds maximum');
   if (item.simultaneousCapacity !== null && item.maxParticipants !== null
     && item.simultaneousCapacity > item.maxParticipants) errors.push('Simultaneous capacity exceeds event maximum');
-  if (item.participation !== 'independent' && !item.participationApprovedAt) {
-    errors.push('Partner participation must be explicitly approved');
+  if (item.participation !== 'independent'
+    && (!item.participationApprovedAt || !item.participationEvidenceVerified)) {
+    errors.push('Partner participation must be explicitly verified and approved');
   }
   if (item.participation === 'sponsored' && !item.sponsorshipApprovedAt) {
     errors.push('Sponsored status requires explicit promotional approval');
@@ -182,6 +185,17 @@ export function findMarketplaceExperiences(
     matches.push({ experience: item, fit });
   }
   return matches;
+}
+/** Reject duplicate identities and malformed records before catalog publication. */
+export function validateMarketplaceCatalog(items: readonly MarketplaceExperience[]): string[] {
+  const errors: string[] = [];
+  const ids = new Set<string>();
+  for (const item of items) {
+    if (ids.has(item.id)) errors.push('Duplicate experience ID: ' + item.id);
+    ids.add(item.id);
+    errors.push(...validateMarketplaceExperience(item).map(message => item.id + ': ' + message));
+  }
+  return errors;
 }
 export function packageFitsGroup(pkg: MarketplacePackage, size: number, asOf?: string): boolean {
   if (pkg.validFrom && (!asOf || asOf < pkg.validFrom)) return false;
