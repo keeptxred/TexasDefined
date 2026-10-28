@@ -12,6 +12,14 @@ const REPO='keeptxred/TexasDefined';
 const REGISTRY='docs/football-authority/REGISTRY.json';
 const NAMES=['first','second','third','fourth','fifth'];
 const COUNTIES=[5,5,3,5,4],SHOTS=[20,26,21,20,19];
+const EXPECTED_COUNTY_SLUGS=[
+  ['falls','mclennan','tom-green','guadalupe','eastland'],
+  ['donley','red-river','armstrong','johnson','liberty'],
+  ['liberty','bosque','el-paso'],
+  ['brazoria','callahan','howard','san-jacinto','coleman'],
+  ['brazos','tarrant','grayson','tyler'],
+];
+const VIEWPORT_WIDTHS={desktop:1366,mobile:390,narrow:320};
 const SHA=/^[a-f0-9]{40}$/;
 const UUID=/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/;
 const ROOT='https://github.com/'+REPO;
@@ -44,11 +52,17 @@ export function verifyChromeReport(report,i,slugs,worker,sha,screenshots) {
     assert.equal(row.pass,true);
     assert.deepEqual(row.issues,[]);
     assert.ok(slugs.includes(row.slug),'Unassigned school in Chrome evidence');
-    count.set(row.slug,(count.get(row.slug)||0)+1);
+    assert.ok(Object.hasOwn(VIEWPORT_WIDTHS,row.device),'Unexpected viewport device');
+    assert.equal(row.width,VIEWPORT_WIDTHS[row.device],'Mismatched Chrome viewport width');
+    const key=row.slug+'/'+row.device;
+    count.set(key,(count.get(key)||0)+1);
   }
-  assert.deepEqual(slugs.map(slug=>count.get(slug)),[3,3,3,3,3]);
+  for(const slug of slugs)
+    assert.deepEqual(['desktop','mobile','narrow'].map(d=>count.get(slug+'/'+d)),
+      [1,1,1],'Each school needs one 1366, 390 and 320 viewport');
   for(const row of report.countyChecks){assert.equal(row.pass,true);assert.deepEqual(row.issues,[]);}
-  assert.equal(new Set(report.countyChecks.map(row=>row.county)).size,COUNTIES[i]);
+  assert.deepEqual(report.countyChecks.map(row=>row.county).sort(),
+    [...EXPECTED_COUNTY_SLUGS[i]].sort(),'Exact distinct linked counties required');
 }
 
 export function graduateBatch010(reg,groups,worker,sha,deployRun,at) {
