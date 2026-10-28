@@ -37,7 +37,7 @@ Completed **October 27, 2026** using the original six Heartland jobs and a selec
 
 Implemented in [KTR PR #3161](https://github.com/keeptxred/texas-heartland-hub/pull/3161). **This text does not change Etsy's actual production partner setting, which remains unassigned on all six.**
 
-**Remaining copy defect:** The Sunrise Cast description still showed a double-escaped apostrophe (`it&amp;#39;s`) even after the first description update. A one-listing-only wording correction is in [KTR PR #3165](https://github.com/keeptxred/texas-heartland-hub/pull/3165). Keep this item open until the *live Etsy text*, not merely the Printify response, displays the corrected sentence.
+**Verified copy correction:** [KTR PR #3165](https://github.com/keeptxred/texas-heartland-hub/pull/3165) merged. The live Sunrise Cast Etsy listing now reads “The water is still, the sun is just clearing the trees, and the first cast is ready.” It no longer contains the double-escaped apostrophe. All six public descriptions contain the AI disclosure. **No seller-side production partner has been assigned yet.**
 
 ## Outstanding 3 — Fishing Shirts shop section
 
