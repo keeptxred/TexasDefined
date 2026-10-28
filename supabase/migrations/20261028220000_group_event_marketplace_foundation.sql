@@ -158,6 +158,10 @@ WITH vocabulary(category, slug) AS (
     'laser-tag','cooking-class','group-cruise','fishing-charter','guided-tour',
     'outdoor-adventure','private-dining','group-sports','team-competition'
   ]::text[])
+  UNION ALL SELECT 'setting', unnest(ARRAY[
+    'indoor','outdoor','covered-outdoor','climate-controlled','waterfront',
+    'private-room','exclusive-group-use'
+  ]::text[])
   UNION ALL SELECT 'amenity', unnest(ARRAY[
     'food-available','full-restaurant','catering-available','outside-catering-permitted',
     'bar-available','separate-alcohol-billing','parking','wheelchair-accessibility',
