@@ -131,8 +131,8 @@ export const houstonBuild2Evidence: Record<string, EvidenceShape> = {
     venueClass:'physical', occasion:['corporate-events','company-parties','employee-appreciation'],
     activities:[], setting:'indoor', environment:['indoor','private-room'],
     amenities:['private-meeting-space'], food:'unknown',
-    activityMax:null, simultaneous:null, duration:null,
-    capacityScope:'Room-by-room configurations not independently confirmed for this catalog.',
+    activityMax:600, simultaneous:600, duration:null,
+    capacityScope:'CityCentre advertises groups 2–600; the 150–600-person Red Oak Ballroom is a separate format, not an all-room limit; confirm layouts and availability.',
     accessibilityNote:null, pricingNote:null,
   },
   'houston-party-boats-league-city': {
