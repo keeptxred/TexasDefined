@@ -435,8 +435,15 @@ function resolveSeasonYear(todayParts: ReturnType<typeof texasDateParts>, season
 function holidayName(name: string) {
   // Do not classify winter/Christmas attractions as fall festivals merely because
   // their first operating date falls in November.
-  return /\b(christmas|holiday|holidays|dickens|nutcracker|zoo lights|trail of lights|winter lights|ice land|santa|polar express|merry|jingle|yuletide|advent|lightscape|christkindl|christkindel)\b/i.test(name)
-    || /\b(?:tree lighting|holiday lights|christmas lights)\b/i.test(name);
+  return /\b(christmas|holiday|holidays|hollydays|dickens|nutcracker|zoo lights|trail of lights|winter lights|ice land|santa|polar express|merry|jingle|yuletide|advent|lightscape|christkindl|christkindel)\b/i.test(name)
+    || /\b(?:tree lighting|holiday lights|christmas lights|south pole|wild bright|home for the holidays)\b/i.test(name);
+}
+
+function nonFestivalParadeName(name: string) {
+  // Parade dates can be valid and useful, but a stand-alone Thanksgiving
+  // parade is not a fall festival. Keep its permanent guide and route it
+  // through the broader /events calendar, not this topical discovery hub.
+  return /\bthanksgiving(?: day)? parade\b/i.test(name);
 }
 
 function fallFestivalName(name: string) {
@@ -483,6 +490,7 @@ function resolveFilter(definition: TemporalEventCollectionDefinition, events: Te
         && Boolean(event.sourceCheckedAt)
         && !/Recurrence-derived planning window/i.test(event.detail)
         && !holidayName(event.name)
+        && !nonFestivalParadeName(event.name)
         && fallFestivalName(event.name)
         && overlaps(event, start, end)
         // Expired occurrences belong on their permanent guide, never in the
