@@ -22,6 +22,8 @@ for (const [src,needle] of [
   [read("scripts/data/refresh-camping-alerts.mjs"),"Alerts & Conditions"],
   [monitor,"schedule:"],
   [monitor,"19 12 * * *"],
+  [monitor,"push:"],
+  [health,"github.event_name == 'push'"],
   [monitor,"needs-review"],
   [monitor,"automation/camping-official-alert-refresh-${{ github.run_id }}"],
   [finisher,"workflow_run:"],

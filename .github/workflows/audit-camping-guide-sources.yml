@@ -1,5 +1,11 @@
 name: Camping guide official source and review-date audit
 on:
+  # Bootstrap the first real source-health report as soon as this guard ships.
+  # Do not rerun on routine generated campground data changes.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audit-camping-guide-sources.yml'
   schedule:
     - cron: '37 13 * * 4'
   workflow_dispatch:
@@ -35,7 +41,7 @@ jobs:
           node scripts/data/validate-camping-authority-upgrade.mjs
 
   official-source-health:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:

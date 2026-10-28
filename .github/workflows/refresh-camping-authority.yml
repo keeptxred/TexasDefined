@@ -1,5 +1,12 @@
 name: Texas camping daily TPWD and NPS official park advisory refresh
 on:
+  # One bounded end-to-end source check when the maintained workflows change.
+  # Generated notice PRs edit only data, so they cannot retrigger this.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-camping-authority.yml'
+      - '.github/workflows/finish-camping-authority-refresh.yml'
   schedule:
     - cron: '19 12 * * *'
   workflow_dispatch:
