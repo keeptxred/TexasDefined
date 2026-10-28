@@ -113,3 +113,16 @@ export function isAmbiguousCountyWithdrawal(previous, result, now = new Date().t
   if (!Number.isFinite(cutoff) || dates.some(date=>!Number.isFinite(date))) return true;
   return dates.every(date => date<=cutoff && cutoff-date<=730*86400000);
 }
+
+// The weekly importer may advance independent verified counties while
+// retaining existing source-backed records where a current official page's
+// outgoing office links are unreachable or ambiguous. This NEVER creates a
+// new verified record from an unverified page and never changes the old date.
+export function applyQuarantinedCountyRefresh(previous, results, quarantinedSlugs) {
+  const next = { ...previous };
+  for (const { county, fetched, enrichment } of results) {
+    if (enrichment) next[county.slug] = preserveSourcedCountyLinks(next[county.slug], enrichment);
+    else if (fetched && !quarantinedSlugs.has(county.slug)) delete next[county.slug];
+  }
+  return next;
+}
