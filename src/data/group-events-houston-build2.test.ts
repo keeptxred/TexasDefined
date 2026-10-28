@@ -61,7 +61,9 @@ test('search refuses phantom large-group capacity and independently tags venues'
   assert(!matches(45).includes('galveston-sea-ventures-corporate-charter'));
   assert(!matches(45).includes('bb-sportfishing-galveston-group-charters'));
   assert(!matches(100).includes('urbanchef-houston-team-building'));
-  assert(matches(100).includes('towne-lake-lakehouse-events'));
+  assert(matches(100).includes('cypress-event-hall-group-rentals'));
+  assert(!matches(45).includes('the-union-kitchen-towne-lake-cypress-private-dining'));
+  assert(findMarketplaceExperiences(houstonBuild2Catalog,{city:'Cypress',activity:'private-dining'}).length === 1);
   assert.deepEqual(findMarketplaceExperiences(houstonBuild2Catalog,{
     city:'Sugar Land',activity:'escape-room',groupSize:45,
   }),[]);
