@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   findMarketplaceExperiences, legacyCorporateVenueLocation, marketplaceCapacityFit,
-  packageFitsGroup, validateMarketplaceExperience,
+  packageFitsGroup, validateMarketplaceExperience, validateMarketplaceCatalog,
   type MarketplaceExperience, type MarketplacePackage,
 } from './group-event-marketplace-foundation.ts';
 
@@ -21,7 +21,8 @@ const base: MarketplaceExperience = {
   groupBookingStatus: 'eligible', foodStatus: 'unknown',
   occasions: ['corporate-events', 'team-building'], activities: ['escape-room'],
   verifiedAmenities: ['parking'],
-  participation: 'independent', participationApprovedAt: null, sponsorshipApprovedAt: null,
+  participation: 'independent', participationApprovedAt: null,
+  participationEvidenceVerified: false, sponsorshipApprovedAt: null,
   source: { officialUrl: 'https://example.org/groups', lastCheckedAt: '2026-10-28',
     lastVerifiedAt: '2026-10-28', status: 'verified' },
   primaryMediaId: null, mediaRights: 'unconfirmed', published: true,
@@ -91,14 +92,16 @@ test('unverified source, unknown requested amenities, and unpublished records do
 
 test('participating and sponsored require recorded approval without paid editorial ranking boost', () => {
   const participating = fixture({ id: 'participating', participation: 'participating',
-    participationApprovedAt: '2026-10-28' });
+    participationApprovedAt: '2026-10-28', participationEvidenceVerified: true });
   const sponsored = fixture({ id: 'sponsored', participation: 'sponsored',
-    participationApprovedAt: '2026-10-28', sponsorshipApprovedAt: '2026-10-28' });
+    participationApprovedAt: '2026-10-28', participationEvidenceVerified: true,
+    sponsorshipApprovedAt: '2026-10-28' });
   assert.equal(validateMarketplaceExperience(fixture({
     participation: 'participating', participationApprovedAt: null,
   })).length, 1);
   assert.equal(validateMarketplaceExperience(fixture({
-    participation: 'sponsored', participationApprovedAt: '2026-10-28', sponsorshipApprovedAt: null,
+    participation: 'sponsored', participationApprovedAt: '2026-10-28',
+    participationEvidenceVerified: true, sponsorshipApprovedAt: null,
   })).length, 1);
   assert.deepEqual(findMarketplaceExperiences([base, participating, sponsored], {
     participatingOnly: true,
@@ -172,4 +175,14 @@ test('expired and not-yet-valid packages do not qualify', () => {
   assert.equal(packageFitsGroup(pkg, 50, '2026-11-01'), false);
   assert.equal(packageFitsGroup(pkg, 50, '2026-09-30'), false);
   assert.equal(packageFitsGroup(pkg, 50), false);
+});
+
+test('duplicate experience identities are rejected before catalog publication', () => {
+  assert(validateMarketplaceCatalog([base, { ...base }]).some(message => message.includes('Duplicate experience ID')));
+});
+test('a claimed approved timestamp without underlying partner evidence is insufficient', () => {
+  assert(validateMarketplaceExperience(fixture({
+    participation: 'participating', participationApprovedAt: '2026-10-28',
+    participationEvidenceVerified: false,
+  })).includes('Partner participation must be explicitly verified and approved'));
 });
