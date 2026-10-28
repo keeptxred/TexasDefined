@@ -95,9 +95,22 @@ jobs:
           [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
             echo '::error::Generated PR moved during validation'; exit 1;
           }
-          git merge-base --is-ancestor origin/main "origin/$branch" || {
-            echo '::error::Main advanced during validation; leave PR for reconciliation'; exit 1;
-          }
+          if ! git merge-base --is-ancestor origin/main "origin/$branch"; then
+            shared_base="$(git merge-base origin/main "origin/$branch")"
+            if git diff --quiet "$shared_base" origin/main -- \
+              src/data/hunting/youth-hunting-data.ts \
+              src/data/hunting/authority-v2.ts \
+              src/components/hunting/YouthHuntingPage.tsx \
+              src/components/hunting/HuntingTopicPage.tsx \
+              src/components/hunting/HuntingSchema.tsx \
+              scripts/data/refresh-youth-hunting-calendar.mjs \
+              scripts/data/validate-youth-hunting.mjs; then
+              echo 'Unrelated main commits occurred during validation; exact youth authority head remains independently verified.'
+            else
+              echo '::error::Governed hunting sources changed on main during validation; leave PR open for safe reconciliation.'
+              exit 1
+            fi
+          fi
           gh api --method POST "repos/$REPOSITORY/statuses/$validated_sha" \
             -f state=success -f context='Required merge gate' \
             -f description='Canonical validation passed for verified TPWD youth-calendar source' \
