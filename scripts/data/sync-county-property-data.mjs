@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal, applyQuarantinedCountyRefresh } from './county-property-snapshot-codec.mjs';
-import { normalizeVerifiedCountyOfficeUrl } from './county-office-link-normalization.mjs';
+import { normalizeVerifiedCountyOfficeUrl, retryPublicOfficeGetAfterHeadStatus } from './county-office-link-normalization.mjs';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
@@ -183,12 +183,15 @@ async function secureOfficeUrl(raw) {
   };
   try {
     let response = await fetch(url.toString(), { ...options, method: 'HEAD' });
-    if (response.status === 405 || response.status === 501) {
+    if (retryPublicOfficeGetAfterHeadStatus(response.status)) {
+      // HEAD-only 403 is common for otherwise public offices. A same-URL
+      // bounded GET must still independently succeed, without a challenge.
       response = await fetch(url.toString(), { ...options, method: 'GET' });
       if (response.body) await response.body.cancel();
     }
+    if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') return null;
     const resolved = new URL(response.url);
-    return response.ok ? normalizeVerifiedCountyOfficeUrl(resolved.toString()) : null;
+    return normalizeVerifiedCountyOfficeUrl(resolved.toString());
   } catch { return null; }
 }
 
