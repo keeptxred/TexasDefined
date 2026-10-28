@@ -21,8 +21,8 @@ permissions:
   issues: write
 
 concurrency:
-  group: bounded-hunting-live-freshness-${ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
-  cancel-in-progress: ${ github.event_name == 'pull_request' }}
+  group: bounded-hunting-live-freshness-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   hunting-live:
@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${ github.event_name == 'pull_request' && github.sha || 'main' }}
+          ref: ${{ github.event_name == 'pull_request' && github.sha || 'main' }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -45,14 +45,14 @@ jobs:
       - name: Open one stale-page issue when scheduled check fails
         if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.live.outcome == 'failure'
         env:
-          GH_TOKEN: ${ github.token }}
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
           title='Hunting pages stale or inconsistent between canonical and cache-bypass'
           existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
           if [[ -z "$existing" ]]; then
-            gh issue create --title "$title" --body "The bounded scheduled 4-page hunting source/freshness check failed. Compare canonical and no-cache pages, Cloudflare Worker version, TPWD source and source snapshot before targeted invalidation. Do not blindly purge entire site. Run: https://github.com/${ github.repository }}/actions/runs/${ github.run_id }}"
+            gh issue create --title "$title" --body "The bounded scheduled 4-page hunting source/freshness check failed. Compare canonical and no-cache pages, Cloudflare Worker version, TPWD source and source snapshot before targeted invalidation. Do not blindly purge entire site. Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           fi
       - name: Fail closed on stale hunting HTML
         if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.live.outcome == 'failure'
