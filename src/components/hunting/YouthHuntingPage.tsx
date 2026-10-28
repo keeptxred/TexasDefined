@@ -31,6 +31,8 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
   const seasonExpired = Date.now() >= Date.UTC(Number(YOUTH_HUNTING_SEASON_YEAR.slice(0, 4)) + 1, 8, 1);
   const [countySlug, setCountySlug] = useState("");
   const selectedCounty = TEXAS_COUNTIES.find((county) => county.slug === countySlug);
+  // TPWD omits the space in La Salle although TexasDefined uses a hyphenated display slug.
+  const tpwdCountySlug = countySlug === "la-salle" ? "lasalle" : countySlug;
   return <main id="main-content">
     <section className="border-b border-border bg-muted/30 py-12 md:py-16">
       <Container>
@@ -86,7 +88,7 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
                 {TEXAS_COUNTIES.map((county) => <option key={county.code} value={county.slug}>{county.name}</option>)}
               </select>
             </label>
-            {selectedCounty ? <a href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + selectedCounty.slug} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Read official {selectedCounty.name} rules ↗</a> : <span className="inline-flex min-h-12 items-center justify-center border border-border px-5 py-3 text-sm text-muted-foreground">Choose a county to view TPWD rules</span>}
+            {selectedCounty ? <a href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + tpwdCountySlug} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Read official {selectedCounty.name} rules ↗</a> : <span className="inline-flex min-h-12 items-center justify-center border border-border px-5 py-3 text-sm text-muted-foreground">Choose a county to view TPWD rules</span>}
           </div>
           <p className="mt-3 text-xs text-muted-foreground">County listings are maintained by TPWD; TexasDefined does not independently infer county eligibility.</p>
         </div>
