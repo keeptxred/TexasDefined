@@ -5,6 +5,7 @@
   "safety": {
     "approvedDomains": [
       "athletics.c-isd.com",
+      "bwhs.brazosportisd.net",
       "chs.clevelandisd.org",
       "chs.clintweb.net",
       "cpisd.net",
@@ -26,6 +27,9 @@
       "www.clarendonisd.net",
       "www.claudeisd.net",
       "www.cliftonisd.org",
+      "www.clydeisd.org",
+      "www.coahomaisd.com",
+      "www.cocisd.org",
       "www.cvisd.org",
       "www.scucisd.org",
       "www.tarkingtonisd.net"
@@ -213,6 +217,34 @@
     {
       "slug": "chico",
       "url": "https://www.chicoisdtx.net/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clute-brazoswood",
+      "url": "https://bwhs.brazosportisd.net/activities/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clyde",
+      "url": "https://www.clydeisd.org/page/athleticinformation",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coahoma",
+      "url": "https://www.coahomaisd.com/o/chs/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coldspring-oakhurst",
+      "url": "https://www.cocisd.org/departments/athletics/schedules",
       "reviewAfter": "2026-11-07",
       "contentFingerprint": null,
       "lastObservedAt": null
