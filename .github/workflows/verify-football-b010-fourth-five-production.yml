@@ -61,14 +61,21 @@ jobs:
           node-version: '22'
       - name: Check strict Batch 010 script
         if: steps.scope.outputs.run == 'true'
-        run: node --check scripts/ci/verify-football-b010-fourth-five-production.mjs
+        run: |
+          node --check scripts/ci/verify-football-b010-fourth-five-production.mjs
+          grep -Fq "/tmp/td-b010-fourth-chrome/node_modules/playwright-core" scripts/ci/verify-football-b010-fourth-five-production.mjs
+          grep -Fq "npm install --prefix /tmp/td-b010-fourth-chrome --no-save" .github/workflows/verify-football-b010-fourth-five-production.yml
+          if grep -Fq "/tmp/td-b010-third-chrome/node_modules/playwright-core" scripts/ci/verify-football-b010-fourth-five-production.mjs; then
+            echo "::error::Fourth cohort must not import the third cohort Chrome driver"
+            exit 1
+          fi
       - name: Install isolated Chrome driver
         if: steps.scope.outputs.run == 'true'
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-          npm install --prefix /tmp/td-b010-third-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          npm install --prefix /tmp/td-b010-fourth-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
       - name: Verify 5 schools at 3 viewports, no invented score graphics, 5 counties, sitemap and Worker version
         if: steps.scope.outputs.run == 'true'
         env:
