@@ -65,6 +65,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: football-b010-third-five-production-chrome
-          path: artifacts/b010-second-five-production-chrome/
+          path: artifacts/b010-third-five-production-chrome/
           retention-days: 21
           if-no-files-found: warn
