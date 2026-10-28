@@ -442,6 +442,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 16th annual waterfront light-show season runs November 21–January 3. Synchronized shows begin nightly at 6 p.m.; check the date-specific tickets and seating options before visiting."
   },
   {
+    "slug": "highland-village-our-village-glows-2026",
+    "title": "Our Village Glows · Highland Village Tree Lighting",
+    "city": "Highland Village",
+    "countySlug": "denton",
+    "countyName": "Denton County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-21",
+    "venueName": "The Shops at Highland Village · north patio, FM 2499 and Justin Road",
+    "officialEventUrl": "https://www.highlandvillage.org/588/Our-Village-Glows",
+    "sourceName": "City of Highland Village",
+    "sourceVerifiedAt": "2026-10-27",
+    "summary": "The City of Highland Village confirms Our Village Glows for Saturday November 21, 2026, starting 5:30 p.m. The free shopping-center event features its 35-foot tree lighting, musical light show, family activities and Santa's arrival. Check the organizer's parking and event-time notices before visiting."
+  },
+  {
     "slug": "san-antonio-fiesta-texas-holiday-1",
     "title": "Six Flags Fiesta Texas Holiday in the Park · window 1",
     "city": "San Antonio",
@@ -1156,6 +1170,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cameronparkzoo.com/event/wild-lights-2026/",
     "sourceName": "Cameron Park Zoo",
     "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
+  },
+  {
+    "slug": "forney-downtown-tree-lighting-2026",
+    "title": "Downtown Forney Tree Lighting Ceremony",
+    "city": "Forney",
+    "countySlug": "kaufman",
+    "countyName": "Kaufman County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Bell Park · Downtown Forney",
+    "officialEventUrl": "https://www.forneytx.gov/761/Downtown-Tree-Lighting",
+    "sourceName": "City of Forney",
+    "sourceVerifiedAt": "2026-10-27",
+    "summary": "The City of Forney confirms Thursday December 3, 2026, at 6 p.m. for its downtown Bell Park tree-lighting with Christmas music, hot chocolate and Santa. It is not the separate Saturday December 5 Christmas on Main street festival."
   },
   {
     "slug": "graham-christmas-roundup-parade-2026",
@@ -2830,6 +2858,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Chappell Hill Chamber event listing confirms Saturday December 12, 2026, 3:30–5 p.m. for the downtown Teddy Bear Parade. Families are invited to bring teddy bears and greet Santa; this is not an announcement of a separately ticketed Chappell Hill Christmas Market."
   },
   {
+    "slug": "highland-village-christmas-at-the-ranch-2026",
+    "title": "Christmas at the Ranch · Highland Village",
+    "city": "Highland Village",
+    "countySlug": "denton",
+    "countyName": "Denton County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Doubletree Ranch Park · 310 Highland Village Road",
+    "officialEventUrl": "https://www.highlandvillage.org/m/calendar/event/detail/2576",
+    "sourceName": "City of Highland Village official event calendar",
+    "sourceVerifiedAt": "2026-10-27",
+    "summary": "The City of Highland Village confirms Christmas at the Ranch at Doubletree Ranch Park on Saturday December 12, 2026, 10 a.m.–2 p.m. The city describes an annual family holiday program, but has not posted a complete 2026 activity schedule; do not assume attractions or pricing from 2025."
+  },
+  {
     "slug": "arlington-holiday-lights-parade-2026",
     "title": "Downtown Arlington Holiday Lights Parade",
     "city": "Arlington",
@@ -3567,7 +3609,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;;;;
+];;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
