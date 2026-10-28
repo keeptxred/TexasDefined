@@ -79,13 +79,14 @@ export const houstonBuild2Evidence: Record<string, EvidenceShape> = {
     accessibilityNote:null,
     pricingNote:'Operator advertises buffet food from $20 per person; that is NOT a total venue or corporate package price.',
   },
-  'towne-lake-lakehouse-events': {
-    venueClass:'physical', occasion:['corporate-events','company-parties','weddings','family-reunions'],
-    activities:[], setting:'mixed', environment:['indoor','outdoor','waterfront'],
-    amenities:['private-meeting-space','audiovisual-equipment'],
-    food:'unknown', activityMax:200, simultaneous:200, duration:null,
-    capacityScope:'200-seat ballroom/patio configuration; separate conference room seats 12.',
-    accessibilityNote:null, pricingNote:null,
+  'the-union-kitchen-towne-lake-cypress-private-dining': {
+    venueClass:'physical', occasion:['corporate-events','company-parties','client-entertainment','anniversaries','private-gatherings'],
+    activities:['private-dining'], setting:'indoor', environment:['indoor'],
+    amenities:['full-restaurant','food-available'], food:'available',
+    activityMax:32, simultaneous:32, duration:null,
+    capacityScope:'Semi-private lakeview dining holds at most 32; do not treat as exclusive full restaurant buyout.',
+    accessibilityNote:null,
+    pricingNote:'Food and beverage minimum varies by weekday/meal, excludes 8.25% tax and 22% gratuity; gift-card deposit is 50% of estimate, not a per-person price.',
   },
   'escapology-cypress-group-events': {
     venueClass:'physical', occasion:['corporate-events','team-building','birthdays','company-parties'],
