@@ -1,5 +1,4 @@
 import fs from 'node:fs';
-import crypto from 'node:crypto';
 
 const file = 'src/data/hunting/deer-season-dates.json';
 const existing = JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -96,6 +95,29 @@ async function getText(url) {
   if(text.length<1500)throw new Error('TPWD response was unexpectedly small at '+url);
   return text;
 }
+if (process.argv.includes('--self-test')) {
+  const sample = [
+    'White-tailed Deer 2026-2027 Seasons & Regulations',
+    'Season Dates & County Regulations',
+    'Archery Only All counties with an open season Oct. 3 - Nov. 6, 2026',
+    'General Season North Zone Nov. 7, 2026 - Jan. 3, 2027 South Zone Nov. 7, 2026 - Jan. 17, 2027',
+    'Youth-Only North Zone Oct. 30 - Nov. 1, 2026 Jan. 4 - 17, 2027 South Zone Oct. 30 - Nov. 1, 2026',
+    'Muzzleloader Jan. 4 - 17, 2027 Special Late North Zone Jan. 4 - 17, 2027 South Zone Jan. 18 - 31, 2027',
+    'View White-tailed Deer hunting regulations for your county.',
+    'Statewide Bag Limits No person may exceed the annual bag limit of five white-tailed deer',
+    'Mandatory Harvest Reporting White-tailed deer must be reported within 24 hours; Collin, Dallas, Grayson, Rockwall',
+    'Definition of Buck Deer Special Antler Restrictions legal buck has 13 inches or greater spread',
+    'Chronic Wasting Disease',
+  ].join(' ');
+  const got = parseDeerPage(sample);
+  if (got.startYear !== 2026 || got.rows.length !== 8 ||
+      got.rows[0].start !== '2026-10-03' || got.rows[0].end !== '2026-11-06' ||
+      got.rows[1].end !== '2027-01-03' || got.rows[2].end !== '2027-01-17' ||
+      got.rows[7].end !== '2027-01-31') throw new Error('TPWD season range parser self-test failed');
+  console.log('TPWD deer parser verified all eight official season date ranges including cross-year and same-month formats.');
+  process.exit(0);
+}
+
 const official=await getText(existing.officialDeerUrl);
 const next=parseDeerPage(official);
 if(next.startYear!==existing.startYear)throw new Error('ANNUAL ROLLOVER: TPWD has a new deer season. Do not automatically carry forward last year’s county, bag, tagging, or CWD rules; open an editorial review issue.');
