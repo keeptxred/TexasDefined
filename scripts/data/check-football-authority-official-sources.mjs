@@ -91,7 +91,7 @@ export async function probeSource(row, opts) {
     await res.body?.cancel();
     nextUrl = destination;
   }
-  const finalUrl = new URL(res.url);
+  const finalUrl = new URL(res.url || nextUrl.href);
   if (!allowed.has(finalUrl.hostname) || finalUrl.protocol !== 'https:')
     throw Error('Source unexpectedly served from outside an approved official domain');
   if (!res.ok) throw Error('Official source HTTP ' + res.status);
