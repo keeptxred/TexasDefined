@@ -46,8 +46,8 @@ export function checkOtherOfficialSources(sourceHtml, seasonYear) {
   const hogs = visibleText(sourceHtml.hogs);
   const areaSearch = visibleText(sourceHtml.areaSearch);
   const required = [
-    [changes, ['Doe Days', 'Special White-winged Dove Days', 'Matagorda', 'Wharton', 'unbearded'], '2026 season change notice'],
-    [seasons, ['Hunting Season Dates', 'Dove', 'Duck', 'Turkey', seasonYear.slice(0, 4), '20' + seasonYear.slice(-2)], 'TPWD season tables'],
+    [changes, ['Doe Days', '21 counties', 'Special White-winged Dove Days', 'Matagorda', 'Wharton', 'unbearded'], '2026 season change notice'],
+    [seasons, ['Hunting Season Dates', 'Dove', 'Duck', 'Turkey', seasonYear.slice(0, 4), '20' + seasonYear.slice(-2), 'Nov. 8, 2026', 'Jan. 7, 2027', 'Oct. 25, 2026', 'Dec. 11, 2026', 'Jan. 14, 2027', 'Jan. 21, 2027'], 'TPWD season tables and 2026–27 dove-zone dates'],
     [hogs, ['Feral Hogs', 'Hunter Education', 'No hunting license is required to hunt feral hogs on private'], 'feral hog license exception'],
     [areaSearch, ['Search for an Area or Legal Game', 'Legal Game', 'Public Hunting'], 'public hunt legal-game search'],
   ];
