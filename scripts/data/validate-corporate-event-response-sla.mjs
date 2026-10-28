@@ -11,8 +11,7 @@ const newLead = (hoursAgo, status, firstContactHoursAfterCreated=null) => {
     status,
     first_contacted_at: firstContactHoursAfterCreated == null
       ? null : new Date(createdAt.getTime()+firstContactHoursAfterCreated*3600000).toISOString(),
-    first_contact_evidence_reference: firstContactHoursAfterCreated == null
-      ? null : 'SYNTHETIC offline reference for real contact evidence regression',
+    first_contact_evidence_recorded: firstContactHoursAfterCreated != null,
   };
 };
 const leads=[
@@ -27,7 +26,7 @@ assert.equal(stats.contactedWithinTarget,2);
 assert.equal(stats.contactedAfterTarget,1);
 assert.equal(stats.recordedContacts,3);
 assert.equal(stats.averageFirstContactHours,22.3);
-assert(isCorporateEventLeadOverdue({created_at:twoDays,status:'new',first_contacted_at:null,first_contact_evidence_reference:null},now));
+assert(isCorporateEventLeadOverdue({created_at:twoDays,status:'new',first_contacted_at:null,first_contact_evidence_recorded:false},now));
 assert(!isCorporateEventLeadOverdue(newLead(49,'contacted',4),now));
 assert(!isCorporateEventLeadOverdue(newLead(49,'spam'),now));
 assert(!isCorporateEventLeadOverdue(newLead(47,'reviewing'),now));
@@ -42,9 +41,9 @@ const untrustedContactDates = [
   { ...newLead(72,'new'), first_contacted_at: 'not-a-date' },
   newLead(72,'contacted',96), // false contacted label must not hide invalid future contact
   newLead(72,'contacted'), // false contacted label without actual evidence
-  { ...newLead(72,'contacted',12), first_contact_evidence_reference: null }, // plausible timestamp alone
-  { ...newLead(72,'reviewing',12), first_contact_evidence_reference: 'short' },
-  { ...newLead(72,'contacted',12), first_contact_evidence_reference: 'x'.repeat(501) }, // bloated evidence
+  { ...newLead(72,'contacted',12), first_contact_evidence_recorded: false }, // plausible timestamp alone
+  { ...newLead(72,'reviewing',12), first_contact_evidence_recorded: false }, // server rejects short reference
+  { ...newLead(72,'contacted',12), first_contact_evidence_recorded: false }, // server rejects oversized reference
 ];
 const untrustedSummary = summarizeCorporateEventResponseTimes(untrustedContactDates, now);
 assert.equal(untrustedSummary.recordedContacts, 0, 'Future/invalid dates cannot count as completed contacts');
@@ -55,7 +54,7 @@ for (const lead of untrustedContactDates) {
   assert(isCorporateEventLeadOverdue(lead, now), 'Invalid contact date must not hide an overdue lead');
 }
 assert(hasRecordedCorporateEventFirstContact(newLead(24, 'reviewing', 4), now));
-assert(!hasRecordedCorporateEventFirstContact({ ...newLead(24, 'contacted', 4), first_contact_evidence_reference: null }, now),
+assert(!hasRecordedCorporateEventFirstContact({ ...newLead(24, 'contacted', 4), first_contact_evidence_recorded: false }, now),
   'A plausible contact timestamp without independent reference is not proof');
 assert(!isCorporateEventLeadOverdue(newLead(24, 'reviewing', 4), now),
   'A genuine contact within the test clock still resolves first-contact overdue tracking');
@@ -92,9 +91,14 @@ assert(panel.includes('hasRecordedCorporateEventFirstContact(lead)')
   && panel.includes('reconcile the original external contact record'),
   'Staff inbox must label unusable contact history, not falsely display verified delivery');
 const slaSource = read('src/data/corporate-event-response-sla.ts');
-assert(slaSource.includes('first_contact_evidence_reference?.trim()')
-  && slaSource.includes('evidence.length >= 20 && evidence.length <= 500'),
-  'All SLA metrics must require the private independent contact evidence reference');
+assert(slaSource.includes('first_contact_evidence_recorded === true'),
+  'All SLA metrics must require a server-derived valid private evidence indicator');
+assert(server.includes('const { first_contact_evidence_reference, ...safeFields } = row;')
+  && server.includes('first_contact_evidence_recorded: reference.length >= 20 && reference.length <= 500'),
+  'Staff dashboard must validate and remove private evidence text before JSON serialization');
+assert(panel.includes('first_contact_evidence_recorded: boolean;')
+  && !panel.includes('first_contact_evidence_reference:'),
+  'Staff browser must only receive an evidence-presence flag, never the contact reference');
 const evidenceSql=read('supabase/migrations/20261024143500_group_event_first_contact_evidence.sql');
 const adminFns=read('src/data/corporate-events.admin.functions.ts');
 const canonical=read('scripts/ci/run-premerge-validation.mjs');
