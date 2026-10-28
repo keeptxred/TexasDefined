@@ -5,6 +5,11 @@ on:
     types: [completed]
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # While this cohort is pending, retry genuine live Chrome acceptance at a
+    # fixed bounded cadence; unrelated deployments still remain path-scoped.
+    - cron: '11 13 * 8-12 *'   # In-season daily UTC
+    - cron: '11 13 * 1-7 3'    # Off-season Wednesday UTC
 permissions:
   contents: read
 concurrency:
@@ -25,10 +30,19 @@ jobs:
         shell: bash
         env:
           MANUAL_ACCEPTANCE: ${{ github.event_name == 'workflow_dispatch' }}
+          SCHEDULED_ACCEPTANCE: ${{ github.event_name == 'schedule' }}
         run: |
           if [[ "$MANUAL_ACCEPTANCE" == "true" ]]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
           if ! node -e 'const r=require("./docs/football-authority/REGISTRY.json");const five=["chilton","china-spring","christoval","cibolo-steele","cisco"];process.exit(r.batch.number===10 && five.some(s=>r.schoolRecords.find(x=>x.slug===s)?.status!=="VERIFIED") ? 0 : 1)'; then
             echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # A scheduled job only reaches here while the five schools remain
+          # unverified. Run the exact current deployed release, without a new
+          # source commit or repeated broad-site scan.
+          if [[ "$SCHEDULED_ACCEPTANCE" == "true" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Pending football cohort: executing bounded scheduled Chrome acceptance."
             exit 0
           fi
           # A CI success with skipped Chrome steps never certifies the release.
