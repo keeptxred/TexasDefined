@@ -1,0 +1,134 @@
+name: Archive and retire 12 legacy corporate event branches
+
+# One-time, exact-SHA-safe housekeeping. The push trigger runs on the PR merge.
+# No production application code, database, Cloudflare settings or website is touched.
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/retire-corporate-events-legacy.yml']
+  push:
+    branches: [main]
+    paths: ['.github/workflows/retire-corporate-events-legacy.yml']
+
+permissions:
+  contents: write
+  actions: read
+  pull-requests: read
+
+concurrency:
+  group: corporate-legacy-ref-retirement-20261028
+  cancel-in-progress: false
+
+jobs:
+  retire-reviewed-branches:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Preflight all refs; tag immutable tips before deletion (push only)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          DO_RETIRE: ${{ github.event_name == 'push' && 'true' || 'false' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          owner="${REPOSITORY%%/*}"
+          candidates=()
+          missing=0
+          blocked=0
+          archived=0
+          removed=0
+          # Commit IDs verified against the actual branch tips before PR creation.
+          # A subsequently changed tip is never removed. Separate relocation
+          # code is preserved under its own archive tag, never merged into main.
+          while IFS='|' read -r branch expected_sha; do
+            [[ -n "$branch" ]] || continue
+            if ! tip="$(gh api "repos/$REPOSITORY/git/ref/heads/$branch" --jq '.object.sha' 2>/dev/null)"; then
+              echo "Already absent: $branch"
+              missing=$((missing + 1))
+              continue
+            fi
+            if [[ "$tip" != "$expected_sha" ]]; then
+              echo "::warning title=Branch advanced::$branch changed from $expected_sha to $tip. Preserve branch."
+              blocked=$((blocked + 1))
+              continue
+            fi
+            active_prs="$(gh api --method GET "repos/$REPOSITORY/pulls" -f state=open -f head="$owner:$branch" -f per_page=100 --jq 'length')"
+            if (( active_prs > 0 )); then
+              echo "::warning title=Open PR found::Preserving $branch; it has $active_prs open PR(s)."
+              blocked=$((blocked + 1))
+              continue
+            fi
+            active_runs="$(gh api --method GET "repos/$REPOSITORY/actions/runs" -f branch="$branch" -f per_page=100 --jq '[.workflow_runs[] | select(.status != "completed")] | length')"
+            if (( active_runs > 0 )); then
+              echo "::warning title=Active GitHub Actions::$branch has $active_runs noncompleted run(s); preserve branch."
+              blocked=$((blocked + 1))
+              continue
+            fi
+            candidates+=("$branch|$tip")
+            echo "Eligible: $branch ($tip)"
+          done <<'REVIEWED_BRANCH_TIPS'
+          feat/corporate-event-integration-contracts-20261023|4e9475d1f60705d6e62726ecff0bf9e621adeb2d
+          feat/corporate-event-verified-geo-foundation-20261023|dcc6333eda720ab20b7ab91371b7d065603b3f47
+          feat/corporate-events-review-pagination-20261024|838301c3b0d1bfcb18fd25c87b70c5f5f841d352
+          feat/corporate-ops-manual-consent-quote-drafts-20261024|d5d044af8d0a1cef8e320aa2dbc75724b94dddc5
+          feat/corporate-relocation-discovery-20260924|9e83d67643ce775ef198dd6f4c1e63149e7d5610
+          feature/corporate-event-partner-identity-clean-20261023|76e566e8cf2eb9a6dcf36b4151b69ef2f812131e
+          feature/corporate-events-operations-20261023|222e878e3639ba6f5537c6d8c9e1b3ab61cfd28e
+          feature/corporate-events-statewide-20261023|b58bdd0cc7b4989c196acf31c0049de8824364f3
+          feature/corporate-events-vetted-quote-consent-20261023|27294605118fdd373556105b6f005ffaeb186a3f
+          fix/corporate-event-consent-withdrawal-20261023|889beebd2b859598ef9c3b1218db2edb7d77bcd4
+          test/corporate-events-production-smoke-20261023|56ba73a08b9661d15136cf5f95afb3e2e03b7fd4
+          test/corporate-events-real-browser-20261023|b84af09d73d528ee201da384a1a6a2b1fc1682ba
+          REVIEWED_BRANCH_TIPS
+
+          echo "Eligible for archived retirement: ${#candidates[@]}; already absent: $missing; protected: $blocked."
+          if [[ "$DO_RETIRE" != "true" ]]; then
+            echo "Pull-request preflight is READ-ONLY. Retirement only runs on merged main push."
+            exit 0
+          fi
+
+          for record in "${candidates[@]}"; do
+            IFS='|' read -r branch tip <<<"$record"
+            # Re-check immediately before writing the archive and before
+            # deletion: concurrent branch edits must not be discarded.
+            current="$(gh api "repos/$REPOSITORY/git/ref/heads/$branch" --jq '.object.sha')"
+            if [[ "$current" != "$tip" ]]; then
+              echo "::warning title=Concurrent branch update::Preserving $branch, expected $tip, found $current."
+              blocked=$((blocked + 1))
+              continue
+            fi
+
+            tag="archive/corporate-prebuild-20261028/${tip:0:12}"
+            if archived_tip="$(gh api "repos/$REPOSITORY/git/ref/tags/$tag" --jq '.object.sha' 2>/dev/null)"; then
+              [[ "$archived_tip" == "$tip" ]] || {
+                echo "::error::Conflicting archive tag $tag for $branch. Refusing deletion."
+                exit 1
+              }
+            else
+              gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$tip" >/dev/null
+              archived=$((archived + 1))
+            fi
+            verified="$(gh api "repos/$REPOSITORY/git/ref/tags/$tag" --jq '.object.sha')"
+            [[ "$verified" == "$tip" ]] || {
+              echo "::error::Archive verification failed for $branch. Refusing deletion."
+              exit 1
+            }
+            current="$(gh api "repos/$REPOSITORY/git/ref/heads/$branch" --jq '.object.sha')"
+            if [[ "$current" != "$tip" ]]; then
+              echo "::warning title=Concurrent branch update::Preserving $branch after archiving old tip."
+              blocked=$((blocked + 1))
+              continue
+            fi
+            gh api --method DELETE "repos/$REPOSITORY/git/refs/heads/$branch" >/dev/null
+            if gh api "repos/$REPOSITORY/git/ref/heads/$branch" >/dev/null 2>&1; then
+              echo "::error::Branch still exists after deletion attempt: $branch"
+              exit 1
+            fi
+            removed=$((removed + 1))
+            echo "Archived and retired $branch; recover with tag refs/tags/$tag -> $tip"
+          done
+          echo "SUMMARY retired=$removed new_archive_tags=$archived absent=$missing blocked=$blocked"
+          if (( blocked > 0 )); then
+            echo "::warning::Some branches were preserved because they changed or have active work. Inspect results."
+          fi
