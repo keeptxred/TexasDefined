@@ -122,7 +122,7 @@ if (process.argv.includes("--self-test")) {
     "Park Alerts Burn Ban Aug. 11, 2026 - The park is under a burn ban. Water Outage Oct. 23, 2026 - Water is out at the Bayfront camping area. Construction Alerts Expect intermittent closures for sites 1 - 24",
     "Park Alerts Trail Closures Oct. 20, 2026 - The backcountry trails may have intermittent closures. Park Closures The park will be closed on the following dates: 12:30 p.m. on Oct. 12 to 2 p.m. on Oct. 16 12:30 p.m. on Nov. 2 to 2 p.m. on Nov. 6 12:30 p.m. on Nov. 30 to 2 p.m. on Dec. 4 12:30 p.m. on Jan. 25 to 2 p.m. on Jan. 29 Only permitted hunters will be allowed on these dates",
     "Alerts & Conditions weather-related road closures. The paved road between Cottonwood Campground and Santa Elena Canyon. Hot Springs Road beyond the overflow parking area. Paint Gap Road River Road West to Glenn Springs Road Black Gap Road is c losed",
-    "Park Alerts Burn Ban Aug. 28, 2026 - The park is under a burn ban. No wood fires allowed. You may use charcoal or containerized stoves. Park Closures Nov. 17 to Nov. 19 Dec. 15 to Dec. 17 Only permitted hunters will be allowed on these dates",
+    "Park Alerts Burn Ban Aug. 28, 2026 - The park is under a burn ban. No wood fires allowed. You may use charcoal or containerized stoves. Park Closures The park will be closed on the following dates: Nov. 17 to Nov. 19 Dec. 15 to Dec. 17 Only permitted hunters will be allowed on these dates",
     "Park Alert Visiting the Park: final touches are ongoing. The park may reach capacity on weekends and holidays",
   ];
   for (let i = 0; i < sources.length; i++) {
