@@ -1,0 +1,85 @@
+name: Refresh TPWD Hunting Species Calendar
+
+on:
+  schedule:
+    - cron: '53 13 * * 2,5'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/data/refresh-hunting-species-seasons.mjs'
+      - 'scripts/data/refresh-hunting-species-seasons.test.mjs'
+      - 'src/data/hunting/species-season-calendar.json'
+      - '.github/workflows/refresh-hunting-species-calendar.yml'
+  pull_request:
+    paths:
+      - 'scripts/data/refresh-hunting-species-seasons.mjs'
+      - 'scripts/data/refresh-hunting-species-seasons.test.mjs'
+      - 'src/data/hunting/species-season-calendar.json'
+      - '.github/workflows/refresh-hunting-species-calendar.yml'
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+concurrency:
+  group: hunting-species-calendar-${ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  cancel-in-progress: ${ github.event_name == 'pull_request' }}
+jobs:
+  species-source-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${ github.event_name == 'pull_request' && github.sha || 'main' }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test season table and 2027 rollover safeguards
+        run: node --test scripts/data/refresh-hunting-species-seasons.test.mjs
+      - name: Check official TPWD table without writing to PR
+        if: github.event_name == 'pull_request'
+        run: node scripts/data/refresh-hunting-species-seasons.mjs
+      - name: Reconcile official TPWD 17-species table
+        id: official
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/data/refresh-hunting-species-seasons.mjs --write
+      - name: Open one season/calendar review issue if official check fails
+        if: github.event_name != 'pull_request' && steps.official.outcome == 'failure'
+        env:
+          GH_TOKEN: ${ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Hunting TPWD species calendar requires editorial review'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "TPWD changed a species, zone, calendar schema or publication year unexpectedly, or the source is unavailable. Preserve verified dates; resolve only from authoritative species and county sources. Source run: https://github.com/${ github.repository }}/actions/runs/${ github.run_id }}"
+          else
+            echo "Existing source review issue #$existing; no duplicate."
+          fi
+      - name: Block updates on unverified source
+        if: github.event_name != 'pull_request' && steps.official.outcome == 'failure'
+        run: exit 1
+      - name: Create protected date-only PR for verified season changes
+        if: github.event_name != 'pull_request' && steps.official.outcome == 'success'
+        env:
+          GH_TOKEN: ${ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/data/hunting/species-season-calendar.json; then
+            echo "TPWD species and zone dates unchanged; no PR or timestamp churn."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          branch="automation/hunting-species-dates-$GITHUB_RUN_ID"
+          git switch -c "$branch"
+          git add src/data/hunting/species-season-calendar.json
+          git commit -m "data: refresh verified TPWD species/zone season dates"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title "Refresh TPWD 17-species verified season dates" --body "Official TPWD statewide season table and 37 existing species/zone labels were verified. Only the governed JSON date snapshot changes. Annual rollover is accepted only on or after September 1 for an official matching season and unchanged species/zone identities. This does NOT verify county law, permits, equipment, closures or legal editorial text. Protected CI required."
+          gh pr merge --auto --squash "$branch"
