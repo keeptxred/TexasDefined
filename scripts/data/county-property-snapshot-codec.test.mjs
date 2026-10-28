@@ -187,3 +187,22 @@ test('protected finisher pins the exact official Comptroller source path for all
       'Finisher must preserve official directory exception: '+slug);
   }
 });
+
+test('county finisher does not abandon a fully validated bot PR for unrelated protected main commits',()=>{
+  const finisher=readFileSync('.github/workflows/finish-county-property-refresh.yml','utf8');
+  assert.ok(finisher.includes('validated_base_sha="$(git rev-parse origin/main)"'));
+  assert.ok(finisher.includes('git merge-base --is-ancestor "$validated_base_sha" origin/main'));
+  assert.ok(finisher.includes('git diff --name-only "$validated_base_sha" origin/main'));
+  for(const mandatory of [
+    'src/data/property/*', 'scripts/data/county-*',
+    'scripts/data/sync-county-property-data.mjs',
+    '.github/workflows/finish-county-property-refresh.yml',
+    '.github/workflows/sync-county-property-data.yml',
+    '.github/workflows/validate.yml', '.github/workflows/merge-gate.yml',
+    'scripts/ci/*', 'package-lock.json',
+  ]) assert.ok(finisher.includes(mandatory),'Missing main-drift safety boundary: '+mandatory);
+  assert.ok(finisher.includes('git diff --quiet "$validated_base_sha" origin/main -- src/data/property/'));
+  assert.ok(finisher.includes('[[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]]'),
+    'The exact validated PR head must be unchanged after GitHub Actions');
+  assert.ok(finisher.includes('gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"'));
+});
