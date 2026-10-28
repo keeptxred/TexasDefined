@@ -2661,8 +2661,8 @@ if(batch009Certified) {
    ['cleveland','liberty','Ajani Sanders']
  ];
  const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
- if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==10||
-   reg.batch.remainingToImplement!==15||reg.batch.remainingToVerify!==25||
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==15||
+   reg.batch.remainingToImplement!==10||reg.batch.remainingToVerify!==25||
    reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==205)
    errors.push('Batch010 second-five registry must preserve all 205 previously verified school profiles and 15 unimplemented assignments');
  for(const [slug,countySlug,coach] of five){
@@ -2694,6 +2694,58 @@ if(batch009Certified) {
     if(!wf.includes(token))errors.push('Strict second-five production workflow contract absent: '+token);
  for(const token of ['report.schoolChecks.length!==15','report.countyChecks.length!==5','report.screenshots!==26','versions.size!==1'])
     if(!checker.includes(token))errors.push('Second-five non-skippable acceptance counts/Worker consistency missing: '+token);
+}
+
+// Third Batch010 school-specific cohort: preserve protected 205 historical schools
+// and require independently sourced 2026 coaching, correct Clint campus splits,
+// one date-scoped result graphic and exact-version browser acceptance.
+{
+ const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+ const editorial=read('src/data/high-school-football/program-editorial-b010.ts');
+ const loader=read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+ const identity=read('src/data/high-school-football/school-identities.ts');
+ const route=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+ const county=read('src/routes/$kind.$slug.lazy.tsx');
+ const checker=read('scripts/ci/verify-football-b010-third-five-production.mjs');
+ const wf=read('.github/workflows/verify-football-b010-third-five-production.yml');
+ const five=[
+ ['cleveland-tarkington','liberty','Jake Howard'],
+ ['clifton','bosque','Brent Finney'],
+ ['clint','el-paso','Rosuel Martinez'],
+ ['clint-horizon','el-paso','Omar Garcia'],
+ ['clint-mountain-view','el-paso','DJ Check']
+ ];
+ const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==15||
+    reg.batch.remainingToImplement!==10||reg.batch.remainingToVerify!==25||
+    reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==205)
+   errors.push('Batch010 third five registry must retain 205 protected VERIFIED and ten NOT_REVIEWED assigned schools');
+ for(const [slug,countySlug,coach] of five){
+   const row=reg.schoolRecords.find(s=>s.slug===slug);
+   if(!row||row.batch!==10||row.status!=='IMPLEMENTED'||row.actualProductionVerified!==false)
+     errors.push('Batch010 third five unverified source-implementation status missing: '+slug);
+   for(const [source,term,label] of [
+     [editorial,'"'+slug+'": {','original researched editorial'],
+     [editorial,coach,'source-qualified 2026 head coaching'],
+     [loader,"'"+slug+"'",'conditional server-only profile'],
+     [identity,"slug: '"+slug+"'",'verified campus mascot identity'],
+     [route,"'"+slug+"': '"+countySlug+"'",'independently sourced campus county'],
+     [county,"slug: '"+slug+"'",'county reciprocity'],
+     [checker,"'"+slug+"'",'non-skipped Chrome school acceptance']
+   ])if(!source.includes(term))errors.push('Batch010 third five '+label+' missing: '+slug);
+   const dossier=read('docs/football-authority/schools/'+slug+'.md');
+   if(dossier.length<800||!dossier.includes('https://')||!dossier.includes('NOT merged'))
+     errors.push('School-specific third cohort research dossier absent: '+slug);
+   if((slug==='clint-mountain-view')!==graphic.includes("'"+slug+"'"))
+     errors.push('Source-backed 2026 result graphic must be restricted to Mountain View among new schools: '+slug);
+ }
+ for(const marker of ['2026-10-23','2026-10-28','2026–28','A. L. Nelson Stadium','Rosuel Martinez','Omar Garcia','DJ Check','Brent Finney'])
+   if(!editorial.includes(marker))errors.push('Third-cohort individual source and date evidence missing: '+marker);
+ for(const marker of ["workflows: ['Deploy TexasDefined production']","github.event.workflow_run.conclusion == 'success'",
+    'scripts/ci/verify-football-b010-third-five-production.mjs','path: artifacts/b010-third-five-production-chrome/'])
+   if(!wf.includes(marker))errors.push('Third-five scoped Chrome workflow missing: '+marker);
+ for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==3','report.screenshots!==21','versions.size!==1'])
+   if(!checker.includes(marker))errors.push('Third five acceptance counts and one-worker guard missing: '+marker);
 }
 
 if (errors.length) {
