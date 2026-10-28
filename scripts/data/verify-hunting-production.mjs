@@ -2,6 +2,10 @@ import fs from 'node:fs';
 
 const speciesSeasons = JSON.parse(fs.readFileSync('src/data/hunting/species-season-calendar.json', 'utf8'));
 const deerSeasons = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
+const freshnessFile = fs.readFileSync('src/data/hunting/freshness.ts', 'utf8');
+const reviewedLabel = /lastVerifiedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
+const editorialLabel = /editorialUpdatedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
+if (!reviewedLabel || !editorialLabel) throw new Error('Hunting production smoke lacks dated official and editorial markers');
 function deerDate(id, edge) {
   const row = deerSeasons.rows.find((item) => item.id === id);
   if (!row || !row[edge]) throw new Error('Missing verified deer season date: ' + id + '.' + edge);
@@ -13,6 +17,7 @@ function deerDate(id, edge) {
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const userAgent = 'TexasDefined-Hunting-Production-Smoke/3.1';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const cacheBypass = process.env.GITHUB_SHA || Date.now().toString(36);
 
 const representativeTopics = [
   {
@@ -36,7 +41,7 @@ const representativeTopics = [
     needles: ['Texas Youth Hunting Guide:', 'Season calendar', 'Youth hunting FAQs', 'Official regulations and updates'],
   },
   {
-    path: '/hunting/mule-deer-hunting',
+    path: '/hunting/mule-deer',
     needles: ['Texas Mule Deer Hunting Guide', 'TPWD ' + speciesSeasons.seasonYear + ' season dates', 'Panhandle', 'Trans-Pecos', 'View the official TPWD source calendar'],
   },
   {
@@ -117,9 +122,10 @@ function extractVisibleText(html) {
 
 async function fetchDocument(pathname) {
   let lastError;
-  for (let attempt = 1; attempt <= 4; attempt += 1) {
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
-      const response = await fetch(`${origin}${pathname}`, {
+      const url = pathname.endsWith('.xml') ? origin + pathname : origin + pathname + '?hunting-smoke=' + encodeURIComponent(cacheBypass);
+      const response = await fetch(url, {
         headers: {
           'user-agent': userAgent,
           accept: pathname.endsWith('.xml') ? 'application/xml,text/xml;q=0.9,*/*;q=0.8' : 'text/html,*/*;q=0.8',
@@ -148,7 +154,7 @@ async function fetchDocument(pathname) {
       return extractVisibleText(text);
     } catch (error) {
       lastError = error;
-      if (attempt < 4) await sleep(5_000);
+      if (attempt < 2) await sleep(1_500);
     }
   }
   throw lastError instanceof Error ? lastError : new Error(`Failed to fetch ${pathname}`);
@@ -187,7 +193,11 @@ async function verify() {
   requireText(hub, 'Four decisions before choosing a hunting spot', 'Hunting hub');
   requireText(hub, 'TPWD hunting area finder', 'Hunting hub');
   requireText(hub, '2026–27 regulation changes', 'Hunting hub');
-  requireText(hub, 'Source review October 28, 2026', 'Hunting hub');
+  requireText(hub, 'Source review ' + reviewedLabel, 'Hunting hub');
+  requireText(hub, 'Editorial hub updated ' + editorialLabel, 'Hunting hub');
+  requireText(hub, 'Texas hunting season planner', 'Hunting hub');
+  requireText(hub, 'Species or game category', 'Hunting hub');
+  requireText(hub, 'White-tailed deer', 'Hunting hub');
 
   representativeTopics.forEach((topic, index) => {
     const visibleText = topicBodies[index];

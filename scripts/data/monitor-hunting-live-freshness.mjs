@@ -10,7 +10,7 @@ export const TARGETS=[
   {pathname:'/hunting',needles:['Hunting Texas: licenses, public land','Four decisions before choosing a hunting spot','Muzzleloader definition','Source review '+last]},
   {pathname:'/hunting/public-hunting',needles:['Where Can You Hunt on Public Land in Texas?','Texas Parks and Wildlife']},
   {pathname:'/hunting/texas-deer-hunting',needles:['Texas White-Tailed Deer Hunting Guide','Texas white-tailed deer hunting dates']},
-  {pathname:'/hunting/mule-deer-hunting',needles:['Texas Mule Deer Hunting Guide','TPWD '+season.seasonYear+' season dates','Panhandle','Trans-Pecos']},
+  {pathname:'/hunting/mule-deer',needles:['Texas Mule Deer Hunting Guide','TPWD '+season.seasonYear+' season dates','Panhandle','Trans-Pecos']},
 ];
 export const visible=(html)=>String(html).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<!--[\s\S]*?-->/g,' ').replace(/<[^>]*>/g,' ').replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&').replace(/\s+/g,' ').trim();
 export function verifyHtml(html,target,variant){

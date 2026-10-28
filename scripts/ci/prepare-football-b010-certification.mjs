@@ -126,6 +126,38 @@ function findRuns(i) {
   return (data.workflow_runs||[]).filter(r=>r.status==='completed'&&
     r.conclusion==='success'&&r.head_branch==='main'&&SHA.test(r.head_sha||'')).slice(0,18);
 }
+// Prefer the newest release shared by all five cohorts, but never require
+// each cohort's individually newest run to be from that release.
+export function sharedReleaseShas(recent) {
+  assert.equal(recent.length,5,'Exactly five independent Chrome cohorts required');
+  const intersection=new Set(recent[0].map(r=>r.head_sha).filter(x=>SHA.test(x||'')));
+  for(const cohort of recent.slice(1)) {
+    const shas=new Set(cohort.map(r=>r.head_sha));
+    for(const sha of intersection) if(!shas.has(sha))intersection.delete(sha);
+  }
+  return [...intersection].sort((a,b)=>{
+    const stamp=(sha)=>Math.max(...recent.flat().filter(r=>r.head_sha===sha)
+      .map(r=>Date.parse(r.created_at||'')||0));
+    return stamp(b)-stamp(a);
+  });
+}
+// Keep source SHA AND deployed Worker identity consistent. A GitHub workflow
+// can republish the same commit to two different Worker versions, so choosing
+// only the newest per cohort can conceal a complete earlier exact-version set.
+export function selectCommonWorkerReports(options) {
+  assert.equal(options.length,5,'Five Chrome cohort option lists are required');
+  for(const first of options[0]) {
+    if(!SHA.test(first.sha||'') || !UUID.test(first.worker||''))continue;
+    const selected=[first];
+    for(const cohort of options.slice(1)) {
+      const matching=cohort.find(o=>o.sha===first.sha && o.worker===first.worker);
+      if(!matching)break;
+      selected.push(matching);
+    }
+    if(selected.length===5)return selected;
+  }
+  return null;
+}
 function downloadActual(i,run,slugs,temp) {
   const data=gh('repos/'+REPO+'/actions/runs/'+run.id+'/artifacts');
   const a=data.artifacts?.find(a=>a.name===artifactName(i)&&a.expired===false&&
@@ -208,19 +240,47 @@ export async function main() {
   }
   const temp=mkdtempSync(join(tmpdir(),'football-b010-certificate-'));
   try {
-    const chosen=[];
-    for(let i=0;i<5;i++) {
-      const slugs=reg.batch.slugs.slice(i*5,(i+1)*5);
-      let found=null;
-      for(const run of findRuns(i)) {
-        try {found=downloadActual(i,run,slugs,temp);if(found)break;}
-        catch(e){console.warn('Rejected '+NAMES[i]+' run '+run.id+': '+String(e.message).slice(0,180));}
-      }
-      if(!found){console.log('Waiting on real '+NAMES[i]+' Chrome and retained artifacts; no changes');return;}
-      chosen.push(found);
+    // A shared release SHA is a prerequisite, not a property to hope for
+    // after selecting five unrelated newest runs. Recent deployments can
+    // overlap the five staggered scheduled cohorts. Examine shared SHAs in
+    // newest-first order and accept only five genuinely executed, artifact-
+    // backed Chrome cohorts with the identical Worker. Green skipped runs
+    // never produce a report and therefore never enter the chosen set.
+    const recent=NAMES.map((_,i)=>findRuns(i));
+    const commonShas=sharedReleaseShas(recent);
+    if(!commonShas.length){
+      console.log('No common source release among five Chrome cohorts; no status changed');
+      return;
     }
-    if(chosen.some(x=>x.sha!==chosen[0].sha||x.worker!==chosen[0].worker)) {
-      console.log('Five cohorts do not share one deployed source SHA and Worker; no changes');return;
+    let chosen=null;
+    for(const targetSha of commonShas) {
+      const options=[];
+      for(let i=0;i<5;i++) {
+        const slugs=reg.batch.slugs.slice(i*5,i*5+5);
+        const valid=[];
+        // Multiple deployments of the *same commit* can create different
+        // Worker versions. Preserve each real artifact-backed option rather
+        // than locking the cohort to its independently newest Worker.
+        for(const run of recent[i].filter(r=>r.head_sha===targetSha)) {
+          try {
+            const observed=downloadActual(i,run,slugs,temp);
+            if(observed)valid.push(observed);
+          } catch(e){
+            console.warn('Rejected '+NAMES[i]+' run '+run.id+': '+
+              String(e.message).slice(0,180));
+          }
+        }
+        if(!valid.length)break;
+        options.push(valid);
+      }
+      if(options.length===5) {
+        const same=selectCommonWorkerReports(options);
+        if(same){chosen=same;break;}
+      }
+    }
+    if(!chosen){
+      console.log('No complete shared-release set of five real Chrome artifacts yet; no certification');
+      return;
     }
     const {sha,worker}=chosen[0];
     const deployment=await matchingRelease(sha,worker);
