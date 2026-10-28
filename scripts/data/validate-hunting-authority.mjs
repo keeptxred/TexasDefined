@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
 const requireText = (source, text, label) => {
@@ -14,6 +15,8 @@ const authority = read('src/data/hunting/authority.ts');
 const authorityV2 = read('src/data/hunting/authority-v2.ts');
 const allAuthority = `${authority}\n${authorityV2}`;
 const freshness = read('src/data/hunting/freshness.ts');
+const youthCalendar = read('src/data/hunting/youth-hunting-data.ts');
+const youthMonitor = read('.github/workflows/monitor-youth-hunting.yml');
 const sitemap = read('src/data/hunting/sitemap.ts');
 const huntingRoute = read('src/routes/hunting.$slug.tsx');
 const huntingLazyRoute = read('src/routes/hunting.lazy.tsx');
@@ -58,6 +61,9 @@ requireText(allAuthority, 'https://tpwd.texas.gov/', 'TPWD official-source links
 requireText(authorityV2, 'fur-bearing-animal-regulations', 'fur-bearer authority source missing');
 requireText(authorityV2, 'migratory-game-bird-regulations', 'migratory game bird authority source missing');
 requireText(authorityV2, 'youth-only', 'youth-only authority source missing');
+requireText(youthCalendar, "YOUTH_HUNTING_SEASONS", "maintained youth-only calendar missing");
+requireText(youthMonitor, "schedule:", "youth-only GitHub refresh schedule missing");
+requireText(youthMonitor, "gh pr create", "youth-only official-source PR writer missing");
 requireText(freshness, 'seasonYear: "2026–27"', '2026–27 season-year marker missing');
 requireText(freshness, 'lastVerified: "2026-09-01"', 'last-verified marker missing');
 requireText(freshness, 'not the legal authority', 'independence/legal-authority disclaimer missing');
@@ -129,4 +135,6 @@ for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texa
   }
 }
 
+execFileSync(process.execPath, ['scripts/data/validate-youth-hunting.mjs'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['--test', 'scripts/data/refresh-youth-hunting-calendar.test.mjs'], { stdio: 'inherit' });
 console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, lazy child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and rendered-text v2 production smoke governance.`);
