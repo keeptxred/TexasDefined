@@ -7,6 +7,8 @@ on:
     paths:
       - 'src/data/camping/**'
       - 'scripts/data/audit-camping-guide-freshness.mjs'
+      - 'scripts/data/refresh-camping-alerts.mjs'
+      - 'scripts/data/validate-camping-authority-upgrade.mjs'
       - '.github/workflows/audit-camping-guide-sources.yml'
 
 permissions:
@@ -26,6 +28,7 @@ jobs:
       - name: Validate camping page, bookings, alert snapshot and scheduler contract
         run: |
           node --check scripts/data/refresh-camping-alerts.mjs
+          node scripts/data/refresh-camping-alerts.mjs --self-test
           node scripts/data/validate-camping-guide-decision-ux.mjs
           node scripts/data/validate-camping-authority-upgrade.mjs
 
