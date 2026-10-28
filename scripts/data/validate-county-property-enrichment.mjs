@@ -16,7 +16,7 @@ const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', '
 const failures = [];
 
 const countyTemplate = fs.readFileSync('src/components/property/CountyPropertyTaxTemplate.tsx', 'utf8');
-for (const countySlug of ['lubbock', 'rockwall', 'taylor', 'van-zandt']) {
+for (const countySlug of ['lubbock', 'rockwall', 'taylor', 'throckmorton', 'van-zandt']) {
   if (!countyTemplate.includes("'" + countySlug + "'")) {
     failures.push('County tax office collection exception missing: ' + countySlug);
   }
