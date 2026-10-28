@@ -3,6 +3,9 @@ name: Refresh Texas by the Numbers
 on:
   schedule:
     - cron: '41 16 25-31,1-5 * *'
+    # The FRED corroboration path deliberately needs 40 days after the reference
+    # month ends; a late/early release-only window would never reach maturity.
+    - cron: '41 16 9,12,16 * *'
   workflow_dispatch:
   push:
     branches: [main]
