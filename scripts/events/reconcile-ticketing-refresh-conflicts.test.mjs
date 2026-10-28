@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { time, chooseByTimestamp, mergeTicketProbeLedger, validateConflicts }
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { time, chooseByTimestamp, mergeTicketProbeLedger, validateConflicts, gitText, MAX_GIT_OUTPUT_BYTES }
   from './reconcile-ticketing-refresh-conflicts.mjs';
 
 const iso = '2026-10-26T03:10:51.014Z';
@@ -56,4 +60,32 @@ test('broken probe identities or missing curated source inventory fail closed',(
   malformed.statewide.ticketLinkProbes.c.eventId='wrong-event';
   assert.throws(()=>mergeTicketProbeLedger(malformed,main),/Invalid event probe identity/);
   assert.throws(()=>mergeTicketProbeLedger({...bot,events:[]},main),/12-event/);
+});
+
+
+test('safe reconciliation reads a generated Git JSON snapshot larger than Node default stdout buffer', () => {
+  // The original failure was spawnSync git ENOBUFS on a multi-MB generated
+  // Ticketmaster events file; synthetic data tests the real execFileSync path.
+  const dir = mkdtempSync(join(tmpdir(), 'texas-event-git-buffer-'));
+  try {
+    const content = JSON.stringify({
+      fetchedAt: '2026-10-27T16:43:07.000Z',
+      events: Array.from({ length: 30000 }, (_, i) => ({
+        id: `ticketmaster-${i}`,
+        name: 'Texas event with several details at a venue and verified source',
+        date: '2026-11-01',
+      })),
+    });
+    assert.ok(Buffer.byteLength(content) > 1024 * 1024);
+    assert.ok(Buffer.byteLength(content) < MAX_GIT_OUTPUT_BYTES);
+    execFileSync('git', ['init', '-q', dir]);
+    writeFileSync(join(dir, 'generated-events.json'), content);
+    execFileSync('git', ['-C', dir, 'add', '--', 'generated-events.json']);
+    execFileSync('git', ['-C', dir, '-c', 'user.name=TexasDefined CI', '-c',
+      'user.email=actions@users.noreply.github.com', 'commit', '-qm', 'fixture']);
+    const actual = gitText(['show', 'HEAD:generated-events.json'], dir);
+    assert.deepEqual(JSON.parse(actual), JSON.parse(content));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
