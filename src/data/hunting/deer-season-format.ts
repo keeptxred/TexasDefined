@@ -31,6 +31,12 @@ export function deerSeasonRange(id: DeerSeasonId, style: "long" | "short" = "lon
 }
 
 /** Last official date verification is distinct from the human review of legal guidance. */
+export function deerSeasonStart(id: DeerSeasonId) {
+  const row = texasDeerSeason.rows.find((item) => item.id === id);
+  if (!row) throw new Error("Unknown TPWD deer season: " + id);
+  return displayDate(row.start, "long", true);
+}
+
 export function deerSourceCheckLabel() {
   return displayDate(texasDeerSeason.sourceCheckedAt, "long", true);
 }
