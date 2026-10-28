@@ -168,6 +168,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'clarendon': 'donley', // Physical school county, not a certified spectator gate.
+    'clarksville': 'red-river', // Physical school county, not a certified spectator gate.
+    'claude': 'armstrong', // Physical school county, not a certified spectator gate.
+    'cleburne': 'johnson', // Physical school county, not a certified spectator gate.
+    'cleveland': 'liberty', // Physical school county, not a certified spectator gate.
     'chilton': 'falls', // Chilton ISD Falls County campus; no claimed stadium gate.
     'china-spring': 'mclennan', // China Spring school in McLennan County; athletics contact distinct from visitor entrance.
     'christoval': 'tom-green', // Christoval ISD Tom Green County; home venue entry needs confirmation.
