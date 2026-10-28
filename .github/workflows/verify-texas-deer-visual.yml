@@ -28,12 +28,46 @@ jobs:
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: |
           node --check scripts/ci/verify-texas-deer-live-visual.mjs
           node scripts/ci/verify-texas-deer-live-visual.mjs --self-test
+      - name: Detect script-only change eligible for checking already-deployed page
+        id: script_only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main
+          if git diff --quiet origin/main HEAD -- \
+             src/data/hunting/deer-season-dates.json \
+             src/data/hunting/authority-deer.ts src/components/hunting/HuntingAuthority.tsx; then
+            echo 'eligible=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'eligible=false' >> "$GITHUB_OUTPUT"
+            echo 'PR changes deer page; live QA runs after production deployment.'
+          fi
+      - name: Use isolated browser for script-only live acceptance
+        if: steps.script_only.outputs.eligible == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-deer-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Prove desktop/mobile browser QA against deployed deer page
+        if: steps.script_only.outputs.eligible == 'true'
+        run: node scripts/ci/verify-texas-deer-live-visual.mjs
+      - name: Upload actual live desktop/mobile QA screenshots
+        if: always() && steps.script_only.outputs.eligible == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-deer-script-only-qa-${{ github.run_id }}
+          path: artifacts/texas-deer-live-visual/
+          if-no-files-found: warn
+          retention-days: 14
 
   live:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && (github.event.workflow_run.name == 'Deploy TexasDefined production' || (github.event.workflow_run.name == 'Verify Texas deer regulations' && (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch'))))
