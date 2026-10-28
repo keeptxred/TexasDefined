@@ -1,6 +1,7 @@
 name: Archive and retire 12 legacy corporate event branches
 
-# One-time, exact-SHA-safe housekeeping. The push trigger runs on the PR merge.
+# One-time, exact-SHA-safe housekeeping. The push trigger runs on PR merge.
+# Requires independently created, exact-tip archive branches for all deletions.
 # No production application code, database, Cloudflare settings or website is touched.
 on:
   pull_request:
@@ -36,7 +37,6 @@ jobs:
           candidates=()
           missing=0
           blocked=0
-          archived=0
           removed=0
           # Commit IDs verified against the actual branch tips before PR creation.
           # A subsequently changed tip is never removed. Separate relocation
@@ -65,8 +65,17 @@ jobs:
               blocked=$((blocked + 1))
               continue
             fi
+            # Archive branches were created via the connected GitHub account
+            # after GitHub Actions returned HTTP 403 on tag creation. Require
+            # the EXACT original commit to be reachable via a separate ref.
+            archive="archive/corporate-prebuild-20261028/${tip:0:12}"
+            if ! archive_tip="$(gh api "repos/$REPOSITORY/git/ref/heads/$archive" --jq '.object.sha' 2>/dev/null)" || [[ "$archive_tip" != "$tip" ]]; then
+              echo "::warning title=Archive missing/mismatched::Preserving $branch: $archive must point to $tip."
+              blocked=$((blocked + 1))
+              continue
+            fi
             candidates+=("$branch|$tip")
-            echo "Eligible: $branch ($tip)"
+            echo "Eligible: $branch ($tip), verified archive $archive"
           done <<'REVIEWED_BRANCH_TIPS'
           feat/corporate-event-integration-contracts-20261023|4e9475d1f60705d6e62726ecff0bf9e621adeb2d
           feat/corporate-event-verified-geo-foundation-20261023|dcc6333eda720ab20b7ab91371b7d065603b3f47
@@ -90,8 +99,8 @@ jobs:
 
           for record in "${candidates[@]}"; do
             IFS='|' read -r branch tip <<<"$record"
-            # Re-check immediately before writing the archive and before
-            # deletion: concurrent branch edits must not be discarded.
+            # Re-check immediately before deletion: concurrent branch edits
+            # must not be discarded.
             current="$(gh api "repos/$REPOSITORY/git/ref/heads/$branch" --jq '.object.sha')"
             if [[ "$current" != "$tip" ]]; then
               echo "::warning title=Concurrent branch update::Preserving $branch, expected $tip, found $current."
@@ -99,19 +108,13 @@ jobs:
               continue
             fi
 
-            tag="archive/corporate-prebuild-20261028/${tip:0:12}"
-            if archived_tip="$(gh api "repos/$REPOSITORY/git/ref/tags/$tag" --jq '.object.sha' 2>/dev/null)"; then
-              [[ "$archived_tip" == "$tip" ]] || {
-                echo "::error::Conflicting archive tag $tag for $branch. Refusing deletion."
-                exit 1
-              }
-            else
-              gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$tip" >/dev/null
-              archived=$((archived + 1))
-            fi
-            verified="$(gh api "repos/$REPOSITORY/git/ref/tags/$tag" --jq '.object.sha')"
+            archive="archive/corporate-prebuild-20261028/${tip:0:12}"
+            # Exact-SHA archived branch exists before the original is removed.
+            # Ref creation was done through GitHub's connected account, not
+            # the limited Actions token; no tag creation is attempted here.
+            verified="$(gh api "repos/$REPOSITORY/git/ref/heads/$archive" --jq '.object.sha')"
             [[ "$verified" == "$tip" ]] || {
-              echo "::error::Archive verification failed for $branch. Refusing deletion."
+              echo "::error::Archive mismatch for $branch at refs/heads/$archive. Refusing deletion."
               exit 1
             }
             current="$(gh api "repos/$REPOSITORY/git/ref/heads/$branch" --jq '.object.sha')"
@@ -126,9 +129,9 @@ jobs:
               exit 1
             fi
             removed=$((removed + 1))
-            echo "Archived and retired $branch; recover with tag refs/tags/$tag -> $tip"
+            echo "Verified archived ref and retired $branch; restore via refs/heads/$archive -> $tip"
           done
-          echo "SUMMARY retired=$removed new_archive_tags=$archived absent=$missing blocked=$blocked"
+          echo "SUMMARY retired=$removed verified_archive_branches=${#candidates[@]} absent=$missing blocked=$blocked"
           if (( blocked > 0 )); then
             echo "::warning::Some branches were preserved because they changed or have active work. Inspect results."
           fi
