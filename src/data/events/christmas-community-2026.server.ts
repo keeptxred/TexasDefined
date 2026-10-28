@@ -1033,6 +1033,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceVerifiedAt": "2026-10-27"
   },
   {
+    "slug": "midland-merry-lights-tree-lighting-2026",
+    "title": "Midland's Merry Lights · City Tree Lighting Ceremony",
+    "city": "Midland",
+    "countySlug": "midland",
+    "countyName": "Midland County",
+    "region": "panhandle",
+    "startDate": "2026-12-01",
+    "venueName": "Centennial Park · Downtown Midland",
+    "officialEventUrl": "https://midlandtexas.gov/1244/Community-Events-Programs",
+    "sourceName": "City of Midland Community Events",
+    "summary": "Midland's city-hosted downtown holiday tree lighting is confirmed Tuesday December 1, 2026 at Centennial Park. The program runs 5–8:30 p.m., festivities start about 5:30 p.m., and the tree lights no earlier than 6:15 p.m. This is not a verified season-long event called Starry Starry Night.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "dallas-zoo-lights-dec-early",
     "title": "Dallas Zoo Lights · December 2–6",
     "city": "Dallas",
@@ -1114,6 +1128,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cameronparkzoo.com/event/wild-lights-2026/",
     "sourceName": "Cameron Park Zoo",
     "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
+  },
+  {
+    "slug": "graham-christmas-roundup-parade-2026",
+    "title": "Graham Christmas Roundup · Downtown Square Lighted Parade",
+    "city": "Graham",
+    "countySlug": "young",
+    "countyName": "Young County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "America's Largest Downtown Square · Graham",
+    "officialEventUrl": "https://visitgrahamtexas.com/event/christmas-roundup-parade/",
+    "sourceName": "Visit Graham / Graham Chamber of Commerce",
+    "summary": "Graham's 2026 Christmas Roundup takes place Thursday December 3 on America's Largest Downtown Square. Santa photos are advertised from 3:30–6:30 p.m., the shopping stroll from 5–7 p.m., ceremonial square lighting at 6 p.m. and the lighted parade at 8 p.m. The event's verified name is Christmas Roundup rather than a generic yearly square-lighting schedule.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "grapevine-parade-of-lights-2026",
@@ -1563,6 +1591,21 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.mansfieldtexas.gov/789/Hometown-Holidays",
     "sourceName": "City of Mansfield",
     "summary": "The 2026 main Hometown Holidays festival is Friday December 4, 5–9 p.m., at Mansfield City Hall. Tree lighting, fireworks, market vendors, performances and family activities are planned; additional citywide holiday events run on other independently advertised dates."
+  },
+  {
+    "slug": "monahans-christmas-in-dunes-2026",
+    "title": "Monahans Christmas in the Dunes · Holiday Festival",
+    "city": "Monahans",
+    "countySlug": "ward",
+    "countyName": "Ward County",
+    "region": "big-bend",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-05",
+    "venueName": "Ward County Event Center · Monahans",
+    "officialEventUrl": "https://www.monahans.org/events",
+    "sourceName": "Monahans Chamber of Commerce",
+    "summary": "The Monahans Chamber of Commerce confirms Christmas in the Dunes for December 4–5, 2026 at the Ward County Event Center, with a lighted parade, seasonal craft and food vendors, and free admission to the Chamber-advertised festival. This independently named event does not establish the separate submitted 'Monahans Sandhills Christmas' listing.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "pearland-hometown-christmas-festival-2026",
@@ -2044,6 +2087,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The City of Pearland's 2026 Hometown Christmas schedule confirms the parade Saturday December 5 at 6 p.m. on FM 518 (Broadway) from Old Alvin Road toward Pearland Parkway, with the theme Red, White, and Blue Christmas. This is a DIFFERENT day and route from the December 4 Hometown Christmas Festival at Independence Park."
   },
   {
+    "slug": "port-isabel-christmas-parade-tree-lighting-2026",
+    "title": "Port Isabel Hometown Christmas Parade & Community Tree Lighting",
+    "city": "Port Isabel",
+    "countySlug": "cameron",
+    "countyName": "Cameron County",
+    "region": "south-texas",
+    "startDate": "2026-12-05",
+    "venueName": "Queen Isabella Boulevard to Beulah Lee Park",
+    "officialEventUrl": "https://portisabel-texas.com/blog/christmas-tree-lighting-parade/",
+    "sourceName": "City of Port Isabel",
+    "summary": "The City of Port Isabel confirms its 18th annual Hometown Christmas Parade on Saturday December 5, 2026, starting at 6 p.m. on Queen Isabella Boulevard, followed by the community tree-lighting ceremony at Beulah Lee Park at 7 p.m. Public street-side parking is offered; temporary Highway 100 and Gomez Street closures apply. This is a city parade/tree event, not an unverified lighthouse-specific Christmas tour.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "richardson-santas-village-week1",
     "title": "Richardson Santa's Village · December 5–6",
     "city": "Richardson",
@@ -2056,6 +2113,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
     "sourceName": "City of Richardson",
     "summary": "The first official free Santa's Village activity weekend runs December 5–6, 6–9 p.m., with photos with Santa, live music, interactive holiday buildings and free parking."
+  },
+  {
+    "slug": "rockport-tropical-christmas-festival-2026",
+    "title": "Rockport Tropical Christmas Festival and Illuminated Parade",
+    "city": "Rockport",
+    "countySlug": "aransas",
+    "countyName": "Aransas County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Rockport Festival Grounds and Harbor · 212 Seabreeze Drive",
+    "officialEventUrl": "https://www.rockporttx.gov/Calendar.aspx?EID=3385",
+    "sourceName": "City of Rockport Parks & Recreation",
+    "summary": "The City of Rockport confirms a free Tropical Christmas festival Saturday December 5, 2026, with activities and vendors from 10 a.m.–6 p.m. near the harbor, followed by the 7 p.m. illuminated parade, LED night kites and fireworks. Rockport Beach Park offers free access for spectators from 4 p.m.; organizers may close the road ahead of the parade.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "rockwall-hometown-christmas-2026",
@@ -2204,6 +2275,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
     "sourceName": "City of Richardson",
     "summary": "The city advertises Santa's Village as open to stroll through and view December 7–9. Full interactive programs and Santa visits are not advertised for this window; use separately listed weekend programs for those activities."
+  },
+  {
+    "slug": "sweetwater-christmas-on-square-parade-2026",
+    "title": "Sweetwater Parade of Lights & Christmas on the Square",
+    "city": "Sweetwater",
+    "countySlug": "nolan",
+    "countyName": "Nolan County",
+    "region": "panhandle",
+    "startDate": "2026-12-07",
+    "venueName": "Downtown Sweetwater · Christmas on the Square",
+    "officialEventUrl": "https://sweetwatertexas.org/events/list/?tribe-bar-date=2026-10-22",
+    "sourceName": "Sweetwater Texas Chamber of Commerce",
+    "summary": "The Sweetwater Chamber's 2026 events calendar confirms its annual Parade of Lights and Christmas on the Square for Monday December 7 at 6:30 p.m. This is a Chamber-advertised Christmas parade, not proof of a separate event branded Pioneer Christmas. Final route and activities should be checked with the Chamber.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "temple-80th-annual-christmas-parade-2026",
@@ -2835,6 +2920,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Vision Lampasas confirms Saturday December 12, 2026, 5–8 p.m. for Christmas on the Creek, including Santa's Village, hot cocoa, a snow machine and lighted park attractions. The outdoor creek lights may continue beyond the event, but no unverified end date is listed as another calendar entry."
   },
   {
+    "slug": "midland-merry-lighted-parade-2026",
+    "title": "Midland Merry Lighted Christmas Parade",
+    "city": "Midland",
+    "countySlug": "midland",
+    "countyName": "Midland County",
+    "region": "panhandle",
+    "startDate": "2026-12-12",
+    "venueName": "A Street · Windlands Park to Midland High School",
+    "officialEventUrl": "https://midlandtexas.gov/1244/Community-Events-Programs",
+    "sourceName": "City of Midland Community Events",
+    "summary": "The City of Midland schedules the Merry Lighted Christmas Parade for Saturday December 12, 2026 at 6:30 p.m. on A Street between Windlands Park and Midland High School. This date is independent of the December 1 Centennial Park tree lighting; confirm street closures and parade route updates before travel.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "pasadena-christmas-market-2026",
     "title": "Pasadena Christmas Market · 2026 local vendors",
     "city": "Pasadena",
@@ -3398,7 +3497,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;
+];;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
