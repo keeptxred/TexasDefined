@@ -1,7 +1,6 @@
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
 import { HUNTING_REGULATION_FRESHNESS } from "@/data/hunting/freshness";
-import { YOUTH_HUNTING_LAST_CHECKED } from "@/data/hunting/youth-hunting-data";
 import { texasDeerSeason } from "@/data/hunting/deer-season-format";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -59,7 +58,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         url: pageUrl,
         name: topic.title,
         description: topic.description,
-        dateModified: topic.slug === "youth-hunting" ? YOUTH_HUNTING_LAST_CHECKED : topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
+        dateModified: topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         isPartOf: { "@id": `${homeUrl}#website` },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
         mainEntity: { "@id": `${pageUrl}#${topic.slug === "texas-deer-hunting" ? "article" : "sections"}` },
