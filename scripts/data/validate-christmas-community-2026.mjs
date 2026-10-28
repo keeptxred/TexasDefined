@@ -28,7 +28,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 260, "The 260 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 263, "The 263 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 const seasonStarts = events.map((event) => event.startDate).sort();
 const seasonEnds = events.map((event) => event.endDate ?? event.startDate).sort();
@@ -606,6 +606,16 @@ for (const [slug, day] of [
   assert.equal(bySlug.get(slug).officialEventUrl, "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
     `${slug}: official Pearl organizer announcement required`);
 }
+for (const [slug, date, url] of [
+  ["highland-village-our-village-glows-2026", "2026-11-21", "https://www.highlandvillage.org/588/Our-Village-Glows"],
+  ["highland-village-christmas-at-the-ranch-2026", "2026-12-12", "https://www.highlandvillage.org/m/calendar/event/detail/2576"],
+  ["forney-downtown-tree-lighting-2026", "2026-12-03", "https://www.forneytx.gov/761/Downtown-Tree-Lighting"],
+]) {
+  check(slug, date);
+  assert.equal(bySlug.get(slug).officialEventUrl, url, `${slug}: city first-party event source required`);
+  assert.equal(bySlug.get(slug).sourceVerifiedAt, "2026-10-27", `${slug}: preserve actual source review date`);
+}
+assert.ok(!bySlug.has("forney-2026-christmas-on-main-duplicate"), "Forney Christmas on Main exists already; do not create duplicate cards");
 assert.ok(!bySlug.has("san-antonio-pearl-holiday-night-market-2026-daily"),
   "Pearl's four Wednesday markets must not become a fabricated nightly date span");
 check("santas-ranch-new-braunfels", "2026-11-06", "2027-01-03");
