@@ -26,6 +26,22 @@ if (!sourceCodec.includes('export function preserveSourcedCountyLinks(') ||
   failures.push('Official county contact refresh must preserve only source-proven, fresh same-office search/payment links.');
 }
 
+const countyFinisher = fs.readFileSync('.github/workflows/finish-county-property-data-refresh.yml','utf8');
+for (const required of [
+  'workflow_run:',
+  'workflows: [Refresh county property data]',
+  "branch=\"automation/county-property-refresh-$run_id\"",
+  "author\" == 'github-actions[bot]'",
+  "git diff --name-only",
+  "Automated refresh cannot delete source-backed county contacts",
+  "node --test scripts/data/county-property-snapshot-codec.test.mjs",
+  "node scripts/data/validate-county-property-enrichment.mjs",
+  'dispatch-validate-branch.sh "$branch" validate.yml',
+  'dispatch-validate-branch.sh "$branch" merge-gate.yml',
+  'gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit',
+]) {
+  if (!countyFinisher.includes(required)) failures.push('County refresh protected finisher missing safety requirement: '+required);
+}
 const SOURCE_MAX_AGE_DAYS = 730;
 const LOCAL_VERIFICATION_MAX_AGE_DAYS = 400;
 
