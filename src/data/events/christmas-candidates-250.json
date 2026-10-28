@@ -221,7 +221,7 @@
       "title": "Temple Nature In Lights",
       "submittedRegion": "Hill Country & Central Texas",
       "status": "candidate-needs-source-reconciliation",
-      "researchNote": "Discover Temple Nature In Lights landing page lists dates inconsistent with Thanksgiving 2026 and appears to mix older year schedules; no full organizer-dated 2026 BLORA nightly calendar verified, so hold dates."
+      "researchNote": "Discover Temple confirms the Nov 28 Santa Fe Plaza tree lighting and Dec 7 Christmas Parade, now listed separately. They do NOT confirm Fort Cavazos BLORA Nature in Lights 2026 operating dates; military organizer's accessible schedules include prior-season details only."
     },
     {
       "intakeId": 25,
@@ -1111,13 +1111,18 @@
       "intakeId": 133,
       "title": "Port Lavaca Festival of Trees",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Calhoun County Events confirms Port Lavaca Christmas Parade Dec 4 and Christmas at the Bayfront Dec 12, now in the calendar. Neither establishes a 2026 Festival of Trees at Port Lavaca; keep this distinct candidate unverified."
     },
     {
       "intakeId": 134,
       "title": "Victoria Christmas Parade of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "victoria-christmas-lighted-parade-tree-lighting-2026"
+      ],
+      "researchNote": "City of Victoria confirms Dec 5 2026 tree lighting and lighted parade; the Dec 11 Merry on Main downtown market is a separate organizer-confirmed event."
     },
     {
       "intakeId": 135,
@@ -1889,8 +1894,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-27",
-    "calendarCandidates": 79,
+    "calendarCandidates": 80,
     "authorityCandidates": 12,
-    "remainingCandidates": 159
+    "remainingCandidates": 158
   }
 }
