@@ -32,7 +32,7 @@ test('Houston Build 2 extends rather than replaces statewide and legacy director
 test('Houston legacy operator identities are not silently turned into one location', () => {
   const bySlug = new Map(houstonInventoryAudit.map(x=>[x.slug,x]));
   assert.equal(bySlug.get('the-escape-game-houston')?.kind,'multi-site-operator');
-  assert.equal(bySlug.get('escape-it-houston-group-events')?.kind,'multi-site-operator');
+  assert.equal(bySlug.get('escape-it-houston-group-events')?.kind,'activity-at-venue');
   assert.equal(bySlug.get('trill-on-wheels')?.kind,'mobile-experience');
   assert.equal(bySlug.get('game-show-experience-houston')?.kind,'venue-and-mobile');
   assert(legacyAudit.every(item => item.requiresIndependentLocationCheck));
