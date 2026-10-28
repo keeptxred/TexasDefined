@@ -358,6 +358,64 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ]
   },
   "clint-mountain-view": {
+    "season": {
+      "record": "3–5 overall, 1–1 in district through October 23, 2026 (MaxPreps source snapshot updated October 27; not UIL-certified)",
+      "sourceUrl": "https://www.maxpreps.com/tx/el-paso/mountain-view-lobos/football/schedule/",
+      "sourceLabel": "Dated 2026-10-27 team schedule listing eight specific finals; not future fixtures",
+      "verifiedAt": "2026-10-28",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Chaparral",
+          "site": "Home",
+          "result": "L 21-23"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Horizon",
+          "site": "Away",
+          "result": "L 27-28"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Alpine",
+          "site": "Away",
+          "result": "W 34-9"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "San Elizario",
+          "site": "Home",
+          "result": "W 31-6"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Ysleta",
+          "site": "Away",
+          "result": "L 28-49"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Austin",
+          "site": "Home",
+          "result": "L 3-56"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Irvin",
+          "site": "Away",
+          "result": "L 22-27",
+          "district": true
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Fabens",
+          "site": "Home",
+          "result": "W 22-18",
+          "district": true
+        }
+      ]
+    },
     "slug": "clint-mountain-view",
     "intro": "Mountain View High School's Lobos play UIL Class 4A Division II District 1 in eastern El Paso County, distinct from both the Clint Lions and Horizon Scorpions. Clint ISD's athletic-services directory independently lists DJ Check as the Mountain View athletic coordinator, and the contemporary 2026 varsity staff names him head football coach. Mountain View High publishes its own 2026–27 football announcement and keeps its academic campus at 14964 Greg Drive.",
     "theme": {
