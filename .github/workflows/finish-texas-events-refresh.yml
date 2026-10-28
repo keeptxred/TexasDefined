@@ -182,8 +182,8 @@ jobs:
           git config user.name "Texas Defined Event Refresh Finisher"
           git config user.email "actions@users.noreply.github.com"
 
-          for attempt in 1 2 3; do
-            echo "Finisher attempt $attempt/3 for $PR_URL"
+          for attempt in 1 2 3 4 5; do
+            echo "Finisher attempt $attempt/5 for $PR_URL"
             git fetch --no-tags origin main "$BRANCH"
 
             remote_head="$(git rev-parse "origin/$BRANCH")"
@@ -227,8 +227,26 @@ jobs:
               continue
             fi
             if ! git merge-base --is-ancestor origin/main "origin/$BRANCH"; then
-              echo "::notice title=Main advanced during validation::Reconcile and validation will run again."
-              continue
+              # During the multi-minute protected test suite, unrelated content
+              # PRs frequently merge on main. Invalidating already-proven event
+              # data for EVERY unrelated commit made a busy site impossible to
+              # refresh (run 40616270909 exhausted all three attempts).
+              # Revalidate ONLY if governed catalog/verification paths changed
+              # in current main after the validated branch's common ancestor.
+              # GitHub branch protection still independently controls merge.
+              shared_base="$(git merge-base origin/main "origin/$BRANCH")"
+              governed_drift=false
+              while IFS= read -r path; do
+                [[ -z "$path" ]] && continue
+                if allowed_path "$path"; then
+                  echo "::notice title=Governed source changed::Main updated $path during validation; retry with a fresh reconciliation."
+                  governed_drift=true
+                fi
+              done < <(git diff --name-only "$shared_base" origin/main)
+              if [[ "$governed_drift" == "true" ]]; then
+                continue
+              fi
+              echo "::notice title=Unrelated main commits::Accepting exact-SHA event validation; protected GitHub auto-merge will enforce current branch policy."
             fi
 
             # PRs opened with GITHUB_TOKEN cannot trigger their own pull_request workflows.
@@ -283,5 +301,5 @@ jobs:
             exit 0
           done
 
-          echo "::error title=Event refresh could not stabilize::Main advanced during all three validation attempts; leaving $PR_URL open without merging."
+          echo "::error title=Event refresh could not stabilize::Governed event data or protected branch checks changed across all five validation attempts; leaving $PR_URL open without merging."
           exit 1
