@@ -21,6 +21,7 @@ on:
       - '.github/workflows/refresh-hunting-species-calendar.yml'
       - '.github/workflows/finish-hunting-species-calendar.yml'
       - '.github/workflows/monitor-hunting-live-freshness.yml'
+      - 'scripts/data/hunting-season-window-status.test.mjs'
       - 'scripts/data/validate-hunting-authority.mjs'
       - '.github/workflows/validate-hunting-authority.yml'
   workflow_dispatch:
@@ -42,6 +43,7 @@ jobs:
       - name: Validate hunting authority contract
         run: |
           node scripts/data/validate-hunting-authority.mjs
+          node --test scripts/data/hunting-season-window-status.test.mjs
           node --test scripts/data/refresh-hunting-species-seasons.test.mjs
           node scripts/data/refresh-hunting-species-seasons.mjs
           node --check scripts/data/monitor-hunting-live-freshness.mjs
