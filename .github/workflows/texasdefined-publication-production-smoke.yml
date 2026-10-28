@@ -2,6 +2,9 @@ name: TexasDefined publication production smoke
 
 on:
   workflow_dispatch:
+  # Bounded daily independent assurance: ten public GET requests, no writes.
+  schedule:
+    - cron: '47 14 * * *'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -11,12 +14,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: texasdefined-publication-production-smoke
+  # Keep daily verification from cancelling a different release smoke.
+  group: texasdefined-publication-production-smoke-${{ github.event_name == 'schedule' && 'daily' || 'release' }}
   cancel-in-progress: true
 
 jobs:
   verify-publication-surfaces:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -40,6 +44,7 @@ jobs:
           fi
           echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
       - name: Verify live news, published article canonicals and sitemap XML
+        if: github.event_name != 'schedule'
         run: node scripts/ci/verify-texasdefined-publication-production.mjs
       # Bounded source-vintage acceptance deliberately runs after *every*
       # successful production deployment. Rapid main merges can cancel the
@@ -53,7 +58,9 @@ jobs:
         run: node scripts/ci/verify-texas-data-production.mjs
 
       - name: Verify Zapata museum live authority after every successful production release
+        if: github.event_name != 'schedule'
         run: node scripts/ci/verify-zapata-museum-production.mjs
       - name: Verify Motel 6 production tracking and football stay CTA
+        if: github.event_name != 'schedule'
         run: node scripts/ci/verify-motel6-production.mjs
 

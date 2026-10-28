@@ -23,7 +23,21 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
     assert.match(source, /^      - Deploy TexasDefined production\s*$/m, name);
     assert.match(source, /^    types: \[completed\]\s*$/m, name);
     assert.match(source, /^    branches: \[main\]\s*$/m, name);
-    assert.doesNotMatch(source, /^  (push|schedule):/m, name);
+    assert.doesNotMatch(source, /^  push:/m, name);
+    // One exceptional daily source-vintage read is permitted only in the
+    // existing publication smoke. It may never become a scheduled full-site
+    // scan or interrupt post-deploy acceptance.
+    if (name === 'texasdefined-publication-production-smoke') {
+      assert.match(source, /^  schedule:\s*\n    - cron: '47 14 \* \* \*'$/m, name);
+      assert.match(source, /group: texasdefined-publication-production-smoke-/, name);
+      assert.match(source, /github.event_name == 'schedule' && 'daily' \|\| 'release'/, name);
+      assert.equal((source.match(/if: github.event_name != 'schedule'/g) ?? []).length, 3,
+        'Daily source acceptance must skip news, museum and affiliate audits');
+      assert.match(source, /run: node scripts\/ci\/verify-texas-data-production\.mjs/, name);
+      assert.doesNotMatch(source, /texas_data_scope/, name);
+    } else {
+      assert.doesNotMatch(source, /^  schedule:/m, name);
+    }
   }
   for (const name of policy.manualDiagnosticWorkflows) {
     const source = text(`.github/workflows/${name}.yml`);
