@@ -1293,7 +1293,14 @@
       "intakeId": 157,
       "title": "San Antonio Pearl Brewery Holiday Markets",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-pearl-holiday-night-market-dec-02-2026",
+        "san-antonio-pearl-holiday-night-market-dec-09-2026",
+        "san-antonio-pearl-holiday-night-market-dec-16-2026",
+        "san-antonio-pearl-holiday-night-market-dec-23-2026"
+      ],
+      "researchNote": "Pearl's August 11, 2026 official festival announcement confirms four Wednesday holiday night markets December 2, 9, 16, and 23. Its separate November 27 tree lighting is independently listed. Do not conflate ordinary Wednesday fall markets ending November 25 with the December holiday events."
     },
     {
       "intakeId": 158,
@@ -1918,8 +1925,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-27",
-    "calendarCandidates": 85,
+    "calendarCandidates": 86,
     "authorityCandidates": 12,
-    "remainingCandidates": 153
+    "remainingCandidates": 152
   }
 }
