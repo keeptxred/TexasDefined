@@ -140,6 +140,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The free synchronized music-and-light show runs nightly 6–10 p.m. from November 20 through January 4, 2027. Any additional activities, private events or vendors have separate schedules."
   },
   {
+    "slug": "lake-jackson-festival-lights-tree-lighting-2026",
+    "title": "Lake Jackson Festival of Lights · Mayor's Tree Lighting",
+    "city": "Lake Jackson",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-20",
+    "venueName": "Lake Jackson Civic Center",
+    "officialEventUrl": "https://www.lakejackson-tx.gov/222/Festival-of-Lights",
+    "sourceName": "City of Lake Jackson",
+    "summary": "The 2026 Festival of Lights schedule confirms the Mayor's Tree Lighting and Santa Pajama Jam on Friday November 20, 6–8 p.m. at the Civic Center. Holiday carnival operations run separately, so check the organizer for individual ride prices and daily schedules.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "bryan-2026-lights-on-downtown",
     "title": "Lights On! Christmas Tree Lighting in Downtown Bryan",
     "city": "Bryan",
@@ -316,6 +330,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Kerrville Christmas Lighting Corporation confirms Merry on the Square Saturday November 21, 2026 starting at 4 p.m., with vendors, children's crafts, food trucks, performances and characters. Courthouse lights and its 50-foot Christmas tree switch on after the separate city-run 6 p.m. lighted parade; check event-day road closures."
   },
   {
+    "slug": "lake-jackson-festival-lights-day-parade-2026",
+    "title": "Lake Jackson Festival of Lights · Festival Day and Parade",
+    "city": "Lake Jackson",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-21",
+    "venueName": "Lake Jackson Civic Center and downtown Circle Way",
+    "officialEventUrl": "https://www.lakejackson-tx.gov/222/Festival-of-Lights",
+    "sourceName": "City of Lake Jackson",
+    "summary": "Lake Jackson's official Saturday November 21, 2026 Festival Day includes the Civic Center art and food booths (10 a.m.–5 p.m.), family winter playground, 11 a.m.–11 p.m. Yuletide Carnival, and the 7 p.m. Downtown Parade of Lights. Plan around Circle Way parking restrictions; individual carnival rides and market purchases may be extra.",
+    "sourceVerifiedAt": "2026-10-27"
+  },
+  {
     "slug": "allen-watters-creek-light-the-night-2026",
     "title": "Light the Night · Watters Creek Allen",
     "city": "Allen",
@@ -327,6 +355,21 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://visitallentexas.com/events/2026-light-the-night/",
     "sourceName": "Visit Allen tourism",
     "summary": "Visit Allen confirms Watters Creek Light the Night for Saturday November 21, 2026. The tree-lighting concert begins at 6 p.m., followed by the 6:30 p.m. tree lighting and fireworks. Family activities, live music and participating retailer offers take place around the shopping village; dining and purchases are additional."
+  },
+  {
+    "slug": "lake-jackson-light-up-2026",
+    "title": "Light Up Lake Jackson · City Holiday Light Displays",
+    "city": "Lake Jackson",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-21",
+    "endDate": "2027-01-03",
+    "venueName": "Downtown Lake Jackson and participating local displays",
+    "officialEventUrl": "https://lakejackson-tx.gov/788/Light-Up-Lake-Jackson",
+    "sourceName": "City of Lake Jackson",
+    "summary": "The city's 2026 Light Up Lake Jackson program confirms public selfie-light stations November 21–January 3 and a map of holiday-home displays December 11–January 3. These activities have different schedules: do not treat every listed attraction as open every night. City-run festivities and contests are advertised as free.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "woodlands-lighting-of-the-doves-2026",
@@ -1025,6 +1068,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://jeffersoncandlelight.com/",
     "sourceName": "Historic Jefferson Foundation / Candlelight Tour",
     "summary": "A ticketed self-guided tour of historic Jefferson homes with dates December 3–5. Thursday hours 3–7 p.m.; Friday and Saturday 4–8 p.m. Tickets work on any operating date, but homes and checkout conditions should be verified."
+  },
+  {
+    "slug": "la-porte-christmas-on-main-2026",
+    "title": "La Porte Christmas on Main and Tree Lighting",
+    "city": "La Porte",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown La Porte · 100 South Broadway",
+    "officialEventUrl": "https://www.visitlaportetx.com/christmas",
+    "sourceName": "Visit La Porte / City of La Porte",
+    "summary": "The city's 2026 Christmas on Main celebration is Thursday December 3, 5–9 p.m. in historic downtown La Porte. Free family activities include snow-style slides, Santa photos, train rides and face painting; the official tree lighting is at 6:30 p.m. Retail market purchases and food are separate. Do not confuse this with events in La Porte, Indiana.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "ennis-lights-of-ennis-parade-2026",
@@ -1854,6 +1911,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.rockwall.com/event_hometownchristmas.asp",
     "sourceName": "City of Rockwall Parks and Recreation",
     "summary": "The City of Rockwall confirms Saturday December 5, 2026: the Kiwanis Christmas Parade 9–10:30 a.m., downtown Hometown Christmas Festival 10 a.m.–5 p.m., then city tree lighting 6–8 p.m. at City Hall. The free trolley connects designated downtown stops; some market purchases and activities may cost extra."
+  },
+  {
+    "slug": "rosenberg-hometown-holiday-festival-2026",
+    "title": "Rosenberg Hometown Holiday Festival 2026",
+    "city": "Rosenberg",
+    "countySlug": "fort-bend",
+    "countyName": "Fort Bend County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Historic Downtown Rosenberg",
+    "officialEventUrl": "https://www.rosenbergtx.gov/839/Volunteer",
+    "sourceName": "City of Rosenberg",
+    "summary": "The City of Rosenberg's 2026 special-events calendar confirms Hometown Holiday Festival for Saturday December 5. The city has not posted a full program on this source page; verify festival times, shopping and performance details with organizers before traveling. This is not proof of a separately named 'Christmas Nights' attraction.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "region": "prairies-lakes",
@@ -3056,7 +3127,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;;;;;;;;;;;;;;;;;;;
+]];;;;;;;;;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
