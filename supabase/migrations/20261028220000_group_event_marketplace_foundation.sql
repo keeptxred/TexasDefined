@@ -184,6 +184,7 @@ SELECT 'ge_' || category || '_' || replace(slug,'-','_'),
        initcap(replace(slug,'-',' ')),
        'group_event_' || category
 FROM vocabulary
+WHERE true -- Disambiguate INSERT ... SELECT ... ON CONFLICT for PostgreSQL.
 ON CONFLICT (key) DO NOTHING;
 
 -- Server-only reads and writes. No new public API access, email, quote routing,
