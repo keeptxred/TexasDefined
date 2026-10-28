@@ -1,0 +1,48 @@
+name: Monitor Texas youth hunting authority
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/hunting/youth-hunting-data.ts'
+      - 'src/components/hunting/YouthHuntingPage.tsx'
+      - 'src/components/hunting/HuntingTopicPage.tsx'
+      - 'src/components/hunting/HuntingSchema.tsx'
+      - 'src/data/hunting/authority-v2.ts'
+      - 'scripts/data/validate-youth-hunting.mjs'
+      - '.github/workflows/monitor-youth-hunting.yml'
+  schedule:
+    - cron: '23 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate on-site authority contracts
+        run: node scripts/data/validate-youth-hunting.mjs
+      - name: Compare TPWD source fingerprints
+        id: tpwd
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/data/validate-youth-hunting.mjs --online
+      - name: File one actionable monitoring issue if the source changes
+        if: steps.tpwd.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          open_issues="$(gh issue list --state open --search 'Texas youth hunting source changed in:title' --json number --jq 'length')"
+          if [ "$open_issues" = "0" ]; then
+            gh issue create --title "Texas youth hunting source changed — verify 2026–27 guide" --body "The weekly TPWD youth-hunting monitor detected a missing expected agency marker, access failure, or seasonal rollover. Review the workflow logs and compare official TPWD sources against this guide. Do not publish changed legal dates until each zone and age requirement is checked. Update the content, source-check date and tests after verification."
+          fi
+      - name: Fail on TPWD source changes to keep the alert visible
+        if: steps.tpwd.outcome == 'failure'
+        run: exit 1
