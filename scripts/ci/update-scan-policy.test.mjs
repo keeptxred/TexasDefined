@@ -135,7 +135,7 @@ test('statewide Mardi Gras hub must be live, indexable by default, and link to r
   const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
     new Response(html(url.searchParams.has('deploy_smoke'))) });
   assert.equal(stale[0].passed, false);
-  assert.match(stale[0].error, /Mardi Gras hub ordinary visitor URL lacks live guide/);
+  assert.match(stale[0].error, /Mardi Gras hub ordinary visitor URL is missing Oak Cliff 2027 source fact/);
   const broken = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
   assert.equal(broken[0].passed, false);
   assert.match(broken[0].error, /Expected changed internal link is missing from SSR anchors/);
