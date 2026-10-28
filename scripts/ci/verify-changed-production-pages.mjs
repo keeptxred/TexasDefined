@@ -350,10 +350,18 @@ for (const path of plan.selectedPaths) {
           '/event/mardi-gras-port-arthur',
           '/event/cowboy-mardi-gras-bandera',
           '/event/kemah-yachty-gras',
+          '/event/oak-cliff-mardi-gras-parade',
         ];
         const checkHub = (body, surface) => {
           if (!body.includes('Mardi Gras in Texas') || !body.includes('2027')) {
             throw new Error('Mardi Gras hub ' + surface + ' lacks current statewide heading and season');
+          }
+          // The 2026-only Oak Cliff listing can survive a superficially successful
+          // deployment; demand the partner-confirmed 2027 date in actual visitor HTML.
+          for (const fact of ['Oak Cliff Mardi Gras Parade', 'February 7, 2027', '1 p.m.', 'Dash for the Beads']) {
+            if (!body.includes(fact)) {
+              throw new Error('Mardi Gras hub ' + surface + ' is missing Oak Cliff 2027 source fact: ' + fact);
+            }
           }
           if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
             throw new Error('Mardi Gras hub ' + surface + ' is unexpectedly noindex');
@@ -397,6 +405,22 @@ for (const path of plan.selectedPaths) {
           || !visitorHtml.includes('data-event-discovery-tail="true"')
           || !visitorHtml.includes('href="' + canonical.href + '"')) {
           throw new Error('Event guide ordinary visitor URL lacks canonical SSR authority content');
+        }
+        if (path === '/event/oak-cliff-mardi-gras-parade') {
+          // The historical 2016 Davis Street photo must stay accurately credited,
+          // while the event itself must display the independent 2027 partner date.
+          for (const [surface, body] of [['release', html], ['ordinary visitor URL', visitorHtml]]) {
+            for (const required of [
+              'Sunday, February 7, 2027', '1 p.m.', 'Dash for the Beads', 'Michael Barera', '2016',
+            ]) {
+              if (!body.includes(required)) {
+                throw new Error('Oak Cliff Mardi Gras ' + surface + ' missing current date, source or licensed history: ' + required);
+              }
+            }
+            if (/<meta\\b[^>]*\\bname=["']robots["'][^>]*\\bnoindex\\b/i.test(body)) {
+              throw new Error('Oak Cliff Mardi Gras ' + surface + ' is unexpectedly noindex despite compliant image');
+            }
+          }
         }
         if (path === '/event/mardi-gras-galveston') {
           // A successful cache-busted URL must not mask a stale visitor-facing
