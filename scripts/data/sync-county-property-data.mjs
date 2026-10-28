@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal } from './county-property-snapshot-codec.mjs';
+import { parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal, applyQuarantinedCountyRefresh } from './county-property-snapshot-codec.mjs';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
@@ -106,16 +106,29 @@ const previousCount = Object.keys(merged).length;
 
 const ambiguousWithdrawals = results.filter(result =>
   isAmbiguousCountyWithdrawal(merged[result.county.slug], result));
+const ambiguousSlugs = new Set(ambiguousWithdrawals.map(result => result.county.slug));
 if (ambiguousWithdrawals.length) {
-  throw new Error('Refusing ambiguous county-office withdrawal after a reachable official page: '+
-    ambiguousWithdrawals.map(result=>result.county.slug).join(', ')+
-    '. Inspect parser markup, office domain, source update timestamps and report; do not erase sourced county contacts.');
+  // An official county page can be reachable and current while its outgoing
+  // office HTTPS link times out or a field fails to parse. Never delete a
+  // verified prior record or promote its verification date on that evidence.
+  // Quarantine only the affected counties so unrelated verified updates can
+  // still progress through the reviewable PR and protected publication gates.
+  const warning = 'County office source review needed: '+
+    ambiguousWithdrawals.map(result => result.county.slug).join(', ')+
+    '. Prior records and their verification dates were preserved, not reverified.';
+  console.warn('::warning title=County contacts quarantined::'+warning);
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    const detail = ambiguousWithdrawals.map(result =>
+      '| '+result.county.slug+' | '+result.county.url+' | '+
+      (result.audit?.appraisalSourceUpdated ?? 'unknown')+' | '+
+      (result.audit?.taxOfficeSourceUpdated ?? 'unknown')+' |').join('\\n');
+    await fs.appendFile(process.env.GITHUB_STEP_SUMMARY,
+      '\\n### Unresolved official county contacts (not advanced or removed)\\n\\n'+
+      '| County | Official source | Appraisal source date | Tax source date |\\n'+
+      '| --- | --- | --- | --- |\\n'+detail+'\\n');
+  }
 }
-
-for (const { county, fetched, enrichment } of results) {
-  if (enrichment) merged[county.slug] = preserveSourcedCountyLinks(merged[county.slug], enrichment);
-  else if (fetched) delete merged[county.slug];
-}
+merged = applyQuarantinedCountyRefresh(merged, results, ambiguousSlugs);
 
 const ordered = Object.fromEntries(Object.entries(merged).sort(([a], [b]) => a.localeCompare(b)));
 const nextCount = Object.keys(ordered).length;
