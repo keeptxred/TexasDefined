@@ -2581,6 +2581,24 @@ if(batch009Certified) {
   }
 }
 
+// A cron stanza does not run Chrome if the top-level job gate excludes schedule.
+// Keep this regression check in protected football CI: a green workflow with
+// skipped Chrome and no screenshot artifact is not technical certification.
+for (const cohort of ['first','second','third','fourth','fifth']) {
+  const workflow = read(`.github/workflows/verify-football-b010-${cohort}-five-production.yml`);
+  const jobGate = workflow.split('jobs:\n  chrome:\n    if: ${{ ')[1]?.split(' }}')[0] ?? '';
+  for (const required of [
+    "github.event_name == 'workflow_dispatch'",
+    "github.event_name == 'schedule'",
+    "github.event.workflow_run.conclusion == 'success'",
+  ]) {
+    if (!jobGate.includes(required)) errors.push(`Batch010 ${cohort} Chrome job-level event gate excludes: ${required}`);
+  }
+  if (!workflow.includes("SCHEDULED_ACCEPTANCE: ${{ github.event_name == 'schedule' }}") ||
+      !workflow.includes('if: steps.scope.outputs.run == \'true\''))
+    errors.push(`Batch010 ${cohort} must retain pending-school scope on scheduled Chrome verification`);
+}
+
 // Batch010 first-five sourced contract. Do not confuse implementation with
 // successful published Chrome acceptance or official source rights.
 {
