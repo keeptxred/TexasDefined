@@ -28,7 +28,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 248, "The 248 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 255, "The 255 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 const seasonStarts = events.map((event) => event.startDate).sort();
 const seasonEnds = events.map((event) => event.endDate ?? event.startDate).sort();
@@ -120,6 +120,33 @@ assert.ok(bySlug.get("kingsville-ranch-hand-weekend-holiday-2026")?.summary.incl
   "Do not omit the separate paid King Ranch breakfast cost");
 assert.ok(bySlug.get("corsicana-palace-theatre-dean-martin-christmas-2026")?.summary.includes("one dated holiday stage performance"),
   "Do not invent a multi-week run for the Corsicana one-night show");
+for (const [slug, date, endDate, sourceHost] of [
+  ["port-isabel-christmas-parade-tree-lighting-2026", "2026-12-05", undefined, "portisabel-texas.com"],
+  ["rockport-tropical-christmas-festival-2026", "2026-12-05", undefined, "rockporttx.gov"],
+  ["midland-merry-lights-tree-lighting-2026", "2026-12-01", undefined, "midlandtexas.gov"],
+  ["midland-merry-lighted-parade-2026", "2026-12-12", undefined, "midlandtexas.gov"],
+  ["graham-christmas-roundup-parade-2026", "2026-12-03", undefined, "visitgrahamtexas.com"],
+  ["sweetwater-christmas-on-square-parade-2026", "2026-12-07", undefined, "sweetwatertexas.org"],
+  ["monahans-christmas-in-dunes-2026", "2026-12-04", "2026-12-05", "monahans.org"],
+]) {
+  check(slug,date,endDate);
+  const record=bySlug.get(slug);
+  assert.equal(record.sourceVerifiedAt,"2026-10-27",`${slug}: source date must be true to review`);
+  assert.ok(new URL(record.officialEventUrl).hostname.endsWith(sourceHost),`${slug}: primary city/chamber event source required`);
+  if (endDate===undefined) assert.ok(!record.endDate,`${slug}: do not pad single-day city activities`);
+}
+assert.equal(candidates.candidates.find(x=>x.intakeId===177)?.status,"sourced-calendar",
+  "Rockport verified Tropical Christmas must reconcile submitted destination");
+assert.equal(candidates.candidates.find(x=>x.intakeId===248)?.status,"sourced-calendar",
+  "Graham verified Christmas Roundup must reconcile submitted destination");
+for (const id of [174,226,237,239]) {
+  assert.equal(candidates.candidates.find(x=>x.intakeId===id)?.status,"candidate-needs-source-reconciliation",
+    `${id}: an unrelated city holiday event cannot verify a different submitted branded event`);
+}
+assert.ok(bySlug.get("port-isabel-christmas-parade-tree-lighting-2026")?.summary.includes("7 p.m."),
+  "Port Isabel's parade and distinct tree lighting times must both be shown");
+assert.ok(bySlug.get("midland-merry-lights-tree-lighting-2026")?.summary.includes("no earlier than 6:15 p.m."),
+  "Midland City warns that lights start no earlier than 6:15 p.m.");
 for (const slug of [
   "conroe-tree-lighting-2026",
   "conroe-christmas-around-square-2026",
