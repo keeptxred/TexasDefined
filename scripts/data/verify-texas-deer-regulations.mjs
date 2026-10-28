@@ -62,4 +62,4 @@ const missing = expected.filter((snippet) => !body.includes(snippet));
 if (missing.length) {
   throw new Error('TPWD deer regulations need an editor review; expected official facts/headings missing or changed: ' + missing.join(', '));
 }
-console.log('TPWD deer spot-check passed: 2026–27 season calendar and core regulation sections remain present. This does NOT attest that every county rule or prose change is unchanged; do not automatically update lastVerified.');
+console.log('TPWD deer spot-check passed for the season recorded in the date dataset. This is not a full county-level regulatory review; do not silently advance the separate human-review timestamp.');
