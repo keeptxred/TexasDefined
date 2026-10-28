@@ -5,7 +5,7 @@ import {
   marketplaceEnvironmentTags,
 } from '../../src/data/group-event-marketplace-foundation.ts';
 
-const sql = readFileSync('supabase/migrations/20261028220000_group_event_marketplace_foundation.sql','utf8');
+const sql = readFileSync('supabase/migrations/20261028214656_group_event_marketplace_foundation_20261028.sql','utf8');
 const tables = [
   'texasdefined_group_event_provider_locations',
   'texasdefined_group_event_experiences',
