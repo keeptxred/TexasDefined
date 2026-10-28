@@ -1,9 +1,12 @@
+import { TEXAS_DEER_AUTHORITY_TOPIC } from "./authority-deer";
 export type HuntingAuthorityLink = { label: string; href: string; external?: boolean };
 export type HuntingAuthoritySection = { heading: string; paragraphs: string[]; links?: HuntingAuthorityLink[] };
 export type HuntingAuthorityFaq = { question: string; answer: string };
 
 export type HuntingAuthorityTopic = {
   slug: string;
+  reviewedOn?: string;
+  reviewedLabel?: string;
   eyebrow: string;
   title: string;
   description: string;
@@ -200,7 +203,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "Read the adult-supervision instructions", paragraphs: ["Each opportunity can specify who must accompany the youth and what licenses or permits apply."], links: [HUNTING_OFFICIAL_SOURCES.regulations] },
     ], related: [{ label: "Texas hunter education", href: "/hunting/hunter-education" }, { label: "Texas drawn hunts", href: "/hunting/drawn-hunts" }, { label: "Texas hunting license", href: "/hunting/texas-hunting-license" }, INTERNAL.tripPlanner, INTERNAL.resources],
   }),
-  "texas-deer-hunting": speciesTopic({ slug: "texas-deer-hunting", title: "Texas White-Tailed Deer Hunting Guide", species: "white-tailed deer", description: "Plan a Texas deer hunt around county rules, antler restrictions, tagging, habitat and public access.", source: HUNTING_OFFICIAL_SOURCES.whiteTailedDeer, habitat: "White-tailed deer occur across much of Texas, but habitat, herd management and county regulations differ sharply among regions.", planning: "For public deer hunting, verify legal game, antler or sex restrictions, permit type and check-in requirements for the exact property." }),
+  "texas-deer-hunting": TEXAS_DEER_AUTHORITY_TOPIC,
   "mule-deer": speciesTopic({ slug: "mule-deer", title: "Texas Mule Deer Hunting Guide", species: "mule deer", description: "Plan mule-deer hunting in the parts of Texas where the species and current TPWD seasons apply.", source: HUNTING_OFFICIAL_SOURCES.muleDeer, habitat: "Texas mule-deer hunting is concentrated in western parts of the state, making region, county and habitat selection central to trip planning.", planning: "Public mule-deer opportunities are limited enough that drawn-hunt and property-specific planning should begin early." }),
   "dove-hunting": speciesTopic({ slug: "dove-hunting", title: "Texas Dove Hunting Guide", species: "dove", description: "Plan Texas dove hunting around zones, migratory-bird requirements, public fields and current TPWD rules.", habitat: "Dove hunting quality follows food, water, agricultural patterns and migration, so conditions can change quickly within the same zone.", planning: "Public dove fields can be popular and may use APH or site-specific access; review maps, parking and legal-game instructions before travel." }),
   "turkey-hunting": speciesTopic({ slug: "turkey-hunting", title: "Texas Turkey Hunting Guide", species: "wild turkey", description: "Connect turkey seasons and county rules to habitat, public access and current TPWD requirements.", source: HUNTING_OFFICIAL_SOURCES.turkey, habitat: "Turkey distribution and season structure differ across Texas, so county and species subspecies context matter before selecting a destination.", planning: "Public turkey opportunities can be limited-entry or property-specific; drawn hunts may be important in some areas." }),
