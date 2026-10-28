@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { isCloudflareRumTelemetryRequest } from './corporate-browser-request-policy.mjs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 
@@ -285,10 +286,15 @@ try {
       const adminPage = await context.newPage();
       const unexpectedAdminWrites = [];
       adminPage.on('request', request => {
-        if (new URL(request.url()).origin === origin
+        const requestUrl = new URL(request.url());
+        if (requestUrl.origin === origin
           && request.method() !== 'GET' && request.method() !== 'HEAD') {
+          // Cloudflare injects its first-party analytics beacon into this locked
+          // page. It is not an application write; exclude ONLY the exact RUM
+          // endpoint, not other POSTs or generic /cdn-cgi routes.
+          if (isCloudflareRumTelemetryRequest(request.method(), request.url(), origin)) return;
           // Only the path and method are logged, never query strings or payloads.
-          unexpectedAdminWrites.push(request.method() + ' ' + new URL(request.url()).pathname);
+          unexpectedAdminWrites.push(request.method() + ' ' + requestUrl.pathname);
         }
       });
       const adminResponse = await adminPage.goto(origin + '/admin/sports-partners?corporate_browser_verify='
@@ -313,7 +319,7 @@ try {
         view.name + ': anonymous page must not manufacture an admin credential');
       assert.deepEqual(unexpectedAdminWrites, [],
         view.name + ': anonymous staff page attempted non-read-only same-origin requests');
-      result.checks.push('Anonymous staff SSR shows unlock only, no private operator panel or ledger identifiers, and no POST');
+      result.checks.push('Anonymous staff SSR shows unlock only, no private operator panel or ledger identifiers, and no application writes (Cloudflare RUM telemetry exempt)');
       await adminPage.close();
       console.log('PASS ' + view.name + ': ' + result.checks.join('; '));
     } catch (error) {
