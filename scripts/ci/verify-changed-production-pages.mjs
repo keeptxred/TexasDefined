@@ -195,8 +195,17 @@ function assertYouthHuntingAuthority(html, surface) {
     'Tagging, harvest reports and CWD checks',
     'Youth hunting FAQs',
     'Official regulations and updates',
+    'Check youth hunting rules for your county',
+    'TexasDefined editorial team',
+    'Select your county',
   ]) {
     if (!visible.includes(marker)) throw new Error('Youth hunting '+surface+' authority section missing: '+marker);
+  }
+  if (!html.includes('850.jpg') || !html.includes('fws.gov/media/youth-hunter')) {
+    throw new Error('Youth hunting ' + surface + ' image and photo-credit source missing');
+  }
+  if (!visible.includes('Upcoming') && !visible.includes('In progress') && !visible.includes('Ended')) {
+    throw new Error('Youth hunting ' + surface + ' date-window status missing');
   }
 }
 
