@@ -17,6 +17,7 @@ function deerDate(id, edge) {
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const userAgent = 'TexasDefined-Hunting-Production-Smoke/3.1';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const cacheBypass = process.env.GITHUB_SHA || Date.now().toString(36);
 
 const representativeTopics = [
   {
@@ -121,9 +122,10 @@ function extractVisibleText(html) {
 
 async function fetchDocument(pathname) {
   let lastError;
-  for (let attempt = 1; attempt <= 4; attempt += 1) {
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
-      const response = await fetch(`${origin}${pathname}`, {
+      const url = pathname.endsWith('.xml') ? origin + pathname : origin + pathname + '?hunting-smoke=' + encodeURIComponent(cacheBypass);
+      const response = await fetch(url, {
         headers: {
           'user-agent': userAgent,
           accept: pathname.endsWith('.xml') ? 'application/xml,text/xml;q=0.9,*/*;q=0.8' : 'text/html,*/*;q=0.8',
@@ -152,7 +154,7 @@ async function fetchDocument(pathname) {
       return extractVisibleText(text);
     } catch (error) {
       lastError = error;
-      if (attempt < 4) await sleep(5_000);
+      if (attempt < 2) await sleep(1_500);
     }
   }
   throw lastError instanceof Error ? lastError : new Error(`Failed to fetch ${pathname}`);
