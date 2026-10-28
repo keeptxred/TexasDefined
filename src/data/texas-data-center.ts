@@ -18,7 +18,7 @@ export type TexasDataset = {
 export const TEXAS_DATASETS = [
   { slug: 'county-property-tax-rates', updated: '2026-07-30' },
   { slug: 'school-district-tax-rates', updated: '2026-10-14' },
-  { slug: 'homestead-exemption-history', updated: '2026-07-30' },
+  { slug: 'homestead-exemption-history', updated: '2026-10-27' },
   { slug: 'texas-population-and-migration-2025', updated: '2026-08-27' },
   { slug: 'texas-population-and-migration-2024', updated: '2026-08-27' },
   { slug: 'where-new-texans-came-from-2024', updated: '2026-08-26' },
@@ -26,7 +26,7 @@ export const TEXAS_DATASETS = [
   { slug: 'texas-homeowners-premium-latest', updated: '2026-10-10' },
   { slug: 'texas-metro-payrolls-june-2026', updated: '2026-08-26' },
   { slug: 'texas-metro-payrolls-august-2026', updated: '2026-10-20' },
-  { slug: 'texas-traffic-monitoring-coverage', updated: '2026-08-26' },
+  { slug: 'texas-traffic-monitoring-coverage', updated: '2026-10-27' },
   { slug: 'texas-metro-payrolls-latest', updated: '2026-09-30' },
   { slug: 'texas-population-and-migration-latest', updated: '2026-08-27' },
 ] as const;
