@@ -1,5 +1,18 @@
 # Football Authority — Execution Ledger
 
+## October 28, 2026 — All 25 Batch010 school dossiers and unique editorial finished on dependent branch; live QA still pending
+
+- College Station Cougars: 2026 CSISD current school directory lists **Stoney Pryor** head football coach/campus coordinator; UIL **5A Division I District 12**. This is separate from A&M Consolidated despite shared school district and UIL district.
+- A&M Consolidated Tigers: first-party school and athletics staff list **Brandon Schmidt**, not Stoney Pryor; UIL **5A Division I District 12**, separately sourced school navigation and Brazos County reciprocity.
+- Colleyville Heritage Panthers: GCISD current campus directory identifies **Jerry Edwards**, 2023 school announcement and 2025 coaching-award history kept historical, not 2026 record; UIL **5A Division II District 3**, Tarrant County.
+- Collinsville Pirates: official ISD 2026–27 varsity schedule and dated Texas varsity roster identify **Garrett Patterson**; Grayson County, UIL **2A Division II District 9**; neither Illinois Collinsville/Kahoks data nor inferred score totals enter the page.
+- Colmesneil Bulldogs: ISD names **Chad Coker** athletic director; 2026 varsity record lists him head coach, while older pre-transition school schedule names **Chris Hicks**; the chronology is disclosed instead of conflating coaches. UIL **2A Division II District 12**, Tyler County; existing Chester reciprocal county card preserved.
+- Five individual school research dossiers, unique school-focused intro/FAQ/milestones, rights-safe original typographic identity data, conditional server-side editorial registry, five school-to-county and reciprocal county links complete on the dependent fifth source branch.
+- Dedicated fifth cohort browser acceptance requires 15 school viewport checks (1366/390/320), **four** distinct county reciprocal checks, 19 screenshots, sitemap, SEO/FAQ/SportsTeam schema, one observed Worker version. All protected merge and deployment tests must pass first. Skipped green jobs are explicitly NOT evidence.
+- Current **branch** registry: **205 VERIFIED / 25 IMPLEMENTED / 1,062 NOT_REVIEWED** of 1,292. Batch010 source implementation 25/25; independently production-certified schools in Batch010 0/25. Do not assign Batch011 before separate live certifications and canonically recorded run/artifact/release evidence.
+- Football scores/standings still require approved machine-readable feed and terms. GitHub issues #5526 / #5537 remain unresolved; only dated source-backed result data may be added.
+
+
 ## October 28, 2026 — Fourth Batch010 five-school source implementation (protected release and live acceptance pending)
 
 - **Clute Brazoswood:** Eric Luster football head coach on Brazosport ISD official staff page; 2026 school-owned Hopper Field dated football notices; Clute campus versus Freeport game venue separated. UIL 6A District 19, Brazoria County.
