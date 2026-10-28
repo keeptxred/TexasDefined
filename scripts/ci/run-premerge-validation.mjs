@@ -112,6 +112,7 @@ const prebuildChecks = [
   ['EVENT/MARKETPLACE/FOUNDATION', 'Verify reusable Group Events marketplace relationships, eligibility and data integrity', 'node', ['--experimental-strip-types', '--test', 'src/data/group-event-marketplace-foundation.test.ts']],
   ['EVENT/MARKETPLACE/MIGRATIONS', 'Guard additive Group Events schema, private RLS and controlled tags', 'node', ['--experimental-strip-types', 'scripts/data/validate-group-events-marketplace-foundation.mjs']],
   ['EVENT/MARKETPLACE/HOUSTON-BUILD2', 'Validate Houston Build 2 source review, deduplication and separate venue/activity capacity', 'node', ['--experimental-strip-types', '--test', 'src/data/group-events-houston-build2.test.ts']],
+  ['EVENT/MARKETPLACE/HOUSTON-SEED', 'Verify source-controlled Houston experience seed matches typed evidence and has no fabricated prices or locations', 'node', ['--experimental-strip-types', 'scripts/data/validate-group-events-houston-build2-seed.mjs']],
   ['EVENT/CORPORATE', 'Validate corporate-event source directory, category guides, and SEO breadcrumbs', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-events.mjs']],
   ['EVENT/CORPORATE/PAGINATION', 'Require scalable accessible venue result paging independent of shortlist', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-pagination.mjs']],
   ['EVENT/CORPORATE/DEPLOY', 'Verify changed corporate marketplace production selection and GET-only SSR acceptance', 'node', ['scripts/ci/validate-corporate-event-production-smoke.mjs']],
