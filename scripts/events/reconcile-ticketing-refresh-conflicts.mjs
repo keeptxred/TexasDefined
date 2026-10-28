@@ -57,7 +57,19 @@ export function mergeTicketProbeLedger(ours, theirs) {
   return merged;
 }
 
-const git = (...args) => execFileSync('git', args, { encoding: 'utf8' }).trimEnd();
+// Ticketmaster's generated event snapshot and the editorial probe ledger can
+// exceed Node's 1 MiB child-process stdout default. A safe merge must read the
+// complete JSON rather than crash with spawnSync ENOBUFS. Keep a bounded
+// 64-MiB limit and reject malformed/truncated source evidence fail closed.
+export const MAX_GIT_OUTPUT_BYTES = 64 * 1024 * 1024;
+export function gitText(args, cwd = process.cwd()) {
+  return execFileSync('git', args, {
+    cwd,
+    encoding: 'utf8',
+    maxBuffer: MAX_GIT_OUTPUT_BYTES,
+  }).trimEnd();
+}
+const git = (...args) => gitText(args);
 const fromCommit = (ref, path) => git('show', ref + ':' + path);
 const fromStage = (stage, path) => git('show', ':' + stage + ':' + path);
 const json = value => JSON.parse(value);
