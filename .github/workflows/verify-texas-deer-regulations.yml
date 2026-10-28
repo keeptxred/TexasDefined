@@ -4,6 +4,14 @@ on:
   schedule:
     - cron: '27 13 * * 2'
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/hunting/authority-deer.ts'
+      - 'src/data/hunting/deer-season-dates.json'
+      - 'scripts/data/verify-texas-deer-regulations.mjs'
+      - 'scripts/data/sync-texas-deer-seasons.mjs'
+      - '.github/workflows/verify-texas-deer-regulations.yml'
   pull_request:
     paths:
       - 'src/data/hunting/authority-deer.ts'
