@@ -219,5 +219,18 @@ test('county finisher does not abandon a fully validated bot PR for unrelated pr
   assert.ok(finisher.includes('git diff --quiet "$validated_base_sha" origin/main -- src/data/property/'));
   assert.ok(finisher.includes('[[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]]'),
     'The exact validated PR head must be unchanged after GitHub Actions');
+  assert.ok(finisher.includes('for attempt in 1 2 3; do'),
+    'Main drift must use bounded retry rather than endless validation jobs');
+  assert.ok(finisher.includes('validate_county_snapshot() {') &&
+    finisher.includes('validate_county_snapshot'),
+    'Every retry must recheck 108+ source-backed records without withdrawals');
+  assert.ok(finisher.includes('needs_revalidation=true') &&
+    finisher.includes('Shared CI changed during attempt $attempt'),
+    'Shared CI changes require fresh exact-head protected validation');
+  assert.ok(finisher.includes('src/data/property/*|scripts/data/county-*') &&
+    finisher.includes('Main changed trusted county source/data after checks'),
+    'Main changes in official source or county records must fail closed');
+  assert.ok(finisher.includes('git push --force-with-lease="refs/heads/$branch:$validated_sha"'),
+    'Data-only refresh must never overwrite a concurrent bot branch update');
   assert.ok(finisher.includes('gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"'));
 });
