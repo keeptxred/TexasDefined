@@ -52,3 +52,21 @@ test("rejects future dates outside the TPWD license-year window", () => {
   const bad = fixture.replace("May 22 - 23, 2027","May 22 - 23, 2029");
   assert.throws(()=>parseYouthCalendar(bad),/out-of-period season date/);
 });
+
+test("future-year calendar cannot displace an active license year early", () => {
+  const nextSeason = fixture.replace(/\b(2026|2027)\b/g, (_match, year) => String(Number(year) + 1));
+  const parsed = parseYouthCalendar(nextSeason);
+  assert.equal(parsed.year, "2027–28");
+  const data = fs.readFileSync("src/data/hunting/youth-hunting-data.ts", "utf8");
+  assert.throws(() => mergeCalendar(data, parsed, "2027-08-15"), /before September 1/);
+  const changed = mergeCalendar(data, parsed, "2027-09-01");
+  assert.match(changed, /YOUTH_HUNTING_SEASON_YEAR = "2027–28"/);
+  assert.match(changed, /YOUTH_HUNTING_LAST_CHECKED = "2027-09-01"/);
+  assert.match(changed, /Oct\. 30–Nov\. 1, 2027/);
+});
+
+test("expired season cannot be treated as current without a new official calendar", () => {
+  const parsed = parseYouthCalendar(fixture);
+  const data = fs.readFileSync("src/data/hunting/youth-hunting-data.ts", "utf8");
+  assert.throws(() => mergeCalendar(data, parsed, "2027-09-01"), /archived calendar expired/);
+});
