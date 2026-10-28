@@ -964,7 +964,8 @@
       "intakeId": 115,
       "title": "Conroe Christmas Boat Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "2026-10-27: The event organizer Lake Conroe LIVE explicitly says there was NO official Lake Conroe boat parade in 2025 and describes only a possible different 2026 community event, without a 2026 date or confirmed boat-parade format. Do not substitute the independently confirmed December 12 Downtown Conroe Christmas Parade (land event) for the lake parade."
     },
     {
       "intakeId": 116,
@@ -1869,7 +1870,7 @@
     }
   ],
   "reconciliation": {
-    "asOf": "2026-10-26",
+    "asOf": "2026-10-27",
     "calendarCandidates": 77,
     "authorityCandidates": 12,
     "remainingCandidates": 161
