@@ -1,6 +1,7 @@
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
 import { HUNTING_REGULATION_FRESHNESS } from "@/data/hunting/freshness";
+import { YOUTH_HUNTING_LAST_CHECKED } from "@/data/hunting/youth-hunting-data";
 import { absoluteUrl } from "@/lib/seo";
 
 function JsonLd({ value }: { value: Record<string, unknown> }) {
@@ -57,7 +58,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         url: pageUrl,
         name: topic.title,
         description: topic.description,
-        dateModified: topic.slug === "youth-hunting" ? "2026-10-28" : HUNTING_REGULATION_FRESHNESS.lastVerified,
+        dateModified: topic.slug === "youth-hunting" ? YOUTH_HUNTING_LAST_CHECKED : HUNTING_REGULATION_FRESHNESS.lastVerified,
         isPartOf: { "@id": `${homeUrl}#website` },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
         mainEntity: { "@id": `${pageUrl}#sections` },
