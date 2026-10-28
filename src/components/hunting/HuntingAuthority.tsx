@@ -68,7 +68,7 @@ function DeerSeasonTable() {
 function DeerCountyRegulationsFinder() {
   const [countySlug, setCountySlug] = useState("");
   const county = TEXAS_COUNTIES.find(item => item.slug === countySlug);
-  return <section className="border-b border-border py-9 md:py-12" aria-labelledby="deer-county-finder">
+  return <section className="border-b border-border py-10 md:py-14" aria-labelledby="deer-county-finder">
     <Container>
       <div className="max-w-5xl">
         <p className="eyebrow text-primary">Official county regulations</p>
@@ -78,7 +78,7 @@ function DeerCountyRegulationsFinder() {
           This selection opens TPWD’s latest official county page directly, rather than showing a potentially outdated copy.
           CWD testing zones can cross county boundaries; verify those separately.
         </p>
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-end">
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
           <div className="w-full max-w-md">
             <label htmlFor="deer-tpwd-county" className="mb-2 block text-sm font-semibold">Choose a Texas county</label>
             <select id="deer-tpwd-county" className="w-full rounded-sm border border-border bg-background px-3 py-3 text-foreground"
