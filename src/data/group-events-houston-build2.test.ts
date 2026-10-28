@@ -15,10 +15,14 @@ const legacyAudit = houstonInventoryAudit.filter(x => !x.newlyResearched);
 test('Houston Build 2 extends rather than replaces statewide and legacy directory', () => {
   assert.equal(corporateEventProviders.length,159);
   assert.equal(houstonBuild2VerifiedProviders.length,12);
-  assert.equal(legacyAudit.length,74);
-  assert.equal(houstonInventoryAudit.length,86);
+  assert.equal(legacyAudit.length,78);
+  assert.equal(houstonInventoryAudit.length,90);
   assert.equal(houstonInventoryAudit.filter(x => x.city === 'Houston' && !x.newlyResearched).length,60);
   assert.equal(corporateEventProviders.filter(x => x.city === 'Houston').length,62);
+  // Four historical entries declare metro before slug; no position-dependent parser may omit them.
+  for (const slug of ['k1-speed-woodlands-conroe','popstroke-katy-company-golf','kemah-boardwalk-corporate','main-event-humble-corporate']) {
+    assert(legacyAudit.some(x => x.slug === slug), 'Missing pre-slug Houston metro record: ' + slug);
+  }
   assert.equal(new Set(corporateEventProviders.map(x=>x.slug)).size,159);
   for(const provider of houstonBuild2VerifiedProviders) {
     assert(provider.metro === 'Houston');

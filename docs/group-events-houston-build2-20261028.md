@@ -1,10 +1,12 @@
 # Group Events & Experiences — Houston Build 2 source review
 
-Reviewed October 28, 2026. **Independent editorial listings only**; none is a participating venue, paid partner, or a confirmed reservation. This batch adds records to the existing `/corporate-events` directory, preserving all 147 prior Texas listings and slugs. Existing Houston baseline: **74 Greater Houston**, of which **60 Houston city**. New directory additions: **12**, yielding **159 statewide**, **86 Greater Houston**, **62 Houston city**, assuming the reviewed branch deploys.
+Reviewed October 28, 2026. **Independent editorial listings only**; none is a participating venue, paid partner, or a confirmed reservation. This batch adds records to the existing `/corporate-events` directory, preserving all 147 prior Texas listings and slugs. Existing Houston baseline: **78 Greater Houston**, of which **60 Houston city**. New directory additions: **12**, yielding **159 statewide**, **90 Greater Houston**, **62 Houston city**, assuming the reviewed branch deploys.
 
 ## Audit and duplicate handling
 
-Exact legacy slugs and normalized same-name entries: **0 duplicate identities found** among 74 Houston metro records. Shared brands with separate verified locations are not duplicates. Do not merge Escapology Cypress and Sugar Land; do not merge Topgolf locations; separate Houston Party Boats' 49- and 75-passenger vessels. **No existing venue records deleted**.
+The corrected 78-record metro baseline includes source entries whose `metro: 'Houston'` field appears **before** the `slug` field (for example Conroe K1 Speed, Katy PopStroke, Kemah Boardwalk and Humble Main Event). The original 74 count was a position-dependent audit parser undercount, **not** four newly added businesses. Both complete Houston totals are covered by the protected tests.
+
+Exact legacy slugs and normalized same-name entries: **0 duplicate identities found** among 78 Houston metro records. Shared brands with separate verified locations are not duplicates. Do not merge Escapology Cypress and Sugar Land; do not merge Topgolf locations; separate Houston Party Boats' 49- and 75-passenger vessels. **No existing venue records deleted**.
 
 - `the-escape-game-houston` is a multi-location Houston operator (Galleria and CityCentre); no single physical street address should be assigned to the legacy provider identity.
 - `escape-it-houston-group-events` specifically profiles the operator's **West Houston Marq'E venue** at 7620 Katy Freeway and its published 4–36 corporate game format. The operator ALSO has Humble and Webster branches (https://escapeithouston.com/location.aspx). This West Houston record must not be cloned or misrepresented as a generic multi-location listing. New branch profiles require independent source verification.
@@ -12,7 +14,7 @@ Exact legacy slugs and normalized same-name entries: **0 duplicate identities fo
 - `trill-on-wheels` is a moving bike experience, not an immovable activity room.
 - `houston-food-bank-corporate-volunteers` is a volunteer activity at a facility, not a generic event-hall rental.
 
-All other 69 baseline Houston records remain legacy editorial listings requiring one-to-one operator-to-Explore location identity resolution before private marketplace junction-table insertion. Existing stored public review dates are preserved and **not** falsely refreshed to October 28. The new overlay contains no fabricated Explore UUID, venue address, GPS coordinate, event date, group price, commercial approval or image rights.
+All other 73 baseline Houston records remain legacy editorial listings requiring one-to-one operator-to-Explore location identity resolution before private marketplace junction-table insertion. Existing stored public review dates are preserved and **not** falsely refreshed to October 28. The new overlay contains no fabricated Explore UUID, venue address, GPS coordinate, event date, group price, commercial approval or image rights.
 
 ## New official-source records
 

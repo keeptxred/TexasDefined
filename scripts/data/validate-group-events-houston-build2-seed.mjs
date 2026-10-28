@@ -11,7 +11,7 @@ const experiences=JSON.parse(experienceJSON[1]);
 const tags=JSON.parse(tagJSON[1]);
 assert.equal(experiences.length,13);
 assert.equal(new Set(experiences.map(x=>x.slug)).size,13);
-assert.equal(houstonInventoryAudit.length,86);
+assert.equal(houstonInventoryAudit.length,90);
 assert.equal(corporateEventProviders.length,159);
 assert.equal(Object.keys(houstonBuild2Evidence).length,12);
 assert.equal(tags.length,101);
