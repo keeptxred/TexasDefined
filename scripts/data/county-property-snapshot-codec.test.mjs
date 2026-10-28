@@ -38,14 +38,17 @@ test('trailing TS commas and punctuation within an office name are preserved',()
 
 test('preserve separately verified same-office tax search/payment links without overwriting new directory authority',()=>{
   const old = parseExistingCountySnapshot(curated).bell;
+  // The generated snapshot legitimately advances its verified date. Keep the
+  // positive unit test anchored to that source date, not yesterday's calendar.
+  const sourceDay = old.lastVerifiedAt;
   const refreshed = {
     appraisalDistrict: {websiteUrl:'https://bellcad.org/'},
     taxOffice: {websiteUrl:'https://www.bellcountytx.com/'},
     links: {appraisalDistrictUrl:'https://bellcad.org/',taxOfficeUrl:'https://www.bellcountytx.com/'},
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bell.php'],
-    lastVerifiedAt:'2026-10-27',
+    lastVerifiedAt:sourceDay,
   };
-  const merged = preserveSourcedCountyLinks(old,refreshed,'2026-10-27');
+  const merged = preserveSourcedCountyLinks(old,refreshed,sourceDay);
   assert.equal(merged.links.propertySearchUrl,old.links.propertySearchUrl);
   assert.equal(merged.links.paymentUrl,old.links.paymentUrl);
   assert.deepEqual(merged.appraisalDistrict,refreshed.appraisalDistrict);
@@ -57,30 +60,35 @@ test('preserve separately verified same-office tax search/payment links without 
 
 test('never resurrect payment URLs with old office hosts, missing sources or stale review dates',()=>{
   const old = parseExistingCountySnapshot(curated).bell;
+  const sourceDay = old.lastVerifiedAt;
   const fresh = {
     appraisalDistrict:{websiteUrl:'https://new-cad.example.org/'},
     taxOffice:{websiteUrl:'https://new-tax.example.org/'},
     links:{appraisalDistrictUrl:'https://new-cad.example.org/',taxOfficeUrl:'https://new-tax.example.org/'},
     sourceUrls:['https://comptroller.texas.gov/taxes/property-tax/county-directory/bell.php'],
-    lastVerifiedAt:'2026-10-27',
+    lastVerifiedAt:sourceDay,
   };
-  assert.equal(preserveSourcedCountyLinks(old,fresh,'2026-10-27'),fresh);
+  assert.equal(preserveSourcedCountyLinks(old,fresh,sourceDay),fresh);
   const sameHost = {...fresh,appraisalDistrict:{websiteUrl:'https://bellcad.org/'}};
-  assert.equal(preserveSourcedCountyLinks({...old,sourceUrls:[]},sameHost,'2026-10-27'),sameHost);
-  assert.equal(preserveSourcedCountyLinks({...old,lastVerifiedAt:'2024-01-01'},sameHost,'2026-10-27'),sameHost);
-  assert.equal(preserveSourcedCountyLinks({...old,links:{...old.links,paymentUrl:'http://bellcad.org/pay-property-taxes/'}},sameHost,'2026-10-27').links.paymentUrl,undefined);
+  assert.equal(preserveSourcedCountyLinks({...old,sourceUrls:[]},sameHost,sourceDay),sameHost);
+  assert.equal(preserveSourcedCountyLinks({...old,lastVerifiedAt:'2024-01-01'},sameHost,sourceDay),sameHost);
+  const yesterday=new Date(Date.parse(sourceDay+'T00:00:00Z')-86400000).toISOString().slice(0,10);
+  assert.equal(preserveSourcedCountyLinks(old,sameHost,yesterday),sameHost,
+    'A source verified tomorrow must not be retained as if verified today');
+  assert.equal(preserveSourcedCountyLinks({...old,links:{...old.links,paymentUrl:'http://bellcad.org/pay-property-taxes/'}},sameHost,sourceDay).links.paymentUrl,undefined);
 });
 
 test('the refreshed official directory wins for explicitly supplied new payment destinations',()=>{
   const prior = parseExistingCountySnapshot(curated).bell;
+  const sourceDay = prior.lastVerifiedAt;
   const fresh = {
     appraisalDistrict:{websiteUrl:'https://bellcad.org/'},
     taxOffice:{websiteUrl:'https://www.bellcountytx.com/'},
     links:{paymentUrl:'https://bellcad.org/new-official-payment/',appraisalDistrictUrl:'https://bellcad.org/'},
     sourceUrls:['https://comptroller.texas.gov/taxes/property-tax/county-directory/bell.php'],
-    lastVerifiedAt:'2026-10-27',
+    lastVerifiedAt:sourceDay,
   };
-  const actual = preserveSourcedCountyLinks(prior,fresh,'2026-10-27');
+  const actual = preserveSourcedCountyLinks(prior,fresh,sourceDay);
   assert.equal(actual.links.paymentUrl,fresh.links.paymentUrl);
   assert.equal(actual.links.propertySearchUrl,prior.links.propertySearchUrl);
   assert.ok(!actual.sourceUrls.includes(prior.links.paymentUrl),'Do not retain superseded payment URL in active source list');
