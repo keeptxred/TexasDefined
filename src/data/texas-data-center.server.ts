@@ -1,6 +1,7 @@
 import currentMetroPayrolls from '@/data/generated/texas-metro-payrolls-current.json';
 import currentHomeowners from '@/data/generated/tdi-homeowners-current.json';
 import currentStatePopulation from '@/data/generated/texas-state-population-current.json';
+import currentReferenceFacts from '@/data/generated/texas-reference-facts-current.json';
 
 export type TexasDataset = {
   slug: string;
@@ -45,13 +46,15 @@ export const TEXAS_DATASETS: TexasDataset[] = [
   },
   {
     slug: 'homestead-exemption-history',
-    title: 'Texas School Homestead Exemption History',
-    description: 'Track major statewide mandatory school-district residence-homestead exemption levels.',
-    category: 'Historical trends', year: 2025, updated: '2026-07-30', unit: 'dollars',
-    sourceName: 'Texas Constitution and Texas Comptroller guidance',
-    sourceUrl: 'https://comptroller.texas.gov/taxes/property-tax/exemptions/residence-faq.php',
-    methodology: 'Major statewide mandatory school-district exemption levels are shown. Local optional exemptions and special exemptions are not included.',
+    title: 'Texas School Homestead Exemption History and Current Mandatory Amount',
+    description: 'Track historic statewide school-district residence-homestead exemption amounts alongside the current source-verified general exemption.',
+    category: 'Historical trends', year: Number(currentReferenceFacts.verifiedAt.slice(0, 4)),
+    updated: currentReferenceFacts.verifiedAt, unit: 'dollars',
+    sourceName: 'Texas Comptroller — Property Tax Exemptions and Texas Tax Code 11.13(b)',
+    sourceUrl: currentReferenceFacts.homestead.sourceUrl,
+    methodology: 'The current general residence-homestead exemption is verified against the Comptroller official description of Tax Code 11.13(b). The current amount is not assigned an unverified legislative effective year. Historic annual exemption levels are retained separately, and local, senior and disability exemptions are not included.',
     rows: [
+      { label: 'Current general school homestead exemption', value: currentReferenceFacts.homestead.generalSchoolUsd, note: 'Current-law amount; official source checked ' + currentReferenceFacts.verifiedAt + '. Do not infer the effective tax year from this date.' },
       { label: '2025', value: 140000 }, { label: '2023', value: 100000 },
       { label: '2022', value: 40000 }, { label: '2015', value: 25000 },
     ],
@@ -196,18 +199,18 @@ export const TEXAS_DATASETS: TexasDataset[] = [
   {
     slug: 'texas-traffic-monitoring-coverage',
     title: 'TxDOT Statewide Traffic Monitoring Coverage',
-    description: 'Understand the scale of the Texas traffic-count system behind address, corridor and commute research.',
-    category: 'Transportation', year: 2026, updated: '2026-08-26', unit: 'count',
-    sourceName: 'Texas Department of Transportation traffic count maps',
-    sourceUrl: 'https://www.txdot.gov/data-maps/traffic-count-maps.html',
-    methodology: 'TxDOT describes a statewide program with more than 75,000 short-term traffic counts collected each year and more than 350 permanent continuous-count stations. These values describe monitoring coverage, not the traffic volume on a specific road. Use TxDOT STARS II and current local project information for a candidate address or commute.',
+    description: 'Understand the source-verified scale of the Texas traffic count program and its continuous traffic monitoring stations.',
+    category: 'Transportation', year: Number(currentReferenceFacts.verifiedAt.slice(0, 4)),
+    updated: currentReferenceFacts.verifiedAt, unit: 'count',
+    sourceName: 'Texas Department of Transportation — Traffic Count Maps',
+    sourceUrl: currentReferenceFacts.txdot.sourceUrl,
+    methodology: 'TxDOT describes published lower-bound counts for annual short-term traffic collections and continuous stations, not exact audited totals. Values are reproduced as the published minimum thresholds and must be read as more than the displayed figures. The county coverage count is a statewide geography reference.',
     rows: [
-      { label: 'Short-term traffic counts collected each year', value: 75000, note: 'TxDOT states that it collects more than 75,000 short-term traffic counts annually.' },
-      { label: 'Permanent continuous traffic monitoring stations', value: 350, note: 'TxDOT states that it maintains more than 350 permanent monitoring stations.' },
-      { label: 'Texas counties covered by DISCOS statistics', value: 254, note: 'TxDOT publishes annual district and county statistics across every Texas county.' },
+      { label: 'Short-term traffic counts collected each year', value: currentReferenceFacts.txdot.shortTermCountsLowerBound, note: 'TxDOT states more than this many short-term traffic counts per year.' },
+      { label: 'Permanent continuous traffic monitoring stations', value: currentReferenceFacts.txdot.continuousStationsLowerBound, note: 'TxDOT states more than this many continuous count stations.' },
+      { label: 'Texas counties covered by DISCOS statistics', value: 254, note: 'Texas has 254 counties, with TxDOT annual district and county statistics.' },
     ],
   },
-
   {
     slug: 'texas-metro-payrolls-latest',
     title: 'Texas Metro Nonfarm Payroll Employment — ' +
