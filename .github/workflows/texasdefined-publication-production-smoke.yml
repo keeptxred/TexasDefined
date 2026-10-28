@@ -46,7 +46,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --name-only HEAD^ HEAD -- \
+          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]]; then
+            # Manual acceptance explicitly requests the data checks, even
+            # when the last merge only touched an unrelated website surface.
+            echo 'changed=yes' >> "$GITHUB_OUTPUT"
+          elif git diff --name-only HEAD^ HEAD -- \
             'src/routes/texas-data*' \
             'src/routes/sports-venues.compare*' \
             src/data/texas-data-center.ts src/data/texas-data-center.server.ts \
