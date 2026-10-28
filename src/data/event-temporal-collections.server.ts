@@ -1,5 +1,5 @@
 import type { TexasEvent, TexasRegion } from "./types";
-import { getVerifiedChristmasCommunityEvents2026 } from "./events/christmas-community-2026.server";
+import { getVerifiedChristmasCommunityEvents2026 } from "./events/christmas-community-2026.server.ts";
 
 export interface TemporalEventDirectoryItem {
   slug: string;
