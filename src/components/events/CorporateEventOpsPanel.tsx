@@ -7,7 +7,7 @@ import {
 } from '@/data/corporate-events.admin.functions';
 import { corporateEventProviders } from '@/data/corporate-events';
 import { corporateEventTexasToday } from '@/data/corporate-event-dates';
-import { summarizeCorporateEventResponseTimes, isCorporateEventLeadOverdue } from '@/data/corporate-event-response-sla';
+import { summarizeCorporateEventResponseTimes, isCorporateEventLeadOverdue, hasRecordedCorporateEventFirstContact } from '@/data/corporate-event-response-sla';
 import { findCorporatePlannerDuplicates } from '@/data/corporate-event-duplicate-review';
 
 type LeadStatus = 'new' | 'reviewing' | 'contacted' | 'closed' | 'spam';
@@ -21,6 +21,7 @@ type Lead = {
   provider_slugs: string[]; notes: string | null;
   allow_provider_outreach: boolean; provider_outreach_consented_at: string | null;
   first_contacted_at: string | null;
+  first_contact_evidence_reference: string | null;
 };
 type Application = {
   id: string; created_at: string; status: ApplicationStatus;
@@ -90,6 +91,13 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
 
   async function updateLead(id: string, status: LeadStatus) {
     const existing = data?.leads.find(lead => lead.id === id);
+    // An invalid old stamp cannot be repaired by picking 'contacted' again.
+    // Keep the original private history and direct staff to manual review.
+    if (status === 'contacted' && existing?.first_contacted_at
+      && !hasRecordedCorporateEventFirstContact(existing)) {
+      setError('Existing first-contact timestamp or evidence is invalid. Move this inquiry to reviewing and reconcile the original external contact record before marking contacted.');
+      return;
+    }
     const needsRealContactEvidence = status === 'contacted' && !existing?.first_contacted_at;
     let externalContactReference = '';
     if (needsRealContactEvidence) {
@@ -281,8 +289,10 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
             {isCorporateEventLeadOverdue(lead) ? <p className="mt-3 border border-border bg-surface p-3 text-xs font-semibold text-foreground">
               Follow-up priority: more than 48 hours since this planner's request without a recorded first contact.
             </p> : null}
-            {lead.first_contacted_at ? <p className="mt-2 text-xs text-muted-foreground">
-              Staff-recorded first contact: {fmt(lead.first_contacted_at)}. This records operator confirmation, not proof of delivery.
+            {lead.first_contacted_at && hasRecordedCorporateEventFirstContact(lead) ? <p className="mt-2 text-xs text-muted-foreground">
+              Staff-recorded first contact: {fmt(lead.first_contacted_at)}. Supporting external reference is recorded privately; this is not proof of delivery.
+            </p> : lead.first_contacted_at ? <p className="mt-2 text-xs font-semibold text-destructive">
+              Incomplete first-contact record: the timestamp or independent reference cannot be verified. Review the original communication before certifying this inquiry as contacted.
             </p> : null}
             {lead.notes ? <p className="mt-3 whitespace-pre-wrap border-t border-border pt-3 text-sm leading-7">{lead.notes}</p> : null}
           </article>
