@@ -3,6 +3,401 @@ import type { FootballProgramEditorial } from './program-editorial';
 /** First five source-controlled Batch 010 program guides. Date-specific official
  * school and UIL sources; do not turn schedules into scores or copy marks. */
 const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "college-station": {
+    "slug": "college-station",
+    "intro": "College Station High's Cougars are a separate Brazos County program from A&M Consolidated, even though both belong to College Station ISD. UIL places both in 2026–28 5A Division I District 12, but the Cougars' own school staff directory and athletics site identify Stoney Pryor as head football coach and campus athletic coordinator. It would be wrong to import Brandon Schmidt, the coach at A&M Consolidated, into this school. The current official athletics site is the appropriate place to confirm Cougar-specific changes, schedules and ticket instructions, not a district-wide generic opponent feed.",
+    "theme": {
+      "accentHex": "#4A5E69",
+      "label": "Original TexasDefined editorial color accent; no official school palette, mascot art, seal or team photo assumed."
+    },
+    "seo": {
+      "title": "College Station Cougars Football | 2026 5A Division I District 12",
+      "description": "College Station Cougars guide: UIL 5A Division I District 12, Stoney Pryor source-qualified staff, dated school schedule, history and game-day caveats."
+    },
+    "coach": {
+      "name": "Stoney Pryor",
+      "title": "2026 source-qualified high-school football head coach (see roster and first-party school evidence)",
+      "sourceUrl": "https://cshs.csisd.org/about-us/directory",
+      "sourceLabel": "School-owned athletics directory or dated 2026 season football roster",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "2026 College Station Cougars varsity schedule and school news",
+      "sourceUrl": "https://www.cscougars.org/",
+      "sourceLabel": "School- or district-operated 2026 athletics portal",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.cscougars.org/"
+    },
+    "development": {
+      "title": "What makes this football program and school different",
+      "body": "College Station High and A&M Consolidated share district governance and the current UIL 5A Division I District 12 alignment, but have separately staffed football programs. CSHS's official directory lists Stoney Pryor as head football coach/athletic coordinator, with other coaches performing distinct sports roles. The Cougar athletics portal links team information and updates. A cross-campus game or published fixture never merges the schools' season records. A venue name or campus address is not evidence of game-day gate access.",
+      "sourceUrl": "https://www.cscougars.org/directory",
+      "sourceLabel": "Independent current school portal or appropriately dated season context",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2026–28",
+        "title": "Shared 5A Division I District 12 alignment",
+        "body": "UIL places College Station High and A&M Consolidated in the same district while each remains a distinct high-school program.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 campus directory",
+        "title": "Stoney Pryor named as Cougars head coach",
+        "body": "The College Station High directory lists Stoney Pryor as head football coach and campus athletics coordinator.",
+        "sourceUrl": "https://cshs.csisd.org/about-us/directory",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 athletics",
+        "title": "Official Cougar athletics portal",
+        "body": "The school athletics site publishes team and event navigation, separately from the A&M Consolidated Tigers portal.",
+        "sourceUrl": "https://www.cscougars.org/",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "College Station Cougars competes as the Cougars in brazos County, Texas.",
+      "The UIL 2026–28 alignment places the school in 5A Division I District 12.",
+      "Stoney Pryor is tied to the specifically identified 2026 program; do not merge different school coaches or past assignments.",
+      "Schedules and school event notices are not a complete, certified season record or venue-access guarantee."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches College Station High football?",
+        "answer": "CSHS's school directory names Stoney Pryor head football coach and campus athletic coordinator."
+      },
+      {
+        "question": "Does A&M Consolidated share the Cougars' coach?",
+        "answer": "No. The two CSISD high schools have separate coaching staffs, though both are in UIL 5A Division I District 12."
+      },
+      {
+        "question": "Where are current Cougar game details?",
+        "answer": "Use College Station High's official athletics site for school-specific schedule and ticket updates rather than inferring details from the other CSISD campus."
+      }
+    ]
+  },
+  "college-station-a-and-m-consolidated": {
+    "slug": "college-station-a-and-m-consolidated",
+    "intro": "A&M Consolidated High School's Tigers are the College Station ISD's own separate Brazos County football program in 2026–28 UIL 5A Division I District 12. The school's official staff directory and Tigers athletics coaching directory identify Brandon Schmidt as head football coach, not College Station Cougars coach Stoney Pryor. The Tigers' coaching portal also distinguishes staff responsibilities, including football operations and assistants. Both school campuses may meet as opponents, but their coaching, identities, game records and home-event notices must remain separate.",
+    "theme": {
+      "accentHex": "#6A513B",
+      "label": "Original TexasDefined editorial color accent; no official school palette, mascot art, seal or team photo assumed."
+    },
+    "seo": {
+      "title": "A&M Consolidated Tigers Football | 2026 5A Division I District 12",
+      "description": "A&M Consolidated Tigers guide: UIL 5A Division I District 12, Brandon Schmidt source-qualified staff, dated school schedule, history and game-day caveats."
+    },
+    "coach": {
+      "name": "Brandon Schmidt",
+      "title": "2026 source-qualified high-school football head coach (see roster and first-party school evidence)",
+      "sourceUrl": "https://amchs.csisd.org/about-us/staff-directory",
+      "sourceLabel": "School-owned athletics directory or dated 2026 season football roster",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "2026 A&M Consolidated Tigers varsity schedule and school news",
+      "sourceUrl": "https://www.consoltigers.org/",
+      "sourceLabel": "School- or district-operated 2026 athletics portal",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.consoltigers.org/"
+    },
+    "development": {
+      "title": "What makes this football program and school different",
+      "body": "A&M Consolidated's school directory lists Brandon Schmidt as head football coach and campus athletic coordinator, and its Tigers athletics site independently gives his football-specific role. The 2026 team coaching directory enumerates separate football operations and assistant assignments, which cannot be presented as the College Station High Cougars staff. UIL lists both CSISD high schools in 5A Division I District 12 for 2026–28; shared alignment is not a shared team. The official school/athletics sources should govern any later updates to staffing and visitor information.",
+      "sourceUrl": "https://www.consoltigers.org/coaches-directory",
+      "sourceLabel": "Independent current school portal or appropriately dated season context",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2026–28",
+        "title": "Consolidated remains in 5A Division I District 12",
+        "body": "The UIL alignment identifies the Tigers separately from the Cougars in the same classification and district.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 first-party staff",
+        "title": "Brandon Schmidt coaches the Tigers",
+        "body": "The school-controlled A&M Consolidated staff directory lists Brandon Schmidt head football coach and campus athletic coordinator.",
+        "sourceUrl": "https://amchs.csisd.org/about-us/staff-directory",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 coaching directory",
+        "title": "Distinct Tiger football operations roles",
+        "body": "The Tigers official athletics coaching directory independently identifies Schmidt and assistant football coaches.",
+        "sourceUrl": "https://www.consoltigers.org/coaches-directory",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "A&M Consolidated Tigers competes as the Tigers in brazos County, Texas.",
+      "The UIL 2026–28 alignment places the school in 5A Division I District 12.",
+      "Brandon Schmidt is tied to the specifically identified 2026 program; do not merge different school coaches or past assignments.",
+      "Schedules and school event notices are not a complete, certified season record or venue-access guarantee."
+    ],
+    "faq": [
+      {
+        "question": "Who is A&M Consolidated's head coach?",
+        "answer": "The official A&M Consolidated High staff directory and Tigers athletics pages name Brandon Schmidt."
+      },
+      {
+        "question": "Are the Tigers and Cougars the same football program?",
+        "answer": "No. Both are CSISD schools in Brazos County and 2026 UIL 5A Division I District 12, but their campus identities and coaching staffs are different."
+      },
+      {
+        "question": "Where should Tiger fans find schedule and visitor updates?",
+        "answer": "Start with A&M Consolidated High's official Tigers athletics website, not the separate Cougar portal."
+      }
+    ]
+  },
+  "colleyville-heritage": {
+    "slug": "colleyville-heritage",
+    "intro": "Colleyville Heritage High School's Panthers compete in Tarrant County under the 2026–28 UIL Class 5A Division II District 3 alignment. The official GCISD school staff directory names Jerry Edwards as head high-school football coach/coordinator, and the Panthers' own football coaching site agrees. GCISD's historical 2023 appointment report and 2025 coaching recognition provide dated program history, not a guarantee of a particular 2026 record. The separate team portal details coaching roles, while upcoming game times and ticket terms remain contingent on current organizer notices.",
+    "theme": {
+      "accentHex": "#564D6C",
+      "label": "Original TexasDefined editorial color accent; no official school palette, mascot art, seal or team photo assumed."
+    },
+    "seo": {
+      "title": "Colleyville Heritage Panthers Football | 2026 5A Division II District 3",
+      "description": "Colleyville Heritage Panthers guide: UIL 5A Division II District 3, Jerry Edwards source-qualified staff, dated school schedule, history and game-day caveats."
+    },
+    "coach": {
+      "name": "Jerry Edwards",
+      "title": "2026 source-qualified high-school football head coach (see roster and first-party school evidence)",
+      "sourceUrl": "https://chhs.gcisd.net/staff?page_no=3",
+      "sourceLabel": "School-owned athletics directory or dated 2026 season football roster",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "2026 Colleyville Heritage Panthers varsity schedule and school news",
+      "sourceUrl": "https://www.colleyvilleheritagefootball.com/",
+      "sourceLabel": "School- or district-operated 2026 athletics portal",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.colleyvilleheritagefootball.com/"
+    },
+    "development": {
+      "title": "What makes this football program and school different",
+      "body": "GCISD's live campus staff directory names Jerry Edwards head football coach and coordinator. The Panthers football site gives his role and identifies Jeremy Snyder as assistant head coach/offensive coordinator, among separate staff. A 2025 district news report noted an award for Edwards but its quoted 2025 win-loss status cannot be promoted as the 2026 result. UIL realignment currently places Colleyville Heritage in 5A Division II District 3. Distinguish the Colleyville high school from other Heritage-named teams in Texas and from its own prior seasons.",
+      "sourceUrl": "https://www.colleyvilleheritagefootball.com/page/show/3512131-coaches",
+      "sourceLabel": "Independent current school portal or appropriately dated season context",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "July 2023",
+        "title": "School district announces Jerry Edwards appointment",
+        "body": "GCISD's historical board announcement placed Edwards as the Colleyville Heritage boys athletic coordinator and head football coach.",
+        "sourceUrl": "https://www.gcisd.net/article/1170513",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "October 2025",
+        "title": "Coach recognized in a dated season",
+        "body": "A GCISD story reports Dave Campbell's Texas Football recognition of Edwards in 2025; the article's historical win-loss details do not become 2026 standings.",
+        "sourceUrl": "https://www.gcisd.net/article/2521848",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026",
+        "title": "Current school staff listing",
+        "body": "The school-operated GCISD staff directory continues to list Jerry Edwards in the football head coach/coordinator role.",
+        "sourceUrl": "https://chhs.gcisd.net/staff?page_no=3",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "Colleyville Heritage Panthers competes as the Panthers in tarrant County, Texas.",
+      "The UIL 2026–28 alignment places the school in 5A Division II District 3.",
+      "Jerry Edwards is tied to the specifically identified 2026 program; do not merge different school coaches or past assignments.",
+      "Schedules and school event notices are not a complete, certified season record or venue-access guarantee."
+    ],
+    "faq": [
+      {
+        "question": "Who is Colleyville Heritage football's head coach?",
+        "answer": "GCISD's current campus staff listing identifies Jerry Edwards as head football coach/coordinator."
+      },
+      {
+        "question": "What UIL district is Colleyville Heritage in?",
+        "answer": "UIL places the Panthers in Class 5A Division II District 3 for the 2026–28 cycle."
+      },
+      {
+        "question": "Is a 2025 coach-of-the-week story a 2026 result?",
+        "answer": "No. It is a historical distinction; current season standings require separate verified 2026 results."
+      }
+    ]
+  },
+  "collinsville": {
+    "slug": "collinsville",
+    "intro": "Collinsville High School's Pirates are the Grayson County, Texas football program in UIL 2A Division II District 9 for 2026–28, not the Collinsville Kahoks in Illinois. Collinsville ISD publishes an explicitly dated 2026–27 varsity football schedule; the 2026 MaxPreps varsity staff record lists Garrett Patterson as head football coach, independently consistent with district documents identifying him in athletic leadership. The schedule must not be interpreted as a complete results ledger, and Illinois team rosters, coaching and schedules must never be mixed into this Texas school.",
+    "theme": {
+      "accentHex": "#5E536D",
+      "label": "Original TexasDefined editorial color accent; no official school palette, mascot art, seal or team photo assumed."
+    },
+    "seo": {
+      "title": "Collinsville Pirates Football | 2026 2A Division II District 9",
+      "description": "Collinsville Pirates guide: UIL 2A Division II District 9, Garrett Patterson source-qualified staff, dated school schedule, history and game-day caveats."
+    },
+    "coach": {
+      "name": "Garrett Patterson",
+      "title": "2026 source-qualified high-school football head coach (see roster and first-party school evidence)",
+      "sourceUrl": "https://www.maxpreps.com/tx/collinsville/collinsville-pirates/football/staff/",
+      "sourceLabel": "School-owned athletics directory or dated 2026 season football roster",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "2026 Collinsville Pirates varsity schedule and school news",
+      "sourceUrl": "https://collinsvilleisd.org/football-schedules",
+      "sourceLabel": "School- or district-operated 2026 athletics portal",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://collinsvilleisd.org/football-schedules"
+    },
+    "development": {
+      "title": "What makes this football program and school different",
+      "body": "The Texas Collinsville ISD site publishes a dated 2026–27 varsity football schedule and identifies the local school and district. The Texas 2026 MaxPreps partner roster names Garrett Patterson head football coach, with separate assistants. The district's prior staff documentation lists the same name as athletic director but does not independently establish today's coaching role; the season-qualified roster supplies that distinction. Search results can mistakenly return a Collinsville, Illinois team called the Kahoks, whose IHSA staff and records have no relevance to the Grayson County Pirates. UIL realignment identifies District 9 in 2A Division II.",
+      "sourceUrl": "https://www.collinsvilleisd.org/84274_4?articleID=73300",
+      "sourceLabel": "Independent current school portal or appropriately dated season context",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "August 13, 2026",
+        "title": "2026–27 varsity schedule posted",
+        "body": "Collinsville ISD published a current-season Texas Pirates varsity football schedule with a dated school announcement.",
+        "sourceUrl": "https://www.collinsvilleisd.org/84274_4?articleID=73300",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "September 18, 2026",
+        "title": "Season-labeled varsity staff roster",
+        "body": "The 2026 Texas Collinsville Pirates roster identifies Garrett Patterson head coach and names assistants.",
+        "sourceUrl": "https://www.maxpreps.com/tx/collinsville/collinsville-pirates/football/staff/",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026–28",
+        "title": "Texas UIL District 9 placement",
+        "body": "UIL assigns Collinsville High to 2A Division II District 9, distinct from similarly named Illinois programs.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "Collinsville Pirates competes as the Pirates in grayson County, Texas.",
+      "The UIL 2026–28 alignment places the school in 2A Division II District 9.",
+      "Garrett Patterson is tied to the specifically identified 2026 program; do not merge different school coaches or past assignments.",
+      "Schedules and school event notices are not a complete, certified season record or venue-access guarantee."
+    ],
+    "faq": [
+      {
+        "question": "Is this the Illinois Collinsville team?",
+        "answer": "No. These are the Collinsville Pirates of Grayson County, Texas, not the Collinsville Kahoks in Illinois."
+      },
+      {
+        "question": "Who is listed as the Texas Collinsville head coach in 2026?",
+        "answer": "The 2026 Texas varsity staff page lists Garrett Patterson; the district source separately confirms athletic leadership but is not a fresh head-coach record."
+      },
+      {
+        "question": "Where is the official Pirates schedule?",
+        "answer": "Collinsville ISD publishes a dated 2026–27 varsity football schedule on its district website."
+      }
+    ]
+  },
+  "colmesneil": {
+    "slug": "colmesneil",
+    "intro": "Colmesneil High School's Bulldogs are a Tyler County, Texas program in UIL Class 2A Division II District 12 for 2026–28. Colmesneil ISD lists Chad Coker as athletic director, and the season-labeled 2026 varsity team history identifies him as head football coach. A separately reproduced 2026 preseason schedule still names Chris Hicks, who was the prior head coach; a contemporary April 2026 local report describes Hicks's departure and Coker's appointment as athletic director. Those sources should be reconciled with clear dates rather than quietly replacing a current coach with an old schedule footer.",
+    "theme": {
+      "accentHex": "#4B5F4F",
+      "label": "Original TexasDefined editorial color accent; no official school palette, mascot art, seal or team photo assumed."
+    },
+    "seo": {
+      "title": "Colmesneil Bulldogs Football | 2026 2A Division II District 12",
+      "description": "Colmesneil Bulldogs guide: UIL 2A Division II District 12, Chad Coker source-qualified staff, dated school schedule, history and game-day caveats."
+    },
+    "coach": {
+      "name": "Chad Coker",
+      "title": "2026 source-qualified high-school football head coach (see roster and first-party school evidence)",
+      "sourceUrl": "https://www.colmesneilisd.net/page/athletics/",
+      "sourceLabel": "School-owned athletics directory or dated 2026 season football roster",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "2026 Colmesneil Bulldogs varsity schedule and school news",
+      "sourceUrl": "https://www.colmesneilisd.net/page/athletics/",
+      "sourceLabel": "School- or district-operated 2026 athletics portal",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.colmesneilisd.net/page/athletics/"
+    },
+    "development": {
+      "title": "What makes this football program and school different",
+      "body": "Colmesneil ISD's official athletics page names Chad Coker athletic director, provides a separate football varsity/junior-high schedule link and identifies district coach contacts without labeling every listed person a varsity head coach. The 2026 varsity staff/history roster names Coker head coach. A pre-season schedule PDF preserved by Pigskin Prep identifies Chris Hicks, who the Tyler County Booster reported had departed for Hull-Daisetta earlier that spring. That evidence is a coaching transition, not a license to publish the older PDF's coach as current or infer any game's score. For the October/November calendar use the official school announcements; venue entrances and public tickets remain event-specific.",
+      "sourceUrl": "https://www.maxpreps.com/tx/colmesneil/colmesneil-bulldogs/football/history/",
+      "sourceLabel": "Independent current school portal or appropriately dated season context",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "April 2026",
+        "title": "Chad Coker appointed athletic director",
+        "body": "The Tyler County Booster reported the local district's April 21 board action appointing Coker, and described Chris Hicks's departure.",
+        "sourceUrl": "https://www.easttexasnews.com/tyler-county-booster/tyler-county-booster/stories/coker-named-colmesneil-ad,88675",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 athletic directory",
+        "title": "District currently names Chad Coker",
+        "body": "Colmesneil ISD's official athletics page lists Chad Coker as athletic director and links varsity and junior-high football calendars separately.",
+        "sourceUrl": "https://www.colmesneilisd.net/page/athletics/",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      },
+      {
+        "date": "2026 varsity staff",
+        "title": "Head-coach record reconciled",
+        "body": "The 2026 varsity history names Chad Coker head coach, while a prior-season coach listing names Chris Hicks; check changes against school sources.",
+        "sourceUrl": "https://www.maxpreps.com/tx/colmesneil/colmesneil-bulldogs/football/history/",
+        "sourceLabel": "Official school, UIL or date-qualified published historical record",
+        "verifiedAt": "2026-10-28"
+      }
+    ],
+    "overview": [
+      "Colmesneil Bulldogs competes as the Bulldogs in tyler County, Texas.",
+      "The UIL 2026–28 alignment places the school in 2A Division II District 12.",
+      "Chad Coker is tied to the specifically identified 2026 program; do not merge different school coaches or past assignments.",
+      "Schedules and school event notices are not a complete, certified season record or venue-access guarantee."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Colmesneil football in 2026?",
+        "answer": "The season-labeled 2026 varsity record names Chad Coker; Colmesneil ISD separately lists him as athletic director. An older schedule footer names predecessor Chris Hicks."
+      },
+      {
+        "question": "What UIL district is Colmesneil in?",
+        "answer": "UIL 2026–28 assigns Colmesneil to Class 2A Division II District 12."
+      },
+      {
+        "question": "Why does an old school schedule name Chris Hicks?",
+        "answer": "The schedule appears to predate the April 2026 coaching transition. Verify new fixtures through Colmesneil ISD rather than using the old coach line as current."
+      }
+    ]
+  },
   "clute-brazoswood": {
     "slug": "clute-brazoswood",
     "intro": "Brazoswood High's Buccaneers represent Clute in Brazoria County, competing in UIL Class 6A District 19 during the 2026–28 cycle. Brazosport ISD's own athletic staff directory names Eric Luster athletic campus coordinator and football head coach, separating that responsibility from its assistant-coach, coordinator and trainer listings. School newsletters advertised varsity home dates at Hopper Field on August 28, September 10 and October 2, 2026. Those dated announcements are useful for understanding the home calendar, but do not establish final scores or an up-to-date gate, parking or ticket policy.",

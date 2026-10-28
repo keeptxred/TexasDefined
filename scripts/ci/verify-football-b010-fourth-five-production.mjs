@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { chromium } = require('/tmp/td-b010-third-chrome/node_modules/playwright-core');
+const { chromium } = require('/tmp/td-b010-fourth-chrome/node_modules/playwright-core');
 
 const site = 'https://texasdefined.com';
 const out = 'artifacts/b010-fourth-five-production-chrome';
