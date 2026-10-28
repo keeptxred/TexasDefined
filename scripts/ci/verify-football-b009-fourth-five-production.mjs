@@ -28,7 +28,8 @@ const route = await readFile('src/routes/texas-high-school-football-teams_.$slug
 const countyPage = await readFile('src/routes/$kind.$slug.lazy.tsx','utf8');
 assert.equal(reg.batch.number,9,'Use latest Batch 009 registry');
 assert.equal(reg.batch.slugs.length,25);
-assert.ok(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length>=180,'All 180 previously accepted schools must remain');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,reg.batch.state==='VERIFIED_BATCH_009_COMPLETE'?205:180,'180 historical and 25 accepted Batch009 school certifications must remain');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch!==9).length,180,'Historical independently verified schools must remain');
 for(const batch of reg.completedBatches.filter(b=>b.number<=8)) for(const slug of batch.slugs) {
   assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'VERIFIED','Historical protected school regressed: '+slug);
 }

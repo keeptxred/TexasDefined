@@ -31,7 +31,8 @@ const route = await readFile('src/routes/texas-high-school-football-teams_.$slug
 const countyPage = await readFile('src/routes/$kind.$slug.lazy.tsx','utf8');
 assert.equal(reg.batch.number,9,'Use latest Batch 009 registry');
 assert.equal(reg.batch.slugs.length,25);
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,180,'Historical 180 accepted schools must remain');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,reg.batch.state==='VERIFIED_BATCH_009_COMPLETE'?205:180,'180 original certifications and 25 evidence-backed Batch009 certifications must remain');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch!==9).length,180,'Historical independently verified schools may not be demoted');
 for (const slug of slugs) {
   const school = reg.schoolRecords.find(s=>s.slug===slug && s.batch===9);
   assert.ok(school && ['IMPLEMENTED','MERGED','DEPLOYED','VERIFIED'].includes(school.status),'Unimplemented '+slug);

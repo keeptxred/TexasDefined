@@ -1,5 +1,7 @@
 # Carrizo Springs Wildcats — Batch 009 individual authority dossier
 
+> **Current technical state — VERIFIED, October 27, 2026.** Published Chrome browser checks passed at 1366, 390 and 320px in [run #40607160511](https://github.com/keeptxred/TexasDefined/actions/runs/40607160511), with county/sitemap checks and [archived screenshots](https://github.com/keeptxred/TexasDefined/actions/runs/40607160511/artifacts/12781656104). All five Batch 009 cohorts matched protected deployment #40606053728 and Worker `ec1fdfd7-2e11-42e4-ae63-15befca2bc52`. **This is automated technical acceptance only**, not a manual WCAG, school endorsement, live standings, venue-access guarantee or trademark/photo-rights signoff. References below to pending deployment reflect the original pre-certification research checkpoint.
+
 **Status:** IMPLEMENTED on `football-authority-batch-009-five-schools-20261026` only. Not merged, deployed or browser VERIFIED.
 
 ## School identity and alignment
