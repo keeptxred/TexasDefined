@@ -27,7 +27,10 @@ jobs:
         continue-on-error: true
         run: node scripts/data/refresh-camping-alerts.mjs --write
       - name: Validate camping guide contract
-        run: node scripts/data/validate-camping-guide-decision-ux.mjs
+        run: |
+          node --check scripts/data/refresh-camping-alerts.mjs
+          node scripts/data/validate-camping-guide-decision-ux.mjs
+          node scripts/data/validate-camping-authority-upgrade.mjs
       - name: Create guarded generated-data update PR
         uses: peter-evans/create-pull-request@v7
         with:

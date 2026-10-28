@@ -81,7 +81,7 @@ function CampingGuidePage() {
           <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.13em] text-muted-foreground"><Link to="/">Home</Link> · <Link to="/explore">Explore</Link> · Camping</nav>
           <p className="eyebrow mt-8 text-primary">Texas camping guide</p>
           <h1 className="mt-3 max-w-4xl font-display text-5xl leading-none md:text-7xl">Best Places to Go Camping in Texas</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with standout Texas camping destinations, then search verified public campgrounds by region, camping style and the facilities that matter to your trip. Use the destination guides for the bigger picture and the official reservation links for live booking details.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with standout Texas camping destinations, then search verified public campgrounds by region, camping style and the facilities that matter to your trip. Use the destination guides for the bigger picture, park-specific official camping information and verified booking links where available. The finder distinguishes campground booking pages from general reservation instructions.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#campground-finder" className="inline-flex border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Find a campground</a>
             <Link to="/explore/rv-parks" className="inline-flex border border-border bg-background px-5 py-3 text-sm font-semibold">Browse the RV park directory</Link>

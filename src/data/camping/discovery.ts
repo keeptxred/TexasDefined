@@ -24,7 +24,6 @@ export interface CampingDiscoveryProfile {
 const TPWD = "Texas Parks and Wildlife Department";
 const NPS = "National Park Service";
 const TPWD_RESERVATIONS = "https://tpwd.texas.gov/state-parks/reservations/";
-const RECREATION_GOV = "https://www.recreation.gov/";
 const VERIFIED_AT = "2026-09-01";
 
 /**
