@@ -23,7 +23,7 @@ export type HoustonInventoryReview = {
  */
 const legacyKinds: Record<string, HoustonLegacyKind> = {
   'the-escape-game-houston': 'multi-site-operator',
-  'escape-it-houston-group-events': 'multi-site-operator',
+  'escape-it-houston-group-events': 'activity-at-venue',
   'game-show-experience-houston': 'venue-and-mobile',
   'trill-on-wheels': 'mobile-experience',
   'houston-food-bank-corporate-volunteers': 'activity-at-venue',
