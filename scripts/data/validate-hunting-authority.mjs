@@ -59,12 +59,21 @@ requireText(authorityV2, 'fur-bearing-animal-regulations', 'fur-bearer authority
 requireText(authorityV2, 'migratory-game-bird-regulations', 'migratory game bird authority source missing');
 requireText(authorityV2, 'youth-only', 'youth-only authority source missing');
 requireText(freshness, 'seasonYear: "2026–27"', '2026–27 season-year marker missing');
-requireText(freshness, 'lastVerified: "2026-09-01"', 'last-verified marker missing');
+requireText(freshness, 'lastVerified: "2026-10-28"', 'last-verified marker missing');
 requireText(freshness, 'not the legal authority', 'independence/legal-authority disclaimer missing');
 requireText(sitemap, 'HUNTING_AUTHORITY_PATHS', 'hunting sitemap paths missing');
 requireText(huntingRoute, 'getHuntingAuthorityTopicV2', 'v2 route lookup missing');
 requireText(huntingHub, 'HUNTING_V2_HUB_GROUPS', 'v2 hub grouping missing');
 requireText(huntingHub, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 hub topic registry missing');
+requireText(huntingHub, 'Changes hunters should check this season', '2026–27 source-based change notice missing');
+requireText(huntingHub, 'relatedLinks.map', 'related hunting links must be deduplicated');
+requireText(authority, 'no hunting license is required', 'feral hog license exception missing');
+requireText(authority, '2026 license identity checks and digital tags', '2026 license update missing');
+requireText(authority, 'HUNTING_OFFICIAL_SOURCES.publicAreaSearch', 'official public-hunt area source missing');
+requireText(authorityV2, 'faq: []', 'generic duplicate species FAQs must not be manufactured');
+requireText(huntingHub, 'topic.faq.length', 'FAQ section must hide when unanswered');
+requireText(read('src/components/hunting/HuntingSchema.tsx'), 'topic.faq.length', 'empty FAQs must not generate FAQPage schema');
+requireText(read('src/brand/texasdefined.ts'), 'label: "Hunting", to: "/hunting"', 'main hunting navigation missing');
 requireText(huntingSearch, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 search registration missing');
 requireText(searchImplementation, 'buildHuntingSearchDocuments', 'search document registration missing');
 requireText(queries, 'await import("./search-documents-runtime")', 'lazy search runtime registration missing');
@@ -87,8 +96,9 @@ requireText(search, 'Texas Hunting', 'search hunting starting-point label missin
 requireText(huntingTopicRoute, 'createLazyFileRoute("/hunting/$slug")', 'hunting topic route is not lazy');
 requireText(huntingTopicPage, 'function HuntingPublicLandDiscovery()', 'public-land discovery bridge missing');
 for (const slug of ['public-hunting', 'annual-public-hunting-permit', 'drawn-hunts']) requireText(huntingTopicPage, `"${slug}"`, `WMA discovery missing from ${slug}`);
-requireText(huntingTopicPage, '/search?q=Wildlife%20Management%20Area', 'WMA discovery must reuse statewide search');
-requireRouteLiteral(huntingTopicPage, '/explore/outdoors', 'WMA discovery lacks canonical Outdoors path');
+requireText(huntingTopicPage, 'https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml', 'WMA discovery must use official TPWD area search');
+if (huntingTopicPage.includes('/search?q=Wildlife%20Management%20Area')) throw new Error('Hunting authority validation failed: unrelated site-wide WMA search is not a legal access finder');
+requireText(huntingTopicPage, 'A Wildlife Management Area is not automatically open to hunting', 'WMA search must warn that area status is not legal access');
 requireRouteLiteral(huntingTopicPage, '/hunting/annual-public-hunting-permit', 'WMA discovery lacks APH return path');
 requireRouteLiteral(huntingTopicPage, '/hunting/public-hunting', 'WMA discovery lacks public-hunting return path');
 if (huntingTopicPage.includes('destination-query-runtime') || huntingTopicPage.includes('wildlife-management-area-destinations-wave')) {
