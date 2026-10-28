@@ -19,6 +19,7 @@ on:
       - 'scripts/data/refresh-hunting-species-seasons.test.mjs'
       - 'scripts/data/monitor-hunting-live-freshness.mjs'
       - '.github/workflows/refresh-hunting-species-calendar.yml'
+      - '.github/workflows/finish-hunting-species-calendar.yml'
       - '.github/workflows/monitor-hunting-live-freshness.yml'
       - 'scripts/data/validate-hunting-authority.mjs'
       - '.github/workflows/validate-hunting-authority.yml'
