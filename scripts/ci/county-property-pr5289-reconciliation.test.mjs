@@ -1,13 +1,14 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {parseExistingCountySnapshot} from '../data/county-property-snapshot-codec.mjs';
 
 const curated=readFileSync('src/data/property/county-property-enrichment.generated.ts','utf8');
 const extras=readFileSync('src/data/property/county-property-supplement.server.ts','utf8');
 const loader=readFileSync('src/data/property/county-property-complete.functions.ts','utf8');
 const publicRoute=readFileSync('src/routes/property-tax.county.$county.tsx','utf8');
 const directory=readFileSync('src/routes/property-tax.counties.tsx','utf8');
-const slugs=(value)=>[...value.matchAll(/^  '?([a-z][a-z-]*)'?: \{$/gm)].map(match=>match[1]);
+const slugs=(source)=>Object.keys(parseExistingCountySnapshot(source, source===extras ? 'COUNTY_PROPERTY_SUPPLEMENT' : 'COUNTY_PROPERTY_ENRICHMENT'));
 
 test('port older verified county source facts without moving them to global client bundle',()=>{
   const curatedSlugs=slugs(curated),extraSlugs=slugs(extras);
