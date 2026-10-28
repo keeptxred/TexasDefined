@@ -65,6 +65,27 @@ function topic(input: Omit<HuntingAuthorityTopic, "faq"> & { faq?: HuntingAuthor
   };
 }
 
+const SPECIES_2026_RULE_UPDATES: Record<string, { heading: string; guidance: string; question: string; answer: string }> = {
+  "texas-deer-hunting": {
+    heading: "2026–27 white-tailed deer: expanded doe days",
+    guidance: "TPWD expanded doe days from four to 16 in 21 named counties, including only specified portions of some counties. The expanded interval is November 14–29, 2026. Do not assume this applies statewide; review your exact county and boundary, antler and tagging rules.",
+    question: "Are the expanded 2026 doe days statewide?",
+    answer: "No. The 16-day expansion applies only in the specified counties or portions listed by TPWD for November 14–29, 2026. Check the official county-specific rules.",
+  },
+  "dove-hunting": {
+    heading: "2026–27 dove: South Zone season changed",
+    guidance: "For 2026–27, South Zone regular dove season began September 1 rather than its prior later opener. The separate Special White-winged Dove Days were eliminated. North, Central and South Zone segment dates still differ; check the current zone table and migratory-bird requirements.",
+    question: "Are there still Special White-winged Dove Days in the South Zone?",
+    answer: "No. TPWD eliminated those separate days for 2026–27; use its South Zone regular season dates and limits.",
+  },
+  "turkey-hunting": {
+    heading: "2026–27 turkey: county closures and hen rule",
+    guidance: "TPWD closed Matagorda and Wharton counties to wild turkey hunting for 2026–27 and prohibited the harvest of unbearded turkey hens statewide. Check the applicable county, fall or spring season, allowable birds and mandatory harvest reporting requirements before hunting.",
+    question: "Can I hunt wild turkey in Matagorda or Wharton County this season?",
+    answer: "No. TPWD lists those counties as closed to wild turkey hunting for 2026–27.",
+  },
+};
+
 function speciesTopic(input: {
   slug: string;
   title: string;
@@ -75,6 +96,7 @@ function speciesTopic(input: {
   planning: string;
 }): HuntingAuthorityTopic {
   const source = input.source ?? HUNTING_OFFICIAL_SOURCES.regulations;
+  const update = SPECIES_2026_RULE_UPDATES[input.slug];
   return topic({
     slug: input.slug,
     eyebrow: "Texas hunting species",
@@ -84,10 +106,12 @@ function speciesTopic(input: {
     about: [`Texas ${input.species} hunting`, `${input.species} season Texas`, `TPWD ${input.species}`],
     sections: [
       { heading: "Start with the current TPWD rule", paragraphs: [`${input.species} rules can change by season year, county, zone or property. TexasDefined keeps the planning framework durable rather than copying a date or limit that can go stale.`, verifyRules], links: [source, HUNTING_OFFICIAL_SOURCES.seasonDates] },
+      ...(update ? [{ heading: update.heading, paragraphs: [update.guidance], links: [HUNTING_OFFICIAL_SOURCES.seasonChanges, source] }] : []),
       { heading: "Match habitat to geography", paragraphs: [input.habitat, "Use county, wildlife and public-land discovery to narrow the trip before checking the specific hunt unit or private-property permission."], links: [INTERNAL.publicLands, INTERNAL.wildlife, INTERNAL.counties] },
       { heading: "Plan access before travel", paragraphs: [input.planning, "For public hunting, confirm whether the opportunity uses APH access, a drawn hunt, another permit or site-specific registration."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, { label: "Texas public hunting guide", href: "/hunting/public-hunting" }, INTERNAL.tripPlanner] },
     ],
     related: [...standardRelated, INTERNAL.camping],
+    faq: update ? [{ question: update.question, answer: update.answer }] : [],
   });
 }
 
