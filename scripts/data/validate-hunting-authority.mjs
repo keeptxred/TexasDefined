@@ -42,6 +42,7 @@ const search = read('src/routes/search.lazy.tsx');
 const outdoors = read('src/routes/explore.$category.lazy.tsx');
 const productionSmokeWorkflow = read('.github/workflows/verify-hunting-production.yml');
 const productionSmoke = read('scripts/data/verify-hunting-production.mjs');
+const deployPageSelection = read('scripts/ci/production-change-scope.mjs');
 
 const expectedTopics = [
   'texas-hunting-license', 'hunter-education', 'public-hunting', 'annual-public-hunting-permit',
@@ -89,6 +90,8 @@ requireText(huntingHub, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 hub topic registry mi
 requireText(huntingHub, 'Four decisions before choosing a hunting spot', 'practical access decision framework missing');
 requireText(huntingHub, 'publicAccessFacts.aphPermitUsd', 'source-backed public hunting permit prices missing');
 requireText(huntingHub, 'Matagorda and Wharton', '2026 season change notice missing');
+requireText(huntingHub, 'Muzzleloader definition', '2026 revised means-and-methods notice missing');
+requireText(huntingHub, 'last season for the printed Public Hunting Lands Map Booklet', 'final printed APH map-booklet advisory missing');
 requireText(huntingHub, 'topic.faq.length > 0', 'empty FAQs must not be emitted');
 requireText(read('src/components/hunting/HuntingSchema.tsx'), 'topic.faq.length', 'empty FAQPage schema must not be emitted');
 requireText(authority, '"texas-deer-hunting": TEXAS_DEER_AUTHORITY_TOPIC', 'researched deer source overwritten');
@@ -138,6 +141,8 @@ for (const routePath of ['/hunting/public-hunting', '/hunting/annual-public-hunt
   requireRouteLiteral(destinationBooking, routePath, `WMA destination lacks reciprocal route ${routePath}`);
 }
 
+requireText(deployPageSelection, '...huntingAuthorityPages, ...corporateEventPages', 'hunting canaries must precede generic sample budget overflow');
+requireText(deployPageSelection, "'/hunting/public-hunting', '/hunting/texas-deer-hunting'", 'bounded hunting canary paths missing');
 requireText(productionSmokeWorkflow, 'workflow_dispatch:', 'production acceptance must remain manually available');
 requireText(productionSmokeWorkflow, 'pull_request:', 'verifier-only PR changes must test against production before merge');
 requireText(productionSmokeWorkflow, "'scripts/data/verify-hunting-production.mjs'", 'production smoke script changes must self-test on main');

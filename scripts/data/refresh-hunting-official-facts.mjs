@@ -40,13 +40,67 @@ export function parsePermitFacts(html) {
   return { seasonYear, aphPermitUsd, limitedPublicUsePermitUsd };
 }
 
+// Compare dated rules inside their actual animal/zone table, not merely
+// dates mentioned elsewhere on TPWD's page. A new or shifted season must
+// stop the automated release and open the existing human-review issue.
+export const SEASON_ROW_CONTRACT_2026 = Object.freeze([
+  {
+    title: 'white-tailed deer general/archery dates',
+    start: 'White-tailed deer season dates',
+    end: 'Upland Game Birds',
+    rows: [
+      'General North Nov. 7, 2026 - Jan. 3, 2027',
+      'South Nov. 7, 2026 - Jan. 17, 2027',
+      'Archery 252 of 254 counties Oct. 3, 2026 - Nov. 6, 2026',
+    ],
+  },
+  {
+    title: 'wild turkey fall/spring zone dates',
+    start: 'Wild Turkey season dates',
+    end: 'Migratory Game Bird',
+    rows: [
+      'Fall North Nov. 7, 2026 - Jan. 3, 2027',
+      'South Nov. 7, 2026 - Jan. 17, 2027',
+      'Spring North Apr. 3, 2027 - May 16, 2027',
+      'South Mar. 20, 2027 - May 2, 2027',
+    ],
+  },
+  {
+    title: 'dove North/Central/South zone dates',
+    start: 'Dove season dates',
+    end: 'Duck season dates',
+    rows: [
+      'Regular North Sep. 1, 2026 - Nov. 8, 2026 & Dec. 18, 2026 - Jan. 7, 2027',
+      'Central Sep. 1, 2026 - Oct. 25, 2026 & Dec. 11, 2026 - Jan. 14, 2027',
+      'South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 21, 2027',
+    ],
+  },
+]);
+
+export function checkSeasonRows(seasonText) {
+  for (const section of SEASON_ROW_CONTRACT_2026) {
+    const start = seasonText.indexOf(section.start);
+    const end = start < 0 ? -1 : seasonText.indexOf(section.end, start + section.start.length);
+    if (start < 0 || end <= start) {
+      throw new Error('TPWD ' + section.title + ' table is missing or restructured; review before updating.');
+    }
+    const body = seasonText.slice(start, end);
+    for (const row of section.rows) {
+      if (!body.includes(row)) {
+        throw new Error('TPWD ' + section.title + ' changed or moved: ' + row + '. Manual verification required.');
+      }
+    }
+  }
+}
+
 export function checkOtherOfficialSources(sourceHtml, seasonYear) {
   const changes = visibleText(sourceHtml.changes);
   const seasons = visibleText(sourceHtml.seasons);
+  checkSeasonRows(seasons);
   const hogs = visibleText(sourceHtml.hogs);
   const areaSearch = visibleText(sourceHtml.areaSearch);
   const required = [
-    [changes, ['Doe Days', '21 counties', 'Special White-winged Dove Days', 'Matagorda', 'Wharton', 'unbearded'], '2026 season change notice'],
+    [changes, ['Doe Days', '21 counties', 'Special White-winged Dove Days', 'Matagorda', 'Wharton', 'unbearded', 'muzzleloader modified'], '2026 season change notice'],
     [seasons, ['Hunting Season Dates', 'Dove', 'Duck', 'Turkey', seasonYear.slice(0, 4), '20' + seasonYear.slice(-2), 'Nov. 8, 2026', 'Jan. 7, 2027', 'Oct. 25, 2026', 'Dec. 11, 2026', 'Jan. 14, 2027', 'Jan. 21, 2027'], 'TPWD season tables and 2026–27 dove-zone dates'],
     [hogs, ['Feral Hogs', 'Hunter Education', 'No hunting license is required to hunt feral hogs on private'], 'feral hog license exception'],
     [areaSearch, ['Search for an Area or Legal Game', 'Legal Game', 'Public Hunting'], 'public hunt legal-game search'],
@@ -88,6 +142,9 @@ export async function main() {
   const entries = await Promise.all(Object.entries(OFFICIAL_URLS).map(async ([key,url]) => [key, await fetchOfficial(url)]));
   const pages = Object.fromEntries(entries);
   const observed = parsePermitFacts(pages.access);
+  if (baseline.seasonYear === '2026–27' && !visibleText(pages.access).includes('last season the Map Booklet for Public Hunting Lands will be printed')) {
+    throw new Error('2026–27 TPWD final printed map-booklet advisory changed; review access instructions.');
+  }
   checkOtherOfficialSources(pages, baseline.seasonYear);
   const updated = reconcile(baseline, observed, new Date().toISOString().slice(0,10));
   if (updated && process.argv.includes('--write')) {

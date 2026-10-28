@@ -1,0 +1,81 @@
+name: Verify Texas camping authority in production
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 12 * * *'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  pull_request:
+    paths:
+      - '.github/workflows/verify-camping-authority-production.yml'
+      - 'scripts/ci/verify-camping-authority-production.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-camping-live-verification
+  cancel-in-progress: true
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/verify-camping-authority-production.mjs
+      - run: node scripts/ci/verify-camping-authority-production.mjs --self-test
+
+  live:
+    needs: contract
+    if: >-
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+       && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate real, cache-busted canonical camping page
+        id: verify
+        continue-on-error: true
+        run: node scripts/ci/verify-camping-authority-production.mjs
+      - name: Open or reconcile a single camping live-production issue
+        if: steps.verify.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Camping authority: live production content or booking checks failed';
+            const url = context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
+            const body = 'The targeted live camping route check failed. Inspect canonical SSR HTML, five sourced advisories, 57 preserved campground profiles and direct operator instructions. Do not disable validations or falsely restamp research. Workflow: ' + url;
+            const {data: issues} = await github.rest.issues.listForRepo({owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
+            const prior = issues.find(x => x.title === title && !x.pull_request);
+            if (prior) await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:prior.number,body});
+            else await github.rest.issues.create({owner:context.repo.owner,repo:context.repo.repo,title,body});
+      - name: Close resolved camping live-production issue
+        if: steps.verify.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'Camping authority: live production content or booking checks failed';
+            const {data: issues} = await github.rest.issues.listForRepo({owner:context.repo.owner,repo:context.repo.repo,state:'open',per_page:100});
+            const prior = issues.find(x => x.title === title && !x.pull_request);
+            if (prior) {
+              await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:prior.number,body:'Targeted live camping verifier recovered. GitHub run: ' + context.runId});
+              await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:prior.number,state:'closed'});
+            }
+      - name: Fail if production is stale
+        if: steps.verify.outcome == 'failure'
+        run: exit 1

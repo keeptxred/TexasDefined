@@ -1,4 +1,5 @@
 import type { HuntingAuthorityLink, HuntingAuthorityTopic } from "./authority";
+import { YOUTH_HUNTING_FAQ, YOUTH_HUNTING_LAST_CHECKED, YOUTH_HUNTING_SEASON_YEAR, YOUTH_HUNTING_SEASONS } from "./youth-hunting-data";
 
 const tpwd = (label: string, href: string): HuntingAuthorityLink => ({ label, href, external: true });
 const internal = (label: string, href: string): HuntingAuthorityLink => ({ label, href });
@@ -75,9 +76,10 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
   "youth-hunting": topic({
     slug: "youth-hunting",
     eyebrow: "Texas youth hunting",
-    title: "Texas Youth Hunting Guide: 2026–27 Youth-Only Seasons & Requirements",
-    description: "Plan youth hunting in Texas with current TPWD youth-only season structure, licensing, hunter education, adult-accompaniment and public-hunt guidance.",
-    quickAnswer: "TPWD lists 2026–27 youth-only opportunities for duck, squirrel, wild turkey and white-tailed deer, but eligibility, adult accompaniment and county-specific rules differ by hunt. Verify the exact youth season plus license and hunter-education requirements before going afield.",
+    reviewedOn: YOUTH_HUNTING_LAST_CHECKED,
+    title: `Texas Youth Hunting Guide: ${YOUTH_HUNTING_SEASON_YEAR} Youth-Only Seasons & Requirements`,
+    description: `Official ${YOUTH_HUNTING_SEASON_YEAR} Texas youth-only deer, turkey, waterfowl and squirrel dates, $7 youth license rules, hunter education, mentored hunts and public-land access.`,
+    quickAnswer: `Texas youth-only seasons are generally for licensed hunters age 16 or younger. Early deer youth dates are ${YOUTH_HUNTING_SEASONS[0].dates}; dates and access vary by species and zone. The youth hunting license costs $7.`,
     about: ["Texas youth hunting", "Texas youth-only seasons", "TPWD youth hunts", "youth deer hunting Texas", "youth duck hunting Texas"],
     sections: [
       { heading: "Use the current youth-only season page", paragraphs: ["Youth-only seasons are not one universal statewide calendar. TPWD publishes species-specific and county-specific opportunities, including separate waterfowl zones and East Texas squirrel coverage.", legalReminder], links: [OFFICIAL.youthOnly, OFFICIAL.seasonDates] },
@@ -85,11 +87,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
       { heading: "Public youth hunts can add another layer", paragraphs: ["A youth season does not automatically open every public property. APH areas, drawn hunts and individual properties can have their own legal-game listings, applications, permits, check-in procedures and supervision instructions."], links: [PUBLIC, APH, DRAWN] },
     ],
     related: [LICENSE, EDUCATION, PUBLIC, DRAWN, internal("Texas hunting seasons", "/hunting/hunting-seasons"), COUNTIES],
-    faq: [
-      { question: "Which species have youth-only seasons in Texas for 2026–27?", answer: "TPWD lists youth-only opportunities for duck, squirrel, wild turkey and white-tailed deer. Dates, zones and eligible counties differ by species." },
-      { question: "Does a youth hunting license automatically make every youth-only hunt legal?", answer: "No. Season eligibility, hunter education, accompaniment, endorsements, permits and property-specific rules can still apply." },
-      { question: "Where should I verify a youth hunt?", answer: "Use TPWD's current youth-only season page plus the county, species and property-specific rules for the exact hunt." },
-    ],
+    faq: [...YOUTH_HUNTING_FAQ],
   }),
 
   "squirrel-hunting": speciesTopic({

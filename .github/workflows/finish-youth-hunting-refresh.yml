@@ -1,0 +1,135 @@
+name: Finish Texas Youth Hunting Calendar Refresh
+
+on:
+  workflow_run:
+    workflows:
+      - Monitor Texas youth hunting authority
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful scheduled TPWD youth-only calendar run ID
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: texas-youth-hunting-calendar-finisher
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'pull_request')
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Finish verified TPWD youth-season PR under protected branch checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN_ID: ${{ inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == 'workflow_run' ]]; then
+            run_id="$SOURCE_RUN_ID"
+          else
+            run_id="$MANUAL_RUN_ID"
+          fi
+          [[ "$run_id" =~ ^[0-9]+$ ]] || { echo '::error::Invalid source run ID'; exit 1; }
+          branch="automation/youth-hunting-dates-$run_id"
+          pr_json="$(gh pr list --repo "$REPOSITORY" --base main --state open --head "$branch" \
+            --limit 2 --json number,url,title,headRefName,headRefOid)"
+          count="$(jq 'length' <<< "$pr_json")"
+          if [[ "$count" == '0' ]]; then
+            echo 'No official TPWD youth-only season-date changes in this run.'
+            exit 0
+          fi
+          [[ "$count" == '1' ]] || { echo "::error::Ambiguous scheduled reference facts refresh PR count $count"; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$pr_json")"
+          url="$(jq -r '.[0].url' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
+          actual_branch="$(jq -r '.[0].headRefName' <<< "$pr_json")"
+          author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
+          [[ "$title" == 'Refresh verified TPWD youth-only season dates' &&
+             "$actual_branch" == "$branch" && "$author" == 'github-actions[bot]' ]] || {
+            echo '::error::Unexpected TPWD calendar refresh PR identity'; exit 1;
+          }
+          git config user.name 'Texas Defined Data Refresh Finisher'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch --no-tags origin main "$branch"
+          merge_base="$(git merge-base origin/main "origin/$branch")"
+          for changed in $(git diff --name-only "$merge_base" "origin/$branch"); do
+            case "$changed" in
+              src/data/hunting/youth-hunting-data.ts) ;;
+              *) echo "::error::Unexpected automated calendar edit $changed"; exit 1 ;;
+            esac
+          done
+          git checkout -B "$branch" "origin/$branch"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            if ! git merge --no-edit origin/main; then
+              git merge --abort || true
+              echo '::error::Main overlaps the official youth-calendar update; manual review required.'
+              exit 1
+            fi
+            git push origin "HEAD:$branch"
+          fi
+          validated_sha="$(git rev-parse HEAD)"
+          # GITHUB_TOKEN-created PRs do not trigger pull_request checks;
+          # use the existing exact-branch canonical workflow dispatcher.
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
+            echo '::error::Generated PR moved during validation'; exit 1;
+          }
+          if ! git merge-base --is-ancestor origin/main "origin/$branch"; then
+            shared_base="$(git merge-base origin/main "origin/$branch")"
+            if git diff --quiet "$shared_base" origin/main -- \
+              src/data/hunting/youth-hunting-data.ts \
+              src/data/hunting/authority-v2.ts \
+              src/components/hunting/YouthHuntingPage.tsx \
+              src/components/hunting/HuntingTopicPage.tsx \
+              src/components/hunting/HuntingSchema.tsx \
+              scripts/data/refresh-youth-hunting-calendar.mjs \
+              scripts/data/validate-youth-hunting.mjs; then
+              echo 'Unrelated main commits occurred during validation; exact youth authority head remains independently verified.'
+            else
+              echo '::error::Governed hunting sources changed on main during validation; leave PR open for safe reconciliation.'
+              exit 1
+            fi
+          fi
+          gh api --method POST "repos/$REPOSITORY/statuses/$validated_sha" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Canonical validation passed for verified TPWD youth-calendar source' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"
+          echo "Protected TPWD youth-calendar auto-merge enabled for verified commit: $url" >> "$GITHUB_STEP_SUMMARY"
+          merged=false
+          for attempt in $(seq 1 30); do
+            merged="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.merged')"
+            if [[ "$merged" == 'true' ]]; then break; fi
+            current_head="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.head.sha')"
+            [[ "$current_head" == "$validated_sha" ]] || { echo '::error::Scheduled PR head moved after validation'; exit 1; }
+            sleep 10
+          done
+          [[ "$merged" == 'true' ]] || { echo '::error::Protected auto-merge has not completed; leave PR open for safe retry'; exit 1; }
+          git fetch --no-tags origin main
+          git merge-base --is-ancestor "$validated_sha" origin/main || { echo '::error::Validated calendar head absent from main'; exit 1; }
+          # GITHUB_TOKEN-authored merges do not trigger production push workflows:
+          # dispatch the EXISTING serialized publisher only after verifying protected merge.
+          gh workflow run deploy-production.yml --ref main --repo "$REPOSITORY"
+          echo "Merged verified calendar and dispatched normal protected production deployment." >> "$GITHUB_STEP_SUMMARY"
+
