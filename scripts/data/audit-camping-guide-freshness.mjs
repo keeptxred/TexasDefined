@@ -10,7 +10,7 @@ for (const name of profileFiles) {
   const text = fs.readFileSync(path.join(directory, name), "utf8");
   for (const match of text.matchAll(/(?:url|reservationUrl):\s*"(https:\/\/[^"]+)"/g)) {
     const u = normalize(match[1]);
-    if (/^(?:https:\/\/)(?:tpwd\.texas\.gov|www\.nps\.gov|www\.recreation\.gov|www\.fs\.usda\.gov|www\.swf-wc\.usace\.army\.mil)/.test(u)) refs.set(u, name);
+    if (/^(?:https:\/\/)(?:tpwd\.texas\.gov|www\.nps\.gov|www\.recreation\.gov|www\.fs\.usda\.gov|www\.swf-wc\.usace\.army\.mil|lcraparks\.com|www\.brackenridgepark\.com|sratx\.org|www\.gbra\.org|www\.lnra\.org)/.test(u)) refs.set(u, name);
   }
   for (const match of text.matchAll(/(?:VERIFIED_AT\s*=|verifiedAt:)\s*"(\d{4}-\d{2}-\d{2})"/g)) {
     reviewDates.push({ file: name, date: match[1] });
