@@ -12,7 +12,7 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "enchanted-rock-state-natural-area",
     "parkName": "Enchanted Rock State Natural Area",
     "sourceUrl": "https://tpwd.texas.gov/state-parks/enchanted-rock/alert",
-    "notice": "Park closures scheduled November 2–6 and November 30–December 4, 2026, and January 25–29, 2027. Backcountry trails may close intermittently.",
+    "notice": "TPWD lists scheduled park closures for November 2–6, 2026; November 30–December 4, 2026; January 25–29, 2027. Backcountry trails may close intermittently.",
     "checkedAt": "2026-10-28",
     "status": "confirmed"
   },

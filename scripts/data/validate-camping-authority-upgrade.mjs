@@ -16,6 +16,9 @@ for (const [src,needle] of [
   [alerts,"palo-pinto-mountains-state-park"],
   [monitor,"schedule:"],
   [monitor,"needs-review"],
+  [monitor,"--auto --squash"],
+  [monitor,"steps.refresh.outcome == 'success'"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"unchanged ? previous.checkedAt : day"],
   [health,"schedule:"],
   [health,"audit-camping-guide-freshness.mjs"]
 ]) if (!src.includes(needle)) throw Error("Camping authority missing: " + needle);

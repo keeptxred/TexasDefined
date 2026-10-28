@@ -35,6 +35,12 @@ const normalize = html => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " 
   .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
   .replace(/<[^>]*>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
   .replace(/&amp;/gi, "&").replace(/\s+/g, " ").trim();
+// Keep the page's verification date stable on successful no-op checks. The
+// workflow logs/artifact record every check; the published page changes only
+// when the actual notice or confidence status changes.
+const oldFile = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, "utf8") : "";
+const priorMatch = oldFile.match(/export const CAMPING_OPERATIONAL_ALERTS = (\[[\s\S]*?\]) as const;/);
+const oldAlerts = priorMatch ? JSON.parse(priorMatch[1]) : [];
 const rows = [];
 for (const source of sources) {
   const controller = new AbortController();
@@ -52,8 +58,12 @@ for (const source of sources) {
       || windows.some(w => w.end >= day && w.pattern.test(text)));
   const notice = confirmed ? (typeof source.notice === "function" ? source.notice(text) : source.notice)
     : "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.";
+  const status = confirmed ? "confirmed" : "needs-review";
+  const previous = oldAlerts.find(old => old.destinationSlug === source.destinationSlug);
+  const unchanged = previous && previous.parkName === source.parkName
+    && previous.sourceUrl === source.sourceUrl && previous.notice === notice && previous.status === status;
   rows.push({ destinationSlug: source.destinationSlug, parkName: source.parkName, sourceUrl: source.sourceUrl,
-    notice, checkedAt: day, status: confirmed ? "confirmed" : "needs-review" });
+    notice, checkedAt: unchanged ? previous.checkedAt : day, status });
   console.log(source.parkName + ": " + (confirmed ? "confirmed" : "changed — needs review"));
 }
 const output = "/** Generated from official TPWD alert pages; do not manually restamp verified dates. */\nexport const CAMPING_OPERATIONAL_ALERTS = " + JSON.stringify(rows, null, 2) + " as const;\n";
