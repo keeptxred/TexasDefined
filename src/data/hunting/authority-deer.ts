@@ -81,10 +81,10 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       ],
     },
     {
-      heading: "Tag your deer immediately and complete the harvest log",
+      heading: "Deer tagging, harvest logs and digital licenses",
       paragraphs: [
-        "For paper licenses, immediately complete the appropriate buck or antlerless tag, mark the harvest date as TPWD instructs, and attach it to the deer before field dressing or moving it. Complete the white-tailed deer harvest log on the hunting license when required. Special-issued tags such as MLDP tags use their own applicable procedures.",
-        "Fully digital license holders must execute the appropriate digital tag in the Texas Hunt & Fish app immediately after harvest, and deer still require physical handwritten documentation attached to the carcass. With service, record the app confirmation number on durable material; without service, follow TPWD's offline identification instructions and submit the saved report once connectivity returns. A digital license is not the same as a paper license purchased online.",
+        "For paper licenses, follow current TPWD rules for the correct buck or antlerless tag, harvest date, attachment and license harvest log. The timing of each step matters, and special-issued tags such as MLDP tags use their own procedures. Consult the current TPWD instructions before field dressing or moving a harvested deer.",
+        "Fully digital license holders should follow TPWD’s current Texas Hunt & Fish digital tagging, carcass identification and reporting process; online and offline procedures may differ. A paper license purchased online is not necessarily a fully digital license. Use TPWD’s official instructions for required timing and physical documentation.",
         "Keep the necessary proof of sex and documentation with the animal during transportation and consult TPWD guidance before quartering, transferring or taking a carcass out of a CWD zone.",
       ],
       links: [
@@ -206,7 +206,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     },
     {
       question: "How quickly must a harvested deer be tagged?",
-      answer: "Immediately after harvest and before field dressing or moving the animal. The precise process differs for paper tags, fully digital tags and special-issued management permits.",
+      answer: "Follow current TPWD rules for the precise deadline and process. Paper tags, fully digital tags and special-issued management permits can have different attachment, reporting and handling requirements.",
     },
     {
       question: "When is CWD testing mandatory for a Texas deer?",
