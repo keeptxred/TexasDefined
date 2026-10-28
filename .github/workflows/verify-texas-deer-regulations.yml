@@ -52,6 +52,16 @@ jobs:
           node scripts/data/verify-texas-deer-regulations.mjs --offline
           node scripts/data/validate-hunting-authority.mjs
           node scripts/data/verify-texas-deer-production.mjs --self-test
+      - name: Verify current live deer page on date-neutral PRs
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet origin/main HEAD -- src/data/hunting/deer-season-dates.json; then
+            node scripts/data/verify-texas-deer-production.mjs
+          else
+            echo 'PR changes governed dates; live page will be checked after the protected deployment, not before publication.'
+          fi
       - name: Compare TPWD animal and statewide calendars
         if: github.event_name != 'pull_request'
         id: official
