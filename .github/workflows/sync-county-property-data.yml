@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - 'scripts/data/sync-county-property-data.mjs'
+      - '.github/workflows/sync-county-property-data.yml'
   workflow_dispatch:
     inputs:
       county:
@@ -79,9 +80,18 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         id: branch
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           branch="automation/county-property-refresh-${GITHUB_RUN_ID}"
+          base_sha="$(git rev-parse main)"
+          # GitHub's token can update source data but cannot introduce
+          # workflow changes in an initial remote branch push. Create
+          # the branch at existing trusted main via the git-refs API first;
+          # push only the new source-data commit on top of that known SHA.
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/git/refs" \
+            -f ref="refs/heads/$branch" -f sha="$base_sha" >/dev/null
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -b "$branch"
