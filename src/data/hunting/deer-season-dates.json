@@ -4,6 +4,16 @@
   "sourceCheckedAt": "2026-10-28",
   "officialDeerUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer",
   "officialCalendarUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/2026-2027-hunting-season-dates",
+  "regulations": {
+    "openCountyCount": 252,
+    "annualBagMax": 5,
+    "annualBuckMax": 3,
+    "reportingHours": 24,
+    "buckAndAntlerlessReportingCounties": "Collin, Dallas, Grayson, Rockwall",
+    "antlerlessReportingCounties": "Austin, Bastrop, Caldwell, Colorado, Comal (East of I-35), De Witt, Fayette, Goliad (North of US 59), Gonzales, Guadalupe, Hays (East of I-35), Jackson (north of US 59), Karnes, Lavaca, Lee, Travis (East of I-35), Victoria (North of US 59), Waller, Washington, Wharton (North of US 59), and Wilson",
+    "specialAntlerSpreadInches": 13,
+    "specialLateRestriction": "antlerless and unbranched antlered deer (a buck with at least one antler that has no more than one point)"
+  },
   "rows": [
     {
       "id": "archery",
