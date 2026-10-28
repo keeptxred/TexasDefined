@@ -9,6 +9,13 @@ CREATE TABLE IF NOT EXISTS public.texasdefined_group_event_provider_locations (
   provider_entity_id uuid REFERENCES public.explore_entities(id) ON DELETE RESTRICT,
   legacy_provider_slug text,
   location_id uuid NOT NULL REFERENCES public.explore_locations(id) ON DELETE RESTRICT,
+  venue_min_capacity integer CHECK (venue_min_capacity > 0),
+  venue_max_capacity integer CHECK (venue_max_capacity > 0),
+  group_suitability text NOT NULL DEFAULT 'unknown'
+    CHECK (group_suitability IN ('supported','unsupported','unknown')),
+  setting text NOT NULL DEFAULT 'unknown'
+    CHECK (setting IN ('indoor','outdoor','mixed','unknown')),
+  CHECK (venue_min_capacity IS NULL OR venue_max_capacity IS NULL OR venue_min_capacity <= venue_max_capacity),
   verification_status text NOT NULL DEFAULT 'unverified'
     CHECK (verification_status IN ('unverified','verified','stale')),
   source_url text,
@@ -102,6 +109,9 @@ CREATE TABLE IF NOT EXISTS public.texasdefined_group_event_packages (
   experience_id uuid NOT NULL REFERENCES public.texasdefined_group_event_experiences(id) ON DELETE RESTRICT,
   name text NOT NULL CHECK (char_length(name) BETWEEN 2 AND 180),
   description text,
+  -- Package contents are operator-described facts; unverified fields remain empty.
+  included_activities text[] NOT NULL DEFAULT '{}',
+  food_and_beverage_details text,
   min_participants integer CHECK (min_participants > 0),
   max_participants integer CHECK (max_participants > 0),
   duration_minutes integer CHECK (duration_minutes > 0 AND duration_minutes <= 10080),
