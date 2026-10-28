@@ -2,6 +2,10 @@ import fs from 'node:fs';
 
 const speciesSeasons = JSON.parse(fs.readFileSync('src/data/hunting/species-season-calendar.json', 'utf8'));
 const deerSeasons = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
+const freshnessFile = fs.readFileSync('src/data/hunting/freshness.ts', 'utf8');
+const reviewedLabel = /lastVerifiedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
+const editorialLabel = /editorialUpdatedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
+if (!reviewedLabel || !editorialLabel) throw new Error('Hunting production smoke lacks dated official and editorial markers');
 function deerDate(id, edge) {
   const row = deerSeasons.rows.find((item) => item.id === id);
   if (!row || !row[edge]) throw new Error('Missing verified deer season date: ' + id + '.' + edge);
@@ -187,7 +191,11 @@ async function verify() {
   requireText(hub, 'Four decisions before choosing a hunting spot', 'Hunting hub');
   requireText(hub, 'TPWD hunting area finder', 'Hunting hub');
   requireText(hub, '2026–27 regulation changes', 'Hunting hub');
-  requireText(hub, 'Source review October 28, 2026', 'Hunting hub');
+  requireText(hub, 'Source review ' + reviewedLabel, 'Hunting hub');
+  requireText(hub, 'Editorial hub updated ' + editorialLabel, 'Hunting hub');
+  requireText(hub, 'Texas hunting season planner', 'Hunting hub');
+  requireText(hub, 'Species or game category', 'Hunting hub');
+  requireText(hub, 'White-tailed deer', 'Hunting hub');
 
   representativeTopics.forEach((topic, index) => {
     const visibleText = topicBodies[index];
