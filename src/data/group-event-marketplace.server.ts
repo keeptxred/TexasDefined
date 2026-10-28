@@ -81,7 +81,26 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
     tagsByExperience.set(item.experience_id, entry);
   }
 
-  const providerEntityIds = [...new Set(rows.map((r: any) => r.provider_entity_id).filter(Boolean))];
+  // Resolve the existing Explore location, never confuse a provider/location
+  // junction UUID with the physical location UUID or fabricate addresses.
+  const linkIds = [...new Set(rows.map((r: any) => r.provider_location_id).filter(Boolean))];
+  const locationLinks = new Map<string, any>();
+  if (linkIds.length) {
+    const { data: links, error: linkError } = await admin
+      .from('texasdefined_group_event_provider_locations')
+      .select('id,provider_entity_id,legacy_provider_slug,location_id,verification_status,source_url,verified_at')
+      .in('id',linkIds);
+    if (linkError) throw new Error('Marketplace location verification is temporarily unavailable.');
+    for (const link of links ?? []) {
+      if (link.verification_status === 'verified' && link.verified_at && link.source_url?.startsWith('https://')) {
+        locationLinks.set(link.id,link);
+      }
+    }
+  }
+  const providerEntityIds = [...new Set(rows.flatMap((r: any) => {
+    const link = r.provider_location_id ? locationLinks.get(r.provider_location_id) : null;
+    return [r.provider_entity_id, link?.provider_entity_id].filter(Boolean);
+  }))];
   const providerNames = new Map<string,string>();
   if (providerEntityIds.length) {
     const { data: providers, error: providerError } = await admin
@@ -92,20 +111,26 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
 
   const experiences: MarketplaceExperience[] = [];
   for (const row of rows) {
-    const legacy = row.legacy_provider_slug ? legacyProviders.get(row.legacy_provider_slug) : null;
-    const providerName = (row.provider_entity_id && providerNames.get(row.provider_entity_id)) || legacy?.name;
+    const link = row.provider_location_id ? locationLinks.get(row.provider_location_id) : null;
+    if (row.provider_location_id && !link) continue; // Location evidence must be verified.
+    if (link?.provider_entity_id && row.provider_entity_id && link.provider_entity_id !== row.provider_entity_id) continue;
+    if (link?.legacy_provider_slug && row.legacy_provider_slug && link.legacy_provider_slug !== row.legacy_provider_slug) continue;
+    const entityId = row.provider_entity_id ?? link?.provider_entity_id ?? null;
+    const legacySlug = row.legacy_provider_slug ?? link?.legacy_provider_slug ?? null;
+    const legacy = legacySlug ? legacyProviders.get(legacySlug) : null;
+    const providerName = (entityId && providerNames.get(entityId)) || legacy?.name;
     if (!providerName) continue; // Never fabricate an operator identity.
     const classified = tagsByExperience.get(row.id) ?? { occasions: [], activities: [], amenities: [] };
     experiences.push({
       id: row.id,
       provider: {
-        entityId: row.provider_entity_id ?? null,
-        legacySlug: row.legacy_provider_slug ?? null,
+        entityId,
+        legacySlug,
         name: providerName,
         source: { officialUrl: row.source_url, lastCheckedAt: row.last_checked_at,
           lastVerifiedAt: row.verified_at, status: row.verification_status as MarketplaceVerification },
       },
-      locationId: row.provider_location_id ?? null,
+      locationId: link?.location_id ?? null,
       servedCities: Array.isArray(row.service_cities) ? row.service_cities : [],
       name: row.name,
       minParticipants: row.min_participants,
