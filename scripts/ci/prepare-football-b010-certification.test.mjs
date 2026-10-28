@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { verifyChromeReport, graduateBatch010 } from './prepare-football-b010-certification.mjs';
+import { verifyChromeReport, graduateBatch010, sharedReleaseShas, selectCommonWorkerReports } from './prepare-football-b010-certification.mjs';
 const worker='123e4567-e89b-42d3-a456-426614174000';
 const sha='f'.repeat(40);
 const slugs=Array.from({length:25},(_,i)=>'school-'+i);
@@ -72,4 +72,43 @@ test('reject green-but-skipped and incomplete browser evidence',()=>{
   report.schoolChecks[2].width=390;
   assert.throws(()=>verifyChromeReport(report,0,slugs.slice(0,5),worker,sha,20),
     /viewport width/);
+});
+
+test('selects an older common release when latest individual Chrome runs are from different deployments',()=>{
+  const old='a'.repeat(40), newA='b'.repeat(40), newB='c'.repeat(40);
+  const run=(sha,minute)=>({head_sha:sha,created_at:'2026-10-28T22:'+minute+':00Z'});
+  const five=[
+    [run(newA,'40'),run(old,'30')],
+    [run(newB,'45'),run(old,'32')],
+    [run(old,'33')],
+    [run(newA,'47'),run(old,'34')],
+    [run(old,'36')]
+  ];
+  assert.deepEqual(sharedReleaseShas(five),[old]);
+  assert.deepEqual(sharedReleaseShas([five[0],[],five[2],five[3],five[4]]),[]);
+});
+test('tries shared releases newest first and ignores malformed SHA',()=>{
+  const older='a'.repeat(40), newer='f'.repeat(40);
+  const row=(head_sha,created_at)=>({head_sha,created_at});
+  const five=Array.from({length:5},()=>[
+    row(older,'2026-10-28T22:10:00Z'),row(newer,'2026-10-28T22:35:00Z'),
+    row('invalid','2026-10-28T22:59:00Z')]);
+  assert.deepEqual(sharedReleaseShas(five),[newer,older]);
+});
+
+test('selects a matching Worker among multiple deployments of the same source SHA',()=>{
+  const workerA='123e4567-e89b-42d3-a456-426614174000';
+  const workerB='123e4567-e89b-42d3-a456-426614174001';
+  const runs=[
+    [{sha,worker:workerB,id:'latest-first'},{sha,worker:workerA,id:'older-first'}],
+    [{sha,worker:workerA,id:'second'}],
+    [{sha,worker:workerA,id:'third'}],
+    [{sha,worker:workerA,id:'fourth'}],
+    [{sha,worker:workerA,id:'fifth'}]
+  ];
+  const selected=selectCommonWorkerReports(runs);
+  assert.ok(selected);
+  assert.deepEqual(selected.map(x=>x.id),['older-first','second','third','fourth','fifth']);
+  assert.equal(selectCommonWorkerReports(runs.map((xs,i)=>
+    i===4?[{sha,worker:workerB,id:'no-match'}]:xs)),null);
 });
