@@ -149,12 +149,12 @@ function CampingGuidePage() {
       <Container>
         <p className="eyebrow text-primary">Before you travel</p>
         <h2 className="mt-2 font-display text-3xl md:text-4xl">Recent official park advisories</h2>
-        <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">These notices are verified against the parks' published alerts. The publication verification date changes only when a notice changes; the scheduled source checker runs independently. Neither is a live availability guarantee. Always open the primary source before leaving home.</p>
+        <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">Confirmed notices are matched against official park alerts. If a source changes, its notice switches to a needs-review warning rather than retaining an unsupported claim. Published verification dates change only when notice status or content changes; scheduled checks run independently. Neither is a live availability guarantee. Open the primary source before traveling.</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {CAMPING_OPERATIONAL_ALERTS.map((alert) => <article key={alert.destinationSlug} className="border border-border bg-background p-5">
             <h3 className="font-display text-xl">{alert.parkName}</h3>
             <p className="mt-2 text-sm leading-6">{alert.notice}</p>
-            <p className="mt-2 text-xs text-muted-foreground">Advisory verified {alert.checkedAt} · {alert.status === "confirmed" ? "Notice verified" : "Changed; recheck official source"}</p>
+            <p className="mt-2 text-xs text-muted-foreground">{alert.status === "confirmed" ? "Advisory verified" : "Advisory last checked"} {alert.checkedAt} · {alert.status === "confirmed" ? "Notice verified" : "Changed; recheck official source"}</p>
             <a href={alert.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Official park alerts ↗</a>
           </article>)}
         </div>
