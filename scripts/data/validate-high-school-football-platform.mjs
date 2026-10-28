@@ -2769,8 +2769,8 @@ if(batch009Certified) {
  const totals=reg.schoolRecords.reduce((a,row)=>(a[row.status]=(a[row.status]||0)+1,a),{});
  if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
    reg.batch.remainingToImplement!==0||reg.batch.nextSchool!==null||
-   reg.batch.remainingToVerify!==25||totals.VERIFIED!==205||totals.IMPLEMENTED!==20||
-   totals.NOT_REVIEWED!==1067)
+   reg.batch.remainingToVerify!==25||totals.VERIFIED!==205||totals.IMPLEMENTED!==25||
+   totals.NOT_REVIEWED!==1062)
    errors.push('Batch010 fourth cohort must maintain 205 VERIFIED / 25 IMPLEMENTED / 1062 NOT_REVIEWED, all assigned schools authored');
  const graphicList=team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
  for(const [slug,countySlug,coach] of schools) {
