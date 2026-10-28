@@ -2,12 +2,13 @@ export type CorporateEventResponseLead = {
   created_at: string;
   status: string;
   first_contacted_at: string | null;
-  first_contact_evidence_reference: string | null;
+  first_contact_evidence_recorded: boolean;
 };
 
 /** Staff-recorded first contact needs BOTH credible timing and private evidence.
- * The private reference is never returned to a public endpoint or displayed.
- * This establishes record integrity, not independent confirmation of delivery.
+ * Only a server-derived evidence-present boolean is sent to the staff UI;
+ * the actual private reference never leaves the server. This is record
+ * integrity, not independent confirmation of delivery.
  */
 export function hasRecordedCorporateEventFirstContact(
   lead: CorporateEventResponseLead,
@@ -15,10 +16,9 @@ export function hasRecordedCorporateEventFirstContact(
 ): boolean {
   const createdAt = Date.parse(lead.created_at);
   const contactedAt = lead.first_contacted_at ? Date.parse(lead.first_contacted_at) : NaN;
-  const evidence = lead.first_contact_evidence_reference?.trim() ?? '';
   return Number.isFinite(createdAt) && Number.isFinite(contactedAt)
     && contactedAt >= createdAt && contactedAt <= now.getTime()
-    && evidence.length >= 20 && evidence.length <= 500;
+    && lead.first_contact_evidence_recorded === true;
 }
 
 
