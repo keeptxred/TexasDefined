@@ -54,6 +54,8 @@ CREATE TABLE IF NOT EXISTS public.texasdefined_group_event_experiences (
     CHECK (group_booking_status IN ('eligible','ineligible','unknown')),
   participation_status text NOT NULL DEFAULT 'independent'
     CHECK (participation_status IN ('independent','participating','sponsored')),
+  -- Existing private partner application is the evidence anchor, not a new login.
+  partner_application_id uuid REFERENCES public.texasdefined_group_event_partner_applications(id) ON DELETE RESTRICT,
   participation_approved_at timestamptz,
   sponsorship_approved_at timestamptz,
   source_url text,
@@ -72,7 +74,7 @@ CREATE TABLE IF NOT EXISTS public.texasdefined_group_event_experiences (
   CHECK (min_participants IS NULL OR max_participants IS NULL OR min_participants <= max_participants),
   CHECK (simultaneous_capacity IS NULL OR max_participants IS NULL OR simultaneous_capacity <= max_participants),
   CHECK (source_url IS NULL OR left(source_url,8) = 'https://'),
-  CHECK (participation_status = 'independent' OR participation_approved_at IS NOT NULL),
+  CHECK (participation_status = 'independent' OR (partner_application_id IS NOT NULL AND participation_approved_at IS NOT NULL)),
   CHECK (participation_status <> 'sponsored' OR sponsorship_approved_at IS NOT NULL),
   CHECK (NOT is_published OR (verification_status = 'verified' AND source_url IS NOT NULL AND verified_at IS NOT NULL)),
   CHECK (NOT is_published OR primary_media_id IS NULL OR primary_media_rights <> 'unconfirmed')
@@ -82,6 +84,9 @@ COMMENT ON TABLE public.texasdefined_group_event_experiences IS
 CREATE INDEX IF NOT EXISTS td_ge_experience_public_read
   ON public.texasdefined_group_event_experiences (is_published,verification_status,participation_status)
   WHERE is_published = true;
+CREATE INDEX IF NOT EXISTS td_ge_experience_partner_evidence
+  ON public.texasdefined_group_event_experiences (partner_application_id)
+  WHERE partner_application_id IS NOT NULL;
 CREATE INDEX IF NOT EXISTS td_ge_experience_provider_entity
   ON public.texasdefined_group_event_experiences (provider_entity_id)
   WHERE provider_entity_id IS NOT NULL;
