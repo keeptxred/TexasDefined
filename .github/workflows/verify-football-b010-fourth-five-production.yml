@@ -1,0 +1,70 @@
+name: Football Batch 010 fourth-five live production acceptance
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: football-b010-fourth-five-live-acceptance
+  cancel-in-progress: false
+jobs:
+  chrome:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - name: Detect pending Batch 010 school verification
+        id: scope
+        shell: bash
+        env:
+          MANUAL_ACCEPTANCE: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          if [[ "$MANUAL_ACCEPTANCE" == "true" ]]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if ! node -e 'const r=require("./docs/football-authority/REGISTRY.json");const five=["clute-brazoswood","clyde","coahoma","coldspring-oakhurst","coleman"];process.exit(r.batch.number===10 && five.some(s=>r.schoolRecords.find(x=>x.slug===s)?.status!=="VERIFIED") ? 0 : 1)'; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # A CI success with skipped Chrome steps never certifies the release.
+          # Only run automatically on a matching football source/validator/registry deploy;
+          # manual dispatch remains available for another exact-version acceptance.
+          git diff --name-only HEAD^ HEAD > /tmp/b010-changed-paths.txt
+          if grep -Eq '^(docs/football-authority/REGISTRY[.]json|src/data/high-school-football/(program-editorial-b010.*|football-program-profile[.]server[.]ts|school-identities[.]ts)|src/routes/(texas-high-school-football-teams_[.][$]slug[.]lazy[.]tsx|[$]kind[.][$]slug[.]lazy[.]tsx)|scripts/ci/verify-football-b010-second-five-production[.]mjs|[.]github/workflows/verify-football-b010-second-five-production[.]yml)$' /tmp/b010-changed-paths.txt; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Batch 010 fourth-five source changed: executing strict Chrome acceptance."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Unrelated deploy: no Batch 010 fourth-five production certification."
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check strict Batch 010 script
+        if: steps.scope.outputs.run == 'true'
+        run: node --check scripts/ci/verify-football-b010-fourth-five-production.mjs
+      - name: Install isolated Chrome driver
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b010-fourth-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify 5 schools at 3 viewports, no unsourced score graphics, 5 counties, sitemap and Worker version
+        if: steps.scope.outputs.run == 'true'
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-football-b010-fourth-five-production.mjs
+      - name: Preserve success or failure evidence
+        if: always() && steps.scope.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b010-fourth-five-production-chrome
+          path: artifacts/b010-second-five-production-chrome/
+          retention-days: 21
+          if-no-files-found: warn
