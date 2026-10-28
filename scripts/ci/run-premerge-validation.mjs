@@ -127,6 +127,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE/OUTCOMES', 'Protect evidence-only quote, booking, dispute, and revenue ledger', 'node', ['scripts/data/validate-corporate-event-outcomes.mjs']],
   ['EVENT/CORPORATE/AGREEMENTS', 'Require verified signed partner agreements for offers and private quote drafts', 'node', ['scripts/data/validate-corporate-event-partner-agreements.mjs']],
   ['EVENT/CORPORATE/SECURITY', 'Enforce atomic private planner and partner intake limits', 'node', ['scripts/data/validate-corporate-event-atomic-intake.mjs']],
+  ['EVENT/CORPORATE/ACCESS-RUNTIME', 'Execute private staff handlers with invalid credentials and block database access', 'node', ['scripts/data/validate-corporate-event-access-runtime.mjs']],
   ['EVENT/CORPORATE/RESPONSE', 'Require real independently documented planner first-contact evidence before SLA changes', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-response-sla.mjs']],
   ['EVENT/CORPORATE/PARTNER-OUTREACH', 'Require genuine private evidence for venue business outreach and follow-ups', 'node', ['scripts/data/validate-corporate-event-partner-outreach.mjs']],
   ['EVENT/CORPORATE/PARTNER-FOLLOWUPS', 'Suppress superseded due venue reminders after real new contact evidence', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-partner-followups.mjs']],
