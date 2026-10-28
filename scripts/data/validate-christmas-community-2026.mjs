@@ -28,7 +28,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 245, "The 245 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 248, "The 248 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 const seasonStarts = events.map((event) => event.startDate).sort();
 const seasonEnds = events.map((event) => event.endDate ?? event.startDate).sort();
@@ -101,6 +101,25 @@ assert.equal(candidates.candidates.find(x => x.intakeId === 24)?.status, "candid
   "Temple's unrelated military Nature in Lights dates must not be invented");
 assert.equal(candidates.candidates.find(x => x.intakeId === 133)?.status, "candidate-needs-source-reconciliation",
   "Port Lavaca Festival of Trees cannot be inferred from the Bayfront event");
+for (const [slug, date, sourceHint, candidateId] of [
+  ["kingsville-ranch-hand-weekend-holiday-2026", "2026-11-20", "kingsvilletexas.com", 180],
+  ["plainview-christmas-parade-of-lights-2026", "2026-12-03", "plainviewtexaschamber.com", 232],
+  ["corsicana-palace-theatre-dean-martin-christmas-2026", "2026-12-10", "corsicanapalace.com", 95],
+]) {
+  check(slug, date);
+  const event = bySlug.get(slug);
+  assert.equal(event.sourceVerifiedAt, "2026-10-27", `${slug}: verified date mismatch`);
+  assert.ok(new URL(event.officialEventUrl).hostname.includes(sourceHint), `${slug}: official source mismatch`);
+  const intake = candidates.candidates.find(x => x.intakeId === candidateId);
+  assert.equal(intake?.status, "sourced-calendar", `${slug}: original candidate not reconciled`);
+  assert.ok(intake?.calendarSlugs?.includes(slug), `${slug}: original candidate mapping absent`);
+}
+assert.equal(bySlug.get("kingsville-ranch-hand-weekend-holiday-2026")?.endDate, "2026-11-21",
+  "Kingsville Christmas tree lighting and Ranch Hand Weekend must use the correct two-day window");
+assert.ok(bySlug.get("kingsville-ranch-hand-weekend-holiday-2026")?.summary.includes("$15"),
+  "Do not omit the separate paid King Ranch breakfast cost");
+assert.ok(bySlug.get("corsicana-palace-theatre-dean-martin-christmas-2026")?.summary.includes("one dated holiday stage performance"),
+  "Do not invent a multi-week run for the Corsicana one-night show");
 for (const slug of [
   "conroe-tree-lighting-2026",
   "conroe-christmas-around-square-2026",
