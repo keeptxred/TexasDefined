@@ -15,6 +15,34 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'clarendon',
+    mascot: 'Broncos',
+    sourceUrl: 'https://www.clarendonisd.net/',
+    sourceLabel: 'Clarendon CISD current Bronco athletics identity',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'clarksville',
+    mascot: 'Tigers',
+    sourceUrl: 'https://www.clarksvilleisd.net/102770_2',
+    sourceLabel: 'Clarksville ISD school-controlled 2026 Tigers football schedule',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'claude',
+    mascot: 'Mustangs',
+    sourceUrl: 'https://www.claudeisd.net/athletics',
+    sourceLabel: 'Claude ISD 2026 official Mustangs football schedule',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'cleveland',
+    mascot: 'Indians',
+    sourceUrl: 'https://chs.clevelandisd.org/staff/?page_no=25',
+    sourceLabel: 'Cleveland High school campus athletics; team name source also verified against current 2026 team guide',
+    verifiedAt: '2026-10-27',
+  },
+  {
     slug: 'chilton',
     mascot: 'Pirates',
     sourceUrl: 'https://www.chiltonisd.org/athletics',
