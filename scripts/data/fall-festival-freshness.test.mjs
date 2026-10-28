@@ -32,6 +32,11 @@ test("fall page excludes expired dates, Christmas, unrelated events, and guessed
     example("A Texas business expo", "2026-11-01", "2026-11-02"),
     example("Unconfirmed Pumpkin Festival", "2026-11-02", "2026-11-03", { sourceCheckedAt: undefined }),
     example("Projected Folk Festival", "2026-11-02", "2026-11-03", { detail: "Recurrence-derived planning window" }),
+    example("Hollydays Market of Corpus Christi", "2026-11-06", "2026-11-08"),
+    example("South Pole Illuminated Festival", "2026-11-27", "2026-11-29"),
+    example("Wild Bright", "2026-11-27", "2026-12-28"),
+    example("H-E-B Thanksgiving Day Parade", "2026-11-26", "2026-11-26"),
+    example("Home for the Holidays Gift Market", "2026-11-20", "2026-11-22"),
     example("Texas Bowl Festival", "2026-11-01", "2026-11-02", { category: "sport" }),
   ];
   const result = resolveTemporalEventCollectionServer("fall-festivals", rows, october);
@@ -43,6 +48,23 @@ test("fall page excludes expired dates, Christmas, unrelated events, and guessed
   ]);
   assert.equal(result.shouldIndex, false, "never pad indexable count with stale/unverified events");
   assert.equal(result.items.every((item) => (item.endDate || item.startDate) >= "2026-10-26"), true);
+});
+
+test("keep legitimate autumn festivals while excluding holiday shopping and winter lights", () => {
+  const rows = [
+    example("Hollydays Market of Corpus Christi", "2026-11-06", "2026-11-08"),
+    example("South Pole Illuminated Festival", "2026-11-27", "2026-11-29"),
+    example("Wild Bright", "2026-11-27", "2026-12-28"),
+    example("H-E-B Thanksgiving Day Parade", "2026-11-26", "2026-11-26"),
+    example("Texas Butterfly Festival", "2026-11-07", "2026-11-10"),
+    example("Houston Diwali Festival of Lights", "2026-11-14", "2026-11-14"),
+    example("Homestead Fair", "2026-11-27", "2026-11-29"),
+  ];
+  const result = resolveTemporalEventCollectionServer("fall-festivals", rows, october);
+  assert.ok(result);
+  assert.deepEqual(result.items.map((event) => event.name), [
+    "Texas Butterfly Festival", "Houston Diwali Festival of Lights", "Homestead Fair",
+  ]);
 });
 
 test("fall page rolls into next September only after November without reviving old dates", () => {
