@@ -17,7 +17,16 @@ export const Route = createFileRoute("/hunting/$slug")({
     if (!loaderData) return {};
     const canonicalPath = `/hunting/${loaderData.slug}`;
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.title, description: loaderData.description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.title, description: loaderData.description,
+        ...(loaderData.slug === "texas-deer-hunting" ? {
+          type: "article" as const,
+          image: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt",
+          imageAlt: "White-tailed deer buck in grass, US Fish and Wildlife Service",
+          imageType: "image/jpeg",
+          imageWidth: 1300,
+          imageHeight: 863,
+        } : {}),
+      }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     };
   },
