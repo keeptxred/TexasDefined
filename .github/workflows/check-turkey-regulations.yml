@@ -45,12 +45,25 @@ jobs:
           node scripts/data/check-turkey-regulations.mjs > "$RUNNER_TEMP/turkey-check.log" 2>&1
           code=$?
           cat "$RUNNER_TEMP/turkey-check.log"
-          if [[ "$code" == "2" ]]; then
-            title="Review changed TPWD turkey regulations (2026–27)"
-            existing="$(gh issue list --state open --search 'Review changed TPWD turkey regulations in:title' --json number --jq '.[0].number' 2>/dev/null)"
+          if [[ "$code" != "0" ]]; then
+            case "$code" in
+              2)
+                title="Review changed TPWD turkey regulations (2026–27)"
+                summary="An official TPWD page no longer matches the editor-verified 2026–27 turkey guide. Re-check the original TPWD sources and update the guide, any relevant county exceptions and the editorial verification date only after validating the new rules."
+                ;;
+              3)
+                title="TPWD turkey regulation source unavailable (2026–27)"
+                summary="The official TPWD regulation monitor could not retrieve one or more authoritative pages. This is a transport failure, NOT evidence of a legal change. Investigate the failing requests and repeat the source verification before considering the guide fresh."
+                ;;
+              *)
+                title="TPWD turkey regulation monitor failed unexpectedly"
+                summary="The regulation monitor exited unexpectedly (code $code). Examine the workflow log and repair the monitor; do not advance the guide's verification date until the official sources have been checked."
+                ;;
+            esac
+            existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
             if [[ -z "$existing" ]]; then
               {
-                echo "An official TPWD page no longer matches the editor-verified 2026–27 turkey guide. Re-check the original TPWD sources and update the guide, any relevant county exceptions and the editorial verification date only after validating the new rules."
+                echo "$summary"
                 echo
                 echo "Source-check results:"
                 echo '~~~'
