@@ -17,7 +17,7 @@ const failures = [];
 
 const sourceCodec = fs.readFileSync('scripts/data/county-property-snapshot-codec.mjs', 'utf8');
 if (!sourceCodec.includes('export function preserveSourcedCountyLinks(') ||
-    !sync.includes('preserveSourcedCountyLinks(merged[county.slug], enrichment)') ||
+    !sourceCodec.includes('preserveSourcedCountyLinks(next[county.slug], enrichment)') ||
     !sync.includes('isAmbiguousCountyWithdrawal(merged[result.county.slug], result)') ||
     !sourceCodec.includes('export function isAmbiguousCountyWithdrawal(') ||
     !sourceCodec.includes('export function applyQuarantinedCountyRefresh(') ||
