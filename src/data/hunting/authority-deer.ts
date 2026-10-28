@@ -1,7 +1,8 @@
 import type { HuntingAuthorityTopic } from "./authority";
+import { deerSeasonRange, deerSeasonYear, texasDeerSeason } from "./deer-season-format";
 
 /**
- * 2026–27 Texas white-tailed deer authority guide.
+ * Texas white-tailed deer authority guide with TPWD-synced season dates.
  * Human-reviewed against TPWD Outdoor Annual on 2026-10-28.
  *
  * Regulatory dates and county requirements are season-specific. Never advance
@@ -10,14 +11,14 @@ import type { HuntingAuthorityTopic } from "./authority";
  */
 export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   slug: "texas-deer-hunting",
-  eyebrow: "2026–27 Texas white-tailed deer guide",
+  eyebrow: `${deerSeasonYear} Texas white-tailed deer guide`,
   title: "Texas White-Tailed Deer Hunting Guide",
-  description: "2026–27 Texas deer season dates, county limits, antler rules, licenses, tagging, CWD precautions, public hunts and region-by-region planning, with links to TPWD.",
+  description: `${deerSeasonYear} Texas deer season dates, county limits, antler rules, licenses, tagging, CWD precautions, public hunts and region-by-region planning, with links to TPWD.`,
   reviewedOn: "2026-10-28",
   reviewedLabel: "October 28, 2026",
-  quickAnswer: "Texas's 2026–27 white-tailed deer archery-only season runs October 3–November 6, 2026. General season runs November 7–January 3 in the North Zone and November 7–January 17 in the South Zone. Those are statewide zone frameworks, not permission to hunt every county or property: check the exact county's season, legal deer, bag and antler limits, access, and harvest requirements with TPWD before you go.",
+  quickAnswer: `Texas\'s ${deerSeasonYear} white-tailed deer archery-only season runs ${deerSeasonRange("archery")}. General season runs ${deerSeasonRange("generalNorth")} in the North Zone and ${deerSeasonRange("generalSouth")} in the South Zone. Those are statewide zone frameworks, not permission to hunt every county or property: check the exact county\'s season, legal deer, bag and antler limits, access, and harvest requirements with TPWD before you go.`,
   about: [
-    "2026–27 Texas white-tailed deer season",
+    `${deerSeasonYear} Texas white-tailed deer season`,
     "Texas deer hunting regulations",
     "Texas buck and antlerless bag limits",
     "Texas antler restrictions",
@@ -26,15 +27,15 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   ],
   sections: [
     {
-      heading: "2026–27 Texas white-tailed deer season dates",
+      heading: `${deerSeasonYear} Texas white-tailed deer season dates`,
       paragraphs: [
-        "For counties with an open season, archery-only season is October 3–November 6, 2026. General season is November 7, 2026–January 3, 2027 in the North Zone and November 7, 2026–January 17, 2027 in the South Zone. These are different from the mule-deer calendar.",
-        "The early youth-only season is October 30–November 1, 2026. The North Zone also has a late youth-only season January 4–17, 2027. Muzzleloader season is January 4–17, 2027 only in designated counties. Special late season runs January 4–17, 2027 (North) and January 18–31, 2027 (South) where offered; it is restricted to antlerless and qualifying unbranched-antlered deer.",
+        `For counties with an open season, archery-only season is ${deerSeasonRange("archery")}. General season is ${deerSeasonRange("generalNorth")} in the North Zone and ${deerSeasonRange("generalSouth")} in the South Zone. These are different from the mule-deer calendar.`,
+        `The early youth-only season is ${deerSeasonRange("earlyYouth")}. The North Zone also has a late youth-only season ${deerSeasonRange("lateYouthNorth")}. Muzzleloader season is ${deerSeasonRange("muzzleloader")} only in designated counties. Special late season runs ${deerSeasonRange("specialNorth")} (North) and ${deerSeasonRange("specialSouth")} (South) where offered; it is restricted to antlerless and qualifying unbranched-antlered deer.`,
         "TPWD lists white-tailed deer seasons in 252 of Texas's 254 counties, but county exceptions, land-management permits and restrictions on methods or sex of deer matter. Use the official county selector rather than assuming a North/South date applies automatically. Properties in the Managed Lands Deer Program (MLDP) can have a different authorized framework.",
       ],
       links: [
         { label: "Official TPWD deer dates, county selector and zone map", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true },
-        { label: "TPWD statewide 2026–27 hunting calendar", href: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/2026-2027-hunting-season-dates", external: true },
+        { label: `TPWD statewide ${deerSeasonYear} hunting calendar`, href: texasDeerSeason.officialCalendarUrl, external: true },
         { label: "Texas hunting seasons explained", href: "/hunting/hunting-seasons" },
       ],
     },
@@ -68,7 +69,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       heading: "Licenses, archery endorsement and hunter education",
       paragraphs: [
         "Obtain the appropriate current Texas hunting license for your residency and age before hunting; a public-land hunt may require an additional permit. TPWD requires an archery endorsement when hunting during archery-only season. Confirm legal equipment and county-specific means and methods rather than treating archery, firearm and muzzleloader seasons as interchangeable.",
-        "For the 2026–27 license year, hunters born on or after September 2, 1971 generally must satisfy Texas hunter-education requirements or an applicable supervision/deferral provision. Rules differ by age, and TPWD lists certain military and law-enforcement exemptions. Certification is separate from buying a hunting license; retain acceptable proof in the field.",
+        `For the ${deerSeasonYear} license year, hunters born on or after September 2, 1971 generally must satisfy Texas hunter-education requirements or an applicable supervision/deferral provision. Rules differ by age, and TPWD lists certain military and law-enforcement exemptions. Certification is separate from buying a hunting license; retain acceptable proof in the field.`,
         "Youth-only white-tailed deer seasons are for licensed hunters age 16 and younger, with other supervision and education requirements applying as relevant. Check those requirements before booking a family hunt.",
       ],
       links: [
@@ -95,7 +96,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "Which counties require deer harvest reporting?",
       paragraphs: [
-        "For hunting-license-tag harvest in 2026–27, TPWD requires reporting within 24 hours for bucks and antlerless deer taken in Collin, Dallas, Grayson and Rockwall counties. Those counties also have special legal-method rules, so review their entire county entry.",
+        `For hunting-license-tag harvest in ${deerSeasonYear}, TPWD requires reporting within 24 hours for bucks and antlerless deer taken in Collin, Dallas, Grayson and Rockwall counties. Those counties also have special legal-method rules, so review their entire county entry.`,
         "An additional group of counties, and specified portions of some counties, requires reporting of antlerless deer. Examples include Austin, Bastrop, Fayette, Guadalupe, Waller and Washington counties; parts of Comal, Goliad, Hays, Jackson, Travis, Victoria and Wharton also have designated requirements. This is not a substitute for the complete current TPWD list.",
         "Report as required through Texas Hunt & Fish or TPWD's online reporting service. Executing a valid digital tag also serves as mandatory reporting where applicable. Do not assume the absence of a statewide reporting rule means your county has none.",
       ],
@@ -144,12 +145,12 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "Public-land deer hunting: walk-in and drawn hunts",
       paragraphs: [
-        "Texas has public hunting opportunities, but an Annual Public Hunting (APH) Permit is not a blanket deer permit for every public parcel. For 2026–27 TPWD lists an APH permit at $48, in addition to a valid hunting license and any required endorsements. Each property listing specifies legal game, dates, hunting methods, parking, entry procedures and limits.",
+        "Texas has public hunting opportunities, but an Annual Public Hunting (APH) Permit is not a blanket deer permit for every public parcel. An APH Permit is separate from a valid hunting license and any required endorsements; verify the current TPWD permit price before purchasing. Each property listing specifies legal game, dates, hunting methods, parking, entry procedures and limits.",
         "Some deer opportunities are drawn hunts, E-Postcard hunts or other permit types with applications, deadlines, fees and designated check-in conditions. State parks, national forests and WMAs cannot be treated as automatically open to general deer hunting. Read the exact area's current legal-game listing before traveling.",
         "Compare drive time, access requirements, terrain, available public-hunting dates and whether a scouting trip is permitted. On a private lease, obtain the landowner's permission and clarify boundaries, guest rules, harvest reporting and any special land-management tags.",
       ],
       links: [
-        { label: "TPWD 2026–27 APH/walk-in hunt program", href: "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/", external: true },
+        { label: "TPWD APH/walk-in hunt program", href: "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/", external: true },
         { label: "TPWD drawn hunts", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/", external: true },
         { label: "Texas public hunting guide", href: "/hunting/public-hunting" },
         { label: "Annual Public Hunting Permit guide", href: "/hunting/annual-public-hunting-permit" },
@@ -180,12 +181,12 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   ],
   faq: [
     {
-      question: "When does Texas deer season start in 2026?",
-      answer: "White-tailed deer archery-only season begins October 3, 2026, in counties with an open season. The general North and South Zone seasons both start November 7, 2026, but they end on different dates. County exceptions and property-specific rules still apply.",
+      question: `When does Texas deer season start in ${texasDeerSeason.startYear}?`,
+      answer: `White-tailed deer archery-only season begins ${texasDeerSeason.rows.find((row) => row.id === "archery")?.start ?? "see TPWD"} in counties with an open season. The general North and South Zone dates are ${deerSeasonRange("generalNorth")} and ${deerSeasonRange("generalSouth")}, respectively. County exceptions and property-specific rules still apply.`,
     },
     {
-      question: "When does the 2026–27 general deer season end?",
-      answer: "The standard North Zone general season ends January 3, 2027; the South Zone general season ends January 17, 2027. Some counties offer late or muzzleloader seasons under different restrictions.",
+      question: `When does the ${deerSeasonYear} general deer season end?`,
+      answer: `The standard North Zone general season runs ${deerSeasonRange("generalNorth")}; the South Zone general season runs ${deerSeasonRange("generalSouth")}. Some counties offer late or muzzleloader seasons under different restrictions.`,
     },
     {
       question: "How many bucks can I shoot in Texas?",
