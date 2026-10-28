@@ -6,6 +6,7 @@
  */
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { corporateEventProviders } from './corporate-events.ts';
+import { corporateEventTexasToday } from './corporate-event-dates.ts';
 import {
   findMarketplaceExperiences, packageFitsGroup,
   marketplaceActivities, marketplaceAmenities, marketplaceOccasions,
@@ -139,6 +140,8 @@ export async function readMarketplaceExperiences(): Promise<MarketplaceExperienc
       rotationsConfirmed: row.rotations_confirmed === true,
       durationMinutes: row.typical_duration_minutes,
       setting: row.setting,
+      groupBookingStatus: row.group_booking_status,
+      foodStatus: row.food_status,
       occasions: classified.occasions,
       activities: classified.activities,
       verifiedAmenities: classified.amenities,
@@ -160,7 +163,7 @@ export async function searchMarketplaceExperiences(filters: MarketplaceSearch): 
 }
 
 export async function readMarketplacePackages(experienceId: string, groupSize?: number): Promise<MarketplacePackage[]> {
-  if (!/^[0-9a-f]{8}-[0-9a-f-]{27,36}$/i.test(experienceId)) return [];
+  if (!/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(experienceId)) return [];
   const { data, error } = await admin.from('texasdefined_group_event_packages')
     .select('*').eq('experience_id',experienceId)
     .eq('is_published', true).eq('verification_status','verified')
@@ -175,5 +178,11 @@ export async function readMarketplacePackages(experienceId: string, groupSize?: 
     source: { officialUrl: row.source_url, lastCheckedAt: row.last_checked_at,
       lastVerifiedAt: row.verified_at, status: row.verification_status as MarketplaceVerification },
   }));
-  return groupSize === undefined ? packages : packages.filter(p => packageFitsGroup(p,groupSize));
+  const today = corporateEventTexasToday();
+  return packages.filter(p =>
+    !!p.source.officialUrl?.startsWith('https://')
+    && (p.validFrom === null || p.validFrom <= today)
+    && (p.validUntil === null || p.validUntil >= today)
+    && (groupSize === undefined || packageFitsGroup(p,groupSize,today))
+  );
 }
