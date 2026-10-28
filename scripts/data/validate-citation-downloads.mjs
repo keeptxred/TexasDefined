@@ -22,8 +22,27 @@ const iconsCsv = await read('src/routes/things-that-define-texas[.]csv.ts');
 const iconsJson = await read('src/routes/things-that-define-texas[.]json.ts');
 const iconsReferenceData = await read('src/data/things-unique-to-texas-reference.ts');
 
+// The existing post-deploy smoke must run on *data-only* source updates, not
+// just route changes; it also must not freeze next year's TDI premium.
+const smokeWorkflow = await read('.github/workflows/texasdefined-publication-production-smoke.yml');
+const liveDataSmoke = await read('scripts/ci/verify-texas-data-production.mjs');
+
 const errors = [];
 const expect = (condition, message) => { if (!condition) errors.push(message); };
+
+for (const path of [
+  'src/data/texas-data-center.ts',
+  'src/data/generated/texas-metro-payrolls-current.json',
+  'src/data/generated/tdi-homeowners-current.json',
+  'src/data/generated/texas-state-population-current.json',
+  'src/data/generated/texas-reference-facts-current.json',
+  'src/data/generated/texas-county-growth-current.json',
+  'src/data/acs-county-housing-costs.snapshot.json',
+]) expect(smokeWorkflow.includes(path), 'Live data smoke must run when maintained source changes: '+path);
+expect(smokeWorkflow.includes("'src/routes/texas-data*'"), 'All Texas Data routes must trigger scoped public acceptance');
+expect(liveDataSmoke.includes('currentTdiPremiumLabel'), 'Live premium acceptance must follow the maintained official TDI series');
+expect(!liveDataSmoke.includes("'$3,489'"), 'Live acceptance must not freeze the historic TDI premium');
+
 
 for (const token of [
   "encodingFormat: 'text/csv'",
