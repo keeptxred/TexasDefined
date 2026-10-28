@@ -78,6 +78,8 @@ export type MarketplaceExperience = {
   rotationsConfirmed: boolean;
   durationMinutes: number | null;
   setting: MarketplaceSetting;
+  groupBookingStatus: 'eligible'|'ineligible'|'unknown';
+  foodStatus: 'available'|'unavailable'|'unknown';
   occasions: readonly OccasionKey[];
   activities: readonly ActivityKey[];
   verifiedAmenities: readonly AmenityKey[];
@@ -96,6 +98,7 @@ export type MarketplaceSearch = {
   occasion?: OccasionKey;
   activity?: ActivityKey;
   indoorOnly?: boolean;
+  foodRequired?: boolean;
   amenities?: readonly AmenityKey[];
   participatingOnly?: boolean;
 };
@@ -171,6 +174,8 @@ export function findMarketplaceExperiences(
     if (search.occasion && !item.occasions.includes(search.occasion)) continue;
     if (search.activity && !item.activities.includes(search.activity)) continue;
     if (search.indoorOnly && item.setting !== 'indoor') continue;
+    if (search.foodRequired && item.foodStatus !== 'available') continue;
+    if (search.groupSize !== undefined && item.groupBookingStatus !== 'eligible') continue;
     if (search.amenities?.some(amenity => !item.verifiedAmenities.includes(amenity))) continue;
     const fit = marketplaceCapacityFit(item, search.groupSize);
     if (fit === null) continue;
@@ -178,7 +183,9 @@ export function findMarketplaceExperiences(
   }
   return matches;
 }
-export function packageFitsGroup(pkg: MarketplacePackage, size: number): boolean {
+export function packageFitsGroup(pkg: MarketplacePackage, size: number, asOf?: string): boolean {
+  if (pkg.validFrom && (!asOf || asOf < pkg.validFrom)) return false;
+  if (pkg.validUntil && (!asOf || asOf > pkg.validUntil)) return false;
   return Number.isSafeInteger(size) && size > 0
     && pkg.minParticipants !== null && pkg.maxParticipants !== null
     && pkg.minParticipants <= size && size <= pkg.maxParticipants
