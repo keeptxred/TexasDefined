@@ -1,8 +1,15 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 
 const CANONICAL = "https://texasdefined.com/best-places-to-go-camping-in-texas";
 const MAX_ATTEMPTS = 3;
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+const generated = fs.readFileSync("src/data/camping/official-alerts.generated.ts", "utf8");
+const captured = generated.match(/export const CAMPING_OPERATIONAL_ALERTS = (\[[\s\S]*?\]) as const;/);
+if (!captured) throw Error("Official camping advisory snapshot could not be parsed");
+const expectedAlerts = JSON.parse(captured[1]);
+if (expectedAlerts.length !== 5 || expectedAlerts.some(x => !["confirmed", "needs-review"].includes(x.status)))
+  throw Error("Camping advisory snapshot invalid or unexpectedly changed");
 
 function verify(html, { synthetic = false } = {}) {
   const errors = [];
@@ -10,23 +17,26 @@ function verify(html, { synthetic = false } = {}) {
   const text = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
-    .replace(/&amp;/gi, "&").replace(/\s+/g, " ");
+    .replace(/&amp;/gi, "&").replace(/&#(?:x27|39);|&apos;/gi, "'").replace(/&quot;/gi, '"')
+    .replace(/\s+/g, " ");
   const mustHave = [
     "Best Places to Go Camping in Texas",
     "Best camping destinations by trip type",
     "Recent official park advisories",
     "Campground finder",
-    "57 of 57 verified profiles",
-    "Enchanted Rock State Natural Area",
-    "Goose Island State Park",
-    "Palo Pinto Mountains State Park",
-    "Brazos Bend State Park",
-    "Big Bend National Park",
     "Park camping / reservation instructions",
-    "TPWD reports a wood-fire burn ban",
-    "Official park advisory",
   ];
   for (const expected of mustHave) if (!text.includes(expected)) errors.push("missing: " + expected);
+  const profileCount = /(?:Showing\s+)?(\d+) of (\d+) verified profiles/i.exec(text);
+  const count = profileCount ? Number(profileCount[2]) : 0;
+  if (!profileCount || Number(profileCount[1]) !== count || count < 57) errors.push("campground profile count less than verified baseline 57");
+  for (const alert of expectedAlerts) {
+    if (!text.includes(alert.parkName)) errors.push("missing monitored park: " + alert.parkName);
+    if (!text.includes(alert.notice.slice(0, 48))) errors.push("live notice differs from committed source snapshot: " + alert.parkName);
+    if (!html.includes(alert.sourceUrl)) errors.push("missing live operator source: " + alert.parkName);
+  }
+  if (!text.includes("Notice verified") && !text.includes("Changed; recheck official source"))
+    errors.push("missing official advisory status labels");
   const links = [...html.matchAll(/<link\b[^>]*>/gi)].map(m => m[0]);
   const canonical = links.some(link => /rel=["']canonical["']/i.test(link)
     && link.includes(CANONICAL));
@@ -43,7 +53,7 @@ function verify(html, { synthetic = false } = {}) {
   if (/<h2[^>]*>\s*Visit a State Park\s*<\/h2>/i.test(html)) errors.push("outdated park-only heading");
   if (text.includes("Official reservations/details")) errors.push("generic reservation CTA remains visible");
   if (errors.length) throw Error(errors.join("; "));
-  return { campgrounds: 57, advisories: 5, specificBookingLinks: 4 };
+  return { campgrounds: count, advisories: expectedAlerts.length, specificBookingLinks: 4 };
 }
 
 if (process.argv.includes("--self-test")) {
@@ -53,7 +63,8 @@ if (process.argv.includes("--self-test")) {
     '<h2>Best camping destinations by trip type</h2>',
     '<h2>Recent official park advisories</h2>',
     '<div>Campground finder Showing 57 of 57 verified profiles.</div>',
-    '<div>Enchanted Rock State Natural Area Goose Island State Park Palo Pinto Mountains State Park Brazos Bend State Park Big Bend National Park Official park advisory TPWD reports a wood-fire burn ban Park camping / reservation instructions</div>',
+    '<div>Park camping / reservation instructions Notice verified</div>',
+    ...expectedAlerts.map(alert => '<div>' + alert.parkName + ' ' + alert.notice + '</div><a href="' + alert.sourceUrl + '">Official park alerts</a>'),
     ...[
       "https://www.recreation.gov/camping/campgrounds/258851",
       "https://www.recreation.gov/camping/campgrounds/258852",
@@ -64,6 +75,8 @@ if (process.argv.includes("--self-test")) {
   assert.deepEqual(verify(fixtures, { synthetic: true }), { campgrounds: 57, advisories: 5, specificBookingLinks: 4 });
   assert.throws(() => verify(fixtures.replace("Recent official park advisories", "Old alerts"), { synthetic: true }), /missing/);
   assert.throws(() => verify(fixtures.replace('<link rel="canonical"', '<link rel="alternate"'), { synthetic: true }), /canonical/);
+  assert.throws(() => verify(fixtures.replace(expectedAlerts[0].notice, "Outdated park information"), { synthetic: true }), /live notice differs/);
+  assert.throws(() => verify(fixtures.replace("Showing 57 of 57 verified profiles", "Showing 12 of 12 verified profiles"), { synthetic: true }), /count less/);
   console.log("Camping production verifier self-test passed.");
   process.exit(0);
 }
