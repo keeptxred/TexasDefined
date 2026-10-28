@@ -97,10 +97,28 @@ export async function setCorporateEventLeadStatus(
   if (!leadStatuses.includes(status)) throw new Error('Unknown lead status.');
   const { data: existing, error: lookupError } = await client
     .from('texasdefined_group_event_requests')
-    .select('id,first_contacted_at')
+    .select('id,created_at,first_contacted_at,first_contact_evidence_reference')
     .eq('id', id)
     .maybeSingle();
   if (lookupError || !existing?.id) throw new Error('Planner request not found.');
+  // A legacy malformed, future, or pre-inquiry contact timestamp is not
+  // evidence that an organizer was reached. Never let a status-button click
+  // silently certify it; it needs separate operator remediation.
+  if (status === 'contacted') {
+    const createdAt = Date.parse(String(existing.created_at));
+    const now = Date.now();
+    if (!Number.isFinite(createdAt) || createdAt > now) {
+      throw new Error('The planner creation date is invalid; review the private inquiry before recording contact.');
+    }
+    if (existing.first_contacted_at) {
+      const priorContact = Date.parse(String(existing.first_contacted_at));
+      const evidence = String(existing.first_contact_evidence_reference ?? '').trim();
+      if (!Number.isFinite(priorContact) || priorContact < createdAt || priorContact > now
+        || evidence.length < 20 || evidence.length > 500) {
+        throw new Error('Previously recorded first contact lacks valid timestamp or evidence; review the private record before marking contacted.');
+      }
+    }
+  }
   const newFirstContact = status === 'contacted' && !existing.first_contacted_at;
   const reference = externalContactReference.trim();
   if (newFirstContact && (reference.length < 20 || reference.length > 500)) {
