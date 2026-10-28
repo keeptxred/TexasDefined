@@ -48,11 +48,11 @@
     "assignmentBranch": "feat/football-b010-first-five-current-main-20261027",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "clarendon",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "nextSchool": "cleveland-tarkington",
+    "implementedOnBranch": 10,
+    "remainingToImplement": 15,
     "remainingToVerify": 25,
-    "notes": "First five Chilton, China Spring, Christoval, Cibolo Steele, Cisco individually sourced. Official school current coaches cited or source-qualified, no complete season W/L, school marks or stadium gate claims. Await protected Merge Gate, release and exact-Worker Chrome."
+    "notes": "First 10 Batch010 school editorials authored in two five-program subgroups. Clarendon source-specific stadium and game policies, Cleburne official result feed, Claude six-man school schedule, Clarksville district Athletic Director only, Cleveland district athletics staff with dated secondary coaching. No technical Chrome verified, source/rights/admission caveats retained."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -10108,8 +10108,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/clarendon",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/clarendon.md",
+      "auditCompletedAt": "2026-10-27",
+      "researchCompletedAt": "2026-10-27",
+      "implementedAt": "2026-10-27",
+      "implementedOnBranch": "feat/football-b010-second-five-sourced-20261027",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original TexasDefined editorial typography, no school player/venue photography or licensed mark.",
+      "implementationNotes": "School-specific sourced 2026 UIL, current school athletics and dated coach reporting, with explicit disputed first-party role and no fabricated season or ticket claims; technical Chrome still pending."
     },
     {
       "id": "uil:clarksville",
@@ -10122,8 +10130,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/clarksville",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/clarksville.md",
+      "auditCompletedAt": "2026-10-27",
+      "researchCompletedAt": "2026-10-27",
+      "implementedAt": "2026-10-27",
+      "implementedOnBranch": "feat/football-b010-second-five-sourced-20261027",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original TexasDefined editorial typography, no school player/venue photography or licensed mark.",
+      "implementationNotes": "School-specific sourced 2026 UIL, current school athletics and dated coach reporting, with explicit disputed first-party role and no fabricated season or ticket claims; technical Chrome still pending."
     },
     {
       "id": "uil:claude",
@@ -10136,8 +10152,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/claude",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/claude.md",
+      "auditCompletedAt": "2026-10-27",
+      "researchCompletedAt": "2026-10-27",
+      "implementedAt": "2026-10-27",
+      "implementedOnBranch": "feat/football-b010-second-five-sourced-20261027",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original TexasDefined editorial typography, no school player/venue photography or licensed mark.",
+      "implementationNotes": "School-specific sourced 2026 UIL, current school athletics and dated coach reporting, with explicit disputed first-party role and no fabricated season or ticket claims; technical Chrome still pending."
     },
     {
       "id": "uil:cleburne",
@@ -10150,8 +10174,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cleburne",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/cleburne.md",
+      "auditCompletedAt": "2026-10-27",
+      "researchCompletedAt": "2026-10-27",
+      "implementedAt": "2026-10-27",
+      "implementedOnBranch": "feat/football-b010-second-five-sourced-20261027",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original TexasDefined editorial typography, no school player/venue photography or licensed mark.",
+      "implementationNotes": "School-specific sourced 2026 UIL, current school athletics and dated coach reporting, with explicit disputed first-party role and no fabricated season or ticket claims; technical Chrome still pending."
     },
     {
       "id": "uil:cleveland",
@@ -10164,8 +10196,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cleveland",
-      "status": "NOT_REVIEWED",
-      "batch": 10
+      "status": "IMPLEMENTED",
+      "batch": 10,
+      "audit": "docs/football-authority/schools/cleveland.md",
+      "auditCompletedAt": "2026-10-27",
+      "researchCompletedAt": "2026-10-27",
+      "implementedAt": "2026-10-27",
+      "implementedOnBranch": "feat/football-b010-second-five-sourced-20261027",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original TexasDefined editorial typography, no school player/venue photography or licensed mark.",
+      "implementationNotes": "School-specific sourced 2026 UIL, current school athletics and dated coach reporting, with explicit disputed first-party role and no fabricated season or ticket claims; technical Chrome still pending."
     },
     {
       "id": "uil:cleveland-tarkington",
