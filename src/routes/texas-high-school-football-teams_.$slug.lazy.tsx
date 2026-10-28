@@ -172,6 +172,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'clute-brazoswood': 'brazoria', // Brazoswood High school campus in Clute, Brazoria County, distinct Hopper Field varsity venue.
+    'clyde': 'callahan', // Clyde CISD Bulldogs school in Callahan County, not district administrative Shalimar office.
+    'coahoma': 'howard', // Coahoma Texas school in Howard County, not Coahoma Community College Mississippi.
+    'coldspring-oakhurst': 'san-jacinto', // Coldspring-Oakhurst CISD Trojans in San Jacinto County.
+    'coleman': 'coleman', // Coleman ISD Bluecats high school in Coleman County, current interim head coach Zach Edington.
     'cleveland-tarkington': 'liberty', // Tarkington ISD school in north Liberty County, separate Cleveland High.
     'clifton': 'bosque', // Clifton High on N Avenue Q, Bosque County; stadium gate distinct.
     'clint': 'el-paso', // Clint High Lions campus on Alameda Ave, El Paso County.
