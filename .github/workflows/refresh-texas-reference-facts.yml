@@ -1,0 +1,80 @@
+name: Refresh Texas Reference Facts
+
+on:
+  schedule:
+    - cron: '19 13 10 * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-texas-reference-facts.yml'
+      - 'scripts/data/refresh-texas-reference-facts.mjs'
+      - 'scripts/data/refresh-texas-reference-facts.test.mjs'
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: texas-reference-facts-scheduled-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Test official Comptroller and TxDOT source extraction and bounds
+        run: node --test scripts/data/refresh-texas-reference-facts.test.mjs
+      - name: Review current official Texas homestead and TxDOT program facts
+        run: node scripts/data/refresh-texas-reference-facts.mjs
+      - name: Detect verified new official-source values
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/data/generated/texas-reference-facts-current.json src/data/texas-data-center.ts; then
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "No changed verified government reference thresholds. Historic snapshots unchanged." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+            git diff --stat -- src/data/generated/texas-reference-facts-current.json src/data/texas-data-center.ts >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Create isolated verified data branch
+        if: steps.changes.outputs.changed == 'yes'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/texas-data-facts-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add src/data/generated/texas-reference-facts-current.json src/data/texas-data-center.ts
+          git commit -m "data: refresh official Texas reference facts"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+      - name: Open protected official data refresh PR
+        if: steps.changes.outputs.changed == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Refresh verified Texas homestead and TxDOT reference facts" \
+            --body "Scheduled official Texas Comptroller mandatory school-homestead and TxDOT traffic-program reference facts refresh. Government-source wording, identity, threshold bounds and both sources are validated; no effective tax year is invented and historic figures are preserved. The owner-side GitHub finisher validates the exact PR head against current main and protected CI before merging; no user approval is needed."
+          echo "Refresh PR opened; protected GitHub finisher handles merging." >> "$GITHUB_STEP_SUMMARY"
