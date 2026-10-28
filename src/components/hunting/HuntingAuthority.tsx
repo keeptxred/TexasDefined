@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { TEXAS_COUNTIES } from "@/data/texas-places";
 
 import { Container } from "@/components/layout/Container";
 import wildlifePhoto from "@/assets/wildlife.jpg";
@@ -55,6 +57,50 @@ function DeerSeasonTable() {
         <p className="mt-4 text-sm leading-6 text-muted-foreground">Late seasons have limits on legal deer; youth-only hunts have age restrictions. Always check the official county listing before hunting.</p>
         <p className="mt-2 text-xs text-muted-foreground">TPWD date snapshot recorded {deerSourceCheckLabel()}; the full legal guide has a separate editorial review date, and GitHub rechecks the official calendars weekly.</p>
         <div className="mt-4 text-sm"><ResourceLink link={{ label: "TPWD official white-tailed deer season dates and county rules", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true }} /></div>
+      </div>
+    </Container>
+  </section>;
+}
+
+
+/** Link directly to TPWD's live county regulations instead of publishing a stale
+ * static copy of 254 county-specific legal limits or CWD zone overlays.
+ */
+function DeerCountyRegulationsFinder() {
+  const [countySlug, setCountySlug] = useState("");
+  const county = TEXAS_COUNTIES.find(item => item.slug === countySlug);
+  return <section className="border-b border-border py-10 md:py-14" aria-labelledby="deer-county-finder">
+    <Container>
+      <div className="max-w-5xl">
+        <p className="eyebrow text-primary">Official county regulations</p>
+        <h2 id="deer-county-finder" className="mt-2 font-display text-3xl md:text-4xl">Check the exact county before you hunt</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+          TPWD maintains different bag limits, antler restrictions, permitted hunt dates and special notices for each county.
+          This selection opens TPWD’s latest official county page directly, rather than showing a potentially outdated copy.
+          CWD testing zones can cross county boundaries; verify those separately.
+        </p>
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+          <div className="w-full max-w-md">
+            <label htmlFor="deer-tpwd-county" className="mb-2 block text-sm font-semibold">Choose a Texas county</label>
+            <select id="deer-tpwd-county" className="w-full rounded-sm border border-border bg-background px-3 py-3 text-foreground"
+              value={countySlug} onChange={event => setCountySlug(event.target.value)}>
+              <option value="">Choose one of 254 counties</option>
+              {TEXAS_COUNTIES.map(item => <option key={item.slug} value={item.slug}>{item.name} County</option>)}
+            </select>
+          </div>
+          {county ? <a className="inline-flex items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+            href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + (county.slug === "la-salle" ? "lasalle" : county.slug) + "/"}
+            target="_blank" rel="noopener noreferrer">
+            Open TPWD rules for {county.name} County ↗
+          </a> : <span className="inline-flex items-center justify-center border border-border px-5 py-3 text-sm text-muted-foreground">
+            Select a county to open official rules
+          </span>}
+        </div>
+        <div className="mt-5 flex flex-wrap gap-4 text-sm">
+          <a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/cwd/" target="_blank" rel="noopener noreferrer">Live CWD zones and testing ↗</a>
+          <a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/regulations/outdoor-annual/licenses/tagging-instructions/tagging-deer" target="_blank" rel="noopener noreferrer">Current deer tagging instructions ↗</a>
+          <a className="font-semibold text-primary underline" href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/after-killing-a-deer/" target="_blank" rel="noopener noreferrer">After-harvest transportation and testing ↗</a>
+        </div>
       </div>
     </Container>
   </section>;
@@ -147,6 +193,7 @@ export function HuntingAuthorityTopicPage({ topic }: { topic: HuntingAuthorityTo
     <section className="border-b border-border py-8"><Container><div className="max-w-4xl border-l-2 border-primary pl-5"><p className="eyebrow text-primary">Quick answer</p><p className="mt-3 text-lg leading-8">{topic.quickAnswer}</p></div></Container></section>
     <SpeciesSeasonSnapshot slug={topic.slug} />
     {topic.slug === "texas-deer-hunting" ? <DeerSeasonTable /> : null}
+    {topic.slug === "texas-deer-hunting" ? <DeerCountyRegulationsFinder /> : null}
     {topic.slug === "turkey-hunting" ? <TurkeySeasonGuide /> : null}
     <FreshnessPanel topic={topic} />
     {topic.slug === "texas-deer-hunting" ? <nav aria-label="Contents of the deer hunting guide" className="border-b border-border bg-muted/20 py-8">

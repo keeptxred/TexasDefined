@@ -90,6 +90,18 @@ const confirmed: ConfirmedCelebration[] = [
     "official": "https://bolivarpeninsulatexas.com/event/mardi-gras-parade-in-crystal-beach-texas-february-6-2027"
   },
   {
+    "slug": "oak-cliff-mardi-gras-parade",
+    "name": "Oak Cliff Mardi Gras Parade",
+    "city": "Dallas",
+    "region": "North Texas",
+    "date": "February 7, 2027 · 1 p.m.",
+    "kind": "Neighborhood parade + 5K",
+    "family": "Davis Street family parade",
+    "description": "Same-day partner Dash for the Beads confirms the 1 p.m. Go Oak Cliff parade after a 10:30 a.m. fun run and 11 a.m. 5K. Go Oak Cliff's main event page still shows 2026; reconfirm 2027 street closures.",
+    "official": "https://www.dashforthebeads.org/the-race/",
+    "secondaryOfficial": "https://gooakcliff.org/mardigras"
+  },
+  {
     "slug": "kemah-yachty-gras",
     "name": "Kemah Yachty Gras & Grand Parade",
     "city": "Kemah",
@@ -118,14 +130,6 @@ const pending: PendingCelebration[] = [
     "status": "2027 organizer schedule unconfirmed",
     "detail": "A distinct, established Beaumont-area parade and music festival. Do not confuse it with Port Arthur's 2027 reboot or Beaumont Pardi Gras charity night.",
     "url": "https://www.beaumontcvb.com/blog/stories/post/5-things-you-can-do-every-day-at-mardi-gras-no-matter-when-you-come/"
-  },
-  {
-    "guide": "/event/oak-cliff-mardi-gras-parade",
-    "name": "Oak Cliff Mardi Gras Parade",
-    "city": "Dallas",
-    "status": "2027 date not yet confirmed",
-    "detail": "The Bishop Arts/Oak Cliff-area community tradition includes floats, costumes and local events. Consult the next city or neighborhood announcement before booking.",
-    "url": "https://www.visitdallas.com/blog/how-to-mardi-gras-in-dallas/"
   },
   {
     "name": "Mainland Mardi Gras Parade",
@@ -166,7 +170,7 @@ function MardiGrasTexasPage() {
         <p className="mt-10 text-sm font-semibold">Texas events • Carnival season 2027</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl sm:text-6xl">Mardi Gras in Texas</h1>
         <p className="mt-5 max-w-3xl text-xl leading-8">From Galveston's landmark parades to East Texas krewes, a Cowboy Capital street party and bayside boat parades, find the Texas Mardi Gras celebration worth the trip.</p>
-        <p className="mt-5 max-w-3xl text-sm leading-7">Main celebrations checked October 21, with Galveston and Port Arthur updates October 26, 2026; companion events reviewed October 25. Mardi Gras falls on Tuesday, February 9, 2027. Events don't all run on Fat Tuesday — always choose a specific programmed day.</p>
+        <p className="mt-5 max-w-3xl text-sm leading-7">Main celebrations checked October 21–27, 2026, including the February 7 Oak Cliff date; companion events reviewed October 25. Mardi Gras falls on Tuesday, February 9, 2027. Events don't all run on Fat Tuesday — always choose a specific programmed day.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#confirmed" className="inline-flex min-h-11 items-center bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">Explore verified dates ↓</a>
           <a href="#planning" className="inline-flex min-h-11 items-center border border-border px-5 py-3 font-semibold">Plan your Mardi Gras trip ↓</a>
@@ -202,7 +206,7 @@ function MardiGrasTexasPage() {
             </div>
           </article>)}
         </div>
-        <p className="mt-5 text-sm leading-7 text-muted-foreground">* Bandera tourism's detailed event page spans January 28–31, while its general save-the-date page lists January 28–30. The January 30 parade is confirmed but the Sunday program needs rechecking. Kemah's February 6 boat parade and February 9 street parade are separate events.</p>
+        <p className="mt-5 text-sm leading-7 text-muted-foreground">* Bandera tourism's detailed event page spans January 28–31, while its general save-the-date page lists January 28–30. The January 30 parade is confirmed but the Sunday program needs rechecking. Kemah's February 6 boat parade and February 9 street parade are separate events. Oak Cliff's 2027 date comes from its same-day partner, while Go Oak Cliff's own website still lists 2026.</p>
       </section>
 
       <section id="more-parades" className="mt-14 border-t border-border pt-10">

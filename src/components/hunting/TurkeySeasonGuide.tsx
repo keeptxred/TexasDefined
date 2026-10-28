@@ -12,7 +12,8 @@ const tpwdDrawUrl = "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_dra
 
 export function TurkeySeasonGuide() {
   const drawApplicationExpired = Date.now() >= Date.parse("2026-11-02T06:00:00Z");
-  const archivedSeason = Date.now() >= Date.parse("2027-09-01T05:00:00Z");
+  // The final listed 2026–27 turkey season (North spring youth-only) ends May 23, 2027.
+  const archivedSeason = Date.now() >= Date.parse("2027-05-24T05:00:00Z");
   return (
     <section className="border-b border-border bg-surface py-12 md:py-16" aria-labelledby="turkey-season-heading">
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">

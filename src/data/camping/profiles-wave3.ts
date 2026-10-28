@@ -210,11 +210,11 @@ export const CAMPING_PROFILES_WAVE3: CampingProfile[] = [
     campingNotes: [
       "Ratcliff Lake surrounds a 45-acre lake in Davy Crockett National Forest and supports camping, swimming, fishing and hiking.",
       "The Forest Service lists both non-electric sites and 30-amp electric sites, plus group camping.",
-      "Potable water is available from centrally located campground faucets. The Forest Service page also identifies two accessible bathrooms with showers; its separate restroom field is internally inconsistent, so this profile does not assert a general restroom amenity beyond that verified shower note.",
+      "Potable water is available from centrally located campground faucets. Recreation.gov documents flush toilets and hot and cold showers. Accessibility can vary by campsite and facility; confirm specific bathroom accessibility directly with the operator before reserving.",
     ],
     searchTerms: ["Ratcliff Lake camping", "Davy Crockett National Forest camping", "East Texas forest camping", "30 amp camping East Texas"],
     verifiedAt: VERIFIED_AT,
-    sources: [{ label: "U.S. Forest Service Ratcliff Lake", url: "https://www.fs.usda.gov/r08/texas/recreation/ratcliff-lake-936-655-2299", fields: ["30-amp sites", "group camping", "reservations", "potable water", "accessible showers", "swimming", "fishing", "hiking"] }],
+    sources: [{ label: "U.S. Forest Service Ratcliff Lake", url: "https://www.recreation.gov/camping/campgrounds/234362", fields: ["30-amp sites", "group camping", "reservations", "potable water", "accessible showers", "swimming", "fishing", "hiking"] }],
   },
 ];
 
