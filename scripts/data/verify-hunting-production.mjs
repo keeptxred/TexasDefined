@@ -1,3 +1,14 @@
+import fs from 'node:fs';
+
+const deerSeasons = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
+function deerDate(id, edge) {
+  const row = deerSeasons.rows.find((item) => item.id === id);
+  if (!row || !row[edge]) throw new Error('Missing verified deer season date: ' + id + '.' + edge);
+  const date = new Date(row[edge] + 'T12:00:00Z');
+  return new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' })
+    .format(date).replace(/^(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec) /, '$1. ');
+}
+
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const userAgent = 'TexasDefined-Hunting-Production-Smoke/3.1';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -13,7 +24,7 @@ const representativeTopics = [
   },
   {
     path: '/hunting/texas-deer-hunting',
-    needles: ['Texas White-Tailed Deer Hunting Guide', 'Texas white-tailed deer hunting dates', 'Nov. 7, 2026', 'Jan. 17, 2027', 'Chronic wasting disease: testing and carcass movement', 'TPWD season source', 'Texas Parks and Wildlife', 'Current official sources'],
+    needles: ['Texas White-Tailed Deer Hunting Guide', 'Texas white-tailed deer hunting dates', deerDate('generalNorth', 'start'), deerDate('generalSouth', 'end'), 'Chronic wasting disease: testing and carcass movement', 'TPWD season source', 'Texas Parks and Wildlife', 'Current official sources'],
   },
   {
     path: '/hunting/youth-hunting',
