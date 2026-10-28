@@ -175,6 +175,29 @@ for (const feature of [
 if (/git\s+push\s+origin\s+main(?:\s|$)/m.test(refreshWorkflow)) failures.push('County property refresh workflow must never push generated source changes directly to main.');
 if (/gh\s+pr\s+merge/m.test(refreshWorkflow)) failures.push('County property refresh workflow must not auto-merge externally refreshed data.');
 
+// Generated source PRs are authored with GITHUB_TOKEN and cannot themselves
+// trigger standard pull_request checks. Their owner-side finisher must validate
+// an exact scoped source run and the two-file bot PR; never auto-merge contacts.
+const countyFinisher = fs.readFileSync('.github/workflows/finish-county-property-refresh.yml', 'utf8');
+for (const feature of [
+  'workflows: [Refresh county property data]',
+  "paths: ['.github/workflows/finish-county-property-refresh.yml']",
+  'source_run_id:',
+  "branch=\"automation/county-property-refresh-$run_id\"",
+  "== 'Refresh verified Texas county property-tax data'",
+  "'github-actions[bot]'",
+  'src/data/property/county-property-enrichment.generated.ts',
+  'src/data/property/county-property-supplement.server.ts',
+  'node --test scripts/data/county-property-snapshot-codec.test.mjs',
+  'node scripts/data/validate-county-property-enrichment.mjs',
+  'bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml',
+  'bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml',
+  "All source and canonical checks passed. Do not auto-merge government contact data.",
+]) {
+  if (!countyFinisher.includes(feature)) failures.push('County bot PR finisher missing protected feature '+feature);
+}
+if (/gh\s+pr\s+merge/.test(countyFinisher)) failures.push('County source finisher must not auto-merge verified contacts.');
+
 const legacyStandaloneProtection = validateWorkflow.includes('Validate county property enrichment') && validateWorkflow.includes('node scripts/data/validate-county-property-enrichment.mjs');
 const centralizedProtection = validateWorkflow.includes('node scripts/ci/run-premerge-validation.mjs')
   && premergeRunner.includes("'scripts/ci/run-validation-suite.mjs', 'full'")
