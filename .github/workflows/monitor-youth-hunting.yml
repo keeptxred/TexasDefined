@@ -1,0 +1,115 @@
+name: Monitor Texas youth hunting authority
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/hunting/youth-hunting-data.ts'
+      - 'src/components/hunting/YouthHuntingPage.tsx'
+      - 'src/components/hunting/HuntingTopicPage.tsx'
+      - 'src/components/hunting/HuntingSchema.tsx'
+      - 'src/data/hunting/authority-v2.ts'
+      - 'scripts/data/validate-youth-hunting.mjs'
+      - 'scripts/data/refresh-youth-hunting-calendar.mjs'
+      - 'scripts/data/refresh-youth-hunting-calendar.test.mjs'
+      - '.github/workflows/monitor-youth-hunting.yml'
+      - '.github/workflows/finish-youth-hunting-refresh.yml'
+  schedule:
+    - cron: '23 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: youth-hunting-authority-${{ github.event_name }}
+  cancel-in-progress: false
+
+jobs:
+  validate-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Test official youth-season importer and editorial contracts
+        run: |
+          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs
+          node scripts/data/validate-youth-hunting.mjs
+
+  refresh:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check policy source and sync official dates
+        id: source
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs
+          node scripts/data/validate-youth-hunting.mjs
+          node scripts/data/validate-youth-hunting.mjs --online
+          node scripts/data/refresh-youth-hunting-calendar.mjs --write
+          node scripts/data/validate-youth-hunting.mjs
+          node --test scripts/data/refresh-youth-hunting-calendar.test.mjs
+      - name: File one issue for changed rules or failed official source
+        if: steps.source.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          open_count="$(gh issue list --state open --search 'Texas youth hunting source changed in:title' --json number --jq 'length')"
+          if [[ "$open_count" == '0' ]]; then
+            gh issue create --title 'Texas youth hunting source changed — verify rules or parser' --body 'The official TPWD youth-hunting monitor detected changed legal/price markers, missing agency content, unsupported zone structure, or a source failure. Investigate the workflow run; preserve existing verified dates and rules until reconciled.'
+          fi
+      - name: Fail visibly if official evidence was missing
+        if: steps.source.outcome == 'failure'
+        run: exit 1
+      - name: Enforce single-file date-sync scope
+        if: steps.source.outcome == 'success'
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- . ':!src/data/hunting/youth-hunting-data.ts'
+          if git diff --quiet -- src/data/hunting/youth-hunting-data.ts; then
+            echo 'changed=no' >> "$GITHUB_OUTPUT"
+            echo 'No verified season-date changes. Existing verification date preserved.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git diff --check
+          echo 'changed=yes' >> "$GITHUB_OUTPUT"
+      - name: Publish verified date updates as protected PR
+        if: steps.changes.outputs.changed == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/youth-hunting-dates-$GITHUB_RUN_ID"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add -- src/data/hunting/youth-hunting-data.ts
+          git commit -m 'Refresh TPWD-verified youth-only season dates'
+          git push origin "$branch"
+          gh pr create \
+            --base main --head "$branch" \
+            --title 'Refresh verified TPWD youth-only season dates' \
+            --body "TPWD source verified by workflow run $GITHUB_RUN_ID: https://tpwd.texas.gov/regulations/outdoor-annual/regs/season-types/youth-only. All 11 zone/season rows and sequential season years were checked. Only the maintained calendar data changed. The owner-side finisher enforces exact-commit canonical validation and protected auto-merge."
+          echo "Opened governed TPWD calendar refresh PR." >> "$GITHUB_STEP_SUMMARY"
