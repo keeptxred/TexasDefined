@@ -103,15 +103,22 @@ export function isAmbiguousCountyWithdrawal(previous, result, now = new Date().t
     audit.appraisalSourceUpdated && audit.taxOfficeSourceUpdated &&
     (audit.appraisalCurrent === false || audit.taxOfficeCurrent === false)
   );
-  if (confirmedStale) return false;
   const cutoff = Date.parse(now + 'T00:00:00Z');
   const dates = [
     previous.sourceUpdatedAt?.appraisalDistrict,
     previous.sourceUpdatedAt?.taxOffice,
   ].map(value=>Date.parse(String(value ?? '')+'T00:00:00Z'));
-  // Missing or non-future source dates mean we lack evidence for a safe delete.
+  // A fresh, previously sourced office cannot disappear solely because the
+  // next reachable official page has a contradictory stale date or one
+  // downstream HTTPS office link fails. This is a source conflict requiring
+  // review, not positive proof that a current county office vanished.
   if (!Number.isFinite(cutoff) || dates.some(date=>!Number.isFinite(date))) return true;
-  return dates.every(date => date<=cutoff && cutoff-date<=730*86400000);
+  const previouslyCurrent = dates.every(date => date<=cutoff && cutoff-date<=730*86400000);
+  if (previouslyCurrent) return true;
+  // Withdrawal is only allowed if the prior source itself has aged out AND
+  // both newly parsed official dates exist with an affirmative stale finding.
+  // All ambiguous or incomplete later checks retain the old provenance/date.
+  return !confirmedStale;
 }
 
 // The weekly importer may advance independent verified counties while
