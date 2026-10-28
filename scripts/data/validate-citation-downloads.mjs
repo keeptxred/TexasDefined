@@ -31,7 +31,11 @@ const liveDataSmoke = await read('scripts/ci/verify-texas-data-production.mjs');
 const errors = [];
 const expect = (condition, message) => { if (!condition) errors.push(message); };
 
-expect(smokeWorkflow.includes("if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}"), 'Texas Data smoke must only run on manual request or successful deployment');
+expect(smokeWorkflow.includes("if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' }}"), 'Texas Data smoke must only run on manual, scheduled, or successful deployment checks');
+expect(smokeWorkflow.includes("cron: '47 14 * * *'"), 'Official-source live acceptance must have one bounded daily GitHub check');
+expect(smokeWorkflow.includes("group: texasdefined-publication-production-smoke-${{ github.event_name == 'schedule' && 'daily' || 'release' }}"), 'Daily audit must not cancel protected release smoke');
+expect((smokeWorkflow.match(/if: github.event_name != 'schedule'/g) ?? []).length === 3, 'Daily check must skip unrelated news, museums, and affiliate audits');
+
 expect(smokeWorkflow.includes('run: node --check scripts/ci/verify-texas-data-production.mjs'), 'Texas Data smoke must check live verifier syntax');
 expect(smokeWorkflow.includes('run: node scripts/ci/verify-texas-data-production.mjs'), 'Every successful deployment must verify the live Texas Data hub, release vintages and CSVs');
 expect(!smokeWorkflow.includes('texas_data_scope'), 'Data-only publication must not be skipped because a later unrelated merge won deployment');
