@@ -1,5 +1,12 @@
 # TexasDefined — High School Football Authority Project (locked)
 
+## October 28, 2026 — Batch 010 fourth five individually researched; production acceptance not claimed
+
+The fourth Batch010 five-school cohort now has distinct 2026 source-backed editorial profiles, exact UIL 2026–28 assignments, dated school sources, individual dossiers, original typographic identities, school-to-county links and reciprocal county cards: **Clute Brazoswood, Clyde, Coahoma, Coldspring-Oakhurst and Coleman**. Source distinctions: Brazosport ISD's Eric Luster and Hopper Field school notices, Clyde's Danny Dudgeon and outdated District 3 fan heading versus UIL District 2, Coahoma's Texas high school versus Mississippi college and Chris Joslin's distinct AD/coaching sources, Coldspring-Oakhurst's current Chad Allen first-party coaching listings, and Coleman ISD's explicitly **interim** Zach Edington football appointment. No final scores, standings, school-controlled marks, photos, ticket inventory, gate, parking or accessibility claims are manufactured.
+
+Canonical feature-branch registry: **205 previously VERIFIED / 20 IMPLEMENTED / 1,067 NOT_REVIEWED** of 1,292, five Batch010 school assignments still unauthored beginning College Station. The new fourth-cohort Chrome verifier explicitly requires 15 school viewport cases (1366, 390 and 320), five reciprocal counties, twenty screenshots, SEO/schema/sitemap and matching Worker version. Neither the branch, protected PR, CI success nor a skipped Chrome job counts as independent production VERIFIED; all 25 Batch010 schools remain pending their own non-skipped production evidence. Scheduled checks stay bounded. An authorized results feed remains unresolved (issue #5526).
+
+
 ## October 28, 2026 — Batch 010 third group source-authored, not acceptance-certified
 
 Cleveland Tarkington, Clifton, Clint, Clint Horizon and Clint Mountain View now have individual school-first football research, 2026 official UIL alignments, careful distinctions among Clint ISD's three campuses, honest dated score graphics, source-referenced venues and source caveats. They are **IMPLEMENTED, not live VERIFIED**. Historical 205 protected VERIFIED must be preserved. The ten remaining Batch 010 assigned school programs start at Clute Brazoswood. Protected CI, merged exact release, source-scoped live Chrome acceptance and rights-safe school media remain mandatory.
