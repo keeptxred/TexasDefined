@@ -8,12 +8,15 @@ export type DeerSeasonId = "archery" | "generalNorth" | "generalSouth" | "earlyY
 function displayDate(iso: string, style: "long" | "short", includeYear: boolean) {
   const date = new Date(`${iso}T12:00:00Z`);
   if (Number.isNaN(date.getTime())) throw new Error("Invalid TPWD deer date: " + iso);
-  return new Intl.DateTimeFormat("en-US", {
+  const formatted = new Intl.DateTimeFormat("en-US", {
     timeZone: "UTC",
     month: style === "long" ? "long" : "short",
     day: "numeric",
     ...(includeYear ? { year: "numeric" as const } : {}),
   }).format(date);
+  return style === "short"
+    ? formatted.replace(/^(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec) /, "$1. ")
+    : formatted;
 }
 
 /** Display a verified, date-only TPWD range, independent of the user's time zone. */
