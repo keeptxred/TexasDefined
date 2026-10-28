@@ -63,7 +63,7 @@ function isoDate(year: number, month: number, day: number) {
 
 /** Accept only the date formats in TPWD's governed source files; never guess unparsed dates. */
 function readRange(fragment: string): { start: string; end: string } | null {
-  const match = fragment.trim().match(/^([A-Za-z]{3,9})\\.?\\s+(\\d{1,2})(?:,\\s*(20\\d{2}))?\\s*[-–]\\s*(?:([A-Za-z]{3,9})\\.?\\s+)?(\\d{1,2}),?\\s*(20\\d{2})$/);
+  const match = fragment.trim().match(/^([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:,\s*(20\d{2}))?\s*[-–]\s*(?:([A-Za-z]{3,9})\.?\s+)?(\d{1,2}),?\s*(20\d{2})$/);
   if (!match) return null;
   const firstMonth = monthNumbers[match[1].slice(0, 3).toLowerCase()];
   const lastMonth = match[4] ? monthNumbers[match[4].slice(0, 3).toLowerCase()] : firstMonth;
@@ -78,7 +78,7 @@ function windowStatus(row: WindowRow, today: string): WindowStatus {
   if (/^no closed season$/i.test(row.dates.trim())) return "year-round";
   const periods = row.start && row.end
     ? [{ start: row.start, end: row.end }]
-    : row.dates.split(/\\s*(?:&|;)\\s*/).map(readRange);
+    : row.dates.split(/\s*(?:&|;)\s*/).map(readRange);
   if (!periods.length || periods.some((period) => period === null)) return "unknown";
   if (periods.some((period) => period && period.start <= today && today <= period.end)) return "today";
   if (periods.some((period) => period && period.start > today)) return "upcoming";
