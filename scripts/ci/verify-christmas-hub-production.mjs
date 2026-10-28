@@ -55,6 +55,8 @@ const sampleSlugs = [
   "old-town-spring-hometown-tree-lighting-2026",
   "bastrop-river-of-lights-2026",
   "bastrop-lost-pines-christmas-parade-2026",
+  "san-antonio-pearl-holiday-tree-lighting-2026",
+  "san-antonio-pearl-holiday-night-market-dec-23-2026",
 ];
 const expectedLiveWitnesses = remainingCommunityEvents.filter((event) =>
   sampleSlugs.includes(event.slug)
