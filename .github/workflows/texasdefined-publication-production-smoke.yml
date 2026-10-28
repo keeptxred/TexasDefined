@@ -2,6 +2,11 @@ name: TexasDefined publication production smoke
 
 on:
   workflow_dispatch:
+  # A cheap, bounded source-vintage catch-up check survives superseded
+  # production deploy runs during periods of rapid main-branch updates.
+  # It never rewrites data or invokes a full site audit.
+  schedule:
+    - cron: '47 14 * * *'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -16,7 +21,7 @@ concurrency:
 
 jobs:
   verify-publication-surfaces:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -40,15 +45,16 @@ jobs:
           fi
           echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
       - name: Verify live news, published article canonicals and sitemap XML
+        if: github.event_name != 'schedule'
         run: node scripts/ci/verify-texasdefined-publication-production.mjs
       - name: Detect scoped Texas Data publication changes
         id: texas_data_scope
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]]; then
-            # Manual acceptance explicitly requests the data checks, even
-            # when the last merge only touched an unrelated website surface.
+          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' || "$GITHUB_EVENT_NAME" == 'schedule' ]]; then
+            # A deliberate manual or daily audit always checks the latest source,
+            # even when an unrelated push superseded the data-release deploy.
             echo 'changed=yes' >> "$GITHUB_OUTPUT"
           elif git diff --name-only HEAD^ HEAD -- \
             'src/routes/texas-data*' \
@@ -78,7 +84,9 @@ jobs:
         run: node scripts/ci/verify-texas-data-production.mjs
 
       - name: Verify Zapata museum live authority after every successful production release
+        if: github.event_name != 'schedule'
         run: node scripts/ci/verify-zapata-museum-production.mjs
       - name: Verify Motel 6 production tracking and football stay CTA
+        if: github.event_name != 'schedule'
         run: node scripts/ci/verify-motel6-production.mjs
 
