@@ -585,6 +585,9 @@ assert.ok(christmasLiveVerifier.includes("expectedActiveCommunityCount") && chri
 assert.ok(christmasLiveVerifier.includes("expectedLiveWitnesses") && christmasLiveVerifier.includes("sampleSlugs"), "Live smoke must verify date-filtered new-source Christmas witness events");
 assert.ok(christmasLiveVerifier.includes("activePerformances"), "Live smoke must retain date-scoped curated concert and ticket verification");
 assert.ok(christmasLiveVerifier.includes("verify-christmas-release="), "Live smoke must bypass caches when probing stale source data");
+for (const slug of ["san-antonio-pearl-holiday-tree-lighting-2026","san-antonio-pearl-holiday-night-market-dec-23-2026"]) {
+  assert.ok(christmasLiveVerifier.includes(`"${slug}"`), `${slug}: source-qualified Christmas production witness missing`);
+}
 assert.ok(christmasLiveVerifier.includes("data-ad-slot="), "Do not accidentally activate AdSense display units before approval");
 assert.ok(productionWorkflow.includes("node scripts/ci/verify-christmas-hub-production.mjs"), "Existing protected production deploy must verify Christmas hub freshness");
 assert.ok(productionWorkflow.includes("id: live_christmas_hub"), "Protected Christmas production smoke step missing");
