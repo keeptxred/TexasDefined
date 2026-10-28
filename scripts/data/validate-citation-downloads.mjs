@@ -40,7 +40,9 @@ for (const path of [
   'src/data/acs-county-housing-costs.snapshot.json',
 ]) expect(smokeWorkflow.includes(path), 'Live data smoke must run when maintained source changes: '+path);
 expect(smokeWorkflow.includes("'src/routes/texas-data*'"), 'All Texas Data routes must trigger scoped public acceptance');
-expect(smokeWorkflow.includes("if [[ \"$GITHUB_EVENT_NAME\" == 'workflow_dispatch' ]]; then"), 'Manual Texas Data live acceptance must never be skipped by unrelated commits');
+expect(smokeWorkflow.includes("if [[ \"$GITHUB_EVENT_NAME\" == 'workflow_dispatch' || \"$GITHUB_EVENT_NAME\" == 'schedule' ]]; then"), 'Manual and daily Texas Data live acceptance must never be skipped by unrelated commits');
+expect(smokeWorkflow.includes("cron: '47 14 * * *'") && smokeWorkflow.includes("github.event_name == 'schedule'"), 'Daily verified-source production acceptance must survive superseded scoped deploys');
+expect(smokeWorkflow.includes("if: github.event_name != 'schedule'"), 'Daily Texas Data source-vintage check must avoid unrelated news, museum and affiliate crawls');
 expect(liveDataSmoke.includes('currentTdiPremiumLabel'), 'Live premium acceptance must follow the maintained official TDI series');
 expect(liveDataSmoke.includes('currentBlsReleaseLabel') && liveDataSmoke.includes('currentBlsHubPayrolls'), 'Live acceptance must verify current official BLS observation month and four metro values');
 expect(liveDataSmoke.includes("const metroDetailPath = '/texas-data/texas-metro-payrolls-latest'") && liveDataSmoke.includes("for (const row of currentBls.rows)"), 'Public live acceptance must validate exact latest BLS dataset page and all 13 current metro counts');
