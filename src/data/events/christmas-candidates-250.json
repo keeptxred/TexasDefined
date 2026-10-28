@@ -977,7 +977,8 @@
       "intakeId": 117,
       "title": "Rosenberg Christmas Nights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City of Rosenberg confirms Hometown Holiday Festival Dec 5, 2026. The submitted 'Christmas Nights' name is not confirmed as an alias; keep this one pending rather than duplicate the verified city festival."
     },
     {
       "intakeId": 118,
@@ -1004,7 +1005,8 @@
       "intakeId": 121,
       "title": "La Porte Christmas on the Coast",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City/tourism office confirms Christmas on Main for Dec 3, 2026, but supplied 'Christmas on the Coast' name is not verified as the same event; keep as a separate lead."
     },
     {
       "intakeId": 122,
@@ -1069,7 +1071,13 @@
       "intakeId": 129,
       "title": "Lake Jackson Festival of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lake-jackson-festival-lights-tree-lighting-2026",
+        "lake-jackson-festival-lights-day-parade-2026",
+        "lake-jackson-light-up-2026"
+      ],
+      "researchNote": "City of Lake Jackson's 2026 Festival of Lights lists Nov 20 Mayor's Tree Lighting, Nov 21 daytime festival and 7 p.m. parade; separate Light Up Lake Jackson selfie-light stations run Nov 21–Jan 3. Carnival and neighborhood display schedules differ."
     },
     {
       "intakeId": 130,
@@ -1871,8 +1879,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-27",
-    "calendarCandidates": 77,
+    "calendarCandidates": 78,
     "authorityCandidates": 12,
-    "remainingCandidates": 161
+    "remainingCandidates": 160
   }
 }
