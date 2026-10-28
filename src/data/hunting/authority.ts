@@ -14,17 +14,14 @@ export type HuntingAuthorityTopic = {
   faq: HuntingAuthorityFaq[];
 };
 
-export const HUNTING_REGULATION_FRESHNESS = {
-  seasonYear: "2026–27",
-  validFrom: "2026-09-01",
-  validThrough: "2027-08-31",
-  lastVerified: "2026-09-01",
-  lastVerifiedLabel: "September 1, 2026",
-  disclaimer: "TexasDefined is an independent planning and educational publication, not the legal authority for Texas hunting rules. Verify current seasons, county rules, legal means and methods, endorsements, tagging, reporting requirements and bag limits with Texas Parks and Wildlife Department before hunting.",
-} as const;
+export { HUNTING_REGULATION_FRESHNESS } from "./freshness";
 
 export const HUNTING_OFFICIAL_SOURCES = {
   regulations: { label: "TPWD Outdoor Annual: hunting regulations", href: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/", external: true },
+  publicAreaSearch: { label: "TPWD: search 2026–27 public hunting areas", href: "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml", external: true },
+  seasonChanges: { label: "TPWD: 2026–27 hunting regulation changes", href: "https://tpwd.texas.gov/newsmedia/releases/?req=20260904a", external: true },
+  purchaseRequirements: { label: "TPWD: current license purchase and ID requirements", href: "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/purchase-requirements", external: true },
+  feralHogs: { label: "TPWD: feral hog licensing and hunter education", href: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/nongame-and-other-species/", external: true },
   seasonDates: { label: "TPWD: 2026–27 hunting season dates", href: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/2026-2027-hunting-season-dates", external: true },
   licenses: { label: "TPWD: hunting licenses", href: "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/hunting-licenses-and-permits/hunting-licenses", external: true },
   permits: { label: "TPWD: hunting permits and certifications", href: "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/hunting-licenses-and-permits/hunting-permits-certifications", external: true },
@@ -63,11 +60,8 @@ const standardRelated = [
 function topic(input: Omit<HuntingAuthorityTopic, "faq"> & { faq?: HuntingAuthorityFaq[] }): HuntingAuthorityTopic {
   return {
     ...input,
-    faq: input.faq ?? [
-      { question: `Where should I verify current ${input.title.toLowerCase()} rules?`, answer: "Use the current TPWD Outdoor Annual and the official property or hunt notice before hunting." },
-      { question: "Can TexasDefined replace the official regulations?", answer: "No. TexasDefined is an independent planning publication; TPWD and applicable federal rules control legal requirements." },
-      { question: "Can county or public-land rules differ?", answer: "Yes. Season structure, legal game, methods and access can vary by county, zone and property." },
-    ],
+    // Avoid repetitive, automatically generated questions across many guides.
+    faq: input.faq ?? [],
   };
 }
 
@@ -106,7 +100,8 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
     quickAnswer: "Most hunters need an appropriate Texas hunting license, and the exact license, endorsement or certification depends on residency, age, species and activity. Use TPWD's current license pages for current products, eligibility and fees.",
     about: ["Texas hunting license", "TPWD hunting licenses", "Texas hunting endorsements"],
     sections: [
-      { heading: "Start with the hunter, then the species", paragraphs: ["Texas license choices differ for residents, non-residents, youth and some special eligibility groups. Species can also trigger endorsements or federal requirements.", verifyRules], links: [HUNTING_OFFICIAL_SOURCES.licenses] },
+      { heading: "Choose the correct license product", paragraphs: ["Start with TPWD's resident hunting license, nonresident general or eligible five-day license, youth license, or qualifying combination or special-eligibility product. A five-day license is not interchangeable with a nonresident general license for every species.", "A hunting license may not be the only credential: some species and methods require endorsements or federal permissions. Review official products, eligibility and fees before purchase."], links: [HUNTING_OFFICIAL_SOURCES.licenses] },
+      { heading: "2026 license identity checks and digital tags", paragraphs: ["New identity-verification rules took effect August 3, 2026, including additional checks for recreational-license buyers age 17 and over and online ID validation. Digital recreational licenses and endorsements are available online; hunters using digital tags must follow the Texas Hunt & Fish app requirements for applicable harvests.", "TPWD's purchase rules and current fees control. License and hunter education requirements must be checked separately."], links: [HUNTING_OFFICIAL_SOURCES.purchaseRequirements, HUNTING_OFFICIAL_SOURCES.seasonChanges] },
       { heading: "License and hunter education are separate", paragraphs: ["TPWD treats license eligibility and hunter-education compliance as related but distinct requirements. Resolve both before the hunt."], links: [{ label: "Texas hunter education guide", href: "/hunting/hunter-education" }, HUNTING_OFFICIAL_SOURCES.hunterEducation] },
       { heading: "Public-land access may require another permit", paragraphs: ["A hunting license does not automatically grant access to every public hunting area. APH areas, drawn hunts and individual properties can have additional requirements."], links: [{ label: "Texas public hunting guide", href: "/hunting/public-hunting" }, HUNTING_OFFICIAL_SOURCES.publicHunting, INTERNAL.publicLands] },
     ],
@@ -134,7 +129,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
     quickAnswer: "Texas public hunting is a network rather than one open-land rule. Access can come through the Annual Public Hunting Permit, drawn hunts and area-specific permits or registrations.",
     about: ["Texas public hunting", "public hunting land Texas", "Texas WMAs"],
     sections: [
-      { heading: "Start with TPWD's public-hunting system", paragraphs: ["TPWD manages public-hunting opportunities on department lands and cooperating properties. Legal game, dates, methods and access vary by unit."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, INTERNAL.publicLands] },
+      { heading: "Start with TPWD's searchable public-hunting areas", paragraphs: ["Use TPWD's official 2026–27 area search by legal game, county and unit. A Wildlife Management Area conservation designation, state park, campground or nearby wildlife destination is not itself permission to hunt.", "Open each area's legal-game listing and current property conditions before choosing a date."], links: [HUNTING_OFFICIAL_SOURCES.publicAreaSearch, HUNTING_OFFICIAL_SOURCES.publicHunting] },
       { heading: "Walk-in and drawn hunts solve different needs", paragraphs: ["APH is the broad walk-in framework for designated lands. Drawn hunts cover separate limited-entry opportunities, and some properties use other procedures."], links: [HUNTING_OFFICIAL_SOURCES.aph, HUNTING_OFFICIAL_SOURCES.drawnHunts] },
       { heading: "Public does not mean unrestricted", paragraphs: ["Every hunt still depends on legal game, season, county or zone, methods, boundaries and property instructions."], links: [HUNTING_OFFICIAL_SOURCES.regulations, INTERNAL.tripPlanner] },
     ],
@@ -148,7 +143,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
     quickAnswer: "APH provides access to designated public-hunting lands and participating walk-in areas. It does not replace the hunting license, endorsements, hunter education or unit-specific rules.",
     about: ["Annual Public Hunting Permit", "APH permit Texas", "Texas walk-in hunting"],
     sections: [
-      { heading: "Use the current APH map and area search", paragraphs: ["The participating properties and legal game are controlled by TPWD's current APH materials and area search."], links: [HUNTING_OFFICIAL_SOURCES.aph] },
+      { heading: "Use the current APH map and area search", paragraphs: ["Only specific participating properties and legal game are covered. Consult TPWD's current APH booklet and official unit search; a WMA or other conservation property is not automatically open to hunting."], links: [HUNTING_OFFICIAL_SOURCES.aph, HUNTING_OFFICIAL_SOURCES.publicAreaSearch] },
       { heading: "APH does not replace hunting rules", paragraphs: ["Licenses, endorsements, hunter education, seasons, tagging, reporting and legal methods still apply."], links: [HUNTING_OFFICIAL_SOURCES.regulations, HUNTING_OFFICIAL_SOURCES.licenses] },
       { heading: "Check property instructions", paragraphs: ["Registration, parking, boundaries, closures and other access instructions can be property-specific."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, INTERNAL.tripPlanner] },
     ],
@@ -207,7 +202,24 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
   "quail-hunting": speciesTopic({ slug: "quail-hunting", title: "Texas Quail Hunting Guide", species: "quail", description: "Plan Texas quail hunting around habitat, weather-sensitive populations, public access and current regulations.", habitat: "Quail abundance can vary substantially with rainfall and habitat conditions, making recent TPWD population information useful alongside durable habitat guidance.", planning: "Public quail access depends on the legal-game listing for each area; do not assume suitable habitat is open to hunting." }),
   "waterfowl-hunting": speciesTopic({ slug: "waterfowl-hunting", title: "Texas Waterfowl Hunting Guide", species: "waterfowl", description: "Plan duck and goose hunting around zones, federal migratory-bird rules, wetlands and public access.", habitat: "Texas waterfowl hunting spans coastal marshes, reservoirs, river corridors, playa country and agricultural landscapes, with migration and water conditions changing through the season.", planning: "Waterfowl hunts can involve federal stamps, migratory-bird certifications and property-specific rules in addition to Texas licensing." }),
   "javelina-hunting": speciesTopic({ slug: "javelina-hunting", title: "Texas Javelina Hunting Guide", species: "javelina", description: "Plan javelina hunting around current county rules, South and West Texas habitat and public-hunt opportunities.", source: HUNTING_OFFICIAL_SOURCES.javelina, habitat: "Javelina are associated especially with brush-country and arid landscapes in South and West Texas, so regional habitat is a useful first filter.", planning: "Check the exact property and county rules because public opportunities and seasons can differ from private-land assumptions." }),
-  "feral-hogs": speciesTopic({ slug: "feral-hogs", title: "Texas Feral Hog Hunting Guide", species: "feral hog", description: "Understand the difference between private-land feral-hog control and regulated public-land hunting access.", habitat: "Feral hogs occur across broad parts of Texas and use many habitat types, but landowner permission and property rules remain fundamental.", planning: "Do not carry private-land assumptions onto public property. WMAs, parks and other public lands can impose hunt-specific permits, legal-game listings and method restrictions." }),
+  "feral-hogs": topic({
+    slug: "feral-hogs",
+    eyebrow: "Texas hunting species",
+    title: "Texas Feral Hog Hunting Guide",
+    description: "Understand the private-land hunting-license exception, hunter education and public-area restrictions for Texas feral hogs.",
+    quickAnswer: "TPWD says no hunting license is required to hunt feral hogs on private property with landowner authorization, but hunter-education requirements still apply. Public-land hunting is different: use the current TPWD legal-game listings, licenses and permit rules.",
+    about: ["Texas feral hog hunting", "Feral hog private land license exception", "Texas public hunting access"],
+    sections: [
+      { heading: "Private land: landowner authorization and hunter education", paragraphs: ["TPWD states that no hunting license is required for feral hogs on private property with landowner authorization. Hunter education requirements still apply. Verify property boundaries, local restrictions and lawful means and methods.", "Do not extend the private-land licensing exception to public property or assume it overrides any other law."], links: [HUNTING_OFFICIAL_SOURCES.feralHogs, HUNTING_OFFICIAL_SOURCES.hunterEducation] },
+      { heading: "Public land: check the legal-game list and permit", paragraphs: ["Feral hogs may be present in WMAs and other public areas without being legal game there. TPWD's current area record controls hunt dates, methods, legal game, license and APH or drawn-hunt access.", "Never rely on an unrelated place listing or private-land rule as proof of public hunting access."], links: [HUNTING_OFFICIAL_SOURCES.publicAreaSearch, HUNTING_OFFICIAL_SOURCES.publicHunting] },
+      { heading: "Habitat, property consent and transport", paragraphs: ["Feral hogs occur in Texas river bottoms, brush, farmland and timber. The location of hog sign does not establish hunting permission. Coordinate control activities with the landowner.", "The transport or release of live feral hogs is restricted under Texas Animal Health Commission disease-control rules; that is a separate issue from lawful harvest."], links: [HUNTING_OFFICIAL_SOURCES.feralHogs, INTERNAL.wildlife] },
+    ],
+    related: [{ label: "Texas public hunting", href: "/hunting/public-hunting" }, { label: "Annual Public Hunting Permit", href: "/hunting/annual-public-hunting-permit" }, { label: "Hunter education", href: "/hunting/hunter-education" }, INTERNAL.counties],
+    faq: [
+      { question: "Do I need a license to hunt feral hogs on private land in Texas?", answer: "Not with landowner authorization, according to TPWD. Hunter education requirements still apply; public-land hunting follows separate rules." },
+      { question: "Can I hunt feral hogs on any Wildlife Management Area?", answer: "No. Confirm that the specific TPWD unit lists feral hogs as legal game and check the current dates, permits, methods and area instructions." },
+    ],
+  }),
   "exotic-game": speciesTopic({ slug: "exotic-game", title: "Texas Exotic Game Hunting Guide", species: "exotic game", description: "Understand how exotic-species hunting differs across private ranches, public hunts and current Texas rules.", habitat: "Exotic species are distributed unevenly across Texas and are often associated with private ranches, while some public drawn-hunt opportunities may also exist.", planning: "Verify the exact species classification, license requirements, property permission and hunt notice instead of treating all exotic animals as one rules category." }),
 };
 
