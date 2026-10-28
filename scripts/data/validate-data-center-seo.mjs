@@ -145,6 +145,11 @@ validateOfficialSnapshot(augustBrief, 'BLS August 2026 original Table 3 nonfarm 
   ["Tyler", 122600],
   ["Waco", 142900],
 ]);
+if (!juneBrief.includes('For the most recent source-verified month, use the rolling Texas metro payrolls dataset.') ||
+    juneBrief.includes('For the latest available comparison, see the August 2026 brief.')) {
+  failures.push('Archived June BLS brief must direct readers to the rolling latest verified dataset instead of a frozen month.');
+}
+
 if (!juneBrief.includes('https://www.bls.gov/news.release/archives/metro_07292026.htm')) {
   failures.push('Historical June 2026 metro payrolls must link to its original BLS archive, not the rolling table.');
 }
