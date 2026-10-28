@@ -65,7 +65,7 @@ for (const text of ['2026–27 Texas white-tailed deer season', 'county', 'antle
 requireText(huntingHub, 'function DeerSeasonTable()', 'deer season table missing');
 requireText(huntingHub, 'topic.slug === "texas-deer-hunting"', 'deer-specific table rendering missing');
 requireText(huntingHub, 'topic?.reviewedLabel', 'deer review date not displayed correctly');
-requireText(deerCheck, 'Official', 'deer monitoring source contract missing');
+requireText(deerCheck, 'const pageUrl', 'deer monitoring source contract missing');
 requireText(deerWorkflow, 'schedule:', 'weekly TPWD monitoring not scheduled');
 requireText(allAuthority, 'https://tpwd.texas.gov/', 'TPWD official-source links missing');
 requireText(authorityV2, 'fur-bearing-animal-regulations', 'fur-bearer authority source missing');
