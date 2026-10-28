@@ -89,7 +89,15 @@ jobs:
         with:
           script: |
             const title = 'Camping guide: official source or verification date needs review';
-            const body = 'The scoped campground audit found a changed official camping/reservation facts fingerprint, unavailable source, HTTP 403/429/5xx or unexpected redirect, or a profile verification date older than 120 days. Provider blocking/rate limits are NOT evidence of campground closure. Inspect the categorized source-health artifact; update only verified primary-source facts and never artificially restamp dates. Workflow: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('.artifacts/camping-authority-source-health.json','utf8'));
+            const failures = report.failures.slice(0,25).map(item =>
+              '- ' + item.category + ': ' + item.url + ' (HTTP ' + (item.status ?? 'unreachable') + '; profiles: ' + (item.files ?? []).join(', ') + ')').join('\\n');
+            const stale = report.stale.slice(0,25).map(item => '- ' + item.file + ' last verified ' + item.date).join('\\n');
+            const body = 'Scoped official camping source audit requires review. An HTTP 403/429/5xx response indicates provider blocking or a transient failure, NOT a closed campground. Recheck source facts before changing verified amenities, bookings or profile dates.\\n\\n' +
+              '**Source issues (' + report.failures.length + '):**\\n' + (failures || 'None') + '\\n\\n' +
+              '**Overdue verification batches (' + report.stale.length + '):**\\n' + (stale || 'None') + '\\n\\n' +
+              'Full JSON evidence: workflow artifact camping-source-health, run ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
             const { data: issues } = await github.rest.issues.listForRepo({ owner:context.repo.owner, repo:context.repo.repo, state:'open', per_page:100 });
             const previous = issues.find(x => x.title === title && !x.pull_request);
             if (previous) await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:previous.number,body});
