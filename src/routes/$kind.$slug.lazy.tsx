@@ -330,6 +330,11 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'brazoria': [{ name: 'Brazoswood Buccaneers', slug: 'clute-brazoswood', context: 'Clute Brazosport ISD first-party Eric Luster head coach, UIL 6A D19 and 2026 Hopper Field school home fixtures' }],
+  'callahan': [{ name: 'Clyde Bulldogs', slug: 'clyde', context: 'Callahan County Clyde CISD athletics schedules, Coach Danny Dudgeon and 2026 3A Division I District 2' }],
+  'howard': [{ name: 'Coahoma Bulldogs', slug: 'coahoma', context: 'Howard County Coahoma ISD Chris Joslin, distinct from Mississippi college, historic Bill Easterling Stadium' }],
+  'san-jacinto': [{ name: 'Coldspring-Oakhurst Trojans', slug: 'coldspring-oakhurst', context: 'San Jacinto County school official Chad Allen head coach and 2026 UIL 3A Division I District 10' }],
+  'coleman': [{ name: 'Coleman Bluecats', slug: 'coleman', context: 'Coleman ISD school lists Zach Edington interim 2026 football head coach, 2A Division I District 7' }],
   'bosque': [{ name: 'Clifton Cubs', slug: 'clifton', context: 'First-party Clifton ISD head coach Brent Finney, 2026 UIL 3A Division II District 5 and school-related football history' }],
   'el-paso': [{ name: 'Clint Lions', slug: 'clint', context: 'School-listed Rosuel Martinez is Clint Lions head coach; 4A Division II District 1 and separate Alameda Avenue school' }, { name: 'Horizon Scorpions', slug: 'clint-horizon', context: 'Omar Garcia current 2026 football coach at Horizon High; 5A Division I District 1 and Horizon City campus' }, { name: 'Mountain View Lobos', slug: 'clint-mountain-view', context: 'DJ Check coaches Lobos; 4A Division II District 1 and October 23 source-dated Fabens final' }],
   'falls': [{ name: 'Chilton Pirates', slug: 'chilton', context: 'Falls County Class 2A Division II District 13, Bennie Huitt 2026 KWTX preview and Chilton ISD athletics' }],
