@@ -165,7 +165,7 @@ export function loadEventCollectionPageServer(slug: string) {
         ? "This collection is a durable, crawlable event-discovery page backed by enough permanent verified event guides to stand on its own."
         : `This collection is temporarily noindex because it currently contains only ${items.length.toLocaleString("en-US")} verified event ${items.length === 1 ? "guide" : "guides"}. Texas Defined will open it to search after the verified inventory is substantive enough to uniquely satisfy the page promise.`);
 
-  const latestSourceCheck = items
+  const latestGuideSourceCheck = items
     .map((item) => item.sourceCheckedAt)
     .filter((value): value is string => Boolean(value))
     .sort()
@@ -217,6 +217,12 @@ export function loadEventCollectionPageServer(slug: string) {
       })
     : [];
 
+  // Christmas community records are independently source-verified; showing
+  // only the latest evergreen-guide audit date gives visitors a stale status.
+  const latestSourceCheck = [
+    latestGuideSourceCheck,
+    ...christmasCommunityEvents.map((event) => event.verifiedAt),
+  ].filter((date): date is string => Boolean(date)).sort().at(-1);
 
   return {
     ...collection,

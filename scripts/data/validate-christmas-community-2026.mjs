@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 236, "The 236 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 239, "The 239 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -89,6 +89,17 @@ check("bastrop-river-of-lights-2026", "2026-11-27", "2027-01-04");
 check("bastrop-wassail-fest-2026", "2026-11-28");
 check("bastrop-merry-on-main-2026", "2026-12-12");
 check("bastrop-lost-pines-christmas-parade-2026", "2026-12-12");
+check("brenham-greatest-gift-nativity-2026", "2026-12-04", "2026-12-05");
+check("brenham-jingle-bell-market-2026", "2026-12-04", "2026-12-05");
+check("burton-milk-honey-ranch-christmas-story-2026", "2026-12-11", "2026-12-13");
+assert.ok(collection.includes("...christmasCommunityEvents.map((event) => event.verifiedAt)"),
+  "Christmas hub latest source check must include the newer verified community calendar entries");
+assert.ok(collection.includes("latestGuideSourceCheck"),
+  "The permanent major event guides must still contribute to the latest source review date");
+assert.ok(bySlug.get("brenham-greatest-gift-nativity-2026").summary.includes("only Friday December 4"),
+  "Do not falsely claim the Nativity's one-night music program is held Saturday");
+assert.ok(bySlug.get("burton-milk-honey-ranch-christmas-story-2026").summary.includes("reservation requirements"),
+  "Unverified ranch admission rules require an organizer check");
 assert.ok(bySlug.get("bastrop-river-of-lights-2026").summary.includes("nightly 6–10 p.m."),
   "Preserve City of Bastrop's exact free daily River of Lights hours");
 assert.ok(bySlug.get("bastrop-merry-on-main-2026").summary.includes("10 a.m.–3 p.m."),
