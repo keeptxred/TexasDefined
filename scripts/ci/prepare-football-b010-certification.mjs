@@ -141,6 +141,23 @@ export function sharedReleaseShas(recent) {
     return stamp(b)-stamp(a);
   });
 }
+// Keep source SHA AND deployed Worker identity consistent. A GitHub workflow
+// can republish the same commit to two different Worker versions, so choosing
+// only the newest per cohort can conceal a complete earlier exact-version set.
+export function selectCommonWorkerReports(options) {
+  assert.equal(options.length,5,'Five Chrome cohort option lists are required');
+  for(const first of options[0]) {
+    if(!SHA.test(first.sha||'') || !UUID.test(first.worker||''))continue;
+    const selected=[first];
+    for(const cohort of options.slice(1)) {
+      const matching=cohort.find(o=>o.sha===first.sha && o.worker===first.worker);
+      if(!matching)break;
+      selected.push(matching);
+    }
+    if(selected.length===5)return selected;
+  }
+  return null;
+}
 function downloadActual(i,run,slugs,temp) {
   const data=gh('repos/'+REPO+'/actions/runs/'+run.id+'/artifacts');
   const a=data.artifacts?.find(a=>a.name===artifactName(i)&&a.expired===false&&
@@ -237,21 +254,28 @@ export async function main() {
     }
     let chosen=null;
     for(const targetSha of commonShas) {
-      const candidate=[];
+      const options=[];
       for(let i=0;i<5;i++) {
-        const slugs=reg.batch.slugs.slice(i*5,(i+1)*5);
-        let found=null;
+        const slugs=reg.batch.slugs.slice(i*5,i*5+5);
+        const valid=[];
+        // Multiple deployments of the *same commit* can create different
+        // Worker versions. Preserve each real artifact-backed option rather
+        // than locking the cohort to its independently newest Worker.
         for(const run of recent[i].filter(r=>r.head_sha===targetSha)) {
-          try {found=downloadActual(i,run,slugs,temp);if(found)break;}
-          catch(e){console.warn('Rejected '+NAMES[i]+' run '+run.id+': '+String(e.message).slice(0,180));}
+          try {
+            const observed=downloadActual(i,run,slugs,temp);
+            if(observed)valid.push(observed);
+          } catch(e){
+            console.warn('Rejected '+NAMES[i]+' run '+run.id+': '+
+              String(e.message).slice(0,180));
+          }
         }
-        if(!found)break;
-        candidate.push(found);
+        if(!valid.length)break;
+        options.push(valid);
       }
-      if(candidate.length===5 && candidate.every(x=>x.sha===targetSha &&
-          x.worker===candidate[0].worker)){
-        chosen=candidate;
-        break;
+      if(options.length===5) {
+        const same=selectCommonWorkerReports(options);
+        if(same){chosen=same;break;}
       }
     }
     if(!chosen){
