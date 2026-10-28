@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-28",
+  "purpose": "Official-source availability and stable-content-change detection only. A digest change is NOT a verified football score or factual correction.",
+  "safety": {
+    "approvedDomains": [
+      "athletics.c-isd.com",
+      "chs.clevelandisd.org",
+      "chs.clintweb.net",
+      "hhs.clintweb.net",
+      "mvhs.clintweb.net",
+      "realignment.uiltexas.org",
+      "www.chiltonisd.org",
+      "www.chinaspringisd.net",
+      "www.christovalisd.org",
+      "www.ciscoisd.net",
+      "www.clarendonisd.net",
+      "www.claudeisd.net",
+      "www.cliftonisd.org",
+      "www.scucisd.org",
+      "www.tarkingtonisd.net"
+    ],
+    "sourceCountCap": 30,
+    "perSourceTimeoutMs": 12000,
+    "maxBodyBytes": 1600000
+  },
+  "sources": [
+    {
+      "slug": "chilton",
+      "url": "https://www.chiltonisd.org/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "china-spring",
+      "url": "https://www.chinaspringisd.net/page/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "christoval",
+      "url": "https://www.christovalisd.org/events",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cibolo-steele",
+      "url": "https://www.scucisd.org/o/steele/page/athletics/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cisco",
+      "url": "https://www.ciscoisd.net/37047_3",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clarendon",
+      "url": "https://www.clarendonisd.net/",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clarksville",
+      "url": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "claude",
+      "url": "https://www.claudeisd.net/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cleburne",
+      "url": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule",
+      "reviewAfter": "2026-10-31",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cleveland",
+      "url": "https://chs.clevelandisd.org/staff/?page_no=25",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cleveland-tarkington",
+      "url": "https://www.tarkingtonisd.net/calendar",
+      "reviewAfter": "2026-10-31",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clifton",
+      "url": "https://www.cliftonisd.org/o/cisda/staff",
+      "reviewAfter": "2026-10-31",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clint",
+      "url": "https://chs.clintweb.net/athletics/football",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clint-horizon",
+      "url": "https://hhs.clintweb.net/athletics",
+      "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "clint-mountain-view",
+      "url": "https://mvhs.clintweb.net/",
+      "reviewAfter": "2026-10-31",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "uil-2026-alignment",
+      "url": "https://realignment.uiltexas.org/",
+      "reviewAfter": "2026-12-01",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    }
+  ]
+}
