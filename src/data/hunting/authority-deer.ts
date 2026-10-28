@@ -1,5 +1,5 @@
 import type { HuntingAuthorityTopic } from "./authority";
-import { deerSeasonRange, deerSeasonYear, texasDeerSeason } from "./deer-season-format";
+import { deerSeasonRange, deerSeasonStart, deerSeasonYear, texasDeerSeason } from "./deer-season-format";
 
 /**
  * Texas white-tailed deer authority guide with TPWD-synced season dates.
@@ -182,7 +182,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   faq: [
     {
       question: `When does Texas deer season start in ${texasDeerSeason.startYear}?`,
-      answer: `White-tailed deer archery-only season begins ${texasDeerSeason.rows.find((row) => row.id === "archery")?.start ?? "see TPWD"} in counties with an open season. The general North and South Zone dates are ${deerSeasonRange("generalNorth")} and ${deerSeasonRange("generalSouth")}, respectively. County exceptions and property-specific rules still apply.`,
+      answer: `White-tailed deer archery-only season begins ${deerSeasonStart("archery")} in counties with an open season. The general North and South Zone dates are ${deerSeasonRange("generalNorth")} and ${deerSeasonRange("generalSouth")}, respectively. County exceptions and property-specific rules still apply.`,
     },
     {
       question: `When does the ${deerSeasonYear} general deer season end?`,
