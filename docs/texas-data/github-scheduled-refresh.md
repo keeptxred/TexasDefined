@@ -56,3 +56,27 @@ Official BLS employment, Census statewide population, ACS county housing, TDI ho
 - Both `/texas-data/county-growth` and its CSV read the same GitHub-generated JSON with a server-function boundary: no full national CSV download on individual visits. Year labels, temporal coverage, CSV filename and structured-data last-modified reflect only verified published snapshots, and the sitemap does not pretend a source-check date is a Census release date.
 - `Finish Census County Growth Refresh` only accepts the expected bot-authored, run-linked, single-snapshot PR, reconciles current main, runs the repository's required validation and merge gate, then enables protected auto-merge. No ChatGPT automation and no direct Cloudflare publication are involved.
 - Older Census vintages and standalone migration research are intentionally dated publications; do not join data from differing Census vintages or silently rewrite historical analysis. On the next decennial population estimates-base reset, automated county population publication stops until the methodology is explicitly reviewed.
+
+## Registry coverage and publication semantics
+
+The following are the 13 maintained briefs in the Texas Data server registry. The four featured cross-vertical datasets are separate.
+
+| Registry slug | Official-source owner / maintained mechanism | Publication policy |
+| --- | --- | --- |
+| county-property-tax-rates | Comptroller adopted rates; monthly sync-property-tax-rates.yml import to Supabase | Latest full final adopted-year sample; archived 2024 fallback |
+| school-district-tax-rates | Comptroller annual rates, same maintained import | Latest verified school-district adopted-year figures |
+| homestead-exemption-history | Comptroller, refresh-texas-reference-facts.yml | Current general exemption automatic; older legal years preserved |
+| texas-population-and-migration-2025 | Census Vintage 2025 state population | Dated historical interval; preserve |
+| texas-population-and-migration-2024 | 2024 interval revised using the 2025 Census vintage | Dated historical interval; preserve consistent methodology |
+| where-new-texans-came-from-2024 | 2024 ACS state-to-state migration flows | Archived original dated research; new ACS flows need separate official method verification |
+| texas-homeowners-premium-history | TDI dated historical premium series | Reproducible archived analysis |
+| texas-homeowners-premium-latest | TDI weekly refresh-tdi-homeowners-current.yml | Automatic paired-chart review and protected merge |
+| texas-metro-payrolls-june-2026 | Dated BLS metro release | Archive; preserve |
+| texas-metro-payrolls-august-2026 | Dated BLS metro release | Archive; preserve |
+| texas-traffic-monitoring-coverage | TxDOT in refresh-texas-reference-facts.yml | Automatic official threshold checks, not invented exact totals |
+| texas-metro-payrolls-latest | BLS monthly refresh-texas-data.yml | Automatic source-verified, protected PR |
+| texas-population-and-migration-latest | Census annual refresh-texas-state-population.yml | Automatic sequential vintage verification |
+
+Separate featured distributions: county growth (new monthly source-controlled Census verification), county housing (existing monthly ACS five-year refresh), city-to-county relationships (canonical maintained geography), sports venues (verified venue-directory reference values). The two directory-derived distributions should not have artificial official numeric updates; their source of truth is their maintained underlying directories.
+
+A successful check run is not proof that newly published statistics reached users. Require evidence of source validation, changed source snapshot or registry, generated PR, merge validation, matching deployed commit, and updated public values. A missing next official release should explicitly preserve the verified previous vintage.
