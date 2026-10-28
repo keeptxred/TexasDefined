@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 224, "The 224 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 229, "The 229 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -77,6 +77,17 @@ check("conroe-tree-lighting-2026", "2026-12-01");
 check("conroe-christmas-around-square-2026", "2026-12-01");
 check("conroe-toby-powell-christmas-2026", "2026-12-12");
 check("downtown-conroe-christmas-parade-2026", "2026-12-12");
+check("la-porte-christmas-on-main-2026", "2026-12-03");
+check("rosenberg-hometown-holiday-festival-2026", "2026-12-05");
+check("lake-jackson-festival-lights-tree-lighting-2026", "2026-11-20");
+check("lake-jackson-festival-lights-day-parade-2026", "2026-11-21");
+check("lake-jackson-light-up-2026", "2026-11-21", "2027-01-03");
+assert.ok(bySlug.get("la-porte-christmas-on-main-2026").summary.includes("La Porte, Indiana"),
+  "Holiday sources must distinguish Texas La Porte from the Indiana city");
+assert.ok(bySlug.get("lake-jackson-festival-lights-day-parade-2026").summary.includes("7 p.m."),
+  "Lake Jackson's 2026 parade time must remain linked to its organizer");
+assert.ok(bySlug.get("rosenberg-hometown-holiday-festival-2026").summary.includes("not proof"),
+  "Do not equate the verified Hometown Holiday Festival with an unverified Christmas Nights alias");
 
 // The Alley Theatre's 2026–27 official ticketing calendar has distinct
 // performance nights, not a continuous Nov 15–Dec 27 run.
