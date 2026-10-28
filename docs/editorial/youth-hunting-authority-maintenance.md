@@ -42,3 +42,5 @@ The published page uses the shared image contract in `src/data/hunting/youth-hun
 The same `YOUTH_HUNTING_SECTIONS` drives the visible in-page links and the ItemList schema. Desktop uses the dated table; small screens use readable cards with identical source-linked entries. The youth-only information itself is still controlled by the existing verified TPWD calendar importer. Editorial corrections go to admin@texasdefined.com.
 
 Regression tests: `node --test scripts/data/youth-hunting-calendar-status.test.mjs`. The scheduled youth-monitor workflow also runs them and the focused production canary verifies the county selector, image attribution, and calendar status.
+
+TPWD county-slug exception: TexasDefined `la-salle` must link to official `/regs/counties/lasalle` (not `/la-salle`). This is asserted by the youth authority source contract.
