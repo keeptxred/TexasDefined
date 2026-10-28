@@ -32,3 +32,13 @@ Do not force publication after TPWD source failure, missing categories, changed 
 ## Editorial principles
 
 The guide is independent planning content, not a replacement for TPWD or federal legal rules. County, zone, access permission, public-property legal game, tagging and reporting still control individual hunts. A verified date does not imply a public property is open or a young hunter meets all eligibility requirements.
+
+## Reader experience and image provenance
+
+The published page uses the shared image contract in `src/data/hunting/youth-hunting-data.ts` for its visible hero, social preview, and Article structured data. Photo: Tony Ifland / U.S. Fish and Wildlife Service, public domain, source: https://www.fws.gov/media/youth-hunter. This photograph illustrates youth hunting in the United States and must never be captioned as a Texas-specific hunt. If the remote image becomes unavailable, replace it with a locally hosted, verified-rights image; do not silently revert to an unrelated state-park social fallback.
+
+`src/data/hunting/youth-hunting-status.ts` classifies each semicolon-separated youth-season window independently according to the America/Chicago calendar date, including transitions on opening and closing days. Unknown formats show "Verify with TPWD" rather than inferred eligibility. The official TPWD county links are constructed from TexasDefined's existing 254-county slug registry; the selector does not state that a county or property is open.
+
+The same `YOUTH_HUNTING_SECTIONS` drives the visible in-page links and the ItemList schema. Desktop uses the dated table; small screens use readable cards with identical source-linked entries. The youth-only information itself is still controlled by the existing verified TPWD calendar importer. Editorial corrections go to admin@texasdefined.com.
+
+Regression tests: `node --test scripts/data/youth-hunting-calendar-status.test.mjs`. The scheduled youth-monitor workflow also runs them and the focused production canary verifies the county selector, image attribution, and calendar status.
