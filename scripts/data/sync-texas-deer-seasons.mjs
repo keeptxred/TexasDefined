@@ -10,6 +10,16 @@ function checkDataset(data) {
   if (!Number.isInteger(data.startYear) || data.startYear < 2026 || data.startYear > 2100) throw new Error('Invalid deer season year.');
   if (data.seasonYear !== data.startYear + '–' + String(data.startYear + 1).slice(-2)) throw new Error('Deer season-year label mismatch.');
   if (data.rows.length !== ids.length || data.rows.some((row,i)=>row.id!==ids[i])) throw new Error('The eight TPWD deer season row identities/order changed.');
+  const expectedCalendar='https://tpwd.texas.gov/regulations/outdoor-annual/hunting/'+data.startYear+'-'+(data.startYear+1)+'-hunting-season-dates';
+  if(data.officialCalendarUrl!==expectedCalendar)throw new Error('TPWD calendar URL/year mismatch.');
+  if(data.officialDeerUrl!=='https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer')throw new Error('Unexpected official deer source URL.');
+  const facts=data.regulations;
+  if(!facts || !Number.isInteger(facts.openCountyCount) || !Number.isInteger(facts.annualBagMax) ||
+     !Number.isInteger(facts.annualBuckMax) || !Number.isInteger(facts.reportingHours) ||
+     !Number.isInteger(facts.specialAntlerSpreadInches) ||
+     !facts.buckAndAntlerlessReportingCounties || !facts.antlerlessReportingCounties ||
+     !facts.specialLateRestriction)throw new Error('Official TPWD regulatory facts snapshot is incomplete.');
+
   for (const row of data.rows) {
     for (const date of [row.start,row.end]) {
       if (!/^\d{4}-\d\d-\d\d$/.test(date) || Number.isNaN(Date.parse(date + 'T12:00:00Z')) || ![data.startYear, data.startYear+1].includes(Number(date.slice(0,4)))) throw new Error('Invalid TPWD deer season date: ' + date);
@@ -145,6 +155,12 @@ if (process.argv.includes('--self-test')) {
       got.rows[0].start !== '2026-10-03' || got.rows[0].end !== '2026-11-06' ||
       got.rows[1].end !== '2027-01-03' || got.rows[2].end !== '2027-01-17' ||
       got.rows[7].end !== '2027-01-31' || got.regulations.annualBagMax !== 5 || got.regulations.reportingHours !== 24) throw new Error('TPWD season range parser self-test failed');
+
+  const nextYearSample=sample.replace(/2026/g,'2030').replace(/2027/g,'2031');
+  const rollover=parseDeerPage(nextYearSample);
+  if(rollover.startYear!==2030||rollover.rows[0].start!=='2030-10-03'||
+     rollover.rows[2].end!=='2031-01-17'||rollover.regulations.annualBuckMax!==3)
+     throw new Error('New-year TPWD deer season parser rollover fixture failed');
   console.log('TPWD deer parser verified all eight official season date ranges including cross-year and same-month formats.');
   process.exit(0);
 }
