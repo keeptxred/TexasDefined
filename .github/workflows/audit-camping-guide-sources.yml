@@ -23,6 +23,11 @@ jobs:
           node-version: '22'
       - name: Verify official sources and verification-date coverage without network requests
         run: node scripts/data/audit-camping-guide-freshness.mjs --offline
+      - name: Validate camping page, bookings, alert snapshot and scheduler contract
+        run: |
+          node --check scripts/data/refresh-camping-alerts.mjs
+          node scripts/data/validate-camping-guide-decision-ux.mjs
+          node scripts/data/validate-camping-authority-upgrade.mjs
 
   official-source-health:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
