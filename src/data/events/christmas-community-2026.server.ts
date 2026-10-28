@@ -14,7 +14,7 @@ import type { TexasEventRecord } from "./texas-event-record";
 const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
   "slug" | "title" | "summary" | "city" | "countySlug" | "countyName" |
   "region" | "startDate" | "endDate" | "venueName" | "officialEventUrl" | "sourceName"
->> = [
+> & { sourceVerifiedAt?: string }> = [
   {
     "slug": "santas-ranch-new-braunfels",
     "title": "Santa's Ranch Christmas Drive-Through Lights",
@@ -824,7 +824,8 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "venueName": "Pearl · 303 Pearl Parkway",
     "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
     "sourceName": "Pearl official 2026 fall and winter events announcement",
-    "summary": "Pearl's official 2026 calendar confirms its Holiday Tree Lighting Ceremony on Friday, November 27. Expect carolers, hot chocolate and holiday activities near the San Antonio River; check Pearl's live event page for ceremony time and parking details. This is separate from the weekly Holiday Night Markets."
+    "summary": "Pearl's official 2026 calendar confirms its Holiday Tree Lighting Ceremony on Friday, November 27. Expect carolers, hot chocolate and holiday activities near the San Antonio River; check Pearl's live event page for ceremony time and parking details. This is separate from the weekly Holiday Night Markets.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "san-antonio-river-walk-holiday-lights",
@@ -1098,7 +1099,8 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "venueName": "Pearl · 303 Pearl Parkway",
     "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
     "sourceName": "Pearl official 2026 fall and winter events announcement",
-    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates."
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "baytown-stars-stripes-christmas-parade-2026",
@@ -2383,7 +2385,8 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "venueName": "Pearl · 303 Pearl Parkway",
     "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
     "sourceName": "Pearl official 2026 fall and winter events announcement",
-    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates."
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "longview-arboretum-bright-2026-3",
@@ -3186,7 +3189,8 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "venueName": "Pearl · 303 Pearl Parkway",
     "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
     "sourceName": "Pearl official 2026 fall and winter events announcement",
-    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates."
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "longview-arboretum-bright-2026-4",
@@ -3434,7 +3438,8 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "venueName": "Pearl · 303 Pearl Parkway",
     "officialEventUrl": "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
     "sourceName": "Pearl official 2026 fall and winter events announcement",
-    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates."
+    "summary": "Pearl confirms this Wednesday date as one of four 2026 Holiday Night Markets (December 2, 9, 16 and 23), featuring seasonal artisan and gift vendors. Admission to Pearl's outdoor market is separate from individual purchases or any ticketed entertainment. Check the current official event listing for daily hours, vendors and weather updates.",
+    "sourceVerifiedAt": "2026-10-27"
   },
   {
     "slug": "livingston-christmas-train-village-2026-5",
@@ -3562,7 +3567,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;;;
+];;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
