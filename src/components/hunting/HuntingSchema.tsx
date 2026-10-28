@@ -69,14 +69,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         "@id": `${pageUrl}#article`,
         headline: topic.title,
         description: topic.description,
-        image: {
-          "@type": "ImageObject",
-          url: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt",
-          width: 1300,
-          height: 863,
-          creditText: "Tom Koerner / US Fish and Wildlife Service",
-          license: "https://www.fws.gov/media/white-tailed-deer-buck-0",
-        },
+        image: { "@type": "ImageObject", url: "https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt", width: 1300, height: 863, creditText: "Tom Koerner / US Fish and Wildlife Service", license: "https://www.fws.gov/media/white-tailed-deer-buck-0" },
         dateModified: topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         mainEntityOfPage: { "@id": `${pageUrl}#page` },
         author: { "@type": "Organization", name: "TexasDefined" },
@@ -105,7 +98,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
           { "@type": "ListItem", position: 3, name: topic.title, item: pageUrl },
         ],
       },
-      {
+      ...(topic.faq.length ? [{
         "@type": "FAQPage",
         "@id": `${pageUrl}#faq`,
         mainEntity: topic.faq.map((item) => ({
@@ -113,7 +106,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
           name: item.question,
           acceptedAnswer: { "@type": "Answer", text: item.answer },
         })),
-      },
+      }] : []),
     ],
   }} />;
 }
