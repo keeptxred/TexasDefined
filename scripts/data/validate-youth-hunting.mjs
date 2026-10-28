@@ -40,6 +40,10 @@ if (process.argv.includes("--online")) {
     if(!res.ok)throw new Error("TPWD status "+res.status+" at "+url);
     const txt=(await res.text()).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi," ").replace(/<[^>]+>/g," ").replace(/\s+/g," ");
     for(const marker of markers)check(txt,marker,"official TPWD policy "+url);
+    if(url.includes("hunting-licenses-and-permits")) {
+      const section=txt.slice(txt.indexOf("Youth Hunting License"));
+      if(!/Youth Hunting License.{0,1600}\b169\s+\$7\b/.test(section)) throw new Error("Official TPWD youth license Type 169 fee changed or source structure drifted");
+    }
     console.log("Verified source markers: "+url);
   }
 }
