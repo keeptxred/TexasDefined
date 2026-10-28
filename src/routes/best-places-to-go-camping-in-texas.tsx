@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { hasCampingDestinationGuide } from "@/data/camping/destination-guides";
+import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const title = "Best Places to Go Camping in Texas | Parks, Beaches & Campgrounds";
@@ -50,7 +51,9 @@ export const Route = createFileRoute(canonicalPath)({
   },
   head: ({ loaderData }) => {
     const entries = loaderData?.entries ?? [];
-    const modified = entries.map(({ profile }) => profile.verifiedAt).sort().at(-1) ?? "2026-09-02";
+    // Page metadata reflects substantive operational-notice updates; individual
+    // campground verifiedAt dates continue to represent their own source research.
+    const modified = [...entries.map(({ profile }) => profile.verifiedAt), ...CAMPING_OPERATIONAL_ALERTS.map((alert) => alert.checkedAt)].sort().at(-1) ?? "2026-09-02";
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
