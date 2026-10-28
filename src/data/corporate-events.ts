@@ -1,3 +1,5 @@
+import { houstonBuild2VerifiedProviders } from './corporate-events-houston-build2.ts';
+
 export type GroupEventCategory = 'team-building' | 'company-parties' | 'private-dining' | 'meetings' | 'outdoor-adventure' | 'client-entertainment';
 export type CorporateEventProvider = {
   slug: string;
@@ -1787,4 +1789,6 @@ export const corporateEventProviders: CorporateEventProvider[] = [
     sourceUrl: 'https://gameshowbattlerooms.com/houston/', verifiedOn: '2026-10-24',
   },
 
+  // Official-source Houston suburban and activity additions, each independently source-dated.
+  ...houstonBuild2VerifiedProviders,
 ];
