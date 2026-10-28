@@ -48,8 +48,10 @@ const goodReport=()=>({
   version:1,technicalOnly:true,sourceCommit:sha,workerVersions:[worker],
   failures:[],sitemapMissing:[],screenshots:20,
   schoolChecks:slugs.slice(0,5).flatMap(slug=>
-    Array.from({length:3},()=>({slug,pass:true,issues:[]}))),
-  countyChecks:Array.from({length:5},(_,i)=>({county:'county-'+i,pass:true,issues:[]}))
+    [['desktop',1366],['mobile',390],['narrow',320]].map(([device,width])=>
+      ({slug,device,width,pass:true,issues:[]}))),
+  countyChecks:['falls','mclennan','tom-green','guadalupe','eastland']
+    .map(county=>({county,pass:true,issues:[]}))
 });
 test('accept Chrome report only when all three views and PNG files exist',()=>{
   const report=goodReport();
@@ -66,4 +68,8 @@ test('reject green-but-skipped and incomplete browser evidence',()=>{
   report.schoolChecks[2].pass=true;
   report.schoolChecks[2].slug='unassigned';
   assert.throws(()=>verifyChromeReport(report,0,slugs.slice(0,5),worker,sha,20));
+  report.schoolChecks[2].slug=slugs[0];
+  report.schoolChecks[2].width=390;
+  assert.throws(()=>verifyChromeReport(report,0,slugs.slice(0,5),worker,sha,20),
+    /viewport width/);
 });
