@@ -22,6 +22,12 @@
 
 Every row comes from the actual **successful GitHub source-research artifact**, not from geocoding business street addresses, a city center, an IP address or a synthetic test fixture. The 2020 county crosswalk yielded a single county GEOID for each requested ZCTA; that alone is **not evidence** that a USPS ZIP and a 2026 ZCTA boundary are interchangeable.
 
+## Added research target for newly documented venues — 2026-10-27
+
+The existing source-verified public business-address research now includes [Puttery Houston and PKL Social](./corporate-event-geography-evidence.md) in Houston ZIP **77007**, alongside HMNS in previously researched 77030. The read-only official-Census GitHub evidence workflow now requests **six** distinct candidate ZCTAs: `77030, 77058, 77020, 77034, 77056, 77007`. Its next successful research-only run must be checked for the actual 2026 Gazetteer 77007 representative coordinate and independently reviewable 2020 county intersection; **no 77007 result, value, county association, or current ZIP equivalence is asserted here in advance of that run**.
+
+The five archived candidate rows above remain results of the original October 26 run. They are not retroactively modified or expanded by this workflow change. No geocoded entrance, source-approved ZCTA, public `VerifiedZipLocation`, radius match, road mileage, partner availability or paid booking is created by the sixth research request. The workflow artifact remains quarantined and expires after 30 days.
+
 ## Mandatory independent checks before any enrollment
 
 1. Confirm the original Census source files, revision dates, row identity and 2026/2020 vintage crosswalk; handle subsequent Census replacements, changed boundaries and codes that have no unique statistical-area relationship.
