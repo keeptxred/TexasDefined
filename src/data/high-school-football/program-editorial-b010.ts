@@ -3,6 +3,407 @@ import type { FootballProgramEditorial } from './program-editorial';
 /** First five source-controlled Batch 010 program guides. Date-specific official
  * school and UIL sources; do not turn schedules into scores or copy marks. */
 const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "cleveland-tarkington": {
+    "slug": "cleveland-tarkington",
+    "intro": "The Tarkington Longhorns are a separate Liberty County football program from Cleveland High's Indians, although both schools are listed under Cleveland, Texas. The 2026 UIL alignment places Tarkington in 3A Division I District 10. Tarkington ISD officially appointed Jake Howard athletic director; the current 2026 varsity staff roster names Howard head football coach.",
+    "theme": {
+      "accentHex": "#72553A",
+      "label": "TexasDefined original bronze typography, not Tarkington school artwork or team logo."
+    },
+    "seo": {
+      "title": "Cleveland Tarkington Longhorns Football | Jake Howard & 2026 District 10",
+      "description": "Tarkington Longhorns in Liberty County: 2026 coach Jake Howard, UIL 3A Division I District 10, separate school identity and first-party athletics resources."
+    },
+    "coach": {
+      "name": "Jake Howard",
+      "title": "Head football coach on current 2026 roster; district-appointed athletic director",
+      "sourceUrl": "https://www.maxpreps.com/tx/cleveland/tarkington-longhorns/football/staff/",
+      "sourceLabel": "MaxPreps 2026 Tarkington football staff confirms Howard; Tarkington ISD independently announces athletic director",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "2770 FM 163 Road, Cleveland, TX 77327 (Tarkington campus; not the football spectator gate)",
+      "sourceUrl": "https://www.maxpreps.com/tx/cleveland/tarkington-longhorns/football/staff/",
+      "sourceLabel": "Tarkington UIL partner school campus address",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Tarkington ISD athletics information, official events and ticket guidance",
+      "sourceUrl": "https://www.tarkingtonisd.net/departments/athletics",
+      "sourceLabel": "Tarkington ISD first-party athletics department lists Jake Howard and official apparel",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.tarkingtonisd.net/departments/athletics"
+    },
+    "development": {
+      "title": "A new 2026 athletic director returns to his home area",
+      "body": "Tarkington ISD's official introduction identifies Jake Howard as its new athletics director with previous coaching experience at Willis. The 2026 team roster separately confirms Howard as the varsity football head coach, a different school and district job from Cleveland ISD's Ajani Sanders. His work at Willis does not establish Tarkington playoff appearances or 2026 wins.",
+      "sourceUrl": "https://www.tarkingtonisd.net/about-tisd/district-news/details/~board/showcases-1/post/new-athletic-director-announced",
+      "sourceLabel": "First-party Tarkington ISD appointment and background",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Jake Howard joins Tarkington",
+        "body": "The district announces Howard as athletic director; the current varsity staff lists him head football coach.",
+        "sourceUrl": "https://www.tarkingtonisd.net/about-tisd/district-news/details/~board/showcases-1/post/new-athletic-director-announced",
+        "sourceLabel": "Tarkington ISD official announcement"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 3A Division I District 10",
+        "body": "Tarkington competes in the 3A Division I league for the 2026–28 UIL cycle.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026 football alignment"
+      }
+    ],
+    "overview": [
+      "Tarkington Longhorns are a distinct Liberty County football program, not Cleveland High Indians or its coaching staff.",
+      "Tarkington ISD officially identifies Jake Howard athletic director and the 2026 football roster identifies him head coach.",
+      "Its UIL classification is 3A Division I District 10, not Cleveland High's 6A District 13.",
+      "Official team gear and event-ticket sources are controlled by the district; TexasDefined sells neither tickets nor school-licensed products."
+    ],
+    "faq": [
+      {
+        "question": "Are Cleveland High and Tarkington the same team?",
+        "answer": "No. Tarkington is the Longhorns in UIL 3A Division I, while Cleveland High's Indians play in Conference 6A."
+      },
+      {
+        "question": "Who coaches Tarkington football in 2026?",
+        "answer": "The 2026 team staff roster lists Jake Howard. Tarkington ISD independently announces him as athletic director."
+      }
+    ]
+  },
+  "clifton": {
+    "slug": "clifton",
+    "intro": "The Clifton Cubs compete in UIL Class 3A Division II District 5. Clifton ISD's current athletics staff directory identifies Brent Finney as Athletic Director and Head Football Coach, supported by an August 2026 KWTX season preview. The school entered 2026 after an 8–3 season and a district title in 2025; those are historical facts, not its final 2026 record.",
+    "theme": {
+      "accentHex": "#4A663B",
+      "label": "Original TexasDefined forest-olive editorial accent, without reproducing Clifton school crest or sports photos."
+    },
+    "seo": {
+      "title": "Clifton Cubs Football | Brent Finney, District 5 & 2026 Schedule",
+      "description": "Clifton Cubs football: first-party coach Brent Finney, 2025 district title, 2026 UIL 3A Division II District 5, school schedule and visitor guidance."
+    },
+    "coach": {
+      "name": "Brent Finney",
+      "title": "Athletic Director and Head Football Coach",
+      "sourceUrl": "https://www.cliftonisd.org/o/cisda/staff",
+      "sourceLabel": "Clifton ISD first-party current athletics staff directory",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "1101 N Avenue Q, Clifton, TX 76634 (Clifton High campus; football stadium gate not inferred)",
+      "sourceUrl": "https://www.maxpreps.com/tx/clifton/clifton-cubs/football/staff/",
+      "sourceLabel": "Current school location in 2026 roster",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Clifton 2026 varsity fixtures and dated preseason schedule",
+      "sourceUrl": "https://www.kwtx.com/2026/08/18/2-a-days-2026-clifton/",
+      "sourceLabel": "August 18 KWTX reporting lists all ten dated regular-season fixtures",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://www.cliftonisd.org/o/cisda"
+    },
+    "development": {
+      "title": "Coach Finney's four straight postseason appearances",
+      "body": "KWTX's August 2026 reporting described four consecutive playoff trips under Brent Finney and a 2025 district title. The named 2026 lineup includes Bosqueville, West, Italy, Comanche, Rio Vista and district opponents Eastland, Hamilton, Dublin, Tolar and Millsap. An older third-party historic season shell may present a conflicting coach label; current Clifton ISD staff and the 2026 roster agree on Finney.",
+      "sourceUrl": "https://www.kwtx.com/2026/08/18/2-a-days-2026-clifton/",
+      "sourceLabel": "KWTX firsthand August 2026 season preview",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "District title and 8–3 finish",
+        "body": "2026 KWTX preview cites the Cubs' 2025 eight-win season and district championship.",
+        "sourceUrl": "https://www.kwtx.com/2026/08/18/2-a-days-2026-clifton/",
+        "sourceLabel": "KWTX date-qualified team history"
+      },
+      {
+        "date": "August 2026",
+        "title": "Brent Finney returns to lead Cubs",
+        "body": "School-controlled staff labels Finney AD/head coach; local 2026 preview confirms the varsity assignment.",
+        "sourceUrl": "https://www.cliftonisd.org/o/cisda/staff",
+        "sourceLabel": "Clifton ISD official athletics staffing"
+      },
+      {
+        "date": "2026–28",
+        "title": "Current 3A Division II District 5",
+        "body": "Current UIL realignment controls district assignment, unlike older-season district labels.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "Official UIL realignment"
+      }
+    ],
+    "overview": [
+      "Clifton is the Bosque County Cubs, currently UIL 3A Division II District 5.",
+      "Brent Finney is the current first-party named athletics director and head football coach.",
+      "2025 was an 8–3 season and district title; the 2026 schedule contains ten dates, but later results need event-source updates.",
+      "Clifton High's Avenue Q campus address is not a verified parking, ticket, bag or accessible gate instruction."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Clifton football?",
+        "answer": "Clifton ISD's current athletics page lists Brent Finney as Athletic Director and Head Football Coach."
+      },
+      {
+        "question": "Did Clifton win its district in 2025?",
+        "answer": "Yes, as reported by KWTX in its August 2026 season preview; that does not establish a 2026 district title."
+      }
+    ]
+  },
+  "clint": {
+    "slug": "clint",
+    "intro": "Clint High School's Lions play UIL 4A Division II District 1, distinct from Clint ISD's Horizon Scorpions in 5A Division I and Mountain View Lobos in the same 4A DII league. Clint High's official football page names Rosuel Martinez head coach, while the 2026 independent roster spells the first name Rosvel. This guide uses the school-controlled name and documents the difference.",
+    "theme": {
+      "accentHex": "#754C38",
+      "label": "TexasDefined original copper typography, not official Clint High football colors or logos."
+    },
+    "seo": {
+      "title": "Clint Lions Football | Coach Rosuel Martinez & 2026 UIL District 1",
+      "description": "Clint Lions varsity football: school-official Rosuel Martinez, 4A Division II District 1, historic playoff context and El Paso County campus."
+    },
+    "coach": {
+      "name": "Rosuel Martinez",
+      "title": "Head Football Coach as spelled by Clint High's current official athletics page",
+      "sourceUrl": "https://chs.clintweb.net/athletics/football",
+      "sourceLabel": "Clint High first-party football coaches directory; MaxPreps spells Rosvel Martinez",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "13890 Alameda Ave, Clint, TX 79836 (school campus, not a stadium entrance)",
+      "sourceUrl": "https://chs.clintweb.net/athletics/football",
+      "sourceLabel": "Clint High official school footer and contact information",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Clint High football staff, fixtures and district information",
+      "sourceUrl": "https://chs.clintweb.net/athletics/football",
+      "sourceLabel": "Official Clint High varsity football page and coordinator list",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://chs.clintweb.net/athletics/football"
+    },
+    "venue": {
+      "name": "The Den – Lion Stadium",
+      "sourceUrl": "https://www.texasfootball.com/team/clint-lions",
+      "sourceLabel": "DCTF program stadium listing; game-specific entrance must be checked",
+      "verifiedAt": "2026-10-28",
+      "note": "The stadium name does not verify field entrance, parking, public ticket prices, bag rules or accessibility."
+    },
+    "development": {
+      "title": "Why first-party spelling and the Clint ISD school names matter",
+      "body": "The high school's own football coaching page identifies Rosuel Martinez and assistants David Gardea and Armando Resendiz. MaxPreps's September 2026 roster lists Rosvel Martinez as head coach: the two spellings should not be silently combined into a new person or claimed to be independently verified legal names. The UIL district has Clint and Mountain View in 4A DII; Horizon High plays in 5A DI, so schedule or rankings must not be merged between campuses.",
+      "sourceUrl": "https://www.clintweb.net/departments/athletic-services/directory-of-athletics",
+      "sourceLabel": "Clint ISD first-party list of three separate high-school athletic coordinators",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Current Clint High coaching staff posted",
+        "body": "Clint High lists Rosuel Martinez head coach, with Gardea offensive coordinator and Resendiz defensive coordinator.",
+        "sourceUrl": "https://chs.clintweb.net/athletics/football",
+        "sourceLabel": "Clint High School first-party coaching staff"
+      },
+      {
+        "date": "2026–28",
+        "title": "Class 4A Division II District 1",
+        "body": "Clint shares current UIL district alignment with Mountain View, not 5A Horizon.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
+        "sourceLabel": "UIL current alignment"
+      },
+      {
+        "date": "2025",
+        "title": "Previous Lions season",
+        "body": "DCTF lists a 3–7 2025 mark; it should not be carried forward into current 2026 W/L totals.",
+        "sourceUrl": "https://www.texasfootball.com/team/clint-lions",
+        "sourceLabel": "Dave Campbell's annual team history"
+      }
+    ],
+    "overview": [
+      "Clint Lions play 4A Division II District 1 in 2026–28 and are separate from the district's Horizon Scorpions and Mountain View Lobos.",
+      "The school-owned athletics page spells head coach Rosuel Martinez, while a third-party 2026 roster spells Rosvel; the discrepancy is disclosed.",
+      "Clint's campus is at 13890 Alameda Avenue; a separate stadium venue listing is not a substitute for actual spectator directions.",
+      "Historic season results and current district standing are identified as different reporting periods."
+    ],
+    "faq": [
+      {
+        "question": "Who is Clint High football's current head coach?",
+        "answer": "Clint High's own athletics website names Rosuel Martinez; MaxPreps spells the name Rosvel Martinez, so the source difference is explicit."
+      },
+      {
+        "question": "Are Clint, Horizon and Mountain View in the same 2026 football district?",
+        "answer": "No. Clint and Mountain View are 4A Division II District 1, while Horizon plays 5A Division I District 1."
+      }
+    ]
+  },
+  "clint-horizon": {
+    "slug": "clint-horizon",
+    "intro": "Horizon High School's Scorpions are a separate Clint ISD program located in Horizon City, El Paso County. For 2026–28 Horizon competes in UIL 5A Division I District 1, while Clint and Mountain View play 4A Division II District 1. Clint ISD's official high-school athletic-coordinator directory identifies Omar Garcia, and its 2026 team roster names Garcia as varsity head football coach.",
+    "theme": {
+      "accentHex": "#345B65",
+      "label": "Original TexasDefined teal-slate editorial accent, no copied Scorpion emblem or school uniform artwork."
+    },
+    "seo": {
+      "title": "Clint Horizon Scorpions Football | Omar Garcia & UIL 5A District 1",
+      "description": "Horizon Scorpions in Horizon City: official Clint ISD Omar Garcia athletics coordinator, 2026 UIL 5A Division I District 1 and current school athletics."
+    },
+    "coach": {
+      "name": "Omar Garcia",
+      "title": "2026 varsity head football coach, first-party campus athletic coordinator",
+      "sourceUrl": "https://www.clintweb.net/departments/athletic-services/directory-of-athletics",
+      "sourceLabel": "Clint ISD official high-school athletics coordinators, cross-checked 2026 MaxPreps varsity staff",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "14651 Horizon Blvd, Horizon City, TX 79928 (high school campus, not confirmed stadium gate)",
+      "sourceUrl": "https://hhs.clintweb.net/our-school/administration",
+      "sourceLabel": "Official Horizon High School campus footer",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Horizon High School football schedules and district events",
+      "sourceUrl": "https://hhs.clintweb.net/athletics",
+      "sourceLabel": "First-party Horizon High athletics page; varsity versus JV schedules must be distinguished",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://hhs.clintweb.net/athletics"
+    },
+    "development": {
+      "title": "A 5A Scorpions program that must not be blended with 4A sister schools",
+      "body": "Clint ISD lists Omar Garcia as Horizon High's campus athletics coordinator, and the 2026 football staff roster independently calls him head coach. The school's online schedule includes a JV and ninth-grade section with unusual November/December dates; those **must not** be copied as varsity game fixtures. Horizon's opt-up into 5A Division I in 2026 created a different UIL league from Clint and Mountain View.",
+      "sourceUrl": "https://hhs.clintweb.net/athletics/football/schedules",
+      "sourceLabel": "Official Horizon High schedule with distinctly labeled varsity, JV and ninth-grade sections",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2026–28",
+        "title": "Horizon enters 5A Division I District 1",
+        "body": "UIL places the Scorpions in 5A Division I District 1 and Clint/Mountain View in 4A Division II District 1.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "Official UIL realignment"
+      },
+      {
+        "date": "2026",
+        "title": "Omar Garcia listed for Horizon",
+        "body": "Clint ISD publishes Omar Garcia as Horizon High's athletics coordinator; the 2026 football staff roster lists him head coach.",
+        "sourceUrl": "https://www.clintweb.net/departments/athletic-services/directory-of-athletics",
+        "sourceLabel": "Official Clint ISD school coordinator directory"
+      },
+      {
+        "date": "2026",
+        "title": "Separate JV and ninth-grade schedules published",
+        "body": "Horizon High's school-owned schedule labels JV and ninth-grade fixtures separately; they cannot be presented as varsity games.",
+        "sourceUrl": "https://hhs.clintweb.net/athletics/football/schedules",
+        "sourceLabel": "Horizon High first-party schedule sections"
+      }
+    ],
+    "overview": [
+      "Horizon High Scorpions represent a separate Horizon City school in the Clint ISD system.",
+      "The 2026 football classification is 5A Division I District 1, different from Clint High and Mountain View's 4A DII District 1.",
+      "Clint ISD's current coordinator directory and 2026 roster identify Omar Garcia in athletics/football leadership.",
+      "Use the school-owned football page for official event details; JV dates, the campus address and varsity stadium admission details are not interchangeable."
+    ],
+    "faq": [
+      {
+        "question": "Who is Horizon High's 2026 head football coach?",
+        "answer": "The current football staff lists Omar Garcia, and Clint ISD lists him as Horizon High's campus athletics coordinator."
+      },
+      {
+        "question": "Is Horizon in Clint's same UIL football classification?",
+        "answer": "No. Horizon is 5A Division I in 2026; Clint and Mountain View are 4A Division II."
+      },
+      {
+        "question": "Can I use a JV schedule for varsity football planning?",
+        "answer": "No. Horizon's school site presents separate schedules for varsity, JV and ninth grade. Verify the game level before traveling."
+      }
+    ]
+  },
+  "clint-mountain-view": {
+    "slug": "clint-mountain-view",
+    "intro": "Mountain View High's Lobos are one of three separate Clint ISD football schools in El Paso County. The current 2026 UIL alignment puts the Lobos with Clint High in 4A Division II District 1, distinct from Horizon High's 5A Division I. Clint ISD officially lists DJ Check as Mountain View campus athletics coordinator, and the active 2026 roster labels Check varsity football head coach.",
+    "theme": {
+      "accentHex": "#4C5D71",
+      "label": "TexasDefined original steel-gray editorial typography, not the official Mountain View Lobo mark or a licensed player photo."
+    },
+    "seo": {
+      "title": "Clint Mountain View Lobos Football | DJ Check & 2026 UIL District 1",
+      "description": "Mountain View Lobos in El Paso County: 2026 head coach DJ Check, 4A Division II District 1, official 2026 athletics links and documented Lobo Stadium context."
+    },
+    "coach": {
+      "name": "DJ Check",
+      "title": "2026 head varsity football coach; Clint ISD campus athletic coordinator",
+      "sourceUrl": "https://www.clintweb.net/departments/athletic-services/directory-of-athletics",
+      "sourceLabel": "Official district Mountain View high school athletic coordinator; 2026 roster independently identifies head coach",
+      "verifiedAt": "2026-10-28"
+    },
+    "campus": {
+      "address": "14964 Greg Dr, El Paso, TX 79938 (campus, not spectator gate)",
+      "sourceUrl": "https://mvhs.clintweb.net/our-school/administration",
+      "sourceLabel": "School first-party administration page location",
+      "verifiedAt": "2026-10-28"
+    },
+    "schedule": {
+      "label": "Mountain View High first-party football events and 2026–27 team news",
+      "sourceUrl": "https://mvhs.clintweb.net/",
+      "sourceLabel": "Mountain View official August 20 2026–27 football and September Hometown Ticketing announcements",
+      "verifiedAt": "2026-10-28",
+      "officialScheduleUrl": "https://mvhs.clintweb.net/"
+    },
+    "venue": {
+      "name": "Lobo Stadium",
+      "sourceUrl": "https://www.texasfootball.com/team/clint-mountain-view-lobos",
+      "sourceLabel": "DCTF 2026 school stadium label and program history",
+      "verifiedAt": "2026-10-28",
+      "note": "Stadium name, historic 3,000-capacity third-party listing and ticket link do not confirm today's gate, seating, accessibility, parking or admission."
+    },
+    "development": {
+      "title": "Current Lobos staff and a recent 4A district change",
+      "body": "Mountain View's 2026 varsity staff includes DJ Check, also named the current campus athletics coordinator by Clint ISD. Published 2025 season history describes a 3–7 prior season; the 2026 team has a separate official school-run football-news page. Although Horizon's 2026 schedule still includes Mountain View as a non-district opponent, Mountain View and Clint share a 4A DII district while Horizon is 5A DI, so a shared ISD does not imply a shared standings table.",
+      "sourceUrl": "https://www.maxpreps.com/tx/el-paso/mountain-view-lobos/football/history/",
+      "sourceLabel": "Year-specific Mountain View 2025 season history and current coaching roster",
+      "verifiedAt": "2026-10-28"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Three-win past season",
+        "body": "The historical team record shows 3–7; it is not the 2026 final standing.",
+        "sourceUrl": "https://www.maxpreps.com/tx/el-paso/mountain-view-lobos/football/history/",
+        "sourceLabel": "MaxPreps archived season"
+      },
+      {
+        "date": "2026",
+        "title": "2026 Mountain View staff and school season news",
+        "body": "Clint ISD's high-school coordinator list names DJ Check; Mountain View school news links the current 2026–27 football resources.",
+        "sourceUrl": "https://www.clintweb.net/departments/athletic-services/directory-of-athletics",
+        "sourceLabel": "Official Clint ISD athletics coordinator"
+      },
+      {
+        "date": "2026–28",
+        "title": "4A Division II District 1 competition",
+        "body": "Mountain View and Clint High share 4A Division II District 1 after UIL realignment.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
+        "sourceLabel": "UIL official realignment"
+      }
+    ],
+    "overview": [
+      "Mountain View Lobos football is at 14964 Greg Drive in El Paso County, not the other 'Mountain View' schools in different states.",
+      "DJ Check is identified by both the official Clint ISD athletics coordinator list and current varsity football roster.",
+      "The Lobos compete in UIL 4A Division II District 1; sister school Horizon is in a separate 5A Division I league.",
+      "Lobo Stadium visitor details and online Hometown Ticketing inventory are external school/host responsibilities, not guaranteed by TexasDefined."
+    ],
+    "faq": [
+      {
+        "question": "Who is Mountain View's current head football coach?",
+        "answer": "The 2026 football roster names DJ Check, and Clint ISD lists him as the Mountain View athletic coordinator."
+      },
+      {
+        "question": "Does Clint Horizon play in Mountain View's district?",
+        "answer": "No. Mountain View and Clint compete in 4A Division II District 1, while Horizon's 2026 alignment is 5A Division I District 1."
+      }
+    ]
+  },
   "clarendon": {
     "slug": "clarendon",
     "intro": "The Clarendon Broncos play in UIL 2A Division II District 5 for 2026–28 against Memphis, Quanah, Shamrock, Wellington and Wheeler. Clarendon CISD offers a first-party 26/27 Bronco football schedule, and its own athletic live feed identifies Coach Whitaker. Independent 2026 staff listings name Brenton Whitaker head coach; stale October opponent feeds should not be mistaken for a finished season.",
