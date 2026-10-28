@@ -8,6 +8,7 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  actions: write
 
 concurrency:
   group: texasdefined-camping-official-source-refresh
@@ -19,6 +20,9 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -39,7 +43,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ github.token }}
-          branch: automation/camping-official-alert-refresh
+          branch: automation/camping-official-alert-refresh-${{ github.run_id }}
           delete-branch: true
           commit-message: 'data(camping): refresh verified TPWD operational notices'
           title: 'Camping: refresh official park operational notices'
@@ -47,11 +51,9 @@ jobs:
             Generated from official TPWD and NPS park advisories. Confirmed statements must match source text; changed statements become needs-review and are never automatically declared resolved.
             This PR changes only the bounded camping alert snapshot on substantive source-verified changes. The verification date is not restamped on no-op checks.
           add-paths: src/data/camping/official-alerts.generated.ts
-      - name: Enable protected automatic merge of fully verified notices
+      - name: Hand off generated PR to the protected owner-side finisher
         if: steps.refresh.outcome == 'success' && steps.update-pr.outputs.pull-request-number != ''
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh pr merge "${{ steps.update-pr.outputs.pull-request-number }}" --auto --squash
+        run: echo "Generated source PR opened. The Finish Camping Authority Refresh workflow dispatches exact-SHA canonical CI and protected auto-merge. GITHUB_TOKEN PRs do not run required pull_request checks unattended." >> "$GITHUB_STEP_SUMMARY"
       - name: Close resolved advisory review issue
         if: steps.refresh.outcome == 'success'
         uses: actions/github-script@v7
