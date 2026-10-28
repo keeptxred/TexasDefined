@@ -53,7 +53,9 @@ export type MarketplaceLocation = {
   city: string | null;
   area: string | null;
   /** A location capacity does not imply that any given activity can host this many. */
+  publishedVenueMinimum: number | null;
   publishedVenueMaximum: number | null;
+  groupSuitability: 'supported'|'unsupported'|'unknown';
   setting: MarketplaceSetting;
   source: MarketplaceSource;
 };
@@ -61,6 +63,8 @@ export type MarketplacePackage = {
   id: string;
   experienceId: string;
   name: string;
+  includedActivities: readonly string[];
+  foodAndBeverageDetails: string | null;
   minParticipants: number | null;
   maxParticipants: number | null;
   durationMinutes: number | null;
@@ -232,7 +236,8 @@ export function legacyCorporateVenueLocation(
         lastVerifiedAt: venue.verifiedOn, status: 'verified' },
     },
     city: venue.city, area: venue.area,
-    publishedVenueMaximum: venue.maxGroup, setting: 'unknown',
+    publishedVenueMinimum: venue.minGroup ?? null,
+    publishedVenueMaximum: venue.maxGroup, groupSuitability: 'supported', setting: 'unknown',
     source: { officialUrl: venue.sourceUrl, lastCheckedAt: null,
       lastVerifiedAt: venue.verifiedOn, status: 'verified' },
   };
