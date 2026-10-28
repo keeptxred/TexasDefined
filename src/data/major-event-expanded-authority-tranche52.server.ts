@@ -695,21 +695,21 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Dallas County",
     region: "prairies-lakes",
     category: "culture",
-    startDate: "2026-02-15",
-    endDate: "2026-02-15",
-    dateNote: "Completed historical 2026 parade: Sunday, February 15 at 1 p.m. The Go Oak Cliff organizer has not yet posted a confirmed 2027 date.",
+    startDate: "2027-02-07",
+    endDate: "2027-02-07",
+    dateNote: "The same-day event partner Dash for the Beads schedules the Go Oak Cliff Mardi Gras Parade for Sunday, February 7, 2027 at 1 p.m. Go Oak Cliff's standalone page still displays 2026; full 2027 route and closure details need confirmation.",
     venue: "West Davis Street, Oak Cliff",
     officialUrl: "https://gooakcliff.org/mardigras",
-    sourceCheckedAt: "2026-10-21",
-    whyItMatters: "Oak Cliff celebrates Mardi Gras with a major neighborhood parade down Davis Street, drawing floats, bands, costumes and families to Dallas's Bishop Arts area. Go Oak Cliff confirms that the previous edition ran Sunday, February 15, 2026 at 1 p.m.; no 2027 date was posted when this guide was researched.",
+    sourceCheckedAt: "2026-10-27",
+    whyItMatters: "Oak Cliff celebrates Mardi Gras with a major neighborhood parade down Davis Street, drawing floats, costumes and families to Dallas's Bishop Arts area. The parade's partnered same-day race, Dash for the Beads, publishes Sunday, February 7, 2027 at 1 p.m. for the Go Oak Cliff procession; its standalone parade site still displays 2026, so the 2027 route and street access need rechecking.",
     quickFacts: [
       {
-        label: "2027 parade date",
-        value: "Not yet confirmed by Go Oak Cliff"
+        label: "2027 parade",
+        value: "Sunday, February 7 at 1 p.m. — same-day partner Dash for the Beads"
       },
       {
-        label: "Most recent organizer-confirmed date",
-        value: "Sunday, February 15, 2026 — completed"
+        label: "Same-day events",
+        value: "10:30 a.m. 1-mile fun run, 11 a.m. 5K, 1 p.m. Go Oak Cliff parade"
       },
       {
         label: "Previous parade corridor",
@@ -722,8 +722,8 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     planningSections: [
       {
-        title: "Wait for Go Oak Cliff's 2027 route and date",
-        body: "The organizer's active site still presents the 2026 parade on Sunday, February 15. That is not permission to publish a 2027 parade date or starting time. Use the current organizer page before planning a specific visit."
+        title: "Parade date confirmed by the partnered race",
+        body: "Dash for the Beads confirms the Go Oak Cliff parade for Sunday, February 7, 2027 at 1 p.m.; its one-mile family fun run starts at 10:30 a.m. and the 5K at 11 a.m. Go Oak Cliff's main page still lists the 2026 event, so look for its updated 2027 road closures and route before choosing a viewing spot."
       },
       {
         title: "The Davis Street corridor is the draw",
@@ -746,7 +746,7 @@ const records: MajorEventAuthorityRecord[] = [
       {
         href: "/events/mardi-gras",
         label: "Texas Mardi Gras hub",
-        description: "See confirmed 2027 celebrations while Dallas dates remain pending."
+        description: "Compare Oak Cliff’s February 7 parade with the other confirmed celebrations."
       },
       {
         href: "/county/dallas",
@@ -763,6 +763,10 @@ const records: MajorEventAuthorityRecord[] = [
       {
         label: "Go Oak Cliff — official Mardi Gras organizer page",
         url: "https://gooakcliff.org/mardigras"
+      },
+      {
+        label: "Dash for the Beads — partner-confirmed 2027 parade date and 1 p.m. start",
+        url: "https://www.dashforthebeads.org/the-race/"
       },
       {
         label: "Go Oak Cliff — 2026 parade registration and route (historical)",
