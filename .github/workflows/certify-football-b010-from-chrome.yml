@@ -1,5 +1,10 @@
 name: Certify Batch010 only from real Chrome evidence
 on:
+  pull_request:
+    paths:
+      - 'scripts/ci/prepare-football-b010-certification.mjs'
+      - 'scripts/ci/prepare-football-b010-certification.test.mjs'
+      - '.github/workflows/certify-football-b010-from-chrome.yml'
   workflow_dispatch:
   workflow_run:
     workflows: ['Football Batch 010 fifth-five live production acceptance']
@@ -16,8 +21,23 @@ concurrency:
   group: football-b010-evidence-certification
   cancel-in-progress: false
 jobs:
+  contract:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert that fake or skipped Chrome reports cannot promote schools
+        run: |
+          node --check scripts/ci/prepare-football-b010-certification.mjs
+          node --test scripts/ci/prepare-football-b010-certification.test.mjs
   certification:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: texasdefined-publication
