@@ -9,7 +9,7 @@ const dateRe = new RegExp("\\b" + months + "\\.?\\s+\\d{1,2}\\s*[-–]\\s*(?:" +
 const assert = (ok, message) => { if (!ok) throw new Error("TPWD youth calendar: " + message); };
 const normalize = (s) => s.replace(/\s+/g, " ").trim();
 const dates = (s) => [...s.matchAll(dateRe)].map((m) => normalize(m[0]).replace(/\s*[-–]\s*/g, "–"));
-const escapeRe = (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+const escapeRe = (s) => [...s].map((ch) => "\\.^$*+?()[]{}|/".includes(ch) ? "\\" + ch : ch).join("");
 
 function visibleText(html) {
   return normalize(html
@@ -42,7 +42,7 @@ export function parseYouthCalendar(html) {
   const start = page.indexOf("Youth-Only Seasons & County Regulations", title.index);
   const end = page.indexOf("About Youth-only Seasons", start);
   assert(start >= 0 && end > start,"missing official species boundaries");
-  const core = page.slice(start + 40, end);
+  const core = page.slice(start + "Youth-Only Seasons & County Regulations".length, end);
   const duck = zones(species(core,"Duck"),["South Zone","High Plains Mallard Management Unit","North Zone"]);
   const squirrel = zones(species(core,"Squirrel"),["East Texas"]);
   const turkey = zones(species(core,"Wild Turkey"),["North Zone","North Zone","Brooks, Kenedy, Kleberg, and Willacy Counties","South Zone","South Zone"]);
