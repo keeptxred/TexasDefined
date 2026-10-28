@@ -350,6 +350,11 @@ const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug
   'medina': [{ name: 'Medina Valley Panthers', slug: 'castroville-medina-valley', context: 'Castroville Medina County campus, Andrew Britt flexbone offense, 2026 UIL 5A Division I District 14 and October 23 MacArthur result' }],
   'anderson': [{ name: 'Cayuga Wildcats', slug: 'cayuga', context: 'Anderson County school near Tennessee Colony, coach Jacob Magee and source-controlled 2026 UIL 2A Division I District 10 schedules' }],
   'williamson': [{ name: 'Cedar Park Timberwolves', slug: 'cedar-park', context: '2015 UIL 5A Division II state champion, 2026 Michael Quintero coach and Leander ISD 6A District 24' }, { name: 'Vista Ridge Rangers', slug: 'cedar-park-vista-ridge', context: 'Vista Ridge Chad Scott coaching biography and independent Cedar Park campus in 6A District 24' }],
+  'donley': [{ name: 'Clarendon Broncos', slug: 'clarendon', context: 'Clarendon CISD 2026 2A Division II District 5; school-posted Whitaker staff and printable Bronco schedule' }],
+  'red-river': [{ name: 'Clarksville Tigers', slug: 'clarksville', context: 'Red River County Clarksville Tigers, 2026 coach Thavis Miller and dated Oct. 24 Big Sandy result' }],
+  'armstrong': [{ name: 'Claude Mustangs', slug: 'claude', context: 'Armstrong County Claude ISD six-man 1A Division I District 1 schedule under Brantlee Lemons' }],
+  'johnson': [{ name: 'Cleburne Yellow Jackets', slug: 'cleburne', context: 'Cleburne ISD school-reported 2026 scores, Yellow Jacket Stadium and District 8-5A Division I' }],
+  'liberty': [{ name: 'Cleveland Indians', slug: 'cleveland', context: 'Cleveland ISD high-school athletics staff Ajani Sanders in Liberty County; 2026 UIL 6A District 13' }],
 };
 
 const siteUrl = 'https://texasdefined.com';

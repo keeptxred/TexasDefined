@@ -2596,14 +2596,14 @@ if(batch009Certified) {
   const county = read('src/routes/$kind.$slug.lazy.tsx');
   const checker = read('scripts/ci/verify-football-b010-first-five-production.mjs');
   const wf = read('.github/workflows/verify-football-b010-first-five-production.yml');
-  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==5 ||
-     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==20 || reg.batch.remainingToVerify!==25 ||
+  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==10 ||
+     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==15 || reg.batch.remainingToVerify!==25 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==205 ||
-     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==5 ||
-     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1082 ||
+     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==10 ||
+     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1077 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==10).length!==205 ||
      reg.completedBatches.find(x=>x.number===9)?.individuallyVerified!==25) {
-     errors.push('Batch010 first-five registry must retain 205 VERIFIED / five IMPLEMENTED / 1,082 NOT_REVIEWED and archived Batch009 evidence.');
+     errors.push('Batch010 second-five registry must preserve 205 VERIFIED / ten individually IMPLEMENTED / 1,077 NOT_REVIEWED and archived Batch009 evidence.');
   }
   if(!profile.includes('loadBatch010FootballProgramEditorial(canonicalSlug)')) errors.push('Batch010 isolated SSR editorial precedence missing.');
   const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] ?? '';
@@ -2638,6 +2638,62 @@ if(batch009Certified) {
      !checker.includes('report.countyChecks.length!==5') ||
      !checker.includes('report.screenshots!==20') ||
      !checker.includes('versions.size!==1')) errors.push('Batch010 must require 15 school views, five county pages, 20 archived screenshots and one Worker.');
+}
+
+
+// Batch 010 second five: independent published-source records, correct 1A
+// six-man classification, original score graphics only for reported finals,
+// and dedicated non-skipped production browser acceptance.
+{
+ const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+ const editorial=read('src/data/high-school-football/program-editorial-b010.ts');
+ const loader=read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+ const identity=read('src/data/high-school-football/school-identities.ts');
+ const route=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+ const county=read('src/routes/$kind.$slug.lazy.tsx');
+ const checker=read('scripts/ci/verify-football-b010-second-five-production.mjs');
+ const wf=read('.github/workflows/verify-football-b010-second-five-production.yml');
+ const five=[
+   ['clarendon','donley','Brenton Whitaker'],
+   ['clarksville','red-river','Thavis Miller'],
+   ['claude','armstrong','Brantlee Lemons'],
+   ['cleburne','johnson','AJ Sheppard'],
+   ['cleveland','liberty','Ajani Sanders']
+ ];
+ const graphic=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
+ if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==10||
+   reg.batch.remainingToImplement!==15||reg.batch.remainingToVerify!==25||
+   reg.schoolRecords.filter(s=>s.status==='VERIFIED').length!==205)
+   errors.push('Batch010 second-five registry must preserve all 205 previously verified school profiles and 15 unimplemented assignments');
+ for(const [slug,countySlug,coach] of five){
+   const row=reg.schoolRecords.find(s=>s.slug===slug);
+   if(!row||row.batch!==10||row.status!=='IMPLEMENTED'||row.actualProductionVerified!==false)
+     errors.push('Second five not source-IMPLEMENTED or falsely certified: '+slug);
+   for(const [body,marker,label] of [
+     [editorial,'"'+slug+'": {','individualized original football profile'],
+     [editorial,coach,'school-specific sourced coaching'],
+     [loader,"'"+slug+"'",'server-only slug loader'],
+     [identity,"slug: '"+slug+"'",'school identity'],
+     [route,"'"+slug+"': '"+countySlug+"'",'physical campus county'],
+     [county,"slug: '"+slug+"'",'reciprocal county school link'],
+     [checker,"'"+slug+"'",'actual postdeploy Chrome target']
+   ]) if(!body.includes(marker))errors.push('Batch010 second five '+label+' missing: '+slug);
+   const dossier=read('docs/football-authority/schools/'+slug+'.md');
+   if(dossier.length<500||!dossier.includes('https://')||!dossier.includes('NOT merged'))
+     errors.push('School-specific pending evidence dossier missing: '+slug);
+   if(['clarksville','cleburne'].includes(slug)!==graphic.includes("'"+slug+"'"))
+     errors.push('Dated 2026 original-score graphics must be restricted to two source-backed schools: '+slug);
+ }
+ if(!editorial.includes('2026-10-24')||!editorial.includes('2026-10-23'))
+   errors.push('Date-specific October results evidence missing from Batch010 second five');
+ if(!editorial.includes('six-man Class 1A Division I')||!editorial.includes('2000 E Houston St')&& !editorial.includes('1600 E Houston St'))
+   errors.push('Claude six-man or Cleveland actual campus identity missing');
+ for(const token of ["workflows: ['Deploy TexasDefined production']","github.event.workflow_run.conclusion == 'success'",
+ 'scripts/ci/verify-football-b010-second-five-production.mjs','path: artifacts/b010-second-five-production-chrome/',
+ 'echo "run=true" >> "$GITHUB_OUTPUT"','echo "run=false" >> "$GITHUB_OUTPUT"'])
+    if(!wf.includes(token))errors.push('Strict second-five production workflow contract absent: '+token);
+ for(const token of ['report.schoolChecks.length!==15','report.countyChecks.length!==5','report.screenshots!==26','versions.size!==1'])
+    if(!checker.includes(token))errors.push('Second-five non-skippable acceptance counts/Worker consistency missing: '+token);
 }
 
 if (errors.length) {
