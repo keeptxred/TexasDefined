@@ -123,6 +123,40 @@ for (const origin of [domain, directWorker]) {
   console.log('PASS updated Texas Data hub — ' + origin);
 }
 
+// A healthy hub alone is insufficient: its linked canonical dataset detail
+// must serve the same actually published source month and all 13 job counts,
+// on both Cloudflare's public custom domain and the deployed Worker host.
+const metroDetailPath = '/texas-data/texas-metro-payrolls-latest';
+const countyGrowthDetailPath = '/texas-data/county-growth';
+for (const origin of [domain, directWorker]) {
+  const { response: metroResponse, body: metroBody } = await get(origin + metroDetailPath);
+  assert.match(metroResponse.headers.get('content-type') || '', /text\/html/i, origin + ' BLS detail HTML');
+  assert.ok(metroBody.includes('Texas Metro Nonfarm Payroll Employment — ' + currentBlsReleaseLabel),
+    origin + ' published metro detail has the wrong official BLS observation month');
+  assert.ok(metroBody.includes(currentBls.sourceUrl),
+    origin + ' published metro detail lacks exact source release link');
+  assert.ok(metroBody.includes('rel="canonical"') && metroBody.includes(domain + metroDetailPath),
+    origin + ' published metro detail missing canonical');
+  for (const row of currentBls.rows) {
+    assert.ok(metroBody.includes(row.label), origin + ' missing official BLS metro row: ' + row.label);
+    assert.ok(metroBody.includes(row.value.toLocaleString('en-US')),
+      origin + ' has stale official BLS job count: ' + row.label);
+  }
+  results.push({ check: 'live-BLS-detail', origin, month: currentBls.releaseMonth, count: currentBls.rows.length, result: 'PASS' });
+  console.log('PASS current official BLS dataset ' + currentBls.releaseMonth + ' / 13 metros — ' + origin);
+
+  const { response: countyResponse, body: countyBody } = await get(origin + countyGrowthDetailPath);
+  assert.match(countyResponse.headers.get('content-type') || '', /text\/html/i, origin + ' county growth detail HTML');
+  assert.ok(countyBody.includes('Texas county population growth, 2020–' + censusCountyVintage),
+    origin + ' county growth page vintage does not match verified Census release');
+  assert.ok(countyBody.includes('/texas-data/county-growth.csv'),
+    origin + ' county growth page lacks governed CSV distribution');
+  assert.ok(countyBody.includes('rel="canonical"') && countyBody.includes(domain + countyGrowthDetailPath),
+    origin + ' county growth page canonical mismatch');
+  results.push({ check: 'live-Census-county-detail', origin, vintage: censusCountyVintage, result: 'PASS' });
+  console.log('PASS Census county detail vintage ' + censusCountyVintage + ' — ' + origin);
+}
+
 await Promise.all(csvSpecs.map(async ({ path, columns, rows, uniqueColumn }) => {
   const { response, body } = await get(domain + path);
   assert.match(response.headers.get('content-type') || '', /text\/csv/i, path + ' content-type');
