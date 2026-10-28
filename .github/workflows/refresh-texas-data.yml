@@ -2,7 +2,7 @@ name: Refresh Texas by the Numbers
 
 on:
   schedule:
-    - cron: '41 12 5 * *'
+    - cron: '41 16 25-31,1-5 * *'
   workflow_dispatch:
   push:
     branches: [main]
