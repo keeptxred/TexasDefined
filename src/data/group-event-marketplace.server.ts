@@ -214,6 +214,8 @@ export async function readMarketplacePackages(experienceId: string, groupSize?: 
   if (error) throw new Error('Marketplace package verification is temporarily unavailable.');
   const packages: MarketplacePackage[] = (data ?? []).map((row: any) => ({
     id: row.id, experienceId: row.experience_id, name: row.name,
+    includedActivities: Array.isArray(row.included_activities) ? row.included_activities : [],
+    foodAndBeverageDetails: row.food_and_beverage_details,
     minParticipants: row.min_participants, maxParticipants: row.max_participants,
     durationMinutes: row.duration_minutes,
     pricePerPersonCents: row.price_per_person_cents, minimumSpendCents: row.minimum_spend_cents,
