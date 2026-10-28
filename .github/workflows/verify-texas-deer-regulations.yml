@@ -12,6 +12,7 @@ on:
       - 'scripts/data/verify-texas-deer-regulations.mjs'
       - 'scripts/data/sync-texas-deer-seasons.mjs'
       - 'scripts/data/verify-texas-deer-production.mjs'
+      - 'scripts/data/verify-texas-deer-related-rules.mjs'
       - '.github/workflows/verify-texas-deer-regulations.yml'
   pull_request:
     paths:
@@ -52,6 +53,7 @@ jobs:
           node scripts/data/verify-texas-deer-regulations.mjs --offline
           node scripts/data/validate-hunting-authority.mjs
           node scripts/data/verify-texas-deer-production.mjs --self-test
+          node scripts/data/verify-texas-deer-related-rules.mjs --self-test
       - name: Verify current live deer page on date-neutral PRs
         if: github.event_name == 'pull_request'
         shell: bash
@@ -94,6 +96,32 @@ jobs:
           gh pr create --base main --head "$branch" \
             --title 'Refresh verified TPWD deer season and regulations' \
             --body 'Automated TPWD deer season and structured-regulation sync, including consecutive annual season rollover. Both current official TPWD calendars must match all eight date ranges. Structured legal facts (bag limits, harvest reporting, antler spread and special-late eligibility) must parse from the current official deer page, and only src/data/hunting/deer-season-dates.json can change. The trusted finisher independently re-fetches the sources and validates protected CI, auto-merge and production deployment. Unparseable/contradictory official sources fail safely with a deduplicated issue; routine annual rollovers do not require manual approval.'
+      - name: Verify official county rules, CWD and tagging resources
+        id: related
+        if: success() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        run: node scripts/data/verify-texas-deer-related-rules.mjs
+      - name: Resolve previous linked-rule failure after official-source recovery
+        if: success() && steps.related.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          title='Texas deer TPWD county/CWD/tagging sources failed verification'
+          gh issue list --state open --search "$title in:title" --json title,number --jq '.[] | select(.title == "Texas deer TPWD county/CWD/tagging sources failed verification") | .number' |
+            while read -r number; do
+              gh issue close "$number" --comment "Official TPWD related rules verified again: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+            done
+      - name: Open one related-rule health issue on failure
+        if: failure() && steps.related.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          title='Texas deer TPWD county/CWD/tagging sources failed verification'
+          existing="$(gh issue list --state open --search "$title in:title" --json title,number --jq '.[] | select(.title == "Texas deer TPWD county/CWD/tagging sources failed verification") | .number' | head -1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The official TPWD county, CWD or deer-tagging references did not verify. No guessed changes should be published. Source run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+          fi
       - name: Verify live deer guide, all eight dates, image and structured data
         id: live
         if: success() && steps.changes.outputs.changed == 'false' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
