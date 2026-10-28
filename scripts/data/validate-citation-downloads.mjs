@@ -43,6 +43,8 @@ expect(smokeWorkflow.includes("'src/routes/texas-data*'"), 'All Texas Data route
 expect(smokeWorkflow.includes("if [[ \"$GITHUB_EVENT_NAME\" == 'workflow_dispatch' ]]; then"), 'Manual Texas Data live acceptance must never be skipped by unrelated commits');
 expect(liveDataSmoke.includes('currentTdiPremiumLabel'), 'Live premium acceptance must follow the maintained official TDI series');
 expect(liveDataSmoke.includes('currentBlsReleaseLabel') && liveDataSmoke.includes('currentBlsHubPayrolls'), 'Live acceptance must verify current official BLS observation month and four metro values');
+expect(liveDataSmoke.includes("const metroDetailPath = '/texas-data/texas-metro-payrolls-latest'") && liveDataSmoke.includes("for (const row of currentBls.rows)"), 'Public live acceptance must validate exact latest BLS dataset page and all 13 current metro counts');
+expect(liveDataSmoke.includes("const countyGrowthDetailPath = '/texas-data/county-growth'") && liveDataSmoke.includes("'live-Census-county-detail'"), 'Public live acceptance must validate the verified Census county vintage detail');
 expect(!liveDataSmoke.includes("'$3,489'"), 'Live acceptance must not freeze the historic TDI premium');
 
 
