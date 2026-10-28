@@ -5,6 +5,7 @@ import type { CampingDiscoveryProfile } from "@/data/camping/discovery";
 import { hasCampingDestinationGuide } from "@/data/camping/destination-guides";
 import type { CampingAmenity, CampingStyle } from "@/data/camping/types";
 import { hideFailedImageContainer } from "@/lib/image-fallback";
+import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 
 export interface CampingDiscoveryEntry {
   profile: CampingDiscoveryProfile;
@@ -23,6 +24,16 @@ const OFFICIAL_ONLY_CAMPING_DESTINATIONS: Readonly<Record<string, string>> = {
   "ray-roberts-lake-state-park": "https://tpwd.texas.gov/state-parks/ray-roberts-lake",
   "seminole-canyon-state-park-and-historic-site": "https://tpwd.texas.gov/state-parks/seminole-canyon",
 };
+
+// TPWD's generic portal discards the park context. The park-specific official
+// campsite page is a safer first step unless a verified deep booking URL exists.
+function reservationDestination(profile: CampingDiscoveryProfile) {
+  if (profile.reservationUrl === "https://tpwd.texas.gov/state-parks/reservations/") {
+    const campsites = profile.sources.find(({ url }) => /^https:\/\/tpwd\.texas\.gov\/state-parks\/.+\/fees-facilities\/campsites\/?$/.test(url));
+    return { url: campsites?.url ?? profile.reservationUrl, direct: false };
+  }
+  return { url: profile.reservationUrl, direct: /recreation\.gov\/camping\/campgrounds\/\d+/.test(profile.reservationUrl) };
+}
 
 const styleLabels: Record<CampingStyle, string> = {
   tent: "Tent",
@@ -211,7 +222,17 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
     if (sortBy === "name") return [...matches].sort((a, b) => a.profile.name.localeCompare(b.profile.name));
     if (sortBy === "region") return [...matches].sort((a, b) => (regionLabels[a.profile.region] ?? a.profile.region).localeCompare(regionLabels[b.profile.region] ?? b.profile.region) || a.profile.name.localeCompare(b.profile.name));
     if (sortBy === "verified") return [...matches].sort((a, b) => b.profile.verifiedAt.localeCompare(a.profile.verifiedAt) || a.profile.name.localeCompare(b.profile.name));
-    return matches;
+    // Keep each national/state park overview beside its individual campgrounds
+    // without affecting explicit alphabetical, region or date sorting.
+    const firstByDestination = new Map<string, number>();
+    entries.forEach(({ profile }, index) => {
+      if (!firstByDestination.has(profile.destinationSlug)) firstByDestination.set(profile.destinationSlug, index);
+    });
+    return [...matches].sort((a, b) =>
+      (firstByDestination.get(a.profile.destinationSlug) ?? 0) - (firstByDestination.get(b.profile.destinationSlug) ?? 0)
+      || Number(profileAnchor(a.profile) !== a.profile.destinationSlug) - Number(profileAnchor(b.profile) !== b.profile.destinationSlug)
+      || a.profile.name.localeCompare(b.profile.name)
+    );
   }, [agency, amenities, entries, query, region, sortBy, styles, waterCamping]);
 
   const comparedProfiles = useMemo(
@@ -351,7 +372,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
       </fieldset>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
-        <p className="text-sm text-muted-foreground" aria-live="polite">Showing <strong className="text-foreground">{filtered.length}</strong> of {entries.length} verified profiles.</p>
+        <p className="text-sm text-muted-foreground" aria-live="polite">Showing <strong className="text-foreground">{filtered.length}</strong> of {entries.length} verified profiles. Recommended results group individual campgrounds with their parent destinations.</p>
         {hasFilters ? <button type="button" onClick={reset} className="text-sm font-semibold text-primary underline-offset-4 hover:underline">Clear all filters</button> : null}
       </div>
     </div>
@@ -385,7 +406,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             <div><dt className="font-semibold">Source verification</dt><dd className="mt-1 leading-6 text-muted-foreground">Verified {profile.verifiedAt}</dd></div>
           </dl>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
-            <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Official details ↗</a>
+            <a href={reservationDestination(profile).url} target="_blank" rel="noopener noreferrer" className="text-primary underline-offset-4 hover:underline">Official campground instructions ↗</a>
             <button type="button" onClick={() => toggleComparison(profile)} className="text-primary underline-offset-4 hover:underline">Remove</button>
           </div>
         </article>)}
@@ -402,6 +423,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const image = campingCardImages[profile.destinationSlug];
         const selectedForCompare = compareIds.includes(anchor);
         const compareLimitReached = compareIds.length >= 3 && !selectedForCompare;
+        const alert = CAMPING_OPERATIONAL_ALERTS.find((item) => item.destinationSlug === profile.destinationSlug);
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
           {image && isParentDestination ? <figure className="border-b border-border bg-muted/30">
             <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[16/8] w-full object-cover" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
@@ -412,6 +434,12 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               <span>{regionLabels[profile.region] ?? profile.region}</span><span>·</span><span>{profile.county} County</span><span>·</span><span>Verified {profile.verifiedAt}</span>
             </div>
             <h3 className="mt-3 font-display text-3xl leading-tight">{profile.name}</h3>
+            {alert ? <aside className="mt-4 border-l-4 border-primary bg-muted/30 p-4 text-sm leading-6 text-foreground" aria-label={`Official park notice for ${profile.name}`}>
+              <strong>{alert.status === "confirmed" ? "Official park advisory" : "Park notice changed — recheck"}</strong>
+              <p className="mt-1">{alert.notice}</p>
+              <p className="mt-1 text-xs">Advisory last verified for publication: {alert.checkedAt}. Conditions may change sooner.</p>
+              <a className="underline font-semibold" href={alert.sourceUrl} target="_blank" rel="noopener noreferrer">Read current TPWD park alerts ↗</a>
+            </aside> : null}
             {!isParentDestination ? <p className="mt-2 text-sm font-semibold text-primary">Campground profile</p> : null}
             {profile.whyCampHere ? <div className="mt-4 border-t border-border pt-4">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Why choose this campground</p>
@@ -443,7 +471,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               {hasDestinationGuide ? <Link to="/explore/trip-planner" search={{ destination: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">Build trip</Link> : null}
               {officialOnlyGuide ? <a href={officialOnlyGuide} target="_blank" rel="noreferrer noopener" className="text-primary underline-offset-4 hover:underline">Official park guide ↗</a> : null}
               <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="text-primary underline-offset-4 hover:underline">{profile.county} County</Link>
-              <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Official reservations/details ↗</a>
+              <a href={reservationDestination(profile).url} target="_blank" rel="noopener noreferrer" className="text-primary underline-offset-4 hover:underline">{reservationDestination(profile).direct ? "Book this campground ↗" : "Park camping / reservation instructions ↗"}</a>
             </div>
 
             <div className="mt-5 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">

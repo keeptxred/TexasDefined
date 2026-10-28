@@ -124,9 +124,10 @@ export const CAMPING_PROFILES_WAVE7: CampingProfile[] = [
       "The park is about 45 minutes west of Fort Worth, making it a practical North Texas outdoor weekend base.",
     ],
     searchTerms: ["Lake Mineral Wells camping", "camping near Fort Worth", "North Texas camping", "primitive camping near DFW", "RV camping Mineral Wells"],
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: "2026-10-28",
     sources: [
       { label: "TPWD Lake Mineral Wells State Park", url: "https://tpwd.texas.gov/state-parks/lake-mineral-wells", fields: ["camping", "lake recreation", "trails", "reservation guidance", "location"] },
+      { label: "TPWD Lake Mineral Wells campsites", url: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites", fields: ["site-specific electrical service", "accessible developed sites", "primitive campsite reservation restrictions", "equestrian camping"] },
       { label: "TPWD Lake Mineral Wells accessibility", url: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/lake-mineral-wells-accessibility", fields: ["accessible campsites", "accessible restrooms and showers"] },
     ],
   },
