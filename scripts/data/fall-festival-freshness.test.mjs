@@ -120,3 +120,11 @@ test("page exposes filter controls and machine-readable expiration attributes fo
     assert.ok(view.includes(feature), `missing fall feature: ${feature}`);
   }
 });
+
+test("christmas community occurrence window covers the actual verified Nov 6–Jan 18 season", () => {
+  const result = resolveTemporalEventCollectionServer("christmas-events", [],
+    new Date("2026-10-27T18:00:00Z"));
+  assert.ok(result, "Christmas authority collection should resolve");
+  assert.equal(result.dateContext, "Nov 6, 2026–Jan 18, 2027",
+    "Never publish the old Nov 15–Jan 5 range while earlier/later events are verified");
+});
