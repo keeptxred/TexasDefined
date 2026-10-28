@@ -599,6 +599,7 @@ for (const [slug, day] of [
   ["san-antonio-pearl-holiday-night-market-dec-23-2026", "2026-12-23"],
 ]) {
   check(slug, day);
+  assert.equal(bySlug.get(slug).sourceVerifiedAt, "2026-10-27", `${slug}: preserve actual review date`);
   assert.equal(bySlug.get(slug).officialEventUrl, "https://atpearl.com/parade/p/biggest-events-fall-winter-pearl-san-antonio-tx/",
     `${slug}: official Pearl organizer announcement required`);
 }
