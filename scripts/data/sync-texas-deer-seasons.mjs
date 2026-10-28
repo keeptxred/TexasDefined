@@ -122,7 +122,7 @@ const official=await getText(existing.officialDeerUrl);
 const next=parseDeerPage(official);
 if(next.startYear!==existing.startYear)throw new Error('ANNUAL ROLLOVER: TPWD has a new deer season. Do not automatically carry forward last year’s county, bag, tagging, or CWD rules; open an editorial review issue.');
 const calendar=await getText(existing.officialCalendarUrl);
-const deerCalendar=take(calendar,'White-tailed Deer','Migratory Game Bird');
+const deerCalendar=take(calendar,'White-tailed Deer','Upland Game Birds');
 const calendarDates=ranges(deerCalendar);
 for (const row of next.rows) {
   if(!calendarDates.some(item=>item.start===row.start&&item.end===row.end))throw new Error('TPWD statewide calendar conflicts with deer page on '+row.id);
