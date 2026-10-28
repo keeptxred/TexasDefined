@@ -217,4 +217,8 @@ requireText(speciesFinisher, 'dispatch-validate-branch.sh', 'date-only PRs must 
 requireText(speciesFinisher, 'gh workflow run deploy-production.yml', 'protected date PR merge must dispatch production');
 requireText(boundedLiveWorkflow, 'schedule:', 'bounded live hunting checker not scheduled');
 requireText(boundedLive, 'cache-bypass', 'canonical/cache-bypass freshness check missing');
+for (const workflowSource of [speciesWorkflow, speciesFinisher, boundedLiveWorkflow]) {
+  if (/\$\{\s+github\./.test(workflowSource)) throw new Error('Malformed GitHub Actions expression in hunting workflow');
+  requireText(workflowSource, '${{ github.', 'hunting workflow lacks valid GitHub Actions expression opening delimiter');
+}
 console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, lazy child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and rendered-text v2 production smoke governance.`);
