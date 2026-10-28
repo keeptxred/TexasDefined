@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
@@ -9,7 +10,7 @@ import {
   YOUTH_HUNTING_SOURCES,
 } from "@/data/hunting/youth-hunting-data";
 
-function Official({ href, children }: { href: string; children: React.ReactNode }) {
+function Official({ href, children }: { href: string; children: ReactNode }) {
   return <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">{children} ↗</a>;
 }
 
