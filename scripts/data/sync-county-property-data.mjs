@@ -187,7 +187,15 @@ async function secureOfficeUrl(raw) {
       // HEAD-only 403 is common for otherwise public offices. A same-URL
       // bounded GET must still independently succeed, without a challenge.
       response = await fetch(url.toString(), { ...options, method: 'GET' });
-      if (response.body) await response.body.cancel();
+      if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') return null;
+      // Reject successful HTTP responses which are actually authentication
+      // gateways or account-lockout pages. A real office landing page should
+      // be public HTML rather than a login or binary attachment.
+      const mime = response.headers.get('content-type') ?? '';
+      if (!/text\\/html|application\\/xhtml\\+xml/i.test(mime)) return null;
+      const publicHtml = (await response.text()).slice(0, 128000);
+      if (/<title[^>]*>\\s*(?:log\\s*in|sign\\s*in|access\\s*denied|unauthorized|forbidden|account\\s*locked)/i.test(publicHtml) ||
+          /<input[^>]+type=['"]password['"]/i.test(publicHtml)) return null;
     }
     if (!response.ok || response.headers.get('cf-mitigated') === 'challenge') return null;
     const resolved = new URL(response.url);
