@@ -330,6 +330,11 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'donley': [{ name: 'Clarendon Broncos', slug: 'clarendon', context: 'Donley County UIL 2A D-II District 5, school-listed AD Brenton Whitaker and date-qualified head coach, source-specific Kenny King Field access' }],
+  'red-river': [{ name: 'Clarksville Tigers', slug: 'clarksville', context: 'Red River County UIL 2A D-II District 10, official 2026 varsity schedule; LaThavis Miller school-listed AD, head coach still secondary' }],
+  'armstrong': [{ name: 'Claude Mustangs', slug: 'claude', context: 'Armstrong County 1A D-I District 1 six-man; official 2026 schedule and dated Brantlee Lemons interview' }],
+  'johnson': [{ name: 'Cleburne Yellow Jackets', slug: 'cleburne', context: 'Johnson County UIL 5A D-I District 8; first-party 2026 football results, AJ Sheppard source-qualified coaching and Yellow Jacket Stadium name' }],
+  'liberty': [{ name: 'Cleveland Indians', slug: 'cleveland', context: 'Liberty County UIL 6A District 13, Ajani Sanders school athletics staff and 2026 separate head-coaching source' }],
   'falls': [{ name: 'Chilton Pirates', slug: 'chilton', context: 'Falls County Class 2A Division II District 13, Bennie Huitt 2026 KWTX preview and Chilton ISD athletics' }],
   'mclennan': [{ name: 'China Spring Cougars', slug: 'china-spring', context: 'McLennan County 4A Division I District 12; December 2025 official Josh Gregory head-coach appointment' }],
   'tom-green': [{ name: 'Christoval Cougars', slug: 'christoval', context: 'Tom Green County 2A Division I District 4; official 2026 calendar and Tanner McLean district appointment' }],
