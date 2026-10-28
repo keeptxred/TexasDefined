@@ -31,6 +31,7 @@ check(page,"YOUTH_HUNTING_SEASONS.map","rendered official calendar");
 check(page,"YOUTH_HUNTING_FAQ.map","rendered FAQs");
 check(page,"youthSeasonWindows(dates)","per-window date labels");
 check(page,"TEXAS_COUNTIES.map","254-county TPWD lookup");
+check(page,'countySlug === "la-salle" ? "lasalle" : countySlug',"TPWD La Salle exception");
 check(page,"md:hidden","mobile calendar cards");
 check(page,"YOUTH_HUNTING_IMAGE.src","correct editorial photo");
 check(page,"mailto:admin@texasdefined.com","editorial corrections contact");
