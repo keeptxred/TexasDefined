@@ -4,6 +4,13 @@ on:
   schedule:
     - cron: '43 13 * * 2,5'
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/hunting/public-access-facts.json'
+      - 'scripts/data/refresh-hunting-official-facts.mjs'
+      - 'scripts/data/refresh-hunting-official-facts.test.mjs'
+      - '.github/workflows/monitor-hunting-tpwd-sources.yml'
   pull_request:
     paths:
       - 'src/data/hunting/public-access-facts.json'
@@ -17,8 +24,10 @@ permissions:
   issues: write
 
 concurrency:
-  group: hunting-official-source-refresh
-  cancel-in-progress: false
+  # New PR commits supersede obsolete offline tests; main/scheduled source
+  # reconciliation remains serialized and is never interrupted.
+  group: hunting-official-source-refresh-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   official-hunting-check:
