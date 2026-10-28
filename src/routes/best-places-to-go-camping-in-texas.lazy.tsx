@@ -145,7 +145,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section id="camping-alerts" className="scroll-mt-24 border-y border-border bg-amber-50/30 py-10">
+    <section id="camping-alerts" className="scroll-mt-24 border-y border-border bg-muted/30 py-10">
       <Container>
         <p className="eyebrow text-primary">Before you travel</p>
         <h2 className="mt-2 font-display text-3xl md:text-4xl">Recent official park advisories</h2>

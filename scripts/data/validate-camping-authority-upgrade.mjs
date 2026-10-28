@@ -19,5 +19,7 @@ for (const [src,needle] of [
   [health,"schedule:"],
   [health,"audit-camping-guide-freshness.mjs"]
 ]) if (!src.includes(needle)) throw Error("Camping authority missing: " + needle);
+if (alerts.includes("no wood fires; charcoal") || monitor.includes("Wood fires are not allowed")) throw Error("Retired Palo Pinto burn-ban text must not ship as active");
+if (component.includes("border-amber-600") || page.includes("bg-amber-50")) throw Error("Camping guide must not introduce new palette styles");
 if (page.includes(">Visit a State Park</h2>")) throw Error("National parks are not state parks");
 console.log("Camping authority upgrade static checks passed.");

@@ -27,8 +27,8 @@ const sources = [
   {
     destinationSlug: "palo-pinto-mountains-state-park", parkName: "Palo Pinto Mountains State Park",
     sourceUrl: "https://tpwd.texas.gov/state-parks/palo-pinto-mountains/park-alert",
-    required: [/Burn Ban/i, /Wood fires are not allowed/i],
-    notice: "TPWD reports a burn ban: no wood fires; charcoal and containerized fuel stoves are permitted under the posted rules.",
+    required: [/Visiting the Park/i, /final touches are ongoing/i, /may reach capacity on weekends and holidays/i],
+    notice: "TPWD says final construction work is ongoing. Follow posted safety signs; weekend and holiday capacity may be reached, so reserve entry before visiting.",
   },
 ];
 const normalize = html => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")

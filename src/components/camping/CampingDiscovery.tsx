@@ -434,7 +434,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               <span>{regionLabels[profile.region] ?? profile.region}</span><span>·</span><span>{profile.county} County</span><span>·</span><span>Verified {profile.verifiedAt}</span>
             </div>
             <h3 className="mt-3 font-display text-3xl leading-tight">{profile.name}</h3>
-            {alert ? <aside className="mt-4 border-l-4 border-amber-600 bg-amber-50 p-4 text-sm leading-6 text-stone-900" aria-label={`Official park notice for ${profile.name}`}>
+            {alert ? <aside className="mt-4 border-l-4 border-primary bg-muted/30 p-4 text-sm leading-6 text-foreground" aria-label={`Official park notice for ${profile.name}`}>
               <strong>{alert.status === "confirmed" ? "Official park advisory" : "Park notice changed — recheck"}</strong>
               <p className="mt-1">{alert.notice}</p>
               <p className="mt-1 text-xs">Official source last checked: {alert.checkedAt}. Conditions may change sooner.</p>

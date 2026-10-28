@@ -20,7 +20,7 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "palo-pinto-mountains-state-park",
     "parkName": "Palo Pinto Mountains State Park",
     "sourceUrl": "https://tpwd.texas.gov/state-parks/palo-pinto-mountains/park-alert",
-    "notice": "TPWD reports a burn ban: no wood fires; charcoal and containerized fuel stoves are permitted under the posted rules.",
+    "notice": "TPWD says final construction work is ongoing. Follow posted safety signs; weekend and holiday capacity may be reached, so reserve entry before visiting.",
     "checkedAt": "2026-10-28",
     "status": "confirmed"
   }
