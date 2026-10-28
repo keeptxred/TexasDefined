@@ -1,6 +1,5 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import fs from "node:fs";
 import { parseYouthCalendar, mergeCalendar } from "./refresh-youth-hunting-calendar.mjs";
 
 // TPWD text structure is mirrored without assuming its CSS, JavaScript or layout.
@@ -27,6 +26,18 @@ const fixture = [
 "About Youth-only Seasons"
 ].join(" ");
 
+// Freeze a synthetic 2026–27 baseline. Tests must stay valid after the real
+// maintained snapshot advances to 2027–28, 2028–29, and later seasons.
+function fixtureSnapshot() {
+  const calendar = parseYouthCalendar(fixture);
+  return [
+    'export const YOUTH_HUNTING_LAST_CHECKED = "2026-10-28";',
+    'export const YOUTH_HUNTING_SEASON_YEAR = "2026–27";',
+    ...calendar.rows.map(([species, region, dates]) =>
+      `  { species: "${species}", region: "${region}", dates: "${dates}", detail: "Fixture" },`),
+  ].join("\\n");
+}
+
 test("extracts 11 official species/zone dates without guessing", () => {
   const parsed = parseYouthCalendar("<html><body>" + fixture + "</body></html>");
   assert.equal(parsed.year,"2026–27");
@@ -34,7 +45,7 @@ test("extracts 11 official species/zone dates without guessing", () => {
   assert.deepEqual(parsed.rows[0],["White-tailed deer","North & South — early","Oct. 30–Nov. 1, 2026"]);
   assert.deepEqual(parsed.rows[4],["Wild turkey","Brooks, Kenedy, Kleberg & Willacy","Oct. 30–Nov. 1, 2026"]);
   assert.deepEqual(parsed.rows[5],["Wild turkey","North — spring","Mar. 27–28, 2027; May 22–23, 2027"]);
-  const data=fs.readFileSync("src/data/hunting/youth-hunting-data.ts","utf8");
+  const data=fixtureSnapshot();
   assert.equal(mergeCalendar(data,parsed,"2026-10-28"),data,"unchanged verified dates must not churn timestamps or PRs");
 });
 
@@ -57,7 +68,7 @@ test("future-year calendar cannot displace an active license year early", () => 
   const nextSeason = fixture.replace(/\b(2026|2027)\b/g, (_match, year) => String(Number(year) + 1));
   const parsed = parseYouthCalendar(nextSeason);
   assert.equal(parsed.year, "2027–28");
-  const data = fs.readFileSync("src/data/hunting/youth-hunting-data.ts", "utf8");
+  const data = fixtureSnapshot();
   assert.throws(() => mergeCalendar(data, parsed, "2027-08-15"), /before September 1/);
   const changed = mergeCalendar(data, parsed, "2027-09-01");
   assert.match(changed, /YOUTH_HUNTING_SEASON_YEAR = "2027–28"/);
@@ -67,6 +78,6 @@ test("future-year calendar cannot displace an active license year early", () => 
 
 test("expired season cannot be treated as current without a new official calendar", () => {
   const parsed = parseYouthCalendar(fixture);
-  const data = fs.readFileSync("src/data/hunting/youth-hunting-data.ts", "utf8");
+  const data = fixtureSnapshot();
   assert.throws(() => mergeCalendar(data, parsed, "2027-09-01"), /archived calendar expired/);
 });
