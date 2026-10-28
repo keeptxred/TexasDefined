@@ -3,13 +3,13 @@ import fs from 'node:fs';
 const sourcePath = 'src/data/hunting/authority-deer.ts';
 const pageUrl = 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer';
 const source = fs.readFileSync(sourcePath, 'utf8');
+const dates = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
+if (dates.rows.length !== 8) throw new Error('Deer season dataset must include eight documented season rows');
 
 // Local contract is always checked, including on PRs without external networking.
 for (const marker of [
   'reviewedOn: "2026-10-28"',
-  'October 3–November 6, 2026',
-  'January 3, 2027',
-  'January 17, 2027',
+  'deerSeasonRange(',
   'within 24 hours',
   'within 48 hours',
   'Texas Hunt & Fish',
@@ -20,6 +20,7 @@ for (const marker of [
 }
 
 if (process.argv.includes('--offline')) {
+  if (!dates.rows.every((row)=>/^20\d\d-\d\d-\d\d$/.test(row.start)&&/^20\d\d-\d\d-\d\d$/.test(row.end))) throw new Error('Deer season dataset contains invalid dates');
   console.log('Deer authority source/season editorial contract passed (offline; no live TPWD check).');
   process.exit(0);
 }
