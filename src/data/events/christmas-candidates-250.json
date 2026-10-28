@@ -1402,7 +1402,8 @@
       "intakeId": 174,
       "title": "Port Isabel Lighthouse Christmas",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City of Port Isabel confirms Dec 5, 2026 parade and Beulah Lee Park tree lighting, now listed separately. This does not establish the submitted 'Port Isabel Lighthouse Christmas' attraction or admission."
     },
     {
       "intakeId": 175,
@@ -1420,7 +1421,11 @@
       "intakeId": 177,
       "title": "Rockport Christmas Tropicale",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "rockport-tropical-christmas-festival-2026"
+      ],
+      "researchNote": "The City of Rockport confirms the 2026 Tropical Christmas Festival on Dec 5, with free daytime festivities and the evening illuminated parade/fireworks. The official event name is Tropical Christmas, not Christmas Tropicale."
     },
     {
       "intakeId": 178,
@@ -1748,7 +1753,8 @@
       "intakeId": 226,
       "title": "Midland Starry Starry Night",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Midland City confirms December 1 tree lighting and December 12 Merry Lighted Christmas Parade, now sourced separately. Neither proves a distinct 'Midland Starry Starry Night' program."
     },
     {
       "intakeId": 227,
@@ -1822,7 +1828,8 @@
       "intakeId": 237,
       "title": "Sweetwater Pioneer Christmas",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Sweetwater Chamber confirms December 7 2026 Parade of Lights and Christmas on the Square, now listed independently; 'Pioneer Christmas' is not an organizer-confirmed alternate event name."
     },
     {
       "intakeId": 238,
@@ -1834,7 +1841,8 @@
       "intakeId": 239,
       "title": "Monahans Sandhills Christmas",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Monahans Chamber confirms December 4–5 2026 Christmas in the Dunes at the Ward County Event Center; cannot establish a separate 'Monahans Sandhills Christmas' attraction or equivalence."
     },
     {
       "intakeId": 240,
@@ -1888,7 +1896,11 @@
       "intakeId": 248,
       "title": "Graham America's Largest Square Christmas",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "graham-christmas-roundup-parade-2026"
+      ],
+      "researchNote": "Official Visit Graham date Dec 3, 2026 on America's Largest Downtown Square. Its actual event brand is Christmas Roundup, with a 6 p.m. square lighting and 8 p.m. parade."
     },
     {
       "intakeId": 249,
@@ -1906,8 +1918,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-27",
-    "calendarCandidates": 83,
+    "calendarCandidates": 85,
     "authorityCandidates": 12,
-    "remainingCandidates": 155
+    "remainingCandidates": 153
   }
 }
