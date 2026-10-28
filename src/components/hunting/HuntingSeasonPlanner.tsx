@@ -116,7 +116,7 @@ export function HuntingSeasonPlanner() {
             These are statewide calendar entries only. Zone boundaries, open counties, bag limits, age restrictions, legal equipment, wildlife management areas, APH access and drawn-hunt dates are separate requirements. Dates may change; always consult the current TPWD regulations and the exact area's legal-game listing.
           </p>
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-            <a href={calendar.source} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official TPWD species rules ↗</a>
+            <a href={calendar.source} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official TPWD calendar or species rule ↗</a>
             <a href="https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">TPWD legal-game and area finder ↗</a>
             <Link to="/hunting/texas-hunting-license" className="font-semibold text-primary underline underline-offset-4">License and endorsements →</Link>
             <Link to="/browse/counties" className="font-semibold text-primary underline underline-offset-4">Browse Texas counties →</Link>
