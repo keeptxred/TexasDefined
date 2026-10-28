@@ -181,6 +181,11 @@ function Page() {
     'coahoma': 'howard', // School campus county; venue gate is separate.
     'coldspring-oakhurst': 'san-jacinto', // School campus county; venue gate is separate.
     'coleman': 'coleman', // School campus county; venue gate is separate.
+    'college-station': 'brazos', // School campus county; verify actual game venue independently.
+    'college-station-a-and-m-consolidated': 'brazos', // School campus county; verify actual game venue independently.
+    'colleyville-heritage': 'tarrant', // School campus county; verify actual game venue independently.
+    'collinsville': 'grayson', // School campus county; verify actual game venue independently.
+    'colmesneil': 'tyler', // School campus county; verify actual game venue independently.
     'clint-mountain-view': 'el-paso', // Mountain View Lobos school on Greg Dr, eastern El Paso County.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
