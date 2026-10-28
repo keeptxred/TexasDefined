@@ -1,6 +1,7 @@
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
 import { HUNTING_REGULATION_FRESHNESS } from "@/data/hunting/freshness";
+import { texasDeerSeason } from "@/data/hunting/deer-season-format";
 import { absoluteUrl } from "@/lib/seo";
 
 function JsonLd({ value }: { value: Record<string, unknown> }) {
@@ -57,7 +58,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         url: pageUrl,
         name: topic.title,
         description: topic.description,
-        dateModified: topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified,
+        dateModified: topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         isPartOf: { "@id": `${homeUrl}#website` },
         about: topic.about.map((name) => ({ "@type": "Thing", name })),
         mainEntity: { "@id": `${pageUrl}#${topic.slug === "texas-deer-hunting" ? "article" : "sections"}` },
@@ -68,7 +69,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
         "@id": `${pageUrl}#article`,
         headline: topic.title,
         description: topic.description,
-        dateModified: topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified,
+        dateModified: topic.slug === "texas-deer-hunting" ? texasDeerSeason.sourceCheckedAt : (topic.reviewedOn ?? HUNTING_REGULATION_FRESHNESS.lastVerified),
         mainEntityOfPage: { "@id": `${pageUrl}#page` },
         author: { "@type": "Organization", name: "TexasDefined" },
         publisher: { "@type": "Organization", name: "TexasDefined" },
