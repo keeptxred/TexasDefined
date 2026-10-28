@@ -1,0 +1,115 @@
+name: Finish County Property Refresh Validation
+
+on:
+  workflow_run:
+    workflows: [Refresh county property data]
+    types: [completed]
+  # Bootstrap the current unvalidated bot PR when this owner-side workflow
+  # is introduced; subsequent runs are owned by the workflow_run event.
+  push:
+    branches: [main]
+    paths: ['.github/workflows/finish-county-property-refresh.yml']
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful verified county-property refresh Actions run ID
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+  actions: write
+  statuses: write
+
+concurrency:
+  group: finish-county-property-refresh
+  cancel-in-progress: false
+
+jobs:
+  validate-generated-data:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Validate source-owned two-file county data PR before human review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN_ID: ${{ inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "$EVENT_NAME" in
+            workflow_run) run_id="$SOURCE_RUN_ID";;
+            workflow_dispatch) run_id="$MANUAL_RUN_ID";;
+            push)
+              # The first merge of this workflow bootstraps the latest
+              # completed successful source run, without an arbitrary PR ID.
+              run_id="$(gh run list --workflow 'Refresh county property data' \
+                --branch main --limit 12 --json databaseId,conclusion \
+                --jq '[.[] | select(.conclusion == "success")][0].databaseId // empty')"
+              ;;
+            *) echo '::error::Unexpected finisher event'; exit 1;;
+          esac
+          [[ "$run_id" =~ ^[0-9]+$ ]] || {
+            echo 'No successful county source run to validate'; exit 0;
+          }
+          source_json="$(gh api "repos/$REPOSITORY/actions/runs/$run_id")"
+          [[ "$(jq -r '.name' <<< "$source_json")" == 'Refresh county property data' &&
+             "$(jq -r '.conclusion' <<< "$source_json")" == 'success' &&
+             "$(jq -r '.head_branch' <<< "$source_json")" == 'main' ]] || {
+            echo '::error::Refusing non-successful or foreign county source run'; exit 1;
+          }
+          branch="automation/county-property-refresh-$run_id"
+          prs="$(gh pr list --repo "$REPOSITORY" --base main --state open \
+            --head "$branch" --limit 2 --json number,title,url,headRefName,headRefOid)"
+          count="$(jq 'length' <<< "$prs")"
+          if [[ "$count" == '0' ]]; then
+            echo 'No county contacts were revised or source PR is already closed'
+            exit 0
+          fi
+          [[ "$count" == '1' ]] || { echo '::error::Ambiguous county PR count'; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$prs")"
+          url="$(jq -r '.[0].url' <<< "$prs")"
+          head="$(jq -r '.[0].headRefOid' <<< "$prs")"
+          author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
+          [[ "$author" == 'github-actions[bot]' &&
+             "$(jq -r '.[0].title' <<< "$prs")" == 'Refresh verified Texas county property-tax data' &&
+             "$(jq -r '.[0].headRefName' <<< "$prs")" == "$branch" ]] || {
+            echo '::error::Unexpected PR author, title or branch'; exit 1;
+          }
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$head" ]] || {
+            echo '::error::Generated PR changed since source run'; exit 1;
+          }
+          base="$(git merge-base origin/main "origin/$branch")"
+          actual="$(git diff --name-only "$base" "origin/$branch" | LC_ALL=C sort)"
+          expected="$(printf '%s\n' \
+            'src/data/property/county-property-enrichment.generated.ts' \
+            'src/data/property/county-property-supplement.server.ts' | LC_ALL=C sort)"
+          [[ "$actual" == "$expected" ]] || {
+            echo '::error::Bot PR must modify exactly the two approved county-property snapshots'; exit 1;
+          }
+          git checkout -B "$branch" "origin/$branch"
+          node --test scripts/data/county-property-snapshot-codec.test.mjs
+          node scripts/data/validate-county-property-enrichment.mjs
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$head" ]] || {
+            echo '::error::County bot PR moved during exact-head validation'; exit 1;
+          }
+          gh api -X POST "repos/$REPOSITORY/statuses/$head" \
+            -f state=success -f context='Required merge gate' \
+            -f description='County source PR passed scoped and canonical exact-head validation; human review remains required' \
+            -f target_url="$url" >/dev/null
+          echo "## County source PR ready for review" >> "$GITHUB_STEP_SUMMARY"
+          echo "Run $run_id produced $url" >> "$GITHUB_STEP_SUMMARY"
+          echo 'All source and canonical checks passed. Do not auto-merge government contact data.' >> "$GITHUB_STEP_SUMMARY"
