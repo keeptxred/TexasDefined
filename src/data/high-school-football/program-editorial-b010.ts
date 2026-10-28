@@ -356,7 +356,7 @@ const BATCH010_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "April 2026",
         "title": "Chad Coker appointed athletic director",
         "body": "The Tyler County Booster reported the local district's April 21 board action appointing Coker, and described Chris Hicks's departure.",
-        "sourceUrl": "https://alpha.creativecirclecdn.com/polkcounty/files/20260428-214302-d4a-2026-04-30.pdf",
+        "sourceUrl": "https://www.easttexasnews.com/tyler-county-booster/tyler-county-booster/stories/coker-named-colmesneil-ad,88675",
         "sourceLabel": "Official school, UIL or date-qualified published historical record",
         "verifiedAt": "2026-10-28"
       },
