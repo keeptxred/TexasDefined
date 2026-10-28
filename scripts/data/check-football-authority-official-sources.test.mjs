@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeVisibleText, isDue, validateLedger, selectSourceCohort } from './check-football-authority-official-sources.mjs';
+import { normalizeVisibleText, isDue, validateLedger, selectSourceCohort, probeSource } from './check-football-authority-official-sources.mjs';
 
 test('source monitor ignores JavaScript/style UI churn and fingerprints visible source facts', () => {
   const one = '<html><head><title>A</title></head><body><script>nonce=123</script><style>.x{color:red}</style><main><h1>Football</h1><p>Coach Sample 2026</p></main></body></html>';
@@ -60,4 +60,38 @@ test('watch inventory fails closed for invalid cursor or a large per-run scan', 
   assert.throws(()=>validateLedger(data,registry,'2026-10-28'),/cursor/);
   data.nextSourceIndex=0;data.safety.perRunSourceCap=26;
   assert.throws(()=>validateLedger(data,registry,'2026-10-28'),/more than 25/);
+});
+
+test('official source never fetches off-allowlist redirect destination', async () => {
+  const savedFetch = globalThis.fetch;
+  const seen = [];
+  globalThis.fetch = async (url, options) => {
+    seen.push(String(url));
+    assert.equal(options.redirect, 'manual');
+    return new Response(null, {status:302,headers:{location:'https://unapproved.example/secret'}});
+  };
+  try {
+    await assert.rejects(
+      probeSource({url:'https://example.edu/football'}, {allowed:new Set(['example.edu']),timeoutMs:2000,maxBytes:1600000}),
+      /unauthorized official host/);
+    assert.deepEqual(seen,['https://example.edu/football']);
+  } finally { globalThis.fetch = savedFetch; }
+});
+
+test('official source permits bounded same-host redirects before hashing', async () => {
+  const savedFetch = globalThis.fetch;
+  const seen = [];
+  globalThis.fetch = async (url, options) => {
+    seen.push(String(url));
+    assert.equal(options.redirect, 'manual');
+    if (seen.length === 1) return new Response(null, {status:302,headers:{location:'/football/varsity'}});
+    return new Response('<html><body><h1>Football</h1><p>'+'School-published varsity schedule '.repeat(8)+'</p></body></html>',
+      {status:200,headers:{'content-type':'text/html'}});
+  };
+  try {
+    const result=await probeSource({url:'https://example.edu/football'},{allowed:new Set(['example.edu']),timeoutMs:2000,maxBytes:1600000});
+    assert.equal(seen.length,2);
+    assert.equal(seen[1],'https://example.edu/football/varsity');
+    assert.match(result.fingerprint,/^[a-f0-9]{64}$/);
+  } finally { globalThis.fetch = savedFetch; }
 });
