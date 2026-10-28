@@ -28,7 +28,7 @@ Explore provider entity OR stable legacy corporate-event slug
     -> texasdefined_group_event_provider_locations (junction)
         -> existing explore_locations / Explore physical location entity
     -> texasdefined_group_event_experiences
-        -> texasdefined_group_event_packages (per-package capacity and rates)
+        -> texasdefined_group_event_packages (per-package capacity, rates and included activities)
         -> texasdefined_group_event_experience_tags -> existing explore_tags
         -> existing explore_media (rights-gated optional image)
 ```
