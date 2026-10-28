@@ -150,7 +150,7 @@ export const TEXAS_DATASETS: TexasDataset[] = [
   {
     slug: 'texas-metro-payrolls-june-2026',
     title: 'Texas Metro Nonfarm Payroll Employment — June 2026',
-    description: 'Historical June 2026 snapshot of total nonfarm payroll employment across major Texas metropolitan areas. For the latest available comparison, see the August 2026 brief.',
+    description: 'Historical June 2026 snapshot of total nonfarm payroll employment across major Texas metropolitan areas. For the most recent source-verified month, use the rolling Texas metro payrolls dataset.',
     category: 'Jobs', year: 2026, updated: '2026-08-26', unit: 'count',
     sourceName: 'U.S. Bureau of Labor Statistics metropolitan area employment table',
     sourceUrl: 'https://www.bls.gov/news.release/archives/metro_07292026.htm',
