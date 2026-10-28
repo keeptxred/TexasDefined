@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal} from './county-property-snapshot-codec.mjs';
+import {parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal, applyQuarantinedCountyRefresh} from './county-property-snapshot-codec.mjs';
 
 const curated=readFileSync('src/data/property/county-property-enrichment.generated.ts','utf8');
 const extra=readFileSync('src/data/property/county-property-supplement.server.ts','utf8');
@@ -100,4 +100,32 @@ test('reachable official pages cannot silently remove recently verified counties
   assert.equal(isAmbiguousCountyWithdrawal(prior,{
     ...parseFailed,audit:{appraisalSourceUpdated:'2023-05-05',taxOfficeSourceUpdated:'2025-03-03',appraisalCurrent:false,taxOfficeCurrent:true}
   },'2026-10-27'),false, 'A positively stale upstream office date can justify withdrawal under normal index gates');
+});
+
+test('quarantine failed reachable official pages without blocking independently verified county updates',()=> {
+  const previous=parseExistingCountySnapshot(curated);
+  const bell=previous.bell;
+  const uncertain={county:{slug:'bell'},fetched:true,enrichment:null,
+    audit:{appraisalSourceUpdated:'2026-08-21',taxOfficeSourceUpdated:'2025-03-03',appraisalCurrent:true,taxOfficeCurrent:true}};
+  const newCounty={...bell,lastVerifiedAt:'2026-10-28',sourceUrls:[...bell.sourceUrls]};
+  const verified={county:{slug:'fresh'},fetched:true,enrichment:newCounty};
+  const confirmedStale={county:{slug:'denton'},fetched:true,enrichment:null,
+    audit:{appraisalSourceUpdated:'2023-01-01',taxOfficeSourceUpdated:'2025-01-01',appraisalCurrent:false,taxOfficeCurrent:true}};
+  const unreachable={county:{slug:'bexar'},fetched:false,enrichment:null};
+  const results=[uncertain,verified,confirmedStale,unreachable];
+  const quarantine=new Set(results.filter(row=>isAmbiguousCountyWithdrawal(previous[row.county.slug],row,'2026-10-28')).map(row=>row.county.slug));
+  assert.deepEqual([...quarantine],['bell']);
+  const next=applyQuarantinedCountyRefresh(previous,results,quarantine);
+  assert.deepEqual(next.bell,bell,'Quarantined verified record unchanged, including verification timestamp');
+  assert.equal(next.fresh.lastVerifiedAt,'2026-10-28','Independent fresh record advances');
+  assert.equal(next.denton,undefined,'Affirmatively stale source can withdraw record');
+  assert.deepEqual(next.bexar,previous.bexar,'Fetch failure cannot delete record');
+  assert.equal(Object.keys(previous).length,17,'Previously sourced fixture remains intact');
+});
+test('scheduled importer permanently invokes quarantined non-destructive reconciliation',()=> {
+  const importer=readFileSync('scripts/data/sync-county-property-data.mjs','utf8');
+  assert.match(importer,/const ambiguousSlugs = new Set\(ambiguousWithdrawals\.map\(/);
+  assert.match(importer,/applyQuarantinedCountyRefresh\(merged, results, ambiguousSlugs\)/);
+  assert.match(importer,/Prior records and their verification dates were preserved, not reverified/);
+  assert.doesNotMatch(importer,/else if \(fetched\) delete merged\[county\.slug\]/);
 });
