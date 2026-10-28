@@ -105,9 +105,16 @@ test('reachable official pages cannot silently remove recently verified counties
   assert.equal(isAmbiguousCountyWithdrawal(prior,{...parseFailed,fetched:false},'2026-10-27'),false);
   assert.equal(isAmbiguousCountyWithdrawal(prior,{...parseFailed,enrichment:prior},'2026-10-27'),false);
   assert.equal(isAmbiguousCountyWithdrawal(undefined,parseFailed,'2026-10-27'),false);
-  assert.equal(isAmbiguousCountyWithdrawal(prior,{
+  const contradictoryStale={
     ...parseFailed,audit:{appraisalSourceUpdated:'2023-05-05',taxOfficeSourceUpdated:'2025-03-03',appraisalCurrent:false,taxOfficeCurrent:true}
-  },'2026-10-27'),false, 'A positively stale upstream office date can justify withdrawal under normal index gates');
+  };
+  assert.equal(isAmbiguousCountyWithdrawal(prior,contradictoryStale,'2026-10-27'),true,
+    'A new contradictory stale date cannot delete a previously source-current office');
+  const oldExpired={...prior,sourceUpdatedAt:{appraisalDistrict:'2023-01-01',taxOffice:'2023-01-01'}};
+  assert.equal(isAmbiguousCountyWithdrawal(oldExpired,contradictoryStale,'2026-10-27'),false,
+    'Only independently confirmed stale dates plus previously expired source evidence allow withdrawal');
+  assert.equal(isAmbiguousCountyWithdrawal(oldExpired,{...parseFailed,audit:{}},'2026-10-27'),true,
+    'A missing later source is not proof of an expired county office withdrawal');
 });
 
 test('quarantine failed reachable official pages without blocking independently verified county updates',()=> {
@@ -121,15 +128,33 @@ test('quarantine failed reachable official pages without blocking independently 
     audit:{appraisalSourceUpdated:'2023-01-01',taxOfficeSourceUpdated:'2025-01-01',appraisalCurrent:false,taxOfficeCurrent:true}};
   const unreachable={county:{slug:'bexar'},fetched:false,enrichment:null};
   const results=[uncertain,verified,confirmedStale,unreachable];
-  const quarantine=new Set(results.filter(row=>isAmbiguousCountyWithdrawal(previous[row.county.slug],row,'2026-10-28')).map(row=>row.county.slug));
+  const retainedOldSource={...previous,denton:{...previous.denton,
+    sourceUpdatedAt:{appraisalDistrict:'2023-01-01',taxOffice:'2023-01-01'}}};
+  const quarantine=new Set(results.filter(row=>isAmbiguousCountyWithdrawal(retainedOldSource[row.county.slug],row,'2026-10-28')).map(row=>row.county.slug));
   assert.deepEqual([...quarantine],['bell']);
-  const next=applyQuarantinedCountyRefresh(previous,results,quarantine);
+  const next=applyQuarantinedCountyRefresh(retainedOldSource,results,quarantine);
   assert.deepEqual(next.bell,bell,'Quarantined verified record unchanged, including verification timestamp');
   assert.equal(next.fresh.lastVerifiedAt,'2026-10-28','Independent fresh record advances');
   assert.equal(next.denton,undefined,'Affirmatively stale source can withdraw record');
   assert.deepEqual(next.bexar,previous.bexar,'Fetch failure cannot delete record');
   assert.equal(Object.keys(previous).length,17,'Previously sourced fixture remains intact');
 });
+test('every previously fresh verified source refuses a contradictory stale-page withdrawal',()=> {
+  const old={...parseExistingCountySnapshot(curated),
+    ...parseExistingCountySnapshot(extra,'COUNTY_PROPERTY_SUPPLEMENT')};
+  const selected=['deaf-smith','fort-bend','jim-hogg','san-augustine','san-patricio'];
+  for(const slug of selected){
+    const prior=old[slug];
+    assert.ok(prior?.sourceUpdatedAt?.appraisalDistrict && prior?.sourceUpdatedAt?.taxOffice,
+      'County must have both prior official source update dates: '+slug);
+    const falselyStale={county:{slug},fetched:true,enrichment:null,
+      audit:{appraisalSourceUpdated:'2023-01-01',taxOfficeSourceUpdated:'2025-01-01',
+        appraisalCurrent:false,taxOfficeCurrent:true}};
+    assert.equal(isAmbiguousCountyWithdrawal(prior,falselyStale,'2026-10-28'),true,
+      'Current Comptroller source-backed county must not disappear on contradictory date: '+slug);
+  }
+});
+
 test('scheduled importer permanently invokes quarantined non-destructive reconciliation',()=> {
   const importer=readFileSync('scripts/data/sync-county-property-data.mjs','utf8');
   assert.match(importer,/const ambiguousSlugs = new Set\(ambiguousWithdrawals\.map\(/);
