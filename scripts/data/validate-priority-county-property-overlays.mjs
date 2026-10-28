@@ -55,7 +55,7 @@ for (const [slug, baselineDate] of Object.entries(expectedGenerated)) {
   // A verified official refresh may advance its review date. Require the
   // known baseline, a real UTC date not in the future, and county-specific
   // official directory provenance; never accept a calendar-only stamp.
-  const date = /lastVerifiedAt:\\s*'(\\d{4}-\\d{2}-\\d{2})'/.exec(block)?.[1];
+  const date = /lastVerifiedAt:\s*'(\d{4}-\d{2}-\d{2})'/.exec(block)?.[1];
   const today = new Date().toISOString().slice(0, 10);
   const parsed = date ? new Date(date + 'T00:00:00Z') : null;
   if (!parsed || Number.isNaN(parsed.getTime()) ||
