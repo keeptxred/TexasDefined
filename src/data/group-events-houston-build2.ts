@@ -3,7 +3,7 @@
  * Legacy provider slugs remain the stable join key until Explore identities are vetted.
  * null locationId means no vetted Explore location join, NOT that the venue has no address.
  */
-import { corporateEventProviders } from './corporate-events';
+import { corporateEventProviders } from './corporate-events.ts';
 import { houstonBuild2VerifiedProviders } from './corporate-events-houston-build2';
 import type { MarketplaceExperience, MarketplacePackage, OccasionKey, ActivityKey, AmenityKey, EnvironmentKey, MarketplaceSetting } from './group-event-marketplace-foundation';
 
