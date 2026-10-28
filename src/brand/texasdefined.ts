@@ -95,6 +95,7 @@ export const texasDefinedBrand: BrandConfig = {
       ],
     },
     { label: "Fishing", to: "/fishing", description: "Texas fishing lakes, species, guides and reports" },
+    { label: "Hunting", to: "/hunting", description: "Public hunting access, species, licenses and regulations" },
     { label: "Music", to: "/texas-music", description: "Texas music and artists" },
     {
       label: "Texas Life",
@@ -128,6 +129,7 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Trip Planner", to: "/explore/trip-planner" },
         { label: "Lakes & Rivers", to: "/explore/lakes-rivers" },
         { label: "Fishing", to: "/fishing" },
+        { label: "Hunting", to: "/hunting" },
         { label: "Texas Music", to: "/texas-music" },
         { label: "State Parks", to: "/explore/state-parks" },
         { label: "Best Camping in Texas", to: "/best-places-to-go-camping-in-texas" },

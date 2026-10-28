@@ -96,7 +96,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
           { "@type": "ListItem", position: 3, name: topic.title, item: pageUrl },
         ],
       },
-      {
+      ...(topic.faq.length ? [{
         "@type": "FAQPage",
         "@id": `${pageUrl}#faq`,
         mainEntity: topic.faq.map((item) => ({
@@ -104,7 +104,7 @@ export function HuntingTopicSchema({ topic }: { topic: HuntingAuthorityTopic }) 
           name: item.question,
           acceptedAnswer: { "@type": "Answer", text: item.answer },
         })),
-      },
+      }] : []),
     ],
   }} />;
 }

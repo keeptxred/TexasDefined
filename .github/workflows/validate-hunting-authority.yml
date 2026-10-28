@@ -7,6 +7,11 @@ on:
       - 'src/data/hunting*'
       - 'src/data/hunting/**'
       - 'src/routes/hunting*'
+      - 'src/components/hunting/**'
+      - 'src/brand/texasdefined.ts'
+      - 'scripts/data/refresh-hunting-official-facts.mjs'
+      - 'scripts/data/refresh-hunting-official-facts.test.mjs'
+      - '.github/workflows/monitor-hunting-tpwd-sources.yml'
       - 'scripts/data/validate-hunting-authority.mjs'
       - '.github/workflows/validate-hunting-authority.yml'
   workflow_dispatch:

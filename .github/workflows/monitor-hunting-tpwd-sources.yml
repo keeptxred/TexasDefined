@@ -1,0 +1,97 @@
+name: Monitor Texas Hunting TPWD Sources
+
+on:
+  schedule:
+    - cron: '43 13 * * 2,5'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/hunting/public-access-facts.json'
+      - 'scripts/data/refresh-hunting-official-facts.mjs'
+      - 'scripts/data/refresh-hunting-official-facts.test.mjs'
+      - '.github/workflows/monitor-hunting-tpwd-sources.yml'
+  pull_request:
+    paths:
+      - 'src/data/hunting/public-access-facts.json'
+      - 'scripts/data/refresh-hunting-official-facts.mjs'
+      - 'scripts/data/refresh-hunting-official-facts.test.mjs'
+      - '.github/workflows/monitor-hunting-tpwd-sources.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  # New PR commits supersede obsolete offline tests; main/scheduled source
+  # reconciliation remains serialized and is never interrupted.
+  group: hunting-official-source-refresh-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  official-hunting-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out current main for scheduled jobs, PR head for tests
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.sha || 'main' }}
+          fetch-depth: 0
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test fail-closed official hunting refresh logic
+        run: node --test scripts/data/refresh-hunting-official-facts.test.mjs
+      - name: Reconcile currently published TPWD source facts
+        id: official
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/data/refresh-hunting-official-facts.mjs --write
+      - name: File one review issue for unverified official changes or source outages
+        if: github.event_name != 'pull_request' && steps.official.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Hunting TPWD source changes require review'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "Scheduled TPWD hunting source verification failed or discovered a season-year/regel-change requiring full editorial review. Compare official current rule and APH sources, verify counties/species/season year, then update public guides in a protected PR; do not roll the published season forward automatically. Workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            echo "Existing review issue #$existing; no duplicate created."
+          fi
+      - name: Fail closed when official source verification failed
+        if: github.event_name != 'pull_request' && steps.official.outcome == 'failure'
+        run: exit 1
+      - name: Detect material, verified price changes
+        if: github.event_name != 'pull_request'
+        id: changed
+        shell: bash
+        run: |
+          if git diff --quiet -- src/data/hunting/public-access-facts.json; then
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "No official source-backed permit price changes." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+            git diff -- src/data/hunting/public-access-facts.json >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Open protected verified permit-data update
+        if: github.event_name != 'pull_request' && steps.changed.outputs.changed == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          branch="automation/hunting-permit-facts-${GITHUB_RUN_ID}"
+          git switch -c "$branch"
+          git add src/data/hunting/public-access-facts.json
+          git commit -m 'data: refresh TPWD verified public hunting permit prices'
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title "Refresh verified TPWD public hunting permit prices" --body "Automated bounded TPWD public hunting permit price update only. Official current-season source, separate APH/LPU permit types, rule notices and annual source checks verified. No season-year rollover, county rule or legal hunting-access inference permitted. Protected CI and auto-merge enforce the approved workflow."
+          gh pr merge --auto --squash "$branch"

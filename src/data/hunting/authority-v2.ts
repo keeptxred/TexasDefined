@@ -66,11 +66,8 @@ function speciesTopic(input: {
       { heading: "Confirm the exact county and property", paragraphs: ["Season structure and legal game can vary by county, zone and property. Use the county and property-specific TPWD information before travel."], links: [COUNTIES, OFFICIAL.regulations] },
     ],
     related: input.related ?? [SEASONS, PUBLIC, internal("Texas bag limits", "/hunting/bag-limits"), internal("Texas youth hunting", "/hunting/youth-hunting"), OUTDOORS, COUNTIES],
-    faq: [
-      { question: `Where should I verify current ${input.title.toLowerCase()} rules?`, answer: "Use the current TPWD species page, county rules and the individual public-property or hunt notice when applicable." },
-      { question: "Can public-land rules differ from private-land rules?", answer: "Yes. Public properties can add legal-game, permit, method, date, boundary, check-in and other access restrictions." },
-      { question: "Can TexasDefined replace the official regulations?", answer: "No. TexasDefined is an independent planning publication; TPWD and applicable federal rules remain the legal sources." },
-    ],
+    // No boilerplate FAQ content on automatically grouped species.
+    faq: [],
   });
 }
 

@@ -136,6 +136,24 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     ];
   }
 
+  // Hunting authority changes must verify exactly the practical hub, legal
+  // public-land access guide, and researched white-tailed deer guide on the
+  // deployed Worker. Do not broaden this into a WMA, county or species crawl.
+  if (changedFiles.some(p =>
+    p.startsWith('src/data/hunting/')
+    || p.startsWith('src/components/hunting/')
+    || p.startsWith('src/routes/hunting')
+    || p === 'src/brand/texasdefined.ts'
+  )) {
+    for (const page of ['/hunting', '/hunting/public-hunting', '/hunting/texas-deer-hunting']) {
+      candidates.add(page);
+    }
+    expectedHrefsByPage['/hunting'] = [
+      '/hunting/public-hunting',
+      '/hunting/texas-hunting-license',
+      '/hunting/texas-deer-hunting',
+    ];
+  }
   // The statewide Mardi Gras hub has a static route and its own event-directory
   // links. Verify it on production when either of its route files changes.
   const mardiGrasHubPages = new Set();
