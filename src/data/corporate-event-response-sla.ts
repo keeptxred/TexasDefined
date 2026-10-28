@@ -31,7 +31,8 @@ export function summarizeCorporateEventResponseTimes(
       continue;
     }
     // Never treat a status change or a sent-button click as proof of contact.
-    if (!['new', 'reviewing'].includes(lead.status)) continue;
+    // A legacy/bad 'contacted' status without credible contact evidence must stay visible.
+    if (!['new', 'reviewing', 'contacted'].includes(lead.status)) continue;
     awaitingFirstContact += 1;
     if (now.getTime() - createdAt > deadlineMs) overdueFirstContact += 1;
   }
@@ -46,7 +47,7 @@ export function summarizeCorporateEventResponseTimes(
 }
 
 export function isCorporateEventLeadOverdue(lead: CorporateEventResponseLead, now: Date = new Date()) {
-  if (!['new', 'reviewing'].includes(lead.status)) return false;
+  if (!['new', 'reviewing', 'contacted'].includes(lead.status)) return false;
   const created = Date.parse(lead.created_at);
   if (!Number.isFinite(created)) return false;
   const contacted = lead.first_contacted_at ? Date.parse(lead.first_contacted_at) : NaN;

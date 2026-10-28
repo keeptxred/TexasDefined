@@ -38,11 +38,13 @@ const untrustedContactDates = [
   newLead(72,'reviewing',96), // occurs 24 hours in the future
   newLead(72,'reviewing',-1), // before the organizer's request
   { ...newLead(72,'new'), first_contacted_at: 'not-a-date' },
+  newLead(72,'contacted',96), // false contacted label must not hide invalid future contact
+  newLead(72,'contacted'), // false contacted label without actual evidence
 ];
 const untrustedSummary = summarizeCorporateEventResponseTimes(untrustedContactDates, now);
 assert.equal(untrustedSummary.recordedContacts, 0, 'Future/invalid dates cannot count as completed contacts');
-assert.equal(untrustedSummary.awaitingFirstContact, 3, 'Unverified first contacts stay in staff queue');
-assert.equal(untrustedSummary.overdueFirstContact, 3, 'Unverified first contacts may still be overdue');
+assert.equal(untrustedSummary.awaitingFirstContact, 5, 'Unverified first contacts, including falsely-contacted labels, stay in staff queue');
+assert.equal(untrustedSummary.overdueFirstContact, 5, 'Unverified first contacts may still be overdue');
 assert.equal(untrustedSummary.averageFirstContactHours, null, 'Invalid contact dates cannot skew averages');
 for (const lead of untrustedContactDates) {
   assert(isCorporateEventLeadOverdue(lead, now), 'Invalid contact date must not hide an overdue lead');
@@ -56,8 +58,13 @@ const panel=read('src/components/events/CorporateEventOpsPanel.tsx');
 const migration=read('supabase/migrations/20261024004500_group_event_first_contact_sla.sql');
 assert(migration.includes('first_contacted_at timestamptz'),'First-contact timestamp must be private and nullable');
 assert(migration.includes('No email is sent'), 'Do not claim automatic delivery');
-assert(server.includes("'id,first_contacted_at'"),'Server must inspect prior timestamp before status edit');
+assert(server.includes("'id,created_at,first_contacted_at,first_contact_evidence_reference'"),
+  'Server must read creation time, timestamp and private evidence before changing contacted status');
 assert(server.includes("status === 'contacted' && !existing.first_contacted_at"),'Only first explicit contact should stamp once');
+assert(server.includes('priorContact < createdAt || priorContact > now') &&
+  server.includes('evidence.length < 20 || evidence.length > 500') &&
+  server.includes('createdAt > now'),
+  'A malformed, premature or future contact must not be certified through the status editor');
 assert(server.includes("first_contacted_at: new Date().toISOString()"),'Timestamp must be server-generated');
 assert(server.includes('provider_outreach_consented_at,first_contacted_at'), 'Protected inbox must load timing data');
 assert(panel.includes('awaiting first contact') || panel.includes('Awaiting first contact'), 'Staff queue must show overdue count');
