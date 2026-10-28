@@ -44,6 +44,10 @@ if (!refreshWorkflow.includes('scripts/data/county-office-link-normalization.tes
   failures.push('County source workflow must execute office link safety unit tests before opening generated PRs');
 }
 
+if (!sourceCodec.includes('if (previouslyCurrent) return true;') ||
+    !sourceCodec.includes('return !confirmedStale;')) {
+  failures.push('Previously source-current county contacts must never be deleted solely on contradictory later source dates');
+}
 const SOURCE_MAX_AGE_DAYS = 730;
 const LOCAL_VERIFICATION_MAX_AGE_DAYS = 400;
 
