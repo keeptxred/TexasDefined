@@ -194,7 +194,7 @@ const smokeTargets = [
   })),
   { path: '/sports/softball/paris-junior-college', requiredText: 'Paris Junior College Lady Dragons softball', label: 'PJC softball team authority SSR' },
   { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
-  { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
+  { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–', label: 'Texas Data child route body' },
 ];
 
 // The holiday route is permanent, while each date-specific show must expire from
