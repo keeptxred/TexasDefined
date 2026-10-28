@@ -70,11 +70,9 @@
     "etsy_public_listings_verified": 6,
     "etsy_verification_last_checked": "2026-10-24",
     "etsy_remaining_user_actions": [
-      "Add actual production partner to six listings (Etsy shopper metadata returned has_production_partners=false)",
-      "Append Etsy-required disclosure of AI-assisted art to six listing descriptions",
-      "Assign six listings to existing or new Etsy Fishing Shirts section",
-      "Add missing 13th Etsy tags to three listings with empty slots; defer other three until hp-* tag reconciliation is cleared",
-      "Correct Sunrise Cast double-escaped apostrophe and verify accurate shipping origin"
+      "Assign the real Printify production partner in Etsy Shop Manager to the original six listings; verify has_production_partners=true on each",
+      "Confirm all six belong to Etsy shop section Fishing Shirts",
+      "Verify shipping origin matches actual Printify fulfillment location"
     ],
     "etsy_has_production_partners_true": 0,
     "etsy_all_six_have_12_descriptive_tags": true,
@@ -826,7 +824,7 @@
         "ai_artwork_disclosure_verified": true,
         "ai_artwork_disclosure_verified_at": "2026-10-27",
         "ai_artwork_disclosure_text": "Artwork disclosure: Original fishing illustration developed for Texas Defined with AI image-generation assistance and prepared for garment printing. This shirt is printed to order by an independent production partner.",
-        "description_entity_defect_verified": true
+        "description_entity_defect_verified": false
       },
       "texasdefined": {
         "sync_verified": true,
@@ -847,8 +845,7 @@
       },
       "blockers": [
         "Etsy listing was publicly verified; Etsy partner disclosure is missing (required for POD)",
-        "Etsy Fishing Shirts seller section not verified",
-        "Sunrise Cast first sentence still contains double-escaped apostrophe in Etsy shopper catalog; corrective PR #3165 pending"
+        "Etsy Fishing Shirts seller section not verified"
       ],
       "status": "PUBLISHED_WEBSITE_AND_ETSY_SELLER_COMPLIANCE_PENDING"
     },
@@ -1161,6 +1158,11 @@
       "date": "2026-10-27",
       "check": "Live Etsy AI-assisted artwork disclosure after KTR PR #3161",
       "result": "All six original Etsy listings were independently read through Etsy buyer catalog. Each description includes exact AI image-generation assistance disclosure and still has 13 descriptive tags. All six continue reporting has_production_partners=false; Etsy partner metadata not resolved by descriptive text. Sunrise Cast still showed an encoded apostrophe after first selective description publish, tracked in KTR PR #3165."
+    },
+    {
+      "date": "2026-10-27",
+      "check": "Etsy AI description and Sunrise Cast typo final buyer-side recheck",
+      "result": "All six original listing IDs contain a truthful AI-assisted artwork disclosure and exactly 13 descriptive tags; Sunrise Cast now reads 'The water is still, the sun is just clearing the trees, and the first cast is ready.' with no double-escaped apostrophe. All six still return has_production_partners=false, so seller-side production partner and shop-section work remain outstanding. Original product/listing IDs unchanged."
     }
   ],
   "release_approved_at": "2026-10-24",
