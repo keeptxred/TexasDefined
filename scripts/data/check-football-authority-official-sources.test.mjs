@@ -18,7 +18,7 @@ test('calendar review dates reject malformed dates and respect UTC day boundarie
 
 test('source watch permits only bounded explicit official URL hosts and valid registry slugs', () => {
   const data = {schemaVersion:1,safety:{sourceCountCap:30,perSourceTimeoutMs:12000,
-    maxBodyBytes:1600000,approvedDomains:['example.edu','realignment.uiltexas.org']},
+    maxBodyBytes:1600000,approvedDomains:['example.edu','realignment.uiltexas.org','another-school.edu']},
     sources:Array.from({length:10},(_,i)=>({
       slug:'school-'+i,url:'https://example.edu/football/'+i,reviewAfter:'2026-11-07',
       contentFingerprint:null,lastObservedAt:null}))};
