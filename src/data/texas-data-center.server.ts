@@ -258,13 +258,13 @@ const COUNTY_EXAMPLE_SLUGS = [
 // This bounded server-only view reads the newest *complete* finalized county
 // example set; it does not fetch official sites on pageview, fabricate missing
 // rates, or overwrite archived 2024 source snapshots.
-export async function getCurrentCountyPropertyTaxExamples(): Promise<TexasDataset | null> {
+export async function getCurrentCountyPropertyTaxExamples(candidateYear?: number): Promise<TexasDataset | null> {
   const { supabase } = await import('@/integrations/supabase/client');
   const db = supabase as any;
   const { data: years, error: yearError } = await db.from('texas_property_tax_rates')
     .select('year').eq('type', 'county').order('year', { ascending: false }).limit(1);
   if (yearError) throw yearError;
-  const year = Number(years?.[0]?.year);
+  const year = candidateYear ?? Number(years?.[0]?.year);
   if (!Number.isInteger(year) || year < 2024 || year > new Date().getUTCFullYear()) return null;
 
   const { data, error } = await db.from('texas_property_tax_rates')
@@ -273,7 +273,7 @@ export async function getCurrentCountyPropertyTaxExamples(): Promise<TexasDatase
   if (error) throw error;
   const rows = data ?? [];
   const bySlug = new Map(rows.map((row: any) => [row.slug, row] as const));
-  if (rows.length !== COUNTY_EXAMPLE_SLUGS.length || bySlug.size !== COUNTY_EXAMPLE_SLUGS.length) return null;
+  if (rows.length !== COUNTY_EXAMPLE_SLUGS.length || bySlug.size !== COUNTY_EXAMPLE_SLUGS.length) return year > 2024 ? getCurrentCountyPropertyTaxExamples(year - 1) : null;
   const officialUrl = `https://comptroller.texas.gov/taxes/property-tax/docs/${year}-county-rates-levies.xlsx`;
   const values = [];
   for (const slug of COUNTY_EXAMPLE_SLUGS) {
@@ -282,14 +282,14 @@ export async function getCurrentCountyPropertyTaxExamples(): Promise<TexasDatase
     if (!row || row.source_status !== 'reported-final' || row.source_url !== officialUrl ||
       row.variable_rate || row.rate_unavailable || !Number.isFinite(value) || value <= 0 || value >= 5 ||
       row.name !== slug.split('-').slice(0, -1).map((part: string) =>
-        part.charAt(0).toUpperCase() + part.slice(1)).join(' ') + ' County') return null;
+        part.charAt(0).toUpperCase() + part.slice(1)).join(' ') + ' County') return year > 2024 ? getCurrentCountyPropertyTaxExamples(year - 1) : null;
     values.push({ label: row.name, value, note: `${year} adopted county-only rate, dollars per $100 taxable value.` });
   }
   const original = TEXAS_DATASETS.find((item) => item.slug === 'county-property-tax-rates');
   if (!original) throw new Error('County rate examples missing from the Texas Data registry');
   const updated = rows.map((row: any) => String(row.imported_at || '').slice(0, 10))
     .filter((value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value)).sort().at(-1);
-  if (!updated) return null;
+  if (!updated) return year > 2024 ? getCurrentCountyPropertyTaxExamples(year - 1) : null;
   return {
     ...original,
     title: `Texas County Property-Tax Rate Examples — ${year}`,
