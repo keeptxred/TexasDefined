@@ -10,7 +10,7 @@ The publication authority remains `keeptxred/TexasDefined`, with protected GitHu
 | Property-tax rates | `.github/workflows/sync-property-tax-rates.yml` | Monthly on the 3rd | Updates verified rows in the existing Supabase rate registry, including historical revisions; fail-closed |
 | County housing | `.github/workflows/refresh-acs-county-housing-costs.yml` | Monthly on the 6th | Checks whether the next official ACS five-year Table-Based Summary File is published. Only after all four fields and all 254 counties validate does it roll the maintained snapshot to the next vintage, open a scoped PR, and use the `Finish ACS County Housing Refresh` protected auto-merge workflow. Archived source records are not fabricated. |
 | Homeowners insurance | `.github/workflows/refresh-tdi-homeowners-current.yml` plus existing Supabase TDI source monitor | GitHub weekly Mondays 12:37 UTC; Supabase Mondays 12:02 UTC | Checks paired official TDI premium/coverage chart series and policy type; when figures change, a governed GitHub PR updates the latest premium dataset and hub tile through protected auto-merge. The separately dated 2016–2025 research remains archival. |
-| Homestead, TxDOT | Dated source-backed editorial snapshots | No independent scheduled auto-publication yet | Require official-source adapters to update automatically; older snapshots remain dated |
+| Homestead exemption and TxDOT traffic coverage | `.github/workflows/refresh-texas-reference-facts.yml` | Monthly on the 10th, 13:19 UTC | Rechecks the current Comptroller 11.13(b) exemption and TxDOT published count/station thresholds; when verified values change, opens a protected PR finished through `Finish Texas Reference Facts Refresh` |
 
 ## Official-source BLS update safeguards
 
@@ -37,6 +37,13 @@ The publication authority remains `keeptxred/TexasDefined`, with protected GitHu
 - A changed generated TDI JSON and sitemap-safe registry date are verified by the owner-side Finish TDI Homeowners Refresh workflow with exact PR author/branch checks and required validation before protected auto-merge.
 - The hub premium tile reads the rolling verified record. Independent 2016–2025 analysis and CSV remain a reproducible dated research record rather than being silently rewritten.
 
+## Homestead and traffic-program updates
+
+- The monthly source job validates *both* official Texas Comptroller and TxDOT pages before recording changes. Homestead values are the current general school residence-homestead exemption. They do not infer a tax-year effective date from the date the webpage was checked.
+- TxDOT describes **more than** a given number of annual short-term counts and continuous stations. The stored figures are labeled lower-bound thresholds, not exact site or observation totals. Texas' 254 counties remain a fixed geographic fact, not a scraped measurement.
+- When an official statement changes within conservative numerical limits, a generated JSON snapshot and the two affected sitemap dates enter a limited-scope GitHub PR. The owner-side finisher validates its exact head through the repository's required gate before protected merge; normal production deployment follows.
+- When the official page is inaccessible, structural parsing fails, statements conflict, or numbers change beyond safety bounds, fail without changing published figures. An existing historical homestead year remains a historical record even when the current legal amount changes.
+
 ## Important remaining limitation
 
-This implementation does **not** imply that every statistic on the hub auto-rolls to the next Census, ACS or TDI annual release. Those require independently validated source-schema adapters and updates to related editorial methodology, research CSVs and historical comparisons. Do not describe the entire hub as fully auto-updating until those adapters and their own end-to-end checks exist.
+Official BLS employment, Census statewide population, ACS county housing, TDI homeowners premiums, Comptroller county rates, school-district rates, the general school homestead exemption and TxDOT published monitoring thresholds now have GitHub- or Supabase-owned review paths. **Not every dataset is completely automatic:** the standalone ACS state-to-state migration flow brief, its original dated historical comparisons and selected research articles retain separate source and editorial obligations. Never infer an effective law date or change an archived historical release merely because a newer official source appears.
