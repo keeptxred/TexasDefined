@@ -2596,14 +2596,14 @@ if(batch009Certified) {
   const county = read('src/routes/$kind.$slug.lazy.tsx');
   const checker = read('scripts/ci/verify-football-b010-first-five-production.mjs');
   const wf = read('.github/workflows/verify-football-b010-first-five-production.yml');
-  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==5 ||
-     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==20 || reg.batch.remainingToVerify!==25 ||
+  if(reg.batch.number!==10 || reg.batch.slugs.length!==25 || reg.batch.implementedOnBranch!==10 ||
+     reg.batch.individuallyVerified!==0 || reg.batch.remainingToImplement!==15 || reg.batch.remainingToVerify!==25 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==205 ||
-     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==5 ||
-     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1082 ||
+     reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==10 ||
+     reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1077 ||
      reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==10).length!==205 ||
      reg.completedBatches.find(x=>x.number===9)?.individuallyVerified!==25) {
-     errors.push('Batch010 first-five registry must retain 205 VERIFIED / five IMPLEMENTED / 1,082 NOT_REVIEWED and archived Batch009 evidence.');
+     errors.push('Batch010 first-five registry must retain 205 VERIFIED / ten IMPLEMENTED / 1,077 NOT_REVIEWED and archived Batch009 evidence.');
   }
   if(!profile.includes('loadBatch010FootballProgramEditorial(canonicalSlug)')) errors.push('Batch010 isolated SSR editorial precedence missing.');
   const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] ?? '';
@@ -2615,7 +2615,7 @@ if(batch009Certified) {
       [editorial,facts[i],'distinct first-party coaching evidence'],
       [loader,"'"+slug+"'",'conditional SSR loader'],
       [identities,"slug: '"+slug+"'",'source-backed school mascot'],
-      [team,"'"+slug+"': '"+counties[i]+"'",'school's physical county'],
+      [team,"'"+slug+"': '"+counties[i]+"'",'school campus physical county'],
       [county,"slug: '"+slug+"'",'reciprocal county card'],
       [checker,"'"+slug+"'",'actual Chrome school target'],
     ]) if(!source.includes(marker)) errors.push('Batch010 missing '+label+': '+slug);
@@ -2638,6 +2638,48 @@ if(batch009Certified) {
      !checker.includes('report.countyChecks.length!==5') ||
      !checker.includes('report.screenshots!==20') ||
      !checker.includes('versions.size!==1')) errors.push('Batch010 must require 15 school views, five county pages, 20 archived screenshots and one Worker.');
+}
+
+// Batch010 second-five: preserve protected first five, source qualification,
+// exact school campuses and single-Worker Chrome release contracts.
+{
+ const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+ const editorial=read('src/data/high-school-football/program-editorial-b010-second.ts');
+ const loader=read('src/data/high-school-football/program-editorial-b010-loader.server.ts');
+ const ids=read('src/data/high-school-football/school-identities.ts');
+ const teams=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+ const county=read('src/routes/$kind.$slug.lazy.tsx');
+ const checker=read('scripts/ci/verify-football-b010-second-five-production.mjs');
+ const workflow=read('.github/workflows/verify-football-b010-second-five-production.yml');
+ const five=[['clarendon','donley','Brenton Whitaker'],['clarksville','red-river','LaThavis Miller'],['claude','armstrong','Brantlee Lemons'],['cleburne','johnson','AJ Sheppard'],['cleveland','liberty','Ajani Sanders']];
+ if(reg.batch.number!==10 || reg.batch.implementedOnBranch!==10 || reg.batch.remainingToImplement!==15 || reg.batch.remainingToVerify!==25 ||
+    reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==205 || reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==10 ||
+    reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1077 || reg.completedBatches.find(x=>x.number===9)?.individuallyVerified!==25)
+   errors.push('Batch010 ten researched school records must preserve historical 205 technical VERIFIED and 1,077 unreviewed.');
+ for(const [slug,loc,fact] of five) {
+  const school=reg.schoolRecords.find(x=>x.slug===slug);
+  if(!school || school.status!=='IMPLEMENTED'||school.batch!==10||school.actualProductionVerified!==false) errors.push('Second-five school must remain IMPLEMENTED: '+slug);
+  for(const [source,token,label] of [
+   [editorial,'"'+slug+'": {','individual editorial'],[editorial,fact,'date-qualified fact'],
+   [loader,"'"+slug+"'",'server-only loader'],[ids,"slug: '"+slug+"'",'school mascot'],
+   [teams,"'"+slug+"': '"+loc+"'",'school physical county'],[county,"slug: '"+slug+"'",'county reciprocal link'],
+   [checker,"'"+slug+"'",'Chrome school target'],
+  ]) if(!source.includes(token))errors.push('Batch010 second cohort missing '+label+': '+slug);
+  const doc=read('docs/football-authority/schools/'+slug+'.md');
+  if(doc.length<500||!doc.includes('https://')||!doc.includes('NOT'))errors.push('Second-cohort source dossier not sufficiently qualified: '+slug);
+ }
+ if(!editorial.includes('Clarksville district identifies LaThavis Miller as athletic director') ||
+    !editorial.includes('2026') ||
+    !editorial.includes('not an official school color'))errors.push('Second cohort must preserve source and mark limitations.');
+ for(const needle of ["workflows: ['Deploy TexasDefined production']",'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+    'github.event.workflow_run.conclusion == \'success\'','verify-football-b010-second-five-production.mjs',
+    'path: artifacts/b010-second-five-production-chrome/', 'echo "run=true" >> "$GITHUB_OUTPUT"', 'echo "run=false" >> "$GITHUB_OUTPUT"'])
+   if(!workflow.includes(needle))errors.push('Batch010 second cohort production verification workflow missing: '+needle);
+ if((workflow.split('      - uses: actions/setup-node@v4').length-1)!==1 ||
+    (workflow.split('      - name: Verify 5 school pages').length-1)!==1 ||
+    !checker.includes('report.schoolChecks.length!==15')||!checker.includes('report.countyChecks.length!==5')||
+    !checker.includes('report.screenshots!==20')||!checker.includes('versions.size!==1'))
+   errors.push('Batch010 second-five needs real 15-school, five-county, 20-screenshot, one Worker Chrome proof.');
 }
 
 if (errors.length) {
