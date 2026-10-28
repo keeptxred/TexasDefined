@@ -35,7 +35,7 @@ function fixtureSnapshot() {
     'export const YOUTH_HUNTING_SEASON_YEAR = "2026–27";',
     ...calendar.rows.map(([species, region, dates]) =>
       `  { species: "${species}", region: "${region}", dates: "${dates}", detail: "Fixture" },`),
-  ].join("\\n");
+  ].join("\n");
 }
 
 test("extracts 11 official species/zone dates without guessing", () => {
