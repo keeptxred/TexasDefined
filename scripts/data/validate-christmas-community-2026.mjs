@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 231, "The 231 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 236, "The 236 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -84,6 +84,18 @@ check("lake-jackson-festival-lights-day-parade-2026", "2026-11-21");
 check("lake-jackson-light-up-2026", "2026-11-21", "2027-01-03");
 check("katy-nutcracker-exchange-tree-lighting-2026", "2026-12-05");
 check("old-town-spring-hometown-tree-lighting-2026", "2026-11-14");
+check("bastrop-annual-christmas-tree-lighting-2026", "2026-11-27");
+check("bastrop-river-of-lights-2026", "2026-11-27", "2027-01-04");
+check("bastrop-wassail-fest-2026", "2026-11-28");
+check("bastrop-merry-on-main-2026", "2026-12-12");
+check("bastrop-lost-pines-christmas-parade-2026", "2026-12-12");
+assert.ok(bySlug.get("bastrop-river-of-lights-2026").summary.includes("nightly 6–10 p.m."),
+  "Preserve City of Bastrop's exact free daily River of Lights hours");
+assert.ok(bySlug.get("bastrop-merry-on-main-2026").summary.includes("10 a.m.–3 p.m."),
+  "Do not conflate Bastrop daytime market and the 6 p.m. Christmas parade");
+assert.ok(bySlug.get("bastrop-lost-pines-christmas-parade-2026").officialEventUrl.includes("discoverbastroptx.org"),
+  "The 2026 parade requires the primary visitor bureau source");
+
 assert.ok(bySlug.get("old-town-spring-hometown-tree-lighting-2026").summary.includes("November 15 UTC"),
   "Protect organizer-stated Saturday evening over its UTC timestamp");
 assert.ok(bySlug.get("katy-nutcracker-exchange-tree-lighting-2026").summary.includes("not an official listing"),
