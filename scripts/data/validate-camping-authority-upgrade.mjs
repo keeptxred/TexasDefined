@@ -35,6 +35,8 @@ for (const [src,needle] of [
   [monitor,"steps.refresh.outputs.needs_review"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"fs.appendFileSync(process.env.GITHUB_OUTPUT"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"sourceOutcome(sources[0]"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"new TPWD closure is published from source text"],
+  [read("scripts/data/refresh-camping-alerts.mjs"),"preserveExistingOrder(rows, oldAlerts)"],
   [read("scripts/data/refresh-camping-alerts.mjs"),"unchanged ? previous.checkedAt : day"],
   [health,"schedule:"],
   [health,"audit-camping-guide-freshness.mjs"],
@@ -49,7 +51,7 @@ for (const [src,needle] of [
   [live,"newest.conclusion !== 'success'"]
 ]) if (!src.includes(needle)) throw Error("Camping authority missing: " + needle);
 const sourceMonitor = read("scripts/data/refresh-camping-alerts.mjs");
-for (const pattern of ["park is under a burn ban", "Expect intermittent closures for sites", "Hot Springs Road beyond the overflow parking area", "You may use charcoal or containerized stoves", "windows.every(w => w.end < asOf)"]) if (!sourceMonitor.includes(pattern)) throw Error("Camping safety source guard missing: " + pattern);
+for (const pattern of ["park is under a burn ban", "Expect intermittent closures for sites", "Hot Springs Road beyond the overflow parking area", "You may use charcoal or containerized stoves", "parseTPWDClosures(text,source.destinationSlug)"]) if (!sourceMonitor.includes(pattern)) throw Error("Camping safety source guard missing: " + pattern);
 if (alerts.includes("no wood fires; charcoal") || monitor.includes("Wood fires are not allowed")) throw Error("Retired Palo Pinto burn-ban text must not ship as active");
 if (component.includes("border-amber-600") || page.includes("bg-amber-50")) throw Error("Camping guide must not introduce new palette styles");
 if (page.includes(">Visit a State Park</h2>")) throw Error("National parks are not state parks");

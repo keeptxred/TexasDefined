@@ -4,11 +4,56 @@ import path from "node:path";
 
 const outputPath = path.resolve("src/data/camping/official-alerts.generated.ts");
 const day = new Date().toISOString().slice(0, 10);
-const windows = [
-  { start: "2026-11-02", end: "2026-11-06", label: "November 2–6, 2026", pattern: /Nov\. 2 to 2 p\.m\. on Nov\. 6/i },
-  { start: "2026-11-30", end: "2026-12-04", label: "November 30–December 4, 2026", pattern: /Nov\. 30 to 2 p\.m\. on Dec\. 4/i },
-  { start: "2027-01-25", end: "2027-01-29", label: "January 25–29, 2027", pattern: /Jan\. 25 to 2 p\.m\. on Jan\. 29/i },
-];
+const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const monthNumber = name => monthNames.findIndex(month => month.slice(0,3).toLowerCase() === name.slice(0,3).toLowerCase());
+const isoDate = (year, month, day) => year + "-" + String(month+1).padStart(2,"0") + "-" + String(day).padStart(2,"0");
+function datedSourceAnchor(text, park) {
+  const section = park === "enchanted-rock-state-natural-area" ? "Trail Closures" : "Burn Ban";
+  const part = text.split(section)[1] ?? "";
+  const date = /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.\s*(\d{1,2}),\s*(20\d{2})\b/i.exec(part.slice(0, 140));
+  return date ? { month:monthNumber(date[1]), year:Number(date[3]) } : null;
+}
+function parseTPWDClosures(text, park) {
+  const anchor = datedSourceAnchor(text, park);
+  const section = text.split("The park will be closed on the following dates:")[1]
+    ?.split(park === "brazos-bend-state-park" ? "The group camp area" : "Only permitted hunters will be allowed")[0] ?? "";
+  if (!anchor || !section || !/Only permitted hunters will be allowed on these dates/i.test(text)) return null;
+  const syntax = park === "enchanted-rock-state-natural-area"
+    ? /12:30 p\.m\.\s+on\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.\s*(\d{1,2})\s+to\s+2 p\.m\.\s+on\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.\s*(\d{1,2})/gi
+    : /\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.\s*(\d{1,2})\s+to\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.\s*(\d{1,2})/gi;
+  const found = [...section.matchAll(syntax)];
+  // Parse EVERY closing interval; don't quietly publish a partial schedule.
+  const markerCount = park === "enchanted-rock-state-natural-area"
+    ? (section.match(/12:30 p\.m\.\s+on/gi) ?? []).length
+    : (section.match(/\bto\b/gi) ?? []).length;
+  if (found.length < 1 || found.length > 12 || markerCount !== found.length ||
+      /\b(?:cancelled|canceled|reopened|no longer closed)\b/i.test(section)) return null;
+  const result = [];
+  let previousMonth = anchor.month, year = anchor.year, previousISO = null;
+  for (const match of found) {
+    const startMonth = monthNumber(match[1]), startDay = Number(match[2]);
+    const endMonth = monthNumber(match[3]), endDay = Number(match[4]);
+    if ([startMonth,endMonth].some(x=>x<0) || startDay < 1 || endDay < 1) return null;
+    // A previous-year list stays expired even when the calendar advances:
+    // source-stamped year controls assignment, never today's local year.
+    const advanceMonths = (startMonth - previousMonth + 12) % 12;
+    if (advanceMonths > 6) return null;
+    if (startMonth < previousMonth) year++;
+    const endYear = year + (endMonth < startMonth ? 1 : 0);
+    const startISO = isoDate(year,startMonth,startDay), endISO = isoDate(endYear,endMonth,endDay);
+    const span = (Date.parse(endISO+"T00:00:00Z")-Date.parse(startISO+"T00:00:00Z"))/86400000;
+    if (!Number.isInteger(span) || span < 0 || span > 20 || (previousISO && startISO <= previousISO)) return null;
+    const label = year !== endYear
+      ? monthNames[startMonth] + " " + startDay + ", " + year + "–" + monthNames[endMonth] + " " + endDay + ", " + endYear
+      : startMonth === endMonth
+        ? monthNames[startMonth] + " " + startDay + "–" + endDay + ", " + year
+        : monthNames[startMonth] + " " + startDay + "–" + monthNames[endMonth] + " " + endDay + ", " + year;
+    result.push({start:startISO,end:endISO,label});
+    previousISO = startISO;
+    previousMonth = startMonth;
+  }
+  return result;
+}
 const sources = [
   {
     destinationSlug: "goose-island-state-park", parkName: "Goose Island State Park",
@@ -21,7 +66,7 @@ const sources = [
     sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock/alert",
     required: [/Park Closures/i, /backcountry trails may have intermittent closures/i],
     notice: (text, asOf = day) => {
-      const remaining = windows.filter(w => w.end >= asOf && w.pattern.test(text)).map(w => w.label);
+      const remaining = (parseTPWDClosures(text,"enchanted-rock-state-natural-area") || []).filter(w => w.end >= asOf).map(w => w.label);
       return remaining.length ? "TPWD lists scheduled park closures for " + remaining.join("; ") + ". Backcountry trails may close intermittently." : "Previously listed closure windows have elapsed. Check TPWD for the latest access and backcountry-trail restrictions.";
     },
   },
@@ -36,10 +81,7 @@ const sources = [
     sourceUrl: "https://tpwd.texas.gov/state-parks/brazos-bend/alert",
     required: [/Burn Ban/i, /No wood fires allowed/i, /You may use charcoal or containerized stoves/i],
     notice: (text, asOf = day) => {
-      const futureClosures = [
-        { end: "2026-11-19", label: "November 17–19, 2026", pattern: /Nov\. 17 to Nov\. 19/i },
-        { end: "2026-12-17", label: "December 15–17, 2026", pattern: /Dec\. 15 to Dec\. 17/i }
-      ].filter(window => window.end >= asOf && window.pattern.test(text));
+      const futureClosures = (parseTPWDClosures(text,"brazos-bend-state-park") || []).filter(window => window.end >= asOf);
       if (futureClosures.length === 0) return "TPWD reports a wood-fire burn ban; charcoal or containerized fuel cooking is allowed. Check park alerts for the latest closures and access conditions.";
       return "TPWD reports a wood-fire burn ban (charcoal or containerized fuel cooking allowed). The park lists closures " + futureClosures.map(w => w.label).join(" and ") + "; only permitted hunters may enter during those closures. Check the current park notice before booking.";
     },
@@ -51,29 +93,17 @@ const sources = [
     notice: "TPWD says final construction work is ongoing. Follow posted safety signs; weekend and holiday capacity may be reached, so reserve entry before visiting.",
   },
 ];
-// A park notice must never be called verified when an unrecognised closure
-// interval or a withdrawn restriction changes the meaning of published copy.
-const knownEnchantedClosure = [
-  /Oct\. 12 to 2 p\.m\. on Oct\. 16/i, ...windows.map(w => w.pattern),
-];
+// All source-listed park-wide closure windows must parse and retain their
+// original date meaning, including year rollovers, or no dated claim ships.
 function isVerified(source, text, asOf = day) {
   if (!source.required.every(pattern => pattern.test(text))) return false;
-  if (source.destinationSlug === "enchanted-rock-state-natural-area") {
-    const section = text.split("The park will be closed on the following dates:")[1]
-      ?.split("Only permitted hunters will be allowed")[0] ?? "";
-    const listed = [...section.matchAll(/[A-Z][a-z]{2}\.\s*\d{1,2}\s+to\s+2\s*p\.m\.\s+on\s+[A-Z][a-z]{2}\.\s*\d{1,2}/g)];
-    if (/to\s+2\s*p\.m\./i.test(section) && !listed.length) return false;
-    if (listed.some(match => !knownEnchantedClosure.some(pattern => pattern.test(match[0])))) return false;
-    return windows.some(w => w.end >= asOf && w.pattern.test(text)) || windows.every(w => w.end < asOf);
-  }
+  if (source.destinationSlug === "enchanted-rock-state-natural-area")
+    return parseTPWDClosures(text,source.destinationSlug) !== null;
   if (source.destinationSlug === "big-bend-national-park") {
     if (/\b(?:Paint Gap Road|Hot Springs Road|Black Gap Road|River Road West|Cottonwood Campground and Santa Elena Canyon)\s+(?:has\s+)?(?:reopened|is\s+open)\b/i.test(text)) return false;
   }
-  if (source.destinationSlug === "brazos-bend-state-park") {
-    const activeClosure = /Nov\. 17 to Nov\. 19|Dec\. 15 to Dec\. 17/i.test(text)
-      && asOf <= "2026-12-17";
-    if (activeClosure && !/Only permitted hunters will be allowed on these dates/i.test(text)) return false;
-  }
+  if (source.destinationSlug === "brazos-bend-state-park")
+    return parseTPWDClosures(text,source.destinationSlug) !== null;
   return true;
 }
 
@@ -87,12 +117,27 @@ const sourceOutcome = (source, text, asOf = day) => {
     : REVIEW_NOTICE };
 };
 
+// Preserve published alert order on a no-op source check. Without this,
+ // unchanged records generate spurious bot PRs simply by changing array order.
+function preserveExistingOrder(rows, prior) {
+  const order = new Map(prior.map((item, index) => [item.destinationSlug, index]));
+  return [...rows].sort((a,b) => {
+    const ai = order.get(a.destinationSlug) ?? Number.MAX_SAFE_INTEGER;
+    const bi = order.get(b.destinationSlug) ?? Number.MAX_SAFE_INTEGER;
+    return ai - bi;
+  });
+}
 if (process.argv.includes("--self-test")) {
+  const ordered = preserveExistingOrder([
+    {destinationSlug:"goose"}, {destinationSlug:"big"}, {destinationSlug:"palo"}
+  ], [{destinationSlug:"goose"}, {destinationSlug:"palo"}, {destinationSlug:"big"}]);
+  assert.deepEqual(ordered.map(row => row.destinationSlug), ["goose","palo","big"],
+    "no-op source checks must retain the published array order");
   const fixtures = [
     "Park Alerts Burn Ban Aug. 11, 2026 - The park is under a burn ban. Water Outage Oct. 23, 2026 - Water is out at the Bayfront camping area. Construction Alerts Expect intermittent closures for sites 1 - 24",
-    "Park Alerts Park Closures The backcountry trails may have intermittent closures. The park will be closed on the following dates: 12:30 p.m. on Oct. 12 to 2 p.m. on Oct. 16 12:30 p.m. on Nov. 2 to 2 p.m. on Nov. 6 12:30 p.m. on Nov. 30 to 2 p.m. on Dec. 4 12:30 p.m. on Jan. 25 to 2 p.m. on Jan. 29 Only permitted hunters will be allowed",
+    "Park Alerts Trail Closures Oct. 20, 2026 - The backcountry trails may have intermittent closures. Park Closures The park will be closed on the following dates: 12:30 p.m. on Oct. 12 to 2 p.m. on Oct. 16 12:30 p.m. on Nov. 2 to 2 p.m. on Nov. 6 12:30 p.m. on Nov. 30 to 2 p.m. on Dec. 4 12:30 p.m. on Jan. 25 to 2 p.m. on Jan. 29 Only permitted hunters will be allowed on these dates",
     "Alerts & Conditions weather-related road closures. The paved road between Cottonwood Campground and Santa Elena Canyon. Hot Springs Road beyond the overflow parking area. Paint Gap Road River Road West to Glenn Springs Road Black Gap Road is c losed",
-    "Park Alerts Burn Ban No wood fires allowed. You may use charcoal or containerized stoves. Park Closures Nov. 17 to Nov. 19 Dec. 15 to Dec. 17 Only permitted hunters will be allowed on these dates",
+    "Park Alerts Burn Ban Aug. 28, 2026 - The park is under a burn ban. No wood fires allowed. You may use charcoal or containerized stoves. Park Closures The park will be closed on the following dates: Nov. 17 to Nov. 19 Dec. 15 to Dec. 17 Only permitted hunters will be allowed on these dates",
     "Park Alert Visiting the Park: final touches are ongoing. The park may reach capacity on weekends and holidays",
   ];
   for (let i = 0; i < sources.length; i++) {
@@ -100,7 +145,8 @@ if (process.argv.includes("--self-test")) {
   }
   assert.equal(isVerified(sources[0], fixtures[0].replace("Oct. 23, 2026", "Oct. 25, 2026")), false, "changed dated outage must get review");
   assert.equal(isVerified(sources[0], fixtures[0].replace("under a burn ban", "not under a burn ban")), false, "burn ban withdrawal is not confirmed");
-  assert.equal(isVerified(sources[1], fixtures[1].replace("Only permitted hunters will be allowed", "12:30 p.m. on Nov. 8 to 2 p.m. on Nov. 10 Only permitted hunters will be allowed")), false, "unknown closure is not silently ignored");
+  assert.equal(isVerified(sources[1], fixtures[1].replace("on Nov. 30", "on Nov. 30").replace("12:30 p.m. on Nov. 30", "12:30 p.m. on Nov. 8 to 2 p.m. on Nov. 10 12:30 p.m. on Nov. 30")), true, "new source-supported closure is parsed safely");
+  assert.equal(isVerified(sources[1], fixtures[1].replace("to 2 p.m. on Nov. 6", "through Nov. 6")), false, "unrecognized new closure format needs review");
   assert.equal(isVerified(sources[2], fixtures[2].replace("Paint Gap Road", "Paint Gap Road reopened")), false, "reopened access is not a confirmed closure");
   assert.equal(isVerified(sources[2], fixtures[2].replace("Paint Gap Road", "Reopened side road")), false, "removed road closure triggers review");
   assert.equal(isVerified(sources[3], fixtures[3].replace("Only permitted hunters will be allowed on these dates", "")), false, "hunting access claim requires source");
@@ -110,6 +156,8 @@ if (process.argv.includes("--self-test")) {
   const brazos = sources[3].notice(fixtures[3], "2026-11-20");
   assert(!brazos.includes("November 17–19"), "elapsed Brazos closure must expire");
   assert(brazos.includes("December 15–17"), "later Brazos closure must remain");
+  const dynamicEnchanted = sources[1].notice(fixtures[1].replace("12:30 p.m. on Nov. 30", "12:30 p.m. on Nov. 8 to 2 p.m. on Nov. 10 12:30 p.m. on Nov. 30"), "2026-11-07");
+  assert(dynamicEnchanted.includes("November 8–10, 2026"), "new TPWD closure is published from source text without editing code");
   const staleGooseIsland = sourceOutcome(sources[0], fixtures[0].replace("Oct. 23, 2026", "Oct. 25, 2026"));
   assert.equal(staleGooseIsland.status, "needs-review");
   assert.equal(staleGooseIsland.notice, REVIEW_NOTICE);
@@ -152,7 +200,7 @@ for (const source of sources) {
     notice, checkedAt: unchanged ? previous.checkedAt : day, status });
   console.log(source.parkName + ": " + (status === "confirmed" ? "confirmed" : "changed — needs review"));
 }
-const output = "/** Generated from official TPWD alert pages; do not manually restamp verified dates. */\nexport const CAMPING_OPERATIONAL_ALERTS = " + JSON.stringify(rows, null, 2) + " as const;\n";
+const output = "/** Generated from official TPWD alert pages; do not manually restamp verified dates. */\nexport const CAMPING_OPERATIONAL_ALERTS = " + JSON.stringify(preserveExistingOrder(rows, oldAlerts), null, 2) + " as const;\n";
 if (process.argv.includes("--write")) {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   if (!fs.existsSync(outputPath) || fs.readFileSync(outputPath, "utf8") !== output) fs.writeFileSync(outputPath, output);
