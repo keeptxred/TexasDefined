@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { KingsCamoGearOffers } from "./KingsCamoGearOffers";
 import {
   HUNTING_AUTHORITY_TOPICS,
   HUNTING_HUB_GROUPS,
@@ -55,6 +56,7 @@ export function HuntingAuthorityHub() {
     </Container></section>
 
     <section className="border-y border-border bg-muted/30 py-12"><Container><div className="grid gap-8 lg:grid-cols-[1fr_2fr]"><div><p className="eyebrow text-primary">Connected Texas discovery</p><h2 className="mt-3 font-display text-4xl">A hunt is also a place-based trip</h2></div><div className="grid gap-5 sm:grid-cols-2"><p className="text-sm leading-7 text-muted-foreground">Public hunting works best when access records connect to counties, regions, wildlife habitat and nearby destinations. Use TexasDefined's outdoor and wildlife systems to understand the place around the hunt.</p><p className="text-sm leading-7 text-muted-foreground">Camping, fishing, parks and trip-planning links make it easier to turn a permit or drawn hunt into a realistic itinerary without weakening the distinction between travel guidance and legal hunting rules.</p></div><div className="lg:col-start-2 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/explore/outdoors" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Public lands & outdoors</Link><Link to="/explore/wildlife" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Wildlife</Link><Link to="/best-places-to-go-camping-in-texas" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Camping</Link><Link to="/fishing" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Fishing</Link><Link to="/explore/state-parks" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">State parks</Link><Link to="/browse/counties" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Counties</Link></div></div></Container></section>
+    <KingsCamoGearOffers context="hub" pathname="/hunting" />
   </main>;
 }
 
@@ -68,5 +70,6 @@ export function HuntingAuthorityTopicPage({ topic }: { topic: HuntingAuthorityTo
     <section className="border-t border-border bg-surface py-12" aria-labelledby="hunting-faq-heading"><Container><div className="max-w-4xl"><p className="eyebrow text-primary">Quick answers</p><h2 id="hunting-faq-heading" className="mt-2 font-display text-3xl md:text-4xl">Frequently asked questions</h2><div className="mt-6 divide-y divide-border border-y border-border">{topic.faq.map((item) => <details key={item.question} className="group py-5"><summary className="cursor-pointer list-none pr-8 font-display text-xl marker:hidden">{item.question}<span className="float-right text-primary group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{item.answer}</p></details>)}</div></div></Container></section>
     {officialSources.length ? <section className="border-t border-border py-10"><Container><div className="grid max-w-4xl gap-6 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">Verify with TPWD</p><h2 className="mt-2 font-display text-3xl">Current official sources</h2></div><div><p className="text-sm leading-7 text-muted-foreground">TexasDefined explains how the pieces fit together. Texas Parks and Wildlife Department remains the source to verify current licenses, seasons, limits, methods, tagging, reporting and public-hunt access.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{officialSources.map((link) => <ResourceLink key={`source-${link.href}`} link={link} />)}</div></div></div></Container></section> : null}
     <section className="border-t border-border bg-muted/30 py-10"><Container><h2 className="font-display text-3xl">Related Texas guides</h2><div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm"><ResourceLink link={{ label: "Texas hunting hub", href: "/hunting" }} />{topic.related.map((link) => <ResourceLink key={`${link.href}-${link.label}`} link={link} />)}</div></Container></section>
+    <KingsCamoGearOffers context="topic" pathname={`/hunting/${topic.slug}`} topicSlug={topic.slug} />
   </main>;
 }
