@@ -13,7 +13,7 @@ const representativeTopics = [
   },
   {
     path: '/hunting/texas-deer-hunting',
-    needles: ['Texas White-Tailed Deer Hunting Guide', 'TPWD season source', 'Texas Parks and Wildlife', 'Current official sources'],
+    needles: ['Texas White-Tailed Deer Hunting Guide', 'Texas white-tailed deer hunting dates', 'Nov. 7, 2026', 'Jan. 17, 2027', 'Chronic wasting disease: testing and carcass movement', 'TPWD season source', 'Texas Parks and Wildlife', 'Current official sources'],
   },
   {
     path: '/hunting/youth-hunting',
