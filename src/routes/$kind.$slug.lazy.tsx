@@ -330,6 +330,8 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'bosque': [{ name: 'Clifton Cubs', slug: 'clifton', context: 'First-party Clifton ISD head coach Brent Finney, 2026 UIL 3A Division II District 5 and school-related football history' }],
+  'el-paso': [{ name: 'Clint Lions', slug: 'clint', context: 'School-listed Rosuel Martinez is Clint Lions head coach; 4A Division II District 1 and separate Alameda Avenue school' }, { name: 'Horizon Scorpions', slug: 'clint-horizon', context: 'Omar Garcia current 2026 football coach at Horizon High; 5A Division I District 1 and Horizon City campus' }, { name: 'Mountain View Lobos', slug: 'clint-mountain-view', context: 'DJ Check coaches Lobos; 4A Division II District 1 and October 23 source-dated Fabens final' }],
   'falls': [{ name: 'Chilton Pirates', slug: 'chilton', context: 'Falls County Class 2A Division II District 13, Bennie Huitt 2026 KWTX preview and Chilton ISD athletics' }],
   'mclennan': [{ name: 'China Spring Cougars', slug: 'china-spring', context: 'McLennan County 4A Division I District 12; December 2025 official Josh Gregory head-coach appointment' }],
   'tom-green': [{ name: 'Christoval Cougars', slug: 'christoval', context: 'Tom Green County 2A Division I District 4; official 2026 calendar and Tanner McLean district appointment' }],
@@ -354,7 +356,7 @@ const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug
   'red-river': [{ name: 'Clarksville Tigers', slug: 'clarksville', context: 'Red River County Clarksville Tigers, 2026 coach Thavis Miller and dated Oct. 24 Big Sandy result' }],
   'armstrong': [{ name: 'Claude Mustangs', slug: 'claude', context: 'Armstrong County Claude ISD six-man 1A Division I District 1 schedule under Brantlee Lemons' }],
   'johnson': [{ name: 'Cleburne Yellow Jackets', slug: 'cleburne', context: 'Cleburne ISD school-reported 2026 scores, Yellow Jacket Stadium and District 8-5A Division I' }],
-  'liberty': [{ name: 'Cleveland Indians', slug: 'cleveland', context: 'Cleveland ISD high-school athletics staff Ajani Sanders in Liberty County; 2026 UIL 6A District 13' }],
+  'liberty': [{ name: 'Cleveland Indians', slug: 'cleveland', context: 'Cleveland ISD high-school athletics staff Ajani Sanders in Liberty County; 2026 UIL 6A District 13' }, { name: 'Tarkington Longhorns', slug: 'cleveland-tarkington', context: 'North Liberty County independent 3A Division I District 10 varsity; 2026 district-announced Coach Howard and separate A. L. Nelson Stadium home games' }],
 };
 
 const siteUrl = 'https://texasdefined.com';
