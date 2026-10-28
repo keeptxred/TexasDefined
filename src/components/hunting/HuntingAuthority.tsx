@@ -11,6 +11,7 @@ import {
 } from "@/data/hunting/authority";
 import { HUNTING_AUTHORITY_TOPICS_V2, HUNTING_V2_HUB_GROUPS } from "@/data/hunting/authority-v2";
 import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
+import { deerSeasonRange, deerSeasonYear, deerSourceCheckLabel, texasDeerSeason, type DeerSeasonId } from "@/data/hunting/deer-season-format";
 
 const ALL_HUNTING_TOPICS: Record<string, HuntingAuthorityTopic> = {
   ...HUNTING_AUTHORITY_TOPICS,
@@ -32,30 +33,22 @@ function ResourceLink({ link }: { link: HuntingAuthorityLink }) {
 }
 
 function DeerSeasonTable() {
-  const rows = [
-    ["Archery only", "Counties with an open season", "Oct. 3 – Nov. 6, 2026"],
-    ["General season", "North Zone", "Nov. 7, 2026 – Jan. 3, 2027"],
-    ["General season", "South Zone", "Nov. 7, 2026 – Jan. 17, 2027"],
-    ["Early youth-only", "Eligible counties", "Oct. 30 – Nov. 1, 2026"],
-    ["Late youth-only", "North Zone", "Jan. 4 – 17, 2027"],
-    ["Muzzleloader-only", "Designated counties", "Jan. 4 – 17, 2027"],
-    ["Special late", "North Zone, where offered", "Jan. 4 – 17, 2027"],
-    ["Special late", "South Zone, where offered", "Jan. 18 – 31, 2027"],
-  ];
+  const rows = texasDeerSeason.rows.map((row) => [row.season, row.area, deerSeasonRange(row.id as DeerSeasonId, "short")]);
   return <section className="border-b border-border py-10 md:py-14" aria-labelledby="deer-season-dates">
     <Container>
       <div className="max-w-5xl">
-        <p className="eyebrow text-primary">2026–27 season at a glance</p>
+        <p className="eyebrow text-primary">{deerSeasonYear} season at a glance</p>
         <h2 id="deer-season-dates" className="mt-2 font-display text-3xl md:text-4xl">Texas white-tailed deer hunting dates</h2>
         <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">This table summarizes TPWD's zone calendar. Dates do not override county-specific legal deer, antler restrictions, land access or special permit requirements.</p>
         <div className="mt-6 overflow-x-auto rounded-sm border border-border">
           <table className="w-full min-w-[36rem] text-left text-sm">
-            <caption className="sr-only">2026–27 Texas white-tailed deer season dates by season and zone</caption>
+            <caption className="sr-only">{deerSeasonYear} Texas white-tailed deer season dates by season and zone</caption>
             <thead className="bg-muted/50 text-foreground"><tr><th scope="col" className="px-4 py-3 font-semibold">Season</th><th scope="col" className="px-4 py-3 font-semibold">Area</th><th scope="col" className="px-4 py-3 font-semibold">Dates</th></tr></thead>
             <tbody className="divide-y divide-border">{rows.map(([season, area, dates], index) => <tr key={index}><th scope="row" className="px-4 py-3 font-semibold">{season}</th><td className="px-4 py-3 text-muted-foreground">{area}</td><td className="px-4 py-3 whitespace-nowrap">{dates}</td></tr>)}</tbody>
           </table>
         </div>
         <p className="mt-4 text-sm leading-6 text-muted-foreground">Late seasons have limits on legal deer; youth-only hunts have age restrictions. Always check the official county listing before hunting.</p>
+        <p className="mt-2 text-xs text-muted-foreground">TPWD season dates checked {deerSourceCheckLabel()}; the full legal guide has a separate editorial review date.</p>
         <div className="mt-4 text-sm"><ResourceLink link={{ label: "TPWD official white-tailed deer season dates and county rules", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true }} /></div>
       </div>
     </Container>
@@ -63,7 +56,7 @@ function DeerSeasonTable() {
 }
 
 function FreshnessPanel({ topic }: { topic?: HuntingAuthorityTopic }) {
-  return <section className="border-y border-border bg-surface py-8"><Container><div className="grid gap-5 lg:grid-cols-[15rem_1fr] lg:items-start"><div><p className="eyebrow text-primary">Regulatory freshness</p><p className="mt-2 font-display text-2xl">TPWD {HUNTING_REGULATION_FRESHNESS.seasonYear}</p><p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">Verified {topic?.reviewedLabel ?? HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel}</p></div><div><p className="max-w-4xl text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.disclaimer}</p><div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.regulations} /><ResourceLink link={HUNTING_OFFICIAL_SOURCES.seasonDates} /></div></div></div></Container></section>;
+  return <section className="border-y border-border bg-surface py-8"><Container><div className="grid gap-5 lg:grid-cols-[15rem_1fr] lg:items-start"><div><p className="eyebrow text-primary">Regulatory freshness</p><p className="mt-2 font-display text-2xl">TPWD {topic?.slug === "texas-deer-hunting" ? deerSeasonYear : HUNTING_REGULATION_FRESHNESS.seasonYear}</p><p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">Verified {topic?.reviewedLabel ?? HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel}</p></div><div><p className="max-w-4xl text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.disclaimer}</p><div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.regulations} /><ResourceLink link={HUNTING_OFFICIAL_SOURCES.seasonDates} /></div></div></div></Container></section>;
 }
 
 export function HuntingAuthorityHub() {
@@ -92,7 +85,7 @@ export function HuntingAuthorityHub() {
 export function HuntingAuthorityTopicPage({ topic }: { topic: HuntingAuthorityTopic }) {
   const officialSources = [...new Map(topic.sections.flatMap((section) => section.links ?? []).filter((link) => link.external).map((link) => [link.href, link] as const)).values()];
   return <main>
-    <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><nav aria-label="Breadcrumb" className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/hunting">Hunting</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">{topic.title}</span></nav><p className="eyebrow text-primary">{topic.eyebrow}</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">{topic.title}</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{topic.description}</p><p className="mt-5 text-xs uppercase tracking-[0.18em] text-muted-foreground">TPWD season source {HUNTING_REGULATION_FRESHNESS.seasonYear} · verified {topic.reviewedLabel ?? HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel}</p></Container></section>
+    <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><nav aria-label="Breadcrumb" className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/hunting">Hunting</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">{topic.title}</span></nav><p className="eyebrow text-primary">{topic.eyebrow}</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">{topic.title}</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{topic.description}</p><p className="mt-5 text-xs uppercase tracking-[0.18em] text-muted-foreground">TPWD season source {topic.slug === "texas-deer-hunting" ? deerSeasonYear : HUNTING_REGULATION_FRESHNESS.seasonYear} · reviewed {topic.reviewedLabel ?? HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel}</p></Container></section>
     <section className="border-b border-border py-8"><Container><div className="max-w-4xl border-l-2 border-primary pl-5"><p className="eyebrow text-primary">Quick answer</p><p className="mt-3 text-lg leading-8">{topic.quickAnswer}</p></div></Container></section>
     {topic.slug === "texas-deer-hunting" ? <DeerSeasonTable /> : null}
     <FreshnessPanel topic={topic} />
