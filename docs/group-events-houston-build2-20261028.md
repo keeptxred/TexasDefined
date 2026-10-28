@@ -26,7 +26,7 @@ All other 69 baseline Houston records remain legacy editorial listings requiring
 | County Line Event Center | Pearland | https://www.countylineeventcenter.com/corporate-party-venue — 3,200 sq ft, group events and catering; square footage is not a guest capacity |
 | Young Chefs Academy The Woodlands | The Woodlands | https://youngchefsacademy.com/locations/thewoodlandstx/group-events/ — corporate team cooking, capacity unknown |
 | urbanCHEF | Houston | https://www.urbanchefhouston.com/corporate-events — two teaching kitchens with 24 participants each, total 48; $300 deposit is not corporate event price |
-| Norris Conference Centers CityCentre | Houston | https://norriscenters.com/norris-conference-centers-houston-citycentre/ — rooms for meetings and banquets, room-specific capacities not adopted |
+| Norris Conference Centers CityCentre | Houston | https://norriscenters.com/norris-conference-centers-houston-citycentre/ — 2–600 by event configuration, Red Oak Ballroom 150–600; source pages disagree on number of meeting rooms, so require an exact room quote |
 | Houston Party Boats | League City | https://houstonpartyboats.com/ — Houston Party Boat 49 / Celebration 75, separate vessels, food rules and marine weather confirmation |
 | Galveston Sea Ventures | Galveston | https://galvestonseaventures.com/corporate-fishing-trips/ — individual private vessel up to six, multiple boats possible but not presumed simultaneous |
 | B & B Sportfishing | Galveston | https://bbsportfishing.com/specialty-charters/ — customized company fishing and cruises, multi-boat total unconfirmed |
