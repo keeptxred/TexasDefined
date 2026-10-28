@@ -48,7 +48,7 @@ function DeerSeasonTable() {
           </table>
         </div>
         <p className="mt-4 text-sm leading-6 text-muted-foreground">Late seasons have limits on legal deer; youth-only hunts have age restrictions. Always check the official county listing before hunting.</p>
-        <p className="mt-2 text-xs text-muted-foreground">TPWD season dates checked {deerSourceCheckLabel()}; the full legal guide has a separate editorial review date.</p>
+        <p className="mt-2 text-xs text-muted-foreground">TPWD date snapshot recorded {deerSourceCheckLabel()}; the full legal guide has a separate editorial review date, and GitHub rechecks the official calendars weekly.</p>
         <div className="mt-4 text-sm"><ResourceLink link={{ label: "TPWD official white-tailed deer season dates and county rules", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true }} /></div>
       </div>
     </Container>
