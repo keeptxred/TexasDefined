@@ -40,6 +40,7 @@ const search = read('src/routes/search.lazy.tsx');
 const outdoors = read('src/routes/explore.$category.lazy.tsx');
 const productionSmokeWorkflow = read('.github/workflows/verify-hunting-production.yml');
 const productionSmoke = read('scripts/data/verify-hunting-production.mjs');
+const deployPageSelection = read('scripts/ci/production-change-scope.mjs');
 
 const expectedTopics = [
   'texas-hunting-license', 'hunter-education', 'public-hunting', 'annual-public-hunting-permit',
@@ -133,6 +134,8 @@ for (const routePath of ['/hunting/public-hunting', '/hunting/annual-public-hunt
   requireRouteLiteral(destinationBooking, routePath, `WMA destination lacks reciprocal route ${routePath}`);
 }
 
+requireText(deployPageSelection, '...huntingAuthorityPages, ...corporateEventPages', 'hunting canaries must precede generic sample budget overflow');
+requireText(deployPageSelection, "'/hunting/public-hunting', '/hunting/texas-deer-hunting'", 'bounded hunting canary paths missing');
 requireText(productionSmokeWorkflow, 'workflow_dispatch:', 'production acceptance must remain manually available');
 requireText(productionSmokeWorkflow, 'pull_request:', 'verifier-only PR changes must test against production before merge');
 requireText(productionSmokeWorkflow, "'scripts/data/verify-hunting-production.mjs'", 'production smoke script changes must self-test on main');
