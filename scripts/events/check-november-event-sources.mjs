@@ -3,7 +3,7 @@
 export const targets = [
   { name: "Johnson City Lights Spectacular", url: "https://lightsspectacular.com/faqs", patterns: [/November\s+27,?\s+2026/i, /January\s+3,?\s+2027/i] },
   { name: "South Pole Illuminated Festival", url: "https://www.southpoleoftexas.com/", patterns: [/November\s+28\s*[-–]\s*December\s+28/i, /2026/i] },
-  { name: "ThunderCloud Subs Turkey Trot", url: "https://thundercloud.com/event-info/", patterns: [/November\s+26/i, /2026/i] },
+  { name: "Shiner Beer Run 2026 registration", url: "https://runsignup.com/Race/TX/Shiner/ShinerBeerRun", patterns: [/November\\s+21,?\\s+2026/i, /marathon/i, /10K/i, /5K/i] },\n  { name: "ThunderCloud Subs Turkey Trot", url: "https://thundercloud.com/event-info/", patterns: [/November\s+26/i, /2026/i] },
   { name: "Dallas YMCA Turkey Trot", url: "https://ymcadallas.org/press-release/59th-annual-dallas-ymca-turkey-trot-registration-live", patterns: [/November\s+26/i, /2026/i] },
   { name: "Fort Worth YMCA Turkey Trot", url: "https://ymcafw.org/annual-turkey-trot/", patterns: [/(?:November|Nov\.)\s+26/i, /2026/i] },
   { name: "San Antonio Calaveras de Azúcar", url: "https://www.sa.gov/Directory/News-Releases/Celebrate-D%C3%ADa-de-los-Muertos-in-Downtown-San-Antonio-2026", patterns: [/October\s+31/i, /November\s+1/i] },
