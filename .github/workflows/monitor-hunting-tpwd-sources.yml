@@ -10,12 +10,16 @@ on:
       - 'src/data/hunting/public-access-facts.json'
       - 'scripts/data/refresh-hunting-official-facts.mjs'
       - 'scripts/data/refresh-hunting-official-facts.test.mjs'
+      - 'scripts/data/check-hunting-season-rollover.mjs'
+      - 'scripts/data/check-hunting-season-rollover.test.mjs'
       - '.github/workflows/monitor-hunting-tpwd-sources.yml'
   pull_request:
     paths:
       - 'src/data/hunting/public-access-facts.json'
       - 'scripts/data/refresh-hunting-official-facts.mjs'
       - 'scripts/data/refresh-hunting-official-facts.test.mjs'
+      - 'scripts/data/check-hunting-season-rollover.mjs'
+      - 'scripts/data/check-hunting-season-rollover.test.mjs'
       - '.github/workflows/monitor-hunting-tpwd-sources.yml'
 
 permissions:
@@ -45,6 +49,30 @@ jobs:
           node-version: 22
       - name: Test fail-closed official hunting refresh logic
         run: node --test scripts/data/refresh-hunting-official-facts.test.mjs
+      - name: Test upcoming season expiry guard
+        run: node --test scripts/data/check-hunting-season-rollover.test.mjs
+      - name: Detect nearing or expired hunting season
+        if: github.event_name != 'pull_request'
+        id: rollover
+        continue-on-error: true
+        run: node scripts/data/check-hunting-season-rollover.mjs
+      - name: Create one protected upcoming season editorial review
+        if: github.event_name != 'pull_request' && steps.rollover.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Hunting next-season rollover requires TPWD-verified editorial release'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The 2026–27 hunting editorial snapshot is within 45 days of expiry or has expired. Verify and coordinate TPWD county/unit rules, updated 17-category, deer, turkey and youth calendars, season-specific legal text, permits and citations before a protected editorial PR. Until then the planner must label expired dates as archived. Schedule: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            echo "Existing season-review issue #$existing; no duplicate."
+          fi
+      - name: Block expired unverified season contract
+        if: github.event_name != 'pull_request'
+        run: node scripts/data/check-hunting-season-rollover.mjs --expired-only
       - name: Reconcile currently published TPWD source facts
         id: official
         if: github.event_name != 'pull_request'

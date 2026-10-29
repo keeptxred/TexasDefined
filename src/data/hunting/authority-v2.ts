@@ -90,54 +90,83 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     faq: [...YOUTH_HUNTING_FAQ],
   }),
 
-  "squirrel-hunting": speciesTopic({
+  "squirrel-hunting": topic({
     slug: "squirrel-hunting",
     eyebrow: "Texas small game",
     title: "Texas Squirrel Hunting Guide",
-    description: "Plan Texas squirrel hunting around East Texas season structure, other open counties, youth opportunities, habitat and public-land access.",
-    quickAnswer: "Texas squirrel seasons differ between East Texas and other open counties, and East Texas also has a youth-only opportunity in 2026–27. Check the county and property before hunting rather than assuming one statewide season.",
-    about: ["Texas squirrel hunting", "squirrel season Texas", "East Texas squirrel hunting", "public squirrel hunting Texas"],
-    source: OFFICIAL.squirrel,
-    geography: "TPWD's 2026–27 framework distinguishes East Texas from other open counties and separately lists an East Texas youth-only opportunity.",
-    access: "Suitable hardwood habitat does not mean a WMA or other public tract is open to squirrel hunting on the day you plan to visit. Confirm legal game, dates, boundaries and access instructions.",
-    extraSources: [OFFICIAL.youthOnly],
+    description: "East Texas and other-county squirrel seasons, youth opportunities, current limits and public-land access for 2026–27.",
+    quickAnswer: "TPWD lists East Texas squirrel general seasons October 1, 2026–February 28, 2027 and May 1–31, 2027, with a September 25–27, 2026 East Texas youth hunt. Other counties have a September 1, 2026–August 31, 2027 season. Confirm the county and current TPWD rule before hunting.",
+    about: ["Texas squirrel hunting", "East Texas squirrel season", "Texas squirrel youth hunt", "squirrel bag limit"],
+    sections: [
+      { heading: "Check the county before choosing a season", paragraphs: ["East Texas uses a fall/winter season, a separate May segment and a September youth-only opportunity. In other Texas counties TPWD currently lists a September 1–August 31 season. This is a statewide overview, not proof that the species is legal on any public property.", legalReminder], links: [OFFICIAL.squirrel, OFFICIAL.seasonDates, COUNTIES] },
+      { heading: "East Texas bag limits differ from other open counties", paragraphs: ["TPWD lists a daily limit of 10 squirrels in East Texas general-season and youth-only counties, while counties with the year-round season have no statewide bag limit. Check the current county entry and land-specific rules before travel or harvest."], links: [OFFICIAL.squirrel, OFFICIAL.regulations] },
+      { heading: "Youth hunts, hardwood habitat and safe access", paragraphs: ["TPWD's East Texas September youth-only dates are not a general adult season. Check youth license, supervision and hunter-education rules for the exact hunt.", "Mature hardwoods and mixed forests may provide squirrel habitat, but wildlife presence does not give permission to enter private property or hunt a public parcel."], links: [OFFICIAL.youthOnly, EDUCATION, PUBLIC] },
+      { heading: "Check the individual public hunting unit", paragraphs: ["If you plan to hunt under APH or a drawn/regular permit, inspect the current TPWD Legal Game listing, unit dates, allowed means, boundaries and map booklet. General county rules do not override a unit's additional restrictions."], links: [PUBLIC, APH, OFFICIAL.regulations] },
+    ],
+    related: [SEASONS, PUBLIC, APH, EDUCATION, COUNTIES],
+    faq: [
+      { question: "Is squirrel season open year-round everywhere in Texas?", answer: "No. TPWD lists separate East Texas segments and a year-round-style season in other counties. Verify the exact county and unit." },
+      { question: "Can youth hunt squirrels before the East Texas general season?", answer: "TPWD lists an East Texas youth-only opportunity September 25–27, 2026; confirm eligibility and access for the specific hunt." },
+      { question: "Does a state forest automatically allow squirrel hunting?", answer: "No. Confirm legal game, property boundaries and the specific public-access permit in TPWD's current area record." },
+    ],
   }),
 
-  "rabbit-hare-hunting": speciesTopic({
+  "rabbit-hare-hunting": topic({
     slug: "rabbit-hare-hunting",
     eyebrow: "Texas small game",
     title: "Texas Rabbit & Hare Hunting Guide",
-    description: "Understand Texas rabbit and hare hunting rules, private-property permissions, legal methods and the difference between private and public-land access.",
-    quickAnswer: "TPWD's 2026–27 rabbit and hare page states there is no closed season, bag limit or possession limit on private property, but public-land rules are separate and property-specific.",
-    about: ["Texas rabbit hunting", "Texas hare hunting", "rabbit season Texas", "small game Texas"],
-    source: OFFICIAL.rabbits,
-    geography: "The current statewide rabbit-and-hare rule is broad on private property, but that private-property framework should not be carried over to WMAs, parks or other public lands.",
-    access: "For a public-land rabbit hunt, start with TPWD's public-hunting system and the individual property's legal-game listing rather than assuming the private-property rule applies.",
-    extraSources: [OFFICIAL.meansMethods],
+    description: "Texas rabbit and hare rules for private property, public hunting units, methods, landowner permission and lawful access.",
+    quickAnswer: "TPWD's 2026–27 rabbit and hare regulation has no closed season, bag limit or possession limit for lawful take on private land. That private-land rule does not authorize hunting in state parks, WMAs, refuges or any other public unit.",
+    about: ["Texas rabbit hunting", "Texas hare hunting", "rabbits and hares private land rules", "Texas public hunting rabbit"],
+    sections: [
+      { heading: "Private-property rules differ from public-land access", paragraphs: ["TPWD identifies no closed season, bag or possession limit for lawful methods of rabbit and hare take on private property. Landowner authorization is still required; this rule does not itself grant access or override general hunting laws.", legalReminder], links: [OFFICIAL.rabbits, OFFICIAL.regulations] },
+      { heading: "Public hunting requires the exact legal-game record", paragraphs: ["The TPWD Public Hunting Lands Map Booklet and legal-game listings control where and when rabbit hunting is possible. A property that offers hiking, camping, fishing or other hunting is not automatically authorized for rabbits or hares."], links: [PUBLIC, APH, OFFICIAL.regulations] },
+      { heading: "Prepare a realistic small-game trip", paragraphs: ["Determine the exact property and permission, review lawful means and methods, confirm hunter education and any license or permit requirements, and inspect the specific unit's access dates before traveling."], links: [OFFICIAL.meansMethods, LICENSE, EDUCATION, COUNTIES] },
+    ],
+    related: [PUBLIC, APH, SEASONS, EDUCATION, COUNTIES],
+    faq: [
+      { question: "Does Texas have a rabbit bag limit on private property?", answer: "TPWD lists no bag or possession limit for lawful rabbit and hare hunting on private property in the 2026–27 regulations." },
+      { question: "May I hunt rabbits in any Texas state park?", answer: "No. Check the property's explicit TPWD legal-game listing and hunt authorization; public recreation access is not hunting access." },
+    ],
   }),
 
-  "pheasant-hunting": speciesTopic({
+  "pheasant-hunting": topic({
     slug: "pheasant-hunting",
     eyebrow: "Texas upland game birds",
     title: "Texas Pheasant Hunting Guide",
-    description: "Plan Texas pheasant hunting around the current Panhandle season, county rules, upland-game-bird endorsement, habitat and access.",
-    quickAnswer: "TPWD's 2026–27 pheasant framework is a defined Panhandle season rather than a statewide open season. Verify the exact county, current dates, endorsement, limits and access before hunting.",
-    about: ["Texas pheasant hunting", "pheasant season Texas", "Panhandle pheasant hunting"],
-    source: OFFICIAL.pheasant,
-    geography: "TPWD's current pheasant page identifies the Panhandle season and county-specific coverage, making county selection part of the legal check.",
-    access: "Agricultural habitat can be productive but is often private. Confirm landowner permission or a verified public-hunt opportunity before travel.",
+    description: "The Panhandle pheasant season, cocks-only bag limits, proof-of-sex and legally verified access.",
+    quickAnswer: "TPWD's 2026–27 pheasant season is December 5, 2026–January 3, 2027 in 37 listed Texas counties, with a daily bag limit of three cocks and a possession limit of nine cocks. An upland game bird endorsement is required.",
+    about: ["Texas pheasant season", "Panhandle pheasant hunting", "Texas pheasant bag limit", "pheasant proof of sex"],
+    sections: [
+      { heading: "Start with the Panhandle season and eligible county", paragraphs: ["TPWD lists the season December 5, 2026–January 3, 2027. Coverage is limited to 37 counties; do not assume the entire Panhandle or adjoining counties are open.", legalReminder], links: [OFFICIAL.pheasant, OFFICIAL.seasonDates, COUNTIES] },
+      { heading: "Cock-only bag limits and proof of sex", paragraphs: ["TPWD lists three cock pheasants daily and nine in possession. Maintain legally required proof of sex until the bird reaches its final destination and is processed. TPWD describes an attached leg with spur or the entire plumage as acceptable evidence and publishes exceptions for documented transfer."], links: [OFFICIAL.pheasant] },
+      { heading: "Habitat and property permission", paragraphs: ["TPWD surveys explain that drought, CRP cover and agricultural practices affect Texas pheasant abundance. Much Panhandle pheasant habitat is private; secure landowner permission or verify the exact TPWD public-hunt unit before traveling."], links: [tpwd("TPWD pheasant management and roadside surveys", "https://tpwd.texas.gov/huntwild/wild/game_management/pheasant/"), PUBLIC, APH] },
+      { heading: "Verify lawful equipment and the site", paragraphs: ["An upland game bird endorsement is required. TPWD also prohibits taking pheasants by dragging a cable, chain or rope between moving objects. Review the current means-and-methods regulations, unit boundaries and legal game before hunting."], links: [OFFICIAL.pheasant, OFFICIAL.meansMethods] },
+    ],
+    related: [PUBLIC, APH, SEASONS, LICENSE, COUNTIES],
+    faq: [
+      { question: "Can hens be taken during Texas pheasant season?", answer: "The current TPWD bag limit specifies cocks. Confirm the current rules and proof-of-sex requirements." },
+      { question: "Is the entire state open for pheasant hunting?", answer: "No. TPWD lists 37 counties with a season. Check the official county record." },
+    ],
   }),
 
-  "chachalaca-hunting": speciesTopic({
+  "chachalaca-hunting": topic({
     slug: "chachalaca-hunting",
     eyebrow: "Texas upland game birds",
     title: "Texas Chachalaca Hunting Guide",
-    description: "Plan chachalaca hunting in the limited South Texas counties where TPWD provides a season and confirm endorsement, habitat and access.",
-    quickAnswer: "Texas chachalaca hunting is geographically narrow: TPWD's 2026–27 rule covers four counties. Verify the exact county, endorsement, current limits and property rules before hunting.",
-    about: ["Texas chachalaca hunting", "chachalaca season Texas", "South Texas chachalaca"],
-    source: OFFICIAL.chachalaca,
-    geography: "TPWD's current chachalaca page shows an open season in four Texas counties, so broad statewide hunting assumptions do not apply.",
-    access: "Brush and riparian habitat can overlap chachalaca range, but legal hunting access still depends on the property and current rules.",
+    description: "South Texas chachalaca hunting in the four open counties, dates, endorsements and access.",
+    quickAnswer: "TPWD lists a November 1, 2026–February 28, 2027 chachalaca season only in Cameron, Hidalgo, Starr and Willacy counties, with a daily bag limit of five and possession limit of 15. An upland game bird endorsement is required.",
+    about: ["Texas chachalaca hunting", "South Texas chachalaca season", "chachalaca Texas counties"],
+    sections: [
+      { heading: "Only four South Texas counties have the listed season", paragraphs: ["TPWD's 2026–27 statewide season table specifically names Cameron, Hidalgo, Starr and Willacy counties. Being in nearby South Texas brush does not make chachalaca harvest legal elsewhere.", legalReminder], links: [OFFICIAL.chachalaca, OFFICIAL.seasonDates, COUNTIES] },
+      { heading: "Limits and endorsements", paragraphs: ["The current TPWD rule lists five birds as the daily bag limit and 15 as the possession limit, along with a required upland game bird endorsement. Verify valid licenses and any additional unit requirements before hunting."], links: [OFFICIAL.chachalaca, LICENSE] },
+      { heading: "Habitat does not guarantee huntable access", paragraphs: ["Dense brush and riparian vegetation can provide chachalaca habitat, but many likely sites are private or conservation areas. Confirm landowner permission or the exact TPWD public-hunting unit's legal-game listing. Do not assume a nearby wildlife refuge allows hunting."], links: [PUBLIC, APH, OFFICIAL.regulations] },
+    ],
+    related: [SEASONS, PUBLIC, APH, LICENSE, COUNTIES],
+    faq: [
+      { question: "Where is chachalaca season open in Texas?", answer: "TPWD lists Cameron, Hidalgo, Starr and Willacy counties for the 2026–27 season." },
+      { question: "Is an upland game bird endorsement required?", answer: "Yes, according to TPWD's published 2026–27 chachalaca regulations." },
+    ],
   }),
 
   "pronghorn-hunting": topic({
@@ -148,8 +177,8 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     quickAnswer: "Texas pronghorn harvest is permit-only. TPWD says permits are issued to landowners or their agents in areas with huntable populations, and hunters are responsible for verifying the permit applies to the property they are hunting.",
     about: ["Texas pronghorn hunting", "pronghorn season Texas", "Texas pronghorn permit", "antelope hunting Texas"],
     sections: [
-      { heading: "Pronghorn harvest is permit-only", paragraphs: ["TPWD's 2026–27 rule lists a limited-county season and requires a permit for harvest. The hunter should verify that the permit was issued to the property being hunted.", legalReminder], links: [OFFICIAL.pronghorn, OFFICIAL.seasonDates] },
-      { heading: "Property permission and permit validity are separate checks", paragraphs: ["An open county does not create general access. Confirm landowner permission and that the TPWD permit is valid for that property before making travel plans."], links: [OFFICIAL.pronghorn, COUNTIES] },
+      { heading: "Pronghorn harvest is permit-only", paragraphs: ["TPWD identifies 41 counties with 2026–27 pronghorn seasons, but a season listing does not give universal harvest authority. The October 3–18, 2026 window applies only where an appropriate permit has been issued to the property. Verify the county and permit with TPWD.", "TPWD issues permits to qualifying landowners or their agents in pronghorn herd units; hunters are responsible for verifying the permit applies to the exact property before the hunt.", legalReminder], links: [OFFICIAL.pronghorn, OFFICIAL.seasonDates, tpwd("TPWD pronghorn permit process and herd-unit maps", "https://tpwd.texas.gov/huntwild/wild/game_management/pronghorn/permits.phtml")] },
+      { heading: "Property permission and permit validity are separate checks", paragraphs: ["An open county does not create general access. Confirm landowner permission and that the TPWD permit is valid for that property before making travel plans.", "For hunters seeking a lawful private-land opportunity, TPWD maintains pronghorn herd-unit information and a seasonal lease-list resource. A listing or herd-unit boundary is not itself a confirmed reservation, permission to enter, or a guarantee of a harvest permit."], links: [OFFICIAL.pronghorn, tpwd("TPWD pronghorn permits, herd-unit maps and lease information", "https://tpwd.texas.gov/huntwild/wild/game_management/pronghorn/permits.phtml"), COUNTIES] },
       { heading: "Review after-harvest requirements before the hunt", paragraphs: ["Pronghorn harvest has species-specific tagging, proof-of-sex and transport rules. Review the current TPWD instructions in advance."], links: [OFFICIAL.pronghorn, OFFICIAL.regulations] },
     ],
     related: [SEASONS, internal("Texas bag limits", "/hunting/bag-limits"), internal("Texas public hunting guide", "/hunting/public-hunting"), COUNTIES],
@@ -200,43 +229,62 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     ],
   }),
 
-  "goose-hunting": speciesTopic({
+  "goose-hunting": topic({
     slug: "goose-hunting",
     eyebrow: "Texas migratory game birds",
     title: "Texas Goose Hunting Guide",
-    description: "Plan Texas goose hunting around East and West zones, light and dark goose seasons, migratory-bird requirements and legal access.",
-    quickAnswer: "Texas goose seasons vary by zone and goose group. TPWD currently lists a Migratory Game Bird Endorsement, HIP certification and a federal duck stamp as requirements, so verify the current East or West framework before hunting.",
-    about: ["Texas goose hunting", "goose season Texas", "light goose Texas", "dark goose Texas"],
-    source: OFFICIAL.goose,
-    geography: "TPWD separates East and West goose zones and distinguishes light and dark geese, with an early Canada goose opportunity in the Eastern Zone.",
-    access: "Public fields, wetlands and APH areas can add access dates, check-in, legal-game and method restrictions even when the statewide zone is open.",
-    extraSources: [OFFICIAL.migratoryBirds],
+    description: "Eastern and Western goose zones, light/dark goose seasons, stamp and HIP rules, and legal public access.",
+    quickAnswer: "TPWD publishes separate 2026–27 Eastern and Western zone windows for dark and light geese, plus an Eastern early Canada goose season. Goose hunters need a hunting license, migratory-bird endorsement, HIP certification and federal duck stamp when applicable.",
+    about: ["Texas goose season 2026", "Eastern Goose Zone", "Western Goose Zone", "snow goose Texas", "goose hunting permits"],
+    sections: [
+      { heading: "Determine your Eastern or Western goose zone", paragraphs: ["The 2026–27 Western Zone lists dark and light goose seasons November 7, 2026–February 7, 2027. Eastern Zone dark geese run November 7–January 31, and light geese November 7–February 19. An Eastern Zone early Canada goose opportunity runs September 12–27, 2026.", "The official boundary follows a road-based line, so use TPWD's current map for the exact property instead of deciding by city alone.", legalReminder], links: [OFFICIAL.goose, OFFICIAL.seasonDates] },
+      { heading: "Species groups have separate bag and possession limits", paragraphs: ["TPWD generally lists five dark geese and five light geese daily in the Western Zone. The Eastern Zone has additional restrictions on white-fronted geese within the dark-goose limit. Verify the current zone, species and possession rules before hunting."], links: [OFFICIAL.goose] },
+      { heading: "Licenses, stamps and public access are separate checks", paragraphs: ["Goose hunting requires the Texas migratory game bird endorsement and HIP certification; TPWD lists a federal duck stamp requirement for covered hunters. Public fields, water access and leased APH units each require confirmation in the unit legal-game listing."], links: [OFFICIAL.migratoryBirds, LICENSE, PUBLIC, APH] },
+    ],
+    related: [PUBLIC, APH, SEASONS, LICENSE, internal("Waterfowl hunting guide", "/hunting/waterfowl-hunting")],
+    faq: [
+      { question: "Do all goose species have the same Texas season?", answer: "No. TPWD distinguishes Eastern and Western zones, early Canada geese, dark geese and light geese." },
+      { question: "Does a hunting license alone authorize goose hunting?", answer: "Not necessarily. Check the migratory-bird endorsement, HIP certification, applicable federal stamp, legal unit and any public-hunt permit." },
+    ],
   }),
 
-  "teal-hunting": speciesTopic({
+  "teal-hunting": topic({
     slug: "teal-hunting",
     eyebrow: "Texas migratory game birds",
     title: "Texas Teal Hunting Guide",
-    description: "Plan the September teal-only season with current TPWD dates, migratory-bird credentials, water conditions and legal access.",
-    quickAnswer: "Texas has a statewide September teal-only season for 2026–27. TPWD currently lists the Migratory Game Bird Endorsement, HIP certification and a federal duck stamp as requirements, and the property must also be open to teal hunting.",
-    about: ["Texas teal hunting", "September teal season Texas", "teal season Texas", "public teal hunting Texas"],
-    source: OFFICIAL.teal,
-    geography: "The September teal-only opportunity has its own statewide dates and should be checked separately from regular duck seasons.",
-    access: "Wetland habitat alone does not establish legal access. Confirm the property's legal-game list, permit, shooting hours, methods and check-in rules.",
-    extraSources: [OFFICIAL.migratoryBirds],
+    description: "The early statewide teal season, legal species identification, bag limits and required stamps for 2026–27.",
+    quickAnswer: "TPWD lists a statewide September 19–27, 2026 early teal-only season with a daily aggregate of six blue-winged, green-winged and cinnamon teal, and a possession limit of three times the daily bag. Licensing and public-hunt access remain separate requirements.",
+    about: ["Texas teal hunting", "Texas early teal season", "blue-winged teal", "green-winged teal", "cinnamon teal"],
+    sections: [
+      { heading: "Early September season is teal-only", paragraphs: ["TPWD lists the early teal-only period September 19–27, 2026. It is not a general duck season, so species identification matters before any shot.", legalReminder], links: [OFFICIAL.teal, OFFICIAL.seasonDates] },
+      { heading: "Daily aggregate and possession limits", paragraphs: ["The statewide early teal daily limit is six birds in the aggregate, including blue-winged, green-winged and cinnamon teal. The possession limit is three times the daily bag. Verify any changes and the exact species before hunting."], links: [OFFICIAL.teal] },
+      { heading: "Stamps, HIP and wetland access", paragraphs: ["A valid hunting license, migratory game bird endorsement and HIP certification are required, with a federal duck stamp requirement for applicable hunters. Wetland habitat is not evidence of legal hunting access: use TPWD's current public-area maps and unit legal-game listing for your selected site."], links: [OFFICIAL.migratoryBirds, LICENSE, PUBLIC, APH] },
+    ],
+    related: [PUBLIC, APH, SEASONS, LICENSE, internal("Texas waterfowl hunting", "/hunting/waterfowl-hunting")],
+    faq: [
+      { question: "May I hunt any duck during Texas early teal season?", answer: "No. TPWD describes the September opportunity as teal-only; identify a legal teal species before harvest." },
+      { question: "What is the 2026 early teal daily limit?", answer: "TPWD lists six legal teal combined, with a possession limit of three times the daily bag." },
+    ],
   }),
 
-  "sandhill-crane-hunting": speciesTopic({
+  "sandhill-crane-hunting": topic({
     slug: "sandhill-crane-hunting",
     eyebrow: "Texas migratory game birds",
     title: "Texas Sandhill Crane Hunting Guide",
-    description: "Plan sandhill crane hunting around Zones A, B and C, closed areas, migratory-bird credentials, the federal crane permit and legal access.",
-    quickAnswer: "Texas sandhill crane hunting uses Zones A, B and C plus closed areas. TPWD currently lists a Migratory Game Bird Endorsement, HIP certification and a federal Sandhill Crane Permit as requirements, so verify the exact zone and county before hunting.",
-    about: ["Texas sandhill crane hunting", "sandhill crane season Texas", "Texas crane permit", "sandhill crane zones Texas"],
-    source: OFFICIAL.sandhillCrane,
-    geography: "The current TPWD rule maps Zones A, B and C and a closed area; the county and exact location determine whether a crane season is open.",
-    access: "Even inside an open crane zone, a public property must list sandhill crane as legal game and may add permit or method restrictions.",
-    extraSources: [OFFICIAL.migratoryBirds],
+    description: "2026–27 Zones A, B and C, the federal sandhill crane permit, identification and public-hunt restrictions.",
+    quickAnswer: "TPWD lists different 2026–27 sandhill crane seasons for zones A, B and C. Hunters need a hunting license, Texas migratory game bird endorsement, HIP certification and the TPWD-issued Federal Sandhill Crane Hunting Permit.",
+    about: ["Texas sandhill crane hunting", "sandhill crane Zone A", "sandhill crane Zone C", "federal sandhill crane permit", "whooping crane identification"],
+    sections: [
+      { heading: "Identify the crane zone and its open dates", paragraphs: ["TPWD lists Zone A October 31, 2026–January 31, 2027; Zone B November 27, 2026–January 31, 2027; and Zone C December 12, 2026–January 17, 2027. A coastal area of Zone C is closed. Highway and county boundaries can determine the legal zone even within one county.", legalReminder], links: [OFFICIAL.sandhillCrane, OFFICIAL.seasonDates, COUNTIES] },
+      { heading: "Zone C has a different bag limit", paragraphs: ["For the 2026–27 season TPWD lists a daily limit of three cranes and possession of nine in Zones A and B, versus two daily and six in Zone C. Verify property-specific restrictions before hunting."], links: [OFFICIAL.sandhillCrane] },
+      { heading: "Do not confuse an endangered whooping crane", paragraphs: ["TPWD specifically warns hunters not to confuse sandhill cranes with federally protected whooping cranes. Whooping cranes are illegal to hunt; review TPWD's identification photos and never take a shot when identification is uncertain."], links: [OFFICIAL.sandhillCrane] },
+      { heading: "Obtain the required federal permit through TPWD", paragraphs: ["The Federal Sandhill Crane Hunting Permit must be issued through TPWD. A hunting license, migratory game bird endorsement and HIP certification are also required. On public land, confirm that the precise unit lists cranes as legal game during the intended dates."], links: [tpwd("TPWD federal sandhill crane permit instructions", "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/hunting-licenses-and-permits/hunting-permits-certifications"), OFFICIAL.migratoryBirds, PUBLIC, APH] },
+    ],
+    related: [PUBLIC, APH, SEASONS, LICENSE, internal("Migratory game bird hunting guide", "/hunting/migratory-game-birds")],
+    faq: [
+      { question: "Do I need a separate federal sandhill crane permit?", answer: "Yes. TPWD requires a Federal Sandhill Crane Hunting Permit issued through TPWD, in addition to applicable license, endorsement and HIP certification." },
+      { question: "May I hunt cranes on the Texas Gulf Coast?", answer: "Not everywhere. TPWD identifies a closed coastal area and specific Zone C limits; verify its current zone map and land-specific rules." },
+    ],
   }),
 
   "other-migratory-game-birds": topic({

@@ -22,6 +22,11 @@ on:
       - '.github/workflows/finish-hunting-species-calendar.yml'
       - '.github/workflows/monitor-hunting-live-freshness.yml'
       - 'scripts/data/hunting-season-window-status.test.mjs'
+      - 'scripts/data/validate-hunting-final-access.mjs'
+      - 'scripts/data/check-hunting-season-rollover.mjs'
+      - 'scripts/data/check-hunting-season-rollover.test.mjs'
+      - 'scripts/ci/verify-hunting-hub-responsive-browser.mjs'
+      - '.github/workflows/deploy-production.yml'
       - 'scripts/ci/hunting-hub-planner-production.test.mjs'
       - 'scripts/ci/verify-changed-production-pages.mjs'
       - 'scripts/data/monitor-hunting-live-freshness.mjs'
@@ -46,6 +51,9 @@ jobs:
       - name: Validate hunting authority contract
         run: |
           node scripts/data/validate-hunting-authority.mjs
+          node scripts/data/validate-hunting-final-access.mjs
+          node --test scripts/data/check-hunting-season-rollover.test.mjs
+          node --check scripts/ci/verify-hunting-hub-responsive-browser.mjs
           node --test scripts/data/hunting-season-window-status.test.mjs
           node --test scripts/ci/hunting-hub-planner-production.test.mjs
           node --check scripts/data/monitor-hunting-live-freshness.mjs
