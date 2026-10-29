@@ -80,3 +80,22 @@ test("State Fair standalone route remains correct after October 18", () => {
   assert.equal(ended.title, "State Fair of Texas: Visitor Guide & Next Dates");
   assert.doesNotMatch(ended.description, /2026|Sept\. 25-Oct\. 18/);
 });
+
+test("ended Texas Rose Festival edition must not keep a 2026 search snippet", () => {
+  const roseFestival2026 = {
+    canonicalPath: "/event/texas-rose-festival",
+    title: "Texas Rose Festival 2026: Tyler Dates, Parade & Schedule",
+    description: "Plan the 2026 Texas Rose Festival in Tyler with dates and tickets.",
+    eventName: "Texas Rose Festival",
+    eventOccurrenceEndDate: "2026-10-18",
+  };
+  const expired = resolveEventSnippet(roseFestival2026, "2026-10-29");
+  assert.equal(expired.title, "Texas Rose Festival: Visitor Guide & Next Dates");
+  assert.doesNotMatch(expired.description, /2026|tickets/i);
+  const evergreen = { ...roseFestival2026,
+    title: "Texas Rose Festival Tyler: Parade, Coronation & Guide",
+    description: "Plan the Texas Rose Festival and confirm the next official schedule." };
+  assert.deepEqual(resolveEventSnippet(evergreen, "2026-10-29"), {
+    title: evergreen.title, description: evergreen.description,
+  });
+});
