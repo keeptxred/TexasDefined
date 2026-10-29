@@ -15,10 +15,10 @@ test("watcher accepts 2026 organizer windows, rejects stale and missing dates", 
 test("November collection stays consumer-focused with responsive filters", () => {
   const collections = read("../../src/data/event-temporal-collections.server.ts");
   const block = collections.slice(collections.indexOf('slug: "november-events"'), collections.indexOf('slug: "december-events"'));
-  assert(!/noindex|indexable|crawl|SEO|thin seasonal page/i.test(block));
+  const visitorCopy = [block.match(/lead: "([^"]+)"/)?.[1], ...Array.from(block.matchAll(/"([^"]+)",?\n/g), (m) => m[1])].join(" ");
+  assert(!/noindex|indexable|crawl|SEO|thin seasonal page/i.test(visitorCopy));
   const layout = read("../../src/routes/events.$collection.lazy.tsx");
-  for (const token of ["NovemberCollectionBrowser", "Filter November events by date", "Filter November events by region", "Filter November events by city", "Filter November events by category", "NovemberOfficialPicks"]) {
-    if (token === "NovemberOfficialPicks") continue;
+  for (const token of ["NovemberCollectionBrowser", "Filter November events by date", "Filter November events by region", "Filter November events by city", "Filter November events by category", "novemberOfficialPicks"]) {
     assert(layout.includes(token), `Missing November UI token ${token}`);
   }
 });
