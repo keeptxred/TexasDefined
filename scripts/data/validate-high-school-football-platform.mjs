@@ -2113,6 +2113,24 @@ function batch009Cohort(registry) {
     : registry.completedBatches.find(x=>x.number===9 && x.state==='VERIFIED_BATCH_009_COMPLETE');
 }
 
+// The five scheduled Chrome cohorts complete independently, sometimes after
+// the fifth-numbered cohort's completion event. The collector must be invoked
+// by whichever cohort finishes last; a green collector with a missing ZIP is
+// only a safe no-change result, never acceptance evidence. A single protected
+// workflow-file push trigger allows this repair to use already retained
+// technical evidence without creating another site-wide browser audit.
+const batch010CollectorWorkflow = read('.github/workflows/certify-football-b010-from-chrome.yml');
+for(const label of ['first','second','third','fourth','fifth']){
+  if(!batch010CollectorWorkflow.includes(
+    'Football Batch 010 '+label+'-five live production acceptance'))
+    errors.push('Batch010 certificate runner must listen for '+label+'-five completion');
+}
+if(!batch010CollectorWorkflow.includes("push:") ||
+   !batch010CollectorWorkflow.includes("'.github/workflows/certify-football-b010-from-chrome.yml'") ||
+   !batch010CollectorWorkflow.includes("github.event_name == 'push'") ||
+   !batch010CollectorWorkflow.includes('cancel-in-progress: false'))
+  errors.push('Batch010 missing bounded protected source-push recovery/serialized real-evidence collector');
+
 // The 25 Batch009 schools may be marked VERIFIED only after five real Chrome jobs,
 // retained evidence artifacts, exact deployed SHA and a single published Worker.
 // Never conflate this technical certification with photo rights or human signoff.
