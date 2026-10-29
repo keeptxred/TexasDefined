@@ -38,7 +38,7 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
         : district16Pilot
           ? 'District 16-6A 2026 football: CFISD teams, October 18 reported standings, verified Week 8 scores, next district games, tickets, stadium information and playoff rules.'
           : district11Pilot
-          ? 'District 11-4A Division I 2026 football: Bay City, El Campo, Sealy and four other teams; 15 reported finals, six remaining district games and UIL playoff context.'
+          ? 'District 11-4A Division I 2026 football: seven UIL schools, 15 source-checked finals through Oct. 23, 21 league matchups and 4A Division I playoff rules.'
           : `${label}: ${loaderData.programCount} teams in the 2026–28 UIL alignment, with sourced district game coverage where available, school pages, playoff context and official UIL links.`;
 
     return {
