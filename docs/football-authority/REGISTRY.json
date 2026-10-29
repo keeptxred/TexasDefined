@@ -12,48 +12,47 @@
     "total": 1292
   },
   "batch": {
-    "number": 10,
+    "number": 11,
     "slugs": [
-      "chilton",
-      "china-spring",
-      "christoval",
-      "cibolo-steele",
-      "cisco",
-      "clarendon",
-      "clarksville",
-      "claude",
-      "cleburne",
-      "cleveland",
-      "cleveland-tarkington",
-      "clifton",
-      "clint",
-      "clint-horizon",
-      "clint-mountain-view",
-      "clute-brazoswood",
-      "clyde",
-      "coahoma",
-      "coldspring-oakhurst",
-      "coleman",
-      "college-station",
-      "college-station-a-and-m-consolidated",
-      "colleyville-heritage",
-      "collinsville",
-      "colmesneil"
+      "colorado-city-colorado",
+      "columbus",
+      "comal-canyon",
+      "comal-canyon-lake",
+      "comal-davenport",
+      "comal-pieper",
+      "comal-smithson-valley",
+      "comanche",
+      "comfort",
+      "commerce",
+      "como-pickton",
+      "conroe",
+      "conroe-caney-creek",
+      "conroe-grand-oaks",
+      "conroe-oak-ridge",
+      "conroe-the-woodlands",
+      "conroe-woodlands-college-park",
+      "converse-judson",
+      "coolidge",
+      "cooper",
+      "coppell",
+      "copperas-cove",
+      "cornerstone-christian",
+      "corpus-christi-calallen",
+      "corpus-christi-carroll"
     ],
-    "state": "VERIFIED_BATCH_010_COMPLETE",
-    "dateAssigned": "2026-10-27",
-    "selectionRule": "First 25 canonical NOT_REVIEWED programs after fully technical VERIFIED Batch 009 (25 schools)",
-    "individuallyVerified": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "feat/football-b010-first-five-current-main-20261027",
+    "state": "IN_PROGRESS",
+    "dateAssigned": "2026-10-29",
+    "selectionRule": "First 25 canonical NOT_REVIEWED after archived Batch010 technical certification",
+    "individuallyVerified": 0,
+    "remainingAssigned": 20,
+    "assignmentBranch": "feat/football-b011-registry-archive-transition-20261029",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "25/25 published-Chrome VERIFIED; Batch011 not yet assigned. Manual editorial, photographs, current scores and ADA access not certified.",
-    "verifiedAt": "2026-10-29"
+    "currentSchool": "comal-pieper",
+    "nextSchool": "comal-smithson-valley",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
+    "remainingToVerify": 25,
+    "notes": "First five independently sourced and IMPLEMENTED on source feature branch only; next 20 remain NOT_REVIEWED; 230 earlier VERIFIED immutable. No Batch011 Chrome or official mark/score rights claimed."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -10774,8 +10773,20 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/colorado-city-colorado",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access.",
+      "researchCompletedAt": "2026-10-29",
+      "implementedAt": "2026-10-29",
+      "implementedOnBranch": "feat/football-b011-first-five-editorial-20261029",
+      "audit": "docs/football-authority/schools/colorado-city-colorado.md",
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "mediaStatus": "Original rights-safe TexasDefined typographic identity; no official logo, student photograph or unlicensed marks",
+      "implementationNotes": "Individual school/district/UIL primary sources, dated milestones, original 2026 editorial and FAQ, school↔county reciprocal links and server-only SSR. Protected PR, production release, Chrome and screenshot acceptance still outstanding."
     },
     {
       "id": "uil:columbus",
@@ -10788,8 +10799,20 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/columbus",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access.",
+      "researchCompletedAt": "2026-10-29",
+      "implementedAt": "2026-10-29",
+      "implementedOnBranch": "feat/football-b011-first-five-editorial-20261029",
+      "audit": "docs/football-authority/schools/columbus.md",
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "mediaStatus": "Original rights-safe TexasDefined typographic identity; no official logo, student photograph or unlicensed marks",
+      "implementationNotes": "Individual school/district/UIL primary sources, dated milestones, original 2026 editorial and FAQ, school↔county reciprocal links and server-only SSR. Protected PR, production release, Chrome and screenshot acceptance still outstanding."
     },
     {
       "id": "uil:comal-canyon",
@@ -10802,8 +10825,20 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/comal-canyon",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access.",
+      "researchCompletedAt": "2026-10-29",
+      "implementedAt": "2026-10-29",
+      "implementedOnBranch": "feat/football-b011-first-five-editorial-20261029",
+      "audit": "docs/football-authority/schools/comal-canyon.md",
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "mediaStatus": "Original rights-safe TexasDefined typographic identity; no official logo, student photograph or unlicensed marks",
+      "implementationNotes": "Individual school/district/UIL primary sources, dated milestones, original 2026 editorial and FAQ, school↔county reciprocal links and server-only SSR. Protected PR, production release, Chrome and screenshot acceptance still outstanding."
     },
     {
       "id": "uil:comal-canyon-lake",
@@ -10816,8 +10851,20 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/comal-canyon-lake",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access.",
+      "researchCompletedAt": "2026-10-29",
+      "implementedAt": "2026-10-29",
+      "implementedOnBranch": "feat/football-b011-first-five-editorial-20261029",
+      "audit": "docs/football-authority/schools/comal-canyon-lake.md",
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "mediaStatus": "Original rights-safe TexasDefined typographic identity; no official logo, student photograph or unlicensed marks",
+      "implementationNotes": "Individual school/district/UIL primary sources, dated milestones, original 2026 editorial and FAQ, school↔county reciprocal links and server-only SSR. Protected PR, production release, Chrome and screenshot acceptance still outstanding."
     },
     {
       "id": "uil:comal-davenport",
@@ -10830,8 +10877,20 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/comal-davenport",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access.",
+      "researchCompletedAt": "2026-10-29",
+      "implementedAt": "2026-10-29",
+      "implementedOnBranch": "feat/football-b011-first-five-editorial-20261029",
+      "audit": "docs/football-authority/schools/comal-davenport.md",
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "mediaStatus": "Original rights-safe TexasDefined typographic identity; no official logo, student photograph or unlicensed marks",
+      "implementationNotes": "Individual school/district/UIL primary sources, dated milestones, original 2026 editorial and FAQ, school↔county reciprocal links and server-only SSR. Protected PR, production release, Chrome and screenshot acceptance still outstanding."
     },
     {
       "id": "uil:comal-pieper",
@@ -10845,7 +10904,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/comal-pieper",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:comal-smithson-valley",
@@ -10859,7 +10920,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/comal-smithson-valley",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:comanche",
@@ -10873,7 +10936,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/comanche",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:comfort",
@@ -10887,7 +10952,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/comfort",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:commerce",
@@ -10901,7 +10968,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/commerce",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:como-pickton",
@@ -10915,7 +10984,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/como-pickton",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:conroe",
@@ -10929,7 +11000,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/conroe",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:conroe-caney-creek",
@@ -10943,7 +11016,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/conroe-caney-creek",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:conroe-grand-oaks",
@@ -10957,7 +11032,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/conroe-grand-oaks",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:conroe-oak-ridge",
@@ -10971,7 +11048,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/conroe-oak-ridge",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:conroe-the-woodlands",
@@ -10985,7 +11064,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/conroe-the-woodlands",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:conroe-woodlands-college-park",
@@ -10999,7 +11080,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/conroe-woodlands-college-park",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:converse-judson",
@@ -11013,7 +11096,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/converse-judson",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:coolidge",
@@ -11027,7 +11112,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/coolidge",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:cooper",
@@ -11041,7 +11128,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cooper",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:coppell",
@@ -11055,7 +11144,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/coppell",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:copperas-cove",
@@ -11069,7 +11160,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/copperas-cove",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "featured:cornerstone-christian",
@@ -11083,7 +11176,9 @@
       "source": "src/data/high-school-football/featured-programs.ts",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cornerstone-christian",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:corpus-christi-calallen",
@@ -11097,7 +11192,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-calallen",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:corpus-christi-carroll",
@@ -11111,7 +11208,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-carroll",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 11,
+      "assignedAt": "2026-10-29",
+      "assignmentNotes": "Batch011 source-research assignment, NOT editorial/Chrome VERIFIED. No presumed game results, licensed marks, tickets or stadium access."
     },
     {
       "id": "uil:corpus-christi-flour-bluff",
