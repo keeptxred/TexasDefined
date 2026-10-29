@@ -90,17 +90,25 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     faq: [...YOUTH_HUNTING_FAQ],
   }),
 
-  "squirrel-hunting": speciesTopic({
+  "squirrel-hunting": topic({
     slug: "squirrel-hunting",
     eyebrow: "Texas small game",
     title: "Texas Squirrel Hunting Guide",
-    description: "Plan Texas squirrel hunting around East Texas season structure, other open counties, youth opportunities, habitat and public-land access.",
-    quickAnswer: "Texas squirrel seasons differ between East Texas and other open counties, and East Texas also has a youth-only opportunity in 2026–27. Check the county and property before hunting rather than assuming one statewide season.",
-    about: ["Texas squirrel hunting", "squirrel season Texas", "East Texas squirrel hunting", "public squirrel hunting Texas"],
-    source: OFFICIAL.squirrel,
-    geography: "TPWD's 2026–27 framework distinguishes East Texas from other open counties and separately lists an East Texas youth-only opportunity.",
-    access: "Suitable hardwood habitat does not mean a WMA or other public tract is open to squirrel hunting on the day you plan to visit. Confirm legal game, dates, boundaries and access instructions.",
-    extraSources: [OFFICIAL.youthOnly],
+    description: "East Texas and other-county squirrel seasons, youth opportunities, current limits and public-land access for 2026–27.",
+    quickAnswer: "TPWD lists East Texas squirrel general seasons October 1, 2026–February 28, 2027 and May 1–31, 2027, with a September 25–27, 2026 East Texas youth hunt. Other counties have a September 1, 2026–August 31, 2027 season. Confirm the county and current TPWD rule before hunting.",
+    about: ["Texas squirrel hunting", "East Texas squirrel season", "Texas squirrel youth hunt", "squirrel bag limit"],
+    sections: [
+      { heading: "Check the county before choosing a season", paragraphs: ["East Texas uses a fall/winter season, a separate May segment and a September youth-only opportunity. In other Texas counties TPWD currently lists a September 1–August 31 season. This is a statewide overview, not proof that the species is legal on any public property.", legalReminder], links: [OFFICIAL.squirrel, OFFICIAL.seasonDates, COUNTIES] },
+      { heading: "East Texas bag limits differ from other open counties", paragraphs: ["TPWD lists a daily limit of 10 squirrels in East Texas general-season and youth-only counties, while counties with the year-round season have no statewide bag limit. Check the current county entry and land-specific rules before travel or harvest."], links: [OFFICIAL.squirrel, OFFICIAL.regulations] },
+      { heading: "Youth hunts, hardwood habitat and safe access", paragraphs: ["TPWD's East Texas September youth-only dates are not a general adult season. Check youth license, supervision and hunter-education rules for the exact hunt.", "Mature hardwoods and mixed forests may provide squirrel habitat, but wildlife presence does not give permission to enter private property or hunt a public parcel."], links: [OFFICIAL.youthOnly, EDUCATION, PUBLIC] },
+      { heading: "Check the individual public hunting unit", paragraphs: ["If you plan to hunt under APH or a drawn/regular permit, inspect the current TPWD Legal Game listing, unit dates, allowed means, boundaries and map booklet. General county rules do not override a unit's additional restrictions."], links: [PUBLIC, APH, OFFICIAL.regulations] },
+    ],
+    related: [SEASONS, PUBLIC, APH, EDUCATION, COUNTIES],
+    faq: [
+      { question: "Is squirrel season open year-round everywhere in Texas?", answer: "No. TPWD lists separate East Texas segments and a year-round-style season in other counties. Verify the exact county and unit." },
+      { question: "Can youth hunt squirrels before the East Texas general season?", answer: "TPWD lists an East Texas youth-only opportunity September 25–27, 2026; confirm eligibility and access for the specific hunt." },
+      { question: "Does a state forest automatically allow squirrel hunting?", answer: "No. Confirm legal game, property boundaries and the specific public-access permit in TPWD's current area record." },
+    ],
   }),
 
   "rabbit-hare-hunting": speciesTopic({
@@ -116,28 +124,43 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     extraSources: [OFFICIAL.meansMethods],
   }),
 
-  "pheasant-hunting": speciesTopic({
+  "pheasant-hunting": topic({
     slug: "pheasant-hunting",
     eyebrow: "Texas upland game birds",
     title: "Texas Pheasant Hunting Guide",
-    description: "Plan Texas pheasant hunting around the current Panhandle season, county rules, upland-game-bird endorsement, habitat and access.",
-    quickAnswer: "TPWD's 2026–27 pheasant framework is a defined Panhandle season rather than a statewide open season. Verify the exact county, current dates, endorsement, limits and access before hunting.",
-    about: ["Texas pheasant hunting", "pheasant season Texas", "Panhandle pheasant hunting"],
-    source: OFFICIAL.pheasant,
-    geography: "TPWD's current pheasant page identifies the Panhandle season and county-specific coverage, making county selection part of the legal check.",
-    access: "Agricultural habitat can be productive but is often private. Confirm landowner permission or a verified public-hunt opportunity before travel.",
+    description: "The Panhandle pheasant season, cocks-only bag limits, proof-of-sex and legally verified access.",
+    quickAnswer: "TPWD's 2026–27 pheasant season is December 5, 2026–January 3, 2027 in 37 listed Texas counties, with a daily bag limit of three cocks and a possession limit of nine cocks. An upland game bird endorsement is required.",
+    about: ["Texas pheasant season", "Panhandle pheasant hunting", "Texas pheasant bag limit", "pheasant proof of sex"],
+    sections: [
+      { heading: "Start with the Panhandle season and eligible county", paragraphs: ["TPWD lists the season December 5, 2026–January 3, 2027. Coverage is limited to 37 counties; do not assume the entire Panhandle or adjoining counties are open.", legalReminder], links: [OFFICIAL.pheasant, OFFICIAL.seasonDates, COUNTIES] },
+      { heading: "Cock-only bag limits and proof of sex", paragraphs: ["TPWD lists three cock pheasants daily and nine in possession. Maintain legally required proof of sex until the bird reaches its final destination and is processed. TPWD describes an attached leg with spur or the entire plumage as acceptable evidence and publishes exceptions for documented transfer."], links: [OFFICIAL.pheasant] },
+      { heading: "Habitat and property permission", paragraphs: ["TPWD surveys explain that drought, CRP cover and agricultural practices affect Texas pheasant abundance. Much Panhandle pheasant habitat is private; secure landowner permission or verify the exact TPWD public-hunt unit before traveling."], links: [tpwd("TPWD pheasant management and roadside surveys", "https://tpwd.texas.gov/huntwild/wild/game_management/pheasant/"), PUBLIC, APH] },
+      { heading: "Verify lawful equipment and the site", paragraphs: ["An upland game bird endorsement is required. TPWD also prohibits taking pheasants by dragging a cable, chain or rope between moving objects. Review the current means-and-methods regulations, unit boundaries and legal game before hunting."], links: [OFFICIAL.pheasant, OFFICIAL.meansMethods] },
+    ],
+    related: [PUBLIC, APH, SEASONS, LICENSE, COUNTIES],
+    faq: [
+      { question: "Can hens be taken during Texas pheasant season?", answer: "The current TPWD bag limit specifies cocks. Confirm the current rules and proof-of-sex requirements." },
+      { question: "Is the entire state open for pheasant hunting?", answer: "No. TPWD lists 37 counties with a season. Check the official county record." },
+    ],
   }),
 
-  "chachalaca-hunting": speciesTopic({
+  "chachalaca-hunting": topic({
     slug: "chachalaca-hunting",
     eyebrow: "Texas upland game birds",
     title: "Texas Chachalaca Hunting Guide",
-    description: "Plan chachalaca hunting in the limited South Texas counties where TPWD provides a season and confirm endorsement, habitat and access.",
-    quickAnswer: "Texas chachalaca hunting is geographically narrow: TPWD's 2026–27 rule covers four counties. Verify the exact county, endorsement, current limits and property rules before hunting.",
-    about: ["Texas chachalaca hunting", "chachalaca season Texas", "South Texas chachalaca"],
-    source: OFFICIAL.chachalaca,
-    geography: "TPWD's current chachalaca page shows an open season in four Texas counties, so broad statewide hunting assumptions do not apply.",
-    access: "Brush and riparian habitat can overlap chachalaca range, but legal hunting access still depends on the property and current rules.",
+    description: "South Texas chachalaca hunting in the four open counties, dates, endorsements and access.",
+    quickAnswer: "TPWD lists a November 1, 2026–February 28, 2027 chachalaca season only in Cameron, Hidalgo, Starr and Willacy counties, with a daily bag limit of five and possession limit of 15. An upland game bird endorsement is required.",
+    about: ["Texas chachalaca hunting", "South Texas chachalaca season", "chachalaca Texas counties"],
+    sections: [
+      { heading: "Only four South Texas counties have the listed season", paragraphs: ["TPWD's 2026–27 statewide season table specifically names Cameron, Hidalgo, Starr and Willacy counties. Being in nearby South Texas brush does not make chachalaca harvest legal elsewhere.", legalReminder], links: [OFFICIAL.chachalaca, OFFICIAL.seasonDates, COUNTIES] },
+      { heading: "Limits and endorsements", paragraphs: ["The current TPWD rule lists five birds as the daily bag limit and 15 as the possession limit, along with a required upland game bird endorsement. Verify valid licenses and any additional unit requirements before hunting."], links: [OFFICIAL.chachalaca, LICENSE] },
+      { heading: "Habitat does not guarantee huntable access", paragraphs: ["Dense brush and riparian vegetation can provide chachalaca habitat, but many likely sites are private or conservation areas. Confirm landowner permission or the exact TPWD public-hunting unit's legal-game listing. Do not assume a nearby wildlife refuge allows hunting."], links: [PUBLIC, APH, OFFICIAL.regulations] },
+    ],
+    related: [SEASONS, PUBLIC, APH, LICENSE, COUNTIES],
+    faq: [
+      { question: "Where is chachalaca season open in Texas?", answer: "TPWD lists Cameron, Hidalgo, Starr and Willacy counties for the 2026–27 season." },
+      { question: "Is an upland game bird endorsement required?", answer: "Yes, according to TPWD's published 2026–27 chachalaca regulations." },
+    ],
   }),
 
   "pronghorn-hunting": topic({
