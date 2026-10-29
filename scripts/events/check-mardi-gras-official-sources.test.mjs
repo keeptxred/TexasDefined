@@ -89,3 +89,25 @@ test("all tracked sources have explicit event identity and coherent guide mappin
     else assert.equal(source.eventSlug, null);
   }
 });
+
+test("official 2027 month abbreviations and ordinals never hide behind old pending notices", () => {
+  const orange = OFFICIAL_SOURCES.find(source => source.id === "orange-sabine");
+  const beaumont = OFFICIAL_SOURCES.find(source => source.id === "beaumont-festival");
+  const pendingOrange = ("Information for the 2027 Mardi Gras on the Sabine will be updated at a later date. Historic festival February 7, 2026. ").repeat(6);
+  const pendingBeaumont = ("Mardi Gras Southeast Texas, Feb. 13th, 14th & 15th Doggett Ford Park, 2026 historical schedule. ").repeat(6);
+  for (const date of ["Feb. 6, 2027", "February 6th, 2027", "Feb 6th–7th, 2027", "March 2nd, 2027"]) {
+    const orangeResult = evaluateSource(orange, pendingOrange + "Mardi Gras on the Sabine " + date);
+    const beaumontResult = evaluateSource(beaumont, pendingBeaumont + "Mardi Gras Southeast Texas " + date);
+    assert.equal(orangeResult.reason, "possible-new-2027-announcement-requires-editorial-verification", date);
+    assert.equal(beaumontResult.reason, "possible-new-2027-announcement-requires-editorial-verification", date);
+  }
+});
+
+test("Texas City alternate current year heading is review required, never inferred from 2026", () => {
+  const source = OFFICIAL_SOURCES.find(s => s.id === "mainland-texas-city");
+  const prior = ("City 2026 Mainland Mardi Gras Parade Information Date/Time: Saturday January 24, 2026. ").repeat(5);
+  assert.equal(evaluateSource(source, prior).ok, true);
+  const changed = evaluateSource(source, prior + " MainLAND Mardi Gras Parade 2027 Date/Time: Saturday.");
+  assert.equal(changed.ok, false);
+  assert.equal(changed.reason, "possible-new-2027-announcement-requires-editorial-verification");
+});
