@@ -164,8 +164,15 @@ function Page() {
   const identityPanelAccent = editorial?.theme?.accentHex ?? verifiedIdentityAccent;
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
-  // Published editorial snapshot date is stable across SSR and hydration; never label an unresolved past game as next.
-  const nextListedFixture = editorial?.season?.games.find((game) => !game.result && game.date >= editorial.season.verifiedAt);
+  // A past, unreported game is NOT the team's "next game", even when the
+  // last editorial snapshot predates it. Use today's Texas calendar date
+  // (not a stale verifiedAt watermark), without manufacturing a final score.
+  const todayTexasParts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date());
+  const texasDatePart = (type: 'year' | 'month' | 'day') => todayTexasParts.find((part) => part.type === type)?.value ?? '';
+  const todayTexas = `${texasDatePart('year')}-${texasDatePart('month')}-${texasDatePart('day')}`;
+  const nextListedFixture = editorial?.season?.games.find((game) => !game.result && game.date >= todayTexas);
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
