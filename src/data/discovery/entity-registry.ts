@@ -16,7 +16,7 @@ export type DiscoveryReviewStatus = "candidate" | "verified" | "awaiting-owner-r
  * bot-generated review invitation. */
 export interface EditorialOwnerApproval {
   batchId: string;
-  approvedBy: "keeptxred";
+  approvedBy: "editorial-owner";
   approvedAt: string;
   decision: "approved";
   reviewUrl: string;
@@ -118,9 +118,16 @@ export function matchSourceCandidate(candidate: SourceCandidate, entities: reado
 /** Strictly validate a *recorded* approval. Requires manual verification that
  * the linked decision actually came from the owner: URLs alone are not proof. */
 export function hasRecordedOwnerApproval(approval: EditorialOwnerApproval | undefined): boolean {
-  if (!approval || approval.decision !== "approved" || approval.approvedBy !== "keeptxred" ||
+  if (!approval || approval.decision !== "approved" || approval.approvedBy !== "editorial-owner" ||
       !/^[a-z0-9][a-z0-9-]{3,100}$/i.test(approval.batchId) || !isoDate(approval.approvedAt)) return false;
-  return /^https:\/\/github\.com\/keeptxred\/TexasDefined\/(?:issues\/6380#issuecomment-\d+|pull\/\d+#pullrequestreview-\d+)$/.test(approval.reviewUrl);
+  try {
+    const url = new URL(approval.reviewUrl);
+    return url.protocol === "https:" && url.hostname === "github.com" &&
+      /^\\/[^/]+\\/TexasDefined\\/(?:issues\\/6380|pull\\/\\d+)$/.test(url.pathname) &&
+      /^(?:#issuecomment-\\d+|#pullrequestreview-\\d+)$/.test(url.hash);
+  } catch {
+    return false;
+  }
 }
 
 /** Indexability cannot be earned merely by a valid affiliate link. */
