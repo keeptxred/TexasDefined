@@ -3,13 +3,6 @@
  * No scores, standings, win/loss counts, results ingestion, or live schedule claims.
  * Official sources: UIL, Garland ISD, Wylie ISD and dated Wylie local news.
  */
-const DISTRICT9_DISPLAY_NAMES: Record<string, string> = {
-  'Garland Lakeview Cent': 'Lakeview Centennial',
-  'Garland Rowlett': 'Rowlett',
-  'Garland Sachse': 'Sachse',
-};
-export const district9DisplayName = (uilName: string) => DISTRICT9_DISPLAY_NAMES[uilName] ?? uilName;
-
 const schoolGroups = [
   {
     district: 'Garland ISD',
