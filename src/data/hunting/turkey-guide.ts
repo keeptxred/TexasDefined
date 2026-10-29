@@ -1,5 +1,6 @@
 import type { HuntingAuthorityTopic } from "./authority";
 import turkeyCalendar from "./turkey-season-calendar.json";
+import quarterlyFacts from "./turkey-quarterly-facts.json";
 
 // Editor-reviewed against TPWD's 2026–27 Outdoor Annual and turkey-management sources.
 // Do not advance this date automatically from a scheduled source check.
@@ -87,7 +88,7 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
       paragraphs: [
         "Scout for fresh tracks and scratching in leaf litter, droppings, feathers and observed feeding routes without disturbing roosts. At a distance, listen at first light and around sunset to learn where birds use the landscape; do not assume the first gobble marks a safe or accessible approach. A legal approach and permission matter as much as finding birds.",
         "In spring, toms may respond to calls while moving among hens. A deliberate, restrained calling plan can be more useful than constant calling; wind, hunting pressure and flock behavior change the response. Do not stalk an unseen caller or shoot at sound or movement. Clearly identify the entire bird and a safe background before taking any shot.",
-        "Rainfall influences nesting cover, insect availability and recruitment. TPWD's 2026 summer survey found 1.82 poults per hen statewide, down from recent years, while observed turkeys per 1,000 miles increased from 9.21 in 2025 to 11.38 in 2026. These are monitoring indicators, not a prediction that a specific field or county will hold birds on opening morning.",
+        `Rainfall influences nesting cover, insect availability and recruitment. TPWD's ${quarterlyFacts.survey.year} summer survey found ${quarterlyFacts.survey.poultsPerHen} poults per hen statewide, while observed turkeys per 1,000 miles changed from ${quarterlyFacts.survey.priorObservationsPerThousand} in ${quarterlyFacts.survey.priorYear} to ${quarterlyFacts.survey.observationsPerThousand} in ${quarterlyFacts.survey.year}. These are monitoring indicators, not a prediction that a specific field or county will hold birds on opening morning.`,
       ],
       links: [tpwdReport, tpwdBiology],
     },
@@ -103,7 +104,7 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
       heading: "Public turkey hunting: access is not automatic",
       paragraphs: [
         "Most turkey habitat in Texas is on private or otherwise access-controlled land. Never mistake a state park, national forest, wildlife refuge or wildlife management area for an unrestricted hunting opportunity. Each unit can impose a permit system, separate hunt dates, allowable methods, hunt boundaries, check-in or drawn selection.",
-        "For 2027, TPWD lists Hagerman NWR (April 22–24; 24 permits; one gobbler only; designated compartments; archery or birdshot shotgun with non-toxic shot no larger than #4) and Lower Rio Grande Valley NWR–East Lake (April 2–4 and April 9–11; eight permits; one gobbler or bearded hen; birdshot shotgun). Both require a successful National Refuge Spring Turkey draw. TPWD lists a November 1, 2026 application deadline, a $3 adult application fee and an $80 adult permit fee if selected. Check actual hunt catalog entries before applying.",
+        `For 2027, TPWD lists Hagerman NWR (${quarterlyFacts.draw.hagermanDates.join(" or ")}; ${quarterlyFacts.draw.hagermanPermits} permits; one gobbler only; designated compartments; archery or birdshot shotgun with non-toxic shot no larger than #4) and Lower Rio Grande Valley NWR–East Lake (${quarterlyFacts.draw.eastLakeDates.join(" or ")}; ${quarterlyFacts.draw.eastLakePermits} permits; one gobbler or bearded hen; birdshot shotgun). Both require a successful National Refuge Spring Turkey draw. TPWD lists a ${quarterlyFacts.draw.deadline} application deadline, a ${quarterlyFacts.draw.applicationFeeUsd} adult application fee and an ${quarterlyFacts.draw.permitFeeUsd} adult permit fee if selected. Machine-checked ${quarterlyFacts.checkedAt}; confirm the TPWD catalog before applying.`,
         "To pursue walk-in access, open TPWD's 2026–27 Area / Legal Game Search, select turkey as legal game and read the specific unit's map, legal-game box, season dates, permitted methods and registration rules. The $48 Annual Public Hunting Permit applies only to participating areas where turkey is listed; the $12 Limited Public Use Permit does not authorize hunting. Some areas require drawn, postcard or youth selection instead, and the official finder may require JavaScript.",
       ],
       links: [tpwdAPHFinder, tpwdAPHPermit, tpwdDrawn, tpwdHagerman, tpwdEastLake, link("Texas drawn hunts", "/hunting/drawn-hunts"), link("Annual Public Hunting Permit", "/hunting/annual-public-hunting-permit"), link("Find public hunting areas", "/hunting/public-hunting")],
@@ -137,8 +138,8 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "How TexasDefined verifies this guide",
       paragraphs: [
-        "This guide was reviewed October 29, 2026 against TPWD's live 2026–27 wild turkey regulation page, 2026–27 hunting date table, April 2026 adopted-regulation announcement, turkey-management reporting page, public-draw and individual hunt listings, the current public-access catalog and official turkey harvest data. It is an independent trip-planning article, not a government publication or substitute for the Outdoor Annual.",
-        "The official TPWD species page and county selector control the hunting dates and limits for your chosen county. If TPWD revises a season, closes a county, changes reporting procedures, or updates a hunt catalog after the editorial verification date, that newer official rule controls. TexasDefined checks official regulation sources weekly, reviews public access and harvest data quarterly, and uses a two-source updater for verified same-season date corrections. Legal restrictions and new season years require editorial verification, not automatic publication.",
+        "This guide's legal guidance was editorially reviewed October 29, 2026 against TPWD's 2026–27 regulations. Public-hunt drawing details and summer survey figures are separately checked by a scheduled source-verified process; a machine check does not replace editorial legal review. This independent guide is not a government publication or substitute for the Outdoor Annual.",
+        "The official TPWD species page and county selector control the hunting dates and limits for your chosen county. If TPWD revises a season, closes a county, changes reporting procedures, or updates a hunt catalog after the editorial verification date, that newer official rule controls. TexasDefined checks official regulation sources weekly, automatically verifies and publishes corroborated nonlegal draw and survey figures quarterly, and uses a two-source updater for verified same-season date corrections. Legal restrictions and new season years require editorial verification, not automatic publication.",
       ],
       links: [tpwdTurkey, tpwdDates, tpwdChange, tpwdReport, tpwdBiology, tpwdDrawn, tpwdAPHFinder, tpwdHarvestData],
     },

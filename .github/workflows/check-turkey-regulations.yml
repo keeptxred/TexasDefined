@@ -4,7 +4,7 @@ on:
   schedule:
     # Weekly: check current regulation, access, drawing and harvest source markers.
     - cron: '21 13 * * 1'
-    # Quarterly: add a full editorial source review and audit trail.
+    # Quarterly legal-source check; nonlegal facts publish through separate protected automation.
     - cron: '41 13 1 1,4,7,10'
   workflow_dispatch:
   pull_request:
@@ -57,10 +57,6 @@ jobs:
                 title="Review changed TPWD turkey regulations (2026–27)"
                 summary="An official TPWD page no longer matches the editor-verified 2026–27 turkey guide. Re-check the original TPWD sources and update the guide, any relevant county exceptions and the editorial verification date only after validating the new rules."
                 ;;
-              4)
-                title="Texas turkey guide editorial review overdue (quarterly)"
-                summary="The guide's verified editorial review date is over 95 days old. Review the live TPWD species and county sources, public draw inventory, APH legal-game listings, harvest data and updated season year. No automated monitor may advance the editorial review date without real source review."
-                ;;
               3)
                 title="TPWD turkey regulation source unavailable (2026–27)"
                 summary="The official TPWD regulation monitor could not retrieve one or more authoritative pages. This is a transport failure, NOT evidence of a legal change. Investigate the failing requests and repeat the source verification before considering the guide fresh."
@@ -87,38 +83,3 @@ jobs:
             fi
           fi
           exit "$code"
-
-      - name: Open quarterly turkey authority review with verified source-check evidence
-        if: ${{ always() && github.event_name == 'schedule' && github.event.schedule == '41 13 1 1,4,7,10' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          quarter=$(( (10#$(date -u +%m)-1)/3+1 ))
-          period="$(date -u +%Y)-Q$quarter"
-          title="Quarterly turkey authority and public-access review ($period)"
-          existing="$(gh issue list --state all --search "$title in:title" --json number --jq '.[0].number // empty')"
-          if [[ -n "$existing" ]]; then echo "Quarterly review issue already exists (#$existing)"; exit 0; fi
-          cat > "$RUNNER_TEMP/turkey-quarterly.md" <<'EOF'
-          This task must be opened EVERY quarter even if TPWD is unavailable, rules have changed, or the prior editorial review is overdue. A passing bounded source monitor does **not** certify a fresh editorial review or authorize new hunting advice. A failed monitor requires inspecting the source-check logs before relying on any previously published legal or permit detail.
-
-          - [ ] Check the current TPWD wild turkey **county selector and 2026–27 / next-year regulations**, including closures, bag composition, tagging, reporting and legal methods.
-          - [ ] Recheck Hagerman and Lower Rio Grande Valley NWR–East Lake draw dates, permit counts, methods, deadline and fees, replacing ended or superseded inventory.
-          - [ ] Recheck the APH Area / Legal Game Search, participating unit details and permit prices. Never infer turkey access solely from a habitat map.
-          - [ ] Review the newest official turkey survey and harvest data; clearly label historical harvest figures.
-          - [ ] Review broken links, public-domain photo credit, mobile layout, structured metadata and affiliate disclosure.
-          - [ ] Update the article only where facts changed; advance the editorial verification date only after actual human source verification. Record PR/commit and release evidence.
-
-          Existing source-only turkey date changes are independently handled weekly by the protected two-source season calendar workflow. New season-year and legal-rule changes fail closed into review issues.
-          EOF
-          {
-            echo "Quarter: $period"
-            echo "Official-source monitor result: ${{ steps.sourcecheck.outcome }}"
-            echo
-            cat "$RUNNER_TEMP/turkey-quarterly.md"
-            echo
-            echo "Successful source monitor: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            echo "Published page: https://texasdefined.com/hunting/turkey-hunting"
-          } > "$RUNNER_TEMP/turkey-quarterly-final.md"
-          gh issue create --title "$title" --body-file "$RUNNER_TEMP/turkey-quarterly-final.md"

@@ -55,7 +55,6 @@ if (!Number.isFinite(reviewDate) || reviewDate > Date.now() + 86400000) {
   console.error("Invalid turkey guide review date; editorial review required.");
   process.exit(2);
 }
-const editorialReviewOverdue = Date.now() - reviewDate > 95 * 86400000;
 
 function normalize(html) {
   return html
@@ -95,8 +94,4 @@ if (changes.length) {
   for (const change of changes) console.error("- " + change.page + " no longer matches: " + change.expected + " (" + change.url + ")");
   process.exit(2);
 }
-if (editorialReviewOverdue) {
-  console.error("The editorial turkey guide review is older than 95 days (" + reviewed[1] + "). An editor must verify county rules, public draws and new season-year sources before advancing the published editorial review date.");
-  process.exit(4);
-}
-console.log("Verified official TPWD 2026–27 legal, public-access, drawing and harvest markers. No detected source drift; no editorial date was advanced.");
+console.log("Verified official TPWD legal, public-access, drawing and harvest markers. No detected source drift; editorial verification remains " + reviewed[1] + " (never automatically advanced).");

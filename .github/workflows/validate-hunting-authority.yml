@@ -11,6 +11,10 @@ on:
       - 'scripts/data/check-turkey-regulations.mjs'
       - 'scripts/data/refresh-turkey-season-calendar.mjs'
       - 'scripts/data/refresh-turkey-season-calendar.test.mjs'
+      - 'scripts/data/refresh-turkey-authority-quarterly.mjs'
+      - 'scripts/data/refresh-turkey-authority-quarterly.test.mjs'
+      - '.github/workflows/refresh-turkey-authority-quarterly.yml'
+      - '.github/workflows/finish-turkey-authority-quarterly.yml'
       - 'src/brand/texasdefined.ts'
       - 'scripts/data/refresh-hunting-official-facts.mjs'
       - 'scripts/data/refresh-hunting-official-facts.test.mjs'
@@ -64,3 +68,5 @@ jobs:
           node --check scripts/data/monitor-hunting-live-freshness.mjs
           node --test scripts/data/refresh-turkey-season-calendar.test.mjs
           node --check scripts/data/refresh-turkey-season-calendar.mjs
+          node --test scripts/data/refresh-turkey-authority-quarterly.test.mjs
+          node --check scripts/data/refresh-turkey-authority-quarterly.mjs
