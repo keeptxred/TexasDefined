@@ -14,6 +14,28 @@ const pages = [
     ],
   },
   {
+    label: "TPWD 2026–27 drawn National Refuge Spring Turkey hunts",
+    url: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-category-details.phtml?OCat=NTS",
+    assertions: [
+      "National Refuge Spring Turkey",
+      "November 01, 2026",
+      "Hagerman NWR",
+      "Lower Rio Grande Valley NWR",
+      "Apr 22, 2027",
+      "Apr 02, 2027",
+    ],
+  },
+  {
+    label: "TPWD 2026–27 walk-in hunting access",
+    url: "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/",
+    assertions: ["2026-27", "Annual Public Hunting", "$48", "Area/Legal Game Search"],
+  },
+  {
+    label: "TPWD turkey harvest and recruitment data",
+    url: "https://tpwd.texas.gov/huntwild/wild/game_management/turkey/turkeyData.phtml",
+    assertions: ["Summer Turkey Survey Results", "Statewide Mandatory Wild Turkey Harvest Data"],
+  },
+  {
     label: "2026–27 adopted turkey regulation changes",
     url: "https://tpwd.texas.gov/newsmedia/releases/?req=20260401b",
     assertions: [
@@ -23,10 +45,17 @@ const pages = [
 ];
 
 const source = fs.readFileSync("src/data/hunting/turkey-guide.ts", "utf8");
-if (!source.includes('TURKEY_GUIDE_LAST_VERIFIED = "2026-10-28"') || !source.includes("Matagorda and Wharton")) {
-  console.error("Local turkey guide provenance changed; update this check after editorial review.");
+const reviewed = source.match(/TURKEY_GUIDE_LAST_VERIFIED = "(20\\d{2}-\\d{2}-\\d{2})"/);
+if (!reviewed || !source.includes("Matagorda and Wharton")) {
+  console.error("Local turkey guide provenance or county closure missing; editorial review required.");
   process.exit(2);
 }
+const reviewDate = Date.parse(reviewed[1] + "T00:00:00Z");
+if (!Number.isFinite(reviewDate) || reviewDate > Date.now() + 86400000) {
+  console.error("Invalid turkey guide review date; editorial review required.");
+  process.exit(2);
+}
+const editorialReviewOverdue = Date.now() - reviewDate > 95 * 86400000;
 
 function normalize(html) {
   return html
@@ -66,4 +95,8 @@ if (changes.length) {
   for (const change of changes) console.error("- " + change.page + " no longer matches: " + change.expected + " (" + change.url + ")");
   process.exit(2);
 }
-console.log("Verified expected 2026–27 TPWD turkey season/date/regulatory markers. No detected source drift; no editorial date was advanced.");
+if (editorialReviewOverdue) {
+  console.error("The editorial turkey guide review is older than 95 days (" + reviewed[1] + "). An editor must verify county rules, public draws and new season-year sources before advancing the published editorial review date.");
+  process.exit(4);
+}
+console.log("Verified official TPWD 2026–27 legal, public-access, drawing and harvest markers. No detected source drift; no editorial date was advanced.");
