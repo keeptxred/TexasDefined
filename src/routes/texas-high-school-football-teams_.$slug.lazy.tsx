@@ -201,6 +201,11 @@ function Page() {
     'conroe-caney-creek': 'montgomery', // NCES Caney Creek FM1485 campus Montgomery County; not Conroe Tigers.
     'conroe-grand-oaks': 'montgomery', // NCES Grand Oaks 4800 Riley Fuzzel campus Montgomery, despite Spring mailing city.
     'conroe-oak-ridge': 'montgomery', // NCES Oak Ridge main school on Oak Ridge School Rd, Montgomery County.
+    'conroe-the-woodlands': 'montgomery', // Research Forest campus, The Woodlands High; not nearby College Park.
+    'conroe-woodlands-college-park': 'montgomery', // NCES 481500010964, separate Cavaliers College Park campus.
+    'converse-judson': 'bexar', // Judson High Rockets FM 78 Converse campus in Bexar County.
+    'coolidge': 'limestone', // Coolidge school district officially identifies Limestone County six-man campus.
+    'cooper': 'delta', // Cooper ISD Bulldogs campus in Delta County, not administrative gate.
     'clint-mountain-view': 'el-paso', // Mountain View Lobos school on Greg Dr, eastern El Paso County.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
