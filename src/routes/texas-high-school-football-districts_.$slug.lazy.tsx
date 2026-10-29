@@ -6,6 +6,8 @@ import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizati
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { District16Coverage } from '@/components/sports/District16Coverage';
 import { District6Guide } from '@/components/sports/District6Guide';
+import { District9Guide } from '@/components/sports/District9Guide';
+import { district9DisplayName } from '@/data/high-school-football/district9-display-names';
 import { DISTRICT_5_SCHEDULE_URL, DISTRICT_5_STANDINGS_URL } from '@/data/high-school-football/football-district5-2026';
 import { DISTRICT_11_VERIFIED_AT, DISTRICT_11_STANDINGS_URL, DISTRICT_11_PLAYOFF_SOURCE } from '@/data/high-school-football/football-district11-2026';
 import {
@@ -35,6 +37,7 @@ function Page() {
   const district11Pilot = district.slug === '4a-division-i-district-11';
   const district16Pilot = district.slug === '6a-district-16';
   const district6Pilot = district.slug === '6a-district-6';
+  const district9Pilot = district.slug === '6a-district-9';
   // District 6 intentionally excludes the shared results feed while standings / W-L automation is paused.
   const games = district6Pilot ? [] : getDistrictFootballGames(district.slug, district.classification, district.district);
   const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot || district21Pilot || district11Pilot ? 16 : 8);
@@ -50,7 +53,7 @@ function Page() {
   const reportedEnrollments = district.programs.map((program) => program.uilEnrollment);
   const enrollmentLow = Math.min(...reportedEnrollments);
   const enrollmentHigh = Math.max(...reportedEnrollments);
-  const teamLine = district.programs.map((program) => program.schoolName).join(' • ');
+  const teamLine = district.programs.map((program) => district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName).join(' • ');
   const formatEnrollment = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 1 });
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
@@ -67,7 +70,7 @@ function Page() {
           <p className="eyebrow text-primary">2026–28 UIL football alignment</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{katyPilot ? `Katy ISD ${districtTitle}` : districtTitle}</h1>
           <p className="mt-6 max-w-4xl text-lg leading-8 text-foreground">{teamLine}</p>
-          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{district6Pilot ? 'Eight UIL teams in Region I District 6. See the dated 2026 varsity fixture snapshot, official school schedules, stadium and ticket guidance, plus the UIL playoff path. No standings or win/loss automation.' : district21Pilot ? 'Fort Bend ISD and Strake Jesuit: 2026 source-checked district records, results, future matchups and playoff qualification context. Records are not UIL-certified seeds.' : district11Pilot ? 'Region III · 2026 varsity district results, all seven schools, the full 21-game schedule and the Division I playoff qualification path. Reported W–L records are not UIL-certified seeds.' : '2026–28 UIL member schools, sourced 2026 game coverage where available, score-verification guidance and playoff context. No certified standings, fabricated scores or projected playoff seeds.'}</p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{district9Pilot ? 'Region II District 9: eight UIL teams across Garland and Wylie ISDs, official stadium and ticket sources, current UIL alignment and postseason rules. Automated results and W/L coverage are paused.' : district6Pilot ? 'Eight UIL teams in Region I District 6. See the dated 2026 varsity fixture snapshot, official school schedules, stadium and ticket guidance, plus the UIL playoff path. No standings or win/loss automation.' : district21Pilot ? 'Fort Bend ISD and Strake Jesuit: 2026 source-checked district records, results, future matchups and playoff qualification context. Records are not UIL-certified seeds.' : district11Pilot ? 'Region III · 2026 varsity district results, all seven schools, the full 21-game schedule and the Division I playoff qualification path. Reported W–L records are not UIL-certified seeds.' : '2026–28 UIL member schools, sourced 2026 game coverage where available, score-verification guidance and playoff context. No certified standings, fabricated scores or projected playoff seeds.'}</p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6" aria-label="District summary">
           <Fact label="Teams" value={String(district.programCount)} />
@@ -80,7 +83,7 @@ function Page() {
 
       {district16Pilot && <District16Coverage schools={district.programs} />}
 
-      {!district16Pilot && (katyPilot || district5Pilot || games.length > 0) && <section id={district21Pilot ? "district-21-results" : "district-game-coverage"} data-football-district-section="coverage" className="border-b border-border py-10">
+      {!district16Pilot && !district9Pilot && (katyPilot || district5Pilot || games.length > 0) && <section id={district21Pilot ? "district-21-results" : "district-game-coverage"} data-football-district-section="coverage" className="border-b border-border py-10">
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow text-primary">2026 varsity football</p>
@@ -264,7 +267,7 @@ function Page() {
           <div className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {district.programs.map((program, index) => <a key={program.profilePath} href={program.profilePath} className="group bg-background p-5 hover:bg-surface">
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">Team {String(index + 1).padStart(2, '0')}</p>
-              <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{program.schoolName}</h3>
+              <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName}</h3>
               <p className="mt-2 text-xs text-muted-foreground">{district.classification}{divisionRoman ? ` Division ${divisionRoman}` : ''}</p>
               <p className="mt-1 text-xs text-muted-foreground">UIL reported enrollment: <strong className="text-foreground">{formatEnrollment(program.uilEnrollment)}</strong></p>
               <p className="mt-3 text-xs text-muted-foreground">Team page →</p>
@@ -272,32 +275,34 @@ function Page() {
           </div>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">Teams are listed alphabetically; this is not a ranking, projected finish, or statement about team quality.</p>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot, not live campus headcounts. Published cutoff bands explain normal ranges, but the final UIL football alignment controls competition placement.</p>
-          {placementExceptionPrograms.length > 0 && <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Placement exception{placementExceptionPrograms.length === 1 ? '' : 's'}:</strong> {placementExceptionPrograms.map((program, index) => <span key={program.profilePath}>{index ? ', ' : ' '}<a href={program.profilePath} className="font-semibold text-primary underline underline-offset-4">{program.schoolName}</a></span>)}. These programs' verified reported enrollment is outside the normal published cutoff for the final UIL placement.</p>}
+          {placementExceptionPrograms.length > 0 && <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Placement exception{placementExceptionPrograms.length === 1 ? '' : 's'}:</strong> {placementExceptionPrograms.map((program, index) => <span key={program.profilePath}>{index ? ', ' : ' '}<a href={program.profilePath} className="font-semibold text-primary underline underline-offset-4">{district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName}</a></span>)}. These programs' verified reported enrollment is outside the normal published cutoff for the final UIL placement.</p>}
         </div>
       </section>
 
       {district6Pilot && <District6Guide />}
+      {district9Pilot && <District9Guide />}
 
-      <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />
-      {district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
+      {!district9Pilot && <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />}
+      {!district9Pilot && district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
 
       <section data-football-district-section="game-week" className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Game week</p>
-          <h2 className="mt-2 font-display text-3xl">{district6Pilot ? "Schedules, tickets & playoff path" : "Scores, schedules & playoff path"}</h2>
+          <h2 className="mt-2 font-display text-3xl">{district6Pilot || district9Pilot ? "Schedules, tickets & playoff path" : "Scores, schedules & playoff path"}</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
-          {district6Pilot ? <Related href="#district-6-2026" title="District 6 varsity fixtures and game-day guide" body="See the dated source-backed 2026 schedule, five official athletics offices, venues, ticket policies and playoff path. Automated records are paused." />
+          {district9Pilot ? <Related href="#district-9-authority" title="District 9 guide and game-day resources" body="Official UIL teams, stadiums, school calendars, tickets and 2026–28 postseason rules. Automated records are paused." />
+            : district6Pilot ? <Related href="#district-6-2026" title="District 6 varsity fixtures and game-day guide" body="See the dated source-backed 2026 schedule, five official athletics offices, venues, ticket policies and playoff path. Automated records are paused." />
             : district21Pilot ? <Related href="#district-21-results" title="District 21 games & results" body="Jump to every sourced 2026 league final and the remaining games in this district, rather than an unrelated statewide directory." />
             : district16Pilot ? <Related href="#district-16-results" title="District 16 scores, records and next games" body="Jump to our sourced District 16 standings snapshot, verified recent results and official CFISD game-day links." />
             : games.length ? <Related href="#district-game-coverage" title="This district's sourced games" body="View only the dated results and fixtures actually documented for this district. Missing final scores are not assumed." /> : <p className="border-t-2 border-foreground pt-4 text-sm leading-7 text-muted-foreground">No independently verified district matchups are published here yet. Check the UIL scoreboard and school schedules; this page does not invent results.</p>}
           {district11Pilot && <Related href={DISTRICT_11_STANDINGS_URL} title="2026 District 11 reported records" body="View the current UIL-partner district standings and confirm any updates beyond our dated, sourced score snapshot." external />}
           {district11Pilot && <Related href={DISTRICT_11_PLAYOFF_SOURCE} title="Official 4A Division I playoff bracket" body="Follow UIL's 4A Division I postseason bracket; district qualifiers are not projected." external />}
           <Related href="/texas-high-school-football-playoff-brackets" title="2026 postseason brackets" body="Choose from twelve UIL class/division brackets and view independently verified playoff results." />
-          <Related href={district6Pilot ? "https://www.maxpreps.com/tx/football/26-27/district/6a-region-i-district-6/?leagueid=28ebe920-dd93-4580-bd88-1bb25e74ff7d" : district11Pilot ? DISTRICT_11_STANDINGS_URL : "https://www.uiltexas.org/maxpreps/"} title={district6Pilot ? "Independent District 6 scoreboard" : "Current scores & schedules"} body={district6Pilot ? "Open the UIL-partner scoreboard directly. This is an external link, not an imported score or W-L feed." : district11Pilot ? "Open the active MaxPreps District 11 view, rather than an unreliable UIL scoreboard redirect. Reported standings are not UIL-certified seeds." : "Open UIL's scoreboard gateway for school-submitted scores and schedules; verify any redirects. It is not an official district-standings table."} external />
+          <Related href={district9Pilot ? "#district-9-sources" : district6Pilot ? "https://www.maxpreps.com/tx/football/26-27/district/6a-region-i-district-6/?leagueid=28ebe920-dd93-4580-bd88-1bb25e74ff7d" : district11Pilot ? DISTRICT_11_STANDINGS_URL : "https://www.uiltexas.org/maxpreps/"} title={district9Pilot ? "Garland and Wylie varsity calendars" : district6Pilot ? "Independent District 6 scoreboard" : "Current scores & schedules"} body={district9Pilot ? "Use current official school calendars, tickets and stadium rules. Results and standings are not yet integrated." : district6Pilot ? "Open the UIL-partner scoreboard directly. This is an external link, not an imported score or W-L feed." : district11Pilot ? "Open the active MaxPreps District 11 view, rather than an unreliable UIL scoreboard redirect. Reported standings are not UIL-certified seeds." : "Open UIL's scoreboard gateway for school-submitted scores and schedules; verify any redirects. It is not an official district-standings table."} external={!district9Pilot} />
           <Related href="/article/texas-high-school-football-2026-season-calendar" title="2026 season calendar" body="Track district play, playoff rounds and the December state championship dates." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="See how district qualification advances into bi-district, regional rounds and the state championships." />
-          <Related href="/article/texas-high-school-football-scores-schedules" title="Verify scores & standings" body="Use the UIL scoreboard and school sources without turning incomplete submissions into an unofficial table." />
+          {district9Pilot ? <Related href="#district-9-sources" title="Official District 9 varsity calendars" body="Start with the host school\u0027s athletics calendar and approved ticket page." /> : <Related href="/article/texas-high-school-football-scores-schedules" title="Verify scores & standings" body="Use the UIL scoreboard and school sources without turning incomplete submissions into an unofficial table." />}
         </div>
       </section>
 
@@ -327,7 +332,7 @@ function Page() {
           <Related href="/texas-high-school-football-districts" title="Browse all 192 districts" body="Move across every current UIL football district from 6A through 1A six-man." />
           <Related href="/article/texas-high-school-football-classifications-1a-6a" title="Understand 1A through 6A" body="See how enrollment, divisions and biennial realignment shape the statewide system." />
           <Related href="/texas-high-school-football-championship-history" title="Championship history" body="Explore UIL state titles and state-final appearances for current programs." />
-          <Related href="/article/texas-high-school-football-scores-schedules" title="Follow scores & weekly schedules" body="See the best sources for confirming current results, schedules and standings." />
+          {district9Pilot ? <Related href="#district-9-game-day" title="Plan a District 9 game-day visit" body="Get official stadium directions, admissions and accessibility information." /> : <Related href="/article/texas-high-school-football-scores-schedules" title="Follow scores & weekly schedules" body="See the best sources for confirming current results, schedules and standings." />}
           <Related href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Explore the stadiums, traditions and culture around Texas high school football." />
         </div>
       </section>
@@ -341,6 +346,9 @@ function Page() {
           <a href={district.enrollmentSourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL enrollment source ↗</a>
         </div>
       </section>
+
+      {district9Pilot && <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />}
+      {district9Pilot && district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
 
       <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />
     </article>

@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getFootballDistrictPage } from '@/data/high-school-football/football-districts.functions';
+import { district9DisplayName } from '@/data/high-school-football/district9-display-names';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -25,12 +26,15 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
     const katyPilot = loaderData.slug === '6a-district-22';
     const district5Pilot = loaderData.slug === '6a-district-5';
     const district6Pilot = loaderData.slug === '6a-district-6';
+    const district9Pilot = loaderData.slug === '6a-district-9';
     const district21Pilot = loaderData.slug === '6a-district-21';
     const district16Pilot = loaderData.slug === '6a-district-16';
     const district11Pilot = loaderData.slug === '4a-division-i-district-11';
     const canonicalPath = loaderData.profilePath;
     const url = `${siteUrl}${canonicalPath}`;
-    const description = katyPilot
+    const description = district9Pilot
+      ? 'District 9-6A football: eight UIL teams in Garland and Wylie, 2026–28 alignment, varsity calendars, official tickets, stadium guides and playoff rules. Automatic standings deferred.'
+      : katyPilot
       ? 'Katy ISD District 22-6A football: 2026 varsity matchups, source-checked reported final scores, upcoming fixtures, nine UIL teams and playoff rules. Scores are not live standings.'
       : district6Pilot
         ? 'District 6-6A 2026 football: all eight UIL schools, dated varsity fixtures, official tickets and stadium policies, Region I playoff rules and verified sources. No live standings or W-L automation.'
@@ -47,7 +51,7 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: katyPilot ? 'Katy ISD District 22-6A Football: 2026 Scores & Schedule' : district6Pilot ? 'District 6-6A Football: 2026 Teams, Schedule & Tickets' : district5Pilot ? 'District 5-6A Football: 2026 Scores, Records & Schedule' : district21Pilot ? 'District 21-6A Football: 2026 Scores, Standings & Schedule' : district16Pilot ? 'District 16-6A Football: 2026 Standings, Scores & Schedule' : district11Pilot ? 'District 11-4A Division I Football: 2026 Scores & Schedule' : `${label} Football | Teams & UIL Guide`,
+        title: district9Pilot ? 'District 9-6A Football: UIL Teams, Tickets & Stadiums (2026–28)' : katyPilot ? 'Katy ISD District 22-6A Football: 2026 Scores & Schedule' : district6Pilot ? 'District 6-6A Football: 2026 Teams, Schedule & Tickets' : district5Pilot ? 'District 5-6A Football: 2026 Scores, Records & Schedule' : district21Pilot ? 'District 21-6A Football: 2026 Scores, Standings & Schedule' : district16Pilot ? 'District 16-6A Football: 2026 Standings, Scores & Schedule' : district11Pilot ? 'District 11-4A Division I Football: 2026 Scores & Schedule' : `${label} Football | Teams & UIL Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -67,7 +71,7 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
               itemListElement: loaderData.programs.map((program, index) => ({
                 '@type': 'ListItem',
                 position: index + 1,
-                name: program.schoolName,
+                name: district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName,
                 url: `${siteUrl}${program.profilePath}`,
               })),
             },
