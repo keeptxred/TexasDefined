@@ -8,11 +8,13 @@ export function ViatorLiveProducts({
   placement,
   mode = "auto",
   compact = false,
+  feedKind = "products",
 }: {
   marketSlug: string;
   placement: string;
   mode?: "auto" | "manual";
   compact?: boolean;
+  feedKind?: "products" | "christmas";
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [requested, setRequested] = useState(false);
@@ -44,7 +46,7 @@ export function ViatorLiveProducts({
     if (!requested) return;
     const controller = new AbortController();
     setStatus("loading");
-    fetch(`/api/viator/market/${encodeURIComponent(marketSlug)}/products`, {
+    fetch(`/api/viator/market/${encodeURIComponent(marketSlug)}/${feedKind}`, {
       signal: controller.signal,
       credentials: "same-origin",
     })
@@ -65,7 +67,7 @@ export function ViatorLiveProducts({
         if (!controller.signal.aborted) setStatus("unavailable");
       });
     return () => controller.abort();
-  }, [requested, marketSlug]);
+  }, [requested, marketSlug, feedKind]);
 
   return (
     <div ref={rootRef} className="mt-5" data-viator-live-market={marketSlug}>
@@ -84,7 +86,7 @@ export function ViatorLiveProducts({
       {status === "loaded" && products.length > 0 ? (
         <div aria-label="Current Viator tours">
           <p className="mb-3 text-xs leading-5 text-muted-foreground">
-            Viator marketplace listings, not TexasDefined editorial rankings.
+            Viator marketplace listings, not TexasDefined editorial rankings or verified event occurrences.
             {refreshedAt ? <> Updated from Viator <time dateTime={refreshedAt}>{new Date(refreshedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</time>.</> : null}
             {" "}See Viator for final pricing, suitability and date-specific availability.
           </p>
@@ -127,7 +129,7 @@ export function ViatorLiveProducts({
       ) : null}
       {status === "unavailable" || (status === "loaded" && products.length === 0) ? (
         <p role="status" className="text-xs leading-5 text-muted-foreground">
-          Live tour previews are not available here right now. Use the Viator marketplace link above to check current options.
+          Live tour previews are not available here right now. Use the separately provided Viator marketplace link to check current options.
         </p>
       ) : null}
     </div>
