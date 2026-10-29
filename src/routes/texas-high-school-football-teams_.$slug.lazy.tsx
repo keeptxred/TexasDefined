@@ -206,6 +206,11 @@ function Page() {
     'converse-judson': 'bexar', // Judson High Rockets FM 78 Converse campus in Bexar County.
     'coolidge': 'limestone', // Coolidge school district officially identifies Limestone County six-man campus.
     'cooper': 'delta', // Cooper ISD Bulldogs campus in Delta County, not administrative gate.
+    'coppell': 'dallas', // NCES Coppell High on West Parkway, Dallas County.
+    'copperas-cove': 'coryell', // High-school campus Coryell; Rodney Southern current HFC, not Tony Johnson.
+    'cornerstone-christian': 'bexar', // SA NW Military private CCS Warriors; never assign UIL district or Sugar Land namesake.
+    'corpus-christi-calallen': 'nueces', // NCES Calallen High 4001 Wildcat Drive Nueces; athletics office separately located.
+    'corpus-christi-carroll': 'nueces', // Corpus Christi Mary Carroll Tigers school; not Southlake Carroll Dragons.
     'clint-mountain-view': 'el-paso', // Mountain View Lobos school on Greg Dr, eastern El Paso County.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
