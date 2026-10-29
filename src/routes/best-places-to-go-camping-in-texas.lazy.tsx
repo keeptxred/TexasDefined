@@ -84,6 +84,7 @@ function CampingGuidePage() {
         <a href="#campground-finder" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Find campgrounds</a>
         <a href="#camping-alerts" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Park advisories</a>
         <a href="#camping-seasons" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Seasons</a>
+        <a href="#camping-methodology" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Verification</a>
         <a href="#camping-questions" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">FAQ</a>
         <a href="#camping-next-steps" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Trip planning</a>
       </Container>
