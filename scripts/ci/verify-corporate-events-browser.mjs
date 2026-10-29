@@ -133,6 +133,59 @@ try {
       await broadTypes.uncheck();
       result.checks.push('Seven real Texas city/DFW/ZIP/statewide market filters return sourced candidates');
 
+      // Houston Build 2 release acceptance: exercise actual hydrated city,
+      // event-type and guest-count filters against the public production page.
+      // Unknown aggregate capacity remains quote-required, never bookable.
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('company-parties');
+      await cityInput.fill('Cypress');
+      await guests.fill('100');
+      const cypressHall = page.getByRole('heading', { level: 3, name: 'Cypress Event Hall' });
+      await cypressHall.waitFor({ state: 'visible', timeout: 12_000 });
+      const hallCard = await cypressHall.locator('xpath=ancestor::article').textContent();
+      assert(hallCard?.includes('100-guest venue capacity')
+        && hallCard.includes('Source reviewed 2026-10-28'),
+        view.name + ': Cypress Event Hall must retain its sourced 100-person limit');
+      await guests.fill('101');
+      await cypressHall.waitFor({ state: 'detached', timeout: 12_000 });
+
+      await guests.fill('20');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('private-dining');
+      const unionKitchen = page.getByRole('heading', { level: 3, name: 'The Union Kitchen — Towne Lake' });
+      await unionKitchen.waitFor({ state: 'visible', timeout: 12_000 });
+      const unionCard = await unionKitchen.locator('xpath=ancestor::article').textContent();
+      assert(unionCard?.includes('maximum of 32 people')
+        && unionCard.includes('semi-private'),
+        view.name + ': Towne Lake dining must not imply a fully private 33-person room');
+      await guests.fill('33');
+      await unionKitchen.waitFor({ state: 'detached', timeout: 12_000 });
+
+      await cityInput.fill('Sugar Land');
+      await guests.fill('12');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('team-building');
+      const sugarLandEscape = page.getByRole('heading', { level: 3, name: 'Escapology Sugar Land' });
+      await sugarLandEscape.waitFor({ state: 'visible', timeout: 12_000 });
+      const escapeCard = await sugarLandEscape.locator('xpath=ancestor::article').textContent();
+      assert(escapeCard?.includes('seven rooms')
+        && escapeCard.includes('Confirm with venue'),
+        view.name + ': Escapology must disclose unknown whole-group capacity');
+
+      await cityInput.fill('League City');
+      await guests.fill('50');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('company-parties');
+      const partyBoats = page.getByRole('heading', { level: 3, name: 'Houston Party Boats' });
+      await partyBoats.waitFor({ state: 'visible', timeout: 12_000 });
+      const boatCard = await partyBoats.locator('xpath=ancestor::article').textContent();
+      assert(boatCard?.includes('Houston Party Boat up to 49')
+        && boatCard.includes('Celebration up to 75'),
+        view.name + ': boat capacity must distinguish the two vessels');
+      await guests.fill('76');
+      await partyBoats.waitFor({ state: 'detached', timeout: 12_000 });
+
+      await cityInput.fill('Houston');
+      await guests.fill('45');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('team-building');
+      result.checks.push('Houston Build 2 Cypress, Sugar Land and League City live cards, categories and 32/75/100-person cutoffs');
+
       // Verify real source-reviewed capacity *by format*, not a fabricated
       // single-room maximum, open time, or quoted corporate package.
       const venueArea = page.locator('input[placeholder="e.g., Downtown, Katy, Clear Lake"]');
