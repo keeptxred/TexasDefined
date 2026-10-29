@@ -31,6 +31,19 @@ describe("GSC sitemap indexability regressions", () => {
     expect(source).toContain('throw new Error(`TexasDefined sitemap article inventory exceeded guarded ${SITEMAP_MAX_ROWS}-row limit`)');
   });
 
+  it("keeps both GSC-identified Texas tax 5xx URLs in daily live production verification", () => {
+    const source = read("scripts/ci/verify-local-financial-production.mjs");
+    const workflow = read(".github/workflows/verify-property-tax-production.yml");
+    expect(source).toContain("slug: 'edna'");
+    expect(source).toContain("slug: 'jackson-county-esd-1'");
+    expect(source).toContain("verifyGscFiveHundredTaxingUnit");
+    expect(source).toContain("await runWithConcurrency(gscFiveHundredTaxingUnits, verifyGscFiveHundredTaxingUnit)");
+    expect(source).toContain("for (const [target, host] of taxHistoryOrigins)");
+    expect(source).toContain("if (hasNoindex(body)) fail(label, 'unexpected robots noindex')");
+    expect(workflow).toContain("scripts/ci/verify-local-financial-production.mjs");
+    expect(workflow).toContain("cron: '17 10 * * *'");
+  });
+
   it("does not serialize empty event filters onto the canonical events URL", () => {
     const source = read("src/routes/events.index.tsx");
 

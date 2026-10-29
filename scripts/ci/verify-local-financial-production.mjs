@@ -309,6 +309,45 @@ async function verifySourcedTaxingUnit({ slug, year, rate, agency, latest, zeroC
   }
 }
 
+// Exact GSC 5xx examples exported 2026-10-29: both have five source-reported
+// Comptroller tax years in the shared production DB. Keep these two pages in
+// the existing daily tax-only smoke instead of starting a whole-site crawler.
+const gscFiveHundredTaxingUnits = [
+  { slug: 'edna', name: 'Edna' },
+  { slug: 'jackson-county-esd-1', name: 'Jackson County ESD #1' },
+];
+
+async function verifyGscFiveHundredTaxingUnit({ slug, name }) {
+  const path = '/property-tax/taxing-unit/' + slug;
+  for (const [target, host] of taxHistoryOrigins) {
+    const label = 'gsc-5xx-tax-unit:' + slug + ':' + target;
+    try {
+      const { response, body } = await fetchProduction(path, host);
+      const heading = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+      const validHeading = headingText.includes(name.toLowerCase()) && headingText.includes('property tax rate');
+      const required = [
+        origin + path,
+        'Annual tax rates, with source distinctions',
+        '5 of 5',
+        '2025',
+        'Dataset',
+      ];
+      const missing = required.filter((needle) => !body.includes(needle));
+      if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (hasNoindex(body)) fail(label, 'unexpected robots noindex');
+      else if (!validHeading) fail(label, 'expected source-backed taxing-unit H1 is missing');
+      else if (missing.length) fail(label, 'missing expected tax history/canonical metadata: ' + missing.join(', '));
+      else {
+        console.log('[' + label + '] verified 200/indexable, 2021–2025 history and canonical');
+        appendSummary('| ✅ pass | ' + label + ' | HTTP 200, 5 reported tax years, title, canonical, indexable Dataset |\n');
+      }
+    } catch (error) {
+      fail(label, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
 async function verifyWoodlandsClassification() {
   const path = '/property-tax/taxing-unit/the-woodlands-township';
   for (const [target, host] of taxHistoryOrigins) {
@@ -350,6 +389,7 @@ if (!TAX_ONLY) {
 await verifyEscobaresTaxingUnit();
 await runWithConcurrency(verifiedLocalTaxingUnits, verifySourcedTaxingUnit);
 await verifyWoodlandsClassification();
+await runWithConcurrency(gscFiveHundredTaxingUnits, verifyGscFiveHundredTaxingUnit);
 
 if (!TAX_ONLY) {
 try {
@@ -377,7 +417,7 @@ try {
 
 if (process.exitCode) process.exit(process.exitCode);
 if (TAX_ONLY) {
-  console.log(`Independent live Texas tax-rate verification passed on canonical and direct Worker endpoints (${verifiedLocalTaxingUnits.length} official local observations and Woodlands classification).`);
+  console.log(`Independent live Texas tax-rate verification passed on canonical and direct Worker endpoints (${verifiedLocalTaxingUnits.length} official local observations, Woodlands classification and ${gscFiveHundredTaxingUnits.length} exported GSC 5xx examples).`);
 } else {
 console.log(`Local financial production verification passed (${affordabilityPages.length} affordability pages, ${costOfLivingPages.length} cost-of-living pages, ${salaryNeededPages.length} salary-needed pages, ${propertyTaxSamples.length} property-tax samples, sitemap membership).`);
 }
