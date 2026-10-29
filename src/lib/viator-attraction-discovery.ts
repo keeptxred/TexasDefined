@@ -1,4 +1,4 @@
-import { VIATOR_LIVE_DESTINATION_IDS } from "./viator-market-feed";
+import { VIATOR_LIVE_DESTINATION_IDS } from "./viator-market-feed.ts";
 
 /** Provider-origin discovery metadata only, never SEO authority content. */
 export interface ViatorAttractionCandidate {
