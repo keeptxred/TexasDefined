@@ -1,5 +1,5 @@
 import { TOP_TEXAS_ATTRACTIONS } from "../top-texas-attractions.ts";
-import type { ViatorAttractionCandidate } from "../../lib/viator-attraction-discovery";
+import type { ViatorAttractionCandidate } from "../../lib/viator-attraction-discovery.ts";
 
 function key(name: string) {
   return name.normalize("NFKD").toLowerCase().replace(/[\u0300-\u036f]/g,"")
