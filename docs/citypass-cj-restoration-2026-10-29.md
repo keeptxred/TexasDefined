@@ -23,6 +23,16 @@ These are the exact account-generated Click URLs, **not** guessed URLs made by c
 
 ## Verification and limitations
 
-The three CJ creative/destination mappings were verified in account-generated Get Code screenshots. **A successful end-to-end CJ redirect and an attributed commission are NOT yet independently verified.** A network check from the execution container could not resolve the affiliate network host, and a public web fetch was unavailable; neither result proves a broken link. Inspect CI, the exact live production `href` values, and test market-specific redirect behavior in a supported browser before claiming full live-link acceptance. If confirmed 404 or wrong-city redirects recur, restore `CITYPASS_AFFILIATE_LINKS_ENABLED = false` while keeping the official fallback URLs.
+The three CJ creative/destination mappings were verified in account-generated Get Code screenshots. **The subsequent first-party 11-city production browser audit DID independently confirm all three live tracked links and their redirects at HTTP 200**, on the exact CityPASS release SHA `1f0790679d7cce257fcd35714f85fed8a8b98771`:
+
+| Live source page | Exact outbound Click URL in rendered page | Observed final destination | Response | Observed CJ publisher attribution |
+| --- | --- | --- | --- | --- |
+| `/city/dallas` | `https://www.dpbolvw.net/click-101876465-12186930` | `https://www.citypass.com/dallas` | 200 | `PUB=TexasDefined`, `PID=101876465`, `cjevent` |
+| `/city/houston` | `https://www.jdoqocy.com/click-101876465-17329800` | `https://www.citypass.com/houston` | 200 | `PUB=TexasDefined`, `PID=101876465`, `cjevent` |
+| `/city/san-antonio` | `https://www.dpbolvw.net/click-101876465-17329806` | `https://www.citypass.com/san-antonio` | 200 | `PUB=TexasDefined`, `PID=101876465`, `cjevent` |
+
+**Verifiable evidence:** [GitHub Actions 11-city audit run 40960365891](https://github.com/keeptxred/TexasDefined/actions/runs/40960365891), success; artifact `city-authority-a11y-and-links` (artifact ID `12936216683`), `independent-review.json`, `linkTargets`. Captured `2026-10-29T21:49:52Z` (case execution extended through approximately `21:52Z`). The audit recorded **33 rendered city/viewport cases, 0 automated axe violations, 329 inspected links and 43 unconfirmed links**; the three CityPASS redirects specifically were **confirmed** and not among the unconfirmed cases. A green audit status does not certify unrelated links or full WCAG compliance.
+
+**Limit:** These observed `cjevent` parameters confirm CJ's click redirect tagging on the three destination pages; they do **not** prove a completed purchase, a payable commission, or appearance of click/conversion reporting in the CJ dashboard. Automated verification clicks may themselves appear in click reporting; do not interpret them as customer demand. Avoid repeated synthetic tracked-link requests. If a future real-world 404 or wrong-city redirect is confirmed, restore `CITYPASS_AFFILIATE_LINKS_ENABLED = false` while keeping the official non-affiliate fallbacks.
 
 This change must be merged only after protected checks and a current-main concurrency review; verify the exact deployment SHA. No direct CJ account modifications or test purchases are required.
