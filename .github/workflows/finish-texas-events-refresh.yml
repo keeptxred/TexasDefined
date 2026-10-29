@@ -195,11 +195,10 @@ jobs:
 
             merge_base="$(git merge-base origin/main "origin/$BRANCH")"
             validate_generated_diff "$merge_base" "origin/$BRANCH"
-          # A bot-generated source registry must still pass the strict
-          # identity/date/authority contract before any protected status.
-          node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
 
             git checkout -B "$BRANCH" "origin/$BRANCH"
+          # Validate the ACTUAL bot branch, not the checked-out main source.
+          node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
 
             if ! git merge-base --is-ancestor origin/main HEAD; then
               echo "Current main advanced; merging it into the generated refresh branch without rewriting history."
