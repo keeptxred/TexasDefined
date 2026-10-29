@@ -57,5 +57,5 @@ assert.ok(cooper.includes("https://tpwd.texas.gov/state-parks/cooper-lake/alert"
 assert.ok(ninth.includes('CAMPING_PROFILES_WAVE9.map'), "lean client projection missing");
 assert.ok(!/nightly|\$\d+/i.test(ninth), "live campground prices must not be frozen into evergreen profiles");
 assert.ok(!route.includes("destinationsQuery({ limit: 5000 })"), "do not restore heavyweight statewide destination resolver");
-assert.ok(verifier.includes("count < 66"), "production acceptance must reject a stale 57-profile guide");
+assert.ok(verifier.includes("count < 72"), "production acceptance must reject a stale 57-profile guide");
 console.log("Camping Wave 9 recovery contract passed: 57 preserved + 9 distinct profiles, current operator sources, safety exclusions and 66-profile SSR acceptance.");
