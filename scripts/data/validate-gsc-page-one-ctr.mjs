@@ -585,7 +585,7 @@ const ninthWave = [
   { path: "/sports-venue/reckling-park", title: "Reckling Park Houston: Parking, Tickets & Rice Baseball", description: "Plan a Reckling Park visit in Houston with parking, tickets, directions and official Rice ba" },
   { path: "/sports-venue/southwest-university-park", title: "Southwest University Park El Paso: Parking, Tickets & Baseball", description: "Plan a Southwest University Park visit in El Paso with parking, tickets, directions and even" },
   { path: "/sports-venue/ufcu-disch-falk-field", title: "UFCU Disch-Falk Field Austin: Parking, Tickets & Texas Baseball", description: "Plan a UFCU Disch-Falk Field visit in Austin with parking, tickets, directions and official" },
-  { path: "/sports-venue/don-haskins-center", title: "Don Haskins Center El Paso: Parking, Events & UTEP Basketball", description: "Plan a Don Haskins Center visit in El Paso with parking, directions, event and official venu" },
+  { path: "/sports-venue/don-haskins-center", title: "Don Haskins Center: Capacity, Parking & UTEP Events", description: "Don Haskins Center in El Paso seats 12,000 for UTEP basketball" },
   { path: "/texas-symbols/nickname", title: "Texas State Nickname: Why Texas Is the Lone Star State", description: "Learn why Texas is called the Lone Star State, how the nickname connects to the state flag a" },
   { path: "/texas-symbols/grass", title: "Texas State Grass: Sideoats Grama Facts & History", description: "Learn about sideoats grama, the official Texas state grass, including its designation, range" },
   { path: "/texas-symbols/sea-turtle", title: "Texas State Sea Turtle: Kemp's Ridley Facts & History", description: "Learn about Kemp's ridley, the official Texas state sea turtle, including its designation, G" },

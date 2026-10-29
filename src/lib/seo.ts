@@ -695,8 +695,10 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Plan a UFCU Disch-Falk Field visit in Austin with parking, tickets, directions and official Texas Longhorns baseball venue information.",
   },
   "/sports-venue/don-haskins-center": {
-    title: "Don Haskins Center El Paso: Parking, Events & UTEP Basketball",
-    description: "Plan a Don Haskins Center visit in El Paso with parking, directions, event and official venue information for UTEP basketball and arena events.",
+    // 2026-10-29 GSC: 229 impressions, zero clicks, position 14.80.
+    // Official UTEP Athletics verifies 12,000 seats and the page already explains it.
+    title: "Don Haskins Center: Capacity, Parking & UTEP Events",
+    description: "Don Haskins Center in El Paso seats 12,000 for UTEP basketball. Find parking, arena entry, visitor guidance and official event and ticket information.",
   },
   "/texas-symbols/nickname": {
     title: "Texas State Nickname: Why Texas Is the Lone Star State",
