@@ -89,7 +89,7 @@ requireText(turkeyMonitor, 'process.exit(2)', 'TPWD legal monitor missing');
 requireText(turkeyWorkflow, 'schedule:', 'legal source monitor not scheduled');
 requireText(turkeyCalendar, '"spring-youth-north"', 'governed turkey season data missing');
 requireText(turkey, 'turkeyCalendar.rows', 'turkey guide not using governed seasons');
-for (const expected of ['TPWD: public hunt Area / Legal Game Search', 'TPWD: official turkey harvest data by county', 'Hagerman NWR', 'Lower Rio Grande Valley NWR', '2027', 'How to interpret TPWD turkey harvest data']) requireText(turkey, expected, 'turkey public-access authority missing ' + expected);
+for (const expected of ['TPWD: public hunt Area / Legal Game Search', 'TPWD: official turkey harvest data by county', 'Hagerman NWR', 'Lower Rio Grande Valley NWR', '2027', 'Using TPWD turkey harvest numbers responsibly']) requireText(turkey, expected, 'turkey public-access authority missing ' + expected);
 for (const expected of ['Two verified 2027 public turkey draw opportunities', 'tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml', 'tpwd.texas.gov/huntwild/wild/game_management/turkey/turkeyData.phtml']) requireText(turkeyTable, expected, 'turkey public-hunt guidance not displayed ' + expected);
 
 requireText(turkeyDateUpdater, 'checkCompanion', 'TPWD date dual-source check missing');
