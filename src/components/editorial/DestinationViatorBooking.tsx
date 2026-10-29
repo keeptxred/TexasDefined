@@ -5,6 +5,7 @@ import { viatorMarketsForPlace, type ViatorMatchMarket } from "@/data/viator-mar
 import type { Destination } from "@/data/types";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { ViatorLiveProducts } from "@/components/editorial/ViatorLiveProducts";
 
 const WacoDestinationOffer = lazy(() => import("@/components/monetization/WacoDestinationOffer").then((module) => ({ default: module.WacoDestinationOffer })));
 function uniqueMarkets(markets: ViatorMatchMarket[]) {
@@ -79,6 +80,7 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
         >{ctaLabel} ↗</a>
         <a href="/explore#tours-experiences" className="text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Explore Texas experience markets →</a>
       </div>
+      <ViatorLiveProducts marketSlug={market.slug} placement={`${commercialPlacement}-live`} />
       <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>
     </section>
     {huntingLinks}
