@@ -133,7 +133,8 @@ test('District 16 next-round schedule and four Week 8 finals remain separate fro
   ]) assert.ok(district16Component.includes(marker), marker);
   assert.ok(template.includes('<District16Coverage schools={district.programs} />'));
   assert.ok(template.includes('district16Pilot ? <Related href="#district-16-results"'));
-  assert.ok(template.includes('!district16Pilot && (katyPilot || district5Pilot || games.length > 0)'));
+  assert.ok(template.includes('!district16Pilot && !district9Pilot && (katyPilot || district5Pilot || games.length > 0)'));
+  assert.ok(template.includes('{district9Pilot && <District9Guide />}'), 'District 9 retains its evergreen guide instead of sourced-games UI');
   assert.ok(head.includes('District 16-6A Football: 2026 Standings, Scores & Schedule'));
 });
 
