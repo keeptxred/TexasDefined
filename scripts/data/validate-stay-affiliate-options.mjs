@@ -76,7 +76,7 @@ if (!(routePlanning >= 0 && routePlanning < routeSlot && routeSlot < routeResear
   errors.push('Fort McKavett lodging slot must be after visitor planning and before research citations.');
 }
 for (const snippet of [
-  'if (normalizePath() !== "/destination/fort-mckavett") container.append(eyebrow, heading);',
+  'if (normalizePath() !== "/destination/fort-mckavett" && normalizePath() !== "/best-places-to-go-camping-in-texas") container.append(eyebrow, heading);',
   'if (normalizePath() === "/destination/fort-mckavett") {',
   'if (slot && current.parentElement !== slot) placeSurface(current, main);',
 ]) if (!expediaBootstrap.includes(snippet)) {
@@ -97,6 +97,20 @@ for (const [sourceText, needle, label] of [
   [source, 'surface.querySelector(\'[data-expedia-disclosure="true"]\')?.remove();', 'single consolidated affiliate disclosure'],
   [source, 'unifyFortMcKavettBookingActions(expediaSurface, choice);', 'one-panel integration is invoked'],
 ]) if (!sourceText.includes(needle)) errors.push('Fort McKavett unified lodging regression: ' + label);
+
+// Camping must have one affiliate panel, not separate CJ and Expedia boxes.
+// Keep the original click-loaded search and all four tracked providers.
+for (const [body, marker, label] of [
+  [expediaBootstrap, 'normalizePath() === "/best-places-to-go-camping-in-texas") search.dataset.expediaStaysSearch = "true"', 'Expedia search relocation marker'],
+  [expediaBootstrap, 'normalizePath() === "/best-places-to-go-camping-in-texas") disclosure.dataset.expediaDisclosure = "true"', 'Expo disclosure relocation marker'],
+  [expediaBootstrap, 'normalizePath() !== "/best-places-to-go-camping-in-texas") container.append(eyebrow, heading)', 'separate Expedia heading suppressed'],
+  [source, 'function unifyCampingBookingActions(surface, choice)', 'camping-specific consolidation'],
+  [source, 'heading.textContent = "RV rentals and nearby stays"', 'single lodging heading'],
+  [source, 'actions.appendChild(expediaButton)', 'same Expedia button inserted into CJ choices'],
+  [source, 'surface.querySelector(".td-stay-widget-host")', 'widget host kept in panel'],
+  [source, 'surface.dataset.stayConsolidated = "camping"', 'idempotence marker'],
+  [source, 'unifyCampingBookingActions(expediaSurface, choice);', 'consolidation invoked on sync'],
+]) if (!body.includes(marker)) errors.push('Camping one-panel lodging regression: ' + label);
 
 if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
   errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
