@@ -435,6 +435,23 @@ if (!protectedDeployWorkflow.includes("id: live_palestine_polar_express") ||
   fail("Protected deploy must verify the 2026 Palestine Polar Express live booking page");
 }
 
+// Ended-edition content must not keep advertising October 10, 2026 as a
+// future kickoff. The event remains a useful evergreen guide and historical
+// archive until the organizer publishes a new occurrence.
+const redRiverIndex = read(path.join(dataDir, "major-event-index.ts"));
+const redRiverGuide = read(path.join(dataDir, "major-event-expanded-authority-tranche9.server.ts"));
+for (const token of [
+  "The October 10, 2026 game is complete",
+  "Oklahoma defeated Texas 27–24",
+  'sourceCheckedAt: "2026-10-29"',
+]) if (!redRiverIndex.includes(token)) fail("Red River expired-edition search freshness missing: " + token);
+for (const token of [
+  "has already been played",
+  "For the next edition, first confirm its date",
+  "https://soonersports.com/game-center/15626",
+]) if (!redRiverGuide.includes(token)) fail("Red River evergreen visitor guidance missing: " + token);
+if (redRiverGuide.includes("Texas lists the 2026 game for 2:30 p.m.")) fail("Red River guide restored an expired game-day planning claim");
+
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {
   console.log(`Major-event authority validation passed (${trancheFiles.length} tranche files, ${slugOwners.size} authority slugs, ${ledgerSlugs.size} ledger event destinations, ${collectionPaths.length} crawlable event authority collections, ${temporalPaths.length} finite temporal collections; ${duplicateDefinitions} historical duplicate definitions retained under first-match resolution).`);
