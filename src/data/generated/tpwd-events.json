@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T16:03:06.516Z",
+  "generatedAt": "2026-10-29T17:27:35.047Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
     {
@@ -7,18 +7,6 @@
       "startDate": "2026-10-29",
       "parkKey": "lake-livingston",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/copy_of_critters-of-east-texas/2026-10-29"
-    },
-    {
-      "title": "Hawk Watch",
-      "startDate": "2026-10-29",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-29"
-    },
-    {
-      "title": "Island Trail Hike",
-      "startDate": "2026-10-29",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-10-29"
     },
     {
       "title": "The Great Village Creek Pumpkin Hunt",
@@ -703,6 +691,12 @@
       "startDate": "2026-11-22",
       "parkKey": "stephen-f-austin",
       "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-22"
+    },
+    {
+      "title": "Homeschool in the Park: Old School Ink Making",
+      "startDate": "2026-11-22",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/homeschool-in-the-park/2026-11-22"
     },
     {
       "title": "Morning Nature Walk",
