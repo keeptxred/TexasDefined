@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { ArrowUpRight, Check, ClipboardList, Copy, Filter, MapPin, Printer, Search, Users, X } from 'lucide-react';
 
 import { Container } from '@/components/layout/Container';
+import { trackTexasDefinedOutcome } from '@/platform/analytics';
 import { corporateEventCategories, corporateEventProviders, type GroupEventCategory, type CorporateEventProvider } from '@/data/corporate-events';
 import { submitGroupEventRequest } from '@/data/corporate-events.functions';
 import { groupEventPlanningAmounts } from '@/data/corporate-event-budgets';
@@ -52,7 +53,7 @@ function ProviderCard({ provider, selected, onToggle }: { provider: CorporateEve
           className={'inline-flex min-h-11 items-center justify-center gap-1.5 px-3 text-sm font-semibold ' + (selected ? 'bg-foreground text-background' : 'border border-primary text-primary')}>
           {selected ? <Check className="size-4" aria-hidden /> : <ClipboardList className="size-4" aria-hidden />}{selected ? 'Shortlisted' : 'Compare'}
         </button>
-        <a href={provider.officialUrl} target="_blank" rel="noopener noreferrer"
+        <a href={provider.officialUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackTexasDefinedOutcome('official_resource_visited', { resourceId: provider.slug, entityKind: 'corporate-event-venue', destination: new URL(provider.officialUrl).origin })}
           className="inline-flex min-h-11 items-center justify-center gap-1.5 border border-border px-3 text-center text-sm font-semibold hover:border-primary">
           Venue website <ArrowUpRight className="size-4" aria-hidden />
         </a>
@@ -121,6 +122,7 @@ function CorporateEventsPage() {
     url.searchParams.set('venues', selected.join(','));
     try {
       await navigator.clipboard.writeText(url.toString());
+      trackTexasDefinedOutcome('resource_saved', { resourceId: 'corporate-events-shortlist', entityKind: 'share-link', score: selected.length });
       setShareLinkMessage(!publicCity || (areaQuery.trim() && !publicArea)
         ? 'Public shortlist link copied. Unsourced or private-looking city/area text was excluded; check shared preferences before sending.'
         : 'Shareable shortlist link copied. Anyone with the link can compare these public venue options.');
@@ -183,6 +185,7 @@ function CorporateEventsPage() {
   ].join('\n'), [city, areaQuery, validHeadcount, headcount, chosenCategoryLabel, priceCeiling, planningAmounts.budgetCeiling, eventDate, shortlist]);
 
   const toggleSelected = (slug: string) => {
+    trackTexasDefinedOutcome('resource_saved', { resourceId: slug, entityKind: selected.includes(slug) ? 'corporate-event-shortlist-removed' : 'corporate-event-shortlist-added' });
     setSelected((current) => current.includes(slug) ? current.filter((item) => item !== slug) : current.length < 5 ? [...current, slug] : current);
   };
 
@@ -218,6 +221,7 @@ function CorporateEventsPage() {
         consentSelectedVenues: selected.length > 0 && form.get('consentSelectedVenues') === 'on',
         companyAddress2: String(form.get('companyAddress2') ?? ''),
       } });
+      trackTexasDefinedOutcome('journey_completed', { resourceId: 'corporate-events-planning-request', entityKind: 'group-event-inquiry', score: selected.length });
       setSubmitted(true);
     } catch {
       setFormError('Your request could not be saved. Verify your contact information and choose a valid upcoming event date, then try again.');
