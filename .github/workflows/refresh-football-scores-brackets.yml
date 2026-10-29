@@ -11,6 +11,9 @@ on:
     paths:
       - 'scripts/data/refresh-football-matchups.mjs'
       - 'src/data/high-school-football/football-matchups*'
+      - 'src/data/high-school-football/football-district11-2026.ts'
+      - 'src/data/high-school-football/football-district-game-week.ts'
+      - 'scripts/data/validate-football-district-coverage.test.mjs'
       - '.github/workflows/refresh-football-scores-brackets.yml'
 
 permissions:
@@ -37,6 +40,8 @@ jobs:
           node-version: 24
       - name: Syntax-check limited score adapter
         run: node --check scripts/data/refresh-football-matchups.mjs
+      - name: Validate all 21 District 11 matchups and safe district/Division I feed matching
+        run: node --test scripts/data/validate-football-district-coverage.test.mjs
       - name: Require an authorized football score feed and record setup blocker
         if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL == '' }}
         env:
@@ -46,7 +51,7 @@ jobs:
           set -euo pipefail
           title='BLOCKED: TexasDefined football scores are not automatically updating'
           if ! gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body 'The season score-refresh workflow is running, but FOOTBALL_RESULTS_FEED_URL is not set. District hubs (including 6A-5, 6A-21 and 6A-22) will remain on dated editorial scores until a permitted machine-readable source is configured. Set the repository variable FOOTBALL_RESULTS_FEED_URL and optional secret FOOTBALL_RESULTS_FEED_TOKEN with an explicitly authorized provider. This failure must remain visible; do not scrape an unlicensed source or invent finals. See docs/football-authority/MATCHUPS_BRACKETS_FEED.md.'
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body 'The season score-refresh workflow is running, but FOOTBALL_RESULTS_FEED_URL is not set. District hubs (including 4A-DI-11 and 6A-5, 6A-21 and 6A-22) will remain on dated editorial scores until a permitted machine-readable source is configured. Set the repository variable FOOTBALL_RESULTS_FEED_URL and optional secret FOOTBALL_RESULTS_FEED_TOKEN with an explicitly authorized provider. This failure must remain visible; do not scrape an unlicensed source or invent finals. See docs/football-authority/MATCHUPS_BRACKETS_FEED.md.'
           fi
           echo "::error::Football updates are NOT automatic: FOOTBALL_RESULTS_FEED_URL is missing; blocker issue recorded."
           exit 1
