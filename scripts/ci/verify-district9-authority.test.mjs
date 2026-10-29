@@ -35,3 +35,12 @@ test('GitHub freshness workflow checks monthly, during season and quarterly',()=
  assert.ok(checker.includes("AbortSignal.timeout(9000)"));
  assert.ok(!/FOOTBALL_RESULTS_FEED_URL|scrapeResults|scoreSnapshot/.test(checker));
 });
+
+test('2026 varsity fixture snapshot is source-backed and not a results or standings table',()=>{
+ assert.ok(guide.includes('district-9-calendar'));
+ assert.ok(guide.includes('min-w-[36rem]') && guide.includes('overflow-x-auto'));
+ assert.equal((guide.match(/\{ date: '(?:Thu|Fri), (?:Oct|Nov)\. /g)||[]).length,5);
+ assert.ok(guide.includes('Wylie East at Lakeview Centennial'));
+ assert.ok(guide.includes('not a full season calendar, live upcoming-games feed or reported-score table'));
+ assert.ok(guide.includes('A past fixture remains a historical calendar entry'));
+});
