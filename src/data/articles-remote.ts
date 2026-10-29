@@ -141,6 +141,36 @@ async function request(params: URLSearchParams): Promise<Article[]> {
   return mapRows(rows, evergreenInternalLinks);
 }
 
+// A cold, full 200-row article payload can time out during sitemap generation.
+// On that specific transport failure, retry the exact page as two bounded
+// 100-row reads. Preserve all rows and the existing strict article-readiness
+// checks; if either half fails, the sitemap still returns a retryable 503.
+async function requestSitemapPageRows(pageParams: URLSearchParams): Promise<RemoteRow[]> {
+  try {
+    return await requestRows(pageParams, SITEMAP_REMOTE_TIMEOUT_MS);
+  } catch (error) {
+    const isTimeout = error instanceof Error
+      && (error.name === "TimeoutError" || /(?:timed? out|aborted due to timeout)/i.test(error.message));
+    if (!isTimeout) throw error;
+
+    const offset = Number(pageParams.get("offset"));
+    if (!Number.isSafeInteger(offset) || offset < 0) throw error;
+    const half = SITEMAP_PAGE_SIZE / 2;
+    const firstParams = new URLSearchParams(pageParams);
+    firstParams.set("limit", String(half));
+    const secondParams = new URLSearchParams(firstParams);
+    secondParams.set("offset", String(offset + half));
+    const [firstRows, secondRows] = await Promise.all([
+      requestRows(firstParams, SITEMAP_REMOTE_TIMEOUT_MS),
+      requestRows(secondParams, SITEMAP_REMOTE_TIMEOUT_MS),
+    ]);
+    if (firstRows.length < half && secondRows.length > 0) {
+      throw new Error("Sitemap split-page inventory is inconsistent; refusing incomplete XML");
+    }
+    return [...firstRows, ...secondRows];
+  }
+}
+
 async function requestAllForSitemap(params: URLSearchParams): Promise<Article[]> {
   const articles: Article[] = [];
   const evergreenInternalLinks = await loadRemoteEvergreenInternalLinks();
@@ -148,7 +178,7 @@ async function requestAllForSitemap(params: URLSearchParams): Promise<Article[]>
     const pageParams = new URLSearchParams(params);
     pageParams.set("limit", String(SITEMAP_PAGE_SIZE));
     pageParams.set("offset", String(offset));
-    const rows = await requestRows(pageParams, SITEMAP_REMOTE_TIMEOUT_MS);
+    const rows = await requestSitemapPageRows(pageParams);
     articles.push(...mapRows(rows, evergreenInternalLinks));
     if (rows.length < SITEMAP_PAGE_SIZE) return articles;
   }
