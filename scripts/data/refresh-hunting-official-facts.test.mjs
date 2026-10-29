@@ -29,11 +29,15 @@ test('official rule notices must retain verified key markers', () => {
     seasons: '2026-27 Hunting Season Dates Dove Duck Turkey Nov. 8, 2026 Jan. 7, 2027 Oct. 25, 2026 Dec. 11, 2026 Jan. 14, 2027 Jan. 21, 2027 ' + "White-tailed deer season dates Season Zone Dates General North Nov. 7, 2026 - Jan. 3, 2027 South Nov. 7, 2026 - Jan. 17, 2027 Archery 252 of 254 counties Oct. 3, 2026 - Nov. 6, 2026 Upland Game Birds Wild Turkey season dates Season Zone Dates Fall North Nov. 7, 2026 - Jan. 3, 2027 South Nov. 7, 2026 - Jan. 17, 2027 Spring North Apr. 3, 2027 - May 16, 2027 South Mar. 20, 2027 - May 2, 2027 Migratory Game Bird Dove season dates Season Zone Dates Regular North Sep. 1, 2026 - Nov. 8, 2026 & Dec. 18, 2026 - Jan. 7, 2027 Central Sep. 1, 2026 - Oct. 25, 2026 & Dec. 11, 2026 - Jan. 14, 2027 South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 21, 2027 Duck season dates " + 'source text '.repeat(90),
     hogs: 'Feral Hogs Hunter Education No hunting license is required to hunt feral hogs on private ' + 'source text '.repeat(90),
     areaSearch: 'Search for an Area or Legal Game Legal Game Public Hunting ' + 'source text '.repeat(90),
+    drawnDeadlines: '2026 - 2027 Drawn Hunt Deadlines Gun Deer Either Sex September 15, 2026 Feral Hog November 1, 2026 Youth Only Turkey ' + 'source text '.repeat(90),
+    javelina: 'Javelina 2026-2027 Seasons & Regulations Northern Oct. 1, 2026 - Feb. 28, 2027 Southern Sept. 1, 2026 - Aug. 31, 2027 99 of 254 counties Two per license year ' + 'source text '.repeat(90),
   };
   assert.doesNotThrow(() => checkOtherOfficialSources(pages, current.seasonYear));
   assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Central Sep. 1, 2026 - Oct. 25, 2026', 'Central Sep. 2, 2026 - Oct. 25, 2026')}, current.seasonYear), /dove/);
   assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Spring North Apr. 3, 2027', 'Spring North Apr. 4, 2027')}, current.seasonYear), /wild turkey/);
   assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('Archery 252 of 254 counties Oct. 3, 2026', 'Archery 252 of 254 counties Oct. 4, 2026')}, current.seasonYear), /white-tailed deer/);
   assert.throws(() => checkOtherOfficialSources({...pages,changes:pages.changes.replace('Matagorda','another county')}, current.seasonYear), /change notice/);
+  assert.throws(() => checkOtherOfficialSources({...pages,drawnDeadlines:pages.drawnDeadlines.replace('November 1, 2026', 'November 15, 2026')}, current.seasonYear), /drawn-hunt deadline/);
+  assert.throws(() => checkOtherOfficialSources({...pages,javelina:pages.javelina.replace('Two per license year', 'Three per license year')}, current.seasonYear), /javelina/);
   assert.throws(() => checkOtherOfficialSources({...pages,seasons:pages.seasons.replace('South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 21, 2027', 'South Sep. 1, 2026 - Oct. 25, 2026 & Dec. 18, 2026 - Jan. 20, 2027')}, current.seasonYear), /dove/);
 });
