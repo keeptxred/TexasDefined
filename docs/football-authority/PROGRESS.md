@@ -1,5 +1,14 @@
 # Football Authority — Execution Ledger
 
+## 2026-10-29 — Batch011 second-five source implementation submitted for protected acceptance (not deployed)
+
+Source feature branch `feat/football-b011-second-five-authority-20261029` prepares five independently researched programs: **Pieper Warriors** (Comal ISD but Bexar County campus; Eduardo/Eddie Salas current 2026 appointment), **Smithson Valley Rangers** (Larry Hill and explicitly **2025** football championship, not 2026), **Comanche Indians** (Jake Escobar current AD/head coach), **Comfort Bobcats** (2026 Jay Rieken **athletic director** confirmed; 2025 head-football-coach evidence remains season-qualified; NCES Kendall County campus), **Commerce Tigers** (John McSheffery head coach and current school schedule/stadium policies). Each has original dedicated football editorial, 5 useful school-specific FAQs, 3 dated sourced milestones, individual dossier, source-qualified school name/mascot and school↔physical-county reciprocity. No invented wins, tickets, stadium entry, mark/image license or student photography.
+
+**Proposed branch counts:** 230 historical technically VERIFIED / 10 school-source IMPLEMENTED / 1,052 NOT_REVIEWED. Five new school records are **IMPLEMENTED only in the feature branch** until protected PR merge; 0 Batch011 school browser certifications. The second independent production Chrome workflow will require 15 live school viewports at 1366/390/320, five county reciprocal pages, 20 retained PNG images, sitemap, schema, one observed live Worker and exact GitHub verified-Worker source SHA. A green skipped job never certifies. Earlier Batch010's protected 106 screenshot certificate remains untouched.
+
+The previous first-five source cohort remains implemented, but its Chrome postdeployment acceptance remains pending. The permitted football scoreboard feed is still unresolved under issue #5526; no licensed API or results are activated.
+
+
 ## 2026-10-29 — Batch 011 selected, not yet authored or technically verified
 
 Batch 010 graduated through protected PR #6271 with 230 technically VERIFIED school records, 106 retained production Chrome screenshots, a matching 100%-active Cloudflare Worker and signed GitHub deployment identity. The historical certificate remains in `completedBatches`; it is never recreated or discarded.
