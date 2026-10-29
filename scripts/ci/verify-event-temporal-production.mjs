@@ -239,6 +239,7 @@ async function verifyNovember2026EditorialRelease(november) {
   const southText = visiblePageText(south);
   assert(southText.includes('November 28') && southText.includes('December 28, 2026'), 'South Pole guide lost organizer season dates');
   assert(south.includes('https://www.southpoleoftexas.com/'), 'South Pole organizer source missing');
+  assert(!south.includes('<strong>2026-11-27</strong>'), 'South Pole guide promotes pre-opening Ticketmaster admission');
   console.log('[November 2026 editorial] verified current organizer seasons, SEO title, new filters, and four first-party event additions');
 }
 
