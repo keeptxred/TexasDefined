@@ -113,6 +113,37 @@
       },
       "reason": "Capacity searches visible at competitive positions; the title did not answer them. 12,000 verified by UTEP and current on-page facts.",
       "officialSource": "https://utepminers.com/sports/2017/6/7/sports-facilities-spec-rel-haskins-html.aspx"
+    },
+    {
+      "url": "https://texasdefined.com/sports-venue/reed-arena",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Reed Arena | College Station, TX",
+      "oldDescriptionNote": "Current generic sports venue description is derived from the source entity rather than an exact captured production HTML snapshot; do not claim a measured old description.",
+      "newTitle": "Reed Arena Bag Policy: Parking & Visitor Guide",
+      "newDescription": "Reed Arena in College Station uses Texas A&M’s clear-bag 12-1-1 policy. Check permitted bags, entry rules, parking and official Aggie visitor guidance.",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 120,
+        "ctr": 0,
+        "averagePosition": 12.358333333333333
+      },
+      "queryEvidence": [
+        {
+          "query": "reed arena bag policy",
+          "impressions": 29,
+          "clicks": 0,
+          "averagePosition": 9.4
+        },
+        {
+          "query": "reed arena clear bag policy",
+          "impressions": 13,
+          "clicks": 0,
+          "averagePosition": 8.2
+        }
+      ],
+      "reason": "The top visible page query cohort asks specifically for clear-bag requirements. Official Texas A&M Reed Arena A–Z confirms clear-bag/12-1-1 policy, and guide now adds visitor utility plus source.",
+      "source": "https://12thman.com/facilities/a-to-z/reed-arena",
+      "experimentDate": "2026-10-29"
     }
   ],
   "protectedWithoutChanges": [
