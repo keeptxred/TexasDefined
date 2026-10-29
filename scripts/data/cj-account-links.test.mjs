@@ -163,6 +163,11 @@ test('Kings Camo gear placements use only nine captured active creatives and res
   }
 
   const source = read('src/components/hunting/KingsCamoGearOffers.tsx');
+  // A stale production verifier can fail the release after the new Worker is already live.
+  // Keep its selected first hub creative aligned with the tested, account-approved offer.
+  const liveVerifier = read('scripts/ci/verify-cj-account-production.mjs');
+  assert.ok(liveVerifier.includes("['/hunting', 'kings-camo-lightweight-shirts']"),
+    'production CJ no-click verifier must recognize the first approved hunting hub offer');
   assert.ok(!/\b(sale|discount|% off|coupon|2025 calendars)\b/i.test(source), 'avoid stale promotional assertions');
   assert.ok(source.includes('rel="sponsored nofollow noopener noreferrer"'));
   assert.ok(source.includes('trackAffiliateClick('));

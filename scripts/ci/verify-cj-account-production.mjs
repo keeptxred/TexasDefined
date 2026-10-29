@@ -58,7 +58,7 @@ try {
   assert.ok(!school.includes('click-101876465-17106455') && !school.includes('data-commercial-partner="really-good-stuff"'), 'Expired RGS relationship must remain non-affiliate');
   // Check only first-party SSR HTML; do not follow CJ redirects or generate paid clicks.
   for (const [route, program] of [
-    ['/hunting', 'kings-camo-shop'],
+    ['/hunting', 'kings-camo-lightweight-shirts'],
     ['/hunting/turkey-hunting', 'kings-camo-turkey-accessories'],
     ['/hunting/youth-hunting', 'kings-camo-kids'],
     ['/best-places-to-go-camping-in-texas', 'kings-camo-camping'],
