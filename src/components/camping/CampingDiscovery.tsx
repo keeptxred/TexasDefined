@@ -406,7 +406,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               <a className="underline font-semibold" href={alert.sourceUrl} target="_blank" rel="noopener noreferrer">{alert.sourceUrl.includes("nps.gov") ? "Read current NPS conditions ↗" : "Read current TPWD park alerts ↗"}</a>
             </aside> : null}
             {!isParentDestination ? <p className="mt-2 text-sm font-semibold text-primary">Campground profile</p> : null}
-            {profile.whyCampHere ? <p className="mt-3 text-sm leading-6 text-foreground">{profile.whyCampHere}</p> : null>
+            {profile.whyCampHere ? <p className="mt-3 text-sm leading-6 text-foreground">{profile.whyCampHere}</p> : null}
             <p className="mt-3 text-xs leading-5 text-muted-foreground">Managed by {profile.managingAgency}</p>
 
             <div className="mt-3 flex flex-wrap gap-2">
@@ -416,7 +416,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             <details className="group mt-4 border-t border-border pt-3">
               <summary className="cursor-pointer py-1 text-sm font-semibold text-primary">Facilities, reservations &amp; site rules</summary>
               <dl className="mt-3 space-y-3 text-sm">
-              <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
+                        <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
               <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
               {profile.planningDetail ? <div><dt className="font-semibold">Planning detail</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.planningDetail}</dd></div> : null}
               {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
