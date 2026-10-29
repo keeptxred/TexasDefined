@@ -33,6 +33,34 @@ const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const texasWaterResource = fs.readFileSync('src/components/content/TexasWaterSearchResource.tsx', 'utf8');
 const texasRiverBasinReference = fs.readFileSync('src/components/content/TexasRiverBasinReference.tsx', 'utf8');
 const failures = [];
+const casinoSnippetRoute = fs.readFileSync('src/routes/explore.casinos.$slug.tsx', 'utf8');
+const destinationSnippetRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const texasDefinedBrand = fs.readFileSync('src/brand/texasdefined.ts', 'utf8');
+// buildMeta appends the brand already. Do not pre-brand the entire casino
+// guide family (previously produced a duplicate publisher suffix in SERPs).
+if (!texasDefinedBrand.includes('titleTemplate: "%s | Texas Defined"')) {
+  failures.push('Publisher title-template contract changed; reassess casino duplicate-brand protection.');
+}
+if (casinoSnippetRoute.includes('guide.title + " | Texas Defined"')) {
+  failures.push('Casino guide titles must not include a second publisher suffix before buildMeta.');
+}
+for (const token of [
+  'title: seoTitle, description: seoDescription',
+  'guide.slug === "naskila-leggett"',
+  "Naskila Casino Leggett TX: Address, Hours & What's Open",
+  '10314 US 59 N',
+  'temporary casino',
+]) {
+  if (!casinoSnippetRoute.includes(token)) failures.push('Naskila Leggett GSC CTR snippet lost: ' + token);
+}
+for (const token of [
+  '"galveston-bay": "Galveston Bay Texas: Estuary, Fishing & Access Guide"',
+  'destination.slug === "galveston-bay"',
+  'largest estuary',
+  'shoreline access guidance',
+]) {
+  if (!destinationSnippetRoute.includes(token)) failures.push('Galveston Bay GSC CTR snippet lost: ' + token);
+}
 
 for (const required of [
   "homeInsuranceSeoTitle = 'Texas Homeowners Insurance Calculator | No Personal Info'",
