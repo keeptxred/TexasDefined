@@ -78,6 +78,13 @@ try {
     await page.keyboard.press("Tab");
     assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-access-type", "game keyboard Tab advances to access program");
 
+    const guideGroups = page.locator("#hunting-guides details");
+    assert.equal(await guideGroups.count(), 6, "six hunting guide groups remain present");
+    assert.equal(await guideGroups.nth(0).evaluate(el => el.open), true, "primary hunting groups expanded initially");
+    assert.equal(await guideGroups.nth(3).evaluate(el => el.open), false, "secondary hunting groups collapsed initially");
+    await guideGroups.nth(3).locator("summary").click();
+    assert.equal(await guideGroups.nth(3).evaluate(el => el.open), true, "secondary guides expand with native disclosure");
+
     const facts = await page.evaluate(() => {
       const offer = document.querySelector("section[aria-labelledby='hunting-travel-options']");
       return {
