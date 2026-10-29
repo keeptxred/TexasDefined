@@ -1,13 +1,13 @@
 # Football authority official-source rotation (GitHub owned)
 
-**Checkpoint: October 28, 2026.** This is a bounded school/UIL source-change watcher, **not** a public scoreboard feed, licensed MaxPreps API, player-image acquisition system or automatic coaching fact publisher. The original official-source watcher predates this rotation.
+**Checkpoint: October 29, 2026.** This is a bounded school/UIL source-change watcher, **not** a public scoreboard feed, licensed MaxPreps API, player-image acquisition system or automatic coaching fact publisher. The original official-source watcher predates this rotation.
 
 ## Coverage and cost
 
-- Canonical source list: `docs/football-authority/official-source-watch.json`, currently **36 approved HTTPS source endpoints**: 25 current Batch010 school programs, ten researched Batch009 programs and one official UIL alignment endpoint. This is a monitored subset of the 1,292 school universe, not a false claim that all 1,292 have primary-source automation.
-- A single run processes **at most 25 source URLs**. An integer `nextSourceIndex` persists where the next run begins. Circular selection of 25 from 36 covers all 36 within **two successful runs** without scanning the entire site or increasing Cloudflare Worker CPU usage.
+- Canonical source list: `docs/football-authority/official-source-watch.json`, currently **37 approved HTTPS source endpoints**: 25 current Batch010 school programs, ten researched Batch009 programs, the individually sourced Frisco Lone Star program, and one official UIL alignment endpoint. This is a monitored subset of the 1,292 school universe, not a false claim that all 1,292 have primary-source automation.
+- A single run processes **at most 25 source URLs**. An integer `nextSourceIndex` persists where the next run begins. Circular selection of 25 from 37 covers all 37 within **two successful runs** without scanning the entire site or increasing Cloudflare Worker CPU usage.
 - All rows must belong to an existing canonical school registry slug, except the approved `uil-2026-alignment` marker. Every HTTPS host is explicitly allowlisted; redirects outside the approved host set fail. 12-second per-source timeout and 1.6MB body cap remain enforced.
-- Year-round Tuesday 12:43 UTC check; additional Saturday 12:23 UTC check August–December (configured in the existing GitHub Actions workflow). No new duplicate scheduled workflow.
+- Year-round Tuesday 12:43 UTC check; additional Saturday 12:23 UTC check August–December (configured in the existing GitHub Actions workflow). Lone Star's 2026 Frisco ISD varsity schedule joins the same rotation, with an explicit January 29, 2027 quarter-boundary editorial review deadline. No new duplicate scheduled workflow.
 
 ## Evidence and protected updates
 
