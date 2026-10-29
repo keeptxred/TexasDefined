@@ -24,7 +24,8 @@ for (const source of ['https://www.friscoisd.org/o/lshs',
 }
 assert.match(editorial, /slug: 'frisco-lone-star'/);
 assert.doesNotMatch(editorial, /^\s*season:\s*\{/m, 'Scores/record feed must remain deferred');
-assert.doesNotMatch(editorial, /^\s*coach:\s*\{/m, 'Do not upgrade historic coach to 2026 without new first-party source');
+assert.ok(editorial.includes("name: 'Jeff Rayburn'"), 'Missing date-qualified 2026 head coach');
+assert.ok(editorial.includes('https://www.maxpreps.com/tx/frisco/lone-star-rangers/football/staff/'), 'Dated UIL partner coaching source missing');
 assert.ok(server.includes("import('./program-editorial-frisco-lone-star')"));
 assert.ok(server.includes("canonicalSlug === 'frisco-lone-star'"));
 assert.ok(identities.includes("sourceUrl: 'https://www.friscoisd.org/o/lshs'"));
