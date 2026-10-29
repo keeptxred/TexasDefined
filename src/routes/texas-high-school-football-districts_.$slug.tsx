@@ -26,6 +26,7 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
     const district5Pilot = loaderData.slug === '6a-district-5';
     const district21Pilot = loaderData.slug === '6a-district-21';
     const district16Pilot = loaderData.slug === '6a-district-16';
+    const district11Pilot = loaderData.slug === '4a-division-i-district-11';
     const canonicalPath = loaderData.profilePath;
     const url = `${siteUrl}${canonicalPath}`;
     const description = katyPilot
@@ -36,12 +37,14 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
           ? 'District 21-6A football 2026: Ridge Point, Hightower, Travis and five other schools. Reported district standings, all 16 results, next 12 fixtures, tickets and 6A playoff rules.'
         : district16Pilot
           ? 'District 16-6A 2026 football: CFISD teams, October 18 reported standings, verified Week 8 scores, next district games, tickets, stadium information and playoff rules.'
+          : district11Pilot
+          ? 'District 11-4A Division I 2026 football: Bay City, El Campo, Sealy and four other teams; 15 reported finals, six remaining district games and UIL playoff context.'
           : `${label}: ${loaderData.programCount} teams in the 2026–28 UIL alignment, with sourced district game coverage where available, school pages, playoff context and official UIL links.`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: katyPilot ? 'Katy ISD District 22-6A Football: 2026 Scores & Schedule' : district5Pilot ? 'District 5-6A Football: 2026 Scores, Records & Schedule' : district21Pilot ? 'District 21-6A Football: 2026 Scores, Standings & Schedule' : district16Pilot ? 'District 16-6A Football: 2026 Standings, Scores & Schedule' : `${label} Football | Teams & UIL Guide`,
+        title: katyPilot ? 'Katy ISD District 22-6A Football: 2026 Scores & Schedule' : district5Pilot ? 'District 5-6A Football: 2026 Scores, Records & Schedule' : district21Pilot ? 'District 21-6A Football: 2026 Scores, Standings & Schedule' : district16Pilot ? 'District 16-6A Football: 2026 Standings, Scores & Schedule' : district11Pilot ? 'District 11-4A Division I Football: 2026 Scores & Schedule' : `${label} Football | Teams & UIL Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
