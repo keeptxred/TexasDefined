@@ -446,6 +446,443 @@ const BATCH011_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "This original program guide does not assert a cumulative scoreline until a school-owned or licensed dated score feed supports it."
       }
     ]
+  },
+  "comal-pieper": {
+    "slug": "comal-pieper",
+    "intro": "Pieper High Warriors football is based in San Antonio-area Bexar County and belongs to UIL 6A District 27 for 2026–28. Comal ISD operates Pieper High in Bexar County; the district's name is not the campus county. The first-party campus history identifies the Kinder Parkway school and its 2021 opening, while the January 2026 district appointment identifies Salas specifically with Pieper. A 75–21 record mentioned in the appointment reflects an earlier coaching role at Harlan and is not a Pieper Warriors 2026 record.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined editorial accent; not official school colors, logo, uniform or licensed photo."
+    },
+    "seo": {
+      "title": "Pieper High Warriors Football | 2026 6A District 27",
+      "description": "Independent Pieper High Warriors football guide with current UIL 6A District 27, dated school staff evidence, source-linked milestones, practical visitor information and verified county."
+    },
+    "coach": {
+      "name": "Eduardo (Eddie) Salas",
+      "title": "Comal ISD-appointed athletic coordinator and head football coach",
+      "sourceUrl": "https://www.comalisd.org/apps/news/article/2156749?categoryId=12019",
+      "sourceLabel": "Current school or district football staff identification; see source date",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "1400 Kinder Parkway, Bexar County — school campus only; not a spectator entrance",
+      "sourceUrl": "https://phs.comalisd.org/apps/pages/index.jsp?pREC_ID=2154060&type=d&uREC_ID=2119921",
+      "sourceLabel": "Official school or federal campus address, not an event or stadium entrance",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Consult the current school or athletics event calendar; individual dates and finals are not guaranteed",
+      "sourceUrl": "https://phs.comalisd.org/apps/staff/",
+      "sourceLabel": "School-managed 2026 sports or athletics reference; not licensed live scores",
+      "verifiedAt": "2026-10-29",
+      "officialScheduleUrl": "https://phs.comalisd.org/apps/staff/"
+    },
+    "development": {
+      "title": "Understanding the Pieper High Warriors program",
+      "body": "Comal ISD operates Pieper High in Bexar County; the district's name is not the campus county. The first-party campus history identifies the Kinder Parkway school and its 2021 opening, while the January 2026 district appointment identifies Salas specifically with Pieper. A 75–21 record mentioned in the appointment reflects an earlier coaching role at Harlan and is not a Pieper Warriors 2026 record.",
+      "sourceUrl": "https://phs.comalisd.org/",
+      "sourceLabel": "School-operated background and separately dated football coverage",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "Pieper campus opens in Bexar County",
+        "body": "Pieper's official campus history places the school on Kinder Parkway in Bexar County.",
+        "sourceUrl": "https://phs.comalisd.org/apps/pages/index.jsp?pREC_ID=2154060&type=d&uREC_ID=2119921",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "January 23, 2026",
+        "title": "Salas appointed to lead Warriors football",
+        "body": "Comal ISD names Eddie (Eduardo) Salas athletic coordinator and head football coach for Pieper, separate from his prior schools.",
+        "sourceUrl": "https://www.comalisd.org/apps/news/article/2156749?categoryId=12019",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 6A District 27",
+        "body": "The current UIL alignment lists Pieper in 6A District 27, distinct from Smithson Valley and Canyon Lake's classifications.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      }
+    ],
+    "overview": [
+      "Pieper High Warriors football is based in San Antonio-area Bexar County and belongs to UIL 6A District 27 for 2026–28. Pieper's recent football story is a change in leadership, not a transferable career win total. The Warriors compete in 6A District 27 alongside other separately governed area schools, so official UIL alignment and Pieper's own staff updates are the right starting points for current context.",
+      "Comal ISD operates Pieper High in Bexar County; the district's name is not the campus county. The first-party campus history identifies the Kinder Parkway school and its 2021 opening, while the January 2026 district appointment identifies Salas specifically with Pieper. A 75–21 record mentioned in the appointment reflects an earlier coaching role at Harlan and is not a Pieper Warriors 2026 record.",
+      "Before traveling to a Pieper game, compare the school and opponent's actual varsity event listings. The Kinder Parkway office address documents campus geography, but it does not prove a particular stadium, accessible entrance, admission method, or gate for an individual game.",
+      "Pieper High Warriors is an independently researched school guide, not a school endorsement. Current scores, completed 2026 records, individual tickets, player photographs, official marks, and stadium-access conditions are not asserted from source pages that do not establish them."
+    ],
+    "faq": [
+      {
+        "question": "Is Pieper High in Comal County?",
+        "answer": "No. The district is Comal ISD, but Pieper's campus history and federal school directory place the physical high-school campus in Bexar County."
+      },
+      {
+        "question": "Who is the Pieper Warriors head football coach in 2026?",
+        "answer": "Comal ISD appointed Eddie (Eduardo) Salas to the athletic-coordinator and head-football-coach position in January 2026; the current staff directory corroborates his role."
+      },
+      {
+        "question": "What football district is Pieper in?",
+        "answer": "UIL's current 2026–28 football alignment places Pieper in Class 6A District 27, a separate team from Comal Canyon's Cougars."
+      },
+      {
+        "question": "Does Salas's Harlan coaching record count as Pieper wins?",
+        "answer": "No. Previous employment records and wins at Harlan or Holmes do not represent the Pieper program's current-season results."
+      },
+      {
+        "question": "Does the campus address tell me where to park for a varsity game?",
+        "answer": "No. Check the host school's event and athletics information for the specific stadium, parking, tickets, and accessible entry rather than assuming the campus office address is a gate."
+      }
+    ]
+  },
+  "comal-smithson-valley": {
+    "slug": "comal-smithson-valley",
+    "intro": "Smithson Valley Rangers football is based in Spring Branch in Comal County and belongs to UIL 5A Division I District 13 for 2026–28. Smithson Valley's Rangers are a distinct Comal ISD varsity program in Spring Branch. Its January 2026 school championship celebration credits head coach Larry Hill and identifies December 19, 2025 as the 5A Division I title date; the story is a verified historical result, not an automatic 2026 playoff prediction.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined editorial accent; not official school colors, logo, uniform or licensed photo."
+    },
+    "seo": {
+      "title": "Smithson Valley Rangers Football | 2026 5A Division I District 13",
+      "description": "Independent Smithson Valley Rangers football guide with current UIL 5A Division I District 13, dated school staff evidence, source-linked milestones, practical visitor information and verified county."
+    },
+    "coach": {
+      "name": "Larry Hill",
+      "title": "Athletic coordinator and head football coach identified by the district's January 2026 championship-rally report",
+      "sourceUrl": "https://svhs.comalisd.org/apps/news/article/2151242?categoryId=12011",
+      "sourceLabel": "Current school or district football staff identification; see source date",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "14001 Highway 46, Spring Branch, TX 78070 — school address, not game-night access instructions",
+      "sourceUrl": "https://svhs.comalisd.org/",
+      "sourceLabel": "Official school or federal campus address, not an event or stadium entrance",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Consult the current school or athletics event calendar; individual dates and finals are not guaranteed",
+      "sourceUrl": "https://svhs.comalisd.org/",
+      "sourceLabel": "School-managed 2026 sports or athletics reference; not licensed live scores",
+      "verifiedAt": "2026-10-29",
+      "officialScheduleUrl": "https://svhs.comalisd.org/"
+    },
+    "development": {
+      "title": "Understanding the Smithson Valley Rangers program",
+      "body": "Smithson Valley's Rangers are a distinct Comal ISD varsity program in Spring Branch. Its January 2026 school championship celebration credits head coach Larry Hill and identifies December 19, 2025 as the 5A Division I title date; the story is a verified historical result, not an automatic 2026 playoff prediction.",
+      "sourceUrl": "https://svhs.comalisd.org/",
+      "sourceLabel": "School-operated background and separately dated football coverage",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "December 19, 2025",
+        "title": "Rangers defend the 5A Division I football championship",
+        "body": "Comal ISD's January 2026 report dates Smithson Valley's 2025 state-title victory and describes it as a successful defense of the previous title.",
+        "sourceUrl": "https://svhs.comalisd.org/apps/news/article/2151242?categoryId=12011",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "January 9, 2026",
+        "title": "District honors 2025 football champions",
+        "body": "The official school celebration names athletic coordinator and head football coach Larry Hill and records the recognition as a 2025-season accomplishment.",
+        "sourceUrl": "https://svhs.comalisd.org/apps/news/article/2151242?categoryId=12011",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 5A Division I District 13",
+        "body": "Smithson Valley's current football district comes from the new UIL alignment, not its earlier championship bracket.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      }
+    ],
+    "overview": [
+      "Smithson Valley Rangers football is based in Spring Branch in Comal County and belongs to UIL 5A Division I District 13 for 2026–28. The UIL's 2026–28 realignment places Smithson Valley in 5A Division I District 13, so repeating a 2025 state-title headline without the season would mislead readers. The school's history and its 2026 alignment deserve separate treatment, especially as the neighboring Canyon and Pieper campuses compete in other classifications.",
+      "Smithson Valley's Rangers are a distinct Comal ISD varsity program in Spring Branch. Its January 2026 school championship celebration credits head coach Larry Hill and identifies December 19, 2025 as the 5A Division I title date; the story is a verified historical result, not an automatic 2026 playoff prediction.",
+      "The official campus lists Highway 46 in Spring Branch. District reports about a 2025 victory rally and Ranger Stadium are historical context, not proof of the venue or entry arrangements for every game on the 2026 schedule. Fans should consult the current official opponent and event listing.",
+      "Smithson Valley Rangers is an independently researched school guide, not a school endorsement. Current scores, completed 2026 records, individual tickets, player photographs, official marks, and stadium-access conditions are not asserted from source pages that do not establish them."
+    ],
+    "faq": [
+      {
+        "question": "Who leads Smithson Valley football?",
+        "answer": "The school's January 2026 championship account identifies Larry Hill as athletic coordinator and head football coach for the Rangers."
+      },
+      {
+        "question": "Did the Rangers win the 2026 football championship?",
+        "answer": "No such claim is made. The documented championship occurred December 19, 2025, and a historical title does not establish any 2026 result."
+      },
+      {
+        "question": "Which district is Smithson Valley in for 2026?",
+        "answer": "UIL's 2026–28 alignment puts the Rangers in 5A Division I District 13, distinct from Comal Canyon's 6A district."
+      },
+      {
+        "question": "Where is the Smithson Valley High campus?",
+        "answer": "The school lists 14001 Highway 46 in Spring Branch, Texas; confirm the host venue and entrance for each football fixture separately."
+      },
+      {
+        "question": "Can a 2025 stadium event establish 2026 admission details?",
+        "answer": "No. A dated rally or championship story does not confirm current ticket prices, capacity, stadium parking, gates, or accessibility policies."
+      }
+    ]
+  },
+  "comanche": {
+    "slug": "comanche",
+    "intro": "Comanche High Indians football is based in Comanche in Comanche County and belongs to UIL 3A Division II District 5 for 2026–28. The Comanche High Indians represent the Texas school in Comanche County. Their current district school directory explicitly combines athletic director and head football coach in Jake Escobar's job title. That record is specific to this campus; it is not a basis to copy similarly named teams' coaches or results.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined editorial accent; not official school colors, logo, uniform or licensed photo."
+    },
+    "seo": {
+      "title": "Comanche High Indians Football | 2026 3A Division II District 5",
+      "description": "Independent Comanche High Indians football guide with current UIL 3A Division II District 5, dated school staff evidence, source-linked milestones, practical visitor information and verified county."
+    },
+    "coach": {
+      "name": "Jake Escobar",
+      "title": "School-listed athletic director and head football coach",
+      "sourceUrl": "https://www.comancheisd.net/page/chs.staff_directory",
+      "sourceLabel": "Current school or district football staff identification; see source date",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Consult the current school or athletics event calendar; individual dates and finals are not guaranteed",
+      "sourceUrl": "https://www.comancheisd.net/",
+      "sourceLabel": "School-managed 2026 sports or athletics reference; not licensed live scores",
+      "verifiedAt": "2026-10-29",
+      "officialScheduleUrl": "https://www.comancheisd.net/"
+    },
+    "development": {
+      "title": "Understanding the Comanche High Indians program",
+      "body": "The Comanche High Indians represent the Texas school in Comanche County. Their current district school directory explicitly combines athletic director and head football coach in Jake Escobar's job title. That record is specific to this campus; it is not a basis to copy similarly named teams' coaches or results.",
+      "sourceUrl": "https://www.comancheisd.net/",
+      "sourceLabel": "School-operated background and separately dated football coverage",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "Current campus directory, 2026",
+        "title": "Jake Escobar listed with dual athletics and football role",
+        "body": "The Comanche High staff directory explicitly lists Jake Escobar as Athletic Director/Head Football Coach.",
+        "sourceUrl": "https://www.comancheisd.net/page/chs.staff_directory",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 3A Division II District 5",
+        "body": "The UIL football realignment places Comanche in this specific division and district for the current cycle.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "2026 source-reference checkpoint",
+        "title": "School-managed directory provides a separate verification channel",
+        "body": "Current district staff pages offer a named school-level contact; they do not supply an entire season's final scores.",
+        "sourceUrl": "https://www.comancheisd.net/page/chs.staff_directory",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      }
+    ],
+    "overview": [
+      "Comanche High Indians football is based in Comanche in Comanche County and belongs to UIL 3A Division II District 5 for 2026–28. Comanche participates in UIL 3A Division II District 5 for the 2026–28 alignment cycle. The distinction between a verified administrative role, a season schedule, and a certified final score matters: the school directory proves staffing, while only event-specific football sources can prove games and subsequent results.",
+      "The Comanche High Indians represent the Texas school in Comanche County. Their current district school directory explicitly combines athletic director and head football coach in Jake Escobar's job title. That record is specific to this campus; it is not a basis to copy similarly named teams' coaches or results.",
+      "Comanche ISD is the primary source for updated athletics contacts and schedules. A general campus contact page does not verify a specific varsity stadium gate, parking arrangement or admission policy; check host-event notices before attending.",
+      "Comanche High Indians is an independently researched school guide, not a school endorsement. Current scores, completed 2026 records, individual tickets, player photographs, official marks, and stadium-access conditions are not asserted from source pages that do not establish them."
+    ],
+    "faq": [
+      {
+        "question": "Who is Comanche High's head football coach?",
+        "answer": "Comanche High's school-managed staff directory lists Jake Escobar as both athletic director and head football coach."
+      },
+      {
+        "question": "What is Comanche's 2026 UIL football classification?",
+        "answer": "The official 2026–28 UIL realignment places the Indians in 3A Division II District 5."
+      },
+      {
+        "question": "Is this a Texas Comanche school?",
+        "answer": "Yes. This guide concerns Comanche High in Comanche County, Texas; it does not import similarly named teams or athletics records from elsewhere."
+      },
+      {
+        "question": "Where can I find varsity games and kickoff updates?",
+        "answer": "Use Comanche ISD's current school and athletics communications to confirm each event, rather than relying on undated or opposing-school listings."
+      },
+      {
+        "question": "Are these season wins and losses official?",
+        "answer": "No cumulative 2026 record is asserted until dated results from an authorized source can support each underlying game and correction."
+      }
+    ]
+  },
+  "comfort": {
+    "slug": "comfort",
+    "intro": "Comfort High Bobcats football is based in Comfort in Kendall County and belongs to UIL 3A Division II District 15 for 2026–28. Comfort High's Bobcats compete from a campus in Kendall County. Comfort ISD's October 12, 2026 board update names Jay Rieken as athletic director and distinguishes varsity, junior-varsity and middle-school football; the report's 1–3 varsity snapshot is dated and cannot be republished as the live October 29 record.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined editorial accent; not official school colors, logo, uniform or licensed photo."
+    },
+    "seo": {
+      "title": "Comfort High Bobcats Football | 2026 3A Division II District 15",
+      "description": "Independent Comfort High Bobcats football guide with current UIL 3A Division II District 15, dated school staff evidence, source-linked milestones, practical visitor information and verified county."
+    },
+    "campus": {
+      "address": "143 Highway 87 North, Comfort, TX 78013 — campus location, not stadium entrance",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481479000979",
+      "sourceLabel": "Official school or federal campus address, not an event or stadium entrance",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Consult the current school or athletics event calendar; individual dates and finals are not guaranteed",
+      "sourceUrl": "https://www.comfortisd.net/46529_2",
+      "sourceLabel": "School-managed 2026 sports or athletics reference; not licensed live scores",
+      "verifiedAt": "2026-10-29",
+      "officialScheduleUrl": "https://www.comfortisd.net/46529_2"
+    },
+    "development": {
+      "title": "Understanding the Comfort High Bobcats program",
+      "body": "Comfort High's Bobcats compete from a campus in Kendall County. Comfort ISD's October 12, 2026 board update names Jay Rieken as athletic director and distinguishes varsity, junior-varsity and middle-school football; the report's 1–3 varsity snapshot is dated and cannot be republished as the live October 29 record.",
+      "sourceUrl": "https://chs.comfortisd.net/",
+      "sourceLabel": "School-operated background and separately dated football coverage",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "August 2025",
+        "title": "Contemporary report identifies Jay Rieken as football coach",
+        "body": "A dated 2025 television interview identified Rieken as Comfort's head football coach; it is labeled historical until a 2026 school source reconfirms the title.",
+        "sourceUrl": "https://spectrumlocalnews.com/tx/south-texas-el-paso/news/2025/08/15/comfort-high-school-football-floods",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "October 12, 2026",
+        "title": "Comfort ISD board report identifies athletic director",
+        "body": "The board's October school update calls Jay Rieken athletic director and reports a season snapshot from that date, not the full current record.",
+        "sourceUrl": "https://comfortisd.net/index.php?articleID=92634513&pageID=smartSiteFeed&psqFeed=true",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 3A Division II District 15",
+        "body": "Current UIL alignment, rather than historical team results, controls the Bobcats' listed classification and district.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      }
+    ],
+    "overview": [
+      "Comfort High Bobcats football is based in Comfort in Kendall County and belongs to UIL 3A Division II District 15 for 2026–28. An August 2025 news interview called Rieken the head football coach, but the 2026 school notice independently confirms only his athletic-director title. This profile records those roles with their source dates rather than silently extending a 2025 coach designation into the current season. The UIL places Comfort in 3A Division II District 15 for 2026–28.",
+      "Comfort High's Bobcats compete from a campus in Kendall County. Comfort ISD's October 12, 2026 board update names Jay Rieken as athletic director and distinguishes varsity, junior-varsity and middle-school football; the report's 1–3 varsity snapshot is dated and cannot be republished as the live October 29 record.",
+      "The district maintains a 2026–27 sports schedule index and the high school lists its Highway 87 campus address. Neither source independently establishes where every varsity game will be played or whether individual event tickets remain available; verify each fixture with the host.",
+      "Comfort High Bobcats is an independently researched school guide, not a school endorsement. Current scores, completed 2026 records, individual tickets, player photographs, official marks, and stadium-access conditions are not asserted from source pages that do not establish them."
+    ],
+    "faq": [
+      {
+        "question": "Is Jay Rieken confirmed as Comfort's 2026 head coach?",
+        "answer": "The October 2026 school board notice confirms his athletic-director role; a separate August 2025 interview calls him head football coach. A newer school football staff listing is still needed to confirm that current title."
+      },
+      {
+        "question": "Is the 1–3 figure a live 2026 record?",
+        "answer": "No. It is a dated snapshot in the district board update and should not be treated as the Bobcats' latest win–loss total."
+      },
+      {
+        "question": "Which UIL football district includes Comfort?",
+        "answer": "UIL lists Comfort in 3A Division II District 15 for the 2026–28 cycle."
+      },
+      {
+        "question": "What county contains Comfort High School?",
+        "answer": "The federal school directory places Comfort High's physical campus at 143 Highway 87 North in Kendall County, Texas."
+      },
+      {
+        "question": "Where should visiting fans check a schedule?",
+        "answer": "Start with Comfort ISD's current sports schedule index and the host event notice. Campus location alone does not identify gates, ticket availability, or parking."
+      }
+    ]
+  },
+  "commerce": {
+    "slug": "commerce",
+    "intro": "Commerce High Tigers football is based in Commerce in Hunt County and belongs to UIL 3A Division I District 7 for 2026–28. Commerce High's Tigers are the UIL football program in Hunt County, not an interchangeable district or university team. Its school-controlled athletics page names John McSheffery as both athletic director and head football coach and separately exposes an official 2026 varsity schedule, assistants, and visitor-policy links.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined editorial accent; not official school colors, logo, uniform or licensed photo."
+    },
+    "seo": {
+      "title": "Commerce High Tigers Football | 2026 3A Division I District 7",
+      "description": "Independent Commerce High Tigers football guide with current UIL 3A Division I District 7, dated school staff evidence, source-linked milestones, practical visitor information and verified county."
+    },
+    "coach": {
+      "name": "John McSheffery",
+      "title": "Commerce High-listed athletic director and head football coach",
+      "sourceUrl": "https://chs.commerceisd.org/activities/athletics",
+      "sourceLabel": "Current school or district football staff identification; see source date",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "3315 Washington Street, Commerce, TX 75428 — NCES campus address, not game-night gate",
+      "sourceUrl": "https://nces.ed.gov/ccd/schooLSearch/school_list.asp?ID=483294003633&SchoolPageNum=112&state=48",
+      "sourceLabel": "Official school or federal campus address, not an event or stadium entrance",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Consult the current school or athletics event calendar; individual dates and finals are not guaranteed",
+      "sourceUrl": "https://chs.commerceisd.org/activities/athletics",
+      "sourceLabel": "School-managed 2026 sports or athletics reference; not licensed live scores",
+      "verifiedAt": "2026-10-29",
+      "officialScheduleUrl": "https://chs.commerceisd.org/activities/athletics"
+    },
+    "development": {
+      "title": "Understanding the Commerce High Tigers program",
+      "body": "Commerce High's Tigers are the UIL football program in Hunt County, not an interchangeable district or university team. Its school-controlled athletics page names John McSheffery as both athletic director and head football coach and separately exposes an official 2026 varsity schedule, assistants, and visitor-policy links.",
+      "sourceUrl": "https://chs.commerceisd.org/activities/athletics",
+      "sourceLabel": "School-operated background and separately dated football coverage",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2026 season materials",
+        "title": "School publishes current Tiger football schedule and policies",
+        "body": "Commerce High's athletics page links the 2026 football schedule, ticket channel, stadium rules and clear-bag information.",
+        "sourceUrl": "https://chs.commerceisd.org/activities/athletics",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "2026 official staff roster",
+        "title": "John McSheffery identified as football head coach",
+        "body": "The school athletics directory lists John McSheffery as athletic director and head football coach and identifies assistants separately.",
+        "sourceUrl": "https://chs.commerceisd.org/activities/athletics",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 3A Division I District 7",
+        "body": "The 2026–28 UIL assignment gives Commerce its current district; an athletics schedule does not independently establish game outcomes.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
+        "sourceLabel": "Dated school, district, independent historic or UIL source"
+      }
+    ],
+    "overview": [
+      "Commerce High Tigers football is based in Commerce in Hunt County and belongs to UIL 3A Division I District 7 for 2026–28. The current UIL alignment places Commerce in 3A Division I District 7. On the school page, Tiger Stadium rules and the clear-bag policy help visitors plan responsibly, but neither proves availability or pricing for a particular contest. Coaching roles from other sports should not be attributed to the football head coach.",
+      "Commerce High's Tigers are the UIL football program in Hunt County, not an interchangeable district or university team. Its school-controlled athletics page names John McSheffery as both athletic director and head football coach and separately exposes an official 2026 varsity schedule, assistants, and visitor-policy links.",
+      "Use Commerce High's school athletics page to check the 2026 schedule, the official ticket channel, and posted Tiger Stadium / clear-bag guidance before traveling. An office address does not establish the specific stadium gate, game-night sale, or accessible entry conditions.",
+      "Commerce High Tigers is an independently researched school guide, not a school endorsement. Current scores, completed 2026 records, individual tickets, player photographs, official marks, and stadium-access conditions are not asserted from source pages that do not establish them."
+    ],
+    "faq": [
+      {
+        "question": "Who is Commerce High's varsity head football coach?",
+        "answer": "Commerce High's current athletics page identifies John McSheffery as athletic director and head football coach."
+      },
+      {
+        "question": "Where do Commerce fans find 2026 football fixtures?",
+        "answer": "The school's athletics page links the official 2026 Tigers schedule and provides links to ticketing and stadium rules."
+      },
+      {
+        "question": "Are all games played at Tiger Stadium?",
+        "answer": "The district's Tiger Stadium policies are useful for hosted events, but they do not establish every away-game venue or a specific event's admission arrangements."
+      },
+      {
+        "question": "What district does Commerce play in?",
+        "answer": "The official UIL 2026–28 alignment places Commerce in Class 3A Division I District 7."
+      },
+      {
+        "question": "Does the school's ticket link guarantee a seat?",
+        "answer": "No. An official ticketing channel does not confirm current inventory, admission price, game-night gates, or accessible seating for any individual game."
+      }
+    ]
   }
 };
 

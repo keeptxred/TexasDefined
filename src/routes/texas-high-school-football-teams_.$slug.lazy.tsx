@@ -191,6 +191,11 @@ function Page() {
     'comal-canyon': 'comal', // Comal ISD Canyon Cougars in New Braunfels; not Canyon ISD.
     'comal-canyon-lake': 'comal', // Separate Canyon Lake Hawks campus in Fischer, Comal County.
     'comal-davenport': 'comal', // Davenport Wolves near Garden Ridge, Comal County; San Antonio mailing address.
+    'comal-pieper': 'bexar', // School history and NCES place Kinder Parkway campus in Bexar, not the ISD-named Comal County.
+    'comal-smithson-valley': 'comal', // Spring Branch Rangers campus is separate from Canyon and Davenport.
+    'comanche': 'comanche', // Comanche High Indians in Comanche County, Texas.
+    'comfort': 'kendall', // 143 Highway 87 N campus in Kendall County verified by NCES 481479000979.
+    'commerce': 'hunt', // Commerce High Tigers campus in Hunt County; school-managed visitor links.
     'clint-mountain-view': 'el-paso', // Mountain View Lobos school on Greg Dr, eastern El Paso County.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
