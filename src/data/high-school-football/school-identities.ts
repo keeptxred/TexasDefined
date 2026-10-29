@@ -14,6 +14,21 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'comal-pieper', mascot: 'Warriors',
+    sourceUrl: 'https://phs.comalisd.org/',
+    sourceLabel: 'Comal ISD Pieper High Warriors first-party campus identity', verifiedAt: '2026-10-29' },
+  { slug: 'comal-smithson-valley', mascot: 'Rangers',
+    sourceUrl: 'https://svhs.comalisd.org/',
+    sourceLabel: 'Smithson Valley High Rangers first-party campus', verifiedAt: '2026-10-29' },
+  { slug: 'comanche', mascot: 'Indians',
+    sourceUrl: 'https://www.comancheisd.net/page/chs.staff_directory',
+    sourceLabel: 'Comanche High Texas school staff and Indians football identity', verifiedAt: '2026-10-29' },
+  { slug: 'comfort', mascot: 'Bobcats',
+    sourceUrl: 'https://chs.comfortisd.net/',
+    sourceLabel: 'Comfort High Bobcats first-party campus', verifiedAt: '2026-10-29' },
+  { slug: 'commerce', mascot: 'Tigers',
+    sourceUrl: 'https://chs.commerceisd.org/activities/athletics',
+    sourceLabel: 'Commerce High Tigers 2026 school football athletics', verifiedAt: '2026-10-29' },
   { slug: 'colorado-city-colorado', mascot: 'Wolves',
     sourceUrl: 'https://www.ccity.esc14.net/article/2238803',
     sourceLabel: 'Colorado ISD Wolves head football coach announcement, Colorado City Texas',
