@@ -2,7 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getFootballDistrictPage } from '@/data/high-school-football/football-districts.functions';
-import { district9DisplayName } from '@/components/sports/District9Guide';
+import { district9DisplayName } from '@/data/high-school-football/district9-display-names';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
