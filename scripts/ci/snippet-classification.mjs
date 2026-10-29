@@ -7,7 +7,7 @@ const snippetCodes = new Set([
   'dangling-title-fragment', 'missing-description', 'missing-canonical',
   'canonical-mismatch', 'invalid-canonical', 'duplicate-description',
   'h1-count', 'expired-event-snippet', 'sitemap-url-noindex',
-  'unexpected-redirect', 'page-level-fallback-copy',
+  'unexpected-redirect', 'page-level-fallback-copy', 'malformed-json-ld',
 ]);
 
 export const PRIMARY_SNIPPET_CLASSIFICATIONS = Object.freeze([
