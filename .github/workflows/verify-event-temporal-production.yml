@@ -10,8 +10,18 @@ on:
       - 'scripts/data/fall-festival-freshness.test.mjs'
       - 'src/data/texas-this-weekend.server.ts'
       - 'src/data/event-collection-page.server.ts'
+      - 'src/data/major-event-page.server.ts'
+      - 'src/data/major-event-directory.server.ts'
+      - 'src/data/major-event-expanded-authority-tranche45.server.ts'
+      - 'src/data/major-event-expanded-authority-tranche47.server.ts'
+      - 'src/data/events/november-official-picks-2026.ts'
       - 'src/routes/events.$collection.tsx'
       - 'src/routes/events.$collection.lazy.tsx'
+  # Also inspect the actual newly published Worker; PR checks alone cannot
+  # prove that a live November event page reflects merged source changes.
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
   schedule:
     - cron: '23 11 * * *'
   workflow_dispatch:
