@@ -358,7 +358,7 @@
       copy.textContent = "Start with hotels in Palestine, not a generic nationwide search. Choose your exact train date first, then compare room costs, cancellation policies and driving time to the Palestine Depot.";
     }
     if (showRvshare) copy.textContent += " For camping and road-trip planning, RVshare is the primary rental option when taking your lodging with you fits the trip.";
-    if (window.location.pathname.replace(/\\/+$/, "") === "/best-places-to-go-camping-in-texas") {
+    if (window.location.pathname.replace(new RegExp("/+$"), "") === "/best-places-to-go-camping-in-texas") {
       eyebrow.textContent = "Plan your overnight stay";
       heading.textContent = "RV rentals and nearby stays";
       copy.textContent = "For campsites, use the official booking links in the campground finder above. Need an RV rental or a hotel before or after your camping trip? Compare the providers below, then check the campsite\u2019s vehicle limits and the provider\u2019s current terms.";
@@ -734,7 +734,7 @@
     // The campground guide has a SINGLE trip-planning affiliate box.
     // Keep the original intent-loaded Expedia button and analytics handler,
     // but move that same node into the CJ choices, never clone/recreate it.
-    if (window.location.pathname.replace(/\\/+$/, "") !== "/best-places-to-go-camping-in-texas") return;
+    if (window.location.pathname.replace(new RegExp("/+$"), "") !== "/best-places-to-go-camping-in-texas") return;
     if (surface.dataset.surfaceType !== "generic") return;
     const panel = choice.querySelector(".td-stay-affiliate-panel");
     const actions = panel?.querySelector(".td-stay-affiliate-actions");
