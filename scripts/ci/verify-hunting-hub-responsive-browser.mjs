@@ -33,6 +33,7 @@ try {
     const response = await page.goto(url + "?hunting-visual-proof=" + encodeURIComponent(process.env.GITHUB_SHA || "audit"), { waitUntil: "domcontentloaded", timeout: 45000 });
     assert.equal(response?.status(), 200, "hunting visual response");
     await page.locator("#hunting-season-planner").waitFor({ state: "visible", timeout: 20000 });
+    await page.locator('img[alt^="White-tailed deer in Texas brush habitat"]').evaluate(async (image) => { try { await image.decode(); } catch {} });
     await page.waitForFunction(() => document.documentElement.dataset.tdRootHydrated === "1", undefined, { timeout: 25000 });
 
     const select = page.locator("#hunting-species-select");
@@ -55,7 +56,7 @@ try {
         h1: [...document.querySelectorAll("h1")].map(el => el.textContent?.trim()),
         canonical: document.querySelector('link[rel="canonical"]')?.href,
         overflow: document.documentElement.scrollWidth - window.innerWidth,
-        heroLoaded: [...document.images].filter(el => /White-tailed deer in Texas brush habitat/.test(el.alt)).every(el => el.complete && el.naturalWidth > 0),
+        heroLoaded: [...document.images].filter(el => /White-tailed deer in Texas brush habitat/.test(el.alt)).length === 1 && [...document.images].filter(el => /White-tailed deer in Texas brush habitat/.test(el.alt)).every(el => el.complete && el.naturalWidth > 0),
         publicAccess: document.querySelector("#public-hunting-planner")?.textContent?.includes("does not prefilter TPWD") || document.querySelector("#public-hunting-planner")?.textContent?.includes("does not prefilter TPWD's website"),
         links: [...(offer?.querySelectorAll("[data-commercial-partner]") || [])].map(el => ({ partner: el.dataset.commercialPartner, rel: el.rel, url: el.href, placement: el.dataset.commercialPlacement })),
         disclosure: offer?.textContent?.includes("Affiliate disclosure:"),
@@ -67,6 +68,7 @@ try {
     assert.ok(facts.overflow <= 3, "no horizontal overflow (" + facts.overflow + "px)");
     assert.ok(facts.heroLoaded, "hero loaded with descriptive alt text");
     assert.equal(facts.noindex, false, "hub indexable");
+    assert.ok(facts.publicAccess, "public land finder must not pretend TPWD was prefiltered");
     assert.equal(facts.links.length, 2, "two optional disclosed travel affiliates");
     assert.ok(facts.disclosure, "visible affiliate disclosure");
     for (const link of facts.links) {
