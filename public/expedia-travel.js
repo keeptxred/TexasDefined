@@ -528,9 +528,9 @@
   function buildGenericSurface() {
     const section = document.createElement("section");
     section.id = SURFACE_ID;
-    // The Fort McKavett CJ panel provides the single bordered lodging box.
-    // Avoid a second outer box while keeping every other travel route unchanged.
-    section.className = normalizePath() === "/destination/fort-mckavett"
+    // Fort McKavett and the camping guide use a single CJ-owned lodging panel.
+    // Suppress the redundant Expedia border while preserving its search widget.
+    section.className = (normalizePath() === "/destination/fort-mckavett" || normalizePath() === "/best-places-to-go-camping-in-texas")
       ? "py-2" : "border-y border-border py-8";
     section.dataset.surfaceType = "generic";
     section.dataset.monetizationEligible = "true";
@@ -549,7 +549,7 @@
     search.textContent = "Search Expedia stays →";
     // The CJ integration reuses this same Expedia button on Fort McKavett,
     // preserving its intent-gated vendor widget and analytics listener.
-    if (normalizePath() === "/destination/fort-mckavett") search.dataset.expediaStaysSearch = "true";
+    if (normalizePath() === "/destination/fort-mckavett" || normalizePath() === "/best-places-to-go-camping-in-texas") search.dataset.expediaStaysSearch = "true";
     search.addEventListener("click", () => {
       trackStayAction({ provider: "expedia", label: "Search Expedia stays", placement: "stay-nearby-end-fallback" });
       activateWidget(section);
@@ -557,12 +557,11 @@
     const disclosure = document.createElement("p");
     disclosure.className = "mt-3 text-xs text-muted-foreground";
     disclosure.textContent = DISCLOSURE;
-    if (normalizePath() === "/destination/fort-mckavett") disclosure.dataset.expediaDisclosure = "true";
+    if (normalizePath() === "/destination/fort-mckavett" || normalizePath() === "/best-places-to-go-camping-in-texas") disclosure.dataset.expediaDisclosure = "true";
 
-    // The Fort McKavett contextual slot already receives the CJ-managed
-    // "Where to stay" heading. Keep Expedia's search option in the same
-    // section without repeating the category title directly underneath.
-    if (normalizePath() !== "/destination/fort-mckavett") container.append(eyebrow, heading);
+    // The unified CJ panel owns one heading on Fort McKavett and camping.
+    // Keep Expedia search and its original on-demand click handler intact.
+    if (normalizePath() !== "/destination/fort-mckavett" && normalizePath() !== "/best-places-to-go-camping-in-texas") container.append(eyebrow, heading);
     container.append(search, createWidgetHost(), disclosure);
     section.appendChild(container);
     return section;
