@@ -98,6 +98,35 @@ test('workflow-only changes select no public pages or feature crawls', () => {
   assert.ok(Object.values(plan.groups).every(v => v === false));
 });
 
+test('test-only discovery canonical paths never become live production URLs', () => {
+  const fixturePath = 'src/data/discovery/__tests__/entity-registry.test.ts';
+  const before = "const records = [{ canonicalPath: '/fixture/hill-country-holiday-festival', name: 'Original' }];";
+  const after = before.replace("name: 'Original'", "name: 'Changed by a unit test'");
+  const plan = buildChangePlan({
+    baseline, head, changedFiles: [fixturePath],
+    sources: { [fixturePath]: { before, after } },
+  });
+  assert.ok(!plan.selectedPaths.includes('/fixture/hill-country-holiday-festival'));
+  assert.deepEqual(plan.selectedPaths, [],
+    'Unit-test paths must not be sent to live Worker smoke checks');
+
+  // A real data owner with the same canonicalPath syntax remains protected.
+  const actualPath = 'src/data/discovery/verified-event-catalog.ts';
+  const publishedRoute = '/event/verified-november-fixture-example';
+  const actualBefore = "const records = [{ canonicalPath: '/event/verified-november-fixture-example', name: 'Old' }];";
+  const actualAfter = actualBefore.replace("name: 'Old'", "name: 'Updated'");
+  const checked = buildChangePlan({
+    baseline, head, changedFiles: [fixturePath, actualPath],
+    sources: {
+      [fixturePath]: { before, after },
+      [actualPath]: { before: actualBefore, after: actualAfter },
+    },
+  });
+  assert.ok(checked.selectedPaths.includes(publishedRoute),
+    'A changed real source record must still receive live verification');
+  assert.ok(!checked.selectedPaths.includes('/fixture/hill-country-holiday-festival'));
+});
+
 test('one edited article selects that record, not its unchanged siblings', () => {
   const path = 'src/data/fixtures/lazy-core-articles.ts';
   const before = `const records = [{ slug: 'first-article', title: 'Old' }, { slug: 'second-article', title: 'Keep' }];`;
