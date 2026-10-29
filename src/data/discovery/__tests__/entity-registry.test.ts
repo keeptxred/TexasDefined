@@ -12,7 +12,7 @@ const officialEditorial: DiscoveryEvidence = {
 };
 const event: DiscoveryEntity = {
   id: "td:annual:festival", kind: "annual-event", name: "Hill Country Holiday Festival",
-  city: "Fredericksburg", countySlug: "gillespie", canonicalPath: "/event/hill-country-holiday-festival",
+  city: "Fredericksburg", countySlug: "gillespie", canonicalPath: "/fixture/hill-country-holiday-festival",
   status: "published", editorialOriginal: true, qualityApproved: true,
   evidence: [officialEditorial], offers: [],
   providerRefs: { viator: "attraction-100" },
