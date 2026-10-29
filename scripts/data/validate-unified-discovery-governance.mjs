@@ -25,6 +25,8 @@ assert.ok(!discovery.includes("overview:")&&!discovery.includes("reviews:"),"Sup
 assert.ok(calendar.includes("not admission to the listed festival") && calendar.includes("separate tours and activities"),"Calendar must distinguish supplier products from events");
 assert.ok(calendar.includes('feedKind={christmas ? "christmas" : "products"}'),"Christmas must use topical supplier search, not generic tour listings");
 assert.ok(statewide.includes("CalendarBookingDiscovery") && collections.includes("CalendarBookingDiscovery"),"Global and seasonal collections must expose optional booking discovery");
+for(const key of ['location','start','end']) assert.ok(statewide.includes(`search.${key}?.startsWith`), `Optional calendar search parameter ${key} must be null-safe during SSR`);
+assert.ok(!read('src/data/discovery/__tests__/entity-registry.test.ts').includes('/event/hill-country-holiday-festival'),"Unpublished test fixture must not enter live changed-page release scope");
 assert.ok(registry.includes("eligibleForAutoPublication")===false,"Canonical entity model must be quality-governed, not autopublish");
 assert.ok(registry.includes("mayIndexDiscoveryEntity")&&registry.includes("reconcileConfirmedOccurrence"),"Authority and official-date gates must exist");
 assert.ok(cron.includes("cron:")&&cron.includes("retention-days: 13"),"Weekly bounded discovery must publish a short-lived review artifact");
