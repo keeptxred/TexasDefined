@@ -1,4 +1,4 @@
-import { TOP_TEXAS_ATTRACTIONS } from "../top-texas-attractions";
+import { TOP_TEXAS_ATTRACTIONS } from "../top-texas-attractions.ts";
 import type { ViatorAttractionCandidate } from "../../lib/viator-attraction-discovery";
 
 function key(name: string) {
