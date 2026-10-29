@@ -48,6 +48,7 @@ const checks = [
   ['camping-public-authority-wave8', 'CONTENT/AUTHORITY', 'Validate camping public authority Wave 8', 'node', ['scripts/data/validate-camping-public-authority-wave8.mjs']],
   ['camping-verified-wave9', 'CONTENT/AUTHORITY', 'Validate 66 unique researched public camping profiles and active restrictions', 'node', ['scripts/data/validate-camping-verified-wave9.mjs']],
   ['camping-verified-wave10', 'CONTENT/AUTHORITY', 'Validate 72 unique public camping profiles, access rules and closures', 'node', ['scripts/data/validate-camping-verified-wave10.mjs']],
+  ['camping-completion-audit', 'CONTENT/AUTHORITY', 'Enforce statewide camping source coverage, usability and canonical safeguards', 'node', ['scripts/data/validate-camping-completion-audit.mjs']],
   ['historic-sites', 'CONTENT/AUTHORITY', 'Validate statewide historic sites', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['historic-site-evergreen', 'CONTENT/AUTHORITY', 'Validate historic-site evergreen guides', 'node', ['scripts/data/validate-historic-site-evergreen.mjs']],
   ['historic-supporting-guides', 'CONTENT/AUTHORITY', 'Validate historic supporting guides', 'node', ['scripts/data/validate-historic-supporting-guides.mjs']],
