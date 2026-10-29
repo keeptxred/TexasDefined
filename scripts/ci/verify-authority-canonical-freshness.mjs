@@ -23,9 +23,10 @@ const pages = [
       'February 7, 2027',
       'Dash for the Beads',
     ],
+    // Scope stale-Dallas detection to its specific listing. Other organizers
+    // (notably Texas City) correctly remain unconfirmed for 2027.
     forbidden: [
       'Dallas · Date pending',
-      '2027 date not yet confirmed',
     ],
   },
   {
