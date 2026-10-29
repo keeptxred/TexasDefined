@@ -254,10 +254,10 @@ export function assertPortArthurFestivalGateFacts(html, surface) {
   ]) {
     if (!html.includes(fact)) throw new Error('Port Arthur ' + surface + ' is missing current gate-hour/source caveat: ' + fact);
   }
-  const robots = [...html.matchAll(/<meta\\b[^>]*>/gi)]
+  const robots = [...html.matchAll(/<meta\b[^>]*>/gi)]
     .map((match) => match[0])
-    .filter((tag) => /\\bname=["']robots["']/i.test(tag));
-  if (!robots.some((tag) => /\\bnoindex\\b/i.test(tag))) {
+    .filter((tag) => /\bname=["']robots["']/i.test(tag));
+  if (!robots.some((tag) => /\bnoindex\b/i.test(tag))) {
     throw new Error('Port Arthur ' + surface + ' incorrectly indexed without an approved event-specific hero photo');
   }
 }
