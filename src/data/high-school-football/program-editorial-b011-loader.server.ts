@@ -9,6 +9,11 @@ export const BATCH011_FOOTBALL_SLUGS = new Set<string>([
   'comal-canyon',
   'comal-canyon-lake',
   'comal-davenport',
+  'comal-pieper',
+  'comal-smithson-valley',
+  'comanche',
+  'comfort',
+  'commerce',
 ]);
 
 export async function loadBatch011FootballProgramEditorial(
