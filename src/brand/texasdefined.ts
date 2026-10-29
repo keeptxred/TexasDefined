@@ -167,7 +167,7 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Corporate Events", to: "/corporate-events" },
         { label: "Guides", to: "/guides" },
         { label: "Money & Property", to: "/decide/financial-tools" },
-        { label: "Texas Data", to: "/texas-data" },
+        { label: "Texas by the Numbers", to: "/texas-data" },
         { label: "Shop", to: "/shop" },
         { label: "About", to: "/about" },
       ],
