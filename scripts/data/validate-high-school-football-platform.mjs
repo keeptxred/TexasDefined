@@ -2754,7 +2754,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     const firstFive=expected.slice(0,5);
     const implemented=expected.filter(slug=>r.schoolRecords.find(x=>x.slug===slug)?.status==='IMPLEMENTED').length;
     const sourceReady=implemented>=5;
-    if(![0,5,10].includes(implemented) ||
+    if(![0,5,10,15].includes(implemented) ||
        r.batch.state!=='IN_PROGRESS' || r.batch.slugs.length!==25 ||
        JSON.stringify(r.batch.slugs)!==JSON.stringify(expected) ||
        r.batch.individuallyVerified!==0 ||
@@ -2765,7 +2765,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
        r.batch.currentSchool!==expected[implemented] ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==230 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch===11).length!==0)
-      errors.push('Batch011 must progress only complete source cohorts 0, 5 or 10 IMPLEMENTED, preserving 230 historical VERIFIED');
+      errors.push('Batch011 must progress only complete sourced cohorts 0, 5, 10 or 15 IMPLEMENTED, preserving 230 historical VERIFIED');
     for(const [i,slug] of expected.entries()) {
       const school=r.schoolRecords.find(x=>x.slug===slug);
       const expectedStatus=sourceReady&&i<implemented?'IMPLEMENTED':'NOT_REVIEWED';
@@ -2830,7 +2830,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
   // Batch011 second-five governance: independent source-specific dossiers,
   // school identities, physical counties, isolated Chrome and evidence path.
   // No status is accepted as technically VERIFIED until independent proof merges.
-  if(r.batch.implementedOnBranch===10){
+  if(r.batch.implementedOnBranch>=10){
     const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
     const src=read('src/data/high-school-football/program-editorial-b011.ts');
     const identities=read('src/data/high-school-football/school-identities.ts');
@@ -2865,6 +2865,43 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       if(!flow.includes(token)) errors.push('Second-five deployment/source verification workflow missing: '+token);
     if(src.includes('"comfort":') && /"comfort"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"comfort":'),src.indexOf('"commerce":'))))
       errors.push('Comfort 2025 HFC interview cannot be mislabeled confirmed 2026 coaching appointment');
+  }
+  if(r.batch.implementedOnBranch===15){
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const src=read('src/data/high-school-football/program-editorial-b011.ts');
+    const ids=read('src/data/high-school-football/school-identities.ts');
+    const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const county=read('src/routes/$kind.$slug.lazy.tsx');
+    const verify=read('scripts/ci/verify-football-b011-third-five-production.mjs');
+    const workflow=read('.github/workflows/verify-football-b011-third-five-production.yml');
+    const cases=[
+      ['como-pickton','hopkins','Jeremy Griffin'],
+      ['conroe','montgomery','Cedric Hardeman'],
+      ['conroe-caney-creek','montgomery','Taylor Cobb'],
+      ['conroe-grand-oaks','montgomery','Shaun McDowell'],
+      ['conroe-oak-ridge','montgomery','Tyler Blackshire']
+    ];
+    for(const [slug,campus,person] of cases){
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!src.includes('"'+slug+'": {') ||
+         !src.includes(person) || !loader.includes("'"+slug+"'") ||
+         !ids.includes("slug: '"+slug+"'") ||
+         !team.includes("'"+slug+"': '"+campus+"'") ||
+         !county.includes("slug: '"+slug+"'") ||
+         dossier.length<2000 || !dossier.includes('https://'))
+        errors.push('Batch011 third-five distinct school-source, campus county or dossier missing: '+slug);
+    }
+    for(const t of ['report.schoolChecks.length!==15',
+      'report.countyChecks.length!==2','report.screenshots!==17',
+      'process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_EXPECTED_WORKER_VERSION',
+      '/tmp/td-b011-third-chrome/node_modules/playwright-core'])
+      if(!verify.includes(t)) errors.push('Third-five real Chrome evidence guard missing '+t);
+    for(const t of ['Deploy TexasDefined production','steps.release.outputs.sha',
+      'pin-football-b010-production-release.mjs','artifacts/b011-third-five-production-chrome/'])
+      if(!workflow.includes(t)) errors.push('Third-five exact production release or evidence workflow missing '+t);
+    if(/"como-pickton"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"como-pickton":'),src.indexOf('"conroe":'))))
+      errors.push('Como-Pickton 2025 head football coach role is not 2026 first-party confirmed');
   }
 
     if(!r.completedBatches.some(x=>x.number===10 &&
