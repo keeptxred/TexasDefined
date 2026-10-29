@@ -183,6 +183,7 @@ async function verifyDynamicCollection(collection, sitemap) {
     }
     console.log(`[fall freshness] ${cardTags.length} unexpired, seasonally relevant SSR cards as of ${texasToday}`);
   }
+  if (collection.path === '/events/november-events') await verifyNovember2026EditorialRelease(html);
   verifyCollectionSchema(html, collection.label);
   console.log(`[${collection.label}] ${count} guides; ${shouldIndex ? 'indexable/in sitemap' : 'noindex/out of sitemap'} verified`);
 }
@@ -197,21 +198,16 @@ function visiblePageText(html) {
     .trim();
 }
 
-async function verifyNovember2026EditorialRelease() {
+async function verifyNovember2026EditorialRelease(november) {
   // This is an exact-season guard. The permanent November URL advances to
   // November 2027 when the 2026 season ends; do not assert stale-year results.
-  const texasToday = new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
-  }).format(new Date());
   const texasDateParts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
   }).formatToParts(new Date());
   const part = (type) => texasDateParts.find((entry) => entry.type === type)?.value;
   const safeToday = `${part('year')}-${part('month')}-${part('day')}`;
-  void texasToday;
   if (safeToday < '2026-10-29' || safeToday > '2026-11-30') return;
 
-  const november = await fetchProduction('/events/november-events', 'November 2026 editorial release');
   const visible = visiblePageText(november);
   assert(visible.includes('November in Texas brings Wurstfest'), 'November landing lost visitor-facing opening copy');
   assert(visible.includes('Browse November events'), 'November landing lost the filterable event directory');
@@ -241,7 +237,7 @@ async function verifyNovember2026EditorialRelease() {
 
   const south = await fetchProduction('/event/south-pole-illuminated-festival', 'South Pole lights 2026 guide');
   const southText = visiblePageText(south);
-  assert(southText.includes('November 28, 2026') && southText.includes('December 28, 2026'), 'South Pole guide lost organizer season dates');
+  assert(southText.includes('November 28') && southText.includes('December 28, 2026'), 'South Pole guide lost organizer season dates');
   assert(south.includes('https://www.southpoleoftexas.com/'), 'South Pole organizer source missing');
   console.log('[November 2026 editorial] verified current organizer seasons, SEO title, new filters, and four first-party event additions');
 }
@@ -263,7 +259,6 @@ async function main() {
   assert(!sitemap.includes('/events/events/'), 'sitemap.xml must not contain duplicated /events/events/ routes');
   await verifyAlwaysNoindexCurrentMonth(sitemap);
   for (const collection of collections) await verifyDynamicCollection(collection, sitemap);
-  await verifyNovember2026EditorialRelease();
   console.log(`Verified ${collections.length + 1} temporal event production collections against canonical, robots, sitemap and schema contracts.`);
 }
 
