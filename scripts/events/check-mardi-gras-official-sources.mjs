@@ -43,7 +43,7 @@ export const OFFICIAL_SOURCES = [
   {
     id: "beaumont-festival",
     eventSlug: "mardi-gras-southeast-texas-beaumont",
-    identity: /Mardi Gras of Southeast Texas/i,
+    identity: /Mardi Gras(?: of)? Southeast Texas/i,
     label: "Mardi Gras of Southeast Texas — public festival (not Circle of Hope)",
     url: "https://mardigrastx.com/",
     mode: "unannounced",
