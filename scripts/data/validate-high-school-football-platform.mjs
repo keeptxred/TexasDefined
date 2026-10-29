@@ -2754,7 +2754,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     const firstFive=expected.slice(0,5);
     const implemented=expected.filter(slug=>r.schoolRecords.find(x=>x.slug===slug)?.status==='IMPLEMENTED').length;
     const sourceReady=implemented>=5;
-    if(![0,5,10,15].includes(implemented) ||
+    if(![0,5,10,15,20].includes(implemented) ||
        r.batch.state!=='IN_PROGRESS' || r.batch.slugs.length!==25 ||
        JSON.stringify(r.batch.slugs)!==JSON.stringify(expected) ||
        r.batch.individuallyVerified!==0 ||
@@ -2765,7 +2765,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
        r.batch.currentSchool!==expected[implemented] ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==230 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch===11).length!==0)
-      errors.push('Batch011 must progress only complete sourced cohorts 0, 5, 10 or 15 IMPLEMENTED, preserving 230 historical VERIFIED');
+      errors.push('Batch011 source progress may be only complete 5-school cohorts 0,5,10,15,20 IMPLEMENTED; historical 230 VERIFIED immutable');
     for(const [i,slug] of expected.entries()) {
       const school=r.schoolRecords.find(x=>x.slug===slug);
       const expectedStatus=sourceReady&&i<implemented?'IMPLEMENTED':'NOT_REVIEWED';
@@ -2866,7 +2866,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     if(src.includes('"comfort":') && /"comfort"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"comfort":'),src.indexOf('"commerce":'))))
       errors.push('Comfort 2025 HFC interview cannot be mislabeled confirmed 2026 coaching appointment');
   }
-  if(r.batch.implementedOnBranch===15){
+  if(r.batch.implementedOnBranch>=15){
     const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
     const src=read('src/data/high-school-football/program-editorial-b011.ts');
     const ids=read('src/data/high-school-football/school-identities.ts');
@@ -2902,6 +2902,44 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       if(!workflow.includes(t)) errors.push('Third-five exact production release or evidence workflow missing '+t);
     if(/"como-pickton"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"como-pickton":'),src.indexOf('"conroe":'))))
       errors.push('Como-Pickton 2025 head football coach role is not 2026 first-party confirmed');
+  }
+  if(r.batch.implementedOnBranch===20){
+    const source=read('src/data/high-school-football/program-editorial-b011.ts');
+    const identities=read('src/data/high-school-football/school-identities.ts');
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const county=read('src/routes/$kind.$slug.lazy.tsx');
+    const chrome=read('scripts/ci/verify-football-b011-fourth-five-production.mjs');
+    const workflow=read('.github/workflows/verify-football-b011-fourth-five-production.yml');
+    const cases=[
+      ['conroe-the-woodlands','montgomery','Jim (James) Rapp'],
+      ['conroe-woodlands-college-park','montgomery','Michael Buro'],
+      ['converse-judson','bexar','Vernon Hughes'],
+      ['coolidge','limestone','six-man'],
+      ['cooper','delta','Bruce Silman']
+    ];
+    for(const [slug,physicalCounty,person] of cases){
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!source.includes('"'+slug+'": {')||!source.includes(person)||
+         !identities.includes("slug: '"+slug+"'")||
+         !loader.includes("'"+slug+"'")||
+         !school.includes("'"+slug+"': '"+physicalCounty+"'")||
+         !county.includes("slug: '"+slug+"'")||
+         dossier.length<2000||!dossier.includes('https://'))
+        errors.push('Fourth five sourced school profile, staff, six-man identity or county link missing: '+slug);
+    }
+    for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==4',
+      'report.screenshots!==19','process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_EXPECTED_WORKER_VERSION',
+      '/tmp/td-b011-fourth-chrome/node_modules/playwright-core'])
+      if(!chrome.includes(marker)) errors.push('Fourth-five independent real browser evidence guard missing: '+marker);
+    for(const marker of ['Deploy TexasDefined production','steps.release.outputs.sha',
+      'pin-football-b010-production-release.mjs','artifacts/b011-fourth-five-production-chrome/'])
+      if(!workflow.includes(marker)) errors.push('Fourth-five pinned live Worker workflow or artifact hold missing: '+marker);
+    for(const slug of ['coolidge','cooper']){
+      const next=source.slice(source.indexOf('"'+slug+'":'),source.indexOf('"'+slug+'":')+4500);
+      if(/"coach"\s*:\s*\{/.test(next)) errors.push('Unconfirmed 2026 head football coach must not be asserted: '+slug);
+    }
   }
 
     if(!r.completedBatches.some(x=>x.number===10 &&
