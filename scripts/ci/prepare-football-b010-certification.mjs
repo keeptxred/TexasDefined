@@ -221,6 +221,37 @@ export function attestWorkerWindow(deployments,worker,observations) {
   return null;
 }
 
+// The site's existing verified-worker deployment ledger is the source of truth
+// for git SHA ↔ Worker version provenance. A Chrome job checks the public URL,
+// but workflow_run.head_sha alone NEVER proves which commit built that Worker.
+// The ledger is emitted by the actual production job only after its runtime
+// validation succeeds, with both commit SHA and Wrangler version ID.
+export function selectVerifiedWorkerLedger(deployments,sha,worker,oldestBrowserStart,activeFrom) {
+  assert.ok(SHA.test(sha) && UUID.test(worker));
+  const earliest=Date.parse(oldestBrowserStart);
+  const published=Date.parse(activeFrom);
+  if(!Number.isFinite(earliest)||!Number.isFinite(published) || earliest<published)
+    return null;
+  for(const d of deployments||[]) {
+    let payload=d.payload;
+    if(typeof payload==='string'){
+      try{payload=JSON.parse(payload);}catch{continue;}
+    }
+    if(!payload || typeof payload!=='object')continue;
+    if(d.sha!==sha || d.environment!=='texasdefined-verified-worker' ||
+      payload.commit_sha!==sha || payload.worker_version!==worker ||
+      !/^[1-9][0-9]*$/.test(String(payload.source_run_id||'')) ||
+      !Number.isSafeInteger(Number(payload.source_run_id)) ||
+      !Number.isSafeInteger(d.id) || d.id<=0)continue;
+    const verified=Date.parse(payload.verified_at||'');
+    // GitHub's attestation must happen after this Worker was actually
+    // deployed, and before the first rendered Chrome verification began.
+    if(Number.isFinite(verified) && verified>=published && verified<=earliest)
+      return {ledgerDeploymentId:d.id,runId:Number(payload.source_run_id),
+        verifiedAt:payload.verified_at};
+  }
+  return null;
+}
 async function matchingRelease(sha,worker,observations) {
   const account=process.env.CLOUDFLARE_ACCOUNT_ID;
   const token=process.env.CLOUDFLARE_DEPLOY_API_TOKEN;
@@ -238,26 +269,39 @@ async function matchingRelease(sha,worker,observations) {
     return null;
   }
   const oldest=Math.min(...observations.map(x=>Date.parse(x.browserStartedAt)));
-  const data=gh('repos/'+REPO+'/actions/workflows/deploy-production.yml/runs?per_page=100');
-  const matching=data.workflow_runs?.find(x=>x.head_sha===sha &&
-    x.head_branch==='main'&&x.status==='completed'&&x.conclusion==='success' &&
-    Date.parse(x.updated_at||'')<=oldest &&
-    Date.parse(x.run_started_at||x.created_at||'')<=Date.parse(window.createdOn));
-  if(!matching){
-    console.log('DEFER: matching protected GitHub production release was not complete before actual browser checks.');
+  const ledgerData=gh('repos/'+REPO+
+    '/deployments?environment=texasdefined-verified-worker&per_page=100');
+  const ledger=selectVerifiedWorkerLedger(ledgerData,sha,worker,
+    new Date(oldest).toISOString(),window.createdOn);
+  if(!ledger){
+    console.log('DEFER: actual production verified-Worker ledger does not prove the Chrome source SHA built that Worker.');
     return null;
   }
-  return {runId:matching.id,cloudflare:window};
+  const statuses=gh('repos/'+REPO+'/deployments/'+ledger.ledgerDeploymentId+
+    '/statuses?per_page=1');
+  if(!Array.isArray(statuses) || statuses[0]?.state!=='success'){
+    console.log('DEFER: matching verified-Worker deployment status is not successful.');
+    return null;
+  }
+  const run=gh('repos/'+REPO+'/actions/runs/'+ledger.runId);
+  if(run?.head_sha!==sha || run?.head_branch!=='main' ||
+     run?.status!=='completed' || run?.conclusion!=='success'){
+    console.log('DEFER: verified-Worker ledger does not reference a successful exact-commit production run.');
+    return null;
+  }
+  return {runId:ledger.runId,ledgerDeploymentId:ledger.ledgerDeploymentId,
+    ledgerVerifiedAt:ledger.verifiedAt,cloudflare:window};
 }
 
-function section(at,worker,sha,deploy,groups,cloudflare) {
+function section(at,worker,sha,deploy,groups,cloudflare,ledgerId) {
   return ['## '+at+' — Batch 010 technical Chrome certification complete (25/25)',
     '',
     'Five genuine, non-skipped Chrome cohorts independently checked all 75 school viewports',
     '(1366/390/320), 22 reciprocal county views, 25 sitemap URLs, and preserved 106 PNG screenshots.',
     'Every report observed identical published Cloudflare Worker '+worker+'.',
     'The Cloudflare deployment '+cloudflare.id+' served it at 100% during all five',
-    'real Chrome verification windows, starting '+cloudflare.createdOn+
+    'real Chrome verification windows. GitHub verified-Worker ledger deployment '+ledgerId+
+    ' independently binds the exact source commit to that Worker. Starting '+cloudflare.createdOn+
     (cloudflare.nextDeploymentAt?'; superseded '+cloudflare.nextDeploymentAt+'.':'; still latest in deployment history.'),
     'Successful protected [production deployment]('+ROOT+'/actions/runs/'+deploy+
     ') on commit '+sha+' completed before live browser checks.',
@@ -333,6 +377,8 @@ export async function main() {
     graduateBatch010(reg,groups,worker,sha,deployment.runId,at);
     const accepted=reg.completedBatches.find(x=>x.number===10);
     accepted.technicalAcceptance.cloudflareDeploymentId=deployment.cloudflare.id;
+    accepted.technicalAcceptance.githubWorkerLedgerDeploymentId=deployment.ledgerDeploymentId;
+    accepted.technicalAcceptance.githubWorkerLedgerVerifiedAt=deployment.ledgerVerifiedAt;
     accepted.technicalAcceptance.cloudflareActiveFrom=deployment.cloudflare.createdOn;
     accepted.technicalAcceptance.cloudflareReplacedAt=deployment.cloudflare.nextDeploymentAt;
     accepted.technicalAcceptance.verificationObservationWindow=chosen.map((x,i)=>({
@@ -340,7 +386,8 @@ export async function main() {
       browserCompletedAt:x.browserCompletedAt,runId:x.group.runId
     }));
     writeFileSync(REGISTRY,JSON.stringify(reg,null,2)+'\n');
-    const newSection=section(at,worker,sha,deployment.runId,groups,deployment.cloudflare);
+    const newSection=section(at,worker,sha,deployment.runId,groups,deployment.cloudflare,
+      deployment.ledgerDeploymentId);
     for(const file of ['docs/football-authority/MASTER.md','docs/football-authority/PROGRESS.md']){
       const original=readFileSync(file,'utf8');
       const nl=original.indexOf('\n');
