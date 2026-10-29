@@ -35,10 +35,8 @@ for (const program of ["rvshare", "kings-camo-shop", "kings-camo-pants", "kings-
   assert.equal(url.pathname, "/click-" + cj.publisherId + "-" + creative.linkId, "unapproved affiliate link id: " + program);
   assert.equal(url.search, "", "registry must not hide query-string overrides");
 }
-for (const [partner, creative] of [["hotels.com", "15734399"], ["rvshare", cj.links.rvshare.linkId]]) {
-  const source = partner === "hotels.com" ? read("src/lib/cj-hotels-evergreen.ts") : stay;
-  assert.ok(source.includes(creative), "hunting travel creative missing " + partner);
-}
+assert.ok(read("src/lib/cj-hotels-evergreen.ts").includes("15734399"), "hunting Hotels.com creative must match captured Get Code");
+assert.ok(stay.includes('buildCjAccountClick("rvshare"'), "hunting RVshare placement must reference verified CJ program");
 for (const field of ["buildCjAccountClick(offer.program, pathname)", 'rel="sponsored nofollow noopener noreferrer"', 'trackAffiliateClick(', "Affiliate disclosure:", "kings-camo"]) {
   assert.ok(gear.includes(field), "hunting equipment affiliate guard missing " + field);
 }
