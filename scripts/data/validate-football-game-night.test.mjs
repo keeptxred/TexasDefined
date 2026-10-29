@@ -24,7 +24,11 @@ test('governed sports placements are looked up only for valid active football pr
   assert.match(pageLoader, /surfacePath: \`\/texas-high-school-football-teams\/\$\{profile\.slug\}\`/);
   assert.match(pageLoader, /return \{ \.\.\.profile, sponsorPlacement \}/);
   assert.match(profile, /SponsoredSportsPlacement key=\{sponsorPlacement\.id\} placement=\{sponsorPlacement\}/);
-  assert.match(profile, /\{sponsorPlacement \? \(/);
+  // Most programs show sponsors near the top; school-specific authority pages may
+  // defer the same governed placement until after sourced football coverage.
+  assert.match(profile, /\{(?:slug !== 'frisco-lone-star' && )?sponsorPlacement \? \(/);
+  assert.match(profile, /slug === 'frisco-lone-star'[\s\S]*?<SponsoredSportsPlacement/);
+  assert.match(profile, /<SponsoredSportsPlacement key=\{sponsorPlacement\.id\} placement=\{sponsorPlacement\}/);
   assert.match(sponsorServer, /export const SPORTS_SPONSOR_OUTREACH_HOLD = true/);
 });
 
