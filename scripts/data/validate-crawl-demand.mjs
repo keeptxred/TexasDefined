@@ -27,6 +27,18 @@ const route66Enrichment = read('src/data/texas-route-66-enrichment.ts');
 const exploreLeafQuality = read('src/data/explore-leaf-quality.ts');
 const failures = [];
 
+for (const intentTitle of [
+  'Texas Route 66 Road Trip: Complete Stop-by-Stop Guide',
+  '${stop.name} Route 66 Guide',
+]) {
+  if (!route66Page.includes(intentTitle)) failures.push('Route 66 search title intent missing: ' + intentTitle);
+}
+// Hub and stop titles are passed into buildMeta, which applies TexasDefined's
+// publisher template. A pre-branded title creates a duplicate site-name suffix.
+if (/title:\\s*[^\\n]*\\|\\s*Texas Defined/.test(route66Page)) {
+  failures.push('Route 66 SSR title must not pre-append Texas Defined to buildMeta.');
+}
+
 for (const sitemap of [
   'Sitemap: https://texasdefined.com/sitemap.xml',
   'Sitemap: https://texasdefined.com/sitemap-explore.xml',
