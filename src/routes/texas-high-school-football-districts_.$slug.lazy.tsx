@@ -39,6 +39,7 @@ function Page() {
   const reportedDistrictRecords = (katyPilot || district5Pilot || district21Pilot || district11Pilot) ? getSourcedDistrictRecords(games, district.programs) : [];
   if (district21Pilot) reportedDistrictRecords.sort((a, b) => b.won - a.won || a.lost - b.lost || a.schoolName.localeCompare(b.schoolName));
   const lastReportedFinal = games.filter((game) => game.status === 'final').at(-1)?.date;
+  const latestDistrict11SourceCheck = district11Pilot ? games.map((game) => game.verifiedAt).sort().at(-1) : undefined;
   const shortLabel = `${district.classification}${divisionRoman ? ` Division ${divisionRoman}` : ''} District ${district.district}`;
   const enrollmentBand = uilFootballEnrollmentBand(district.classification, district.division);
   const conferenceBand = uilFootballConferenceBand(district.classification);
@@ -80,10 +81,10 @@ function Page() {
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow text-primary">2026 varsity football</p>
-            <h2 className="mt-2 font-display text-3xl sm:text-4xl">{katyPilot ? 'Katy ISD district game week' : district5Pilot ? '2026 District 5 game results & schedule' : district21Pilot ? 'District 21 scores, standings & remaining schedule' : district11Pilot ? 'District 11 reported finals & remaining games' : 'Source-checked district games'}</h2>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl">{katyPilot ? 'Katy ISD district game week' : district5Pilot ? '2026 District 5 game results & schedule' : district21Pilot ? 'District 21 scores, standings & remaining schedule' : district11Pilot ? 'District 11 reported finals & 2026 schedule' : 'Source-checked district games'}</h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
               Source-dated reported finals and published fixtures, not live scores or certified district standings.
-              Scores appear only after a named reporting source confirms a final. {district21Pilot && ' District 21 records are complete through the October 10 round; teams had a Week 8 open date. The 2026 fixture snapshot is not a live feed.'} {district5Pilot && ' District 5 coverage is a dated October 17 snapshot, not an automatically refreshing scoreboard.'}{district11Pilot && ' District 11 scores are complete in this October 29 reviewed snapshot through the October 23 round; any later game remains unconfirmed until independently verified.'}
+              Scores appear only after a named reporting source confirms a final. {district21Pilot && ' District 21 records are complete through the October 10 round; teams had a Week 8 open date. The 2026 fixture snapshot is not a live feed.'} {district5Pilot && ' District 5 coverage is a dated October 17 snapshot, not an automatically refreshing scoreboard.'}{district11Pilot && ' The October 29 editorial baseline includes finals through October 23; newer verified results may be added as available, never inferred from a scheduled date.'}
             </p>
           </div>
           {katyPilot && <a className="text-sm font-semibold text-primary underline underline-offset-4" href={KATY_2026_SCHEDULE_SOURCE} target="_blank" rel="noopener noreferrer">Katy ISD 2026 schedule (PDF mirror) ↗</a>}
@@ -122,7 +123,7 @@ function Page() {
             : district5Pilot ? <>Calculated from the 16 reported District 5 finals through October 16, using
               {' '}<a href={DISTRICT_5_SCHEDULE_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Pigskin Prep</a> and
               {' '}<a href={DISTRICT_5_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps</a> source snapshots.</>
-              : district11Pilot ? <>Calculated from 15 sourced District 11 finals through October 23, 2026; see the individual game-source links below and the <a href={DISTRICT_11_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps UIL-partner district snapshot</a> checked {DISTRICT_11_VERIFIED_AT}. Records are not certified playoff rankings.</>
+              : district11Pilot ? <>Calculated from {games.filter((game) => game.status === 'final').length} source-linked District 11 finals in the published snapshot, initially researched through October 23, 2026; see the date-specific game sources below and the <a href={DISTRICT_11_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">MaxPreps UIL-partner district scoreboard</a>. Latest included source verification: {latestDistrict11SourceCheck}. Records are not certified playoff rankings.</>
               : <>Calculated solely from completed matchups documented below and earlier published results from
               {' '}<a href="https://www.texastng.com/districts/d22-6a" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Tradition Never Graduates</a>.</>}
             {' '}Do not use these partial data for official UIL seeds or district tie-breakers.
@@ -140,7 +141,7 @@ function Page() {
         </aside>}
         {district11Pilot && <aside data-football-district-section="district-11-context" className="mb-8 border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7">
           <h3 className="font-display text-2xl text-foreground">District 11's 2026 playoff race: 4 spots, 7 schools</h3>
-          <p className="mt-2">Through October 23, the sourced finals put Bay City at 5–0, Sealy at 4–1 and El Campo at 3–1, followed by Navasota at 2–2, Needville at 1–3, and Royal and Columbia at 0–4. Those are reported regular-season district results, not UIL-certified standings or playoff berths.</p>
+          <p className="mt-2">The initial October 23 research snapshot had Bay City at 5–0, Sealy at 4–1, El Campo at 3–1, Navasota at 2–2, Needville at 1–3, and Royal and Columbia at 0–4. For the latest source-backed record displayed on this page, use the table above; these counts are not UIL-certified seeds or playoff berths.</p>
           <p className="mt-2">The published October 30 round lists Bay City at Columbia, Navasota at El Campo, and Royal at Needville. November 6 lists El Campo at Sealy, Needville at Navasota, and Columbia at Royal. These are dated schedule listings, not a claim that games remain upcoming after their listed dates. Verify results, kickoff and venue with the schools.</p>
           <p className="mt-2">Four teams advance from Class 4A Division I District 11 into the Region III postseason. Unlike 6A, these teams are already placed in Division I. Unpublished district tie-breaks and future results are not projected here.</p>
           <a href={DISTRICT_11_STANDINGS_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">MaxPreps district scoreboard and records ↗</a>
@@ -179,7 +180,7 @@ function Page() {
         {katyPilot && <p className="mt-3 text-xs text-muted-foreground">Katy schedule source last checked October 16, 2026; the published schedule is dated March 27, 2026. Final scores carry their reporting source. Scheduled listings are not refreshed live.</p>}
         {district21Pilot && <p className="mt-3 text-xs text-muted-foreground">District 21 game and calendar sources checked {DISTRICT_21_VERIFIED_AT}. Last recorded district final: October 10; MaxPreps overall-record snapshot: October 14. This coverage is editorially maintained, not automatically updated. Verify late changes with the host school.</p>}
         {district5Pilot && <p className="mt-3 text-xs text-muted-foreground">District 5 results and fixtures last source-checked October 17, 2026. Scores and scheduled dates are not refreshed automatically. The October 16 finals use MaxPreps; earlier league finals and upcoming kickoff times use Pigskin Prep.</p>}
-        {district11Pilot && <p className="mt-3 text-xs text-muted-foreground">District 11 editorial snapshot source-checked {DISTRICT_11_VERIFIED_AT} using the UIL-partner MaxPreps 2026 schedules for all seven schools. It is not a live feed. Later results must be corroborated before this snapshot is updated.</p>}
+        {district11Pilot && <p className="mt-3 text-xs text-muted-foreground">District 11 original editorial baseline source-checked {DISTRICT_11_VERIFIED_AT} using UIL-partner 2026 schedules for all seven schools. Latest included source verification: {latestDistrict11SourceCheck}. This is not a live scoreboard; subsequent results are accepted only with source-backed confirmation.</p>}
       </section>}
 
       {district5Pilot && <section data-football-district-section="official-game-day" className="border-b border-border py-10">

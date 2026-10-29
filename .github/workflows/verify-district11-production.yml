@@ -1,0 +1,35 @@
+name: Verify 4A DI District 11 football production
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-district11-production.mjs'
+      - 'src/data/high-school-football/football-district11-2026.ts'
+      - '.github/workflows/verify-district11-production.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  district-11-live:
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out relevant repository release
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify checker syntax
+        run: node --check scripts/ci/verify-district11-production.mjs
+      - name: Verify public and Worker District 11 SSR after successful release
+        if: github.event_name != 'pull_request'
+        run: node scripts/ci/verify-district11-production.mjs

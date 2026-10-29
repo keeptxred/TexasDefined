@@ -9,6 +9,14 @@ import type { DistrictFootballGame } from './football-district-game-week';
  */
 export const DISTRICT_11_VERIFIED_AT = '2026-10-29';
 export const DISTRICT_11_STANDINGS_URL = 'https://www.maxpreps.com/tx/football/26-27/district/4a-1-region-iii-district-11/?leagueid=e544a32d-42ab-43c2-befa-ee65e25baf62';
+export const DISTRICT_11_SCORES_BASE = 'https://www.maxpreps.com/tx/football/26-27/district/4a-1-region-iii-district-11/scores/';
+const DISTRICT_11_LEAGUE_ID = 'e544a32d-42ab-43c2-befa-ee65e25baf62';
+// Point reported finals to the *date-specific district scoreboard*, not a
+// school's older schedule snapshot that may still say 'Preview Game'.
+const scoresForDate = (date: string) => {
+  const [year, month, day] = date.split('-');
+  return `${DISTRICT_11_SCORES_BASE}?date=${month}%2F${day}%2F${year}&leagueid=${DISTRICT_11_LEAGUE_ID}`;
+};
 export const DISTRICT_11_2026_SOURCES = {
   "Bay City": "https://www.maxpreps.com/tx/bay-city/bay-city-blackcats/football/schedule/",
   "El Campo": "https://www.maxpreps.com/tx/el-campo/el-campo-ricebirds/football/schedule/",
@@ -22,8 +30,8 @@ export const DISTRICT_11_2026_SOURCES = {
 const sourceFor = (home: string) => DISTRICT_11_2026_SOURCES[home as keyof typeof DISTRICT_11_2026_SOURCES];
 const reportedFinal = (date: string, away: string, home: string, awayScore: number, homeScore: number): DistrictFootballGame => ({
   date, away, home, awayScore, homeScore, kickoff: '7:00 p.m. CDT', status: 'final',
-  sourceUrl: sourceFor(home), resultSourceUrl: sourceFor(home),
-  sourceLabel: 'MaxPreps / UIL partner team results', verifiedAt: DISTRICT_11_VERIFIED_AT,
+  sourceUrl: sourceFor(home), resultSourceUrl: scoresForDate(date),
+  sourceLabel: 'MaxPreps / UIL partner district scoreboard', verifiedAt: DISTRICT_11_VERIFIED_AT,
 });
 const upcoming = (date: string, away: string, home: string): DistrictFootballGame => ({
   date, away, home, kickoff: date.startsWith('2026-11') ? '7:00 p.m. CST' : '7:00 p.m. CDT', status: 'scheduled',
