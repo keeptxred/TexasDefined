@@ -12,6 +12,20 @@ const carousel = read('src/components/editorial/TexasEventCarousel.tsx');
 const registry = JSON.parse(read('public/stay-nearby-hotels.json'));
 const failures = [];
 
+const reedEnrichment = read('src/data/sports-venue-enrichment-batch5.ts');
+// Official A&M venue policies verify the 12-1-1 clear-bag rule. The GSC
+// near-page-one query cohort concerns BAG policy rather than generic events.
+for (const marker of [
+  "'reed-arena': {",
+  '12-1-1 size rule',
+  'https://12thman.com/facilities/a-to-z/reed-arena',
+]) requireText(reedEnrichment, marker, 'Reed Arena clear-bag visitor utility');
+for (const marker of [
+  "entity.slug === 'reed-arena'",
+  'Reed Arena Bag Policy: Parking & Visitor Guide',
+  'clear-bag 12-1-1 policy',
+]) requireText(dynamicRoute, marker, 'Reed Arena GSC search snippet');
+
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
