@@ -27,7 +27,7 @@ for (const marker of [
   'setExpired(Boolean(texasDate',
 ]) assert.ok(notice.includes(marker), "missing fail-closed archive protection: " + marker);
 for (const [slug, terms] of Object.entries({
-  "archery-hunting": ["Collin, Dallas, Grayson, and Rockwall", "upper-limb disability", "Archery Endorsement"],
+  "archery-hunting": ["Collin, Dallas, Grayson and Rockwall", "upper-limb disability", "Archery Endorsement"],
   "hunter-education": ["September 2, 1971", "ages 9–16", "one-time deferral"],
   "drawn-hunts": ["ten days to claim", "loyalty points", "next business day"],
   "hunting-seasons": ["dove", "one date range", "legal"],
