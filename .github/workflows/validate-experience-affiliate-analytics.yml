@@ -9,6 +9,10 @@ on:
       - 'src/components/monetization/CityPassCalloutContent.tsx'
       - 'src/components/editorial/DestinationViatorBooking.tsx'
       - 'src/components/editorial/TexasExperienceMarkets.tsx'
+      - 'src/components/editorial/ViatorLiveProducts.tsx'
+      - 'src/lib/viator-market-feed.ts'
+      - 'src/lib/__tests__/viator-market-feed.test.ts'
+      - 'src/server.ts'
       - 'scripts/data/validate-experience-affiliate-analytics.mjs'
       - 'scripts/ci/verify-viator-production.mjs'
       - '.github/workflows/validate-experience-affiliate-analytics.yml'
@@ -21,6 +25,10 @@ on:
       - 'src/components/monetization/CityPassCalloutContent.tsx'
       - 'src/components/editorial/DestinationViatorBooking.tsx'
       - 'src/components/editorial/TexasExperienceMarkets.tsx'
+      - 'src/components/editorial/ViatorLiveProducts.tsx'
+      - 'src/lib/viator-market-feed.ts'
+      - 'src/lib/__tests__/viator-market-feed.test.ts'
+      - 'src/server.ts'
       - 'scripts/data/validate-experience-affiliate-analytics.mjs'
       - 'scripts/ci/verify-viator-production.mjs'
       - '.github/workflows/validate-experience-affiliate-analytics.yml'
@@ -38,4 +46,6 @@ jobs:
         with:
           node-version: 22
       - name: Validate CityPASS and Viator affiliate analytics
-        run: node scripts/data/validate-experience-affiliate-analytics.mjs
+        run: |
+          node scripts/data/validate-experience-affiliate-analytics.mjs
+          node --experimental-strip-types --test src/lib/__tests__/viator-market-feed.test.ts
