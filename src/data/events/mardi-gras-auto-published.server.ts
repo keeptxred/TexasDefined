@@ -42,7 +42,7 @@ export function verifiedMardiGrasFactForSlug(slug: string): AutoPublishedMardiGr
       || fact.sourceUrl !== expected.sourceUrl || fact.city !== expected.city
       || fact.evidenceType !== "official-event-jsonld"
       || fact.timeType !== "published-event-occurrence-not-parade-start"
-      || !/^2026-\d{2}-\d{2}T/.test(fact.checkedAt)) return null;
+      || !/^202[67]-\d{2}-\d{2}T/.test(fact.checkedAt)) return null;
   const start = day(fact.startDate), end = day(fact.endDate);
   if (!start || !end || end.getTime() < start.getTime() || end.getTime() - start.getTime() > 7 * 86400000) return null;
   return fact;
