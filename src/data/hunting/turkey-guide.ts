@@ -126,7 +126,7 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
       links: [tpwdHarvestData, tpwdAPHFinder, tpwdTurkey],
     },
     {
-      heading: "Equipment, field safety and ethical harvest"
+      heading: "Equipment, field safety and ethical harvest",
       paragraphs: [
         "Pack the essentials for the specific legal hunt: license and endorsement, proof of access or drawing selection, offline map, water, first-aid supplies, weather protection, blaze-orange gear where required by the property, and a way to file the TPWD harvest report. For a legal shotgun or bow hunt, confirm the equipment and ammunition restrictions for that zone and hunt notice rather than assuming a general statewide setup.",
         "Never imitate a turkey by moving through another hunter's calling area, and never identify a target solely from a sound, color patch or movement. Confirm what is beyond the bird, follow safe firearm or bow-handling practices, and avoid approaching a bird or decoy when other hunters could be present. TPWD also prohibits hunting a turkey on the roost.",
