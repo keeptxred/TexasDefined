@@ -6,6 +6,10 @@ import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 const ledgerPath = process.env.MARDI_GRAS_SOURCE_LEDGER_PATH;
 const output = "src/data/events/mardi-gras-verified-source-updates.json";
+const expectedSourceIds = new Set([
+  "oak-cliff-parade", "port-arthur-gate-hours", "orange-sabine",
+  "beaumont-festival", "mainland-texas-city", "bandera-specific", "bandera-general",
+]);
 const authorized = {
   "orange-sabine": {
     eventSlug: "mardi-gras-on-the-sabine-orange", sourceUrl: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine", city: "Orange",
@@ -40,7 +44,8 @@ export function proposeProtectedMardiGrasFacts(before, ledger, sourceRecords) {
   // a successful live check. All seven sources must be accounted for.
   if (ledger?.schemaVersion !== 1 || !Array.isArray(ledger.observations)
       || ledger.observations.length !== 7
-      || new Set(ledger.observations.map(row => row.id)).size !== 7
+      || new Set(ledger.observations.map(row => row.id)).size !== expectedSourceIds.size
+      || ledger.observations.some(row => !expectedSourceIds.has(row.id))
       || !/^202[67]-\d{2}-\d{2}T\d{2}:\d{2}:/.test(ledger.checkedAt || "")) {
     throw new Error("No complete same-run official source ledger; no promotion");
   }
@@ -51,7 +56,9 @@ export function proposeProtectedMardiGrasFacts(before, ledger, sourceRecords) {
     const fact = row.normalized2027Candidate;
     if (row.state !== "review-required" || row.reason !== "possible-new-2027-announcement-requires-editorial-verification"
         || !fact) continue;
-    if (!validateProtectedRecord(fact, row.id) || fact.sourceUrl !== row.sourceUrl) {
+    if (!validateProtectedRecord(fact, row.id) || fact.sourceUrl !== row.sourceUrl
+        || !Number.isFinite(Date.parse(fact.checkedAt))
+        || Math.abs(Date.parse(ledger.checkedAt) - Date.parse(fact.checkedAt)) > 30 * 60_000) {
       throw new Error("Unsafe source identity, date, or lifecycle in candidate " + row.id);
     }
     const existing = proposed.records[fact.eventSlug];
