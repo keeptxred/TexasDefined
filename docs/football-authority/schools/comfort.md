@@ -12,7 +12,7 @@ Comfort High Bobcats football is based in Comfort in Kendall County and belongs 
 
 ## Source-qualified current staff
 
-**Current football head-coach designation not independently resolved from a 2026 school football-staff page.** A 2026 district report confirms Jay Rieken is athletic director; a separate August 2025 news interview labeled him head football coach at that time. These titles and timestamps must not be conflated. [2026 district board update](https://chs.comfortisd.net/) and [2025 interview](https://spectrumlocalnews.com/tx/south-texas-el-paso/news/2025/08/15/comfort-high-school-football-floods).
+**Current football head-coach designation not independently resolved from a 2026 school football-staff page.** A 2026 district report confirms Jay Rieken is athletic director; a separate August 2025 news interview labeled him head football coach at that time. These titles and timestamps must not be conflated. [2026 district board update](https://comfortisd.net/index.php?articleID=92634513&pageID=smartSiteFeed&psqFeed=true) and [2025 interview](https://spectrumlocalnews.com/tx/south-texas-el-paso/news/2025/08/15/comfort-high-school-football-floods).
 
 ## Original editorial interpretation
 
