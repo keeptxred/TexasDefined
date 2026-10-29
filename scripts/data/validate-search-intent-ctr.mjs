@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import ts from 'typescript';
 import { search } from '../../src/domain/search/engine.ts';
 
 const readRouteSurface = (file) => {
@@ -33,6 +34,37 @@ const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const texasWaterResource = fs.readFileSync('src/components/content/TexasWaterSearchResource.tsx', 'utf8');
 const texasRiverBasinReference = fs.readFileSync('src/components/content/TexasRiverBasinReference.tsx', 'utf8');
 const failures = [];
+
+/**
+ * Shared buildMeta() appends the publisher title template itself.
+ * Examine every route's TypeScript AST, rather than pinning another list of
+ * exact titles; new template families must not silently add a second brand.
+ * Direct head.meta title literals are intentionally exempt.
+ */
+function allRouteSources(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const file = dir + '/' + entry.name;
+    if (entry.isDirectory()) return allRouteSources(file);
+    return entry.isFile() && /\.(?:ts|tsx)$/.test(entry.name) ? [file] : [];
+  });
+}
+for (const file of allRouteSources('src/routes')) {
+  const source = ts.createSourceFile(file, fs.readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  function scan(node) {
+    if (ts.isCallExpression(node)
+      && ts.isIdentifier(node.expression) && node.expression.text === 'buildMeta'
+      && node.arguments[0]?.getText(source) === 'texasDefinedBrand'
+      && node.arguments[1] && ts.isObjectLiteralExpression(node.arguments[1])) {
+      const title = node.arguments[1].properties.find((prop) =>
+        ts.isPropertyAssignment(prop) && prop.name.getText(source) === 'title');
+      if (title && ts.isPropertyAssignment(title) && /\|\s*Texas Defined\b/.test(title.initializer.getText(source))) {
+        failures.push('Prebranded title passed into shared buildMeta (duplicate publisher title): ' + file);
+      }
+    }
+    ts.forEachChild(node, scan);
+  }
+  scan(source);
+}
 const casinoSnippetRoute = fs.readFileSync('src/routes/explore.casinos.$slug.tsx', 'utf8');
 const destinationSnippetRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const texasDefinedBrand = fs.readFileSync('src/brand/texasdefined.ts', 'utf8');

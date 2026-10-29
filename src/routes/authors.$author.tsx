@@ -25,7 +25,7 @@ export const Route = createFileRoute("/authors/$author")({
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
     const description = `${loaderData.author.bio} Read stories published under the ${loaderData.author.name} byline.`;
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: `${loaderData.author.name} | Texas Defined`, description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.author.name, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/authors/$author")({
             "@type": "ProfilePage",
             "@id": `${url}#profile`,
             url,
-            name: `${loaderData.author.name} | Texas Defined`,
+            name: loaderData.author.name,
             description,
             inLanguage: texasDefinedBrand.identity.locale,
             isPartOf: { "@id": `${siteUrl}/#website` },
