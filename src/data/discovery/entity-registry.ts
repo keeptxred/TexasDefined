@@ -122,9 +122,14 @@ export function hasRecordedOwnerApproval(approval: EditorialOwnerApproval | unde
       !/^[a-z0-9][a-z0-9-]{3,100}$/i.test(approval.batchId) || !isoDate(approval.approvedAt)) return false;
   try {
     const url = new URL(approval.reviewUrl);
+    const [owner, repository, category, recordId, ...extra] = url.pathname.split("/").filter(Boolean);
+    const source = category === "issues" && recordId === "6380" &&
+      /^#issuecomment-\d+$/.test(url.hash);
+    const prReview = category === "pull" && /^\d+$/.test(recordId ?? "") &&
+      /^#pullrequestreview-\d+$/.test(url.hash);
     return url.protocol === "https:" && url.hostname === "github.com" &&
-      /^\\/[^/]+\\/TexasDefined\\/(?:issues\\/6380|pull\\/\\d+)$/.test(url.pathname) &&
-      /^(?:#issuecomment-\\d+|#pullrequestreview-\\d+)$/.test(url.hash);
+      Boolean(owner) && repository === "TexasDefined" &&
+      extra.length === 0 && (source || prReview);
   } catch {
     return false;
   }
