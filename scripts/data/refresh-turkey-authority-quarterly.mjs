@@ -86,8 +86,8 @@ export function parseSurvey(html) {
 export function updatedFacts(stored, draw, survey, today) {
   assert.deepEqual(stored.sources, officialSources, 'Source URLs altered; editorial approval required');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(today) || Number.isNaN(Date.parse(today))) throw Error('Invalid checkedAt date');
-  if (survey.year < 2026 || survey.year > Number(today.slice(0, 4))) throw Error('Invalid survey reporting year');
   if (today < stored.checkedAt) throw Error('Refusing to backdate official-source review');
+  if (survey.year < 2026 || survey.year > Number(today.slice(0, 4))) throw Error('Invalid survey reporting year');
   return {...stored, checkedAt: today, draw, survey};
 }
 export async function run(args = process.argv.slice(2), fetcher = fetchTPWD) {
