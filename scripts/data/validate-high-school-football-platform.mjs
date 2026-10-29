@@ -2141,8 +2141,12 @@ if (batch010Certified) {
   const from=Date.parse(proof?.cloudflareActiveFrom||'');
   const replaced=proof?.cloudflareReplacedAt===null ? Infinity :
     Date.parse(proof?.cloudflareReplacedAt||'');
+  const ledgerVerified=Date.parse(proof?.githubWorkerLedgerVerifiedAt||'');
   if(!validWorker.test(proof?.cloudflareDeploymentId||'') ||
+     !Number.isSafeInteger(proof?.githubWorkerLedgerDeploymentId) ||
+     proof.githubWorkerLedgerDeploymentId<=0 ||
      !Number.isFinite(from) || !(replaced>from) ||
+     !Number.isFinite(ledgerVerified) || ledgerVerified<from ||
      !Array.isArray(observedWindow) || observedWindow.length!==5)
     errors.push('Batch010 historical Cloudflare 100%-active production window missing or invalid');
   for(let i=0;i<5;i++) {
@@ -2150,7 +2154,7 @@ if (batch010Certified) {
     const start=Date.parse(w?.browserStartedAt||''),end=Date.parse(w?.browserCompletedAt||'');
     if(w?.cohort!==cohorts[i].split('-')[0] || w?.runId!==g?.runId ||
        !Number.isFinite(start) || !Number.isFinite(end) ||
-       start<from || end<start || end>=replaced)
+       start<from || start<ledgerVerified || end<start || end>=replaced)
       errors.push('Batch010 cohort Chrome timing is outside matching Cloudflare deployment: '+cohorts[i]);
   }
   if (r.batch.number !== 10 || r.batch.slugs.length !== 25 ||
