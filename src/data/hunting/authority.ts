@@ -170,14 +170,58 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
     slug: "drawn-hunts",
     eyebrow: "Limited-entry hunting",
     title: "Texas Drawn Hunts Guide",
-    description: "Plan Texas public-hunt drawings, deadlines and limited-entry opportunities through the official TPWD system.",
-    quickAnswer: "TPWD runs drawn hunts through an online application catalog with hunt-specific eligibility, deadlines, fees and instructions. Use the current catalog rather than last year's calendar.",
-    about: ["Texas drawn hunts", "TPWD drawn hunts", "public hunt drawing"],
+    description: "Follow the 2026–27 TPWD application schedule, hunt categories, fees, selection steps and loyalty points without mistaking drawing entry for hunting access.",
+    quickAnswer: "Texas drawn hunts use TPWD's online system. Most 2026 applications were due on the 1st or 15th from August through November; category deadlines, fees, available units and eligibility must be checked in the live catalog before applying. Selection is not a general public-land permit.",
+    about: ["Texas drawn hunts", "TPWD drawn hunts", "public hunt drawing", "Texas drawn hunt deadlines", "loyalty points"],
     sections: [
-      { heading: "Use the current catalog", paragraphs: ["Opportunities, deadlines, costs and participating properties can change each year. TexasDefined intentionally does not duplicate the full deadline calendar."], links: [HUNTING_OFFICIAL_SOURCES.drawnHunts] },
-      { heading: "Read the individual hunt notice", paragraphs: ["Party size, eligibility, permits, lodging or camping and required licenses can differ by hunt."], links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, INTERNAL.publicLands, INTERNAL.parks] },
-      { heading: "Plan travel after selection", paragraphs: ["Build lodging, county and travel plans around the final assignment and check-in instructions."], links: [INTERNAL.counties, INTERNAL.camping, INTERNAL.tripPlanner] },
-      { heading: "Understand results, claiming and loyalty points", paragraphs: ["TPWD uses an online-only drawing system and normally conducts drawings the next business day after a deadline. Selected hunters are notified by email; TPWD states winners generally have ten days to claim and purchase a permit or it is forfeited. Deadlines, permit fees, eligibility and party-size limits remain specific to each current hunt listing.", "Former preference points are now called loyalty points. TPWD awards one point per category per season of participation, with category-specific treatment after selection; group applications use averaged points. Use TPWD's application status and loyalty-point pages instead of estimating your odds from general historical percentages."], links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, { label: "TPWD drawn-hunt loyalty points", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/loyalty-points.phtml", external: true }] },
+      {
+        heading: "Choose a hunt category and location",
+        paragraphs: [
+          "TPWD's live catalog separates deer, turkey, exotic game, feral hog, refuge, private-land, youth and other opportunities. Compare location, dates, legal game, bag limits, methods, permits, physical access, parties and any lodging before you select a category. A map marker or Wildlife Management Area name alone does not authorize hunting.",
+          "Use the hunt catalog's current category or location search. TexasDefined does not invent available permits or duplicate the full catalog, which can change by hunt year."
+        ],
+        links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, HUNTING_OFFICIAL_SOURCES.publicAreaSearch, INTERNAL.publicLands],
+      },
+      {
+        heading: "Check the actual 2026–27 deadline",
+        paragraphs: [
+          "The 2026–27 TPWD deadline list puts most application cutoffs on August 1, August 15, September 1, September 15, October 1, October 15 or November 1, depending on category. As of late October 2026, do not assume that earlier deer or exotic applications can still be submitted; compare the category's live deadline before paying.",
+          "TPWD normally draws the next business day after each application deadline. A proposed initial draw date or permit-acceptance deadline is not a guaranteed hunting date. Use the official deadlines and individual hunt notices as the controlling schedule."
+        ],
+        links: [{ label: "TPWD 2026–27 drawn-hunt deadlines", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/deadlines.phtml", external: true }, HUNTING_OFFICIAL_SOURCES.drawnHunts],
+      },
+      {
+        heading: "Understand application and permit fees",
+        paragraphs: [
+          "TPWD generally lists adult application fees of $3 or $10 per person, depending on the hunt category. E-Postcard hunts, U.S. Forest Service antlerless deer permits, qualifying youth applicants and specified supervising adults have no application fee. Fees are determined by each official hunt listing, not by species alone.",
+          "Adult special-hunt permit fees are commonly $80 or $130 per person, while certain categories have no permit fee. Do not mistake an application payment for a permit, an Annual Public Hunting Permit, a hunting license or land access."
+        ],
+        links: [{ label: "TPWD drawn-hunt FAQs and fees", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/faqs.phtml", external: true }, HUNTING_OFFICIAL_SOURCES.drawnHunts],
+      },
+      {
+        heading: "Apply with the right group and eligibility",
+        paragraphs: [
+          "Review the individual hunt's allowable party size, residency conditions, applicant ages, supervision and disability accommodations. TPWD has special youth-only and youth/adult categories; one member's eligibility does not automatically qualify an entire group.",
+          "Applications are submitted online with TPWD customer identification and payment, when required. Once an application is submitted, TPWD says it cannot be changed or canceled and application fees generally are not refunded."
+        ],
+        links: [{ label: "TPWD: how to get started", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/getting-started.phtml", external: true }, { label: "TPWD drawn-hunt FAQs", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/faqs.phtml", external: true }],
+      },
+      {
+        heading: "What happens if you are selected?",
+        paragraphs: [
+          "Check the TPWD application-status portal as well as email: unsuccessful applicants do not necessarily receive a notice. TPWD generally allows around ten calendar days after a drawing to accept and pay for a selected permit, and forfeits permits that are not claimed. Confirm the exact acceptance date shown in your account.",
+          "Only after the official permit and area instructions are confirmed should you finalize travel. Check site check-in, the issued permit, hunt equipment, property boundaries, weather, lodging and any public-hunt license or endorsement requirements."
+        ],
+        links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, { label: "TPWD: drawn-hunt application status and questions", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/faqs.phtml", external: true }, INTERNAL.tripPlanner],
+      },
+      {
+        heading: "Loyalty points are category-specific",
+        paragraphs: [
+          "Former preference points are called loyalty points. TPWD awards one point per category in a season when eligible applications are submitted, not one point for each hunt location. Points carry forward until selection in that category; TPWD uses cubed points in the draw and averages members' points for group entries.",
+          "E-Postcard and U.S. Forest Service deer-permit draws do not accrue loyalty points. Category-specific resets and other exceptions matter: use the official account record and TPWD point rules rather than treating a point count as a guaranteed winning probability."
+        ],
+        links: [{ label: "TPWD loyalty points explained", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/loyalty-points.phtml", external: true }, HUNTING_OFFICIAL_SOURCES.drawnHunts],
+      },
     ],
     related: [{ label: "Texas public hunting", href: "/hunting/public-hunting" }, { label: "Annual Public Hunting Permit", href: "/hunting/annual-public-hunting-permit" }, { label: "Texas youth hunting", href: "/hunting/youth-hunting" }, INTERNAL.parks, INTERNAL.tripPlanner],
   }),
