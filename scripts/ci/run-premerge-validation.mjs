@@ -191,6 +191,7 @@ const prebuildChecks = [
   ['SEO/INDEXING', 'Validate Phase 10 housing index-suppression contract', 'node', ['scripts/data/validate-phase10-housing-indexing.mjs']],
   ['SEO/CTR', 'Test evidence-based production snippet classification', 'node', ['--test', 'scripts/ci/snippet-classification.test.mjs']],
   ['SEO/CTR', 'Test HTML snippet rich-result and breadcrumb evidence extraction', 'node', ['--test', 'scripts/ci/snippet-html-signals.test.mjs']],
+  ['SEO/CTR', 'Validate GSC 28-day and 7-day snapshot comparison', 'node', ['--test', 'scripts/ci/gsc-snapshot-compare.test.mjs']],
   ['DATA/CITATION', 'Validate downloadable source-backed generic Texas Data briefs', 'node', ['--experimental-strip-types', '--test', 'src/data/texas-data-download.test.ts']],
   ['EDITORIAL/REGIONS', 'Keep Texas regions guide practical without internal publishing terminology', 'node', ['--test', 'scripts/data/texas-regions-reader-copy.test.mjs']],
   ['RELOCATION/GOVERNANCE', 'Validate Texas relocation operating system', 'node', ['scripts/data/validate-relocation-tools.mjs']],
