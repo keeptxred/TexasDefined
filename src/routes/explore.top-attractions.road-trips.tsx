@@ -37,7 +37,7 @@ export const Route = createFileRoute("/explore/top-attractions/road-trips")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: "Top 25 Texas Attraction Road Trips | Texas Defined",
+        title: "Top 25 Texas Attraction Road Trips",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
