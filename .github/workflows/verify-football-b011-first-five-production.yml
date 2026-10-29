@@ -77,9 +77,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          node --check scripts/ci/pin-football-b011-production-release.mjs
-          node --test scripts/ci/pin-football-b011-production-release.test.mjs
-          node scripts/ci/pin-football-b011-production-release.mjs
+          node --check scripts/ci/pin-football-b010-production-release.mjs
+          node --test scripts/ci/pin-football-b010-production-release.test.mjs
+          node scripts/ci/pin-football-b010-production-release.mjs
       - name: Check out exact source commit for the actually published Worker
         if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
         uses: actions/checkout@v4
