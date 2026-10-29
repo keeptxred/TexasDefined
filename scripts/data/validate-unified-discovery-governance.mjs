@@ -8,6 +8,12 @@ const statewide=read("src/components/events/EventsLandingPage.tsx");
 const collections=read("src/routes/events.$collection.lazy.tsx");
 const registry=read("src/data/discovery/entity-registry.ts");
 const discovery=read("src/lib/viator-attraction-discovery.ts");
+const viatorServerBlock=server.slice(server.indexOf('const VIATOR_API_BASE'),server.indexOf('async function remoteImageResponse('));
+assert.equal((viatorServerBlock.match(/redirect: "error"/g)||[]).length,0,"Cloudflare Workers must never use unsupported redirect:error for Viator requests");
+assert.equal((viatorServerBlock.match(/redirect: "manual"/g)||[]).length,5,"Every Viator partner fetch must reject redirects manually");
+assert.ok(viatorServerBlock.includes('upstream.status >= 300 && upstream.status < 400'),"Generic Viator passthrough must fail closed on redirect");
+assert.ok(viatorServerBlock.includes('Accept: "application/json;version=2.0"'),"Viator API v2 headers are mandatory");
+
 const cron=read(".github/workflows/weekly-viator-attraction-discovery.yml");
 
 assert.ok((robots.match(/Disallow: \/api\/viator\//g)||[]).length>=5,"Every robot group must disallow provider API content");
