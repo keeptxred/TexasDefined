@@ -1,0 +1,31 @@
+{
+  "seasonYear": "2026–27",
+  "checkedAt": "2026-10-29",
+  "sources": {
+    "category": "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-category-details.phtml?OCat=NTS",
+    "hagerman": "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UP",
+    "eastLake": "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UE",
+    "survey": "https://tpwd.texas.gov/huntwild/wild/game_management/turkey/turkeyData.phtml"
+  },
+  "draw": {
+    "deadline": "November 01, 2026",
+    "applicationFeeUsd": 3,
+    "permitFeeUsd": 80,
+    "hagermanPermits": 24,
+    "hagermanDates": [
+      "Apr 22, 2027 – Apr 24, 2027"
+    ],
+    "eastLakePermits": 8,
+    "eastLakeDates": [
+      "Apr 02, 2027 – Apr 04, 2027",
+      "Apr 09, 2027 – Apr 11, 2027"
+    ]
+  },
+  "survey": {
+    "year": 2026,
+    "poultsPerHen": 1.82,
+    "observationsPerThousand": 11.38,
+    "priorYear": 2025,
+    "priorObservationsPerThousand": 9.21
+  }
+}
