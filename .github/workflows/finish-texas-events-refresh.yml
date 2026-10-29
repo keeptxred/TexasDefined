@@ -123,7 +123,7 @@ jobs:
 
           allowed_path() {
             case "$1" in
-              src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json|src/data/generated/tpwd-events.json|ops/editorial/ticketmaster-authority-candidates.json|ops/editorial/event-ticketing-verification-ledger.json) return 0 ;;
+              src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json|src/data/generated/tpwd-events.json|src/data/events/mardi-gras-verified-source-updates.json|ops/editorial/ticketmaster-authority-candidates.json|ops/editorial/event-ticketing-verification-ledger.json) return 0 ;;
               *) return 1 ;;
             esac
           }
@@ -197,6 +197,8 @@ jobs:
             validate_generated_diff "$merge_base" "origin/$BRANCH"
 
             git checkout -B "$BRANCH" "origin/$BRANCH"
+          # Validate the ACTUAL bot branch, not the checked-out main source.
+          node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
 
             if ! git merge-base --is-ancestor origin/main HEAD; then
               echo "Current main advanced; merging it into the generated refresh branch without rewriting history."
@@ -212,6 +214,7 @@ jobs:
                 git commit --no-edit
               fi
               validate_generated_diff origin/main HEAD
+              node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
               git push origin "HEAD:$BRANCH"
             fi
 

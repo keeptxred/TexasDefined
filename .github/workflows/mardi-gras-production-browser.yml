@@ -6,6 +6,16 @@ on:
     paths:
       - 'scripts/ci/verify-mardi-gras-browser.mjs'
       - '.github/workflows/mardi-gras-production-browser.yml'
+      - 'scripts/events/check-mardi-gras-official-sources.mjs'
+      - 'scripts/events/check-mardi-gras-official-sources.test.mjs'
+      - 'scripts/events/parse-mardi-gras-official-facts.mjs'
+      - 'scripts/events/parse-mardi-gras-official-facts.test.mjs'
+      - 'scripts/events/sync-mardi-gras-protected-2027.mjs'
+      - 'scripts/events/sync-mardi-gras-protected-2027.test.mjs'
+      - 'src/data/events/mardi-gras-verified-source-updates.json'
+      - 'src/data/events/mardi-gras-auto-published.server.ts'
+      - 'src/data/major-event-page.server.ts'
+      - 'src/routes/events.mardi-gras.lazy.tsx'
   workflow_run:
     workflows: ["Deploy TexasDefined production"]
     types: [completed]
@@ -36,6 +46,10 @@ jobs:
         run: |
           node --check scripts/ci/verify-mardi-gras-browser.mjs
           node scripts/ci/verify-mardi-gras-browser.mjs --self-test
+      - name: Test official-source normalization and protected 2027 publication guard
+        run: |
+          node --test scripts/events/check-mardi-gras-official-sources.test.mjs scripts/events/parse-mardi-gras-official-facts.test.mjs scripts/events/sync-mardi-gras-protected-2027.test.mjs
+          node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
 
   production-chrome:
     if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
@@ -66,6 +80,11 @@ jobs:
                'src/data/events/mardi-gras-new-festivals-2027.server.ts' \
                'src/data/events/mardi-gras-companion-events-2027.server.ts' \
                'scripts/events/check-mardi-gras-official-sources.mjs' \
+               'scripts/events/parse-mardi-gras-official-facts.mjs' \
+               'scripts/events/sync-mardi-gras-protected-2027.mjs' \
+               'src/data/events/mardi-gras-verified-source-updates.json' \
+               'src/data/events/mardi-gras-auto-published.server.ts' \
+               'src/data/major-event-page.server.ts' \
                'scripts/ci/verify-authority-canonical-freshness.mjs' \
                'scripts/ci/verify-mardi-gras-browser.mjs' \
                '.github/workflows/mardi-gras-production-browser.yml' | grep -q .; then

@@ -1,6 +1,7 @@
 import { formatDateRange } from "@/domain/utils/format";
 import { buildHotelsComEvergreenClick, hotelsComPageSid, PALESTINE_HOTELS_SID } from "@/lib/cj-hotels-evergreen";
 import { getPalestinePolarExpressRollover } from "./palestine-polar-express-rollover.server";
+import { applyVerifiedMardiGrasSourceFacts } from "./events/mardi-gras-auto-published.server";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 import { hasExpiredConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
@@ -246,7 +247,7 @@ export function getMajorEventRecordServer(slug: string) {
       });
     }
   }
-  return expandFestivalGuide(event);
+  return expandFestivalGuide(applyVerifiedMardiGrasSourceFacts(event));
 }
 
 const officialAirshowTicketPages: Record<string, string> = {

@@ -3,6 +3,7 @@ import test from "node:test";
 import { OFFICIAL_SOURCES } from "./check-mardi-gras-official-sources.mjs";
 import { parseVerifiedMardiGras2027Candidate as parse } from "./parse-mardi-gras-official-facts.mjs";
 const checked = "2026-10-29T16:00:00.000Z";
+const nextYearChecked = "2027-01-08T16:00:00.000Z";
 const orange = OFFICIAL_SOURCES.find(s => s.id === "orange-sabine");
 const beaumont = OFFICIAL_SOURCES.find(s => s.id === "beaumont-festival");
 const texasCity = OFFICIAL_SOURCES.find(s => s.id === "mainland-texas-city");
@@ -30,11 +31,22 @@ test("Texas City confirmed candidate has no fabricated individual guide", () => 
   assert.equal(result.status, "candidate");
   assert.equal(result.facts.eventSlug, null);
 });
+test("the daily 2027 source watcher can still normalize same-season announcements", () => {
+  const result = parse(orange, html("Mardi Gras on the Sabine", "Orange", "City of Orange", "2027-02-06"), nextYearChecked);
+  assert.equal(result.status, "candidate");
+  assert.equal(result.facts.checkedAt, nextYearChecked);
+});
 test("historical dates, guessed text, source challenge and unrelated JSON-LD all fail closed", () => {
   assert.equal(parse(orange, html("Mardi Gras on the Sabine", "Orange", "City of Orange", "2026-02-07"), checked).status, "hold");
   assert.equal(parse(orange, ("Mardi Gras on the Sabine, February 6, 2027. ").repeat(12), checked).status, "hold");
   assert.equal(parse(orange, "<h1>Just a moment...</h1>", checked).status, "hold");
   assert.equal(parse(orange, html("Other festival", "Orange", "City of Orange", "2027-02-06") + "Mardi Gras on the Sabine", checked).status, "hold");
+});
+test("an old 2027 occurrence remaining on the official page after the event cannot auto-promote", () => {
+  const historic = html("Mardi Gras on the Sabine", "Orange", "City of Orange", "2027-02-06");
+  const result = parse(orange, historic, "2027-02-08T09:00:00.000Z");
+  assert.equal(result.status, "hold");
+  assert.equal(result.reason, "expired-event-window-not-upcoming");
 });
 test("wrong city, organizer, invalid leap day, too long range and source conflict fail closed", () => {
   assert.equal(parse(orange, html("Mardi Gras on the Sabine", "Houston", "City of Orange", "2027-02-06"), checked).status, "hold");

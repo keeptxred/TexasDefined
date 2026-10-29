@@ -2,6 +2,7 @@ import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
+import sourceRegistry from "@/data/events/mardi-gras-verified-source-updates.json";
 
 type ConfirmedCelebration = {
   slug: string; name: string; city: string; region: string;
@@ -11,7 +12,7 @@ type PendingCelebration = {
   name: string; city: string; status: string; detail: string; url: string; guide?: string;
 };
 
-const confirmed: ConfirmedCelebration[] = [
+const editorConfirmed: ConfirmedCelebration[] = [
   {
     "slug": "beaumont-pardi-gras",
     "name": "Beaumont Pardi Gras",
@@ -114,7 +115,7 @@ const confirmed: ConfirmedCelebration[] = [
     "secondaryOfficial": "https://krewedulac.net/events"
   }
 ];
-const pending: PendingCelebration[] = [
+const editorPending: PendingCelebration[] = [
   {
     "guide": "/event/mardi-gras-on-the-sabine-orange",
     "name": "Mardi Gras on the Sabine",
@@ -139,6 +140,59 @@ const pending: PendingCelebration[] = [
     "url": "https://texascitytx.gov/906/Parades"
   }
 ];
+
+
+type VerifiedAnnouncement = {
+  eventSlug: string; sourceId: string; sourceUrl: string; city: string;
+  startDate: string; endDate: string; eventName: string; checkedAt: string;
+  evidenceType: string; timeType: string;
+};
+const announcements = (sourceRegistry.records || {}) as Record<string, VerifiedAnnouncement>;
+const promotedCelebrations: ConfirmedCelebration[] = Object.entries(announcements)
+  .filter(([slug, fact]) => (
+    (slug === "mardi-gras-on-the-sabine-orange" && fact.sourceId === "orange-sabine"
+      && fact.sourceUrl === "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine" && fact.city === "Orange")
+    || (slug === "mardi-gras-southeast-texas-beaumont" && fact.sourceId === "beaumont-festival"
+      && fact.sourceUrl === "https://mardigrastx.com/" && fact.city === "Beaumont")
+  ))
+  .filter(([slug, fact]) => fact.eventSlug === slug
+    && fact.evidenceType === "official-event-jsonld"
+    && fact.timeType === "published-event-occurrence-not-parade-start"
+    && /^2027-(?:01|02|03)-\d{2}$/.test(fact.startDate)
+    && /^2027-(?:01|02|03)-\d{2}$/.test(fact.endDate)
+    && fact.endDate >= fact.startDate
+    && (Date.parse(fact.endDate + "T12:00:00Z") - Date.parse(fact.startDate + "T12:00:00Z")) <= 7 * 86400000)
+  .map(([slug, fact]) => ({
+    slug,
+    name: slug === "mardi-gras-on-the-sabine-orange" ? "Mardi Gras on the Sabine" : "Mardi Gras of Southeast Texas",
+    city: fact.city,
+    region: "Southeast Texas",
+    date: "",
+    kind: slug === "mardi-gras-on-the-sabine-orange" ? "Riverfront community festival" : "Nonprofit parade and music festival",
+    family: "Exact parade times and admission terms: confirm with organizer",
+    description: slug === "mardi-gras-on-the-sabine-orange"
+      ? "The City of Orange now provides a 2027 festival occurrence. Do not infer parade departure times or 2027 admission details from its completed 2026 program."
+      : "Mardi Gras Southeast Texas now lists a 2027 festival occurrence, separately organized from the Port Arthur revival and the Beaumont Pardi Gras charity.",
+    official: fact.sourceUrl,
+  }));
+// Date formatting is derived from the source registry so the hub and Event
+// schema cannot silently diverge after a protected source-fact merge.
+const prettyDate = (iso: string) => new Intl.DateTimeFormat("en-US", {
+  month: "long", day: "numeric", year: "numeric", timeZone: "UTC",
+}).format(new Date(iso + "T12:00:00Z"));
+const confirmed: ConfirmedCelebration[] = [
+  ...editorConfirmed,
+  ...promotedCelebrations.filter(fact => !editorConfirmed.some(existing => existing.slug === fact.slug))
+    .map(fact => {
+      const source = announcements[fact.slug];
+      return { ...fact, date: source.startDate === source.endDate
+        ? prettyDate(source.startDate)
+        : prettyDate(source.startDate) + " – " + prettyDate(source.endDate) };
+    }),
+];
+const pending: PendingCelebration[] = editorPending.filter(event =>
+  !promotedCelebrations.some(promoted => promoted.city === event.city &&
+    promoted.name === event.name));
 
 const collectionSchema = {
   "@context": "https://schema.org",
