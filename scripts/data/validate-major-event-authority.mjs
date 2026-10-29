@@ -467,6 +467,18 @@ if (completedHotFair.includes("The fair runs October 8-18, 2026.") ||
   fail("Historical Heart O' Texas edition must not imply its 2026 admission and dates are current");
 }
 
+// Expired 2026 state-fair and festival editions must not remain actionable 2026 trip instructions.
+// Keep the source-backed historical results and do not guess an unconfirmed future edition.
+for (const [file, mustContain, mustNotContain] of [
+  ["major-event-expanded-authority-tranche47.server.ts", ["Prairie View A&M defeated Grambling State 21–14", "2026 State Fair Classic: final score and date", "Grambling State Athletics — September 26, 2026 final score"], ["The 2026 State Fair Classic is scheduled for Saturday", "Kickoff is 6 p.m. in 2026"]],
+  ["major-event-expanded-authority-tranche41.server.ts", ["2026 Floresville Peanut Festival concluded October 10", "2026 Grand Parade was October 10", "next edition requires a new organizer announcement"], ["Use Saturday for the Grand Parade and full downtown day"]],
+  ["major-event-expanded-authority-tranche39.server.ts", ["East Texas State Fair 2026 edition concluded October 4", "2026 East Texas State Fair: completed", "Historical 2026 grounds and arena ticket rules"], ["Use September 25-October 4 as the confirmed 2026 fair run"]],
+]) {
+  const contents = read(path.join(dataDir, file));
+  for (const marker of mustContain) if (!contents.includes(marker)) fail("Expired event guide freshness marker missing: " + file + " " + marker);
+  for (const marker of mustNotContain) if (contents.includes(marker)) fail("Expired event guide restored upcoming edition claim: " + file + " " + marker);
+}
+
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {
   console.log(`Major-event authority validation passed (${trancheFiles.length} tranche files, ${slugOwners.size} authority slugs, ${ledgerSlugs.size} ledger event destinations, ${collectionPaths.length} crawlable event authority collections, ${temporalPaths.length} finite temporal collections; ${duplicateDefinitions} historical duplicate definitions retained under first-match resolution).`);
