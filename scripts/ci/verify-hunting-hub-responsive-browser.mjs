@@ -65,6 +65,9 @@ try {
 
     const county = page.locator("#hunting-access-county");
     assert.equal(await county.locator("option").count(), 255, "254 counties plus all-county option");
+    assert.equal(await county.inputValue(), "harris", "season-planner county also appears in public hunt planner");
+    await county.selectOption("travis");
+    assert.equal(await seasonCounty.inputValue(), "travis", "public hunt county updates season planner");
     await county.selectOption("harris");
     assert.ok((await page.locator("#public-hunting-planner").innerText()).includes("Harris County"), "county-specific planning handoff");
     assert.equal((await page.locator("#public-hunting-planner").innerText()).includes("County County"), false, "public-hunt county must not be duplicated");
@@ -73,10 +76,27 @@ try {
     assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-access-county", "county selector keyboard focus");
     await page.keyboard.press("Home");
     await page.waitForFunction(() => document.querySelector("#hunting-access-county")?.value === "", undefined, { timeout: 5000 });
+    assert.equal(await seasonCounty.inputValue(), "", "clearing county clears both planners");
     await page.keyboard.press("Tab");
     assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-access-game", "county keyboard Tab advances to game without trapping focus");
     await page.keyboard.press("Tab");
     assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-access-type", "game keyboard Tab advances to access program");
+
+    assert.ok(await page.locator("#public-hunting-planner a[href^='https://tpwd.maps.arcgis.com/apps/webappviewer/']").count(), "official TPWD public hunting map handoff exists");
+    await county.selectOption("harris");
+    await page.locator("#hunting-access-game").selectOption({ label: "Dove" });
+    await page.locator("#copy-hunting-search-checklist").click();
+    const copyFeedback = await page.locator("#public-hunting-planner [role='status']").innerText();
+    assert.ok(/Checklist copied|Clipboard unavailable/.test(copyFeedback), "clipboard action must give accessible success or fallback");
+    if (copyFeedback.includes("Clipboard unavailable")) {
+      const fallback = await page.locator('textarea[aria-label="Planning checklist text to copy manually"]').inputValue();
+      assert.ok(fallback.includes("County: Harris County") && fallback.includes("Intended game: Dove"), "manual copy fallback contains selected filters");
+    }
+    const shop = page.locator('section[aria-label="Optional Kings Camo gear shopping"]');
+    assert.ok((await shop.innerText()).includes("Explore lightweight hunting shirts"), "hub emphasizes heat-appropriate layers");
+    assert.ok((await shop.innerText()).includes("Explore rain protection"), "hub emphasizes weather protection");
+    assert.ok((await shop.innerText()).includes("Browse hunting packs"), "hub emphasizes trip carry needs");
+    assert.equal((await shop.innerText()).includes("Shop hunting apparel"), false, "hub no longer leads with generic catalog ad");
 
     const guideGroups = page.locator("#hunting-guides details");
     assert.equal(await guideGroups.count(), 6, "six hunting guide groups remain present");
