@@ -16,6 +16,7 @@ on:
 permissions:
   actions: write
   contents: write
+  deployments: read
   pull-requests: write
 concurrency:
   group: football-b010-evidence-certification
