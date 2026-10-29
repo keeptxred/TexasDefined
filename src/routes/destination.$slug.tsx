@@ -143,6 +143,7 @@ function destinationExperienceTitle(name: string, categoryName: string) {
 // exceeded the internal 90-character live audit limit after brand suffixing.
 // Preserve the full institutional names in H1, schema and body copy.
 const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
+  "galveston-bay": "Galveston Bay Texas: Estuary, Fishing & Access Guide",
   "babe-didrikson-zaharias-museum-beaumont": "Babe Didrikson Zaharias Museum: Hours & Exhibits",
   "booker-t-washington-high-school-dallas": "Booker T. Washington Arts High School: Dallas History",
   "crow-museum-asian-art-dallas": "Crow Museum of Asian Art: Dallas Exhibits & Visit",
@@ -284,7 +285,9 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : isZapataMuseum ? "Zapata County Museum of History: Exhibits, Hours & Admission" : isYsletaMuseum ? "Ysleta del Sur Pueblo Museum: Exhibits, Hours & Tigua History" : isYoungCountyMuseum ? "Young County Museum Graham: Exhibits, Hours & History" : (DESTINATION_EDITORIAL_SEO_TITLES[destination.slug] ?? destinationSeoTitle(destination.name, categoryName)),
-        description: destination.slug === "fort-mckavett"
+        description: destination.slug === "galveston-bay"
+          ? "Explore Galveston Bay, Texas’s largest estuary. Find fishing, paddling, boating, wildlife and shoreline access guidance for Galveston, Kemah, Seabrook and Texas City."
+          : destination.slug === "fort-mckavett"
           ? "Explore Fort McKavett State Historic Site in Menard County: Buffalo Soldier history, restored barracks, admission, accessibility and tour tips."
           : destination.summary,
         canonicalPath,

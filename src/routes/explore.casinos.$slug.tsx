@@ -19,9 +19,17 @@ export const Route = createFileRoute("/explore/casinos/$slug")({
     const guide = loaderData;
     const canonicalPath = `/explore/casinos/${params.slug}`;
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
+    // Let buildMeta apply the brand once; a prebranded title was producing
+    // duplicate "Texas Defined" suffixes across this entire casino family.
+    const seoTitle = guide.slug === "naskila-leggett"
+      ? "Naskila Casino Leggett TX: Address, Hours & What's Open"
+      : guide.title;
+    const seoDescription = guide.slug === "naskila-leggett"
+      ? "Naskila Casino Leggett is open 24/7 at 10314 US 59 N near Livingston. Find the temporary casino, 300+ electronic bingo machines and dining—not the future resort."
+      : guide.dek;
     return {
       meta: buildMeta(texasDefinedBrand, {
-        canonicalPath, title: guide.title + " | Texas Defined", description: guide.dek,
+        canonicalPath, title: seoTitle, description: seoDescription,
         modifiedTime: "2026-10-15T12:00:00-05:00",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],

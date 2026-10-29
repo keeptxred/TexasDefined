@@ -56,6 +56,47 @@
       },
       "reason": "Branded seat-capacity searches form a prominent query cohort; official University of North Texas athletics currently confirms 30,100 seats. Capacity is answered by the page, but prior snippet omitted it.",
       "officialSource": "https://meangreensports.com/facilities/datcu-stadium/4"
+    },
+    {
+      "url": "https://texasdefined.com/explore/casinos/naskila-leggett",
+      "classification": "TECHNICAL SNIPPET DEFECT",
+      "secondaryClassification": "CTR IMPROVEMENT",
+      "oldTitleSource": "Naskila Casino Leggett: The New East Texas Gaming Location | Texas Defined",
+      "oldTitleNote": "Prior route pre-appended publisher and buildMeta appended it again; exact deployed title may have been budget-truncated.",
+      "newTitle": "Naskila Casino Leggett TX: Address, Hours & What's Open",
+      "oldDescription": "A separate, newly opened Naskila property with electronic bingo machines and food service at the future resort site.",
+      "newDescription": "Naskila Casino Leggett is open 24/7 at 10314 US 59 N near Livingston. Find the temporary casino, 300+ electronic bingo machines and dining—not the future resort.",
+      "baseline": {
+        "clicks": 4,
+        "impressions": 570,
+        "ctr": 0.007017543859649123,
+        "averagePosition": 10.029824561403508
+      },
+      "last7Days": {
+        "clicks": 2,
+        "impressions": 438,
+        "ctr": 0.0045662100456621,
+        "averagePosition": 10.262557077625571
+      },
+      "reason": "Brand plus Leggett intent accounts for most visible queries. Replace generic 'new location' search copy with operator-confirmed location, 24-hour access and distinction from unbuilt resort. Remove duplicate publisher branding across all casino guide titles.",
+      "officialSource": "https://www.naskila.com/leggett/"
+    },
+    {
+      "url": "https://texasdefined.com/destination/galveston-bay",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Galveston Bay | Texas Travel Guide",
+      "newTitle": "Galveston Bay Texas: Estuary, Fishing & Access Guide",
+      "oldDescriptionSource": "Texas' largest estuary, where freshwater flowing toward the Upper Gulf Coast mixes with Gulf saltwater across a broad network of open bay, marsh, oyster reef and shoreline habitat used for fishing, boating, paddling and wildlife watching.",
+      "oldDescriptionNote": "Long editorial summary; exact 160-character server title/description truncation not independently confirmed.",
+      "newDescription": "Explore Galveston Bay, Texas’s largest estuary. Find fishing, paddling, boating, wildlife and shoreline access guidance for Galveston, Kemah, Seabrook and Texas City.",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 124,
+        "ctr": 0,
+        "averagePosition": 15.596774193548388
+      },
+      "reason": "Generic branded 'Texas Travel Guide' title omits what makes the bay page useful. GSC dominant query galveston bay: 99 impressions/0 clicks at average position 9.5. Preserve distinct H1 and canonical; clarify estuary and available visit utility.",
+      "officialSource": "https://gbep.texas.gov/galveston-bay-101/"
     }
   ],
   "protectedWithoutChanges": [
