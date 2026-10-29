@@ -17,6 +17,8 @@ import {
 import { HUNTING_AUTHORITY_TOPICS_V2, HUNTING_V2_HUB_GROUPS } from "@/data/hunting/authority-v2";
 import { TurkeySeasonGuide } from "./TurkeySeasonGuide";
 import { HuntingSeasonPlanner } from "./HuntingSeasonPlanner";
+import { HuntingPublicAccessPlanner } from "./HuntingPublicAccessPlanner";
+import { HuntingTripStayOptions } from "./HuntingTripStayOptions";
 import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
 import { deerSeasonRange, deerSeasonYear, deerSourceCheckLabel, texasDeerSeason, type DeerSeasonId } from "@/data/hunting/deer-season-format";
 
@@ -107,7 +109,7 @@ function DeerCountyRegulationsFinder() {
 }
 
 function FreshnessPanel({ topic }: { topic?: HuntingAuthorityTopic }) {
-  return <section className="border-y border-border bg-surface py-8"><Container><div className="grid gap-5 lg:grid-cols-[15rem_1fr] lg:items-start"><div><p className="eyebrow text-primary">Regulatory freshness</p><p className="mt-2 font-display text-2xl">TPWD {topic?.slug === "texas-deer-hunting" ? deerSeasonYear : HUNTING_REGULATION_FRESHNESS.seasonYear}</p><p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">{topic?.slug === "texas-deer-hunting" ? "Automated TPWD verification " + deerSourceCheckLabel() : "Source review " + (topic?.reviewedLabel ?? HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel)}</p>{!topic ? <p className="mt-2 text-xs text-muted-foreground">Editorial hub updated {HUNTING_REGULATION_FRESHNESS.editorialUpdatedLabel}; official source checks are recorded separately.</p> : null}</div><div><p className="max-w-4xl text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.disclaimer}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.reviewScope}</p><div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.regulations} /><ResourceLink link={HUNTING_OFFICIAL_SOURCES.seasonDates} /></div></div></div></Container></section>;
+  return <section className="border-y border-border bg-surface py-8"><Container><div className="grid gap-5 lg:grid-cols-[15rem_1fr] lg:items-start"><div><p className="eyebrow text-primary">Regulatory freshness</p><p className="mt-2 font-display text-2xl">TPWD {topic?.slug === "texas-deer-hunting" ? deerSeasonYear : HUNTING_REGULATION_FRESHNESS.seasonYear}</p><p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">{topic?.slug === "texas-deer-hunting" ? "Automated TPWD verification " + deerSourceCheckLabel() : "Comprehensive source review " + (topic?.reviewedLabel ?? HUNTING_REGULATION_FRESHNESS.lastVerifiedLabel)}</p>{!topic ? <p className="mt-2 text-xs text-muted-foreground">Editorial hub updated {HUNTING_REGULATION_FRESHNESS.editorialUpdatedLabel}; official source checks are recorded separately.</p> : null}</div><div><p className="max-w-4xl text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.disclaimer}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{HUNTING_REGULATION_FRESHNESS.reviewScope}</p><div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm"><ResourceLink link={HUNTING_OFFICIAL_SOURCES.regulations} /><ResourceLink link={HUNTING_OFFICIAL_SOURCES.seasonDates} /></div></div></div></Container></section>;
 }
 
 
@@ -152,6 +154,7 @@ export function HuntingAuthorityHub() {
       </div>
       <p className="mt-5 text-sm leading-7 text-muted-foreground">Public permit figures are official TPWD program facts, separately monitored on GitHub; a license and applicable stamps are additional to an APH permit. Youth access can have different eligibility. TPWD says 2026–27 is the last season for the printed Public Hunting Lands Map Booklet; use the official online area search and current APH notices rather than relying on a saved booklet.</p>
     </Container></section>
+    <HuntingPublicAccessPlanner />
     <HuntingSeasonPlanner />
     <section className="border-b border-border bg-muted/30 py-12 md:py-16" aria-labelledby="hunting-2026-changes"><Container>
       <p className="eyebrow text-primary">2026–27 regulation changes</p><h2 id="hunting-2026-changes" className="mt-3 font-display text-3xl md:text-4xl">What changed for Texas hunters this season?</h2>
@@ -180,6 +183,7 @@ export function HuntingAuthorityHub() {
     </Container></section>
 
     <section className="border-y border-border bg-muted/30 py-12"><Container><div className="grid gap-8 lg:grid-cols-[1fr_2fr]"><div><p className="eyebrow text-primary">Connected Texas discovery</p><h2 className="mt-3 font-display text-4xl">A hunt is also a place-based trip</h2></div><div className="grid gap-5 sm:grid-cols-2"><p className="text-sm leading-7 text-muted-foreground">Public hunting works best when access records connect to counties, regions, wildlife habitat and nearby destinations. Use TexasDefined's outdoor and wildlife systems to understand the place around the hunt.</p><p className="text-sm leading-7 text-muted-foreground">Camping, fishing, parks and trip-planning links make it easier to turn a permit or drawn hunt into a realistic itinerary without weakening the distinction between travel guidance and legal hunting rules.</p></div><div className="lg:col-start-2 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/explore/outdoors" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Public lands & outdoors</Link><Link to="/explore/wildlife" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Wildlife</Link><Link to="/best-places-to-go-camping-in-texas" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Camping</Link><Link to="/fishing" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Fishing</Link><Link to="/explore/state-parks" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">State parks</Link><Link to="/browse/counties" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Counties</Link></div></div></Container></section>
+    <HuntingTripStayOptions />
   </main>;
 }
 
