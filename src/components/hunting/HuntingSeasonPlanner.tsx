@@ -8,10 +8,11 @@ import turkeyCalendar from "@/data/hunting/turkey-season-calendar.json";
 import { deerSeasonRange, type DeerSeasonId } from "@/data/hunting/deer-season-format";
 import { windowStatus, statusLabel, type WindowRow } from "@/data/hunting/season-window-status.mjs";
 
-type SpeciesCalendar = { heading: string; slug: string; source: string; checkedAt: string; rows: WindowRow[] };
+type SpeciesCalendar = { id: string; heading: string; slug: string; source: string; checkedAt: string; rows: WindowRow[] };
 
 const calendars: SpeciesCalendar[] = [
   {
+    id: "deer",
     heading: "White-tailed deer",
     slug: "texas-deer-hunting",
     source: deerCalendar.officialDeerUrl,
@@ -25,6 +26,7 @@ const calendars: SpeciesCalendar[] = [
     })),
   },
   {
+    id: "turkey",
     heading: "Wild turkey",
     slug: "turkey-hunting",
     source: turkeyCalendar.source,
@@ -36,8 +38,9 @@ const calendars: SpeciesCalendar[] = [
     })),
   },
   ...speciesCalendar.sections.map((section) => ({
+    id: "species:" + section.heading,
     heading: section.heading,
-    slug: section.slugs[0],
+    slug: section.heading === "Goose" ? "goose-hunting" : section.slugs[0],
     source: speciesCalendar.source,
     checkedAt: speciesCalendar.checkedAt,
     rows: section.rows.map((row) => ({
@@ -61,9 +64,9 @@ function useTexasDate() {
 }
 
 export function HuntingSeasonPlanner() {
-  const [selected, setSelected] = useState(calendars[0].slug);
+  const [selected, setSelected] = useState(calendars[0].id);
   const today = useTexasDate();
-  const calendar = useMemo(() => calendars.find((entry) => entry.slug === selected) ?? calendars[0], [selected]);
+  const calendar = useMemo(() => calendars.find((entry) => entry.id === selected) ?? calendars[0], [selected]);
   const rows = calendar.rows.map((row) => ({ ...row, status: today ? windowStatus(row, today) : null }));
   const activeCount = rows.filter((row) => row.status === "today" || row.status === "year-round").length;
   return (
@@ -84,7 +87,7 @@ export function HuntingSeasonPlanner() {
                 onChange={(event) => setSelected(event.target.value)}
                 className="mt-2 min-h-11 w-full rounded-sm border border-border bg-background px-3 py-2 text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
-                {calendars.map((entry) => <option key={entry.slug} value={entry.slug}>{entry.heading}</option>)}
+                {calendars.map((entry) => <option key={entry.id} value={entry.id}>{entry.heading}</option>)}
               </select>
             </div>
             <Link to={"/hunting/" + calendar.slug} className="inline-flex min-h-11 items-center justify-center border border-primary px-5 py-2 text-sm font-semibold text-primary hover:bg-muted">

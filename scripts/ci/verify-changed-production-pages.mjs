@@ -158,6 +158,36 @@ export function assertKatyFootballContents(html, surface = 'release') {
 // cannot certify youth-season advice while a stale canonical HTML copy persists.
 // A healthy URL is not sufficient: reject the old generic turkey page and
 // verify the legally important sections in both canonical and cache-busted SSR.
+/** Protect the actual 2026-27 hub experience on both ordinary visitor and
+ * cache-bypassed HTML. An HTTP 200 or a correct guide href is not enough. */
+export function assertHuntingHubPlanner(html, surface) {
+  const visible = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/\s+/g, ' ');
+  for (const marker of [
+    'Texas hunting season planner',
+    'Species or game category',
+    'Official calendar checked',
+    'Editorial hub updated',
+    'Source review',
+    'Four decisions before choosing a hunting spot',
+    '2026–27 regulation changes',
+  ]) {
+    if (!visible.includes(marker)) throw new Error('Hunting hub ' + surface + ' missing planner/source marker: ' + marker);
+  }
+  // These previously collided because multiple categories shared the guide slug.
+  for (const option of ['deer', 'turkey', 'species:Goose', 'species:Snipe', 'species:Woodcock']) {
+    if (!html.includes('value="' + option + '"')) throw new Error('Hunting hub ' + surface + ' missing distinct species option: ' + option);
+  }
+  if (!/<select\b[^>]*\bid=["']hunting-species-select["']/.test(html)) {
+    throw new Error('Hunting hub ' + surface + ' missing accessible species picker');
+  }
+}
+
 export function assertTurkeyHuntingAuthority(html, surface) {
   const visible = html
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
@@ -286,6 +316,18 @@ for (const path of plan.selectedPaths) {
         for (const href of expectedHrefs) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
         }
+      }
+      if (path === '/hunting') {
+        assertHuntingHubPlanner(html, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Hunting-Hub-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Hunting hub canonical visitor URL failed: HTTP ' + visitor.status);
+        }
+        assertHuntingHubPlanner(await visitor.text(), 'canonical visitor');
       }
       if (path === '/hunting/turkey-hunting') {
         assertTurkeyHuntingAuthority(html, 'cache-busted release');
