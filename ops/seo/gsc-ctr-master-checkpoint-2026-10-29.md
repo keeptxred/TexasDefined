@@ -53,3 +53,30 @@ Audit EVERY indexable TexasDefined.com URL, using production sitemap registries 
 
 ## Quick resume instructions
 Read this checkpoint, fetch fresh current `main`, inspect PRs #6348 and any subsequent related PRs, then inspect ledger and GSC CSVs. Continue *implementation*, don't produce another audit-only report. If the full-site HTML crawl remains owner-held, be explicit about the remaining coverage gap and continue safe targeted work without claiming project completion.
+
+
+## Continuation checkpoint — October 29, 2026 (after #6364)
+
+**This is an execution checkpoint, not a complete all-indexable URL audit. Refresh GitHub main and these PRs before more changes.**
+
+### Additional completed production-code batches
+- **#6350 merged:** extend EXISTING `scripts/ci/audit-production-pages.mjs` to record JSON-LD parse validity and type inventory, visible/schema breadcrumbs, OG title/description/image, description quality and repeated editorial OG image warnings. Parser tests added to existing premerge. The full-site crawl was **not** run or enabled.
+- **#6352 merged:** Don Haskins Center has 229 finalized GSC impressions, 0 clicks, position 14.80; verified UTEP arena capacity 12,000. Replace generic parking/event SERP focus with capacity/visitor intent; original CTR validator and dated experiment ledger updated.
+- **#6358 merged:** broad `uil 6a football districts` query impressions overwhelmingly landed on the specific District 6-6A page (26/28), rather than the statewide directory. Strengthen the directory's broad 6A ownership, the 6A section anchor and the breadcrumb links from district pages. Preserve each page's unique canonical and owner-deferred win/loss automation.
+- **#6359 merged:** correctly classify malformed JSON-LD findings in the existing snippet classifier as TECHNICAL SNIPPET DEFECT; optional OG image warnings remain nonblocking.
+- **#6364 merged:** Bands of America San Antonio Super Regional has 330 GSC impressions, 1 click, position 9.35. Music for All and the Alamodome independently confirm November 6–7, 2026. Search title now leads with verified dates, description gives ticket/schedule utility. The event lifecycle test retires that year's title after November 7. Preserve editorial H1 and self-canonical.
+- **#6365 OPEN, auto-merge enabled, verify CI:** integrate optional finalized seven-day GSC page CSV and derive prior-21-day CTR/position comparisons from the existing 28-day snapshot. This fixes differing CSV headers and quoted URLs without adding a second crawler. Source snapshots remain explicit opt-in and never masquerade as current GSC.
+
+### Preserved and inspected
+- Rio Grande river guide already answers 49,387 square miles for the Texas portion of the largest watershed and links the distinct basin guide. `/article/texas-rivers-explained` and `/article/texas-river-basins-guide` protected titles were not rewritten.
+- Football playoff guide already directly answers `what does bi district mean`; it owns 46/48 impressions for that query. No title churn or false cannibalization.
+- Query `painted churches of texas map` splits 75 impressions to dedicated map and 71 to statewide hub; existing mapping intent separation was maintained to gather more data.
+- Last seven finalized days (October 20–26): Texas Lakes & Reservoirs average position ~7.2 versus prior 21 days ~14.4, and Painted Churches hub ~8.6 versus ~12.6. Preserve rising snippets.
+- `/sports-venue/freeman-coliseum` and `/sports-venue/united-supermarkets-arena`: significant page impressions but nearly no disclosed queries. Do not guess a title from GSC's anonymized-query samples.
+- `/destination/moody-gardens` average position ~47, Dallas nearby things-to-do ~58 and home equity calculator ~83 are **ranking-first**, not automatic CTR title candidates.
+
+### Deployment and remaining work
+- Production publishing is through GitHub Actions `deploy-production.yml`, not direct Cloudflare deploy. When last checked, production workflow runs were **pending/queued** on fresh main commits. A successful main merge or a 100%-traffic Cloudflare Worker timestamp is **not** sufficient to certify exact title HTML. Check actual production HTML after a successful workflow.
+- Owner hold on `.github/workflows/audit-whole-site-production.yml` and `.github/workflows/audit-site-quality-local.yml` explicitly prohibits broad sitewide crawls, including local Worker, until authorization is reconciled. These remain disabled. **4,052 GSC page-performance rows are not the total indexable route inventory.**
+- Full sitemap/HTML crawl, actual one-primary-state classification for *every indexable URL*, production duplicate checks, full change ledger and deployment acceptance remain **not complete**. Do not claim completion and do not re-run unrelated full-site audits.
+- Continue with targeted live GSC page/query reads and source-backed changes. Review PR #6365 CI, other concurrent PRs, current main before any write. Only merge green checks safely; do independent work rather than CI polling.

@@ -39,7 +39,7 @@ const failures = [];
  * Shared buildMeta() appends the publisher title template itself.
  * Examine every route's TypeScript AST, rather than pinning another list of
  * exact titles; new template families must not silently add a second brand.
- * Direct head.meta title literals are intentionally exempt.
+ * Direct head.meta title literals are intentionally exempt. Include server-side\n * data page factories (Route 66 etc.), not only route components.
  */
 function allRouteSources(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -48,7 +48,7 @@ function allRouteSources(dir) {
     return entry.isFile() && /\.(?:ts|tsx)$/.test(entry.name) ? [file] : [];
   });
 }
-for (const file of allRouteSources('src/routes')) {
+for (const file of [...allRouteSources('src/routes'), ...allRouteSources('src/data')]) {
   const source = ts.createSourceFile(file, fs.readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
   function scan(node) {
     if (ts.isCallExpression(node)

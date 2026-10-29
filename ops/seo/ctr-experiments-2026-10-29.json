@@ -113,6 +113,31 @@
       },
       "reason": "Capacity searches visible at competitive positions; the title did not answer them. 12,000 verified by UTEP and current on-page facts.",
       "officialSource": "https://utepminers.com/sports/2017/6/7/sports-facilities-spec-rel-haskins-html.aspx"
+    },
+    {
+      "url": "https://texasdefined.com/event/bands-of-america-san-antonio-super-regional",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Bands of America San Antonio Super Regional 2026",
+      "newTitle": "Bands of America San Antonio Super Regional 2026: Nov. 6–7",
+      "oldDescription": "Plan the 2026 Bands of America San Antonio Super Regional with event dates, venue guidance and links to official organizer information.",
+      "newDescription": "Bands of America San Antonio runs Nov. 6–7, 2026 at the Alamodome. Check prelims and finals schedules, ticket options, parking and official event links.",
+      "baseline": {
+        "clicks": 1,
+        "impressions": 330,
+        "ctr": 0.0030303030303030303,
+        "averagePosition": 9.354545454545455
+      },
+      "sourceVerifiedAt": "2026-10-29",
+      "eventDates": {
+        "start": "2026-11-06",
+        "end": "2026-11-07",
+        "status": "organizer-confirmed"
+      },
+      "reason": "Strong branded 2026 schedule search intent with 330 impressions but only one click at average position 9.35; exact official Nov 6–7 dates and prep/finals ticket utility are useful. Existing runtime event lifecycle must retire the edition after November 7.",
+      "officialSources": [
+        "https://marching.musicforall.org/san-antonio-super-regional/",
+        "https://www.alamodome.com/events/detail/bands-of-america-2026"
+      ]
     }
   ],
   "protectedWithoutChanges": [
