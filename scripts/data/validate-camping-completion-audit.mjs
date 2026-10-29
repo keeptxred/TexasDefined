@@ -6,7 +6,7 @@ const read = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
 // Include every current and future curated wave in the same bounded, source-only
 // authority contract. This is not a network crawl or a production sitewide audit.
 const profileFiles = fs.readdirSync(path.join(root, "src/data/camping"))
-  .filter(file => /^(?:discovery|profiles-wave\\d+)\\.ts$/.test(file))
+  .filter(file => /^(?:discovery|profiles-wave\d+)\.ts$/.test(file))
   .map(file => "src/data/camping/" + file);
 const sources = profileFiles.map(read);
 const all = sources.join("\n");
