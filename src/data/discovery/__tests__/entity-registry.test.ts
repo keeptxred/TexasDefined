@@ -63,13 +63,13 @@ test("supplier offers stay separate from official event admission and deduplicat
 test("supplier-derived new authority pages cannot index before owner approval and independent proof", () => {
  const candidate={...event, kind:"attraction" as const, discoveryOrigin:"supplier-candidate" as const};
  assert.equal(mayIndexDiscoveryEntity(candidate),false);
- const approval={batchId:"td-2026-11-batch-01",approvedBy:"keeptxred" as const,
+ const approval={batchId:"td-2026-11-batch-01",approvedBy:"editorial-owner" as const,
   approvedAt:"2026-10-29",decision:"approved" as const,
-  reviewUrl:"https://github.com/keeptxred/TexasDefined/issues/6380#issuecomment-123456"};
+  reviewUrl:"https://github.com/repository-owner/TexasDefined/issues/6380#issuecomment-123456"};
  const officialIdentity={...officialEditorial,purpose:"identity" as const};
  const officialLocation={...officialEditorial,purpose:"location" as const};
  assert.equal(hasRecordedOwnerApproval(approval),true);
- assert.equal(hasRecordedOwnerApproval({...approval,reviewUrl:"https://github.com/other/repo/issues/1#issuecomment-123456"}),false);
+ assert.equal(hasRecordedOwnerApproval({...approval,reviewUrl:"https://github.com/repository-owner/OtherSite/issues/1#issuecomment-123456"}),false);
  assert.equal(hasRecordedOwnerApproval({...approval,decision:"approved",approvedAt:"2026-02-30"}),false);
  assert.equal(mayIndexDiscoveryEntity({...candidate,ownerApproval:approval}),false,
   "Owner approval alone never substitutes for independently verified operator identity and location");
