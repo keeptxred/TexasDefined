@@ -1009,4 +1009,8 @@ test('three concluded 2026 events are checked on normal and release URLs, withou
     assert.throws(() => assertCompleted2026EventFacts(path, '', 'visitor'), /missing verified historical content/, path);
   }
   assert.doesNotThrow(() => assertCompleted2026EventFacts('/event/unrelated', '', 'release'));
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/verify-changed-production-pages.mjs'] });
+  for (const [path] of cases) assert.ok(plan.eventAuthorityPages.includes(path), 'Exact event canary missing: ' + path);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET, 'Exact event canaries must obey production page budget');
+
 });
