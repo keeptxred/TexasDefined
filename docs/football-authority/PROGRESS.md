@@ -1,5 +1,14 @@
 # Football Authority — Execution Ledger
 
+## 2026-10-29 — Batch 011 selected, not yet authored or technically verified
+
+Batch 010 graduated through protected PR #6271 with 230 technically VERIFIED school records, 106 retained production Chrome screenshots, a matching 100%-active Cloudflare Worker and signed GitHub deployment identity. The historical certificate remains in `completedBatches`; it is never recreated or discarded.
+
+The next 25 canonical school slugs (Colorado City Colorado through Corpus Christi Carroll) are now assigned to Batch 011 in `REGISTRY.json`. All 25 **remain NOT_REVIEWED**, not IMPLEMENTED or VERIFIED. Counts on assignment are **230 VERIFIED / 0 IMPLEMENTED / 1,062 NOT_REVIEWED**. The private/non-UIL Cornerstone Christian entry requires separately governed classification, and the first five include Colorado City, Columbus, New Braunfels Canyon, Canyon Lake and Davenport.
+
+Source-backed school-specific editorial, verified current coaching, correct campus county and reciprocal links, original typographic art, bounded postdeploy Chrome at 1366/390/320 widths, and protected certification must happen *after* assignment. No new score-feed licensing, trademark/photo rights, individual admission/ticket or human accessibility clearance is assumed. The prior 230-school production evidence remains immutable.
+
+
 ## 2026-10-29 — Batch 010 technical Chrome certification complete (25/25)
 
 Five genuine, non-skipped Chrome cohorts independently checked all 75 school viewports
