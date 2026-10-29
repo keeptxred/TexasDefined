@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { baselineFromLedger, buildChangePlan, REPRESENTATIVE_PATHS, PAGE_BUDGET } from './production-change-scope.mjs';
-import { verifyChangedPages, assertKatyFootballContents, assertPortArthurFestivalGateFacts, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
+import { verifyChangedPages, assertKatyFootballContents, assertLoneStarFootballContents, assertPortArthurFestivalGateFacts, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
 import { createProductionPageFetch } from './reuse-production-page.mjs';
 const policy = JSON.parse(readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
 const text = file => readFileSync(file, 'utf8');
@@ -569,6 +569,55 @@ test('Katy stadium and ticket changes require both actual canonical and cache-bu
     new Response(url.searchParams.has('deploy_smoke') ? good : good.replace('Stadium Guide', '2026 Schedule')) });
   assert.equal(staleVisitor[0].passed, false);
   assert.match(staleVisitor[0].error, /ordinary visitor URL has stale title/);
+});
+
+test('Lone Star source changes verify exactly its live HTML and refuse a stale canonical cache copy', async () => {
+  const path = '/texas-high-school-football-teams/frisco-lone-star';
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/high-school-football/program-editorial-frisco-lone-star.ts'] });
+  assert.deepEqual(plan.selectedPaths, [path]);
+  assert.deepEqual(plan.loneStarFootballPages, [path]);
+  assert.ok(buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/verify-changed-production-pages.mjs'] })
+    .loneStarFootballPages.includes(path), 'verifier edits must select Lone Star public acceptance');
+  assert.deepEqual(buildChangePlan({ baseline, head, changedFiles: ['.github/workflows/some-unrelated-workflow.yml'] })
+    .loneStarFootballPages, [], 'unrelated workflows must not trigger football checks');
+
+  const seo = 'Frisco Lone Star Rangers Football | History &amp; 2026 District 5';
+  const pageUrl = 'https://texasdefined.com' + path;
+  const good = '<html><head><title>' + seo + '</title><link rel="canonical" href="' + pageUrl + '"></head><body>'
+    + [
+      'Frisco Lone Star Rangers football represents Lone Star High School',
+      'Official 2026 schedule &amp; game-day resources',
+      '2026-Fball-Schedule-8-21.pdf',
+      'https://www.friscoisd.org/o/lshs', 'Jeff Rayburn',
+      '14 consecutive winning seasons',
+      'id="football-current-season"', 'Program overview', 'The program story',
+      'Source trail', '"@type":"SportsTeam"', '"@type":"FAQPage"',
+    ].join(' ') + '</body></html>';
+
+  assert.doesNotThrow(() => assertLoneStarFootballContents(good));
+  const visited = [];
+  const pass = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    visited.push(url.href);
+    return new Response(good);
+  } });
+  assert.equal(pass.length, 1);
+  assert.equal(pass[0].passed, true);
+  assert.ok(visited.some(url => url.includes('deploy_smoke=')), 'release URL is checked');
+  assert.ok(visited.includes(pageUrl), 'ordinary canonical URL is checked');
+
+  const staleVisitor = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(url.searchParams.has('deploy_smoke') ? good : good.replace('History &amp; 2026 District 5', '2026 Generic Guide')) });
+  assert.equal(staleVisitor[0].passed, false);
+  assert.match(staleVisitor[0].error, /ordinary visitor URL has stale or generic SEO title/);
+
+  const missingSchedule = await verifyChangedPages({ plan, head, fetchImpl: async () =>
+    new Response(good.replace('2026-Fball-Schedule-8-21.pdf', 'No current schedule')) });
+  assert.equal(missingSchedule[0].passed, false);
+  assert.match(missingSchedule[0].error, /missing deployed authority marker/);
+
+  assert.throws(() => assertLoneStarFootballContents(good
+    .replace('https://www.friscoisd.org/o/lshs', 'https://sf2.friscoisd.org/campus/high-school/lone-star/home')), /missing deployed authority marker/);
+  assert.throws(() => assertLoneStarFootballContents(good.replace('</head>', '<meta name="robots" content="noindex"></head>')), /noindex/);
 });
 
 test('football template changes verify only two real team pages and their live game-night paths', async () => {

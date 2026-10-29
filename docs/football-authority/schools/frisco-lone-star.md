@@ -2,7 +2,7 @@
 
 **Source-review date:** October 29, 2026  
 **Canonical:** https://texasdefined.com/texas-high-school-football-teams/frisco-lone-star  
-**Implementation:** feature branch `feat/frisco-lone-star-authority-refresh-20261029`; production deployment and responsive browser certification must be confirmed after protected merge.
+**Implementation:** merged PR #6329 (`b3dffc031b312d06d28290afe0f1918fdf6d72ec`); protected Worker SSR acceptance PR #6361 (`91abede654302da38fbc3ca8851d2b2085ba1c94`) passed 184 canonical checks and verified HTTP 200 plus five content markers. Live public-page and responsive browser acceptance remain separate.
 
 ## Verified improvements
 - Replaced retired `sf2.friscoisd.org` school homepage with Frisco ISD's live `https://www.friscoisd.org/o/lshs` and linked the UIL state-final team identity as independent color evidence.
@@ -18,7 +18,8 @@
    - School's own schedule article: https://www.friscoisd.org/article/3120877
 4. Frisco ISD official tickets: https://tickets.friscoisd.org
 5. UIL 2026–28 5A Division I realignment: https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf
-6. 2026 dated head-coach staff: https://www.maxpreps.com/tx/frisco/lone-star-rangers/football/staff/\n7. UIL historical team identity/colors: https://www.uiltexas.org/football/state-team-mp/frisco-lone-star-2025-2026-football
+6. 2026 dated head-coach staff: https://www.maxpreps.com/tx/frisco/lone-star-rangers/football/staff/
+7. UIL historical team identity/colors: https://www.uiltexas.org/football/state-team-mp/frisco-lone-star-2025-2026-football
 
 ## Scheduled source maintenance
 **Use the existing** `.github/workflows/check-football-authority-official-sources.yml` (not a duplicate or sitewide crawl). It runs Tuesdays year-round at **12:43 UTC** and additionally Saturdays August–December at **12:23 UTC**. `docs/football-authority/official-source-watch.json` includes exactly one Frisco Lone Star school-owned schedule URL and `www.friscoisd.org` on its explicit allowlist. Requests are limited to **25 official endpoints per run**, rolling across the inventory. Change hashes and availability trigger a source-review issue/PR, not automatic factual claims. The next fixed editorial review deadline is **January 29, 2027**; a new football season requires an explicit official-schedule source update and reassessment of staff, venue and district facts. **Monitoring alone does not update published football facts.**
@@ -28,3 +29,18 @@ User has put a pin in **automated scores, wins/losses, team record, standings an
 
 ## Release acceptance still required
 Run focused source contract `node scripts/data/validate-frisco-lone-star-authority.mjs` and existing football validators/build. Protected PR CI, production deployment, page render/canonical/schema, mobile 390/320px, official link responses, and non-duplicated sponsors require direct post-deployment verification before marking live VERIFIED.
+
+## Public release verification checkpoint — October 29, 2026
+A follow-up production smoke contract in `scripts/ci/production-change-scope.mjs`,
+`scripts/ci/verify-changed-production-pages.mjs` and
+`scripts/ci/update-scan-policy.test.mjs` explicitly selects Lone Star when its
+school-specific editorial, profile loader, identity, or release verifier changes.
+It checks **both** the GitHub-SHA cache-busted public URL and the ordinary canonical
+visitor URL for title, official PDF, campus link, researched history, dated coach,
+on-page sections and SportsTeam/FAQPage schema. It rejects the obsolete campus URL,
+an accidentally noindexed page, and an old generic football title. It consumes a
+single selected public page in the existing bounded deploy smoke budget, not a
+statewide crawl. The deploy workflow records pass/fail in its release artifacts.
+Neither the previous build-only smoke nor merging this contract establishes that
+the current public production version passed; inspect the matching release result
+before marking this school **LIVE VERIFIED**.
