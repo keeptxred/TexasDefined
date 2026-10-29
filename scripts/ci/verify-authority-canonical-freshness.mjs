@@ -1,5 +1,34 @@
 const pages = [
   {
+    label: 'Oak Cliff Mardi Gras 2027 parade',
+    url: 'https://texasdefined.com/event/oak-cliff-mardi-gras-parade',
+    required: [
+      'Sunday, February 7, 2027',
+      'Dash for the Beads',
+      'Michael Barera',
+      'CC BY-SA 4.0',
+    ],
+    forbidden: [
+      'Completed historical 2026 parade',
+      'Latest confirmed occurrence has ended',
+      '2027 parade date remain unannounced',
+    ],
+  },
+  {
+    label: 'Texas Mardi Gras 2027 statewide hub',
+    url: 'https://texasdefined.com/events/mardi-gras',
+    required: [
+      'Mardi Gras in Texas',
+      'Oak Cliff Mardi Gras Parade',
+      'February 7, 2027',
+      'Dash for the Beads',
+    ],
+    forbidden: [
+      'Dallas · Date pending',
+      '2027 date not yet confirmed',
+    ],
+  },
+  {
     label: 'Texas rivers',
     url: 'https://texasdefined.com/article/texas-rivers-explained',
     required: [
