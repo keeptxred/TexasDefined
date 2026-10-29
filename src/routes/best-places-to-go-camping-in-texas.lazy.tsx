@@ -74,7 +74,7 @@ function CampingGuidePage() {
           <p><strong className="block text-xl font-semibold text-foreground">7</strong><span className="text-muted-foreground">Texas camping regions</span></p>
           <p><strong className="block text-xl font-semibold text-foreground">Official sources</strong><span className="text-muted-foreground">for campsite rules and booking</span></p>
         </div>
-        <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">This guide does not present generic park wildlife or scenery as a photo of a campsite. Availability, prices, closures, burn restrictions and beach conditions can change; check the managing agency before booking or traveling.</p>
+        <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">Park conditions, campsite availability, prices and fire restrictions may change. Check the managing agency and the exact campsite before booking or traveling.</p>
       </Container>
     </section>
 
