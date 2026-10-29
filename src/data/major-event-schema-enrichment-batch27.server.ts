@@ -128,8 +128,22 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "mardi-gras-southeast-texas-beaumont",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BeaumontMardiGrasParade312532.jpg?width=1600",
+      alt: "A colorful Mardi Gras float at the actual Mardi Gras of Southeast Texas parade in Doggett Ford Park, Beaumont, on March 1, 2025; archival photograph, not the 2027 festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:BeaumontMardiGrasParade312532.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 2.0 — 2C2KPhotography",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "2C2KPhotography photographed the Mardi Gras of Southeast Texas parade at Doggett Ford Park in Beaumont, Texas, on March 1, 2025. Original Flickr photograph 54361490428, verified by Wikimedia Commons FlickreviewR 2 on March 4, 2025 as CC BY 2.0 (commercial reuse and modifications allowed with attribution). This is an archival actual-event photograph from 2025; the 2027 festival has not been confirmed. Credit 2C2KPhotography, link to source and CC BY 2.0 license, and identify any responsive hero crop/resize as an adaptation.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Mardi Gras of Southeast Texas", url: "https://mardigrastx.com/" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://mardigrastx.com/" }],
-    verifiedAt: "2026-10-21",
+    sources: [
+      { label: "Mardi Gras of Southeast Texas — organizer (most recently verified 2026 event)", url: "https://mardigrastx.com/" },
+      { label: "2C2KPhotography — 2025 parade at Doggett Ford Park, Beaumont, CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:BeaumontMardiGrasParade312532.jpg" },
+    ],
+    verifiedAt: "2026-10-29",
   },
 ];
