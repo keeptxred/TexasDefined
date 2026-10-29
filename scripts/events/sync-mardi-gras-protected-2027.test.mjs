@@ -37,6 +37,10 @@ test("confirmed-to-changed date updates once while unchanged source never genera
   const revised = { ...orange, startDate: "2027-02-07", endDate: "2027-02-07" };
   assert.equal(propose(before, ledger([row(revised)]), sourceRecords).changed, 1);
 });
+test("checks during January 2027 are permitted for 2027 season, but never older years", () => {
+  assert.equal(validateProtectedRecord({ ...orange, checkedAt: "2027-01-10T16:00:00.000Z" }, orange.sourceId), true);
+  assert.equal(validateProtectedRecord({ ...orange, checkedAt: "2025-01-10T16:00:00.000Z" }, orange.sourceId), false);
+});
 test("no candidate, source outage, older date or missing seven-source ledger never promote", () => {
   assert.equal(propose(empty(), ledger([]), sourceRecords).changed, 0);
   assert.equal(propose(empty(), ledger([{ ...row(orange), normalized2027Candidate: null }]), sourceRecords).changed, 0);
