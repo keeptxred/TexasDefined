@@ -52,6 +52,16 @@ const officialLinks = [
   { title: 'Wylie ISD stadium bag policy', url: 'https://athletics.wylieisd.net/facilities/bag-policy', context: 'Stadium-specific security rules may differ from Garland facilities.' },
 ] as const;
 
+// Selected first-party varsity fixtures from the Oct 29 school calendars, not
+// a live schedule, reported finals, or a standings feed.
+const varsityFixtureSnapshot = [
+  { date: 'Thu, Oct. 29', label: 'Sachse at Wylie East', time: '7:00 p.m. CDT', venue: 'Wylie ISD Stadium', source: 'https://athletics.wylieisd.net/schools/wehs/mens-football' },
+  { date: 'Thu, Oct. 29', label: 'South Garland at Garland', time: '7:00 p.m. CDT', venue: 'Williams Stadium', source: 'https://www.garlandisd.net/calendars/athletic-events-calendar' },
+  { date: 'Fri, Oct. 30', label: 'Rowlett at Wylie', time: '7:00 p.m. CDT', venue: 'Wylie ISD Stadium', source: 'https://athletics.wylieisd.net/schools/whs/mens-football' },
+  { date: 'Thu, Nov. 5', label: 'Wylie East at Lakeview Centennial', time: '4:00 p.m. CST (listed; reconfirm)', venue: 'Homer B. Johnson Stadium', source: 'https://athletics.wylieisd.net/schools/wehs/mens-football' },
+  { date: 'Fri, Nov. 6', label: 'Wylie at South Garland', time: '7:00 p.m. CST', venue: 'Homer B. Johnson Stadium', source: 'https://athletics.wylieisd.net/schools/whs/mens-football' },
+] as const;
+
 const questions = [
   { question: 'Which schools are in UIL 6A District 9 for 2026–28?', answer: 'Garland, Lakeview Centennial, Rowlett, Sachse, North Garland, South Garland, Wylie and Wylie East. Garland ISD operates six of those programs and Wylie ISD operates two.' },
   { question: 'Why is Naaman Forest missing?', answer: 'The 2026 UIL realignment reduced District 9 from nine teams to eight. Garland Naaman Forest moved to 5A Division I District 6, so it is not a 2026–28 member of 6A District 9.' },
@@ -92,6 +102,38 @@ export function District9Guide() {
         the display names are normalized for readers while enrollment and official team identity
         remain tied to the published UIL records.
       </p>
+
+      <div id="district-9-calendar" className="mt-10">
+        <h3 className="font-display text-2xl">Selected 2026 varsity matchups</h3>
+        <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">
+          This is a source-dated <strong>October 29, 2026 varsity fixture snapshot</strong>,
+          not a full season calendar, live upcoming-games feed or reported-score table.
+          The schedule includes only matches explicitly labeled varsity by the host school or
+          its district. Kickoffs and stadium assignments may change, particularly the published
+          November 5 afternoon listing, so always reconfirm with the linked school before traveling.
+        </p>
+        <div className="mt-5 overflow-x-auto border border-border">
+          <table className="w-full min-w-[36rem] text-left text-sm">
+            <thead className="border-b border-border bg-surface text-xs text-muted-foreground">
+              <tr><th scope="col" className="p-3">Date</th><th scope="col" className="p-3">Varsity matchup</th><th scope="col" className="p-3">Published kickoff / venue</th><th scope="col" className="p-3">Source</th></tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {varsityFixtureSnapshot.map((game) => <tr key={game.date + game.label}>
+                <td className="p-3 whitespace-nowrap">{game.date}, 2026</td>
+                <th scope="row" className="p-3 font-semibold">{game.label}</th>
+                <td className="p-3">{game.time} · {game.venue}</td>
+                <td className="p-3"><a href={game.source} target="_blank" rel="noopener noreferrer"
+                  className="font-semibold text-primary underline underline-offset-4">Official varsity calendar ↗</a></td>
+              </tr>)}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-xs leading-6 text-muted-foreground">
+          A past fixture remains a historical calendar entry, never automatically a final or
+          a game result. Use Garland ISD's or Wylie ISD's complete schedule links below for all
+          other district and non-district varsity dates.
+        </p>
+      </div>
 
       <div id="district-9-game-day" className="mt-10">
         <h3 className="font-display text-2xl">Where to watch District 9 football</h3>
