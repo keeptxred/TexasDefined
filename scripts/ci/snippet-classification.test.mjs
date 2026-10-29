@@ -60,3 +60,37 @@ test('summary counts all inspected URLs with one classification each', () => {
   assert.equal(counts.KEEP, 1);
   assert.equal(counts['INTENT CONFLICT'], 1);
 });
+
+test('GSC average position >20 sends a measured page to ranking-first review', () => {
+  const page = { ...good(), gsc: { clicks: 1, impressions: 1000, ctr: 0.001, averagePosition: 47.4 } };
+  const r = classifySnippetPage(page);
+  assert.equal(r.classification, 'RANKING PROBLEM');
+  assert.equal(r.measuredSearchPerformance, true);
+  assert.deepEqual(r.evidence, ['gsc-average-position-over-20']);
+});
+
+test('competitive low CTR is a measured review candidate, not automatic proof of bad metadata', () => {
+  const page = { ...good(), gsc: { clicks: 1, impressions: 400, ctr: 0.0025, averagePosition: 8.1 } };
+  const r = classifySnippetPage(page);
+  assert.equal(r.classification, 'CTR IMPROVEMENT');
+  assert.match(r.basis, /not proof/);
+  assert.equal(r.measurementDependency, null);
+});
+
+test('tiny GSC samples do not drive title churn', () => {
+  const page = { ...good(), gsc: { clicks: 0, impressions: 8, ctr: 0, averagePosition: 5.6 } };
+  const r = classifySnippetPage(page);
+  assert.equal(r.classification, 'KEEP');
+  assert.equal(r.measuredSearchPerformance, true);
+});
+
+test('deterministic SEO defects outrank a low-CTR GSC screening signal', () => {
+  const page = { ...good(), issues: [{ code: 'missing-canonical' }],
+    gsc: { clicks: 0, impressions: 400, ctr: 0, averagePosition: 5.5 } };
+  assert.equal(classifySnippetPage(page).classification, 'TECHNICAL SNIPPET DEFECT');
+});
+
+test('normal position CTR does not trigger unnecessary rewrites', () => {
+  const page = { ...good(), gsc: { clicks: 35, impressions: 400, ctr: 0.0875, averagePosition: 6 } };
+  assert.equal(classifySnippetPage(page).classification, 'KEEP');
+});
