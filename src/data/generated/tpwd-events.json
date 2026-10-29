@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T23:00:54.224Z",
+  "generatedAt": "2026-10-29T14:22:18.602Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
     {
@@ -187,6 +187,12 @@
       "startDate": "2026-10-31",
       "parkKey": "lake-casa-blanca",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-casa-blanca/saturday-morning-check-in/2026-10-31"
+    },
+    {
+      "title": "Snakes and Creepy Crawlies",
+      "startDate": "2026-10-31",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/creepy-crawly-critters-of-the-desert/2026-10-31"
     },
     {
       "title": "Track Talk",
