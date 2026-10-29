@@ -137,7 +137,7 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "How TexasDefined verifies this guide",
       paragraphs: [
-        "This guide was reviewed October 29, 2026 against TPWD's live 2026–27 wild turkey regulation page, 2026–27 hunting date table, April 2026 adopted-regulation announcement, turkey-management reporting page, and the public-draw and individual hunt listings, the current public-access catalog, and turkey harvest data. It is an independent trip-planning article, not a government publication or substitute for the Outdoor Annual.",
+        "This guide was reviewed October 29, 2026 against TPWD's live 2026–27 wild turkey regulation page, 2026–27 hunting date table, April 2026 adopted-regulation announcement, turkey-management reporting page, public-draw and individual hunt listings, the current public-access catalog and official turkey harvest data. It is an independent trip-planning article, not a government publication or substitute for the Outdoor Annual.",
         "The official TPWD species page and county selector control the hunting dates and limits for your chosen county. If TPWD revises a season, closes a county, changes reporting procedures, or updates a hunt catalog after the editorial verification date, that newer official rule controls. TexasDefined checks official regulation sources weekly, reviews public access and harvest data quarterly, and uses a two-source updater for verified same-season date corrections. Legal restrictions and new season years require editorial verification, not automatic publication.",
       ],
       links: [tpwdTurkey, tpwdDates, tpwdChange, tpwdReport, tpwdBiology, tpwdDrawn, tpwdAPHFinder, tpwdHarvestData],
