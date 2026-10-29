@@ -20,7 +20,7 @@ assert.ok(hub.includes("<HuntingPublicAccessPlanner />") && hub.includes("<Hunti
 for(const field of ['id="hunting-access-county"','id="hunting-access-game"','id="hunting-access-type"','TPWD_AREAS','TPWD_DRAWN','TPWD_APH','TPWD_DAILY','This page does not prefilter','not necessarily open to hunting']){
   assert.ok(access.includes(field),"safe TPWD handoff is missing "+field);
 }
-for(const field of ['buildCjAccountClick("rvshare"','buildHotelsComEvergreenClick','rel="sponsored nofollow noopener noreferrer"','trackAffiliateClick','Affiliate disclosure:','does not include land access']){
+for(const field of ['buildCjAccountClick("rvshare"','buildHotelsComEvergreenClick','rel="sponsored nofollow noopener noreferrer"','trackAffiliateClick','Affiliate disclosure:','do not include land access']){
   assert.ok(stay.includes(field),"approved/disclosed travel contract missing "+field);
 }
 assert.ok(schema.includes('dateModified: HUNTING_REGULATION_FRESHNESS.editorialUpdated'),'SEO date must be editorial');
