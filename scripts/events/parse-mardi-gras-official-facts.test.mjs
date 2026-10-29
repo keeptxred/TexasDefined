@@ -42,6 +42,12 @@ test("historical dates, guessed text, source challenge and unrelated JSON-LD all
   assert.equal(parse(orange, "<h1>Just a moment...</h1>", checked).status, "hold");
   assert.equal(parse(orange, html("Other festival", "Orange", "City of Orange", "2027-02-06") + "Mardi Gras on the Sabine", checked).status, "hold");
 });
+test("an old 2027 occurrence remaining on the official page after the event cannot auto-promote", () => {
+  const historic = html("Mardi Gras on the Sabine", "Orange", "City of Orange", "2027-02-06");
+  const result = parse(orange, historic, "2027-02-08T09:00:00.000Z");
+  assert.equal(result.status, "hold");
+  assert.equal(result.reason, "expired-event-window-not-upcoming");
+});
 test("wrong city, organizer, invalid leap day, too long range and source conflict fail closed", () => {
   assert.equal(parse(orange, html("Mardi Gras on the Sabine", "Houston", "City of Orange", "2027-02-06"), checked).status, "hold");
   assert.equal(parse(orange, html("Mardi Gras on the Sabine", "Orange", "Circle of Hope", "2027-02-06"), checked).status, "hold");
