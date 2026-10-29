@@ -1,5 +1,32 @@
 const pages = [
   {
+    label: 'Beaumont public Mardi Gras historical parade photograph',
+    url: 'https://texasdefined.com/event/mardi-gras-southeast-texas-beaumont',
+    required: [
+      'Mardi Gras of Southeast Texas',
+      '2C2KPhotography',
+      'CC BY 2.0',
+      'March 1, 2025',
+      'BeaumontMardiGrasParade312532.jpg',
+      'Image source',
+    ],
+    forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
+  },
+  {
+    label: 'Beaumont Pardi Gras exact charity venue photograph',
+    url: 'https://texasdefined.com/event/beaumont-pardi-gras',
+    required: [
+      'Beaumont Pardi Gras',
+      'Beaumont Civic Center',
+      'LUSportsFan',
+      'CC BY-SA 4.0',
+      'February 16, 2015',
+      'Beaumont_February_16_025.JPG',
+      'Image source',
+    ],
+    forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
+  },
+  {
     label: 'Oak Cliff Mardi Gras 2027 parade',
     url: 'https://texasdefined.com/event/oak-cliff-mardi-gras-parade',
     required: [
