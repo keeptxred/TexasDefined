@@ -301,11 +301,14 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
       <h2 className="mt-2 font-display text-4xl">Big festivals, holiday markets and lights</h2>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">From early November festivals to opening weekend light displays, these confirmed guides offer useful starting points for a Texas getaway. Individual ticket sessions and daily operating times can vary.</p>
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {featured.map((event: any) => <article key={event.slug} className="flex flex-col border border-border bg-surface p-5">
+        {featured.map((event: any) => <article key={event.slug} className="flex flex-col overflow-hidden border border-border bg-surface">
+          {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="aspect-[4/3] w-full object-cover" /> : null}
+          <div className="flex flex-1 flex-col p-5">
           <p className="text-xs font-semibold uppercase tracking-wide text-primary">{event.city} · {dateDisplay(event)}</p>
           <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{categoryLabels[event.category] ?? "Texas event"} · Check the guide for official hours and tickets.</p>
           <EventGuideLink event={event} className="mt-auto pt-5 text-sm font-semibold text-primary">Plan this event →</EventGuideLink>
+          </div>
         </article>)}
       </div>
     </div> : null}
@@ -347,6 +350,7 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
     </div>
     {filtered.length ? <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
       {filtered.map((event) => <li key={event.slug} className="flex flex-col bg-background p-6">
+        {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="mb-5 aspect-[4/3] w-full object-cover" /> : null}
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">{dateDisplay(event)}</p>
         <p className="eyebrow mt-3 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
         <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
