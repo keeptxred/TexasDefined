@@ -306,7 +306,7 @@ async function viatorMarketFeedResponse(
       return viatorError("Current Viator inventory is temporarily unavailable", 503);
     }
     const payload = await upstream.json();
-    const products = normalizeViatorMarketProducts(payload, market);
+    const products = normalizeViatorMarketProducts(payload);
     const result: ViatorLiveMarketResponse = {
       source: "viator",
       market,
