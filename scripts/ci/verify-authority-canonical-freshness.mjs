@@ -56,6 +56,57 @@ const pages = [
       'Dallas · Date pending',
     ],
   },
+  // Scoped Mardi Gras authority acceptance: with the four existing entries above,
+  // exactly 11 local guides + one statewide hub. Never let a healthy generic
+  // status code substitute for exact event identity, image rights or noindex.
+  {
+    label: 'Galveston licensed 2013 actual Mardi Gras parade',
+    url: 'https://texasdefined.com/event/mardi-gras-galveston',
+    required: ['Mardi Gras! Galveston', '2027', 'A Yee', 'CC BY 2.0', 'Galveston_Mardi_Gras_Parade_2013_08.jpg', 'data-major-event-hero="true"'],
+    forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
+  },
+  {
+    label: 'Jefferson Mardi Gras actual historic downtown venue',
+    url: 'https://texasdefined.com/event/mardi-gras-upriver-jefferson',
+    required: ['Mardi Gras Upriver', 'Krewe of Hebe', 'February 5', 'Renelibrary', 'CC BY-SA 4.0', 'data-major-event-hero="true"'],
+    forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
+  },
+  {
+    label: 'Bandera archive license and contradictory Sunday date disclosure',
+    url: 'https://texasdefined.com/event/cowboy-mardi-gras-bandera',
+    required: ['Cowboy Mardi Gras', 'January 28', 'January 30', 'January 31', 'Carol M. Highsmith', 'Public domain', 'data-major-event-hero="true"'],
+    forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
+  },
+  {
+    label: 'Kemah two separately organized 2027 parades and historical venue',
+    url: 'https://texasdefined.com/event/kemah-yachty-gras',
+    required: ['Yachty Gras', 'Krewe du Lac', 'February 6', 'February 9', 'Tony Webster', 'CC BY 2.0', 'data-major-event-hero="true"'],
+    forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
+  },
+  {
+    label: 'Palestine 2027 parade and true historic streetscape license',
+    url: 'https://texasdefined.com/event/palestine-mardi-gras-parade',
+    required: ['Palestine Mardi Gras Parade', 'January 30', 'Renelibrary', 'CC BY-SA 4.0', 'data-major-event-hero="true"'],
+    forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
+  },
+  {
+    label: 'Port Arthur gate hours remain distinct from parade hours and noindex',
+    url: 'https://texasdefined.com/event/mardi-gras-port-arthur',
+    required: ['Mardi Gras Port Arthur', 'February 5', '2027', 'FESTIVAL GATE', 'Ben J. Rogers Regional Visitors Center', 'noindex, follow'],
+    forbidden: ['data-major-event-hero="true"', 'data-major-event-enrichment-image="true"'],
+  },
+  {
+    label: 'Crystal Beach 2027 parade still protected pending image rights',
+    url: 'https://texasdefined.com/event/crystal-beach-mardi-gras-parade',
+    required: ['Crystal Beach Mardi Gras Parade', 'February 6', '2027', 'Highway 87', 'noindex, follow'],
+    forbidden: ['data-major-event-hero="true"', 'data-major-event-enrichment-image="true"'],
+  },
+  {
+    label: 'Orange 2026 historical source must not become false 2027 event',
+    url: 'https://texasdefined.com/event/mardi-gras-on-the-sabine-orange',
+    required: ['Mardi Gras on the Sabine', 'February 7, 2026', '2027', 'City of Orange', 'noindex, follow'],
+    forbidden: ['data-major-event-hero="true"', 'data-major-event-enrichment-image="true"'],
+  },
   {
     label: 'Texas rivers',
     url: 'https://texasdefined.com/article/texas-rivers-explained',
