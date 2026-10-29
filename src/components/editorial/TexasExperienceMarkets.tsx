@@ -3,6 +3,7 @@ import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl, viatorTexasUrl } f
 import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS, VIATOR_RUNTIME_SIGNAL_REVIEWED_AT } from "@/data/viator-experience-runtime";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { exploreMarketEventCalendarHref } from "@/data/discovery/market-event-cities";
 import { ViatorLiveProducts } from "@/components/editorial/ViatorLiveProducts";
 
 export function TexasExperienceMarkets() {
@@ -73,6 +74,7 @@ function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number
     {market.signalLanes?.length ? <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Recent inventory signals:</strong> {market.signalLanes.join(" · ")}</p> : null}
     <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
       <a href={localSearch} className="border-b border-primary text-primary">TexasDefined places →</a>
+      {exploreMarketEventCalendarHref(market.slug) && <a href={exploreMarketEventCalendarHref(market.slug)!} className="border-b border-primary text-primary">Verified upcoming events →</a>}
       <a
         href={viatorUrl}
         target="_blank"
