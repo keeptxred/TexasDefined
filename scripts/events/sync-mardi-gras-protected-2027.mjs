@@ -39,6 +39,7 @@ export function proposeProtectedMardiGrasFacts(before, ledger, sourceRecords) {
   // Never treat an incomplete watcher, stale artifact or empty source list as
   // a successful live check. All seven sources must be accounted for.
   if (ledger?.schemaVersion !== 1 || !Array.isArray(ledger.observations)
+      || ledger.observations.length !== 7
       || new Set(ledger.observations.map(row => row.id)).size !== 7
       || !/^202[67]-\d{2}-\d{2}T\d{2}:\d{2}:/.test(ledger.checkedAt || "")) {
     throw new Error("No complete same-run official source ledger; no promotion");
