@@ -50,6 +50,10 @@ async function discoverImagePurgeUrls() {
 const generatedDiscoverImageUrls = await discoverImagePurgeUrls();
 
 const alwaysPurgeUrls = [
+  // Keep source-verified 2027 Mardi Gras guide and statewide calendar canonical HTML in sync
+  // with new Worker releases. A cancelled deploy can otherwise leave 2026 edge HTML cached.
+  `https://${zoneName}/event/oak-cliff-mardi-gras-parade`,
+  `https://${zoneName}/events/mardi-gras`,
   ...regionalAuthorityPurgeUrls,
   // Image/Discover metadata repair surfaces — purge HTML so post-deploy strict audit sees the deployed revision.
   `https://${zoneName}/event/chappell-hill-bluebonnet-festival`,
