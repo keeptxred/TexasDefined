@@ -51,6 +51,9 @@ export function parseVerifiedMardiGras2027Candidate(source, html, checkedAt) {
     if (!start || !end) return held("invalid-or-not-explicit-2027-date");
     const length = (end.getTime() - start.getTime()) / 86400000;
     if (length < 0 || length > 7 || startDate > "2027-03-31") return held("event-range-invalid-or-implausible");
+    // An old 2027 Event schema still present after its scheduled date is
+    // historical evidence, not a fresh announcement for future travel.
+    if (endDate < checkedAt.slice(0, 10)) return held("expired-event-window-not-upcoming");
     valid.push({
       eventSlug: source.eventSlug ?? null,
       sourceId: source.id,
