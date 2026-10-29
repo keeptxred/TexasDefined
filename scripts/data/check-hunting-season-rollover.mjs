@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 export const FRESHNESS_FILE = "src/data/hunting/freshness.ts";
 export function loadSeasonContract(source) {
-  const read = (key) => new RegExp(key + ':\s*"([^"]+)"').exec(source)?.[1];
+  const read = (key) => new RegExp(key + String.raw`: \s*"([^"]+)"`.replace(' ', '')).exec(source)?.[1];
   const seasonYear = read("seasonYear"), validFrom = read("validFrom"), validThrough = read("validThrough");
   if (!/^20\d{2}–\d{2}$/.test(seasonYear || "") || !/^20\d{2}-\d\d-\d\d$/.test(validFrom || "") || !/^20\d{2}-\d\d-\d\d$/.test(validThrough || "")) throw Error("Invalid hunting season contract");
   const first = Number(seasonYear.slice(0, 4)), last = first + 1;
@@ -30,5 +30,6 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   console.log(JSON.stringify({ ...result, checkedOn: today, seasonYear: contract.seasonYear, validThrough: contract.validThrough }));
   // Nonzero triggers an existing scheduled GitHub workflow's single review issue.
   // Do not silently alter the published county/species legal explanations.
-  if (result.state !== "current") process.exitCode = 2;
+  if (result.state !== "current" && !process.argv.includes("--expired-only")) process.exitCode = 2;
+  if (result.state === "expired" && process.argv.includes("--expired-only")) process.exitCode = 1;
 }
