@@ -9,6 +9,7 @@ const base = "https://texasdefined.com";
 const routes=[
  {kind:"attraction-research",route:"/api/viator/market/houston/attractions"},
  {kind:"christmas-experiences",route:"/api/viator/market/houston/christmas"},
+ {kind:"legacy-live-products",route:"/api/viator/market/houston/products"},
 ];
 const errors=[];
 for(const {kind,route} of routes){
@@ -35,10 +36,12 @@ for(const {kind,route} of routes){
       ["provider","providerId","name","market","status","productCount"].includes(k)),
       "Attraction research leaked supplier prose or assets");
    }
-  }else{
+  }else if(kind==="christmas-experiences"){
    assert.equal(json.category,"seasonal-experiences-not-calendar-events");
    for(const item of collection)assert.ok(!("eventStartDate" in item)&&!("startDate" in item),
     "Supplier tour listing must not create a confirmed scheduled event");
+  }else{
+   assert.ok(collection.length<=4,"Legacy live product preview exceeds four cards");
   }
   console.log(`PASS ${kind}: ${collection.length} bounded candidates, noindex, HTTP 200, ${Date.now()-start}ms`);
  }catch(error){
