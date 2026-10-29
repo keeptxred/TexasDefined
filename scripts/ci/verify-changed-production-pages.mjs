@@ -204,6 +204,14 @@ export function assertTurkeyHuntingAuthority(html, surface) {
     'Matagorda and Wharton are closed',
     'Official Texas turkey hunting zone maps',
     'National Refuge Spring Turkey drawings',
+    // These new authority sections must be visible on BOTH release and canonical HTML.
+    // Old turkey copy alone is insufficient proof that the authority upgrade deployed.
+    'Two verified 2027 public turkey draw opportunities',
+    'Find walk-in turkey hunting where it is actually legal',
+    'Using TPWD turkey harvest numbers responsibly',
+    'TPWD legal-game and property finder',
+    'Hagerman hunt rules and permit details',
+    'East Lake hunt rules and permit details',
   ]) {
     if (!visible.includes(marker)) throw new Error('Turkey hunting ' + surface + ' authority section missing: ' + marker);
   }

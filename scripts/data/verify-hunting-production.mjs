@@ -34,7 +34,7 @@ const representativeTopics = [
   },
   {
     path: '/hunting/turkey-hunting',
-    needles: ['Texas Turkey Hunting: 2026–27 Seasons, Regulations & Where to Hunt', 'Official 2026–27 wild turkey season dates', 'Matagorda and Wharton', 'No unbearded hens', 'National Refuge Spring Turkey drawings', 'Current official sources'],
+    needles: ['Texas Turkey Hunting: 2026–27 Seasons, Regulations & Where to Hunt', 'Official 2026–27 wild turkey season dates', 'Matagorda and Wharton', 'No unbearded hens', 'National Refuge Spring Turkey drawings', 'Two verified 2027 public turkey draw opportunities', 'Find walk-in turkey hunting where it is actually legal', 'Using TPWD turkey harvest numbers responsibly', 'TPWD legal-game and property finder', 'Current official sources'],
   },
   {
     path: '/hunting/youth-hunting',
@@ -120,11 +120,11 @@ function extractVisibleText(html) {
   return decodeHtmlEntities(withoutNonVisibleContent).replace(/\s+/g, ' ').trim();
 }
 
-async function fetchDocument(pathname) {
+async function fetchDocument(pathname, cacheBust = true) {
   let lastError;
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
-      const url = pathname.endsWith('.xml') ? origin + pathname : origin + pathname + '?hunting-smoke=' + encodeURIComponent(cacheBypass);
+      const url = pathname.endsWith('.xml') || !cacheBust ? origin + pathname : origin + pathname + '?hunting-smoke=' + encodeURIComponent(cacheBypass);
       const response = await fetch(url, {
         headers: {
           'user-agent': userAgent,
@@ -203,6 +203,12 @@ async function verify() {
     const visibleText = topicBodies[index];
     for (const needle of topic.needles) requireText(visibleText, needle, topic.path);
   });
+
+  // A successful query-string response alone can hide an older cached visitor page.
+  // Re-check only the exact canonical turkey URL to keep the release probe bounded.
+  const turkeyVisitorText = await fetchDocument('/hunting/turkey-hunting', false);
+  const turkeyContract = representativeTopics.find((topic) => topic.path === '/hunting/turkey-hunting');
+  for (const marker of turkeyContract.needles) requireText(turkeyVisitorText, marker, 'Canonical turkey visitor page');
 
   for (const path of sitemapPaths) requireText(sitemap, `${origin}${path}`, 'Production sitemap');
 
