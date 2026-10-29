@@ -191,10 +191,14 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: entity.slug === 'msr-houston'
+        title: entity.slug === 'reed-arena'
+          ? 'Reed Arena Bag Policy: Parking & Visitor Guide'
+          : entity.slug === 'msr-houston'
           ? 'MSR Houston Track Guide: Karting Status, Track Days, Rules & Calendar'
           : sportsVenueSearchTitle(entity.name, enrichment?.city),
-        description: sportsVenueSearchDescription(entity, enrichment),
+        description: entity.slug === 'reed-arena'
+          ? 'Reed Arena in College Station uses Texas A&M’s clear-bag 12-1-1 policy. Check permitted bags, entry rules, parking and official Aggie visitor guidance.'
+          : sportsVenueSearchDescription(entity, enrichment),
         image: photo?.imageUrl,
         imageAlt: photo?.alt,
         imageWidth: photo?.width,
