@@ -34,6 +34,21 @@ for (const label of [
   "Pet friendly",
 ]) requireText(component, label, "camping quick-match coverage");
 
+// Trip types must reveal *all* matching campground choices, rather than
+// mapping each type to one editorial park. Selecting a type retains geography.
+for (const label of ["Tent camping", "RV camping", "Backcountry camping", "Group camping", "River camping"]) {
+  requireText(component, label, "real campground trip-type coverage");
+}
+requireText(component, 'id="camping-trip-types"', "real trip-type navigation target");
+requireText(component, 'matchesTripType(profile, match)', "trip type must map to real campground profiles");
+requireText(component, "aria-pressed={active}", "trip type selection feedback");
+requireText(component, "aria-controls=\"camping-results\"", "trip type results association");
+requireText(component, "after your filters", "trip type matching result count");
+requireText(component, "const clearTripType", "clear camping type without losing location");
+if (page.includes("standoutCamping.map") || page.includes("Best camping destinations by trip type")) {
+  failures.push("camping trip types must not lead with one arbitrary state park");
+}
+
 // A park-wide wildlife/landscape photo must never impersonate a campsite.
 if (component.includes("campingCardImages") || component.includes("<img")) failures.push("campground card imagery lacks site-specific verification");
 if (page.includes("item.image") || page.includes("<img")) failures.push("unverified editorial campsite imagery reintroduced");

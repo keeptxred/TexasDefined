@@ -103,10 +103,15 @@ const quickMatches: Array<{
   amenities?: CampingAmenity[];
   waterCamping?: boolean;
 }> = [
+  { label: "Tent camping", styles: ["tent"] },
+  { label: "RV camping", styles: ["rv"] },
   { label: "Full-hookup RV", styles: ["rv"], amenities: ["full-hookup"] },
   { label: "Beach camping", styles: ["beach"] },
   { label: "Primitive camping", styles: ["primitive"] },
+  { label: "Backcountry camping", styles: ["backcountry"] },
+  { label: "Group camping", styles: ["group"] },
   { label: "Cabins & glamping", styles: ["cabin", "glamping", "airstream", "bungalow"] },
+  { label: "River camping", amenities: ["river-access"] },
   { label: "Fishing", amenities: ["fishing"] },
   { label: "Swimming", amenities: ["swimming"] },
   { label: "Water-focused", waterCamping: true },
@@ -138,6 +143,14 @@ function profileMatchesAmenity(profile: CampingDiscoveryProfile, amenity: Campin
     return profile.amenities.some((item) => ["electric-hookup", "electric-20", "electric-30", "electric-50", "full-hookup"].includes(item));
   }
   return profile.amenities.includes(amenity);
+}
+
+// A trip type is a predicate over *all* researched campgrounds, not a
+// single editorial park. Reuse exactly the filter semantics applied below.
+function matchesTripType(profile: CampingDiscoveryProfile, match: (typeof quickMatches)[number]) {
+  return (!match.styles?.length || match.styles.some((style) => profile.styles.includes(style)))
+    && (!match.amenities?.length || match.amenities.every((amenity) => profileMatchesAmenity(profile, amenity)))
+    && (!match.waterCamping || profile.amenities.some((amenity) => ["lake-access", "river-access", "gulf-access", "swimming"].includes(amenity)));
 }
 
 function verifiedAmenityText(profile: CampingDiscoveryProfile, amenities: CampingAmenity[]) {
@@ -228,27 +241,52 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
   };
 
   const applyQuickMatch = (match: (typeof quickMatches)[number]) => {
-    setQuery("");
-    setRegion("all");
-    setAgency("all");
+    // A camping type is an additional filter, not a replacement for the
+    // visitor's chosen geography, search text or managing agency.
     setStyles(match.styles ?? []);
     setAmenities(match.amenities ?? []);
     setWaterCamping(Boolean(match.waterCamping));
   };
 
+  const clearTripType = () => {
+    setStyles([]);
+    setAmenities([]);
+    setWaterCamping(false);
+  };
+
   return <>
     <div className="mt-8 border border-border bg-background p-5 md:p-6">
-      <div>
-        <p className="text-sm font-semibold">Quick matches</p>
-        <p className="mt-1 text-sm leading-6 text-muted-foreground">Start with a common trip type, then fine-tune the filters below.</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {quickMatches.map((match) => <button
-            key={match.label}
+      <div id="camping-trip-types" className="scroll-mt-24">
+        <p className="eyebrow text-primary">Start with what matters to you</p>
+        <h3 className="mt-2 font-display text-2xl">Choose your camping type or activity</h3>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Select a type to filter all verified campground profiles that match. These are choices, not one-size-fits-all park recommendations. Then refine by city or region below.</p>
+        <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Filter campground listings by trip type">
+          <button
             type="button"
-            onClick={() => applyQuickMatch(match)}
-            className="border border-border bg-muted/30 px-3 py-2 text-sm font-semibold transition-colors hover:border-primary/50 hover:bg-muted"
-          >{match.label}</button>)}
+            aria-pressed={!styles.length && !amenities.length && !waterCamping}
+            aria-controls="camping-results"
+            onClick={clearTripType}
+            className={`border px-3 py-2 text-sm font-semibold transition-colors ${!styles.length && !amenities.length && !waterCamping ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background text-primary"}`}
+          >All camping ({entries.length})</button>
+          {quickMatches.map((match) => {
+            const count = entries.filter(({ profile }) => matchesTripType(profile, match)).length;
+            if (!count) return null;
+            const active = styles.length === (match.styles?.length ?? 0)
+              && (match.styles ?? []).every((style) => styles.includes(style))
+              && amenities.length === (match.amenities?.length ?? 0)
+              && (match.amenities ?? []).every((amenity) => amenities.includes(amenity))
+              && waterCamping === Boolean(match.waterCamping);
+            return <button
+              key={match.label}
+              type="button"
+              aria-pressed={active}
+              aria-controls="camping-results"
+              onClick={() => active ? clearTripType() : applyQuickMatch(match)}
+              className={`border px-3 py-2 text-sm font-semibold transition-colors ${active ? "border-primary bg-primary text-primary-foreground" : "border-border bg-muted/30 text-primary hover:border-primary/50"}`}
+            >{match.label} ({count})</button>;
+          })}
         </div>
+        <p className="mt-3 text-sm text-muted-foreground" aria-live="polite">{filtered.length} matching campground profiles after your filters. <a className="font-semibold text-primary underline-offset-4 hover:underline" href="#camping-results">See results ↓</a></p>
       </div>
 
       <div className="mt-6 border-t border-border pt-6">
@@ -383,7 +421,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
       </div>
     </section> : null}
 
-    {filtered.length ? <div className="mt-6 grid items-start gap-4 lg:grid-cols-2">
+    {filtered.length ? <div id="camping-results" className="mt-6 grid scroll-mt-24 items-start gap-4 lg:grid-cols-2">
       {filtered.map(({ profile }) => {
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const anchor = profileAnchor(profile);
@@ -445,7 +483,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
           </div>
         </article>;
       })}
-    </div> : <div className="mt-7 border border-border bg-background p-8 text-center">
+    </div> : <div id="camping-results" className="mt-7 scroll-mt-24 border border-border bg-background p-8 text-center">
       <h3 className="font-display text-2xl">No verified campground matches those filters yet.</h3>
       <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">Try removing one facility requirement or clearing the region. Missing data is treated as unverified instead of assuming an amenity is present.</p>
       <button type="button" onClick={reset} className="mt-5 text-sm font-semibold text-primary underline-offset-4 hover:underline">Clear all filters</button>

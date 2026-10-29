@@ -21,7 +21,7 @@ function verify(html, { synthetic = false } = {}) {
     .replace(/\s+/g, " ");
   const mustHave = [
     "Best Places to Go Camping in Texas",
-    "Best camping destinations by trip type",
+    "Choose your camping type or activity",
     "Recent official park advisories",
     "Campground finder",
     "Park camping / reservation instructions",
@@ -60,7 +60,7 @@ if (process.argv.includes("--self-test")) {
   const fixtures = [
     '<link rel="canonical" href="' + CANONICAL + '">',
     '<h1>Best Places to Go Camping in Texas</h1>',
-    '<h2>Best camping destinations by trip type</h2>',
+    '<h2>Choose your camping type or activity</h2>',
     '<h2>Recent official park advisories</h2>',
     '<div>Campground finder Showing 72 of 72 verified profiles.</div>',
     '<div>Park camping / reservation instructions Notice verified</div>',
