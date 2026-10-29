@@ -450,6 +450,11 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   }
   let contentFallback = false;
   for (const path of changedFiles) {
+    // Unit-test fixture records may use realistic-looking canonicalPath strings
+    // (e.g. /fixture/hill-country-holiday-festival), but they are NOT deployed
+    // routes. Retain real src/data/fixtures/* editorial content; exclude only
+    // test-module and __tests__ records from inferred live smoke URLs.
+    if (/(^|\/)__tests__\/|(?:\.test|\.spec)\.[cm]?[jt]sx?$/.test(path)) continue;
     const { before = '', after = '' } = sources[path] || {};
     // Permanent /event/:slug guides are data-owned, not filename-owned routes.
     // Diff AST records so only changed guides are verified. A bounded sample
