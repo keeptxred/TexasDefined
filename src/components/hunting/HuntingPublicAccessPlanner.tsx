@@ -38,7 +38,7 @@ export function HuntingPublicAccessPlanner() {
     "2. Open the individual hunt or area's Legal Game record; check actual species, dates, allowed methods and eligibility.",
     "3. Confirm the specific permit, license, endorsements, unit boundaries, check-in and closure notices before traveling.",
     "A selected county or game here does not prefilter TPWD or establish hunting permission.",
-  ].join("\\n").replace(/\\\\n/g, "\\n");
+  ].join("\n");
   async function copySearchChecklist() {
     try {
       await navigator.clipboard.writeText(searchChecklist);
