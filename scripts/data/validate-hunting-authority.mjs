@@ -80,7 +80,7 @@ for (const slug of expectedTopics) requireRouteLiteral(sitemap, `/hunting/${slug
 
 requireText(authority, '"texas-deer-hunting": TEXAS_DEER_AUTHORITY_TOPIC', 'deer guide still using generic species template');
 requireText(authority, '"turkey-hunting": TURKEY_HUNTING_TOPIC', 'turkey not dedicated guide');
-for (const term of ['2026–27', 'Matagorda and Wharton', 'mandatory harvest reporting', 'unbearded', 'November 1, 2026', 'reviewedOn: TURKEY_GUIDE_LAST_VERIFIED']) requireText(turkey, term, 'turkey guide missing ' + term);
+for (const term of ['2026–27', 'Matagorda and Wharton', 'mandatory harvest reporting', 'unbearded', 'quarterlyFacts.draw.deadline', 'reviewedOn: TURKEY_GUIDE_LAST_VERIFIED']) requireText(turkey, term, 'turkey guide missing ' + term);
 requireText(turkeyTable, 'TURKEY_SEASONS_2026_27.map', 'turkey season table missing');
 requireText(turkeyTable, 'Robert Burton', 'turkey photo attribution missing');
 requireText(turkeyTable, 'turkeyCalendar.checkedAt', 'date provenance missing');
