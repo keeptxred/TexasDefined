@@ -56,6 +56,39 @@
       },
       "reason": "Branded seat-capacity searches form a prominent query cohort; official University of North Texas athletics currently confirms 30,100 seats. Capacity is answered by the page, but prior snippet omitted it.",
       "officialSource": "https://meangreensports.com/facilities/datcu-stadium/4"
+    },
+    {
+      "url": "https://texasdefined.com/explore/casinos/naskila-leggett",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Naskila Casino Leggett: The New East Texas Gaming Location",
+      "newTitle": "Naskila Casino Leggett: Hours, Address & What's Open",
+      "oldDescription": "A separate, newly opened Naskila property with electronic bingo machines and food service at the future resort site.",
+      "newDescription": "Visit Naskila Casino Leggett at 10314 US 59 N near Livingston. Check 24-hour hours, electronic-bingo facilities, dining and how it differs from Naskila Livingston.",
+      "baseline": {
+        "clicks": 4,
+        "impressions": 570,
+        "ctr": 0.007017543859649123,
+        "averagePosition": 10.029824561403508
+      },
+      "reason": "Branded Leggett/Livingston navigational queries have low CTR near position ten. Lead with current hours, address and open facility; do not suggest future resort is open.",
+      "officialSource": "https://www.naskila.com/leggett/"
+    },
+    {
+      "url": "https://texasdefined.com/destination/galveston-bay",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Galveston Bay | Texas Travel Guide",
+      "oldTitleNote": "Derived from the current generic destination route SEO title template; suffix added by buildMeta.",
+      "newTitle": "Galveston Bay Texas: Fishing, Wildlife & Public Access",
+      "oldDescription": "Texas' largest estuary, where freshwater flowing toward the Upper Gulf Coast mixes with Gulf saltwater across a broad network of open bay, marsh, oyster reef and shoreline habitat used for fishing, boating, paddling and wildlife watching.",
+      "newDescription": "Explore Galveston Bay, Texas's largest estuary, with fishing, boating, wetlands, oyster reefs and visitor access around Kemah, Texas City and Galveston.",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 124,
+        "ctr": 0,
+        "averagePosition": 15.596774193548388
+      },
+      "reason": "The brand's generic Texas Travel Guide title fails to express estuary/fishing/access intent for branded geographic queries; the source-backed existing body explains public-access constraints.",
+      "officialSource": "https://gbep.texas.gov/galveston-bay-101/"
     }
   ],
   "protectedWithoutChanges": [
