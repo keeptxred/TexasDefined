@@ -3,6 +3,8 @@ import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl, viatorTexasUrl } f
 import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS, VIATOR_RUNTIME_SIGNAL_REVIEWED_AT } from "@/data/viator-experience-runtime";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { exploreMarketEventCalendarHref } from "@/data/discovery/market-event-cities";
+import { reviewedAttractionGuidesForMarket } from "@/data/discovery/explore-attraction-guides";
 import { ViatorLiveProducts } from "@/components/editorial/ViatorLiveProducts";
 
 export function TexasExperienceMarkets() {
@@ -66,13 +68,19 @@ function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number
   const localSearch = `/explore/search?q=${encodeURIComponent(market.name.replace(/\s*&.*$/, ""))}`;
   const commercialPlacement = `viator-market-${market.slug}`;
   const ctaLabel = verifiedMarketInventory ? `Current Viator options for ${market.name}` : `Browse Viator Texas inventory for ${market.name}`;
+  const reviewedGuides = reviewedAttractionGuidesForMarket(market.slug);
 
   return <article className="border border-border bg-background p-6">
     <p className="eyebrow text-primary">{market.regionLabel}</p>
     <h4 className="mt-2 font-display text-3xl leading-tight">{market.name}</h4>
     {market.signalLanes?.length ? <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Recent inventory signals:</strong> {market.signalLanes.join(" · ")}</p> : null}
+    {reviewedGuides.length ? <div className="mt-4">
+      <p className="text-xs font-semibold text-muted-foreground">TexasDefined attraction authority guides</p>
+      <ul className="mt-2 space-y-1 text-sm">{reviewedGuides.map((guide)=><li key={guide.href}><a href={guide.href} className="text-primary underline">{guide.name} →</a></li>)}</ul>
+    </div> : null}
     <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
       <a href={localSearch} className="border-b border-primary text-primary">TexasDefined places →</a>
+      {exploreMarketEventCalendarHref(market.slug) && <a href={exploreMarketEventCalendarHref(market.slug)!} className="border-b border-primary text-primary">Verified upcoming events →</a>}
       <a
         href={viatorUrl}
         target="_blank"

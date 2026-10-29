@@ -2,10 +2,12 @@ User-agent: Googlebot
 User-agent: Googlebot-Image
 Allow: /
 Disallow: /admin
+Disallow: /api/viator/
 
 User-agent: Bingbot
 Allow: /
 Disallow: /admin
+Disallow: /api/viator/
 
 # Public search/discovery crawlers. These agents may fetch public indexable pages.
 User-agent: OAI-SearchBot
@@ -17,6 +19,7 @@ User-agent: PerplexityBot
 User-agent: Perplexity-User
 Allow: /
 Disallow: /admin
+Disallow: /api/viator/
 
 # Training/extended-use crawler policy is separate from search discovery.
 # Existing permissions are preserved; future training changes do not implicitly
@@ -31,6 +34,7 @@ User-agent: Meta-ExternalAgent
 User-agent: CCBot
 Allow: /
 Disallow: /admin
+Disallow: /api/viator/
 
 # General and social-preview crawlers share the same public-page policy.
 User-agent: Twitterbot
@@ -38,6 +42,7 @@ User-agent: facebookexternalhit
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /api/viator/
 
 Sitemap: https://texasdefined.com/sitemap.xml
 Sitemap: https://texasdefined.com/sitemap-explore.xml

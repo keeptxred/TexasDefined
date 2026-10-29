@@ -1,6 +1,7 @@
 import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-evergreen";
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
+const CalendarBookingDiscovery = lazy(() => import("@/components/events/CalendarBookingDiscovery").then((m) => ({default:m.CalendarBookingDiscovery})));
 
 import bigBend from "@/assets/big-bend.jpg";
 import caddoLake from "@/assets/caddo-lake.jpg";
@@ -10,6 +11,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 import { Container } from "@/components/layout/Container";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
+import { countyGuidePath } from "@/data/discovery/canonical-links";
 
 export const Route = createLazyFileRoute("/events/$collection")({
   component: EventCollectionPage,
@@ -518,7 +520,7 @@ function GenericCollectionPage({ page }: { page: any }) {
       {page.path === "/events/november-events" ? <NovemberCollectionBrowser page={page} /> : null}
       {page.path === "/events/fall-festivals" || page.path === "/events/november-events" ? null : <section className="pt-12">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6"><div><p className="eyebrow text-primary">{page.itemsEyebrow}</p><h2 className="mt-2 font-display text-4xl">{page.itemsTitle}</h2></div><a href="/events" className="text-sm font-semibold text-primary">Full Texas calendar →</a></div>
-        {page.path === "/events/fall-festivals" ? null : page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event: any) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight">{isTournamentCollection ? event.name : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>{isTournamentCollection ? <a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">{isTournamentHub ? "Browse category →" : "Tournament directory →"}</a> : <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Open guide →</EventGuideLink>}</li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">{page.emptyMessage}</p>}
+        {page.path === "/events/fall-festivals" ? null : page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event: any) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight">{isTournamentCollection ? event.name : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>{!isTournamentCollection && countyGuidePath(event.countyName) ? <a href={countyGuidePath(event.countyName)!} className="mt-3 inline-block text-xs font-semibold text-primary underline">Explore {event.countyName} →</a> : null}{isTournamentCollection ? <a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">{isTournamentHub ? "Browse category →" : "Tournament directory →"}</a> : <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Open guide →</EventGuideLink>}</li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">{page.emptyMessage}</p>}
       </section>}
 
       <section className="pt-12"><p className="eyebrow text-primary">Keep exploring</p><h2 className="mt-2 font-display text-3xl">Related Texas event guides</h2><div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{page.relatedCollections.map((item: any) => <a key={item.path} href={item.path} className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span></a>)}<a href="/events" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Texas Events</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Browse the statewide calendar and all verified event guides.</span></a></div></section>
@@ -528,6 +530,8 @@ function GenericCollectionPage({ page }: { page: any }) {
 
 function EventCollectionPage() {
   const { page } = Route.useLoaderData();
-  if (page.weekendDigest) return <WeekendCollectionPage page={page} />;
-  return <GenericCollectionPage page={page} />;
+  return <>
+    {page.weekendDigest ? <WeekendCollectionPage page={page} /> : <GenericCollectionPage page={page} />}
+    <Suspense fallback={null}><CalendarBookingDiscovery christmas={page.path === "/events/christmas-events" || page.path === "/events/december-events"} /></Suspense>
+  </>;
 }
