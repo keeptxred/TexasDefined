@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { baselineFromLedger, buildChangePlan, REPRESENTATIVE_PATHS, PAGE_BUDGET } from './production-change-scope.mjs';
-import { verifyChangedPages, assertKatyFootballContents, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
+import { verifyChangedPages, assertKatyFootballContents, assertPortArthurFestivalGateFacts, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
 import { createProductionPageFetch } from './reuse-production-page.mjs';
 const policy = JSON.parse(readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
 const text = file => readFileSync(file, 'utf8');
@@ -105,6 +105,17 @@ test('one edited article selects that record, not its unchanged siblings', () =>
   const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { before, after } } });
   assert.deepEqual(plan.selectedPaths, ['/article/first-article']);
   assert.ok(Object.values(plan.groups).every(v => v === false));
+});
+
+test('Port Arthur festival gate hours remain explicit without exposing unlicensed images or inventing parade times', () => {
+  const valid = '<html><head><meta name="robots" content="noindex, follow, max-image-preview:large"></head><body>'
+    + 'February 5–7, 2027; Friday February 5, 6–11:30 p.m.; Saturday February 6, noon–11:30 p.m.; '
+    + 'Sunday February 7, noon–7 p.m.; These are FESTIVAL GATE windows, not parade or concert start times. '
+    + 'individual parade start times, road-closure maps and ticket prices; Ben J. Rogers Regional Visitors Center</body></html>';
+  assert.doesNotThrow(() => assertPortArthurFestivalGateFacts(valid, 'fixture'));
+  assert.throws(() => assertPortArthurFestivalGateFacts(valid.replace('Friday February 5, 6–11:30 p.m.', '2027 times pending'), 'fixture'), /missing current gate-hour/);
+  assert.throws(() => assertPortArthurFestivalGateFacts(valid.replace('noindex, follow, max-image-preview:large', 'index, follow'), 'fixture'), /incorrectly indexed/);
+  assert.throws(() => assertPortArthurFestivalGateFacts(valid.replace('not parade or concert start times', 'parade starts at 6 p.m.'), 'fixture'), /missing current gate-hour/);
 });
 
 test('statewide Mardi Gras hub must be live, indexable by default, and link to real guides on the visitor URL', async () => {

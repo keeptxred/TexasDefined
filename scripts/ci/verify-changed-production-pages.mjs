@@ -239,6 +239,29 @@ function assertYouthHuntingAuthority(html, surface) {
   }
 }
 
+// Bounded acceptance of visitor-facing 2027 festival gates on BOTH the cache-busted
+// release and ordinary canonical HTML. No event-specific image rights exist yet:
+// the guide must remain noindex until the separate licensed-photo gate is passed.
+export function assertPortArthurFestivalGateFacts(html, surface) {
+  for (const fact of [
+    'February 5–7, 2027',
+    'Friday February 5, 6–11:30 p.m.',
+    'Saturday February 6, noon–11:30 p.m.',
+    'Sunday February 7, noon–7 p.m.',
+    'These are FESTIVAL GATE windows, not parade or concert start times.',
+    'individual parade start times, road-closure maps and ticket prices',
+    'Ben J. Rogers Regional Visitors Center',
+  ]) {
+    if (!html.includes(fact)) throw new Error('Port Arthur ' + surface + ' is missing current gate-hour/source caveat: ' + fact);
+  }
+  const robots = [...html.matchAll(/<meta\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .filter((tag) => /\bname=["']robots["']/i.test(tag));
+  if (!robots.some((tag) => /\bnoindex\b/i.test(tag))) {
+    throw new Error('Port Arthur ' + surface + ' incorrectly indexed without an approved event-specific hero photo');
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
@@ -463,6 +486,10 @@ for (const path of plan.selectedPaths) {
               throw new Error('Oak Cliff Mardi Gras ' + surface + ' is unexpectedly noindex despite compliant image');
             }
           }
+        }
+        if (path === '/event/mardi-gras-port-arthur') {
+          assertPortArthurFestivalGateFacts(html, 'cache-busted release');
+          assertPortArthurFestivalGateFacts(visitorHtml, 'ordinary visitor URL');
         }
         if (path === '/event/mardi-gras-galveston') {
           // A successful cache-busted URL must not mask a stale visitor-facing

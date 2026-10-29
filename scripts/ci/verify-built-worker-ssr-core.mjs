@@ -75,7 +75,8 @@ const smokeTargets = [
   { path: '/events/mardi-gras', requiredText: 'Galveston: the 2027 parades and free days worth planning around', label: 'Statewide Mardi Gras hub contains verified 2027 festival day selection' },
   { path: '/events/mardi-gras', requiredText: '6:30 p.m.', label: 'Statewide Mardi Gras hub shows verified Fat Tuesday parade time' },
   { path: '/event/mardi-gras-galveston', requiredText: 'Knights of Momus Grand Night Parade at 6 p.m.', label: 'Galveston guide preserves 2027 signature parade time' },
-  { path: '/event/mardi-gras-port-arthur', requiredText: 'schedule page does not contain a detailed timetable', label: 'Port Arthur guide does not fabricate yet-unpublished 2027 timetable' },
+  { path: '/event/mardi-gras-port-arthur', requiredText: 'These are FESTIVAL GATE windows, not parade or concert start times.', label: 'Port Arthur published 2027 gate hours must not be mistaken for a parade timetable' },
+  { path: '/event/mardi-gras-port-arthur', requiredText: 'individual parade start times, road-closure maps and ticket prices', label: 'Port Arthur guide preserves the still-unconfirmed parade route and paid admission details' },
   { path: '/event/mardi-gras-galveston', requiredText: 'A Yee', label: 'Galveston original-event licensed photograph credit SSR renders' },
   { path: '/event/mardi-gras-galveston', requiredText: '2013 Mardi Gras', label: 'Galveston hero is accurately labeled as archival, not 2027' },
   // El Paso authority acceptance: real SSR must publish the researched metro guide

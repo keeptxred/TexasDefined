@@ -15,7 +15,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-07",
     venue: "Downtown Port Arthur",
     officialUrl: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/",
-    sourceCheckedAt: "2026-10-26",
+    sourceCheckedAt: "2026-10-28",
     whyItMatters: "Port Arthur's 2027 return to city-hosted Mardi Gras is a new destination celebration shaped by the area's Cajun and Gulf Coast culture. The Port Arthur Convention & Visitors Bureau says the February 5–7 program will include parades, live music, food and family activities. It should not be confused with the separately organized Mardi Gras of Southeast Texas event that moved to Beaumont.",
     quickFacts: [
       {
@@ -31,8 +31,12 @@ const records: MajorEventAuthorityRecord[] = [
         value: "Port Arthur Convention & Visitors Bureau / Mardi Gras Port Arthur"
       },
       {
+        label: "Festival gate hours",
+        value: "Friday Feb. 5: 6–11:30 p.m.; Saturday Feb. 6: noon–11:30 p.m.; Sunday Feb. 7: noon–7 p.m. — Procter Street festival gates, NOT individual parade start times (regional visitors center)"
+      },
+      {
         label: "Parades and admission",
-        value: "Organizers confirm February 5–7; detailed parade hours, routes and ticket terms are not yet posted on their dedicated schedule page (checked October 26)"
+        value: "Festival-area gate hours are published; exact parade start times, route closures, and admission/ticket terms are still pending on the organizer’s detailed schedule page (checked October 28)"
       }
     ],
     planningSections: [
@@ -42,7 +46,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Anchor your trip to the February 5–7 weekend",
-        body: "The tourism bureau has published the three-day 2027 dates and downtown location, and now links a dedicated schedule page. As of October 26 the schedule page does not contain a detailed timetable: no individual parade start time, road-closure map or ticket price can yet be quoted. Check that official page again before finalizing your travel day."
+        body: "The tourism bureau confirms February 5–7 in downtown Port Arthur. Ben J. Rogers Regional Visitors Center also publishes Procter Street festival gate hours: Friday February 5, 6–11:30 p.m.; Saturday February 6, noon–11:30 p.m.; Sunday February 7, noon–7 p.m. These are FESTIVAL GATE windows, not parade or concert start times. As of October 28 the organizer’s detailed schedule still omits individual parade start times, road-closure maps and ticket prices. Confirm those details before traveling."
       },
       {
         title: "Find a viewing strategy before committing to parking",
@@ -84,8 +88,12 @@ const records: MajorEventAuthorityRecord[] = [
         url: "https://visitportarthurtx.com/annual-events/"
       },
       {
-        label: "Visit Port Arthur — dedicated Mardi Gras schedule (details pending)",
+        label: "Visit Port Arthur — dedicated Mardi Gras schedule (individual parade/ticket details pending)",
         url: "https://visitportarthurtx.com/mardi-gras/schedule/"
+      },
+      {
+        label: "Ben J. Rogers Regional Visitors Center — Mardi Gras Port Arthur 2027, Procter Street gate hours and address",
+        url: "https://explorejeffersoncountytx.com/e/mardi-gras-port-arthur-2027-6aa92e29f4f53a064b18d211/"
       }
     ]
   },

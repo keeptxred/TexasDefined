@@ -6,8 +6,11 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   {
     slug: "mardi-gras-port-arthur",
     organizer: { type: "Organization", name: "Mardi Gras Port Arthur", url: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/" }],
-    verifiedAt: "2026-10-21",
+    sources: [
+      { label: "Visit Port Arthur — February 5–7, 2027 organizer confirmation", url: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/" },
+      { label: "Ben J. Rogers Regional Visitors Center — Procter Street 2027 festival gate hours", url: "https://explorejeffersoncountytx.com/e/mardi-gras-port-arthur-2027-6aa92e29f4f53a064b18d211/" },
+    ],
+    verifiedAt: "2026-10-28",
   },
   {
     slug: "mardi-gras-upriver-jefferson",
