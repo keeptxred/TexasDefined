@@ -389,4 +389,16 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
+
+// GSC 2026-10-29: "day trips from texarkana" surfaced the broad hub in 85
+// impressions, while the correct day-trip child received six. Preserve distinct
+// intent ownership without noindexing or canonicalizing either useful page.
+for (const expected of [
+  'Things to Do Near Texarkana: Parks, Towns & Guides',
+  'Day Trips From Texarkana: Parks, Towns & Outings',
+  'const isTexarkanaDayTrips = metro.slug === "texarkana" && collection.slug === "day-trips"',
+  'source-backed day-trip destinations from Texarkana',
+]) requireText(files.pageData, expected, 'Texarkana broad-vs-day-trip SEO intent contract missing: ' + expected);
+requireText(files.hubComponent, 'Day Trips From Texarkana', 'Texarkana hub must link with descriptive day-trip intent anchor');
+
 console.log("Metro proximity validation passed: twenty-two metro hubs and 286 governed intent combinations remain distance-ranked, source-backed, diversity-gated, duplicate-resistant and fail-closed for indexing, with supplemental official-source town references allowed to close verified geography gaps without manufacturing thin destination pages.");
