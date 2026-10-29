@@ -94,3 +94,16 @@ test('normal position CTR does not trigger unnecessary rewrites', () => {
   const page = { ...good(), gsc: { clicks: 35, impressions: 400, ctr: 0.0875, averagePosition: 6 } };
   assert.equal(classifySnippetPage(page).classification, 'KEEP');
 });
+
+test('malformed structured data is a technical defect even for a competitive GSC page', () => {
+  const page = { ...good(), issues: [{ code: 'malformed-json-ld', detail: '1' }],
+    gsc: { clicks: 0, impressions: 500, ctr: 0, averagePosition: 7.3 } };
+  const result = classifySnippetPage(page);
+  assert.equal(result.classification, 'TECHNICAL SNIPPET DEFECT');
+  assert.deepEqual(result.evidence, ['malformed-json-ld']);
+});
+
+test('missing optional OG imagery remains a warning rather than blocking crawlable pages', () => {
+  const page = { ...good(), warnings: [{ code: 'missing-editorial-og-image' }] };
+  assert.equal(classifySnippetPage(page).classification, 'KEEP');
+});
