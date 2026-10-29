@@ -2752,9 +2752,9 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       'corpus-christi-calallen','corpus-christi-carroll'
     ];
     const firstFive=expected.slice(0,5);
-    const implemented=firstFive.filter(slug=>r.schoolRecords.find(x=>x.slug===slug)?.status==='IMPLEMENTED').length;
-    const sourceReady=implemented===5;
-    if(![0,5].includes(implemented) ||
+    const implemented=expected.filter(slug=>r.schoolRecords.find(x=>x.slug===slug)?.status==='IMPLEMENTED').length;
+    const sourceReady=implemented>=5;
+    if(![0,5,10].includes(implemented) ||
        r.batch.state!=='IN_PROGRESS' || r.batch.slugs.length!==25 ||
        JSON.stringify(r.batch.slugs)!==JSON.stringify(expected) ||
        r.batch.individuallyVerified!==0 ||
@@ -2765,16 +2765,16 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
        r.batch.currentSchool!==expected[implemented] ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==230 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch===11).length!==0)
-      errors.push('Batch011 must progress only 0 or 5 sourced IMPLEMENTED, preserving 230 verified and 20+ source-pending');
+      errors.push('Batch011 must progress only complete source cohorts 0, 5 or 10 IMPLEMENTED, preserving 230 historical VERIFIED');
     for(const [i,slug] of expected.entries()) {
       const school=r.schoolRecords.find(x=>x.slug===slug);
-      const expectedStatus=sourceReady&&i<5?'IMPLEMENTED':'NOT_REVIEWED';
+      const expectedStatus=sourceReady&&i<implemented?'IMPLEMENTED':'NOT_REVIEWED';
       if(!school || school.status!==expectedStatus || school.batch!==11 ||
         school.actualProductionVerified===true ||
         school.schoolPhotoReuseRightsAccepted===true ||
         school.manualAccessibilityAccepted===true)
         errors.push('Batch011 missing safe status or falsely certified: '+slug);
-      if(sourceReady&&i<5&&
+      if(sourceReady&&i<implemented&&
          (!school.audit || !school.implementedOnBranch || !school.researchCompletedAt ||
           !school.implementationNotes || school.editorialHumanSignoff!==false ||
           school.schoolPhotoReuseRightsAccepted!==false ||
@@ -2785,7 +2785,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
   // First Batch011 cohort is a real source-authored change, NOT live Chrome
   // certification. Guard separate school content, exact campus geography,
   // original identity, and a narrow bound on eventual real 18-PNG evidence.
-  if(r.batch.implementedOnBranch===5){
+  if(r.batch.implementedOnBranch>=5){
     const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
     const src=read('src/data/high-school-football/program-editorial-b011.ts');
     const profile=read('src/data/high-school-football/football-program-profile.server.ts');
@@ -2826,6 +2826,45 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     }
     if(!src.includes('The 2026 Lone Star Cup') && !src.includes('Lone Star Cup'))
       errors.push('Davenport all-sports cup must not be confused with football championship');
+  }
+  // Batch011 second-five governance: independent source-specific dossiers,
+  // school identities, physical counties, isolated Chrome and evidence path.
+  // No status is accepted as technically VERIFIED until independent proof merges.
+  if(r.batch.implementedOnBranch===10){
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const src=read('src/data/high-school-football/program-editorial-b011.ts');
+    const identities=read('src/data/high-school-football/school-identities.ts');
+    const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const counties=read('src/routes/$kind.$slug.lazy.tsx');
+    const chrome=read('scripts/ci/verify-football-b011-second-five-production.mjs');
+    const flow=read('.github/workflows/verify-football-b011-second-five-production.yml');
+    const cases=[
+      ['comal-pieper','bexar','Eduardo (Eddie) Salas'],
+      ['comal-smithson-valley','comal','Larry Hill'],
+      ['comanche','comanche','Jake Escobar'],
+      ['comfort','kendall','Jay Rieken'],
+      ['commerce','hunt','John McSheffery']
+    ];
+    for(const [slug,county,name] of cases){
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!src.includes('"'+slug+'": {') || !src.includes(name) ||
+         !identities.includes("slug: '"+slug+"'") || !loader.includes("'"+slug+"'") ||
+         !team.includes("'"+slug+"': '"+county+"'") ||
+         !counties.includes("slug: '"+slug+"'") ||
+         dossier.length<2000 || !dossier.includes('https://'))
+        errors.push('Batch011 second-five source, county, coach-role or dossier absent: '+slug);
+    }
+    for(const token of ['report.schoolChecks.length!==15',
+      'report.countyChecks.length!==5','report.screenshots!==20',
+      'process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_EXPECTED_WORKER_VERSION'])
+      if(!chrome.includes(token)) errors.push('Second-five strict Chrome evidence guard missing: '+token);
+    for(const token of ['Deploy TexasDefined production','steps.release.outputs.sha',
+      'pin-football-b010-production-release.mjs',
+      'path: artifacts/b011-second-five-production-chrome/'])
+      if(!flow.includes(token)) errors.push('Second-five deployment/source verification workflow missing: '+token);
+    if(src.includes('"comfort":') && /"comfort"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"comfort":'),src.indexOf('"commerce":'))))
+      errors.push('Comfort 2025 HFC interview cannot be mislabeled confirmed 2026 coaching appointment');
   }
 
     if(!r.completedBatches.some(x=>x.number===10 &&
