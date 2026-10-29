@@ -16,6 +16,13 @@ const editorial: FootballProgramEditorial = {
     title: 'Frisco Lone Star Rangers Football | History & 2026 District 5',
     description: 'Frisco Lone Star Rangers football: 2015 and 2025 state-final appearances, Nick Bolton, official Frisco ISD schedule, school details and 2026 UIL 5A Division I District 5.',
   },
+  coach: {
+    name: 'Jeff Rayburn',
+    title: '2026 head coach according to dated UIL partner team staff',
+    sourceUrl: 'https://www.maxpreps.com/tx/frisco/lone-star-rangers/football/staff/',
+    sourceLabel: 'UIL partner MaxPreps varsity staff listing, updated September 2026',
+    verifiedAt: '2026-10-29',
+  },
   campus: {
     address: '2606 Panther Creek Parkway, Frisco, TX 75033 — school campus, not a guaranteed football-game entrance',
     sourceUrl: 'https://www.friscoisd.org/o/lshs',
@@ -70,6 +77,7 @@ const editorial: FootballProgramEditorial = {
     'The Lone Star Rangers are a Frisco ISD high-school football program rather than a professional team or a generic Frisco-area sports listing. UIL places the school in 5A Division I District 5 for 2026–28; readers can use the district guide on this page to explore each current district peer.',
     'The program reached two UIL state championship games in different divisions: Class 5A Division II in 2015 and Class 5A Division I in 2025. Frisco ISD’s September 9, 2026 program history also records 14 straight winning seasons through 2025. Those dated accomplishments should not be mistaken for a live 2026 win–loss record.',
     'A notable Lone Star football graduate is Nick Bolton, Class of 2018, who went on to play linebacker for the Kansas City Chiefs. Frisco ISD says it inducted Bolton into its Athletics Hall of Honor in 2024.',
+    'The September 2026 UIL-partner team staff listing identifies Jeff Rayburn as Lone Star’s head football coach. This is a dated staff reference, not a guarantee that personnel will remain unchanged; confirm staff updates with Lone Star athletics.',
     'For game-day planning, start with the official 2026 Frisco ISD varsity football schedule (https://www.friscoisd.org/page/2026-varsity-football-schedule/) and the district’s ticket information (https://tickets.friscoisd.org). Frisco ISD uses shared sports venues; Lone Star High School’s address is a campus contact location, not proof of a particular game’s venue, stadium entrance, parking arrangement, accessibility route, ticket availability or admission terms.',
     'This independent profile links to the official school (https://www.friscoisd.org/o/lshs) and Frisco ISD source material. No school logo or student photograph is reproduced, and no 2026 scores, records or standings are generated while TexasDefined’s separate authorized data integration is deferred.',
   ],
@@ -81,6 +89,10 @@ const editorial: FootballProgramEditorial = {
     {
       question: 'Which NFL player attended Frisco Lone Star High School?',
       answer: 'Kansas City Chiefs linebacker Nick Bolton is a Lone Star Class of 2018 alumnus. Frisco ISD reports that he entered its Athletics Hall of Honor in 2024.',
+    },
+    {
+      question: 'Who is Frisco Lone Star’s football head coach in 2026?',
+      answer: 'The September 2026 UIL-partner varsity staff listing identifies Jeff Rayburn as Lone Star’s head coach. Coaching assignments can change; recheck the school or team staff listing.',
     },
     {
       question: 'Where is Lone Star High School?',
