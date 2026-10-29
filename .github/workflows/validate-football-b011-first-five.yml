@@ -1,0 +1,29 @@
+name: Validate Batch011 first-five source and browser contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/high-school-football/program-editorial-b011*'
+      - 'src/data/high-school-football/football-program-profile.server.ts'
+      - 'src/data/high-school-football/school-identities.ts'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'scripts/ci/verify-football-b011-first-five-*'
+      - '.github/workflows/verify-football-b011-first-five-production.yml'
+      - '.github/workflows/validate-football-b011-first-five.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate unique primary-source guides, county edges and strict Chrome contract
+        run: |
+          node --check scripts/ci/verify-football-b011-first-five-production.mjs
+          node --check scripts/ci/verify-football-b011-first-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-first-five-source.test.mjs
