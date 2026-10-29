@@ -333,7 +333,7 @@ const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug
   'hopkins': [{ name: 'Como-Pickton Eagles', slug: 'como-pickton', context: 'Hopkins County NCES verified rural school; Jeremy Griffin athletic director with 2025 football coach history kept distinctly dated; UIL 2A Division I District 10' }],
   'montgomery': [
     { name: 'Conroe High Tigers', slug: 'conroe', context: 'Cedric Hardeman current football coach at West Davis campus; 6A District 13, distinct from Conroe ISD sister programs' },
-    { name: 'Caney Creek Panthers', slug: 'conroe-caney-creek', context: 'Taylor Cobb head football coach; FM 1485 school, school-owned multi-venue ticket policies not every game's stadium' },
+    { name: 'Caney Creek Panthers', slug: 'conroe-caney-creek', context: 'Taylor Cobb head football coach; FM 1485 school, school-owned multi-venue ticket policies not a guarantee of the stadium for each game' },
     { name: 'Grand Oaks Grizzlies', slug: 'conroe-grand-oaks', context: 'Shaun McDowell head football coach, NCES Montgomery County Riley Fuzzel campus, 6A District 13' },
     { name: 'Oak Ridge War Eagles', slug: 'conroe-oak-ridge', context: 'Tyler Blackshire current head coach; NCES Oak Ridge Montgomery County campus and separate Shenandoah game venues' }
   ],
