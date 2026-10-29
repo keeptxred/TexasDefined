@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { verifyChromeReport, graduateBatch010, sharedReleaseShas, selectCommonWorkerReports, attestWorkerWindow, selectVerifiedWorkerLedger } from './prepare-football-b010-certification.mjs';
+import { verifyChromeReport, graduateBatch010, sharedReleaseShas, selectCommonWorkerReports, attestWorkerWindow, selectVerifiedWorkerLedger, reportReleaseIdentity, trustedReleasePairs } from './prepare-football-b010-certification.mjs';
 const worker='123e4567-e89b-42d3-a456-426614174000';
 const sha='f'.repeat(40);
 const slugs=Array.from({length:25},(_,i)=>'school-'+i);
@@ -181,4 +181,25 @@ test('reject post-browser attestation or missing trusted source-run association'
     '2026-10-28T23:18:00Z','2026-10-28T23:11:00Z'),null);
   assert.equal(selectVerifiedWorkerLedger([{...base,payload:{...base.payload,verified_at:'2026-10-28T23:10:00Z'}}],
     sha,worker,'2026-10-28T23:18:00Z','2026-10-28T23:11:00Z'),null);
+});
+
+test('Chrome source proof is the ledger-pinned report SHA, never workflow trigger SHA',()=>{
+  const pinned='f'.repeat(40), triggering='e'.repeat(40),worker='123e4567-e89b-42d3-a456-426614174000';
+  const report={sourceCommit:pinned,workerVersions:[worker]};
+  assert.deepEqual(reportReleaseIdentity(report),{sha:pinned,worker});
+  assert.notEqual(reportReleaseIdentity(report).sha,triggering,
+    'An unrelated later GitHub HEAD is not the Worker source');
+  assert.throws(()=>reportReleaseIdentity({sourceCommit:null,workerVersions:[worker]}),
+    /exact verified source commit/);
+  assert.throws(()=>reportReleaseIdentity({sourceCommit:pinned,workerVersions:[worker,worker]}),
+    /Multiple Worker versions/);
+});
+test('ledger prefilter rejects mismatched GitHub trigger SHA and unverified Worker',()=>{
+  const pinned='f'.repeat(40),other='e'.repeat(40),worker='123e4567-e89b-42d3-a456-426614174000';
+  const deployment={id:678,sha:pinned,environment:'texasdefined-verified-worker',
+    payload:{commit_sha:pinned,worker_version:worker,source_run_id:'9000',verified_at:'2026-10-28T23:00:00Z'}};
+  const pairs=trustedReleasePairs([deployment,{...deployment,id:679,sha:other}]);
+  assert.equal(pairs.has(pinned+'|'+worker),true);
+  assert.equal(pairs.has(other+'|'+worker),false);
+  assert.equal(pairs.has(pinned+'|123e4567-e89b-42d3-a456-426614174099'),false);
 });
