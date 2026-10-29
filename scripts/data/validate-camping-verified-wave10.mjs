@@ -55,6 +55,6 @@ const gov = section(expected[5], null);
 assert.ok(gov.includes("Sites 1, 14, 16 and 18") && gov.includes("accessibility-information"),
   "accessible campground claims require site-specific official evidence");
 assert.ok(!/nightly|\$\d+/i.test(wave10), "do not freeze variable campsite fees");
-assert.ok(wave10.includes("CAMPING_DISCOVERY_PROFILES_WAVE10.map"), "lean projection missing");
+assert.ok(wave10.includes("CAMPING_PROFILES_WAVE10.map"), "lean projection missing");
 assert.ok(verifier.includes("count < 72"), "public acceptance must require all 72 profiles");
 console.log("Camping Wave10 verified: 66 existing plus six unique, current TPWD alerts, unit-specific visitor guidance and 72-profile release guard.");
