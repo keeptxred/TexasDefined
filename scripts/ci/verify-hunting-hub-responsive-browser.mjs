@@ -86,6 +86,7 @@ try {
     await county.selectOption("harris");
     await page.locator("#hunting-access-game").selectOption({ label: "Dove" });
     await page.locator("#copy-hunting-search-checklist").click();
+    await page.waitForFunction(() => /Checklist copied|Clipboard unavailable/.test(document.querySelector("#public-hunting-planner [role='status']")?.textContent || ""), undefined, { timeout: 5000 });
     const copyFeedback = await page.locator("#public-hunting-planner [role='status']").innerText();
     assert.ok(/Checklist copied|Clipboard unavailable/.test(copyFeedback), "clipboard action must give accessible success or fallback");
     if (copyFeedback.includes("Clipboard unavailable")) {
