@@ -196,6 +196,11 @@ function Page() {
     'comanche': 'comanche', // Comanche High Indians in Comanche County, Texas.
     'comfort': 'kendall', // 143 Highway 87 N campus in Kendall County verified by NCES 481479000979.
     'commerce': 'hunt', // Commerce High Tigers campus in Hunt County; school-managed visitor links.
+    'como-pickton': 'hopkins', // NCES Como-Pickton school/district campus physically Hopkins County, not Fort Worth Como.
+    'conroe': 'montgomery', // Conroe High at 3200 W Davis, NCES Montgomery; separate from other CISD high schools.
+    'conroe-caney-creek': 'montgomery', // NCES Caney Creek FM1485 campus Montgomery County; not Conroe Tigers.
+    'conroe-grand-oaks': 'montgomery', // NCES Grand Oaks 4800 Riley Fuzzel campus Montgomery, despite Spring mailing city.
+    'conroe-oak-ridge': 'montgomery', // NCES Oak Ridge main school on Oak Ridge School Rd, Montgomery County.
     'clint-mountain-view': 'el-paso', // Mountain View Lobos school on Greg Dr, eastern El Paso County.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
