@@ -573,8 +573,10 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Plan a Cotton Bowl Stadium visit at Fair Park in Dallas with parking, map, arrival, event and official venue information.",
   },
   "/sports-venue/datcu-stadium": {
-    title: "DATCU Stadium Denton: Parking, Map & North Texas Football",
-    description: "Plan a DATCU Stadium visit in Denton with parking, map, arrival and event information for North Texas football and other stadium events.",
+    // 2026-10-29 GSC: 451 impressions at avg. position 9.42, 0 clicks;
+    // capacity variants prominent. UNT Athletics confirms 30,100 seats.
+    title: "DATCU Stadium: Capacity, Parking & UNT Football",
+    description: "DATCU Stadium in Denton seats 30,100 for UNT football. Find current capacity, parking, stadium map, arrival guidance and official Mean Green sources.",
   },
   "/sports-venue/jamail-texas-swimming-center": {
     title: "Lee & Joe Jamail Texas Swimming Center: Parking & Events",

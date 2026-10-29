@@ -40,6 +40,22 @@
         "averagePosition": 9.149082568807339
       },
       "reason": "Branded event query and ticket planning; organizer-verified 2026 departures, with search copy prioritizing dates and ticket utility."
+    },
+    {
+      "url": "https://texasdefined.com/sports-venue/datcu-stadium",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "DATCU Stadium Denton: Parking, Map & North Texas Football",
+      "newTitle": "DATCU Stadium: Capacity, Parking & UNT Football",
+      "oldDescription": "Plan a DATCU Stadium visit in Denton with parking, map, arrival and event information for North Texas football and other stadium events.",
+      "newDescription": "DATCU Stadium in Denton seats 30,100 for UNT football. Find current capacity, parking, stadium map, arrival guidance and official Mean Green sources.",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 451,
+        "ctr": 0,
+        "averagePosition": 9.416851441241684
+      },
+      "reason": "Branded seat-capacity searches form a prominent query cohort; official University of North Texas athletics currently confirms 30,100 seats. Capacity is answered by the page, but prior snippet omitted it.",
+      "officialSource": "https://meangreensports.com/facilities/datcu-stadium/4"
     }
   ],
   "protectedWithoutChanges": [
