@@ -297,11 +297,30 @@ for (const marker of [
   'end-of-guide-fallback',
 ]) requireCondition(expediaBootstrap.includes(marker), `Live Expedia/Stay Nearby bootstrap is missing marker: ${marker}`);
 
+// The camping guide must not ship two neighboring affiliate boxes.
+// Verify both first-party bootstraps at the deployed revision; layout changes
+// must preserve the original Expedia click-activated widget and CJ referrals.
+for (const marker of [
+  'function unifyCampingBookingActions(surface, choice)',
+  'unifyCampingBookingActions(expediaSurface, choice);',
+  'heading.textContent = "RV rentals and nearby stays"',
+  'actions.appendChild(expediaButton)',
+  'panel.appendChild(widgetHost)',
+  'surface.dataset.stayConsolidated = "camping"',
+  'RVshare, Hotels.com, Travelocity or Expedia activity',
+]) requireCondition(affiliateBootstrap.includes(marker), 'Live camping lodging consolidation missing CJ marker: ' + marker);
+for (const marker of [
+  'section.dataset.stayCamping = String(normalizePath() === "/best-places-to-go-camping-in-texas")',
+  'current.dataset.stayCamping === String(normalizePath() === "/best-places-to-go-camping-in-texas")',
+  'normalizePath() !== "/best-places-to-go-camping-in-texas") container.append(eyebrow, heading)',
+  'normalizePath() === "/best-places-to-go-camping-in-texas") search.dataset.expediaStaysSearch = "true"',
+]) requireCondition(expediaBootstrap.includes(marker), 'Live camping lodging consolidation missing Expedia/SPA marker: ' + marker);
+
 const pages = [
   {
     route: '/best-places-to-go-camping-in-texas',
     marker: 'Best Places to Go Camping in Texas',
-    requireSlot: false,
+    requireSlot: true,
   },
   {
     route: '/explore/rv-parks',
