@@ -18,7 +18,8 @@ const browser = await chromium.launch({
 try {
   for (const spec of [
     { label: "desktop", width: 1440, height: 900, mobile: false },
-    { label: "mobile", width: 390, height: 844, mobile: true },
+    { label: "mobile-390", width: 390, height: 844, mobile: true },
+    { label: "small-mobile-320", width: 320, height: 720, mobile: true },
   ]) {
     const context = await browser.newContext({
       viewport: { width: spec.width, height: spec.height },
@@ -45,11 +46,28 @@ try {
     await select.selectOption("species:Goose");
     assert.match(await page.locator("#hunting-season-planner h3").innerText(), /^Goose · /, "Goose season selected");
     assert.ok(await page.locator("#hunting-season-planner a[href='/hunting/goose-hunting']").count(), "Goose has its own guide");
+    // Native select controls must work with keyboard, not just injected selectOption.
+    await select.focus();
+    assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-species-select", "keyboard focus reaches species");
+    await page.keyboard.press("Home");
+    await page.keyboard.press("ArrowDown");
+    await page.waitForFunction(() => document.querySelector("#hunting-species-select")?.value === "turkey", undefined, { timeout: 5000 });
+    assert.match(await page.locator("#hunting-season-planner h3").innerText(), /^Wild turkey · /, "keyboard selection must update rendered guide");
+
 
     const county = page.locator("#hunting-access-county");
     assert.equal(await county.locator("option").count(), 255, "254 counties plus all-county option");
     await county.selectOption("harris");
     assert.ok((await page.locator("#public-hunting-planner").innerText()).includes("Harris County"), "county-specific planning handoff");
+    await county.focus();
+    assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-access-county", "county selector keyboard focus");
+    await page.keyboard.press("Home");
+    await page.waitForFunction(() => document.querySelector("#hunting-access-county")?.value === "", undefined, { timeout: 5000 });
+    await page.keyboard.press("Tab");
+    assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-access-game", "county keyboard Tab advances to game without trapping focus");
+    await page.keyboard.press("Tab");
+    assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-access-type", "game keyboard Tab advances to access program");
+
     const facts = await page.evaluate(() => {
       const offer = document.querySelector("section[aria-labelledby='hunting-travel-options']");
       return {
@@ -83,4 +101,4 @@ try {
   }
 } finally { await browser.close(); }
 await writeFile(output + "/evidence.json", JSON.stringify({ commit: process.env.GITHUB_SHA, results }, null, 2));
-console.log("PASS Hunting hub interactive desktop/mobile, SEO, hero, access finder, unique species and affiliate disclosure");
+console.log("PASS Hunting hub 1440/390/320px Chrome, keyboard selector navigation, SEO, hero, access finder, unique species and affiliate disclosure");
