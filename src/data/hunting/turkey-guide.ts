@@ -3,8 +3,8 @@ import turkeyCalendar from "./turkey-season-calendar.json";
 
 // Editor-reviewed against TPWD's 2026–27 Outdoor Annual and turkey-management sources.
 // Do not advance this date automatically from a scheduled source check.
-export const TURKEY_GUIDE_LAST_VERIFIED = "2026-10-28";
-export const TURKEY_GUIDE_VERIFIED_LABEL = "October 28, 2026";
+export const TURKEY_GUIDE_LAST_VERIFIED = "2026-10-29";
+export const TURKEY_GUIDE_VERIFIED_LABEL = "October 29, 2026";
 
 export const TURKEY_SEASONS_2026_27 = turkeyCalendar.rows;
 const seasonDates = (id: string): string => {
@@ -21,11 +21,16 @@ const tpwdReport = source("TPWD: harvest reporting instructions and statewide da
 const tpwdBiology = source("TPWD: wild turkey management, habitat and 2026 survey", "https://tpwd.texas.gov/huntwild/wild/game_management/turkey/");
 const texasAgriLife = source("Texas A&M AgriLife: Rio Grande and other Texas wild turkey subspecies", "https://wildlife.tamu.edu/wildlifemanagement/turkeys/");
 const tpwdDrawn = source("TPWD: 2026–27 National Refuge Spring Turkey drawings", "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-category-details.phtml?OCat=NTS");
+const tpwdAPHFinder = source("TPWD: public hunt Area / Legal Game Search", "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml");
+const tpwdAPHPermit = source("TPWD: 2026–27 Annual Public Hunting Permit access", "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/");
+const tpwdHarvestData = source("TPWD: official turkey harvest data by county", "https://tpwd.texas.gov/huntwild/wild/game_management/turkey/turkeyData.phtml");
+const tpwdHagerman = source("TPWD: Hagerman NWR 2027 turkey draw", "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UP");
+const tpwdEastLake = source("TPWD: Lower Rio Grande Valley NWR–East Lake 2027 turkey draw", "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UE");
 const tpwdChange = source("TPWD: 2026–27 regulation changes", "https://tpwd.texas.gov/newsmedia/releases/?req=20260401b");
 
 export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
   slug: "turkey-hunting",
-  reviewedOn: turkeyCalendar.checkedAt,
+  reviewedOn: TURKEY_GUIDE_LAST_VERIFIED,
   reviewedLabel: TURKEY_GUIDE_VERIFIED_LABEL,
   eyebrow: "Texas wild turkey hunting · 2026–27",
   title: "Texas Turkey Hunting: 2026–27 Seasons, Regulations & Where to Hunt",
@@ -73,7 +78,7 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
       paragraphs: [
         "Rio Grande wild turkeys are the main hunting subspecies through much of the Hill Country, Edwards Plateau, North Texas and South Texas. Productive landscapes combine large roost trees, water, open ground for feeding, brush and grasses for nesting, and corridors that let birds move among those features. The abundance at any one ranch or public parcel is not guaranteed by regional reputation.",
         "Eastern wild turkeys occupy selected wooded areas of East Texas and are generally less widespread and harder to locate. Hardwood bottomlands, mixed timber, openings and connected forest cover can be important, but spring seasons and legal methods are more narrowly regulated in the East Zone. TPWD's habitat material explains why large, connected landscapes matter.",
-        "West Texas habitat is patchy. River drainages, dependable roost trees and suitable cover can support local Rio Grande flocks, but broad desert geography is not a reliable proxy for huntable turkey abundance. Merriam's wild turkeys also occur in small, localized West Texas mountain populations, although they are far less widespread than Rio Grande turkeys. Historical material describing complete extirpation is not a reliable statement of current distribution. The hunting regulations still depend on the exact county, date and property.",
+        "West Texas habitat is patchy. River drainages, dependable roost trees and suitable cover can support local Rio Grande flocks, but broad desert geography is not a reliable proxy for huntable turkey abundance. Historical records and recent observations describe Merriam's-type birds in localized West Texas mountain habitats, but introductions and interbreeding can complicate subspecies identification; current genetic identity and distribution deserve caution. A mountain range is not proof of a huntable Merriam's population. The hunting regulations still depend on the exact county, date and property.",
       ],
       links: [tpwdBiology, texasAgriLife, link("Wild turkey species profile", "/wildlife-species/wild-turkey"), link("Texas wildlife destinations", "/explore/wildlife")],
     },
@@ -124,8 +129,8 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "How TexasDefined verifies this guide",
       paragraphs: [
-        "This guide was reviewed October 28, 2026 against TPWD's live 2026–27 wild turkey regulation page, 2026–27 hunting date table, April 2026 adopted-regulation announcement, turkey-management reporting page, and the public-draw category listing. It is an independent trip-planning article, not a government publication or substitute for the Outdoor Annual.",
-        "The official TPWD species page and county selector control the hunting dates and limits for your chosen county. If TPWD revises a season, closes a county, changes reporting procedures, or updates a hunt catalog after the editorial verification date, that newer official rule controls. TexasDefined's scheduled source check flags changes for editorial verification; it does not invent replacement legal dates.",
+        "This guide was reviewed October 29, 2026 against TPWD's live 2026–27 wild turkey regulation page, 2026–27 hunting date table, April 2026 adopted-regulation announcement, turkey-management reporting page, and the public-draw and individual hunt listings, the current public-access catalog, and turkey harvest data. It is an independent trip-planning article, not a government publication or substitute for the Outdoor Annual.",
+        "The official TPWD species page and county selector control the hunting dates and limits for your chosen county. If TPWD revises a season, closes a county, changes reporting procedures, or updates a hunt catalog after the editorial verification date, that newer official rule controls. TexasDefined checks official regulation sources weekly, reviews public access and harvest data quarterly, and uses a two-source updater for verified same-season date corrections. Legal restrictions and new season years require editorial verification, not automatic publication.",
       ],
       links: [tpwdTurkey, tpwdDates, tpwdChange, tpwdReport, tpwdBiology, tpwdDrawn],
     },
