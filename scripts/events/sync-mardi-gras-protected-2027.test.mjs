@@ -54,6 +54,11 @@ test("cross-event source identity, wrong city, nonexistent date, and contradicto
   assert.equal(validateProtectedRecord({ ...orange, endDate: "2027-03-30" }, orange.sourceId), false);
   assert.throws(() => propose(empty(), ledger([row({ ...orange, sourceUrl: beaumont.sourceUrl })]), sourceRecords));
 });
+test("expired event announcement is rejected but an earlier verified record remains valid", () => {
+  const expired = { ...orange, checkedAt: "2027-02-08T09:00:00.000Z" };
+  assert.equal(validateProtectedRecord(expired, expired.sourceId), false);
+  assert.equal(validateProtectedRecord(orange, orange.sourceId), true);
+});
 test("existing manually updated 2027 guide cannot silently be overwritten", () => {
   assert.throws(() => propose(empty(), ledger([row(orange)]), { ...sourceRecords, [orange.eventSlug]: "2027-02-06" }));
 });
