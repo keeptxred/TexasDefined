@@ -76,6 +76,16 @@ export class TpwdTransportUnavailable extends Error {
     this.name = 'TpwdTransportUnavailable';
   }
 }
+
+// Ordinary PR checks may warn on a TPWD transport outage to avoid blocking unrelated
+// edits. The protected automatic finisher MUST revalidate both official sources;
+// an outage at that final stage blocks publication rather than accepting stale facts.
+export function canWarnOnSourceTransportFailure(args, error) {
+  return args.includes('--check-only') &&
+    !args.includes('--strict-check-only') &&
+    error instanceof TpwdTransportUnavailable;
+}
+
 export async function fetchTPWD(url, fetchFn = fetch, sleep = ms => new Promise(resolve => setTimeout(resolve, ms))) {
   for (let attempt = 1; attempt <= 3; attempt++) {
     let response;
@@ -114,9 +124,9 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   try {
     await main();
   } catch (error) {
-    if (process.argv.includes('--check-only') && error instanceof TpwdTransportUnavailable) {
-      // Network outages are not evidence that published rules changed. PRs may proceed
-      // with a visible warning; scheduled runs still fail and create a review issue.
+    if (canWarnOnSourceTransportFailure(process.argv, error)) {
+      // Ordinary PR validation can warn, but scheduled checks and the protected
+      // automatic merge finisher require fresh official source verification.
       console.warn('::warning::' + error.message + '. PR source freshness not reverified; scheduled checker remains fail-closed.');
     } else {
       throw error;
