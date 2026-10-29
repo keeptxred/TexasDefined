@@ -97,6 +97,22 @@
       },
       "reason": "Generic branded 'Texas Travel Guide' title omits what makes the bay page useful. GSC dominant query galveston bay: 99 impressions/0 clicks at average position 9.5. Preserve distinct H1 and canonical; clarify estuary and available visit utility.",
       "officialSource": "https://gbep.texas.gov/galveston-bay-101/"
+    },
+    {
+      "url": "https://texasdefined.com/sports-venue/don-haskins-center",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Don Haskins Center El Paso: Parking, Events & UTEP Basketball",
+      "newTitle": "Don Haskins Center: Capacity, Parking & UTEP Events",
+      "oldDescription": "Plan a Don Haskins Center visit in El Paso with parking, directions, event and official venue information for UTEP basketball and arena events.",
+      "newDescription": "Don Haskins Center in El Paso seats 12,000 for UTEP basketball. Find parking, arena entry, visitor guidance and official event and ticket information.",
+      "baseline": {
+        "clicks": 0,
+        "impressions": 229,
+        "ctr": 0,
+        "averagePosition": 14.799126637554584
+      },
+      "reason": "Capacity searches visible at competitive positions; the title did not answer them. 12,000 verified by UTEP and current on-page facts.",
+      "officialSource": "https://utepminers.com/sports/2017/6/7/sports-facilities-spec-rel-haskins-html.aspx"
     }
   ],
   "protectedWithoutChanges": [

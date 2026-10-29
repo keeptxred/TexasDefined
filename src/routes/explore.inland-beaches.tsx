@@ -18,7 +18,7 @@ export const Route = createFileRoute("/explore/inland-beaches")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title:"Texas Lake Beaches: Verified Inland Swimming Beaches | Texas Defined",
+        title:"Texas Lake Beaches: Verified Inland Swimming Beaches",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],

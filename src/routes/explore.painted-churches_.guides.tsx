@@ -16,7 +16,7 @@ export const Route = createFileRoute(canonicalPath)({
   head: ({ loaderData }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Painted Churches Guide Library | Texas Defined",
+      title: "Texas Painted Churches Guide Library",
       description,
       modifiedTime: `${paintedChurchAuthorityExpansionDate}T12:00:00-05:00`,
     }),
