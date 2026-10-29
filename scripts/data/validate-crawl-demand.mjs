@@ -35,7 +35,7 @@ for (const intentTitle of [
 }
 // Hub and stop titles are passed into buildMeta, which applies TexasDefined's
 // publisher template. A pre-branded title creates a duplicate site-name suffix.
-if (/title:\\s*[^\\n]*\\|\\s*Texas Defined/.test(route66Page)) {
+if (/title:\s*[^\n]*\|\s*Texas Defined/.test(route66Page)) {
   failures.push('Route 66 SSR title must not pre-append Texas Defined to buildMeta.');
 }
 
