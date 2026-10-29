@@ -20,3 +20,6 @@ Content does not update automatically without source-supported edits and protect
 2. Verify eight cards, readable names, good source links, stadium notes and ticket paths, accurate playoff rules and canonical/CollectionPage.
 3. No score table, W/L or fake seeds; guide precedes advertisements.
 4. Only claim production acceptance after protected CI, merge, GitHub deployment and real desktop/mobile tests.
+
+### Selected (not full) 2026 varsity fixture snapshot
+Five team/district-labeled varsity matches on October 29, October 30, November 5 and November 6 have been reproduced without results. Official Wylie football calendars (WHS, WEHS) and Garland ISD combined calendar are cited per fixture. The November 5 Wylie East / Lakeview 4 p.m. listing is unusually early; visibly mark it for day-of verification. After the fixture date, maintain it as a dated calendar entry, not a claimed upcoming match or final.
