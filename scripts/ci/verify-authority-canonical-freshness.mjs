@@ -214,6 +214,34 @@ const pages = [
   },
 ];
 
+// Only the twelve Mardi Gras authority URLs receive this contract. Other
+// production freshness checks remain unchanged; no sitewide crawl is introduced.
+const mardiGrasPages = pages.filter((page) => /\\/(?:event\\/(?:mardi-gras-|cowboy-mardi-gras-|crystal-beach-mardi-gras-|kemah-yachty-gras|palestine-mardi-gras-|beaumont-pardi-gras|oak-cliff-mardi-gras-)|events\\/mardi-gras)/.test(new URL(page.url).pathname));
+const observedMardiGrasRoutes = new Set(mardiGrasPages.map((item) => new URL(item.url).pathname));
+if (mardiGrasPages.length !== 12 || observedMardiGrasRoutes.size !== 12) {
+  throw new Error('Mardi Gras canonical acceptance must cover exactly 11 distinct guides plus the statewide hub');
+}
+function mardiGrasHtmlDefects(html, url) {
+  const route = new URL(url).pathname;
+  if (!observedMardiGrasRoutes.has(route)) return [];
+  const failures = [];
+  const canonical = [...html.matchAll(/<link\\b[^>]*>/gi)]
+    .map(([tag]) => tag)
+    .find((tag) => /\\brel=["']canonical["']/i.test(tag));
+  if (!canonical || !canonical.includes('href="' + url + '"')) failures.push('canonical link missing or wrong route');
+  if (!/<script\\b[^>]*type=["']application\\/ld\\+json["']/i.test(html)) {
+    failures.push('JSON-LD script missing');
+  }
+  if (route === '/events/mardi-gras') {
+    if (!/"@type"\\s*:\\s*"CollectionPage"/.test(html) || !/"@type"\\s*:\\s*"ItemList"/.test(html)) {
+      failures.push('statewide hub CollectionPage / ItemList schema missing');
+    }
+  } else if (!/"@type"\\s*:\\s*"Event"/.test(html)) {
+    failures.push('individual guide Event schema missing');
+  }
+  return failures;
+}
+
 const failures = [];
 
 for (const page of pages) {
@@ -240,6 +268,7 @@ for (const page of pages) {
       } else {
         const html = await response.text();
         lastMissing = page.required.filter((marker) => !html.includes(marker));
+        lastMissing.push(...mardiGrasHtmlDefects(html, page.url));
         lastForbidden = page.forbidden.filter((marker) => html.includes(marker));
         lastProblem = '';
 
