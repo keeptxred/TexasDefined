@@ -26,7 +26,7 @@ export function validateProtectedRecord(fact, sourceId) {
       || fact.sourceUrl !== source.sourceUrl || fact.city !== source.city
       || fact.evidenceType !== "official-event-jsonld"
       || fact.timeType !== "published-event-occurrence-not-parade-start"
-      || !/^2026-\d{2}-\d{2}T\d{2}:\d{2}:/.test(fact.checkedAt || "")
+      || !/^202[67]-\d{2}-\d{2}T\d{2}:\d{2}:/.test(fact.checkedAt || "")
       || !validDay(fact.startDate) || !validDay(fact.endDate)
       || fact.endDate < fact.startDate) return false;
   return Date.parse(fact.endDate + "T12:00:00Z") - Date.parse(fact.startDate + "T12:00:00Z") <= 7 * 86400000;
