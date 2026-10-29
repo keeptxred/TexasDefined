@@ -55,6 +55,9 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/event/oak-cliff-mardi-gras-parade`,
   // Public 2027 Port Arthur gate-hour corrections must reach ordinary visitor HTML too.
   `https://${zoneName}/event/mardi-gras-port-arthur`,
+  // Independently licensed Beaumont images must not be hidden behind stale noindex HTML.
+  `https://${zoneName}/event/mardi-gras-southeast-texas-beaumont`,
+  `https://${zoneName}/event/beaumont-pardi-gras`,
   `https://${zoneName}/events/mardi-gras`,
   ...regionalAuthorityPurgeUrls,
   // Image/Discover metadata repair surfaces — purge HTML so post-deploy strict audit sees the deployed revision.

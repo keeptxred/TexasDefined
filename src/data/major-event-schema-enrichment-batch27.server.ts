@@ -95,9 +95,23 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "beaumont-pardi-gras",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Beaumont_February_16_025.JPG?width=1600",
+      alt: "Actual Beaumont Civic Center entrance and plaza photographed February 16, 2015, the venue for the separate Circle of Hope Pardi Gras benefit; not a photograph of the fundraiser",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Beaumont_February_16_025.JPG",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — LUSportsFan",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "LUSportsFan photographed the actual Beaumont Civic Center entrance and plaza at 701 Main Street, Beaumont, Texas, on February 16, 2015. Wikimedia Commons identifies this as the entrance of the Civic Center, the verified venue of Southeast Texas Circle of Hope's distinct 2027 Pardi Gras charity event. This is archival venue photography, not an image of the charity event or a public Mardi Gras parade. Credit LUSportsFan and link to source/license. Responsive cropping/resizing is an adaptation shared under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Southeast Texas Circle of Hope", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" }],
-    verifiedAt: "2026-10-21",
+    sources: [
+      { label: "Southeast Texas Circle of Hope — 2027 Pardi Gras charity event", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" },
+      { label: "Beaumont Civic Center entrance — exact venue, LUSportsFan CC BY-SA 4.0", url: "https://commons.wikimedia.org/wiki/File:Beaumont_February_16_025.JPG" },
+    ],
+    verifiedAt: "2026-10-29",
   },
   {
     slug: "mardi-gras-on-the-sabine-orange",
@@ -128,8 +142,22 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "mardi-gras-southeast-texas-beaumont",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BeaumontMardiGrasParade312532.jpg?width=1600",
+      alt: "A colorful Mardi Gras float at the actual Mardi Gras of Southeast Texas parade in Doggett Ford Park, Beaumont, on March 1, 2025; archival photograph, not the 2027 festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:BeaumontMardiGrasParade312532.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 2.0 — 2C2KPhotography",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "2C2KPhotography photographed the Mardi Gras of Southeast Texas parade at Doggett Ford Park in Beaumont, Texas, on March 1, 2025. Original Flickr photograph 54361490428, verified by Wikimedia Commons FlickreviewR 2 on March 4, 2025 as CC BY 2.0 (commercial reuse and modifications allowed with attribution). This is an archival actual-event photograph from 2025; the 2027 festival has not been confirmed. Credit 2C2KPhotography, link to source and CC BY 2.0 license, and identify any responsive hero crop/resize as an adaptation.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Mardi Gras of Southeast Texas", url: "https://mardigrastx.com/" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://mardigrastx.com/" }],
-    verifiedAt: "2026-10-21",
+    sources: [
+      { label: "Mardi Gras of Southeast Texas — organizer (most recently verified 2026 event)", url: "https://mardigrastx.com/" },
+      { label: "2C2KPhotography — 2025 parade at Doggett Ford Park, Beaumont, CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:BeaumontMardiGrasParade312532.jpg" },
+    ],
+    verifiedAt: "2026-10-29",
   },
 ];
