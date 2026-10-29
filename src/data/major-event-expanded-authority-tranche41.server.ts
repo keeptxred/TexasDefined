@@ -141,7 +141,7 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
     category: "food",
     startDate: "2026-10-06",
     endDate: "2026-10-10",
-    dateNote: "The organizer lists 2026 festival programming on Tuesday October 6, Thursday October 8, Friday October 9 and Saturday October 10. Texas Defined models those as separate scheduled windows rather than implying continuous programming on Wednesday.",
+    dateNote: "The 2026 Floresville Peanut Festival concluded October 10. The completed edition held programming October 6 and October 8–10, not continuously on Wednesday October 7. Check the organizer for a newly confirmed annual schedule.",
     occurrenceWindows: [
       { label: "Goober Games", startDate: "2026-10-06", endDate: "2026-10-06" },
       { label: "Royal Coronation", startDate: "2026-10-08", endDate: "2026-10-08" },
@@ -150,12 +150,12 @@ const records: MajorEventAuthorityRecordWithWindows[] = [
     ],
     venue: "Downtown Floresville and Floresville Event Center",
     officialUrl: "https://floresvillepeanutfestival.org/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-10-29",
     whyItMatters: "The Floresville Peanut Festival is an 82-year South Texas tradition built around Wilson County's peanut-growing identity, with royal ceremonies, children's games, downtown parades, live entertainment, food and a large courthouse-square festival.",
     planningSections: [
-      { title: "Choose the specific festival day", body: "The 2026 organizer calendar is discontinuous: Goober Games are Tuesday, coronation is Thursday, and the main downtown festival runs Friday and Saturday. Use the event you want to see rather than treating October 6-10 as five continuous public festival days." },
-      { title: "Use Saturday for the Grand Parade and full downtown day", body: "The organizer schedules the 2026 Grand Parade for Saturday, October 10 at 10 a.m. Downtown market and food activity then continues through the day, making Saturday the strongest single-day choice for visitors seeking the broadest festival experience." },
-      { title: "Plan for a courthouse-square festival", body: "The festival emphasizes free grounds admission and downtown street activity. Review the organizer's closures, parking guidance and current map before traveling, then leave room for Floresville and Wilson County outside the main festival footprint." },
+      { title: "The completed 2026 festival ran on four days", body: "The official 2026 program ran Goober Games on Tuesday October 6, the coronation on Thursday October 8, and the main downtown festival on Friday and Saturday October 9–10. Wednesday was not a scheduled festival day. Those are historical dates; the next edition requires a new organizer announcement." },
+      { title: "2026 Grand Parade was October 10", body: "The completed 2026 festival held its Grand Parade at 10 a.m. on Saturday October 10, followed by downtown markets, food and entertainment. Do not reuse that parade date or time as the next edition's published schedule; confirm the new parade and street closures with the festival association." },
+      { title: "Planning a future courthouse-square visit", body: "The event traditionally features free grounds admission and downtown street activity, but an upcoming edition's operating dates, rules and route need confirmation. Check the festival association for current closures, parking and grounds access, then explore Floresville and Wilson County beyond the festival footprint." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-wilson", label: "Explore Wilson County", description: "Build more Floresville and Wilson County stops around the festival." },

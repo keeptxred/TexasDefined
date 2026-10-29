@@ -46,12 +46,13 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-10-04",
     venue: "East Texas State Fairgrounds",
     officialUrl: "https://www.etstatefair.com/",
-    sourceCheckedAt: "2026-08-30",
+    sourceCheckedAt: "2026-10-29",
+    dateNote: "The East Texas State Fair 2026 edition concluded October 4 in Tyler. Its September 25–October 4 schedule and tickets are historical; confirm the next edition through the official organizer.",
     whyItMatters: "The East Texas State Fair gives Tyler a ten-day regional gathering built around fairgrounds attractions, carnival rides, food, exhibits and separately ticketed arena events, including the opening-weekend ProRodeo.",
     planningSections: [
-      { title: "Use September 25-October 4 as the confirmed 2026 fair run", body: "The organizer's FAQ and ticket pages publish the 2026 East Texas State Fair for September 25 through October 4. Weekday and weekend hours differ, so verify the day-specific gate and carnival schedule before traveling." },
-      { title: "Separate grounds admission from arena-event tickets", body: "The organizer distinguishes fairgrounds admission from the carnival and from ticketed events such as the September 25-27 ProRodeo. Review the ticket structure before arrival so the itinerary and budget match the attractions you intend to see." },
-      { title: "Use Tyler as more than a fair stop", body: "The fair works naturally with a Tyler and Smith County trip. Leave time for the city's other attractions, food and Piney Woods context instead of driving in only for the midway." },
+      { title: "2026 East Texas State Fair: completed September 25–October 4 run", body: "The organizer's official FAQ confirms that the 2026 fair ran September 25–October 4 in Tyler. The published weekday and weekend gate and carnival hours apply to that completed edition; wait for a newly confirmed calendar before planning travel around the next fair." },
+      { title: "Historical 2026 grounds and arena ticket rules", body: "For the completed 2026 fair, general grounds admission did not include carnival wristbands or separately ticketed arena events such as ProRodeo. Those terms and advertised prices were for the 2026 edition and do not establish future inventory or admission rules. Use the organizer's next published ticket policy before purchasing." },
+      { title: "Explore Tyler around a future fair", body: "The fair can anchor a Tyler and Smith County visit once its next dates are confirmed. Reserve time for the city's other attractions, food and Piney Woods context rather than assuming the 2026 fairgrounds schedule still applies." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-smith", label: "Explore Smith County", description: "Build more Tyler and Smith County stops around the fair." },
