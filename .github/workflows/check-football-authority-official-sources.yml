@@ -10,6 +10,8 @@ on:
   pull_request:
     paths:
       - 'docs/football-authority/official-source-watch.json'
+      - 'src/data/high-school-football/program-editorial-frisco-lone-star.ts'
+      - 'scripts/data/validate-frisco-lone-star-authority.mjs'
       - 'scripts/data/check-football-authority-official-sources.mjs'
       - 'scripts/data/check-football-authority-official-sources.test.mjs'
       - '.github/workflows/check-football-authority-official-sources.yml'
@@ -39,6 +41,7 @@ jobs:
           node --check scripts/data/check-football-authority-official-sources.mjs
           node scripts/data/check-football-authority-official-sources.mjs --validate
           node --test scripts/data/check-football-authority-official-sources.test.mjs
+          node scripts/data/validate-frisco-lone-star-authority.mjs
       - name: Inspect official source document changes, never unlicensed sports score feeds
         if: github.event_name != 'pull_request'
         env:
