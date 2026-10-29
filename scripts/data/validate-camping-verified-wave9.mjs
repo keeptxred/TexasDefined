@@ -10,7 +10,9 @@ const route = read("src/routes/best-places-to-go-camping-in-texas.tsx");
 const verifier = read("scripts/ci/verify-camping-authority-production.mjs");
 
 const namedSlugs = (text) => [...text.matchAll(/destinationSlug:\s*"([^"]+)"/g)].map((m) => m[1]);
+const namedAnchors = (text) => [...text.matchAll(/destinationSlug:\\s*"([^"]+)"(?:,\\s*profileSlug:\\s*"([^"]+)")?/g)].map((m) => m[2] || m[1]);
 const priorSlugs = sources.flatMap(({ text }) => namedSlugs(text));
+const priorAnchors = sources.flatMap(({ text }) => namedAnchors(text));
 const newSlugs = namedSlugs(ninth);
 const uniqueNew = [
   "abilene-state-park", "blanco-state-park", "bonham-state-park",
@@ -20,9 +22,9 @@ const uniqueNew = [
 ];
 
 assert.equal(priorSlugs.length, 57, "preserve original verified 57-profile inventory");
-assert.equal(new Set(priorSlugs).size, 57, "baseline campground slugs must remain unique");
+assert.equal(new Set(priorAnchors).size, 57, "baseline campground anchors must remain unique, including unit-specific profileSlugs");
 assert.deepEqual(newSlugs, uniqueNew, "wave 9 must be exactly nine reviewed, nonduplicated parks");
-assert.equal(new Set([...priorSlugs, ...newSlugs]).size, 66, "66 unique campground destinations/anchors required");
+assert.equal(new Set([...priorAnchors, ...newSlugs]).size, 66, "66 unique campground anchors required");
 assert.ok(priorSlugs.includes("lake-tawakoni-state-park"), "Lake Tawakoni existing verified profile must be preserved");
 assert.ok(!newSlugs.includes("lake-tawakoni-state-park"), "do not duplicate Lake Tawakoni");
 
