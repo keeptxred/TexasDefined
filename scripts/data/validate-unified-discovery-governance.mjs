@@ -13,6 +13,7 @@ assert.equal((viatorServerBlock.match(/redirect: "error"/g)||[]).length,0,"Cloud
 assert.equal((viatorServerBlock.match(/redirect: "manual"/g)||[]).length,5,"Every Viator partner fetch must reject redirects manually");
 assert.ok(viatorServerBlock.includes('upstream.status >= 300 && upstream.status < 400'),"Generic Viator passthrough must fail closed on redirect");
 assert.ok(viatorServerBlock.includes('Accept: "application/json;version=2.0"'),"Viator API v2 headers are mandatory");
+assert.ok((viatorServerBlock.match(/"X-Robots-Tag"\s*:\s*"noindex, nofollow, noarchive"/g)||[]).length>=4,"All partner API feeds must be tagged noindex");
 
 const cron=read(".github/workflows/weekly-viator-attraction-discovery.yml");
 
@@ -36,4 +37,11 @@ assert.ok(!read('src/data/discovery/__tests__/entity-registry.test.ts').includes
 assert.ok(registry.includes("eligibleForAutoPublication")===false,"Canonical entity model must be quality-governed, not autopublish");
 assert.ok(registry.includes("mayIndexDiscoveryEntity")&&registry.includes("reconcileConfirmedOccurrence"),"Authority and official-date gates must exist");
 assert.ok(cron.includes("cron:")&&cron.includes("retention-days: 13"),"Weekly bounded discovery must publish a short-lived review artifact");
+const workflow=read(".github/workflows/weekly-viator-attraction-discovery.yml");
+const ownerPolicy=read("docs/editorial-discovery-owner-approval.md");
+assert.ok(workflow.includes("issues: write") && workflow.includes("issue_number: 6380"),"Weekly batch must notify actual owner approval desk");
+assert.ok(workflow.includes("No Viator names, product IDs"),"Never paste supplier data in an indexable GitHub issue");
+assert.ok(ownerPolicy.includes("approve, reject, or request edits") && ownerPolicy.includes("in ChatGPT"),"Owner decisions must be presented in chat");
+assert.ok(registry.includes("hasRecordedOwnerApproval") && registry.includes('entity.discoveryOrigin === "supplier-candidate"'),"Supplier-derived new pages must fail closed without recorded owner approval");
+assert.ok(read("scripts/ci/verify-viator-discovery-live.mjs").includes("x-robots-tag"),"Source-only live proof must verify noindex");
 console.log("Unified event, attraction and Viator governance passed: non-indexable supplier research; original-authority quality gates; optional calendar offers; official event occurrence independence.");

@@ -261,6 +261,7 @@ function viatorUpstreamResponse(upstream: Response, cacheControl: string): Respo
     "Cache-Control": upstream.ok ? cacheControl : "no-store",
     "Content-Type": upstream.headers.get("content-type") || "application/json; charset=utf-8",
     "X-Content-Type-Options": "nosniff",
+    "X-Robots-Tag": "noindex, nofollow, noarchive",
   });
   const retryAfter = upstream.headers.get("retry-after");
   if (retryAfter) headers.set("Retry-After", retryAfter);
@@ -424,6 +425,7 @@ async function viatorMarketFeedResponse(
         "Cache-Control": "public, max-age=120, s-maxage=1200",
         "Content-Type": "application/json; charset=utf-8",
         "X-Content-Type-Options": "nosniff",
+        "X-Robots-Tag": "noindex, nofollow, noarchive",
       },
     });
     const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;

@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   discovery:
@@ -27,3 +28,39 @@ jobs:
           path: .artifacts/viator-attraction-review.json
           if-no-files-found: warn
           retention-days: 13
+
+      - name: Notify owner approval desk without exposing supplier content
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const file = '.artifacts/viator-attraction-review.json';
+            const report = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
+            const markets = Array.isArray(report?.markets) ? report.markets : [];
+            const candidates = markets.reduce((sum, market) => sum + (market.candidates?.length || 0), 0);
+            const possibleMatches = markets.reduce((sum, market) =>
+              sum + (market.candidates || []).filter(item => Boolean(item.possibleExistingSlug)).length, 0);
+            const errors = Array.isArray(report?.failures) ? report.failures.length : 0;
+            const lines = [
+              '### Weekly source-only attraction discovery — ' + new Date().toISOString().slice(0, 10),
+              '',
+              '- Checked Texas markets: **' + markets.length + '**',
+              '- Bounded candidate references for independent research: **' + candidates + '**',
+              '- Possible existing authority-guide matches (unconfirmed): **' + possibleMatches + '**',
+              '- Markets with source errors: **' + errors + '**',
+              '- [Non-indexable research artifact and run details](' +
+                'https://github.com/' + context.repo.owner + '/' + context.repo.repo +
+                '/actions/runs/' + context.runId + ') — retained for 13 days.',
+              '',
+              '**No publication approval requested yet.** Supplier matches are not verified facts.',
+              'Assistant must independently verify operator sources and present a small original-content',
+              'batch in ChatGPT for explicit owner approve/revise/reject decisions.',
+              'No Viator names, product IDs, descriptions, images or reviews are in this public comment.',
+            ];
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: 6380,
+              body: lines.join('\n'),
+            });

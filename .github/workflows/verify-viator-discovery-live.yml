@@ -1,0 +1,34 @@
+name: Verify Viator source discovery production
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/discovery/**'
+      - 'src/lib/viator-attraction-discovery.ts'
+      - 'src/lib/viator-seasonal-discovery.ts'
+      - 'src/server.ts'
+      - 'scripts/ci/verify-viator-discovery-live.mjs'
+      - '.github/workflows/verify-viator-discovery-live.yml'
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - 'Deploy TexasDefined production'
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  source-contract:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check only bounded source responses on live production
+        env:
+          TD_PREDEPLOY_LEGACY_HEADER_PENDING: ${{ github.event_name == 'pull_request' }}
+        run: node scripts/ci/verify-viator-discovery-live.mjs
