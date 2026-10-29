@@ -45,7 +45,7 @@ function allRouteSources(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const file = dir + '/' + entry.name;
     if (entry.isDirectory()) return allRouteSources(file);
-    return entry.isFile() && /\\.(?:ts|tsx)$/.test(entry.name) ? [file] : [];
+    return entry.isFile() && /\.(?:ts|tsx)$/.test(entry.name) ? [file] : [];
   });
 }
 for (const file of allRouteSources('src/routes')) {
@@ -57,7 +57,7 @@ for (const file of allRouteSources('src/routes')) {
       && node.arguments[1] && ts.isObjectLiteralExpression(node.arguments[1])) {
       const title = node.arguments[1].properties.find((prop) =>
         ts.isPropertyAssignment(prop) && prop.name.getText(source) === 'title');
-      if (title && ts.isPropertyAssignment(title) && /\\|\\s*Texas Defined\\b/.test(title.initializer.getText(source))) {
+      if (title && ts.isPropertyAssignment(title) && /\|\s*Texas Defined\b/.test(title.initializer.getText(source))) {
         failures.push('Prebranded title passed into shared buildMeta (duplicate publisher title): ' + file);
       }
     }
