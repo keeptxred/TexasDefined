@@ -17,6 +17,9 @@ export function normalizeChristmasViatorExperiences(payload: unknown): ViatorLiv
   const items = payload && typeof payload === "object"
     ? (payload as {products?:{results?:unknown}}).products?.results
     : undefined;
-  const products = normalizeViatorMarketProducts({products:items});
-  return products.filter((product)=>CHRISTMAS_EXPERIENCE.test(product.title));
+  const themed = Array.isArray(items) ? items.filter((item) =>
+    item && typeof item === "object" &&
+    typeof (item as {title?:unknown}).title === "string" &&
+    CHRISTMAS_EXPERIENCE.test((item as {title:string}).title)) : items;
+  return normalizeViatorMarketProducts({products:themed});
 }
