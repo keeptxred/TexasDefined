@@ -2,6 +2,7 @@
 // Focused observer for TexasDefined's existing Mardi Gras guide sources.
 // This does NOT silently move occurrence dates, lift noindex, or infer permission.
 import { appendFile, writeFile } from "node:fs/promises";
+import { parseVerifiedMardiGras2027Candidate } from "./parse-mardi-gras-official-facts.mjs";
 
 export const OFFICIAL_SOURCES = [
   {
@@ -140,6 +141,11 @@ export function buildSourceLedger(sources, checks, checkedAt) {
         observedValues: (check.observedValues ?? []).slice(0, 5).map((value) => String(value).slice(0, 180)),
         checkedAt,
         lastSuccessfulCheckInThisRun: check.ok ? checkedAt : null,
+        // Candidate evidence is not auto-publication authorization. The
+        // protected promotion path is tracked separately in issue #6286.
+        normalized2027Candidate: check.publicationCandidate?.status === "candidate"
+          ? check.publicationCandidate.facts : null,
+        candidateHoldReason: check.publicationCandidate?.reason ?? null,
       };
     }),
   };
@@ -200,8 +206,14 @@ async function main() {
     try {
       const html = await fetchOfficial(source);
       const observation = evaluateSource(source, html);
-      checks.push({ id: source.id, url: source.url, ...observation });
-      if (!observation.ok) await findOrCreateReviewIssue(source, observation);
+      const publicationCandidate = parseVerifiedMardiGras2027Candidate(source, html, new Date().toISOString());
+      checks.push({ id: source.id, url: source.url, ...observation, publicationCandidate });
+      if (!observation.ok) await findOrCreateReviewIssue(source, {
+        ...observation,
+        excerpt: publicationCandidate.status === "candidate"
+          ? "Exact event JSON-LD normalized 2027 occurrence: " + JSON.stringify(publicationCandidate.facts).slice(0, 450)
+          : observation.excerpt,
+      });
     } catch (error) {
       const observation = { ok: false, reason: "source-check-unavailable: " + String(error?.message ?? error), excerpt: "" };
       checks.push({ id: source.id, url: source.url, ...observation });
