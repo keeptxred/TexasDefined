@@ -46,7 +46,7 @@ for (const slug of slugs) {
   assert.ok(countyPage.includes("slug: '"+slug+"'"),'Missing reciprocal county declaration '+slug);
 }
 await mkdir(out,{recursive:true});
-const report = { version:1,sourceCommit:process.env.GITHUB_SHA||null,technicalOnly:true,
+const report = { version:1,sourceCommit:process.env.FOOTBALL_CHROME_SOURCE_SHA||null,technicalOnly:true,
   schoolChecks:[],countyChecks:[],sitemapMissing:[],workerVersions:[],failures:[],screenshots:0,
   disclaimer:'Automated source-layout technical evidence, not human WCAG, complete coaching audit, media rights certification, current ticket inventory or ADA approval.' };
 const versions = new Set();
@@ -133,6 +133,13 @@ try {
 }finally{await browser.close();}
 report.workerVersions=[...versions].sort();
 if(versions.size!==1)report.failures.push('Expected one active deployed Worker, observed '+JSON.stringify(report.workerVersions));
+if(!/^[a-f0-9]{40}$/.test(process.env.FOOTBALL_CHROME_SOURCE_SHA||'')){
+  report.failures.push('Missing signed source commit from verified live Worker ledger');
+}
+if(!/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/.test(process.env.FOOTBALL_EXPECTED_WORKER_VERSION||'') ||
+    !versions.has(process.env.FOOTBALL_EXPECTED_WORKER_VERSION)) {
+  report.failures.push('Worker changed after pinned GitHub source commit; no exact-release certification');
+}
 if(report.schoolChecks.length!==15||report.countyChecks.length!==3||
   report.schoolChecks.some(x=>!x.pass)||report.countyChecks.some(x=>!x.pass))
   report.failures.push('Strict per-school or county Chrome checks not fully passed');
