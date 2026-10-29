@@ -103,7 +103,8 @@ jobs:
       - name: Verify 5 schools at 3 viewports, no invented score graphics, 5 counties, sitemap and Worker version
         if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
         env:
-          GITHUB_SHA: ${{ steps.release.outputs.sha }}
+          FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}
+          FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}
         run: node scripts/ci/verify-football-b010-fourth-five-production.mjs
       - name: Preserve success or failure evidence
         if: always() && steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
