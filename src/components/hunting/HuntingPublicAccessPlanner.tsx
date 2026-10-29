@@ -30,16 +30,16 @@ export function HuntingPublicAccessPlanner() {
       <Container>
         <div className="max-w-5xl">
           <p className="eyebrow text-primary">Choose your public-hunt search</p>
-          <h2 id="public-hunting-planner-heading" className="mt-3 font-display text-3xl md:text-4xl">Find legally accessible hunting areas</h2>
+          <h2 id="public-hunting-planner-heading" className="mt-3 font-display text-3xl md:text-4xl">Prepare your official TPWD public-hunt search</h2>
           <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
-            Start with a county, intended game and access type. Then use TPWD's current official area records to filter and confirm which properties actually permit your hunt. A state park, WMA, National Forest or public recreation area is not necessarily open to hunting.
+            Choose a county, intended game and access program to prepare a search checklist. Apply those choices yourself in TPWD's official system: this page does not retrieve matching properties or grant hunting access. A state park, WMA, National Forest or public recreation area is not necessarily open to hunting.
           </p>
           <div className="mt-7 grid gap-5 border border-border bg-background p-5 sm:grid-cols-2 lg:grid-cols-3">
             <div>
               <label htmlFor="hunting-access-county" className="block text-sm font-semibold">County to search</label>
               <select id="hunting-access-county" value={countySlug} onChange={(event) => setCountySlug(event.target.value)} className="mt-2 min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
                 <option value="">Any Texas county</option>
-                {TEXAS_COUNTIES.map((item) => <option value={item.slug} key={item.slug}>{item.name} County</option>)}
+                {TEXAS_COUNTIES.map((item) => <option value={item.slug} key={item.slug}>{item.name}</option>)}
               </select>
             </div>
             <div>
@@ -56,18 +56,18 @@ export function HuntingPublicAccessPlanner() {
             </div>
           </div>
           <div className="mt-5 border-l-4 border-primary bg-background p-5" aria-live="polite">
-            <h3 className="font-display text-xl">Search instructions for TPWD</h3>
+            <h3 className="font-display text-xl">Your TPWD search checklist</h3>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">
-              {county ? "Select " + county.name + " County" : "Select the counties or public hunting region you can reach"}, then locate {game.toLowerCase()} in the official Legal Game listing. {selectedPath.description}
+              {county ? "Select " + county.name : "Select the counties or public hunting region you can reach"}, then locate {game.toLowerCase()} in the official Legal Game listing. {selectedPath.description}
             </p>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm">
               <a href={selectedPath.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center bg-primary px-5 py-3 font-semibold text-primary-foreground">Open TPWD's official {mode === "aph" ? "Area/Legal Game search" : "hunt program"} ↗</a>
-              {county ? <a href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + (county.slug === "la-salle" ? "lasalle" : county.slug) + "/"} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold text-primary underline underline-offset-4">Check {county.name} County regulations ↗</a> : null}
+              {county ? <a href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + (county.slug === "la-salle" ? "lasalle" : county.slug) + "/"} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold text-primary underline underline-offset-4">Check {county.name} regulations ↗</a> : null}
               <a href={TPWD_APH} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold text-primary underline underline-offset-4">Current TPWD APH maps and booklet ↗</a>
             </div>
           </div>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">
-            This page does not prefilter TPWD's website or certify an open hunt. Check the exact unit's Legal Game box, hunt date, land boundary, check-in procedure, applicable license and endorsements, and whether an APH, regular, drawn, E-Postcard, or youth/mentored authorization is required. If TPWD's live search is unavailable, use its current-year map booklet—not an older map or third-party property boundary.
+            This page does not prefilter TPWD's website, display matching public-hunt units or certify an open hunt. Check the exact unit's Legal Game box, hunt date, land boundary, check-in procedure, applicable license and endorsements, and whether an APH, regular, drawn, E-Postcard, or youth/mentored authorization is required. If TPWD's live search is unavailable, use its current-year map booklet—not an older map or third-party property boundary.
           </p>
           <p className="mt-3 text-sm"><Link to="/hunting/public-hunting" className="font-semibold text-primary underline underline-offset-4">Understand how Texas public-hunting access works →</Link></p>
         </div>

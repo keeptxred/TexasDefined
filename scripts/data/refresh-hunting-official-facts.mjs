@@ -8,6 +8,8 @@ export const OFFICIAL_URLS = Object.freeze({
   seasons: 'https://tpwd.texas.gov/regulations/outdoor-annual/hunting/2026-2027-hunting-season-dates',
   hogs: 'https://tpwd.texas.gov/regulations/outdoor-annual/hunting/nongame-and-other-species/',
   areaSearch: 'https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml',
+  drawnDeadlines: 'https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/deadlines.phtml',
+  javelina: 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/javelina/',
 });
 
 export function visibleText(html) {
@@ -99,11 +101,15 @@ export function checkOtherOfficialSources(sourceHtml, seasonYear) {
   checkSeasonRows(seasons);
   const hogs = visibleText(sourceHtml.hogs);
   const areaSearch = visibleText(sourceHtml.areaSearch);
+  const drawnDeadlines = visibleText(sourceHtml.drawnDeadlines);
+  const javelina = visibleText(sourceHtml.javelina);
   const required = [
     [changes, ['Doe Days', '21 counties', 'Special White-winged Dove Days', 'Matagorda', 'Wharton', 'unbearded', 'muzzleloader modified'], '2026 season change notice'],
     [seasons, ['Hunting Season Dates', 'Dove', 'Duck', 'Turkey', seasonYear.slice(0, 4), '20' + seasonYear.slice(-2), 'Nov. 8, 2026', 'Jan. 7, 2027', 'Oct. 25, 2026', 'Dec. 11, 2026', 'Jan. 14, 2027', 'Jan. 21, 2027'], 'TPWD season tables and 2026–27 dove-zone dates'],
     [hogs, ['Feral Hogs', 'Hunter Education', 'No hunting license is required to hunt feral hogs on private'], 'feral hog license exception'],
     [areaSearch, ['Search for an Area or Legal Game', 'Legal Game', 'Public Hunting'], 'public hunt legal-game search'],
+    [drawnDeadlines, ['2026 - 2027 Drawn Hunt Deadlines', 'Gun Deer Either Sex', 'September 15, 2026', 'Feral Hog', 'November 1, 2026', 'Youth Only Turkey'], 'current drawn-hunt deadline schedule'],
+    [javelina, ['Javelina 2026-2027 Seasons & Regulations', 'Northern', 'Oct. 1, 2026 - Feb. 28, 2027', 'Southern', 'Sept. 1, 2026 - Aug. 31, 2027', '99 of 254 counties', 'Two per license year'], 'current javelina season and bag-limit rules'],
   ];
   for (const [text, markers, label] of required) {
     if (text.length < 500) throw new Error(label + ' returned unexpectedly short content.');

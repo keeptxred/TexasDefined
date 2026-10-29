@@ -86,6 +86,7 @@ function speciesTopic(input: {
   ruleHighlights?: string[];
   sourceNotes?: HuntingAuthorityLink[];
   currentAnswer?: string;
+  extraSections?: HuntingAuthoritySection[];
 }): HuntingAuthorityTopic {
   const source = input.source ?? HUNTING_OFFICIAL_SOURCES.regulations;
   return topic({
@@ -100,6 +101,7 @@ function speciesTopic(input: {
       { heading: "Match habitat to geography", paragraphs: [input.habitat, "Use county, wildlife and public-land discovery to narrow the trip before checking the specific hunt unit or private-property permission."], links: [INTERNAL.publicLands, INTERNAL.wildlife, INTERNAL.counties] },
       { heading: "Plan access before travel", paragraphs: [input.planning, "For public hunting, confirm whether the opportunity uses APH access, a drawn hunt, another permit or site-specific registration."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, { label: "Texas public hunting guide", href: "/hunting/public-hunting" }, INTERNAL.tripPlanner] },
       ...(input.ruleHighlights?.length ? [{ heading: "Specific 2026–27 rule highlights", paragraphs: input.ruleHighlights, links: [source, ...(input.sourceNotes ?? [])] }] : []),
+      ...(input.extraSections ?? []),
     ],
     related: [...standardRelated, INTERNAL.camping],
   });
@@ -170,14 +172,58 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
     slug: "drawn-hunts",
     eyebrow: "Limited-entry hunting",
     title: "Texas Drawn Hunts Guide",
-    description: "Plan Texas public-hunt drawings, deadlines and limited-entry opportunities through the official TPWD system.",
-    quickAnswer: "TPWD runs drawn hunts through an online application catalog with hunt-specific eligibility, deadlines, fees and instructions. Use the current catalog rather than last year's calendar.",
-    about: ["Texas drawn hunts", "TPWD drawn hunts", "public hunt drawing"],
+    description: "Follow the 2026–27 TPWD application schedule, hunt categories, fees, selection steps and loyalty points without mistaking drawing entry for hunting access.",
+    quickAnswer: "Texas drawn hunts use TPWD's online system. Most 2026 applications were due on the 1st or 15th from August through November; category deadlines, fees, available units and eligibility must be checked in the live catalog before applying. Selection is not a general public-land permit.",
+    about: ["Texas drawn hunts", "TPWD drawn hunts", "public hunt drawing", "Texas drawn hunt deadlines", "loyalty points"],
     sections: [
-      { heading: "Use the current catalog", paragraphs: ["Opportunities, deadlines, costs and participating properties can change each year. TexasDefined intentionally does not duplicate the full deadline calendar."], links: [HUNTING_OFFICIAL_SOURCES.drawnHunts] },
-      { heading: "Read the individual hunt notice", paragraphs: ["Party size, eligibility, permits, lodging or camping and required licenses can differ by hunt."], links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, INTERNAL.publicLands, INTERNAL.parks] },
-      { heading: "Plan travel after selection", paragraphs: ["Build lodging, county and travel plans around the final assignment and check-in instructions."], links: [INTERNAL.counties, INTERNAL.camping, INTERNAL.tripPlanner] },
-      { heading: "Understand results, claiming and loyalty points", paragraphs: ["TPWD uses an online-only drawing system and normally conducts drawings the next business day after a deadline. Selected hunters are notified by email; TPWD states winners generally have ten days to claim and purchase a permit or it is forfeited. Deadlines, permit fees, eligibility and party-size limits remain specific to each current hunt listing.", "Former preference points are now called loyalty points. TPWD awards one point per category per season of participation, with category-specific treatment after selection; group applications use averaged points. Use TPWD's application status and loyalty-point pages instead of estimating your odds from general historical percentages."], links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, { label: "TPWD drawn-hunt loyalty points", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/loyalty-points.phtml", external: true }] },
+      {
+        heading: "Choose a hunt category and location",
+        paragraphs: [
+          "TPWD's live catalog separates deer, turkey, exotic game, feral hog, refuge, private-land, youth and other opportunities. Compare location, dates, legal game, bag limits, methods, permits, physical access, parties and any lodging before you select a category. A map marker or Wildlife Management Area name alone does not authorize hunting.",
+          "Use the hunt catalog's current category or location search. TexasDefined does not invent available permits or duplicate the full catalog, which can change by hunt year."
+        ],
+        links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, HUNTING_OFFICIAL_SOURCES.publicAreaSearch, INTERNAL.publicLands],
+      },
+      {
+        heading: "Check the actual 2026–27 deadline",
+        paragraphs: [
+          "The 2026–27 TPWD deadline list puts most application cutoffs on August 1, August 15, September 1, September 15, October 1, October 15 or November 1, depending on category. As of late October 2026, do not assume that earlier deer or exotic applications can still be submitted; compare the category's live deadline before paying.",
+          "TPWD normally draws the next business day after each application deadline. A proposed initial draw date or permit-acceptance deadline is not a guaranteed hunting date. Use the official deadlines and individual hunt notices as the controlling schedule."
+        ],
+        links: [{ label: "TPWD 2026–27 drawn-hunt deadlines", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/deadlines.phtml", external: true }, HUNTING_OFFICIAL_SOURCES.drawnHunts],
+      },
+      {
+        heading: "Understand application and permit fees",
+        paragraphs: [
+          "TPWD generally lists adult application fees of $3 or $10 per person, depending on the hunt category. E-Postcard hunts, U.S. Forest Service antlerless deer permits, qualifying youth applicants and specified supervising adults have no application fee. Fees are determined by each official hunt listing, not by species alone.",
+          "Adult special-hunt permit fees are commonly $80 or $130 per person, while certain categories have no permit fee. Do not mistake an application payment for a permit, an Annual Public Hunting Permit, a hunting license or land access."
+        ],
+        links: [{ label: "TPWD drawn-hunt FAQs and fees", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/faqs.phtml", external: true }, HUNTING_OFFICIAL_SOURCES.drawnHunts],
+      },
+      {
+        heading: "Apply with the right group and eligibility",
+        paragraphs: [
+          "Review the individual hunt's allowable party size, residency conditions, applicant ages, supervision and disability accommodations. TPWD has special youth-only and youth/adult categories; one member's eligibility does not automatically qualify an entire group.",
+          "Applications are submitted online with TPWD customer identification and payment, when required. Once an application is submitted, TPWD says it cannot be changed or canceled and application fees generally are not refunded."
+        ],
+        links: [{ label: "TPWD: how to get started", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/getting-started.phtml", external: true }, { label: "TPWD drawn-hunt FAQs", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/faqs.phtml", external: true }],
+      },
+      {
+        heading: "What happens if you are selected?",
+        paragraphs: [
+          "Check the TPWD application-status portal as well as email: unsuccessful applicants do not necessarily receive a notice. TPWD generally gives winners ten days to claim and pay for a selected permit following a drawing, and unclaimed permits are forfeited. The official acceptance deadline in the account controls. Confirm the exact acceptance date shown in your account.",
+          "Only after the official permit and area instructions are confirmed should you finalize travel. Check site check-in, the issued permit, hunt equipment, property boundaries, weather, lodging and any public-hunt license or endorsement requirements."
+        ],
+        links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, { label: "TPWD: drawn-hunt application status and questions", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/faqs.phtml", external: true }, INTERNAL.tripPlanner],
+      },
+      {
+        heading: "Loyalty points are category-specific",
+        paragraphs: [
+          "Former preference points are called loyalty points. TPWD awards one point per category in a season when eligible applications are submitted, not one point for each hunt location. Points carry forward until selection in that category; TPWD uses cubed points in the draw and averages members' points for group entries.",
+          "E-Postcard and U.S. Forest Service deer-permit draws do not accrue loyalty points. Category-specific resets and other exceptions matter: use the official account record and TPWD point rules rather than treating a point count as a guaranteed winning probability."
+        ],
+        links: [{ label: "TPWD loyalty points explained", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/loyalty-points.phtml", external: true }, HUNTING_OFFICIAL_SOURCES.drawnHunts],
+      },
     ],
     related: [{ label: "Texas public hunting", href: "/hunting/public-hunting" }, { label: "Annual Public Hunting Permit", href: "/hunting/annual-public-hunting-permit" }, { label: "Texas youth hunting", href: "/hunting/youth-hunting" }, INTERNAL.parks, INTERNAL.tripPlanner],
   }),
@@ -222,7 +268,21 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
   "turkey-hunting": TURKEY_HUNTING_TOPIC,
   "quail-hunting": speciesTopic({ slug: "quail-hunting", source: HUNTING_OFFICIAL_SOURCES.quail, title: "Texas Quail Hunting Guide", species: "quail", description: "Plan Texas quail hunting around habitat, weather-sensitive populations, public access and current regulations.", habitat: "Quail abundance can vary substantially with rainfall and habitat conditions, making recent TPWD population information useful alongside durable habitat guidance.", planning: "Public quail access depends on the legal-game listing for each area; do not assume suitable habitat is open to hunting.", currentAnswer: "TPWD lists November 1, 2026–February 28, 2027 for open quail species, with a 15-bird daily limit and 45 in possession. Mearns’ (Montezuma) quail are not open to hunting.", ruleHighlights: ["The 2026–27 statewide quail season for bobwhite, scaled/blue and Gambel’s quail runs November 1 through February 28. TPWD lists a daily limit of 15 quail in aggregate and 45 in possession.","Mearns’ (Montezuma) quail have no open season. A Texas upland game bird endorsement is required, and any hunt on TPWD property additionally requires a legal-game listing and unit-specific authorization."] }),
   "waterfowl-hunting": speciesTopic({ slug: "waterfowl-hunting", source: HUNTING_OFFICIAL_SOURCES.duck, title: "Texas Waterfowl Hunting Guide", species: "waterfowl", description: "Plan duck and goose hunting around zones, federal migratory-bird rules, wetlands and public access.", habitat: "Texas waterfowl hunting spans coastal marshes, reservoirs, river corridors, playa country and agricultural landscapes, with migration and water conditions changing through the season.", planning: "Waterfowl hunts can involve federal stamps, migratory-bird certifications and property-specific rules in addition to Texas licensing.", currentAnswer: "Texas duck and goose hunting requires careful zone-specific 2026–27 dates, migratory endorsements, HIP and a federal duck stamp for applicable hunters; the public-land unit must separately authorize the hunt.", ruleHighlights: ["For regular duck seasons TPWD uses High Plains Mallard, North and South zones with split date windows; youth-only and veteran/active-duty opportunities follow separate dates. Special species-specific restrictions include dusky duck closures at the beginning of regular seasons.","For 2026–27 the published general duck aggregate limit is six, but species sublimits differ. Migratory game bird endorsement, HIP certification and federal duck stamp apply as TPWD specifies; check the current zone map, legal methods and public-unit legal-game box."] }),
-  "javelina-hunting": speciesTopic({ slug: "javelina-hunting", title: "Texas Javelina Hunting Guide", species: "javelina", description: "Plan javelina hunting around current county rules, South and West Texas habitat and public-hunt opportunities.", source: HUNTING_OFFICIAL_SOURCES.javelina, habitat: "Javelina are associated especially with brush-country and arid landscapes in South and West Texas, so regional habitat is a useful first filter.", planning: "Check the exact property and county rules because public opportunities and seasons can differ from private-land assumptions.", currentAnswer: "TPWD lists a northern javelina season October 1, 2026–February 28, 2027 and a southern season September 1, 2026–August 31, 2027, in 99 open counties, with a maximum of two per license year.", ruleHighlights: ["The 2026–27 TPWD javelina regulation divides northern and southern zones. Northern hunting is October 1–February 28; southern hunting is September 1–August 31. A nearby county can have no open season, so use TPWD county search.","TPWD lists a limit of two javelina per license year. A javelina is not a feral hog; do not apply private-land feral hog exemptions or assumptions to javelina hunting."] }),
+  "javelina-hunting": speciesTopic({ slug: "javelina-hunting", title: "Texas Javelina Hunting Guide", species: "javelina", description: "Plan javelina hunting around current county rules, South and West Texas habitat and public-hunt opportunities.", source: HUNTING_OFFICIAL_SOURCES.javelina, habitat: "Javelina are associated especially with brush-country and arid landscapes in South and West Texas, so regional habitat is a useful first filter.", planning: "Check the exact property and county rules because public opportunities and seasons can differ from private-land assumptions.", currentAnswer: "TPWD lists a northern javelina season October 1, 2026–February 28, 2027 and a southern season September 1, 2026–August 31, 2027, in 99 open counties, with a maximum of two per license year.", ruleHighlights: ["The 2026–27 TPWD javelina regulation divides northern and southern zones. Northern hunting is October 1–February 28; southern hunting is September 1–August 31. A nearby county can have no open season, so use TPWD county search.","TPWD lists a limit of two javelina per license year. A javelina is not a feral hog; do not apply private-land feral hog exemptions or assumptions to javelina hunting."],
+    extraSections: [
+      { heading: "North, South and closed counties", paragraphs: [
+        "The Northern zone runs October 1, 2026 through February 28, 2027; the Southern zone runs September 1, 2026 through August 31, 2027. TPWD lists 99 of Texas's 254 counties as having an open javelina season, meaning the rest cannot be assumed open simply because animals are present.",
+        "Locate the property in the official TPWD javelina zone map and select its county on the current regulation page. These regional date ranges are not permission to hunt in a closed county or an area that imposes stricter access rules."
+      ], links: [HUNTING_OFFICIAL_SOURCES.javelina, INTERNAL.counties] },
+      { heading: "Bag limit and identification", paragraphs: [
+        "TPWD's statewide 2026–27 javelina summary gives a bag limit of two per license year. Do not substitute feral-hog guidance: javelinas are native collared peccaries, not domestic pigs or a feral-hog exception.",
+        "Confirm species identity, legal methods, hunting-license status, hunter education, and whether the property is subject to a special managed-hunt quota or specific permit."
+      ], links: [HUNTING_OFFICIAL_SOURCES.javelina, HUNTING_OFFICIAL_SOURCES.licenses] },
+      { heading: "Where to look without assuming access", paragraphs: [
+        "Brush, prickly pear, thornscrub and arid vegetation across parts of South and West Texas provide useful habitat context, but habitat does not identify public hunting rights. On private property, obtain permission and confirm exact land boundaries.",
+        "For public land, search TPWD by area and legal game and inspect the current hunt unit sheet; a location that has javelinas may offer hunting only through a draw, on limited dates, or not at all."
+      ], links: [HUNTING_OFFICIAL_SOURCES.publicAreaSearch, HUNTING_OFFICIAL_SOURCES.drawnHunts, INTERNAL.wildlife] },
+    ] }),
   "feral-hogs": topic({
     slug: "feral-hogs", eyebrow: "Texas hunting species", title: "Texas Feral Hog Hunting Guide",
     description: "Private-land feral hog hunting license rules, hunter education and the separate public-land requirements.",
