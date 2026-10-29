@@ -12,7 +12,7 @@ export const Route = createFileRoute("/explore/wildlife")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: "Texas Wildlife Refuges & Wildlife Destinations | Texas Defined",
+        title: "Texas Wildlife Refuges & Destinations",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
