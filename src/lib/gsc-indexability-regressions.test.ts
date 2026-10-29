@@ -18,6 +18,19 @@ describe("GSC sitemap indexability regressions", () => {
     expect(source).toContain("if (!leafMatch || leafMatch.id !== context.match.id) return {};");
   });
 
+  it("recovers a timed-out remote sitemap page only with complete bounded half-page reads", () => {
+    const source = read("src/data/articles-remote.ts");
+
+    expect(source).toContain('const SITEMAP_PAGE_SIZE = 200');
+    expect(source).toContain('async function requestSitemapPageRows(pageParams: URLSearchParams)');
+    expect(source).toContain('if (!isTimeout) throw error;');
+    expect(source).toContain('const [firstRows, secondRows] = await Promise.all([');
+    expect(source).toContain('secondParams.set("offset", String(offset + half))');
+    expect(source).toContain('if (firstRows.length < half && secondRows.length > 0)');
+    expect(source).toContain('const rows = await requestSitemapPageRows(pageParams);');
+    expect(source).toContain('throw new Error(`TexasDefined sitemap article inventory exceeded guarded ${SITEMAP_MAX_ROWS}-row limit`)');
+  });
+
   it("does not serialize empty event filters onto the canonical events URL", () => {
     const source = read("src/routes/events.index.tsx");
 
