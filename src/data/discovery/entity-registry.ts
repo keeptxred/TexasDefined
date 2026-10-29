@@ -8,7 +8,19 @@
 export type DiscoveryKind = "attraction" | "annual-event" | "scheduled-event" | "recurring-experience";
 export type DiscoveryProvider = "texasdefined" | "official-organizer" | "viator" | "ticketmaster" | "tpwd" | "tourism-board" | "venue";
 export type EvidencePurpose = "identity" | "location" | "schedule" | "admission" | "booking" | "editorial";
-export type DiscoveryReviewStatus = "candidate" | "verified" | "published" | "retired";
+export type DiscoveryReviewStatus = "candidate" | "verified" | "awaiting-owner-review" | "approved" | "published" | "retired";
+
+/** Approval applies to publishing a *new* indexable supplier-discovered guide.
+ * It is independent of official-source fact verification and provider matches.
+ * The GitHub issue/review must contain the owner's explicit decision, not a
+ * bot-generated review invitation. */
+export interface EditorialOwnerApproval {
+  batchId: string;
+  approvedBy: "keeptxred";
+  approvedAt: string;
+  decision: "approved";
+  reviewUrl: string;
+}
 
 export interface DiscoveryEvidence {
   provider: DiscoveryProvider;
@@ -57,6 +69,9 @@ export interface DiscoveryEntity {
   /** Human/authority reviewed; independent of a supplier's star rating. */
   qualityApproved: boolean;
   providerRefs?: Partial<Record<DiscoveryProvider, string>>;
+  /** No supplier-discovered new page can publish without owner's decision. */
+  discoveryOrigin?: "independent-editorial" | "supplier-candidate";
+  ownerApproval?: EditorialOwnerApproval;
 }
 
 export interface SourceCandidate {
@@ -100,6 +115,14 @@ export function matchSourceCandidate(candidate: SourceCandidate, entities: reado
   return { outcome: "review" as const, reason: sameNameAndCity.length ? "ambiguous-name" as const : "new-candidate" as const };
 }
 
+/** Strictly validate a *recorded* approval. Requires manual verification that
+ * the linked decision actually came from the owner: URLs alone are not proof. */
+export function hasRecordedOwnerApproval(approval: EditorialOwnerApproval | undefined): boolean {
+  if (!approval || approval.decision !== "approved" || approval.approvedBy !== "keeptxred" ||
+      !/^[a-z0-9][a-z0-9-]{3,100}$/i.test(approval.batchId) || !isoDate(approval.approvedAt)) return false;
+  return /^https:\/\/github\.com\/keeptxred\/TexasDefined\/(?:issues\/6380#issuecomment-\d+|pull\/\d+#pullrequestreview-\d+)$/.test(approval.reviewUrl);
+}
+
 /** Indexability cannot be earned merely by a valid affiliate link. */
 export function mayIndexDiscoveryEntity(entity: DiscoveryEntity) {
   if (entity.status !== "published" || !entity.qualityApproved || !entity.editorialOriginal ||
@@ -107,6 +130,13 @@ export function mayIndexDiscoveryEntity(entity: DiscoveryEntity) {
   if (!entity.evidence.some((e) =>
     (e.official || e.provider === "texasdefined") && e.purpose === "editorial" &&
     isoDate(e.checkedAt) && trustedHttpUrl(e.url))) return false;
+  if (entity.discoveryOrigin === "supplier-candidate") {
+    if (!hasRecordedOwnerApproval(entity.ownerApproval)) return false;
+    if (!entity.evidence.some((e) => e.official && e.provider !== "viator" &&
+        e.purpose === "identity" && isoDate(e.checkedAt) && trustedHttpUrl(e.url))) return false;
+    if (!entity.evidence.some((e) => e.official && e.provider !== "viator" &&
+        e.purpose === "location" && isoDate(e.checkedAt) && trustedHttpUrl(e.url))) return false;
+  }
   // A reviewed evergreen annual-event guide remains indexable while the next
   // edition's dates are unannounced. Never infer occurrence or Event schema.
   return true;
