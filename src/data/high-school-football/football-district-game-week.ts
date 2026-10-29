@@ -1,5 +1,6 @@
 import { footballMatchups, footballMatchupPath } from './football-matchups';
 import { DISTRICT_5_2026_GAMES } from './football-district5-2026';
+import { DISTRICT_11_2026_GAMES } from './football-district11-2026';
 import { DISTRICT_21_2026_GAMES } from './football-district21-2026';
 
 export type DistrictFootballGame = {
@@ -91,6 +92,9 @@ export function getDistrictFootballGames(slug: string, classification: string, d
   const known = new Map<string, DistrictFootballGame>();
   if (slug === '6a-district-22') {
     for (const game of KATY_2026_DISTRICT_GAMES) known.set(gameKey(game), game);
+  }
+  if (slug === '4a-division-i-district-11') {
+    for (const game of DISTRICT_11_2026_GAMES) known.set(gameKey(game), game);
   }
   if (slug === '6a-district-5') {
     for (const game of DISTRICT_5_2026_GAMES) known.set(gameKey(game), game);
