@@ -48,21 +48,21 @@ async function verify(origin) {
     'data-football-district-records="source-derived"',
   ]) assert.ok(html.includes(phrase), origin + ' missing ' + phrase);
 
-  const title = html.match(/<title>([^<]+)<\\/title>/i)?.[1] || '';
+  const title = html.match(/<title>([^<]+)<\/title>/i)?.[1] || '';
   assert.ok(title.includes('District 11-4A Division I Football: 2026 Scores'), origin + ' unexpected SEO title: ' + title);
-  const canonicals = [...html.matchAll(/<link\\b[^>]*rel=["']canonical["'][^>]*>/gi)];
+  const canonicals = [...html.matchAll(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi)];
   assert.equal(canonicals.length, 1, origin + ' canonical link count');
   assert.ok(canonicals[0][0].includes('https://texasdefined.com' + pathname), origin + ' bad canonical');
-  assert.ok(!/<meta\\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html), origin + ' noindex');
-  const cards = [...html.matchAll(/<div\\b[^>]*data-football-district-game="2026-[^"]+"[^>]*>/g)];
+  assert.ok(!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html), origin + ' noindex');
+  const cards = [...html.matchAll(/<div\b[^>]*data-football-district-game="2026-[^"]+"[^>]*>/g)];
   const finals = cards.filter(([tag]) => tag.includes('data-status="reported-final"')).length;
   const scheduled = cards.filter(([tag]) => tag.includes('data-status="schedule-only"')).length;
   assert.equal(cards.length, 21, origin + ' expected all 21 league game cards');
   assert.equal(finals, 15, origin + ' expected all 15 verified finals');
   assert.equal(scheduled, 6, origin + ' expected 6 as-yet-unverified games');
-  const records = html.match(/data-football-district-records="source-derived"[\\s\\S]*?<tbody[^>]*>([\\s\\S]*?)<\\/tbody>/i)?.[1];
+  const records = html.match(/data-football-district-records="source-derived"[\s\S]*?<tbody[^>]*>([\s\S]*?)<\/tbody>/i)?.[1];
   assert.ok(records, origin + ' missing standings snapshot');
-  assert.equal((records.match(/<tr\\b/g) || []).length, 7, origin + ' expected 7 schools');
+  assert.equal((records.match(/<tr\b/g) || []).length, 7, origin + ' expected 7 schools');
   const main = html.slice(html.indexOf('data-football-district-hub="v2"'));
   assert.ok(main.indexOf('data-football-district-section="teams"') < main.indexOf('data-football-monetization'), origin + ' sponsorship before teams');
   console.log('PASS District 11 exact-content HTTP/SSR check', JSON.stringify({origin, cards: cards.length, finals, scheduled, schools: 7, title, cacheStatus: response.headers.get('cf-cache-status')}));
