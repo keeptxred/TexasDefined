@@ -80,7 +80,7 @@ for (const slug of expectedTopics) requireRouteLiteral(sitemap, `/hunting/${slug
 
 requireText(authority, '"texas-deer-hunting": TEXAS_DEER_AUTHORITY_TOPIC', 'deer guide still using generic species template');
 requireText(authority, '"turkey-hunting": TURKEY_HUNTING_TOPIC', 'turkey not dedicated guide');
-for (const term of ['2026–27', 'Matagorda and Wharton', 'mandatory harvest reporting', 'unbearded', 'November 1, 2026', 'reviewedOn: turkeyCalendar.checkedAt']) requireText(turkey, term, 'turkey guide missing ' + term);
+for (const term of ['2026–27', 'Matagorda and Wharton', 'mandatory harvest reporting', 'unbearded', 'November 1, 2026', 'reviewedOn: TURKEY_GUIDE_LAST_VERIFIED']) requireText(turkey, term, 'turkey guide missing ' + term);
 requireText(turkeyTable, 'TURKEY_SEASONS_2026_27.map', 'turkey season table missing');
 requireText(turkeyTable, 'Robert Burton', 'turkey photo attribution missing');
 requireText(turkeyTable, 'turkeyCalendar.checkedAt', 'date provenance missing');
@@ -89,6 +89,9 @@ requireText(turkeyMonitor, 'process.exit(2)', 'TPWD legal monitor missing');
 requireText(turkeyWorkflow, 'schedule:', 'legal source monitor not scheduled');
 requireText(turkeyCalendar, '"spring-youth-north"', 'governed turkey season data missing');
 requireText(turkey, 'turkeyCalendar.rows', 'turkey guide not using governed seasons');
+for (const expected of ['TPWD: public hunt Area / Legal Game Search', 'TPWD: official turkey harvest data by county', 'Hagerman NWR', 'Lower Rio Grande Valley NWR', '2027', 'How to interpret TPWD turkey harvest data']) requireText(turkey, expected, 'turkey public-access authority missing ' + expected);
+for (const expected of ['Two verified 2027 public turkey draw opportunities', 'tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml', 'tpwd.texas.gov/huntwild/wild/game_management/turkey/turkeyData.phtml']) requireText(turkeyTable, expected, 'turkey public-hunt guidance not displayed ' + expected);
+
 requireText(turkeyDateUpdater, 'checkCompanion', 'TPWD date dual-source check missing');
 requireText(turkeyDateUpdater, 'YEAR_ROLLOVER', 'new season must fail closed');
 requireText(turkeyDateTests, 'conflicting TPWD source dates stop publication', 'date source safety test missing');
