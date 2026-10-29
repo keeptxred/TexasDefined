@@ -14,6 +14,26 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'colorado-city-colorado', mascot: 'Wolves',
+    sourceUrl: 'https://www.ccity.esc14.net/article/2238803',
+    sourceLabel: 'Colorado ISD Wolves head football coach announcement, Colorado City Texas',
+    verifiedAt: '2026-10-29' },
+  { slug: 'columbus', mascot: 'Cardinals',
+    sourceUrl: 'https://chs.columbusisd.org/apps/pages/index.jsp?pREC_ID=2146838&type=d&uREC_ID=2105726',
+    sourceLabel: 'Columbus High school athletics Cardinals and current head football coach',
+    verifiedAt: '2026-10-29' },
+  { slug: 'comal-canyon', mascot: 'Cougars',
+    sourceUrl: 'https://www.comalisd.org/apps/pages/athletics',
+    sourceLabel: 'Comal ISD Canyon Cougars; not Canyon ISD Panhandle or California',
+    verifiedAt: '2026-10-29' },
+  { slug: 'comal-canyon-lake', mascot: 'Hawks',
+    sourceUrl: 'https://www.comalisd.org/apps/pages/athletics',
+    sourceLabel: 'Comal ISD separate Canyon Lake Hawks high-school program in Fischer',
+    verifiedAt: '2026-10-29' },
+  { slug: 'comal-davenport', mascot: 'Wolves',
+    sourceUrl: 'https://www.comalisd.org/apps/news/article/2219412?categoryId=12015',
+    sourceLabel: 'Comal ISD 2026 Davenport Wolfpack Lone Star Cup bulletin and program',
+    verifiedAt: '2026-10-29' },
   {
     slug: 'college-station',
     mascot: 'Cougars',
