@@ -146,8 +146,21 @@ for (const marker of [
 const priceFacts = [
   ['Dallas', '$64', '$46', '4 of 6', 'up to 56%'],
   ['Houston', '$82', '$72', '5 of 7', 'up to 52%'],
-  ['San Antonio', '$63', '$53', '4 of 8', 'up to 41%'],
+  ['San Antonio', '$63', '$53', '4 of 8', 'up to 42%'],
 ];
+for (const marker of [
+  'SAN_ANTONIO_RATE_EFFECTIVE_AT = Date.parse("2026-11-02T06:00:00Z")',
+  'adult: "$67"',
+  'child: "$57"',
+  'maxSavings: "up to 38%"',
+  'maxValue: "$108.00"',
+  'maxDollarSavings: "$41.00"',
+  'October 23, 2026',
+  'November 1',
+  'November 2',
+  'marketSummariesAt(now)',
+]) requireText(guidePage, marker, 'San Antonio scheduled CityPASS price rollover');
+
 for (const [market, adult, child, selection, savings] of priceFacts) {
   for (const value of [`market: "${market}"`, `adult: "${adult}"`, `child: "${child}"`, `selection: "${selection}"`, `maxSavings: "${savings}"`]) {
     requireText(guidePage, value, `${market} buying-guide price facts`);
