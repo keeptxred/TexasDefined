@@ -3,6 +3,7 @@ import test from "node:test";
 import { countyGuidePath, canonicalEventGuidePath, eventPlanningLinks } from "../canonical-links.ts";
 import { christmasExperienceSearchBody, normalizeChristmasViatorExperiences } from "../../../lib/viator-seasonal-discovery.ts";
 import { exploreMarketEventCalendarHref } from "../market-event-cities.ts";
+import { reviewedAttractionGuidesForMarket } from "../explore-attraction-guides.ts";
 
 test("county discovery paths use the existing county route form",()=>{
  assert.equal(countyGuidePath("Gillespie County"),"/county/gillespie");
@@ -38,4 +39,14 @@ test("Explore links only exact, validated city markets to events while avoiding 
  assert.equal(exploreMarketEventCalendarHref("houston"),"/events?location=city%3AHouston#calendar");
  assert.equal(exploreMarketEventCalendarHref("new-braunfels-gruene"),null);
  assert.equal(exploreMarketEventCalendarHref("big-bend-terlingua"),null);
+});
+
+test("Explore reuses existing authoritative attraction guides instead of supplier-derived duplicate pages", () => {
+ const sanAntonio=reviewedAttractionGuidesForMarket("san-antonio");
+ assert.ok(sanAntonio.some((guide)=>guide.href==="/destination/the-alamo"));
+ assert.ok(sanAntonio.some((guide)=>guide.href==="/destination/san-antonio-river-walk"));
+ assert.equal(reviewedAttractionGuidesForMarket("lubbock").length,0);
+ for(const guide of reviewedAttractionGuidesForMarket("houston")) {
+   assert.match(guide.href,/^\/destination\/[a-z0-9-]+$/);
+ }
 });
