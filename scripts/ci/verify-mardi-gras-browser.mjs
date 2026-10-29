@@ -96,6 +96,15 @@ try {
             new Promise(resolve => setTimeout(resolve, 20_000)),
           ]));
         }
+        // Route-level JSON-LD can arrive after the server-rendered h1. Wait
+        // briefly for hydration before classifying a schema as genuinely absent.
+        // Never count a breadcrumb as a substitute for Event/CollectionPage.
+        await page.waitForFunction(({ hub }) => {
+          const required = hub ? ["CollectionPage", "ItemList"] : ["Event"];
+          const json = Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
+            .map(el => el.textContent || "").join("\n");
+          return required.every(type => new RegExp('"@type"\\s*:\\s*"' + type + '"').test(json));
+        }, { hub: !guide }, { timeout: 8_000 }).catch(() => {});
         const data = await page.evaluate(() => {
           const image = document.querySelector('figure[data-major-event-hero="true"] img[data-major-event-enrichment-image="true"]');
           const caption = document.querySelector('figure[data-major-event-hero="true"] figcaption');
@@ -119,6 +128,12 @@ try {
             hasEvent: marker("Event"),
             hasCollectionPage: marker("CollectionPage"),
             hasList: marker("ItemList"),
+            schemaDiagnostics: {
+              scripts: document.querySelectorAll('script[type="application/ld+json"]').length,
+              types: ld.map(node => node?.["@type"]).filter(Boolean).slice(0, 24),
+              samples: Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
+                .map(s => (s.textContent || "").slice(0, 220)).slice(0, 6),
+            },
             heroCount: document.querySelectorAll('figure[data-major-event-hero="true"]').length,
             image: image ? {
               src: image.currentSrc || image.src,
@@ -140,7 +155,7 @@ try {
         check("human-readable title", data.title.length > 15, data.title.slice(0, 100));
         if (guide) {
           check("correct individual event identity", data.h1.includes(guide.text), data.h1);
-          check("Event structured data", data.hasEvent);
+          check("Event structured data", data.hasEvent, JSON.stringify(data.schemaDiagnostics));
           check("year source context", bodyText.includes(guide.year), data.title);
           check("official source links", await page.getByRole("heading", { name: "Official event links" }).count() > 0);
           check("visit planning", await page.getByRole("heading", { name: "Planning your visit" }).count() > 0);
@@ -161,7 +176,7 @@ try {
           check("event affiliate disclosure", data.affiliateDisclosure);
         } else {
           check("Mardi Gras statewide hub heading", data.h1.includes("Mardi Gras in Texas"), data.h1);
-          check("CollectionPage and ItemList schema", data.hasCollectionPage && data.hasList);
+          check("CollectionPage and ItemList schema", data.hasCollectionPage && data.hasList, JSON.stringify(data.schemaDiagnostics));
           check("hub indexable", !/noindex/i.test(data.robots), data.robots);
           for (const item of GUIDES) {
             check("guide linked in hub: " + item.slug, data.guideLinks.includes("/event/" + item.slug));
