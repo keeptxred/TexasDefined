@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import type { CampingDiscoveryProfile } from "@/data/camping/discovery";
 import { hasCampingDestinationGuide } from "@/data/camping/destination-guides";
 import type { CampingAmenity, CampingStyle } from "@/data/camping/types";
-import { hideFailedImageContainer } from "@/lib/image-fallback";
 import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 
 export interface CampingDiscoveryEntry {
@@ -123,44 +122,9 @@ const metroShortcuts = [
   { label: "Fort Worth area", query: "Fort Worth" },
 ] as const;
 
-const campingCardImages: Record<string, { src: string; alt: string; width: number; height: number }> = {
-  "enchanted-rock-state-natural-area": { src: "/images/state-parks/enchanted-rock-state-natural-area.jpg", alt: "Enchanted Rock State Natural Area in Texas", width: 1600, height: 1063 },
-  "palo-duro-canyon-state-park": { src: "/images/state-parks/palo-duro-canyon-state-park.jpg", alt: "Palo Duro Canyon State Park in Texas", width: 1600, height: 900 },
-  "garner-state-park": { src: "/images/state-parks/garner-state-park.jpg", alt: "Garner State Park in Texas", width: 1600, height: 230 },
-  "mckinney-falls-state-park": { src: "/images/state-parks/mckinney-falls-state-park.jpg", alt: "McKinney Falls State Park in Texas", width: 1600, height: 1066 },
-  "mustang-island-state-park": { src: "/images/state-parks/mustang-island-state-park.jpg", alt: "Mustang Island State Park in Texas", width: 1600, height: 1067 },
-  "sea-rim-state-park": { src: "/images/state-parks/sea-rim-state-park.jpg", alt: "Sea Rim State Park in Texas", width: 1600, height: 800 },
-  "brazos-bend-state-park": { src: "/images/state-parks/brazos-bend-state-park.jpg", alt: "Brazos Bend State Park in Texas", width: 1600, height: 1280 },
-  "big-bend-national-park": { src: "/images/explore/national-parks/big-bend-national-park.jpg", alt: "Big Bend National Park in Texas", width: 1600, height: 2133 },
-  "guadalupe-mountains-national-park": { src: "/images/explore/national-parks/guadalupe-mountains-national-park.jpg", alt: "Guadalupe Mountains National Park in Texas", width: 1600, height: 1053 },
-  "inks-lake-state-park": { src: "/images/state-parks/inks-lake-state-park.jpg", alt: "Inks Lake State Park in Texas", width: 1600, height: 900 },
-  "colorado-bend-state-park": { src: "/images/state-parks/colorado-bend-state-park.jpg", alt: "Colorado Bend State Park in Texas", width: 1600, height: 1071 },
-  "caprock-canyons-state-park": { src: "/images/state-parks/caprock-canyons-state-park.jpg", alt: "Caprock Canyons State Park in Texas", width: 1600, height: 1066 },
-  "dinosaur-valley-state-park": { src: "/images/state-parks/dinosaur-valley-state-park.jpg", alt: "Dinosaur Valley State Park in Texas", width: 1600, height: 1200 },
-  "pedernales-falls-state-park": { src: "/images/state-parks/pedernales-falls-state-park.jpg", alt: "Pedernales Falls State Park in Texas", width: 1600, height: 790 },
-  "lake-whitney-state-park": { src: "/images/state-parks/lake-whitney-state-park.jpg", alt: "Lake Whitney State Park in Texas", width: 1600, height: 900 },
-  "lake-tawakoni-state-park": { src: "/images/state-parks/lake-tawakoni-state-park.jpg", alt: "Lake Tawakoni State Park in Texas", width: 1600, height: 1100 },
-  "balmorhea-state-park": { src: "/images/state-parks/balmorhea-state-park.jpg", alt: "Balmorhea State Park in Texas", width: 1600, height: 900 },
-  "davis-mountains-state-park": { src: "/images/state-parks/davis-mountains-state-park.jpg", alt: "Davis Mountains State Park in Texas", width: 1600, height: 1067 },
-  "monahans-sandhills-state-park": { src: "/images/state-parks/monahans-sandhills-state-park.jpg", alt: "Monahans Sandhills State Park in Texas", width: 1600, height: 900 },
-  "guadalupe-river-state-park": { src: "/images/state-parks/guadalupe-river-state-park.jpg", alt: "Guadalupe River State Park in Texas", width: 1600, height: 1115 },
-  "lost-maples-state-natural-area": { src: "/images/state-parks/lost-maples-state-natural-area.jpg", alt: "Lost Maples State Natural Area in Texas", width: 1600, height: 1200 },
-  "huntsville-state-park": { src: "/images/state-parks/huntsville-state-park.jpg", alt: "Huntsville State Park in Texas", width: 1600, height: 900 },
-  "tyler-state-park": { src: "/images/state-parks/tyler-state-park.jpg", alt: "Tyler State Park in Texas", width: 1600, height: 1067 },
-  "galveston-island-state-park": { src: "/images/state-parks/galveston-island-state-park.jpg", alt: "Galveston Island State Park in Texas", width: 1600, height: 1057 },
-  "lake-livingston-state-park": { src: "/images/state-parks/lake-livingston-state-park.jpg", alt: "Lake Livingston State Park in Texas", width: 1600, height: 900 },
-  "martin-dies-jr-state-park": { src: "/images/state-parks/martin-dies-jr-state-park.jpg", alt: "Martin Dies, Jr. State Park in Texas", width: 1600, height: 1121 },
-  "bastrop-state-park": { src: "/images/state-parks/bastrop-state-park.jpg", alt: "Bastrop State Park in Texas", width: 1600, height: 1060 },
-  "eisenhower-state-park": { src: "/images/state-parks/eisenhower-state-park.jpg", alt: "Eisenhower State Park in Texas", width: 1600, height: 422 },
-  "lake-mineral-wells-state-park": { src: "/images/state-parks/lake-mineral-wells-state-park.jpg", alt: "Lake Mineral Wells State Park in Texas", width: 1600, height: 900 },
-  "south-llano-river-state-park": { src: "/images/state-parks/south-llano-river-state-park.jpg", alt: "South Llano River State Park in Texas", width: 1600, height: 1067 },
-  "seminole-canyon-state-park-and-historic-site": { src: "/images/explore/historic-sites/seminole-canyon-state-park.jpg", alt: "Seminole Canyon State Park & Historic Site in Texas", width: 1600, height: 1067 },
-  "cedar-hill-state-park": { src: "/images/state-parks/cedar-hill-state-park.jpg", alt: "Cedar Hill State Park in Texas", width: 1600, height: 1067 },
-  "goose-island-state-park": { src: "/images/state-parks/goose-island-state-park.jpg", alt: "Goose Island State Park in Texas", width: 1600, height: 1200 },
-  "lake-corpus-christi-state-park": { src: "/images/state-parks/lake-corpus-christi-state-park.jpg", alt: "Lake Corpus Christi State Park in Texas", width: 1600, height: 1067 },
-  "padre-island-national-seashore": { src: "/images/explore/national-parks/padre-island-national-seashore.jpg", alt: "Padre Island National Seashore in Texas", width: 1600, height: 800 },
-};
-
+// This finder deliberately uses text-first profile cards: a park-wide photo or
+// wildlife close-up is not a verified photograph of an individual campground.
+// Only introduce site-specific imagery with traceable subject and usage rights.
 function profileAnchor(profile: CampingDiscoveryProfile) {
   return profile.profileSlug || profile.destinationSlug;
 }
@@ -330,7 +294,10 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         </label>
       </div>
 
-      <label className="mt-5 block max-w-xs text-sm">
+      <details className="mt-5 border-t border-border pt-4">
+        <summary className="cursor-pointer py-2 text-sm font-semibold text-primary">More filters: camping styles, facilities and sorting</summary>
+        <div className="mt-3">
+      <label className="block max-w-xs text-sm">
         <span className="block font-semibold">Sort results</span>
         <select value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-3">
           <option value="recommended">TexasDefined order</option>
@@ -370,6 +337,9 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
           </label>
         </div>
       </fieldset>
+
+        </div>
+      </details>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
         <p className="text-sm text-muted-foreground" aria-live="polite">Showing <strong className="text-foreground">{filtered.length}</strong> of {entries.length} verified profiles. Recommended results group individual campgrounds with their parent destinations.</p>
@@ -413,27 +383,22 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
       </div>
     </section> : null}
 
-    {filtered.length ? <div className="mt-7 grid gap-6 lg:grid-cols-2">
+    {filtered.length ? <div className="mt-6 grid items-start gap-4 lg:grid-cols-2">
       {filtered.map(({ profile }) => {
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const anchor = profileAnchor(profile);
         const isParentDestination = anchor === profile.destinationSlug;
         const officialOnlyGuide = OFFICIAL_ONLY_CAMPING_DESTINATIONS[profile.destinationSlug];
         const hasDestinationGuide = hasCampingDestinationGuide(profile.destinationSlug) && !officialOnlyGuide;
-        const image = campingCardImages[profile.destinationSlug];
         const selectedForCompare = compareIds.includes(anchor);
         const compareLimitReached = compareIds.length >= 3 && !selectedForCompare;
         const alert = CAMPING_OPERATIONAL_ALERTS.find((item) => item.destinationSlug === profile.destinationSlug);
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
-          {image && isParentDestination ? <figure className="border-b border-border bg-muted/30">
-            <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[16/8] w-full object-cover" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
-            <figcaption className="px-4 py-2 text-xs leading-5 text-muted-foreground">Destination view — verify the exact campsite on the official reservation page.</figcaption>
-          </figure> : null}
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted-foreground">
               <span>{regionLabels[profile.region] ?? profile.region}</span><span>·</span><span>{profile.county} County</span><span>·</span><span>Verified {profile.verifiedAt}</span>
             </div>
-            <h3 className="mt-3 font-display text-3xl leading-tight">{profile.name}</h3>
+            <h3 className="mt-2 font-display text-2xl leading-tight">{profile.name}</h3>
             {alert ? <aside className="mt-4 border-l-4 border-primary bg-muted/30 p-4 text-sm leading-6 text-foreground" aria-label={`Official park notice for ${profile.name}`}>
               <strong>{alert.status === "confirmed" ? "Official park advisory" : "Park notice changed — recheck"}</strong>
               <p className="mt-1">{alert.notice}</p>
@@ -441,25 +406,25 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               <a className="underline font-semibold" href={alert.sourceUrl} target="_blank" rel="noopener noreferrer">{alert.sourceUrl.includes("nps.gov") ? "Read current NPS conditions ↗" : "Read current TPWD park alerts ↗"}</a>
             </aside> : null}
             {!isParentDestination ? <p className="mt-2 text-sm font-semibold text-primary">Campground profile</p> : null}
-            {profile.whyCampHere ? <div className="mt-4 border-t border-border pt-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Why choose this campground</p>
-              <p className="mt-2 leading-7 text-foreground">{profile.whyCampHere}</p>
-            </div> : null}
-            <p className="mt-4 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Managed by:</strong> {profile.managingAgency}</p>
+            {profile.whyCampHere ? <p className="mt-3 text-sm leading-6 text-foreground">{profile.whyCampHere}</p> : null}
+            <p className="mt-3 text-xs leading-5 text-muted-foreground">Managed by {profile.managingAgency}</p>
 
-            <div className="mt-5 flex flex-wrap gap-2">
-              {profile.styles.map((item) => <span key={item} className="border border-border px-2.5 py-1 text-xs font-semibold">{styleLabels[item]}</span>)}
+            <div className="mt-3 flex flex-wrap gap-2">
+              {profile.styles.map((item) => <span key={item} className="border border-border bg-muted/30 px-3 py-1 text-xs font-semibold">{styleLabels[item]}</span>)}
             </div>
 
-            <dl className="mt-6 space-y-4 text-sm">
-              <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
+            <details className="group mt-4 border-t border-border pt-3">
+              <summary className="cursor-pointer py-1 text-sm font-semibold text-primary">Facilities, reservations &amp; site rules</summary>
+              <dl className="mt-3 space-y-4 text-sm">
+                        <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
               <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
               {profile.planningDetail ? <div><dt className="font-semibold">Planning detail</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.planningDetail}</dd></div> : null}
               {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
               {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
-            </dl>
+              </dl>
+            </details>
 
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
               <button
                 type="button"
                 aria-pressed={selectedForCompare}
@@ -474,7 +439,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               <a href={reservationDestination(profile).url} target="_blank" rel="noopener noreferrer" className="text-primary underline-offset-4 hover:underline">{reservationDestination(profile).direct ? "Book this campground ↗" : "Park camping / reservation instructions ↗"}</a>
             </div>
 
-            <div className="mt-5 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
+            <div className="mt-4 border-t border-border pt-3 text-xs leading-5 text-muted-foreground">
               Sources: {profile.sources.map((source, index) => <span key={source.url}>{index ? " · " : ""}<a href={source.url} target="_blank" rel="noreferrer" className="underline underline-offset-2">{source.label}</a></span>)}
             </div>
           </div>

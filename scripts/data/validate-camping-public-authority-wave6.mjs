@@ -46,10 +46,12 @@ if (!wave6.includes('const VERIFIED_AT = "2026-09-23";')) failures.push("Wave 6 
 if (!route.includes("CAMPING_DISCOVERY_PROFILES_WAVE6")) failures.push("camping guide loader does not include Wave 6");
 if (!route.includes('import("@/data/camping/profiles-wave6")')) failures.push("camping guide loader does not dynamically import Wave 6");
 
-for (const slug of requiredProfiles.slice(0, 7).map(([slug]) => slug)) {
-  if (!component.includes(`"${slug}": { src: "/images/state-parks/`)) failures.push(`missing governed destination image mapping: ${slug}`);
+// Site-wide scenery and wildlife must not be presented as campsite photos.
+// Preserve the official-site inventory; photography requires separate verified
+// campground-level identity and rights before it can return to this guide.
+if (component.includes("campingCardImages") || component.includes("<img")) {
+  failures.push("Camping finder cannot present unverified park-level photos as exact campsites.");
 }
-if (component.includes('"choke-canyon-state-park": { src:')) failures.push("Choke Canyon must remain text-only until an exact governed image is approved.");
 
 const allowedAmenities = new Set([
   "electric-hookup", "electric-20", "electric-30", "electric-50", "water-hookup", "sewer-hookup",
@@ -77,4 +79,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping public authority Wave 6 validated: eight current TPWD-backed destinations, current-model decision/search projection, canonical destination guides, loader coverage and governed imagery policy are intact.");
+console.log("Camping public authority Wave 6 validated: eight current TPWD-backed destinations, current-model decision/search projection, canonical destination guides, loader coverage and photo-integrity guards are intact.");

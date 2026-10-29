@@ -63,8 +63,15 @@ for (const highDemand of ["garner-state-park", "palo-duro-canyon-state-park", "b
 if (!component.includes('Not verified in this guide')) failures.push("unknown amenity state must remain distinct from No");
 if (!component.includes("Compare up to 3 verified profiles")) failures.push("comparison readability guard missing");
 if (!component.includes("compareIds.length >= 3")) failures.push("comparison must remain capped at three profiles");
-if (!component.includes("Destination view — verify the exact campsite on the official reservation page.")) failures.push("destination-image disclosure missing");
-if (!component.includes("hideFailedImageContainer")) failures.push("failed campground images must collapse instead of leaving empty containers");
+// Campsite-photo integrity: the camping hub must not depict unrelated wildlife,
+// generic park scenery or guessed campground photos as verified site photos.
+// Text-first is deliberately safer until a site-specific licensed photo registry
+// exists. The page must remain compact and allow details on demand.
+if (component.includes("campingCardImages") || component.includes("<img")) failures.push("unverified park image shown as campground photo");
+if (page.includes("item.image") || page.includes("<img")) failures.push("unverified editorial imagery reintroduced on camping hub");
+if (!component.includes("Facilities, reservations &amp; site rules")) failures.push("expandable profile site details missing");
+if (!component.includes("More filters: camping styles, facilities and sorting")) failures.push("compact advanced filters missing");
+if (!page.includes("Search {entries.length} campgrounds")) failures.push("primary campground finder navigation missing");
 if (!page.includes('data-stay-nearby-slot')) failures.push("Stay Nearby affiliate slot missing");
 if (!page.includes('aria-label="Places to stay before or after a Texas camping trip"')) failures.push("Stay Nearby placement context missing");
 if (!page.includes('overflow-x-auto')) failures.push("mobile long-page navigation must remain horizontally scrollable");
@@ -94,4 +101,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping completion audit passed: 72+ profiles retain statewide regional, agency, coast, metro and high-demand coverage; unknown amenities remain unknown; comparison stays readable; image/affiliate/mobile guards remain intact; and visible/schema destination URLs remain canonical-or-anchor guarded.");
+console.log("Camping completion audit passed: 72+ profiles retain statewide regional, agency, coast, metro and high-demand coverage; unknown amenities remain unknown; comparison stays readable; campground-photo-integrity, compact details, affiliate and mobile guards remain intact; and visible/schema destination URLs remain canonical-or-anchor guarded.");
