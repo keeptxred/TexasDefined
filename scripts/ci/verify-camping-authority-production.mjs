@@ -29,7 +29,7 @@ function verify(html, { synthetic = false } = {}) {
   for (const expected of mustHave) if (!text.includes(expected)) errors.push("missing: " + expected);
   const profileCount = /(?:Showing\s+)?(\d+) of (\d+) verified profiles/i.exec(text);
   const count = profileCount ? Number(profileCount[2]) : 0;
-  if (!profileCount || Number(profileCount[1]) !== count || count < 66) errors.push("campground profile count less than verified baseline 66");
+  if (!profileCount || Number(profileCount[1]) !== count || count < 72) errors.push("campground profile count less than verified baseline 72");
   for (const alert of expectedAlerts) {
     if (!text.includes(alert.parkName)) errors.push("missing monitored park: " + alert.parkName);
     if (!text.includes(alert.notice.slice(0, 48))) errors.push("live notice differs from committed source snapshot: " + alert.parkName);
@@ -62,7 +62,7 @@ if (process.argv.includes("--self-test")) {
     '<h1>Best Places to Go Camping in Texas</h1>',
     '<h2>Best camping destinations by trip type</h2>',
     '<h2>Recent official park advisories</h2>',
-    '<div>Campground finder Showing 66 of 66 verified profiles.</div>',
+    '<div>Campground finder Showing 72 of 72 verified profiles.</div>',
     '<div>Park camping / reservation instructions Notice verified</div>',
     ...expectedAlerts.map(alert => '<div>' + alert.parkName + ' ' + alert.notice + '</div><a href="' + alert.sourceUrl + '">Official park alerts</a>'),
     ...[
@@ -72,11 +72,11 @@ if (process.argv.includes("--self-test")) {
       "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites",
     ].map(href => '<a href="' + href + '">Source</a>'),
   ].join("");
-  assert.deepEqual(verify(fixtures, { synthetic: true }), { campgrounds: 66, advisories: 5, specificBookingLinks: 4 });
+  assert.deepEqual(verify(fixtures, { synthetic: true }), { campgrounds: 72, advisories: 5, specificBookingLinks: 4 });
   assert.throws(() => verify(fixtures.replace("Recent official park advisories", "Old alerts"), { synthetic: true }), /missing/);
   assert.throws(() => verify(fixtures.replace('<link rel="canonical"', '<link rel="alternate"'), { synthetic: true }), /canonical/);
   assert.throws(() => verify(fixtures.replace(expectedAlerts[0].notice, "Outdated park information"), { synthetic: true }), /live notice differs/);
-  assert.throws(() => verify(fixtures.replace("Showing 66 of 66 verified profiles", "Showing 12 of 12 verified profiles"), { synthetic: true }), /count less/);
+  assert.throws(() => verify(fixtures.replace("Showing 72 of 72 verified profiles", "Showing 12 of 12 verified profiles"), { synthetic: true }), /count less/);
   console.log("Camping production verifier self-test passed.");
   process.exit(0);
 }
