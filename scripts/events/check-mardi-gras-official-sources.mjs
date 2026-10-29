@@ -12,6 +12,19 @@ export const OFFICIAL_SOURCES = [
     required: [/February 7,\s*2027/i, /1(?::00)?\s*p\.?m\.?.{0,70}(?:Oak Cliff )?Mardi Gras Parade/i],
   },
   {
+    id: "port-arthur-gate-hours",
+    label: "Ben J. Rogers Regional Visitors Center — Port Arthur 2027 gate hours",
+    url: "https://explorejeffersoncountytx.com/e/mardi-gras-port-arthur-2027-6aa92e29f4f53a064b18d211/",
+    mode: "confirmed",
+    // These are published *festival gate windows*, never independent parade start times.
+    required: [
+      /Mardi Gras Port Arthur 2027/i,
+      /Friday\s+February\s+5th\s*[-–]\s*6\s*p\.?m\.?\s+to\s+11:30\s*p\.?m\.?/i,
+      /Saturday\s+February\s+6th\s*[-–]\s*Noon\s*[-–]\s*11:30\s*p\.?m\.?/i,
+      /Sunday\s+February\s+7th\s*[-–]\s*Noon\s*[-–]\s*7(?::00)?\s*p\.?m\.?/i,
+    ],
+  },
+  {
     id: "orange-sabine",
     label: "City of Orange — Mardi Gras on the Sabine",
     url: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine",
