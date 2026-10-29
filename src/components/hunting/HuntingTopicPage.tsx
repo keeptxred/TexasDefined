@@ -4,7 +4,6 @@ import { HuntingAuthorityTopicPage } from "./HuntingAuthority";
 import { HuntingTopicSchema } from "./HuntingSchema";
 import { HuntingRegulationArchiveNotice } from "./HuntingRegulationArchiveNotice";
 import YouthHuntingPage from "./YouthHuntingPage";
-import { KingsCamoGearOffers } from "./KingsCamoGearOffers";
 
 function HuntingPublicLandDiscovery() {
   return <section className="border-y border-border bg-surface py-12 md:py-16" aria-labelledby="hunting-public-land-heading">
@@ -24,7 +23,7 @@ function HuntingPublicLandDiscovery() {
 }
 
 export default function HuntingTopicPage({ topic }: { topic: HuntingAuthorityTopic }) {
-  if (topic.slug === "youth-hunting") return <><HuntingTopicSchema topic={topic} /><HuntingRegulationArchiveNotice /><YouthHuntingPage topic={topic} /><KingsCamoGearOffers context="topic" pathname="/hunting/youth-hunting" topicSlug="youth-hunting" /></>;
+  if (topic.slug === "youth-hunting") return <><HuntingTopicSchema topic={topic} /><HuntingRegulationArchiveNotice /><YouthHuntingPage topic={topic} /></>;
   const showPublicLandDiscovery = topic.slug === "public-hunting" || topic.slug === "annual-public-hunting-permit" || topic.slug === "drawn-hunts";
   return <><HuntingTopicSchema topic={topic} /><HuntingRegulationArchiveNotice /><HuntingAuthorityTopicPage topic={topic} />{showPublicLandDiscovery ? <HuntingPublicLandDiscovery /> : null}</>;
 }
