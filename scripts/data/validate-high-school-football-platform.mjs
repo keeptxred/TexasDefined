@@ -3205,6 +3205,27 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     errors.push('Fifth-cohort distinct school/coach and predecessor evidence absent');
 }
 
+
+// Finalized GSC 2026-09-29–10-26: generic "UIL 6A football districts"
+// searched the individual District 6-6A page instead of the state directory.
+// Preserve local district pages but make the full 6A list clearly discoverable.
+const sixADirectorySeo = read(footballDistrictIndexRoutePath);
+const sixADirectoryBody = read(footballDistrictIndexPagePath);
+const districtDetailBody = read(footballDistrictPagePath);
+for (const marker of [
+  'including every Texas 6A district plus 5A–1A six-man',
+]) requireText(sixADirectorySeo, marker, 'Complete UIL 6A search intent owner');
+for (const marker of [
+  'uil-6a-districts',
+  'The complete 2026–28 UIL 6A football district list is below',
+  'This is the statewide 6A directory',
+]) requireText(sixADirectoryBody, marker, '6A directory section intent and anchor');
+for (const marker of [
+  'district.classification === "6A"',
+  '/texas-high-school-football-districts#uil-6a-districts',
+  'All UIL 6A football districts',
+]) requireText(districtDetailBody, marker, 'Specific 6A district-to-statewide-list contextual navigation');
+
 if (errors.length) {
   console.error('High-school football platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);

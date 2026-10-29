@@ -61,7 +61,7 @@ function Page() {
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
         <Link to="/">Front page</Link><span className="mx-2">/</span>
         <Link to="/sports">Texas Sports</Link><span className="mx-2">/</span>
-        <a href="/texas-high-school-football-districts">Football districts</a><span className="mx-2">/</span>
+        <a href={district.classification === "6A" ? "/texas-high-school-football-districts#uil-6a-districts" : "/texas-high-school-football-districts"}>{district.classification === "6A" ? "All UIL 6A football districts" : "Football districts"}</a><span className="mx-2">/</span>
         <span aria-current="page">{shortLabel}</span>
       </nav>
 

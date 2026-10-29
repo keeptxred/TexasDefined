@@ -12,7 +12,7 @@ export const Route = createFileRoute(canonicalPath)({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: 'Texas High School Football Districts: 2026–28 UIL Directory',
-      description: 'Browse all 192 current UIL football districts for 2026–28, from 6A through 1A six-man, with direct links to every TexasDefined school football profile.',
+      description: 'Browse all 192 current UIL football districts for 2026–28, including every Texas 6A district plus 5A–1A six-man, with official alignments and school guides.',
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
