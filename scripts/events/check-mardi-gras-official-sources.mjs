@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Focused observer for TexasDefined's existing Mardi Gras guide sources.
 // This does NOT silently move occurrence dates, lift noindex, or infer permission.
-import { appendFile } from "node:fs/promises";
+import { appendFile, writeFile } from "node:fs/promises";
 
 export const OFFICIAL_SOURCES = [
   {
@@ -79,11 +79,50 @@ export function evaluateSource(source, html) {
   if (text.length < 200) return { ok: false, reason: "too-short-or-challenge", excerpt: text.slice(0, 300) };
   if (source.mode === "confirmed") {
     const failures = source.required.filter((r) => !r.test(text));
-    return { ok: failures.length === 0, reason: failures.length ? "confirmed-date-or-schedule-discrepancy" : "confirmed-source-still-matches", excerpt: text.slice(0, 600) };
+    return {
+      ok: failures.length === 0,
+      reason: failures.length ? "confirmed-date-or-schedule-discrepancy" : "confirmed-source-still-matches",
+      observedValues: source.required.map((pattern) => text.match(pattern)?.[0]?.slice(0, 180)).filter(Boolean),
+      excerpt: text.slice(0, 600),
+    };
   }
-  if (source.announcement?.test(text)) return { ok: false, reason: "possible-new-2027-announcement-requires-editorial-verification", excerpt: text.match(source.announcement)?.[0] ?? "" };
+  if (source.announcement?.test(text)) return {
+    ok: false,
+    reason: "possible-new-2027-announcement-requires-editorial-verification",
+    observedValues: [text.match(source.announcement)?.[0] ?? ""].filter(Boolean),
+    excerpt: text.match(source.announcement)?.[0] ?? "",
+  };
   const pending = source.pending.test(text);
-  return { ok: pending, reason: pending ? "2027-not-announced-on-official-source" : "pending-status-changed-or-source-redesigned", excerpt: text.slice(0, 600) };
+  return {
+    ok: pending,
+    reason: pending ? "2027-not-announced-on-official-source" : "pending-status-changed-or-source-redesigned",
+    observedValues: [text.match(source.pending)?.[0] ?? ""].filter(Boolean),
+    excerpt: text.slice(0, 600),
+  };
+}
+
+// A compact, append-only-per-run Actions artifact is a durable source evidence trail
+// without changing published events, creating a second cron, or storing scraped HTML.
+export function buildSourceLedger(sources, checks, checkedAt) {
+  return {
+    checkedAt,
+    schemaVersion: 1,
+    policy: "source-observation-only-no-automatic-date-or-rights-promotion",
+    observations: checks.map((check) => {
+      const source = sources.find((candidate) => candidate.id === check.id);
+      return {
+        id: check.id,
+        eventLabel: source?.label ?? check.id,
+        sourceUrl: check.url,
+        mode: source?.mode ?? "unknown",
+        state: check.ok ? "expected-source-state" : "review-required",
+        reason: check.reason,
+        observedValues: (check.observedValues ?? []).slice(0, 5).map((value) => String(value).slice(0, 180)),
+        checkedAt,
+        lastSuccessfulCheckInThisRun: check.ok ? checkedAt : null,
+      };
+    }),
+  };
 }
 
 async function fetchOfficial(source) {
@@ -162,6 +201,11 @@ async function main() {
   ].join("\n");
   console.log(summary);
   if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, summary + "\n");
+  if (process.env.MARDI_GRAS_SOURCE_LEDGER_PATH) {
+    const ledger = buildSourceLedger(OFFICIAL_SOURCES, checks, checked);
+    await writeFile(process.env.MARDI_GRAS_SOURCE_LEDGER_PATH, JSON.stringify(ledger, null, 2) + "\n");
+    console.log("Recorded bounded structured Mardi Gras official-source observation ledger.");
+  }
   if (checks.some((c) => !c.ok)) console.log("::warning title=Mardi Gras sources require review::An official source has changed or is unreachable; see source review issue and step summary.");
 }
 
