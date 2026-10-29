@@ -2667,6 +2667,10 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
   if (!workflow.includes("SCHEDULED_ACCEPTANCE: ${{ github.event_name == 'schedule' }}") ||
       !workflow.includes('scripts/data/validate-high-school-football-platform[.]mjs') ||
       !workflow.includes('scripts/ci/prepare-football-b010-certification[.]mjs') ||
+      !workflow.includes('node scripts/ci/pin-football-b010-production-release.mjs') ||
+      !workflow.includes("ref: ${{ steps.release.outputs.sha }}") ||
+      !workflow.includes("GITHUB_SHA: ${{ steps.release.outputs.sha }}") ||
+      !workflow.includes("steps.release.outputs.ready == 'true'") ||
       !workflow.includes('if: steps.scope.outputs.run == \'true\''))
     errors.push(`Batch010 ${cohort} must retain pending-school scope on scheduled Chrome verification`);
 }
