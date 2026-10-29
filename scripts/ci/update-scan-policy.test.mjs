@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { baselineFromLedger, buildChangePlan, REPRESENTATIVE_PATHS, PAGE_BUDGET } from './production-change-scope.mjs';
-import { verifyChangedPages, assertKatyFootballContents, assertLoneStarFootballContents, assertPortArthurFestivalGateFacts, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
+import { verifyChangedPages, assertKatyFootballContents, assertLoneStarFootballContents, assertPortArthurFestivalGateFacts, assertCompleted2026EventFacts, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
 import { createProductionPageFetch } from './reuse-production-page.mjs';
 const policy = JSON.parse(readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
 const text = file => readFileSync(file, 'utf8');
@@ -988,4 +988,25 @@ test('Fredericksburg sitemap ownership validates a single canonical page and liv
       ? new Response('<urlset><loc>https://texasdefined.com/destination/fredericksburg</loc></urlset>')
       : new Response(detail) });
   assert.ok(missingMagoffin.some(r => r.path === '/sitemap-explore.xml' && !r.passed && /Magoffin Home missing/.test(r.error)));
+});
+
+test('three concluded 2026 events are checked on normal and release URLs, without broad event crawling', () => {
+  const cases = [
+    ['/event/state-fair-classic',
+      ['The September 26, 2026 State Fair Classic is complete.', '2026 State Fair Classic: final score and date', 'Grambling State 14'],
+      'The 2026 State Fair Classic is scheduled for Saturday'],
+    ['/event/floresville-peanut-festival',
+      ['The 2026 Floresville Peanut Festival concluded October 10.', 'The completed 2026 festival ran on four days', '2026 Grand Parade was October 10'],
+      'Use Saturday for the Grand Parade and full downtown day'],
+    ['/event/east-texas-state-fair',
+      ['The East Texas State Fair 2026 edition concluded October 4 in Tyler.', '2026 East Texas State Fair: completed', 'Historical 2026 grounds and arena ticket rules'],
+      'Use September 25-October 4 as the confirmed 2026 fair run'],
+  ];
+  for (const [path, required, forbidden] of cases) {
+    const good = required.join(' | ');
+    assert.doesNotThrow(() => assertCompleted2026EventFacts(path, good, 'release'), path);
+    assert.throws(() => assertCompleted2026EventFacts(path, good + ' ' + forbidden, 'visitor'), /still advertises past edition as upcoming/, path);
+    assert.throws(() => assertCompleted2026EventFacts(path, '', 'visitor'), /missing verified historical content/, path);
+  }
+  assert.doesNotThrow(() => assertCompleted2026EventFacts('/event/unrelated', '', 'release'));
 });

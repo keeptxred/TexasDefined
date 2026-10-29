@@ -302,6 +302,35 @@ export function assertPortArthurFestivalGateFacts(html, surface) {
   }
 }
 
+// Exact historical-content acceptance is intentionally bounded to reviewed
+// event pages selected by the existing change-scoped deploy plan. Check both
+// the cache-busted release and normal visitor URL, never the whole event site.
+export function assertCompleted2026EventFacts(path, body, surface = 'release') {
+  const contracts = {
+    '/event/state-fair-classic': {
+      required: ['The September 26, 2026 State Fair Classic is complete.', '2026 State Fair Classic: final score and date', 'Grambling State 14'],
+      forbidden: ['The 2026 State Fair Classic is scheduled for Saturday', 'Kickoff is 6 p.m. in 2026'],
+    },
+    '/event/floresville-peanut-festival': {
+      required: ['The 2026 Floresville Peanut Festival concluded October 10.', 'The completed 2026 festival ran on four days', '2026 Grand Parade was October 10'],
+      forbidden: ['Use Saturday for the Grand Parade and full downtown day'],
+    },
+    '/event/east-texas-state-fair': {
+      required: ['The East Texas State Fair 2026 edition concluded October 4 in Tyler.', '2026 East Texas State Fair: completed', 'Historical 2026 grounds and arena ticket rules'],
+      forbidden: ['Use September 25-October 4 as the confirmed 2026 fair run'],
+    },
+  };
+  const contract = contracts[path];
+  if (!contract) return;
+  const normalized = body.replace(/&amp;|&#38;|&#x26;/gi, '&');
+  for (const marker of contract.required) if (!normalized.includes(marker)) {
+    throw new Error('Expired event ' + path + ' ' + surface + ' missing verified historical content: ' + marker);
+  }
+  for (const marker of contract.forbidden) if (normalized.includes(marker)) {
+    throw new Error('Expired event ' + path + ' ' + surface + ' still advertises past edition as upcoming: ' + marker);
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
@@ -513,6 +542,8 @@ for (const path of plan.selectedPaths) {
           || !visitorHtml.includes('href="' + canonical.href + '"')) {
           throw new Error('Event guide ordinary visitor URL lacks canonical SSR authority content');
         }
+        assertCompleted2026EventFacts(path, html, 'cache-busted release');
+        assertCompleted2026EventFacts(path, visitorHtml, 'ordinary visitor URL');
         if (path === '/event/oak-cliff-mardi-gras-parade') {
           // The historical 2016 Davis Street photo must stay accurately credited,
           // while the event itself must display the independent 2027 partner date.
