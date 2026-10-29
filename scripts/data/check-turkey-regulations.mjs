@@ -45,7 +45,7 @@ const pages = [
 ];
 
 const source = fs.readFileSync("src/data/hunting/turkey-guide.ts", "utf8");
-const reviewed = source.match(/TURKEY_GUIDE_LAST_VERIFIED = "(20\\d{2}-\\d{2}-\\d{2})"/);
+const reviewed = source.match(/TURKEY_GUIDE_LAST_VERIFIED = "(20\d{2}-\d{2}-\d{2})"/);
 if (!reviewed || !source.includes("Matagorda and Wharton")) {
   console.error("Local turkey guide provenance or county closure missing; editorial review required.");
   process.exit(2);
