@@ -2294,7 +2294,7 @@ if(batch009Certified) {
   if(r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==batch009ExpectedTotalVerified ||
      r.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===9).length!==0 ||
      r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==(1087-(r.batch.number===10?r.batch.implementedOnBranch:0)) ||
-     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==9).length!==180 ||
+     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==9).length!==(batch010Certified?205:180) ||
      r.counts.total!==1292) errors.push('Batch009 technical certification must preserve all historical verified and unreviewed schools.');
 }
 
@@ -2446,7 +2446,7 @@ if(batch009Certified) {
   const loader=read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
   const county=read(files[10]);
   const third=['cedar-hill','cedar-park','cedar-park-vista-ridge','celeste','celina'];
-  if(registry.schoolRecords.filter(s=>s.status==='VERIFIED' && s.batch!==9).length!==180) errors.push('Do not demote 180 independently VERIFIED historic schools.');
+  if(registry.schoolRecords.filter(s=>s.status==='VERIFIED' && s.batch!==9).length!==(batch010Certified?205:180)) errors.push('Do not demote the independently VERIFIED 180 older schools or the 25 validly certified Batch010 schools.');
   for(const slug of third) {
     const school=registry.schoolRecords.find(s=>s.slug===slug);
     if(!school||school.status!==batch009ExpectedStatus||school.actualProductionVerified!==batch009ExpectedProduction)errors.push('Batch 009 third cohort unverified status missing: '+slug);
