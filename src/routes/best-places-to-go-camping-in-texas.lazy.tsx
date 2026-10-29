@@ -61,16 +61,16 @@ function CampingGuidePage() {
   const { entries } = Route.useLoaderData();
   return <main>
     <section className="border-b border-border bg-muted/30">
-      <Container className="py-10 md:py-14">
+      <Container className="py-10 md:py-16">
         <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.13em] text-muted-foreground"><Link to="/">Home</Link> · <Link to="/explore">Explore</Link> · Camping</nav>
         <p className="eyebrow mt-8 text-primary">Texas camping guide</p>
-        <h1 className="mt-3 max-w-5xl font-display text-4xl leading-tight sm:text-5xl md:text-6xl">Best Places to Go Camping in Texas</h1>
+        <h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight md:text-5xl">Best Places to Go Camping in Texas</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Find the right Texas campsite for your trip, whether you want an RV hookup, a river weekend, a Gulf beach or a primitive backcountry escape. Compare source-checked public campgrounds and follow the official links to confirm site-level details.</p>
         <div className="mt-7 flex flex-wrap gap-3">
-          <a href="#campground-finder" className="inline-flex items-center justify-center border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Search {entries.length} campgrounds ↓</a>
-          <a href="#camping-trip-types" className="inline-flex items-center justify-center border border-border bg-background px-5 py-3 text-sm font-semibold">See six trip ideas</a>
+          <a href="#campground-finder" className="inline-flex items-center border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Search {entries.length} campgrounds ↓</a>
+          <a href="#camping-trip-types" className="inline-flex items-center border border-border bg-background px-5 py-3 text-sm font-semibold">See six trip ideas</a>
         </div>
-        <div className="mt-8 grid max-w-4xl gap-3 border-t border-border pt-5 text-sm sm:grid-cols-3">
+        <div className="mt-8 grid max-w-4xl gap-3 border-t border-border pt-5 text-sm lg:grid-cols-3">
           <p><strong className="block text-xl font-semibold text-foreground">{entries.length}</strong><span className="text-muted-foreground">researched campground profiles</span></p>
           <p><strong className="block text-xl font-semibold text-foreground">7</strong><span className="text-muted-foreground">Texas camping regions</span></p>
           <p><strong className="block text-xl font-semibold text-foreground">Official sources</strong><span className="text-muted-foreground">for campsite rules and booking</span></p>
@@ -91,7 +91,7 @@ function CampingGuidePage() {
       </Container>
     </nav>
 
-    <section id="camping-trip-types" className="scroll-mt-24 py-10 md:py-12">
+    <section id="camping-trip-types" className="scroll-mt-24 py-10 md:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Choose your kind of camping</p>
@@ -99,11 +99,11 @@ function CampingGuidePage() {
           <p className="mt-3 leading-7 text-muted-foreground">These six starting points suit different kinds of trips. They link to destination guides; use the campground finder below for specific verified camping facilities and booking sources.</p>
         </div>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {standoutCamping.map((item) => <Link key={item.slug} to={item.to} className="group flex h-full flex-col border border-border bg-background p-5 transition-colors hover:border-primary/50 hover:bg-muted/20">
+          {standoutCamping.map((item) => <Link key={item.slug} to={item.to} className="group flex flex-col border border-border bg-background p-5 transition-colors hover:border-primary/50 hover:bg-muted/30">
             <p className="eyebrow text-primary">{item.eyebrow}</p>
-            <h3 className="mt-2 font-display text-xl leading-snug">{item.label}</h3>
-            <p className="mt-2 flex-1 text-sm leading-6 text-muted-foreground">{item.body}</p>
-            <span className="mt-4 text-sm font-semibold text-primary group-hover:underline">Explore destination →</span>
+            <h3 className="mt-2 font-display text-xl leading-tight">{item.label}</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.body}</p>
+            <span className="mt-4 text-sm font-semibold text-primary hover:underline">Explore destination →</span>
           </Link>)}
         </div>
       </Container>
@@ -186,7 +186,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    {riverCampingGuides.length > 0 ? <nav aria-label="Related rivers for camping trips" className="border-y border-border py-6">
+    {riverCampingGuides.length > 0 ? <nav aria-label="Related rivers for camping trips" className="border-y border-border py-4">
       <Container>
         <h2 className="font-display text-2xl">Camping near a Texas river?</h2>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">River access rules and paddling routes are separate from campground reservations.</p>
