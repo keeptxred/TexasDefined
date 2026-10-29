@@ -99,25 +99,25 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Blanco County",
     region: "hill-country",
     category: "seasonal",
-    startDate: "2026-11-28",
-    endDate: "2027-01-04",
-    dateNote: "The current Johnson City holiday page publishes a November 28-January 4 season. Texas Defined treats that as the 2026-27 run because the same current schedule lists 2026 holiday happenings beginning November 29 and continuing through December 31.",
+    startDate: "2026-11-27",
+    endDate: "2027-01-03",
+    dateNote: "The Lights Spectacular organizer confirms November 27, 2026–January 3, 2027, with free nightly displays. Individual rides, Santa appearances and special programs have separate schedules.",
     venue: "Downtown Johnson City",
-    officialUrl: "https://explorejctx.com/christmas-lights-spectacular/",
-    sourceCheckedAt: "2026-09-19",
+    officialUrl: "https://lightsspectacular.com/faqs",
+    sourceCheckedAt: "2026-10-29",
     whyItMatters: "Christmas Lights Spectacular transforms Johnson City's compact downtown into a multi-week Hill Country holiday destination, combining nightly light displays with Santa visits, live entertainment, markets, hay rides, movies, church programs, Science Mill activities and year-end events.",
     planningSections: [
       {
         title: "The lights are the nightly constant",
-        body: "Explore Johnson City says the displays turn on around dusk, typically about 5:45 p.m., and remain lit until midnight during the published November 28-January 4 run. Weekend programming changes by date, so separate the nightly lights from the special-event schedule.",
+        body: "The organizer confirms November 27, 2026–January 3, 2027. Courthouse and PEC lights are the nightly attraction, while rides, Santa visits and special events operate on selected dates. Confirm opening hours directly with the organizer.",
       },
       {
         title: "Opening weekend has the biggest kickoff programming",
-        body: "The current schedule lists the November 29 kickoff with Santa, a parade and fireworks. Holiday markets, food and drink vendors, live entertainment and tractor-drawn rides add activity around the downtown light displays.",
+        body: "Opening festivities are listed for November 27–28, 2026. Use the official events calendar for any parade, fireworks, Santa appearances or market dates instead of relying on a past edition.",
       },
       {
         title: "Choose a weekend by the special happenings",
-        body: "Published highlights include LBJ Boyhood Home lamplight tours from November 29 through December 21, community choir performances December 5-6, a Living Nativity December 5-13, the Lights Spectacular Chili Cookoff December 13, Science Mill Elf Spaghetti STEM activities December 13-14, a Grinch event and Jingle Jaunt 5K December 20, Home Alone and snow-flurry fun December 27, and a holiday soiree December 31.",
+        body: "The official event calendar lists separate schedules for hayrides, carriage rides, Santa visits and local celebrations. Book special activities only against the current listing; the light-display season dates do not guarantee those attractions operate nightly.",
       },
       {
         title: "An overnight stay changes the experience",
@@ -132,7 +132,8 @@ const records: MajorEventAuthorityRecord[] = [
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas holiday and seasonal events." },
     ],
     sources: [
-      { label: "Explore Johnson City — Christmas Lights Spectacular", url: "https://explorejctx.com/christmas-lights-spectacular/" },
+      { label: "Lights Spectacular organizer — 2026 season FAQs", url: "https://lightsspectacular.com/faqs" },
+      { label: "Lights Spectacular organizer — event calendar", url: "https://lightsspectacular.com/events-calendar" },
       { label: "Explore Johnson City — signature events", url: "https://explorejctx.com/" },
     ],
   },
