@@ -23,8 +23,8 @@ const BATCH011_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-29"
     },
     "campus": {
-      "address": "1500 Lone Wolf Blvd, Colorado City, TX 79512 — campus mailing/address reference, not a verified stadium visitor entrance",
-      "sourceUrl": "https://www.ccity.esc14.net/staff?page_no=2",
+      "address": "1500 N Lone Wolf Blvd, Colorado City, TX 79512 — campus mailing/address reference, not a verified stadium visitor entrance",
+      "sourceUrl": "https://nces.ed.gov/ccd/schooLSearch/school_detail.asp?ID=481464000951&SchoolPageNum=111&state=48",
       "sourceLabel": "First-party school or Texas education agency campus address, not a verified game-night entrance",
       "verifiedAt": "2026-10-29"
     },
