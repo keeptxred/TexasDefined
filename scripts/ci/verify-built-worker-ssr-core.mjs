@@ -42,6 +42,14 @@ const smokeTargets = [
   { path: '/texas-high-school-football-teams/gunter', requiredText: 'https://texasdefined.com/texas-high-school-football-teams/gunter', label: 'Independent generic UIL team SSR has correct canonical' },
   { path: '/texas-high-school-football-teams/buckholts', requiredText: 'Buckholts Badgers Football', label: 'Batch 008 researched six-man team SSR loads its published individual model' },
 
+  // One bounded local SSR request verifies this school-specific dynamic editorial
+  // import, links and 2026 schedule; grouping prevents five separate cold loads.
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: 'Frisco Lone Star Rangers football represents Lone Star High School', label: 'Frisco Lone Star source-backed SSR imports its dedicated program editorial' },
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: 'Official 2026 schedule', label: 'Lone Star 2026 official schedule section replaces generic live-scores heading' },
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: '2026-Fball-Schedule-8-21.pdf', label: 'Lone Star includes Frisco ISD varsity football schedule PDF' },
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: 'https://www.friscoisd.org/o/lshs', label: 'Lone Star school identity points to current official Frisco ISD campus' },
+  { path: '/texas-high-school-football-teams/frisco-lone-star', requiredText: 'Jeff Rayburn', label: 'Lone Star coach is included in dated school-specific football facts' },
+
   { path: '/events/mardi-gras', requiredText: 'Mardi Gras in Texas', label: 'Statewide Mardi Gras authority hub SSR renders' },
   { path: '/events/mardi-gras', requiredText: '/event/kemah-yachty-gras', label: 'Mardi Gras hub links to verified Kemah parade guide' },
   { path: '/events/mardi-gras', requiredText: 'Chicken Run &amp; Gumbo Cook-off', label: 'Mardi Gras hub differentiates January Crystal Beach fundraiser from February parade' },
