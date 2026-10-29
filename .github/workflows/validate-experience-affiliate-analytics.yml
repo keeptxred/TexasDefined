@@ -28,6 +28,9 @@ on:
       - 'src/data/event-collection-page.server.ts'
       - 'public/robots.txt'
       - 'scripts/data/validate-unified-discovery-governance.mjs'
+      - 'scripts/data/validate-viator-new-destination-approvals.mjs'
+      - 'ops/editorial/viator-new-destination-approval-ledger.json'
+      - 'src/data/viator-destination-expansion-*.ts'
       - 'scripts/data/weekly-viator-attraction-discovery.mjs'
       - '.github/workflows/weekly-viator-attraction-discovery.yml'
       - 'src/lib/__tests__/viator-market-feed.test.ts'
@@ -63,6 +66,9 @@ on:
       - 'src/data/event-collection-page.server.ts'
       - 'public/robots.txt'
       - 'scripts/data/validate-unified-discovery-governance.mjs'
+      - 'scripts/data/validate-viator-new-destination-approvals.mjs'
+      - 'ops/editorial/viator-new-destination-approval-ledger.json'
+      - 'src/data/viator-destination-expansion-*.ts'
       - 'scripts/data/weekly-viator-attraction-discovery.mjs'
       - '.github/workflows/weekly-viator-attraction-discovery.yml'
       - 'src/lib/__tests__/viator-market-feed.test.ts'
@@ -88,4 +94,5 @@ jobs:
           node scripts/data/validate-experience-affiliate-analytics.mjs
           node --experimental-strip-types --test src/lib/__tests__/viator-market-feed.test.ts
           node scripts/data/validate-unified-discovery-governance.mjs
+          node scripts/data/validate-viator-new-destination-approvals.mjs --self-test
           node --experimental-strip-types --test src/data/discovery/__tests__/entity-registry.test.ts src/data/discovery/__tests__/canonical-links.test.ts src/data/discovery/__tests__/attraction-triage.test.ts src/lib/__tests__/viator-attraction-discovery.test.ts
