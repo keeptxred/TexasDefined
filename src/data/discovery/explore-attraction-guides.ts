@@ -15,7 +15,7 @@ const MARKET_TOP_ATTRACTIONS: Readonly<Record<string, readonly string[]>> = {
   "amarillo-palo-duro":["cadillac-ranch","palo-duro-canyon-state-park"],
   "big-bend-terlingua":["big-bend-national-park"],
 };
-const guideBySlug = new Map(TOP_TEXAS_ATTRACTIONS.map(({slug,name})=>[slug,{name,href:`/destination/${slug}`}] as const));
+const guideBySlug = new Map<string,{name:string;href:string}>(TOP_TEXAS_ATTRACTIONS.map(({slug,name})=>[slug,{name,href:`/destination/${slug}`}]));
 
 export function reviewedAttractionGuidesForMarket(market:string) {
   return (MARKET_TOP_ATTRACTIONS[market] ?? []).map((slug)=>guideBySlug.get(slug)).filter((item):item is {name:string;href:string}=>Boolean(item));
