@@ -154,3 +154,61 @@ test('District 16 production verifies actual standings, fixtures, mobile and des
  assert.ok(district16Component.includes('data-district16-result="final"'));
  assert.ok(district16Component.includes('data-district16-result="scheduled"'));
 });
+
+const district11 = readFileSync(new URL('../../src/data/high-school-football/football-district11-2026.ts', import.meta.url), 'utf8');
+
+test('2026 District 11 has complete, distinct and traceable seven-school round robin fixtures', () => {
+  const finals = [...district11.matchAll(/reportedFinal\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)", (\d+), (\d+)\)/g)]
+    .map((m) => ({ date: m[1], away: m[2], home: m[3], awayScore: +m[4], homeScore: +m[5] }));
+  const future = [...district11.matchAll(/upcoming\('(2026-\d{2}-\d{2})', "([^"]+)", "([^"]+)"\)/g)]
+    .map((m) => ({ date: m[1], away: m[2], home: m[3] }));
+  assert.equal(finals.length, 15, '15 reported finals through October 23');
+  assert.equal(future.length, 6, 'six published remaining fixtures');
+  const schools = ['Bay City', 'El Campo', 'Navasota', 'Needville', 'Royal', 'Sealy', 'West Columbia Columbia'];
+  const seen = new Set();
+  for (const game of [...finals, ...future]) {
+    assert.ok(Number.isFinite(Date.parse(game.date + 'T00:00:00Z')), game.date);
+    assert.ok(schools.includes(game.away) && schools.includes(game.home), 'both schools must belong to the UIL roster');
+    assert.notEqual(game.away, game.home);
+    const key = [game.away, game.home].sort().join('|');
+    assert.ok(!seen.has(key), 'duplicated district pairing ' + key);
+    seen.add(key);
+  }
+  assert.equal(seen.size, 21, '7 schools must meet all six district opponents exactly once');
+  for (const school of schools) {
+    assert.equal([...finals, ...future].filter((g) => g.away === school || g.home === school).length, 6, school);
+    assert.ok(district11.includes('"' + school + '": "https://www.maxpreps.com/'), 'named score source for ' + school);
+  }
+  assert.ok(district11.includes("DISTRICT_11_VERIFIED_AT = '2026-10-29'"));
+  assert.ok(district11.includes('www.uiltexas.org/football/playoff-brackets/4AD1'));
+});
+
+test('District 11 score-derived records do not invent official standings', () => {
+  const finals = [...district11.matchAll(/reportedFinal\('2026-\d{2}-\d{2}', "([^"]+)", "([^"]+)", (\d+), (\d+)\)/g)];
+  const records = new Map();
+  for (const m of finals) {
+    const [, away, home, awayRaw, homeRaw] = m;
+    const awayScore = Number(awayRaw), homeScore = Number(homeRaw);
+    assert.ok(Number.isInteger(awayScore) && awayScore >= 0);
+    assert.ok(Number.isInteger(homeScore) && homeScore >= 0);
+    if (!records.has(away)) records.set(away, [0, 0]);
+    if (!records.has(home)) records.set(home, [0, 0]);
+    assert.notEqual(awayScore, homeScore, 'no unexplained tied final score');
+    if (awayScore > homeScore) { records.get(away)[0]++; records.get(home)[1]++; }
+    else { records.get(home)[0]++; records.get(away)[1]++; }
+  }
+  assert.deepEqual(Object.fromEntries([...records.entries()].sort(([a], [b]) => a.localeCompare(b))), {
+    'Bay City': [5, 0], 'El Campo': [3, 1], 'Navasota': [2, 2],
+    'Needville': [1, 3], 'Royal': [0, 4], 'Sealy': [4, 1],
+    'West Columbia Columbia': [0, 4],
+  });
+  assert.ok(source.includes("slug === '4a-division-i-district-11'"));
+  assert.ok(source.includes('DISTRICT_11_2026_GAMES'));
+  assert.ok(template.includes("const district11Pilot = district.slug === '4a-division-i-district-11'"));
+  assert.ok(template.includes('data-football-district-section="district-11-context"'));
+  assert.ok(template.includes('data-football-district-section="district-11-game-day"'));
+  assert.ok(template.includes('District 11 playoff path:'));
+  assert.ok(template.includes('DISTRICT_11_PLAYOFF_SOURCE'));
+  assert.ok(head.includes('District 11-4A Division I Football: 2026 Scores & Schedule'));
+  assert.ok(template.indexOf('<FootballMonetizationSlot') > template.indexOf('data-football-district-section="teams"'), 'football should precede advertising');
+});
