@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { useHuntingCounty } from "./HuntingCountyContext";
@@ -28,6 +28,8 @@ export function HuntingPublicAccessPlanner() {
   const [mode, setMode] = useState<(typeof accessPaths)[number]["id"]>("aph");
   const county = TEXAS_COUNTIES.find((item) => item.slug === countySlug);
   const selectedPath = accessPaths.find((item) => item.id === mode) ?? accessPaths[0];
+  // A county change in either planner invalidates an earlier copied checklist.
+  useEffect(() => setCopyStatus("idle"), [countySlug, game, mode]);
   const searchChecklist = [
     "Texas public-hunt planning checklist — verify with TPWD",
     "County: " + (county?.name ?? "Any Texas county"),
