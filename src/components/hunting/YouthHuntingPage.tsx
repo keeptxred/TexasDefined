@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
+import { KingsCamoGearOffers } from "./KingsCamoGearOffers";
 import type { HuntingAuthorityTopic } from "@/data/hunting/authority";
 import { TEXAS_COUNTIES } from "@/data/texas-places";
 import { texasTodayKey, youthSeasonWindows } from "@/data/hunting/youth-hunting-status";
@@ -189,5 +190,6 @@ export default function YouthHuntingPage({ topic }: { topic: HuntingAuthorityTop
         ].map(([label, href]) => <Link key={href} to={href} className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{label}</Link>)}</div></div>
       </Container>
     </section>
+    <KingsCamoGearOffers context="topic" pathname="/hunting/youth-hunting" topicSlug="youth-hunting" />
   </main>;
 }

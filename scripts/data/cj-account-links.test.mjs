@@ -167,6 +167,8 @@ test('Kings Camo gear placements use only nine captured active creatives and res
   assert.ok(source.includes('rel="sponsored nofollow noopener noreferrer"'));
   assert.ok(source.includes('trackAffiliateClick('));
   assert.ok(source.includes('Affiliate disclosure:'));
+  const youthRoute = read('src/components/hunting/YouthHuntingPage.tsx');
+  assert.ok(youthRoute.includes('<KingsCamoGearOffers context="topic" pathname="/hunting/youth-hunting" topicSlug="youth-hunting" />'), 'youth guide must mount the separate Kings Camo youth offer');
   const hunting = read('src/components/hunting/HuntingAuthority.tsx');
   const camping = read('src/routes/best-places-to-go-camping-in-texas.lazy.tsx');
   assert.ok(hunting.includes('<KingsCamoGearOffers context="hub" pathname="/hunting" />'));
