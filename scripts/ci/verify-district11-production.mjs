@@ -58,8 +58,8 @@ async function verify(origin) {
   const finals = cards.filter(([tag]) => tag.includes('data-status="reported-final"')).length;
   const scheduled = cards.filter(([tag]) => tag.includes('data-status="schedule-only"')).length;
   assert.equal(cards.length, 21, origin + ' expected all 21 league game cards');
-  assert.equal(finals, 15, origin + ' expected all 15 verified finals');
-  assert.equal(scheduled, 6, origin + ' expected 6 as-yet-unverified games');
+  assert.ok(finals >= 15 && finals <= 21, origin + ' at least 15 sourced finals must remain; got ' + finals);
+  assert.equal(finals + scheduled, 21, origin + ' every game must be either a sourced final or an unconfirmed fixture');
   const records = html.match(/data-football-district-records="source-derived"[\s\S]*?<tbody[^>]*>([\s\S]*?)<\/tbody>/i)?.[1];
   assert.ok(records, origin + ' missing standings snapshot');
   assert.equal((records.match(/<tr\b/g) || []).length, 7, origin + ' expected 7 schools');
