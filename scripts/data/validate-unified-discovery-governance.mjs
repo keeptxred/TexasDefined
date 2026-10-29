@@ -30,4 +30,11 @@ assert.ok(!read('src/data/discovery/__tests__/entity-registry.test.ts').includes
 assert.ok(registry.includes("eligibleForAutoPublication")===false,"Canonical entity model must be quality-governed, not autopublish");
 assert.ok(registry.includes("mayIndexDiscoveryEntity")&&registry.includes("reconcileConfirmedOccurrence"),"Authority and official-date gates must exist");
 assert.ok(cron.includes("cron:")&&cron.includes("retention-days: 13"),"Weekly bounded discovery must publish a short-lived review artifact");
+const workflow=read(".github/workflows/weekly-viator-attraction-discovery.yml");
+const ownerPolicy=read("docs/editorial-discovery-owner-approval.md");
+assert.ok(workflow.includes("issues: write") && workflow.includes("issue_number: 6380"),"Weekly batch must notify actual owner approval desk");
+assert.ok(workflow.includes("No Viator names, product IDs"),"Never paste supplier data in an indexable GitHub issue");
+assert.ok(ownerPolicy.includes("approve, reject, or request edits") && ownerPolicy.includes("in ChatGPT"),"Owner decisions must be presented in chat");
+assert.ok(registry.includes("hasRecordedOwnerApproval") && registry.includes('entity.discoveryOrigin === "supplier-candidate"'),"Supplier-derived new pages must fail closed without recorded owner approval");
+assert.ok(read("scripts/ci/verify-viator-discovery-live.mjs").includes("x-robots-tag"),"Source-only live proof must verify noindex");
 console.log("Unified event, attraction and Viator governance passed: non-indexable supplier research; original-authority quality gates; optional calendar offers; official event occurrence independence.");
