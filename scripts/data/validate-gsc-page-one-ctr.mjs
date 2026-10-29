@@ -530,7 +530,7 @@ const seventhWave = [
   { path: "/event/schulenburg-festival", title: "Schulenburg Festival 2027: Projected Dates & Visitor Guide", description: "projected Aug. 5-8, 2027 dates" },
   { path: "/event/terlingua-international-chili-championship", title: "Terlingua International Chili Championship: Dates & Visitor Guide", description: "Plan the Terlingua International Chili Championship" },
   { path: "/sports-venue/cotton-bowl-stadium", title: "Cotton Bowl Stadium Dallas: Parking, Map & Events", description: "Plan a Cotton Bowl Stadium visit at Fair Park in Dallas" },
-  { path: "/sports-venue/datcu-stadium", title: "DATCU Stadium Denton: Parking, Map & North Texas Football", description: "Plan a DATCU Stadium visit in Denton" },
+  { path: "/sports-venue/datcu-stadium", title: "DATCU Stadium: Capacity, Parking & UNT Football", description: "DATCU Stadium in Denton seats 30,100 for UNT football" },
   { path: "/sports-venue/jamail-texas-swimming-center", title: "Lee & Joe Jamail Texas Swimming Center: Parking & Events", description: "Plan a Jamail Texas Swimming Center visit in Austin" },
   { path: "/sports-venue/tpc-san-antonio", title: "TPC San Antonio: Golf Courses, Tournaments & Visitor Guide", description: "Explore TPC San Antonio with course, tournament" },
   { path: "/texas-country-outlaw", title: "Texas Outlaw Country: Artists, History & Texas Country Sound", description: "Explore Texas outlaw country and Texas country music" },
