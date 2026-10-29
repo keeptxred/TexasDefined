@@ -12,6 +12,8 @@ on:
     - cron: '51 13 * 1-7 3'    # Off-season Wednesday UTC
 permissions:
   contents: read
+  deployments: read
+  actions: read
 concurrency:
   group: football-b010-fifth-five-live-acceptance
   cancel-in-progress: false
@@ -60,8 +62,32 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check strict Batch 010 script
+      - name: Load immutable workflow-revision source attribution code
         if: steps.scope.outputs.run == 'true'
+        uses: actions/checkout@v4
+        with:
+          # github.sha is a fixed event-time commit, never a moving branch.
+          # Only the gate code comes from it; the third checkout is the
+          # ledger-proven commit that built the observed live Worker.
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+      - name: Resolve live Worker to GitHub verified deployment source commit
+        if: steps.scope.outputs.run == 'true'
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --check scripts/ci/pin-football-b010-production-release.mjs
+          node --test scripts/ci/pin-football-b010-production-release.test.mjs
+          node scripts/ci/pin-football-b010-production-release.mjs
+      - name: Check out exact source commit for the actually published Worker
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.sha }}
+          fetch-depth: 2
+      - name: Check strict Batch 010 script
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
         run: |
           node --check scripts/ci/verify-football-b010-fifth-five-production.mjs
           grep -Fq "/tmp/td-b010-fifth-chrome/node_modules/playwright-core" scripts/ci/verify-football-b010-fifth-five-production.mjs
@@ -71,19 +97,20 @@ jobs:
             exit 1
           fi
       - name: Install isolated Chrome driver
-        if: steps.scope.outputs.run == 'true'
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/td-b010-fifth-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
       - name: Verify 5 schools at 3 viewports, no invented score graphics, 4 counties, sitemap and Worker version
-        if: steps.scope.outputs.run == 'true'
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
         env:
-          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}
+          FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}
         run: node scripts/ci/verify-football-b010-fifth-five-production.mjs
       - name: Preserve success or failure evidence
-        if: always() && steps.scope.outputs.run == 'true'
+        if: always() && steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: football-b010-fifth-five-production-chrome
