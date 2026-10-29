@@ -198,7 +198,7 @@ test('Kings Camo gear placements use only nine captured active creatives and res
     return result;
   }
   for (const [props, programs] of [
-    [{ context: 'hub', pathname: '/hunting' }, ['kings-camo-shop', 'kings-camo-women', 'kings-camo-backpacks']],
+    [{ context: 'hub', pathname: '/hunting' }, ['kings-camo-lightweight-shirts', 'kings-camo-rain-jacket', 'kings-camo-backpacks']],
     [{ context: 'topic', pathname: '/hunting/turkey-hunting', topicSlug: 'turkey-hunting' }, ['kings-camo-turkey-accessories', 'kings-camo-pants']],
     [{ context: 'topic', pathname: '/hunting/youth-hunting', topicSlug: 'youth-hunting' }, ['kings-camo-kids']],
     [{ context: 'camping', pathname: '/best-places-to-go-camping-in-texas' }, ['kings-camo-camping']],
