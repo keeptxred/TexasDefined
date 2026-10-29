@@ -11,6 +11,8 @@ on:
       - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
       - 'src/routes/texas-high-school-football-districts_.$slug.tsx'
       - 'scripts/ci/verify-district9-authority.mjs'
+      - 'scripts/ci/verify-district9-authority.test.mjs'
+      - 'src/data/high-school-football/district9-display-names.ts'
       - '.github/workflows/check-district9-sources.yml'
   push:
     branches: [main]
@@ -19,6 +21,8 @@ on:
       - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
       - 'src/routes/texas-high-school-football-districts_.$slug.tsx'
       - 'scripts/ci/verify-district9-authority.mjs'
+      - 'scripts/ci/verify-district9-authority.test.mjs'
+      - 'src/data/high-school-football/district9-display-names.ts'
       - '.github/workflows/check-district9-sources.yml'
 permissions:
   contents: read
@@ -35,6 +39,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test District 9 source and factual-contract invariants
+        run: node --test scripts/ci/verify-district9-authority.test.mjs
       - name: Validate District 9 source contract
         id: district9
         shell: bash
