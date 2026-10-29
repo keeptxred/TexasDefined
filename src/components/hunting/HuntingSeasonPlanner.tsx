@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import speciesCalendar from "@/data/hunting/species-season-calendar.json";
 import deerCalendar from "@/data/hunting/deer-season-dates.json";
+import { HUNTING_REGULATION_FRESHNESS } from "@/data/hunting/freshness";
 import turkeyCalendar from "@/data/hunting/turkey-season-calendar.json";
 import { deerSeasonRange, type DeerSeasonId } from "@/data/hunting/deer-season-format";
 import { windowStatus, statusLabel, type WindowRow } from "@/data/hunting/season-window-status.mjs";
@@ -67,7 +68,7 @@ export function HuntingSeasonPlanner() {
   const [selected, setSelected] = useState(calendars[0].id);
   const today = useTexasDate();
   const calendar = useMemo(() => calendars.find((entry) => entry.id === selected) ?? calendars[0], [selected]);
-  const archived = Boolean(today && today > "2027-08-31");
+  const archived = Boolean(today && today > HUNTING_REGULATION_FRESHNESS.validThrough);
   const rows = calendar.rows.map((row) => ({ ...row, status: today && !archived ? windowStatus(row, today) : null }));
   const activeCount = rows.filter((row) => row.status === "today" || row.status === "year-round").length;
   return (
