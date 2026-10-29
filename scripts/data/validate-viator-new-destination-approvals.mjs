@@ -79,8 +79,8 @@ function validate(entries,ledger) {
     assert.ok(approvedRecord(record),
       `NEW Viator-discovered destination ${entry.slug} in ${entry.name} is not owner-approved: hold publication; create researched proposal and obtain explicit owner decision in approval desk #6380`);
     assert.ok(/\bofficialUrl:\s*"https:\/\//.test(entry.block),"New guide must link official operator");
-    assert.ok(/\bsourceCheckedAt:\s*(?:"\d{4}-\d{2}-\d{2}"|SOURCE_CHECKED_AT)\b?/.test(entry.block) ||
-      /sourceCheckedAt:\s*"\d{4}-\d{2}-\d{2}"/.test(entry.block),"New guide must contain official-source freshness");
+    assert.ok(/\bsourceCheckedAt:\s*(?:"\d{4}-\d{2}-\d{2}"|SOURCE_CHECKED_AT)/.test(entry.block),
+      "New guide must contain official-source freshness");
     assert.ok(/\bbody:\s*\[/.test(entry.block),"New guide must contain original visitor planning, not a thin affiliate stub");
     assert.ok(/\bhero:\s*\{/.test(entry.block),"New guide must have a review-cleared image plan");
     added.push(entry.slug);
