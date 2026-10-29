@@ -5,7 +5,7 @@ const ORIGIN='https://texasdefined.com';
 const freshness=fs.readFileSync('src/data/hunting/freshness.ts','utf8');
 const season=JSON.parse(fs.readFileSync('src/data/hunting/species-season-calendar.json','utf8'));
 const last=/lastVerifiedLabel:\s*"([^"]+)"/.exec(freshness)?.[1];
-const editorial=/editorialUpdatedLabel:\\s*"([^"]+)"/.exec(freshness)?.[1];
+const editorial=/editorialUpdatedLabel:\s*"([^"]+)"/.exec(freshness)?.[1];
 if(!last||!editorial)throw Error('Hunting official or editorial review date missing');
 export const TARGETS=[
   {pathname:'/hunting',needles:['Hunting Texas: licenses, public land','Four decisions before choosing a hunting spot','Texas hunting season planner','Species or game category','Official calendar checked','Muzzleloader definition','Source review '+last,'Editorial hub updated '+editorial]},
@@ -19,7 +19,7 @@ export function verifyHtml(html,target,variant){
   const text=visible(html);
   const missing=target.needles.filter(n=>!text.includes(n));
   if(missing.length)throw Error(target.pathname+' '+variant+' stale or missing: '+missing.join('; '));
-  if(target.pathname==='/hunting' && (!/<select\\b[^>]*\\bid=["']hunting-species-select["']/.test(html) || !/<option\\b[^>]*\\bvalue=["']species:Snipe["']/.test(html))) throw Error(target.pathname+' '+variant+' missing distinct season selector or Snipe option');
+  if(target.pathname==='/hunting' && (!/<select\b[^>]*\bid=["']hunting-species-select["']/.test(html) || !/<option\b[^>]*\bvalue=["']species:Snipe["']/.test(html))) throw Error(target.pathname+' '+variant+' missing distinct season selector or Snipe option');
   if(!html.includes(ORIGIN+target.pathname))throw Error(target.pathname+' '+variant+' canonical path missing');
   return text;
 }
