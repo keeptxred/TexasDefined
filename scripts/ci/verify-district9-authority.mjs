@@ -59,6 +59,9 @@ if(process.argv.includes('--check-links')) {
  }
 }
 const today=new Date().toISOString().slice(0,10);
+// Even with healthy links, require a human factual review once per quarter.
+if (today.slice(8) === '01' && ['01','04','07','10'].includes(today.slice(5,7)))
+  reasons.push('Quarterly editorial check due: reconcile the UIL alignment, official school links, venue guidance, ticket rules and any published policy changes.');
 if(today>='2027-07-01')reasons.push('Before the next football season: review varsity calendars, admissions, stadium guidance, and all 2026-specific copy.');
 if(today>='2028-01-01')reasons.push('Check the new 2028–30 UIL district assignments and enrollment before presenting the next cycle.');
 if(reasons.length){
