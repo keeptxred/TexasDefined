@@ -358,6 +358,11 @@
       copy.textContent = "Start with hotels in Palestine, not a generic nationwide search. Choose your exact train date first, then compare room costs, cancellation policies and driving time to the Palestine Depot.";
     }
     if (showRvshare) copy.textContent += " For camping and road-trip planning, RVshare is the primary rental option when taking your lodging with you fits the trip.";
+    if (window.location.pathname.replace(/\\/+$/, "") === "/best-places-to-go-camping-in-texas") {
+      eyebrow.textContent = "Plan your overnight stay";
+      heading.textContent = "RV rentals and nearby stays";
+      copy.textContent = "For campsites, use the official booking links in the campground finder above. Need an RV rental or a hotel before or after your camping trip? Compare the providers below, then check the campsite\u2019s vehicle limits and the provider\u2019s current terms.";
+    }
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
@@ -725,6 +730,39 @@
     if (emptyFallback && !emptyFallback.children.length) emptyFallback.remove();
   }
 
+  function unifyCampingBookingActions(surface, choice) {
+    // The campground guide has a SINGLE trip-planning affiliate box.
+    // Keep the original intent-loaded Expedia button and analytics handler,
+    // but move that same node into the CJ choices, never clone/recreate it.
+    if (window.location.pathname.replace(/\\/+$/, "") !== "/best-places-to-go-camping-in-texas") return;
+    if (surface.dataset.surfaceType !== "generic") return;
+    const panel = choice.querySelector(".td-stay-affiliate-panel");
+    const actions = panel?.querySelector(".td-stay-affiliate-actions");
+    const expediaButton = surface.querySelector('button[data-expedia-stays-search="true"]');
+    if (!panel || !actions || !expediaButton) return;
+
+    expediaButton.className = "td-stay-affiliate-button td-stay-affiliate-button--secondary";
+    expediaButton.textContent = "Search Expedia stays";
+    expediaButton.setAttribute("aria-label", "Search for hotel stays on Expedia without leaving this camping guide");
+    if (expediaButton.parentElement !== actions || expediaButton !== actions.lastElementChild)
+      actions.appendChild(expediaButton);
+
+    // The existing Expedia widget host stays inside the same bordered panel,
+    // so activating search never produces a second lodging section.
+    const widgetHost = surface.querySelector(".td-stay-widget-host");
+    if (widgetHost && widgetHost.parentElement !== panel) panel.appendChild(widgetHost);
+
+    const disclosure = panel.querySelector(".td-stay-affiliate-disclosure");
+    if (disclosure) {
+      const unifiedDisclosure = "Affiliate disclosure: TexasDefined may earn a commission from qualifying RVshare, Hotels.com, Travelocity or Expedia activity, at no additional cost to you. Availability, rates and booking terms come from each provider.";
+      if (disclosure.textContent !== unifiedDisclosure) disclosure.textContent = unifiedDisclosure;
+    }
+    surface.querySelector('[data-expedia-disclosure="true"]')?.remove();
+    const emptyExpediaContainer = surface.querySelector(":scope > .mx-auto");
+    if (emptyExpediaContainer && !emptyExpediaContainer.children.length) emptyExpediaContainer.remove();
+    surface.dataset.stayConsolidated = "camping";
+  }
+
   function upgradeExactPropertyCards(surface) {
     if (!surface || surface.dataset.surfaceType !== "curated") return;
     for (const card of surface.querySelectorAll(".td-stay-card")) {
@@ -774,6 +812,7 @@
     }
     placeBookingChoice(expediaSurface, choice, exactPropertyFirst);
     unifyFortMcKavettBookingActions(expediaSurface, choice);
+    unifyCampingBookingActions(expediaSurface, choice);
 
     promoteStaySurface(expediaSurface);
     ensureProminentStayCta(expediaSurface);
