@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T14:12:59.044Z",
+  "generatedAt": "2026-10-29T16:03:06.516Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
     {
@@ -9,22 +9,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/copy_of_critters-of-east-texas/2026-10-29"
     },
     {
-      "title": "Electric Tram Tour",
-      "startDate": "2026-10-29",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-10-29"
-    },
-    {
       "title": "Hawk Watch",
       "startDate": "2026-10-29",
       "parkKey": "bentsen-rio-grande-valley",
       "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-29"
-    },
-    {
-      "title": "Hike With Homeless Dogs",
-      "startDate": "2026-10-29",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/hike-with-homeless-dogs/2026-10-29"
     },
     {
       "title": "Island Trail Hike",
@@ -33,22 +21,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-10-29"
     },
     {
-      "title": "Nature Hike",
-      "startDate": "2026-10-29",
-      "parkKey": "lake-livingston",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/nature-hike-1/2026-10-29"
-    },
-    {
       "title": "The Great Village Creek Pumpkin Hunt",
       "startDate": "2026-10-29",
       "parkKey": "village-creek",
       "officialUrl": "https://tpwd.texas.gov/calendar/village-creek/copy_of_pumpkin-hunt/2026-10-29"
-    },
-    {
-      "title": "Tiny Trailblazers",
-      "startDate": "2026-10-29",
-      "parkKey": "lake-somerville-state-park-nails-creek-unit",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-state-park-nails-creek-unit/tiny-trailblazers-1/2026-10-29"
     },
     {
       "title": "Awesome Opossums",
@@ -127,12 +103,6 @@
       "startDate": "2026-10-31",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-10-31"
-    },
-    {
-      "title": "Forest Trail Hike",
-      "startDate": "2026-10-31",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/forest-trail-hike/2026-10-31"
     },
     {
       "title": "Halloween Scavenger Hunt",
@@ -405,6 +375,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-11-08"
     },
     {
+      "title": "Guided Paddle",
+      "startDate": "2026-11-09",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2026-11-09"
+    },
+    {
       "title": "Nature's Classroom Homeschool Program",
       "startDate": "2026-11-10",
       "parkKey": "davis-mountains",
@@ -517,6 +493,12 @@
       "startDate": "2026-11-14",
       "parkKey": "buescher",
       "officialUrl": "https://tpwd.texas.gov/calendar/buescher/the-forest-you-almost-missed/2026-11-14"
+    },
+    {
+      "title": "Track Talk",
+      "startDate": "2026-11-14",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-14/2026-11-14"
     },
     {
       "title": "All About Us: a Guided Hike",
@@ -681,6 +663,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-21"
     },
     {
+      "title": "Pelts and Tracks",
+      "startDate": "2026-11-21",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/pelts-and-tracks/2026-11-21"
+    },
+    {
       "title": "Predators of the Pines - Guided Hike",
       "startDate": "2026-11-21",
       "parkKey": "bastrop",
@@ -721,12 +709,6 @@
       "startDate": "2026-11-25",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-25"
-    },
-    {
-      "title": "Armadillo Antics",
-      "startDate": "2026-11-26",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-11-26"
     },
     {
       "title": "Armadillo Antics",
@@ -831,6 +813,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-11/2026-11-28"
     },
     {
+      "title": "Track Talk",
+      "startDate": "2026-11-28",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-4/2026-11-28"
+    },
+    {
       "title": "Trail Mix: Edible Plants Guided Hike",
       "startDate": "2026-11-28",
       "parkKey": "buescher",
@@ -861,10 +849,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-02"
     },
     {
-      "title": "Armadillo Antics",
+      "title": "Alligators: Predatory Engineers",
       "startDate": "2026-12-03",
       "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-12-03"
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/alligator-talk/2026-12-03"
     },
     {
       "title": "Coffee with the Superintendents",
@@ -889,6 +877,12 @@
       "startDate": "2026-12-03",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/reading-with-a-ranger/2026-12-03"
+    },
+    {
+      "title": "Awesome Opossums",
+      "startDate": "2026-12-04",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-12-04"
     },
     {
       "title": "Birding Hike",
