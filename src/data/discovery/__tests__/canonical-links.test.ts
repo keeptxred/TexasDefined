@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { countyGuidePath, canonicalEventGuidePath, eventPlanningLinks } from "../canonical-links.ts";
 import { christmasExperienceSearchBody, normalizeChristmasViatorExperiences } from "../../../lib/viator-seasonal-discovery.ts";
+import { exploreMarketEventCalendarHref } from "../market-event-cities.ts";
 
 test("county discovery paths use the existing county route form",()=>{
  assert.equal(countyGuidePath("Gillespie County"),"/county/gillespie");
@@ -31,4 +32,10 @@ test("Christmas supplier query is bounded, market-specific, and not an occurrenc
  assert.equal(result[0].productCode,"HOLIDAY1");
  assert.ok(!("date" in result[0]));
  assert.ok(!("availability" in result[0]));
+});
+
+test("Explore links only exact, validated city markets to events while avoiding regional false matches",()=> {
+ assert.equal(exploreMarketEventCalendarHref("houston"),"/events?location=city%3AHouston#calendar");
+ assert.equal(exploreMarketEventCalendarHref("new-braunfels-gruene"),null);
+ assert.equal(exploreMarketEventCalendarHref("big-bend-terlingua"),null);
 });
