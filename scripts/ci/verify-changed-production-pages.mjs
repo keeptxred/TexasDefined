@@ -154,6 +154,38 @@ export function assertKatyFootballContents(html, surface = 'release') {
   }
 }
 
+// Frisco Lone Star's researched content previously passed source-only tests
+// while live-public verification was missing. Require both edge and visitor HTML.
+export function assertLoneStarFootballContents(html, surface = 'release') {
+  const title = (html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '')
+    .replace(/&amp;|&#38;|&#x26;/gi, '&');
+  if (!title.includes('Frisco Lone Star Rangers Football | History & 2026 District 5')) {
+    throw new Error('Lone Star ' + surface + ' has stale or generic SEO title');
+  }
+  for (const marker of [
+    'Frisco Lone Star Rangers football represents Lone Star High School',
+    'Official 2026 schedule &amp; game-day resources',
+    '2026-Fball-Schedule-8-21.pdf',
+    'https://www.friscoisd.org/o/lshs',
+    'Jeff Rayburn',
+    '14 consecutive winning seasons',
+    'id="football-current-season"',
+    'Program overview',
+    'The program story',
+    'Source trail',
+    '"@type":"SportsTeam"',
+    '"@type":"FAQPage"',
+  ]) {
+    if (!html.includes(marker)) throw new Error('Lone Star ' + surface + ' missing deployed authority marker: ' + marker);
+  }
+  if (html.includes('https://sf2.friscoisd.org/campus/high-school/lone-star/home')) {
+    throw new Error('Lone Star ' + surface + ' still links obsolete campus website');
+  }
+  if (/<meta\b[^>]*name=["']robots["'][^>]*noindex/i.test(html)) {
+    throw new Error('Lone Star ' + surface + ' incorrectly emits noindex');
+  }
+}
+
 // Check cache-busted and ordinary visitor URLs. A deployed Worker alone
 // cannot certify youth-season advice while a stale canonical HTML copy persists.
 // A healthy URL is not sufficient: reject the old generic turkey page and
@@ -286,10 +318,12 @@ const TEXAS_DATA_ROUTES = [
 const regionGuidePages = plan.regionGuidePages ?? [];
 const footballGameNightPages = plan.footballGameNightPages ?? [];
 const katyFootballPages = plan.katyFootballPages ?? [];
+const loneStarFootballPages = plan.loneStarFootballPages ?? [];
 const battleshipVisitorPages = plan.battleshipVisitorPages ?? [];
 const fredericksburgSitemapPaths = plan.fredericksburgSitemapPaths ?? [];
 const magoffinHomePages = plan.magoffinHomePages ?? [];
 const davisHillPages = plan.davisHillPages ?? [];
+if (!Array.isArray(loneStarFootballPages) || loneStarFootballPages.length > 1 || loneStarFootballPages.some(p => p !== '/texas-high-school-football-teams/frisco-lone-star' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Lone Star production contract');
 if (!Array.isArray(katyFootballPages) || katyFootballPages.length > 1 || katyFootballPages.some(p => p !== '/texas-high-school-football-teams/katy' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Katy football production contract');
 if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 || footballGameNightPages.some(p => !['/texas-high-school-football-teams/aledo', '/texas-high-school-football-teams/southlake-carroll'].includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded football team smoke contract');
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
@@ -583,6 +617,18 @@ for (const path of plan.selectedPaths) {
           throw new Error('Katy canonical visitor URL is missing its original canonical');
         }
         assertKatyFootballContents(visitorHtml, 'ordinary visitor URL');
+      }
+      if (loneStarFootballPages.includes(path)) {
+        assertLoneStarFootballContents(html, 'cache-busted release');
+        const visitorResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-LoneStar-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitorResponse.ok || visitorResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Lone Star canonical visitor URL failed: HTTP ' + visitorResponse.status);
+        }
+        assertLoneStarFootballContents(await visitorResponse.text(), 'ordinary visitor URL');
       }
       if (magoffinHomePages.includes(path)) {
         for (const required of ['Historic home closed through 2027', 'Magoffin Home visitor FAQ', '1117 Magoffin Avenue']) {
