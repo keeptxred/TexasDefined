@@ -5,6 +5,7 @@ import { FootballFanOffers } from '@/components/sports/FootballFanOffers';
 import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { District16Coverage } from '@/components/sports/District16Coverage';
+import { District6Guide } from '@/components/sports/District6Guide';
 import { DISTRICT_5_SCHEDULE_URL, DISTRICT_5_STANDINGS_URL } from '@/data/high-school-football/football-district5-2026';
 import { DISTRICT_11_VERIFIED_AT, DISTRICT_11_STANDINGS_URL, DISTRICT_11_PLAYOFF_SOURCE } from '@/data/high-school-football/football-district11-2026';
 import {
@@ -33,6 +34,7 @@ function Page() {
   const district21Pilot = district.slug === '6a-district-21';
   const district11Pilot = district.slug === '4a-division-i-district-11';
   const district16Pilot = district.slug === '6a-district-16';
+  const district6Pilot = district.slug === '6a-district-6';
   const games = getDistrictFootballGames(district.slug, district.classification, district.district);
   const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot || district21Pilot || district11Pilot ? 16 : 8);
   const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
@@ -64,7 +66,7 @@ function Page() {
           <p className="eyebrow text-primary">2026–28 UIL football alignment</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{katyPilot ? `Katy ISD ${districtTitle}` : districtTitle}</h1>
           <p className="mt-6 max-w-4xl text-lg leading-8 text-foreground">{teamLine}</p>
-          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{district21Pilot ? 'Fort Bend ISD and Strake Jesuit: 2026 source-checked district records, results, future matchups and playoff qualification context. Records are not UIL-certified seeds.' : district11Pilot ? 'Region III · 2026 varsity district results, all seven schools, the full 21-game schedule and the Division I playoff qualification path. Reported W–L records are not UIL-certified seeds.' : '2026–28 UIL member schools, sourced 2026 game coverage where available, score-verification guidance and playoff context. No certified standings, fabricated scores or projected playoff seeds.'}</p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{district6Pilot ? 'Eight UIL teams in Region I District 6. See the dated 2026 varsity fixture snapshot, official school schedules, stadium and ticket guidance, plus the UIL playoff path. No standings or win/loss automation.' : district21Pilot ? 'Fort Bend ISD and Strake Jesuit: 2026 source-checked district records, results, future matchups and playoff qualification context. Records are not UIL-certified seeds.' : district11Pilot ? 'Region III · 2026 varsity district results, all seven schools, the full 21-game schedule and the Division I playoff qualification path. Reported W–L records are not UIL-certified seeds.' : '2026–28 UIL member schools, sourced 2026 game coverage where available, score-verification guidance and playoff context. No certified standings, fabricated scores or projected playoff seeds.'}</p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6" aria-label="District summary">
           <Fact label="Teams" value={String(district.programCount)} />
@@ -273,6 +275,8 @@ function Page() {
         </div>
       </section>
 
+      {district6Pilot && <District6Guide />}
+
       <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />
       {district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
 
@@ -282,7 +286,8 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">Scores, schedules & playoff path</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
-          {district21Pilot ? <Related href="#district-21-results" title="District 21 games & results" body="Jump to every sourced 2026 league final and the remaining games in this district, rather than an unrelated statewide directory." />
+          {district6Pilot ? <Related href="#district-6-2026" title="District 6 varsity fixtures and game-day guide" body="See the dated source-backed 2026 schedule, five official athletics offices, venues, ticket policies and playoff path. Automated records are paused." />
+            : district21Pilot ? <Related href="#district-21-results" title="District 21 games & results" body="Jump to every sourced 2026 league final and the remaining games in this district, rather than an unrelated statewide directory." />
             : district16Pilot ? <Related href="#district-16-results" title="District 16 scores, records and next games" body="Jump to our sourced District 16 standings snapshot, verified recent results and official CFISD game-day links." />
             : games.length ? <Related href="#district-game-coverage" title="This district's sourced games" body="View only the dated results and fixtures actually documented for this district. Missing final scores are not assumed." /> : <p className="border-t-2 border-foreground pt-4 text-sm leading-7 text-muted-foreground">No independently verified district matchups are published here yet. Check the UIL scoreboard and school schedules; this page does not invent results.</p>}
           {district11Pilot && <Related href={DISTRICT_11_STANDINGS_URL} title="2026 District 11 reported records" body="View the current UIL-partner district standings and confirm any updates beyond our dated, sourced score snapshot." external />}
