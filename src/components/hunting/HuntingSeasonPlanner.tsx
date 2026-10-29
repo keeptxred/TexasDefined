@@ -67,7 +67,8 @@ export function HuntingSeasonPlanner() {
   const [selected, setSelected] = useState(calendars[0].id);
   const today = useTexasDate();
   const calendar = useMemo(() => calendars.find((entry) => entry.id === selected) ?? calendars[0], [selected]);
-  const rows = calendar.rows.map((row) => ({ ...row, status: today ? windowStatus(row, today) : null }));
+  const archived = Boolean(today && today > "2027-08-31");
+  const rows = calendar.rows.map((row) => ({ ...row, status: today && !archived ? windowStatus(row, today) : null }));
   const activeCount = rows.filter((row) => row.status === "today" || row.status === "year-round").length;
   return (
     <section id="hunting-season-planner" aria-labelledby="hunting-season-planner-title" className="scroll-mt-28 border-b border-border bg-surface py-12 md:py-16">
@@ -78,6 +79,7 @@ export function HuntingSeasonPlanner() {
           <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
             Compare the official {speciesCalendar.seasonYear} statewide dates for deer, turkey and 17 other game categories. Select a species to see its zones and dates. A date window that includes today does not establish that hunting is legal in your county or on your property.
           </p>
+          {archived ? <p role="status" className="mt-5 border-l-4 border-primary bg-background p-4 text-sm leading-7"><strong>Archived 2026–27 season snapshot.</strong> These dates no longer establish the current season. Use TPWD’s newest Outdoor Annual and area-specific rules before planning a hunt. Our source monitor must verify the next calendar before the published dates can advance.</p> : null}
           <div className="mt-7 grid gap-5 rounded-sm border border-border bg-background p-5 md:grid-cols-2 md:items-end">
             <div>
               <label htmlFor="hunting-species-select" className="block text-sm font-semibold">Species or game category</label>
@@ -99,7 +101,7 @@ export function HuntingSeasonPlanner() {
             <p className="text-xs text-muted-foreground">Official calendar checked {calendar.checkedAt}</p>
           </div>
           <div aria-live="polite" className="mt-3 text-sm leading-7 text-muted-foreground">
-            {today
+            {archived ? "The selected entries are historical. No current-season open status is inferred from them." : today
               ? activeCount > 0
                 ? activeCount + " listed season/zone entries include " + today + " (Texas Central Time); confirm county, eligibility and permit restrictions."
                 : "No selected entries are confidently identified as open today (" + today + "). Review all published dates and confirm the exact rules with TPWD."
@@ -119,6 +121,7 @@ export function HuntingSeasonPlanner() {
             These are statewide calendar entries only. Zone boundaries, open counties, bag limits, age restrictions, legal equipment, wildlife management areas, APH access and drawn-hunt dates are separate requirements. Dates may change; always consult the current TPWD regulations and the exact area's legal-game listing.
           </p>
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <a href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Current TPWD hunting regulations ↗</a>
             <a href={calendar.source} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official TPWD calendar or species rule ↗</a>
             <a href="https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">TPWD legal-game and area finder ↗</a>
             <Link to="/hunting/texas-hunting-license" className="font-semibold text-primary underline underline-offset-4">License and endorsements →</Link>
