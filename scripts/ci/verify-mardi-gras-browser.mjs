@@ -132,7 +132,8 @@ try {
             guideLinks: Array.from(document.querySelectorAll('a[href^="/event/"]')).map(a => a.getAttribute("href")),
           };
         });
-        delete data.pageText;
+        const bodyText = data.pageText || "";
+        delete data.pageText; // Avoid storing up to 180 KB of body text per viewport in artifacts.
         result.imageUrl = data.image?.src || null;
         check("canonical URL", data.canonical === ORIGIN + path, data.canonical);
         check("real viewport and no page-wide overflow", data.viewport === viewport.width && data.width <= data.viewport + 4, data.width + "/" + data.viewport);
@@ -140,7 +141,7 @@ try {
         if (guide) {
           check("correct individual event identity", data.h1.includes(guide.text), data.h1);
           check("Event structured data", data.hasEvent);
-          check("year source context", data.title.includes(guide.year) || data.h1.includes(guide.year), data.title);
+          check("year source context", bodyText.includes(guide.year), data.title);
           check("official source links", await page.getByRole("heading", { name: "Official event links" }).count() > 0);
           check("visit planning", await page.getByRole("heading", { name: "Planning your visit" }).count() > 0);
           if (guide.licensed) {
@@ -155,7 +156,7 @@ try {
             check("noindex remains until rights approved", /noindex/i.test(data.robots), data.robots);
           }
           if (guide.pending) {
-            check("historical year clearly differentiated", data.title.includes("2026") || data.h1.includes("2026") || data.pageText?.includes("2026"));
+            check("historical year clearly differentiated from pending 2027", bodyText.includes("2026") && bodyText.includes("2027"));
           }
           check("event affiliate disclosure", data.affiliateDisclosure);
         } else {
