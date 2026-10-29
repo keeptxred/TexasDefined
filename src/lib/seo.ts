@@ -283,8 +283,11 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Houston's H-E-B Thanksgiving Day Parade is Nov. 26, 2026 at 9 a.m. downtown. See official route, viewing, closures and arrival-planning guidance.",
   },
   "/event/texas-rose-festival": {
-    title: "Texas Rose Festival 2026: Tyler Dates, Parade & Schedule",
-    description: "Plan the 2026 Texas Rose Festival in Tyler with official dates, parade and schedule information, venue details and practical Smith County trip planning.",
+    // The October 15-18, 2026 edition has passed. The parade organizer has
+    // confirmed October 16, 2027 for the PARADE, not the full festival dates.
+    // Avoid attributing a parade-only announcement to the full festival.
+    title: "Texas Rose Festival Tyler: Parade, Coronation & Guide",
+    description: "Plan the Texas Rose Festival in Tyler with the Rose Parade, Queen's Tea, coronation, gardens and official visitor sources. Verify next festival dates before travel.",
   },
   "/event/larry-joe-taylor-texas-music-festival": {
     title: "Larry Joe Taylor Festival 2027: Dates, Tickets & Camping",
