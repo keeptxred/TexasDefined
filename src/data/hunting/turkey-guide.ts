@@ -3,8 +3,8 @@ import turkeyCalendar from "./turkey-season-calendar.json";
 
 // Editor-reviewed against TPWD's 2026–27 Outdoor Annual and turkey-management sources.
 // Do not advance this date automatically from a scheduled source check.
-export const TURKEY_GUIDE_LAST_VERIFIED = "2026-10-28";
-export const TURKEY_GUIDE_VERIFIED_LABEL = "October 28, 2026";
+export const TURKEY_GUIDE_LAST_VERIFIED = "2026-10-29";
+export const TURKEY_GUIDE_VERIFIED_LABEL = "October 29, 2026";
 
 export const TURKEY_SEASONS_2026_27 = turkeyCalendar.rows;
 const seasonDates = (id: string): string => {
@@ -21,11 +21,16 @@ const tpwdReport = source("TPWD: harvest reporting instructions and statewide da
 const tpwdBiology = source("TPWD: wild turkey management, habitat and 2026 survey", "https://tpwd.texas.gov/huntwild/wild/game_management/turkey/");
 const texasAgriLife = source("Texas A&M AgriLife: Rio Grande and other Texas wild turkey subspecies", "https://wildlife.tamu.edu/wildlifemanagement/turkeys/");
 const tpwdDrawn = source("TPWD: 2026–27 National Refuge Spring Turkey drawings", "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-category-details.phtml?OCat=NTS");
+const tpwdAPHFinder = source("TPWD: public hunt Area / Legal Game Search", "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml");
+const tpwdAPHPermit = source("TPWD: 2026–27 Annual Public Hunting Permit access", "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/");
+const tpwdHarvestData = source("TPWD: official turkey harvest data by county", "https://tpwd.texas.gov/huntwild/wild/game_management/turkey/turkeyData.phtml");
+const tpwdHagerman = source("TPWD: Hagerman NWR 2027 turkey draw", "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UP");
+const tpwdEastLake = source("TPWD: Lower Rio Grande Valley NWR–East Lake 2027 turkey draw", "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UE");
 const tpwdChange = source("TPWD: 2026–27 regulation changes", "https://tpwd.texas.gov/newsmedia/releases/?req=20260401b");
 
 export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
   slug: "turkey-hunting",
-  reviewedOn: turkeyCalendar.checkedAt,
+  reviewedOn: TURKEY_GUIDE_LAST_VERIFIED,
   reviewedLabel: TURKEY_GUIDE_VERIFIED_LABEL,
   eyebrow: "Texas wild turkey hunting · 2026–27",
   title: "Texas Turkey Hunting: 2026–27 Seasons, Regulations & Where to Hunt",
@@ -73,7 +78,7 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
       paragraphs: [
         "Rio Grande wild turkeys are the main hunting subspecies through much of the Hill Country, Edwards Plateau, North Texas and South Texas. Productive landscapes combine large roost trees, water, open ground for feeding, brush and grasses for nesting, and corridors that let birds move among those features. The abundance at any one ranch or public parcel is not guaranteed by regional reputation.",
         "Eastern wild turkeys occupy selected wooded areas of East Texas and are generally less widespread and harder to locate. Hardwood bottomlands, mixed timber, openings and connected forest cover can be important, but spring seasons and legal methods are more narrowly regulated in the East Zone. TPWD's habitat material explains why large, connected landscapes matter.",
-        "West Texas habitat is patchy. River drainages, dependable roost trees and suitable cover can support local Rio Grande flocks, but broad desert geography is not a reliable proxy for huntable turkey abundance. Merriam's wild turkeys also occur in small, localized West Texas mountain populations, although they are far less widespread than Rio Grande turkeys. Historical material describing complete extirpation is not a reliable statement of current distribution. The hunting regulations still depend on the exact county, date and property.",
+        "West Texas habitat is patchy. River drainages, dependable roost trees and suitable cover can support local Rio Grande flocks, but broad desert geography is not a reliable proxy for huntable turkey abundance. Historical records and recent observations describe Merriam's-type birds in localized West Texas mountain habitats, but introductions and interbreeding can complicate subspecies identification; current genetic identity and distribution deserve caution. A mountain range is not proof of a huntable Merriam's population. The hunting regulations still depend on the exact county, date and property.",
       ],
       links: [tpwdBiology, texasAgriLife, link("Wild turkey species profile", "/wildlife-species/wild-turkey"), link("Texas wildlife destinations", "/explore/wildlife")],
     },
@@ -98,10 +103,10 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
       heading: "Public turkey hunting: access is not automatic",
       paragraphs: [
         "Most turkey habitat in Texas is on private or otherwise access-controlled land. Never mistake a state park, national forest, wildlife refuge or wildlife management area for an unrestricted hunting opportunity. Each unit can impose a permit system, separate hunt dates, allowable methods, hunt boundaries, check-in or drawn selection.",
-        "Two verified examples in TPWD's 2026–27 National Refuge Spring Turkey drawn-hunt catalog are Hagerman National Wildlife Refuge and Lower Rio Grande Valley National Wildlife Refuge — East Lake. TPWD lists a November 1, 2026 application deadline for that category. Hunt dates, quotas, fees, weapon restrictions, age minimums and available permits are specific to each offering and may change; refer to the application catalog before applying.",
-        "The Annual Public Hunting Permit can open access to designated walk-in properties, while drawn hunts are a separate limited-entry pathway. Neither means wild turkey is legal game on every property. If you are traveling, plan lodging and transportation only after confirming the hunt or permit.",
+        "For 2027, TPWD lists Hagerman NWR (April 22–24; 24 permits; one gobbler only; designated compartments; archery or birdshot shotgun with non-toxic shot no larger than #4) and Lower Rio Grande Valley NWR–East Lake (April 2–4 and April 9–11; eight permits; one gobbler or bearded hen; birdshot shotgun). Both require a successful National Refuge Spring Turkey draw. TPWD lists a November 1, 2026 application deadline, a $3 adult application fee and an $80 adult permit fee if selected. Check actual hunt catalog entries before applying.",
+        "To pursue walk-in access, open TPWD's 2026–27 Area / Legal Game Search, select turkey as legal game and read the specific unit's map, legal-game box, season dates, permitted methods and registration rules. The $48 Annual Public Hunting Permit applies only to participating areas where turkey is listed; the $12 Limited Public Use Permit does not authorize hunting. Some areas require drawn, postcard or youth selection instead, and the official finder may require JavaScript.",
       ],
-      links: [tpwdDrawn, link("Texas drawn hunts", "/hunting/drawn-hunts"), link("Annual Public Hunting Permit", "/hunting/annual-public-hunting-permit"), link("Find public hunting areas", "/hunting/public-hunting")],
+      links: [tpwdAPHFinder, tpwdAPHPermit, tpwdDrawn, tpwdHagerman, tpwdEastLake, link("Texas drawn hunts", "/hunting/drawn-hunts"), link("Annual Public Hunting Permit", "/hunting/annual-public-hunting-permit"), link("Find public hunting areas", "/hunting/public-hunting")],
     },
     {
       heading: "South Texas, Hill Country, North Texas and East Texas trip choices",
@@ -111,6 +116,14 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
         "North Texas: creek bottoms, pasture–woodland edges and river corridors can support Rio Grande birds. Public access is often a more important constraint than habitat; investigate official draw and walk-in catalogs before traveling. East Texas: favor connected woodland and hardwood habitat, then check special spring-only, East Zone and bait/method restrictions.",
       ],
       links: [tpwdTurkey, tpwdBiology, link("Texas state parks and habitat destinations", "/explore/state-parks"), link("Plan a Texas trip", "/explore/trip-planner")],
+    },
+    {
+      heading: "Using TPWD turkey harvest numbers responsibly",
+      paragraphs: [
+        "TPWD publishes statewide summer turkey observations and historical county-level harvest reports. These provide useful broad trends but are not live population counts. Hunter effort, compliance with reporting, property ownership and legal access influence the figures.",
+        "Compare the official TPWD harvest data with the current county regulations and Area / Legal Game Search. A county with more reported harvests does not guarantee good public access; a historical harvest number or map cannot authorize hunting any property.",
+      ],
+      links: [tpwdHarvestData, tpwdAPHFinder, tpwdTurkey],
     },
     {
       heading: "Equipment, field safety and ethical harvest",
@@ -124,10 +137,10 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "How TexasDefined verifies this guide",
       paragraphs: [
-        "This guide was reviewed October 28, 2026 against TPWD's live 2026–27 wild turkey regulation page, 2026–27 hunting date table, April 2026 adopted-regulation announcement, turkey-management reporting page, and the public-draw category listing. It is an independent trip-planning article, not a government publication or substitute for the Outdoor Annual.",
-        "The official TPWD species page and county selector control the hunting dates and limits for your chosen county. If TPWD revises a season, closes a county, changes reporting procedures, or updates a hunt catalog after the editorial verification date, that newer official rule controls. TexasDefined's scheduled source check flags changes for editorial verification; it does not invent replacement legal dates.",
+        "This guide was reviewed October 29, 2026 against TPWD's live 2026–27 wild turkey regulation page, 2026–27 hunting date table, April 2026 adopted-regulation announcement, turkey-management reporting page, public-draw and individual hunt listings, the current public-access catalog and official turkey harvest data. It is an independent trip-planning article, not a government publication or substitute for the Outdoor Annual.",
+        "The official TPWD species page and county selector control the hunting dates and limits for your chosen county. If TPWD revises a season, closes a county, changes reporting procedures, or updates a hunt catalog after the editorial verification date, that newer official rule controls. TexasDefined checks official regulation sources weekly, reviews public access and harvest data quarterly, and uses a two-source updater for verified same-season date corrections. Legal restrictions and new season years require editorial verification, not automatic publication.",
       ],
-      links: [tpwdTurkey, tpwdDates, tpwdChange, tpwdReport, tpwdBiology, tpwdDrawn],
+      links: [tpwdTurkey, tpwdDates, tpwdChange, tpwdReport, tpwdBiology, tpwdDrawn, tpwdAPHFinder, tpwdHarvestData],
     },
   ],
   related: [
@@ -148,8 +161,8 @@ export const TURKEY_HUNTING_TOPIC: HuntingAuthorityTopic = {
     { question: "Which Texas counties are closed to turkey hunting in 2026–27?", answer: "Matagorda and Wharton are closed under the 2026–27 TPWD changes. Other counties may also lack a turkey season; check TPWD's county selector before making plans." },
     { question: "Do I have to report a Texas turkey harvest?", answer: "Yes. TPWD requires mandatory statewide reporting. Hunters using a physical license must report within 24 hours; digital-license users must follow TPWD's immediate reporting instructions. Tagging is also required." },
     { question: "Is it legal to hunt wild turkey over bait in East Texas?", answer: "No in the special East Zone spring season. TPWD explicitly prohibits hunting over bait in those East Zone counties and restricts methods to shotguns and lawful archery equipment. Confirm the county boundary and other applicable rules." },
-    { question: "Where can I hunt turkey on public land in Texas?", answer: "Start with TPWD's official public-hunting and drawn-hunt catalogs, then check turkey as legal game on the specific property. Hagerman NWR and Lower Rio Grande Valley NWR — East Lake appear in the 2026–27 National Refuge Spring Turkey draw category; neither is open to unrestricted turkey hunting." },
-    { question: "Are wild turkeys common in every part of Texas?", answer: "No. Rio Grande birds occupy much of Central, North and South Texas; Eastern birds occupy selected East Texas woodlands; small Merriam's populations survive in western mountains. Local habitat, rainfall, seasons and lawful access vary considerably." },
+    { question: "Where can I hunt turkey on public land in Texas?", answer: "Start with TPWD's Area / Legal Game Search, select turkey and inspect the individual area's legal-game box, map and required permit. Hagerman NWR and Lower Rio Grande Valley NWR–East Lake offer specific 2027 spring turkey drawn-hunt opportunities, not walk-in access." },
+    { question: "Are wild turkeys common in every part of Texas?", answer: "No. Rio Grande birds occupy much of Central, North and South Texas; Eastern birds occupy selected East Texas woodlands; small western reports of Merriam's-type birds warrant caution because subspecies identity and distribution are not conclusively established. Local habitat, rainfall, seasons and lawful access vary considerably." },
     { question: "Can I hunt turkey at a Texas state park?", answer: "Not merely because turkeys live there. A state park is not automatically open to hunting. Only a specifically authorized hunt with its required permit and instructions would permit it." },
   ],
 };

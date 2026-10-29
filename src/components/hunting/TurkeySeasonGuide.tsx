@@ -90,6 +90,31 @@ export function TurkeySeasonGuide() {
           <div><p className="eyebrow text-primary">Specific 2026–27 public hunting lead</p><h3 className="mt-2 font-display text-2xl">National Refuge Spring Turkey drawings</h3><p className="mt-3 text-sm leading-7">{drawApplicationExpired ? <>The November 1, 2026 application deadline for the Hagerman and Lower Rio Grande Valley NWR–East Lake examples has passed. Use the official TPWD drawn-hunt catalog to check the next application cycle; these are not unrestricted public hunts.</> : <>TPWD lists Hagerman NWR and Lower Rio Grande Valley NWR–East Lake in its National Refuge Spring Turkey draw category, with an application deadline of <strong>November 1, 2026</strong>. Limited permits, fees, application requirements and weapon restrictions apply. These are drawn opportunities, not open-access hunts.</>}</p></div>
           <a href={tpwdDrawUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center border border-primary px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground">See TPWD drawing details ↗</a>
         </aside>
+        <section className="mt-10 border-t border-border pt-8" aria-labelledby="turkey-public-hunting-options">
+          <h3 id="turkey-public-hunting-options" className="font-display text-3xl">Two verified 2027 public turkey draw opportunities</h3>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These are limited-entry TPWD National Refuge Spring Turkey hunts, not open-access public hunting. Both list a November 1, 2026 application deadline, a $3 adult application fee and an $80 adult permit fee if selected. The individual hunt notices control eligibility, restrictions and availability.</p>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            <article className="border border-border p-5">
+              <h4 className="font-display text-2xl">Hagerman National Wildlife Refuge</h4>
+              <p className="mt-2 text-sm leading-7"><strong>April 22–24, 2027</strong> · 24 permits listed · one gobbler only. Archery or shotguns with birdshot; only non-toxic shot no larger than #4. Hunting is confined to designated compartments.</p>
+              <a className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4" href="https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UP" rel="noopener noreferrer" target="_blank">Hagerman hunt rules and permit details ↗</a>
+            </article>
+            <article className="border border-border p-5">
+              <h4 className="font-display text-2xl">Lower Rio Grande Valley NWR — East Lake</h4>
+              <p className="mt-2 text-sm leading-7"><strong>April 2–4 or April 9–11, 2027</strong> · 8 permits listed · one gobbler or bearded hen. Shotguns with birdshot; no standbys listed.</p>
+              <a className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4" href="https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UE" rel="noopener noreferrer" target="_blank">East Lake hunt rules and permit details ↗</a>
+            </article>
+          </div>
+          <div className="mt-6 border-l-4 border-primary bg-muted/30 p-5">
+            <h4 className="font-display text-xl">Find walk-in turkey hunting where it is actually legal</h4>
+            <p className="mt-2 text-sm leading-7">Open the official TPWD Area / Legal Game Search, filter for turkey, then inspect each unit's legal-game listing, maps, hunt dates, weapon restrictions and access instructions. The $48 APH hunting permit is for eligible properties; the $12 Limited Public Use permit does not authorize hunting. Some properties are drawing-only or youth-only.</p>
+            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+              <a className="font-semibold text-primary underline underline-offset-4" href="https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/search.phtml" rel="noopener noreferrer" target="_blank">TPWD legal-game and property finder ↗</a>
+              <a className="font-semibold text-primary underline underline-offset-4" href="https://tpwd.texas.gov/huntwild/wild/game_management/turkey/turkeyData.phtml" rel="noopener noreferrer" target="_blank">TPWD county harvest data ↗</a>
+            </div>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">Historical harvest totals can help research broad trends; they do not prove turkey abundance or public hunting permission on any tract.</p>
+          </div>
+        </section>
         <section className="mt-10 border-t border-border pt-8" aria-labelledby="turkey-travel-heading">
           <h3 id="turkey-travel-heading" className="font-display text-2xl">Planning an overnight turkey-hunting trip?</h3>
           <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Only book travel after confirming lawful hunting access, permits and your actual county. These partner links are broad lodging and rental searches, not recommendations for a particular ranch or evidence that a wildlife area is open to hunting.</p>
