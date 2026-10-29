@@ -30,7 +30,7 @@ test("Orange future year is not fabricated from 2026 historical schedule", () =>
 });
 test("Beaumont's public festival remains separate from the Pardi Gras charity", () => {
   const src = OFFICIAL_SOURCES.find((s) => s.id === "beaumont-festival");
-  assert.equal(evaluateSource(src, ("Feb. 13th, 14th & 15th Doggett Ford Park ").repeat(10)).ok, true);
+  assert.equal(evaluateSource(src, ("Mardi Gras of Southeast Texas Feb. 13th, 14th & 15th Doggett Ford Park ").repeat(10)).ok, true);
   assert.equal(evaluateSource(src, ("Mardi Gras of Southeast Texas February 5–7, 2027 Doggett Ford Park ").repeat(10)).ok, false);
 });
 test("short anti-bot responses and unexpected source changes fail closed", () => {
@@ -57,4 +57,33 @@ test("persists per-source observed official facts, UTC checks, and distinct fail
   assert.equal(ledger.observations[1].lastSuccessfulCheckInThisRun, null);
   assert.deepEqual(ledger.observations[1].observedValues, []);
   assert.equal(ledger.observations[0].sourceUrl, src.url);
+  assert.equal(ledger.observations[0].eventSlug, "oak-cliff-mardi-gras-parade");
+});
+
+test("Orange explicit 2027 schedule is review-required even when the old pending notice remains", () => {
+  const src = OFFICIAL_SOURCES.find((source) => source.id === "orange-sabine");
+  const pending = "Information for the 2027 Mardi Gras on the Sabine will be updated at a later date. ";
+  const oldEvent = "Mardi Gras on the Sabine was held Saturday, February 7, 2026. ";
+  assert.equal(evaluateSource(src, (pending + oldEvent).repeat(6)).ok, true);
+  for (const announced of ["Saturday, February 6, 2027", "Feb 6–7, 2027", "2/6/2027", "2027-02-06"]) {
+    const result = evaluateSource(src, (pending + oldEvent).repeat(4) + "Mardi Gras on the Sabine " + announced);
+    assert.equal(result.ok, false, announced);
+    assert.equal(result.reason, "possible-new-2027-announcement-requires-editorial-verification");
+  }
+});
+
+test("organizer identity mismatch fails closed despite matching date patterns", () => {
+  const source = OFFICIAL_SOURCES.find((item) => item.id === "beaumont-festival");
+  const wrongEvent = ("Circle of Hope Pardi Gras charity, Feb. 13th, 14th & 15th, not the public festival. ").repeat(8);
+  const result = evaluateSource(source, wrongEvent);
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, "wrong-event-or-source-identity");
+});
+
+test("all tracked sources have explicit event identity and coherent guide mapping", () => {
+  for (const source of OFFICIAL_SOURCES) {
+    assert.ok(source.identity instanceof RegExp, source.id);
+    if (source.id !== "mainland-texas-city") assert.match(source.eventSlug, /^[a-z0-9-]+$/);
+    else assert.equal(source.eventSlug, null);
+  }
 });
