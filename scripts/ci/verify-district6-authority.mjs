@@ -17,6 +17,7 @@ const [page, head, guide] = await Promise.all([
 
 assert.match(page, /district6Pilot\s*=\s*district\.slug === '6a-district-6'/, 'District 6 selector missing');
 assert.match(page, /district6Pilot\s*&&\s*<District6Guide\s*\/>/, 'District 6 guide is not mounted');
+assert.match(page, /const games = district6Pilot \? \[\] : getDistrictFootballGames\(/, 'District 6 must not consume the shared game results feed while records automation is paused');
 assert.ok(page.indexOf('{district6Pilot && <District6Guide />}') < page.indexOf('<FootballMonetizationSlot'), 'District 6 football guide must appear before monetization');
 assert.match(head, /District 6-6A Football: 2026 Teams, Schedule & Tickets/, 'Distinctive District 6 title missing');
 assert.match(head, /No live standings or W-L automation/, 'District 6 search metadata must disclose that records are not live');
