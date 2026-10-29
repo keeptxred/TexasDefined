@@ -1,4 +1,4 @@
-import { VIATOR_LIVE_DESTINATION_IDS, normalizeViatorMarketProducts, type ViatorLiveProduct } from "./viator-market-feed";
+import { VIATOR_LIVE_DESTINATION_IDS, normalizeViatorMarketProducts, type ViatorLiveProduct } from "./viator-market-feed.ts";
 
 /** Seasonal tours are not official event occurrences or tickets to holiday festivals. */
 export function christmasExperienceSearchBody(market: string) {
