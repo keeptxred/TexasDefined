@@ -90,6 +90,9 @@ const gameKey = (game: Pick<DistrictFootballGame, 'date' | 'away' | 'home'>) =>
  */
 export function getDistrictFootballGames(slug: string, classification: string, district: number): DistrictFootballGame[] {
   const known = new Map<string, DistrictFootballGame>();
+  // In 1A–5A the same district number exists in both divisions; a missing or
+  // mismatched division from an optional provider feed must not mix rivals.
+  const division = slug.includes('-division-ii-') ? 2 : slug.includes('-division-i-') ? 1 : null;
   if (slug === '6a-district-22') {
     for (const game of KATY_2026_DISTRICT_GAMES) known.set(gameKey(game), game);
   }
@@ -104,6 +107,7 @@ export function getDistrictFootballGames(slug: string, classification: string, d
   }
   for (const game of footballMatchups) {
     if (game.classification !== classification || game.district !== district || game.phase !== 'regular' || game.districtGame !== true) continue;
+    if (division !== null && game.division !== division) continue;
     const converted: DistrictFootballGame = {
       date: game.date, kickoff: game.kickoff,
       away: game.away.name, home: game.home.name, venue: game.venue,
