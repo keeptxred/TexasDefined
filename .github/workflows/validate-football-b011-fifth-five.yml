@@ -1,0 +1,39 @@
+name: Validate all 25 Batch011 sourced football schools and final Chrome contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/high-school-football/program-editorial-b011*'
+      - 'src/data/high-school-football/school-identities.ts'
+      - 'src/data/high-school-football/football-program-profile.server.ts'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'docs/football-authority/schools/**'
+      - 'scripts/ci/verify-football-b011-*-source.test.mjs'
+      - 'scripts/ci/verify-football-b011-fifth-five-production.mjs'
+      - 'scripts/data/validate-high-school-football-platform.mjs'
+      - '.github/workflows/verify-football-b011-fifth-five-production.yml'
+      - '.github/workflows/validate-football-b011-fifth-five.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  all-five-cohorts-source-acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and exact first-through-fifth cohort school source tests
+        run: |
+          node --check scripts/ci/verify-football-b011-fifth-five-production.mjs
+          node --check scripts/ci/verify-football-b011-fifth-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-first-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-second-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-third-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-fourth-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-fifth-five-source.test.mjs
+      - name: Full governed registry validator, 230 historic certifications and private non-UIL
+        run: node scripts/data/validate-high-school-football-platform.mjs
