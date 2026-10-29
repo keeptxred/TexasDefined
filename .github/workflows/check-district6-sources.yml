@@ -1,0 +1,56 @@
+name: District 6-6A source freshness (no scores automation)
+
+on:
+  schedule:
+    # Monthly editorial-source maintenance, not an automated scoreboard feed.
+    - cron: '23 14 1 * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/components/sports/District6Guide.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
+      - 'scripts/ci/verify-district6-authority.mjs'
+      - '.github/workflows/check-district6-sources.yml'
+  pull_request:
+    paths:
+      - 'src/components/sports/District6Guide.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
+      - 'scripts/ci/verify-district6-authority.mjs'
+      - '.github/workflows/check-district6-sources.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  district-6-policy-and-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check district content policy and official sources
+        id: verify
+        run: |
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            node scripts/ci/verify-district6-authority.mjs --check-links
+          else
+            node scripts/ci/verify-district6-authority.mjs
+          fi
+        shell: bash
+      - name: Create one review issue if official sources need attention
+        if: steps.verify.outputs.review_needed == 'true' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          count="$(gh issue list --state open --search 'District 6-6A source review in:title' --json number --jq 'length')"
+          if [[ "$count" == "0" ]]; then
+            gh issue create --title 'District 6-6A source review' --body-file district6-source-review.md
+          else
+            echo "An open District 6 source-review issue already exists; no duplicate."
+          fi
