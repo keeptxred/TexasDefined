@@ -303,6 +303,20 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add(page);
     katyFootballPages.add(page);
   }
+  // Lone Star's school-specific overlay must survive the actual production release.
+  // Enqueue only when its owned data or the shared live verifier changes: one
+  // public football page, no statewide high-school football crawl.
+  const loneStarFootballPages = new Set();
+  if (changedFiles.some(path => [
+    'src/data/high-school-football/program-editorial-frisco-lone-star.ts',
+    'src/data/high-school-football/football-program-profile.server.ts',
+    'src/data/high-school-football/school-identities.ts',
+    'scripts/ci/verify-changed-production-pages.mjs',
+  ].includes(path))) {
+    const page = '/texas-high-school-football-teams/frisco-lone-star';
+    candidates.add(page);
+    loneStarFootballPages.add(page);
+  }
   // Verify the corrected statewide source figures on the real public pages, not
   // just a generic HTTP 200 or sitemap entry. Four fixed URLs, no catalog crawl.
   // Deploy runs enforce these canaries even when a newer release supersedes the
@@ -552,7 +566,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...loneStarFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
@@ -564,6 +578,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),
     katyFootballPages: selectedPaths.filter(p => katyFootballPages.has(p)),
+    loneStarFootballPages: selectedPaths.filter(p => loneStarFootballPages.has(p)),
     battleshipVisitorPages: selectedPaths.filter(p => battleshipVisitorPages.has(p)),
     fredericksburgSitemapPaths: selectedPaths.filter(p => fredericksburgSitemapPaths.has(p)),
     magoffinHomePages: selectedPaths.filter(p => magoffinHomePages.has(p)),
