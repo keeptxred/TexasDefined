@@ -71,11 +71,31 @@ jobs:
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          MARDI_GRAS_SOURCE_LEDGER_PATH: ${{ runner.temp }}/mardi-gras-official-sources.json
         run: node scripts/events/check-mardi-gras-official-sources.mjs
+
+      - name: Keep bounded official-source observations in the existing GitHub run
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mardi-gras-official-source-observations
+          path: ${{ runner.temp }}/mardi-gras-official-sources.json
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Escalate Mardi Gras watcher infrastructure failure without blocking other Texas events
         if: steps.mardi_gras_sources.outcome == 'failure'
-        run: echo "::warning title=Mardi Gras source-check failed::See this run and fix the watcher; existing guide data must not be overwritten."
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title="[Mardi Gras source review] Watcher infrastructure failure"
+          existing="$(gh issue list --state open --search 'Watcher infrastructure failure in:title' --json title,number --jq '.[] | select(.title == "[Mardi Gras source review] Watcher infrastructure failure") | .number' | head -n 1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The existing daily Mardi Gras source-check program failed internally at $(date -u +%Y-%m-%dT%H:%M:%SZ). Review $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Preserve last-known-good event facts, noindex and image rights; do not invent event dates or treat the last successful check as current."
+          fi
+          echo "::error title=Mardi Gras official-source watcher failed::Incident tracked in a stable GitHub issue. Source facts must remain last-known-good."
 
       - name: Test strict retention of still-current source-verified festival dates
         run: node --test scripts/events/retain-verified-official-events.test.mjs
