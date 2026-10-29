@@ -434,6 +434,7 @@ export function loadMajorEventPageServer(slug: string) {
   const ticketingMarkup = buildMajorEventTicketingMarkupServer(event.slug) || buildOfficialAirshowTicketMarkupServer(event.slug);
   const nearbyExperiencesMarkup = buildFestivalNearbyExperiencesMarkupServer(event.slug);
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
+  const yearQualifiedEventName = event.name.includes(String(eventYear)) ? event.name : `${event.name} ${eventYear}`;
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
   const recurrenceDerived = isRecurrenceDerivedMajorEventSlug(event.slug);
@@ -642,15 +643,15 @@ export function loadMajorEventPageServer(slug: string) {
     name: event.name,
     city: event.city,
     title: event.seoTitle ?? (recurrenceDerived
-      ? `${event.name} ${eventYear}: Projected Dates & Texas Travel Guide`
+      ? `${yearQualifiedEventName}: Projected Dates & Texas Travel Guide`
       : expiredConfirmedOccurrence
         ? `${event.name}: Dates & Texas Travel Guide`
-        : `${event.name} ${eventYear}: Dates & Texas Travel Guide`),
+        : `${yearQualifiedEventName}: Dates & Texas Travel Guide`),
     description: event.seoDescription ?? (recurrenceDerived
-      ? `${event.name} ${eventYear} in ${event.city}, Texas: projected planning dates, official sources and practical trip planning.`
+      ? `${yearQualifiedEventName} in ${event.city}, Texas: projected planning dates, official sources and practical trip planning.`
       : expiredConfirmedOccurrence
         ? `${event.name} in ${event.city}, Texas: latest confirmed dates, official sources and practical planning while the next occurrence is pending.`
-        : `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`),
+        : `${yearQualifiedEventName} in ${event.city}, Texas: dates, official sources and practical trip planning.`),
     html,
     jsonLd,
   };
