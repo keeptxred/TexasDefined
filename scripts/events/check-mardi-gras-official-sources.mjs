@@ -6,6 +6,8 @@ import { appendFile, writeFile } from "node:fs/promises";
 export const OFFICIAL_SOURCES = [
   {
     id: "oak-cliff-parade",
+    eventSlug: "oak-cliff-mardi-gras-parade",
+    identity: /Oak Cliff Mardi Gras Parade|Go Oak Cliff Mardi Gras/i,
     label: "Oak Cliff partner-confirmed parade",
     url: "https://www.dashforthebeads.org/the-race/",
     mode: "confirmed",
@@ -13,6 +15,8 @@ export const OFFICIAL_SOURCES = [
   },
   {
     id: "port-arthur-gate-hours",
+    eventSlug: "mardi-gras-port-arthur",
+    identity: /Mardi Gras Port Arthur/i,
     label: "Ben J. Rogers Regional Visitors Center — Port Arthur 2027 gate hours",
     url: "https://explorejeffersoncountytx.com/e/mardi-gras-port-arthur-2027-6aa92e29f4f53a064b18d211/",
     mode: "confirmed",
@@ -26,13 +30,20 @@ export const OFFICIAL_SOURCES = [
   },
   {
     id: "orange-sabine",
+    eventSlug: "mardi-gras-on-the-sabine-orange",
+    identity: /Mardi Gras on the Sabine/i,
     label: "City of Orange — Mardi Gras on the Sabine",
     url: "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine",
     mode: "unannounced",
     pending: /information for the 2027 Mardi Gras on the Sabine will be updated at a later date/i,
+    // The old pending notice may remain on the same page after a new 2027 date is posted.
+    // Flag explicit month/date/2027 or numeric date formats instead of treating it as unchanged.
+    announcement: /(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?)\s+\d{1,2}(?:\s*[-–]\s*\d{1,2})?,?\s*2027|\b(?:0?[1-3]\/\d{1,2}\/2027|2027-0[1-3]-\d{2})\b/i,
   },
   {
     id: "beaumont-festival",
+    eventSlug: "mardi-gras-southeast-texas-beaumont",
+    identity: /Mardi Gras of Southeast Texas/i,
     label: "Mardi Gras of Southeast Texas — public festival (not Circle of Hope)",
     url: "https://mardigrastx.com/",
     mode: "unannounced",
@@ -41,6 +52,8 @@ export const OFFICIAL_SOURCES = [
   },
   {
     id: "mainland-texas-city",
+    eventSlug: null, // The statewide pending list has no individual Texas City guide.
+    identity: /Mainland Mardi Gras Parade/i,
     label: "City of Texas City — Mainland Mardi Gras Parade",
     url: "https://texascitytx.gov/906/Parades",
     mode: "unannounced",
@@ -49,6 +62,8 @@ export const OFFICIAL_SOURCES = [
   },
   {
     id: "bandera-specific",
+    eventSlug: "cowboy-mardi-gras-bandera",
+    identity: /Cowboy Mardi Gras/i,
     label: "Bandera tourism — detailed festival (January 28–31)",
     url: "https://www.banderacowboycapital.com/events/2026/cowboy-mardi-gras",
     mode: "confirmed",
@@ -56,6 +71,8 @@ export const OFFICIAL_SOURCES = [
   },
   {
     id: "bandera-general",
+    eventSlug: "cowboy-mardi-gras-bandera",
+    identity: /Cowboy Mardi Gras/i,
     label: "Bandera tourism — general save-the-date (January 28–30)",
     url: "https://www.banderacowboycapital.com/p/events/save-the-dates",
     mode: "confirmed",
@@ -77,6 +94,8 @@ export function normalizeHtml(html) {
 export function evaluateSource(source, html) {
   const text = normalizeHtml(html);
   if (text.length < 200) return { ok: false, reason: "too-short-or-challenge", excerpt: text.slice(0, 300) };
+  // An official URL can redirect or return another organizer event without being an HTTP error.
+  if (source.identity && !source.identity.test(text)) return { ok: false, reason: "wrong-event-or-source-identity", excerpt: text.slice(0, 300) };
   if (source.mode === "confirmed") {
     const failures = source.required.filter((r) => !r.test(text));
     return {
@@ -113,6 +132,7 @@ export function buildSourceLedger(sources, checks, checkedAt) {
       return {
         id: check.id,
         eventLabel: source?.label ?? check.id,
+        eventSlug: source?.eventSlug ?? null,
         sourceUrl: check.url,
         mode: source?.mode ?? "unknown",
         state: check.ok ? "expected-source-state" : "review-required",
