@@ -155,6 +155,11 @@ test('District 16 production verifies actual standings, fixtures, mobile and des
  assert.ok(district16Component.includes('data-district16-result="scheduled"'));
 });
 
+const teamTemplate = readFileSync(new URL('../../src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', import.meta.url), 'utf8');
+test('team pages cannot label older unconfirmed games as their next fixture', () => {
+  assert.ok(teamTemplate.includes('game.date >= todayTexas'));
+  assert.ok(!teamTemplate.includes('game.date >= editorial.season.verifiedAt'));
+});
 const district11 = readFileSync(new URL('../../src/data/high-school-football/football-district11-2026.ts', import.meta.url), 'utf8');
 
 test('2026 District 11 has complete, distinct and traceable seven-school round robin fixtures', () => {
@@ -204,6 +209,7 @@ test('District 11 score-derived records do not invent official standings', () =>
   });
   assert.ok(source.includes("slug === '4a-division-i-district-11'"));
   assert.ok(source.includes('DISTRICT_11_2026_GAMES'));
+  assert.ok(source.includes('if (division !== null && game.division !== division) continue;'), 'provider cannot mix DII results into a DI district');
   assert.ok(template.includes("const district11Pilot = district.slug === '4a-division-i-district-11'"));
   assert.ok(template.includes('data-football-district-section="district-11-context"'));
   assert.ok(template.includes('data-football-district-section="district-11-game-day"'));
