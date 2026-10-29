@@ -118,7 +118,7 @@ export function MetroProximityHubPage({ pageData }: { pageData: HubPageData }) {
           const presentation = metroProximityCollectionPresentation(collection);
           return <article key={collection.slug} className="border-t border-border pt-5">
             <p className="eyebrow text-muted-foreground">{optionCount} source-backed options</p>
-            <h3 className="mt-2 font-display text-2xl"><Link to="/explore/near/$metro/$collection" params={{ metro: metro.slug, collection: collection.slug }} className="hover:text-primary">{presentation.label}</Link></h3>
+            <h3 className="mt-2 font-display text-2xl"><Link to="/explore/near/$metro/$collection" params={{ metro: metro.slug, collection: collection.slug }} className="hover:text-primary">{metro.slug === "texarkana" && collection.slug === "day-trips" ? "Day Trips From Texarkana" : presentation.label}</Link></h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{presentation.summary}</p>
           </article>;
         })}
