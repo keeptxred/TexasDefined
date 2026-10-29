@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { OFFICIAL_SOURCES, evaluateSource, normalizeHtml } from "./check-mardi-gras-official-sources.mjs";
+import { OFFICIAL_SOURCES, evaluateSource, normalizeHtml, buildSourceLedger } from "./check-mardi-gras-official-sources.mjs";
 
 test("source monitor tracks official organizers plus Port Arthur regional visitor center and Bandera's contradictory listings", () => {
   assert.equal(OFFICIAL_SOURCES.length, 7);
@@ -36,4 +36,25 @@ test("Beaumont's public festival remains separate from the Pardi Gras charity", 
 test("short anti-bot responses and unexpected source changes fail closed", () => {
   assert.equal(evaluateSource(OFFICIAL_SOURCES[0], "Just a moment...").ok, false);
   assert.equal(evaluateSource(OFFICIAL_SOURCES.at(-1), ("January festival canceled. ").repeat(30)).ok, false);
+});
+
+
+test("persists per-source observed official facts, UTC checks, and distinct failure status without guessing a previous successful check", () => {
+  const src = OFFICIAL_SOURCES.find((item) => item.id === "oak-cliff-parade");
+  const good = evaluateSource(src, "<h1>Sunday, February 7, 2027</h1><p>1:00pm Oak Cliff Mardi Gras Parade</p>".repeat(10));
+  assert.equal(good.ok, true);
+  assert.equal(good.observedValues.length, 2);
+  assert.match(good.observedValues[0], /February 7, 2027/);
+  const checkedAt = "2026-10-29T13:40:00.000Z";
+  const ledger = buildSourceLedger(OFFICIAL_SOURCES, [
+    { id: src.id, url: src.url, ...good },
+    { id: "orange-sabine", url: OFFICIAL_SOURCES.find((item) => item.id === "orange-sabine").url, ok: false, reason: "source-check-unavailable: HTTP 503", observedValues: [] },
+  ], checkedAt);
+  assert.equal(ledger.schemaVersion, 1);
+  assert.equal(ledger.policy, "source-observation-only-no-automatic-date-or-rights-promotion");
+  assert.deepEqual(ledger.observations.map((item) => item.state), ["expected-source-state", "review-required"]);
+  assert.equal(ledger.observations[0].lastSuccessfulCheckInThisRun, checkedAt);
+  assert.equal(ledger.observations[1].lastSuccessfulCheckInThisRun, null);
+  assert.deepEqual(ledger.observations[1].observedValues, []);
+  assert.equal(ledger.observations[0].sourceUrl, src.url);
 });
