@@ -113,11 +113,12 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
     primaryEvents: ['Texas A&M men’s basketball', 'Texas A&M women’s basketball and volleyball', 'Concerts, commencement and special events'],
     history: 'Reed Arena opened in 1998 on the west side of the Texas A&M campus. The 12,989-seat special-events center is home to Aggie men’s and women’s basketball and volleyball while also hosting concerts, commencement ceremonies and other major university events.',
     parking: 'Game-day parking is tied to the Texas A&M campus system and can vary by event. Visitors should use the current athletics or transportation instructions for their event rather than relying on ordinary weekday campus parking.',
-    arrival: 'College Station traffic builds around major Aggie events, especially when multiple campus activities overlap. Build in time to park and walk, and treat the campus approach as part of the game-day plan.',
+    arrival: 'College Station traffic builds around major Aggie events, especially when multiple campus activities overlap. Build in time to park and walk. Texas A&M enforces a clear-bag policy at Reed Arena; standard large clear bags must follow its 12-1-1 size rule, with additional allowances and screening requirements published in the official venue A-to-Z guide. Check the current policy and any event-specific instructions before packing.',
     stayAndEat: 'A Reed Arena visit works best as part of a College Station stay centered on the Texas A&M campus, with lodging and restaurants chosen to minimize repeated cross-town driving.',
     nearby: 'Kyle Field and Olsen Field at Blue Bell Park are nearby, making the west-campus athletics district one of Texas’s strongest clusters for college-sports travel.',
     planningLinks: [
       { label: 'Reed Arena facility guide', url: 'https://12thman.com/facilities/reed-arena' },
+      { label: 'Reed Arena official clear-bag and entry policy', url: 'https://12thman.com/facilities/a-to-z/reed-arena' },
       { label: 'Texas A&M men’s basketball schedule', url: 'https://12thman.com/sports/mens-basketball/schedule/season/2026-27' },
     ],
     imageBrief: 'Reed Arena in College Station on a basketball game night with Texas A&M campus context and arriving fans, collegiate travel-editorial photography, no added logos or text.',
