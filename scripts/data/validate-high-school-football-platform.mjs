@@ -2147,7 +2147,7 @@ const batch010View=(registry)=>{
     errors.push('Batch011 may become active only after fully archived Batch010 technical certification.');
     return registry;
   }
-  return {...registry,batch:batch010Certification};
+  return {...registry,batch:{...batch010Certification,currentSchool:null,nextSchool:null}};
 };
 const batch010ExpectedUnreviewed = 1062 -
   batch009Certification.schoolRecords.filter(x=>
@@ -2965,7 +2965,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
  if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
    reg.batch.remainingToImplement!==0||reg.batch.nextSchool!==null||
    reg.batch.remainingToVerify!==batch010ExpectedRemaining||totals.VERIFIED!==batch010ExpectedTotalVerified||(totals.IMPLEMENTED||0)!==batch010ExpectedImplemented||
-   totals.NOT_REVIEWED!==1062)
+   totals.NOT_REVIEWED!==batch010ExpectedUnreviewed)
    errors.push('Batch010 fourth cohort must maintain 205 VERIFIED / 25 IMPLEMENTED / 1062 NOT_REVIEWED, all assigned schools authored');
  const graphicList=team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
  for(const [slug,countySlug,coach] of schools) {
@@ -3024,7 +3024,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
  if(reg.batch.number!==10||reg.batch.slugs.length!==25||reg.batch.implementedOnBranch!==25||
     reg.batch.remainingToImplement!==0||reg.batch.nextSchool!==null||
     reg.batch.remainingToVerify!==batch010ExpectedRemaining||counts.VERIFIED!==batch010ExpectedTotalVerified||
-    (counts.IMPLEMENTED||0)!==batch010ExpectedImplemented||counts.NOT_REVIEWED!==1062)
+    (counts.IMPLEMENTED||0)!==batch010ExpectedImplemented||counts.NOT_REVIEWED!==batch010ExpectedUnreviewed)
    errors.push('Batch010 final source-only state must retain 205 VERIFIED / 25 IMPLEMENTED / 1062 NOT_REVIEWED; no new batch assigned before live acceptance');
  const graphicList=team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0]??'';
  for(const [slug,countySlug,coach] of five){
