@@ -33,7 +33,7 @@ function eventNodes(html) {
 export function parseVerifiedMardiGras2027Candidate(source, html, checkedAt) {
   const target = identity[source?.id];
   if (!target) return held("not-a-source-authorized-for-automatic-2027-candidate");
-  if (!/^2026-\d{2}-\d{2}T/.test(checkedAt || "")) return held("missing-verifiable-observation-time");
+  if (!/^202[67]-\d{2}-\d{2}T/.test(checkedAt || "")) return held("missing-verifiable-observation-time");
   if (!source.identity?.test(normalize(html))) return held("source-event-identity-not-present");
   const candidates = eventNodes(html).filter(event => target.name.test(normalize(event.name)));
   if (!candidates.length) return held("no-exact-event-jsonld-at-official-source");
