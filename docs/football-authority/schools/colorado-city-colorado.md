@@ -6,8 +6,8 @@
 
 Colorado High Wolves football belongs to Colorado City, Mitchell County and the 2026–28 UIL 2A Division I District 4. Colorado High in Colorado City is the Texas Wolves program, not a school in the state of Colorado. The district's official staff page presently identifies Daniel Mejia as AD/HFC; his 2025 appointment and the separate June 2025 offensive-coordinator announcement explain how the staff was assembled without pretending either report describes a completed 2026 football season.
 
-- **School/county versus stadium:** 1500 Lone Wolf Blvd, Colorado City, TX 79512 — campus mailing/address reference, not a verified stadium visitor entrance
-- **Campus source:** [School/TEA official profile](https://www.ccity.esc14.net/staff?page_no=2); no source establishes a specific football spectator gate or ADA entrance.
+- **School/county versus stadium:** 1500 N Lone Wolf Blvd, Colorado City, TX 79512 — campus mailing/address reference, not a verified stadium visitor entrance
+- **Campus source:** [U.S. NCES 2025–26 school directory](https://nces.ed.gov/ccd/schooLSearch/school_detail.asp?ID=481464000951&SchoolPageNum=111&state=48); no source establishes a specific football spectator gate or ADA entrance.
 - **UIL source:** 2026–28 classification and district are independently determined from the official UIL alignment in the editorial's milestones.
 - **School-specific source:** Colorado High in Colorado City is the Texas Wolves program, not a school in the state of Colorado. The district's official staff page presently identifies Daniel Mejia as AD/HFC; his 2025 appointment and the separate June 2025 offensive-coordinator announcement explain how the staff was assembled without pretending either report describes a completed 2026 football season. [Dated primary context](https://www.ccity.esc14.net/article/2261704).
 
