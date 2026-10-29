@@ -20,7 +20,7 @@ test("normalizes supplier previews, preserves correct API affiliate URL and cove
       { isCover: true, variants: [{ url: "https://example.org/cover.jpg", width: 450 }] },
     ],
     pricing: { summary: { fromPrice: 2 } },
-  }] }, "waco");
+  }] });
   assert.equal(products.length, 1);
   assert.equal(products[0].productCode, "455209P1");
   assert.equal(products[0].title, "A guided walking tour of Texas history");
@@ -32,26 +32,27 @@ test("normalizes supplier previews, preserves correct API affiliate URL and cove
   assert.ok(!("pricing" in products[0]), "unverified date-specific prices must not be shown");
 });
 
-test("adds missing campaign and publisher parameters without rewriting product paths", () => {
+test("never modifies Viator's complete official productUrl, and rejects missing tracking", () => {
+  const full = "https://www.viator.com/tours/Houston/A-tour/d5186-100P1?mcid=42383&pid=P00318227&medium=api&version=2.0&campaign=texasdefined-api-houston";
   const products = normalizeViatorMarketProducts({ products: [{
     productCode: "100P1",
     title: "Guided Houston walking tour",
-    productUrl: "https://www.viator.com/tours/Houston/A-tour/d5186-100P1",
-  }] }, "houston");
-  const url = new URL(products[0].url);
-  assert.equal(url.pathname, "/tours/Houston/A-tour/d5186-100P1");
-  assert.equal(url.searchParams.get("pid"), "P00318227");
-  assert.equal(url.searchParams.get("mcid"), "42383");
-  assert.equal(url.searchParams.get("medium"), "api");
-  assert.equal(url.searchParams.get("campaign"), "texasdefined-api-houston");
+    productUrl: full,
+  }] });
+  assert.equal(products[0].url, full);
+  assert.deepEqual(normalizeViatorMarketProducts({ products: [{
+    productCode: "200P1",
+    title: "Untracked Houston walking tour",
+    productUrl: "https://www.viator.com/tours/Houston/A-tour/d5186-200P1",
+  }] }), []);
 });
 
 test("rejects other affiliate IDs, offsite redirects, commodity transfers, duplicates and invalid products", () => {
   const products = normalizeViatorMarketProducts({ products: [
     { productCode: "WRONG", title: "Something really interesting", productUrl: "https://www.viator.com/a?pid=other" },
     { productCode: "OFFSITE", title: "Something really interesting", productUrl: "https://viator.com.evil.example/tour" },
-    { productCode: "RENTAL", title: "Airport transfer services", productUrl: "https://www.viator.com/a" },
-    { productCode: "SAFE", title: "Verified guided tour of Dallas", productUrl: "https://www.viator.com/a" },
+    { productCode: "RENTAL", title: "Airport transfer services", productUrl: "https://www.viator.com/a?mcid=42383&pid=P00318227&medium=api" },
+    { productCode: "SAFE", title: "Verified guided tour of Dallas", productUrl: "https://www.viator.com/a?mcid=42383&pid=P00318227&medium=api" },
     { productCode: "SAFE", title: "Duplicate guided tour of Dallas", productUrl: "https://www.viator.com/b" },
     { productCode: "BAD!", title: "Invalid code product tour title", productUrl: "https://www.viator.com/c" },
   ] }, "dallas");
@@ -62,8 +63,8 @@ test("caps to four results and fails closed on malformed API responses", () => {
   const records = Array.from({ length: 9 }, (_, i) => ({
     productCode: `TEST${i}`,
     title: `This is a guided tour number ${i}`,
-    productUrl: "https://www.viator.com/tours/Texas/Example",
+    productUrl: "https://www.viator.com/tours/Texas/Example?mcid=42383&pid=P00318227&medium=api",
   }));
   assert.equal(normalizeViatorMarketProducts({ products: records }, "austin").length, 4);
-  assert.throws(() => normalizeViatorMarketProducts({ bad: [] }, "austin"));
+  assert.throws(() => normalizeViatorMarketProducts({ bad: [] }));
 });
