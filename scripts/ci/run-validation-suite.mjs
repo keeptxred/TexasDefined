@@ -89,6 +89,7 @@ const checks = [
   ['citypass-affiliate', 'MONETIZATION/AFFILIATE', 'Validate Texas CityPASS affiliate coverage', 'node', ['scripts/data/validate-citypass-affiliate.mjs']],
   ['viator-live-feed', 'MONETIZATION/VIATOR', 'Validate approved Viator markets and tracked live product links', 'node', ['--experimental-strip-types', '--test', 'src/lib/__tests__/viator-market-feed.test.ts']],
   ['unified-discovery-governance', 'DISCOVERY/AUTHORITY', 'Validate shared event and Viator source policy', 'node', ['scripts/data/validate-unified-discovery-governance.mjs']],
+  ['viator-new-page-owner-approval', 'DISCOVERY/APPROVAL', 'Reject unapproved new Viator-sourced indexed destinations', 'node', ['scripts/data/validate-viator-new-destination-approvals.mjs', '--self-test']],
   ['unified-discovery-contracts', 'DISCOVERY/AUTHORITY', 'Test official occurrence, attraction triage, county linking and seasonal affiliate query', 'node', ['--experimental-strip-types', '--test', 'src/data/discovery/__tests__/entity-registry.test.ts', 'src/data/discovery/__tests__/canonical-links.test.ts', 'src/data/discovery/__tests__/attraction-triage.test.ts', 'src/lib/__tests__/viator-attraction-discovery.test.ts']],
   ['seo-ci-contract', 'CI/CONTRACT', 'Validate SEO CI contract', 'node', ['scripts/data/validate-seo-ci-contract.mjs']],
   ['data-validate', 'DATA/QUALITY', 'Validate production data and migrated features', 'npm', ['run', 'data:validate']],
@@ -125,7 +126,7 @@ const predeployIds = new Set([
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority', 'event-visitor-copy',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness', 'texas-life-relocation-hero-uniqueness', 'texas-life-housing-photo-relevance',
-  'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'viator-live-feed', 'unified-discovery-governance', 'unified-discovery-contracts', 'governed-seo-duplicates',
+  'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'viator-live-feed', 'unified-discovery-governance', 'unified-discovery-contracts', 'viator-new-page-owner-approval', 'governed-seo-duplicates',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
