@@ -88,6 +88,21 @@ async function main() {
     console.log("No new safely verified 2027 official source facts to promote; protected last-known-good unchanged.");
   }
 }
+async function verify() {
+  const before = JSON.parse(await readFile(output, "utf8"));
+  if (before.schemaVersion !== 1 || before.season !== 2027 || !before.records || Array.isArray(before.records)) {
+    throw new Error("Invalid Mardi Gras 2027 protected source registry");
+  }
+  for (const [slug, fact] of Object.entries(before.records)) {
+    if (!Object.values(authorized).some(source => source.eventSlug === slug)
+        || !validateProtectedRecord(fact, fact.sourceId)) {
+      throw new Error("Invalid or untrusted protected Mardi Gras source record " + slug);
+    }
+  }
+  console.log("Mardi Gras source registry verified: " + Object.keys(before.records).length + " approved event occurrence(s).");
+}
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
-  main().catch(error => { console.error(error); process.exitCode = 1; });
+  (process.argv.includes("--verify") ? verify() : main()).catch(error => {
+    console.error(error); process.exitCode = 1;
+  });
 }
