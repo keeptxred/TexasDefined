@@ -1,4 +1,4 @@
-import { TOP_TEXAS_ATTRACTIONS } from "../top-texas-attractions";
+import { TOP_TEXAS_ATTRACTIONS } from "../top-texas-attractions.ts";
 
 /**
  * Explicitly reviewed city-market placement of EXISTING authority guides.
