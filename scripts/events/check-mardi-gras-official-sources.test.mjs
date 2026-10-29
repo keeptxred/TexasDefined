@@ -31,6 +31,8 @@ test("Orange future year is not fabricated from 2026 historical schedule", () =>
 test("Beaumont's public festival remains separate from the Pardi Gras charity", () => {
   const src = OFFICIAL_SOURCES.find((s) => s.id === "beaumont-festival");
   assert.equal(evaluateSource(src, ("Mardi Gras of Southeast Texas Feb. 13th, 14th & 15th Doggett Ford Park ").repeat(10)).ok, true);
+  // The live organizer homepage brands itself "Mardi Gras Southeast Texas" (without "of").
+  assert.equal(evaluateSource(src, ("Mardi Gras Southeast Texas Feb. 13th, 14th & 15th Doggett Ford Park ").repeat(10)).ok, true);
   assert.equal(evaluateSource(src, ("Mardi Gras of Southeast Texas February 5–7, 2027 Doggett Ford Park ").repeat(10)).ok, false);
 });
 test("short anti-bot responses and unexpected source changes fail closed", () => {
