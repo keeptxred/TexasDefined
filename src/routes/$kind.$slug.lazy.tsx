@@ -330,6 +330,13 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'mitchell': [{ name: 'Colorado High Wolves', slug: 'colorado-city-colorado', context: 'Colorado ISD names Daniel Mejia athletic director and head coach; Mitchell County 2A Division I District 4, not Colorado state' }],
+  'colorado': [{ name: 'Columbus Cardinals', slug: 'columbus', context: 'Columbus ISD athletic director/head coach Matt Schobel; Colorado County Class 3A Division I District 11, separate from Colorado City' }],
+  'comal': [
+    { name: 'New Braunfels Canyon Cougars', slug: 'comal-canyon', context: 'Comal ISD athletic coordinator Sean McAuliffe, 2026 6A District 27; not Canyon ISD Panhandle' },
+    { name: 'Canyon Lake Hawks', slug: 'comal-canyon-lake', context: 'Fischer Comal County campus; Lawrence (Sam) Parker campus athletics coordinator; 4A Division I District 13' },
+    { name: 'Davenport Wolves', slug: 'comal-davenport', context: 'Garden Ridge-area Comal ISD school; head coach James (J.D.) Zimmerhanzel in August 2026 district bulletin; 4A Division I District 13' }
+  ],
   'brazos': [{ name: 'College Station Cougars', slug: 'college-station', context: 'School lists Stoney Pryor as head football coach; 5A Division I District 12, separate from A&M Consolidated Tigers' }, { name: 'A&M Consolidated Tigers', slug: 'college-station-a-and-m-consolidated', context: 'School lists Brandon Schmidt as head football coach; 5A Division I District 12, distinct from College Station High Cougars' }],
   'tarrant': [{ name: 'Colleyville Heritage Panthers', slug: 'colleyville-heritage', context: 'GCISD identifies Jerry Edwards head coach; UIL 5A Division II District 3, distinguish old 2025 records' }],
   'grayson': [{ name: 'Collinsville Pirates', slug: 'collinsville', context: 'Texas 2A Division II District 9; Garrett Patterson on season-qualified varsity roster, not Illinois Collinsville Kahoks' }],
