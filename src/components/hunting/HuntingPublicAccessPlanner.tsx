@@ -39,7 +39,7 @@ export function HuntingPublicAccessPlanner() {
               <label htmlFor="hunting-access-county" className="block text-sm font-semibold">County to search</label>
               <select id="hunting-access-county" value={countySlug} onChange={(event) => setCountySlug(event.target.value)} className="mt-2 min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
                 <option value="">Any Texas county</option>
-                {TEXAS_COUNTIES.map((item) => <option value={item.slug} key={item.slug}{item.name}</option>)}
+                {TEXAS_COUNTIES.map((item) => <option value={item.slug} key={item.slug}>{item.name}</option>)}
               </select>
             </div>
             <div>
