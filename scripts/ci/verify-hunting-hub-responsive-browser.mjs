@@ -55,10 +55,20 @@ try {
     assert.match(await page.locator("#hunting-season-planner h3").innerText(), /^Wild turkey · /, "keyboard selection must update rendered guide");
 
 
+    const seasonCounty = page.locator("#hunting-season-county");
+    assert.equal(await seasonCounty.locator("option").count(), 255, "season planner must allow all 254 county rule lookups");
+    await seasonCounty.selectOption("harris");
+    assert.ok((await page.locator("#hunting-season-planner").innerText()).includes("Harris County selected."), "county-aware verification panel appears");
+    assert.ok(await page.locator("#hunting-season-planner a[href='https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/harris/']").count(), "season planner links directly to current TPWD county regulations");
+    assert.ok((await page.locator("#hunting-season-planner").innerText()).includes("does not filter these dates"), "county selection cannot falsely imply dates were filtered");
+    assert.equal((await page.locator("#hunting-season-planner").innerText()).includes("County County"), false, "county names must not duplicate County");
+
     const county = page.locator("#hunting-access-county");
     assert.equal(await county.locator("option").count(), 255, "254 counties plus all-county option");
     await county.selectOption("harris");
     assert.ok((await page.locator("#public-hunting-planner").innerText()).includes("Harris County"), "county-specific planning handoff");
+    assert.equal((await page.locator("#public-hunting-planner").innerText()).includes("County County"), false, "public-hunt county must not be duplicated");
+    assert.ok((await page.locator("#public-hunting-planner").innerText()).includes("does not retrieve matching properties"), "guided finder must not imply actual matching results");
     await county.focus();
     assert.equal(await page.evaluate(() => document.activeElement?.id), "hunting-access-county", "county selector keyboard focus");
     await page.keyboard.press("Home");
