@@ -8,6 +8,7 @@ import { renderErrorPage } from "./lib/error-page";
 import { remoteImageRequestHeaders } from "./lib/remote-image-fetch-policy";
 import { normalizeViatorMarketProducts, VIATOR_LIVE_DESTINATION_IDS, type ViatorLiveMarketResponse } from "./lib/viator-market-feed";
 import { attractionDiscoveryRequestBody, viatorAttractionCandidates, type ViatorAttractionDiscoveryResponse } from "./lib/viator-attraction-discovery";
+import { christmasExperienceSearchBody, normalizeChristmasViatorExperiences } from "./lib/viator-seasonal-discovery";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -270,6 +271,48 @@ function viatorUpstreamResponse(upstream: Response, cacheControl: string): Respo
  * This is deliberately not an indexable route or a publishing endpoint. A
  * separate official-source editorial check is required before creating pages.
  */
+/** A Christmas-themed supplier SEARCH, not evidence of any dated event. */
+async function viatorChristmasExperienceResponse(request: Request, apiKey: string, ctx: unknown, market: string) {
+  if (request.method !== "GET") return viatorError("Method not allowed", 405, "GET");
+  if (new URL(request.url).search) return viatorError("Unexpected query parameters", 400);
+  if (!Object.prototype.hasOwnProperty.call(VIATOR_LIVE_DESTINATION_IDS, market)) return viatorError("Unreviewed market", 404);
+  const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
+  const cacheKey = new Request(request.url, { method: "GET" });
+  const cached = cache ? await cache.match(cacheKey) : undefined;
+  if (cached) return cached;
+  try {
+    const headers = viatorHeaders(request, apiKey);
+    headers.set("Accept", "application/json;version=2.0");
+    headers.set("Accept-Language", "en-US");
+    headers.set("Accept-Currency", "USD");
+    const endpoint = new URL(VIATOR_API_BASE + "/search/freetext");
+    endpoint.searchParams.set("campaign-value", `texasdefined-api-${market}`);
+    const upstream = await fetch(endpoint.toString(), {
+      method: "POST", headers, body: JSON.stringify(christmasExperienceSearchBody(market)),
+      redirect: "error", signal: AbortSignal.timeout(8_000),
+    });
+    if (!upstream.ok) {
+      console.warn("[viator-christmas] upstream status", market, upstream.status);
+      return viatorError("Holiday experiences are temporarily unavailable", 503);
+    }
+    const products = normalizeChristmasViatorExperiences(await upstream.json());
+    const response = Response.json({
+      source:"viator",market,refreshedAt:new Date().toISOString(),products,
+      category:"seasonal-experiences-not-calendar-events",
+    }, {headers:{
+      "Cache-Control":"public, max-age=120, s-maxage=1200",
+      "X-Content-Type-Options":"nosniff",
+      "X-Robots-Tag":"noindex, nofollow, noarchive",
+    }});
+    const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
+    if (cache && typeof waitUntil === "function") waitUntil.call(ctx, cache.put(cacheKey, response.clone()));
+    return response;
+  } catch (error) {
+    console.warn("[viator-christmas] search failed", market, error instanceof Error ? error.name : "unknown");
+    return viatorError("Holiday experiences are temporarily unavailable", 503);
+  }
+}
+
 async function viatorAttractionResearchResponse(request: Request, apiKey: string, ctx: unknown, market: string) {
   if (request.method !== "GET") return viatorError("Method not allowed", 405, "GET");
   if (new URL(request.url).search) return viatorError("Unexpected query parameters", 400);
@@ -398,6 +441,9 @@ async function viatorApiResponse(
 
   const apiKey = viatorApiKey(env);
   if (!apiKey) return viatorError("Viator integration is unavailable", 503);
+
+  const christmasMarketMatch = url.pathname.match(/^\/api\/viator\/market\/([a-z0-9-]+)\/christmas\/?$/);
+  if (christmasMarketMatch) return viatorChristmasExperienceResponse(request, apiKey, ctx, christmasMarketMatch[1]);
 
   const attractionResearchMatch = url.pathname.match(/^\/api\/viator\/market\/([a-z0-9-]+)\/attractions\/?$/);
   if (attractionResearchMatch) return viatorAttractionResearchResponse(request, apiKey, ctx, attractionResearchMatch[1]);
