@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { TEXAS_COUNTIES } from "@/data/texas-places";
 import speciesCalendar from "@/data/hunting/species-season-calendar.json";
 import deerCalendar from "@/data/hunting/deer-season-dates.json";
 import { HUNTING_REGULATION_FRESHNESS } from "@/data/hunting/freshness";
@@ -66,6 +67,8 @@ function useTexasDate() {
 
 export function HuntingSeasonPlanner() {
   const [selected, setSelected] = useState(calendars[0].id);
+  const [countySlug, setCountySlug] = useState("");
+  const county = TEXAS_COUNTIES.find((item) => item.slug === countySlug);
   const today = useTexasDate();
   const calendar = useMemo(() => calendars.find((entry) => entry.id === selected) ?? calendars[0], [selected]);
   const archived = Boolean(today && today > HUNTING_REGULATION_FRESHNESS.validThrough);
@@ -81,7 +84,7 @@ export function HuntingSeasonPlanner() {
             Compare the official {speciesCalendar.seasonYear} statewide dates for deer, turkey and 17 other game categories. Select a species to see its zones and dates. A date window that includes today does not establish that hunting is legal in your county or on your property.
           </p>
           {archived ? <p role="status" className="mt-5 border-l-4 border-primary bg-background p-4 text-sm leading-7"><strong>Archived 2026–27 season snapshot.</strong> These dates no longer establish the current season. Use TPWD’s newest Outdoor Annual and area-specific rules before planning a hunt. Our source monitor must verify the next calendar before the published dates can advance.</p> : null}
-          <div className="mt-7 grid gap-5 rounded-sm border border-border bg-background p-5 md:grid-cols-2 md:items-end">
+          <div className="mt-7 grid gap-5 rounded-sm border border-border bg-background p-5 md:grid-cols-2 lg:grid-cols-3 md:items-end">
             <div>
               <label htmlFor="hunting-species-select" className="block text-sm font-semibold">Species or game category</label>
               <select
@@ -93,9 +96,32 @@ export function HuntingSeasonPlanner() {
                 {calendars.map((entry) => <option key={entry.id} value={entry.id}>{entry.heading}</option>)}
               </select>
             </div>
+            <div>
+              <label htmlFor="hunting-season-county" className="block text-sm font-semibold">County to check with TPWD</label>
+              <select
+                id="hunting-season-county"
+                value={countySlug}
+                onChange={(event) => setCountySlug(event.target.value)}
+                className="mt-2 min-h-11 w-full rounded-sm border border-border bg-background px-3 py-2 text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                <option value="">Select county (optional)</option>
+                {TEXAS_COUNTIES.map((item) => <option key={item.slug} value={item.slug}>{item.name}</option>)}
+              </select>
+            </div>
             <Link to={"/hunting/" + calendar.slug} className="inline-flex min-h-11 items-center justify-center border border-primary px-5 py-2 text-sm font-semibold text-primary hover:bg-muted">
               Read the {calendar.heading.toLowerCase()} guide →
             </Link>
+          </div>
+          <div className="mt-4 border-l-4 border-primary bg-background p-4 text-sm leading-7" aria-live="polite">
+            {county ? <>
+              <p><strong>{county.name} selected.</strong> The dates below remain statewide zone summaries; selecting a county does not filter these dates or determine which hunts are legal.</p>
+              <a
+                href={"https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/" + (county.slug === "la-salle" ? "lasalle" : county.slug) + "/"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-block font-semibold text-primary underline underline-offset-4"
+              >Open TPWD's current {county.name} rules to verify {calendar.heading.toLowerCase()} ↗</a>
+            </> : <p>For a legal decision, select a county and open TPWD's official rules. These statewide date windows do not establish an open hunt for any particular property.</p>}
           </div>
           <div className="mt-7 flex flex-wrap items-baseline justify-between gap-3">
             <h3 className="font-display text-2xl">{calendar.heading} · {calendar.rows.length} season/zone entries</h3>
