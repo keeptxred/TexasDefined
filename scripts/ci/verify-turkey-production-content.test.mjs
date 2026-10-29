@@ -10,6 +10,12 @@ const markers = [
   'Matagorda and Wharton are closed',
   'Official Texas turkey hunting zone maps',
   'National Refuge Spring Turkey drawings',
+  'Two verified 2027 public turkey draw opportunities',
+  'Find walk-in turkey hunting where it is actually legal',
+  'Using TPWD turkey harvest numbers responsibly',
+  'TPWD legal-game and property finder',
+  'Hagerman hunt rules and permit details',
+  'East Lake hunt rules and permit details',
 ];
 const article = '<main>' + markers.map(x => '<section>' + x + '</section>').join('') + '</main>';
 
@@ -31,4 +37,17 @@ test('does not count content hidden in framework scripts as rendered article tex
 
 test('requires every core section instead of accepting a partial turkey release', () => {
   assert.throws(() => assertTurkeyHuntingAuthority(article.replace('Official Texas turkey hunting zone maps', ''), 'test'), /zone maps/);
+});
+
+test('rejects the previous October 28 turkey page even if original content matches', () => {
+  const oldMarkers = markers.filter(marker => ![
+    'Two verified 2027 public turkey draw opportunities',
+    'Find walk-in turkey hunting where it is actually legal',
+    'Using TPWD turkey harvest numbers responsibly',
+    'TPWD legal-game and property finder',
+    'Hagerman hunt rules and permit details',
+    'East Lake hunt rules and permit details',
+  ].includes(marker));
+  const oldPage = '<main>' + oldMarkers.map(x => '<section>' + x + '</section>').join('') + '</main>';
+  assert.throws(() => assertTurkeyHuntingAuthority(oldPage, 'canonical visitor'), /authority section missing/);
 });
