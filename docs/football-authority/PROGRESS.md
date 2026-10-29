@@ -1,5 +1,27 @@
 # Football Authority — Execution Ledger
 
+## 2026-10-29 — Batch 010 technical Chrome certification complete (25/25)
+
+Five genuine, non-skipped Chrome cohorts independently checked all 75 school viewports
+(1366/390/320), 22 reciprocal county views, 25 sitemap URLs, and preserved 106 PNG screenshots.
+Every report observed identical published Cloudflare Worker dee22d1b-97af-46e0-b057-3b95dcee8963.
+The Cloudflare deployment d3e83fdc-69a5-455c-a57f-9129cf68eb45 served it at 100% during all five
+real Chrome verification windows, beginning 2026-10-29T04:01:08.201806Z. GitHub verified-Worker ledger deployment 7403697880 independently binds the exact source commit to that Worker. This is a dated verification window; subsequent production deployments do not retroactively invalidate its accepted test evidence.
+Successful protected [production deployment](https://github.com/keeptxred/TexasDefined/actions/runs/40814884597) on commit 5dc4c0f421a1ffaa17ac2099d6584f0ceffb1b6f completed before live browser checks.
+This is historical production evidence, not a claim that the Worker is still active.
+
+- first-five: [Chrome run 40815611967](https://github.com/keeptxred/TexasDefined/actions/runs/40815611967), [retained screenshot artifact 12872356373](https://github.com/keeptxred/TexasDefined/actions/runs/40815611967/artifacts/12872356373); 20 images.
+- second-five: [Chrome run 40815611948](https://github.com/keeptxred/TexasDefined/actions/runs/40815611948), [retained screenshot artifact 12872676079](https://github.com/keeptxred/TexasDefined/actions/runs/40815611948/artifacts/12872676079); 26 images.
+- third-five: [Chrome run 40815611971](https://github.com/keeptxred/TexasDefined/actions/runs/40815611971), [retained screenshot artifact 12871454601](https://github.com/keeptxred/TexasDefined/actions/runs/40815611971/artifacts/12871454601); 21 images.
+- fourth-five: [Chrome run 40815611892](https://github.com/keeptxred/TexasDefined/actions/runs/40815611892), [retained screenshot artifact 12872142671](https://github.com/keeptxred/TexasDefined/actions/runs/40815611892/artifacts/12872142671); 20 images.
+- fifth-five: [Chrome run 40815611912](https://github.com/keeptxred/TexasDefined/actions/runs/40815611912), [retained screenshot artifact 12872476121](https://github.com/keeptxred/TexasDefined/actions/runs/40815611912/artifacts/12872476121); 19 images.
+
+Registry: 230 technical VERIFIED / 0 IMPLEMENTED / 1,062 NOT_REVIEWED.
+This does NOT certify human fact-by-fact review, school photo/mark rights, manual WCAG,
+stadium admission/ADA, current score-feed licensing or historical-team affiliation.
+Batch 011 has not been assigned.
+
+
 ## October 28, 2026 — All 25 Batch010 school dossiers and unique editorial finished on dependent branch; live QA still pending
 
 - College Station Cougars: 2026 CSISD current school directory lists **Stoney Pryor** head football coach/campus coordinator; UIL **5A Division I District 12**. This is separate from A&M Consolidated despite shared school district and UIL district.
