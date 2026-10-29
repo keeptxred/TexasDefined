@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 
 import bluebonnets from "@/assets/bluebonnets.jpg";
 import { EventTicketCta } from "@/components/events/EventTicketCta";
+import { lazy, Suspense } from "react";
+const CalendarBookingDiscovery = lazy(() => import("@/components/events/CalendarBookingDiscovery").then((m) => ({default:m.CalendarBookingDiscovery})));
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasEventCarousel } from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
@@ -56,6 +58,8 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
     <Container><TexasEventCarousel events={upcomingEventRecords} title="Upcoming events across Texas" eyebrow="Verified statewide calendar" viewAllHref="/events#calendar" /></Container>
 
     <Section><Container><SectionHeader eyebrow="Browse the calendar" title="Find something worth the trip" description="Choose a month or day, then narrow by location, event type or venue. Every filtered view has a shareable URL." /><GlobalEventCalendar calendarView={calendarView} regions={regions} search={search} /></Container></Section>
+
+    <Suspense fallback={null}><CalendarBookingDiscovery city={search.location.startsWith("city:") ? search.location.slice(5) : undefined} christmas={search.start.startsWith("2026-12") || search.end.startsWith("2026-12")} /></Suspense>
 
     <section className="ev-section ev-surface"><Container><div className="ev-split"><div><p className="eyebrow ev-e">Understand the tradition</p><h2 className="ev-title">The culture behind the calendar</h2></div><div className="ev-grid4">
       <EditorialLink href="/texas-state-fair" title="State Fair of Texas" text="Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair." />
