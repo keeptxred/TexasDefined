@@ -53,7 +53,7 @@ export function KingsCamoGearOffers({
   topicSlug?: string;
 }) {
   const selected: readonly OfferKey[] =
-    context === "hub" ? ["apparel", "women", "packs"]
+    context === "hub" ? ["lightweight", "rain", "packs"]
     : context === "camping" ? ["camping"]
     : topicSlug ? topicOffers[topicSlug] ?? [] : [];
   if (!selected.length) return null;
@@ -71,7 +71,9 @@ export function KingsCamoGearOffers({
           <p className="mt-3 text-sm leading-7 text-muted-foreground">
             {context === "camping"
               ? "Kings Camo offers an outdoor camping collection. Check what you actually need for your campsite and conditions before buying."
-              : "Compare clothing and equipment for the weather and terrain. Shop only after checking your hunt's actual needs and official regulations."}
+              : context === "hub"
+                ? "For a confirmed hunt, compare breathable layers for heat, a weather shell for rain, and a pack suited to the distance you'll carry supplies. These are category links, not field-tested recommendations; purchase only what your trip requires."
+                : "Compare clothing and equipment for the weather and terrain. Shop only after checking your hunt's actual needs and official regulations."}
           </p>
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
