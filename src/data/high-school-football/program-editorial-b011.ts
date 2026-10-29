@@ -262,7 +262,7 @@ const BATCH011_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What 2026 UIL district applies?",
-        "answer": "6A District 27 in the 2026–28 realignment."
+        "answer": "New Braunfels Canyon competes in UIL Class 6A District 27 for 2026–28, separate from Canyon Lake and other similarly named high schools."
       },
       {
         "question": "Is Canyon High the same program as Canyon Lake?",
