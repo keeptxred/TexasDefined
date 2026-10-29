@@ -6,7 +6,8 @@ import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizati
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { District16Coverage } from '@/components/sports/District16Coverage';
 import { District6Guide } from '@/components/sports/District6Guide';
-import { District9Guide, district9DisplayName } from '@/components/sports/District9Guide';
+import { District9Guide } from '@/components/sports/District9Guide';
+import { district9DisplayName } from '@/data/high-school-football/district9-display-names';
 import { DISTRICT_5_SCHEDULE_URL, DISTRICT_5_STANDINGS_URL } from '@/data/high-school-football/football-district5-2026';
 import { DISTRICT_11_VERIFIED_AT, DISTRICT_11_STANDINGS_URL, DISTRICT_11_PLAYOFF_SOURCE } from '@/data/high-school-football/football-district11-2026';
 import {
@@ -301,7 +302,7 @@ function Page() {
           <Related href={district9Pilot ? "#district-9-sources" : district6Pilot ? "https://www.maxpreps.com/tx/football/26-27/district/6a-region-i-district-6/?leagueid=28ebe920-dd93-4580-bd88-1bb25e74ff7d" : district11Pilot ? DISTRICT_11_STANDINGS_URL : "https://www.uiltexas.org/maxpreps/"} title={district9Pilot ? "Garland and Wylie varsity calendars" : district6Pilot ? "Independent District 6 scoreboard" : "Current scores & schedules"} body={district9Pilot ? "Use current official school calendars, tickets and stadium rules. Results and standings are not yet integrated." : district6Pilot ? "Open the UIL-partner scoreboard directly. This is an external link, not an imported score or W-L feed." : district11Pilot ? "Open the active MaxPreps District 11 view, rather than an unreliable UIL scoreboard redirect. Reported standings are not UIL-certified seeds." : "Open UIL's scoreboard gateway for school-submitted scores and schedules; verify any redirects. It is not an official district-standings table."} external={!district9Pilot} />
           <Related href="/article/texas-high-school-football-2026-season-calendar" title="2026 season calendar" body="Track district play, playoff rounds and the December state championship dates." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="See how district qualification advances into bi-district, regional rounds and the state championships." />
-          <Related href="/article/texas-high-school-football-scores-schedules" title="Verify scores & standings" body="Use the UIL scoreboard and school sources without turning incomplete submissions into an unofficial table." />
+          {district9Pilot ? <Related href="#district-9-sources" title="Official District 9 varsity calendars" body="Start with the host school\u0027s athletics calendar and approved ticket page." /> : <Related href="/article/texas-high-school-football-scores-schedules" title="Verify scores & standings" body="Use the UIL scoreboard and school sources without turning incomplete submissions into an unofficial table." />}
         </div>
       </section>
 
@@ -331,7 +332,7 @@ function Page() {
           <Related href="/texas-high-school-football-districts" title="Browse all 192 districts" body="Move across every current UIL football district from 6A through 1A six-man." />
           <Related href="/article/texas-high-school-football-classifications-1a-6a" title="Understand 1A through 6A" body="See how enrollment, divisions and biennial realignment shape the statewide system." />
           <Related href="/texas-high-school-football-championship-history" title="Championship history" body="Explore UIL state titles and state-final appearances for current programs." />
-          <Related href="/article/texas-high-school-football-scores-schedules" title="Follow scores & weekly schedules" body="See the best sources for confirming current results, schedules and standings." />
+          {district9Pilot ? <Related href="#district-9-game-day" title="Plan a District 9 game-day visit" body="Get official stadium directions, admissions and accessibility information." /> : <Related href="/article/texas-high-school-football-scores-schedules" title="Follow scores & weekly schedules" body="See the best sources for confirming current results, schedules and standings." />}
           <Related href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Explore the stadiums, traditions and culture around Texas high school football." />
         </div>
       </section>
