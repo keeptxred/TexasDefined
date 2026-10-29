@@ -67,7 +67,7 @@ export function HuntingPublicAccessPlanner() {
             </div>
           </div>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">
-            This guide does not prefilter TPWD's website, display matching public-hunt units or certify an open hunt. Check the exact unit's Legal Game box, hunt date, land boundary, check-in procedure, applicable license and endorsements, and whether an APH, regular, drawn, E-Postcard, or youth/mentored authorization is required. If TPWD's live search is unavailable, use its current-year map booklet—not an older map or third-party property boundary.
+            This page does not prefilter TPWD's website, display matching public-hunt units or certify an open hunt. Check the exact unit's Legal Game box, hunt date, land boundary, check-in procedure, applicable license and endorsements, and whether an APH, regular, drawn, E-Postcard, or youth/mentored authorization is required. If TPWD's live search is unavailable, use its current-year map booklet—not an older map or third-party property boundary.
           </p>
           <p className="mt-3 text-sm"><Link to="/hunting/public-hunting" className="font-semibold text-primary underline underline-offset-4">Understand how Texas public-hunting access works →</Link></p>
         </div>
