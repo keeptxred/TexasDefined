@@ -28,7 +28,7 @@ async function verify(origin) {
     'District 11-4A Division I Football',
     'District 11 reported finals',
     'District 11 records from reported finals',
-    'District 11\'s 2026 playoff race',
+    '2026 playoff race: 4 spots, 7 schools',
     'District 11 game-day planning',
     'Four of the seven teams qualify',
     'Bay City',
@@ -64,7 +64,9 @@ async function verify(origin) {
   assert.ok(records, origin + ' missing standings snapshot');
   assert.equal((records.match(/<tr\b/g) || []).length, 7, origin + ' expected 7 schools');
   const main = html.slice(html.indexOf('data-football-district-hub="v2"'));
-  assert.ok(main.indexOf('data-football-district-section="teams"') < main.indexOf('data-football-monetization'), origin + ' sponsorship before teams');
+  const teamsIndex = main.indexOf('data-football-district-section="teams"');
+  const sponsorIndex = main.indexOf('data-football-monetization');
+  assert.ok(teamsIndex >= 0 && (sponsorIndex < 0 || teamsIndex < sponsorIndex), origin + ' sponsorship before teams');
   console.log('PASS District 11 exact-content HTTP/SSR check', JSON.stringify({origin, cards: cards.length, finals, scheduled, schools: 7, title, cacheStatus: response.headers.get('cf-cache-status')}));
 }
 const outcome = await Promise.allSettled(origins.map(verify));
