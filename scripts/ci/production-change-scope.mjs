@@ -83,6 +83,19 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
   const eventAuthorityPages = new Set();
+  // A change to the exact-HTML release verifier must exercise its three
+  // completed-edition canaries on the live, normal visitor URLs. This is only
+  // three explicit guides, not a sitewide or all-events audit.
+  if (changedFiles.includes('scripts/ci/verify-changed-production-pages.mjs')) {
+    for (const page of [
+      '/event/state-fair-classic',
+      '/event/floresville-peanut-festival',
+      '/event/east-texas-state-fair',
+    ]) {
+      candidates.add(page);
+      eventAuthorityPages.add(page);
+    }
+  }
   // The canonical corporate marketplace needs SSR authority and privacy smoke
   // after the finder, catalog, city guides, categories or consent forms change.
   // One route only; do not crawl hundreds of editorial venue links.
