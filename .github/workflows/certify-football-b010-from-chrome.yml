@@ -5,9 +5,23 @@ on:
       - 'scripts/ci/prepare-football-b010-certification.mjs'
       - 'scripts/ci/prepare-football-b010-certification.test.mjs'
       - '.github/workflows/certify-football-b010-from-chrome.yml'
+  push:
+    branches: [main]
+    paths:
+      # Bounded one-time real-evidence retry on the protected fix itself.
+      - '.github/workflows/certify-football-b010-from-chrome.yml'
   workflow_dispatch:
   workflow_run:
-    workflows: ['Football Batch 010 fifth-five live production acceptance']
+    # All five cohort jobs finish independently. The fifth-numbered cohort
+    # is not guaranteed to be the last job to upload its artifact.
+    # Each completion makes one bounded certification attempt; missing
+    # cohorts produce a safe no-change outcome, never false verification.
+    workflows:
+      - 'Football Batch 010 first-five live production acceptance'
+      - 'Football Batch 010 second-five live production acceptance'
+      - 'Football Batch 010 third-five live production acceptance'
+      - 'Football Batch 010 fourth-five live production acceptance'
+      - 'Football Batch 010 fifth-five live production acceptance'
     types: [completed]
     branches: [main]
   schedule:
@@ -38,7 +52,7 @@ jobs:
           node --check scripts/ci/prepare-football-b010-certification.mjs
           node --test scripts/ci/prepare-football-b010-certification.test.mjs
   certification:
-    if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
+    if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event_name == 'push') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: texasdefined-publication
