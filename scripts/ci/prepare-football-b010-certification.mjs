@@ -122,9 +122,20 @@ export function graduateBatch010(reg,groups,worker,sha,deployRun,at) {
   assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,0);
 }
 function findRuns(i) {
+  // Query the bounded artifact index first: GitHub reports a green workflow
+  // when the actual Chrome steps are SKIPPED. Avoid up to 90 unnecessary API
+  // calls for green-but-skipped runs; they have zero screenshot artifacts.
+  const artifacts=gh('repos/'+REPO+'/actions/artifacts?name='+
+    encodeURIComponent(artifactName(i))+'&per_page=100');
+  const proofByRun=new Map((artifacts.artifacts||[]).filter(a=>
+    a.expired===false && a.name===artifactName(i) &&
+    Number.isSafeInteger(a.id) && a.id>0 &&
+    Number.isSafeInteger(a.workflow_run?.id)).map(a=>[a.workflow_run.id,a]));
   const data=gh('repos/'+REPO+'/actions/workflows/'+workflow(i)+'/runs?per_page=65');
   return (data.workflow_runs||[]).filter(r=>r.status==='completed'&&
-    r.conclusion==='success'&&r.head_branch==='main'&&SHA.test(r.head_sha||'')).slice(0,18);
+    r.conclusion==='success'&&r.head_branch==='main'&&
+    SHA.test(r.head_sha||'')&&proofByRun.has(r.id))
+    .slice(0,8).map(run=>({...run,certificateArtifact:proofByRun.get(run.id)}));
 }
 // Prefer the newest release shared by all five cohorts, but never require
 // each cohort's individually newest run to be from that release.
@@ -158,10 +169,32 @@ export function selectCommonWorkerReports(options) {
   }
   return null;
 }
+export function reportReleaseIdentity(report) {
+  const sha=report?.sourceCommit, worker=report?.workerVersions?.[0];
+  assert.ok(SHA.test(sha||''),'Chrome report requires an exact verified source commit');
+  assert.ok(UUID.test(worker||''),'Chrome report requires a real observed Worker UUID');
+  assert.equal(report?.workerVersions?.length,1,'Multiple Worker versions were observed');
+  return {sha,worker};
+}
+export function trustedReleasePairs(deployments) {
+  const pairs=new Set();
+  for(const d of deployments||[]) {
+    let p=d.payload;
+    if(typeof p==='string'){try{p=JSON.parse(p);}catch{continue;}}
+    if(d.environment==='texasdefined-verified-worker' && p &&
+       SHA.test(d.sha||'') && d.sha===p.commit_sha &&
+       UUID.test(p.worker_version||'') &&
+       Number.isFinite(Date.parse(p.verified_at||''))) {
+      pairs.add(d.sha+'|'+p.worker_version);
+    }
+  }
+  return pairs;
+}
 function downloadActual(i,run,slugs,temp) {
-  const data=gh('repos/'+REPO+'/actions/runs/'+run.id+'/artifacts');
-  const a=data.artifacts?.find(a=>a.name===artifactName(i)&&a.expired===false&&
-    Number.isSafeInteger(a.id)&&a.id>0);
+  const a=run.certificateArtifact;
+  assert.ok(a?.workflow_run?.id===run.id &&
+    a.name===artifactName(i) && a.expired===false,
+    'Chrome screenshot artifact must originate from the exact successful run');
   if(!a)return null; // Green skipped jobs never emitted PNG artifacts.
   const jobs=gh('repos/'+REPO+'/actions/runs/'+run.id+'/jobs?per_page=30');
   const performed=jobs.jobs?.some(job=>job.conclusion==='success' &&
@@ -176,14 +209,17 @@ function downloadActual(i,run,slugs,temp) {
   assert.equal(found.length,1,'One distinct report.json per actual browser run');
   const report=read(found[0]);
   if(report.workerVersions?.length!==1)return null;
-  const worker=report.workerVersions[0];
-  verifyChromeReport(report,i,slugs,worker,run.head_sha,pngs(dir));
+  // An action's triggering SHA can differ from the live-published source
+  // during rapid deployments. The Chrome report must carry its independent
+  // verified-Worker-ledger pinned source SHA; never substitute run.head_sha.
+  const {sha,worker}=reportReleaseIdentity(report);
+  verifyChromeReport(report,i,slugs,worker,sha,pngs(dir));
   const verifyStep=jobs.jobs?.flatMap(j=>j.steps||[]).find(x=>
     x.name?.startsWith('Verify 5 school') && x.conclusion==='success');
   assert.ok(Number.isFinite(Date.parse(verifyStep?.started_at)) &&
     Number.isFinite(Date.parse(verifyStep?.completed_at)),
     'Actual Chrome verification step must have GitHub signed timestamps');
-  return {sha:run.head_sha,worker,
+  return {sha,worker,
     browserStartedAt:verifyStep.started_at,
     browserCompletedAt:verifyStep.completed_at,
     group:{label:groupLabel(i),
@@ -327,46 +363,41 @@ export async function main() {
   }
   const temp=mkdtempSync(join(tmpdir(),'football-b010-certificate-'));
   try {
-    // A shared release SHA is a prerequisite, not a property to hope for
-    // after selecting five unrelated newest runs. Recent deployments can
-    // overlap the five staggered scheduled cohorts. Examine shared SHAs in
-    // newest-first order and accept only five genuinely executed, artifact-
-    // backed Chrome cohorts with the identical Worker. Green skipped runs
-    // never produce a report and therefore never enter the chosen set.
-    const recent=NAMES.map((_,i)=>findRuns(i));
-    const commonShas=sharedReleaseShas(recent);
-    if(!commonShas.length){
-      console.log('No common source release among five Chrome cohorts; no status changed');
+    // A workflow_run HEAD SHA is NOT the source of the public Worker during
+    // overlapping releases. Select only actual artifacts whose REPORT pinned
+    // source + observed Worker pair exists in the trusted GitHub ledger.
+    // This also allows scheduled cohorts with different trigger SHAs to
+    // correctly converge on the same deployed source.
+    const ledger=gh('repos/'+REPO+
+      '/deployments?environment=texasdefined-verified-worker&per_page=100');
+    const trusted=trustedReleasePairs(ledger);
+    if(!trusted.size){
+      console.log('No verifiable published Worker/source ledger yet; no certificate');
       return;
     }
-    let chosen=null;
-    for(const targetSha of commonShas) {
-      const options=[];
-      for(let i=0;i<5;i++) {
-        const slugs=reg.batch.slugs.slice(i*5,i*5+5);
-        const valid=[];
-        // Multiple deployments of the *same commit* can create different
-        // Worker versions. Preserve each real artifact-backed option rather
-        // than locking the cohort to its independently newest Worker.
-        for(const run of recent[i].filter(r=>r.head_sha===targetSha)) {
-          try {
-            const observed=downloadActual(i,run,slugs,temp);
-            if(observed)valid.push(observed);
-          } catch(e){
-            console.warn('Rejected '+NAMES[i]+' run '+run.id+': '+
-              String(e.message).slice(0,180));
-          }
+    const options=[];
+    for(let i=0;i<5;i++){
+      const slugs=reg.batch.slugs.slice(i*5,i*5+5);
+      const valid=[];
+      for(const run of findRuns(i)){
+        try {
+          const proof=downloadActual(i,run,slugs,temp);
+          if(proof && trusted.has(proof.sha+'|'+proof.worker)) valid.push(proof);
+        }catch(e){
+          console.warn('Rejected cohort '+NAMES[i]+' run '+run.id+': '+
+            String(e.message).slice(0,180));
         }
-        if(!valid.length)break;
-        options.push(valid);
       }
-      if(options.length===5) {
-        const same=selectCommonWorkerReports(options);
-        if(same){chosen=same;break;}
+      if(!valid.length){
+        console.log('No verified-release matching Chrome artifacts for '+NAMES[i]+
+          '; no status changed');
+        return;
       }
+      options.push(valid);
     }
+    const chosen=selectCommonWorkerReports(options);
     if(!chosen){
-      console.log('No complete shared-release set of five real Chrome artifacts yet; no certification');
+      console.log('No common ledger-attested source commit AND Worker across five cohorts');
       return;
     }
     const {sha,worker}=chosen[0];
