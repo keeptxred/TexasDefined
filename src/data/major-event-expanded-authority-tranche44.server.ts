@@ -86,14 +86,14 @@ const records: EventRecordWithWindows[] = [
     category: "sport",
     startDate: "2026-11-21",
     endDate: "2026-11-21",
-    dateNote: "The 2026 brewery calendar lists 5K, 10K and half-marathon races from 7 a.m. to 3 p.m.; registration can fill, so confirm current race availability before traveling.",
+    dateNote: "Shiner confirms November 21, 2026, from 7 a.m.–3 p.m.; its official registration partner also lists a full marathon alongside the 5K, 10K and half marathon. Check each distance for current openings, start times and packet pickup.",
     venue: "K. Spoetzl Brewery & Distillery",
     officialUrl: "https://shiner.com/event/15th-annual-beer-run/",
-    sourceCheckedAt: "2026-09-19",
-    whyItMatters: "The annual Shiner Beer Run turns the brewery into a destination race venue, with 5K, 10K and half-marathon options that draw runners to Shiner for a fall event built around the town's best-known landmark.",
+    sourceCheckedAt: "2026-10-29",
+    whyItMatters: "The annual Shiner Beer Run turns the brewery into a destination race venue, with full-marathon, half-marathon, 10K and 5K options that draw runners to Shiner for a fall event built around the town's best-known landmark.",
     planningSections: [
-      { title: "Use November 21 as the confirmed 2026 race date", body: "Shiner's official event page lists the 15th annual Beer Run for Saturday, November 21, 2026, with event hours from 7 a.m. to 3 p.m. and 5K, 10K and half-marathon distances." },
-      { title: "Register before treating the trip as fixed", body: "The organizer warns that race spots can fill. Confirm current registration status and participant instructions before booking a trip around the race, and use the organizer's current social or registration guidance for packet pickup, start times and race-day rules." },
+      { title: "Use November 21 as the confirmed 2026 race date", body: "Shiner's official event page lists the 15th annual Beer Run for Saturday, November 21, 2026, with event hours from 7 a.m. to 3 p.m. Its registration partner lists a new full marathon plus half marathon, 10K and 5K distances." },
+      { title: "Register before treating the trip as fixed", body: "RunSignUp lists a 7:30 a.m. marathon, 8 a.m. half marathon, 8:30 a.m. 10K and 8:45 a.m. 5K. Races may fill or change, so check live registration availability, the latest pickup instructions and start-line guidance before paying for travel." },
       { title: "Plan the brewery and town around the race, not through it", body: "Race-day operations can change normal traffic, parking and campus flow. Keep brewery tours or a longer Shiner itinerary after the race only when the current schedule leaves enough recovery and travel time." },
     ],
     relatedLinks: [
@@ -103,6 +103,7 @@ const records: EventRecordWithWindows[] = [
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas races and fall events." },
     ],
     sources: [
+      { label: "RunSignUp — 2026 Shiner Beer Run distance registration", url: "https://runsignup.com/Race/TX/Shiner/ShinerBeerRun" },
       { label: "Shiner official 15th Annual Beer Run", url: "https://shiner.com/event/15th-annual-beer-run/" },
       { label: "Shiner official events calendar", url: "https://shiner.com/events/" },
       { label: "Shiner brewery visitor information", url: "https://shiner.com/visit/" },

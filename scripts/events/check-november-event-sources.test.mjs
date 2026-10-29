@@ -10,6 +10,10 @@ test("watcher accepts 2026 organizer windows, rejects stale and missing dates", 
   assert(!verifySource("<p>November 28, 2026 - January 4, 2027</p>", targets[0]));
   assert(verifySource("<p>November 28 - December 28</p><p>2026 schedule</p>", targets[1]));
   assert(!verifySource("<p>November 27 - November 29, 2026</p>", targets[1]));
+  const shiner = targets.find((target) => target.name === "Shiner Beer Run 2026 registration");
+  assert(shiner);
+  assert(verifySource("<p>November 21, 2026</p><p>Marathon Half Marathon 10K 5K</p>", shiner));
+  assert(!verifySource("<p>November 21, 2026</p><p>Half Marathon 10K 5K</p>", shiner));
 });
 
 test("November collection stays consumer-focused with responsive filters", () => {
@@ -36,4 +40,15 @@ test("canonical event seasons and title deduplication remain correct", () => {
   assert(page.includes('yearQualifiedEventName'));
   const picks = read("../../src/data/events/november-official-picks-2026.ts");
   for (const token of ["ThunderCloud Subs Turkey Trot", "Dallas YMCA Turkey Trot", "Fort Worth YMCA Turkey Trot", "Calaveras de Azúcar Festival"]) assert(picks.includes(token));
+});
+
+
+test("Shiner 2026 race guide includes new full marathon and exact source", () => {
+  const index = read("../../src/data/major-event-index.ts");
+  const tranche = read("../../src/data/major-event-expanded-authority-tranche44.server.ts");
+  const schema = read("../../src/data/major-event-schema-enrichment-batch21.server.ts");
+  const guide = tranche.slice(tranche.indexOf('slug: "shiner-beer-run"'));
+  for (const token of ["full marathon", "2026-11-21", "runsignup.com/Race/TX/Shiner/ShinerBeerRun", "sourceCheckedAt: \"2026-10-29\""]) assert(guide.includes(token), `Shiner missing ${token}`);
+  assert(index.includes("full marathon alongside the 5K"));
+  assert(schema.includes("RunSignUp — 2026 race schedule and distances"));
 });
