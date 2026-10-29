@@ -14,7 +14,7 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "red-river-rivalry",
     whyItMatters: "The Red River Rivalry is one of the defining annual events on the Texas sports calendar because it brings Texas and Oklahoma into the Cotton Bowl during the State Fair of Texas, concentrating football, fair traffic and downtown Dallas travel into the same day.",
     planningSections: [
-      { title: "Treat kickoff as the fixed point", body: "Texas lists the 2026 game for 2:30 p.m. CT on October 10. Work backward from kickoff for stadium entry, the State Fair grounds and the walk to the Cotton Bowl instead of planning arrival around the opening whistle." },
+      { title: "Treat kickoff as the fixed point", body: "The October 10, 2026 rivalry game has already been played: Oklahoma defeated Texas 27–24 after the scheduled 2:30 p.m. CT start. For the next edition, first confirm its date, kickoff, ticket allocation and Fair Park entry through the teams and event organizers before planning your day." },
       { title: "Remember that the stadium is inside the fair", body: "A Red River trip is also a State Fair logistics day. Use current ticket and entry instructions, allow for security lines and decide in advance whether you want meaningful fair time before or after the game." },
       { title: "Use transit when practical", body: "Fair Park traffic and parking demand are unusually heavy on rivalry Saturday. Check the current Dallas-area transit and event transportation guidance before committing to a driving plan." },
     ],
@@ -25,6 +25,7 @@ const expandedDetails: ExpandedDetails[] = [
     ],
     sources: [
       { label: "Texas Longhorns official Red River Rivalry game page", url: "https://texaslonghorns.com/game-center/22498" },
+      { label: "Oklahoma Athletics official October 10, 2026 result", url: "https://soonersports.com/game-center/15626" },
       { label: "Dallas Sports Commission Red River Rivalry 2026", url: "https://www.dallassports.org/events/red-river-rivalry-2026/" },
     ],
   },
