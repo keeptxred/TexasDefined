@@ -73,7 +73,7 @@ export function ViatorLiveProducts({
         <button
           type="button"
           onClick={() => setRequested(true)}
-          className="border border-primary px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/10"
+          className="border border-primary px-3 py-2 text-sm font-semibold text-primary"
         >
           Show current tour previews
         </button>
@@ -111,7 +111,8 @@ export function ViatorLiveProducts({
                       loading="lazy"
                       decoding="async"
                       referrerPolicy="no-referrer"
-                      className={compact ? "h-20 w-24 shrink-0 object-cover" : "mb-3 aspect-[4/3] w-full object-cover"}
+                      className={compact ? "shrink-0 object-cover" : "mb-3 w-full object-cover"}
+                      style={compact ? { width: 96, height: 80 } : { aspectRatio: "4 / 3" }}
                     />
                   ) : null}
                   <span className="min-w-0">
