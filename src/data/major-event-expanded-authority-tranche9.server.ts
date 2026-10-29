@@ -33,9 +33,9 @@ const expandedDetails: ExpandedDetails[] = [
     slug: "formula-1-united-states-grand-prix",
     whyItMatters: "Formula 1's United States Grand Prix turns Circuit of the Americas into one of Texas' largest international sports destinations for a full race weekend, with practice, qualifying, the Grand Prix and major entertainment drawing visitors from well beyond the state.",
     planningSections: [
-      { title: "Plan the whole race weekend", body: "Formula 1 lists official track sessions for October 23-25, 2026. Decide whether you are attending only race day or multiple sessions before choosing lodging, transportation and ticket strategy." },
-      { title: "Solve transportation before arrival", body: "Circuit of the Americas is southeast of central Austin and race-weekend traffic is substantial. Use the current COTA parking or shuttle plan rather than assuming normal Austin travel times." },
-      { title: "Separate race sessions from bonus events", body: "Visit Austin notes an additional Grand Prix View Thursday on October 22. The official Formula 1 race weekend remains October 23-25, so confirm which experiences are included with your ticket before building a four-day itinerary." },
+      { title: "2026 United States Grand Prix: completed results", body: "The 2026 Formula 1 United States Grand Prix at Circuit of the Americas concluded October 25, with Kimi Antonelli winning ahead of Charles Leclerc and Max Verstappen. Formula 1 lists the final classification and completed race calendar. Treat October 23–25 as historical dates, not a currently bookable weekend." },
+      { title: "Getting to Circuit of the Americas for a future race", body: "Circuit of the Americas is southeast of central Austin and race-weekend traffic can be substantial. For a subsequent United States Grand Prix, use the organizer’s published parking or shuttle plan once the next edition is announced rather than relying on the completed 2026 travel instructions." },
+      { title: "Do not reuse the 2026 Thursday bonus schedule", body: "The completed 2026 program also included a separate Grand Prix View Thursday on October 22. That additional experience should not be assumed for a later edition; consult Formula 1 and Circuit of the Americas for a newly published weekend schedule and valid ticket products." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Plan more of the Austin-area visit." },
@@ -43,6 +43,7 @@ const expandedDetails: ExpandedDetails[] = [
     ],
     sources: [
       { label: "Formula 1 official 2026 United States Grand Prix schedule", url: "https://www.formula1.com/en/racing/2026/united-states" },
+      { label: "Formula 1 official 2026 United States Grand Prix race results", url: "https://www.formula1.com/en/results/2026/races/1297/united-states/race-result" },
       { label: "Visit Austin Formula 1 2026 guide", url: "https://www.austintexas.org/events/formula-1/" },
     ],
   },
