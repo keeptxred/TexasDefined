@@ -108,6 +108,17 @@ Expedia callout, heading, or second bordered hotel box remains on this route.
 If the destination slot appears after the bootstrap starts, relocate the
 existing fallback into it without remounting or dropping provider links.
 
+**Camping guide consolidation (October 29, 2026):** The canonical
+`/best-places-to-go-camping-in-texas` uses one in-content Stay Nearby slot
+after the campground finder. The CJ panel owns a single **RV rentals and nearby
+stays** heading and offers RVshare, Hotels.com, Travelocity and the original
+deferred Expedia search button. That same Expedia button keeps its existing
+click handler and analytics, and its widget host is moved into the same box.
+The second Expedia heading, border and disclosure are suppressed; the unified
+affiliate disclosure names all four providers. Official campground booking
+links remain the primary route to reserving campsites. Keep this behavior
+limited to the camping route so other stay surfaces remain unchanged.
+
 When an approved travel route does not provide an explicit slot, the centralized affiliate layer promotes the generated Stay Nearby/Expedia surface ahead of a relevant planning heading such as `Where to stay`, `Stay nearby`, `Plan your visit`, `Trip planning`, `What to know before you go`, `Getting there` or `Visitor guide`. If none is available, the first substantive article heading is used. The page-end append is therefore a construction fallback, not the intended final visual position.
 
 Curated Stay Nearby surfaces also receive a prominent `Find places to stay` control in the listing heading row. That control activates the existing stay-search experience rather than creating a duplicate lodging subsystem.
