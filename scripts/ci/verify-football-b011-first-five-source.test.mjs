@@ -28,7 +28,8 @@ const expectedNames={
   'comal-davenport':'Zimmerhanzel'
 };
 test('exact five distinct researched Texas programs, not unsupported UIL or generic pages',()=>{
- assert.deepEqual(Object.keys(data).sort(),[...slugs].sort());
+ assert.deepEqual(Object.keys(data).filter(x=>slugs.includes(x)).sort(),[...slugs].sort());
+ assert.equal(Object.keys(data).length,10,'First and second five source cohorts only');
  for(const slug of slugs){
    const d=data[slug];
    assert.equal(d.slug,slug);
