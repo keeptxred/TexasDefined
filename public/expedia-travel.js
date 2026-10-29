@@ -533,6 +533,9 @@
     section.className = (normalizePath() === "/destination/fort-mckavett" || normalizePath() === "/best-places-to-go-camping-in-texas")
       ? "py-2" : "border-y border-border py-8";
     section.dataset.surfaceType = "generic";
+    // On SPA route transitions, do not carry the camping-specific single-panel
+    // layout onto unrelated travel guides (or import generic layout into camping).
+    section.dataset.stayCamping = String(normalizePath() === "/best-places-to-go-camping-in-texas");
     section.dataset.monetizationEligible = "true";
     const container = document.createElement("div");
     container.className = "mx-auto max-w-7xl px-5";
@@ -657,7 +660,8 @@
       }
       return;
     }
-    if (!context && current?.dataset.surfaceType === "generic") {
+    if (!context && current?.dataset.surfaceType === "generic"
+        && current.dataset.stayCamping === String(normalizePath() === "/best-places-to-go-camping-in-texas")) {
       // The swimming guide can stream/hydrate after the lodging surface mounts.
       // A fallback attached to an initially empty #main must move behind the
       // now-present guide. Reuse the same node to preserve disclosures and tracking.
