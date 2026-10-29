@@ -37,7 +37,7 @@ export function HuntingPublicAccessPlanner() {
     "Access program: " + selectedPath.name,
     "Official TPWD starting page: " + selectedPath.url,
     "1. Locate the county or region and intended game in TPWD's current program listings.",
-    "2. Open the individual hunt or area's Legal Game record; check actual species, dates, allowed methods and eligibility.",
+    "2. Open the individual hunt listing or the APH unit's Legal Game box; check species, dates, methods and eligibility.",
     "3. Confirm the specific permit, license, endorsements, unit boundaries, check-in and closure notices before traveling.",
     "A selected county or game here does not prefilter TPWD or establish hunting permission.",
   ].join("\n");
@@ -82,7 +82,7 @@ export function HuntingPublicAccessPlanner() {
           <div className="mt-5 border-l-4 border-primary bg-background p-5" aria-live="polite">
             <h3 className="font-display text-xl">Your TPWD search checklist</h3>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">
-              {county ? "Select " + county.name : "Select the counties or public hunting region you can reach"}, then locate {game.toLowerCase()} in the official Legal Game listing. {selectedPath.description}
+              {county ? "Select " + county.name : "Select the counties or public hunting region you can reach"}, then verify {game.toLowerCase()} in the specific TPWD hunt listing or APH unit's Legal Game box. {selectedPath.description}
             </p>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm">
               <a href={selectedPath.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center bg-primary px-5 py-3 font-semibold text-primary-foreground">Open TPWD's official {mode === "aph" ? "Area/Legal Game search" : "hunt program"} ↗</a>
