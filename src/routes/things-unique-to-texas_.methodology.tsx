@@ -18,7 +18,7 @@ export const Route = createFileRoute("/things-unique-to-texas/methodology")({
     const url = `${origin}${canonicalPath}`;
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: "Things That Define Texas Methodology | Texas Defined",
+        title: "Things That Define Texas Methodology",
         description,
         canonicalPath,
       }),
