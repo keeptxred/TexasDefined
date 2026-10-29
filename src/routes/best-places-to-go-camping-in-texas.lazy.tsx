@@ -3,6 +3,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
+import { KingsCamoGearOffers } from "@/components/hunting/KingsCamoGearOffers";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { Container } from "@/components/layout/Container";
 import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
@@ -262,5 +263,6 @@ function CampingGuidePage() {
         </div>
       </Container>
     </section>
+    <KingsCamoGearOffers context="camping" pathname="/best-places-to-go-camping-in-texas" />
   </main>;
 }

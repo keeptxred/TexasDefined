@@ -138,3 +138,81 @@ test('booking and football components initialize and render route-specific URLs 
   for (const [partner, program] of [['rvshare', 'rvshare'], ['motel6', 'motel6-standard']]) assert.equal(football.find(a => a['data-commercial-partner'] === partner)?.href, expectedCjAccountClick(program, route));
   assert.equal(football.find(a => a['data-commercial-partner'] === 'hotels.com')?.href, new URL('https://www.anrdoezrs.net/click-101876465-15734399?sid=td_article_texas_high_school_football_playoffs_explained&url=https%3A%2F%2Fwww.hotels.com%2F').href);
 });
+
+test('Kings Camo gear placements use only nine captured active creatives and respect topic opt-outs', () => {
+  const creativeCatalog = {
+    'kings-camo-shop': ['15774549', 'www.jdoqocy.com'],
+    'kings-camo-pants': ['15778343', 'www.kqzyfj.com'],
+    'kings-camo-rain-jacket': ['15780356', 'www.anrdoezrs.net'],
+    'kings-camo-backpacks': ['17264966', 'www.anrdoezrs.net'],
+    'kings-camo-kids': ['17271947', 'www.anrdoezrs.net'],
+    'kings-camo-women': ['17283114', 'www.dpbolvw.net'],
+    'kings-camo-turkey-accessories': ['17247851', 'www.tkqlhce.com'],
+    'kings-camo-lightweight-shirts': ['17273131', 'www.jdoqocy.com'],
+    'kings-camo-camping': ['17302272', 'www.kqzyfj.com'],
+  };
+  assert.equal(Object.keys(cjAccountRegistry.links).filter(key => key.startsWith('kings-camo-')).length, 9);
+  for (const [program, [id, host]] of Object.entries(creativeCatalog)) {
+    const entry = cjAccountRegistry.links[program];
+    assert.equal(entry.advertiserId, '7016567');
+    assert.equal(entry.linkId, id);
+    assert.equal(entry.base, `https://${host}/click-101876465-${id}`);
+    assert.equal(entry.includeDestination, false, 'do not fabricate deep-link targets');
+    assert.equal(entry.deepLink, false, 'exported product creative is not a verified deep-link creative');
+    assert.equal(build(program, '/hunting'), expectedCjAccountClick(program, '/hunting'));
+  }
+
+  const source = read('src/components/hunting/KingsCamoGearOffers.tsx');
+  assert.ok(!/\b(sale|discount|% off|coupon|2025 calendars)\b/i.test(source), 'avoid stale promotional assertions');
+  assert.ok(source.includes('rel="sponsored nofollow noopener noreferrer"'));
+  assert.ok(source.includes('trackAffiliateClick('));
+  assert.ok(source.includes('Affiliate disclosure:'));
+  const hunting = read('src/components/hunting/HuntingAuthority.tsx');
+  const camping = read('src/routes/best-places-to-go-camping-in-texas.lazy.tsx');
+  assert.ok(hunting.includes('<KingsCamoGearOffers context="hub" pathname="/hunting" />'));
+  assert.ok(hunting.includes('context="topic" pathname={`/hunting/${topic.slug}`} topicSlug={topic.slug}'));
+  assert.ok(camping.includes('<KingsCamoGearOffers context="camping" pathname="/best-places-to-go-camping-in-texas" />'));
+
+  const exports = {};
+  vm.runInNewContext(ts.transpile(source, { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true }), {
+    exports, URL,
+    require(id) {
+      if (id.endsWith('/cj-account-links')) return accountModule.exports;
+      if (id.endsWith('/affiliate-click')) return { trackAffiliateClick() { throw new Error('Must never emit a click during SSR'); } };
+      if (id.endsWith('/Container')) return { Container: 'Container' };
+      if (id === 'react/jsx-runtime') return { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) };
+      throw new Error('Unexpected dependency ' + id);
+    },
+  });
+  function anchors(props) {
+    const result = [];
+    const visit = node => {
+      if (Array.isArray(node)) return node.forEach(visit);
+      if (!node || typeof node !== 'object') return;
+      if (node.type === 'a') result.push(node.props);
+      visit(node.props?.children);
+    };
+    visit(exports.KingsCamoGearOffers(props));
+    return result;
+  }
+  for (const [props, programs] of [
+    [{ context: 'hub', pathname: '/hunting' }, ['kings-camo-shop', 'kings-camo-women', 'kings-camo-backpacks']],
+    [{ context: 'topic', pathname: '/hunting/turkey-hunting', topicSlug: 'turkey-hunting' }, ['kings-camo-turkey-accessories', 'kings-camo-pants']],
+    [{ context: 'topic', pathname: '/hunting/youth-hunting', topicSlug: 'youth-hunting' }, ['kings-camo-kids']],
+    [{ context: 'camping', pathname: '/best-places-to-go-camping-in-texas' }, ['kings-camo-camping']],
+    [{ context: 'topic', pathname: '/hunting/texas-hunting-license', topicSlug: 'texas-hunting-license' }, []],
+    [{ context: 'topic', pathname: '/hunting/hunting-seasons', topicSlug: 'hunting-seasons' }, []],
+    [{ context: 'topic', pathname: '/hunting/public-hunting', topicSlug: 'public-hunting' }, []],
+  ]) {
+    const links = anchors(props);
+    assert.equal(links.length, programs.length);
+    for (let index = 0; index < programs.length; index++) {
+      const anchor = links[index];
+      assert.equal(anchor.href, expectedCjAccountClick(programs[index], props.pathname));
+      assert.equal(anchor['data-commercial-partner'], 'kings-camo');
+      assert.ok(anchor['data-commercial-placement']);
+      assert.equal(anchor.rel, 'sponsored nofollow noopener noreferrer');
+      assert.equal(typeof anchor.onClick, 'function');
+    }
+  }
+});

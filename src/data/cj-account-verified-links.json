@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-10-27",
+  "reviewedAt": "2026-10-28",
   "publisherId": "101876465",
   "links": {
     "booking.com": {
@@ -393,6 +393,87 @@
       "linkId": "17219562",
       "base": "https://www.dpbolvw.net/click-101876465-17219562",
       "destination": "http://request.angi.com/service-request/task/40105/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44364980",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-shop": {
+      "advertiserId": "7016567",
+      "linkId": "15774549",
+      "base": "https://www.jdoqocy.com/click-101876465-15774549",
+      "destination": "https://kingscamo.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-pants": {
+      "advertiserId": "7016567",
+      "linkId": "15778343",
+      "base": "https://www.kqzyfj.com/click-101876465-15778343",
+      "destination": "https://kingscamo.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-rain-jacket": {
+      "advertiserId": "7016567",
+      "linkId": "15780356",
+      "base": "https://www.anrdoezrs.net/click-101876465-15780356",
+      "destination": "https://kingscamo.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-backpacks": {
+      "advertiserId": "7016567",
+      "linkId": "17264966",
+      "base": "https://www.anrdoezrs.net/click-101876465-17264966",
+      "destination": "https://kingscamo.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-kids": {
+      "advertiserId": "7016567",
+      "linkId": "17271947",
+      "base": "https://www.anrdoezrs.net/click-101876465-17271947",
+      "destination": "https://kingscamo.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-women": {
+      "advertiserId": "7016567",
+      "linkId": "17283114",
+      "base": "https://www.dpbolvw.net/click-101876465-17283114",
+      "destination": "https://kingscamo.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-turkey-accessories": {
+      "advertiserId": "7016567",
+      "linkId": "17247851",
+      "base": "https://www.tkqlhce.com/click-101876465-17247851",
+      "destination": "https://kingscamo.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-lightweight-shirts": {
+      "advertiserId": "7016567",
+      "linkId": "17273131",
+      "base": "https://www.jdoqocy.com/click-101876465-17273131",
+      "destination": "https://kingscamo.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "kings-camo-camping": {
+      "advertiserId": "7016567",
+      "linkId": "17302272",
+      "base": "https://www.kqzyfj.com/click-101876465-17302272",
+      "destination": "https://kingscamo.com/",
       "deepLink": false,
       "includeDestination": false,
       "allowedDestinations": []
