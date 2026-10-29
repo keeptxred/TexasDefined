@@ -1,0 +1,29 @@
+name: Weekly Viator attraction discovery for editorial review
+
+on:
+  schedule:
+    - cron: '37 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Retrieve bounded source-only attraction candidates
+        run: node --experimental-strip-types scripts/data/weekly-viator-attraction-discovery.mjs
+      - name: Preserve internal non-indexable editorial review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: viator-attractions-internal-review-${{ github.run_id }}
+          path: .artifacts/viator-attraction-review.json
+          if-no-files-found: warn
+          retention-days: 13
