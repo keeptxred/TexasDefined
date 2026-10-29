@@ -5,6 +5,8 @@ import { FootballFanOffers } from '@/components/sports/FootballFanOffers';
 import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { District16Coverage } from '@/components/sports/District16Coverage';
+import { District9Coverage } from '@/components/sports/District9Coverage';
+import { district9DisplayName } from '@/data/high-school-football/football-district9-2026';
 import { DISTRICT_5_SCHEDULE_URL, DISTRICT_5_STANDINGS_URL } from '@/data/high-school-football/football-district5-2026';
 import {
   DISTRICT_21_FBISD_CALENDAR_URL, DISTRICT_21_OVERALL_OCT14,
@@ -31,6 +33,7 @@ function Page() {
   const district5Pilot = district.slug === '6a-district-5';
   const district21Pilot = district.slug === '6a-district-21';
   const district16Pilot = district.slug === '6a-district-16';
+  const district9Pilot = district.slug === '6a-district-9';
   const games = getDistrictFootballGames(district.slug, district.classification, district.district);
   const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot || district21Pilot ? 16 : 8);
   const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
@@ -44,7 +47,7 @@ function Page() {
   const reportedEnrollments = district.programs.map((program) => program.uilEnrollment);
   const enrollmentLow = Math.min(...reportedEnrollments);
   const enrollmentHigh = Math.max(...reportedEnrollments);
-  const teamLine = district.programs.map((program) => program.schoolName).join(' • ');
+  const teamLine = district.programs.map((program) => district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName).join(' • ');
   const formatEnrollment = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 1 });
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
@@ -61,7 +64,7 @@ function Page() {
           <p className="eyebrow text-primary">2026–28 UIL football alignment</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{katyPilot ? `Katy ISD ${districtTitle}` : districtTitle}</h1>
           <p className="mt-6 max-w-4xl text-lg leading-8 text-foreground">{teamLine}</p>
-          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{district21Pilot ? 'Fort Bend ISD and Strake Jesuit: 2026 source-checked district records, results, future matchups and playoff qualification context. Records are not UIL-certified seeds.' : '2026–28 UIL member schools, sourced 2026 game coverage where available, score-verification guidance and playoff context. No certified standings, fabricated scores or projected playoff seeds.'}</p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{district9Pilot ? 'Garland and Wylie football: October 27 reported standings, verified Week 9 scores, the final two varsity rounds and official ticket links. Not UIL-certified seeds or a live feed.' : district21Pilot ? 'Fort Bend ISD and Strake Jesuit: 2026 source-checked district records, results, future matchups and playoff qualification context. Records are not UIL-certified seeds.' : '2026–28 UIL member schools, sourced 2026 game coverage where available, score-verification guidance and playoff context. No certified standings, fabricated scores or projected playoff seeds.'}</p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6" aria-label="District summary">
           <Fact label="Teams" value={String(district.programCount)} />
@@ -72,10 +75,13 @@ function Page() {
         </dl>
       </header>
 
-      <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />
-      {district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
+      {!district9Pilot && <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />}
+      {!district9Pilot && district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
 
       {district16Pilot && <District16Coverage schools={district.programs} />}
+      {district9Pilot && <District9Coverage schools={district.programs} />}
+      {district9Pilot && <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />}
+      {district9Pilot && district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
 
       {!district16Pilot && (katyPilot || district5Pilot || games.length > 0) && <section id={district21Pilot ? "district-21-results" : "district-game-coverage"} data-football-district-section="coverage" className="border-b border-border py-10">
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
@@ -244,7 +250,7 @@ function Page() {
           <div className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {district.programs.map((program, index) => <a key={program.profilePath} href={program.profilePath} className="group bg-background p-5 hover:bg-surface">
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">Team {String(index + 1).padStart(2, '0')}</p>
-              <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{program.schoolName}</h3>
+              <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName}</h3>
               <p className="mt-2 text-xs text-muted-foreground">{district.classification}{divisionRoman ? ` Division ${divisionRoman}` : ''}</p>
               <p className="mt-1 text-xs text-muted-foreground">UIL reported enrollment: <strong className="text-foreground">{formatEnrollment(program.uilEnrollment)}</strong></p>
               <p className="mt-3 text-xs text-muted-foreground">Team page →</p>
@@ -252,7 +258,7 @@ function Page() {
           </div>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">Teams are listed alphabetically; this is not a ranking, projected finish, or statement about team quality.</p>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot, not live campus headcounts. Published cutoff bands explain normal ranges, but the final UIL football alignment controls competition placement.</p>
-          {placementExceptionPrograms.length > 0 && <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Placement exception{placementExceptionPrograms.length === 1 ? '' : 's'}:</strong> {placementExceptionPrograms.map((program, index) => <span key={program.profilePath}>{index ? ', ' : ' '}<a href={program.profilePath} className="font-semibold text-primary underline underline-offset-4">{program.schoolName}</a></span>)}. These programs' verified reported enrollment is outside the normal published cutoff for the final UIL placement.</p>}
+          {placementExceptionPrograms.length > 0 && <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Placement exception{placementExceptionPrograms.length === 1 ? '' : 's'}:</strong> {placementExceptionPrograms.map((program, index) => <span key={program.profilePath}>{index ? ', ' : ' '}<a href={program.profilePath} className="font-semibold text-primary underline underline-offset-4">{district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName}</a></span>)}. These programs' verified reported enrollment is outside the normal published cutoff for the final UIL placement.</p>}
         </div>
       </section>
 
@@ -262,7 +268,8 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">Scores, schedules & playoff path</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
-          {district21Pilot ? <Related href="#district-21-results" title="District 21 games & results" body="Jump to every sourced 2026 league final and the remaining games in this district, rather than an unrelated statewide directory." />
+          {district9Pilot ? <Related href="#district-9-results" title="District 9 standings, scores and schedule" body="Jump to the sourced 2026 records, latest finals, upcoming district dates and official game-day information." />
+            : district21Pilot ? <Related href="#district-21-results" title="District 21 games & results" body="Jump to every sourced 2026 league final and the remaining games in this district, rather than an unrelated statewide directory." />
             : district16Pilot ? <Related href="#district-16-results" title="District 16 scores, records and next games" body="Jump to our sourced District 16 standings snapshot, verified recent results and official CFISD game-day links." />
             : games.length ? <Related href="#district-game-coverage" title="This district's sourced games" body="View only the dated results and fixtures actually documented for this district. Missing final scores are not assumed." /> : <p className="border-t-2 border-foreground pt-4 text-sm leading-7 text-muted-foreground">No independently verified district matchups are published here yet. Check the UIL scoreboard and school schedules; this page does not invent results.</p>}
           <Related href="/texas-high-school-football-playoff-brackets" title="2026 postseason brackets" body="Choose from twelve UIL class/division brackets and view independently verified playoff results." />
