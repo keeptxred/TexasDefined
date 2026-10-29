@@ -62,30 +62,26 @@ function productImage(value: unknown): string | undefined {
 }
 
 /**
- * Viator Affiliate API's productUrl is already tracked. Retain its attribution
- * unchanged, adding approved attribution only when the returned URL lacks it.
- * Refuse mismatched partner IDs rather than diverting commission.
+ * Viator explicitly requires using the original, COMPLETE productUrl without
+ * modification or reconstruction, or attribution and commission may be lost.
+ * Reject any untracked or mismatched link and fall back to the market CTA.
  */
-function trackedProductUrl(value: unknown, market: string): string | null {
+function trackedProductUrl(value: unknown): string | null {
   if (typeof value !== "string") return null;
   try {
     const url = new URL(value);
     if (url.protocol !== "https:" || url.username || url.password ||
         (url.hostname !== "viator.com" && !url.hostname.endsWith(".viator.com"))) return null;
-    const pid = url.searchParams.get("pid");
-    const mcid = url.searchParams.get("mcid");
-    if ((pid && pid !== PARTNER_PID) || (mcid && mcid !== PARTNER_MCID)) return null;
-    if (!pid) url.searchParams.set("pid", PARTNER_PID);
-    if (!mcid) url.searchParams.set("mcid", PARTNER_MCID);
-    if (!url.searchParams.has("medium")) url.searchParams.set("medium", "api");
-    if (!url.searchParams.has("campaign")) url.searchParams.set("campaign", `texasdefined-api-${market}`);
-    return url.toString();
+    if (url.searchParams.get("pid") !== PARTNER_PID ||
+        url.searchParams.get("mcid") !== PARTNER_MCID ||
+        url.searchParams.get("medium") !== "api") return null;
+    return value;
   } catch {
     return null;
   }
 }
 
-export function normalizeViatorMarketProducts(payload: unknown, market: string): ViatorLiveProduct[] {
+export function normalizeViatorMarketProducts(payload: unknown): ViatorLiveProduct[] {
   const items = asRecord(payload)?.products;
   if (!Array.isArray(items)) throw new Error("Viator product search returned no product array");
   const products: ViatorLiveProduct[] = [];
@@ -97,7 +93,7 @@ export function normalizeViatorMarketProducts(payload: unknown, market: string):
     if (typeof productCode !== "string" || !/^[A-Za-z0-9_-]{1,64}$/.test(productCode) ||
         typeof title !== "string" || title.trim().length < 7 || title.length > 180 ||
         EXCLUDE_TITLE.test(title) || seen.has(productCode)) continue;
-    const url = trackedProductUrl(record.productUrl, market);
+    const url = trackedProductUrl(record.productUrl);
     if (!url) continue;
     seen.add(productCode);
     const imageUrl = productImage(record.images);
