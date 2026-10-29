@@ -18,7 +18,7 @@ for (const fact of ['2015', '2025', '2026–28', 'Nick Bolton',
 }
 for (const source of ['https://www.friscoisd.org/o/lshs',
   'https://www.friscoisd.org/article/3120877',
-  'https://www.friscoisd.org/page/2026-varsity-football-schedule/',
+  'https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/5799/Fisd/4e4f782e-9f60-4246-aa9a-6854740f2f4c/2026-Fball-Schedule-8-21.pdf?disposition=inline',
   'https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf']) {
   assert.ok(editorial.includes(source), 'Missing primary citation: ' + source);
 }
@@ -41,7 +41,7 @@ assert.ok(monitor.includes('perRunSourceCap'));
 assert.ok(ledger.safety.perRunSourceCap <= 25, 'Keep source watcher bounded');
 const matches = ledger.sources.filter((row) => row.slug === 'frisco-lone-star');
 assert.equal(matches.length, 1, 'Exactly one official Lone Star watcher source');
-assert.equal(matches[0].url, 'https://www.friscoisd.org/page/2026-varsity-football-schedule/');
+assert.equal(matches[0].url, 'https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/5799/Fisd/4e4f782e-9f60-4246-aa9a-6854740f2f4c/2026-Fball-Schedule-8-21.pdf?disposition=inline');
 assert.equal(matches[0].reviewAfter, '2027-01-29', 'Explicit next quarter editorial due date');
 assert.ok(ledger.safety.approvedDomains.includes('www.friscoisd.org'));
 console.log('Frisco Lone Star source-backed authority, deferral, and GitHub cadence validated.');
