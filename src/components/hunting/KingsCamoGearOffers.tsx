@@ -61,7 +61,7 @@ export function KingsCamoGearOffers({
   const placement = context === "topic" ? `hunting-${topicSlug}` : context === "hub" ? "hunting-hub" : "camping-guide";
 
   return (
-    <section aria-label="Optional Kings Camo gear shopping" className="border-t border-border bg-surface/60 py-10">
+    <section aria-label="Optional Kings Camo gear shopping" className="border-t border-border bg-surface py-10">
       <Container>
         <div className="max-w-4xl">
           <p className="eyebrow text-primary">Optional gear shopping</p>
