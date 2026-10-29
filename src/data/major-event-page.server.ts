@@ -353,6 +353,17 @@ export function majorEventSessionTimeLabel(time?: string) {
   return `${hour % 12 || 12}:${match[2]} ${hour < 12 ? "AM" : "PM"}`;
 }
 
+// South Pole's verified organizer season starts November 28, 2026; a
+// provider-side Nov 27 session must not be promoted as festival admission.
+// Narrow the guard to this reconciled conflict so unrelated previews or
+// early admission at other events are not silently removed.
+export function majorEventTicketInsideVerifiedSeasonServer(slug: string, candidateDate: string) {
+  if (slug !== "south-pole-illuminated-festival") return true;
+  const authority = getMajorEventRecordServer(slug);
+  return Boolean(authority && candidateDate >= authority.startDate
+    && candidateDate <= (authority.endDate ?? authority.startDate));
+}
+
 export function buildMajorEventTicketingMarkupServer(slug: string, now = new Date()) {
   // An official event can be cancelled, postponed, or rescheduled while its
   // Ticketmaster Discovery listing still carries old on-sale metadata.
@@ -361,7 +372,8 @@ export function buildMajorEventTicketingMarkupServer(slug: string, now = new Dat
   const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(slug)?.lifecycle;
   if (!majorEventGuideTicketsAllowed(lifecycle?.status)) return "";
   const matches = loadTicketmasterEventsServer(undefined, now)
-    .filter((record) => record.guidePath === `/event/${slug}`);
+    .filter((record) => record.guidePath === `/event/${slug}`
+      && majorEventTicketInsideVerifiedSeasonServer(slug, record.startDate));
   const actionable = matches.flatMap((record) => {
     const cta = resolveEventTicketCta(record.ticketing);
     return cta ? [{ record, cta }] : [];
