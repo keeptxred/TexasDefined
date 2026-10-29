@@ -16,6 +16,11 @@ on:
       - "src/data/events/november-official-picks-2026.ts"
       - "scripts/events/check-mardi-gras-official-sources.mjs"
       - "scripts/events/check-mardi-gras-official-sources.test.mjs"
+      - "scripts/events/parse-mardi-gras-official-facts.mjs"
+      - "scripts/events/parse-mardi-gras-official-facts.test.mjs"
+      - "scripts/events/sync-mardi-gras-protected-2027.mjs"
+      - "scripts/events/sync-mardi-gras-protected-2027.test.mjs"
+      - "src/data/events/mardi-gras-verified-source-updates.json"
       - "scripts/events/sync-tpwd-calendar.mjs"
       - "scripts/events/sync-tpwd-calendar.test.mjs"
       - "src/data/events/tpwd-event-records.server.ts"
@@ -89,7 +94,7 @@ jobs:
           echo "::warning title=November event source review required::Tracked as an existing or newly opened issue; current listings remain unchanged."
 
       - name: Test Mardi Gras official-source watch safety and date fixtures
-        run: node --test scripts/events/check-mardi-gras-official-sources.test.mjs
+        run: node --test scripts/events/check-mardi-gras-official-sources.test.mjs scripts/events/parse-mardi-gras-official-facts.test.mjs
 
       # Reuse this daily Texas-events workflow: no separate scheduler, no auto-rollover of dates.
       # A changed official source opens or reuses a bounded review issue and preserves last-known-good records.
@@ -123,6 +128,21 @@ jobs:
             gh issue create --title "$title" --body "The existing daily Mardi Gras source-check program failed internally at $(date -u +%Y-%m-%dT%H:%M:%SZ). Review $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Preserve last-known-good event facts, noindex and image rights; do not invent event dates or treat the last successful check as current."
           fi
           echo "::error title=Mardi Gras official-source watcher failed::Incident tracked in a stable GitHub issue. Source facts must remain last-known-good."
+
+      # Exact organizer Event JSON-LD can yield protected multi-surface updates
+      # only for Orange and the DISTINCT Beaumont public festival. The source
+      # checker above writes the ledger from THIS run; if it failed, hold all.
+      - name: Test protected Mardi Gras 2027 source promotion and safety fixtures
+        run: node --test scripts/events/sync-mardi-gras-protected-2027.test.mjs
+
+      - name: Propose verified Mardi Gras source facts through the existing event refresh PR
+        if: steps.mardi_gras_sources.outcome == 'success'
+        env:
+          MARDI_GRAS_SOURCE_LEDGER_PATH: ${{ runner.temp }}/mardi-gras-official-sources.json
+        run: node scripts/events/sync-mardi-gras-protected-2027.mjs
+
+      - name: Validate protected Mardi Gras occurrence registry before committing
+        run: node scripts/events/sync-mardi-gras-protected-2027.mjs --verify
 
       - name: Test strict retention of still-current source-verified festival dates
         run: node --test scripts/events/retain-verified-official-events.test.mjs
@@ -182,7 +202,7 @@ jobs:
           # On the first sync, the research queue is untracked. Make it visible
           # to git diff without staging contents until the refresh branch is made.
           git add -N -- ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json
-          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json; then
+          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json src/data/events/mardi-gras-verified-source-updates.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Texas events catalog is already current."
           else
@@ -200,7 +220,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json
+          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json src/data/events/mardi-gras-verified-source-updates.json
           git commit -m "data: refresh Texas events catalog"
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"
