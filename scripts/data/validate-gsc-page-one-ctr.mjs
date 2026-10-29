@@ -247,8 +247,8 @@ const cutOffTitleCorrections = [
   },
   {
     "path": "/event/bands-of-america-san-antonio-super-regional",
-    "title": "Bands of America San Antonio Super Regional 2026",
-    "descriptionStart": "Plan the 2026 Bands of America San Antonio Super R"
+    "title": "Bands of America San Antonio Super Regional 2026: Nov. 6–7",
+    "descriptionStart": "Bands of America San Antonio runs Nov. 6–7, 2026"
   },
   {
     "path": "/fishing/lakes/cedar-lake-cleburne-state-park",
