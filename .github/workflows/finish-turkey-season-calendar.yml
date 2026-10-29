@@ -68,7 +68,7 @@ jobs:
           fi
           node --test scripts/data/refresh-turkey-season-calendar.test.mjs
           node scripts/data/validate-hunting-authority.mjs
-          node scripts/data/refresh-turkey-season-calendar.mjs --check-only
+          node scripts/data/refresh-turkey-season-calendar.mjs --check-only --strict-check-only
           validated="$(git rev-parse HEAD)"
           bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
           bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml

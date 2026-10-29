@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { parseOfficial, checkCompanion, updateStored, fetchTPWD, TpwdTransportUnavailable } from './refresh-turkey-season-calendar.mjs';
+import { parseOfficial, checkCompanion, updateStored, fetchTPWD, TpwdTransportUnavailable, canWarnOnSourceTransportFailure } from './refresh-turkey-season-calendar.mjs';
 
 const animal = [
   'Wild Turkey 2026-2027 Seasons & Regulations',
@@ -111,4 +111,15 @@ test('an official HTTP failure is not incorrectly treated as a harmless network 
     fetchTPWD('https://tpwd.texas.gov/example', async () => ({ ok: false, status: 403 }), async () => {}),
     error => !(error instanceof TpwdTransportUnavailable) && /TPWD HTTP 403/.test(error.message),
   );
+});
+
+// Only ordinary PR checks may warn on a transient upstream outage.
+// The protected automatic finisher must fail before a legal date change is merged.
+test('protected finisher fails closed when TPWD is unavailable', () => {
+  const error = new TpwdTransportUnavailable('https://tpwd.texas.gov/example', new Error('offline'));
+  assert.equal(canWarnOnSourceTransportFailure(['--check-only'], error), true);
+  assert.equal(canWarnOnSourceTransportFailure(['--check-only', '--strict-check-only'], error), false);
+  assert.equal(canWarnOnSourceTransportFailure(['--strict-check-only'], error), false);
+  assert.equal(canWarnOnSourceTransportFailure([], error), false);
+  assert.equal(canWarnOnSourceTransportFailure(['--check-only'], new Error('Official source changed')), false);
 });

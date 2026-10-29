@@ -94,6 +94,8 @@ requireText(turkeyDateUpdater, 'YEAR_ROLLOVER', 'new season must fail closed');
 requireText(turkeyDateTests, 'conflicting TPWD source dates stop publication', 'date source safety test missing');
 requireText(turkeyUpdateWorkflow, 'cron:', 'scheduled TPWD season refresh missing');
 requireText(turkeyFinishWorkflow, 'dispatch-validate-branch.sh', 'protected TPWD PR finisher missing');
+requireText(turkeyFinishWorkflow, '--check-only --strict-check-only', 'protected TPWD finisher must fail closed if source transport fails');
+requireText(turkeyDateTests, 'protected finisher fails closed when TPWD is unavailable', 'strict TPWD merge safety test missing');
 requireText(deer, 'reviewedOn: "2026-10-28"', 'deer-specific review metadata missing');
 requireText(deer, 'deerSeasonRange(', 'deer guide does not use centralized TPWD dates');
 requireText(deerSeasonDates, '"generalNorth"', 'deer date dataset must include North Zone');
