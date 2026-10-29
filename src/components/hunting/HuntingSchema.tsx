@@ -23,6 +23,7 @@ export function HuntingHubSchema() {
         name: "Texas Hunting Guide — Public Land, Licenses, Seasons & Species",
         description: "Plan hunting in Texas with guides to public land, licenses, hunter education, APH, drawn hunts, species and current-season TPWD verification.",
         dateModified: HUNTING_REGULATION_FRESHNESS.editorialUpdated,
+        // Source-monitor checks alone must not advance an editorial modification date.
         isPartOf: { "@id": `${homeUrl}#website` },
         about: [
           { "@type": "Thing", name: "Texas hunting" },
