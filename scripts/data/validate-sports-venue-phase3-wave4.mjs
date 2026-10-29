@@ -12,6 +12,10 @@ const carousel = read('src/components/editorial/TexasEventCarousel.tsx');
 const registry = JSON.parse(read('public/stay-nearby-hotels.json'));
 const failures = [];
 
+const requireText = (source, needle, label) => {
+  if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
+};
+
 const reedEnrichment = read('src/data/sports-venue-enrichment-batch5.ts');
 // Official A&M venue policies verify the 12-1-1 clear-bag rule. The GSC
 // near-page-one query cohort concerns BAG policy rather than generic events.
@@ -26,9 +30,6 @@ for (const marker of [
   'clear-bag 12-1-1 policy',
 ]) requireText(dynamicRoute, marker, 'Reed Arena GSC search snippet');
 
-const requireText = (source, needle, label) => {
-  if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
-};
 
 const editorialPaths = fs.readdirSync('src/data')
   .filter((name) => (
