@@ -62,6 +62,14 @@ test("expired event announcement is rejected but an earlier verified record rema
 test("existing manually updated 2027 guide cannot silently be overwritten", () => {
   assert.throws(() => propose(empty(), ledger([row(orange)]), { ...sourceRecords, [orange.eventSlug]: "2027-02-06" }));
 });
+test("fabricated seven-source identities and stale candidate timestamps cannot pass", () => {
+  const known = ledger([row(orange)]);
+  const replaced = structuredClone(known);
+  replaced.observations.find(x => x.id === "bandera-general").id = "untrusted-outside-source";
+  assert.throws(() => propose(empty(), replaced, sourceRecords));
+  const stale = { ...orange, checkedAt: "2026-10-28T11:00:00.000Z" };
+  assert.throws(() => propose(empty(), ledger([row(stale)]), sourceRecords));
+});
 test("gate time, duplicate source ids and incomplete cross-source evidence cannot auto-publish", () => {
   const bad = from("port-arthur-gate-hours", "mardi-gras-port-arthur", "Port Arthur",
     "https://visitportarthurtx.com/", "2027-02-05", "2027-02-07");
