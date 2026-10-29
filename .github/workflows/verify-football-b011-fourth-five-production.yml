@@ -1,0 +1,112 @@
+name: Football Batch 011 fourth-five live production acceptance
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # While this cohort is pending, retry genuine live Chrome acceptance at a
+    # fixed bounded cadence; unrelated deployments still remain path-scoped.
+    - cron: '46 14 * 8-12 *'   # In-season daily UTC
+    - cron: '46 14 * 1-7 3'    # Off-season Wednesday UTC
+permissions:
+  contents: read
+  deployments: read
+  actions: read
+concurrency:
+  group: football-b011-fourth-five-live-acceptance
+  cancel-in-progress: false
+jobs:
+  chrome:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - name: Detect pending Batch 011 school verification
+        id: scope
+        shell: bash
+        env:
+          MANUAL_ACCEPTANCE: ${{ github.event_name == 'workflow_dispatch' }}
+          SCHEDULED_ACCEPTANCE: ${{ github.event_name == 'schedule' }}
+        run: |
+          if [[ "$MANUAL_ACCEPTANCE" == "true" ]]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if ! node -e 'const r=require("./docs/football-authority/REGISTRY.json");const five=["conroe-the-woodlands","conroe-woodlands-college-park","converse-judson","coolidge","cooper"];process.exit(r.batch.number===11 && five.some(s=>r.schoolRecords.find(x=>x.slug===s)?.status!=="VERIFIED") ? 0 : 1)'; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # A scheduled job only reaches here while the five schools remain
+          # unverified. Run the exact current deployed release, without a new
+          # source commit or repeated broad-site scan.
+          if [[ "$SCHEDULED_ACCEPTANCE" == "true" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Pending football cohort: executing bounded scheduled Chrome acceptance."
+            exit 0
+          fi
+          # A CI success with skipped Chrome steps never certifies the release.
+          # Only run automatically on a matching football source/validator/registry deploy;
+          # The certification validator itself is a material football change.
+          # manual dispatch remains available for another exact-version acceptance.
+          git diff --name-only HEAD^ HEAD > /tmp/b011-changed-paths.txt
+          if grep -Eq '^(docs/football-authority/REGISTRY[.]json|src/data/high-school-football/(program-editorial-b011.*|football-program-profile[.]server[.]ts|school-identities[.]ts)|src/routes/(texas-high-school-football-teams_[.][$]slug[.]lazy[.]tsx|[$]kind[.][$]slug[.]lazy[.]tsx)|scripts/data/validate-high-school-football-platform[.]mjs|scripts/ci/prepare-football-b011-certification[.]mjs|scripts/ci/verify-football-b011-fourth-five-production[.]mjs|[.]github/workflows/verify-football-b011-fourth-five-production[.]yml)$' /tmp/b011-changed-paths.txt; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Batch 011 fourth-five source changed: executing strict Chrome acceptance."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Unrelated deploy: no Batch 011 fourth-five production certification."
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Load immutable workflow-revision source attribution code
+        if: steps.scope.outputs.run == 'true'
+        uses: actions/checkout@v4
+        with:
+          # github.sha is a fixed event-time commit, never a moving branch.
+          # Only the gate code comes from it; the third checkout is the
+          # ledger-proven commit that built the observed live Worker.
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+      - name: Resolve live Worker to GitHub verified deployment source commit
+        if: steps.scope.outputs.run == 'true'
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --check scripts/ci/pin-football-b010-production-release.mjs
+          node --test scripts/ci/pin-football-b010-production-release.test.mjs
+          node scripts/ci/pin-football-b010-production-release.mjs
+      - name: Check out exact source commit for the actually published Worker
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.sha }}
+          fetch-depth: 2
+      - name: Check strict Batch 011 script
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        run: node --check scripts/ci/verify-football-b011-fourth-five-production.mjs
+      - name: Install isolated Chrome driver
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b011-fourth-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify 5 school pages at 3 viewports, original identity panels, 3 counties, sitemap and Worker version
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        env:
+          FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}
+          FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}
+        run: node scripts/ci/verify-football-b011-fourth-five-production.mjs
+      - name: Preserve success or failure evidence
+        if: always() && steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b011-fourth-five-production-chrome
+          path: artifacts/b011-fourth-five-production-chrome/
+          retention-days: 21
+          if-no-files-found: warn
