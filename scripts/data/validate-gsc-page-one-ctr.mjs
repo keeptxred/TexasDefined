@@ -301,7 +301,6 @@ for (const required of [
 const priorityPageOneCtrRecovery = [
   { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Map', description: "Find Texas's major and boundary rivers by region" },
   { path: '/texas-homecoming-mums', title: 'Texas Homecoming Mums: History, Meaning, Colors & Traditions', description: 'Texas homecoming mums explained: history, colors, senior traditions, garters, costs' },
-  { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets", description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco" },
   { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "15 major and eight coastal river basins" },
   { path: '/article/texas-lakes-reservoirs-explained', title: 'Texas Lakes & Reservoirs: Why Most Are Man-Made', description: 'most familiar inland Texas lakes are reservoirs' },
   { path: '/article/texas-trinity-river-guide', title: 'Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide', description: 'Follow the Trinity River through North Texas toward Trinity Bay' },
@@ -318,8 +317,8 @@ for (const experiment of priorityPageOneCtrRecovery) {
   }
 }
 
-if (priorityPageOneCtrRecovery.length !== 11) {
-  failures.push('Expected exactly 11 priority page-one CTR recovery pages, found ' + priorityPageOneCtrRecovery.length + '.');
+if (priorityPageOneCtrRecovery.length !== 10) {
+  failures.push('Expected exactly 10 active priority page-one CTR recovery pages, found ' + priorityPageOneCtrRecovery.length + '.');
 }
 
 // Snapshot of the 20 strongest page-one / near-page-one CTR opportunities from
@@ -357,10 +356,6 @@ const experiments = [
     description: 'verified parking, directions, ticket and event links',
   },
   {
-    path: '/event/heart-o-texas-fair-rodeo',
-    title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets",
-    description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco",
-  },
   {
     path: '/sports-venue/mckinney-isd-stadium',
     title: 'McKinney ISD Stadium: Parking, Events & Visitor Guide',
@@ -525,7 +520,6 @@ if (sixthWave.length !== 20) {
 
 const seventhWave = [
   { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest: Dates, Hours, Tickets & Parking", description: "latest confirmed dates" },
-  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "State Fair of Texas 2026 runs Sept. 25-Oct. 18" },
   { path: "/article/el-paso-county-missions-rio-grande-texas", title: "El Paso County Missions & Rio Grande: Borderlands History Guide", description: "Explore El Paso County through the Rio Grande, Ysleta Mission" },
   { path: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles: Central, East, South & West Texas BBQ", description: "Compare Texas barbecue styles by region" },
   { path: "/article/texas-business-routes-explained", title: "What Is a Business Highway? Texas Business Routes Explained", description: "Learn what a business highway or business route is" },
@@ -551,8 +545,8 @@ for (const experiment of seventhWave) {
   }
 }
 
-if (seventhWave.length !== 20) {
-  failures.push('Expected exactly 20 seventh-wave GSC CTR experiments, found ' + seventhWave.length + '.');
+if (seventhWave.length !== 19) {
+  failures.push('Expected exactly 19 active seventh-wave GSC CTR experiments, found ' + seventhWave.length + '.');
 }
 
 const eighthWave = [
@@ -636,8 +630,8 @@ for (const experiment of experiments) {
   }
 }
 
-if (experiments.length !== 20) {
-  failures.push(`Expected exactly 20 priority GSC CTR experiments, found ${experiments.length}.`);
+if (experiments.length !== 19) {
+  failures.push(`Expected exactly 19 active priority GSC CTR experiments, found ${experiments.length}.`);
 }
 
 for (const experiment of secondWave) {
@@ -756,8 +750,6 @@ if (!seo.includes('const META_DESCRIPTION_MAX_LENGTH = 160;') || !seo.includes('
 const liveWave10 = [
   { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Map', description: "major and boundary rivers by region" },
   { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "watershed map" },
-  { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets", description: "Oct. 8-18 in Waco" },
-  { path: '/texas-state-fair', title: 'State Fair of Texas 2026: Dates, Hours, Schedule & Tickets', description: 'Sept. 25-Oct. 18' },
 ];
 
 for (const experiment of liveWave10) {
@@ -765,7 +757,34 @@ for (const experiment of liveWave10) {
     if (!seo.includes(required) && !stateFair.includes(required)) failures.push('Live Wave 10 CTR contract missing for ' + experiment.path + ': ' + required);
   }
 }
-if (liveWave10.length !== 4) failures.push('Expected exactly 4 live Wave 10 CTR experiments, found ' + liveWave10.length + '.');
+if (liveWave10.length !== 2) failures.push('Expected exactly 2 active live Wave 10 CTR experiments, found ' + liveWave10.length + '.');
+
+
+ // The 2026 State Fair and Heart O' Texas editions have ended.
+ // Their raw source copy is retained for provenance, but the effective
+ // SSR snippet must switch to evergreen until confirmed new dates exist.
+const lifecycleTests = fs.readFileSync('src/data/event-snippet-lifecycle.test.ts', 'utf8');
+for (const expected of [
+  "Heart O' Texas Fair & Rodeo: Visitor Guide & Next Dates",
+  'State Fair of Texas: Visitor Guide & Next Dates',
+  '2026-10-19',
+]) {
+  if (!lifecycleTests.includes(expected)) failures.push('Expired-edition rendered snippet contract missing: ' + expected);
+}
+for (const required of ['resolveEventSnippet({', 'eventOccurrenceEndDate: page.eventOccurrenceEndDate', 'texasEventDateKey()']) {
+  if (!seo.includes(required)) failures.push('Event snippet lifecycle SSR wiring missing: ' + required);
+}
+
+// Live 2026-10-29 GSC test titles are intentionally separate from editorial H1s.
+const gscOctoberExperiments = [
+  { source: seo, path: '/article/texas-cultural-regions-explained', title: 'Texas Cultural Regions: History, Migration & Communities', description: 'Explore Texas cultural regions shaped by Indigenous, Tejano' },
+  { source: fs.readFileSync('src/data/major-event-expanded-authority-tranche58.server.ts', 'utf8'), path: 'polar-express-palestine', title: 'Palestine Polar Express 2026: Dates, Tickets & Train Guide', description: 'Plan Palestine Polar Express 2026 train rides with verified' },
+];
+for (const exp of gscOctoberExperiments) {
+  for (const required of [exp.path, exp.title, exp.description]) {
+    if (!exp.source.includes(required)) failures.push('Current GSC test missing for ' + exp.path + ': ' + required);
+  }
+}
 
 // October 2026: source-backed answers for newly visible river geography queries,
 // and entity-specific Galveston search metadata rather than generic travel-guide copy.
@@ -801,4 +820,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('GSC page-one CTR validation passed: the original top 20, second-wave 14, third-wave 4 and fourth-wave 2 corrections remain server-only and length-guarded; Sweetwater remains a recurrence-derived 2027 planning window, Charro Days uses organizer-confirmed 2027 schedule data, and the dedicated Texas settlement-patterns child page now carries the stronger geography/settlement search signal instead of relying on the broader Texas Explained hub.');
+console.log('GSC page-one CTR validation passed: 19 active priority experiments, second-wave 14, third-wave 4 and fourth-wave 2 corrections remain server-only and length-guarded; Sweetwater remains a recurrence-derived 2027 planning window, Charro Days uses organizer-confirmed 2027 schedule data, and the dedicated Texas settlement-patterns child page now carries the stronger geography/settlement search signal instead of relying on the broader Texas Explained hub.');
