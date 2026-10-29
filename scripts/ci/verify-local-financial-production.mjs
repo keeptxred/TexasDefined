@@ -323,8 +323,8 @@ async function verifyGscFiveHundredTaxingUnit({ slug, name }) {
     const label = 'gsc-5xx-tax-unit:' + slug + ':' + target;
     try {
       const { response, body } = await fetchProduction(path, host);
-      const heading = body.match(/<h1\\b[^>]*>([\\s\\S]*?)<\\/h1>/i)?.[1] ?? '';
-      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim().toLowerCase();
+      const heading = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
       const validHeading = headingText.includes(name.toLowerCase()) && headingText.includes('property tax rate');
       const required = [
         origin + path,
@@ -340,7 +340,7 @@ async function verifyGscFiveHundredTaxingUnit({ slug, name }) {
       else if (missing.length) fail(label, 'missing expected tax history/canonical metadata: ' + missing.join(', '));
       else {
         console.log('[' + label + '] verified 200/indexable, 2021–2025 history and canonical');
-        appendSummary('| ✅ pass | ' + label + ' | HTTP 200, 5 reported tax years, title, canonical, indexable Dataset |\\n');
+        appendSummary('| ✅ pass | ' + label + ' | HTTP 200, 5 reported tax years, title, canonical, indexable Dataset |\n');
       }
     } catch (error) {
       fail(label, error instanceof Error ? error.message : String(error));
