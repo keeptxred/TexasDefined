@@ -307,7 +307,7 @@ for (const marker of [
   'slug: "crossroads-of-texas-country-festival"',
   'startDateTime: "2026-10-24T09:00:00-05:00"',
   'endDateTime: "2026-10-24T19:30:00-05:00"',
-  'sourceCheckedAt: "2026-10-18"',
+  'sourceCheckedAt: "2026-10-29"',
   'quickFacts: [',
   'Jake Worthington',
   'Kenny Whitmire',
@@ -320,7 +320,7 @@ for (const marker of [
   'Ethan Pacheco',
   'Jade Flores',
   'Java Llamas',
-  'Downtown music after the main-stage finale',
+  '2026 downtown music after the main-stage finale',
   'CROSSROADS26',
   '/destination/waxahachie',
   '/texas-music',
@@ -478,6 +478,23 @@ for (const [file, mustContain, mustNotContain] of [
   for (const marker of mustContain) if (!contents.includes(marker)) fail("Expired event guide freshness marker missing: " + file + " " + marker);
   for (const marker of mustNotContain) if (contents.includes(marker)) fail("Expired event guide restored upcoming edition claim: " + file + " " + marker);
 }
+
+// October 24 Crossroads Festival is a completed edition. Preserve its
+// well-performing existing SEO title and the organizer's detailed historical
+// schedule while rejecting forward-looking 2026 booking instructions.
+const completedCrossroads = read(path.join(dataDir, "major-event-expanded-authority-tranche41.server.ts"));
+for (const marker of [
+  "The October 24, 2026 Crossroads of Texas GO TEXAN Country Festival has concluded",
+  "2026 music archive: Jake Worthington",
+  "2026 downtown music after the main-stage finale",
+  "CBS Texas — October 25, 2026 post-event report",
+  'seoTitle: "Crossroads of Texas Country Festival 2026 | Free Music & Parking Guide"',
+]) if (!completedCrossroads.includes(marker)) fail("Crossroads completed-edition contract missing: " + marker);
+for (const stale of [
+  "Check the festival\\'s current schedule shortly before traveling.",
+  "The organizer now publishes a full 2026 main-stage running order",
+  "The main-stage headline show is scheduled to end at 7:30 p.m.",
+]) if (completedCrossroads.includes(stale)) fail("Crossroads historical program advertised as upcoming: " + stale);
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {
