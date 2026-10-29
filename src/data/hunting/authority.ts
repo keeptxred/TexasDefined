@@ -211,7 +211,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       {
         heading: "What happens if you are selected?",
         paragraphs: [
-          "Check the TPWD application-status portal as well as email: unsuccessful applicants do not necessarily receive a notice. TPWD generally allows around ten calendar days after a drawing to accept and pay for a selected permit, and forfeits permits that are not claimed. Confirm the exact acceptance date shown in your account.",
+          "Check the TPWD application-status portal as well as email: unsuccessful applicants do not necessarily receive a notice. TPWD generally gives winners ten days to claim and pay for a selected permit following a drawing, and unclaimed permits are forfeited. The official acceptance deadline in the account controls. Confirm the exact acceptance date shown in your account.",
           "Only after the official permit and area instructions are confirmed should you finalize travel. Check site check-in, the issued permit, hunt equipment, property boundaries, weather, lodging and any public-hunt license or endorsement requirements."
         ],
         links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, { label: "TPWD: drawn-hunt application status and questions", href: "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/faqs.phtml", external: true }, INTERNAL.tripPlanner],
