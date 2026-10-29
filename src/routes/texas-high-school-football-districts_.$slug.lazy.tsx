@@ -35,7 +35,8 @@ function Page() {
   const district11Pilot = district.slug === '4a-division-i-district-11';
   const district16Pilot = district.slug === '6a-district-16';
   const district6Pilot = district.slug === '6a-district-6';
-  const games = getDistrictFootballGames(district.slug, district.classification, district.district);
+  // District 6 intentionally excludes the shared results feed while standings / W-L automation is paused.
+  const games = district6Pilot ? [] : getDistrictFootballGames(district.slug, district.classification, district.district);
   const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot || district21Pilot || district11Pilot ? 16 : 8);
   const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
   const reportedDistrictRecords = (katyPilot || district5Pilot || district21Pilot || district11Pilot) ? getSourcedDistrictRecords(games, district.programs) : [];
@@ -283,7 +284,7 @@ function Page() {
       <section data-football-district-section="game-week" className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Game week</p>
-          <h2 className="mt-2 font-display text-3xl">Scores, schedules & playoff path</h2>
+          <h2 className="mt-2 font-display text-3xl">{district6Pilot ? "Schedules, tickets & playoff path" : "Scores, schedules & playoff path"}</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
           {district6Pilot ? <Related href="#district-6-2026" title="District 6 varsity fixtures and game-day guide" body="See the dated source-backed 2026 schedule, five official athletics offices, venues, ticket policies and playoff path. Automated records are paused." />
@@ -293,7 +294,7 @@ function Page() {
           {district11Pilot && <Related href={DISTRICT_11_STANDINGS_URL} title="2026 District 11 reported records" body="View the current UIL-partner district standings and confirm any updates beyond our dated, sourced score snapshot." external />}
           {district11Pilot && <Related href={DISTRICT_11_PLAYOFF_SOURCE} title="Official 4A Division I playoff bracket" body="Follow UIL's 4A Division I postseason bracket; district qualifiers are not projected." external />}
           <Related href="/texas-high-school-football-playoff-brackets" title="2026 postseason brackets" body="Choose from twelve UIL class/division brackets and view independently verified playoff results." />
-          <Related href={district11Pilot ? DISTRICT_11_STANDINGS_URL : "https://www.uiltexas.org/maxpreps/"} title="Current scores & schedules" body={district11Pilot ? "Open the active MaxPreps District 11 view, rather than an unreliable UIL scoreboard redirect. Reported standings are not UIL-certified seeds." : "Open UIL's scoreboard gateway for school-submitted scores and schedules; verify any redirects. It is not an official district-standings table."} external />
+          <Related href={district6Pilot ? "https://www.maxpreps.com/tx/football/26-27/district/6a-region-i-district-6/?leagueid=28ebe920-dd93-4580-bd88-1bb25e74ff7d" : district11Pilot ? DISTRICT_11_STANDINGS_URL : "https://www.uiltexas.org/maxpreps/"} title={district6Pilot ? "Independent District 6 scoreboard" : "Current scores & schedules"} body={district6Pilot ? "Open the UIL-partner scoreboard directly. This is an external link, not an imported score or W-L feed." : district11Pilot ? "Open the active MaxPreps District 11 view, rather than an unreliable UIL scoreboard redirect. Reported standings are not UIL-certified seeds." : "Open UIL's scoreboard gateway for school-submitted scores and schedules; verify any redirects. It is not an official district-standings table."} external />
           <Related href="/article/texas-high-school-football-2026-season-calendar" title="2026 season calendar" body="Track district play, playoff rounds and the December state championship dates." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="See how district qualification advances into bi-district, regional rounds and the state championships." />
           <Related href="/article/texas-high-school-football-scores-schedules" title="Verify scores & standings" body="Use the UIL scoreboard and school sources without turning incomplete submissions into an unofficial table." />
