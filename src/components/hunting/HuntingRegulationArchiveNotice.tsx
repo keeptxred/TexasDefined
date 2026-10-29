@@ -7,10 +7,7 @@ import { HUNTING_REGULATION_FRESHNESS } from "@/data/hunting/freshness";
 export function HuntingRegulationArchiveNotice() {
   const [expired, setExpired] = useState(false);
   useEffect(() => {
-    const date = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
-    }).format(new Date());
-    // en-CA date formatting is not guaranteed on all engines; use parts.
+    // Use date parts, not locale-formatted strings, to avoid date ordering assumptions.
     const parts = new Intl.DateTimeFormat("en-US", {
       timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
     }).formatToParts(new Date());
