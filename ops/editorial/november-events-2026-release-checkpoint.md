@@ -13,6 +13,7 @@ Primary URL: https://texasdefined.com/events/november-events
 - Shared event SEO title generation avoids appending an already present year (e.g., `2026–27 2026`).
 - November page has date, region, city and category filters; featured event picks; 4 additional first-party-confirmed event listings (three Thanksgiving runs and one Día de los Muertos festival); rights-reviewed image slots; visitor-focused introduction without indexing-policy leakage.
 - New November source checks run inside the existing daily `sync-texas-events.yml` workflow. They flag organizer drift for bounded review and **never** silently rewrite date windows.
+- South Pole Ticketmaster links are additionally gated to the organizer-confirmed Nov. 28–Dec. 28 season. A separately listed Nov. 27 ticket must not be offered as admission to an event whose organizer opens Nov. 28. This guard is scoped to South Pole, not a blanket removal of other event previews.
 - `verify-november-event-collection.yml` regression suite passed in PR #6307.
 
 ## Follow-up guard added in this batch
