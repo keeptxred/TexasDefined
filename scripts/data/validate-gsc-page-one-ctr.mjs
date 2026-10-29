@@ -426,7 +426,7 @@ const experiments = [
 const secondWave = [
   { path: '/event/dallas-holiday-parade', title: 'Dallas Holiday Parade 2026: Projected Date, Route & Guide', description: 'Dallas Holiday Parade 2026 projected planning date: Dec. 5' },
   { path: '/event/houston-thanksgiving-day-parade', title: 'Houston Thanksgiving Parade 2026: Date, Time & Route', description: "Houston's H-E-B Thanksgiving Day Parade is Nov. 26, 2026 at 9 a.m. downtown" },
-  { path: '/event/texas-rose-festival', title: 'Texas Rose Festival 2026: Tyler Dates, Parade & Schedule', description: 'Plan the 2026 Texas Rose Festival in Tyler with official dates' },
+  { path: '/event/texas-rose-festival', title: 'Texas Rose Festival Tyler: Parade, Coronation & Guide', description: 'Plan the Texas Rose Festival in Tyler with the Rose Parade' },
   { path: '/event/larry-joe-taylor-texas-music-festival', title: 'Larry Joe Taylor Festival 2027: Dates, Tickets & Camping', description: 'LJT Fest returns to Stephenville April 19-24, 2027' },
   { path: '/event/fulton-oysterfest', title: 'Fulton Oysterfest 2027: Dates, Tickets & Visitor Guide', description: 'Fulton Oysterfest runs March 4-7, 2027 at Fulton Harbor Park' },
   { path: '/article/texas-colorado-river-guide', title: 'Colorado River in Texas: Lakes, Basin & Hill Country Guide', description: 'Follow the Texas Colorado River through the Highland Lakes and Austin to the Gulf' },
@@ -760,7 +760,7 @@ for (const experiment of liveWave10) {
 if (liveWave10.length !== 2) failures.push('Expected exactly 2 active live Wave 10 CTR experiments, found ' + liveWave10.length + '.');
 
 
- // The 2026 State Fair and Heart O' Texas editions have ended.
+ // The 2026 State Fair, Heart O' Texas and Texas Rose Festival editions have ended.
  // Their raw source copy is retained for provenance, but the effective
  // SSR snippet must switch to evergreen until confirmed new dates exist.
 const lifecycleTests = fs.readFileSync('src/data/event-snippet-lifecycle.test.ts', 'utf8');
