@@ -1,0 +1,84 @@
+name: Finish Verified Turkey Authority Quarterly Refresh
+
+on:
+  workflow_run:
+    workflows: [Refresh TPWD Turkey Authority Quarterly]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful source-verified turkey quarterly refresh run ID
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: finish-verified-texas-turkey-quarterly
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate and publish only corroborated quarterly turkey authority facts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          SOURCE_RUN: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN: ${{ inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT" == 'workflow_run' ]]; then run_id="$SOURCE_RUN"; else run_id="$MANUAL_RUN"; fi
+          [[ "$run_id" =~ ^[0-9]+$ ]] || { echo 'Invalid source run id'; exit 1; }
+          branch="automation/turkey-quarterly-$run_id"
+          result="$(gh pr list --repo "$REPO" --base main --state open --head "$branch" --limit 2 --json number,url,title,headRefName,headRefOid)"
+          [[ "$(jq 'length' <<< "$result")" == '0' ]] && { echo 'No source-verified quarterly data change created in source run'; exit 0; }
+          [[ "$(jq 'length' <<< "$result")" == '1' ]] || { echo 'Ambiguous date refresh PR'; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$result")"
+          url="$(jq -r '.[0].url' <<< "$result")"
+          title="$(jq -r '.[0].title' <<< "$result")"
+          who="$(gh api "repos/$REPO/pulls/$number" --jq '.user.login')"
+          [[ "$title" == 'Refresh verified TPWD turkey public draws and survey' && "$who" == 'github-actions[bot]' && "$(jq -r '.[0].headRefName' <<< "$result")" == "$branch" ]] || { echo 'Untrusted pull request identity'; exit 1; }
+          git config user.name 'TexasDefined Turkey Calendar Bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch --no-tags origin main "$branch"
+          merge_base="$(git merge-base origin/main "origin/$branch")"
+          changed="$(git diff --name-only "$merge_base" "origin/$branch")"
+          [[ "$changed" == 'src/data/hunting/turkey-quarterly-facts.json' ]] || { echo 'Refusing to merge changes outside governed quarterly turkey facts'; exit 1; }
+          git checkout -B "$branch" "origin/$branch"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            git merge --no-edit origin/main || { git merge --abort || true; echo 'Main conflict: editorial review required'; exit 1; }
+            git push origin "HEAD:$branch"
+          fi
+          node --test scripts/data/refresh-turkey-authority-quarterly.test.mjs
+          node scripts/data/validate-hunting-authority.mjs
+          node scripts/data/check-turkey-regulations.mjs
+          node scripts/data/refresh-turkey-season-calendar.mjs --check-only --strict-check-only
+          node scripts/data/refresh-turkey-authority-quarterly.mjs --check-only
+          validated="$(git rev-parse HEAD)"
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$validated" ]] || { echo 'Quarterly data PR changed after validation'; exit 1; }
+          git merge-base --is-ancestor origin/main "origin/$branch" || { echo 'Main advanced during date validation'; exit 1; }
+          gh api --method POST "repos/$REPO/statuses/$validated" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Exact-branch validation passed for TPWD corroborated quarterly facts' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPO" --merge --auto --match-head-commit "$validated"
