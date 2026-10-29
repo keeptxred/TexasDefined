@@ -17,6 +17,9 @@ const topics=new Set([...keys(base),...keys(v2)]);
 assert.equal(topics.size,30,"preserve exactly 30 established hunting authority topic paths");
 assert.equal(species.sections.length,17);
 assert.ok(hub.includes("<HuntingPublicAccessPlanner />") && hub.includes("<HuntingTripStayOptions />"),"hub must mount access and travel");
+assert.ok(read("src/components/hunting/HuntingHubPage.tsx").includes("<HuntingCountyProvider><HuntingAuthorityHub /></HuntingCountyProvider>"), "shared hunting county provider must wrap both planners");
+assert.ok(planner.includes("useHuntingCounty()") && access.includes("useHuntingCounty()"), "public access and season planner must use same county state");
+assert.ok(access.includes("TPWD_MAP") && access.includes("copySearchChecklist") && access.includes("Clipboard unavailable"), "official map and usable copy fallback required");
 for(const field of ['id="hunting-access-county"','id="hunting-access-game"','id="hunting-access-type"','TPWD_AREAS','TPWD_DRAWN','TPWD_APH','TPWD_DAILY','This page does not prefilter','not necessarily open to hunting']){
   assert.ok(access.includes(field),"safe TPWD handoff is missing "+field);
 }
@@ -25,6 +28,7 @@ for(const field of ['buildCjAccountClick("rvshare"','buildHotelsComEvergreenClic
 }
 const cj = JSON.parse(read("src/data/cj-account-verified-links.json"));
 const gear = read("src/components/hunting/KingsCamoGearOffers.tsx");
+assert.ok(gear.includes('context === "hub" ? ["lightweight", "rain", "packs"]'), "hub must use relevant heat/rain/pack shopping categories");
 assert.equal(cj.publisherId, "101876465", "hunting CJ links must remain account-scoped");
 for (const program of ["rvshare", "kings-camo-shop", "kings-camo-pants", "kings-camo-rain-jacket", "kings-camo-backpacks", "kings-camo-kids", "kings-camo-women", "kings-camo-turkey-accessories", "kings-camo-lightweight-shirts", "kings-camo-camping"]) {
   const creative = cj.links[program];
