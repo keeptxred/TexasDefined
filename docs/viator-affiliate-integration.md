@@ -139,9 +139,7 @@ implementation, not a ticket-sale or booking service.
   results, and caches the sanitized result for 20 minutes at the edge
   (browser cache 2 minutes). There is **no nightly catalog ingestion**,
   no permanent product store, no mass pagination, and no new API secret.
-- Product URLs come from the Viator API `productUrl` field, preserving valid
-  returned affiliate tracking. The allowlist rejects cross-site URLs and
-  mismatched publisher attribution. Campaigns use
+- Product URLs come from the Viator API `productUrl` field and must be used **unchanged**, including Viator's affiliate tracking and campaign. The allowlist rejects cross-site URLs, untracked products and mismatched publisher attribution, falling back to existing destination links. Campaigns use
   `texasdefined-api-<market-slug>` and first-party click tracking continues
   per placement and product code.
 - Cards show Viator's actual product titles and available cover images.
