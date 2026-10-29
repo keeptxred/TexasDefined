@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   matchSourceCandidate, mayIndexDiscoveryEntity, reconcileConfirmedOccurrence,
-  verifiedCalendarOccurrences, deduplicateBookingOffers,
+  verifiedCalendarOccurrences, deduplicateBookingOffers, hasRecordedOwnerApproval,
   type DiscoveryEntity, type DiscoveryEvidence, type DiscoveryOccurrence,
 } from "../entity-registry.ts";
 
@@ -58,4 +58,25 @@ test("only official, real date checks can advance occurrences", () => {
 test("supplier offers stay separate from official event admission and deduplicate", () => {
   const offer={provider:"viator" as const,providerProductId:"100P3",url:"https://www.viator.com/tours/Texas/Example",relationship:"nearby-experience" as const,affiliate:true,lastVerifiedAt:"2026-10-27"};
   assert.deepEqual(deduplicateBookingOffers([offer,offer,{...offer,url:"http://viator.com"}, {...offer,lastVerifiedAt:"not-a-date"}]),[offer]);
+});
+
+test("supplier-derived new authority pages cannot index before owner approval and independent proof", () => {
+ const candidate={...event, kind:"attraction" as const, discoveryOrigin:"supplier-candidate" as const};
+ assert.equal(mayIndexDiscoveryEntity(candidate),false);
+ const approval={batchId:"td-2026-11-batch-01",approvedBy:"keeptxred" as const,
+  approvedAt:"2026-10-29",decision:"approved" as const,
+  reviewUrl:"https://github.com/keeptxred/TexasDefined/issues/6380#issuecomment-123456"};
+ const officialIdentity={...officialEditorial,purpose:"identity" as const};
+ const officialLocation={...officialEditorial,purpose:"location" as const};
+ assert.equal(hasRecordedOwnerApproval(approval),true);
+ assert.equal(hasRecordedOwnerApproval({...approval,reviewUrl:"https://github.com/other/repo/issues/1#issuecomment-123456"}),false);
+ assert.equal(hasRecordedOwnerApproval({...approval,decision:"approved",approvedAt:"2026-02-30"}),false);
+ assert.equal(mayIndexDiscoveryEntity({...candidate,ownerApproval:approval}),false,
+  "Owner approval alone never substitutes for independently verified operator identity and location");
+ assert.equal(mayIndexDiscoveryEntity({...candidate,ownerApproval:approval,
+  evidence:[officialEditorial,officialIdentity,officialLocation]}),true);
+ assert.equal(mayIndexDiscoveryEntity({...candidate,ownerApproval:approval,
+  evidence:[officialEditorial,{...officialIdentity,provider:"viator",official:false},officialLocation]}),false);
+ assert.equal(mayIndexDiscoveryEntity({...candidate,ownerApproval:approval,
+  evidence:[officialEditorial,officialIdentity,officialLocation],qualityApproved:false}),false);
 });
