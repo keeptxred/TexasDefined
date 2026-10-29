@@ -24,6 +24,7 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
       : `District ${loaderData.district}-${loaderData.classification}`;
     const katyPilot = loaderData.slug === '6a-district-22';
     const district5Pilot = loaderData.slug === '6a-district-5';
+    const district6Pilot = loaderData.slug === '6a-district-6';
     const district21Pilot = loaderData.slug === '6a-district-21';
     const district16Pilot = loaderData.slug === '6a-district-16';
     const district11Pilot = loaderData.slug === '4a-division-i-district-11';
@@ -31,6 +32,8 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
     const url = `${siteUrl}${canonicalPath}`;
     const description = katyPilot
       ? 'Katy ISD District 22-6A football: 2026 varsity matchups, source-checked reported final scores, upcoming fixtures, nine UIL teams and playoff rules. Scores are not live standings.'
+      : district6Pilot
+        ? 'District 6-6A 2026 football: all eight UIL schools, dated varsity fixtures, official tickets and stadium policies, Region I playoff rules and verified sources. No live standings or W-L automation.'
       : district5Pilot
         ? 'District 5-6A 2026 football scores, 16 verified district finals through Oct. 16, remaining schedule, source-derived records, all eight UIL schools and 6A playoff rules.'
         : district21Pilot
@@ -44,7 +47,7 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: katyPilot ? 'Katy ISD District 22-6A Football: 2026 Scores & Schedule' : district5Pilot ? 'District 5-6A Football: 2026 Scores, Records & Schedule' : district21Pilot ? 'District 21-6A Football: 2026 Scores, Standings & Schedule' : district16Pilot ? 'District 16-6A Football: 2026 Standings, Scores & Schedule' : district11Pilot ? 'District 11-4A Division I Football: 2026 Scores & Schedule' : `${label} Football | Teams & UIL Guide`,
+        title: katyPilot ? 'Katy ISD District 22-6A Football: 2026 Scores & Schedule' : district6Pilot ? 'District 6-6A Football: 2026 Teams, Schedule & Tickets' : district5Pilot ? 'District 5-6A Football: 2026 Scores, Records & Schedule' : district21Pilot ? 'District 21-6A Football: 2026 Scores, Standings & Schedule' : district16Pilot ? 'District 16-6A Football: 2026 Standings, Scores & Schedule' : district11Pilot ? 'District 11-4A Division I Football: 2026 Scores & Schedule' : `${label} Football | Teams & UIL Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
