@@ -1,0 +1,84 @@
+{
+  "recordedAt": "2026-10-29",
+  "site": "sc-domain:texasdefined.com",
+  "gsc": {
+    "searchType": "web",
+    "dataState": "final",
+    "startDate": "2026-09-29",
+    "endDate": "2026-10-26",
+    "sevenDayStart": "2026-10-20",
+    "note": "Both pages gained indexed impressions during the most recent seven days; 7-day and 28-day totals are the same at this baseline."
+  },
+  "experiments": [
+    {
+      "url": "https://texasdefined.com/article/texas-cultural-regions-explained",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "The Cultural Regions of Texas: How Migration Created Different Texases",
+      "newTitle": "Texas Cultural Regions: History, Migration & Communities",
+      "oldDescriptionSource": "Texas has one border on the map and many cultural borders on the ground. Indigenous homelands, Spanish and Tejano settlement, Southern migration, slavery and freedom, European immigration, ranching, railroads, oil and modern global migration all created places that can feel distinctly Texan and distinctly different from one another.",
+      "oldDescriptionNote": "Original editorial dek; exact search meta output was not directly retrievable for this baseline.",
+      "newDescription": "Explore Texas cultural regions shaped by Indigenous, Tejano, Black, German, Czech and other communities, from settlement and migration to music and traditions.",
+      "baseline": {
+        "clicks": 2,
+        "impressions": 303,
+        "ctr": 0.006600660066006601,
+        "averagePosition": 6.075907590759076
+      },
+      "reason": "Google query rows center on 'cultural regions of texas'; shortened search title leads with that intent without altering editorial H1."
+    },
+    {
+      "url": "https://texasdefined.com/event/polar-express-palestine",
+      "classification": "CTR IMPROVEMENT",
+      "oldTitle": "Palestine Polar Express 2026: Train Classes, Fares & Visitor Guide",
+      "newTitle": "Palestine Polar Express 2026: Dates, Tickets & Train Guide",
+      "oldDescription": "Palestine Polar Express 2026: official Texas State Railroad calendar Nov 13–Dec 28, departure times, train tickets, fares and hotels.",
+      "newDescription": "Plan Palestine Polar Express 2026 train rides with verified Nov. 13–Dec. 28 departures, seating classes, fares, access details and official ticket links.",
+      "baseline": {
+        "clicks": 3,
+        "impressions": 436,
+        "ctr": 0.006880733944954129,
+        "averagePosition": 9.149082568807339
+      },
+      "reason": "Branded event query and ticket planning; organizer-verified 2026 departures, with search copy prioritizing dates and ticket utility."
+    }
+  ],
+  "protectedWithoutChanges": [
+    {
+      "url": "https://texasdefined.com/article/texas-rivers-explained",
+      "title": "Major Rivers in Texas: Boundary Rivers, Regions & Map",
+      "reason": "Protected distinct river-system overview intent; no justified replacement without more precise query evidence."
+    },
+    {
+      "url": "https://texasdefined.com/article/texas-high-school-football-playoffs-explained",
+      "title": "How Do the Texas High School Football Playoffs Work?",
+      "reason": "Current snippet directly answers generic 'how do' queries; broad impression mix may explain depressed overall CTR."
+    },
+    {
+      "url": "https://texasdefined.com/explore/painted-churches/map",
+      "reason": "Preserve separate map intent ownership from the broader hub, even when both rank."
+    }
+  ],
+  "intentOwners": [
+    {
+      "query": "painted churches of texas map",
+      "owner": "/explore/painted-churches/map",
+      "related": "/explore/painted-churches",
+      "gscPages": [
+        {
+          "url": "/explore/painted-churches",
+          "impressions": 71,
+          "clicks": 3,
+          "position": 7.732394366197183
+        },
+        {
+          "url": "/explore/painted-churches/map",
+          "impressions": 75,
+          "clicks": 0,
+          "position": 6.88
+        }
+      ],
+      "status": "existing separate intents preserved; internal link and Google selection follow-up outstanding"
+    }
+  ],
+  "followUp": "Allow sufficient finalized impressions after deployment; compare the next 28-day completed window by page, query mix and position before changing the same experiment again."
+}
