@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { useHuntingCounty } from "./HuntingCountyContext";
 import { TEXAS_COUNTIES } from "@/data/texas-places";
 import speciesCalendar from "@/data/hunting/species-season-calendar.json";
 import deerCalendar from "@/data/hunting/deer-season-dates.json";
@@ -67,7 +68,7 @@ function useTexasDate() {
 
 export function HuntingSeasonPlanner() {
   const [selected, setSelected] = useState(calendars[0].id);
-  const [countySlug, setCountySlug] = useState("");
+  const { countySlug, setCountySlug } = useHuntingCounty();
   const county = TEXAS_COUNTIES.find((item) => item.slug === countySlug);
   const today = useTexasDate();
   const calendar = useMemo(() => calendars.find((entry) => entry.id === selected) ?? calendars[0], [selected]);
@@ -97,7 +98,7 @@ export function HuntingSeasonPlanner() {
               </select>
             </div>
             <div>
-              <label htmlFor="hunting-season-county" className="block text-sm font-semibold">County to check with TPWD</label>
+              <label htmlFor="hunting-season-county" className="block text-sm font-semibold">County to check with TPWD (shared with public-hunt planner)</label>
               <select
                 id="hunting-season-county"
                 value={countySlug}
