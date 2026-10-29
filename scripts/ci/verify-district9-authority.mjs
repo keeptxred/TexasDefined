@@ -23,7 +23,7 @@ assert.ok(page.indexOf('{district9Pilot && <District9Guide />}') < page.indexOf(
 for (const name of ['Garland','Lakeview Centennial','Rowlett','Sachse','North Garland','South Garland','Wylie','Wylie East']) {
   assert.ok(guide.includes(name),'Missing school '+name);
 }
-for(const id of ['district-9-authority','district-9-game-day','district-9-playoffs','district-9-sources','district-9-faq'])
+for(const id of ['district-9-authority','district-9-calendar','district-9-game-day','district-9-playoffs','district-9-sources','district-9-faq'])
   assert.ok(guide.includes(id),'Missing section '+id);
 assert.match(guide,/Naaman Forest moved to 5A Division I/);
 assert.match(guide,/automated District 9 scores, win\/loss records/);
