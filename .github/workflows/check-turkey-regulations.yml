@@ -42,6 +42,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check TPWD 2026–27 turkey dates and regulations
+        id: sourcecheck
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -88,7 +89,7 @@ jobs:
           exit "$code"
 
       - name: Open quarterly turkey authority review with verified source-check evidence
-        if: ${{ success() && github.event_name == 'schedule' && github.event.schedule == '41 13 1 1,4,7,10' }}
+        if: ${{ always() && github.event_name == 'schedule' && github.event.schedule == '41 13 1 1,4,7,10' }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -100,7 +101,7 @@ jobs:
           existing="$(gh issue list --state all --search "$title in:title" --json number --jq '.[0].number // empty')"
           if [[ -n "$existing" ]]; then echo "Quarterly review issue already exists (#$existing)"; exit 0; fi
           cat > "$RUNNER_TEMP/turkey-quarterly.md" <<'EOF'
-          Automated TPWD source markers matched the current guide at the start of this quarterly review. This proves a bounded source check only; it does **not** certify a fresh editorial review or authorize new hunting advice.
+          This task must be opened EVERY quarter even if TPWD is unavailable, rules have changed, or the prior editorial review is overdue. A passing bounded source monitor does **not** certify a fresh editorial review or authorize new hunting advice. A failed monitor requires inspecting the source-check logs before relying on any previously published legal or permit detail.
 
           - [ ] Check the current TPWD wild turkey **county selector and 2026–27 / next-year regulations**, including closures, bag composition, tagging, reporting and legal methods.
           - [ ] Recheck Hagerman and Lower Rio Grande Valley NWR–East Lake draw dates, permit counts, methods, deadline and fees, replacing ended or superseded inventory.
@@ -113,6 +114,7 @@ jobs:
           EOF
           {
             echo "Quarter: $period"
+            echo "Official-source monitor result: ${{ steps.sourcecheck.outcome }}"
             echo
             cat "$RUNNER_TEMP/turkey-quarterly.md"
             echo
