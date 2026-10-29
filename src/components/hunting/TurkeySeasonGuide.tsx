@@ -3,6 +3,7 @@ import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { TURKEY_SEASONS_2026_27, TURKEY_GUIDE_VERIFIED_LABEL } from "@/data/hunting/turkey-guide";
 import turkeyCalendar from "@/data/hunting/turkey-season-calendar.json";
+import quarterlyFacts from "@/data/hunting/turkey-quarterly-facts.json";
 
 const tpwdTurkeyUrl = "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/turkey";
 const turkeyGuidePath = "/hunting/turkey-hunting";
@@ -11,7 +12,7 @@ const hotelsUrl = buildHotelsComEvergreenClick("https://www.hotels.com/", hotels
 const tpwdDrawUrl = "https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-category-details.phtml?OCat=NTS";
 
 export function TurkeySeasonGuide() {
-  const drawApplicationExpired = Date.now() >= Date.parse("2026-11-02T06:00:00Z");
+  const drawApplicationExpired = Date.now() > Date.parse(quarterlyFacts.draw.deadline + " 23:59:59 GMT-0600");
   // The final listed 2026–27 turkey season (North spring youth-only) ends May 23, 2027.
   const archivedSeason = Date.now() >= Date.parse("2027-05-24T05:00:00Z");
   return (
@@ -87,21 +88,21 @@ export function TurkeySeasonGuide() {
           </div>
         </section>
         <aside className="mt-10 grid gap-6 border-l-4 border-primary bg-muted/30 p-6 md:grid-cols-2" aria-label="Public turkey hunt opportunity">
-          <div><p className="eyebrow text-primary">Specific 2026–27 public hunting lead</p><h3 className="mt-2 font-display text-2xl">National Refuge Spring Turkey drawings</h3><p className="mt-3 text-sm leading-7">{drawApplicationExpired ? <>The November 1, 2026 application deadline for the Hagerman and Lower Rio Grande Valley NWR–East Lake examples has passed. Use the official TPWD drawn-hunt catalog to check the next application cycle; these are not unrestricted public hunts.</> : <>TPWD lists Hagerman NWR and Lower Rio Grande Valley NWR–East Lake in its National Refuge Spring Turkey draw category, with an application deadline of <strong>November 1, 2026</strong>. Limited permits, fees, application requirements and weapon restrictions apply. These are drawn opportunities, not open-access hunts.</>}</p></div>
+          <div><p className="eyebrow text-primary">Specific 2026–27 public hunting lead</p><h3 className="mt-2 font-display text-2xl">National Refuge Spring Turkey drawings</h3><p className="mt-3 text-sm leading-7">{drawApplicationExpired ? <>The {quarterlyFacts.draw.deadline} application deadline for the Hagerman and Lower Rio Grande Valley NWR–East Lake examples has passed. Use the official TPWD drawn-hunt catalog to check the next application cycle; these are not unrestricted public hunts.</> : <>TPWD lists Hagerman NWR and Lower Rio Grande Valley NWR–East Lake in its National Refuge Spring Turkey draw category, with an application deadline of <strong>{quarterlyFacts.draw.deadline}</strong>. Limited permits, fees, application requirements and weapon restrictions apply. These are drawn opportunities, not open-access hunts.</>}</p></div>
           <a href={tpwdDrawUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center border border-primary px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground">See TPWD drawing details ↗</a>
         </aside>
         <section className="mt-10 border-t border-border pt-8" aria-labelledby="turkey-public-hunting-options">
           <h3 id="turkey-public-hunting-options" className="font-display text-3xl">Two verified 2027 public turkey draw opportunities</h3>
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These are limited-entry TPWD National Refuge Spring Turkey hunts, not open-access public hunting. Both list a November 1, 2026 application deadline, a $3 adult application fee and an $80 adult permit fee if selected. The individual hunt notices control eligibility, restrictions and availability.</p>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These are limited-entry TPWD National Refuge Spring Turkey hunts, not open-access public hunting. Both list a {quarterlyFacts.draw.deadline} application deadline, a ${quarterlyFacts.draw.applicationFeeUsd} adult application fee and a ${quarterlyFacts.draw.permitFeeUsd} adult permit fee if selected. The individual hunt notices control eligibility, restrictions and availability. TPWD draw and survey data machine-checked {quarterlyFacts.checkedAt}; legal guidance has a separate editorial verification date.</p>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <article className="border border-border p-5">
               <h4 className="font-display text-2xl">Hagerman National Wildlife Refuge</h4>
-              <p className="mt-2 text-sm leading-7"><strong>April 22–24, 2027</strong> · 24 permits listed · one gobbler only. Archery or shotguns with birdshot; only non-toxic shot no larger than #4. Hunting is confined to designated compartments.</p>
+              <p className="mt-2 text-sm leading-7"><strong>{quarterlyFacts.draw.hagermanDates.join(" or ")}</strong> · {quarterlyFacts.draw.hagermanPermits} permits listed · one gobbler only. Archery or shotguns with birdshot; only non-toxic shot no larger than #4. Hunting is confined to designated compartments.</p>
               <a className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4" href="https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UP" rel="noopener noreferrer" target="_blank">Hagerman hunt rules and permit details ↗</a>
             </article>
             <article className="border border-border p-5">
               <h4 className="font-display text-2xl">Lower Rio Grande Valley NWR — East Lake</h4>
-              <p className="mt-2 text-sm leading-7"><strong>April 2–4 or April 9–11, 2027</strong> · 8 permits listed · one gobbler or bearded hen. Shotguns with birdshot; no standbys listed.</p>
+              <p className="mt-2 text-sm leading-7"><strong>{quarterlyFacts.draw.eastLakeDates.join(" or ")}</strong> · {quarterlyFacts.draw.eastLakePermits} permits listed · one gobbler or bearded hen. Shotguns with birdshot; no standbys listed.</p>
               <a className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4" href="https://tpwd.texas.gov/huntwild/hunt/public/public_hunt_drawing/hunt-area-details.phtml?OArea=UE" rel="noopener noreferrer" target="_blank">East Lake hunt rules and permit details ↗</a>
             </article>
           </div>
