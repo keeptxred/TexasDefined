@@ -330,6 +330,13 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'hopkins': [{ name: 'Como-Pickton Eagles', slug: 'como-pickton', context: 'Hopkins County NCES verified rural school; Jeremy Griffin athletic director with 2025 football coach history kept distinctly dated; UIL 2A Division I District 10' }],
+  'montgomery': [
+    { name: 'Conroe High Tigers', slug: 'conroe', context: 'Cedric Hardeman current football coach at West Davis campus; 6A District 13, distinct from Conroe ISD sister programs' },
+    { name: 'Caney Creek Panthers', slug: 'conroe-caney-creek', context: 'Taylor Cobb head football coach; FM 1485 school, school-owned multi-venue ticket policies not every game's stadium' },
+    { name: 'Grand Oaks Grizzlies', slug: 'conroe-grand-oaks', context: 'Shaun McDowell head football coach, NCES Montgomery County Riley Fuzzel campus, 6A District 13' },
+    { name: 'Oak Ridge War Eagles', slug: 'conroe-oak-ridge', context: 'Tyler Blackshire current head coach; NCES Oak Ridge Montgomery County campus and separate Shenandoah game venues' }
+  ],
   'mitchell': [{ name: 'Colorado High Wolves', slug: 'colorado-city-colorado', context: 'Colorado ISD names Daniel Mejia athletic director and head coach; Mitchell County 2A Division I District 4, not Colorado state' }],
   'colorado': [{ name: 'Columbus Cardinals', slug: 'columbus', context: 'Columbus ISD athletic director/head coach Matt Schobel; Colorado County Class 3A Division I District 11, separate from Colorado City' }],
   'comal': [
