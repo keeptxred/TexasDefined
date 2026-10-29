@@ -183,8 +183,64 @@ async function verifyDynamicCollection(collection, sitemap) {
     }
     console.log(`[fall freshness] ${cardTags.length} unexpired, seasonally relevant SSR cards as of ${texasToday}`);
   }
+  if (collection.path === '/events/november-events') await verifyNovember2026EditorialRelease(html);
   verifyCollectionSchema(html, collection.label);
   console.log(`[${collection.label}] ${count} guides; ${shouldIndex ? 'indexable/in sitemap' : 'noindex/out of sitemap'} verified`);
+}
+
+
+function visiblePageText(html) {
+  return decodeHtmlEntities(html)
+    .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+async function verifyNovember2026EditorialRelease(november) {
+  // This is an exact-season guard. The permanent November URL advances to
+  // November 2027 when the 2026 season ends; do not assert stale-year results.
+  const texasDateParts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(new Date());
+  const part = (type) => texasDateParts.find((entry) => entry.type === type)?.value;
+  const safeToday = `${part('year')}-${part('month')}-${part('day')}`;
+  if (safeToday < '2026-10-29' || safeToday > '2026-11-30') return;
+
+  const visible = visiblePageText(november);
+  assert(visible.includes('November in Texas brings Wurstfest'), 'November landing lost visitor-facing opening copy');
+  assert(visible.includes('Browse November events'), 'November landing lost the filterable event directory');
+  assert(!/automatically noindexes|stays indexable only|thin seasonal page/i.test(visible), 'November landing leaked technical SEO/indexing implementation language');
+  for (const label of [
+    'Filter November events by date',
+    'Filter November events by region',
+    'Filter November events by city',
+    'Filter November events by category',
+  ]) {
+    assert(november.includes(label), `November landing lost accessible filter: ${label}`);
+  }
+  for (const name of [
+    'ThunderCloud Subs Turkey Trot',
+    'Dallas YMCA Turkey Trot',
+    'Fort Worth YMCA Turkey Trot',
+    'Calaveras de Azúcar Festival',
+  ]) {
+    assert(visible.includes(name), `November landing lost organizer-confirmed event: ${name}`);
+  }
+
+  const lights = await fetchProduction('/event/johnson-city-christmas-lights-spectacular', 'Johnson City lights 2026 guide');
+  const johnsonText = visiblePageText(lights);
+  assert(johnsonText.includes('November 27, 2026') && johnsonText.includes('January 3, 2027'), 'Johnson City event dates reverted from organizer-confirmed season');
+  assert(!/2026[–-]27\\s+2026/.test(lights), 'Johnson City SEO title repeats 2026');
+  assert(lights.includes('https://lightsspectacular.com/faqs'), 'Johnson City organizer source missing');
+
+  const south = await fetchProduction('/event/south-pole-illuminated-festival', 'South Pole lights 2026 guide');
+  const southText = visiblePageText(south);
+  assert(southText.includes('November 28') && southText.includes('December 28, 2026'), 'South Pole guide lost organizer season dates');
+  assert(south.includes('https://www.southpoleoftexas.com/'), 'South Pole organizer source missing');
+  assert(!south.includes('<strong>2026-11-27</strong>'), 'South Pole guide promotes pre-opening Ticketmaster admission');
+  console.log('[November 2026 editorial] verified current organizer seasons, SEO title, new filters, and four first-party event additions');
 }
 
 async function verifyAlwaysNoindexCurrentMonth(sitemap) {

@@ -71,6 +71,19 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('Amigo Airsho 2026', 'Dallas'), undefined);
   assert.equal(ticketmasterAuthorityGuidePath('Fiesta De Palmas - Presented By The City Of Mcallen', 'McAllen'), '/event/fiesta-de-palmas');
   assert.equal(ticketmasterAuthorityGuidePath('South Pole Illuminated Festival 2026 - McAllen Convention Center', 'McAllen'), '/event/south-pole-illuminated-festival');
+  const southPoleClock = new Date('2026-10-29T16:00:00Z');
+  const southPoleFixture = { ...event, id: 'south-pole-disputed-opening',
+    name: 'South Pole Illuminated Festival 2026 - McAllen Convention Center',
+    city: 'McAllen', venue: 'McAllen Convention Center', startDate: '2026-11-27' };
+  const allowedSouthPole = loadTicketmasterEventsServer({
+    fetchedAt: southPoleClock.toISOString(),
+    events: [southPoleFixture, { ...southPoleFixture, id: 'south-pole-confirmed-opening', startDate: '2026-11-28' }],
+  }, southPoleClock);
+  assert.equal(allowedSouthPole.length, 1,
+    'Statewide calendar cannot promote disputed Nov 27 provider inventory as festival admission');
+  assert.equal(allowedSouthPole[0].startDate, '2026-11-28');
+  assert.equal(allowedSouthPole[0].guidePath, '/event/south-pole-illuminated-festival');
+
   assert.equal(ticketmasterAuthorityGuidePath('Bands Of America: San Antonio Super Regional Championship Prelims', 'San Antonio'), '/event/bands-of-america-san-antonio-super-regional');
   assert.equal(ticketmasterAuthorityGuidePath('El Paso Film Festival - Late Night Shorts', 'El Paso'), '/event/el-paso-film-festival');
   assert.equal(ticketmasterAuthorityGuidePath('Way Out West Festival Featuring Cole Swindell', 'El Paso'), '/event/way-out-west-festival-el-paso');
