@@ -11,6 +11,9 @@ on:
       - "scripts/events/sync-texas-events-safe.mjs"
       - "scripts/events/retain-verified-official-events.mjs"
       - "scripts/events/retain-verified-official-events.test.mjs"
+      - "scripts/events/check-november-event-sources.mjs"
+      - "scripts/events/check-november-event-sources.test.mjs"
+      - "src/data/events/november-official-picks-2026.ts"
       - "scripts/events/check-mardi-gras-official-sources.mjs"
       - "scripts/events/check-mardi-gras-official-sources.test.mjs"
       - "scripts/events/sync-tpwd-calendar.mjs"
@@ -60,6 +63,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+
+      # Reuse the governed daily events job. Investigate source drift instead of
+      # modifying published event dates based on brittle HTML or stale seasons.
+      - name: Validate November collection and date-source safety contracts
+        run: node --test scripts/events/check-november-event-sources.test.mjs
+
+      - name: Review official November event-date sources
+        id: november_sources
+        continue-on-error: true
+        run: node scripts/events/check-november-event-sources.mjs
+
+      - name: Open or reuse a bounded November event date-review issue
+        if: steps.november_sources.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="[November events] Verify official organizer dates"
+          existing="$(gh issue list --state open --search 'Verify official organizer dates in:title' --json title,number --jq '.[] | select(.title == "[November events] Verify official organizer dates") | .number' | head -n 1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The November event organizer-source watcher detected a changed source, inaccessible page, or an expired 2026 season. Inspect $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and confirm all dates with current first-party organizer evidence. Do not automatically roll over 2026 dates, substitute Ticketmaster sessions for event-season dates, or publish guesses."
+          fi
+          echo "::warning title=November event source review required::Tracked as an existing or newly opened issue; current listings remain unchanged."
 
       - name: Test Mardi Gras official-source watch safety and date fixtures
         run: node --test scripts/events/check-mardi-gras-official-sources.test.mjs

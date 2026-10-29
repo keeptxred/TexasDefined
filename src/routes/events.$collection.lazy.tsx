@@ -250,6 +250,136 @@ function FallFestivalBrowser({ page }: { page: any }) {
   </section>;
 }
 
+
+function NovemberCollectionBrowser({ page }: { page: any }) {
+  const [region, setRegion] = useState("all");
+  const [category, setCategory] = useState("all");
+  const [period, setPeriod] = useState("all");
+  const [city, setCity] = useState("all");
+  const items = page.items as Array<any>;
+  const regions: Record<string, string> = {
+    "gulf-coast": "Gulf Coast & Houston",
+    "hill-country": "Hill Country & Central Texas",
+    "prairies-lakes": "Dallas–Fort Worth & North Texas",
+    "piney-woods": "East Texas",
+    "south-texas": "South Texas & the Rio Grande Valley",
+    "panhandle": "Panhandle & High Plains",
+    "big-bend": "Big Bend & Far West Texas",
+  };
+  const categoryLabels: Record<string, string> = {
+    sport: "Races & sports", seasonal: "Holiday lights & seasonal",
+    culture: "Arts, culture & heritage", food: "Food & drink",
+    music: "Music & live events", rodeo: "Rodeos & fairs",
+  };
+  const year = page.dateContext?.match(/20\d{2}/)?.[0] ?? "2026";
+  const cities = [...new Set(items.map((event) => String(event.city)))].sort();
+  const categories = [...new Set(items.map((event) => String(event.category)))].sort();
+  const periods = [
+    { value: "early", label: "Nov 1–10", start: `${year}-11-01`, end: `${year}-11-10` },
+    { value: "middle", label: "Nov 11–20", start: `${year}-11-11`, end: `${year}-11-20` },
+    { value: "late", label: "Thanksgiving & late Nov (21–30)", start: `${year}-11-21`, end: `${year}-11-30` },
+  ];
+  const selectedPeriod = periods.find((item) => item.value === period);
+  const filtered = items.filter((event) =>
+    (region === "all" || event.region === region)
+    && (category === "all" || event.category === category)
+    && (city === "all" || event.city === city)
+    && (!selectedPeriod || (event.startDate <= selectedPeriod.end && (event.endDate ?? event.startDate) >= selectedPeriod.start))
+  );
+  const featuredNames = [
+    "wurstfest", "houston-ballet-nutcracker-market",
+    "johnson-city-christmas-lights-spectacular", "south-pole-illuminated-festival",
+  ];
+  const featured = featuredNames.map((slug) => items.find((event) => event.slug === slug)).filter(Boolean);
+  const reset = () => { setRegion("all"); setCategory("all"); setPeriod("all"); setCity("all"); };
+  const dateDisplay = (event: any) => holidayDateLabel(event.startDate, event.endDate);
+  const isFiltered = region !== "all" || category !== "all" || period !== "all" || city !== "all";
+
+  return <section className="pt-12" aria-labelledby="november-event-results">
+    {featured.length ? <div className="mb-12">
+      <p className="eyebrow text-primary">Start with these November traditions</p>
+      <h2 className="mt-2 font-display text-4xl">Big festivals, holiday markets and lights</h2>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">From early November festivals to opening weekend light displays, these confirmed guides offer useful starting points for a Texas getaway. Individual ticket sessions and daily operating times can vary.</p>
+      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {featured.map((event: any) => <article key={event.slug} className="flex flex-col overflow-hidden border border-border bg-surface">
+          {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="aspect-[4/3] w-full object-cover" /> : null}
+          <div className="flex flex-1 flex-col p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-primary">{event.city} · {dateDisplay(event)}</p>
+          <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">{categoryLabels[event.category] ?? "Texas event"} · Check the guide for official hours and tickets.</p>
+          <EventGuideLink event={event} className="mt-auto pt-5 text-sm font-semibold text-primary">Plan this event →</EventGuideLink>
+          </div>
+        </article>)}
+      </div>
+    </div> : null}
+
+    <div className="border-t border-border pt-9">
+      <p className="eyebrow text-primary">Find the right date and destination</p>
+      <h2 id="november-event-results" className="mt-2 font-display text-4xl">Browse November events</h2>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Filter the verified event guides by part of the month, location and kind of outing. Seasonal attractions may run on selected nights; check the detailed guide and organizer before booking.</p>
+    </div>
+    <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="November event filters">
+      <label className="text-sm font-semibold">When
+        <select aria-label="Filter November events by date" value={period} onChange={(event) => setPeriod(event.target.value)} className="mt-2 block w-full border border-border bg-background p-3 text-sm">
+          <option value="all">Any November date</option>
+          {periods.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
+        </select>
+      </label>
+      <label className="text-sm font-semibold">Texas region
+        <select aria-label="Filter November events by region" value={region} onChange={(event) => setRegion(event.target.value)} className="mt-2 block w-full border border-border bg-background p-3 text-sm">
+          <option value="all">All regions</option>
+          {Object.entries(regions).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
+        </select>
+      </label>
+      <label className="text-sm font-semibold">City
+        <select aria-label="Filter November events by city" value={city} onChange={(event) => setCity(event.target.value)} className="mt-2 block w-full border border-border bg-background p-3 text-sm">
+          <option value="all">All cities</option>
+          {cities.map((value) => <option key={value} value={value}>{value}</option>)}
+        </select>
+      </label>
+      <label className="text-sm font-semibold">Event type
+        <select aria-label="Filter November events by category" value={category} onChange={(event) => setCategory(event.target.value)} className="mt-2 block w-full border border-border bg-background p-3 text-sm">
+          <option value="all">All event types</option>
+          {categories.map((value) => <option key={value} value={value}>{categoryLabels[value] ?? value.replaceAll("-", " ")}</option>)}
+        </select>
+      </label>
+    </div>
+    <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+      <p className="text-sm text-muted-foreground" role="status" aria-live="polite">{filtered.length} of {items.length} verified event guides match your filters.</p>
+      {isFiltered ? <button type="button" className="text-sm font-semibold text-primary underline" onClick={reset}>Clear filters</button> : null}
+    </div>
+    {filtered.length ? <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
+      {filtered.map((event) => <li key={event.slug} className="flex flex-col bg-background p-6">
+        {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="mb-5 aspect-[4/3] w-full object-cover" /> : null}
+        <p className="text-xs font-semibold uppercase tracking-wide text-primary">{dateDisplay(event)}</p>
+        <p className="eyebrow mt-3 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
+        <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">{categoryLabels[event.category] ?? "Texas event"}</p>
+        {event.detail?.includes("scheduled windows") || event.detail?.includes("Community Impact Center") ? <p className="mt-2 text-xs leading-5 text-muted-foreground">Multiple operating dates or sessions — confirm the exact day in the guide.</p> : null}
+        <EventGuideLink event={event} className="mt-auto pt-5 text-sm font-semibold text-primary">Dates, official sources & visitor guide →</EventGuideLink>
+      </li>)}
+    </ul> : <p className="mt-6 border border-border p-8 text-sm text-muted-foreground">No guides match this combination. Clear one or more filters to see other Texas events.</p>}
+
+    {page.novemberOfficialPicks?.length ? <section className="mt-14 border-t border-border pt-10" aria-labelledby="november-more-official-events">
+      <p className="eyebrow text-primary">Also on the 2026 calendar</p>
+      <h2 id="november-more-official-events" className="mt-2 font-display text-4xl">Thanksgiving runs and cultural celebrations</h2>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Additional dates confirmed directly by organizers. These link to official sites while detailed TexasDefined event guides are being developed; they are not counted among the permanent guides above.</p>
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        {page.novemberOfficialPicks.map((pick: any) => <article key={pick.name} className="border border-border p-6">
+          <p className="text-xs font-semibold uppercase tracking-wide text-primary">{holidayDateLabel(pick.startDate, pick.endDate)} · {pick.city}</p>
+          <h3 className="mt-3 font-display text-2xl">{pick.name}</h3>
+          <p className="mt-2 text-sm text-muted-foreground">{pick.venue}</p>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">{pick.summary}</p>
+          <a href={pick.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">Official event schedule & registration ↗</a>
+        </article>)}
+      </div>
+    </section> : null}
+    <aside className="mt-10 border-t border-border py-7 text-sm leading-7 text-muted-foreground">
+      <strong className="text-foreground">Planning Thanksgiving weekend?</strong> Some holiday attractions start in November but continue into December or January; opening weekend is not a guarantee of daily admission. Check organizer schedules and road closures, and use <a className="text-primary underline" href="/events/christmas-events">the Texas holiday calendar</a> for more light displays and seasonal events.
+    </aside>
+  </section>;
+}
+
 function GenericCollectionPage({ page }: { page: any }) {
   const isTournamentCollection = page.kind === "tournament";
   const isTournamentHub = page.path === "/events/tournaments";
@@ -260,7 +390,7 @@ function GenericCollectionPage({ page }: { page: any }) {
       <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{page.title}</h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{page.lead}</p>
       <p className="mt-6 text-sm text-muted-foreground">{page.itemCountLabel}</p>
-      {!page.shouldIndex && <p className="mt-3 max-w-3xl text-xs leading-6 text-muted-foreground">{page.indexabilityNote}</p>}
+      {!page.shouldIndex && <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">More dates will appear as organizers confirm their upcoming schedules.</p>}
     </Container></section>
 
     <Container className="py-12 sm:py-16">
@@ -385,7 +515,8 @@ function GenericCollectionPage({ page }: { page: any }) {
       ) : null}
 
       {page.path === "/events/fall-festivals" ? <FallFestivalBrowser page={page} /> : null}
-      {page.path === "/events/fall-festivals" ? null : <section className="pt-12">
+      {page.path === "/events/november-events" ? <NovemberCollectionBrowser page={page} /> : null}
+      {page.path === "/events/fall-festivals" || page.path === "/events/november-events" ? null : <section className="pt-12">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6"><div><p className="eyebrow text-primary">{page.itemsEyebrow}</p><h2 className="mt-2 font-display text-4xl">{page.itemsTitle}</h2></div><a href="/events" className="text-sm font-semibold text-primary">Full Texas calendar →</a></div>
         {page.path === "/events/fall-festivals" ? null : page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event: any) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight">{isTournamentCollection ? event.name : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>{isTournamentCollection ? <a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">{isTournamentHub ? "Browse category →" : "Tournament directory →"}</a> : <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Open guide →</EventGuideLink>}</li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">{page.emptyMessage}</p>}
       </section>}

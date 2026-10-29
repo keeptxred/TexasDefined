@@ -38,7 +38,7 @@ export const OFFICIAL_SOURCES = [
     pending: /information for the 2027 Mardi Gras on the Sabine will be updated at a later date/i,
     // The old pending notice may remain on the same page after a new 2027 date is posted.
     // Flag explicit month/date/2027 or numeric date formats instead of treating it as unchanged.
-    announcement: /(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?)\s+\d{1,2}(?:\s*[-–]\s*\d{1,2})?,?\s*2027|\b(?:0?[1-3]\/\d{1,2}\/2027|2027-0[1-3]-\d{2})\b/i,
+    announcement: /(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?)\.?\s+\d{1,2}(?:st|nd|rd|th)?(?:\s*[-–]\s*\d{1,2}(?:st|nd|rd|th)?)?,?\s*2027|\b(?:0?[1-3]\/\d{1,2}\/2027|2027-0[1-3]-\d{2})\b/i,
   },
   {
     id: "beaumont-festival",
@@ -48,7 +48,7 @@ export const OFFICIAL_SOURCES = [
     url: "https://mardigrastx.com/",
     mode: "unannounced",
     pending: /Feb\.?\s*13(?:th)?,?\s*14(?:th)?\s*&\s*15(?:th)?/i,
-    announcement: /(?:Feb(?:ruary)?|Jan(?:uary)?|Mar(?:ch)?)\s+\d{1,2}(?:\s*[-–]\s*\d{1,2})?,?\s*2027/i,
+    announcement: /(?:Feb(?:ruary)?|Jan(?:uary)?|Mar(?:ch)?)\.?\s+\d{1,2}(?:st|nd|rd|th)?(?:\s*[-–]\s*\d{1,2}(?:st|nd|rd|th)?)?,?\s*2027/i,
   },
   {
     id: "mainland-texas-city",
@@ -58,7 +58,7 @@ export const OFFICIAL_SOURCES = [
     url: "https://texascitytx.gov/906/Parades",
     mode: "unannounced",
     pending: /2026 Mainland Mardi Gras Parade Information/i,
-    announcement: /2027 Mainland Mardi Gras Parade Information/i,
+    announcement: /2027 Mainland Mardi Gras Parade Information|Mainland Mardi Gras Parade(?:\s+Information)?\s*[-–:]?\s*2027/i,
   },
   {
     id: "bandera-specific",

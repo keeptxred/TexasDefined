@@ -7,6 +7,7 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import type { TexasEvent, TexasRegion } from "./types";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 import { majorEventIndexRecords } from "./major-event-index";
+import { getMajorEventSchemaOccurrenceEnrichmentServer } from "./major-event-schema-enrichment.server";
 import { formatMajorEventDateLabelServer, getMajorEventRecordServer } from "./major-event-page.server";
 import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemental-registry.server";
 
@@ -22,6 +23,8 @@ export interface MajorEventGuideDirectoryItem {
   startDate: string;
   endDate?: string;
   sourceCheckedAt?: string;
+  /** Rights-reviewed event-specific image only; never an unrelated fallback. */
+  image?: { url: string; alt: string };
 }
 
 interface EventDiscoveryLink {
@@ -124,7 +127,9 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
     ...priorityEventGuides,
     ...events
       .filter((event) => !prioritySlugs.has(event.slug))
-      .map((event) => ({
+      .map((event) => {
+        const image = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug)?.image;
+        return {
         slug: event.slug,
         href: `/event/${event.slug}`,
         name: event.name,
@@ -136,7 +141,9 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
         startDate: event.startDate,
         endDate: event.endDate,
         sourceCheckedAt: event.sourceCheckedAt,
-      })),
+        image: image ? { url: image.url, alt: image.alt } : undefined,
+      };
+      }),
   ].sort((left, right) => {
     const leftPast = (left.endDate || left.startDate) < today;
     const rightPast = (right.endDate || right.startDate) < today;

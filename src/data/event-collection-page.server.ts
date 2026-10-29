@@ -1,4 +1,5 @@
 import { texasDefinedBrand } from "../brand/texasdefined";
+import { NOVEMBER_OFFICIAL_PICKS_2026 } from "./events/november-official-picks-2026";
 import { buildMeta, canonicalLink } from "../lib/seo";
 import {
   buildTournamentCollectionIndexabilityNote,
@@ -231,6 +232,7 @@ export function loadEventCollectionPageServer(slug: string) {
     christmasCommunityEvents,
     fallOfficialPicks: temporal?.slug === "fall-festivals" ? activeOfficialFallPicks() : [],
     fallToday: temporal?.slug === "fall-festivals" ? texasToday(new Date()) : undefined,
+    novemberOfficialPicks: temporal?.slug === "november-events" && temporal.dateContext.includes("2026") ? NOVEMBER_OFFICIAL_PICKS_2026 : [],
     relatedCollections,
     itemCount: items.length,
     latestSourceCheck,

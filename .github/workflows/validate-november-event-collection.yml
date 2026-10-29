@@ -1,0 +1,32 @@
+name: Validate November Event Collection
+
+on:
+  pull_request:
+    paths:
+      - "src/data/event-temporal-collections.server.ts"
+      - "src/data/event-collection-page.server.ts"
+      - "src/data/events/november-official-picks-2026.ts"
+      - "src/data/major-event-page.server.ts"
+      - "src/data/major-event-directory.server.ts"
+      - "src/data/major-event-expanded-authority-tranche45.server.ts"
+      - "src/data/major-event-expanded-authority-tranche47.server.ts"
+      - "src/routes/events.$collection.lazy.tsx"
+      - "scripts/events/check-november-event-sources.mjs"
+      - "scripts/events/check-november-event-sources.test.mjs"
+      - ".github/workflows/validate-november-event-collection.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  november-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate date sources, title and November page contracts
+        run: node --test scripts/events/check-november-event-sources.test.mjs
