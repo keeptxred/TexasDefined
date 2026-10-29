@@ -883,6 +883,449 @@ const BATCH011_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "No. An official ticketing channel does not confirm current inventory, admission price, game-night gates, or accessible seating for any individual game."
       }
     ]
+  },
+  "como-pickton": {
+    "slug": "como-pickton",
+    "intro": "Como-Pickton Eagles football is a distinct Texas varsity program in Como in Hopkins County, assigned to UIL 2A Division I District 10 for the 2026–28 cycle. The Como-Pickton Eagles are the rural PK–12 district school's program in Hopkins County, not Fort Worth's unrelated Como schools. Its district staff directory identifies Jeremy Griffin as athletic director in 2026, while an official district-published 2025 varsity football PDF labels Griffin head coach **for that earlier season**. Without school-controlled 2026 HFC confirmation, this guide deliberately does not invent that designation. The football record must not inherit a prior-year schedule or a MaxPreps scoreboard.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined text-based school identity color, not an official school logo, uniform or protected mascot illustration."
+    },
+    "seo": {
+      "title": "Como-Pickton Eagles Football | 2026 2A Division I District 10",
+      "description": "Source-backed TexasDefined Como-Pickton Eagles football guide covering 2026 UIL 2A Division I District 10, current school athletics staffing, county, history and game-day planning cautions."
+    },
+    "campus": {
+      "address": "13017 TX Highway 11 E, Como, TX 75431 — school/campus address, not a stadium or spectator entrance",
+      "sourceUrl": "https://nces.ed.gov/ccd/districtsearch/district_detail.asp?ID2=4814880",
+      "sourceLabel": "Federal NCES and/or school-controlled campus location, not a stadium gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check the school's current football schedule and host-specific visitor information; no licensed automated scores are available",
+      "officialScheduleUrl": "https://www.cpcisd.net/live-feed/",
+      "sourceUrl": "https://www.cpcisd.net/live-feed/",
+      "sourceLabel": "Official school-managed sports/athletics update channel, not final-game results",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "How Como-Pickton Eagles football fits its school and district",
+      "body": "The Como-Pickton Eagles are the rural PK–12 district school's program in Hopkins County, not Fort Worth's unrelated Como schools. Its district staff directory identifies Jeremy Griffin as athletic director in 2026, while an official district-published 2025 varsity football PDF labels Griffin head coach **for that earlier season**. Without school-controlled 2026 HFC confirmation, this guide deliberately does not invent that designation. The football record must not inherit a prior-year schedule or a MaxPreps scoreboard.",
+      "sourceUrl": "https://www.cpcisd.net/",
+      "sourceLabel": "School-controlled campus and athletics identity source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2025-season school schedule",
+        "title": "Prior-year Eagles staff and varsity fixtures",
+        "body": "A school-published 2025 varsity football schedule lists Jeremy Griffin as 2025 head coach, along with an opponent calendar; these statements do not automatically roll into 2026.",
+        "sourceUrl": "https://core-docs.s3.us-east-1.amazonaws.com/documents/asset/uploaded_file/1242/CP_CISD/5891594/2025_Como-Pickton_Eagles_Football_Schedule.pdf",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "2026 district staff",
+        "title": "Jeremy Griffin listed as school district athletic director",
+        "body": "The current district directory verifies his administration title but not a new 2026 football HFC appointment.",
+        "sourceUrl": "https://www.cpcisd.net/staff?filter_ids=69312",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "2026–28 UIL alignment",
+        "title": "Eagles assigned to Class 2A Division I District 10",
+        "body": "The UIL governing alignment controls classification; it does not verify individual game outcomes.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      }
+    ],
+    "overview": [
+      "Como-Pickton Eagles football is a distinct Texas varsity program in Como in Hopkins County, assigned to UIL 2A Division I District 10 for the 2026–28 cycle. A district-issued 2025 Eagles football calendar documents opponents and coaches for that season, not the ongoing 2026 record. Current 2026 district live-feed posts of weekly athletics schedules provide the proper pathway for verification, and the NCES campus identifies the exact rural Hopkins school rather than confusing namesakes.",
+      "The Como-Pickton Eagles are the rural PK–12 district school's program in Hopkins County, not Fort Worth's unrelated Como schools. Its district staff directory identifies Jeremy Griffin as athletic director in 2026, while an official district-published 2025 varsity football PDF labels Griffin head coach **for that earlier season**. Without school-controlled 2026 HFC confirmation, this guide deliberately does not invent that designation. The football record must not inherit a prior-year schedule or a MaxPreps scoreboard.",
+      "Como-Pickton's school operations are centered at 13017 TX Highway 11 East. A district office location is not a football visitor gate. Game-day visitors should check the specific official weekly athletics schedule and host notices for kickoff changes, admission, parking and accessible routes; old opponent lists and secondary score websites do not establish those details.",
+      "Como-Pickton Eagles football coverage separates sourced staffing, official UIL classification, and individually dated historical references. No 2026 running won/lost total, playoff result, game ticket price, exact accessible stadium entrance, school-owned mascot mark or photo-rights license is implied by a school calendar or third-party scoreboard."
+    ],
+    "faq": [
+      {
+        "question": "Is Como-Pickton High in Hopkins County?",
+        "answer": "Yes. The district's 2025–26 federal NCES directory places its sole Como-Pickton campus in Hopkins County; it is not one of the schools named Como in Fort Worth."
+      },
+      {
+        "question": "Who is the 2026 Eagles athletic director?",
+        "answer": "Como-Pickton CISD's current district staff directory identifies Jeremy Griffin as athletic director; the 2025 district football calendar also identified him as that earlier season's head football coach."
+      },
+      {
+        "question": "Does the 2025 document prove Griffin's current 2026 head coach title?",
+        "answer": "No. An older official football schedule supports a dated historical role; a current 2026 football staffing notice is required before the same title is asserted for this season."
+      },
+      {
+        "question": "Which UIL district applies to the Eagles?",
+        "answer": "The official 2026–28 UIL alignment places Como-Pickton in Class 2A Division I District 10."
+      },
+      {
+        "question": "Where can I confirm current games and tickets?",
+        "answer": "Check the school district's live-feed athletics announcements and host-specific policies; neither an archived 2025 calendar nor a campus office address guarantees current admission or kickoff."
+      }
+    ]
+  },
+  "conroe": {
+    "slug": "conroe",
+    "intro": "Conroe High Tigers football is a distinct Texas varsity program in Conroe in Montgomery County, assigned to UIL 6A District 13 for the 2026–28 cycle. The Conroe Tigers varsity football program belongs to Conroe High at West Davis Street in Montgomery County. The district's own current campus athletics page names Cedric Hardeman as both head football coach and campus athletic director. Conroe also maintains a separate ninth-grade campus, and construction temporarily moved its front office to the gym by Moorhead Stadium. Neither fact justifies publishing the office location as the designated varsity stadium gate.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined text-based school identity color, not an official school logo, uniform or protected mascot illustration."
+    },
+    "seo": {
+      "title": "Conroe High Tigers Football | 2026 6A District 13",
+      "description": "Source-backed TexasDefined Conroe High Tigers football guide covering 2026 UIL 6A District 13, current school athletics staffing, county, history and game-day planning cautions."
+    },
+    "coach": {
+      "name": "Cedric Hardeman",
+      "title": "Conroe High-listed head football coach and campus athletic director",
+      "sourceUrl": "https://chs.conroeisd.net/o/chs/page/athletics",
+      "sourceLabel": "School-owned dated athletics staff listing; current campus coach attribution",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "3200 W Davis Street, Conroe, TX 77304 — main school office, not stadium gate",
+      "sourceUrl": "https://nces.ed.gov/ccd/schooLSearch/school_detail.asp?ID=481500001002&SchoolPageNum=115&state=48",
+      "sourceLabel": "Federal NCES and/or school-controlled campus location, not a stadium gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check the school's current football schedule and host-specific visitor information; no licensed automated scores are available",
+      "officialScheduleUrl": "https://chs.conroeisd.net/o/chs/page/athletics",
+      "sourceUrl": "https://chs.conroeisd.net/o/chs/page/athletics",
+      "sourceLabel": "Official school-managed sports/athletics update channel, not final-game results",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "How Conroe High Tigers football fits its school and district",
+      "body": "The Conroe Tigers varsity football program belongs to Conroe High at West Davis Street in Montgomery County. The district's own current campus athletics page names Cedric Hardeman as both head football coach and campus athletic director. Conroe also maintains a separate ninth-grade campus, and construction temporarily moved its front office to the gym by Moorhead Stadium. Neither fact justifies publishing the office location as the designated varsity stadium gate.",
+      "sourceUrl": "https://www.conroeisd.net/o/chs",
+      "sourceLabel": "School-controlled campus and athletics identity source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "Current 2026 school athletics",
+        "title": "Cedric Hardeman named head football coach and campus athletic director",
+        "body": "The school-managed Conroe athletics directory lists Hardeman with the two specific current roles.",
+        "sourceUrl": "https://chs.conroeisd.net/o/chs/page/athletics",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "2026 campus construction notice",
+        "title": "High school office temporarily moved near Moorhead Stadium",
+        "body": "Conroe High says the office is temporarily in the gym adjacent to Moorhead, a campus operations change rather than every football game's spectator plan.",
+        "sourceUrl": "https://www.conroeisd.net/o/chs",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "2026–28 UIL assignment",
+        "title": "Conroe Tigers participate in 6A District 13",
+        "body": "The official UIL alignment lists the school's current football classification without assigning current wins or playoffs.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      }
+    ],
+    "overview": [
+      "Conroe High Tigers football is a distinct Texas varsity program in Conroe in Montgomery County, assigned to UIL 6A District 13 for the 2026–28 cycle. Conroe High's official campus calendar carried an October 30 Cleveland promotion and November 5 Willis football event in 2026, while the UIL separately records Class 6A District 13 alignment. Those school notices are calendar events rather than confirmed game results. The Tigers must be distinguished from Caney Creek, Grand Oaks and Oak Ridge even though the schools share Conroe ISD oversight.",
+      "The Conroe Tigers varsity football program belongs to Conroe High at West Davis Street in Montgomery County. The district's own current campus athletics page names Cedric Hardeman as both head football coach and campus athletic director. Conroe also maintains a separate ninth-grade campus, and construction temporarily moved its front office to the gym by Moorhead Stadium. Neither fact justifies publishing the office location as the designated varsity stadium gate.",
+      "Conroe High maintains an event ticket link and a dedicated football schedule through its school athletics office. The temporary office construction notice is not a promise of stadium entry, and the Conroe campus address cannot serve as universal gate directions. Fans should inspect the latest home-team/host event link for parking, event admission and changes.",
+      "Conroe High Tigers football coverage separates sourced staffing, official UIL classification, and individually dated historical references. No 2026 running won/lost total, playoff result, game ticket price, exact accessible stadium entrance, school-owned mascot mark or photo-rights license is implied by a school calendar or third-party scoreboard."
+    ],
+    "faq": [
+      {
+        "question": "Who is the current Conroe High head football coach?",
+        "answer": "Conroe High's current athletics page names Cedric Hardeman as head football coach and campus athletic director."
+      },
+      {
+        "question": "Which high school is represented by these Tigers?",
+        "answer": "Conroe High in Montgomery County, Texas, not Caney Creek, Grand Oaks or another Conroe ISD campus."
+      },
+      {
+        "question": "What football district does Conroe play in?",
+        "answer": "UIL's 2026–28 realignment places the Tigers in Class 6A District 13."
+      },
+      {
+        "question": "Is the current high-school office entrance the varsity stadium gate?",
+        "answer": "Not necessarily. The school moved its front office temporarily during construction; visitors must confirm game-night venue, gate and access with the actual host."
+      },
+      {
+        "question": "Do future football events listed by school mean the game was won?",
+        "answer": "No. A current school event calendar can establish a planned fixture but not an official final score or season win–loss record."
+      }
+    ]
+  },
+  "conroe-caney-creek": {
+    "slug": "conroe-caney-creek",
+    "intro": "Caney Creek Panthers football is a distinct Texas varsity program in Conroe in Montgomery County, assigned to UIL 6A District 13 for the 2026–28 cycle. Caney Creek High is the Panthers school at FM 1485 in eastern Conroe, not Conroe High's Tigers at West Davis. Its current first-party staff directory expressly lists Taylor Cobb as Head Football Coach/Campus Athletic Director; the separate school's sports office includes a ticket link and two different stadium maps. A school athletics navigation page is useful to plan a game, but displaying either map does not prove the location of every contest.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined text-based school identity color, not an official school logo, uniform or protected mascot illustration."
+    },
+    "seo": {
+      "title": "Caney Creek Panthers Football | 2026 6A District 13",
+      "description": "Source-backed TexasDefined Caney Creek Panthers football guide covering 2026 UIL 6A District 13, current school athletics staffing, county, history and game-day planning cautions."
+    },
+    "coach": {
+      "name": "Taylor Cobb",
+      "title": "Campus staff-listed head football coach and athletic director",
+      "sourceUrl": "https://cchs.conroeisd.net/o/cchs/staff?page_no=3",
+      "sourceLabel": "School-owned dated athletics staff listing; current campus coach attribution",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "13470 FM 1485, Conroe, TX 77306 — school contact, not event entrance",
+      "sourceUrl": "https://nces.ed.gov/globallocator/index.asp?CS=6505A483&PrivSchool=1&School=1&State=TX&city=Conroe&miles=15&search=1&zipcode=77385",
+      "sourceLabel": "Federal NCES and/or school-controlled campus location, not a stadium gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check the school's current football schedule and host-specific visitor information; no licensed automated scores are available",
+      "officialScheduleUrl": "https://cchs.conroeisd.net/o/cchs/page/athletics",
+      "sourceUrl": "https://cchs.conroeisd.net/o/cchs/page/athletics",
+      "sourceLabel": "Official school-managed sports/athletics update channel, not final-game results",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "How Caney Creek Panthers football fits its school and district",
+      "body": "Caney Creek High is the Panthers school at FM 1485 in eastern Conroe, not Conroe High's Tigers at West Davis. Its current first-party staff directory expressly lists Taylor Cobb as Head Football Coach/Campus Athletic Director; the separate school's sports office includes a ticket link and two different stadium maps. A school athletics navigation page is useful to plan a game, but displaying either map does not prove the location of every contest.",
+      "sourceUrl": "https://cchs.conroeisd.net/o/cchs",
+      "sourceLabel": "School-controlled campus and athletics identity source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2026 campus staff directory",
+        "title": "Taylor Cobb identified as Panthers football head coach",
+        "body": "The current Caney Creek staff page distinguishes Cobb's head football and athletic director responsibilities.",
+        "sourceUrl": "https://cchs.conroeisd.net/o/cchs/staff?page_no=3",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "Current school athletics",
+        "title": "Caney Creek publishes varsity ticket and stadium policy leads",
+        "body": "The Panthers athletics office connects readers to football-specific ticketing, stadium bag rules and game-day maps without confirming particular game access.",
+        "sourceUrl": "https://cchs.conroeisd.net/o/cchs/page/athletics",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "2026–28 UIL alignment",
+        "title": "Caney Creek in 6A District 13",
+        "body": "The governing UIL alignment establishes current classification but no team outcomes.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      }
+    ],
+    "overview": [
+      "Caney Creek Panthers football is a distinct Texas varsity program in Conroe in Montgomery County, assigned to UIL 6A District 13 for the 2026–28 cycle. The Panthers' football alignment comes from the 2026–28 UIL Class 6A District 13 document, which groups several Conroe ISD programs without making their individual histories or coaching staffs interchangeable. Caney Creek's athletics and first-party school directory supply the current distinct coach attribution, and the federal NCES locator ties its FM 1485 campus to Montgomery County.",
+      "Caney Creek High is the Panthers school at FM 1485 in eastern Conroe, not Conroe High's Tigers at West Davis. Its current first-party staff directory expressly lists Taylor Cobb as Head Football Coach/Campus Athletic Director; the separate school's sports office includes a ticket link and two different stadium maps. A school athletics navigation page is useful to plan a game, but displaying either map does not prove the location of every contest.",
+      "A visitor can follow the school's official football ticketing and stadium policies to look up the specific fixture. Woodforest Bank Stadium and Moorhead Stadium maps are both linked by Caney Creek athletics; the existence of a map is not a guarantee of venue, ticket availability, ADA access, price or entry gate at the next varsity matchup.",
+      "Caney Creek Panthers football coverage separates sourced staffing, official UIL classification, and individually dated historical references. No 2026 running won/lost total, playoff result, game ticket price, exact accessible stadium entrance, school-owned mascot mark or photo-rights license is implied by a school calendar or third-party scoreboard."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches the Caney Creek Panthers football team?",
+        "answer": "Caney Creek High's current staff directory identifies Taylor Cobb as head football coach and campus athletic director."
+      },
+      {
+        "question": "Where is the Panthers high-school campus?",
+        "answer": "Caney Creek High is at 13470 FM 1485, Conroe, Montgomery County, according to the school and the NCES school locator."
+      },
+      {
+        "question": "Is Caney Creek the same team as Conroe High?",
+        "answer": "No. Caney Creek Panthers and Conroe High Tigers are separate varsity programs with distinct athletic directors and campus addresses."
+      },
+      {
+        "question": "What district is Caney Creek in for 2026?",
+        "answer": "UIL's 2026–28 alignment lists Caney Creek in Class 6A District 13."
+      },
+      {
+        "question": "Does a Woodforest or Moorhead stadium map identify every Panthers home game?",
+        "answer": "No. The official athletics page lists both stadium guides; always check the game-specific host event, ticket channel and stadium policies."
+      }
+    ]
+  },
+  "conroe-grand-oaks": {
+    "slug": "conroe-grand-oaks",
+    "intro": "Grand Oaks Grizzlies football is a distinct Texas varsity program in Spring in Montgomery County, assigned to UIL 6A District 13 for the 2026–28 cycle. Grand Oaks High's Grizzlies are a Conroe ISD football program at Riley Fuzzel Road in the Spring postal area. The 2025–26 federal NCES campus entry places Grand Oaks physically in Montgomery County even though Spring mailing areas can extend toward other counties. The current school athletics page calls Shaun McDowell athletic director and head football coach, distinguishing his role from the separate Grand Oaks ninth-grade campus principal and Conroe's other high-school coaching staffs.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined text-based school identity color, not an official school logo, uniform or protected mascot illustration."
+    },
+    "seo": {
+      "title": "Grand Oaks Grizzlies Football | 2026 6A District 13",
+      "description": "Source-backed TexasDefined Grand Oaks Grizzlies football guide covering 2026 UIL 6A District 13, current school athletics staffing, county, history and game-day planning cautions."
+    },
+    "coach": {
+      "name": "Shaun McDowell",
+      "title": "Grand Oaks school-listed head football coach and athletic director",
+      "sourceUrl": "https://www.conroeisd.net/o/gohs/page/athletics",
+      "sourceLabel": "School-owned dated athletics staff listing; current campus coach attribution",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "4800 Riley Fuzzel Road, Spring, TX 77386 — senior campus, not stadium visitor entrance",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481500013065",
+      "sourceLabel": "Federal NCES and/or school-controlled campus location, not a stadium gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check the school's current football schedule and host-specific visitor information; no licensed automated scores are available",
+      "officialScheduleUrl": "https://www.conroeisd.net/o/gohs/page/athletics",
+      "sourceUrl": "https://www.conroeisd.net/o/gohs/page/athletics",
+      "sourceLabel": "Official school-managed sports/athletics update channel, not final-game results",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "How Grand Oaks Grizzlies football fits its school and district",
+      "body": "Grand Oaks High's Grizzlies are a Conroe ISD football program at Riley Fuzzel Road in the Spring postal area. The 2025–26 federal NCES campus entry places Grand Oaks physically in Montgomery County even though Spring mailing areas can extend toward other counties. The current school athletics page calls Shaun McDowell athletic director and head football coach, distinguishing his role from the separate Grand Oaks ninth-grade campus principal and Conroe's other high-school coaching staffs.",
+      "sourceUrl": "https://gohs.conroeisd.net/",
+      "sourceLabel": "School-controlled campus and athletics identity source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "Current Grand Oaks athletics directory",
+        "title": "Shaun McDowell serves as athletic director/head football coach",
+        "body": "Grand Oaks's first-party athletics department identifies McDowell in both roles.",
+        "sourceUrl": "https://www.conroeisd.net/o/gohs/page/athletics",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "2025–26 federal school directory",
+        "title": "Grand Oaks location verified as Montgomery County",
+        "body": "NCES school ID 481500013065 ties the Riley Fuzzel campus to Montgomery County, avoiding confusion from the Spring postal address.",
+        "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481500013065",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "2026–28 UIL placement",
+        "title": "Grizzlies in Class 6A District 13",
+        "body": "The current UIL alignment records the school's 2026 football district rather than claiming current results.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      }
+    ],
+    "overview": [
+      "Grand Oaks Grizzlies football is a distinct Texas varsity program in Spring in Montgomery County, assigned to UIL 6A District 13 for the 2026–28 cycle. Grand Oaks offers school-controlled football-season schedules, an all-sports calendar, athletics ticket links and district stadium policy resources. Such listings confirm that official visitor pathways exist but do not establish 2026 finals, home-versus-away gates or a season win–loss total. UIL Class 6A District 13 is the governing 2026–28 alignment, not the result of a single past playoff bracket.",
+      "Grand Oaks High's Grizzlies are a Conroe ISD football program at Riley Fuzzel Road in the Spring postal area. The 2025–26 federal NCES campus entry places Grand Oaks physically in Montgomery County even though Spring mailing areas can extend toward other counties. The current school athletics page calls Shaun McDowell athletic director and head football coach, distinguishing his role from the separate Grand Oaks ninth-grade campus principal and Conroe's other high-school coaching staffs.",
+      "Check the Grizzlies' official athletics hub for the fixture and ticketing pathway, then check the listed host's stadium policies. The school campus at 4800 Riley Fuzzel and its distinct freshman campus cannot be treated as proof of a football spectator entrance. The separate Conroe ISD stadium maps are planning aids, not guaranteed event venues.",
+      "Grand Oaks Grizzlies football coverage separates sourced staffing, official UIL classification, and individually dated historical references. No 2026 running won/lost total, playoff result, game ticket price, exact accessible stadium entrance, school-owned mascot mark or photo-rights license is implied by a school calendar or third-party scoreboard."
+    ],
+    "faq": [
+      {
+        "question": "Who is the Grand Oaks football head coach?",
+        "answer": "Grand Oaks High's current athletics page identifies Shaun McDowell as both head football coach and athletic director."
+      },
+      {
+        "question": "Is the Grand Oaks campus in Harris or Montgomery County?",
+        "answer": "The current NCES school record places the actual 4800 Riley Fuzzel Road high-school campus in Montgomery County."
+      },
+      {
+        "question": "What classification does Grand Oaks play in?",
+        "answer": "UIL's 2026–28 alignment places the Grizzlies in 6A District 13."
+      },
+      {
+        "question": "Does Grand Oaks have a separate ninth-grade campus?",
+        "answer": "Yes. Its official school site lists a separate ninth-grade campus from the main Riley Fuzzel location; neither listing substitutes for an individual stadium gate."
+      },
+      {
+        "question": "Does a school athletics schedule provide verified final scores?",
+        "answer": "No. Schedule and ticket links must not be mistaken for an authorized game-results feed, cumulative record or verified postseason bracket."
+      }
+    ]
+  },
+  "conroe-oak-ridge": {
+    "slug": "conroe-oak-ridge",
+    "intro": "Oak Ridge War Eagles football is a distinct Texas varsity program in Conroe in Montgomery County, assigned to UIL 6A District 13 for the 2026–28 cycle. Oak Ridge High's War Eagles play for their own Conroe ISD program, with a Montgomery County main campus and a separate freshman campus on Oak Ridge School Road. The school's current athletics pages and staff directory both list Tyler Blackshire as head football coach/campus athletic director. Older third-party rosters sometimes show prior coaches, so current school-owned evidence takes precedence over those outdated attributions.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Original TexasDefined text-based school identity color, not an official school logo, uniform or protected mascot illustration."
+    },
+    "seo": {
+      "title": "Oak Ridge War Eagles Football | 2026 6A District 13",
+      "description": "Source-backed TexasDefined Oak Ridge War Eagles football guide covering 2026 UIL 6A District 13, current school athletics staffing, county, history and game-day planning cautions."
+    },
+    "coach": {
+      "name": "Tyler Blackshire",
+      "title": "Oak Ridge school-listed campus athletic director and head football coach",
+      "sourceUrl": "https://orhs.conroeisd.net/page/athletics/",
+      "sourceLabel": "School-owned dated athletics staff listing; current campus coach attribution",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "27330 Oak Ridge School Road, Conroe, TX 77385 — main campus, not gate",
+      "sourceUrl": "https://nces.ed.gov/globallocator/index.asp?CS=BE2CB82C&PrivSchool=1&School=1&State=&city=&miles=15&search=1&zipcode=77379",
+      "sourceLabel": "Federal NCES and/or school-controlled campus location, not a stadium gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check the school's current football schedule and host-specific visitor information; no licensed automated scores are available",
+      "officialScheduleUrl": "https://orhs.conroeisd.net/page/athletics/",
+      "sourceUrl": "https://orhs.conroeisd.net/page/athletics/",
+      "sourceLabel": "Official school-managed sports/athletics update channel, not final-game results",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "How Oak Ridge War Eagles football fits its school and district",
+      "body": "Oak Ridge High's War Eagles play for their own Conroe ISD program, with a Montgomery County main campus and a separate freshman campus on Oak Ridge School Road. The school's current athletics pages and staff directory both list Tyler Blackshire as head football coach/campus athletic director. Older third-party rosters sometimes show prior coaches, so current school-owned evidence takes precedence over those outdated attributions.",
+      "sourceUrl": "https://orhs.conroeisd.net/",
+      "sourceLabel": "School-controlled campus and athletics identity source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "Current school athletics",
+        "title": "Tyler Blackshire designated campus AD/head football coach",
+        "body": "The Oak Ridge school sports office lists Blackshire as both program head coach and campus athletic director.",
+        "sourceUrl": "https://orhs.conroeisd.net/page/athletics/",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "October 23, 2026 school event",
+        "title": "Homecoming football venue distinguished from school campus",
+        "body": "The dated campus calendar lists the homecoming football game on David Memorial Drive in Shenandoah and the dance at the Oak Ridge campus.",
+        "sourceUrl": "https://orhs.conroeisd.net/",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      },
+      {
+        "date": "2026–28 UIL assignment",
+        "title": "Oak Ridge competes in Class 6A District 13",
+        "body": "The UIL governs classification, distinct from previous-season coaching and individual game results.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official school, federal education directory or current UIL football alignment"
+      }
+    ],
+    "overview": [
+      "Oak Ridge War Eagles football is a distinct Texas varsity program in Conroe in Montgomery County, assigned to UIL 6A District 13 for the 2026–28 cycle. The Oak Ridge school event calendar identifies a specific October 23, 2026 homecoming game in Shenandoah while the dance occurred at the Oak Ridge School Road campus. That separation illustrates why a school contact address and the actual varsity host venue must not be merged. The school's 2026 football affiliation is UIL Class 6A District 13, separate from its past coaching or current-season outcomes.",
+      "Oak Ridge High's War Eagles play for their own Conroe ISD program, with a Montgomery County main campus and a separate freshman campus on Oak Ridge School Road. The school's current athletics pages and staff directory both list Tyler Blackshire as head football coach/campus athletic director. Older third-party rosters sometimes show prior coaches, so current school-owned evidence takes precedence over those outdated attributions.",
+      "Oak Ridge has its own athletics website and HomeTown ticketing links for school events. Before attending, check a dated football game listing for the precise host, parking, spectator policy and accessibility routes rather than assuming the main or ninth-grade campus entrance; neither event advertisement nor an old roster proves a completed score.",
+      "Oak Ridge War Eagles football coverage separates sourced staffing, official UIL classification, and individually dated historical references. No 2026 running won/lost total, playoff result, game ticket price, exact accessible stadium entrance, school-owned mascot mark or photo-rights license is implied by a school calendar or third-party scoreboard."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches the Oak Ridge War Eagles in 2026?",
+        "answer": "Oak Ridge High's current athletics and staff pages both list Tyler Blackshire as head football coach and campus athletic director."
+      },
+      {
+        "question": "Is Oak Ridge High in Montgomery County?",
+        "answer": "Yes. The school and NCES locator tie the Oak Ridge School Road campus in Conroe to Montgomery County."
+      },
+      {
+        "question": "Is Oak Ridge's freshman campus the varsity stadium?",
+        "answer": "The district lists separate main and ninth-grade campus addresses, and an October 2026 game event on a different Shenandoah street; verify each varsity venue directly."
+      },
+      {
+        "question": "What UIL district do the War Eagles compete in?",
+        "answer": "The 2026–28 UIL alignment places Oak Ridge in Class 6A District 13."
+      },
+      {
+        "question": "Are old football rosters proof of the 2026 coaching staff?",
+        "answer": "No. Current school-owned athletics pages identify Tyler Blackshire. Earlier third-party listings or dated game accounts require separate historical labeling."
+      }
+    ]
   }
 };
 
