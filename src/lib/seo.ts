@@ -174,6 +174,19 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Texas Cultural Regions: History, Migration & Communities",
     description: "Explore Texas cultural regions shaped by Indigenous, Tejano, Black, German, Czech and other communities, from settlement and migration to music and traditions.",
   },
+  "/explore/casinos/naskila-leggett": {
+    // 2026-10-29 finalized GSC: 570 impressions, 4 clicks, average position 10.03.
+    // Current official Naskila Leggett visitor listing confirms 24/7 hours and the
+    // Livingston postal address; do not imply the future resort is open.
+    title: "Naskila Casino Leggett: Hours, Address & What's Open",
+    description: "Visit Naskila Casino Leggett at 10314 US 59 N near Livingston. Check 24-hour hours, electronic-bingo facilities, dining and how it differs from Naskila Livingston.",
+  },
+  "/destination/galveston-bay": {
+    // 2026-10-29 finalized GSC: 124 impressions, 0 clicks, position 15.60.
+    // Preserve the distinct geographic estuary intent; no single entrance.
+    title: "Galveston Bay Texas: Fishing, Wildlife & Public Access",
+    description: "Explore Galveston Bay, Texas's largest estuary, with fishing, boating, wetlands, oyster reefs and visitor access around Kemah, Texas City and Galveston.",
+  },
   "/destination/magnolia-market-at-the-silos": {
     title: "Magnolia Market at the Silos Waco: Hours, Parking & Guide",
     description: "Plan a Magnolia Market at the Silos visit in Waco: location at 601 Webster Avenue, parking, shops, bakery, gardens, visitor hours and nearby attractions.",
