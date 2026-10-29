@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { verifyChromeReport, graduateBatch010, sharedReleaseShas, selectCommonWorkerReports, attestWorkerWindow } from './prepare-football-b010-certification.mjs';
+import { verifyChromeReport, graduateBatch010, sharedReleaseShas, selectCommonWorkerReports, attestWorkerWindow, selectVerifiedWorkerLedger } from './prepare-football-b010-certification.mjs';
 const worker='123e4567-e89b-42d3-a456-426614174000';
 const sha='f'.repeat(40);
 const slugs=Array.from({length:25},(_,i)=>'school-'+i);
@@ -153,4 +153,32 @@ test('do not accept an unproven or partial Cloudflare deployment',()=>{
   ],worker,observations),null);
   assert.equal(attestWorkerWindow([],worker,observations),null);
   assert.throws(()=>attestWorkerWindow([],worker,observations.slice(0,4)),/5-cohort/);
+});
+
+test('source SHA and Worker must both match the signed GitHub verified-release ledger',()=>{
+  const committed='f'.repeat(40), wrongSha='e'.repeat(40);
+  const worker='123e4567-e89b-42d3-a456-426614174000';
+  const d={id:7399754902,sha:committed,environment:'texasdefined-verified-worker',
+    payload:{commit_sha:committed,worker_version:worker,source_run_id:'40785382072',
+      verified_at:'2026-10-28T23:14:00.000Z'}};
+  const activeFrom='2026-10-28T23:11:19.883Z';
+  const firstBrowser='2026-10-28T23:14:43.466Z';
+  const proof=selectVerifiedWorkerLedger([d],committed,worker,firstBrowser,activeFrom);
+  assert.equal(proof?.ledgerDeploymentId,7399754902);
+  assert.equal(proof?.runId,40785382072);
+  assert.equal(selectVerifiedWorkerLedger([d],wrongSha,worker,firstBrowser,activeFrom),null);
+  assert.equal(selectVerifiedWorkerLedger([{...d,payload:{...d.payload,worker_version:'123e4567-e89b-42d3-a456-426614174001'}}],
+    committed,worker,firstBrowser,activeFrom),null);
+});
+test('reject post-browser attestation or missing trusted source-run association',()=>{
+  const sha='f'.repeat(40),worker='123e4567-e89b-42d3-a456-426614174000';
+  const base={id:777,sha,environment:'texasdefined-verified-worker',payload:{
+    commit_sha:sha,worker_version:worker,source_run_id:'123456',
+    verified_at:'2026-10-28T23:17:00Z'}};
+  assert.equal(selectVerifiedWorkerLedger([base],sha,worker,
+    '2026-10-28T23:14:00Z','2026-10-28T23:11:00Z'),null);
+  assert.equal(selectVerifiedWorkerLedger([{...base,payload:{...base.payload,source_run_id:''}}],sha,worker,
+    '2026-10-28T23:18:00Z','2026-10-28T23:11:00Z'),null);
+  assert.equal(selectVerifiedWorkerLedger([{...base,payload:{...base.payload,verified_at:'2026-10-28T23:10:00Z'}}],
+    sha,worker,'2026-10-28T23:18:00Z','2026-10-28T23:11:00Z'),null);
 });
