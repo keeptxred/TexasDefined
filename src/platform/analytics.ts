@@ -289,6 +289,10 @@ export function installTexasDefinedAnalytics() {
       });
     }
 
+    // Venue outbound events are handled by the corporate finder with a safe operator slug.
+    // Avoid recording the same visit again as an unqualified generic outbound event.
+    if (window.location.pathname === '/corporate-events' && anchor.closest('article') && anchor.textContent?.includes('Venue website')) return;
+
     const commercialPartner = anchor.dataset.commercialPartner;
     if (commercialPartner) {
       const entityKind = anchor.dataset.commercialPlacement || 'unspecified';
