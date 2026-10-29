@@ -55,7 +55,7 @@ test("rejects other affiliate IDs, offsite redirects, commodity transfers, dupli
     { productCode: "SAFE", title: "Verified guided tour of Dallas", productUrl: "https://www.viator.com/a?mcid=42383&pid=P00318227&medium=api" },
     { productCode: "SAFE", title: "Duplicate guided tour of Dallas", productUrl: "https://www.viator.com/b" },
     { productCode: "BAD!", title: "Invalid code product tour title", productUrl: "https://www.viator.com/c" },
-  ] }, "dallas");
+  ] });
   assert.deepEqual(products.map((p) => p.productCode), ["SAFE"]);
 });
 
@@ -65,6 +65,6 @@ test("caps to four results and fails closed on malformed API responses", () => {
     title: `This is a guided tour number ${i}`,
     productUrl: "https://www.viator.com/tours/Texas/Example?mcid=42383&pid=P00318227&medium=api",
   }));
-  assert.equal(normalizeViatorMarketProducts({ products: records }, "austin").length, 4);
+  assert.equal(normalizeViatorMarketProducts({ products: records }).length, 4);
   assert.throws(() => normalizeViatorMarketProducts({ bad: [] }));
 });
