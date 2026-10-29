@@ -452,6 +452,21 @@ for (const token of [
 ]) if (!redRiverGuide.includes(token)) fail("Red River evergreen visitor guidance missing: " + token);
 if (redRiverGuide.includes("Texas lists the 2026 game for 2:30 p.m.")) fail("Red River guide restored an expired game-day planning claim");
 
+// The 2026 Heart O' Texas Fair & Rodeo has ended. The raw 2026 search
+// experiment is already retired by the runtime event-snippet lifecycle;
+ // keep the body from advertising stale hours, prices or tickets as current.
+const completedHotFair = read(path.join(dataDir, "major-event-expanded-authority-tranche39.server.ts"));
+for (const marker of [
+  "concluded October 18",
+  "The completed 2026 fair schedule",
+  "those were 2026 prices",
+  "Do not use these historical performance times",
+]) if (!completedHotFair.toLowerCase().includes(marker.toLowerCase())) fail("Expired Heart O' Texas search freshness missing: " + marker);
+if (completedHotFair.includes("The fair runs October 8-18, 2026.") ||
+    completedHotFair.includes("The current official ticket page lists advance general fair admission at $18")) {
+  fail("Historical Heart O' Texas edition must not imply its 2026 admission and dates are current");
+}
+
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {
   console.log(`Major-event authority validation passed (${trancheFiles.length} tranche files, ${slugOwners.size} authority slugs, ${ledgerSlugs.size} ledger event destinations, ${collectionPaths.length} crawlable event authority collections, ${temporalPaths.length} finite temporal collections; ${duplicateDefinitions} historical duplicate definitions retained under first-match resolution).`);
