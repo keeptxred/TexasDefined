@@ -13,6 +13,7 @@
       "collinsvilleisd.org",
       "cpisd.net",
       "cshs.csisd.org",
+      "files-backend.assets.thrillshare.com",
       "hhs.clintweb.net",
       "mvhs.clintweb.net",
       "realignment.uiltexas.org",
@@ -37,6 +38,7 @@
       "www.colemanisd.net",
       "www.colmesneilisd.net",
       "www.cvisd.org",
+      "www.friscoisd.org",
       "www.scucisd.org",
       "www.tarkingtonisd.net"
     ],
@@ -296,6 +298,13 @@
       "slug": "colmesneil",
       "url": "https://www.colmesneilisd.net/page/athletics/",
       "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "frisco-lone-star",
+      "url": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/5799/Fisd/4e4f782e-9f60-4246-aa9a-6854740f2f4c/2026-Fball-Schedule-8-21.pdf?disposition=inline",
+      "reviewAfter": "2027-01-29",
       "contentFingerprint": null,
       "lastObservedAt": null
     }

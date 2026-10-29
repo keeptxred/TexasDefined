@@ -269,7 +269,12 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   // Preserve Batch 008's validated precedence; only replace the result on a
   // source-backed, individually implemented Batch 009 slug.
   const batch008OrBaseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
-  const baseEditorial = (await loadBatch011FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch010FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
+  // Dedicated first-party Lone Star history/visitor guide. Keep score, W/L and
+  // standings automation in its separate deferred, rights-gated pipeline.
+  const loneStarEditorial = canonicalSlug === 'frisco-lone-star'
+    ? (await import('./program-editorial-frisco-lone-star')).getFriscoLoneStarEditorial()
+    : undefined;
+  const baseEditorial = loneStarEditorial ?? (await loadBatch011FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch010FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
   const aubreyAdjustedEditorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;

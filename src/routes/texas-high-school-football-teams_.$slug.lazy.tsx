@@ -561,7 +561,7 @@ function Page() {
         />
       )}
 
-      {!editorial?.notice && <FootballMonetizationSlot
+      {!editorial?.notice && slug !== 'frisco-lone-star' && <FootballMonetizationSlot
         surfacePath={`/texas-high-school-football-teams/${slug}`}
         hasSponsor={!!sponsorPlacement}
       />}
@@ -578,7 +578,7 @@ function Page() {
           {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
         </dl>
 
-      {sponsorPlacement ? (
+      {slug !== 'frisco-lone-star' && sponsorPlacement ? (
         <div className="border-b border-border py-6">
           <SponsoredSportsPlacement key={sponsorPlacement.id} placement={sponsorPlacement} />
         </div>
@@ -589,7 +589,7 @@ function Page() {
       {program && !district21Team && (editorial?.season || !editorial?.notice) && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
-          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : 'Live scores & schedule links'}</h2>
+          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : slug === 'frisco-lone-star' ? 'Official 2026 schedule & game-day resources' : 'Live scores & schedule links'}</h2>
           {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Recheck the school source before travel because kickoff times and venues can change.</p>}
         </div>
         <div className="min-w-0">
@@ -624,7 +624,9 @@ function Page() {
             {editorial.season.games.some((game) => game.district) && <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>}
             <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
             {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Verify latest recorded final ↗</a>}
-          </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish an unverified team-specific schedule. Use UIL’s Texas Scoreboard and the school’s official athletics source for current dates and results; the UIL feed is submission-based, and it is not an official district-standings table.</p>}
+          </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">{slug === 'frisco-lone-star'
+            ? 'Frisco ISD publishes the official 2026 district-wide varsity football schedule linked below. Confirm your game, kickoff and shared venue with the school. Automated scores, win–loss records and standings are intentionally deferred and are not inferred here.'
+            : 'TexasDefined does not publish an unverified team-specific schedule. Use UIL’s Texas Scoreboard and the school’s official athletics source for current dates and results; the UIL feed is submission-based, and it is not an official district-standings table.'}</p>}
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
             {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
@@ -996,6 +998,14 @@ function Page() {
           <p className="mt-4 text-xs leading-6 text-muted-foreground">Schedules, coaching staffs, attendance boundaries and venue assignments can change within a season. Use the dated school or district source when a decision depends on current information.</p>
         </div>
       </section>
+
+      {slug === 'frisco-lone-star' && <section aria-label="Independent page sponsors and TexasDefined shop" className="border-b border-border py-8">
+        {!editorial?.notice && <FootballMonetizationSlot
+          surfacePath={`/texas-high-school-football-teams/${slug}`}
+          hasSponsor={!!sponsorPlacement}
+        />}
+        {sponsorPlacement && <div className="mt-6"><SponsoredSportsPlacement key={sponsorPlacement.id} placement={sponsorPlacement} /></div>}
+      </section>}
 
       <section className="py-10">
         <p className="eyebrow text-primary">Keep researching</p>
