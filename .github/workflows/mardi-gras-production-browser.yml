@@ -1,0 +1,101 @@
+name: Mardi Gras 12-page mobile and desktop production Chrome QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-mardi-gras-browser.mjs'
+      - '.github/workflows/mardi-gras-production-browser.yml'
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# No cron. A 12-page audit runs only for a relevant protected release
+# or a manually dispatched production acceptance.
+concurrency:
+  group: mardi-gras-visual-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  browser-contract:
+    if: github.event_name == 'pull_request'
+    name: Protect exact Mardi Gras browser scenario
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify syntax and 11+1 source/photo guard
+        run: |
+          node --check scripts/ci/verify-mardi-gras-browser.mjs
+          node scripts/ci/verify-mardi-gras-browser.mjs --self-test
+
+  production-chrome:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    name: Twelve Mardi Gras guides/hub at two real Chrome viewports
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Check out exact successful production release
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - name: Only check a Mardi Gras-affecting deployed change
+        id: scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]] ||
+             git diff --name-only HEAD^ HEAD -- \
+               'src/data/major-event-expanded-authority-tranche25.server.ts' \
+               'src/data/major-event-expanded-authority-tranche52.server.ts' \
+               'src/data/major-event-schema-enrichment-batch6.server.ts' \
+               'src/data/major-event-schema-enrichment-batch27.server.ts' \
+               'src/data/major-event-schema-enrichment-batch32.server.ts' \
+               'src/routes/events.mardi-gras.lazy.tsx' \
+               'src/routes/event.$slug.tsx' \
+               'src/routes/event.$slug.lazy.tsx' \
+               'src/data/events/mardi-gras-new-festivals-2027.server.ts' \
+               'src/data/events/mardi-gras-companion-events-2027.server.ts' \
+               'scripts/events/check-mardi-gras-official-sources.mjs' \
+               'scripts/ci/verify-authority-canonical-freshness.mjs' \
+               'scripts/ci/verify-mardi-gras-browser.mjs' \
+               '.github/workflows/mardi-gras-production-browser.yml' | grep -q .; then
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "Unrelated release: no Mardi Gras browser check."
+          fi
+      - name: Prepare existing Chrome and temporary pinned Playwright core
+        if: steps.scope.outputs.changed == 'yes'
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-mardi-gras-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify 12 real page layouts and image bytes, desktop/mobile
+        if: steps.scope.outputs.changed == 'yes'
+        env:
+          TARGET_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: |
+          node --check scripts/ci/verify-mardi-gras-browser.mjs
+          node scripts/ci/verify-mardi-gras-browser.mjs --self-test
+          node scripts/ci/verify-mardi-gras-browser.mjs
+      - name: Preserve 24 screenshots and source/image acceptance evidence
+        if: always() && steps.scope.outputs.changed == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: mardi-gras-production-browser-${{ github.run_id }}
+          path: artifacts/mardi-gras-visual/
+          if-no-files-found: warn
+          retention-days: 14
