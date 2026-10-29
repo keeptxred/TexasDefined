@@ -6,6 +6,7 @@ import { allowedRemoteImageUrl, REMOTE_IMAGE_PATH } from "./lib/editorial-image-
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { remoteImageRequestHeaders } from "./lib/remote-image-fetch-policy";
+import { normalizeViatorMarketProducts, VIATOR_LIVE_DESTINATION_IDS, type ViatorLiveMarketResponse } from "./lib/viator-market-feed";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -258,6 +259,78 @@ function viatorUpstreamResponse(upstream: Response, cacheControl: string): Respo
   });
 }
 
+/**
+ * Live, limited product previews for a verified Texas market. Never ingest the
+ * full catalog; refresh via the on-demand search model (20 minute edge cache).
+ * Search API data is not a verified price, reservation, or public-site fact.
+ */
+async function viatorMarketFeedResponse(
+  request: Request,
+  apiKey: string,
+  ctx: unknown,
+  market: string,
+): Promise<Response> {
+  if (request.method !== "GET") return viatorError("Method not allowed", 405, "GET");
+  const url = new URL(request.url);
+  if (url.search) return viatorError("Unexpected query parameters", 400);
+  if (!Object.prototype.hasOwnProperty.call(VIATOR_LIVE_DESTINATION_IDS, market)) {
+    return viatorError("Unknown verified Viator market", 404);
+  }
+
+  const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
+  const cacheKey = new Request(request.url, { method: "GET" });
+  const cached = cache ? await cache.match(cacheKey) : undefined;
+  if (cached) return cached;
+
+  const endpoint = new URL(VIATOR_API_BASE + "/products/search");
+  endpoint.searchParams.set("campaign-value", `texasdefined-api-${market}`);
+  const headers = viatorHeaders(request, apiKey);
+  headers.set("Accept", "application/json;version=2.0");
+  headers.set("Accept-Language", "en-US");
+  headers.set("Accept-Currency", "USD");
+  try {
+    const upstream = await fetch(endpoint.toString(), {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        filtering: { destination: VIATOR_LIVE_DESTINATION_IDS[market] },
+        sorting: { sort: "DEFAULT", order: "DESCENDING" },
+        pagination: { start: 1, count: 12 },
+        currency: "USD",
+      }),
+      redirect: "error",
+      signal: AbortSignal.timeout(8_000),
+    });
+    if (!upstream.ok) {
+      console.warn("[viator-market-feed] upstream status", market, upstream.status);
+      return viatorError("Current Viator inventory is temporarily unavailable", 503);
+    }
+    const payload = await upstream.json();
+    const products = normalizeViatorMarketProducts(payload);
+    const result: ViatorLiveMarketResponse = {
+      source: "viator",
+      market,
+      refreshedAt: new Date().toISOString(),
+      products,
+    };
+    const response = Response.json(result, {
+      headers: {
+        "Cache-Control": "public, max-age=120, s-maxage=1200",
+        "Content-Type": "application/json; charset=utf-8",
+        "X-Content-Type-Options": "nosniff",
+      },
+    });
+    const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
+    if (cache && typeof waitUntil === "function") {
+      waitUntil.call(ctx, cache.put(cacheKey, response.clone()));
+    }
+    return response;
+  } catch (error) {
+    console.warn("[viator-market-feed] request failed", market, error instanceof Error ? error.name : "unknown");
+    return viatorError("Current Viator inventory is temporarily unavailable", 503);
+  }
+}
+
 async function viatorApiResponse(
   request: Request,
   env: unknown,
@@ -272,6 +345,9 @@ async function viatorApiResponse(
 
   const apiKey = viatorApiKey(env);
   if (!apiKey) return viatorError("Viator integration is unavailable", 503);
+
+  const marketMatch = url.pathname.match(/^\/api\/viator\/market\/([a-z0-9-]+)\/products\/?$/);
+  if (marketMatch) return viatorMarketFeedResponse(request, apiKey, ctx, marketMatch[1]);
 
   if (url.pathname === VIATOR_API_PREFIX + "/products/search") {
     if (request.method !== "POST") return viatorError("Method not allowed", 405, "POST");

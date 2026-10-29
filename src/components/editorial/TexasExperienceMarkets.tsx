@@ -3,6 +3,7 @@ import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl, viatorTexasUrl } f
 import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS, VIATOR_RUNTIME_SIGNAL_REVIEWED_AT } from "@/data/viator-experience-runtime";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { ViatorLiveProducts } from "@/components/editorial/ViatorLiveProducts";
 
 export function TexasExperienceMarkets() {
   const primary = VIATOR_RUNTIME_MARKETS.filter((market) => market.priority === "primary");
@@ -84,5 +85,6 @@ function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number
         className="border-b border-border hover:border-primary hover:text-primary"
       >{verifiedMarketInventory ? "Current Viator options ↗" : "Browse Viator Texas inventory ↗"}</a>
     </div>
+    {verifiedMarketInventory ? <ViatorLiveProducts marketSlug={market.slug} placement={`${commercialPlacement}-live`} mode="manual" compact /> : null}
   </article>;
 }

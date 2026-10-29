@@ -84,6 +84,7 @@ const checks = [
   ['all-lake-authority-inventory', 'SEO/AUTHORITY', 'Audit complete fishing-lake guide/source/photo/county inventory', 'node', ['scripts/data/audit-texas-lake-authority.mjs']],
   ['citation-downloads', 'SEO/CITATIONS', 'Validate citation downloads', 'node', ['scripts/data/validate-citation-downloads.mjs']],
   ['citypass-affiliate', 'MONETIZATION/AFFILIATE', 'Validate Texas CityPASS affiliate coverage', 'node', ['scripts/data/validate-citypass-affiliate.mjs']],
+  ['viator-live-feed', 'MONETIZATION/VIATOR', 'Validate approved Viator markets and tracked live product links', 'node', ['--experimental-strip-types', '--test', 'src/lib/__tests__/viator-market-feed.test.ts']],
   ['seo-ci-contract', 'CI/CONTRACT', 'Validate SEO CI contract', 'node', ['scripts/data/validate-seo-ci-contract.mjs']],
   ['data-validate', 'DATA/QUALITY', 'Validate production data and migrated features', 'npm', ['run', 'data:validate']],
   ['trip-planner-destinations', 'DATA/COVERAGE', 'Validate complete Trip Planner mapped coverage', 'node', ['scripts/data/audit-trip-planner-destinations.mjs', '--strict']],
@@ -119,7 +120,7 @@ const predeployIds = new Set([
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority', 'event-visitor-copy',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness', 'texas-life-relocation-hero-uniqueness', 'texas-life-housing-photo-relevance',
-  'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'governed-seo-duplicates',
+  'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'viator-live-feed', 'governed-seo-duplicates',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
