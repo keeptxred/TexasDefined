@@ -778,11 +778,25 @@ for (const required of ['resolveEventSnippet({', 'eventOccurrenceEndDate: page.e
 // Live 2026-10-29 GSC test titles are intentionally separate from editorial H1s.
 const gscOctoberExperiments = [
   { source: seo, path: '/article/texas-cultural-regions-explained', title: 'Texas Cultural Regions: History, Migration & Communities', description: 'Explore Texas cultural regions shaped by Indigenous, Tejano' },
+  { source: seo, path: '/explore/casinos/naskila-leggett', title: "Naskila Casino Leggett: Hours, Address & What's Open", description: 'Visit Naskila Casino Leggett at 10314 US 59 N' },
+  { source: seo, path: '/destination/galveston-bay', title: 'Galveston Bay Texas: Fishing, Wildlife & Public Access', description: "Explore Galveston Bay, Texas's largest estuary" },
   { source: fs.readFileSync('src/data/major-event-expanded-authority-tranche58.server.ts', 'utf8'), path: 'polar-express-palestine', title: 'Palestine Polar Express 2026: Dates, Tickets & Train Guide', description: 'Plan Palestine Polar Express 2026 train rides with verified' },
 ];
 for (const exp of gscOctoberExperiments) {
   for (const required of [exp.path, exp.title, exp.description]) {
     if (!exp.source.includes(required)) failures.push('Current GSC test missing for ' + exp.path + ': ' + required);
+  }
+}
+
+// The two newest GSC experiments must remain unique and SSR-only. Their
+// search titles intentionally differ from the visible destination/casino H1s.
+for (const path of ['/explore/casinos/naskila-leggett', '/destination/galveston-bay']) {
+  const marker = '"' + path + '": {';
+  const first = seo.indexOf(marker);
+  const ssrStart = seo.indexOf('const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {');
+  const ssrEnd = seo.indexOf('} : {};', ssrStart);
+  if (first < ssrStart || first > ssrEnd || first !== seo.lastIndexOf(marker)) {
+    failures.push('Newly protected GSC snippet must remain unique and SSR-only: ' + path);
   }
 }
 
