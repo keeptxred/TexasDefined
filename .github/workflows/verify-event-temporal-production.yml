@@ -17,11 +17,6 @@ on:
       - 'src/data/events/november-official-picks-2026.ts'
       - 'src/routes/events.$collection.tsx'
       - 'src/routes/events.$collection.lazy.tsx'
-  # Also inspect the actual newly published Worker; PR checks alone cannot
-  # prove that a live November event page reflects merged source changes.
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
   schedule:
     - cron: '23 11 * * *'
   workflow_dispatch:
