@@ -1,6 +1,7 @@
 import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-evergreen";
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
+const CalendarBookingDiscovery = lazy(() => import("@/components/events/CalendarBookingDiscovery").then((m) => ({default:m.CalendarBookingDiscovery})));
 
 import bigBend from "@/assets/big-bend.jpg";
 import caddoLake from "@/assets/caddo-lake.jpg";
@@ -528,6 +529,8 @@ function GenericCollectionPage({ page }: { page: any }) {
 
 function EventCollectionPage() {
   const { page } = Route.useLoaderData();
-  if (page.weekendDigest) return <WeekendCollectionPage page={page} />;
-  return <GenericCollectionPage page={page} />;
+  return <>
+    {page.weekendDigest ? <WeekendCollectionPage page={page} /> : <GenericCollectionPage page={page} />}
+    <Suspense fallback={null}><CalendarBookingDiscovery christmas={page.path === "/events/christmas-events" || page.path === "/events/december-events"} /></Suspense>
+  </>;
 }
