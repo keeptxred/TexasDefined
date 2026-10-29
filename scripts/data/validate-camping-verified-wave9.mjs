@@ -10,7 +10,7 @@ const route = read("src/routes/best-places-to-go-camping-in-texas.tsx");
 const verifier = read("scripts/ci/verify-camping-authority-production.mjs");
 
 const namedSlugs = (text) => [...text.matchAll(/destinationSlug:\s*"([^"]+)"/g)].map((m) => m[1]);
-const namedAnchors = (text) => [...text.matchAll(/destinationSlug:\\s*"([^"]+)"(?:,\\s*profileSlug:\\s*"([^"]+)")?/g)].map((m) => m[2] || m[1]);
+const namedAnchors = (text) => [...text.matchAll(/destinationSlug:\s*"([^"]+)"(?:,\s*profileSlug:\s*"([^"]+)")?/g)].map((m) => m[2] || m[1]);
 const priorSlugs = sources.flatMap(({ text }) => namedSlugs(text));
 const priorAnchors = sources.flatMap(({ text }) => namedAnchors(text));
 const newSlugs = namedSlugs(ninth);
