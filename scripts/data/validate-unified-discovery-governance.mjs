@@ -13,6 +13,7 @@ assert.equal((viatorServerBlock.match(/redirect: "error"/g)||[]).length,0,"Cloud
 assert.equal((viatorServerBlock.match(/redirect: "manual"/g)||[]).length,5,"Every Viator partner fetch must reject redirects manually");
 assert.ok(viatorServerBlock.includes('upstream.status >= 300 && upstream.status < 400'),"Generic Viator passthrough must fail closed on redirect");
 assert.ok(viatorServerBlock.includes('Accept: "application/json;version=2.0"'),"Viator API v2 headers are mandatory");
+assert.ok((viatorServerBlock.match(/"X-Robots-Tag": "noindex, nofollow, noarchive"/g)||[]).length>=4,"All partner API feeds must be tagged noindex");
 
 const cron=read(".github/workflows/weekly-viator-attraction-discovery.yml");
 
