@@ -37,6 +37,7 @@
       "www.colemanisd.net",
       "www.colmesneilisd.net",
       "www.cvisd.org",
+      "www.friscoisd.org",
       "www.scucisd.org",
       "www.tarkingtonisd.net"
     ],
@@ -296,6 +297,13 @@
       "slug": "colmesneil",
       "url": "https://www.colmesneilisd.net/page/athletics/",
       "reviewAfter": "2026-11-07",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "frisco-lone-star",
+      "url": "https://www.friscoisd.org/page/2026-varsity-football-schedule/",
+      "reviewAfter": "2027-01-29",
       "contentFingerprint": null,
       "lastObservedAt": null
     }
