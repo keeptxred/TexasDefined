@@ -1,0 +1,60 @@
+name: District 9-6A evergreen source freshness (no scores)
+on:
+  workflow_dispatch:
+  schedule:
+    # Monthly year-round, plus weekly during August-December football season.
+    - cron: '29 15 1 * *'
+    - cron: '31 15 * 8-12 2'
+  pull_request:
+    paths:
+      - 'src/components/sports/District9Guide.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.tsx'
+      - 'scripts/ci/verify-district9-authority.mjs'
+      - '.github/workflows/check-district9-sources.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/sports/District9Guide.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
+      - 'src/routes/texas-high-school-football-districts_.$slug.tsx'
+      - 'scripts/ci/verify-district9-authority.mjs'
+      - '.github/workflows/check-district9-sources.yml'
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: district9-evergreen-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate District 9 source contract
+        id: district9
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            node scripts/ci/verify-district9-authority.mjs --check-links
+          else
+            node scripts/ci/verify-district9-authority.mjs
+          fi
+      - name: Record only confirmed review needs in one issue
+        if: steps.district9.outputs.review_needed == 'true' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='District 9-6A evergreen source review'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number,title --limit 100 --jq '.[] | select(.title == "'"$title"'") | .number' | head -n 1)"
+          if [[ -n "$existing" ]]; then
+            gh issue edit "$existing" --repo "$GITHUB_REPOSITORY" --body-file district9-source-review.md
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file district9-source-review.md
+          fi
