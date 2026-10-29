@@ -2669,7 +2669,10 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       !workflow.includes('scripts/ci/prepare-football-b010-certification[.]mjs') ||
       !workflow.includes('node scripts/ci/pin-football-b010-production-release.mjs') ||
       !workflow.includes("ref: ${{ steps.release.outputs.sha }}") ||
-      !workflow.includes("GITHUB_SHA: ${{ steps.release.outputs.sha }}") ||
+      !workflow.includes("FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}") ||
+      !workflow.includes("FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}") ||
+      !read(`scripts/ci/verify-football-b010-${cohort}-five-production.mjs`).includes('process.env.FOOTBALL_CHROME_SOURCE_SHA') ||
+      !read(`scripts/ci/verify-football-b010-${cohort}-five-production.mjs`).includes('process.env.FOOTBALL_EXPECTED_WORKER_VERSION') ||
       !workflow.includes("steps.release.outputs.ready == 'true'") ||
       !workflow.includes('if: steps.scope.outputs.run == \'true\''))
     errors.push(`Batch010 ${cohort} must retain pending-school scope on scheduled Chrome verification`);
