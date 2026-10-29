@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const tracker = fs.readFileSync('src/lib/affiliate-click.ts', 'utf8');
 const citypass = fs.readFileSync('src/components/monetization/CityPassCalloutContent.tsx', 'utf8');
+const citypassData = fs.readFileSync('src/data/citypass.ts', 'utf8');
 const cityViator = fs.readFileSync('public/city-experience-affiliate.js', 'utf8');
 const canonicalViatorLinks = fs.readFileSync('src/data/viator-destination-links.ts', 'utf8');
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
@@ -43,9 +44,10 @@ for (const [needle, label] of [
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying CityPASS® purchases', 'CityPASS disclosure'],
 ]) requireText(citypass, needle, label);
 
-// This connection is paused while its three approved 7eer tracking redirects
-// consistently return HTTP 404. Direct official links MUST NOT claim commission
-// or emit affiliate analytics, even though historical approved IDs are retained.
+// Only the new account-specific CJ Click URLs are enabled, not the previously
+// broken 7eer redirects. Preserve truthful disclosure and conditional link
+// behavior if a future verification requires disabling tracking again.
+requireText(citypassData, 'CITYPASS_AFFILIATE_LINKS_ENABLED = true', 'Account-approved CJ CityPASS activation');
 for (const [needle, label] of [
   ['CITYPASS_AFFILIATE_LINKS_ENABLED ? "citypass" : undefined', 'Conditional CityPASS partner/commercial metadata'],
   ['CITYPASS_AFFILIATE_LINKS_ENABLED ? () => trackAffiliateClick(', 'Conditional CityPASS click analytics'],
