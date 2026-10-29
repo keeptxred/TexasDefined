@@ -58,17 +58,6 @@ export const DISTRICT_11_2026_GAMES: DistrictFootballGame[] = [
 // The data is deliberately reviewed and non-live; refresh workflows must not
 // convert scheduled contests to finals without source-backed confirmation.
 
-export const DISTRICT_11_2026_EXPECTED_RECORDS = {
-  "Bay City": "5-0",
-  "Sealy": "4-1",
-  "El Campo": "3-1",
-  "Navasota": "2-2",
-  "Needville": "1-3",
-  "Royal": "0-4",
-  "West Columbia Columbia": "0-4"
-} as const;
-
-export const DISTRICT_11_SCHEDULE_SOURCE = 'https://www.pigskinprep.com/showfreeschedules.asp?distID=305&yr=2026';
 
 export const DISTRICT_11_PLAYOFF_SOURCE = 'https://www.uiltexas.org/football/playoff-brackets/4AD1';
 
