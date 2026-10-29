@@ -186,6 +186,11 @@ function Page() {
     'colleyville-heritage': 'tarrant', // Campus county; venue access remains independently sourced.
     'collinsville': 'grayson', // Campus county; venue access remains independently sourced.
     'colmesneil': 'tyler', // Campus county; venue access remains independently sourced.
+    'colorado-city-colorado': 'mitchell', // Colorado High Wolves in Colorado City, Texas; not Colorado state.
+    'columbus': 'colorado', // Columbus Cardinals' campus in Colorado County, not Colorado City.
+    'comal-canyon': 'comal', // Comal ISD Canyon Cougars in New Braunfels; not Canyon ISD.
+    'comal-canyon-lake': 'comal', // Separate Canyon Lake Hawks campus in Fischer, Comal County.
+    'comal-davenport': 'comal', // Davenport Wolves near Garden Ridge, Comal County; San Antonio mailing address.
     'clint-mountain-view': 'el-paso', // Mountain View Lobos school on Greg Dr, eastern El Paso County.
     'clarendon': 'donley', // Clarendon CISD 26/27 Broncos campus in Donley County, not gate.
     'clarksville': 'red-river', // Clarksville High Tigers campus Red River County.
