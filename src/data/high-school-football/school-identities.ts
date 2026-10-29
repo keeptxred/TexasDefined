@@ -14,6 +14,7 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'como-pickton', mascot: 'Eagles', sourceUrl: 'https://www.cpcisd.net/', sourceLabel: 'Como-Pickton CISD primary-school name and Eagles athletics', verifiedAt: '2026-10-29' },
   { slug: 'comal-pieper', mascot: 'Warriors',
     sourceUrl: 'https://phs.comalisd.org/',
     sourceLabel: 'Comal ISD Pieper High Warriors first-party campus identity', verifiedAt: '2026-10-29' },
