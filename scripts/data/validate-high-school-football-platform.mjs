@@ -216,6 +216,17 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
   const footballDistrictFunctions = read(footballDistrictFunctionsPath);
   const footballDistrictIndexRoute = read(footballDistrictIndexRoutePath);
   const footballDistrictIndexPage = read(footballDistrictIndexPagePath);
+  // GSC 2026-10-29: generic "UIL 6A districts" is selecting a single
+  // numbered district instead of the actual 192-district statewide directory.
+  // Strengthen intent ownership without moving/noindexing specific district pages
+  // or altering the separately deferred standings automation.
+  for (const marker of [
+    'id={label === \'6A\' ? \'uil-6a-football-districts\' : undefined}',
+    "label === '6A' ? 'UIL 6A Football Districts' : label",
+    'href="#uil-6a-football-districts"',
+    'rather than one specific District 6',
+  ]) requireText(footballDistrictIndexPage, marker, 'UIL 6A directory intent ownership');
+
   const footballDistrictRoute = read(footballDistrictRoutePath);
   const footballDistrictPage = read(footballDistrictPagePath);
   const footballChampionshipServer = read(footballChampionshipServerPath);
