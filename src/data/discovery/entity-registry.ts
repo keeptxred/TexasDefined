@@ -107,17 +107,20 @@ export function mayIndexDiscoveryEntity(entity: DiscoveryEntity) {
   if (!entity.evidence.some((e) =>
     (e.official || e.provider === "texasdefined") && e.purpose === "editorial" &&
     isoDate(e.checkedAt) && trustedHttpUrl(e.url))) return false;
-  if (entity.kind === "annual-event" || entity.kind === "scheduled-event") {
-    return (entity.occurrences ?? []).some((o) =>
-      isoDate(o.startDate) && isoDate(o.endDate ?? o.startDate) &&
-      (o.endDate ?? o.startDate) >= o.startDate &&
-      isoDate(o.verifiedAt) && trustedHttpUrl(o.sourceUrl) &&
-      o.status === "confirmed");
-  }
+  // A reviewed evergreen annual-event guide remains indexable while the next
+  // edition's dates are unannounced. Never infer occurrence or Event schema.
   return true;
 }
 
 /** Only official schedule evidence can update a recurring event's dates. */
+export function verifiedCalendarOccurrences(entity: DiscoveryEntity, todayIso: string) {
+  if (!isoDate(todayIso)) throw Error("Invalid calendar date");
+  return (entity.occurrences ?? []).filter((o) => o.status === "confirmed" &&
+    isoDate(o.startDate) && isoDate(o.endDate ?? o.startDate) &&
+    (o.endDate ?? o.startDate) >= todayIso && (o.endDate ?? o.startDate) >= o.startDate &&
+    isoDate(o.verifiedAt) && trustedHttpUrl(o.sourceUrl));
+}
+
 export function reconcileConfirmedOccurrence(
   entity: DiscoveryEntity,
   occurrence: DiscoveryOccurrence,
