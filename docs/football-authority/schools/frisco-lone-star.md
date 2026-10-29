@@ -14,7 +14,8 @@
 ## Official evidence
 1. Frisco ISD campus/contact: https://www.friscoisd.org/o/lshs
 2. Frisco ISD football program history: https://www.friscoisd.org/article/3120877
-3. Frisco ISD 2026 varsity football schedule: https://www.friscoisd.org/page/2026-varsity-football-schedule/
+3. Frisco ISD 2026 varsity football schedule (official original PDF linked from Frisco ISD's 2026 article): https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/5799/Fisd/4e4f782e-9f60-4246-aa9a-6854740f2f4c/2026-Fball-Schedule-8-21.pdf?disposition=inline
+   - School's own schedule article: https://www.friscoisd.org/article/3120877
 4. Frisco ISD official tickets: https://tickets.friscoisd.org
 5. UIL 2026–28 5A Division I realignment: https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf
 6. 2026 dated head-coach staff: https://www.maxpreps.com/tx/frisco/lone-star-rangers/football/staff/\n7. UIL historical team identity/colors: https://www.uiltexas.org/football/state-team-mp/frisco-lone-star-2025-2026-football
