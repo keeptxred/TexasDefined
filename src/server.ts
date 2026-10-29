@@ -165,6 +165,10 @@ function cachedHeadResponse(response: Response) {
 }
 
 const VIATOR_API_BASE = "https://api.viator.com/partner";
+/* Cloudflare Workers throws TypeError for fetch({redirect:"error"}).
+ * Use "manual" and reject 3xx before consuming/forwarding provider data.
+ * https://developers.cloudflare.com/workers/runtime-apis/request/
+ */
 const VIATOR_API_PREFIX = "/api/viator";
 const MAX_VIATOR_SEARCH_BODY_BYTES = 32_768;
 const VIATOR_PRODUCT_CODE_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
@@ -238,7 +242,7 @@ function viatorHeaders(request: Request, apiKey: string): Headers {
   const locale = request.headers.get("accept-language")?.split(",", 1)[0]?.trim() || "en-US";
   const currency = request.headers.get("accept-currency")?.trim().toUpperCase() || "USD";
   return new Headers({
-    Accept: "application/json",
+    Accept: "application/json;version=2.0",
     "Accept-Currency": /^[A-Z]{3}$/.test(currency) ? currency : "USD",
     "Accept-Language": /^[A-Za-z]{2,3}(?:-[A-Za-z]{2})?$/.test(locale) ? locale : "en-US",
     "Content-Type": "application/json",
@@ -247,6 +251,12 @@ function viatorHeaders(request: Request, apiKey: string): Headers {
 }
 
 function viatorUpstreamResponse(upstream: Response, cacheControl: string): Response {
+  // Cloudflare Workers does not support redirect:'error'; manual redirects are
+  // intentionally not followed or forwarded to users (including credential
+  // bearing redirects). Never forward the API key to another origin.
+  if (upstream.status >= 300 && upstream.status < 400) {
+    return viatorError("Viator upstream redirect rejected", 502);
+  }
   const headers = new Headers({
     "Cache-Control": upstream.ok ? cacheControl : "no-store",
     "Content-Type": upstream.headers.get("content-type") || "application/json; charset=utf-8",
@@ -289,7 +299,7 @@ async function viatorChristmasExperienceResponse(request: Request, apiKey: strin
     endpoint.searchParams.set("campaign-value", `texasdefined-api-${market}`);
     const upstream = await fetch(endpoint.toString(), {
       method: "POST", headers, body: JSON.stringify(christmasExperienceSearchBody(market)),
-      redirect: "error", signal: AbortSignal.timeout(8_000),
+      redirect: "manual", signal: AbortSignal.timeout(8_000),
     });
     if (!upstream.ok) {
       console.warn("[viator-christmas] upstream status", market, upstream.status);
@@ -336,7 +346,7 @@ async function viatorAttractionResearchResponse(request: Request, apiKey: string
       method: "POST",
       headers: apiHeaders,
       body: JSON.stringify(attractionDiscoveryRequestBody(market)),
-      redirect: "error",
+      redirect: "manual",
       signal: AbortSignal.timeout(8_000),
     });
     if (!upstream.ok) {
@@ -394,7 +404,7 @@ async function viatorMarketFeedResponse(
         pagination: { start: 1, count: 12 },
         currency: "USD",
       }),
-      redirect: "error",
+      redirect: "manual",
       signal: AbortSignal.timeout(8_000),
     });
     if (!upstream.ok) {
@@ -465,7 +475,7 @@ async function viatorApiResponse(
       method: "POST",
       headers: viatorHeaders(request, apiKey),
       body: request.body,
-      redirect: "error",
+      redirect: "manual",
     });
     return viatorUpstreamResponse(upstream, "private, max-age=60");
   }
@@ -489,7 +499,7 @@ async function viatorApiResponse(
   const upstream = await fetch(VIATOR_API_BASE + "/products/" + encodeURIComponent(productCode), {
     method: "GET",
     headers: viatorHeaders(request, apiKey),
-    redirect: "error",
+    redirect: "manual",
   });
   const response = viatorUpstreamResponse(upstream, "public, max-age=300, s-maxage=3600");
   const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
