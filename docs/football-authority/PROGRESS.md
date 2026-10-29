@@ -6,7 +6,7 @@ Five genuine, non-skipped Chrome cohorts independently checked all 75 school vie
 (1366/390/320), 22 reciprocal county views, 25 sitemap URLs, and preserved 106 PNG screenshots.
 Every report observed identical published Cloudflare Worker dee22d1b-97af-46e0-b057-3b95dcee8963.
 The Cloudflare deployment d3e83fdc-69a5-455c-a57f-9129cf68eb45 served it at 100% during all five
-real Chrome verification windows. GitHub verified-Worker ledger deployment 7403697880 independently binds the exact source commit to that Worker. Starting 2026-10-29T04:01:08.201806Z; still latest in deployment history.
+real Chrome verification windows, beginning 2026-10-29T04:01:08.201806Z. GitHub verified-Worker ledger deployment 7403697880 independently binds the exact source commit to that Worker. This is a dated verification window; subsequent production deployments do not retroactively invalidate its accepted test evidence.
 Successful protected [production deployment](https://github.com/keeptxred/TexasDefined/actions/runs/40814884597) on commit 5dc4c0f421a1ffaa17ac2099d6584f0ceffb1b6f completed before live browser checks.
 This is historical production evidence, not a claim that the Worker is still active.
 
