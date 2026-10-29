@@ -62,11 +62,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Load current strict published-release source attribution code
+      - name: Load immutable workflow-revision source attribution code
         if: steps.scope.outputs.run == 'true'
         uses: actions/checkout@v4
         with:
-          ref: main
+          # github.sha is a fixed event-time commit, never a moving branch.
+          # Only the gate code comes from it; the third checkout is the
+          # ledger-proven commit that built the observed live Worker.
+          ref: ${{ github.sha }}
           fetch-depth: 2
       - name: Resolve live Worker to GitHub verified deployment source commit
         if: steps.scope.outputs.run == 'true'
