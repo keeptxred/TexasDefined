@@ -93,7 +93,7 @@ const records: EventRecordWithWindows[] = [
     whyItMatters: "The annual Shiner Beer Run turns the brewery into a destination race venue, with full-marathon, half-marathon, 10K and 5K options that draw runners to Shiner for a fall event built around the town's best-known landmark.",
     planningSections: [
       { title: "Use November 21 as the confirmed 2026 race date", body: "Shiner's official event page lists the 15th annual Beer Run for Saturday, November 21, 2026, with event hours from 7 a.m. to 3 p.m. Its registration partner lists a new full marathon plus half marathon, 10K and 5K distances." },
-      { title: "Register before treating the trip as fixed", body: "The organizer warns that race spots can fill. Confirm current registration status and participant instructions before booking a trip around the race, and use the organizer's current social or registration guidance for packet pickup, start times and race-day rules." },
+      { title: "Register before treating the trip as fixed", body: "RunSignUp lists a 7:30 a.m. marathon, 8 a.m. half marathon, 8:30 a.m. 10K and 8:45 a.m. 5K. Races may fill or change, so check live registration availability, the latest pickup instructions and start-line guidance before paying for travel." },
       { title: "Plan the brewery and town around the race, not through it", body: "Race-day operations can change normal traffic, parking and campus flow. Keep brewery tours or a longer Shiner itinerary after the race only when the current schedule leaves enough recovery and travel time." },
     ],
     relatedLinks: [
