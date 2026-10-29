@@ -154,3 +154,66 @@ test('District 16 production verifies actual standings, fixtures, mobile and des
  assert.ok(district16Component.includes('data-district16-result="final"'));
  assert.ok(district16Component.includes('data-district16-result="scheduled"'));
 });
+
+
+const district9Data = readFileSync(new URL('../../src/data/high-school-football/football-district9-2026.ts', import.meta.url), 'utf8');
+const district9Component = readFileSync(new URL('../../src/components/sports/District9Coverage.tsx', import.meta.url), 'utf8');
+
+test('District 9 October 27 standings are eight distinct, balanced source-dated rows', () => {
+  const rows = [...district9Data.matchAll(/\{ uilName: '([^']+)', won: (\d+), lost: (\d+), pf: (\d+), pa: (\d+), overall: '([^']+)' \}/g)]
+    .map((m) => ({ uilName: m[1], won: +m[2], lost: +m[3], pf: +m[4], pa: +m[5], overall: m[6] }));
+  const names = [
+    'Garland', 'Garland Lakeview Cent', 'Garland Rowlett', 'Garland Sachse',
+    'North Garland', 'South Garland', 'Wylie', 'Wylie East',
+  ];
+  assert.deepEqual([...rows.map((r) => r.uilName)].sort(), [...names].sort(), 'all 8 UIL member schools exactly once');
+  assert.ok(rows.every((r) => r.won + r.lost === 5), 'each member has five reported district games');
+  assert.equal(rows.reduce((s, r) => s + r.won, 0), 20);
+  assert.equal(rows.reduce((s, r) => s + r.lost, 0), 20);
+  assert.equal(rows.reduce((s, r) => s + r.pf, 0), rows.reduce((s, r) => s + r.pa, 0));
+  assert.equal(rows.find((r) => r.uilName === 'Wylie East').overall, '7–1');
+  assert.equal(rows.find((r) => r.uilName === 'Garland Sachse').overall, '8–0');
+  assert.ok(district9Data.includes("DISTRICT9_STANDINGS_AS_OF = 'October 27, 2026'"));
+  assert.ok(district9Data.includes('not a licensed scoreboard feed'));
+});
+
+test('District 9 Week 9 reported finals and all eight final fixtures have real varsity sources', () => {
+  const finals = [...district9Data.matchAll(/\{ date: '2026-10-(?:22|23)', away: '([^']+)', home: '([^']+)', awayScore: (\d+), homeScore: (\d+) \}/g)];
+  const fixtures = [...district9Data.matchAll(/\{ date: '(2026-(?:10|11)-\d\d)', kickoff: '([^']+)', away: '([^']+)', home: '([^']+)', venue: '([^']+)', sourceUrl: '([^']+)' \}/g)];
+  assert.equal(finals.length, 4);
+  assert.equal(fixtures.length, 8, 'two scheduled rounds, no JV games or placeholder scores');
+  const names = new Set(['Garland', 'Garland Lakeview Cent', 'Garland Rowlett', 'Garland Sachse', 'North Garland', 'South Garland', 'Wylie', 'Wylie East']);
+  const pairs = new Set();
+  for (const row of fixtures) {
+    const [, date, time, away, home, venue, url] = row;
+    assert.ok(names.has(away) && names.has(home) && away !== home);
+    assert.ok(Number.isFinite(Date.parse(date + 'T12:00:00Z')));
+    assert.ok(time.includes('p.m.') && venue.length > 5 && url.startsWith('https://'));
+    const pair = [away, home].sort().join('|');
+    assert.ok(!pairs.has(pair), 'duplicate varsity matchup ' + pair);
+    pairs.add(pair);
+  }
+  assert.equal(fixtures.filter((m) => m[1] < '2026-11-01').length, 4);
+  assert.equal(fixtures.filter((m) => m[1] >= '2026-11-01').length, 4);
+  assert.ok(district9Data.includes('https://www.pigskinprep.com/showscores.asp?cid=8&wk=9&yr=2026'));
+  assert.ok(district9Data.includes("district9DisplayName"));
+  assert.ok(district9Component.includes('not live,'));
+  assert.ok(district9Component.includes('not certified UIL standings'));
+  assert.ok(district9Component.includes('not an authorized automatic MaxPreps data feed'));
+  assert.ok(district9Component.includes('data-district9-result="final"'));
+  assert.ok(district9Component.includes('data-district9-result="scheduled"'));
+});
+
+test('District 9 source-backed hub, game-day links, and non-generic SEO are wired without affecting other districts', () => {
+  assert.ok(template.includes('<District9Coverage schools={district.programs} />'));
+  assert.ok(template.includes('district9Pilot ? <Related href="#district-9-results"'));
+  assert.ok(template.includes('district9DisplayName(program.schoolName)'));
+  assert.ok(template.includes('district9Pilot && <FootballMonetizationSlot'));
+  assert.ok(template.indexOf('<District9Coverage schools={district.programs} />') < template.indexOf('district9Pilot && <FootballMonetizationSlot'));
+  assert.ok(head.includes('District 9-6A Football: 2026 Standings, Scores & Schedule'));
+  assert.ok(head.includes('district9DisplayName(program.schoolName)'));
+  for (const label of ['DISTRICT9_GISD_TICKETS_URL', 'DISTRICT9_WYLIE_TICKETS_URL', 'DISTRICT9_GISD_CALENDAR_URL', 'DISTRICT9_WYLIE_CALENDAR_URL']) {
+    assert.ok(district9Component.includes(label), label);
+  }
+  assert.ok(district9Component.includes('not Abilene Wylie Bulldogs'));
+});
