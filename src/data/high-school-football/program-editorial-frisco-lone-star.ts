@@ -30,11 +30,11 @@ const editorial: FootballProgramEditorial = {
     verifiedAt: '2026-10-29',
   },
   schedule: {
-    label: 'Official 2026 Frisco ISD varsity football schedule',
-    sourceUrl: 'https://www.friscoisd.org/page/2026-varsity-football-schedule/',
+    label: 'View Frisco ISD 2026 varsity football schedule (PDF)',
+    sourceUrl: 'https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/5799/Fisd/4e4f782e-9f60-4246-aa9a-6854740f2f4c/2026-Fball-Schedule-8-21.pdf?disposition=inline',
     sourceLabel: 'Frisco ISD official 2026 district-wide varsity football schedule',
     verifiedAt: '2026-10-29',
-    officialScheduleUrl: 'https://www.friscoisd.org/page/2026-varsity-football-schedule/',
+    officialScheduleUrl: 'https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/5799/Fisd/4e4f782e-9f60-4246-aa9a-6854740f2f4c/2026-Fball-Schedule-8-21.pdf?disposition=inline',
   },
   development: {
     title: 'Why the Lone Star Rangers program stands out',
@@ -78,7 +78,7 @@ const editorial: FootballProgramEditorial = {
     'The program reached two UIL state championship games in different divisions: Class 5A Division II in 2015 and Class 5A Division I in 2025. Frisco ISD’s September 9, 2026 program history also records 14 straight winning seasons through 2025. Those dated accomplishments should not be mistaken for a live 2026 win–loss record.',
     'A notable Lone Star football graduate is Nick Bolton, Class of 2018, who went on to play linebacker for the Kansas City Chiefs. Frisco ISD says it inducted Bolton into its Athletics Hall of Honor in 2024.',
     'The September 2026 UIL-partner team staff listing identifies Jeff Rayburn as Lone Star’s head football coach. This is a dated staff reference, not a guarantee that personnel will remain unchanged; confirm staff updates with Lone Star athletics.',
-    'For game-day planning, start with the official 2026 Frisco ISD varsity football schedule (https://www.friscoisd.org/page/2026-varsity-football-schedule/) and the district’s ticket information (https://tickets.friscoisd.org). Frisco ISD uses shared sports venues; Lone Star High School’s address is a campus contact location, not proof of a particular game’s venue, stadium entrance, parking arrangement, accessibility route, ticket availability or admission terms.',
+    'For game-day planning, start with the official 2026 Frisco ISD varsity football schedule (https://www.friscoisd.org/article/3120877), which links to the original 2026 schedule PDF, and the district’s ticket information (https://tickets.friscoisd.org). Frisco ISD uses shared sports venues; Lone Star High School’s address is a campus contact location, not proof of a particular game’s venue, stadium entrance, parking arrangement, accessibility route, ticket availability or admission terms.',
     'This independent profile links to the official school (https://www.friscoisd.org/o/lshs) and Frisco ISD source material. No school logo or student photograph is reproduced, and no 2026 scores, records or standings are generated while TexasDefined’s separate authorized data integration is deferred.',
   ],
   faq: [
@@ -100,7 +100,7 @@ const editorial: FootballProgramEditorial = {
     },
     {
       question: 'Where can I find the official 2026 Lone Star football schedule?',
-      answer: 'Use Frisco ISD’s district-wide varsity football schedule at https://www.friscoisd.org/page/2026-varsity-football-schedule/. Verify the matchup, venue and kickoff with the school before traveling.',
+      answer: 'Use Frisco ISD’s district-wide varsity football schedule PDF linked from https://www.friscoisd.org/article/3120877. Verify the matchup, venue and kickoff with the school before traveling.',
     },
     {
       question: 'Where do I buy tickets for Frisco ISD varsity football games?',
