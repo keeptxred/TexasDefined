@@ -21,6 +21,12 @@ export function classifySnippetPage(page) {
   const codes = new Set(issues.map((issue) => issue.code));
   const warningCodes = new Set(warnings.map((warning) => warning.code));
   const flags = Array.isArray(page?.authority?.reviewFlags) ? page.authority.reviewFlags : [];
+  // Optional, explicitly supplied finalized GSC measurements from a dated
+  // snapshot. This crawler does NOT retrieve live Search Console on its own.
+  const gsc = page?.gsc;
+  const measured = gsc && Number.isFinite(gsc.impressions) && Number.isFinite(gsc.clicks)
+    && Number.isFinite(gsc.ctr) && Number.isFinite(gsc.averagePosition);
+  const meaningfulGsc = measured && gsc.impressions >= 100;
   const verifiedHtml = page?.status === 200 && String(page?.contentType || '').toLowerCase().includes('text/html');
   let classification = 'KEEP';
   let evidence = [];
@@ -46,6 +52,15 @@ export function classifySnippetPage(page) {
       ...(flags.includes('no-identifiable-primary-source-host') ? ['source-provenance-review'] : []),
     ];
     basis = 'Content/authority review candidate, not a measured Google ranking or position change.';
+  } else if (meaningfulGsc && gsc.averagePosition > 20) {
+    classification = 'RANKING PROBLEM';
+    evidence = ['gsc-average-position-over-20'];
+    basis = 'The supplied finalized GSC snapshot shows 100+ impressions but average position above 20. Ranking/authority review comes before metadata churn; this does not certify editorial quality.';
+  } else if (meaningfulGsc && gsc.averagePosition >= 3
+    && gsc.averagePosition <= 20 && gsc.ctr < 0.02) {
+    classification = 'CTR IMPROVEMENT';
+    evidence = ['gsc-competitive-low-ctr-review'];
+    basis = 'The supplied finalized GSC snapshot has 100+ impressions, average position 3–20 and CTR below 2%. This is a snippet REVIEW candidate, not proof metadata is defective or a directive to rewrite.';
   } else if (warningCodes.has('title-review-length')) {
     classification = 'CTR IMPROVEMENT';
     evidence = ['title-review-length'];
@@ -56,8 +71,10 @@ export function classifySnippetPage(page) {
     classification, evidence, basis,
     htmlVerified: verifiedHtml,
     eligibleIndexableCandidate: verifiedHtml && !codes.has('sitemap-url-noindex'),
-    measuredSearchPerformance: false,
-    measurementDependency: 'Authenticated finalized Google Search Console metrics unavailable in this audit',
+    measuredSearchPerformance: Boolean(measured),
+    measurementDependency: measured
+      ? null
+      : 'Authenticated finalized Google Search Console metrics not supplied for this URL',
   };
 }
 

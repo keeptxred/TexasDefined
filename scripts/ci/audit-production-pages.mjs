@@ -17,6 +17,33 @@ const OUT_TSV = process.env.AUDIT_TSV || '/tmp/texasdefined-page-audit.tsv';
 const OUT_AUTHORITY_TSV = process.env.AUDIT_AUTHORITY_TSV || '/tmp/texasdefined-authority-review.tsv';
 const OUT_LINK_GRAPH_TSV = process.env.AUDIT_LINK_GRAPH_TSV || '/tmp/texasdefined-contextual-link-graph.tsv';
 const OUT_SNIPPET_TSV = process.env.AUDIT_SNIPPET_TSV || '/tmp/texasdefined-snippet-classification.tsv';
+const GSC_CTR_BASELINE_FILE = process.env.GSC_CTR_BASELINE_FILE || '';
+
+// Fail closed on malformed date-specific GSC evidence. Do not turn a snapshot
+// into a permanent or silently stale CI dependency: set the path explicitly.
+async function readGscBaseline(file) {
+  const rows = new Map();
+  if (!file) return rows;
+  const [header, ...lines] = (await fs.readFile(file, 'utf8')).trim().split(/\r?\n/);
+  if (header !== 'url,clicks,impressions,ctr,average_position') {
+    throw new Error('Unexpected finalized GSC page baseline header: ' + file);
+  }
+  for (const [index, line] of lines.entries()) {
+    if (!line) continue;
+    const parts = line.split(',');
+    const [clicksRaw, impressionsRaw, ctrRaw, positionRaw] = parts.splice(-4);
+    const url = parts.join(',');
+    const clicks = Number(clicksRaw), impressions = Number(impressionsRaw);
+    const ctr = Number(ctrRaw), averagePosition = Number(positionRaw);
+    if (!url.startsWith(new URL(ORIGIN).origin + '/') || ![clicks, impressions, ctr, averagePosition].every(Number.isFinite)
+      || clicks < 0 || impressions < 0 || clicks > impressions || ctr < 0 || ctr > 1 || averagePosition < 0 || rows.has(url)) {
+      throw new Error('Invalid or duplicate finalized GSC URL/metrics at CSV line ' + (index + 2));
+    }
+    rows.set(url, { clicks, impressions, ctr, averagePosition });
+  }
+  return rows;
+}
+
 
 const PAGE_FALLBACK_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide/i;
 const LOCALIZED_IMAGE_FALLBACK_RE = /Photo coming soon|destination-specific photograph not yet available/i;
@@ -133,21 +160,27 @@ async function auditPage(url){
 async function mapLimit(items,limit,fn){const results=new Array(items.length);let cursor=0;async function worker(){while(true){const i=cursor++;if(i>=items.length)return;results[i]=await fn(items[i],i);if((i+1)%100===0)console.log('Audited '+(i+1)+'/'+items.length);}}await Promise.all(Array.from({length:Math.max(1,Math.min(limit,items.length))},worker));return results;}
 function duplicateIssues(results,field,code){const groups=new Map();for(const result of results){const value=normalizeSpace(result[field]||'').toLowerCase();if(!value)continue;const list=groups.get(value)||[];list.push(result);groups.set(value,list);}for(const list of groups.values()){if(list.length<2)continue;const urls=list.map(x=>x.url).join(', ');for(const item of list)item.issues.push({code,detail:urls});}}
 
+const gscBaseline = await readGscBaseline(GSC_CTR_BASELINE_FILE);
 const {pageUrls,sitemaps,sitemapFailures}=await collectUrls();
 console.log('Discovered '+pageUrls.length+' unique indexable URLs from '+sitemaps.length+' sitemap(s); '+sitemapFailures.length+' sitemap failure(s).');
 const results=await mapLimit(pageUrls,CONCURRENCY,auditPage);
 duplicateIssues(results,'title','duplicate-title'); duplicateIssues(results,'description','duplicate-description');
-for (const result of results) result.snippet = classifySnippetPage(result);
+for (const result of results) {
+  result.gsc = gscBaseline.get(result.url) ?? null;
+  result.snippet = classifySnippetPage(result);
+}
 const snippetClassifications = snippetClassificationCounts(results);
 const linkGraph = enrichAuthorityLinkGraph(results);
 const failures=results.filter(r=>r.issues.length),warningPages=results.filter(r=>r.warnings?.length),byCode={},warningsByCode={};for(const result of failures)for(const issue of result.issues)byCode[issue.code]=(byCode[issue.code]||0)+1;for(const result of warningPages)for(const warning of result.warnings)warningsByCode[warning.code]=(warningsByCode[warning.code]||0)+1;
 const authorityByFamily={};const authorityFlags={};
 for(const result of results){if(!result.authority)continue;const a=result.authority;const group=authorityByFamily[a.family]??={pages:0,withReviewFlags:0,missingPrimarySourceCandidates:0};group.pages++;if(a.reviewFlags.length)group.withReviewFlags++;if(a.reviewFlags.includes('no-identifiable-primary-source-host'))group.missingPrimarySourceCandidates++;for(const flag of a.reviewFlags)authorityFlags[flag]=(authorityFlags[flag]??0)+1;}
 localAuditFetch.assertComplete();
-await fs.writeFile(OUT_JSON,JSON.stringify({auditRuntime:'local-built-worker',sourceSha:process.env.GITHUB_SHA || null,auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,linkGraph,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',snippetClassifications,searchPerformanceMeasurement:'NOT AVAILABLE FROM PUBLIC HTML',results},null,2)+'\n');
+await fs.writeFile(OUT_JSON,JSON.stringify({auditRuntime:'local-built-worker',sourceSha:process.env.GITHUB_SHA || null,auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,authorityByFamily,authorityFlags,linkGraph,authorityCertification:'NOT VERIFIED BY AUTOMATED AUDIT',snippetClassifications,searchPerformanceMeasurement: GSC_CTR_BASELINE_FILE
+    ? 'Finalized GSC snapshot explicitly joined per page (not live)' : 'NOT AVAILABLE FROM PUBLIC HTML',
+  gscBaselinePath:GSC_CTR_BASELINE_FILE||null,gscMeasuredPages:results.filter(r=>r.gsc).length,results},null,2)+'\n');
 const rows=[['url','status','words','h1s','title','description','h1','canonical','issues','warnings'],...results.map(r=>[r.url,String(r.status),String(r.words),String(r.h1s),r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | '),(r.warnings||[]).map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | ')])];
 await fs.writeFile(OUT_TSV,rows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
-const snippetRows=[['url','primary_classification','evidence','classification_basis','html_verified','indexable_candidate','family','title','description','h1','canonical','technical_issues','warnings','gsc_measurement'],...results.map(r=>[r.url,r.snippet.classification,r.snippet.evidence.join(','),r.snippet.basis,String(r.snippet.htmlVerified),String(r.snippet.eligibleIndexableCandidate),r.authority?.family||'',r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code).join(','),r.warnings.map(i=>i.code).join(','),'unavailable'])];
+const snippetRows=[['url','primary_classification','evidence','classification_basis','html_verified','indexable_candidate','family','title','description','h1','canonical','technical_issues','warnings','gsc_measurement','gsc_clicks','gsc_impressions','gsc_ctr','gsc_average_position'],...results.map(r=>[r.url,r.snippet.classification,r.snippet.evidence.join(','),r.snippet.basis,String(r.snippet.htmlVerified),String(r.snippet.eligibleIndexableCandidate),r.authority?.family||'',r.title,r.description,r.h1,r.canonical,r.issues.map(i=>i.code).join(','),r.warnings.map(i=>i.code).join(','),r.gsc?'finalized snapshot':'unavailable',r.gsc?.clicks??'',r.gsc?.impressions??'',r.gsc?.ctr??'',r.gsc?.averagePosition??''])];
 await fs.writeFile(OUT_SNIPPET_TSV,snippetRows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
 const authorityRows=[['priority','family','url','technical_issues','review_flags','link_graph_review','incoming_contextual_pages','reciprocal_contextual_pages','outgoing_sitemap_pages','main_words','source_hosts','candidate_official_source_urls','internal_destinations','date_signal','editorial_certification'],...results.filter(r=>r.authority && (r.authority.reviewFlags.length||r.issues.length)).sort((a,b)=>a.authority.priority-b.authority.priority||b.issues.length-a.issues.length||a.url.localeCompare(b.url)).map(r=>[r.authority.priority,r.authority.family,r.url,r.issues.map(i=>i.code).join(','),r.authority.reviewFlags.join(','),r.authority.linkGraphFlags.join(','),r.authority.inboundContextualPages,r.authority.reciprocalContextualPages,r.authority.outboundSitemapPageLinks,r.authority.mainWords,r.authority.identifiablePrimarySourceHosts,r.authority.officialEvidenceCandidates.join(' | '),r.authority.internalLinkDestinations,r.authority.visibleReviewDate,r.authority.editorialCertification])];
 await fs.writeFile(OUT_AUTHORITY_TSV,authorityRows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
