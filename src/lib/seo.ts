@@ -169,6 +169,11 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
 // deliberately excluded from the browser bundle. Client navigation falls back to each page's
 // existing metadata; canonical SSR output carries the GSC-aligned title/description.
 const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
+  "/article/texas-cultural-regions-explained": {
+    // 2026-10-29 GSC: searchers use "cultural regions of Texas"; preserve the historical editorial H1.
+    title: "Texas Cultural Regions: History, Migration & Communities",
+    description: "Explore Texas cultural regions shaped by Indigenous, Tejano, Black, German, Czech and other communities, from settlement and migration to music and traditions.",
+  },
   "/destination/magnolia-market-at-the-silos": {
     title: "Magnolia Market at the Silos Waco: Hours, Parking & Guide",
     description: "Plan a Magnolia Market at the Silos visit in Waco: location at 601 Webster Avenue, parking, shops, bakery, gardens, visitor hours and nearby attractions.",
