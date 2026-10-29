@@ -16,6 +16,8 @@ on:
       - "src/data/events/november-official-picks-2026.ts"
       - "scripts/events/check-mardi-gras-official-sources.mjs"
       - "scripts/events/check-mardi-gras-official-sources.test.mjs"
+      - "scripts/events/parse-mardi-gras-official-facts.mjs"
+      - "scripts/events/parse-mardi-gras-official-facts.test.mjs"
       - "scripts/events/sync-tpwd-calendar.mjs"
       - "scripts/events/sync-tpwd-calendar.test.mjs"
       - "src/data/events/tpwd-event-records.server.ts"
@@ -89,7 +91,7 @@ jobs:
           echo "::warning title=November event source review required::Tracked as an existing or newly opened issue; current listings remain unchanged."
 
       - name: Test Mardi Gras official-source watch safety and date fixtures
-        run: node --test scripts/events/check-mardi-gras-official-sources.test.mjs
+        run: node --test scripts/events/check-mardi-gras-official-sources.test.mjs scripts/events/parse-mardi-gras-official-facts.test.mjs
 
       # Reuse this daily Texas-events workflow: no separate scheduler, no auto-rollover of dates.
       # A changed official source opens or reuses a bounded review issue and preserves last-known-good records.
