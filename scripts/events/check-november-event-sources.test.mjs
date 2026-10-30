@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { targets, verifySource, inspect } from "./check-november-event-sources.mjs";
+import { targets, verifySource, inspect, inspectAllTargets } from "./check-november-event-sources.mjs";
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 
@@ -141,6 +141,27 @@ test("Nutcracker current venue and Dobie sold-out meal sources fail closed", () 
   assert(!verifySource("<h1>Friday, November 6th, 2026</h1><p>Program + Meal now available</p>", dobie));
 });
 
+
+test("live November watcher maps target arrays without passing index as fetcher", async () => {
+  const parade = targets.find((target) => target.name === "GM Financial Parade of Lights");
+  const market = targets.find((target) => target.name === "Texas Christkindl Market");
+  assert(parade && market);
+  const bodies = new Map([
+    [parade.url, "<h1>Sunday, November 22, 2026</h1>"],
+    [market.url, "<h1>2026 TEXAS CHRISTKINDL MARKET DATES: Nov. 20 – 22, 2026; Nov. 27 – Dec. 23, 2026</h1>"],
+  ]);
+  const fetched = [];
+  const results = await inspectAllTargets([parade, market], async (url) => {
+    fetched.push(url);
+    assert(bodies.has(url), "Only the specified organizer URLs should be requested");
+    return { ok: true, status: 200, text: async () => bodies.get(url) };
+  });
+  assert.deepEqual(results.map((result) => result.status), ["match", "match"]);
+  assert.deepEqual(fetched, [parade.url, market.url]);
+  const script = read("./check-november-event-sources.mjs");
+  assert(script.includes("const observations = await inspectAllTargets(targets);"), "CLI must use tested runner rather than targets.map(inspect)");
+  assert(!script.includes("targets.map(inspect)"), "Array.map index must never override inspect's fetcher");
+});
 
 test("blocked Houston Ballet organizer uses only exact official venue fallback dates", async () => {
   const market = targets.find(item => item.name === "Houston Ballet Nutcracker Market venue");

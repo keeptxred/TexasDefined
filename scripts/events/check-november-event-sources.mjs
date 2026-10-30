@@ -90,13 +90,19 @@ export async function inspect(target, fetcher = fetch) {
   return { name: target.name, status: "review", url: target.url, reason: errors.join("; ") };
 }
 
+// Keep CLI and tested multi-source path identical: never forward Array.map's index
+// as the fetcher parameter to inspect.
+export function inspectAllTargets(targetList = targets, fetcher = fetch) {
+  return Promise.all(targetList.map((target) => inspect(target, fetcher)));
+}
+
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
   const today = new Date().toISOString().slice(0, 10);
   if (today > "2027-02-28") {
     console.error("2026 November monitor has expired: source-qualified 2027 season needs a new reviewed edition.");
     process.exitCode = 1;
   } else {
-    const observations = await Promise.all(targets.map(inspect));
+    const observations = await inspectAllTargets(targets);
     for (const observation of observations) console.log(JSON.stringify(observation));
     if (observations.some((result) => result.status === "review")) {
       console.error("Organizer-source review required. Preserve existing dates and open a bounded issue; do not auto-correct.");
