@@ -55,7 +55,7 @@ export function CalendarBookingDiscovery({ christmas = false, city, requireSelec
           className="text-sm font-semibold text-primary underline"
         >Browse all {locationName} experiences on Viator ↗</a> : <span className="text-sm text-muted-foreground">Choose a city to see locally relevant experiences.</span>}
       </div>
-      {requestVersion > 0 && activeMarket ? <ViatorLiveProducts key={`${activeMarket}-${requestVersion}-${christmas}`} marketSlug={activeMarket} placement={activePlacement} mode="auto" feedKind={christmas ? "christmas" : "products"} /> : null}
+      {requestVersion > 0 && activeMarket && activeMarket === market ? <ViatorLiveProducts key={`${activeMarket}-${requestVersion}-${christmas}`} marketSlug={activeMarket} placement={activePlacement} mode="auto" feedKind={christmas ? "christmas" : "products"} /> : null}
       <p className="mt-4 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings, at no additional cost to you. Organizer-confirmed event dates and official booking links remain the authoritative event source.</p>
     </div>
   </section>;
