@@ -67,7 +67,7 @@ function WildlifeHubPage() {
           <div><p className="eyebrow text-primary">Plan with current conditions</p><h2 className="mt-3 font-display text-4xl">Habitat first, then the county</h2></div>
           <div className="grid gap-6 sm:grid-cols-2">
             <p className="text-sm leading-7 text-muted-foreground">Bird migration, water levels, heat, storms, hunting seasons and conservation work can change what is open and what you are likely to see. Use each refuge&apos;s official federal visitor source for day-of-trip alerts and access rules.</p>
-            <p className="text-sm leading-7 text-muted-foreground">TexasDefined ties refuge records into county and regional discovery so a wildlife stop can become part of a larger trip. Hunters should also use the <Link to="/hunting" className="font-semibold text-primary underline underline-offset-4">Texas hunting hub</Link> for TPWD license, season and public-hunting verification before assuming a wildlife destination is open to hunting.</p>
+            <p className="text-sm leading-7 text-muted-foreground">Use the county and regional guides to pair a wildlife refuge visit with nearby places, while checking the refuge's official access rules before the drive. Hunters should also use the <Link to="/hunting" className="font-semibold text-primary underline underline-offset-4">Texas hunting hub</Link> for TPWD license, season and public-hunting verification before assuming a wildlife destination is open to hunting.</p>
           </div>
         </div>
       </Container>

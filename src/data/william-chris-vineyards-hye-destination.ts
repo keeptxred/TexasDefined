@@ -172,7 +172,7 @@ export const williamChrisVineyardsHyeDestinations: Destination[] = [
     },
     authorityGuide: {
       whyItMatters:
-        "William Chris gives TexasDefined a source-rich winery destination in Hye where current visitor experiences, Texas-grown agriculture and the broader U.S. 290 corridor can be explained together instead of reducing the stop to a directory listing.",
+        "At William Chris in Hye, visitors can connect a working Hill Country winery with Texas-grown grapes, guided tasting experiences and a wider U.S. 290 wine-country trip. Choose a tasting or dining experience that fits your group, then verify availability and current policies with the estate.",
       assessment: {
         recommendedVisit:
           "Plan 1.5 to 2 hours for a guided tasting and unhurried estate time; allow roughly 2 to 3 hours when booking the Chef's Table or pairing the visit with a meal-style experience.",
