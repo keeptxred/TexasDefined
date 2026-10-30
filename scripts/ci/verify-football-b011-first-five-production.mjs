@@ -104,7 +104,7 @@ try {
                 className: typeof element.className === 'string' ? element.className.slice(0, 160) : '',
                 right: Math.round(rect.right),
                 width: Math.round(rect.width),
-                text: (element.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 120),
+                text: (element.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 120),
               };
             })
             .sort((left, right) => left.width - right.width)
