@@ -160,7 +160,26 @@ export const majorEventSchemaEnrichmentBatch1: MajorEventSchemaEnrichment[] = [
   {
     slug: "texas-rose-festival",
     organizer: organization("Texas Rose Festival Association", "https://www.texasrosefestival.org/"),
-    sources: [{ label: "Texas Rose Festival Association official site", url: "https://www.texasrosefestival.org/" }],
-    verifiedAt: "2026-09-01",
+    // The Tyler Municipal Rose Garden is an actual festival venue (including
+    // the Queen's Tea), not a fabricated view of any particular year's parade.
+    // Commons records the historical 2009 photograph as CC BY 2.0, allowing
+    // commercial reuse with attribution. Preserve licensing and date context.
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tyler_Rose_Garden.jpg?width=1600",
+      alt: "Tyler Municipal Rose Garden grounds in Tyler, venue for Texas Rose Festival activities; historical 2009 photo, not the 2026 festival parade",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Tyler_Rose_Garden.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution 2.0 Generic",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "Photo: Robert Nunnally, 2009 / Wikimedia Commons, CC BY 2.0. Licensed exact-location Tyler Municipal Rose Garden photograph; not an image of the 2026 festival or Rose Parade.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Texas Rose Festival Association official site", url: "https://www.texasrosefestival.org/" },
+      { label: "Rose Garden photograph by Robert Nunnally — Wikimedia Commons, CC BY 2.0", url: "https://commons.wikimedia.org/wiki/File:Tyler_Rose_Garden.jpg" },
+      { label: "Rose Garden photo reuse license — CC BY 2.0", url: "https://creativecommons.org/licenses/by/2.0/" },
+    ],
+    verifiedAt: "2026-10-30",
   },
 ];
