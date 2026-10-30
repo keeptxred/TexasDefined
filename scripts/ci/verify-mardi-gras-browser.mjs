@@ -23,6 +23,16 @@ const GUIDES = [
   { slug: "oak-cliff-mardi-gras-parade", text: "Oak Cliff Mardi Gras Parade", licensed: true, credit: "Michael Barera", year: "2027" },
   { slug: "mardi-gras-southeast-texas-beaumont", text: "Mardi Gras of Southeast Texas", licensed: true, credit: "2C2KPhotography", year: "2026", pending: true },
 ];
+// The shared server authority bridge withholds one-off Event markup for
+// multi-occurrence event guides or unannounced/expired 2026 festivals.
+// These four still require parseable WebPage JSON-LD and MUST NOT assert
+// one fabricated single confirmed future Event.
+const WEBPAGE_ONLY_SLUGS = new Set([
+  "mardi-gras-galveston",
+  "kemah-yachty-gras",
+  "mardi-gras-southeast-texas-beaumont",
+  "mardi-gras-on-the-sabine-orange",
+]);
 const HUB = "/events/mardi-gras";
 const VIEWPORTS = [
   { name: "desktop", width: 1365, height: 900 },
@@ -34,6 +44,8 @@ if (process.argv.includes("--self-test")) {
   assert.equal(GUIDES.length, 11, "exactly 11 original major event guides");
   assert.equal(GUIDES.filter(x => x.licensed).length, 8, "exactly eight independently licensed heroes");
   assert.equal(GUIDES.filter(x => !x.licensed).length, 3, "three image/noindex blockers");
+  assert.equal(WEBPAGE_ONLY_SLUGS.size, 4, "four multi-window or expired/unannounced guide schemas");
+  for (const slug of WEBPAGE_ONLY_SLUGS) assert.ok(GUIDES.some(guide => guide.slug === slug));
   assert.equal(new Set(allPaths).size, 12, "every route unique");
   assert.equal(VIEWPORTS.length, 2);
   for (const guide of GUIDES) {
@@ -99,12 +111,15 @@ try {
         // Route-level JSON-LD can arrive after the server-rendered h1. Wait
         // briefly for hydration before classifying a schema as genuinely absent.
         // Never count a breadcrumb as a substitute for Event/CollectionPage.
-        await page.waitForFunction(({ hub }) => {
-          const required = hub ? ["CollectionPage", "ItemList"] : ["Event"];
+        await page.waitForFunction(({ hub, expectedSchemaType }) => {
+          const required = hub ? ["CollectionPage", "ItemList"] : [expectedSchemaType];
           const json = Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
             .map(el => el.textContent || "").join("\n");
           return required.every(type => new RegExp('"@type"\\s*:\\s*"' + type + '"').test(json));
-        }, { hub: !guide }, { timeout: 8_000 }).catch(() => {});
+        }, {
+          hub: !guide,
+          expectedSchemaType: guide && WEBPAGE_ONLY_SLUGS.has(guide.slug) ? "WebPage" : "Event",
+        }, { timeout: 8_000 }).catch(() => {});
         const data = await page.evaluate(() => {
           const image = document.querySelector('figure[data-major-event-hero="true"] img[data-major-event-enrichment-image="true"]');
           const caption = document.querySelector('figure[data-major-event-hero="true"] figcaption');
@@ -126,6 +141,7 @@ try {
             title: document.title || "",
             pageText: pageText.slice(0, 180_000),
             hasEvent: marker("Event"),
+            hasWebPage: marker("WebPage"),
             hasCollectionPage: marker("CollectionPage"),
             hasList: marker("ItemList"),
             schemaDiagnostics: {
@@ -155,7 +171,11 @@ try {
         check("human-readable title", data.title.length > 15, data.title.slice(0, 100));
         if (guide) {
           check("correct individual event identity", data.h1.includes(guide.text), data.h1);
-          check("Event structured data", data.hasEvent, JSON.stringify(data.schemaDiagnostics));
+          if (WEBPAGE_ONLY_SLUGS.has(guide.slug)) {
+            check("evergreen WebPage schema; no fabricated one-off Event", data.hasWebPage && !data.hasEvent, JSON.stringify(data.schemaDiagnostics));
+          } else {
+            check("single confirmed Event structured data", data.hasEvent, JSON.stringify(data.schemaDiagnostics));
+          }
           check("year source context", bodyText.includes(guide.year), data.title);
           check("official source links", await page.getByRole("heading", { name: "Official event links" }).count() > 0);
           check("visit planning", await page.getByRole("heading", { name: "Planning your visit" }).count() > 0);
