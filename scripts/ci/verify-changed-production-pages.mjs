@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+const turkeyQuarterlyCheckedAt = JSON.parse(readFileSync('src/data/hunting/turkey-quarterly-facts.json', 'utf8')).checkedAt;
 
 // Derive strict release markers from the reviewed event sources, rather than
 // leaving fixed dates that outlive later verified editorial updates.
@@ -244,6 +245,9 @@ export function assertTurkeyHuntingAuthority(html, surface) {
     'TPWD legal-game and property finder',
     'Hagerman hunt rules and permit details',
     'East Lake hunt rules and permit details',
+    // The source-backed quarterly dataset must be visible in BOTH visitor HTML variants.
+    'TPWD draw and survey data machine-checked ' + turkeyQuarterlyCheckedAt,
+    'Machine-checked ' + turkeyQuarterlyCheckedAt,
   ]) {
     if (!visible.includes(marker)) throw new Error('Turkey hunting ' + surface + ' authority section missing: ' + marker);
   }
