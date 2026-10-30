@@ -1,13 +1,7 @@
 {
-  "generatedAt": "2026-10-30T17:02:25.112Z",
+  "generatedAt": "2026-10-30T20:00:57.730Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Awesome Opossums",
-      "startDate": "2026-10-30",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-10-30"
-    },
     {
       "title": "Creepy Crawlies After Dark: Night Hike 🕸️🦂",
       "startDate": "2026-10-30",
@@ -169,6 +163,12 @@
       "startDate": "2026-11-05",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/coffee-with-the-superintendents/2026-11-05"
+    },
+    {
+      "title": "Hike With Homeless Dogs",
+      "startDate": "2026-11-05",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/hike-with-homeless-dogs/2026-11-05"
     },
     {
       "title": "Homeschool Hour at Pedernales Falls!",
@@ -517,6 +517,12 @@
       "startDate": "2026-11-19",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-11-19"
+    },
+    {
+      "title": "Hike With Homeless Dogs",
+      "startDate": "2026-11-19",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/hike-with-homeless-dogs/2026-11-19"
     },
     {
       "title": "Homeschool Classes at the Park",
