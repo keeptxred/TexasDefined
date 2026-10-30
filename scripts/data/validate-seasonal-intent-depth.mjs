@@ -150,6 +150,31 @@ for (const marker of [
 if (!depth.includes("Quick answer: when and where to go")) {
   fail("East Texas fall-color canonical depth marker is missing");
 }
+// Hill Country must remain useful, distinct from its East Texas sibling, and
+// consolidated rather than repeating the same three park summaries twice.
+const hillBase = articleBlock("hill-country-fall-colors");
+const hillSupplement = depthBlock("hill-country-fall-colors");
+const hillBodyWords = baseBodyWordCount(hillBase) + supplementalBodyWordCount("hill-country-fall-colors", hillSupplement);
+if (hillBodyWords < 1000) fail(`Hill Country route is too thin for a park-by-park planning guide (${hillBodyWords} body words)`);
+for (const marker of [
+  "Quick answer: where should you go?",
+  "Lost Maples State Natural Area: concentrated maple color",
+  "Garner State Park: Frio River and fall reflections",
+  "Guadalupe River State Park: cypress without the maple crowds",
+  "A practical one-day itinerary",
+  "A two-day western Hill Country weekend",
+  "How to read the official foliage updates",
+  "Frequently asked questions",
+]) if (!(`${hillBase}\n${hillSupplement}`).includes(marker)) fail(`Hill Country planning guide missing section: ${marker}`);
+for (const redundant of [
+  'h("Lost Maples requires reservation strategy")',
+  'h("Garner and the Frio offer a broader landscape")',
+  'h("The Guadalupe corridor is the easier Central Texas option")',
+]) if (hillSupplement.includes(redundant)) fail("Hill Country repeating legacy section: " + redundant);
+const hillBaseHeadings = [...hillBase.matchAll(/type: "heading", text: "([^"]+)"/g)].map(match => match[1]);
+const hillDepthHeadings = [...hillSupplement.matchAll(/\bh\("([^"]+)"\)/g)].map(match => match[1]);
+if (new Set([...hillBaseHeadings, ...hillDepthHeadings]).size !== hillBaseHeadings.length + hillDepthHeadings.length)
+  fail("Hill Country duplicated a section heading between canonical base and supplements");
 
 if (!process.exitCode) {
   console.log(`Seasonal intent depth guard passed: ${slugs.length} canonical seasonal pages retain at least 500 source words, every rendered body clears the ${seasonalIndexMinimum}-word route indexability floor (minimum observed ${minimumObservedBodyWords}), keep one canonical owner, and cannot regress to a one-minute contract.`);
