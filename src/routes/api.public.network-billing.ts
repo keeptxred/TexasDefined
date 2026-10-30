@@ -39,6 +39,8 @@ export const Route = createFileRoute("/api/public/network-billing")({
     GET: async ({ request }) => {
       const auth = await owner(request);
       if (!auth) return respond({ error: "Sign in to manage your subscription." }, 401);
+      const {networkCustomerLaunchArmed}=await import("@/data/network-atomic-launch-readiness.server");
+      if(!networkCustomerLaunchArmed(process.env))return respond({error:"Network full launch not accepted."},503);
       const {networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
       if(!networkStripeHostAllowed(request))return respond({error:"Billing unavailable for this host."},503);
       const {data: bindings, error: bindingError} = await auth.client
@@ -70,6 +72,8 @@ export const Route = createFileRoute("/api/public/network-billing")({
         await discardRejectedNetworkPostBody(request);
         return respond({ error: "Sign in to manage your subscription." }, 401);
       }
+      const {networkCustomerLaunchArmed}=await import("@/data/network-atomic-launch-readiness.server");
+      if(!networkCustomerLaunchArmed(process.env))return respond({error:"Network full launch not accepted."},503);
       const {getNetworkStripeRuntime,networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
       if(!networkStripeHostAllowed(request))return respond({error:"Billing unavailable for this host."},503);
       // Authenticated billing requests must also honor a real streamed byte limit.

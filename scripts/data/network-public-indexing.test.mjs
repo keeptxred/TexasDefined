@@ -14,7 +14,8 @@ test('Only independently published business profiles become indexable; all priva
  const source=route('network.business.$slug.tsx');
  assert.match(source,/NETWORK_DIRECTORY_ENABLED!==["']true["']\)return null/);
  assert.match(source,/\.eq\(["']is_published["'],\s*true\)/);
- assert.match(source,/return listing \? \{\.\.\.listing,indexable:true\} : null/);
+ assert.match(source,/const visible=listing\?projectNetworkPublicProfile\(listing\):null/);
+ assert.match(source,/return visible \? \{\.\.\.visible,indexable:process\.env\.NETWORK_ISOLATED_STAGING!=='true'\} : null/);
  assert.match(source,/loaderData\?\.indexable \? ["']index,follow["'] : ["']noindex,nofollow,noarchive["']/);
  for(const path of ['network.apply.tsx','business.dashboard.tsx','network.billing.tsx','admin.network-applications.tsx']){
   assert.match(route(path),/noindex/i,path+' must never be indexed');
@@ -26,4 +27,27 @@ test('UI catalog no longer says inactive product while actual checkout remains s
  assert.doesNotMatch(ui,/NETWORK_CHECKOUT_ENABLED\s*=\s*false/);
  const server=readFileSync('src/data/network-stripe.server.ts','utf8');
  assert.match(server,/process\.env\.NETWORK_CHECKOUT_ENABLED==='true'/);
+});
+
+
+test('canonical metadata never signals publication for staging or unlaunched Network routes',()=>{
+ const business=route('network.business.$slug.tsx');
+ assert.match(business,/const canonical = loaderData\?\.indexable && loaderData\.slug/);
+ assert.match(business,/links: canonical \? \[\{rel:"canonical",href:canonical\}\] : \[\]/);
+ assert.match(business,/name:"description"/);
+ const join=route('network.join.tsx');
+ assert.match(join,/links:loaderData\?\.launchReady \? /);
+ const directory=route('network.directory.tsx');
+ assert.match(directory,/links:loaderData\?\.indexable \? /);
+});
+
+test('Featured directory sponsorship is labeled and limited to editorially published profiles',()=>{
+ const routeSource=route('network.directory.tsx');
+ const ui=route('network.directory.lazy.tsx');
+ assert.match(routeSource,/\.eq\("is_published",true\)\.eq\("plan","featured"\)/);
+ assert.match(routeSource,/\.eq\("is_published", true\)/);
+ assert.match(routeSource,/const seen = new Set<string>\(\)/);
+ assert.match(ui,/right\.plan==='featured'/);
+ assert.match(ui,/profile\.plan==='featured'&&<p/);
+ assert.match(ui,/Sponsored · Featured listing/);
 });
