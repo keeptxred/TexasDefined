@@ -437,7 +437,7 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
       {isFiltered ? <button type="button" className="text-sm font-semibold text-primary underline" onClick={reset}>Clear filters</button> : null}
     </div>
     {filtered.length ? <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
-      {filtered.map((event) => <li key={event.slug} className="flex flex-col bg-background p-6">
+      {filtered.map((event) => <li key={event.slug} data-november-event-card={event.name} className="flex flex-col bg-background p-6">
         <NovemberEventVisual event={event} className="mb-5" />
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">{dateDisplay(event)}</p>
         <p className="eyebrow mt-3 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
