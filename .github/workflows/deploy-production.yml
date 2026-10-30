@@ -923,9 +923,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if ! git diff --name-only HEAD^ HEAD | grep -Eq '^(src/components/hunting/|src/data/hunting/|src/routes/hunting|scripts/ci/verify-hunting-hub-responsive-browser\.mjs|scripts/ci/verify-turkey-hunting-browser\.mjs)'; then
-            echo "No hunting change in this release; skip browser acceptance."
-            exit 0
+          # Scope against the last verified deployment, not just HEAD^.
+          # An automated merge can be followed by an unrelated main commit.
+          if node scripts/ci/hunting-browser-release-scope.mjs; then
+            echo 'Verify bounded hunting pages against the live visitor experience.'
+          else
+            decision=$?
+            if [[ "$decision" == '10' ]]; then
+              echo 'No hunting change since last verified production; skip Chrome.'
+              exit 0
+            fi
+            exit "$decision"
           fi
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
