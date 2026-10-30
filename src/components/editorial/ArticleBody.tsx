@@ -141,10 +141,10 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
     remainingLinks -= maxLinks;
     return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={policyForSurface('article')} />;
   };
-  // Link only known TPWD paths in the East Texas seasonal guide. Other article
+  // Link verified TPWD park sources only in the two regional foliage guides. Other article
   // prose keeps the shared auto-entity-link behavior unchanged.
   const renderFoliageSourceLinks = (text: string, requestedLinks: number) => {
-    if (articleSlug !== "east-texas-fall-colors" || !text.includes("](https://tpwd.texas.gov/")) return render(text, requestedLinks);
+    if (!["east-texas-fall-colors", "hill-country-fall-colors"].includes(articleSlug ?? "") || !text.includes("](https://tpwd.texas.gov/")) return render(text, requestedLinks);
     const pieces = text.split(/(\[[^\]]+\]\(https:\/\/tpwd\.texas\.gov\/state-parks\/[a-z0-9/-]+\))/g);
     return pieces.map((piece, partIndex) => {
       const source = piece.match(/^\[([^\]]+)\]\((https:\/\/tpwd\.texas\.gov\/state-parks\/[a-z0-9/-]+)\)$/);
@@ -175,6 +175,7 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
             (articleSlug === "chip-and-joanna-gaines-magnolia-waco" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions about Chip and Joanna Gaines"))
             || (articleSlug === "texas-high-school-football-playoffs-explained" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
             || (articleSlug === "east-texas-fall-colors" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
+            || (articleSlug === "hill-country-fall-colors" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
             || (articleSlug === "moving-to-el-paso-guide" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions about moving to El Paso"))
           )) {
             return <h3 key={index} id={articleHeadingId(block.text)} className="mb-3 mt-8 scroll-mt-28 font-display text-xl font-semibold">{render(block.text, 2)}</h3>;
