@@ -4,6 +4,442 @@ import type { FootballProgramEditorial } from './program-editorial';
  * 2026 football guides. A research source is not a licensed scoreboard, official
  * school logo or guarantee of stadium admission, scores or accessibility. */
 const BATCH011_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "conroe-the-woodlands": {
+    "slug": "conroe-the-woodlands",
+    "intro": "The Woodlands Highlanders is a separately operated Texas high-school varsity football program in The Woodlands in Montgomery County, playing in UIL 6A District 13 for 2026–28. The Woodlands High's Highlanders program has its own Conroe ISD athletics office, not the same team as College Park Cavaliers despite nearby campuses and shared district resources. The current campus athletics page lists Jim Rapp as head football coach and athletic director, while the staff directory uses his full first name James. Matching the name and school role avoids inventing a second coaching appointment.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "TexasDefined original independent text-only school identity; no team colors, logo, uniform or photo rights presumed."
+    },
+    "seo": {
+      "title": "The Woodlands Highlanders Football | 2026 6A District 13",
+      "description": "Source-backed independent The Woodlands Highlanders football reference: current UIL 6A District 13, school staff roles, dated milestones, county and visitor details."
+    },
+    "coach": {
+      "name": "Jim (James) Rapp",
+      "title": "Official 2026 campus athletic director and head football coach; staff uses James, athletics page uses Jim",
+      "sourceUrl": "https://twhs.conroeisd.net/o/twhs/page/athletics",
+      "sourceLabel": "Official campus athletics staff or dated 2026 appointment",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "6101 Research Forest Drive, The Woodlands, TX 77381 — campus mailing address, not football visitor gate",
+      "sourceUrl": "https://twhs.conroeisd.net/o/twhs/page/athletics",
+      "sourceLabel": "School-issued or federal physical campus reference, not a football game gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check current official school/host varsity fixtures and event ticket policy",
+      "officialScheduleUrl": "https://twhs.conroeisd.net/o/twhs/page/athletics",
+      "sourceUrl": "https://twhs.conroeisd.net/o/twhs/page/athletics",
+      "sourceLabel": "School-controlled athletics information, not a licensed game-results feed",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "Distinct The Woodlands Highlanders football history and 2026 status",
+      "body": "The Woodlands High's Highlanders program has its own Conroe ISD athletics office, not the same team as College Park Cavaliers despite nearby campuses and shared district resources. The current campus athletics page lists Jim Rapp as head football coach and athletic director, while the staff directory uses his full first name James. Matching the name and school role avoids inventing a second coaching appointment.",
+      "sourceUrl": "https://twhs.conroeisd.net/",
+      "sourceLabel": "Current official school campus and athletics source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2026 current athletics directory",
+        "title": "Jim Rapp named varsity head football coach and AD",
+        "body": "The Woodlands High official athletics names Rapp head football coach/athletic director and lists independently verified contact references.",
+        "sourceUrl": "https://twhs.conroeisd.net/o/twhs/page/athletics",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2026 campus roster",
+        "title": "James Rapp is the same school coach using his full given name",
+        "body": "School staff directory shows James Rapp as Head Football Coach/Campus Athletic Director, not a second coach.",
+        "sourceUrl": "https://twhs.conroeisd.net/o/twhs/staff/?page_no=14",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL Class 6A District 13",
+        "body": "The official alignment records The Woodlands program's current football district but contains no current game finals.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      }
+    ],
+    "overview": [
+      "The Woodlands Highlanders is a separately operated Texas high-school varsity football program in The Woodlands in Montgomery County, playing in UIL 6A District 13 for 2026–28. The Woodlands High's Highlanders program has its own Conroe ISD athletics office, not the same team as College Park Cavaliers despite nearby campuses and shared district resources. The current campus athletics page lists Jim Rapp as head football coach and athletic director, while the staff directory uses his full first name James. Matching the name and school role avoids inventing a second coaching appointment.",
+      "Conroe ISD's central athletics department offers Woodforest Bank Stadium and Moorhead Stadium maps, school tickets and a 2026 varsity schedule, but those are broad district logistics: neither stadium map establishes the assigned host venue for every Woodlands home or away contest. UIL 6A District 13 controls the 2026–28 classification; historical coach or schedule mentions must not be passed off as verified 2026 wins.",
+      "School information lists 6101 Research Forest Drive for the campus. Before a game, use the Highlanders' school-controlled ticket and schedule pathway plus the particular host's venue and clear-bag policy. The mailing address by itself cannot prove a game entrance, ADA route, price or event sellout.",
+      "This original TexasDefined program guide gives individually sourced football staff, school and county identity, and official UIL classification. It does not assert live 2026 wins, tickets, licensed football photographs or official mascot marks, and it does not infer stadium accessibility from a campus mailing address."
+    ],
+    "faq": [
+      {
+        "question": "Who is The Woodlands Highlanders head football coach?",
+        "answer": "The Woodlands High athletics office lists Jim Rapp as athletic director/head football coach, while the current campus staff directory calls him James Rapp."
+      },
+      {
+        "question": "Are The Woodlands and College Park the same school?",
+        "answer": "No. The Woodlands High Highlanders and nearby College Park Cavaliers have separate campuses, head coaches and varsity teams, even though they share Conroe ISD."
+      },
+      {
+        "question": "Which football district contains The Woodlands in 2026?",
+        "answer": "UIL's official 2026–28 alignment places The Woodlands in Class 6A District 13."
+      },
+      {
+        "question": "Does The Woodlands High campus address mean the varsity stadium address?",
+        "answer": "No. The school lists Research Forest Drive for campus contact, while Conroe ISD manages multiple stadiums. Use the host team's specific event listing."
+      },
+      {
+        "question": "Can I use a district-wide map as a ticket or parking guarantee?",
+        "answer": "No. District maps are planning references and do not establish the gate, parking, accessible entry, seating or ticket inventory for any individual football game."
+      }
+    ]
+  },
+  "conroe-woodlands-college-park": {
+    "slug": "conroe-woodlands-college-park",
+    "intro": "The Woodlands College Park Cavaliers is a separately operated Texas high-school varsity football program in The Woodlands in Montgomery County, playing in UIL 6A District 13 for 2026–28. College Park's Cavaliers football team occupies the 3701 College Park Drive campus, separately from the Highlanders at The Woodlands High. The official athletics department identifies Michael Buro as campus athletic director/head football coach. College Park's school athletics is a distinct program, not a sub-team of Conroe High, Oak Ridge, or the other schools in the same district.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "TexasDefined original independent text-only school identity; no team colors, logo, uniform or photo rights presumed."
+    },
+    "seo": {
+      "title": "The Woodlands College Park Cavaliers Football | 2026 6A District 13",
+      "description": "Source-backed independent The Woodlands College Park Cavaliers football reference: current UIL 6A District 13, school staff roles, dated milestones, county and visitor details."
+    },
+    "coach": {
+      "name": "Michael Buro",
+      "title": "School-listed campus athletic director and head football coach, 2026 current staff",
+      "sourceUrl": "https://anderson.conroeisd.net/o/twcphs/page/athletics",
+      "sourceLabel": "Official campus athletics staff or dated 2026 appointment",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "3701 College Park Drive, The Woodlands, TX 77384 — high school campus, not an assumed football gate",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481500010964&InstName=college+park&SchoolPageNum=2",
+      "sourceLabel": "School-issued or federal physical campus reference, not a football game gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check current official school/host varsity fixtures and event ticket policy",
+      "officialScheduleUrl": "https://www.cavaliersports.net/sport/football/boys/?tab=staff",
+      "sourceUrl": "https://www.cavaliersports.net/sport/football/boys/?tab=staff",
+      "sourceLabel": "School-controlled athletics information, not a licensed game-results feed",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "Distinct The Woodlands College Park Cavaliers football history and 2026 status",
+      "body": "College Park's Cavaliers football team occupies the 3701 College Park Drive campus, separately from the Highlanders at The Woodlands High. The official athletics department identifies Michael Buro as campus athletic director/head football coach. College Park's school athletics is a distinct program, not a sub-team of Conroe High, Oak Ridge, or the other schools in the same district.",
+      "sourceUrl": "https://anderson.conroeisd.net/o/twcphs",
+      "sourceLabel": "Current official school campus and athletics source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2026 current school athletics",
+        "title": "Michael Buro is College Park head football coach and campus AD",
+        "body": "First-party College Park athletics lists Michael Buro as head football coach and campus athletic director.",
+        "sourceUrl": "https://anderson.conroeisd.net/o/twcphs/page/athletics",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2025–26 federal campus directory",
+        "title": "College Park school location is Montgomery County",
+        "body": "NCES 481500010964 lists the distinct College Park high school at 3701 College Park Drive in Montgomery County.",
+        "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481500010964&InstName=college+park&SchoolPageNum=2",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 6A District 13",
+        "body": "The Cavaliers are an independent UIL participant alongside other schools; current 6A classification is not a win-loss record.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      }
+    ],
+    "overview": [
+      "The Woodlands College Park Cavaliers is a separately operated Texas high-school varsity football program in The Woodlands in Montgomery County, playing in UIL 6A District 13 for 2026–28. College Park's Cavaliers football team occupies the 3701 College Park Drive campus, separately from the Highlanders at The Woodlands High. The official athletics department identifies Michael Buro as campus athletic director/head football coach. College Park's school athletics is a distinct program, not a sub-team of Conroe High, Oak Ridge, or the other schools in the same district.",
+      "2026 school news describes Buro's earlier coaching work at San Antonio Johnson, and record totals attributed to Johnson belong to Johnson, not the Cavaliers. College Park is in the current UIL 6A District 13; the 2026–27 staff listing helps establish the current coaching role while the official game calendar must separately establish actual fixtures. Older Johnson achievements must not be recycled into College Park's postseason accomplishments.",
+      "The 2025–26 federal directory places the school at College Park Drive in Montgomery County; its ZIP and The Woodlands mailing name do not identify stadium parking. Follow a current College Park varsity schedule and Conroe ISD host-event ticket notice rather than assuming the school office is the game-day gate.",
+      "This original TexasDefined program guide gives individually sourced football staff, school and county identity, and official UIL classification. It does not assert live 2026 wins, tickets, licensed football photographs or official mascot marks, and it does not infer stadium accessibility from a campus mailing address."
+    ],
+    "faq": [
+      {
+        "question": "Who is College Park's head football coach?",
+        "answer": "The school's current athletics page lists Michael Buro as both head football coach and campus athletic director for the Cavaliers."
+      },
+      {
+        "question": "Where is College Park High located?",
+        "answer": "The school and federal directory place the campus at 3701 College Park Drive in The Woodlands, Montgomery County."
+      },
+      {
+        "question": "Can past Johnson seasons be counted as College Park wins?",
+        "answer": "No. Buro's prior coaching record at San Antonio Johnson concerns that earlier school and seasons, not College Park's 2026 varsity results."
+      },
+      {
+        "question": "What football district does College Park play in?",
+        "answer": "The UIL official 2026–28 football alignment assigns the Cavaliers to Class 6A District 13."
+      },
+      {
+        "question": "Are the College Park Cavaliers the Woodlands Highlanders?",
+        "answer": "No. Both are separate high schools in Conroe ISD with different campuses and coaching staffs; a shared district or game stadium does not merge the programs."
+      }
+    ]
+  },
+  "converse-judson": {
+    "slug": "converse-judson",
+    "intro": "Judson High Rockets is a separately operated Texas high-school varsity football program in Converse in Bexar County, playing in UIL 6A District 27 for 2026–28. Judson High's Rockets football program is the Converse school on FM 78, separate from other Judson ISD campuses. The district's February 19, 2026 announcement officially introduces Vernon Hughes as head football coach and athletic coordinator and gives the same high-school campus address. Previous jobs and coaching awards mentioned in an appointment announcement describe Hughes' earlier professional experience, not the 2026 Rockets' record.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "TexasDefined original independent text-only school identity; no team colors, logo, uniform or photo rights presumed."
+    },
+    "seo": {
+      "title": "Judson High Rockets Football | 2026 6A District 27",
+      "description": "Source-backed independent Judson High Rockets football reference: current UIL 6A District 27, school staff roles, dated milestones, county and visitor details."
+    },
+    "coach": {
+      "name": "Vernon Hughes",
+      "title": "February 19, 2026 Judson ISD-appointed head football coach and athletic coordinator",
+      "sourceUrl": "https://judsonhs.judsonisd.org/o/judsonhs/live_feeds/11483412",
+      "sourceLabel": "Official campus athletics staff or dated 2026 appointment",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "9142 FM 78, Converse, TX 78109 — school campus, not an independently confirmed football stadium gate",
+      "sourceUrl": "https://judsonhs.judsonisd.org/o/judsonhs/live_feeds/11483412",
+      "sourceLabel": "School-issued or federal physical campus reference, not a football game gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check current official school/host varsity fixtures and event ticket policy",
+      "officialScheduleUrl": "https://judsonhs.judsonisd.org/",
+      "sourceUrl": "https://judsonhs.judsonisd.org/",
+      "sourceLabel": "School-controlled athletics information, not a licensed game-results feed",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "Distinct Judson High Rockets football history and 2026 status",
+      "body": "Judson High's Rockets football program is the Converse school on FM 78, separate from other Judson ISD campuses. The district's February 19, 2026 announcement officially introduces Vernon Hughes as head football coach and athletic coordinator and gives the same high-school campus address. Previous jobs and coaching awards mentioned in an appointment announcement describe Hughes' earlier professional experience, not the 2026 Rockets' record.",
+      "sourceUrl": "https://judsonhs.judsonisd.org/",
+      "sourceLabel": "Current official school campus and athletics source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "February 19, 2026",
+        "title": "Judson ISD appoints Vernon Hughes Rockets head coach",
+        "body": "School district announces Vernon Hughes as new Head Football Coach and Athletic Coordinator at Judson High.",
+        "sourceUrl": "https://judsonhs.judsonisd.org/o/judsonhs/live_feeds/11483412",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "April 2026",
+        "title": "Campus introduces its new football leadership",
+        "body": "The school publicized a coaching meet-and-greet; it is a dated staffing event, not proof of completed 2026 games.",
+        "sourceUrl": "https://www.judsonisd.org/o/judsonhs/article/2823339",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2026–28",
+        "title": "Judson Rockets in Class 6A District 27",
+        "body": "UIL's governing football alignment identifies Judson's current district, separate from previous seasons.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      }
+    ],
+    "overview": [
+      "Judson High Rockets is a separately operated Texas high-school varsity football program in Converse in Bexar County, playing in UIL 6A District 27 for 2026–28. Judson High's Rockets football program is the Converse school on FM 78, separate from other Judson ISD campuses. The district's February 19, 2026 announcement officially introduces Vernon Hughes as head football coach and athletic coordinator and gives the same high-school campus address. Previous jobs and coaching awards mentioned in an appointment announcement describe Hughes' earlier professional experience, not the 2026 Rockets' record.",
+      "Judson's varsity participates in UIL 6A District 27 for the 2026–28 cycle, alongside separately operated teams. A school announcement describes the stadium atmosphere at D. W. Rutledge Stadium, but that context does not certify a ticketed future home-game seat or accessible gate. The date-specific coaching transition can be reported while the 2026 game schedule remains subject to current school updates.",
+      "School contact shows 9142 FM 78, Converse TX. Before attending a particular game, check Judson ISD's home-team athletics notice for exact venue, stadium entry, parking, clear-bag requirements and tickets. A campus address and coach welcome announcement are not live host or admission records.",
+      "This original TexasDefined program guide gives individually sourced football staff, school and county identity, and official UIL classification. It does not assert live 2026 wins, tickets, licensed football photographs or official mascot marks, and it does not infer stadium accessibility from a campus mailing address."
+    ],
+    "faq": [
+      {
+        "question": "Who is Judson High's head football coach for 2026?",
+        "answer": "Judson ISD publicly appointed Vernon Hughes head football coach and athletic coordinator on February 19, 2026."
+      },
+      {
+        "question": "Is the Judson school in Converse or another San Antonio campus?",
+        "answer": "Judson High is the Rockets campus at 9142 FM 78 in Converse, Texas, Bexar County, distinct from other Judson ISD schools."
+      },
+      {
+        "question": "What football district do the Rockets compete in?",
+        "answer": "The official UIL 2026–28 realignment places Judson in Class 6A District 27."
+      },
+      {
+        "question": "Does Vernon Hughes's prior coaching record represent Rockets results?",
+        "answer": "No. Prior career awards and victories cited during a 2026 appointment describe earlier schools; Judson's current results require separate verified game evidence."
+      },
+      {
+        "question": "Can a coach announcement confirm where my game-night parking is?",
+        "answer": "No. A football stadium mentioned in an appointment story does not guarantee the venue, accessible gate, seats or tickets for a particular dated game."
+      }
+    ]
+  },
+  "coolidge": {
+    "slug": "coolidge",
+    "intro": "Coolidge Yellowjackets is a separately operated Texas high-school varsity football program in Coolidge in Limestone County, playing in UIL 1A Division I District 14 (Six-Man) for 2026–28. Coolidge ISD describes its community as being in Limestone County and maintains its own Yellowjackets athletics pages in Coolidge. The 2026–28 UIL alignment specifically places Coolidge in 1A Division I **six-man** District 14, which matters more than a generic list of eleven-man schools. An official athletics page links the JV/varsity football schedule and 2026–27 concussion plan, but does not directly identify a current named head football coach, so one is not invented.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "TexasDefined original independent text-only school identity; no team colors, logo, uniform or photo rights presumed."
+    },
+    "seo": {
+      "title": "Coolidge Yellowjackets Football | 2026 1A Division I District 14 (Six-Man)",
+      "description": "Source-backed independent Coolidge Yellowjackets football reference: current UIL 1A Division I District 14 (Six-Man), school staff roles, dated milestones, county and visitor details."
+    },
+    "campus": {
+      "address": "1002 Kirven Street, Coolidge, TX 76635 — Coolidge ISD campus-office address, not a verified six-man game gate",
+      "sourceUrl": "https://www.coolidgeisd.org/quick_links/athletics",
+      "sourceLabel": "School-issued or federal physical campus reference, not a football game gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check current official school/host varsity fixtures and event ticket policy",
+      "officialScheduleUrl": "https://www.coolidgeisd.org/quick_links/athletics",
+      "sourceUrl": "https://www.coolidgeisd.org/quick_links/athletics",
+      "sourceLabel": "School-controlled athletics information, not a licensed game-results feed",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "Distinct Coolidge Yellowjackets football history and 2026 status",
+      "body": "Coolidge ISD describes its community as being in Limestone County and maintains its own Yellowjackets athletics pages in Coolidge. The 2026–28 UIL alignment specifically places Coolidge in 1A Division I **six-man** District 14, which matters more than a generic list of eleven-man schools. An official athletics page links the JV/varsity football schedule and 2026–27 concussion plan, but does not directly identify a current named head football coach, so one is not invented.",
+      "sourceUrl": "https://www.coolidgeisd.org/",
+      "sourceLabel": "Current official school campus and athletics source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2026–27 district athletics",
+        "title": "Coolidge ISD maintains current JV/Varsity football schedule",
+        "body": "The first-party athletics page directly links a 2026–27 school athletics index, including varsity/JV football and a current concussion plan.",
+        "sourceUrl": "https://www.coolidgeisd.org/quick_links/athletics",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2026–27 school leadership",
+        "title": "Coolidge High publishes current school-year campus information",
+        "body": "The Coolidge junior-high/high-school principal welcome documents the ongoing 2026–27 campus, distinct from an unverified football head-coach appointment.",
+        "sourceUrl": "https://www.coolidgeisd.org/schools/junior_high_high_school",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 1A Division I Six-Man District 14",
+        "body": "The governing UIL alignment identifies the school's six-man format and division, not completed games.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      }
+    ],
+    "overview": [
+      "Coolidge Yellowjackets is a separately operated Texas high-school varsity football program in Coolidge in Limestone County, playing in UIL 1A Division I District 14 (Six-Man) for 2026–28. Coolidge ISD describes its community as being in Limestone County and maintains its own Yellowjackets athletics pages in Coolidge. The 2026–28 UIL alignment specifically places Coolidge in 1A Division I **six-man** District 14, which matters more than a generic list of eleven-man schools. An official athletics page links the JV/varsity football schedule and 2026–27 concussion plan, but does not directly identify a current named head football coach, so one is not invented.",
+      "Some third-party 2026 rosters name Thomas Tritz, yet the current first-party district athletics page checked here does not itself independently confirm that appointment. This guide preserves a dated source gap instead of copying someone else's profile. Coolidge's six-man format and actual school-operated calendar are concrete fan-relevant facts that do not depend on unofficial cumulative finals.",
+      "The district's posted 1002 Kirven Street contact location is useful for navigating to the school but not proof of a football gate or the stadium designated for a particular game. The athletics site separates varsity from junior-high schedules. Confirm kickoff, tickets, stadium access and parking with each host; do not confuse a six-man fixture with eleven-man playoff brackets.",
+      "This original TexasDefined program guide gives individually sourced football staff, school and county identity, and official UIL classification. It does not assert live 2026 wins, tickets, licensed football photographs or official mascot marks, and it does not infer stadium accessibility from a campus mailing address."
+    ],
+    "faq": [
+      {
+        "question": "Does Coolidge play six-man or eleven-man varsity football?",
+        "answer": "UIL's 2026–28 alignment places Coolidge in 1A Division I District 14 six-man football, not a regular eleven-man district."
+      },
+      {
+        "question": "Who is the confirmed Coolidge 2026 head football coach?",
+        "answer": "The official school athletics page reviewed here does not identify a 2026 head football coach by name; third-party listings are not treated as school confirmation."
+      },
+      {
+        "question": "Where do the Coolidge Yellowjackets play?",
+        "answer": "Coolidge ISD lists its school office at 1002 Kirven Street in Limestone County; the venue and actual spectator entrance must be confirmed for each football event."
+      },
+      {
+        "question": "What official schedule source is available?",
+        "answer": "The school's athletics webpage links a current JV/Varsity football schedule separately from junior-high Yellowjackets football."
+      },
+      {
+        "question": "Can a scheduled six-man game be treated as a final score?",
+        "answer": "No. A current fixture, whether it is six-man or eleven-man, must not be turned into a score or standings result without separate authorized verification."
+      }
+    ]
+  },
+  "cooper": {
+    "slug": "cooper",
+    "intro": "Cooper High Bulldogs is a separately operated Texas high-school varsity football program in Cooper in Delta County, playing in UIL 2A Division I District 9 for 2026–28. Cooper High's Bulldogs program is the Delta County Texas school, not a generic nearby Cougars or a school from another state. The current district staff pages explicitly name Bruce Silman as **athletic director**, but the school source does not explicitly designate him 2026 varsity football head coach. Conflicting 2026 third-party rosters name different head coaches, so a specific unverified football role is intentionally withheld.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "TexasDefined original independent text-only school identity; no team colors, logo, uniform or photo rights presumed."
+    },
+    "seo": {
+      "title": "Cooper High Bulldogs Football | 2026 2A Division I District 9",
+      "description": "Source-backed independent Cooper High Bulldogs football reference: current UIL 2A Division I District 9, school staff roles, dated milestones, county and visitor details."
+    },
+    "campus": {
+      "address": "Cooper ISD administrative office at 759 FM 1528, Cooper, TX 75432 — not proof of the high-school stadium gate",
+      "sourceUrl": "https://www.cooperisd.net/staff?filter_ids=375377&page_no=2",
+      "sourceLabel": "School-issued or federal physical campus reference, not a football game gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check current official school/host varsity fixtures and event ticket policy",
+      "officialScheduleUrl": "https://www.cooperisd.net/athletics",
+      "sourceUrl": "https://www.cooperisd.net/athletics",
+      "sourceLabel": "School-controlled athletics information, not a licensed game-results feed",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "Distinct Cooper High Bulldogs football history and 2026 status",
+      "body": "Cooper High's Bulldogs program is the Delta County Texas school, not a generic nearby Cougars or a school from another state. The current district staff pages explicitly name Bruce Silman as **athletic director**, but the school source does not explicitly designate him 2026 varsity football head coach. Conflicting 2026 third-party rosters name different head coaches, so a specific unverified football role is intentionally withheld.",
+      "sourceUrl": "https://www.cooperisd.net/",
+      "sourceLabel": "Current official school campus and athletics source",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "Current 2026 district staff",
+        "title": "Bruce Silman identified as Cooper ISD athletic director",
+        "body": "The Cooper ISD high-school staff roster lists Silman as athletic director, without a separately verified present-season head football coach title.",
+        "sourceUrl": "https://www.cooperisd.net/staff?filter_ids=375377&page_no=2",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2026 school athletics resources",
+        "title": "Cooper ISD maintains original district sports navigation",
+        "body": "School-operated athletics hub allows readers to check current event notices, not necessarily final score information or stadium gates.",
+        "sourceUrl": "https://www.cooperisd.net/athletics",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 2A Division I District 9",
+        "body": "Official UIL alignment identifies the Bulldogs' current football district and format, not a record of wins and losses.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "Official district, school staff, or UIL dated evidence"
+      }
+    ],
+    "overview": [
+      "Cooper High Bulldogs is a separately operated Texas high-school varsity football program in Cooper in Delta County, playing in UIL 2A Division I District 9 for 2026–28. Cooper High's Bulldogs program is the Delta County Texas school, not a generic nearby Cougars or a school from another state. The current district staff pages explicitly name Bruce Silman as **athletic director**, but the school source does not explicitly designate him 2026 varsity football head coach. Conflicting 2026 third-party rosters name different head coaches, so a specific unverified football role is intentionally withheld.",
+      "UIL 2A Division I District 9 controls Cooper's 2026–28 football classification. Cooper ISD has current school athletics and staff communication channels, but its administrative office address is distinct from any varsity stadium gate. Staff titles from another sport or parent school cannot be freely assigned to a present-season football program, especially when secondary sources disagree.",
+      "Before traveling, use the Cooper ISD athletics hub and specific home-team fixture notice. The school district's FM 1528 office mailing address does not prove the Cooper High campus football field, parking or an accessible entrance. Past MaxPreps rosters may conflict and do not independently authorize score reuse.",
+      "This original TexasDefined program guide gives individually sourced football staff, school and county identity, and official UIL classification. It does not assert live 2026 wins, tickets, licensed football photographs or official mascot marks, and it does not infer stadium accessibility from a campus mailing address."
+    ],
+    "faq": [
+      {
+        "question": "Who is Cooper High's athletic director?",
+        "answer": "Cooper ISD's current high-school staff listing identifies Bruce Silman as athletic director; a reliable 2026 football head coach designation remains separately unconfirmed."
+      },
+      {
+        "question": "Is Bruce Silman definitely Cooper's head football coach in 2026?",
+        "answer": "The school source checked only confirms the athletic-director title. Conflicting third-party football coach listings cannot establish a current appointment."
+      },
+      {
+        "question": "What county contains Cooper High's football program?",
+        "answer": "Cooper High School belongs to Cooper ISD in Delta County, Texas; the district office mailing address is not a stadium entrance."
+      },
+      {
+        "question": "Which 2026 football district includes Cooper?",
+        "answer": "The UIL 2026–28 football alignment places Cooper in 2A Division I District 9."
+      },
+      {
+        "question": "How should visiting fans confirm game time and admission?",
+        "answer": "Start with Cooper ISD's official athletics calendar and host-event details; do not infer ticket price, parking, accessible gates or current finals from office contacts."
+      }
+    ]
+  },
   "colorado-city-colorado": {
     "slug": "colorado-city-colorado",
     "intro": "Colorado High Wolves football belongs to Colorado City, Mitchell County and the 2026–28 UIL 2A Division I District 4. Colorado High in Colorado City is the Texas Wolves program, not a school in the state of Colorado. The district's official staff page presently identifies Daniel Mejia as AD/HFC; his 2025 appointment and the separate June 2025 offensive-coordinator announcement explain how the staff was assembled without pretending either report describes a completed 2026 football season.",
