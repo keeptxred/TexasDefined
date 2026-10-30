@@ -218,11 +218,14 @@ export function loadEventCollectionPageServer(slug: string) {
       })
     : [];
 
-  // Christmas community records are independently source-verified; showing
-  // only the latest evergreen-guide audit date gives visitors a stale status.
+  // Source status includes season-scoped organizer listings as well as guides,
+  // avoiding an outdated check date when a November official listing is fresher.
+  const novemberOfficialPicks = temporal?.slug === "november-events" && temporal.dateContext.includes("2026")
+    ? NOVEMBER_OFFICIAL_PICKS_2026 : [];
   const latestSourceCheck = [
     latestGuideSourceCheck,
     ...christmasCommunityEvents.map((event) => event.verifiedAt),
+    ...novemberOfficialPicks.map((event) => event.sourceCheckedAt),
   ].filter((date): date is string => Boolean(date)).sort().at(-1);
 
   return {
@@ -232,7 +235,7 @@ export function loadEventCollectionPageServer(slug: string) {
     christmasCommunityEvents,
     fallOfficialPicks: temporal?.slug === "fall-festivals" ? activeOfficialFallPicks() : [],
     fallToday: temporal?.slug === "fall-festivals" ? texasToday(new Date()) : undefined,
-    novemberOfficialPicks: temporal?.slug === "november-events" && temporal.dateContext.includes("2026") ? NOVEMBER_OFFICIAL_PICKS_2026 : [],
+    novemberOfficialPicks,
     relatedCollections,
     itemCount: items.length,
     latestSourceCheck,
