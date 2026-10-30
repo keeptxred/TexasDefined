@@ -284,7 +284,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           <h2 id="entity-practical-heading" className="mt-2 font-display text-4xl">What to verify before you go or act</h2>
         </div>
         <div>
-          <p className="max-w-3xl text-base leading-7 text-muted-foreground">TexasDefined separates durable reference information from details that can change quickly. Use the checklist below to confirm the information that matters for your specific visit, transaction or request.</p>
+          <p className="max-w-3xl text-base leading-7 text-muted-foreground">Some facts change much faster than a place's history or location. Use the checklist below to confirm what matters for your specific visit, transaction or request.</p>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2">
             {practicalItems.map(({ title: itemTitle, copy }) => <li key={itemTitle} className="border border-border p-5"><strong className="font-display text-xl">{itemTitle}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p></li>)}
           </ul>
@@ -408,7 +408,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (historyKinds.has(entity.kind)) {
     return [
-      `${entity.name} is included as a Texas history and place reference, connecting the site or institution to the larger geography and story around it rather than treating it as an isolated name on a list.`,
+      `Explore the history of ${entity.name} in its local and regional context, then use the linked official source to confirm which features or exhibits visitors can actually access.`,
       placeContext ? `Its location in ${placeContext} provides useful context for nearby historic places, county history and trip planning.` : `Use the related guides on this page to connect the site with nearby historic places and regional context.`,
       `Hours, tours, exhibit access, admission and preservation work can change. Verify the official site before traveling, especially for small museums, seasonal sites and properties with limited public access.`,
     ];
