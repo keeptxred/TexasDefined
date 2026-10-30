@@ -8,8 +8,8 @@ on:
   schedule:
     # While this cohort is pending, retry genuine live Chrome acceptance at a
     # fixed bounded cadence; unrelated deployments still remain path-scoped.
-    - cron: '46 14 * 8-12 *'   # In-season daily UTC
-    - cron: '46 14 * 1-7 3'    # Off-season Wednesday UTC
+    - cron: '14 14 * 8-12 *'   # In-season daily UTC
+    - cron: '14 14 * 1-7 3'    # Off-season Wednesday UTC
 permissions:
   contents: read
   deployments: read
