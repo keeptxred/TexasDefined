@@ -22,7 +22,7 @@ function requireMatch(source, re, label) {
 }
 function number(source, re, label) { return Number(requireMatch(source, re, label)[1]); }
 function cleaned(html) { return visible(html).replace(/\s+/g, ' ').trim(); }
-function amountsAndDates(block, kind) {
+function amountsAndDates(block, kind, requireApplicationFee = true) {
   requireMatch(block, /\bBaiting\s+Not allowed\b/i, kind + ' bait rule');
   const huntDates = requireMatch(block, /Hunt Dates\s+(.+?)\s+Bag Limit\b/i, kind + ' hunt dates')[1];
   const dates = [...huntDates.matchAll(dateRange)].map(m => m[0].replace(/\s*[-–]\s*/, ' – '));
@@ -31,11 +31,13 @@ function amountsAndDates(block, kind) {
     ? [/One Turkey;\s*Gobbler Only/i, /All Archery Equipment/i, /Shotguns with Birdshot/i, /non-toxic shot/i, /no larger than #4/i]
     : [/One Turkey;\s*Gobbler or Bearded Hen/i, /Shotguns with Birdshot/i];
   for (const re of expectedLegal) requireMatch(block, re, kind + ' legal-method or bag wording');
+  const applicationFee = block.match(/\$\s*(\d+)(?:\.00)?\s*\/adult\b/i);
+  if (requireApplicationFee && !applicationFee) throw Error('TPWD ' + kind + ' category application fee missing');
   return {
     dates,
     permits: number(block, /Available:\s*(\d+)\b/i, kind + ' permits'),
     permitFeeUsd: number(block, /Fee per adult:\s*\$\s*(\d+)(?:\.00)?\b/i, kind + ' permit fee'),
-    applicationFeeUsd: number(block, /\$\s*(\d+)(?:\.00)?\s*\/adult\b/i, kind + ' application fee')
+    applicationFeeUsd: applicationFee ? Number(applicationFee[1]) : null
   };
 }
 export function parseDraw(categoryHtml, hagermanHtml, eastLakeHtml, expectedSeason) {
@@ -50,10 +52,18 @@ export function parseDraw(categoryHtml, hagermanHtml, eastLakeHtml, expectedSeas
   if (first < 0 || second < first) throw Error('Official draw category layout changed; no speculative listing');
   const h = amountsAndDates(cat.slice(first, second), 'hagerman');
   const e = amountsAndDates(cat.slice(second), 'eastLake');
-  const ah = amountsAndDates(hagerman.slice(hagerman.lastIndexOf('National Refuge Spring Turkey')), 'hagerman');
-  const ae = amountsAndDates(east.slice(east.lastIndexOf('National Refuge Spring Turkey')), 'eastLake');
-  assert.deepEqual(ah, h, 'Hagerman category and area details disagree');
-  assert.deepEqual(ae, e, 'East Lake category and area details disagree');
+  const ah = amountsAndDates(hagerman.slice(hagerman.lastIndexOf('National Refuge Spring Turkey')), 'hagerman', false);
+  const ae = amountsAndDates(east.slice(east.lastIndexOf('National Refuge Spring Turkey')), 'eastLake', false);
+  // Individual area pages may omit the application charge even when the official
+  // category listing discloses it. Compare all independently published fields;
+  // if an area DOES publish a charge, a mismatch still blocks publication.
+  for (const [area, category, label] of [[ah, h, 'Hagerman'], [ae, e, 'East Lake']]) {
+    assert.deepEqual({ dates: area.dates, permits: area.permits, permitFeeUsd: area.permitFeeUsd },
+      { dates: category.dates, permits: category.permits, permitFeeUsd: category.permitFeeUsd },
+      label + ' category and area details disagree');
+    if (area.applicationFeeUsd !== null && area.applicationFeeUsd !== category.applicationFeeUsd)
+      throw Error('TPWD ' + label + ' application fee differs between official pages');
+  }
   if (h.permitFeeUsd !== e.permitFeeUsd || h.applicationFeeUsd !== e.applicationFeeUsd) throw Error('TPWD draw fees differ; editorial update required');
   const deadline = requireMatch(cat, /Application Deadline(?: Expired)?:\s*([A-Za-z]+ \d{2}, 20\d{2})\b/i, 'draw deadline')[1];
   for (const [txt, label] of [[hagerman, 'Hagerman'], [east, 'East Lake']]) {
