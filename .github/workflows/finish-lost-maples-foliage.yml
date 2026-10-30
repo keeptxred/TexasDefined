@@ -1,0 +1,99 @@
+name: Finish verified Lost Maples foliage refresh
+
+on:
+  workflow_run:
+    workflows: ['Refresh verified Lost Maples foliage']
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: texasdefined-lost-maples-foliage-finisher
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify generated-only change and pass required branch gates
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+          branch="automation/lost-maples-foliage-${SOURCE_RUN_ID}"
+          data_path='src/data/generated/lost-maples-foliage-report.json'
+          pr_json="$(gh pr list --repo "$REPOSITORY" --base main --state open --head "$branch" \
+            --limit 2 --json number,url,title,headRefName,headRefOid)"
+          count="$(jq 'length' <<< "$pr_json")"
+          if [[ "$count" == 0 ]]; then
+            echo 'No official source change to publish.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          [[ "$count" == 1 ]] || { echo '::error::Ambiguous official report PRs'; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$pr_json")"
+          url="$(jq -r '.[0].url' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
+          author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
+          [[ "$title" == 'Update verified Lost Maples foliage report' && "$author" == 'github-actions[bot]' ]] || {
+            echo '::error::Unexpected PR title/author'; exit 1;
+          }
+          git config user.name 'Texas Defined Verified Seasons'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch --no-tags origin main "$branch"
+          base="$(git merge-base origin/main "origin/$branch")"
+          changed="$(git diff --name-only "$base" "origin/$branch")"
+          [[ "$changed" == "$data_path" ]] || { echo "::error::Unexpected changes: $changed"; exit 1; }
+          git checkout -B "$branch" "origin/$branch"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            if ! git merge --no-edit origin/main; then
+              git merge --abort || true
+              echo '::error::Concurrent source changes conflict; no publication'; exit 1;
+            fi
+            git push origin "HEAD:$branch"
+          fi
+          node --test scripts/data/refresh-lost-maples-foliage.test.mjs
+          node -e '
+            const data=require("./src/data/generated/lost-maples-foliage-report.json");
+            const approved=[
+              "TPWD describes the maples as still green.",
+              "TPWD describes the maples as still green, with early color on some leaf edges.",
+              "TPWD describes the sycamores as yellowing."
+            ];
+            const age=(Date.now()-Date.parse(data.reportDate+"T00:00:00Z"))/86400000;
+            if(data.sourceUrl!=="https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports" ||
+               !Number.isFinite(age) || age < -1 || age > 21 ||
+               data.observations.length > 2 || !data.observations.every(x=>approved.includes(x)))
+              process.exit(1);
+          '
+          verified_sha="$(git rev-parse HEAD)"
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$verified_sha" ]] || {
+            echo '::error::Source branch changed during validation'; exit 1;
+          }
+          git merge-base --is-ancestor origin/main "origin/$branch" || {
+            echo '::error::Main advanced during checks; leave PR for later reconciliation'; exit 1;
+          }
+          gh api --method POST "repos/$REPOSITORY/statuses/$verified_sha" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Verified TPWD observation passed protected checks' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$verified_sha"
+          echo "Official report verified through protected gates: $url" >> "$GITHUB_STEP_SUMMARY"
