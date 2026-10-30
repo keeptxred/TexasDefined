@@ -71,6 +71,29 @@ for (const [file, prohibited, expected] of visitorFirst) {
   if (!source.includes(expected)) failures.push(file + ': practical visitor guidance is missing');
 }
 
+// Reader-facing gaming guides must explain current sources, varsity/club
+// distinctions, dated events and estimated industry jobs without discussing
+// TexasDefined's internal publishing system. Keep legal affiliate disclosures.
+{
+  const file = "src/data/gaming.ts";
+  const source = fs.readFileSync(file, "utf8");
+  for (const phrase of [
+    "TexasDefined therefore keeps the authority page evergreen",
+    "TexasDefined's event system handles",
+    "TexasDefined uses each institution's own language",
+    "TexasDefined deliberately avoids publishing unnecessary facility-security",
+    "TexasDefined company directory uses",
+    "TexasDefined treats them as historical context",
+    "TexasDefined should not present a 2026 Dallas",
+  ]) if (source.includes(phrase)) failures.push(file + ": internal publishing strategy leaked to visitors: " + phrase);
+  for (const phrase of [
+    "The labels here follow each institution's designation",
+    "Use the statewide calendar for confirmed dates",
+    "Directory inclusion is not an endorsement or ranking",
+    "lodging modules may contain affiliate links",
+  ]) if (!source.includes(phrase)) failures.push(file + ": source or visitor disclosure missing: " + phrase);
+}
+
 if (failures.length) {
   console.error("Reader-facing copy validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
