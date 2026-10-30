@@ -1,0 +1,37 @@
+name: Validate Batch011 fourth-five schools and strict production evidence
+on:
+  pull_request:
+    paths:
+      - 'src/data/high-school-football/program-editorial-b011*'
+      - 'src/data/high-school-football/school-identities.ts'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'docs/football-authority/schools/**'
+      - 'scripts/ci/verify-football-b011-*-source.test.mjs'
+      - 'scripts/ci/verify-football-b011-fourth-five-production.mjs'
+      - 'scripts/data/validate-high-school-football-platform.mjs'
+      - '.github/workflows/verify-football-b011-fourth-five-production.yml'
+      - '.github/workflows/validate-football-b011-fourth-five.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fourth-five-source-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify four sequential source cohorts and actual Chrome constraints
+        run: |
+          node --check scripts/ci/verify-football-b011-fourth-five-production.mjs
+          node --check scripts/ci/verify-football-b011-fourth-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-first-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-second-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-third-five-source.test.mjs
+          node --test scripts/ci/verify-football-b011-fourth-five-source.test.mjs
+      - name: Verify registry, source provenance and all historical certified cohorts
+        run: node scripts/data/validate-high-school-football-platform.mjs
