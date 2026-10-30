@@ -1,0 +1,103 @@
+name: Certify Batch011 only from real Chrome evidence
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/prepare-football-b011-certification.mjs'
+      - 'scripts/ci/prepare-football-b011-certification.test.mjs'
+      - '.github/workflows/certify-football-b011-from-chrome.yml'
+  push:
+    branches: [main]
+    paths:
+      # Bounded one-time real-evidence retry on the protected fix itself.
+      - '.github/workflows/certify-football-b011-from-chrome.yml'
+  workflow_dispatch:
+  workflow_run:
+    # All five cohort jobs finish independently. The fifth-numbered cohort
+    # is not guaranteed to be the last job to upload its artifact.
+    # Each completion makes one bounded certification attempt; missing
+    # cohorts produce a safe no-change outcome, never false verification.
+    workflows:
+      - 'Football Batch 011 first-five live production acceptance'
+      - 'Football Batch 011 second-five live production acceptance'
+      - 'Football Batch 011 third-five live production acceptance'
+      - 'Football Batch 011 fourth-five live production acceptance'
+      - 'Football Batch 011 fifth-five live production acceptance'
+    types: [completed]
+    branches: [main]
+  schedule:
+    # One bounded daily evidence check during football season; no polling loops.
+    - cron: '47 14 * 8-12 *'
+    - cron: '47 14 * 1-7 3'
+permissions:
+  actions: write
+  contents: write
+  deployments: read
+  pull-requests: write
+concurrency:
+  group: football-b011-evidence-certification
+  cancel-in-progress: false
+jobs:
+  contract:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Assert that fake or skipped Chrome reports cannot promote schools
+        run: |
+          node --check scripts/ci/prepare-football-b011-certification.mjs
+          node --test scripts/ci/prepare-football-b011-certification.test.mjs
+  certification:
+    if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event_name == 'push') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: texasdefined-publication
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check fail-closed evidence collector and fixtures
+        run: |
+          node --check scripts/ci/prepare-football-b011-certification.mjs
+          node --test scripts/ci/prepare-football-b011-certification.test.mjs
+      - name: Collect non-skipped Chrome reports, real PNGs, release and Cloudflare identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_DEPLOY_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+        run: node scripts/ci/prepare-football-b011-certification.mjs
+      - name: Create a protected evidence-only registry certification PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- docs/football-authority/REGISTRY.json docs/football-authority/MASTER.md docs/football-authority/PROGRESS.md; then
+            echo 'No verified five-cohort package yet; registry is unchanged.'
+            exit 0
+          fi
+          title='Certify Batch 011 from five real Chrome artifacts'
+          if gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --json title --jq '.[].title' | grep -Fxq "$title"; then
+            echo 'Certification PR already open; no duplicate.'
+            exit 0
+          fi
+          branch="automation/football-b011-cert-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add docs/football-authority/REGISTRY.json docs/football-authority/MASTER.md docs/football-authority/PROGRESS.md
+          git commit -m 'Certify 25 Batch011 schools from real Chrome and Cloudflare evidence'
+          git push origin "$branch"
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" --title "$title" --body 'Five real successful non-skipped Chrome cohorts, five retained report.json and screenshot artifacts, one current Cloudflare Worker, and exact successful GitHub production deployment. Strict technical scope; no score/feed, editorial, marks, photography, ADA or manual WCAG claims. Branch protection applies. Issue #5794.'
+          gh workflow run merge-gate.yml --repo "$GITHUB_REPOSITORY" --ref "$branch"
+          gh pr merge "$branch" --repo "$GITHUB_REPOSITORY" --auto --squash
