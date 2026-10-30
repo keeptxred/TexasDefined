@@ -31,6 +31,17 @@ for (const token of [
   'description: sportsVenueSearchDescription(entity, enrichment)',
 ]) requireText(dynamicRoute, token, 'Reed Arena snippet and full-entity metadata');
 
+// The source-content contract must retain an actual post-deploy, ordinary-URL
+// check of Reed Arena's GSC-backed title, description, and A-to-Z bag-policy link.
+const reedProductionVerifier = read('scripts/production/verify-sports-venue-editorial-production.mjs');
+for (const token of [
+  '/sports-venue/reed-arena',
+  'Reed Arena canonical visitor snippet',
+  'Reed Arena Bag Policy: Parking & Visitor Guide',
+  'clear-bag 12-1-1 policy',
+  'https://12thman.com/facilities/a-to-z/reed-arena',
+]) requireText(reedProductionVerifier, token, 'Reed Arena ordinary-URL live acceptance');
+
 const editorialPaths = fs.readdirSync('src/data')
   .filter((name) => (
     name.startsWith('sports-venue-enrichment')
