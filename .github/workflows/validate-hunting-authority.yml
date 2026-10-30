@@ -11,6 +11,8 @@ on:
       - 'scripts/data/check-turkey-regulations.mjs'
       - 'scripts/data/refresh-turkey-season-calendar.mjs'
       - 'scripts/data/refresh-turkey-season-calendar.test.mjs'
+      - 'scripts/automation/monitor-turkey-regulations.sh'
+      - 'scripts/automation/refresh-turkey-authority-quarterly.sh'
       - 'scripts/data/refresh-turkey-authority-quarterly.mjs'
       - 'scripts/data/refresh-turkey-authority-quarterly.test.mjs'
       - '.github/workflows/refresh-turkey-authority-quarterly.yml'
@@ -70,3 +72,5 @@ jobs:
           node --check scripts/data/refresh-turkey-season-calendar.mjs
           node --test scripts/data/refresh-turkey-authority-quarterly.test.mjs
           node --check scripts/data/refresh-turkey-authority-quarterly.mjs
+          bash -n scripts/automation/monitor-turkey-regulations.sh
+          bash -n scripts/automation/refresh-turkey-authority-quarterly.sh

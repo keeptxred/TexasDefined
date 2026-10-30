@@ -8,12 +8,17 @@ const start = 'Texas Parks and Wildlife Department Texas Public Hunt System 2026
 const hagermanBlock = 'Hagerman NWR Download Hagerman NWR Brochure $3.00 /adult Only non-toxic shot no larger than #4 may be used for shotguns. Hunt Dates Apr 22, 2027 – Apr 24, 2027 Bag Limit One Turkey; Gobbler Only ONLY MEANS ALLOWED All Archery Equipment Shotguns with Birdshot Baiting Not allowed Permits Available: 24 Fee per adult: $80.00';
 const eastBlock = 'Lower Rio Grande Valley NWR - East Lake Download Lower Rio Grande Valley NWR - East Lake Brochure $3.00 /adult Hunt Dates Apr 02, 2027 – Apr 04, 2027 Apr 09, 2027 – Apr 11, 2027 Bag Limit One Turkey; Gobbler or Bearded Hen ONLY MEANS ALLOWED Shotguns with Birdshot Baiting Not allowed Permits Available: 8 Fee per adult: $80.00';
 const cat = start + ' NATIONAL REFUGE SPRING TURKEY Application Deadline: November 01, 2026 ' + hagermanBlock + ' ' + eastBlock;
-const h = start + 'HAGERMAN NWR National Refuge Spring Turkey Application Deadline: November 01, 2026 ' + hagermanBlock;
+const h = start + 'HAGERMAN NWR National Refuge Spring Turkey Application Deadline: November 01, 2026 ' + hagermanBlock.replace('$3.00 /adult ', ''); // TPWD's individual Hagerman page omits this fee
 const e = start + 'EAST LAKE National Refuge Spring Turkey Application Deadline: November 01, 2026 ' + eastBlock;
 const survey = 'Texas Parks and Wildlife Department Summer Turkey Survey Results Recruitment dropped again with 1.82 PPH recorded statewide this summer. However, overall wild turkey observations increased from 9.21 Wild Turkeys Per 1,000 miles in 2025 to 11.38 Wild Turkeys Per 1,000 miles in 2026. 2026 Summer Turkey Survey Results by Wildlife Region Total 2,079 1.82 3.45 0.5 1.17 Statewide Mandatory Wild Turkey Harvest Data';
 
 test('extract official hunt fees, dates and permits from independent TPWD listings', () => {
   assert.deepEqual(parseDraw(cat,h,e,'2026–27'),stored.draw);
+});
+test('area pages may omit a category-listed application fee without weakening agreement', () => {
+  assert.deepEqual(parseDraw(cat,h,e,'2026–27'),stored.draw);
+  assert.throws(() => parseDraw(cat,h.replace('Hunt Dates', '$9.00 /adult Hunt Dates'),e,'2026–27'), /application fee differs/);
+  assert.throws(() => parseDraw(cat.replace('Hagerman NWR Brochure $3.00 /adult','Hagerman NWR Brochure'),h,e,'2026–27'), /category application fee missing/);
 });
 test('an individual area detail discrepancy prevents draw publication',()=>{
   assert.throws(()=>parseDraw(cat,h,e.replace('Available: 8','Available: 7'),'2026–27'), /disagree/);

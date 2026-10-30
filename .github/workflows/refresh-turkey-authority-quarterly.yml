@@ -1,19 +1,20 @@
 name: Refresh TPWD Turkey Authority Quarterly
 
-on:
+'on':
   schedule:
-    # Run early in Jan/Apr/Jul/Oct; weekly turkey date/legal checks remain separate.
-    - cron: '17 15 2 1,4,7,10'
+    - cron: '17 15 2 1,4,7,10 *'
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - '.github/workflows/refresh-turkey-authority-quarterly.yml'
+      - 'scripts/automation/refresh-turkey-authority-quarterly.sh'
       - 'scripts/data/refresh-turkey-authority-quarterly.mjs'
       - 'scripts/data/refresh-turkey-authority-quarterly.test.mjs'
   pull_request:
     paths:
       - '.github/workflows/refresh-turkey-authority-quarterly.yml'
+      - 'scripts/automation/refresh-turkey-authority-quarterly.sh'
       - 'scripts/data/refresh-turkey-authority-quarterly.mjs'
       - 'scripts/data/refresh-turkey-authority-quarterly.test.mjs'
       - 'src/data/hunting/turkey-quarterly-facts.json'
@@ -38,54 +39,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate quarterly source parsing and strict safety contracts
-        run: node --test scripts/data/refresh-turkey-authority-quarterly.test.mjs
-      - name: Recheck legal invariants and refresh independently corroborated nonlegal data
-        if: github.event_name != 'pull_request'
-        id: tpwd
-        run: |
-          set -euo pipefail
-          node scripts/data/check-turkey-regulations.mjs
-          node scripts/data/refresh-turkey-season-calendar.mjs --check-only --strict-check-only
-          node scripts/data/refresh-turkey-authority-quarterly.mjs
-          node scripts/data/validate-hunting-authority.mjs
-      - name: Record failed official review without publishing unverified hunting advice
-        if: ${{ failure() && github.event_name != 'pull_request' }}
+      - name: Test, verify official sources and refresh only corroborated turkey data
         env:
           GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          quarter=$(( (10#$(date -u +%m)-1)/3+1 ))
-          title="TPWD quarterly turkey authority source verification needs attention ($(date -u +%Y)-Q$quarter)"
-          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
-          if [[ -z "$existing" ]]; then
-            gh issue create --title "$title" --body "The quarterly automated turkey authority refresh failed closed. No unverified legal rule, new season year, public-draw permission or survey value was published. Review the exact failed official TPWD source and keep the old editorial verification date until a substantive human legal review occurs. Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          fi
-      - name: Open narrowly scoped protected quarterly data PR
-        if: ${{ steps.tpwd.outcome == 'success' && github.event_name != 'pull_request' && github.ref_name == 'main' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          file='src/data/hunting/turkey-quarterly-facts.json'
-          if git diff --quiet -- "$file"; then
-            echo 'TPWD quarterly facts already checked today; no change needed.'
-            exit 0
-          fi
-          existing="$(gh pr list --base main --state open --json headRefName --jq '[.[].headRefName | select(startswith("automation/turkey-quarterly-"))] | length')"
-          if [[ "$existing" != '0' ]]; then
-            echo 'Quarterly turkey fact refresh PR already open; skipping duplicate.'
-            exit 0
-          fi
-          branch="automation/turkey-quarterly-$GITHUB_RUN_ID"
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git checkout -b "$branch"
-          git add "$file"
-          git commit -m 'data: refresh TPWD turkey public draws and summer survey'
-          git push origin "$branch"
-          gh pr create --base main --head "$branch" \
-            --title 'Refresh verified TPWD turkey public draws and survey' \
-            --body 'Automated quarterly factual update, not legal editorial review. Source values are verified against BOTH TPWD drawing category and individual hunt pages; survey table and prose are cross-checked. Season/year rollover, changes to legal means or bag restrictions, source conflicts and transport errors fail closed. A separate protected finisher re-fetches and revalidates all sources against this exact one-file PR before merge.'
+        run: bash scripts/automation/refresh-turkey-authority-quarterly.sh
