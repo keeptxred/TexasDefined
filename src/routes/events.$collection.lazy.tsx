@@ -283,7 +283,15 @@ function NovemberEditorialVisual({ event, className = "" }: { event: any; classN
         ? <path d="M310 165c48-40 118-38 166 0M310 360c48 39 118 39 166 0M284 260h224" strokeWidth="9" />
         : event.category === "music"
           ? <path d="M360 158v216m0-216 114-22v212M360 373c-54-28-86 41-35 48 22 3 35-15 35-48Zm114-25c-54-28-86 41-35 48 22 3 35-15 35-48Z" strokeWidth="8" />
-          : <path d="m396 125 29 90 92 0-74 55 28 90-75-54-74 54 28-90-74-55 92 0Z" strokeWidth="6" />}
+          : event.category === "food"
+            ? <g strokeWidth="8"><circle cx="396" cy="265" r="119" /><circle cx="396" cy="265" r="80" /><path d="M242 154v87m-22-87v70h44v-70m-22 65v144M554 154c-33 26-42 70-35 118h37v91" /></g>
+            : event.category === "seasonal"
+              ? <g strokeWidth="7"><path d="M186 162Q396 331 600 162" /><path d="M259 210v44m133-13v48m133-79v44" /><ellipse cx="259" cy="270" rx="17" ry="24" /><ellipse cx="392" cy="305" rx="17" ry="24" /><ellipse cx="525" cy="270" rx="17" ry="24" /></g>
+              : event.category === "culture"
+                ? <g strokeWidth="8"><path d="M292 165c-90 39-105 151-29 220 34 31 74 9 69-22-10-41 33-50 56-25 44 52 117-16 124-91 9-103-112-157-220-82Z" /><circle cx="288" cy="256" r="16" /><circle cx="363" cy="212" r="16" /><circle cx="447" cy="240" r="16" /><circle cx="426" cy="322" r="16" /></g>
+                : event.category === "rodeo"
+                  ? <g strokeWidth="9"><path d="M255 296c36 25 247 25 283 0-35 81-240 90-283 0ZM304 286l23-114h150l22 114M233 307c12 26 54 42 84 43m203-43c-12 26-54 42-84 43" /></g>
+                  : <path d="m396 125 29 90 92 0-74 55 28 90-75-54-74 54 28-90-74-55 92 0Z" strokeWidth="6" />}
     </svg>
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/35" aria-hidden="true" />
     <div className="relative flex h-full flex-col justify-between gap-4 p-5 sm:p-6">
