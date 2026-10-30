@@ -97,8 +97,8 @@ requireText(turkey, 'turkey-quarterly-facts.json', 'turkey guide must render gov
 requireText(turkeyTable, 'quarterlyFacts.checkedAt', 'turkey draw facts must expose separate machine check date');
 requireText(turkeyQuarterlyFacts, '"hagermanDates"', 'quarterly draw facts missing');
 requireText(turkeyQuarterlyFacts, '"observationsPerThousand"', 'quarterly TPWD survey missing');
-requireText(turkeyQuarterlyUpdater, 'assert.deepEqual(ah, h', 'Hagerman category/area verification missing');
-requireText(turkeyQuarterlyUpdater, 'assert.deepEqual(ae, e', 'East Lake category/area verification missing');
+requireText(turkeyQuarterlyUpdater, "[[ah, h, 'Hagerman'], [ae, e, 'East Lake']]", 'independent TPWD area/category cross-check missing');
+requireText(turkeyQuarterlyUpdater, 'application fee differs between official pages', 'TPWD optional area application-fee discrepancy must fail closed');
 requireText(turkeyQuarterlyTests, 'survey narrative/table contradiction', 'quarterly TPWD survey regression missing');
 requireText(turkeyQuarterlyTests, 'legal bag or method changes cannot be auto-published', 'legal auto-update guard missing');
 requireText(turkeyQuarterlyWorkflow, '17 15 2 1,4,7,10 *', 'quarterly auto-publication schedule missing');
