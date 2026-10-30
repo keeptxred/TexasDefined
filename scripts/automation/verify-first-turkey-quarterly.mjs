@@ -110,16 +110,24 @@ function main() {
         r.createdAt >= pr.merged_at && r.headSha && hasAncestor(pr.merge_commit_sha, r.headSha));
       assert.ok(accepted.length, "No successful production deployment of the merged quarterly fact change");
       accepted.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-      const production = accepted[0];
-      result.productionRun = production.databaseId;
-      const statuses = api("repos/" + repo + "/commits/" + production.headSha + "/status").statuses || [];
-      for (const context of ["texasdefined-production", "texasdefined-live"]) {
-        assert.ok(statuses.some(s => s.context === context && s.state === "success"), "Missing successful " + context + " status");
+      // Later unrelated main deployments may legitimately skip the bounded
+      // hunting Chrome stage; select the newest successful DESCENDANT that
+      // contains actual turkey browser evidence, not simply the last release.
+      let production = null;
+      let artifactName = null;
+      for (const candidate of accepted) {
+        const statuses = api("repos/" + repo + "/commits/" + candidate.headSha + "/status").statuses || [];
+        if (!["texasdefined-production", "texasdefined-live"].every(context =>
+          statuses.some(s => s.context === context && s.state === "success"))) continue;
+        const expectedArtifact = "hunting-hub-visual-" + candidate.databaseId;
+        const artifacts = api("repos/" + repo + "/actions/runs/" + candidate.databaseId + "/artifacts?per_page=100").artifacts || [];
+        if (!artifacts.some(a => a.name === expectedArtifact && !a.expired && a.size_in_bytes > 2048)) continue;
+        production = candidate;
+        artifactName = expectedArtifact;
+        break;
       }
-      const artifacts = api("repos/" + repo + "/actions/runs/" + production.databaseId + "/artifacts?per_page=100").artifacts || [];
-      const artifactName = "hunting-hub-visual-" + production.databaseId;
-      const proof = artifacts.find(a => a.name === artifactName && !a.expired && a.size_in_bytes > 2048);
-      assert.ok(proof, "Actual exact-page Chrome artifact missing: a skipped-success step is not proof");
+      assert.ok(production, "No deployed descendant with actual post-merge turkey Chrome proof; skipped-success is not acceptance");
+      result.productionRun = production.databaseId;
       const proofDir = path.join(outDir, "chrome");
       mkdirSync(proofDir, { recursive: true });
       command("gh", ["run", "download", String(production.databaseId), "--repo", repo,
