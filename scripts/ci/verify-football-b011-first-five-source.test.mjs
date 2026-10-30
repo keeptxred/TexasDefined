@@ -29,7 +29,7 @@ const expectedNames={
 };
 test('exact five distinct researched Texas programs, not unsupported UIL or generic pages',()=>{
  assert.deepEqual(Object.keys(data).filter(x=>slugs.includes(x)).sort(),[...slugs].sort());
- assert.equal(Object.keys(data).length,15,'First and second five source cohorts only');
+ assert.equal(Object.keys(data).length,20,'First and second five source cohorts only');
  for(const slug of slugs){
    const d=data[slug];
    assert.equal(d.slug,slug);
