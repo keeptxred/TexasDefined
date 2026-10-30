@@ -87,13 +87,16 @@ export function TurkeySeasonGuide() {
             </figure>
           </div>
         </section>
-        <aside className="mt-10 grid gap-6 border-l-4 border-primary bg-muted/30 p-6 md:grid-cols-2" aria-label="Public turkey hunt opportunity">
-          <div><p className="eyebrow text-primary">Specific 2026–27 public hunting lead</p><h3 className="mt-2 font-display text-2xl">National Refuge Spring Turkey drawings</h3><p className="mt-3 text-sm leading-7">{drawApplicationExpired ? <>The {quarterlyFacts.draw.deadline} application deadline for the Hagerman and Lower Rio Grande Valley NWR–East Lake examples has passed. Use the official TPWD drawn-hunt catalog to check the next application cycle; these are not unrestricted public hunts.</> : <>TPWD lists Hagerman NWR and Lower Rio Grande Valley NWR–East Lake in its National Refuge Spring Turkey draw category, with an application deadline of <strong>{quarterlyFacts.draw.deadline}</strong>. Limited permits, fees, application requirements and weapon restrictions apply. These are drawn opportunities, not open-access hunts.</>}</p></div>
-          <a href={tpwdDrawUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center border border-primary px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground">See TPWD drawing details ↗</a>
-        </aside>
         <section className="mt-10 border-t border-border pt-8" aria-labelledby="turkey-public-hunting-options">
-          <h3 id="turkey-public-hunting-options" className="font-display text-3xl">Two verified 2027 public turkey draw opportunities</h3>
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These are limited-entry TPWD National Refuge Spring Turkey hunts, not open-access public hunting. Both list a {quarterlyFacts.draw.deadline} application deadline, a ${quarterlyFacts.draw.applicationFeeUsd} adult application fee and a ${quarterlyFacts.draw.permitFeeUsd} adult permit fee if selected. The individual hunt notices control eligibility, restrictions and availability. TPWD draw and survey data machine-checked {quarterlyFacts.checkedAt}; legal guidance has a separate editorial verification date.</p>
+          <p className="eyebrow text-primary">National Refuge Spring Turkey drawings</p>
+          <h3 id="turkey-public-hunting-options" className="mt-2 font-display text-3xl">Two verified 2027 public turkey draw opportunities</h3>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+            TPWD lists Hagerman NWR and Lower Rio Grande Valley NWR–East Lake as limited-entry National Refuge Spring Turkey hunts, not walk-in or unrestricted public hunting.
+            {" "}The {quarterlyFacts.draw.deadline} application deadline {drawApplicationExpired ? "has passed; use the official TPWD drawn-hunt catalog to check the next application cycle" : "is the closing date for these opportunities; apply through the official TPWD drawn-hunt catalog"}.
+            {" "}Both list a ${quarterlyFacts.draw.applicationFeeUsd} adult application fee and a ${quarterlyFacts.draw.permitFeeUsd} adult permit fee if selected.
+            {" "}Individual hunt notices control eligibility, restrictions and availability. TPWD draw and survey data machine-checked {quarterlyFacts.checkedAt}; legal guidance has a separate editorial verification date.
+          </p>
+          <a href={tpwdDrawUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center border border-primary px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground">See TPWD drawing details ↗</a>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <article className="border border-border p-5">
               <h4 className="font-display text-2xl">Hagerman National Wildlife Refuge</h4>
