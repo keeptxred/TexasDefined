@@ -9,6 +9,18 @@ const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 const surfaces = [
+  // THC National Register acceptance: live, cache-busted SSR after canonical Worker deploy.
+  // Listing dates, individual nomination stages and review date must ship together.
+  ['thc-landmark-heading', '/texas-historic-landmarks', 'newly recognized historic places'],
+  ['thc-rosewood-listed', '/texas-historic-landmarks', 'Rosewood Elementary'],
+  ['thc-july-welder-robinson', '/texas-historic-landmarks', 'Patricia Welder and Hampton C. Robinson Jr. House'],
+  ['thc-july-cindy-walker', '/texas-historic-landmarks', 'Cindy Walker House'],
+  ['thc-listing-status-label', '/texas-historic-landmarks', 'National Register listing:'],
+  ['thc-evergreen-nomination', '/texas-historic-landmarks', 'Evergreen Cemetery'],
+  ['thc-scotus-nomination', '/texas-historic-landmarks', 'Scotus College'],
+  ['thc-not-yet-listed', '/texas-historic-landmarks', 'Submitted; listing not confirmed'],
+  ['thc-reviewed-october-30', '/texas-historic-landmarks', '2026-10-30'],
+  ['thc-visitor-disclaimer', '/texas-historic-landmarks', 'a directory of sites open for tours'],
   ['mclennan-2020-census-corrected', '/county/mclennan', 'The 2020 U.S. Census counted 260,579 residents in McLennan County.'],
   // Three complete Waco visitor-guide routes are now protected production surfaces.
   // These are actual public pages, not unverified affiliate placeholder slugs.

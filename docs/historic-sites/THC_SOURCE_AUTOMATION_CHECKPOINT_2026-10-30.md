@@ -1,23 +1,34 @@
-# Texas Historical Commission source automation checkpoint — October 30, 2026
+# Texas Historical Commission source automation — verified recovery checkpoint
 
-## Scope
-Integrate THC as an official historical designation and research source for *existing* TexasDefined authority pages. This is not a page-creation license, visitor-access approval, or image-reuse grant.
+**Review date:** October 30, 2026  
+**Owner:** TexasDefined  
+**Public route:** https://texasdefined.com/texas-historic-landmarks  
+**Official register:** https://thc.texas.gov/preserve/designate-historic-properties/national-register-historic-places
 
-## Verified / already completed
-- PR [#6406](https://github.com/keeptxred/TexasDefined/pull/6406) merged (`d951528d32386a1c8bda3737e59557c09e047232`): Rosewood Elementary moved from pending to Listed October 2026; month parser fixed for markup-separated July/August headers; THC photo-rights and source-citation safeguards added.
-- The existing [THC Atlas statewide monthly census](../../.github/workflows/thc-atlas-census.yml) and [THC National Register weekly source watch](../../.github/workflows/thc-landmark-watch.yml) are retained. Do not duplicate them or re-audit all existing historic pages.
-- Official source: https://thc.texas.gov/preserve/designate-historic-properties/national-register-historic-places . On October 30 this lists **Evergreen Cemetery (Austin)** as submitted to NPS October 19 and **Scotus College (Hebbronville)** as submitted October 13. Both were previously marked review in the site source data.
-- The official site shows **Cayo del Oso** as *Determined Eligible—Owner Objection*, despite placing it beneath the October 2026 listings heading. This is NOT a listed or visitable attraction; do not add it to the listed inventory or disclose protected archeological coordinates.
+## Completed implementation (no rebuild needed)
 
-## This follow-up batch
-- Correct Evergreen Cemetery and Scotus College pending stages to `submitted`, without representing either as listed.
-- Compare the source's *Submitted to NPS* and *Final Draft in Progress* groups against pending registry entries in the weekly watch; fail closed and raise the existing issue on status changes or missing/ambiguous source headings.
-- Run a live THC source comparison on relevant `main` pushes as well as the existing Monday schedule and manual dispatch. Automatically comment on and close the exact existing source-drift alert **only after a successful live comparison**. Failures retain/open an alert and preserve the run report.
-- No image copying, automatic public-page creation, new location coordinates, or manual seasonal work.
+1. [PR #6406](https://github.com/keeptxred/TexasDefined/pull/6406) merged as `d951528d32386a1c8bda3737e59557c09e047232`: moved Rosewood Elementary from pending to **Listed October 2026**, corrected month parsing for tagged headings, and recorded official THC photograph reuse restrictions.
+2. [PR #6437](https://github.com/keeptxred/TexasDefined/pull/6437) merged as `51a79e8024f8eb0deb90daef5002b74f4140c6f7`: changed Evergreen Cemetery (Austin; NPS received October 19) and Scotus College (Hebbronville; received October 13) to **submitted**, NOT listed. Added pending-stage comparisons and live watch on relevant main pushes, with successful-run-only alert closure.
+3. [PR #6444](https://github.com/keeptxred/TexasDefined/pull/6444) merged as `8ef35870c1eb1c07effdf31902a8f2608e8375e5`: hardened HTML date/entity handling and preserved source-heading diagnostics.
+4. [PR #6447](https://github.com/keeptxred/TexasDefined/pull/6447) merged as `6020551e8cba2943b26ce5c9007e6498eefe4707`: fixed official July heading rendered as `L isted July 2026`. The Patricia Welder/Hampton Robinson Jr. and Cindy Walker houses remain **Listed July 2026**, not August. Added regression fixtures.
+5. [Source drift issue #5290](https://github.com/keeptxred/TexasDefined/issues/5290) was **automatically closed as completed October 30, 2026 at 19:54:45 UTC** by the success-only live source-watch workflow. The previously failing report [41118074493](https://github.com/keeptxred/TexasDefined/actions/runs/41118074493) documented the exact split-word defect. The corrected live watch passed before the alert was automatically closed. No additional THC source-drift issues were open at the final check.
+6. The canonical [production deployment of the split-heading fix](https://github.com/keeptxred/TexasDefined/actions/runs/41119075510) reported `texasdefined-production`, `texasdefined-cloudflare`, `texasdefined-live`, `texasdefined-runtime-smoke`, and `texasdefined-validation` **success**, as returned by GitHub's commit-status API for `6020551e8cba2943b26ce5c9007e6498eefe4707`.
 
-## Acceptance / handoff
-- Offline watcher and existing five authority-batch validations succeed in CI.
-- PR merges normally through required checks.
-- On merge, the `main` push runs the **live-source-watch** job (skipped for pull requests); examine its report artifact and closing comment on [issue #5290](https://github.com/keeptxred/TexasDefined/issues/5290). Do not assert live success before it actually runs.
-- If live comparison fails, follow source drift in #5290 using the report; preserve the real THC dates and distinctions between nomination, listed, and determined-eligible-owner-objection.
-- Keep monthly Atlas census separate from weekly National Register status checks.
+## Public-page production acceptance (targeted final task)
+
+The October 30 acceptance batch updates the page's displayed research-review date from October 12 to **October 30, 2026** and adds **10 Texas Historical Commission assertions** to the existing canonical live, cache-busted production surface validator, `scripts/ci/verify-production-surfaces.mjs`. The assertions check the public page heading, Rosewood, both July properties, July month label, both correctly pending nominees, submission-not-listed disclosure, reviewed date, and visitor-access disclaimer.
+
+**Acceptance rule:** This final batch is complete only when its own merged revision has a `texasdefined-live=success` AND `texasdefined-production=success` commit status from `.github/workflows/deploy-production.yml`, which runs the expanded live surface validator after the Worker deployment. Do not substitute an earlier successful deployment for that acceptance evidence. Add its specific run ID/merge SHA to the closing checkpoint when available.
+
+## Existing unattended workflows retained
+
+- [THC National Register source verification](../../.github/workflows/thc-landmark-watch.yml): **weekly Monday**, manually dispatchable, and relevant main-branch push checks; preserves JSON source comparisons, creates/comments on drift issues on failure and closes the exact alert only on a clean live comparison.
+- [THC Atlas statewide census](../../.github/workflows/thc-atlas-census.yml): **monthly first-of-month** public GIS layer comparison and evidence artifacts; no automatic new site publication.
+- The canonical [Deploy TexasDefined production](../../.github/workflows/deploy-production.yml) remains the **only** permitted publishing workflow. No extra Cloudflare connections or direct deploys are required.
+
+## Guardrails / open questions
+
+- **Never treat National Register designation as public admission**, permission to enter private properties, or authorization to reuse THC-owned photographs. Consult [image provenance](IMAGE_PROVENANCE.md) for THC Photo Request rules.
+- Cayo del Oso is marked **Determined Eligible — Owner Objection**, not an ordinary listed or public-tour attraction; do not publish sensitive archaeological coordinates.
+- Do not duplicate historical attraction pages or broad audits; keep automated factual refreshes and source comparison separate.
+- Until the post-merge **THC-specific** production surface assertions have passed, the final public-page acceptance is **pending**, regardless of previous green site-wide deployment checks.

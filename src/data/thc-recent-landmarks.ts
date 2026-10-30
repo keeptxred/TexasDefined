@@ -9,7 +9,7 @@
 export const THC_LISTINGS_URL =
   "https://thc.texas.gov/preserve/designate-historic-properties/national-register-historic-places";
 export const THC_ATLAS_URL = "https://atlas.thc.texas.gov/";
-export const THC_RESEARCH_REVIEWED_ON = "2026-10-12";
+export const THC_RESEARCH_REVIEWED_ON = "2026-10-30";
 export type ThcLandmarkKind =
   | "building" | "district" | "church" | "cemetery" | "courthouse"
   | "cultural-landscape" | "school" | "bridge" | "memorial" | "stadium";
