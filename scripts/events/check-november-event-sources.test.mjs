@@ -65,6 +65,7 @@ test("November unified filters include organizer picks and honor noncontinuous w
   assert(booking.includes('requireSelection ? "" : "houston"'), "November must not advertise a Houston default to statewide visitors");
   assert(booking.includes('marketplaceHref = display ?'), "Viator link should require a valid selected destination");
   assert(booking.includes('disabled={!market}'), "Do not request products before a market is selected");
+  assert(booking.includes("activeMarket === market"), "Stale city tour results must hide when a different destination is selected");
 });
 
 test("canonical event seasons and title deduplication remain correct", () => {
