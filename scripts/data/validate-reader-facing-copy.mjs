@@ -10,6 +10,7 @@ for (const entry of fs.readdirSync("src/data")) {
   }
 }
 targets.push("src/routes/texas-music.lazy.tsx");
+targets.push("src/data/gaming.ts", "src/data/whirlyball-hurst-destination.ts", "src/data/william-chris-vineyards-hye-destination.ts");
 
 const forbidden = [
   /For Texas Defined,/i,
@@ -20,6 +21,9 @@ const forbidden = [
   /internal-link reviews/i,
   /the editorial system/i,
   /the Talent pillar/i,
+  /TexasDefined's event system handles/i,
+  /For TexasDefined trip planning/i,
+  /gives TexasDefined a source-rich/i,
 ];
 
 for (const file of targets) {
