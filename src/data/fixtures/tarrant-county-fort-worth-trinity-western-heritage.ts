@@ -27,6 +27,7 @@ export const tarrantCountyFortWorthTrinityWesternHeritageArticle: Article = {
     { href: "/destination/grapevine", label: "Grapevine researched visitor guide", description: "Grapevine visitor guide: historic Cotton Belt Depot, separate Vintage Railroad and TEXRail routes, Main Street parking." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/destination/whirlyball-hurst", label: "WhirlyBall Hurst", description: "Try the unusual bumper-car team sport, two-story LaserWhirld arena and arcade in Hurst." },
+    { href: "/city/hurst", label: "Hurst city visitor and local-systems guide", description: "Compare Hurst civic services, neighborhoods, recreation and Mid-Cities transportation context before adding an indoor stop." },
     { href: "/county/dallas", label: "Explore Dallas County", description: "Continue east across the Metroplex toward Dallas, the Trinity River and the Blackland Prairie." },
     { href: "/county/denton", label: "Explore Denton County", description: "Head north into the rapidly growing communities between Fort Worth, Denton and Lewisville Lake." },
     { href: "/county/johnson", label: "Explore Johnson County", description: "Follow the southern edge of the Fort Worth region into prairie and smaller-city Texas." },
@@ -72,6 +73,7 @@ export const tarrantCountyFortWorthTrinityWesternHeritageArticle: Article = {
 
     h("Grapevine and the northeast preserve another layer of history"),
     p("Grapevine traces its roots to some of the county's earliest Anglo settlement and later became a railroad and agricultural community. Today its preserved downtown, hospitality economy and proximity to Dallas Fort Worth International Airport give it a very different role. Nearby Southlake, Colleyville, Euless, Bedford, Hurst and North Richland Hills illustrate successive waves of suburban and employment growth across the northeast."),
+    p("Arlington and Hurst illustrate two different scales of Tarrant County city life: Arlington is a large university and entertainment center, while Hurst is an established Mid-Cities community in the Hurst–Euless–Bedford corridor. Planning for those two places should use their distinct city guides and local access information, not assume that Fort Worth services, attractions or school boundaries apply countywide."),
     p("This part of the county also shows how the Metroplex blurred older boundaries without erasing them. Municipal identities remain strong even when residents commute across city and county lines every day. Roads, school districts, airport property and commercial corridors stitch communities together, but each still carries its own history and development pattern."),
 
     h("Aviation and defense reshaped the twentieth-century economy"),
