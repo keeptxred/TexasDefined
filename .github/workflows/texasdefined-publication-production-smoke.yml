@@ -43,7 +43,7 @@ jobs:
             exit 1
           fi
           echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
-      - name: Verify live news, published article canonicals, sitemap and November event imagery
+      - name: Verify live news, published article canonicals and sitemap XML
         if: github.event_name != 'schedule'
         run: |
           node scripts/ci/verify-texasdefined-publication-production.mjs
