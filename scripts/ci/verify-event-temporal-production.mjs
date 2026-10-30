@@ -257,6 +257,8 @@ async function verifyNovember2026EditorialRelease(november) {
     }
   }
   assert(editorialCount + photoCount === expectedCards, 'Every November listing needs a visual');
+  const pageVisuals = [...november.matchAll(/\bdata-event-visual="(editorial|photograph)"/g)];
+  assert(pageVisuals.length >= expectedCards + 4, 'The four featured November event cards must also render visuals');
   console.log('[November imagery] ' + cards.length + '/' + expectedCards + ' visual cards: ' + photoCount + ' existing event images, ' + editorialCount + ' disclosed editorial illustrations');
 
 
