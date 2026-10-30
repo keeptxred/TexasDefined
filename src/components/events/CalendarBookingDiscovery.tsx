@@ -11,15 +11,17 @@ const MARKET_OPTIONS = ALLOWED_MARKETS.map((slug) => ({
 })).filter(({slug}) => hasVerifiedViatorMarketUrl(slug));
 
 /** Supplemental discovery, deliberately separate from independently scheduled events. */
-export function CalendarBookingDiscovery({ christmas = false, city }: { christmas?: boolean; city?: string }) {
-  const initial = MARKET_OPTIONS.find(({label}) => label.toLowerCase() === city?.toLowerCase())?.slug ?? "houston";
+export function CalendarBookingDiscovery({ christmas = false, city, requireSelection = false }: { christmas?: boolean; city?: string; requireSelection?: boolean }) {
+  const initial = MARKET_OPTIONS.find(({label}) => label.toLowerCase() === city?.toLowerCase())?.slug ?? (requireSelection ? "" : "houston");
   const [market, setMarket] = useState<string>(initial);
   const [activeMarket, setActiveMarket] = useState<string>(initial);
   const [requestVersion, setRequestVersion] = useState(0);
-  const display = MARKET_OPTIONS.find((option) => option.slug === activeMarket);
+  const display = MARKET_OPTIONS.find((option) => option.slug === market);
   const locationName = display?.label ?? "Texas";
-  const marketplaceHref = buildViatorAffiliateUrl(verifiedViatorMarketUrl(activeMarket), `texasdefined-calendar-${christmas ? "christmas" : "experiences"}-${activeMarket}`);
-  const placement = `viator-calendar-${christmas ? "christmas" : "experiences"}-${activeMarket}`;
+  // CTA follows the currently chosen city. Product results change only after Find nearby tours.
+  const marketplaceHref = display ? buildViatorAffiliateUrl(verifiedViatorMarketUrl(market), `texasdefined-calendar-${christmas ? "christmas" : "experiences"}-${market}`) : "";
+  const placement = `viator-calendar-${christmas ? "christmas" : "experiences"}-${market}`;
+  const activePlacement = `viator-calendar-${christmas ? "christmas" : "experiences"}-${activeMarket}`;
   return <section className="border-t border-border bg-surface py-10" aria-labelledby="calendar-bookable-experiences">
     <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
       <p className="eyebrow text-primary">Separate from the event schedule · bookable experiences</p>
@@ -34,13 +36,14 @@ export function CalendarBookingDiscovery({ christmas = false, city }: { christma
       <div className="mt-5 flex flex-wrap items-end gap-3">
         <label className="text-sm font-semibold" htmlFor="calendar-viator-market">Look near
           <select id="calendar-viator-market" className="mt-2 block border border-border bg-background px-4 py-3 text-sm" value={market} onChange={(event) => setMarket(event.target.value)}>
+            {requireSelection && <option value="">Choose a Texas city</option>}
             {MARKET_OPTIONS.map((option) => <option key={option.slug} value={option.slug}>{option.label}</option>)}
           </select>
         </label>
-        <button type="button" className="border border-primary px-4 py-3 text-sm font-semibold text-primary" onClick={() => { setActiveMarket(market); setRequestVersion((value) => value + 1); }}>
+        <button type="button" disabled={!market} className="border border-primary px-4 py-3 text-sm font-semibold text-primary disabled:cursor-not-allowed disabled:opacity-50" onClick={() => { if (!market) return; setActiveMarket(market); setRequestVersion((value) => value + 1); }}>
           {christmas ? "Find seasonal tours" : "Find nearby tours"}
         </button>
-        <a
+        {marketplaceHref ? <a
           href={marketplaceHref}
           target="_blank"
           rel="sponsored nofollow noopener noreferrer"
@@ -50,9 +53,9 @@ export function CalendarBookingDiscovery({ christmas = false, city }: { christma
           data-commercial-placement={placement}
           onClick={() => trackAffiliateClick({ partner:"viator", label:`Browse ${locationName} tours on Viator`, placement, module:"experiences" })}
           className="text-sm font-semibold text-primary underline"
-        >Browse all {locationName} experiences on Viator ↗</a>
+        >Browse all {locationName} experiences on Viator ↗</a> : <span className="text-sm text-muted-foreground">Choose a city to see locally relevant experiences.</span>}
       </div>
-      {requestVersion > 0 ? <ViatorLiveProducts key={`${activeMarket}-${requestVersion}-${christmas}`} marketSlug={activeMarket} placement={placement} mode="auto" feedKind={christmas ? "christmas" : "products"} /> : null}
+      {requestVersion > 0 && activeMarket && activeMarket === market ? <ViatorLiveProducts key={`${activeMarket}-${requestVersion}-${christmas}`} marketSlug={activeMarket} placement={activePlacement} mode="auto" feedKind={christmas ? "christmas" : "products"} /> : null}
       <p className="mt-4 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings, at no additional cost to you. Organizer-confirmed event dates and official booking links remain the authoritative event source.</p>
     </div>
   </section>;

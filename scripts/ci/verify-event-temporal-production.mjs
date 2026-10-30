@@ -225,9 +225,15 @@ async function verifyNovember2026EditorialRelease(november) {
     'Dallas YMCA Turkey Trot',
     'Fort Worth YMCA Turkey Trot',
     'Calaveras de Azúcar Festival',
+    'GM Financial Parade of Lights',
+    'Texas Christkindl Market',
+    'Austin Studio Tour',
   ]) {
     assert(visible.includes(name), `November landing lost organizer-confirmed event: ${name}`);
   }
+
+  assert(visible.includes('Family activities Nov 13–15; main market Nov 18–22'), 'November A Christmas Affair split windows missing');
+  assert(visible.includes('7 direct organizer listings'), 'November listing count does not include all organizer-only events');
 
   const lights = await fetchProduction('/event/johnson-city-christmas-lights-spectacular', 'Johnson City lights 2026 guide');
   const johnsonText = visiblePageText(lights);

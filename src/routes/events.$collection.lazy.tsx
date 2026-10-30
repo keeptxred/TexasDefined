@@ -259,6 +259,12 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
   const [period, setPeriod] = useState("all");
   const [city, setCity] = useState("all");
   const items = page.items as Array<any>;
+  const officialPicks = (page.novemberOfficialPicks ?? []).map((pick: any, index: number) => ({
+    ...pick, slug: `official-2026-${index}`, href: pick.officialUrl, isOfficialPick: true,
+  }));
+  // Visitors can filter first-party guides and organizer-confirmed listings together.
+  // Official-only entries are NOT counted as permanent event guides.
+  const allEvents = [...items, ...officialPicks];
   const regions: Record<string, string> = {
     "gulf-coast": "Gulf Coast & Houston",
     "hill-country": "Hill Country & Central Texas",
@@ -274,19 +280,24 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
     music: "Music & live events", rodeo: "Rodeos & fairs",
   };
   const year = page.dateContext?.match(/20\d{2}/)?.[0] ?? "2026";
-  const cities = [...new Set(items.map((event) => String(event.city)))].sort();
-  const categories = [...new Set(items.map((event) => String(event.category)))].sort();
+  const cities = [...new Set(allEvents.map((event) => String(event.city)))].sort();
+  const categories = [...new Set(allEvents.map((event) => String(event.category)))].sort();
   const periods = [
     { value: "early", label: "Nov 1–10", start: `${year}-11-01`, end: `${year}-11-10` },
     { value: "middle", label: "Nov 11–20", start: `${year}-11-11`, end: `${year}-11-20` },
     { value: "late", label: "Thanksgiving & late Nov (21–30)", start: `${year}-11-21`, end: `${year}-11-30` },
   ];
   const selectedPeriod = periods.find((item) => item.value === period);
-  const filtered = items.filter((event) =>
+  const dateWindows = (event: any): readonly (readonly [string, string])[] =>
+    event.dateWindows ?? (event.slug === "a-christmas-affair" && year === "2026"
+      ? [["2026-11-13", "2026-11-15"], ["2026-11-18", "2026-11-22"]]
+      : [[event.startDate, event.endDate ?? event.startDate]]);
+  const filtered = allEvents.filter((event) =>
     (region === "all" || event.region === region)
     && (category === "all" || event.category === category)
     && (city === "all" || event.city === city)
-    && (!selectedPeriod || (event.startDate <= selectedPeriod.end && (event.endDate ?? event.startDate) >= selectedPeriod.start))
+    && (!selectedPeriod || dateWindows(event).some(([startDate, endDate]) =>
+      startDate <= selectedPeriod.end && endDate >= selectedPeriod.start))
   );
   const featuredNames = [
     "wurstfest", "houston-ballet-nutcracker-market",
@@ -294,7 +305,12 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
   ];
   const featured = featuredNames.map((slug) => items.find((event) => event.slug === slug)).filter(Boolean);
   const reset = () => { setRegion("all"); setCategory("all"); setPeriod("all"); setCity("all"); };
-  const dateDisplay = (event: any) => holidayDateLabel(event.startDate, event.endDate);
+  const dateDisplay = (event: any) => {
+    const windows = dateWindows(event);
+    return windows.length > 1
+      ? windows.map(([startDate, endDate]) => holidayDateLabel(startDate, endDate)).join(" · ")
+      : holidayDateLabel(event.startDate, event.endDate);
+  };
   const isFiltered = region !== "all" || category !== "all" || period !== "all" || city !== "all";
 
   return <section className="pt-12" aria-labelledby="november-event-results">
@@ -318,7 +334,7 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
     <div className="border-t border-border pt-9">
       <p className="eyebrow text-primary">Find the right date and destination</p>
       <h2 id="november-event-results" className="mt-2 font-display text-4xl">Browse November events</h2>
-      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Filter the verified event guides by part of the month, location and kind of outing. Seasonal attractions may run on selected nights; check the detailed guide and organizer before booking.</p>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Find verified event guides and direct organizer listings together by date, location and outing type. Separate event weekends are shown individually, not as continuous openings. Confirm final times with organizers.</p>
     </div>
     <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="November event filters">
       <label className="text-sm font-semibold">When
@@ -347,7 +363,7 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
       </label>
     </div>
     <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-      <p className="text-sm text-muted-foreground" role="status" aria-live="polite">{filtered.length} of {items.length} verified event guides match your filters.</p>
+      <p className="text-sm text-muted-foreground" role="status" aria-live="polite">{filtered.length} of {allEvents.length} organizer-verified events match your filters · {items.length} permanent guides, {officialPicks.length} direct organizer listings.</p>
       {isFiltered ? <button type="button" className="text-sm font-semibold text-primary underline" onClick={reset}>Clear filters</button> : null}
     </div>
     {filtered.length ? <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
@@ -355,27 +371,21 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
         {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="mb-5 aspect-[4/3] w-full object-cover" /> : null}
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">{dateDisplay(event)}</p>
         <p className="eyebrow mt-3 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
-        <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
-        <p className="mt-3 text-sm leading-6 text-muted-foreground">{categoryLabels[event.category] ?? "Texas event"}</p>
+        <h3 className="mt-3 font-display text-2xl leading-tight">
+          {event.isOfficialPick
+            ? <a href={event.officialUrl} target="_blank" rel="noopener noreferrer" className="hover:text-primary">{event.name}</a>
+            : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}
+        </h3>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">{categoryLabels[event.category] ?? "Texas event"}{event.isOfficialPick ? " · Organizer listing" : ""}</p>
+        {event.isOfficialPick ? <p className="mt-2 text-sm leading-6 text-muted-foreground">{event.summary}</p> : null}
+        {event.slug === "a-christmas-affair" ? <p className="mt-2 text-xs leading-5 text-muted-foreground">Family activities Nov 13–15; main market Nov 18–22. Closed between these windows.</p> : null}
         {event.detail?.includes("scheduled windows") || event.detail?.includes("Community Impact Center") ? <p className="mt-2 text-xs leading-5 text-muted-foreground">Multiple operating dates or sessions — confirm the exact day in the guide.</p> : null}
-        <EventGuideLink event={event} className="mt-auto pt-5 text-sm font-semibold text-primary">Dates, official sources & visitor guide →</EventGuideLink>
+        {event.isOfficialPick
+          ? <a href={event.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-auto pt-5 text-sm font-semibold text-primary">Official event details →</a>
+          : <EventGuideLink event={event} className="mt-auto pt-5 text-sm font-semibold text-primary">Dates, official sources & visitor guide →</EventGuideLink>}
       </li>)}
-    </ul> : <p className="mt-6 border border-border p-8 text-sm text-muted-foreground">No guides match this combination. Clear one or more filters to see other Texas events.</p>}
+    </ul> : <p className="mt-6 border border-border p-8 text-sm text-muted-foreground">No verified events match this combination. Clear one or more filters to see other Texas events.</p>}
 
-    {page.novemberOfficialPicks?.length ? <section className="mt-14 border-t border-border pt-10" aria-labelledby="november-more-official-events">
-      <p className="eyebrow text-primary">Also on the 2026 calendar</p>
-      <h2 id="november-more-official-events" className="mt-2 font-display text-4xl">Thanksgiving runs and cultural celebrations</h2>
-      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Additional dates confirmed directly by organizers. These link to official sites while detailed TexasDefined event guides are being developed; they are not counted among the permanent guides above.</p>
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        {page.novemberOfficialPicks.map((pick: any) => <article key={pick.name} className="border border-border p-6">
-          <p className="text-xs font-semibold uppercase tracking-wide text-primary">{holidayDateLabel(pick.startDate, pick.endDate)} · {pick.city}</p>
-          <h3 className="mt-3 font-display text-2xl">{pick.name}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">{pick.venue}</p>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">{pick.summary}</p>
-          <a href={pick.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">Official event schedule & registration ↗</a>
-        </article>)}
-      </div>
-    </section> : null}
     <aside className="mt-10 border-t border-border py-7 text-sm leading-7 text-muted-foreground">
       <strong className="text-foreground">Planning Thanksgiving weekend?</strong> Some holiday attractions start in November but continue into December or January; opening weekend is not a guarantee of daily admission. Check organizer schedules and road closures, and use <a className="text-primary underline" href="/events/christmas-events">the Texas holiday calendar</a> for more light displays and seasonal events.
     </aside>
@@ -532,6 +542,6 @@ function EventCollectionPage() {
   const { page } = Route.useLoaderData();
   return <>
     {page.weekendDigest ? <WeekendCollectionPage page={page} /> : <GenericCollectionPage page={page} />}
-    <Suspense fallback={null}><CalendarBookingDiscovery christmas={page.path === "/events/christmas-events" || page.path === "/events/december-events"} /></Suspense>
+    <Suspense fallback={null}><CalendarBookingDiscovery christmas={page.path === "/events/christmas-events" || page.path === "/events/december-events"} requireSelection={page.path === "/events/november-events"} /></Suspense>
   </>;
 }

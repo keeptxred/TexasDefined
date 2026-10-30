@@ -4,16 +4,56 @@ export interface NovemberOfficialPick {
   name: string;
   city: string;
   region: "hill-country" | "prairies-lakes" | "south-texas";
-  category: "sport" | "culture";
+  category: "sport" | "culture" | "seasonal";
   startDate: string;
   endDate: string;
   venue: string;
   summary: string;
   officialUrl: string;
   sourceCheckedAt: string;
+  // True operating windows, not an uninterrupted span across closed days.
+  dateWindows?: readonly (readonly [string, string])[];
 }
 
 export const NOVEMBER_OFFICIAL_PICKS_2026: readonly NovemberOfficialPick[] = [
+  {
+    name: "GM Financial Parade of Lights",
+    city: "Fort Worth",
+    region: "prairies-lakes",
+    category: "seasonal",
+    startDate: "2026-11-22",
+    endDate: "2026-11-22",
+    venue: "Downtown Fort Worth",
+    summary: "Free downtown illuminated parade on Sunday, November 22 at 6 p.m.; organizers advise arriving early because of street closures. Reserved seating is optional.",
+    officialUrl: "https://fortworthparadeoflights.org/plan",
+    sourceCheckedAt: "2026-10-30",
+  },
+  {
+    name: "Texas Christkindl Market",
+    city: "Arlington",
+    region: "prairies-lakes",
+    category: "seasonal",
+    startDate: "2026-11-20",
+    endDate: "2026-12-23",
+    dateWindows: [["2026-11-20", "2026-11-22"], ["2026-11-27", "2026-12-23"]],
+    venue: "Globe Life Field North Plaza, 1650 E Randol Mill Road",
+    summary: "German-inspired outdoor market, with a break November 23–26. The organizer lists November 20–22 and November 27–December 23; free parking is advertised in Lot B, subject to change.",
+    officialUrl: "https://txchristkindlmarket.com/",
+    sourceCheckedAt: "2026-10-30",
+  },
+  {
+    name: "Austin Studio Tour",
+    city: "Austin",
+    region: "hill-country",
+    category: "culture",
+    startDate: "2026-11-14",
+    endDate: "2026-11-22",
+    dateWindows: [["2026-11-14", "2026-11-15"], ["2026-11-21", "2026-11-22"]],
+    venue: "Participating art studios and galleries across Austin",
+    summary: "Free self-guided citywide studio visits November 14–15 and 21–22, 11 a.m.–5 p.m. both weekends. Consult the artist directory to build a feasible route.",
+    officialUrl: "https://atxstudiotour.com/",
+    sourceCheckedAt: "2026-10-30",
+  },
   {
     name: "Calaveras de Azúcar Festival",
     city: "San Antonio",
