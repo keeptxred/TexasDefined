@@ -27,7 +27,7 @@ function parseReportDate(raw) {
 }
 
 export function extractOfficialFoliageReport(html, asOf = new Date()) {
-  if (typeof html !== "string" || html.length < 200 || html.length > 4_000_000) {
+  if (typeof html !== "string" || html.length < 100 || html.length > 4_000_000) {
     throw Error("Unexpected size for official foliage HTML; not publishing an update");
   }
   const text = plainText(html);
