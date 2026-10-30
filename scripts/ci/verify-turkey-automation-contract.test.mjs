@@ -43,3 +43,18 @@ test("exact turkey Chrome audit must run on relevant production deployments and 
   assert.ok(scheduled.includes("node scripts/ci/verify-turkey-hunting-browser.mjs"), "browser script executed automatically");
   assert.ok(scheduled.includes("artifacts/hunting-hub-responsive/turkey/"), "screenshot evidence retained");
 });
+
+
+test("first Jan 2027 turkey schedule-to-production acceptance runs in GitHub, never GPT", () => {
+  const janWorkflow = read(".github/workflows/verify-first-turkey-quarterly.yml");
+  const janScript = read("scripts/automation/verify-first-turkey-quarterly.mjs");
+  assert.match(janWorkflow, /cron:\s*'17 17 3,4,5 1 \*'/, "GitHub must own the Jan 3–5 bounded acceptance window");
+  assert.ok(janWorkflow.includes("20270103") && janWorkflow.includes("20270105"), "one-time year guard must prevent 2028+ auditing");
+  assert.ok(janWorkflow.includes("node scripts/automation/verify-first-turkey-quarterly.mjs"), "GitHub scheduled job must execute verifier");
+  assert.ok(janWorkflow.includes("steps.audit.outcome == 'failure'"), "failure must fail closed and open a GitHub exception issue");
+  assert.ok(janWorkflow.includes("actions/upload-artifact@v4"), "complete evidence must be retained in GitHub");
+  for (const required of ["selectActualScheduledRun", "validateQuarterlyPR", "checkBrowserEvidence",
+    "github-actions[bot]", "productionWorkflow", "protectedFinisherWorkflow", "hunting-hub-visual-"]) {
+    assert.ok(janScript.includes(required), "GitHub-only quarterly acceptance missing " + required);
+  }
+});
