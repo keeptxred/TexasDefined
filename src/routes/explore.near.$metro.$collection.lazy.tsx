@@ -619,6 +619,14 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
   const { metro, collection, results, townReferences, eventContext, presentation } = pageData;
   const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
   const isDallasRoadRing = metro.slug === "dallas" && /^small-towns-[123]-hours?$/.test(collection.slug);
+  // Affiliate scripts must not mutate the Dallas lazy React outlet before
+  // hydration. The dedicated stay slot is rendered after the editorial guide.
+  useEffect(() => {
+    if (!isDallasRoadRing) return;
+    document.documentElement.dataset.tdDallasRoadGuideHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:dallas-road-guide-hydrated"));
+    return () => { delete document.documentElement.dataset.tdDallasRoadGuideHydrated; };
+  }, [isDallasRoadRing, collection.slug]);
   // Third-party/first-party lodging DOM writes must wait until *every* metro
   // day-trip lazy React tree has hydrated, not just McAllen. The root-ready
   // signal fires before lazy outlet hydration and cannot protect these cards.
