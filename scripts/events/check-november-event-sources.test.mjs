@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { targets, verifySource } from "./check-november-event-sources.mjs";
+import { targets, verifySource, inspect } from "./check-november-event-sources.mjs";
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 
@@ -139,6 +139,41 @@ test("Nutcracker current venue and Dobie sold-out meal sources fail closed", () 
   const dobie = target("Dobie Dichos sold-out meal");
   assert(verifySource("<h1>Friday, November 6th, 2026</h1><p>Program + Meal</p><p>SOLD OUT</p>", dobie));
   assert(!verifySource("<h1>Friday, November 6th, 2026</h1><p>Program + Meal now available</p>", dobie));
+});
+
+
+test("blocked Houston Ballet organizer uses only exact official venue fallback dates", async () => {
+  const market = targets.find(item => item.name === "Houston Ballet Nutcracker Market venue");
+  assert(market?.officialFallback, "Blocked organizer needs a host-owned fallback");
+  const fallback = market.officialFallback;
+  assert(fallback.url === "https://www.reliantpark.com/event/nutcracker-market/");
+  assert(verifySource("<h1>November 12, 2026 - November 15, 2026</h1><p>Reliant Center</p>", fallback));
+  assert(!verifySource("<h1>November 13, 2026 - November 15, 2026</h1><p>Reliant Center</p>", fallback));
+  assert(!verifySource("<h1>November 12, 2026 - November 15, 2026</h1><p>NRG Center</p>", fallback));
+  const response = (status, html = "") => ({ ok: status === 200, status, text: async () => html });
+  const validVenue = "<h1>November 12, 2026 - November 15, 2026</h1><p>Reliant Center</p>";
+  const calls = [];
+  const blocked = await inspect(market, async (url) => {
+    calls.push(url);
+    return url === market.url ? response(403) : response(200, validVenue);
+  });
+  assert.equal(blocked.status, "match");
+  assert.equal(blocked.url, fallback.url);
+  assert.equal(blocked.source, "official-venue-fallback");
+  assert.deepEqual(calls, [market.url, fallback.url], "Only one precise venue fallback");
+  const driftCalls = [];
+  const drifted = await inspect(market, async (url) => {
+    driftCalls.push(url);
+    return response(200, "<h1>November 13-15, 2026 | Reliant Center</h1>");
+  });
+  assert.equal(drifted.status, "review", "Never hide changed organizer dates with a fallback");
+  assert.deepEqual(driftCalls, [market.url], "No fallback after successful but conflicting organizer response");
+  const goneCalls = [];
+  const gone = await inspect(market, async (url) => { goneCalls.push(url); return response(404); });
+  assert.equal(gone.status, "review", "Official organizer 404 requires review");
+  assert.deepEqual(goneCalls, [market.url]);
+  const invalid = await inspect(market, async (url) => url === market.url ? response(403) : response(200, "<h1>November 12–15, 2025</h1><p>Reliant Center</p>"));
+  assert.equal(invalid.status, "review", "Do not accept outdated alternate-host dates");
 });
 
 test("November event guide venue and sold-out ticket schema remain aligned", () => {
