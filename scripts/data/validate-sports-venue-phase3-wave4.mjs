@@ -16,6 +16,21 @@ const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
 
+// Source-backed Reed Arena GSC intent repair: preserve visible planning facts,
+// the official Texas A&M 12-1-1 rule and the shared full-entity SEO contract.
+const reedEnrichment = read('src/data/sports-venue-enrichment-batch5.ts');
+for (const token of [
+  "'reed-arena': {",
+  '12-1-1 rule',
+  'https://12thman.com/facilities/a-to-z/reed-arena',
+]) requireText(reedEnrichment, token, 'Reed Arena clear-bag authority');
+for (const token of [
+  "entity.slug === 'reed-arena'",
+  'Reed Arena Bag Policy: Parking & Visitor Guide',
+  'clear-bag 12-1-1 policy',
+  'description: sportsVenueSearchDescription(entity, enrichment)',
+]) requireText(dynamicRoute, token, 'Reed Arena snippet and full-entity metadata');
+
 const editorialPaths = fs.readdirSync('src/data')
   .filter((name) => (
     name.startsWith('sports-venue-enrichment')
