@@ -24,6 +24,11 @@ export const BATCH011_FOOTBALL_SLUGS = new Set<string>([
   'converse-judson',
   'coolidge',
   'cooper',
+  'coppell',
+  'copperas-cove',
+  'cornerstone-christian',
+  'corpus-christi-calallen',
+  'corpus-christi-carroll',
 ]);
 
 export async function loadBatch011FootballProgramEditorial(

@@ -15,7 +15,7 @@ const cases=[
  ['cooper','delta','Bruce Silman','Bulldogs']
 ];
 test('Fourth five distinct 2026 football programs, format and first-party staff qualification',()=>{
- assert.equal(Object.keys(data).length,20,'Four implemented school cohorts and no fifth cohort yet');
+ assert.equal(Object.keys(data).length,25,'Four implemented school cohorts and no fifth cohort yet');
  const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts'),
  identities=read('src/data/high-school-football/school-identities.ts'),
  team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'),
@@ -44,9 +44,9 @@ test('Fourth five distinct 2026 football programs, format and first-party staff 
 });
 test('Fourth production verification requires actual screenshot count and GitHub pinned Worker',()=>{
  const r=JSON.parse(read('docs/football-authority/REGISTRY.json'));
- assert.equal(r.batch.number,11);assert.equal(r.batch.implementedOnBranch,20);assert.equal(r.batch.remainingToImplement,5);
+ assert.equal(r.batch.number,11);assert.equal(r.batch.implementedOnBranch,25);assert.equal(r.batch.remainingToImplement,0);
  assert.equal(r.schoolRecords.filter(x=>x.status==='VERIFIED').length,230);
- assert.equal(r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length,20);
+ assert.equal(r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length,25);
  for(const [slug] of cases){
   const x=r.schoolRecords.find(s=>s.slug===slug);
   assert.equal(x.status,'IMPLEMENTED');
