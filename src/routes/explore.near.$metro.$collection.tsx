@@ -173,6 +173,7 @@ function MetroProximityCollectionPage() {
         <MetroProximityCollectionRich pageData={pageData} />
       </Suspense>
       {isMcAllenDayTrips && <div data-stay-nearby-slot aria-label="Optional hotels and rentals for longer McAllen trips" />}
+      {isDallasRoadRing && <div data-stay-nearby-slot aria-label="Optional hotels and rentals after Dallas small-town visitor information" />}
     </main>
   </>;
 }

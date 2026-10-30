@@ -846,6 +846,9 @@
     // while guarding every metro against lazy-outlet hydration races.
     if (path === "/explore/near/mcallen/day-trips" &&
         document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1") return true;
+    if (/^\/explore\/near\/dallas\/small-towns-[123]-hours?$/.test(path)) {
+      return document.documentElement.dataset.tdDallasRoadGuideHydrated !== "1";
+    }
     if (/^\/explore\/near\/[a-z0-9-]+\/day-trips$/.test(path)) {
       return document.documentElement.dataset.tdMetroDayTripsHydrated !== "1";
     }
@@ -883,6 +886,7 @@
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
     window.addEventListener("texasdefined:metro-day-trips-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:dallas-road-guide-hydrated", scheduleSync);
     window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
   }
