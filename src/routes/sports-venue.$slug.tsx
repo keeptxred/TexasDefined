@@ -191,7 +191,9 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: entity.slug === 'msr-houston'
+        title: entity.slug === 'reed-arena'
+          ? 'Reed Arena Bag Policy: Parking & Visitor Guide'
+          : entity.slug === 'msr-houston'
           ? 'MSR Houston Track Guide: Karting Status, Track Days, Rules & Calendar'
           : sportsVenueSearchTitle(entity.name, enrichment?.city),
         description: sportsVenueSearchDescription(entity, enrichment),
@@ -443,6 +445,9 @@ function sportsVenueSearchTitle(name: string, city?: string) {
 }
 
 function sportsVenueSearchDescription(entity: TexasEntityRecord, enrichment: SportsVenueEnrichment) {
+  // Answer the observed Reed Arena clear-bag intent without bypassing the
+  // full-entity metadata helper required for other sports venues.
+  if (entity.slug === 'reed-arena') return 'Reed Arena in College Station uses Texas A&M’s clear-bag 12-1-1 policy. Check permitted bags, entry rules, parking and official Aggie visitor guidance.';
   if (entity.slug === 'msr-houston') return 'Plan an MSR Houston visit: track-day access, temporary karting closure, race calendar, 2.38-mile circuit, driving schools, guest fees, camping and directions.';
   const editorial = entity.description?.replace(/\s+/g, ' ').trim();
   if (editorial) return truncateMetaDescription(editorial);
