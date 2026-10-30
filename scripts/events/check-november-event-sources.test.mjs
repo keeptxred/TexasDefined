@@ -46,12 +46,16 @@ test("every November card uses reviewed photography or an explicit editorial ill
   assert(layout.includes("onError={() => setImageFailed(true)}"), "Unavailable source images must not break the card");
   assert(layout.includes("photo.approvedForCommercialUse === true"), "Disapproved photographs must never render");
   assert(layout.includes("photo.sourceUrl"), "Image source/attribution link must survive to card UI");
+  assert(layout.includes('String(photo.rightsNote || "").split(";")[0]'), "Photographer/source byline must be displayed for licensed images");
+  assert(layout.includes("photo.licenseUrl"), "Creative Commons license terms must be linked");
   assert(layout.includes("AI illustration · not event photography"), "Generated content must be labeled as illustrative");
   assert.equal((browser.match(/<NovemberEventVisual event=\{event\}/g) ?? []).length, 2, "Both featured and the entire 55-event directory must always render visual media");
   assert(!browser.includes("event.image?.url ? <img"), "Do not conditionally omit missing event visuals");
   const directory = read("../../src/data/major-event-directory.server.ts");
   assert(directory.includes("sourceUrl: image.sourceUrl"), "Source credit must be carried from governed event schema");
   assert(directory.includes("sourceType: image.sourceType"), "AI art cannot be mislabeled as an authentic photograph");
+  assert(directory.includes("licenseUrl: image.licenseUrl"), "Direct license URL must propagate to November image credits");
+  assert(directory.includes("rightsNote: image.rightsNote"), "Photographer/source byline must propagate to November image credits");
   assert(directory.includes("approvedForCommercialUse: image.approvedForCommercialUse"), "Rights approval metadata must be available to visuals");
   const picks = read("../../src/data/events/november-official-picks-2026.ts");
   assert(picks.includes("ThunderCloud Subs Turkey Trot") && picks.includes("GM Financial Parade of Lights"), "Direct organizer cards must retain full image coverage too");
