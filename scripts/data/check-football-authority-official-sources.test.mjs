@@ -101,26 +101,25 @@ test('official source permits bounded same-host redirects before hashing', async
 test('Batch011 school-owned source watch covers all 25 without exceeding the bounded rotating scan', () => {
   const data=JSON.parse(readFileSync('docs/football-authority/official-source-watch.json','utf8'));
   const registry=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
-  assert.equal(data.sources.length,62);
+  assert.ok(data.sources.length>=62,'Preserve all existing 62 source watches while future cohorts are added');
   assert.equal(data.safety.perRunSourceCap,25);
-  assert.equal(validateLedger(data,registry,'2026-10-29'),62);
-  const current=registry.batch.slugs;
-  assert.equal(registry.batch.number,11);
+  assert.equal(validateLedger(data,registry,'2026-10-29'),data.sources.length);
+  const current=registry.schoolRecords.filter(x=>x.batch===11).map(x=>x.slug);
   assert.equal(current.length,25);
   for(const slug of current){
     const item=data.sources.find(x=>x.slug===slug);
     assert.ok(item,'Missing original school URL from Batch011 monitor: '+slug);
-    assert.equal(item.reviewAfter,'2027-01-29');
+    assert.ok(item.reviewAfter>='2027-01-29','Original quarterly review must not regress');
     assert.ok(item.url.startsWith('https://'));
     assert.ok(!/maxpreps|scorestream|sblive|espn/.test(item.url),'Unapproved score feed '+slug);
   }
   const clone={...data,nextSourceIndex:data.nextSourceIndex};
   const visited=new Set();
-  for(let i=0;i<3;i++){
+  for(let i=0;i<Math.ceil(data.sources.length/data.safety.perRunSourceCap);i++){ 
     const sample=selectSourceCohort(clone);
     assert.equal(sample.length,25,'No whole-site scan');
     for(const row of sample)visited.add(row.slug);
     clone.nextSourceIndex=(clone.nextSourceIndex+sample.length)%clone.sources.length;
   }
-  assert.equal(visited.size,62,'Three bounded successful runs cover all monitored school sources');
+  assert.equal(visited.size,data.sources.length,'Bounded rotating runs cover every source even as inventory grows');
 });
