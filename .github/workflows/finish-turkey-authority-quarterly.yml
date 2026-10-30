@@ -8,6 +8,11 @@ on:
   # Read-only no-op unless an eligible, still-open data PR exists.
   schedule:
     - cron: '23 11 * * *'
+  # Bootstrap recovery immediately after this fix lands; no need to wait a day.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/finish-turkey-authority-quarterly.yml'
   workflow_dispatch:
     inputs:
       source_run_id:
@@ -27,7 +32,7 @@ concurrency:
 
 jobs:
   finish:
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event_name == 'push' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -52,7 +57,7 @@ jobs:
             run_id="$SOURCE_RUN"
           elif [[ "$EVENT" == 'workflow_dispatch' ]]; then
             run_id="$MANUAL_RUN"
-          elif [[ "$EVENT" == 'schedule' ]]; then
+          elif [[ "$EVENT" == 'schedule' || "$EVENT" == 'push' ]]; then
             pending="$(gh pr list --repo "$REPO" --base main --state open --search '"Refresh verified TPWD turkey public draws and survey" in:title' --limit 100 --json number,url,title,headRefName,createdAt | jq '[.[] | select(.title == "Refresh verified TPWD turkey public draws and survey" and (.headRefName | startswith("automation/turkey-quarterly-")))] | sort_by(.createdAt) | .[0:1]')"
             if [[ "$(jq 'length' <<< "$pending")" == '0' ]]; then
               echo 'No unfinished quarterly turkey fact PR; daily recovery is a no-op.'
