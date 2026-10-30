@@ -15,7 +15,7 @@ const cases=[
  ['conroe-oak-ridge','montgomery','Tyler Blackshire','War Eagles']
 ];
 test('Third five source editorial and exact federally sourced campus counties',()=>{
- assert.equal(Object.keys(data).length,20,'All three source-authored cohorts only');
+ assert.equal(Object.keys(data).length,25,'All three source-authored cohorts only');
  const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts'),
   ident=read('src/data/high-school-football/school-identities.ts'),
   team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'),
@@ -41,11 +41,11 @@ test('Third five source editorial and exact federally sourced campus counties',(
 test('Third five require actual production browser and exact deployed Worker',()=>{
  const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
  assert.equal(reg.batch.number,11);
- assert.equal(reg.batch.implementedOnBranch,20);
- assert.equal(reg.batch.remainingAssigned,5);
+ assert.equal(reg.batch.implementedOnBranch,25);
+ assert.equal(reg.batch.remainingAssigned,0);
  assert.equal(reg.batch.remainingToVerify,25);
  assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,230);
- assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,20);
+ assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,25);
  const verifier=read('scripts/ci/verify-football-b011-third-five-production.mjs');
  const workflow=read('.github/workflows/verify-football-b011-third-five-production.yml');
  for(const needle of ['report.schoolChecks.length!==15','report.countyChecks.length!==2','report.screenshots!==17','process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
