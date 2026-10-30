@@ -95,7 +95,7 @@ if (!linksSource.includes('249: "/destination/the-alamo"')) failures.push('Magaz
 
 for (const [name, routeSource] of [['schema route', categoryRoute], ['lazy route', lazyRoute]]) if (!routeSource.includes('texasIconCanonicalHref')) failures.push(`${name} must resolve canonical magazine links through texasIconCanonicalHref.`);
 if (!categoryRoute.includes('...(href ? { url: `${origin}${href}` } : {})')) failures.push('Category JSON-LD must expose canonical URLs for linked magazine entries.');
-for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-08-19"']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
+for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-10-29"']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
 if (!lazyRoute.includes('to="/things-unique-to-texas/methodology"')) failures.push('Every magazine chapter must visibly link the collection methodology.');
 
 if (!/createFileRoute\(["']\/things-unique-to-texas_?\/methodology["']\)/.test(methodologyRoute)) failures.push('Magazine methodology route must remain canonical.');
