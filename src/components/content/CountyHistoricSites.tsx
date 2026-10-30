@@ -10,7 +10,7 @@ export function CountyHistoricSites({ countyName }: { countyName: string }) {
   // historic-sites category query. Keep their county back-links visible.
   const canonicalCountySites: Record<string, {slug:string; name:string; nearestTown:string; summary:string}[]> = {
     "el-paso": [
-      { slug: "old-socorro-mission", name: "Old Socorro Mission", nearestTown: "Socorro", summary: "Historic active church on the El Paso Mission Trail; verify visitor access and worship schedules." },
+      { slug: "old-socorro-mission", name: "Old Socorro Mission", nearestTown: "Socorro", summary: "Original closed archaeological site and Piro Pueblo history; NOT the operating Socorro Mission church." },
       { slug: "chamizal-national-memorial", name: "Chamizal National Memorial", nearestTown: "El Paso", summary: "NPS interpretation of the international Rio Grande boundary settlement." },
       { slug: "magoffin-home", name: "Magoffin Home State Historic Site", nearestTown: "El Paso", summary: "Historic house closed for restoration; check current visitor-center arrangements." },
     ],
