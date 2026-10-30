@@ -257,7 +257,8 @@ if (scheduledSeasonal.length !== 1 || scheduledSeasonal[0] !== 'verify-seasonal-
 if (scanPolicy.manualFeatureWorkflows.includes('verify-seasonal-production'))
   failures.push('Seasonal production must be automated rather than manual-only');
 noDirectPush(seasonal, 'Seasonal production verifier');
-requireMarker(seasonal, 'workflow_dispatch:', 'Seasonal emergency rerun trigger missing');
+if (/^  workflow_dispatch:/m.test(seasonal))
+  failures.push('Seasonal production must be schedule-only; manual dispatch is prohibited');
 requireMarker(seasonal, "cron: '37 14 * * 1'", 'Weekly seasonal automation schedule missing');
 requireMarker(seasonal, 'Select last successfully deployed protected main revision', 'Seasonal verifier must select deployed rather than moving main');
 requireMarker(seasonal, 'actions/workflows/deploy-production.yml/runs?branch=main&status=success&per_page=1', 'Seasonal verifier must use one bounded successful production lookup');
