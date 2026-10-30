@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T02:32:22.582Z",
+  "generatedAt": "2026-10-30T17:02:25.112Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
     {
@@ -9,28 +9,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-10-30"
     },
     {
-      "title": "Birding For Beginners",
-      "startDate": "2026-10-30",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-for-beginners/2026-10-30"
-    },
-    {
-      "title": "Butterfly and Dragonfly Tours",
-      "startDate": "2026-10-30",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-10-30"
-    },
-    {
       "title": "Creepy Crawlies After Dark: Night Hike 🕸️🦂",
       "startDate": "2026-10-30",
       "parkKey": "barton-warnock",
       "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/creepy-crawlies-after-dark-night-hike-1f578fe0f1f982/2026-10-30"
-    },
-    {
-      "title": "Hawk Watch",
-      "startDate": "2026-10-30",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-30"
     },
     {
       "title": "Meet The Longhorns",
@@ -43,18 +25,6 @@
       "startDate": "2026-10-30",
       "parkKey": "choke-canyon",
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-10-30"
-    },
-    {
-      "title": "Tails on the Trails",
-      "startDate": "2026-10-30",
-      "parkKey": "eisenhower",
-      "officialUrl": "https://tpwd.texas.gov/calendar/eisenhower/tails-on-the-trails/2026-10-30"
-    },
-    {
-      "title": "The Great Village Creek Pumpkin Hunt",
-      "startDate": "2026-10-30",
-      "parkKey": "village-creek",
-      "officialUrl": "https://tpwd.texas.gov/calendar/village-creek/copy_of_pumpkin-hunt/2026-10-30"
     },
     {
       "title": "All About Snakes",
@@ -387,6 +357,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/scenic-overlook-nature-hike/2026-11-12"
     },
     {
+      "title": "Birding For Beginners",
+      "startDate": "2026-11-13",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-for-beginners/2026-11-13"
+    },
+    {
       "title": "Indian Lodge Tour",
       "startDate": "2026-11-13",
       "parkKey": "davis-mountains",
@@ -421,12 +397,6 @@
       "startDate": "2026-11-14",
       "parkKey": "lake-arrowhead",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-arrowhead/bird-outing-13/2026-11-14"
-    },
-    {
-      "title": "Birding For Beginners",
-      "startDate": "2026-11-14",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-for-beginners/2026-11-14"
     },
     {
       "title": "Coffee with the Bison",
@@ -1063,6 +1033,12 @@
       "startDate": "2026-12-12",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/christmas-in-the-park-1/2026-12-12"
+    },
+    {
+      "title": "Christmas in the Park",
+      "startDate": "2026-12-12",
+      "parkKey": "atlanta",
+      "officialUrl": "https://tpwd.texas.gov/calendar/atlanta/christmas-in-the-park/2026-12-12"
     },
     {
       "title": "Holiday at the Lake",
