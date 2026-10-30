@@ -253,6 +253,72 @@ function FallFestivalBrowser({ page }: { page: any }) {
 }
 
 
+
+const novemberVisualThemes: Record<string, { background: string; accent: string }> = {
+  seasonal: { background: "from-indigo-950 via-violet-900 to-rose-800", accent: "text-amber-200" },
+  culture: { background: "from-violet-950 via-fuchsia-900 to-rose-700", accent: "text-rose-200" },
+  food: { background: "from-amber-950 via-orange-900 to-red-800", accent: "text-amber-200" },
+  music: { background: "from-slate-950 via-indigo-900 to-cyan-800", accent: "text-sky-200" },
+  sport: { background: "from-slate-950 via-emerald-900 to-teal-700", accent: "text-emerald-200" },
+  rodeo: { background: "from-stone-950 via-amber-900 to-orange-800", accent: "text-orange-200" },
+};
+
+/** Explicitly illustrative event identity; never a fabricated photo of an organizer's event. */
+function NovemberEditorialVisual({ event, className = "" }: { event: any; className?: string }) {
+  const theme = novemberVisualThemes[event.category] ?? novemberVisualThemes.culture;
+  const shortDate = String(event.startDate ?? "").slice(5).replace("-", "/");
+  const visualLabel = "Texas Defined editorial illustration for " + event.name + " in " + event.city + ". Not a photograph of the event.";
+  return <div
+    role="img"
+    aria-label={visualLabel}
+    data-event-visual="editorial"
+    className={["relative isolate aspect-[4/3] w-full overflow-hidden bg-gradient-to-br text-white", theme.background, className].join(" ")}
+  >
+    <svg className="pointer-events-none absolute -right-16 -top-12 h-[120%] w-[85%] opacity-30" viewBox="0 0 640 540" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
+      <circle cx="396" cy="260" r="194" />
+      <circle cx="396" cy="260" r="145" />
+      <circle cx="396" cy="260" r="93" />
+      <path d="M396 12v496M148 260h496M221 85l350 350M571 85L221 435" />
+      {event.category === "sport"
+        ? <path d="M310 165c48-40 118-38 166 0M310 360c48 39 118 39 166 0M284 260h224" strokeWidth="9" />
+        : event.category === "music"
+          ? <path d="M360 158v216m0-216 114-22v212M360 373c-54-28-86 41-35 48 22 3 35-15 35-48Zm114-25c-54-28-86 41-35 48 22 3 35-15 35-48Z" strokeWidth="8" />
+          : <path d="m396 125 29 90 92 0-74 55 28 90-75-54-74 54 28-90-74-55 92 0Z" strokeWidth="6" />}
+    </svg>
+    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/35" aria-hidden="true" />
+    <div className="relative flex h-full flex-col justify-between gap-4 p-5 sm:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1 text-[10px] font-semibold uppercase tracking-[0.15em]">
+        <span>Texas Defined · Events</span>
+        <span className="opacity-75">Editorial illustration</span>
+      </div>
+      <div className="max-w-[94%]">
+        <p className={["mb-2 text-xs font-bold uppercase tracking-widest", theme.accent].join(" ")}>{event.city} · {shortDate}</p>
+        <p className="line-clamp-3 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">{event.name}</p>
+        <p className="mt-3 text-[10px] leading-snug text-white/80">Visual guide · not event photography</p>
+      </div>
+    </div>
+  </div>;
+}
+
+/** Prefer rights-reviewed, source-attributed event photographs; fall back to clear art if absent/broken. */
+function NovemberEventVisual({ event, className = "" }: { event: any; className?: string }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  if (event.image?.url && event.image.alt?.trim() && !imageFailed) {
+    return <img
+      src={event.image.url}
+      alt={event.image.alt}
+      width={800}
+      height={600}
+      loading="lazy"
+      decoding="async"
+      onError={() => setImageFailed(true)}
+      data-event-visual="photograph"
+      className={["aspect-[4/3] w-full object-cover", className].join(" ")}
+    />;
+  }
+  return <NovemberEditorialVisual event={event} className={className} />;
+}
+
 function NovemberCollectionBrowser({ page }: { page: any }) {
   const [region, setRegion] = useState("all");
   const [category, setCategory] = useState("all");
@@ -324,7 +390,7 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">From early November festivals to opening weekend light displays, these confirmed guides offer useful starting points for a Texas getaway. Individual ticket sessions and daily operating times can vary.</p>
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {featured.map((event: any) => <article key={event.slug} className="flex flex-col overflow-hidden border border-border bg-surface">
-          {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="aspect-[4/3] w-full object-cover" /> : null}
+          <NovemberEventVisual event={event} />
           <div className="flex flex-1 flex-col p-5">
           <p className="text-xs font-semibold uppercase tracking-wide text-primary">{event.city} · {dateDisplay(event)}</p>
           <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
@@ -372,7 +438,7 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
     </div>
     {filtered.length ? <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
       {filtered.map((event) => <li key={event.slug} className="flex flex-col bg-background p-6">
-        {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="mb-5 aspect-[4/3] w-full object-cover" /> : null}
+        <NovemberEventVisual event={event} className="mb-5" />
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">{dateDisplay(event)}</p>
         <p className="eyebrow mt-3 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
         <h3 className="mt-3 font-display text-2xl leading-tight">
