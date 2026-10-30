@@ -55,9 +55,9 @@ const hrefs = [...source.matchAll(/\bhref:\s*"([^"]+)"/g)].map((match) => match[
 const canonicalIds = [...linksSource.matchAll(/^\s{2}(\d+):\s*"\/destination\/[^"]+",/gm)].map((match) => Number(match[1]));
 const deepDiveIds = [...linksSource.matchAll(/^\s{2}(\d+):\s*"\/(?!destination\/)[^"]+",/gm)].map((match) => Number(match[1]));
 
-if (ids.length !== 250) failures.push(`Expected 250 magazine entries; found ${ids.length}.`);
+if (ids.length === 0) failures.push('Magazine research archive must contain at least one reference entry.');
 if (new Set(ids).size !== ids.length) failures.push('Magazine entry IDs must be unique.');
-for (let id = 1; id <= 250; id += 1) if (!ids.includes(id)) failures.push(`Missing magazine entry ID ${id}.`);
+for (const id of ids) if (!Number.isInteger(id) || id <= 0) failures.push(`Invalid magazine reference ID ${id}.`);
 
 if (categorySlugs.length !== 8) failures.push(`Expected 8 magazine categories; found ${categorySlugs.length}.`);
 if (new Set(categorySlugs).size !== categorySlugs.length) failures.push('Magazine category slugs must be unique.');
@@ -95,7 +95,7 @@ if (!linksSource.includes('249: "/destination/the-alamo"')) failures.push('Magaz
 
 for (const [name, routeSource] of [['schema route', categoryRoute], ['lazy route', lazyRoute]]) if (!routeSource.includes('texasIconCanonicalHref')) failures.push(`${name} must resolve canonical magazine links through texasIconCanonicalHref.`);
 if (!categoryRoute.includes('...(href ? { url: `${origin}${href}` } : {})')) failures.push('Category JSON-LD must expose canonical URLs for linked magazine entries.');
-for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-08-19"']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
+for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-10-29"']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
 if (!lazyRoute.includes('to="/things-unique-to-texas/methodology"')) failures.push('Every magazine chapter must visibly link the collection methodology.');
 
 if (!/createFileRoute\(["']\/things-unique-to-texas_?\/methodology["']\)/.test(methodologyRoute)) failures.push('Magazine methodology route must remain canonical.');
@@ -108,7 +108,7 @@ for (const download of ['/things-that-define-texas.csv', '/things-that-define-te
 if (!publicRoutes.includes('"/things-unique-to-texas/methodology"')) failures.push('Magazine methodology must remain governed as an indexable static path.');
 if (!rootLazy.includes('to="/things-unique-to-texas/methodology"')) failures.push('Magazine collection must visibly link its methodology.');
 if (!rootRoute.includes('isBasedOn: methodologyUrl')) failures.push('Magazine CollectionPage schema must identify the methodology as its basis.');
-if (!rootRoute.includes('dateModified: "2026-08-19"')) failures.push('Magazine collection schema must retain an explicit reviewed modification date.');
+if (!rootRoute.includes('dateModified: "2026-10-29"')) failures.push('Magazine collection schema must retain its current editorial modification date.');
 if (!rootRoute.includes('Texas Defined Editorial Desk')) failures.push('Magazine collection schema must retain editorial authorship.');
 for (const token of ['"@type": "Dataset"', 'encodingFormat: "text/csv"', 'encodingFormat: "application/json"', 'contentUrl: csvUrl', 'contentUrl: jsonUrl']) if (!rootRoute.includes(token)) failures.push(`Magazine root schema must retain dataset distribution token: ${token}.`);
 
@@ -126,7 +126,7 @@ for (const token of ['schemaVersion: 1', 'count: TEXAS_ICON_REFERENCE_ROWS.lengt
 for (const token of ["'deeper_guide'", "'canonical_collection'", "'methodology'"]) if (!csvRoute.includes(token)) failures.push(`CSV distribution must retain column: ${token}.`);
 
 for (const path of ['/things-unique-to-texas', '/things-unique-to-texas/methodology']) if (!trustRouter.includes(`'${path}'`)) failures.push(`Collection trust router must cover ${path}.`);
-if (!trustRouter.includes('Collection structure, methodology and deeper-link policy reviewed August 19, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
+if (!trustRouter.includes('Editorial selection, methodology and deeper-link policy reviewed October 29, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
 
 for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"', 'publisher:', 'articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas"', 'citation: sources.length', 'Sources', 'Where the historical claims come from']) if (!evergreenComponent.includes(token)) failures.push(`Shared evergreen guide schema/source layer must retain token: ${token}.`);
 for (const sourceUrl of ['https://www.tshaonline.org/handbook/entries/san-antonio-tx','https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company','https://www.tshaonline.org/handbook/entries/chicken-fried-steak','https://drpeppermuseum.com/history/']) if (!evergreenComponent.includes(sourceUrl)) failures.push(`Evergreen source notes missing authoritative source ${sourceUrl}.`);
@@ -153,9 +153,16 @@ for (const path of additionalSmokePaths) if (!productionSmoke.includes(`check_pa
 if (!productionSmoke.includes('workflow_dispatch:') || /^  workflow_run:/m.test(productionSmoke)) failures.push('Magazine production acceptance must remain manual under the update cost policy.');
 const smokePaths = ['/things-unique-to-texas','/things-unique-to-texas/methodology',...categorySlugs.map((slug) => `/things-unique-to-texas/${slug}`)];
 for (const path of smokePaths) if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
-for (const token of ['.count == 250','(.items | length) == 250','wc -l','251','x-robots-tag:','/things-that-define-texas.json','/things-that-define-texas.csv','test "$json_deep_links" -ge 91','test "$csv_deep_links" -ge 91','Topical/evergreen authority routes checked: 23','at least 91 deeper-guide relationships']) if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
+for (const token of ['.count == (.items | length)', 'wc -l', 'json_count + 1', 'x-robots-tag:', '/things-that-define-texas.json', '/things-that-define-texas.csv', 'test "$json_deep_links" -ge 91', 'test "$csv_deep_links" -ge 91', 'Topical/evergreen authority routes checked: 23', 'at least 91 deeper-guide relationships']) if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
 
 // High-impression Texas culture queries must have a visible, source-consistent answer.
+for (const [name, content] of [['root metadata', rootRoute], ['reader-facing hub', rootLazy]]) {
+  if (/\b250\b|250-item|250-entry/.test(content)) failures.push(`${name} must not promote the size of the research pool as an editorial target.`);
+}
+for (const token of ['What Makes Texas, Texas?', 'item.description', 'Explore the chapter', 'More Texas history, food, language and reference guides']) {
+  if (!rootLazy.includes(token)) failures.push(`Curated Texas guide missing reader-first editorial feature: ${token}`);
+}
+if (!rootRoute.includes('numberOfItems: categories.length')) failures.push('Root ItemList must count the actual displayed themed guides, not research archive entries.');
 for (const marker of [
   'What is Texas known for?',
   'Things unique to Texas, and the traditions Texans made their own',

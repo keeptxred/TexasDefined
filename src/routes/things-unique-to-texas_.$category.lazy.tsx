@@ -186,10 +186,10 @@ function TexasIconCategoryPage() {
                 )}
                 <Link to="/things-unique-to-texas/methodology" className="group block py-5">
                   <span className="font-semibold group-hover:text-primary">How this collection is maintained →</span>
-                  <span className="mt-1 block text-sm leading-6 text-muted-foreground">Read the inclusion rules, source precedence, cross-link policy and corrections approach behind all 250 entries.</span>
+                  <span className="mt-1 block text-sm leading-6 text-muted-foreground">Read the inclusion rules, source precedence, cross-link policy and corrections approach behind the collection.</span>
                 </Link>
               </div>
-              <Link to="/things-unique-to-texas" className="mt-6 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Back to all 250 Texas icons</Link>
+              <Link to="/things-unique-to-texas" className="mt-6 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Back to Things That Define Texas</Link>
             </aside>
           </div>
         </Container>

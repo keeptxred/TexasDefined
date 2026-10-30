@@ -102,7 +102,7 @@ export const texasDefinedBrand: BrandConfig = {
       to: "/texas-living",
       description: "Texas homes, sports and history",
       children: [
-        { label: "Things That Define Texas", to: "/things-unique-to-texas", description: "250 defining Texas traditions", image: { src: bbqBrisket, alt: "Texas barbecue brisket" } },
+        { label: "Things That Define Texas", to: "/things-unique-to-texas", description: "Foods, places and traditions that define Texas", image: { src: bbqBrisket, alt: "Texas barbecue brisket" } },
         { label: "Texas Icons", to: "/texas-icons", image: { src: bluebonnets, alt: "Texas bluebonnets" } },
         { label: "Texas Dogs Defined", to: "/dogs", description: "Dog breeds and life with dogs in Texas", image: { src: texasDogsNavImage, alt: "Illustrated Chihuahua" } },
         { label: "Homes & Land", to: "/real-estate", description: "Buying and owning Texas homes and land", image: { src: heroHillCountry, alt: "Texas Hill Country homes" } },

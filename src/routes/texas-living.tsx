@@ -13,7 +13,7 @@ const description = 'Homes, history, sports, moving and the practical details of
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-living`;
 const sections = [
-  ['Things That Define Texas', '/things-unique-to-texas', '250 foods, places, traditions, wildlife, sayings and icons that make Texas feel like Texas.'],
+  ['Things That Define Texas', '/things-unique-to-texas', 'Explore the foods, places, stories and traditions that make Texas feel like Texas.'],
   ['Explore', '/explore', 'Parks, lakes, small towns, road trips and places worth making time for.'],
   ['Sports', '/sports', 'The games, rivalries and rituals that are part of life here.'],
   ['History', '/texas-history', 'The people, places and turning points that still shape the state.'],
@@ -159,7 +159,7 @@ function TexasLivingPage() {
 
     <Section tone="surface">
       <Container>
-        <SectionHeader eyebrow="Signature Texas guides" title="Go deeper on the traditions that make the state feel different" description="These evergreen TexasDefined guides turn the 250-item Things That Define Texas collection into practical cultural, historical and travel-focused reading." actionLabel="See all 250 Texas icons" actionTo="/things-unique-to-texas" />
+        <SectionHeader eyebrow="Signature Texas guides" title="Go deeper on the traditions that make the state feel different" description="These evergreen TexasDefined guides connect Texas food, history, landscapes and traditions to practical cultural and travel-focused reading." actionLabel="Explore Texas traditions" actionTo="/things-unique-to-texas" />
         <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {cultureGuides.map(([to, title, copy]) => <Link key={to} to={to} className="group bg-background p-6">
             <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>

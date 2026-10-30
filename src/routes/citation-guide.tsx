@@ -34,7 +34,7 @@ const GROUPS = [
   },
   {
     title: 'Things That Define Texas',
-    description: 'A maintained 250-item cultural reference collection with explicit inclusion rules, exact deeper-guide relationships and shared CSV/JSON distributions.',
+    description: 'A curated cultural guide backed by editorial research, explicit inclusion rules, canonical deeper guides and downloadable reference data.',
     links: [
       ['Things That Define Texas', '/things-unique-to-texas'],
       ['Selection & cross-link methodology', '/things-unique-to-texas/methodology'],
@@ -155,10 +155,10 @@ function CitationGuidePage() {
         <p className="eyebrow text-primary">Things That Define Texas source hierarchy</p>
         <h2 id="texas-culture-source-heading" className="mt-2 font-display text-3xl">Cite the collection for identity; cite the deeper guide for the claim.</h2>
         <div className="mt-6 grid gap-6 md:grid-cols-4">
-          <Rule title="Collection & chapter identity" body="Use the canonical Things That Define Texas collection or chapter when citing the 250-item editorial set, chapter membership or TexasDefined's explanation of why an icon belongs in the collection." />
+          <Rule title="Collection & chapter identity" body="Use the canonical Things That Define Texas collection or chapter when citing the curated Texas cultural guide, chapter membership or TexasDefined's explanation of why a subject belongs in its research archive." />
           <Rule title="Deeper factual claims" body="When an entry resolves to a destination or evergreen deep dive, use that deeper guide—and its linked official or institutional sources—for the underlying history, visitor facts, cultural context or current operations." />
           <Rule title="Weather language vs. live weather" body="Use the Texas Blue Norther guide and its Handbook of Texas source for terminology and cultural history. For a current front, thunderstorm, tornado, hail, lightning or flood decision, use current National Weather Service forecasts and warnings as the controlling authority." />
-          <Rule title="Data reuse" body="The CSV and JSON are generated from the same 250 editorial records and canonical-link resolver. Cite the human collection for context and methodology unless the machine-readable distribution itself is what you are analyzing or redistributing." />
+          <Rule title="Data reuse" body="The CSV and JSON reflect the current editorial research archive and canonical-link resolver; the number of records is not a publishing target. Cite the human collection for context and methodology unless the machine-readable distribution itself is what you are analyzing or redistributing." />
         </div>
       </section>
 

@@ -67,7 +67,7 @@ export const TEXAS_ICON_CATEGORIES: TexasIconCategory[] = [
       item(27, "Fresh pico de gallo", "Tomato, onion, chile, cilantro and lime bring a fresh counterpoint to heavy Tex-Mex plates."),
       item(28, "Tres leches cake", "The milk-soaked cake is a bakery, celebration and restaurant-menu favorite across Texas."),
       item(29, "Torchy's green chile queso", "A modern Austin-born chain helped turn a particular style of loaded queso into a statewide obsession."),
-      item(30, "Ranch water", "Tequila, lime and sparkling mineral water make the West Texas-born highball feel designed for a hot afternoon."),
+      item(30, "Ranch water", "Tequila, lime and sparkling mineral water define a West Texas-associated highball whose precise origin remains disputed."),
       item(31, "Dry-rubbed smoked pork ribs", "Texas pits often let smoke, salt and spice do the work instead of relying on heavy sauce."),
       item(32, "Migas breakfast tacos", "Eggs scrambled with tortilla strips or chips, cheese and salsa are a Central Texas breakfast-taco mainstay."),
       item(33, "Extra-cold sweet tea", "Oversized cups of iced tea remain a familiar companion to barbecue, burgers and roadside meals."),
