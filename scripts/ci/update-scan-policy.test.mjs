@@ -14,6 +14,16 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
     assert.doesNotMatch(source, /^  workflow_run:/m, name);
     assert.match(source, /^  workflow_dispatch:/m, name);
   }
+  assert.deepEqual(policy.scheduledFeatureWorkflows, ['verify-seasonal-production']);
+  assert.ok(!policy.manualFeatureWorkflows.includes('verify-seasonal-production'),
+    'Seasonal production must not require manual execution');
+  const seasonal = text('.github/workflows/verify-seasonal-production.yml');
+  assert.ok(seasonal.includes("    - cron: '37 14 * * 1'"), 'Bounded weekly schedule missing');
+  assert.doesNotMatch(seasonal, /^  (push|pull_request|workflow_run):/m,
+    'Full seasonal audit must not fan out after deployments');
+  assert.ok(seasonal.includes('actions/workflows/deploy-production.yml/runs?branch=main&status=success&per_page=1'),
+    'Weekly audit must select last successful protected production run');
+  assert.ok(seasonal.includes('DEPLOY_SHA=$deploy_sha'), 'Audit must bind status to deployed SHA');
   assert.deepEqual(policy.postDeployVerificationWorkflows, ['texasdefined-publication-production-smoke']);
   for (const name of policy.postDeployVerificationWorkflows) {
     const source = text(`.github/workflows/${name}.yml`);
