@@ -203,6 +203,11 @@ function Page() {
     'comanche': 'comanche', // Comanche High Indians in Comanche County, Texas.
     'comfort': 'kendall', // 143 Highway 87 N campus in Kendall County verified by NCES 481479000979.
     'commerce': 'hunt', // Commerce High Tigers campus in Hunt County; school-managed visitor links.
+    'corpus-christi-carroll': 'nueces', // Corpus Christi Mary Carroll Tigers school; not Southlake Carroll Dragons.
+    'corpus-christi-calallen': 'nueces', // NCES Calallen High 4001 Wildcat Drive Nueces; athletics office separately located.
+    'cornerstone-christian': 'bexar', // SA NW Military private CCS Warriors; never assign UIL district or Sugar Land namesake.
+    'copperas-cove': 'coryell', // High-school campus Coryell; Rodney Southern current HFC, not Tony Johnson.
+    'coppell': 'dallas', // NCES Coppell High on West Parkway, Dallas County.
     'cooper': 'delta', // Cooper ISD Bulldogs campus in Delta County, not administrative gate.
     'coolidge': 'limestone', // Coolidge school district officially identifies Limestone County six-man campus.
     'converse-judson': 'bexar', // Judson High Rockets FM 78 Converse campus in Bexar County.
