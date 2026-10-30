@@ -16,7 +16,18 @@ export const targets = [
   { name: "Dallas YMCA Turkey Trot", url: "https://ymcadallas.org/press-release/59th-annual-dallas-ymca-turkey-trot-registration-live", patterns: [/November\s+26/i, /2026/i] },
   { name: "Fort Worth YMCA Turkey Trot", url: "https://ymcafw.org/annual-turkey-trot/", patterns: [/(?:November|Nov\.)\s+26/i, /2026/i] },
   { name: "San Antonio Calaveras de Azúcar", url: "https://www.sa.gov/Directory/News-Releases/Celebrate-D%C3%ADa-de-los-Muertos-in-Downtown-San-Antonio-2026", patterns: [/October\s+31/i, /November\s+1/i] },
-  { name: "Houston Ballet Nutcracker Market venue", url: "https://www.houstonballet.org/support-us/special-events/nutcracker-market/about/nutcracker-market/", patterns: [/November\s+12\s*[-–]\s*15,?\s*2026/i, /Reliant\s+Center/i] },
+  {
+    name: "Houston Ballet Nutcracker Market venue",
+    url: "https://www.houstonballet.org/support-us/special-events/nutcracker-market/about/nutcracker-market/",
+    patterns: [/November\s+12\s*[-–]\s*15,?\s*2026/i, /Reliant\s+Center/i],
+    // The organizer returns HTTP 403 to GitHub Actions. On blocked or unavailable
+    // responses only, confirm the same occurrence with the venue's own schedule.
+    // A successful organizer response with changed dates ALWAYS triggers review.
+    officialFallback: {
+      url: "https://www.reliantpark.com/event/nutcracker-market/",
+      patterns: [/November\s+12,?\s+2026\s*[-–]\s*November\s+15,?\s+2026/i, /Reliant\s+Center/i],
+    },
+  },
   { name: "Dobie Dichos sold-out meal", url: "https://www.dobiedichos.com/tickets-schedule", patterns: [/November\s+6(?:th)?,?\s+2026/i, /Program\s*\+\s*Meal/i, /SOLD\s+OUT/i] },
 ];
 
@@ -36,20 +47,47 @@ export function verifySource(html, target) {
   return target.patterns.every((pattern) => pattern.test(visibleText));
 }
 
-async function inspect(target) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 12000);
-  try {
-    const response = await fetch(target.url, { signal: controller.signal, headers: { "User-Agent": "TexasDefined-November-Source-Watch/1.0" } });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const html = await response.text();
-    if (!verifySource(html, target)) throw new Error("published dates changed or no longer appear in accessible organizer text");
-    return { name: target.name, status: "match", url: target.url };
-  } catch (error) {
-    return { name: target.name, status: "review", url: target.url, reason: error instanceof Error ? error.message : String(error) };
-  } finally {
-    clearTimeout(timeout);
+// Never substitute a different source merely because an accessible organizer
+// page no longer matches its published dates. Only a blocked or transiently
+// unavailable response can fall back to another authoritative host schedule.
+export async function inspect(target, fetcher = fetch) {
+  const sources = [target, ...(target.officialFallback ? [target.officialFallback] : [])];
+  const errors = [];
+  for (const [index, source] of sources.entries()) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
+    let response;
+    try {
+      response = await fetcher(source.url, {
+        signal: controller.signal,
+        headers: { "User-Agent": "TexasDefined-November-Source-Watch/1.0" },
+      });
+      if (!response.ok) {
+        const reason = `HTTP ${response.status}`;
+        const retryable = response.status === 403 || response.status === 429 || response.status >= 500;
+        if (retryable && index + 1 < sources.length) {
+          errors.push(`${source.url}: ${reason}`);
+          continue;
+        }
+        return { name: target.name, status: "review", url: source.url, reason };
+      }
+      const html = await response.text();
+      if (!verifySource(html, source)) {
+        return { name: target.name, status: "review", url: source.url, reason: "published dates changed or no longer appear in accessible official text" };
+      }
+      return { name: target.name, status: "match", url: source.url, ...(index > 0 ? { source: "official-venue-fallback" } : {}) };
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : String(error);
+      if (index + 1 < sources.length) {
+        errors.push(`${source.url}: ${reason}`);
+        continue;
+      }
+      return { name: target.name, status: "review", url: source.url, reason: [...errors, reason].join("; ") };
+    } finally {
+      clearTimeout(timeout);
+    }
   }
+  return { name: target.name, status: "review", url: target.url, reason: errors.join("; ") };
 }
 
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
