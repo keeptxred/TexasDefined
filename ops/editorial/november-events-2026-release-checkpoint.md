@@ -46,3 +46,25 @@ Start with this checkpoint, PR #6307, the current `main` head and the last `Veri
 ### Next recovery steps
 
 Use `main` plus this checkpoint; first confirm the latest PR merge and next production deployment outcome. Verify the narrower November workflow, its daily organizer checks, and live Rockport/Shiner guides. Continue remaining organizer sampling by actual source evidence, not by inferring next-year recurrence. Do not repeat the Cloudflare reconnection loop.
+
+
+## October 30 — follow-up audit improvements (PR pending validation)
+
+Scope: live `/events/november-events`; base main commit `aef02819e39b82bab51c37644ac4f4c2b117c835`.
+
+Confirmed first-party source dates, **not** inferred from last year:
+- Fort Worth GM Financial Parade of Lights: November 22, 2026, organizer https://fortworthparadeoflights.org/plan.
+- Arlington Texas Christkindl Market: November 20–22 AND November 27–December 23, 2026, organizer https://txchristkindlmarket.com/. Dates exclude November 23–26; do not advertise as a continuous run.
+- Austin Studio Tour: November 14–15 AND 21–22, 2026, 11–5 daily, organizer https://atxstudiotour.com/.
+- A Christmas Affair: family events November 13–15 and main market November 18–22, 2026; previously the broad November 13–22 card implied uninterrupted opening.
+
+Implementation on `fix/november-filter-all-verified-2026`:
+- Three new entries in the **existing first-party-verified organizer picks** array. Fort Worth and Arlington also have verified Christmas community records; no thin event guide or duplicate event page was created.
+- Unify the existing four organizer picks and three new ones with the 48 eligible permanent guides in **the same November filter set** (date, region, city, category). Count remains explicitly separate: 48 guides + 7 organizer-only listings. Direct organizer links are visibly marked rather than misrepresented as TexasDefined authority guides.
+- Date filtering and card labels honor multiple operating windows for two new picks and A Christmas Affair instead of flattening a date gap.
+- Add three source-watcher targets to the **existing daily Sync Texas Events** flow, plus bounded regression fixtures and checks in the existing temporal production verifier. The watcher flags possible changes for a GitHub review issue without rewriting dates. Do not add a second cron or rely on manual annual audits.
+- Existing yearless `/events/november-events` URL and qualifying/indexing threshold stay unchanged; 2026 pick injection remains season-scoped and does not roll unverified 2026 dates into 2027.
+
+**Verification status at writing:** edits committed on PR branch; protected PR gates, merge, production release and live page acceptance still need independent checks. Do not claim deployment before verifying the exact merged SHA and production job. Do not initiate a Cloudflare reconnect. If GitHub gate fails, inspect the specific failed job and correct only that issue.
+
+Next: open PR, wait for required merge gate via normal GitHub actions, merge passing change, confirm existing deployment plus the next existing event-sync source watcher; check live listing for the 7 organizer entries, split windows and filter UX. Avoid a sitewide audit.
