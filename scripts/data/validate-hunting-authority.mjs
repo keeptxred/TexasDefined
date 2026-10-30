@@ -151,7 +151,8 @@ requireText(turkeyTable, 'drawApplicationExpired', 'draw deadlines must display 
 requireText(turkeyTable, 'See TPWD drawing details', 'single public draw section must preserve official entry handoff');
 if ((turkeyTable.match(/id="turkey-public-hunting-options"/g) ?? []).length !== 1) throw new Error('Turkey draw explanation must be consolidated into exactly one labeled section');
 if (turkeyTable.includes('aria-label="Public turkey hunt opportunity"')) throw new Error('Duplicate National Refuge public-hunt aside reintroduced');
-if ((turkeyTable.match(/quarterlyFacts\.draw\.deadline/g) ?? []).length !== 1) throw new Error('Public drawing application deadline must be explained in one place');
+// One occurrence computes whether the TPWD deadline expired; the other displays it.
+if ((turkeyTable.match(/quarterlyFacts\.draw\.deadline/g) ?? []).length !== 2) throw new Error('Deadline must appear once in the public section plus once in expiration logic');
 
 requireText(turkeyDateUpdater, 'checkCompanion', 'TPWD date dual-source check missing');
 requireText(turkeyDateUpdater, 'YEAR_ROLLOVER', 'new season must fail closed');
