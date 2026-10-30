@@ -176,6 +176,18 @@ const hillDepthHeadings = [...hillSupplement.matchAll(/\bh\("([^"]+)"\)/g)].map(
 if (new Set([...hillBaseHeadings, ...hillDepthHeadings]).size !== hillBaseHeadings.length + hillDepthHeadings.length)
   fail("Hill Country duplicated a section heading between canonical base and supplements");
 
+// Four official TPWD URLs in the Hill Country body must be contextual live links,
+// not raw unclickable source strings.
+const hillBody = hillBase.split("body: [")[1] ?? "";
+const hillTpwd = hillBody.match(/https:\/\/tpwd\\.texas\\.gov\/state-parks\//g) ?? [];
+const hillLinkedTpwd = hillBody.match(/\]\(https:\/\/tpwd\\.texas\\.gov\/state-parks\//g) ?? [];
+if (hillTpwd.length !== 4 || hillLinkedTpwd.length !== 4)
+  fail("Hill Country must render four contextual TPWD source links");
+const articleBodyRenderer = fs.readFileSync("src/components/editorial/ArticleBody.tsx", "utf8");
+if (!articleBodyRenderer.includes('["east-texas-fall-colors", "hill-country-fall-colors"].includes(articleSlug ?? "")') ||
+    !articleBodyRenderer.includes('articleSlug === "hill-country-fall-colors" && blocks.slice(0, index)'))
+  fail("Hill Country TPWD link rendering and FAQ h3 hierarchy require protection");
+
 // The Hill Country report is refreshed automatically, never by manual seasonal audits.
 const sourceRefresh = fs.readFileSync("scripts/data/refresh-lost-maples-foliage.mjs", "utf8");
 const refreshWorkflow = fs.readFileSync(".github/workflows/refresh-lost-maples-foliage.yml", "utf8");
