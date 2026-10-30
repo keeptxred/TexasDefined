@@ -17,12 +17,6 @@ on:
       - 'src/data/events/november-official-picks-2026.ts'
       - 'src/routes/events.$collection.tsx'
       - 'src/routes/events.$collection.lazy.tsx'
-  # Use the verified production deploy as the trigger for live page acceptance.
-  # This does not add a cron or rerun the expensive validation on PRs.
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
-    branches: [main]
   schedule:
     - cron: '23 11 * * *'
   workflow_dispatch:
