@@ -328,10 +328,15 @@ function NovemberEventVisual({ event, className = "" }: { event: any; className?
         data-event-visual={isGenerated ? "editorial" : "photograph"}
         className="aspect-[4/3] w-full object-cover"
       />
-      <figcaption className="absolute bottom-2 right-2 max-w-[90%] bg-black/75 px-2 py-1 text-[10px] leading-4 text-white">
-        {isGenerated ? "AI illustration · not event photography" :
-          photo.sourceUrl ? <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">Photograph source{photo.licenseName ? " · " + photo.licenseName : ""}</a> :
-            "Event photograph"}
+      <figcaption className="flex flex-wrap gap-x-3 gap-y-1 bg-surface px-2 py-1.5 text-[10px] leading-4 text-muted-foreground">
+        {isGenerated ? "AI illustration · not event photography" : <>
+          {photo.sourceUrl ? <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
+            {String(photo.rightsNote || "").split(";")[0] || "Photo source"}
+          </a> : "Event photograph"}
+          {photo.licenseUrl ? <a href={photo.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">
+            {photo.licenseName || "Image license"}
+          </a> : null}
+        </>}
       </figcaption>
     </figure>;
   }
