@@ -47,6 +47,51 @@ try {
       if (!eastHeroSrc?.includes("Daingerfield_sp_reflection.jpg")) throw new Error("East Texas hero is not the approved Daingerfield autumn photograph: " + eastHeroSrc);
       if (!await page.getByText("The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014", { exact: false }).count()) throw new Error("East Texas historical hero caveat missing");
 
+      // Targeted authority regression: avoid reintroducing the one-card destination
+      // rail when the guide already provides six useful official-source park cards.
+      if (await page.getByRole("heading", { name: "Places connected to this story", exact: true }).count()) {
+        throw new Error("East Texas duplicate related-destination section returned");
+      }
+      if (await page.getByText("Uncertain", { exact: true }).count()) {
+        throw new Error("Unrelated nearby town leaked into East Texas park recommendations");
+      }
+      const planner = page.getByRole("heading", { name: "Six places to compare", exact: true }).locator("xpath=ancestor::section[1]");
+      await planner.waitFor({ state: "visible" });
+      for (const name of [
+        "Daingerfield State Park", "Caddo Lake State Park", "Lake Bob Sandlin State Park",
+        "Tyler State Park", "Cooper Lake State Park", "Martin Creek Lake State Park",
+      ]) {
+        if (await planner.getByRole("heading", { name, level: 3, exact: true }).count() !== 1) {
+          throw new Error("Missing unique six-park comparison card: " + name);
+        }
+      }
+      for (const [name, destination] of [
+        ["Daingerfield State Park visitor information", "daingerfield"],
+        ["Caddo Lake State Park visitor information", "caddo-lake"],
+        ["Lake Bob Sandlin State Park visitor information", "lake-bob-sandlin"],
+        ["Tyler State Park visitor information", "tyler"],
+        ["Cooper Lake State Park", "cooper-lake"],
+        ["Martin Creek Lake State Park", "martin-creek-lake"],
+      ]) {
+        const link = page.getByRole("link", { name, exact: false })
+          .filter({ hasText: name }).first();
+        const href = await link.getAttribute("href");
+        if (href !== "https://tpwd.texas.gov/state-parks/" + destination) {
+          throw new Error("Contextual TPWD link missing or wrong for " + name + ": " + href);
+        }
+      }
+      if (!await page.getByText("2.4-mile Rustling Leaves Trail", { exact: false }).count()) {
+        throw new Error("Daingerfield trail specifics missing");
+      }
+      for (const question of [
+        "Does East Texas have fall colors?", "Is October too early?",
+        "Where can I see fall foliage without a boat?", "Are the colors at peak right now?",
+      ]) {
+        if (await page.getByRole("heading", { level: 3, name: question, exact: true }).count() !== 1) {
+          throw new Error("East Texas FAQ hierarchy regressed: " + question);
+        }
+      }
+
       await page.getByRole("heading", { name: "Explore the parks on a map" }).waitFor({ state: "visible", timeout: 20000 });
       const overview = page.locator('section[aria-labelledby="east-texas-all-parks-heading"]');
       await overview.getByRole("heading", { name: "All six parks on one map" }).waitFor({ state: "visible" });
@@ -140,7 +185,7 @@ try {
       if (dimensions.document > dimensions.viewport + 8) throw new Error("Horizontal overflow: " + (dimensions.document - dimensions.viewport));
       await page.screenshot({ path: output + "/" + viewport.label + ".png", fullPage: true, animations: "disabled" });
       findings.push({ viewport: viewport.label, parks: selection, photos: 7, routes: 2, overflow: dimensions.document - dimensions.viewport, result: "pass" });
-      console.log("PASS " + viewport.label + " foliage map, driving links, licensed gallery and related stories");
+      console.log("PASS " + viewport.label + " foliage authority links, FAQ, park cards, map, driving links and licensed gallery");
     } catch (error) {
       failures.push(viewport.label + ": " + String(error?.message || error));
       console.error("::error title=East Texas foliage browser QA::" + failures.at(-1));
