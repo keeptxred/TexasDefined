@@ -141,7 +141,7 @@ if (!route.includes('numberOfItems: categories.length')) failures.push('Root Ite
 if (!hub.includes('What Makes Texas, Texas?')) failures.push('Hub must answer the editorial Texas identity question.');
 if (!hub.includes('item.description')) failures.push('Hub must explain selected icons rather than rendering a bare list.');
 if (!hub.includes('to="/texas-blue-norther-weather-guide"')) failures.push('Hub must retain its Texas Blue Norther weather guide link.');
-if (/\\b250\\b|250-item|250-entry/.test(hub)) failures.push('Hub must not advertise the research pool size.');
+if (/\b250\b|250-item|250-entry/.test(hub)) failures.push('Hub must not advertise the research pool size.');
 for (const token of [
   'The research pool can expand, shrink or be reorganized as evidence improves.',
   'Data distributions',
