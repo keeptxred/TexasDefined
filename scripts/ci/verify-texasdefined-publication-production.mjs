@@ -179,11 +179,18 @@ const elPasoNetworkPaths = [
   '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso',
 ];
 const elPasoNetworkResults = await Promise.allSettled(elPasoNetworkPaths.map(async path => {
-  // Ysleta del Sur uses its own researched authority navigation, rather than
-  // the shared 'Connected El Paso guides' heading.
+  // Dedicated Ysleta and closed Old Socorro research guides use their own
+  // researched navigation headings. All linked pages must still carry a real
+  // backlink to the El Paso metro guide; do not require obsolete shared copy.
   const expected = path.includes('ysleta-del-sur-pueblo')
-    ? 'El Paso metro-area guide' : 'Connected El Paso guides';
+    ? 'El Paso metro-area guide'
+    : path === '/destination/old-socorro-mission'
+      ? 'Old Socorro in the El Paso historical network'
+      : 'Connected El Paso guides';
   const { status, body } = await fetchHealthy(path, expected);
+  if (path === '/destination/old-socorro-mission' && !body.toLowerCase().includes('closed to the public')) {
+    throw new Error(`${path} no longer clearly discloses original archaeological-site closure`);
+  }
   if (!body.includes('/metro-area/el-paso-metro')) {
     throw new Error(`${path} is missing its live El Paso metro backlink`);
   }
