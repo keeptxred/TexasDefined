@@ -14,6 +14,9 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'corpus-christi-carroll', mascot: 'Tigers', sourceUrl: 'https://carroll.ccisd.us/page/athletics/', sourceLabel: 'Mary Carroll Corpus Christi Tigers athletics, not Southlake Carroll Dragons', verifiedAt: '2026-10-29' },
+  { slug: 'corpus-christi-calallen', mascot: 'Wildcats', sourceUrl: 'https://athletics.calallen.org/', sourceLabel: 'Calallen official Corpus Christi Wildcats school athletics', verifiedAt: '2026-10-29' },
+  { slug: 'cornerstone-christian', mascot: 'Warriors', sourceUrl: 'https://www.sa-ccs.org/athletics/football', sourceLabel: '2026 San Antonio CCS private Warriors football, not Sugar Land school', verifiedAt: '2026-10-29' },
   { slug: 'cooper', mascot: 'Bulldogs', sourceUrl: 'https://www.cooperisd.net/athletics', sourceLabel: 'Cooper ISD first-party Bulldogs school athletics and staff', verifiedAt: '2026-10-29' },
   { slug: 'coolidge', mascot: 'Yellowjackets', sourceUrl: 'https://www.coolidgeisd.org/quick_links/athletics', sourceLabel: 'Coolidge ISD Yellowjackets first-party current football schedules', verifiedAt: '2026-10-29' },
   { slug: 'converse-judson', mascot: 'Rockets', sourceUrl: 'https://judsonhs.judsonisd.org/o/judsonhs/live_feeds/11483412', sourceLabel: 'Official Judson ISD Rockets appointment and school identity, February 2026', verifiedAt: '2026-10-29' },
