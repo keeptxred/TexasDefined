@@ -303,6 +303,17 @@ if (entityRoute.includes(`${genericEventKinds}) return 'Event'`) || !entityRoute
 // Protect source-backed visitor essentials, without requiring generic facts on other event guides.
 const crossroads = read(path.join(dataDir, "major-event-expanded-authority-tranche41.server.ts"));
 const crossroadsSchema = read(path.join(dataDir, "major-event-schema-enrichment-batch12.server.ts"));
+const crossroadsProductionCheck = read(path.join(root, "scripts", "ci", "verify-event-structured-data-production.mjs"));
+for (const marker of [
+  "2026 music archive: Jake Worthington, Kenny Whitmire and smaller stages",
+  "Expired Crossroads guide lost its 2026 historical lineup section",
+  "These were the advertised 2026 set times, not a published future-edition program",
+  "Event facts last source-checked 2026-10-",
+]) if (!crossroadsProductionCheck.includes(marker)) fail(`Crossroads production verifier still expects obsolete live-event copy: ${marker}`);
+if (crossroadsProductionCheck.includes("'Event facts last source-checked 2026-10-18'")) {
+  fail("Crossroads production verifier must not freeze the source-review date after official updates");
+}
+
 for (const marker of [
   'slug: "crossroads-of-texas-country-festival"',
   'startDateTime: "2026-10-24T09:00:00-05:00"',
