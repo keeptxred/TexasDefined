@@ -605,6 +605,11 @@
       document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
   }
 
+  function dallasRoadGuideHydrationPending() {
+    return /^\/explore\/near\/dallas\/small-towns-[123]-hours?$/.test(normalizePath()) &&
+      document.documentElement.dataset.tdDallasRoadGuideHydrated !== "1";
+  }
+
   function mcallenDayTripsHydrationPending() {
     return normalizePath() === "/explore/near/mcallen/day-trips" &&
       document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1";
@@ -630,6 +635,7 @@
     // the empty affiliate slot before its owning component has committed.
     if (stateFairSlotPending()) return;
     if (mcallenDayTripsHydrationPending()) return;
+    if (dallasRoadGuideHydrationPending()) return;
     if (metroDayTripsHydrationPending()) return;
     if (battleshipHistoryHydrationPending()) return;
     if (waitingForFootballCountyHydration()) return;
@@ -729,6 +735,7 @@
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
     window.addEventListener("texasdefined:metro-day-trips-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:dallas-road-guide-hydrated", scheduleSync);
     window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
