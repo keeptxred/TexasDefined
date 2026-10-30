@@ -74,7 +74,9 @@ jobs:
           # A forged branch or unverified draw-data PR must never enter the finisher.
           source="$(gh run view "$run_id" --repo "$REPO" --json conclusion,workflowName,event,headBranch)"
           # Source checks run on the quarterly schedule, main pushes, or explicit dispatch.
-          # All three execute the same TPWD verification on protected main.          source_event="$(jq -r '.event' <<< "$source")"          [[ "$source_event" =~ ^(push|schedule|workflow_dispatch)$ ]] || { echo 'Quarterly data source workflow not verified: unexpected trigger'; exit 1; }
+          # All three execute the same TPWD verification on protected main.
+          source_event="$(jq -r '.event' <<< "$source")"
+          [[ "$source_event" =~ ^(push|schedule|workflow_dispatch)$ ]] || { echo 'Quarterly data source workflow not verified: unexpected trigger'; exit 1; }
           [[ "$(jq -r '.conclusion' <<< "$source")" == 'success' && "$(jq -r '.workflowName' <<< "$source")" == 'Refresh TPWD Turkey Authority Quarterly' && "$(jq -r '.headBranch' <<< "$source")" == 'main' ]] || { echo 'Quarterly data source workflow not verified'; exit 1; }
           result="$(gh pr list --repo "$REPO" --base main --state open --head "$branch" --limit 2 --json number,url,title,headRefName,headRefOid)"
           [[ "$(jq 'length' <<< "$result")" == '0' ]] && { echo 'No source-verified quarterly data change created in source run'; exit 0; }
