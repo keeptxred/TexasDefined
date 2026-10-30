@@ -101,7 +101,7 @@ Chambersea (relocation proposal)|Anahuac|Chambers|submitted
 Little Chapel in the Woods|Denton|Denton|review
 USAA Building|San Antonio|Bexar|review
 Mary Kay Cosmetics|Dallas|Dallas|review
-Evergreen Cemetery|Austin|Travis|review
+Evergreen Cemetery|Austin|Travis|submitted
 First Methodist Church|Austin|Travis|review
 Rosewood Park|Austin|Travis|review
 Thomas Clayborne Frost Jr. House|San Antonio|Bexar|review
@@ -111,7 +111,7 @@ Keystone Dam Archeological Site|El Paso|El Paso|review
 Ursuline Academy|Galveston|Galveston|review
 Lyons Avenue Historic District|Houston|Harris|review
 Mercedes City Hall and Fire Station|Mercedes|Hidalgo|review
-Scotus College|Hebbronville|Jim Hogg|review
+Scotus College|Hebbronville|Jim Hogg|submitted
 Irving Elementary School|Cleburne|Johnson|review
 Cibolo Preserve Menger Creek Site|Boerne area|Kendall|review
 `.trim();
