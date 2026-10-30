@@ -665,7 +665,7 @@ function Page() {
         </div>
         <div>
           <div className="space-y-4">
-            {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
+            {editorial.overview.map((paragraph) => <p key={paragraph} className="min-w-0 max-w-4xl break-words text-sm leading-7 text-muted-foreground [overflow-wrap:anywhere]">{renderFootballFaqAnswer(paragraph)}</p>)}
           </div>
           {schoolName === 'Abilene Wylie' && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
             <p className="font-display text-xl text-foreground">Which Wylie Bulldogs?</p>
