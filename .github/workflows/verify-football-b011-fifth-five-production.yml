@@ -108,5 +108,5 @@ jobs:
         with:
           name: football-b011-fifth-five-production-chrome
           path: artifacts/b011-fifth-five-production-chrome/
-          retention-days: 21
+          retention-days: 7
           if-no-files-found: warn
