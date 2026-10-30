@@ -6,10 +6,13 @@ import { targets, verifySource } from "./check-november-event-sources.mjs";
 const read = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("watcher accepts 2026 organizer windows, rejects stale and missing dates", () => {
-  assert(verifySource("<h1>November 27, 2026 - January 3, 2027</h1>", targets[0]));
-  assert(!verifySource("<p>November 28, 2026 - January 4, 2027</p>", targets[0]));
-  assert(verifySource("<p>November 28 - December 28</p><p>2026 schedule</p>", targets[1]));
-  assert(!verifySource("<p>November 27 - November 29, 2026</p>", targets[1]));
+  const johnson = targets.find((target) => target.name === "Johnson City Lights Spectacular");
+  const southPole = targets.find((target) => target.name === "South Pole Illuminated Festival");
+  assert(johnson && southPole, "Existing original organizers must remain watched after insertions");
+  assert(verifySource("<h1>November 27, 2026 - January 3, 2027</h1>", johnson));
+  assert(!verifySource("<p>November 28, 2026 - January 4, 2027</p>", johnson));
+  assert(verifySource("<p>November 28 - December 28</p><p>2026 schedule</p>", southPole));
+  assert(!verifySource("<p>November 27 - November 29, 2026</p>", southPole));
   const shiner = targets.find((target) => target.name === "Shiner Beer Run 2026 registration");
   assert(shiner);
   assert(verifySource("<p>November 21, 2026</p><p>Marathon Half Marathon 10K 5K</p>", shiner));
