@@ -424,7 +424,6 @@ async function verifyCrossroadsFestivalLeaf() {
     'Saturday, October 24',
     '9 a.m.–7 p.m.',
     '200+ downtown booths',
-    'Music: Jake Worthington, Kenny Whitmire and the smaller stages',
     'Parking, walking and navigating downtown',
     'Visit Waxahachie — official downtown parking map',
     'Ellis County Museum',
@@ -435,11 +434,24 @@ async function verifyCrossroadsFestivalLeaf() {
     'Crossroads Festival & Parking Maps',
     'Whataburger Kids Zone',
     'Explore historic Waxahachie',
-    'Event facts last source-checked 2026-10-18',
   ]) assert(readable.includes(marker), `Crossroads festival is missing verified visitor content: ${marker}`);
 
   const nodes = extractJsonLd(html).flatMap((block) => collectTypedNodes(block));
   const isLiveOccurrence = currentEventDateKey() <= '2026-10-24';
+  // After October 24 the editor correctly archived the 2026 lineup. Preserve
+  // evidence that the historical music program is present, not a stale
+  // prospective-concert heading or an obsolete exact source-review date.
+  if (isLiveOccurrence) {
+    assert(readable.includes('Music: Jake Worthington, Kenny Whitmire and the smaller stages'),
+      'Upcoming Crossroads guide lost its contemporary lineup section');
+  } else {
+    assert(readable.includes('2026 music archive: Jake Worthington, Kenny Whitmire and smaller stages'),
+      'Expired Crossroads guide lost its 2026 historical lineup section');
+    assert(readable.includes('The 2026 lineup, hours and parking maps are historical'),
+      'Expired Crossroads guide must explain archival 2026 schedules are not future plans');
+  }
+  assert(/Event facts last source-checked 2026-10-\d{2}/.test(readable),
+    'Crossroads guide must visibly disclose its current October 2026 source-review date');
   const event = nodes.find((node) => hasType(node, 'Event'));
   if (isLiveOccurrence) {
     assert(event, 'Upcoming Crossroads festival requires single Event occurrence schema');
