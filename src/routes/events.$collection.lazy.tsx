@@ -255,15 +255,15 @@ function FallFestivalBrowser({ page }: { page: any }) {
 
 
 const novemberVisualThemes: Record<string, { background: string; accent: string }> = {
-  seasonal: { background: "from-indigo-950 via-violet-900 to-rose-800", accent: "text-amber-200" },
-  culture: { background: "from-violet-950 via-fuchsia-900 to-rose-700", accent: "text-rose-200" },
-  food: { background: "from-amber-950 via-orange-900 to-red-800", accent: "text-amber-200" },
-  music: { background: "from-slate-950 via-indigo-900 to-cyan-800", accent: "text-sky-200" },
-  sport: { background: "from-slate-950 via-emerald-900 to-teal-700", accent: "text-emerald-200" },
-  rodeo: { background: "from-stone-950 via-amber-900 to-orange-800", accent: "text-orange-200" },
+  seasonal: { background: "linear-gradient(135deg,#172044 0%,#542477 52%,#993857 100%)", accent: "#fde68a" },
+  culture: { background: "linear-gradient(135deg,#34134b 0%,#8a256f 55%,#bf4260 100%)", accent: "#ffe4e6" },
+  food: { background: "linear-gradient(135deg,#43200c 0%,#984016 50%,#b83624 100%)", accent: "#fde68a" },
+  music: { background: "linear-gradient(135deg,#112338 0%,#243b74 55%,#167889 100%)", accent: "#bae6fd" },
+  sport: { background: "linear-gradient(135deg,#112a2b 0%,#175b44 55%,#21867a 100%)", accent: "#d1fae5" },
+  rodeo: { background: "linear-gradient(135deg,#31241c 0%,#6e441d 55%,#b35a21 100%)", accent: "#ffedd5" },
 };
 
-/** Explicitly illustrative event identity; never a fabricated photo of an organizer's event. */
+/** Event-specific editorial art; never presented as documentary event photography. */
 function NovemberEditorialVisual({ event, className = "" }: { event: any; className?: string }) {
   const theme = novemberVisualThemes[event.category] ?? novemberVisualThemes.culture;
   const shortDate = String(event.startDate ?? "").slice(5).replace("-", "/");
@@ -272,9 +272,10 @@ function NovemberEditorialVisual({ event, className = "" }: { event: any; classN
     role="img"
     aria-label={visualLabel}
     data-event-visual="editorial"
-    className={["relative isolate aspect-[4/3] w-full overflow-hidden bg-gradient-to-br text-white", theme.background, className].join(" ")}
+    className={["relative aspect-[4/3] w-full overflow-hidden text-white", className].join(" ")}
+    style={{ background: theme.background }}
   >
-    <svg className="pointer-events-none absolute -right-16 -top-12 h-[120%] w-[85%] opacity-30" viewBox="0 0 640 540" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
+    <svg style={{ pointerEvents: "none", position: "absolute", right: "-9%", top: "-6%", height: "110%", width: "90%", opacity: 0.3 }} viewBox="0 0 640 540" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
       <circle cx="396" cy="260" r="194" />
       <circle cx="396" cy="260" r="145" />
       <circle cx="396" cy="260" r="93" />
@@ -293,30 +294,29 @@ function NovemberEditorialVisual({ event, className = "" }: { event: any; classN
                   ? <g strokeWidth="9"><path d="M255 296c36 25 247 25 283 0-35 81-240 90-283 0ZM304 286l23-114h150l22 114M233 307c12 26 54 42 84 43m203-43c-12 26-54 42-84 43" /></g>
                   : <path d="m396 125 29 90 92 0-74 55 28 90-75-54-74 54 28-90-74-55 92 0Z" strokeWidth="6" />}
     </svg>
-    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/35" aria-hidden="true" />
-    <div className="relative flex h-full flex-col justify-between gap-4 p-5 sm:p-6">
-      <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1 text-[10px] font-semibold uppercase tracking-[0.15em]">
+    <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.04) 57%,rgba(0,0,0,.38))" }} />
+    <div className="relative flex h-full flex-col justify-between p-5" style={{ gap: 16 }}>
+      <div className="flex justify-between gap-4 uppercase" style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".13em" }}>
         <span>Texas Defined · Events</span>
-        <span className="opacity-75">Editorial illustration</span>
+        <span style={{ opacity: 0.78 }}>Editorial illustration</span>
       </div>
-      <div className="max-w-[94%]">
-        <p className={["mb-2 text-xs font-bold uppercase tracking-widest", theme.accent].join(" ")}>{event.city} · {shortDate}</p>
-        <p className="line-clamp-3 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">{event.name}</p>
-        <p className="mt-3 text-[10px] leading-snug text-white/80">Visual guide · not event photography</p>
+      <div style={{ maxWidth: "95%" }}>
+        <p style={{ color: theme.accent, marginBottom: 8, fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".08em" }}>{event.city} · {shortDate}</p>
+        <p className="font-display" style={{ fontSize: "clamp(1.45rem,2vw,1.9rem)", lineHeight: 1.08, fontWeight: 700, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{event.name}</p>
+        <p style={{ marginTop: 10, fontSize: 11, opacity: 0.82 }}>Visual guide · not event photography</p>
       </div>
     </div>
   </div>;
 }
 
-/** Prefer rights-reviewed, source-attributed event photographs; fall back to clear art if absent/broken. */
+/** Preserve licensed event-specific photos; fail closed to truthful art on broken links. */
 function NovemberEventVisual({ event, className = "" }: { event: any; className?: string }) {
   const [imageFailed, setImageFailed] = useState(false);
   const photo = event.image;
   const available = photo?.url && photo.alt?.trim() && photo.approvedForCommercialUse === true && !imageFailed;
   if (available) {
-    // AI artwork is an illustration, even when it looks photographic.
     const isGenerated = photo.sourceType === "ai-generated" || /AI-generated/i.test(photo.alt);
-    return <figure className={["relative overflow-hidden", className].join(" ")}>
+    return <figure className={className}>
       <img
         src={photo.url}
         alt={photo.alt}
@@ -328,7 +328,7 @@ function NovemberEventVisual({ event, className = "" }: { event: any; className?
         data-event-visual={isGenerated ? "editorial" : "photograph"}
         className="aspect-[4/3] w-full object-cover"
       />
-      <figcaption className="flex flex-wrap gap-x-3 gap-y-1 bg-surface px-2 py-1.5 text-[10px] leading-4 text-muted-foreground">
+      <figcaption className="text-muted-foreground" style={{ display: "flex", flexWrap: "wrap", gap: 12, padding: "6px 8px", fontSize: 11, lineHeight: 1.5 }}>
         {isGenerated ? "AI illustration · not event photography" : <>
           {photo.sourceUrl ? <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
             {String(photo.rightsNote || "").split(";")[0] || "Photo source"}
