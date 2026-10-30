@@ -66,6 +66,8 @@ test("November unified filters include organizer picks and honor noncontinuous w
   assert(booking.includes('marketplaceHref = display ?'), "Viator link should require a valid selected destination");
   assert(booking.includes('disabled={!market}'), "Do not request products before a market is selected");
   assert(booking.includes("activeMarket === market"), "Stale city tour results must hide when a different destination is selected");
+  const loader = read("../../src/data/event-collection-page.server.ts");
+  assert(loader.includes("...novemberOfficialPicks.map((event) => event.sourceCheckedAt)"), "Latest November source date must include organizer picks");
 });
 
 test("canonical event seasons and title deduplication remain correct", () => {
