@@ -68,3 +68,5 @@ Implementation on `fix/november-filter-all-verified-2026`:
 **Verification status at writing:** edits committed on PR branch; protected PR gates, merge, production release and live page acceptance still need independent checks. Do not claim deployment before verifying the exact merged SHA and production job. Do not initiate a Cloudflare reconnect. If GitHub gate fails, inspect the specific failed job and correct only that issue.
 
 Next: open PR, wait for required merge gate via normal GitHub actions, merge passing change, confirm existing deployment plus the next existing event-sync source watcher; check live listing for the 7 organizer entries, split windows and filter UX. Avoid a sitewide audit.
+
+Additional affiliate relevance correction: November's shared `CalendarBookingDiscovery` requires explicit city selection before showing a Viator link or enabling live product lookup, rather than implying statewide visitors want Houston. Selected-city CTA updates immediately; product results still require the explicit Find nearby tours action. Other calendar pages retain their previous default. Source and regression fixtures cover this constraint.
