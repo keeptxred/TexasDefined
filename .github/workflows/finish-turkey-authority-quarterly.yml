@@ -53,7 +53,7 @@ jobs:
           elif [[ "$EVENT" == 'workflow_dispatch' ]]; then
             run_id="$MANUAL_RUN"
           elif [[ "$EVENT" == 'schedule' ]]; then
-            pending="$(gh pr list --repo "$REPO" --base main --state open --limit 100 --json number,url,title,headRefName,createdAt | jq '[.[] | select(.headRefName | startswith("automation/turkey-quarterly-"))] | sort_by(.createdAt) | .[0:1]')"
+            pending="$(gh pr list --repo "$REPO" --base main --state open --search '"Refresh verified TPWD turkey public draws and survey" in:title' --limit 100 --json number,url,title,headRefName,createdAt | jq '[.[] | select(.title == "Refresh verified TPWD turkey public draws and survey" and (.headRefName | startswith("automation/turkey-quarterly-")))] | sort_by(.createdAt) | .[0:1]')"
             if [[ "$(jq 'length' <<< "$pending")" == '0' ]]; then
               echo 'No unfinished quarterly turkey fact PR; daily recovery is a no-op.'
               exit 0
