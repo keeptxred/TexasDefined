@@ -224,6 +224,16 @@ try {
       await page.getByRole("heading", { name: "Latest stored official Lost Maples foliage observation" }).waitFor({ state: "visible" });
       const datedSource = await page.getByRole("link", { name: /Read TPWD's dated foliage report/ }).getAttribute("href");
       if (datedSource !== "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports") throw new Error("Dated official foliage feed source missing");
+      for (const [label, expected] of [
+        ["dated official Lost Maples foliage report", "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports"],
+        ["Lost Maples park information and alerts", "https://tpwd.texas.gov/state-parks/lost-maples"],
+        ["official Garner State Park information", "https://tpwd.texas.gov/state-parks/garner"],
+        ["official Guadalupe River State Park visitor guide", "https://tpwd.texas.gov/state-parks/guadalupe-river"],
+      ]) {
+        const link = await page.getByRole("link", { name: new RegExp(label, "i") }).getAttribute("href");
+        if (link !== expected) throw new Error("Hill Country contextual TPWD link missing or wrong: " + label);
+      }
+      await page.getByRole("heading", { level: 3, name: "Are the Hill Country leaves at peak this week?" }).waitFor({ state: "visible" });
       const photoLink = await page.getByRole("link", { name: /Hero photo: G. Lamar, November 2012/ }).getAttribute("href");
       if (!photoLink?.includes("29567585500")) throw new Error("Historical photo source link missing");
       const ccLink = await page.getByRole("link", { name: /CC BY 2.0 license/ }).getAttribute("href");
