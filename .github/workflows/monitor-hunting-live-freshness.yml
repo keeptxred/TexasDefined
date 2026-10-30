@@ -9,12 +9,14 @@ on:
     paths:
       - '.github/workflows/monitor-hunting-live-freshness.yml'
       - 'scripts/data/monitor-hunting-live-freshness.mjs'
+      - 'scripts/ci/verify-turkey-hunting-browser.mjs'
   pull_request:
     paths:
       - '.github/workflows/monitor-hunting-live-freshness.yml'
       - 'scripts/data/monitor-hunting-live-freshness.mjs'
       - 'src/components/hunting/HuntingAuthority.tsx'
       - 'src/data/hunting/species-season-calendar.json'
+      - 'scripts/ci/verify-turkey-hunting-browser.mjs'
 
 permissions:
   contents: read
@@ -36,24 +38,45 @@ jobs:
         with:
           node-version: 22
       - name: Validate bounded live checker syntax
-        run: node --check scripts/data/monitor-hunting-live-freshness.mjs
+        run: |
+          node --check scripts/data/monitor-hunting-live-freshness.mjs
+          node --check scripts/ci/verify-turkey-hunting-browser.mjs
       - name: Verify 4 canonical + cache-bypassed live hunting pages
         id: live
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         continue-on-error: true
         run: node scripts/data/monitor-hunting-live-freshness.mjs
+      - name: Verify exact turkey page in desktop/mobile Chrome
+        id: turkey_browser
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-turkey-hunting-browser.mjs
+      - name: Preserve exact turkey audit screenshots and evidence
+        if: ${{ always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: turkey-browser-scheduled-${{ github.run_id }}
+          path: artifacts/hunting-hub-responsive/turkey/
+          if-no-files-found: warn
+          retention-days: 14
       - name: Open one stale-page issue when scheduled check fails
-        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.live.outcome == 'failure'
+        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && (steps.live.outcome == 'failure' || steps.turkey_browser.outcome == 'failure')
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          title='Hunting pages stale or inconsistent between canonical and cache-bypass'
+          title='Hunting live freshness or turkey browser verification failed'
           existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
           if [[ -z "$existing" ]]; then
-            gh issue create --title "$title" --body "The bounded scheduled 4-page hunting source/freshness check failed. Compare canonical and no-cache pages, Cloudflare Worker version, TPWD source and source snapshot before targeted invalidation. Do not blindly purge entire site. Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            gh issue create --title "$title" --body "The scheduled bounded hunting check or exact turkey-page desktop/mobile browser check failed. GitHub artifacts include canonical/cache-bypassed evidence, image, SEO, schema, links and mobile screenshots. Correct only the failed page; do not perform a statewide crawl or blindly purge the site. Do not blindly purge entire site. Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           fi
       - name: Fail closed on stale hunting HTML
-        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && steps.live.outcome == 'failure'
+        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && (steps.live.outcome == 'failure' || steps.turkey_browser.outcome == 'failure')
         run: exit 1
