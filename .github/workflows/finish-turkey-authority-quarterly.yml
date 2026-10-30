@@ -4,6 +4,10 @@ on:
   workflow_run:
     workflows: [Refresh TPWD Turkey Authority Quarterly]
     types: [completed]
+  # Recover a verified bot-created data PR if main advanced during full validation.
+  # Read-only no-op unless an eligible, still-open data PR exists.
+  schedule:
+    - cron: '23 11 * * *'
   workflow_dispatch:
     inputs:
       source_run_id:
@@ -23,9 +27,9 @@ concurrency:
 
 jobs:
   finish:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 100
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
         with:
@@ -44,9 +48,27 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$EVENT" == 'workflow_run' ]]; then run_id="$SOURCE_RUN"; else run_id="$MANUAL_RUN"; fi
+          if [[ "$EVENT" == 'workflow_run' ]]; then
+            run_id="$SOURCE_RUN"
+          elif [[ "$EVENT" == 'workflow_dispatch' ]]; then
+            run_id="$MANUAL_RUN"
+          elif [[ "$EVENT" == 'schedule' ]]; then
+            pending="$(gh pr list --repo "$REPO" --base main --state open --limit 100 --json number,url,title,headRefName,createdAt | jq '[.[] | select(.headRefName | startswith("automation/turkey-quarterly-"))] | sort_by(.createdAt) | .[0:1]')"
+            if [[ "$(jq 'length' <<< "$pending")" == '0' ]]; then
+              echo 'No unfinished quarterly turkey fact PR; daily recovery is a no-op.'
+              exit 0
+            fi
+            run_id="$(jq -r '.[0].headRefName' <<< "$pending" | sed -E 's@^automation/turkey-quarterly-@@')"
+          else
+            echo 'Unsupported finisher trigger'
+            exit 1
+          fi
           [[ "$run_id" =~ ^[0-9]+$ ]] || { echo 'Invalid source run id'; exit 1; }
           branch="automation/turkey-quarterly-$run_id"
+          # The underlying source workflow MUST have completed successfully on main.
+          # A forged branch or unverified draw-data PR must never enter the finisher.
+          source="$(gh run view "$run_id" --repo "$REPO" --json conclusion,workflowName,event,headBranch)"
+          [[ "$(jq -r '.conclusion' <<< "$source")" == 'success' && "$(jq -r '.workflowName' <<< "$source")" == 'Refresh TPWD Turkey Authority Quarterly' && "$(jq -r '.event' <<< "$source")" == 'push' && "$(jq -r '.headBranch' <<< "$source")" == 'main' ]] || { echo 'Quarterly data source workflow not verified'; exit 1; }
           result="$(gh pr list --repo "$REPO" --base main --state open --head "$branch" --limit 2 --json number,url,title,headRefName,headRefOid)"
           [[ "$(jq 'length' <<< "$result")" == '0' ]] && { echo 'No source-verified quarterly data change created in source run'; exit 0; }
           [[ "$(jq 'length' <<< "$result")" == '1' ]] || { echo 'Ambiguous date refresh PR'; exit 1; }
@@ -62,23 +84,38 @@ jobs:
           changed="$(git diff --name-only "$merge_base" "origin/$branch")"
           [[ "$changed" == 'src/data/hunting/turkey-quarterly-facts.json' ]] || { echo 'Refusing to merge changes outside governed quarterly turkey facts'; exit 1; }
           git checkout -B "$branch" "origin/$branch"
-          if ! git merge-base --is-ancestor origin/main HEAD; then
-            git merge --no-edit origin/main || { git merge --abort || true; echo 'Main conflict: editorial review required'; exit 1; }
-            git push origin "HEAD:$branch"
-          fi
-          node --test scripts/data/refresh-turkey-authority-quarterly.test.mjs
-          node scripts/data/validate-hunting-authority.mjs
-          node scripts/data/check-turkey-regulations.mjs
-          node scripts/data/refresh-turkey-season-calendar.mjs --check-only --strict-check-only
-          node scripts/data/refresh-turkey-authority-quarterly.mjs --check-only
-          validated="$(git rev-parse HEAD)"
-          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
-          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
-          git fetch --no-tags origin main "$branch"
-          [[ "$(git rev-parse "origin/$branch")" == "$validated" ]] || { echo 'Quarterly data PR changed after validation'; exit 1; }
-          git merge-base --is-ancestor origin/main "origin/$branch" || { echo 'Main advanced during date validation'; exit 1; }
-          gh api --method POST "repos/$REPO/statuses/$validated" \
-            -f state=success -f context='Required merge gate' \
-            -f description='Exact-branch validation passed for TPWD corroborated quarterly facts' \
-            -f target_url="$url" >/dev/null
-          gh pr merge "$url" --repo "$REPO" --merge --auto --match-head-commit "$validated"
+          # The shared repository advances frequently. Reconcile and re-run ALL
+          # official-source and protected branch checks when main advances.
+          # Never reuse a validation certificate for a different SHA.
+          for attempt in 1 2 3; do
+            echo "Quarterly source-verified merge attempt $attempt/3"
+            git fetch --no-tags origin main "$branch"
+            [[ "$(git rev-parse "origin/$branch")" == "$(git rev-parse HEAD)" ]] || { echo 'Unexpected external quarterly branch modification'; exit 1; }
+            if ! git merge-base --is-ancestor origin/main HEAD; then
+              git merge --no-edit origin/main || { git merge --abort || true; echo 'Main conflict: editorial review required'; exit 1; }
+              git push origin "HEAD:$branch"
+            fi
+            node --test scripts/data/refresh-turkey-authority-quarterly.test.mjs
+            node scripts/data/validate-hunting-authority.mjs
+            node scripts/data/check-turkey-regulations.mjs
+            node scripts/data/refresh-turkey-season-calendar.mjs --check-only --strict-check-only
+            node scripts/data/refresh-turkey-authority-quarterly.mjs --check-only
+            validated="$(git rev-parse HEAD)"
+            bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+            bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+            git fetch --no-tags origin main "$branch"
+            [[ "$(git rev-parse "origin/$branch")" == "$validated" ]] || { echo 'Quarterly data PR changed after validation'; exit 1; }
+            if ! git merge-base --is-ancestor origin/main "origin/$branch"; then
+              echo "Main advanced during protected validation; retry with a NEW merged SHA and fresh TPWD checks."
+              continue
+            fi
+            gh api --method POST "repos/$REPO/statuses/$validated" \
+              -f state=success -f context='Required merge gate' \
+              -f description='Exact-branch validation passed for TPWD corroborated quarterly facts' \
+              -f target_url="$url" >/dev/null
+            gh pr merge "$url" --repo "$REPO" --merge --auto --match-head-commit "$validated"
+            echo 'Protected quarterly PR merge requested from validated head.'
+            exit 0
+          done
+          echo 'Main advanced during all three bounded attempts. The scheduled daily recovery will try again with fresh official sources; no stale PR merged.'
+          exit 1
