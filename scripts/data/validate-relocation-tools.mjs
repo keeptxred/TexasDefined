@@ -76,6 +76,15 @@ if(!fs.existsSync(commandCenter)){
     'Move progress',
     'requestRelocationAddressResearch',
     'Research again →',
+    '12+ weeks before',
+    '8–12 weeks before',
+    '1–4 weeks before',
+    'Move week',
+    '90+ days after arrival',
+    'getMoveTiming',
+    'moveTiming?.phaseId',
+    'Your current phase',
+    'Add a move date in Plan My Texas Move',
   ]){
     if(!center.includes(token))errors.push(`Relocation command center missing protected marker: ${token}`);
   }
@@ -214,4 +223,4 @@ for(const token of [
 if(finder.includes('?address=') || finder.includes('?savedAddress=')) errors.push('Relocation finders must not serialize saved exact addresses into URLs.');
 
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
-console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, 49-state origin continuity, saved address research with cross-finder reuse, persistent 16-task checklist progress, corporate industry handoff and live employee/employer move brief, plus existing county, DMV and school tools.`);
+console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, 49-state origin continuity, saved address research with cross-finder reuse, persistent 16-task checklist progress, corporate industry handoff and live employee/employer move brief, date-aware 12-week-through-settled-in timeline, plus existing county, DMV and school tools.`);
