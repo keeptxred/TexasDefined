@@ -264,7 +264,11 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
   }));
   // Visitors can filter first-party guides and organizer-confirmed listings together.
   // Official-only entries are NOT counted as permanent event guides.
-  const allEvents = [...items, ...officialPicks];
+  const allEvents = [...items, ...officialPicks].sort((a, b) =>
+    String(a.startDate).localeCompare(String(b.startDate))
+    || String(a.city).localeCompare(String(b.city))
+    || String(a.name).localeCompare(String(b.name))
+  );
   const regions: Record<string, string> = {
     "gulf-coast": "Gulf Coast & Houston",
     "hill-country": "Hill Country & Central Texas",
@@ -395,6 +399,12 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
 function GenericCollectionPage({ page }: { page: any }) {
   const isTournamentCollection = page.kind === "tournament";
   const isTournamentHub = page.path === "/events/tournaments";
+  const planningPanel = (
+    <div className={page.path === "/events/november-events" ? "grid gap-10 border-y border-border py-12 lg:grid-cols-2" : "grid gap-10 border-b border-border pb-12 lg:grid-cols-2"}>
+        <section><p className="eyebrow text-primary">How to plan it</p><h2 className="mt-3 font-display text-3xl">{page.planningTitle}</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">{page.planningIntro}</p><ol className="mt-6 space-y-4">{page.planningPoints.map((point: string, index: number) => <li key={point} className="border-t border-border pt-4 text-sm leading-7 text-muted-foreground"><strong className="mr-2 text-primary">0{index + 1}</strong>{point}</li>)}</ol></section>
+        <section><p className="eyebrow text-primary">Source policy</p><h2 className="mt-3 font-display text-3xl">{page.sourcePolicyTitle}</h2><div className="mt-5 space-y-4 text-sm leading-7 text-muted-foreground">{page.sourcePolicyParagraphs.map((paragraph: string) => <p key={paragraph}>{paragraph}</p>)}</div></section>
+      </div>
+  );
   return <main>
     <section className="border-b border-border bg-surface py-12 sm:py-16"><Container>
       <nav aria-label="Breadcrumb" className="text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / <span aria-current="page">{page.title}</span></nav>
@@ -406,10 +416,7 @@ function GenericCollectionPage({ page }: { page: any }) {
     </Container></section>
 
     <Container className="py-12 sm:py-16">
-      <div className="grid gap-10 border-b border-border pb-12 lg:grid-cols-2">
-        <section><p className="eyebrow text-primary">How to plan it</p><h2 className="mt-3 font-display text-3xl">{page.planningTitle}</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">{page.planningIntro}</p><ol className="mt-6 space-y-4">{page.planningPoints.map((point: string, index: number) => <li key={point} className="border-t border-border pt-4 text-sm leading-7 text-muted-foreground"><strong className="mr-2 text-primary">0{index + 1}</strong>{point}</li>)}</ol></section>
-        <section><p className="eyebrow text-primary">Source policy</p><h2 className="mt-3 font-display text-3xl">{page.sourcePolicyTitle}</h2><div className="mt-5 space-y-4 text-sm leading-7 text-muted-foreground">{page.sourcePolicyParagraphs.map((paragraph: string) => <p key={paragraph}>{paragraph}</p>)}</div></section>
-      </div>
+      {page.path !== "/events/november-events" ? planningPanel : null}
 
       {page.path === "/events/christmas-events" && page.christmasPerformances?.length ? (
         <section className="pt-12" aria-labelledby="christmas-2026-shows">
@@ -528,6 +535,7 @@ function GenericCollectionPage({ page }: { page: any }) {
 
       {page.path === "/events/fall-festivals" ? <FallFestivalBrowser page={page} /> : null}
       {page.path === "/events/november-events" ? <NovemberCollectionBrowser page={page} /> : null}
+      {page.path === "/events/november-events" ? planningPanel : null}
       {page.path === "/events/fall-festivals" || page.path === "/events/november-events" ? null : <section className="pt-12">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6"><div><p className="eyebrow text-primary">{page.itemsEyebrow}</p><h2 className="mt-2 font-display text-4xl">{page.itemsTitle}</h2></div><a href="/events" className="text-sm font-semibold text-primary">Full Texas calendar →</a></div>
         {page.path === "/events/fall-festivals" ? null : page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event: any) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight">{isTournamentCollection ? event.name : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>{!isTournamentCollection && countyGuidePath(event.countyName) ? <a href={countyGuidePath(event.countyName)!} className="mt-3 inline-block text-xs font-semibold text-primary underline">Explore {event.countyName} →</a> : null}{isTournamentCollection ? <a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">{isTournamentHub ? "Browse category →" : "Tournament directory →"}</a> : <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Open guide →</EventGuideLink>}</li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">{page.emptyMessage}</p>}

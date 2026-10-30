@@ -42,6 +42,8 @@ test("November newly confirmed organizer sources preserve split weekend dates", 
   assert(verifySource("<p>2026 TEXAS CHRISTKINDL MARKET DATES: Nov. 20 – 22, 2026; Nov. 27 – Dec. 23, 2026</p>", byName("Texas Christkindl Market")));
   assert(!verifySource("<p>2026: Nov. 20 – 23 only</p>", byName("Texas Christkindl Market")));
   assert(verifySource("<p>2026 Tour: November 14–15 and November 21–22</p>", byName("Austin Studio Tour")));
+  assert(verifySource("<h1>November 14–15 & 21–22, 2026</h1>", byName("Austin Studio Tour")), "Real organizer format omits the second November");
+  assert(!verifySource("<h1>November 14–15 & 21–23, 2026</h1>", byName("Austin Studio Tour")), "Date drift must not accept a changed second weekend");
   assert(!verifySource("<p>2026 Tour: November 14–15 only</p>", byName("Austin Studio Tour")));
 });
 
@@ -57,7 +59,10 @@ test("November unified filters include organizer picks and honor noncontinuous w
   ]) {
     assert(picks.includes(`["${start}", "${end}"]`), `Missing separate operating window ${start} to ${end}`);
   }
-  assert(layout.includes('const allEvents = [...items, ...officialPicks];'));
+  assert(layout.includes('const allEvents = [...items, ...officialPicks].sort('));
+  assert(layout.includes('String(a.startDate).localeCompare(String(b.startDate))'), "Combined events should be chronological, not append organizer-only entries at the bottom");
+  assert(layout.includes('page.path !== "/events/november-events" ? planningPanel : null'), "Do not put planning copy ahead of November filters");
+  assert(layout.includes('page.path === "/events/november-events" ? planningPanel : null'), "Preserve planning and sourcing after November results");
   assert(layout.includes("const filtered = allEvents.filter("));
   assert(layout.includes("dateWindows(event).some("));
   assert(layout.includes('event.slug === "a-christmas-affair"'));
