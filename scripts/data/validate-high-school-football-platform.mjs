@@ -280,7 +280,11 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
     "if (!part.startsWith('https://')) return part;",
     'rel="noopener noreferrer nofollow"',
     '{renderFootballFaqAnswer(item.answer)}',
-  ]) requireText(featuredProfilePage, required, 'Clickable HTTPS football FAQ source');
+    // A long Columbus ISD athletics URL in a sourced overview previously
+    // pushed the entire 320px document wider than the viewport.
+    '{renderFootballFaqAnswer(paragraph)}',
+    '[overflow-wrap:anywhere]',
+  ]) requireText(featuredProfilePage, required, 'Clickable and narrow-safe football source URLs');
   const sitemap = read(legacyMetadataFiles[5]);
 
   for (const marker of [
