@@ -55,7 +55,7 @@ function TexasFactsPage() {
       <section className="border-t border-border bg-muted/25 py-14">
         <Container>
           <div className="grid gap-6 md:grid-cols-3">
-            <Related href="/things-unique-to-texas" title="250 Things That Define Texas" text="Move from reference facts into food, places, traditions, oddities and culture." />
+            <Related href="/things-unique-to-texas" title="Things That Define Texas" text="Move from reference facts into food, places, traditions, oddities and culture." />
             <Related href="/made-in-texas" title="Made, Built & Born in Texas" text="See Texas products and companies by city and county, with careful manufacturing labels." />
             <Related href="/texas-symbols" title="Official Texas Symbols" text="Separate official state designations from familiar but unofficial Texas icons." />
           </div>
