@@ -176,7 +176,7 @@ if (!articleRenderer.includes('articleSlug === "east-texas-fall-colors" && block
 if (!articleRoute.includes('article.slug !== "east-texas-fall-colors" && relatedDestinations.length > 0 && <Section>')) {
   fail("East Texas foliage page must not duplicate the six-park cards with a stray Caddo destination rail");
 }
-if (!eastTexasCopy.includes("not verified 2026 peak-color reports")) {
+if (!eastTexasCopy.includes("not confirmed reports of current peak color")) {
   fail("East Texas seasonal guidance must not imply verified live peak foliage");
 }
 
