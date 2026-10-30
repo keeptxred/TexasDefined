@@ -44,7 +44,7 @@ test("every November card uses reviewed photography or an explicit editorial ill
   assert(layout.includes('Not a photograph of the event.'), "Illustrations must never impersonate actual event photographs");
   assert(layout.includes("photo.alt?.trim()"), "A source photo needs a meaningful alt to be displayed");
   assert(layout.includes("onError={() => setImageFailed(true)}"), "Unavailable source images must not break the card");
-  assert(layout.includes("photo.approvedForCommercialUse !== false"), "Disapproved photographs must never render");
+  assert(layout.includes("photo.approvedForCommercialUse === true"), "Disapproved photographs must never render");
   assert(layout.includes("photo.sourceUrl"), "Image source/attribution link must survive to card UI");
   assert(layout.includes("AI illustration · not event photography"), "Generated content must be labeled as illustrative");
   assert.equal((browser.match(/<NovemberEventVisual event=\{event\}/g) ?? []).length, 2, "Both featured and the entire 55-event directory must always render visual media");
