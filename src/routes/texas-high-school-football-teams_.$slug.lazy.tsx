@@ -203,6 +203,11 @@ function Page() {
     'comanche': 'comanche', // Comanche High Indians in Comanche County, Texas.
     'comfort': 'kendall', // 143 Highway 87 N campus in Kendall County verified by NCES 481479000979.
     'commerce': 'hunt', // Commerce High Tigers campus in Hunt County; school-managed visitor links.
+    'cooper': 'delta', // Cooper ISD Bulldogs campus in Delta County, not administrative gate.
+    'coolidge': 'limestone', // Coolidge school district officially identifies Limestone County six-man campus.
+    'converse-judson': 'bexar', // Judson High Rockets FM 78 Converse campus in Bexar County.
+    'conroe-woodlands-college-park': 'montgomery', // NCES 481500010964, separate Cavaliers College Park campus.
+    'conroe-the-woodlands': 'montgomery', // Research Forest campus, The Woodlands High; not nearby College Park.
     'como-pickton': 'hopkins', // NCES Como-Pickton school/district campus physically Hopkins County, not Fort Worth Como.
     'conroe': 'montgomery', // Conroe High at 3200 W Davis, NCES Montgomery; separate from other CISD high schools.
     'conroe-caney-creek': 'montgomery', // NCES Caney Creek FM1485 campus Montgomery County; not Conroe Tigers.
