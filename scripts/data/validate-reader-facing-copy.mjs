@@ -54,6 +54,12 @@ const visitorFirst = [
   ["src/components/content/EntityDepthSections.tsx",
    "is a TexasDefined event reference",
    "Confirm current dates, admission, parking and entry rules"],
+  ["src/components/content/EntityDepthSections.tsx",
+   "is included as a Texas history and place reference",
+   "Explore the history of "],
+  ["src/components/content/EntityDepthSections.tsx",
+   "TexasDefined separates durable reference information",
+   "Some facts change much faster than a place's history"],
 ];
 for (const [file, prohibited, expected] of visitorFirst) {
   if (!fs.existsSync(file)) {
