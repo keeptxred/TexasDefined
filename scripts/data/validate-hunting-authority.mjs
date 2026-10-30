@@ -121,6 +121,7 @@ requireText(turkeyQuarterlyFinisher, 'dispatch-validate-branch.sh', 'protected q
 requireText(turkeyQuarterlyFinisher, 'refresh-turkey-authority-quarterly.mjs --check-only', 'quarterly finisher must recheck sources before merge');
 requireText(turkeyQuarterlyFinisher, '--match-head-commit', 'quarterly merge must pin validated SHA');
 requireText(turkeyQuarterlyFinisher, "23 11 * * *", 'daily recovery of pending quarterly source-verified PRs missing');
+requireText(turkeyQuarterlyFinisher, "- '.github/workflows/finish-turkey-authority-quarterly.yml'", 'one-time protected main-merge recovery bootstrap missing');
 requireText(turkeyQuarterlyFinisher, "for attempt in 1 2 3", 'bounded replay after concurrent main commits missing');
 requireText(turkeyQuarterlyFinisher, "Quarterly data source workflow not verified", 'bot-sourced PR must be backed by completed official TPWD check');
 requireText(turkeyQuarterlyFinisher, "git merge-base --is-ancestor origin/main", 'must refuse old-base validations on shared main');
