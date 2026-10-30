@@ -218,6 +218,19 @@ const pages = [
 // production freshness checks remain unchanged; no sitewide crawl is introduced.
 const mardiGrasPages = pages.filter((page) => /\/(?:event\/(?:mardi-gras-|cowboy-mardi-gras-|crystal-beach-mardi-gras-|kemah-yachty-gras|palestine-mardi-gras-|beaumont-pardi-gras|oak-cliff-mardi-gras-)|events\/mardi-gras)/.test(new URL(page.url).pathname));
 const observedMardiGrasRoutes = new Set(mardiGrasPages.map((item) => new URL(item.url).pathname));
+/**
+ * Four evergreen guides deliberately withhold one-off Event rich markup:
+ * two independently dated parades under one guide (Galveston/Kemah) and
+ * expired 2026 organizer records with no confirmed 2027 occurrence
+ * (Beaumont/Orange). Their canonical JSON-LD must be WebPage, NOT Event.
+ * Keep this aligned with applyEventSchemaConfidencePolicy in the server bridge.
+ */
+const evergreenMardiGrasWebPageRoutes = new Set([
+  '/event/mardi-gras-galveston',
+  '/event/kemah-yachty-gras',
+  '/event/mardi-gras-southeast-texas-beaumont',
+  '/event/mardi-gras-on-the-sabine-orange',
+]);
 if (mardiGrasPages.length !== 12 || observedMardiGrasRoutes.size !== 12) {
   throw new Error('Mardi Gras canonical acceptance must cover exactly 11 distinct guides plus the statewide hub');
 }
@@ -236,8 +249,15 @@ function mardiGrasHtmlDefects(html, url) {
     if (!/"@type"\s*:\s*"CollectionPage"/.test(html) || !/"@type"\s*:\s*"ItemList"/.test(html)) {
       failures.push('statewide hub CollectionPage / ItemList schema missing');
     }
+  } else if (evergreenMardiGrasWebPageRoutes.has(route)) {
+    if (!/"@type"\s*:\s*"WebPage"/.test(html)) {
+      failures.push('multi-occurrence or unannounced guide WebPage schema missing');
+    }
+    if (/"@type"\s*:\s*"Event"/.test(html)) {
+      failures.push('multi-occurrence or unannounced guide must not claim single Event schema');
+    }
   } else if (!/"@type"\s*:\s*"Event"/.test(html)) {
-    failures.push('individual guide Event schema missing');
+    failures.push('single confirmed event guide Event schema missing');
   }
   return failures;
 }
