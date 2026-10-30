@@ -4,6 +4,442 @@ import type { FootballProgramEditorial } from './program-editorial';
  * 2026 football guides. A research source is not a licensed scoreboard, official
  * school logo or guarantee of stadium admission, scores or accessibility. */
 const BATCH011_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "coppell": {
+    "slug": "coppell",
+    "intro": "Coppell Cowboys football is a distinct UIL 6A District 7 program in Coppell in Dallas County. Coppell High's Cowboys football program is the Dallas County school on Parkway Boulevard. The first-party school staff directory specifically identifies Antonio Wiley as the boys athletic coordinator and head football coach, while Antonio Wiley Jr. is separately listed as special education/coach. Those are two distinct people and separate school positions; copying the junior staff role onto the senior head coach or inventing an additional title would be incorrect.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Independent original TexasDefined typography, not a school-authorized trademark, photograph or colors."
+    },
+    "seo": {
+      "title": "Coppell Cowboys Football | UIL 6A District 7 in 2026",
+      "description": "Independent Coppell Cowboys 2026 football guide with individually sourced coaching roles, campus county, league or private-school distinction, official schedules and fan questions."
+    },
+    "coach": {
+      "name": "Antonio Wiley",
+      "title": "School-listed boys athletic coordinator and head football coach (not Antonio Wiley Jr.)",
+      "sourceUrl": "https://www.coppellisd.com/o/chs/staff?filter_ids=305819&page_no=11",
+      "sourceLabel": "School-owned current varsity football coaching reference",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "185 West Parkway Boulevard, Coppell, TX 75019 — campus, not Cowboys stadium gate",
+      "sourceUrl": "https://nces.ed.gov/ccd/schooLSearch/school_detail.asp?County=Dallas+County&ID=481521001028&State=48",
+      "sourceLabel": "School/federal campus address, not game venue gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check official school sports schedule and host-specific admissions; no live licensed football results available",
+      "officialScheduleUrl": "https://www.coppellisd.com/o/chs",
+      "sourceUrl": "https://www.coppellisd.com/o/chs",
+      "sourceLabel": "School-controlled athletics page, not permission to redistribute standings",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "School identity and 2026 football evidence: Coppell Cowboys",
+      "body": "Coppell High's Cowboys football program is the Dallas County school on Parkway Boulevard. The first-party school staff directory specifically identifies Antonio Wiley as the boys athletic coordinator and head football coach, while Antonio Wiley Jr. is separately listed as special education/coach. Those are two distinct people and separate school positions; copying the junior staff role onto the senior head coach or inventing an additional title would be incorrect.",
+      "sourceUrl": "https://www.coppellisd.com/o/chs",
+      "sourceLabel": "Independent school-issued football and athletics context",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "Current 2026 campus staff",
+        "title": "Antonio Wiley school-listed head football coach",
+        "body": "Coppell High's current roster explicitly lists Antonio Wiley as boys athletic coordinator/head football coach, and Antonio Wiley Jr. in a separate non-head-coach school role.",
+        "sourceUrl": "https://www.coppellisd.com/o/chs/staff?filter_ids=305819&page_no=11",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "2025–26 school directory",
+        "title": "Coppell High physical Dallas County campus",
+        "body": "NCES school ID 481521001028 confirms the high school campus at 185 West Parkway in Dallas County.",
+        "sourceUrl": "https://nces.ed.gov/ccd/schooLSearch/school_detail.asp?County=Dallas+County&ID=481521001028&State=48",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 6A District 7 for Coppell Cowboys",
+        "body": "The UIL current football alignment places Coppell in its 2026–28 division and district without proving game outcomes.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      }
+    ],
+    "overview": [
+      "Coppell Cowboys football is a distinct UIL 6A District 7 program in Coppell in Dallas County. Coppell High's Cowboys football program is the Dallas County school on Parkway Boulevard. The first-party school staff directory specifically identifies Antonio Wiley as the boys athletic coordinator and head football coach, while Antonio Wiley Jr. is separately listed as special education/coach. Those are two distinct people and separate school positions; copying the junior staff role onto the senior head coach or inventing an additional title would be incorrect.",
+      "The current UIL alignment moves Coppell into Class 6A District 7 for 2026–28, separate from historical district listings. School and federal directory references verify campus identity; neither a district alignment nor a staff roster proves this year's cumulative W/L, a playoff result, or a specific football stadium. Individual game-day entry arrangements require a dated host event.",
+      "Check the Coppell school athletics schedule and host-specific ticket channel before traveling. The 185 West Parkway address is a school campus and does not establish the exact stadium gate, accessibility route, tickets, parking or a current kickoff.",
+      "This independent TexasDefined authority guide separates the school's current official structure, school-issued coaching titles and sourced date-specific milestones from unsourced scores, attendance, logos, student photographs, individual ticket inventory and accessible stadium gates. The football facts remain subject to the precise dated sources rather than copying other schools' records."
+    ],
+    "faq": [
+      {
+        "question": "Who is Coppell High's head football coach?",
+        "answer": "Coppell High currently lists Antonio Wiley as boys athletic coordinator and head football coach, separate from Antonio Wiley Jr.'s school staff entry."
+      },
+      {
+        "question": "Is Antonio Wiley Jr. the same staff member as the head football coach?",
+        "answer": "No. Coppell High lists Antonio Wiley and Antonio Wiley Jr. as distinct people in different roles; the head football coach is Antonio Wiley."
+      },
+      {
+        "question": "Where is Coppell High's campus?",
+        "answer": "The school and federal NCES directory place Coppell High at 185 West Parkway Boulevard in Dallas County, Texas."
+      },
+      {
+        "question": "What UIL football district contains Coppell for 2026–28?",
+        "answer": "The current UIL Class 6A football realignment lists the Coppell Cowboys in District 7."
+      },
+      {
+        "question": "Does the school office address identify Cowboys game-night parking?",
+        "answer": "No. Verify individual varsity host venue, ticketing, stadium parking and accessible entry with the school event notice rather than treating the campus mailing address as a gate."
+      }
+    ]
+  },
+  "copperas-cove": {
+    "slug": "copperas-cove",
+    "intro": "Copperas Cove Bulldawgs football is a distinct UIL 6A District 12 program in Copperas Cove in Coryell County. Copperas Cove's Bulldawgs varsity football program is the Coryell County school; it is not Cooper High and not a school in a neighboring county. Current Cove Athletics expressly identifies Rodney Southern as head football coach. The former coach Tony Johnson moved to an assistant athletic director role in February 2025; third-party 2026 listings that still label Johnson as the head coach are stale and contradict the district's current authority.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Independent original TexasDefined typography, not a school-authorized trademark, photograph or colors."
+    },
+    "seo": {
+      "title": "Copperas Cove Bulldawgs Football | UIL 6A District 12 in 2026",
+      "description": "Independent Copperas Cove Bulldawgs 2026 football guide with individually sourced coaching roles, campus county, league or private-school distinction, official schedules and fan questions."
+    },
+    "coach": {
+      "name": "Rodney Southern",
+      "title": "Current Cove Athletics official head football coach; previously led other Texas programs",
+      "sourceUrl": "https://coveathletics.ccisd.com/apps/pages/index.jsp?pREC_ID=2757414&type=d&uREC_ID=4477354",
+      "sourceLabel": "School-owned current varsity football coaching reference",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "400 South 25th Street, Copperas Cove, TX 76522 — high school campus, not guaranteed football visitor entrance",
+      "sourceUrl": "https://nces.ed.gov/ccd/schooLSearch/school_list.asp?ID=481521006936&SchoolPageNum=116&state=48",
+      "sourceLabel": "School/federal campus address, not game venue gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check official school sports schedule and host-specific admissions; no live licensed football results available",
+      "officialScheduleUrl": "https://coveathletics.ccisd.com/",
+      "sourceUrl": "https://coveathletics.ccisd.com/",
+      "sourceLabel": "School-controlled athletics page, not permission to redistribute standings",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "School identity and 2026 football evidence: Copperas Cove Bulldawgs",
+      "body": "Copperas Cove's Bulldawgs varsity football program is the Coryell County school; it is not Cooper High and not a school in a neighboring county. Current Cove Athletics expressly identifies Rodney Southern as head football coach. The former coach Tony Johnson moved to an assistant athletic director role in February 2025; third-party 2026 listings that still label Johnson as the head coach are stale and contradict the district's current authority.",
+      "sourceUrl": "https://coveathletics.ccisd.com/",
+      "sourceLabel": "Independent school-issued football and athletics context",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "February–March 2025",
+        "title": "Cove football coaching transition",
+        "body": "Copperas Cove announced a head football coach search after Tony Johnson moved to assistant athletic director, subsequently hiring Rodney Southern; career achievements at other schools remain separate.",
+        "sourceUrl": "https://www.kwtx.com/2025/02/26/copperas-cove-head-football-coach-moves-assistant-athletic-director-district-launching-search-new-coach/",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "Current 2026 district administrators",
+        "title": "Rodney Southern named head football coach",
+        "body": "Cove Athletics' official administrators page identifies Southern as current football head coach and describes prior school service separately.",
+        "sourceUrl": "https://coveathletics.ccisd.com/apps/pages/index.jsp?pREC_ID=2757414&type=d&uREC_ID=4477354",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "Bulldawgs in UIL 6A District 12",
+        "body": "The governing UIL realignment supplies school classification and district, not the current football record.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      }
+    ],
+    "overview": [
+      "Copperas Cove Bulldawgs football is a distinct UIL 6A District 12 program in Copperas Cove in Coryell County. Copperas Cove's Bulldawgs varsity football program is the Coryell County school; it is not Cooper High and not a school in a neighboring county. Current Cove Athletics expressly identifies Rodney Southern as head football coach. The former coach Tony Johnson moved to an assistant athletic director role in February 2025; third-party 2026 listings that still label Johnson as the head coach are stale and contradict the district's current authority.",
+      "Southern's earlier work at Huntsville, Belton and Marshall is legitimate coaching biography but not Copperas Cove's 2026 football performance. The UIL places Cove in Class 6A District 12 for the 2026–28 cycle; changing alignment is separate from sports results. A current school athletics page is the right source for varsity events and tickets, not a provider-owned scoreboard.",
+      "The 25th Street school address in Coryell County helps locate the campus; it does not prove the home team's stadium parking, seating, gate, accessibility or ticket price for an individual 2026 football game. Read current Cove Athletics and opponent event details before traveling.",
+      "This independent TexasDefined authority guide separates the school's current official structure, school-issued coaching titles and sourced date-specific milestones from unsourced scores, attendance, logos, student photographs, individual ticket inventory and accessible stadium gates. The football facts remain subject to the precise dated sources rather than copying other schools' records."
+    ],
+    "faq": [
+      {
+        "question": "Who is the current Copperas Cove head football coach?",
+        "answer": "The official Cove Athletics administrators page identifies Rodney Southern as head football coach; older third-party pages naming Tony Johnson are outdated."
+      },
+      {
+        "question": "What changed with former coach Tony Johnson?",
+        "answer": "A February 2025 district-reported transition moved Tony Johnson to assistant athletic director before Cove selected Rodney Southern as head football coach."
+      },
+      {
+        "question": "Can Southern's Huntsville wins be counted as Copperas Cove's wins?",
+        "answer": "No. His earlier successes at Huntsville, Belton or Marshall belong to those programs and seasons, not the Bulldawgs' current results."
+      },
+      {
+        "question": "Which UIL district contains Copperas Cove for 2026?",
+        "answer": "The official UIL football alignment assigns Copperas Cove to Class 6A District 12 for the 2026–28 cycle."
+      },
+      {
+        "question": "Where is Copperas Cove High located?",
+        "answer": "The high-school campus is in Copperas Cove, Coryell County; school office address and stadium visitor entrance must be confirmed separately."
+      }
+    ]
+  },
+  "cornerstone-christian": {
+    "slug": "cornerstone-christian",
+    "intro": "San Antonio Cornerstone Christian Warriors football is a distinct private / non-UIL independent football program in San Antonio in Bexar County. Cornerstone Christian's Warriors represent the San Antonio private school at NW Military Highway in Bexar County, not the Sugar Land Cornerstone Christian Academy Cougars. Its 2026 school-operated football page specifically names Clayton Guillory as head coach, while the athletics staff page identifies his broader title as head of football operations and Darryl Hemphill as athletic director. The school is **not a UIL program**, so neither UIL district peers nor Texas public school playoff brackets should be invented.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Independent original TexasDefined typography, not a school-authorized trademark, photograph or colors."
+    },
+    "seo": {
+      "title": "San Antonio Cornerstone Christian Warriors Football | private / non-UIL independent football in 2026",
+      "description": "Independent San Antonio Cornerstone Christian Warriors 2026 football guide with individually sourced coaching roles, campus county, league or private-school distinction, official schedules and fan questions."
+    },
+    "coach": {
+      "name": "Clayton Guillory",
+      "title": "First-party 2026 Warriors football staff names head coach; separate school athletics office title Head of Football Operations",
+      "sourceUrl": "https://www.sa-ccs.org/athletics/football",
+      "sourceLabel": "School-owned current varsity football coaching reference",
+      "verifiedAt": "2026-10-29"
+    },
+    "campus": {
+      "address": "17702 NW Military Highway, San Antonio, TX 78257 — private school contact location, not a guaranteed varsity football stadium gate",
+      "sourceUrl": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A9703300&Miles=20&Search=1&Zip=78163",
+      "sourceLabel": "School/federal campus address, not game venue gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check official school sports schedule and host-specific admissions; no live licensed football results available",
+      "officialScheduleUrl": "https://www.sa-ccs.org/athletics/football",
+      "sourceUrl": "https://www.sa-ccs.org/athletics/football",
+      "sourceLabel": "School-controlled athletics page, not permission to redistribute standings",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "School identity and 2026 football evidence: San Antonio Cornerstone Christian Warriors",
+      "body": "Cornerstone Christian's Warriors represent the San Antonio private school at NW Military Highway in Bexar County, not the Sugar Land Cornerstone Christian Academy Cougars. Its 2026 school-operated football page specifically names Clayton Guillory as head coach, while the athletics staff page identifies his broader title as head of football operations and Darryl Hemphill as athletic director. The school is **not a UIL program**, so neither UIL district peers nor Texas public school playoff brackets should be invented.",
+      "sourceUrl": "https://www.sa-ccs.org/athletics/football",
+      "sourceLabel": "Independent school-issued football and athletics context",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2025–26 private school survey",
+        "title": "San Antonio CCS is a Bexar County nonpublic school",
+        "body": "NCES private-school survey identifies Cornerstone Christian Schools' San Antonio campus separately from similarly named Sugar Land schools.",
+        "sourceUrl": "https://nces.ed.gov/surveys/pss/privateschoolsearch/school_detail.asp?ID=A9703300&Miles=20&Search=1&Zip=78163",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "2026 varsity football staff",
+        "title": "Clayton Guillory named Warriors head football coach",
+        "body": "The San Antonio school-owned 2026 Warriors football page identifies Guillory as head coach and lists the staff separately from players.",
+        "sourceUrl": "https://www.sa-ccs.org/athletics/football",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "Current CCS athletics administration",
+        "title": "Head of Football Operations and athletic director distinguished",
+        "body": "The athletics staff page calls Guillory Head of Football Operations and Darryl Hemphill athletic director; neither is evidence for UIL membership.",
+        "sourceUrl": "https://www.sa-ccs.org/athletics/athletic-staff",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      }
+    ],
+    "overview": [
+      "San Antonio Cornerstone Christian Warriors football is a distinct private / non-UIL independent football program in San Antonio in Bexar County. Cornerstone Christian's Warriors represent the San Antonio private school at NW Military Highway in Bexar County, not the Sugar Land Cornerstone Christian Academy Cougars. Its 2026 school-operated football page specifically names Clayton Guillory as head coach, while the athletics staff page identifies his broader title as head of football operations and Darryl Hemphill as athletic director. The school is **not a UIL program**, so neither UIL district peers nor Texas public school playoff brackets should be invented.",
+      "Private-school status is a critical part of this school's correct athletic identity. Historical TAPPS mentions or unrelated private school alignments cannot be automatically substituted for an actual 2026 football association affiliation. The San Antonio school has varsity, JV and middle-school football information and a current 2026 coaching roster, but it does not grant third-party reuse rights to student photos, players' details, score feeds or ticket inventory.",
+      "Check Cornerstone Christian Schools' own varsity football game information and host stadium instructions. The NW Military Highway campus contact address is not proof of the venue, accessible entry, visitor parking, seating or ticket availability for any particular 2026 opponent, including out-of-state travel.",
+      "This independent TexasDefined authority guide separates the school's current official structure, school-issued coaching titles and sourced date-specific milestones from unsourced scores, attendance, logos, student photographs, individual ticket inventory and accessible stadium gates. The football facts remain subject to the precise dated sources rather than copying other schools' records."
+    ],
+    "faq": [
+      {
+        "question": "Is San Antonio Cornerstone Christian a UIL football team?",
+        "answer": "No. This is a privately operated school and its 2026 football association or independent schedule must not be replaced with an invented UIL class or district."
+      },
+      {
+        "question": "Who coaches the 2026 Warriors varsity football team?",
+        "answer": "The school's own 2026 football staff page names Clayton Guillory as head coach; its athletics staff page describes him as head of football operations."
+      },
+      {
+        "question": "Who is Cornerstone Christian's athletic director?",
+        "answer": "The San Antonio school's current athletics directory lists Darryl Hemphill as athletic director, separately from Clayton Guillory's football responsibilities."
+      },
+      {
+        "question": "Is this the Cornerstone Christian Academy in Sugar Land?",
+        "answer": "No. This guide is for the San Antonio Cornerstone Christian Schools Warriors at NW Military Highway, not the separate Sugar Land school."
+      },
+      {
+        "question": "Can the private school be assigned a TAPPS or UIL district from an older guide?",
+        "answer": "Not automatically. A dated 2026 governing association statement is needed before presenting any particular league alignment as current."
+      }
+    ]
+  },
+  "corpus-christi-calallen": {
+    "slug": "corpus-christi-calallen",
+    "intro": "Calallen High Wildcats football is a distinct UIL 4A Division I District 15 program in Corpus Christi in Nueces County. The Calallen Wildcats represent Calallen High in Corpus Christi's Nueces County, not a school elsewhere in the Coastal Bend. The federal high-school campus directory lists 4001 Wildcat Drive, distinct from the athletic department's 4205 Wildcat Drive office address. The official athletics and district pages name Charlie Reeve as athletic director; they do not independently confirm the present 2026 varsity head football coach in the current staff references reviewed, so no HFC is invented.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Independent original TexasDefined typography, not a school-authorized trademark, photograph or colors."
+    },
+    "seo": {
+      "title": "Calallen High Wildcats Football | UIL 4A Division I District 15 in 2026",
+      "description": "Independent Calallen High Wildcats 2026 football guide with individually sourced coaching roles, campus county, league or private-school distinction, official schedules and fan questions."
+    },
+    "campus": {
+      "address": "4001 Wildcat Drive, Corpus Christi, TX 78410 — school campus, not district athletics office or football spectator gate",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?County=Nueces+County&ID=481242000734&SchoolPageNum=2&Search=1&State=48",
+      "sourceLabel": "School/federal campus address, not game venue gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check official school sports schedule and host-specific admissions; no live licensed football results available",
+      "officialScheduleUrl": "https://athletics.calallen.org/about-us",
+      "sourceUrl": "https://athletics.calallen.org/about-us",
+      "sourceLabel": "School-controlled athletics page, not permission to redistribute standings",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "School identity and 2026 football evidence: Calallen High Wildcats",
+      "body": "The Calallen Wildcats represent Calallen High in Corpus Christi's Nueces County, not a school elsewhere in the Coastal Bend. The federal high-school campus directory lists 4001 Wildcat Drive, distinct from the athletic department's 4205 Wildcat Drive office address. The official athletics and district pages name Charlie Reeve as athletic director; they do not independently confirm the present 2026 varsity head football coach in the current staff references reviewed, so no HFC is invented.",
+      "sourceUrl": "https://athletics.calallen.org/",
+      "sourceLabel": "Independent school-issued football and athletics context",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2025–26 NCES high school record",
+        "title": "Calallen High's official school campus is Nueces County",
+        "body": "The federal school directory identifies Calallen High at 4001 Wildcat Drive, distinct from the athletic department office address.",
+        "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?County=Nueces+County&ID=481242000734&SchoolPageNum=2&Search=1&State=48",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "Current district athletics contact",
+        "title": "Charlie Reeve named Calallen athletic director",
+        "body": "Calallen's first-party current athletics contact and district department pages identify Reeve as AD but do not independently supply the current head football coach title.",
+        "sourceUrl": "https://athletics.calallen.org/contact-us",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 4A Division I District 15 for Wildcats",
+        "body": "Current UIL alignment replaces outdated historical district references and does not imply a 2026 football record.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      }
+    ],
+    "overview": [
+      "Calallen High Wildcats football is a distinct UIL 4A Division I District 15 program in Corpus Christi in Nueces County. The Calallen Wildcats represent Calallen High in Corpus Christi's Nueces County, not a school elsewhere in the Coastal Bend. The federal high-school campus directory lists 4001 Wildcat Drive, distinct from the athletic department's 4205 Wildcat Drive office address. The official athletics and district pages name Charlie Reeve as athletic director; they do not independently confirm the present 2026 varsity head football coach in the current staff references reviewed, so no HFC is invented.",
+      "The Wildcats' current governing football alignment is UIL 4A Division I District 15 for 2026–28. Calallen's 2026–27 official athletics handbook, published schedules, clear-bag details and ticketing policies are helpful for visitors but do not establish per-game prices, final score and season standings. Dated historical coaching roles must not be republished as current without newer school football evidence.",
+      "The 4001 Wildcat Drive school campus and 4205 Wildcat Drive athletics office have different roles; neither identifies a universal football-game ticket gate. Before attending, consult the Calallen official athletics site for an individual varsity contest, visiting fan policies and the host stadium.",
+      "This independent TexasDefined authority guide separates the school's current official structure, school-issued coaching titles and sourced date-specific milestones from unsourced scores, attendance, logos, student photographs, individual ticket inventory and accessible stadium gates. The football facts remain subject to the precise dated sources rather than copying other schools' records."
+    ],
+    "faq": [
+      {
+        "question": "Who is Calallen's athletic director?",
+        "answer": "Calallen's current athletics contact page and district department list Charlie Reeve as athletic director. The football head coach title requires a separate 2026 school-issued source."
+      },
+      {
+        "question": "Does Charlie Reeve's AD title prove he is varsity football head coach?",
+        "answer": "No. Athletic director and head football coach are distinct positions unless current school football staff explicitly assigns both roles."
+      },
+      {
+        "question": "What county contains Calallen High?",
+        "answer": "The NCES 2025–26 Calallen High record identifies its 4001 Wildcat Drive campus in Nueces County, Corpus Christi."
+      },
+      {
+        "question": "Is the school campus the same address as Calallen athletics offices?",
+        "answer": "No. The school campus record lists 4001 Wildcat Drive while athletics contact pages list 4205 Wildcat Drive, so do not assume either is the spectator gate."
+      },
+      {
+        "question": "Which 2026 UIL football district applies to the Wildcats?",
+        "answer": "The official UIL 2026–28 alignment lists Calallen in Class 4A Division I District 15."
+      }
+    ]
+  },
+  "corpus-christi-carroll": {
+    "slug": "corpus-christi-carroll",
+    "intro": "Corpus Christi Mary Carroll Tigers football is a distinct UIL 5A Division I District 15 program in Corpus Christi in Nueces County. Mary Carroll High's Tigers football team is the Corpus Christi Nueces County school on Saratoga Boulevard, not Southlake Carroll's Dragons or an Iowa school with a similar name. The first-party Mary Carroll athletics page confirms Calvin (Cal) Neatherlin as campus athletic coordinator in 2026; contemporaneous secondary football coverage calls him football coach, but the particular current school-managed page reviewed does not independently designate him as varsity head football coach. His confirmed coordinator title is not silently promoted.",
+    "theme": {
+      "accentHex": "#4F6072",
+      "label": "Independent original TexasDefined typography, not a school-authorized trademark, photograph or colors."
+    },
+    "seo": {
+      "title": "Corpus Christi Mary Carroll Tigers Football | UIL 5A Division I District 15 in 2026",
+      "description": "Independent Corpus Christi Mary Carroll Tigers 2026 football guide with individually sourced coaching roles, campus county, league or private-school distinction, official schedules and fan questions."
+    },
+    "campus": {
+      "address": "3202 Saratoga Boulevard, Corpus Christi, TX 78415 — high school campus, not game-night spectator gate",
+      "sourceUrl": "https://carroll.ccisd.us/page/athletics/",
+      "sourceLabel": "School/federal campus address, not game venue gate",
+      "verifiedAt": "2026-10-29"
+    },
+    "schedule": {
+      "label": "Check official school sports schedule and host-specific admissions; no live licensed football results available",
+      "officialScheduleUrl": "https://carroll.ccisd.us/page/athletics/",
+      "sourceUrl": "https://carroll.ccisd.us/page/athletics/",
+      "sourceLabel": "School-controlled athletics page, not permission to redistribute standings",
+      "verifiedAt": "2026-10-29"
+    },
+    "development": {
+      "title": "School identity and 2026 football evidence: Corpus Christi Mary Carroll Tigers",
+      "body": "Mary Carroll High's Tigers football team is the Corpus Christi Nueces County school on Saratoga Boulevard, not Southlake Carroll's Dragons or an Iowa school with a similar name. The first-party Mary Carroll athletics page confirms Calvin (Cal) Neatherlin as campus athletic coordinator in 2026; contemporaneous secondary football coverage calls him football coach, but the particular current school-managed page reviewed does not independently designate him as varsity head football coach. His confirmed coordinator title is not silently promoted.",
+      "sourceUrl": "https://carroll.ccisd.us/page/athletics/",
+      "sourceLabel": "Independent school-issued football and athletics context",
+      "verifiedAt": "2026-10-29"
+    },
+    "milestones": [
+      {
+        "date": "2026 campus athletics directory",
+        "title": "Calvin Neatherlin school-listed athletic coordinator",
+        "body": "The current Mary Carroll High athletics and campus staff pages both identify Neatherlin in the campus athletic coordinator role.",
+        "sourceUrl": "https://carroll.ccisd.us/page/athletics/",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "Current campus identity",
+        "title": "Mary Carroll High on Saratoga Boulevard in Corpus Christi",
+        "body": "The first-party school athletics page identifies 3202 Saratoga Boulevard and the Mary Carroll Tigers distinct from namesake Carroll high schools elsewhere.",
+        "sourceUrl": "https://carroll.ccisd.us/o/carroll/",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 5A Division I District 15 for Corpus Christi Carroll",
+        "body": "The official UIL alignment controls the current school classification, not Southlake's district or football history.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "Dated school, official district, NCES, news or UIL source"
+      }
+    ],
+    "overview": [
+      "Corpus Christi Mary Carroll Tigers football is a distinct UIL 5A Division I District 15 program in Corpus Christi in Nueces County. Mary Carroll High's Tigers football team is the Corpus Christi Nueces County school on Saratoga Boulevard, not Southlake Carroll's Dragons or an Iowa school with a similar name. The first-party Mary Carroll athletics page confirms Calvin (Cal) Neatherlin as campus athletic coordinator in 2026; contemporaneous secondary football coverage calls him football coach, but the particular current school-managed page reviewed does not independently designate him as varsity head football coach. His confirmed coordinator title is not silently promoted.",
+      "Mary Carroll competes in UIL Class 5A Division I District 15 for 2026–28; it is not Southlake Carroll's 6A program, so importing Dragons championships, coaches or stadiums would be a serious factual error. Mary Carroll's current official school site identifies a campus at Saratoga Boulevard and sports participation resources, which are not authorized final-score feeds. Date-specific school news can support events but not automatic season totals.",
+      "Mary Carroll High's school page provides contact information and a sports office for scheduling. Visiting fans should check the particular host and school athletics notices for varsity stadium, entry gate, tickets, parking and accessibility, not assume the 3202 Saratoga campus office is an admission entrance.",
+      "This independent TexasDefined authority guide separates the school's current official structure, school-issued coaching titles and sourced date-specific milestones from unsourced scores, attendance, logos, student photographs, individual ticket inventory and accessible stadium gates. The football facts remain subject to the precise dated sources rather than copying other schools' records."
+    ],
+    "faq": [
+      {
+        "question": "Is Corpus Christi Mary Carroll the same school as Southlake Carroll?",
+        "answer": "No. Mary Carroll's Tigers play in Corpus Christi, Nueces County; Southlake Carroll Dragons are a separate high school with a different campus and records."
+      },
+      {
+        "question": "Who is the current Carroll campus athletic coordinator?",
+        "answer": "The Mary Carroll school athletics and staff listings name Calvin (Cal) Neatherlin as campus athletic coordinator; this guide does not extrapolate an unverified current head-football-coach designation."
+      },
+      {
+        "question": "What football district does Mary Carroll play in during 2026?",
+        "answer": "UIL's official 2026–28 football alignment assigns Corpus Christi Carroll to Class 5A Division I District 15."
+      },
+      {
+        "question": "Where is Corpus Christi Carroll High?",
+        "answer": "Mary Carroll High School lists 3202 Saratoga Boulevard in Corpus Christi, Nueces County, as its campus contact address."
+      },
+      {
+        "question": "Can I use Southlake Carroll game details here?",
+        "answer": "No. Coaches, championships, tickets, stadium details or varsity finals from the Southlake Dragons cannot be transferred to Corpus Christi Mary Carroll's Tigers."
+      }
+    ]
+  },
   "conroe-the-woodlands": {
     "slug": "conroe-the-woodlands",
     "intro": "The Woodlands Highlanders is a separately operated Texas high-school varsity football program in The Woodlands in Montgomery County, playing in UIL 6A District 13 for 2026–28. The Woodlands High's Highlanders program has its own Conroe ISD athletics office, not the same team as College Park Cavaliers despite nearby campuses and shared district resources. The current campus athletics page lists Jim Rapp as head football coach and athletic director, while the staff directory uses his full first name James. Matching the name and school role avoids inventing a second coaching appointment.",
