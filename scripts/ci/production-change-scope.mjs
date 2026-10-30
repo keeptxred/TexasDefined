@@ -190,7 +190,12 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   // Changing the verifier must exercise the upgraded turkey content on both
   // the release URL and the ordinary visitor URL, even when article files are
   // unchanged. This selects only the one affected hunting page.
-  if (changedFiles.includes('scripts/ci/verify-changed-production-pages.mjs')) {
+  if (changedFiles.some(path => [
+    'scripts/ci/verify-changed-production-pages.mjs',
+    'scripts/ci/verify-turkey-hunting-browser.mjs',
+    'scripts/ci/verify-hunting-hub-responsive-browser.mjs',
+    'scripts/ci/hunting-browser-release-scope.mjs',
+  ].includes(path))) {
     candidates.add('/hunting/turkey-hunting');
     huntingAuthorityPages.add('/hunting/turkey-hunting');
   }
