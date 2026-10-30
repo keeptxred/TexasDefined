@@ -392,7 +392,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (sportsKinds.has(entity.kind) || entity.kind === 'sports-venue') {
     return [
-      `${entity.name} is part of TexasDefined's sports-travel reference collection. The page is meant to help readers place the venue geographically, understand the kind of trip it supports, and find the official source before buying tickets or traveling.`,
+      `${entity.name} can be part of a larger sports trip. Check its official venue or team information to confirm the event, seating policies and entry details before buying tickets or traveling.`,
       placeContext ? `The venue is associated with ${placeContext}. For game-day planning, the surrounding city and county can matter as much as the building itself because parking, transit, lodging and event traffic extend beyond the venue footprint.` : `For game-day planning, check the surrounding area as well as the venue itself because parking, lodging and event traffic can extend beyond the property.`,
       `Schedules, ticket rules, parking procedures, bag policies and gate times can change by event. Treat those as live operational details and confirm them with the venue, team, school or event organizer before departure.`,
     ];
@@ -400,7 +400,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (outdoorKinds.has(entity.kind)) {
     return [
-      `${entity.name} belongs in TexasDefined's outdoor and trip-planning guide because the useful question is not only where it is, but what a visitor should verify before making the drive. Access, weather, water conditions, reservations and seasonal restrictions can all change the experience.`,
+      `${entity.name} deserves a little planning before the drive. Check official access, weather, water conditions, reservations and seasonal restrictions, which can all change the experience.`,
       placeContext ? `${entity.name} is associated with ${placeContext}. Use that location as a starting point for routing, nearby stops and weather checks rather than assuming the name alone identifies the correct entrance or access point.` : `Use the official location information when routing; parks, rivers, lakes and large natural areas may have multiple entrances, units or access points.`,
       `Texas conditions can change quickly. Heat, drought, flood flows, burn bans, storms, lake levels and trail closures may affect a trip even when the destination itself remains open.`,
     ];
@@ -416,7 +416,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (eventKinds.has(entity.kind)) {
     return [
-      `${entity.name} is a TexasDefined event reference. Event pages are most useful when they combine place context with a reminder that dates, ticketing, gates, parking and programming are live details controlled by the organizer.`,
+      `${entity.name} may return with different dates, venues or programs each year. Confirm current dates, admission, parking and entry rules directly with the event organizer.`,
       placeContext ? `The event is associated with ${placeContext}; use the location context to compare lodging, driving time and nearby stops.` : `Confirm the exact event location before traveling because recurring Texas events can use different grounds, entrances or parking plans over time.`,
       `Do not rely on an older article, social post or search snippet for this year's schedule. Confirm the current edition with the official organizer before making nonrefundable plans.`,
     ];
