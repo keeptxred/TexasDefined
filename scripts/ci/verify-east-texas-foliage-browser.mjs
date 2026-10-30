@@ -219,8 +219,11 @@ try {
       const heroSrc = await hero.getAttribute("src");
       if (!heroSrc?.includes("The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_")) throw new Error("Wrong Hill Country autumn hero: " + heroSrc);
       await page.getByRole("heading", { name: "Lost Maples foliage updates and photo credits" }).waitFor({ state: "visible" });
-      const tpwd = await page.getByRole("link", { name: /Official 2026 Lost Maples foliage report/ }).getAttribute("href");
-      if (tpwd !== "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports") throw new Error("Incorrect official 2026 foliage report link");
+      const tpwd = await page.getByRole("link", { name: /Official Lost Maples foliage report/ }).getAttribute("href");
+      if (tpwd !== "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports") throw new Error("Incorrect official foliage report link");
+      await page.getByRole("heading", { name: "Latest stored official Lost Maples foliage observation" }).waitFor({ state: "visible" });
+      const datedSource = await page.getByRole("link", { name: /Read TPWD's dated foliage report/ }).getAttribute("href");
+      if (datedSource !== "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports") throw new Error("Dated official foliage feed source missing");
       const photoLink = await page.getByRole("link", { name: /Hero photo: G. Lamar, November 2012/ }).getAttribute("href");
       if (!photoLink?.includes("29567585500")) throw new Error("Historical photo source link missing");
       const ccLink = await page.getByRole("link", { name: /CC BY 2.0 license/ }).getAttribute("href");
