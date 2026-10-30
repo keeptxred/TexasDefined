@@ -179,8 +179,8 @@ if (new Set([...hillBaseHeadings, ...hillDepthHeadings]).size !== hillBaseHeadin
 // Four official TPWD URLs in the Hill Country body must be contextual live links,
 // not raw unclickable source strings.
 const hillBody = hillBase.split("body: [")[1] ?? "";
-const hillTpwd = hillBody.match(/https:\/\/tpwd\\.texas\\.gov\/state-parks\//g) ?? [];
-const hillLinkedTpwd = hillBody.match(/\]\(https:\/\/tpwd\\.texas\\.gov\/state-parks\//g) ?? [];
+const hillTpwd = hillBody.match(/https:\/\/tpwd\.texas\.gov\/state-parks\//g) ?? [];
+const hillLinkedTpwd = hillBody.match(/\]\(https:\/\/tpwd\.texas\.gov\/state-parks\//g) ?? [];
 if (hillTpwd.length !== 4 || hillLinkedTpwd.length !== 4)
   fail("Hill Country must render four contextual TPWD source links");
 const articleBodyRenderer = fs.readFileSync("src/components/editorial/ArticleBody.tsx", "utf8");
