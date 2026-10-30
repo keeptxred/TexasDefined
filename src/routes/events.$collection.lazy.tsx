@@ -269,7 +269,7 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
     "big-bend": "Big Bend & Far West Texas",
   };
   const categoryLabels: Record<string, string> = {
-    sport: "Races & sports", seasonal: "Holiday lights & seasonal",
+    sport: "Races & sports", seasonal: "Seasonal festivals & holidays",
     culture: "Arts, culture & heritage", food: "Food & drink",
     music: "Music & live events", rodeo: "Rodeos & fairs",
   };
