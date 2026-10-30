@@ -303,18 +303,29 @@ function NovemberEditorialVisual({ event, className = "" }: { event: any; classN
 /** Prefer rights-reviewed, source-attributed event photographs; fall back to clear art if absent/broken. */
 function NovemberEventVisual({ event, className = "" }: { event: any; className?: string }) {
   const [imageFailed, setImageFailed] = useState(false);
-  if (event.image?.url && event.image.alt?.trim() && !imageFailed) {
-    return <img
-      src={event.image.url}
-      alt={event.image.alt}
-      width={800}
-      height={600}
-      loading="lazy"
-      decoding="async"
-      onError={() => setImageFailed(true)}
-      data-event-visual="photograph"
-      className={["aspect-[4/3] w-full object-cover", className].join(" ")}
-    />;
+  const photo = event.image;
+  const available = photo?.url && photo.alt?.trim() && photo.approvedForCommercialUse !== false && !imageFailed;
+  if (available) {
+    // AI artwork is an illustration, even when it looks photographic.
+    const isGenerated = photo.sourceType === "ai-generated" || /AI-generated/i.test(photo.alt);
+    return <figure className={["relative overflow-hidden", className].join(" ")}>
+      <img
+        src={photo.url}
+        alt={photo.alt}
+        width={800}
+        height={600}
+        loading="lazy"
+        decoding="async"
+        onError={() => setImageFailed(true)}
+        data-event-visual={isGenerated ? "editorial" : "photograph"}
+        className="aspect-[4/3] w-full object-cover"
+      />
+      <figcaption className="absolute bottom-2 right-2 max-w-[90%] bg-black/75 px-2 py-1 text-[10px] leading-4 text-white">
+        {isGenerated ? "AI illustration · not event photography" :
+          photo.sourceUrl ? <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">Photograph source{photo.licenseName ? " · " + photo.licenseName : ""}</a> :
+            "Event photograph"}
+      </figcaption>
+    </figure>;
   }
   return <NovemberEditorialVisual event={event} className={className} />;
 }
