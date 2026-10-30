@@ -238,7 +238,11 @@ async function verifyNovember2026EditorialRelease(november) {
   // Real production SSR must show one rights-reviewed photo or explicitly
   // illustrative event visual for each of the 55 November results.
   const cards = [...november.matchAll(/<li\b[^>]*\bdata-november-event-card="[^"]*"[^>]*>([\s\S]*?)<\/li>/gi)];
-  assert(cards.length === 55, 'November visual acceptance expected 55 event cards; received ' + cards.length);
+  const displayedCount = visible.match(/([0-9,]+) of ([0-9,]+) organizer-verified events match your filters/);
+  assert(displayedCount, 'November visual acceptance requires the visible calendar results count');
+  const expectedCards = Number(displayedCount[2].replace(/,/g, ''));
+  assert(expectedCards >= 55, 'November event listings should retain the 55 verified opening events');
+  assert(cards.length === expectedCards, 'November visual acceptance expected ' + expectedCards + ' event cards; received ' + cards.length);
   let editorialCount = 0;
   let photoCount = 0;
   for (const [index, card] of cards.entries()) {
@@ -252,8 +256,8 @@ async function verifyNovember2026EditorialRelease(november) {
       assert(/<img\b[^>]*\balt="[^"]+"/i.test(card[1]), 'November card ' + (index + 1) + ' source photograph requires alt text');
     }
   }
-  assert(editorialCount + photoCount === 55, 'Every November listing needs a visual');
-  console.log('[November imagery] ' + cards.length + '/55 visual cards: ' + photoCount + ' existing event images, ' + editorialCount + ' disclosed editorial illustrations');
+  assert(editorialCount + photoCount === expectedCards, 'Every November listing needs a visual');
+  console.log('[November imagery] ' + cards.length + '/' + expectedCards + ' visual cards: ' + photoCount + ' existing event images, ' + editorialCount + ' disclosed editorial illustrations');
 
 
   const lights = await fetchProduction('/event/johnson-city-christmas-lights-spectacular', 'Johnson City lights 2026 guide');
