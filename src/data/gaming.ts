@@ -329,7 +329,7 @@ export const GAMING_PAGES: GamingPage[] = [
     slug: "events-conventions",
     title: "Gaming Conventions & Esports Events in Texas",
     shortTitle: "Texas gaming events",
-    description: "Find Texas gaming conventions and esports events through the existing TexasDefined event system, with official-source verification and trip-planning links.",
+    description: "Find Texas gaming conventions and esports events with current official dates, venue information, ticket sources and practical trip-planning links.",
     eyebrow: "Events",
     summary: "Gaming events change dates, venues and ticketing faster than evergreen industry content. Use the statewide calendar for confirmed dates; this guide explains recurring conventions without treating old schedules as upcoming.",
     sections: [
