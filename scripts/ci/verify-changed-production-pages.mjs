@@ -340,6 +340,17 @@ export function assertCompleted2026EventFacts(path, body, surface = 'release') {
   const contract = contracts[path];
   if (!contract) return;
   const normalized = body.replace(/&amp;|&#38;|&#x26;/gi, '&');
+  if (path === '/event/crossroads-of-texas-country-festival') {
+    // Google reported noindex on its *October 7* crawl, before the approved
+    // courthouse image was added. Do not silently serve noindex now that
+    // the reviewed exact-location Wikimedia image satisfies event rights QA.
+    // This checks rendered robots only; never bypass the image policy.
+    const robotsMetaTags = [...normalized.matchAll(/<meta\\b[^>]*>/gi)]
+      .map(match => match[0]).filter(tag => /\\bname=["']robots["']/i.test(tag));
+    if (robotsMetaTags.some(tag => /\\bnoindex\\b/i.test(tag))) {
+      throw new Error('Crossroads event page unexpectedly noindex despite approved exact-location event image: ' + surface);
+    }
+  }
   for (const marker of contract.required) if (!normalized.includes(marker)) {
     throw new Error('Expired event ' + path + ' ' + surface + ' missing verified historical content: ' + marker);
   }
