@@ -1,6 +1,9 @@
 // Read-only organizer monitoring for the 2026 November collection.
 // Never infer dates from an old season or write changes to published listings.
 export const targets = [
+  { name: "GM Financial Parade of Lights", url: "https://fortworthparadeoflights.org/plan", patterns: [/November\\s+22,?\\s+2026/i] },
+  { name: "Texas Christkindl Market", url: "https://txchristkindlmarket.com/", patterns: [/Nov\\.?\\s*20\\s*[-–]\\s*22/i, /Nov\\.?\\s*27\\s*[-–]\\s*Dec\\.?\\s*23/i, /2026/i] },
+  { name: "Austin Studio Tour", url: "https://atxstudiotour.com/", patterns: [/November\\s+14\\s*[-–]\\s*15/i, /November\\s+21\\s*[-–]\\s*22/i, /2026/i] },
   { name: "Johnson City Lights Spectacular", url: "https://lightsspectacular.com/faqs", patterns: [/November\s+27,?\s+2026/i, /January\s+3,?\s+2027/i] },
   { name: "South Pole Illuminated Festival", url: "https://www.southpoleoftexas.com/", patterns: [/November\s+28\s*[-–]\s*December\s+28/i, /2026/i] },
   { name: "Rockport Songwriter Festival", url: "https://rockportsongwriterassociation.com/festival", patterns: [/(?:November|Nov\.?)\s+5\s*[-–]\s*8,?\s*2026/i] },
