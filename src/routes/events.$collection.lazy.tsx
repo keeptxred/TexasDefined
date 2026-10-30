@@ -542,6 +542,6 @@ function EventCollectionPage() {
   const { page } = Route.useLoaderData();
   return <>
     {page.weekendDigest ? <WeekendCollectionPage page={page} /> : <GenericCollectionPage page={page} />}
-    <Suspense fallback={null}><CalendarBookingDiscovery christmas={page.path === "/events/christmas-events" || page.path === "/events/december-events"} /></Suspense>
+    <Suspense fallback={null}><CalendarBookingDiscovery christmas={page.path === "/events/christmas-events" || page.path === "/events/december-events"} requireSelection={page.path === "/events/november-events"} /></Suspense>
   </>;
 }
