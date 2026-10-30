@@ -1,6 +1,13 @@
 name: THC landmark discovery and source verification
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/data/thc-recent-landmarks.ts"
+      - "scripts/data/validate-thc-landmark-watch.mjs"
+      - ".github/workflows/thc-landmark-watch.yml"
   schedule:
     # Weekly source changes; separate from quarterly historical-fact refreshes.
     - cron: "23 12 * * 1"
@@ -27,6 +34,10 @@ on:
 permissions:
   contents: read
   issues: write
+
+concurrency:
+  group: thc-landmark-source-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   inventory-integrity:
@@ -85,4 +96,16 @@ jobs:
             gh issue comment "${existing}" --repo "${GITHUB_REPOSITORY}" --body-file thc-landmark-watch-issue.md
           else
             gh issue create --repo "${GITHUB_REPOSITORY}" --title "${title}" --body-file thc-landmark-watch-issue.md
+          fi
+      - name: Close resolved THC source alert only after successful live verification
+        if: steps.source.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          title="THC landmark source drift or verification failure"
+          existing="$(gh issue list --repo "${GITHUB_REPOSITORY}" --state open --search "${title} in:title" --json number,title --jq '[.[] | select(.title == "THC landmark source drift or verification failure") | .number][0] // empty')"
+          if [ -n "${existing}" ]; then
+            gh issue comment "${existing}" --repo "${GITHUB_REPOSITORY}" --body "Verified live THC official-source listing and nomination-stage comparison succeeded. Run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} . No content was automatically published."
+            gh issue close "${existing}" --repo "${GITHUB_REPOSITORY}" --reason completed
           fi
