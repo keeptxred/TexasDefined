@@ -19,6 +19,8 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
     'Seasonal production must not require manual execution');
   const seasonal = text('.github/workflows/verify-seasonal-production.yml');
   assert.ok(seasonal.includes("    - cron: '37 14 * * 1'"), 'Bounded weekly schedule missing');
+  assert.doesNotMatch(seasonal, /^  workflow_dispatch:/m,
+    'Full seasonal audit must be schedule-only, never manual');
   assert.doesNotMatch(seasonal, /^  (push|pull_request|workflow_run):/m,
     'Full seasonal audit must not fan out after deployments');
   assert.ok(seasonal.includes('actions/workflows/deploy-production.yml/runs?branch=main&status=success&per_page=1'),

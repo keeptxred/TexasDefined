@@ -2,7 +2,6 @@ name: Verify seasonal production
 # Weekly, bounded automated audit of the latest verified production release.
 # Scoped deployment checks and daily foliage Chrome run independently.
 on:
-  workflow_dispatch:
   schedule:
     - cron: '37 14 * * 1'
 
