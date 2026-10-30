@@ -447,7 +447,7 @@ async function verifyCrossroadsFestivalLeaf() {
   } else {
     assert(readable.includes('2026 music archive: Jake Worthington, Kenny Whitmire and smaller stages'),
       'Expired Crossroads guide lost its 2026 historical lineup section');
-    assert(readable.includes('The 2026 lineup, hours and parking maps are historical'),
+    assert(readable.includes('These were the advertised 2026 set times, not a published future-edition program'),
       'Expired Crossroads guide must explain archival 2026 schedules are not future plans');
   }
   assert(/Event facts last source-checked 2026-10-\d{2}/.test(readable),
