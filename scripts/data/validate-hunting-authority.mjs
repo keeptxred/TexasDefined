@@ -87,7 +87,7 @@ requireText(turkeyTable, 'turkeyCalendar.checkedAt', 'date provenance missing');
 requireText(huntingHub, '<TurkeySeasonGuide />', 'turkey table not rendered');
 requireText(turkeyMonitor, 'process.exit(2)', 'TPWD legal monitor missing');
 requireText(turkeyWorkflow, 'schedule:', 'legal source monitor not scheduled');
-requireText(turkeyWorkflow, '41 13 1 1,4,7,10', 'quarterly legal-source monitor missing');
+requireText(turkeyWorkflow, '41 13 1 1,4,7,10 *', 'quarterly legal-source monitor missing');
 const turkeyQuarterlyFacts = read('src/data/hunting/turkey-quarterly-facts.json');
 const turkeyQuarterlyUpdater = read('scripts/data/refresh-turkey-authority-quarterly.mjs');
 const turkeyQuarterlyTests = read('scripts/data/refresh-turkey-authority-quarterly.test.mjs');
@@ -101,7 +101,15 @@ requireText(turkeyQuarterlyUpdater, 'assert.deepEqual(ah, h', 'Hagerman category
 requireText(turkeyQuarterlyUpdater, 'assert.deepEqual(ae, e', 'East Lake category/area verification missing');
 requireText(turkeyQuarterlyTests, 'survey narrative/table contradiction', 'quarterly TPWD survey regression missing');
 requireText(turkeyQuarterlyTests, 'legal bag or method changes cannot be auto-published', 'legal auto-update guard missing');
-requireText(turkeyQuarterlyWorkflow, '17 15 2 1,4,7,10', 'quarterly auto-publication schedule missing');
+requireText(turkeyQuarterlyWorkflow, '17 15 2 1,4,7,10 *', 'quarterly auto-publication schedule missing');
+// GitHub Actions rejects four-field cron expressions before creating ANY jobs.
+// Validate all turkey source-monitor cron schedules, not just a substring.
+for (const [label, workflow] of [['turkey legal monitor', turkeyWorkflow], ['quarterly factual refresh', turkeyQuarterlyWorkflow]]) {
+  const expressions = [...workflow.matchAll(/- cron:\s*['"]([^'"]+)['"]/g)].map(match => match[1]);
+  if (!expressions.length || expressions.some(value => value.trim().split(/\s+/).length !== 5))
+    throw new Error('Hunting authority validation failed: invalid five-field cron in ' + label);
+}
+
 const turkeyQuarterlyEntrypoint = read('scripts/automation/refresh-turkey-authority-quarterly.sh');
 const turkeySourceEntrypoint = read('scripts/automation/monitor-turkey-regulations.sh');
 requireText(turkeyWorkflow, 'bash scripts/automation/monitor-turkey-regulations.sh', 'scheduled legal monitor entrypoint missing');
