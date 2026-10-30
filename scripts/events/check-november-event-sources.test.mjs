@@ -52,3 +52,29 @@ test("Shiner 2026 race guide includes new full marathon and exact source", () =>
   assert(index.includes("full marathon alongside the 5K"));
   assert(schema.includes("RunSignUp — 2026 race schedule and distances"));
 });
+
+test("broader November organizer checks distinguish exact annual dates and event windows", () => {
+  const source = (name) => { const match = targets.find((target) => target.name === name); assert(match, `Missing ${name} target`); return match; };
+  assert(verifySource("<p>The festival is coming November 5-8, 2026!</p>", source("Rockport Songwriter Festival")));
+  assert(!verifySource("<p>November 4-8, 2025</p>", source("Rockport Songwriter Festival")));
+  assert(verifySource("<p>Join us Nov. 13-22, 2026 for our special events. Nov. 13-15 at the community center and Nov. 18-22 for the market.</p>", source("A Christmas Affair (Austin)")));
+  assert(!verifySource("<p>Nov. 18-22, 2026 market only</p>", source("A Christmas Affair (Austin)")));
+  assert(verifySource("<h1>Thursday, November 19th - Saturday, November 21st - 2026</h1>", source("UIL Volleyball State Tournament")));
+  assert(!verifySource("<p>November 21, 2025</p>", source("UIL Volleyball State Tournament")));
+  assert(verifySource("<p>Nov 27–29, 2026</p>", source("Homestead Fair Waco")));
+  assert(!verifySource("<p>Nov 28–30, 2026</p>", source("Homestead Fair Waco")));
+  assert(verifySource("<p>SAT NOV 14</p><p>Rain Date SUN NOV 15 2026</p>", source("Houston Diwali")));
+});
+
+test("Rockport and Shiner guide tickets and date semantics remain visitor-safe", () => {
+  const rockport = read("../../src/data/major-event-expanded-authority-tranche42.server.ts");
+  const r = rockport.slice(rockport.indexOf('slug: "rockport-songwriter-festival"'));
+  for (const term of ["2026-11-04", "2026-11-08", "free Guy Clark", "November 5–8", "weekend passes sold out", "rockportsongwriterassociation.com/festival"]) {
+    assert(r.includes(term), `Rockport missing ${term}`);
+  }
+  const shiner = read("../../src/data/major-event-expanded-authority-tranche44.server.ts");
+  const s = shiner.slice(shiner.indexOf('slug: "shiner-beer-run"'));
+  for (const term of ["October 29, 2026", "all four running distances were marked full", "waiting-list option", "runsignup.com/Race/TX/Shiner/ShinerBeerRun"]) {
+    assert(s.includes(term), `Shiner missing ${term}`);
+  }
+});

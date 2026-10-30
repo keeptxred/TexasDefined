@@ -3,6 +3,11 @@
 export const targets = [
   { name: "Johnson City Lights Spectacular", url: "https://lightsspectacular.com/faqs", patterns: [/November\s+27,?\s+2026/i, /January\s+3,?\s+2027/i] },
   { name: "South Pole Illuminated Festival", url: "https://www.southpoleoftexas.com/", patterns: [/November\s+28\s*[-–]\s*December\s+28/i, /2026/i] },
+  { name: "Rockport Songwriter Festival", url: "https://rockportsongwriterassociation.com/festival", patterns: [/(?:November|Nov\.?)\s+5\s*[-–]\s*8,?\s*2026/i] },
+  { name: "A Christmas Affair (Austin)", url: "https://www.jlaustin.org/a-christmas-affair/", patterns: [/Nov\.?\s*13\s*[-–]\s*22,?\s*2026/i, /Nov\.?\s*13\s*[-–]\s*15/i, /Nov\.?\s*18\s*[-–]\s*22/i] },
+  { name: "UIL Volleyball State Tournament", url: "https://www.uiltexas.org/volleyball/state", patterns: [/November\s+19(?:th)?/i, /November\s+21(?:st)?/i, /2026/i] },
+  { name: "Homestead Fair Waco", url: "https://www.homesteadfair.com/", patterns: [/(?:November|Nov\.?)[\s]+27\s*[-–]\s*29,?\s*2026/i] },
+  { name: "Houston Diwali", url: "https://www.houstondiwali.com/", patterns: [/NOV\s*14/i, /NOV\s*15\s*2026/i] },
   { name: "Shiner Beer Run 2026 registration", url: "https://runsignup.com/Race/TX/Shiner/ShinerBeerRun", patterns: [/November\s+21,?\s+2026/i, /(?<!half\s)(?<!1\/2\s)\bmarathon\b/i, /10K/i, /5K/i] },
   { name: "ThunderCloud Subs Turkey Trot", url: "https://thundercloud.com/event-info/", patterns: [/November\s+26/i, /2026/i] },
   { name: "Dallas YMCA Turkey Trot", url: "https://ymcadallas.org/press-release/59th-annual-dallas-ymca-turkey-trot-registration-live", patterns: [/November\s+26/i, /2026/i] },

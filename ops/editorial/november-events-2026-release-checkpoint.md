@@ -31,3 +31,18 @@ Primary URL: https://texasdefined.com/events/november-events
 ## Recovery protocol for next chat
 
 Start with this checkpoint, PR #6307, the current `main` head and the last `Verify temporal event production` scheduled run. Inspect only changed files and actual failed checks; do not re-audit passed items or redeploy blindly.
+
+## October 29 late-evening release and source-review checkpoint
+
+- PR #6335 (fix fake test-only `/fixture/hill-country-holiday-festival` production 404 smoke) merged as `585e79e951b2ed4cb944e929c3d667d0ceb711d7`. Retains true public-URL 404 failures.
+- PR #6336 (Shiner 2026 new full-marathon race and official registration link) merged as `2ac4b6c5c951b813776da2dc624aff4d0f615104`.
+- Production run **40936723651** deployed commit `2ac4b6c` successfully, including canonical and direct Worker health and the prior failing `Verify base production surfaces` gate.
+- GitHub `Sync Texas Events` run **40936723538** on the same commit passed both November source and regression checks.
+- Live November collection (2026-10-29) rendered 48 eligible guides, consumer-facing filtering, four additional source-confirmed picks, and no exposed indexability implementation text. The existing server-side production verification passed on run 40921462469.
+- Additional source sampling verified Texas Capital Air Show (Nov 7-8), UIL volleyball finals (Nov 19-21), Homestead Fair (Nov 27-29), Houston Diwali (Nov 14, rain Nov 15), Texas Butterfly Festival (Nov 7-10), plus others; the wider 48-guide organizer-by-organizer review is **not** yet complete.
+- This follow-up branch refines Rockport Songwriter Festival (free Nov 4 prelude, paid Nov 5-8 program; organizer reported main festival passes sold out) and the Shiner Beer Run (all four distances marked full with a waitlist at the Oct 29 source check). Those are dated observations, **not** permanent inventory guarantees.
+- The existing November date-drift watcher now also checks the organizer dates/windows for Rockport, A Christmas Affair, UIL volleyball finals, Waco Homestead Fair and Houston Diwali. It is read-only and routes drift to review.
+
+### Next recovery steps
+
+Use `main` plus this checkpoint; first confirm the latest PR merge and next production deployment outcome. Verify the narrower November workflow, its daily organizer checks, and live Rockport/Shiner guides. Continue remaining organizer sampling by actual source evidence, not by inferring next-year recurrence. Do not repeat the Cloudflare reconnection loop.
