@@ -917,13 +917,13 @@ jobs:
 
       # Hunting-only rendered acceptance. Reuse the standard scoped production
       # deployment, never create another deploy or crawl unrelated pages.
-      - name: Verify hunting hub interactive desktop and mobile in Chrome
+      - name: Verify hunting hub and turkey guide in desktop/mobile Chrome
         id: live_hunting_visual
         if: ${{ always() && steps.live_base.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
-          if ! git diff --name-only HEAD^ HEAD | grep -Eq '^(src/components/hunting/|src/data/hunting/|src/routes/hunting|scripts/ci/verify-hunting-hub-responsive-browser\.mjs)'; then
+          if ! git diff --name-only HEAD^ HEAD | grep -Eq '^(src/components/hunting/|src/data/hunting/|src/routes/hunting|scripts/ci/verify-hunting-hub-responsive-browser\.mjs|scripts/ci/verify-turkey-hunting-browser\.mjs)'; then
             echo "No hunting change in this release; skip browser acceptance."
             exit 0
           fi
@@ -932,6 +932,7 @@ jobs:
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
           CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-hunting-hub-responsive-browser.mjs
+           CHROME_BIN="$CHROME_BIN" node scripts/ci/verify-turkey-hunting-browser.mjs
 
       - name: Preserve hunting desktop and mobile visual proof
         if: ${{ always() && steps.live_hunting_visual.outcome != 'skipped' }}
