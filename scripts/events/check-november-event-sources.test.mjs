@@ -60,6 +60,11 @@ test("November unified filters include organizer picks and honor noncontinuous w
   assert(layout.includes('event.slug === "a-christmas-affair"'));
   assert(!layout.includes('id="november-more-official-events"'), "Unfiltered duplicate organizer section reappeared");
   assert(layout.includes('Official event details →'));
+  assert(layout.includes('requireSelection={page.path === "/events/november-events"}'));
+  const booking = read("../../src/components/events/CalendarBookingDiscovery.tsx");
+  assert(booking.includes('requireSelection ? "" : "houston"'), "November must not advertise a Houston default to statewide visitors");
+  assert(booking.includes('marketplaceHref = display ?'), "Viator link should require a valid selected destination");
+  assert(booking.includes('disabled={!market}'), "Do not request products before a market is selected");
 });
 
 test("canonical event seasons and title deduplication remain correct", () => {
