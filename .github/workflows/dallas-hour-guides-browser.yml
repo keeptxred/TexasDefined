@@ -36,7 +36,7 @@ jobs:
           node scripts/ci/verify-dallas-hour-guides-browser.mjs --self-test
 
   bounded-production-chrome:
-    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     name: Three Dallas guides, two viewports each
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -44,14 +44,14 @@ jobs:
       - name: Check out exact successful production commit
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha || github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 2
       - name: Scope browser visits to Dallas-related releases only
         id: scope
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$GITHUB_EVENT_NAME" == 'pull_request' || "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]] ||
+          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]] ||
              git diff --name-only HEAD^ HEAD -- \
                'src/data/dallas-small-town-drives.ts' \
                'src/data/metro-proximity.ts' \

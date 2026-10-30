@@ -47,10 +47,18 @@ try {
         check("HTTP 200", response?.status() === 200, response?.status());
         await page.locator("[data-dallas-road-guide]").waitFor({ state: "visible", timeout: 35000 });
         await page.locator('section[aria-labelledby="dallas-small-town-map"]').waitFor({ state: "visible", timeout: 25000 });
+        // The booking panels must mount only in their explicit post-guide slot.
+        // An earlier green run missed panels injected into the first editorial article.
+        await page.locator('[data-stay-nearby-slot] #expedia-travel-surface').waitFor({ state: "attached", timeout: 25000 });
         await page.evaluate(() => document.fonts?.ready);
         const data = await page.evaluate(() => {
           const table = document.querySelector("[data-dallas-road-guide] table");
           const scroller = table?.parentElement;
+          const guide = document.querySelector("[data-dallas-road-guide]");
+          const editorialArticles = [...(guide?.querySelectorAll("article") || [])];
+          const slot = document.querySelector("[data-stay-nearby-slot]");
+          const lodging = document.querySelector("#expedia-travel-surface");
+          const affiliates = document.querySelector("#td-stay-affiliate-options");
           return {
             title: document.querySelector("h1")?.textContent?.trim() || "",
             canonical: document.querySelector('link[rel="canonical"]')?.href || "",
@@ -62,8 +70,18 @@ try {
             tableOverflow: scroller ? getComputedStyle(scroller).overflowX : "",
             disclaimer: document.querySelector("[data-dallas-road-guide]")?.textContent || "",
             tableText: table?.textContent || "",
+            editorialCount: editorialArticles.length,
+            editorialHeadings: editorialArticles.map(a => a.querySelector("h3")?.textContent?.trim() || ""),
+            affiliateInsideEditorial: editorialArticles.some(a => a.contains(lodging) || a.contains(affiliates)),
+            lodgingInDedicatedSlot: Boolean(slot && lodging && slot.contains(lodging)),
+            optionsInsideDedicatedSlot: Boolean(slot && affiliates && slot.contains(affiliates)),
+            slotAfterGuide: Boolean(slot && guide && (guide.compareDocumentPosition(slot) & Node.DOCUMENT_POSITION_FOLLOWING)),
           };
         });
+        check("editorial grid retains three recommendations", data.editorialCount === 3, JSON.stringify(data.editorialHeadings));
+        check("lodging is outside each editorial article", !data.affiliateInsideEditorial, JSON.stringify(data.editorialHeadings));
+        check("Expedia stays in the dedicated post-guide slot", data.lodgingInDedicatedSlot && data.slotAfterGuide);
+        check("CJ booking choices stay with Expedia in that slot", data.optionsInsideDedicatedSlot);
         check("canonical", data.canonical === ORIGIN + guide.path, data.canonical);
         check("published new road-time title", data.title === guide.title, data.title);
         check("source-based one-way duration explanation", data.disclaimer.includes("published typical one-way road-time estimates"));
@@ -84,11 +102,24 @@ try {
           await btn.click();
           const state = await page.evaluate(() => {
             const map = document.querySelector('section[aria-labelledby="dallas-small-town-map"]');
-            const frame = map?.querySelector("iframe");
+            const svg = map?.querySelector("svg[data-dallas-orientation-map]");
+            const selected = svg?.querySelector('circle[data-role="selected-town"]');
+            const direction = svg?.querySelector('line[data-role="direction-line"]');
             const href = [...(map?.querySelectorAll("a[href]") || [])].find(a => a.textContent.includes("Check current driving route"))?.href;
-            return { title: frame?.title, src: frame?.getAttribute("src"), href };
+            return {
+              label: svg?.querySelector('[data-role="town-name"]')?.textContent?.trim() || "",
+              selectedTown: svg?.getAttribute("data-selected-town") || "",
+              position: selected?.getAttribute("cx") + "," + selected?.getAttribute("cy"),
+              lineEndsAtTown: Boolean(direction && selected &&
+                direction.getAttribute("x2") === selected.getAttribute("cx") &&
+                direction.getAttribute("y2") === selected.getAttribute("cy")),
+              originPresent: Boolean(svg?.querySelector('circle[data-role="dallas-origin"]')),
+              href,
+            };
           });
-          check("map selection " + n + " sets active town and marker", await btn.getAttribute("aria-pressed") === "true" && state.title === "Interactive location map of " + name + ", Texas" && state.src?.includes("openstreetmap.org/export/embed.html") && state.src?.includes("marker="), JSON.stringify({ name, frameTitle: state.title }));
+          check("map selection " + n + " moves an actual coordinate marker", await btn.getAttribute("aria-pressed") === "true" &&
+            state.selectedTown === await btn.getAttribute("data-map-town-choice") && state.label === name &&
+            state.lineEndsAtTown && state.originPresent, JSON.stringify({ name, selected: state.selectedTown, position: state.position }));
           const live = state.href ? new URL(state.href) : null;
           const destination = live?.searchParams.get("destination") || "";
           check("map selection " + n + " retains Dallas driving directions", live?.searchParams.get("origin") === "Dallas, TX" && live?.searchParams.get("travelmode") === "driving" && destination === name + ", Texas", state.href);
@@ -96,6 +127,20 @@ try {
         }
         check("tested selections are distinct", locations.size === sample.length, locations.size);
         await buttons.first().click();
+        // The map is rendered by TexasDefined from actual town coordinates:
+        // no third-party iframe/tile dependency that can silently go blank.
+        const localMap = page.locator('svg[data-dallas-orientation-map]');
+        await localMap.waitFor({ state: "visible", timeout: 10000 });
+        await localMap.scrollIntoViewIfNeeded();
+        const box = await localMap.boundingBox();
+        check("coordinate map renders visibly without remote tiles",
+          Boolean(box && box.width > 250 && box.height > 160) &&
+          await localMap.locator('circle[data-role="dallas-origin"]').count() === 1 &&
+          await localMap.locator('circle[data-role="selected-town"]').count() === 1 &&
+          await page.locator('section[aria-labelledby="dallas-small-town-map"] iframe').count() === 0,
+          JSON.stringify(box));
+        const detailedMap = await page.locator('section[aria-labelledby="dallas-small-town-map"] a:has-text("Open detailed town map")').getAttribute("href");
+        check("optional full street map is an external link, not a blank embed", Boolean(detailedMap?.startsWith("https://www.openstreetmap.org/?mlat=")));
         if (guide.path.endsWith("1-hour")) {
           const image = page.locator('img[alt^="Red sandstone Ellis County Courthouse"]');
           await image.scrollIntoViewIfNeeded();

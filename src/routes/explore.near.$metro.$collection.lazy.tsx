@@ -578,34 +578,90 @@ type DallasMapTown = {
   drive: { readonly minutes: number; readonly sourceUrl: string };
 };
 
-function DallasSmallTownsInteractiveMap({ towns }: { towns: DallasMapTown[] }) {
+function DallasSmallTownsInteractiveMap({
+  towns, origin,
+}: {
+  towns: DallasMapTown[];
+  origin: { lat: number; lng: number };
+}) {
   const [selectedSlug, setSelectedSlug] = useState(towns[0]?.slug ?? "");
   const town = towns.find((entry) => entry.slug === selectedSlug) ?? towns[0];
   if (!town) return null;
-  const { lat, lng } = town.point;
-  const bbox = [lng - 0.10, lat - 0.075, lng + 0.10, lat + 0.075].join(",");
-  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${lat}%2C${lng}`;
-  const drivingUrl = `https://www.google.com/maps/dir/?api=1&origin=Dallas%2C%20TX&destination=${encodeURIComponent(town.name + ", Texas")}&travelmode=driving`;
+
+  // A north-up, source-coordinate orientation map rendered in our own SVG.
+  // The former remote OpenStreetMap iframe returned a blank map in every
+  // desktop and mobile production Chrome test. Do not depend on tile hosts.
+  const longitudeToX = (longitude: number) => 55 + ((longitude + 100) / 7.5) * 850;
+  const latitudeToY = (latitude: number) => 570 - ((latitude - 30) / 5) * 500;
+  const originX = longitudeToX(origin.lng);
+  const originY = latitudeToY(origin.lat);
+  const selectedX = longitudeToX(town.point.lng);
+  const selectedY = latitudeToY(town.point.lat);
+  const drivingUrl = "https://www.google.com/maps/dir/?api=1&origin=Dallas%2C%20TX&destination=" +
+    encodeURIComponent(town.name + ", Texas") + "&travelmode=driving";
+  const detailedMapUrl = "https://www.openstreetmap.org/?mlat=" +
+    encodeURIComponent(String(town.point.lat)) + "&mlon=" +
+    encodeURIComponent(String(town.point.lng)) + "#map=11/" + town.point.lat + "/" + town.point.lng;
+
   return <section className="border-y border-border bg-background" aria-labelledby="dallas-small-town-map">
     <Container className="py-14 sm:py-18">
       <p className="eyebrow text-primary">Explore the map</p>
       <h2 id="dallas-small-town-map" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">See where each small town is before you drive</h2>
-      <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Select a town to center the interactive map, then open live directions from Dallas. Markers identify approximate town centers, not exact parking or attraction entrances.</p>
+      <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+        Select a town to see its relative geographic location and direction from Dallas.
+        The orientation map uses actual town-center coordinates, and live directions open separately.
+      </p>
       <div className="mt-9 grid gap-6 lg:grid-cols-2">
         <div className="grid grid-cols-2 gap-2 overflow-y-auto pr-2" style={{ maxHeight: 450 }} role="group" aria-label="Choose a Dallas small town on the map">
-          {towns.map((entry) => <button type="button" key={entry.slug} aria-pressed={selectedSlug === entry.slug} onClick={() => setSelectedSlug(entry.slug)}
-            className={`min-h-11 border px-3 py-3 text-left text-sm transition-colors ${selectedSlug === entry.slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"}`}>
+          {towns.map((entry) => <button type="button" key={entry.slug}
+            data-map-town-choice={entry.slug} aria-pressed={selectedSlug === entry.slug} onClick={() => setSelectedSlug(entry.slug)}
+            className={"min-h-11 border px-3 py-3 text-left text-sm transition-colors " +
+              (selectedSlug === entry.slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary")}>
             <span className="block font-semibold">{entry.name}</span><span className="mt-1 block text-xs">{dallasDriveLabel(entry.drive.minutes)}</span>
           </button>)}
         </div>
         <div>
-          <iframe key={town.slug} title={`Interactive location map of ${town.name}, Texas`} src={mapUrl} loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade" className="w-full border border-border" style={{ height: "clamp(320px, 54vw, 440px)" }} />
-          <p className="mt-2 text-xs text-muted-foreground">Map data © OpenStreetMap contributors. Map shows the selected town; the route link opens live road directions.</p>
+          <svg data-dallas-orientation-map data-selected-town={town.slug} viewBox="0 0 960 620"
+            role="img" aria-labelledby="dallas-orientation-title dallas-orientation-description"
+            className="w-full border border-border" style={{ background: "#f6f0e6" }}>
+            <title id="dallas-orientation-title">North Texas orientation: Dallas to {town.name}</title>
+            <desc id="dallas-orientation-description">
+              North-up geographic-coordinate plot of Dallas, selected town, and other trip choices.
+              The dashed line shows direction only, not a driving route or mileage.
+            </desc>
+            <rect width="960" height="620" fill="#f6f0e6" />
+            {[-99, -98, -97, -96, -95, -94, -93].map((longitude) =>
+              <line key={longitude} x1={longitudeToX(longitude)} x2={longitudeToX(longitude)} y1={65} y2={565}
+                stroke="#c8c0b5" strokeWidth={1} strokeDasharray="4 8" />)}
+            {[31, 32, 33, 34].map((latitude) =>
+              <line key={latitude} x1={55} x2={905} y1={latitudeToY(latitude)} y2={latitudeToY(latitude)}
+                stroke="#c8c0b5" strokeWidth={1} strokeDasharray="4 8" />)}
+            <text x={75} y={94} fontSize={19} fill="#675a48" fontWeight={700}>North Texas / East Texas</text>
+            <text x={878} y={92} fontSize={24} fill="#3c4b42" fontWeight={700}>N ↑</text>
+            {towns.filter((entry) => entry.slug !== town.slug).map((entry) =>
+              <circle key={entry.slug} data-map-other-town={entry.slug}
+                cx={longitudeToX(entry.point.lng)} cy={latitudeToY(entry.point.lat)}
+                r={7} fill="#997d60" opacity={0.65}><title>{entry.name}</title></circle>)}
+            <line data-role="direction-line" x1={originX} y1={originY} x2={selectedX} y2={selectedY}
+              stroke="#aa4e22" strokeWidth={4} strokeDasharray="8 7" />
+            <circle data-role="dallas-origin" cx={originX} cy={originY} r={11}
+              fill="#304e47" stroke="#f6f0e6" strokeWidth={4} />
+            <text x={originX + 18} y={originY - 16} fontSize={21} fontWeight={700} fill="#304e47">Dallas</text>
+            <circle data-role="selected-town" cx={selectedX} cy={selectedY} r={13}
+              fill="#aa4e22" stroke="#ffffff" strokeWidth={5} />
+            <text data-role="town-name" x={selectedX + (selectedX > 710 ? -22 : 22)} y={selectedY - 19}
+              fontSize={23} fontWeight={700} textAnchor={selectedX > 710 ? "end" : "start"} fill="#843f1d">{town.name}</text>
+            <text x={55} y={599} fontSize={17} fill="#675a48">Coordinate positions only • Not a road map or driving-time scale</text>
+          </svg>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Reliable on-page orientation without external map tiles. Dots mark approximate town centers;
+            the dashed line is a direction indicator, not the road you should drive.
+          </p>
           <h3 className="mt-5 font-display text-3xl">{town.name}</h3>
           <p className="mt-2 text-sm text-muted-foreground">Typical one-way trip: {dallasDriveLabel(town.drive.minutes)} from Dallas; congestion may change the drive.</p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             <a href={drivingUrl} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">Check current driving route ↗</a>
+            <a href={detailedMapUrl} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Open detailed town map ↗</a>
             <a href={town.link} className="border-b border-border pb-1 hover:text-primary">Read town information ↗</a>
             <a href={town.drive.sourceUrl} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Drive-time source ↗</a>
           </div>
@@ -1021,7 +1077,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </Container>
     </section>}
 
-    {isDallasRoadRing && <DallasSmallTownsInteractiveMap towns={dallasOptions} />}
+    {isDallasRoadRing && <DallasSmallTownsInteractiveMap towns={dallasOptions} origin={metro.center} />}
 
     {mapMarkers.length > 0 && !isMcAllenDayTrips && !isDallasRoadRing && <Container className="py-14 sm:py-18">
       <MapPreview markers={mapMarkers} zoom={7} directionsLabel={isMcAllenDayTrips ? `additional researched places near ${metro.name}` : `${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
