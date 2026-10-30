@@ -119,9 +119,10 @@ export const majorEventSchemaEnrichmentBatch9: MajorEventSchemaEnrichment[] = [
     ],
     sources: [
       { label: "Houston Ballet Nutcracker Market official 2026 page", url: "https://www.houstonballet.org/nutcrackermarket" },
+      { label: "Reliant Park — event venue and Nov 12–15 date", url: "https://www.reliantpark.com/event/nutcracker-market/" },
       { label: "Houston Ballet Nutcracker Market official event background", url: "https://www.houstonballet.org/support-us/special-events/nutcracker-market/about/nutcracker-market/" },
       { label: "Houston Ballet Nutcracker Market official Early Bird admission", url: "https://www.houstonballet.org/support-us/special-events/nutcracker-market/tickets-events/nutcracker-market-tickets/early-bird-admission/" },
     ],
-    verifiedAt: "2026-09-02",
+    verifiedAt: "2026-10-29",
   },
 ];

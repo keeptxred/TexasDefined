@@ -19,8 +19,6 @@ export const majorEventSchemaEnrichmentBatch3: MajorEventSchemaEnrichment[] = [
     slug: "dobie-dichos",
     organizer: organization("Dobie Dichos, Inc.", "https://www.dobiedichos.com/"),
     offers: [
-      usdOffer("Adult program + meal admission", 30, "https://www.dobiedichos.com/tickets-schedule"),
-      usdOffer("Child 12 and under program + meal admission", 10, "https://www.dobiedichos.com/tickets-schedule"),
       usdOffer("Adult program-only advance admission", 20, "https://www.dobiedichos.com/tickets-schedule"),
       usdOffer("Child 12 and under program-only admission", 5, "https://www.dobiedichos.com/tickets-schedule"),
       usdOffer("Adult program-only gate admission", 25, "https://www.dobiedichos.com/tickets-schedule"),
@@ -29,7 +27,7 @@ export const majorEventSchemaEnrichmentBatch3: MajorEventSchemaEnrichment[] = [
       { label: "Dobie Dichos official 2026 event page", url: "https://www.dobiedichos.com/" },
       { label: "Dobie Dichos official 2026 tickets and schedule", url: "https://www.dobiedichos.com/tickets-schedule" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-10-29",
   },
   {
     slug: "dallas-holiday-parade",

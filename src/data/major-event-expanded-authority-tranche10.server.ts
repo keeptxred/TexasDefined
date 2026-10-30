@@ -11,14 +11,14 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-11-06",
     endDate: "2026-11-06",
-    dateNote: "The discovery inventory listed George West Storyfest on November 7, 2026. Current event history shows Dobie Dichos is the active literary tradition tied to Storyfest's organizers; the official Dobie Dichos site lists November 6, 2026 in Oakville.",
+    dateNote: "The 2026 Dobie Dichos storytelling event is November 6 in Oakville (not the old George West Storyfest seed). On October 29 the organizer listed Program + Meal as sold out; Program Only remained separately available, with $25 adult gate admission. Recheck the official ticket page because availability can change.",
     venue: "Historic Oakville Jail",
     officialUrl: "https://www.dobiedichos.com/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-10-29",
     whyItMatters: "Dobie Dichos is an active Live Oak County literary tradition centered on J. Frank Dobie, Texas folklore and storytelling. It is the appropriate current event to surface instead of the stale George West Storyfest seed entry.",
     planningSections: [
       { title: "Go to Oakville, not downtown George West", body: "The event is held on the grounds of the Historic Oakville Jail in Oakville, between Three Rivers and George West. Use the organizer's directions and allow extra time for the rural venue." },
-      { title: "Build the evening around the program", body: "The 2026 schedule opens the gates at 5 p.m., with the meal and music beginning at 6 p.m. and the storytelling program from 7 to 9 p.m. Choose your ticket type before arrival because meal-and-program and program-only options differ." },
+      { title: "Build the evening around the program", body: "The 2026 schedule opens the gates at 5 p.m., with the meal and music beginning at 6 p.m. and the storytelling program from 7 to 9 p.m. As verified October 29, 2026, the organizer marks the Program + Meal tier sold out. Its Program Only ticket still permits walk-up purchase (listed at $25 for adults); confirm the current ticket terms before departure rather than expecting the sold-out meal option." },
       { title: "Bring what the setting calls for", body: "This is an outdoor campfire-style literary event. Check the current weather and organizer guidance, and bring a lawn chair if the current ticket instructions call for one." },
     ],
     relatedLinks: [

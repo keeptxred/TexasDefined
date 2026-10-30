@@ -13,6 +13,8 @@ export const targets = [
   { name: "Dallas YMCA Turkey Trot", url: "https://ymcadallas.org/press-release/59th-annual-dallas-ymca-turkey-trot-registration-live", patterns: [/November\s+26/i, /2026/i] },
   { name: "Fort Worth YMCA Turkey Trot", url: "https://ymcafw.org/annual-turkey-trot/", patterns: [/(?:November|Nov\.)\s+26/i, /2026/i] },
   { name: "San Antonio Calaveras de Azúcar", url: "https://www.sa.gov/Directory/News-Releases/Celebrate-D%C3%ADa-de-los-Muertos-in-Downtown-San-Antonio-2026", patterns: [/October\s+31/i, /November\s+1/i] },
+  { name: "Houston Ballet Nutcracker Market venue", url: "https://www.houstonballet.org/support-us/special-events/nutcracker-market/about/nutcracker-market/", patterns: [/November\s+12\s*[-–]\s*15,?\s*2026/i, /Reliant\s+Center/i] },
+  { name: "Dobie Dichos sold-out meal", url: "https://www.dobiedichos.com/tickets-schedule", patterns: [/November\s+6(?:th)?,?\s+2026/i, /Program\s*\+\s*Meal/i, /SOLD\s+OUT/i] },
 ];
 
 export function textFromHtml(html) {
