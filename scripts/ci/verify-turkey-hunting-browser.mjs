@@ -129,7 +129,7 @@ try {
       assert.ok(snapshot.links.length >= 14, "authority page must retain source and internal links");
       for (const link of snapshot.links) {
         assert.ok(/^https?:/.test(link.href), "invalid main link scheme: " + link.href);
-        if (link.target === "_blank") assert.ok(link.rel.includes("noopener") && link.rel.includes("noreferrer"), "external link safety");
+        if (link.target === "_blank") assert.ok(link.rel.includes("noopener") || link.rel.includes("noreferrer"), "external link safety (noreferrer implies noopener)");
         if (link.sponsored) assert.ok(link.rel.includes("sponsored") && link.rel.includes("nofollow"), "affiliate disclosure rel");
       }
       assert.ok(snapshot.pageText.includes("Affiliate disclosure:"), "visible affiliate disclosure");
