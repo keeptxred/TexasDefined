@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'src/components/editorial/EastTexasFoliageMedia.tsx'
+      - 'src/components/editorial/ArticleBody.tsx'
+      - 'src/data/fixtures/seasonal-intent-depth-blocks.ts'
+      - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/routes/article.$slug.tsx'
       - 'scripts/ci/verify-east-texas-foliage-browser.mjs'
       - '.github/workflows/verify-east-texas-foliage-browser.yml'
   workflow_run:
@@ -58,7 +62,7 @@ jobs:
           elif [[ "$EVENT" == "pull_request" ]]; then
             # Execute browser QA for QA-only changes on the already-deployed live article.
             # Never compare unreleased component changes against old production.
-            if git diff --name-only HEAD^ HEAD | grep -Fq "src/components/editorial/EastTexasFoliageMedia.tsx"; then
+            if git diff --name-only HEAD^ HEAD | grep -Eq '^(src/components/editorial/(EastTexasFoliageMedia|ArticleBody)[.]tsx|src/data/fixtures/(seasonal-intent-depth-blocks|seasonal-intent-articles)[.]ts|src/routes/article[.][$]slug[.]tsx)$'; then
               echo "should_verify=false" >> "$GITHUB_OUTPUT"
             elif git diff --name-only HEAD^ HEAD | grep -Eq "^(scripts/ci/verify-east-texas-foliage-browser[.]mjs|[.]github/workflows/verify-east-texas-foliage-browser[.]yml)$"; then
               echo "should_verify=true" >> "$GITHUB_OUTPUT"
@@ -70,7 +74,7 @@ jobs:
             # bounded six-commit window so the actual successful release
             # still executes browser QA for recently merged foliage changes.
             BASE="$(git rev-parse HEAD~6 2>/dev/null || git rev-list --max-parents=0 HEAD)"
-            if git diff --name-only "$BASE" HEAD | grep -Eq '^(src/components/editorial/EastTexasFoliageMedia[.]tsx|src/data/image-rights[.]ts|src/data/fixtures/(east-texas-fall-colors-hero|hill-country-fall-colors-hero)[.]ts|scripts/ci/verify-east-texas-foliage-browser[.]mjs|[.]github/workflows/verify-east-texas-foliage-browser[.]yml)$'; then
+            if git diff --name-only "$BASE" HEAD | grep -Eq '^(src/components/editorial/(EastTexasFoliageMedia|ArticleBody)[.]tsx|src/routes/article[.][$]slug[.]tsx|src/data/image-rights[.]ts|src/data/fixtures/(seasonal-intent-articles|seasonal-intent-depth-blocks|east-texas-fall-colors-hero|hill-country-fall-colors-hero)[.]ts|scripts/ci/verify-east-texas-foliage-browser[.]mjs|[.]github/workflows/verify-east-texas-foliage-browser[.]yml)$'; then
               echo "should_verify=true" >> "$GITHUB_OUTPUT"
             else
               echo "should_verify=false" >> "$GITHUB_OUTPUT"
