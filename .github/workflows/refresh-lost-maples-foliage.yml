@@ -1,0 +1,97 @@
+name: Refresh verified Lost Maples foliage
+
+on:
+  schedule:
+    # The year-neutral report URL is checked daily during fall; no manual rollover.
+    - cron: '17 14 * 10,11 *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/data/refresh-lost-maples-foliage.mjs'
+      - 'scripts/data/refresh-lost-maples-foliage.test.mjs'
+      - 'src/data/generated/lost-maples-foliage-report.json'
+      - 'src/components/editorial/LostMaplesFoliageStatus.tsx'
+      - '.github/workflows/refresh-lost-maples-foliage.yml'
+      - '.github/workflows/finish-lost-maples-foliage.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: texasdefined-lost-maples-official-foliage
+  cancel-in-progress: false
+
+jobs:
+  parser:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate parser and fail-closed behavior
+        run: |
+          node --check scripts/data/refresh-lost-maples-foliage.mjs
+          node --test scripts/data/refresh-lost-maples-foliage.test.mjs
+
+  refresh:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test strict dated TPWD report extraction
+        run: |
+          node --check scripts/data/refresh-lost-maples-foliage.mjs
+          node --test scripts/data/refresh-lost-maples-foliage.test.mjs
+      - name: Retrieve official dated report without inventing a peak
+        run: node scripts/data/refresh-lost-maples-foliage.mjs
+      - name: Check verified source-only change
+        id: changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          path='src/data/generated/lost-maples-foliage-report.json'
+          if git diff --quiet -- "$path"; then
+            echo 'yes=no' >> "$GITHUB_OUTPUT"
+            echo 'No new official dated report. Existing freshness rules remain active.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          node -e 'const x=require("./src/data/generated/lost-maples-foliage-report.json"); if(x.sourceUrl!=="https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports"||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(x.reportDate)||!Array.isArray(x.observations)||x.observations.length>2) process.exit(1)'
+          echo 'yes=yes' >> "$GITHUB_OUTPUT"
+          git diff --stat -- "$path" >> "$GITHUB_STEP_SUMMARY"
+      - name: Create isolated source-only update PR
+        if: steps.changed.outputs.yes == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Update verified Lost Maples foliage report'
+          # An earlier run may still be moving through the protected gates.
+          count="$(gh pr list --base main --state open --limit 100 --json title --jq "[.[] | select(.title == \"$title\")] | length")"
+          if [[ "$count" != 0 ]]; then
+            echo 'Existing official foliage update PR is pending; no duplicate created.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          branch="automation/lost-maples-foliage-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch -c "$branch"
+          git add -- src/data/generated/lost-maples-foliage-report.json
+          git commit -m 'data(foliage): update verified official Lost Maples observation'
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title "$title" \
+            --body 'Automated dated TPWD report; source-only snapshot. Species observations use narrow wording checks, no peak prediction, and older reports are hidden by the site. A trusted workflow_run finisher runs protected checks before auto-merging.'
+          echo "Created verified official foliage update PR: $branch" >> "$GITHUB_STEP_SUMMARY"
