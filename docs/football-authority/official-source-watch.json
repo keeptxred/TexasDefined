@@ -5,18 +5,34 @@
   "safety": {
     "approvedDomains": [
       "amchs.csisd.org",
+      "anderson.conroeisd.net",
       "athletics.c-isd.com",
+      "athletics.calallen.org",
       "bwhs.brazosportisd.net",
+      "carroll.ccisd.us",
+      "cchs.conroeisd.net",
       "chhs.gcisd.net",
       "chs.clevelandisd.org",
       "chs.clintweb.net",
+      "chs.columbusisd.org",
+      "chs.commerceisd.org",
+      "chs.conroeisd.net",
+      "clhs.comalisd.org",
       "collinsvilleisd.org",
+      "coveathletics.ccisd.com",
       "cpisd.net",
       "cshs.csisd.org",
+      "dhs.comalisd.org",
       "files-backend.assets.thrillshare.com",
       "hhs.clintweb.net",
+      "judsonhs.judsonisd.org",
       "mvhs.clintweb.net",
+      "orhs.conroeisd.net",
+      "phs.comalisd.org",
       "realignment.uiltexas.org",
+      "svhs.comalisd.org",
+      "twhs.conroeisd.net",
+      "www.ccity.esc14.net",
       "www.centerisd.org",
       "www.centerville.k12.tx.us",
       "www.charlotteisd.net",
@@ -37,8 +53,17 @@
       "www.cocisd.org",
       "www.colemanisd.net",
       "www.colmesneilisd.net",
+      "www.comalisd.org",
+      "www.comancheisd.net",
+      "www.comfortisd.net",
+      "www.conroeisd.net",
+      "www.coolidgeisd.org",
+      "www.cooperisd.net",
+      "www.coppellisd.com",
+      "www.cpcisd.net",
       "www.cvisd.org",
       "www.friscoisd.org",
+      "www.sa-ccs.org",
       "www.scucisd.org",
       "www.tarkingtonisd.net"
     ],
@@ -304,6 +329,181 @@
     {
       "slug": "frisco-lone-star",
       "url": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/5799/Fisd/4e4f782e-9f60-4246-aa9a-6854740f2f4c/2026-Fball-Schedule-8-21.pdf?disposition=inline",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "colorado-city-colorado",
+      "url": "https://www.ccity.esc14.net/article/2238803",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "columbus",
+      "url": "https://chs.columbusisd.org/apps/pages/index.jsp?pREC_ID=2146838&type=d&uREC_ID=2105726",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-canyon",
+      "url": "https://www.comalisd.org/apps/pages/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-canyon-lake",
+      "url": "https://clhs.comalisd.org/apps/pages/index.jsp?pREC_ID=2691168&type=u&uREC_ID=2799055",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-davenport",
+      "url": "https://dhs.comalisd.org/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-pieper",
+      "url": "https://phs.comalisd.org/apps/staff/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comal-smithson-valley",
+      "url": "https://svhs.comalisd.org/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comanche",
+      "url": "https://www.comancheisd.net/page/chs.staff_directory",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "comfort",
+      "url": "https://www.comfortisd.net/46529_2",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "commerce",
+      "url": "https://chs.commerceisd.org/activities/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "como-pickton",
+      "url": "https://www.cpcisd.net/live-feed/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe",
+      "url": "https://chs.conroeisd.net/o/chs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-caney-creek",
+      "url": "https://cchs.conroeisd.net/o/cchs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-grand-oaks",
+      "url": "https://www.conroeisd.net/o/gohs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-oak-ridge",
+      "url": "https://orhs.conroeisd.net/page/athletics/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-the-woodlands",
+      "url": "https://twhs.conroeisd.net/o/twhs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "conroe-woodlands-college-park",
+      "url": "https://anderson.conroeisd.net/o/twcphs/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "converse-judson",
+      "url": "https://judsonhs.judsonisd.org/o/judsonhs/live_feeds/11483412",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coolidge",
+      "url": "https://www.coolidgeisd.org/quick_links/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cooper",
+      "url": "https://www.cooperisd.net/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "coppell",
+      "url": "https://www.coppellisd.com/o/chs",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "copperas-cove",
+      "url": "https://coveathletics.ccisd.com/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "cornerstone-christian",
+      "url": "https://www.sa-ccs.org/athletics/football",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "corpus-christi-calallen",
+      "url": "https://athletics.calallen.org/about-us",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "corpus-christi-carroll",
+      "url": "https://carroll.ccisd.us/page/athletics/",
       "reviewAfter": "2027-01-29",
       "contentFingerprint": null,
       "lastObservedAt": null

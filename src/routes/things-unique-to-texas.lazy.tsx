@@ -18,31 +18,24 @@ export const Route = createLazyFileRoute("/things-unique-to-texas")({
 });
 
 const signatureItems = [
-  { name: "Central Texas brisket", to: "/texas-food-history" },
-  { name: "Bluebonnets", to: "/things-unique-to-texas/wildlife-landscape" },
-  { name: "Big Bend", to: "/texas-natural-wonders-bucket-list" },
-  { name: "Friday-night football", to: "/things-unique-to-texas/culture-music" },
-  { name: "Breakfast tacos", to: "/texas-breakfast-taco-guide" },
-  { name: "The Alamo", to: "/things-unique-to-texas/landmarks" },
-  { name: "Dr Pepper", to: "/dr-pepper-texas-history" },
-  { name: "Dance halls", to: "/texas-dance-halls-honky-tonks" },
-  { name: "Buc-ee's", to: "/texas-brand-origin-stories" },
-  { name: "Palo Duro Canyon", to: "/texas-natural-wonders-bucket-list" },
-  { name: "H-E-B", to: "/texas-brand-origin-stories" },
-  { name: "Homecoming mums", to: "/texas-homecoming-mums" },
-  { name: "Whataburger", to: "/texas-brand-origin-stories" },
-  { name: "Armadillos", to: "/things-unique-to-texas/wildlife-landscape" },
-  { name: "Hill Country", to: "/things-unique-to-texas/natural-wonders" },
-  { name: "Cowboy boots", to: "/things-unique-to-texas/culture-music" },
-  { name: "State Fair traditions", to: "/texas-state-fair" },
-  { name: "Kolaches", to: "/german-czech-texas-towns" },
-  { name: "Ranch roads", to: "/things-unique-to-texas/roadside-small-towns" },
-  { name: "Painted churches", to: "/german-czech-texas-towns" },
-  { name: "Gulf Coast beaches", to: "/things-unique-to-texas/natural-wonders" },
-  { name: "Shiner", to: "/texas-brand-origin-stories" },
-  { name: "Courthouse squares", to: "/things-unique-to-texas/landmarks" },
-  { name: "Caddo Lake", to: "/texas-natural-wonders-bucket-list" },
-  { name: "Texas slang", to: "/texas-slang-explained" },
+  { name: "Central Texas brisket", description: "Slow-smoked beef, salt-and-pepper bark and the communal ritual of waiting in line make Central Texas barbecue a cuisine with its own regional history.", to: "/texas-food-history" },
+  { name: "Breakfast tacos", description: "San Antonio and South Texas breakfast counters turn tortillas, eggs, beans, potatoes and salsa into everyday local identity.", to: "/texas-breakfast-taco-guide" },
+  { name: "Bluebonnets", description: "Spring wildflower season sends families and photographers onto Hill Country backroads. Bluebonnets are a Texas state flower, not an exclusively Texas plant.", to: "/things-unique-to-texas/wildlife-landscape" },
+  { name: "Big Bend", description: "The Chisos Mountains, Chihuahuan Desert and Rio Grande reveal a West Texas landscape that looks nothing like the state's coastal or piney regions.", to: "/texas-natural-wonders-bucket-list" },
+  { name: "Homecoming mums", description: "What began as a modest corsage became a spectacular Texas school tradition of ribbons, charms, lights and personal stories.", to: "/texas-homecoming-mums" },
+  { name: "Friday-night football", description: "In communities large and small, school football can be a weekly gathering place for marching bands, families, alumni and hometown pride.", to: "/things-unique-to-texas/culture-music" },
+  { name: "Historic dance halls", description: "German and Czech community halls, two-step floors, Western swing and honky-tonks still give Texas music a social home.", to: "/texas-dance-halls-honky-tonks" },
+  { name: "The Alamo", description: "San Antonio's former mission is a defining Texas landmark, but its layered Indigenous, Spanish, Mexican and 1836 histories deserve more than a slogan.", to: "/destination/the-alamo" },
+  { name: "Dr Pepper", description: "The soft drink developed in Waco in 1885 became a nationally familiar brand with a Texas birthplace still celebrated locally.", to: "/dr-pepper-texas-history" },
+  { name: "Buc-ee's", description: "This Texas-founded travel-stop chain turned road-trip provisions, clean restrooms and a beaver mascot into their own roadside ritual.", to: "/texas-brand-origin-stories" },
+  { name: "Palo Duro Canyon", description: "The Panhandle's dramatic canyon country challenges the idea that Texas scenery is all flat prairie or desert.", to: "/texas-natural-wonders-bucket-list" },
+  { name: "H-E-B", description: "Founded in Kerrville, the grocer became woven into everyday Texas life through local food tastes and community ties.", to: "/texas-brand-origin-stories" },
+  { name: "State Fair traditions", description: "Big Tex, creative fried foods, livestock competitions and an annual Dallas gathering have their own place in Texas popular culture.", to: "/texas-state-fair" },
+  { name: "Czech Texas baking", description: "Central Texas bakeries reflect Czech immigrant heritage; the distinction between sweet kolaches and sausage-filled klobasneks is part of the story.", to: "/explore/painted-churches" },
+  { name: "Painted churches", description: "Rural Central Texas churches carry richly painted interiors and the artistic legacy of immigrant communities.", to: "/german-czech-texas-towns" },
+  { name: "Roadside oddities", description: "From Cadillac Ranch near Amarillo to improbable small-town landmarks, Texas road culture rewards a deliberate detour.", to: "/texas-roadside-oddities" },
+  { name: "Caddo Lake", description: "Bald cypress, Spanish moss and East Texas wetlands show a different side of the state from canyons and ranch country.", to: "/texas-natural-wonders-bucket-list" },
+  { name: "Texas expressions", description: "Y'all, fixin' to and ranch-country sayings carry regional, Southern and bilingual influences; none should be mistaken for an exclusively Texas invention.", to: "/texas-slang-explained" },
 ] as const;
 
 const featureCards = [
@@ -66,7 +59,7 @@ const categoryImages: Record<string, { src: string; alt: string }> = {
 };
 
 function ThingsUniqueToTexasPage() {
-  const { categories, itemCount, deeperGuideCount } = Route.useLoaderData();
+  const { categories } = Route.useLoaderData();
 
   return (
     <main>
@@ -78,13 +71,12 @@ function ThingsUniqueToTexasPage() {
 
           <div className="grid gap-10 lg:grid-cols-[1.05fr_.95fr]">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Texas, in 250 details</p>
-              <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">250 Things That Define Texas</h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">From brisket and bluebonnets to Big Bend, dance halls and Friday-night football, this is a visual guide to the foods, places, traditions, landscapes, brands and wonderfully Texas details that make the state feel like nowhere else.</p>
-              <div className="mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
-                <Stat value={String(itemCount)} label="Things" />
-                <Stat value={String(categories.length)} label="Collections" />
-                <Stat value={String(deeperGuideCount)} label="Deeper guide links" />
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Texas life, beyond the stereotypes</p>
+              <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">What Makes Texas, Texas?</h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">From brisket smoke and breakfast tacos to the Big Bend desert, painted churches and homecoming mums, Texas identity is made in places and traditions—not a checklist. Explore the people, histories and regional details behind the familiar icons.</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href="#texas-signature" className="inline-flex items-center border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">Explore the stories ↓</a>
+                <a href="#texas-chapters" className="inline-flex items-center border border-border bg-background px-5 py-3 text-sm font-semibold hover:border-primary">Browse by theme ↓</a>
               </div>
             </div>
 
@@ -106,7 +98,7 @@ function ThingsUniqueToTexasPage() {
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">What is Texas known for?</p>
               <h2 id="texas-unique-answer-heading" className="mt-3 max-w-3xl font-display text-3xl leading-tight sm:text-4xl">Things unique to Texas, and the traditions Texans made their own</h2>
               <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">Texas is especially associated with smoked brisket, breakfast tacos, bluebonnets, Friday-night football, homecoming mums, dance halls, the Alamo, big ranch country and landscapes from Big Bend to the Gulf Coast. Those traditions come from many communities, including Indigenous, Mexican and Tejano, Black, German, Czech and other Texans whose histories shaped the state.</p>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Not every familiar Texas icon originated here or exists only here. The 250-item collection distinguishes Texas origins, local adaptations and official state symbols rather than treating every association as exclusive.</p>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Not every familiar Texas icon originated here or exists only here. We distinguish documented Texas origins, local adaptations, official state symbols and stories adopted into Texas culture—because accuracy makes the traditions more interesting.</p>
               <Link to="/article/texas-cultural-regions-explained" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Why Texas culture differs from region to region →</Link>
             </div>
             <div className="grid content-start gap-3 text-sm">
@@ -119,12 +111,12 @@ function ThingsUniqueToTexasPage() {
         </Container>
       </section>
 
-      <section className="py-16 sm:py-20">
+      <section id="texas-signature" className="py-16 sm:py-20">
         <Container>
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Start here</p>
-            <h2 className="mt-3 font-display text-4xl sm:text-5xl">25 unmistakably Texas things</h2>
-            <p className="mt-5 leading-7 text-muted-foreground">A quick cross-section of the larger 250-item collection. Some are places, some are foods, some are rituals, and some are details you only understand after spending time here.</p>
+            <h2 className="mt-3 font-display text-4xl sm:text-5xl">The Texas details worth knowing</h2>
+            <p className="mt-5 leading-7 text-muted-foreground">These are starting points, not a ranking or a claim of exclusive origins. Each has a particular Texas story, and each links to a deeper guide when you want the history or a place to visit.</p>
           </div>
 
           <div className="mt-10 grid gap-5 md:grid-cols-2">
@@ -140,23 +132,23 @@ function ThingsUniqueToTexasPage() {
           </div>
 
           <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
-            {signatureItems.map((item, index) => (
+            {signatureItems.map((item) => (
               <Link key={item.name} to={item.to} className="group bg-background p-7 transition-colors hover:bg-muted/30">
-                <span className="text-sm font-semibold text-primary">{String(index + 1).padStart(2, "0")}</span>
-                <strong className="mt-3 block font-display text-3xl leading-tight group-hover:text-primary">{item.name}</strong>
-                <span className="mt-4 block text-sm font-semibold text-muted-foreground">Go deeper →</span>
+                <strong className="block font-display text-2xl leading-tight group-hover:text-primary">{item.name}</strong>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.description}</p>
+                <span className="mt-4 block text-sm font-semibold text-primary">Read its Texas story →</span>
               </Link>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="border-y border-border bg-surface py-16 sm:py-20">
+      <section id="texas-chapters" className="border-y border-border bg-surface py-16 sm:py-20">
         <Container>
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Explore all 250</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Explore by theme</p>
             <h2 className="mt-3 font-display text-4xl sm:text-5xl">Eight collections, one Texas</h2>
-            <p className="mt-5 leading-7 text-muted-foreground">Each collection opens into a full numbered chapter. Preview the highlights here, then dive into every item without losing the bigger picture.</p>
+            <p className="mt-5 leading-7 text-muted-foreground">Choose the part of Texas you are curious about. Each chapter brings together researched examples and links to fuller stories, places and practical guides.</p>
           </div>
 
           <div className="mt-10 grid gap-5 md:grid-cols-2">
@@ -169,11 +161,10 @@ function ThingsUniqueToTexasPage() {
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{category.eyebrow}</p>
                     <div className="mt-3 flex items-start justify-between gap-6">
                       <h3 className="font-display text-3xl leading-tight group-hover:text-primary">{category.title}</h3>
-                      <span className="shrink-0 text-sm tabular-nums text-muted-foreground">{category.items.length}</span>
                     </div>
                     <p className="mt-4 leading-7 text-muted-foreground">{category.description}</p>
                     <p className="mt-4 text-sm leading-7"><span className="font-semibold">A few inside:</span> {category.items.slice(0, 6).map((item) => item.name).join(" · ")}</p>
-                    <p className="mt-6 text-sm font-semibold">See all {category.items.length} <span aria-hidden="true">→</span></p>
+                    <p className="mt-6 text-sm font-semibold">Explore the chapter <span aria-hidden="true">→</span></p>
                   </div>
                 </Link>
               );
@@ -187,33 +178,37 @@ function ThingsUniqueToTexasPage() {
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Go beyond the list</p>
             <h2 className="mt-3 font-display text-4xl sm:text-5xl">The stories behind the Texas shorthand</h2>
-            <p className="mt-5 leading-7 text-muted-foreground">The list is most useful when it leads somewhere. These longer guides explain how Texas food, music, landscape, towns and traditions developed—and where you can experience them in person.</p>
+            <p className="mt-5 leading-7 text-muted-foreground">Go beyond the names and pictures. These selected guides explain the communities behind Texas food, landscapes, music and traditions. Expand the library for more specialized reading.</p>
           </div>
-          <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <PillarLink to="/texas-food-history" eyebrow="Food history hub" title="Texas Food History" text="Barbecue, chili, breakfast tacos, Czech and German foodways, Dr Pepper and the cultures behind the Texas table." />
             <PillarLink to="/texas-food-trail" eyebrow="Food & road trips" title="The Texas Food Trail" text="Ten food traditions organized as a travel-ready route through barbecue, Czech bakeries, Gulf seafood and more." />
-            <PillarLink to="/texas-chili-con-carne-history" eyebrow="Food history" title="Texas Chili Con Carne" text="San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and the history behind the famous bowl." />
-            <PillarLink to="/texas-chicken-fried-steak-guide" eyebrow="Texas comfort food" title="Texas Chicken-Fried Steak" text="The disputed origin, regional styles, cream gravy and what separates a balanced plate from an oversized stunt." />
-            <PillarLink to="/texas-breakfast-taco-guide" eyebrow="Everyday Texas food" title="Texas Breakfast Tacos" text="Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the salsa habits that make local counters different." />
-            <PillarLink to="/texas-ranch-water-guide" eyebrow="Texas drinks" title="Texas Ranch Water" text="Tequila, lime and mineral water, plus the folk origin and the more documentable modern chapter." />
-            <PillarLink to="/san-antonio-puffy-taco-history" eyebrow="San Antonio food" title="San Antonio Puffy Tacos" text="Fresh corn masa, hot oil, Ray's Drive Inn and the West Side food culture behind one of the city's signature dishes." />
-            <PillarLink to="/barbacoa-big-red-san-antonio" eyebrow="Sunday tradition" title="Barbacoa & Big Red" text="How an older weekend barbacoa tradition and a Waco-born soda became one of San Antonio's strongest food-memory pairings." />
             <PillarLink to="/texas-roadside-oddities" eyebrow="Roadside Texas" title="Texas Roadside Oddities" text="Cadillac Ranch, giant boots, neon, courthouse squares and the logic behind a better weird-Texas road trip." />
-            <PillarLink to="/article/unusual-texas-businesses-services" eyebrow="Specialized local businesses" title="Unusual Texas Businesses & Services" text="Distinctive local businesses and experiences that do not fit a generic directory listing." />
-            <PillarLink to="/article/battleship-texas-bb-35-history-restoration" eyebrow="Military & maritime history" title="Battleship Texas (BB-35)" text="The dreadnought's story from 1914 and both World Wars through museum preservation and restoration." />
-            <PillarLink to="/texas-slang-explained" eyebrow="Language & identity" title="Texas Slang Explained" text="Y'all, fixin' to, all hat no cattle, bilingual influence and why context matters more than stereotype lists." />
-            <PillarLink to="/what-does-chud-mean" eyebrow="Contemporary expressions" title="What Does Chud Mean?" text="A separate language guide explaining the modern slang term, its contexts and why it is not uniquely a Texas expression." />
-            <PillarLink to="/texas-tall-tales-folklore" eyebrow="Folklore & identity" title="Texas Tall Tales & Folklore" text="Pecos Bill, jackalopes, the Yellow Rose tradition and the line between documented history and enduring legend." />
-            <PillarLink to="/texas-blue-norther-weather-guide" eyebrow="Weather language & safety" title="Texas Blue Northers & Spring Storms" text="Texas weather language separated carefully from the meteorology and safety guidance that should control real decisions." />
             <PillarLink to="/texas-dance-halls-honky-tonks" eyebrow="Music & social life" title="Texas Dance Halls & Honky-Tonks" text="Two-step culture, historic halls, Western swing, honky-tonks and the places where the tradition still lives." />
             <PillarLink to="/texas-homecoming-mums" eyebrow="School traditions" title="Texas Homecoming Mums Explained" text="How a chrysanthemum corsage became an oversized wearable record of school spirit, activities, friends and local identity." />
             <PillarLink to="/texas-natural-wonders-bucket-list" eyebrow="Outdoors & geography" title="Texas Natural Wonders Bucket List" text="Big Bend, Palo Duro, Caddo Lake, Padre Island and other landscapes that show how varied Texas really is." />
-            <PillarLink to="/everything-bigger-in-texas" eyebrow="Texas sayings" title="Is Everything Bigger in Texas?" text="Trace the larger-than-life Texas phrase, what can actually be measured and where folklore departs from fact." />
             <PillarLink to="/german-czech-texas-towns" eyebrow="Immigration & heritage" title="German & Czech Texas Towns" text="Fredericksburg, New Braunfels, West, Schulenburg and the traditions connecting their food, churches and dance halls." />
             <PillarLink to="/texas-brand-origin-stories" eyebrow="Business & identity" title="Texas Brand Origin Stories" text="H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—and how they became cultural shorthand." />
-            <PillarLink to="/made-in-texas" eyebrow="Industry & hometowns" title="Made, Built & Born in Texas" text="Products made or processed here, separated from brands with a different kind of Texas connection." />
-            <PillarLink to="/dr-pepper-texas-history" eyebrow="Waco brand history" title="Dr Pepper in Texas" text="How an 1885 Waco soda-fountain drink grew into a national brand while keeping a durable connection to its birthplace." />
           </div>
+          <details className="mt-8 border border-border bg-background">
+            <summary className="cursor-pointer p-5 text-sm font-semibold text-primary">More Texas history, food, language and reference guides</summary>
+            <div className="grid gap-4 border-t border-border bg-muted/20 p-4 md:grid-cols-2 xl:grid-cols-3">
+              <PillarLink to="/texas-chili-con-carne-history" eyebrow="Food history" title="Texas Chili Con Carne" text="San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and the history behind the famous bowl." />
+              <PillarLink to="/texas-chicken-fried-steak-guide" eyebrow="Texas comfort food" title="Texas Chicken-Fried Steak" text="The disputed origin, regional styles, cream gravy and what separates a balanced plate from an oversized stunt." />
+              <PillarLink to="/texas-breakfast-taco-guide" eyebrow="Everyday Texas food" title="Texas Breakfast Tacos" text="Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the salsa habits that make local counters different." />
+              <PillarLink to="/texas-ranch-water-guide" eyebrow="Texas drinks" title="Texas Ranch Water" text="Tequila, lime and mineral water, plus the folk origin and the more documentable modern chapter." />
+              <PillarLink to="/san-antonio-puffy-taco-history" eyebrow="San Antonio food" title="San Antonio Puffy Tacos" text="Fresh corn masa, hot oil, Ray's Drive Inn and the West Side food culture behind one of the city's signature dishes." />
+              <PillarLink to="/barbacoa-big-red-san-antonio" eyebrow="Sunday tradition" title="Barbacoa & Big Red" text="How an older weekend barbacoa tradition and a Waco-born soda became one of San Antonio's strongest food-memory pairings." />
+              <PillarLink to="/article/unusual-texas-businesses-services" eyebrow="Specialized local businesses" title="Unusual Texas Businesses & Services" text="Distinctive local businesses and experiences that do not fit a generic directory listing." />
+              <PillarLink to="/article/battleship-texas-bb-35-history-restoration" eyebrow="Military & maritime history" title="Battleship Texas (BB-35)" text="The dreadnought's story from 1914 and both World Wars through museum preservation and restoration." />
+              <PillarLink to="/texas-slang-explained" eyebrow="Language & identity" title="Texas Slang Explained" text="Y'all, fixin' to, all hat no cattle, bilingual influence and why context matters more than stereotype lists." />
+              <PillarLink to="/texas-tall-tales-folklore" eyebrow="Folklore & identity" title="Texas Tall Tales & Folklore" text="Pecos Bill, jackalopes, the Yellow Rose tradition and the line between documented history and enduring legend." />
+              <PillarLink to="/texas-blue-norther-weather-guide" eyebrow="Weather language & safety" title="Texas Blue Northers & Spring Storms" text="Texas weather language separated carefully from the meteorology and safety guidance that should control real decisions." />
+              <PillarLink to="/everything-bigger-in-texas" eyebrow="Texas sayings" title="Is Everything Bigger in Texas?" text="Trace the larger-than-life Texas phrase, what can actually be measured and where folklore departs from fact." />
+              <PillarLink to="/made-in-texas" eyebrow="Industry & hometowns" title="Made, Built & Born in Texas" text="Products made or processed here, separated from brands with a different kind of Texas connection." />
+              <PillarLink to="/dr-pepper-texas-history" eyebrow="Waco brand history" title="Dr Pepper in Texas" text="How an 1885 Waco soda-fountain drink grew into a national brand while keeping a durable connection to its birthplace." />
+            </div>
+          </details>
         </Container>
       </section>
 
@@ -229,7 +224,7 @@ function ThingsUniqueToTexasPage() {
               <h2 className="font-display text-3xl">Go deeper</h2>
               <div className="mt-6 divide-y divide-border border-y border-border">
                 <RelatedLink to="/things-unique-to-texas/methodology" title="How this collection is maintained" text="Inclusion rules, source precedence, corrections and cross-link policy." />
-                <a href="/things-that-define-texas.csv" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download the 250-item CSV →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">Item numbers, chapter membership, descriptions and deeper-guide links.</span></a>
+                <a href="/things-that-define-texas.csv" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download research CSV →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">Item numbers, chapter membership, descriptions and deeper-guide links.</span></a>
                 <a href="/things-that-define-texas.json" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download JSON data →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">The same reference rows and methodology metadata for machine use.</span></a>
                 <RelatedLink to="/made-in-texas" title="Made in Texas" text="Products made here versus brands with another kind of Texas connection." />
                 <RelatedLink to="/article/unusual-texas-businesses-services" title="Unusual Texas businesses & services" text="Specialized local businesses and experiences around the state." />
@@ -246,12 +241,9 @@ function ThingsUniqueToTexasPage() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
-  return <div className="bg-background p-5"><p className="font-display text-3xl">{value}</p><p className="mt-1 text-xs uppercase tracking-[0.12em] text-muted-foreground">{label}</p></div>;
-}
 
 function PillarLink({ to, eyebrow, title, text }: { to: string; eyebrow: string; title: string; text: string }) {
-  return <Link to={to} {...unusualBusinessAnalyticsAttributes(to, "things-unique:pillar")} className="group bg-background p-7"><span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{eyebrow}</span><strong className="mt-3 block font-display text-3xl leading-tight group-hover:text-primary">{title}</strong><span className="mt-4 block text-sm leading-7 text-muted-foreground">{text}</span><span className="mt-6 block text-sm font-semibold">Read the guide →</span></Link>;
+  return <Link to={to} {...unusualBusinessAnalyticsAttributes(to, "things-unique:pillar")} className="group block border border-border bg-background p-6 hover:border-primary/50"><span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{eyebrow}</span><strong className="mt-3 block font-display text-3xl leading-tight group-hover:text-primary">{title}</strong><span className="mt-4 block text-sm leading-7 text-muted-foreground">{text}</span><span className="mt-6 block text-sm font-semibold">Read the guide →</span></Link>;
 }
 
 function RelatedLink({ to, title, text }: { to: string; title: string; text: string }) {

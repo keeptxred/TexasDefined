@@ -3,20 +3,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const description = "Explore 250 foods, landscapes, landmarks, small-town oddities, traditions, wildlife, brands, sayings and stories that help define Texas.";
+const description = "Discover the Texas foods, traditions, small towns, landmarks, landscapes and cultural histories that make the Lone Star State distinctive.";
 
 export const Route = createFileRoute("/things-unique-to-texas")({
   loader: async () => {
-    const [{ TEXAS_ICON_CATEGORIES, TEXAS_ICON_ITEM_COUNT }, { TEXAS_ICON_DEEPER_GUIDE_COUNT }] = await Promise.all([
-      import("@/data/things-unique-to-texas"),
-      import("@/data/things-unique-to-texas-reference"),
-    ]);
-
-    return {
-      categories: TEXAS_ICON_CATEGORIES,
-      itemCount: TEXAS_ICON_ITEM_COUNT,
-      deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT,
-    };
+    const { TEXAS_ICON_CATEGORIES } = await import("@/data/things-unique-to-texas");
+    return { categories: TEXAS_ICON_CATEGORIES };
   },
   head: ({ loaderData }) => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
@@ -26,7 +18,7 @@ export const Route = createFileRoute("/things-unique-to-texas")({
     const jsonUrl = `${origin}/things-that-define-texas.json`;
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: "250 Things That Define Texas — Food, Places, Culture & Icons",
+        title: "What Is Texas Known For? Iconic Foods, Places & Traditions",
         description,
         canonicalPath: "/things-unique-to-texas",
       }),
@@ -39,13 +31,13 @@ export const Route = createFileRoute("/things-unique-to-texas")({
               "@context": "https://schema.org",
               "@type": "CollectionPage",
               "@id": `${origin}/things-unique-to-texas#collection`,
-              name: "250 Things That Define Texas",
+              name: "Things That Define Texas",
               description,
               url: `${origin}/things-unique-to-texas`,
               about: { "@type": "Place", name: "Texas" },
               isBasedOn: methodologyUrl,
               author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
-              dateModified: "2026-08-19",
+              dateModified: "2026-10-29",
               mainEntity: { "@id": `${origin}/things-unique-to-texas#items` },
               hasPart: { "@id": `${origin}/things-unique-to-texas#dataset` },
             },
@@ -53,8 +45,8 @@ export const Route = createFileRoute("/things-unique-to-texas")({
               "@context": "https://schema.org",
               "@type": "ItemList",
               "@id": `${origin}/things-unique-to-texas#items`,
-              name: "250 Things That Define Texas chapters",
-              numberOfItems: loaderData?.itemCount ?? 250,
+              name: "Things That Define Texas themed guides",
+              numberOfItems: categories.length,
               itemListElement: categories.map((category, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
@@ -67,7 +59,7 @@ export const Route = createFileRoute("/things-unique-to-texas")({
               "@type": "Dataset",
               "@id": `${origin}/things-unique-to-texas#dataset`,
               name: "Things That Define Texas reference dataset",
-              description: "The 250 numbered editorial entries, their chapter membership and canonical TexasDefined deeper-guide relationships.",
+              description: "TexasDefined editorial research reference entries, chapter membership and relationships to canonical deeper guides. The research archive is not an editorial publishing quota.",
               creator: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
               isBasedOn: methodologyUrl,
               variableMeasured: ["item id", "name", "description", "chapter", "deeper guide"],

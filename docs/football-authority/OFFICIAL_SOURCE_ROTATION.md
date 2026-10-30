@@ -4,10 +4,12 @@
 
 ## Coverage and cost
 
-- Canonical source list: `docs/football-authority/official-source-watch.json`, currently **37 approved HTTPS source endpoints**: 25 current Batch010 school programs, ten researched Batch009 programs, the individually sourced Frisco Lone Star program, and one official UIL alignment endpoint. This is a monitored subset of the 1,292 school universe, not a false claim that all 1,292 have primary-source automation.
-- A single run processes **at most 25 source URLs**. An integer `nextSourceIndex` persists where the next run begins. Circular selection of 25 from 37 covers all 37 within **two successful runs** without scanning the entire site or increasing Cloudflare Worker CPU usage.
+- Canonical source list: `docs/football-authority/official-source-watch.json`, currently **62 approved HTTPS source endpoints**: 25 current Batch010 school programs, ten researched Batch009 programs, 25 source-researched Batch011 programs, the individually sourced Frisco Lone Star program, and one official UIL alignment endpoint. This is a monitored subset of the 1,292 school universe, not a false claim that all 1,292 have primary-source automation.
+- A single run processes **at most 25 source URLs**. An integer `nextSourceIndex` persists where the next run begins. Circular selection of 25 from 37 covers all 62 within **three successful runs** without scanning the entire site or increasing Cloudflare Worker CPU usage.
 - All rows must belong to an existing canonical school registry slug, except the approved `uil-2026-alignment` marker. Every HTTPS host is explicitly allowlisted; redirects outside the approved host set fail. 12-second per-source timeout and 1.6MB body cap remain enforced.
 - Year-round Tuesday 12:43 UTC check; additional Saturday 12:23 UTC check August–December (configured in the existing GitHub Actions workflow). Lone Star's source-linked **original Frisco ISD 2026 schedule PDF** joins the same rotation (the district's schedule landing page has little server-rendered schedule content; the PDF itself is monitored for changes), with an explicit January 29, 2027 quarter-boundary editorial review deadline. No new duplicate scheduled workflow.
+
+The 25 new Batch011 school-owned source URLs have initial **January 29, 2027** three-month editorial review deadlines. Their inclusion is an availability/fingerprint watch, not independent permission to redistribute school scores or declare a 2026 coach. Existing running cursor and historical source fingerprints are preserved; the per-run 25-URL limit, SSRF allowlist and weekly/Saturday GitHub schedule are unchanged.
 
 ## Evidence and protected updates
 

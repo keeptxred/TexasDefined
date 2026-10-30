@@ -340,6 +340,38 @@ if (!entityDepth.includes('Use it to understand what the office or agency handle
 if (wildlifeGuide.includes('normal indexing-readiness safeguards') || wildlifeGuide.includes('The authority catalog includes current federal names')) errors.push('Wildlife guide must avoid internal indexing and catalogue language.');
 if (!wildlifeGuide.includes("Check each refuge's official U.S. Fish and Wildlife Service page for current closures")) errors.push('Wildlife visitor guide must advise official access and closure checks.');
 
+// Editorial templates must describe real visitor value, not our indexing,
+// canonicalization, audit or publishing machinery in destination prose.
+for (const path of [
+  'src/data/gaming.ts',
+  'src/data/museum-expansion-statewide-wave32.ts',
+  'src/data/museum-expansion-statewide-wave42.ts',
+  'src/data/museum-expansion-statewide-wave44.ts',
+  'src/data/museum-expansion-statewide-wave50.ts',
+  'src/data/museum-expansion-statewide-wave51.ts',
+  'src/data/museum-expansion-statewide-wave52.ts',
+  'src/data/museum-expansion-statewide-wave53.ts',
+  'src/data/museum-expansion-statewide-wave54.ts',
+]) {
+  const prose = read(path);
+  for (const phrase of [
+    'TexasDefined\'s event system handles',
+    'canonical TexasDefined destination',
+    'TexasDefined anchor for',
+    'TexasDefined consolidates the audit',
+    'standalone TexasDefined authority destination',
+    'canonical museum authority destination for search',
+    'county-level internal linking',
+  ]) {
+    if (prose.includes(phrase)) errors.push('Internal editorial-process wording exposed in visitor copy: ' + path + ': ' + phrase);
+  }
+}
+
+// A reader-facing heritage guide must not describe our canonicalization model
+// or refer travelers to an internal editorial coverage layer.
+if (read('src/data/museum-expansion-statewide-wave66.ts').includes('TexasDefined treats 130 N. Waco Street as the canonical visitor location')) errors.push('Van Alstyne museum prose still exposes publisher canonical workflow.');
+if (read('src/data/museum-expansion-statewide-wave79.ts').includes("TexasDefined's Rockwall County coverage")) errors.push('Royse City museum prose still exposes publisher editorial coverage.');
+
 if (countyRoute.includes("dateModified: '2026-08-08'")) errors.push('County pages must not use a hard-coded modified date.');
 
 if (errors.length) {

@@ -120,6 +120,14 @@ requireText(turkeySourceEntrypoint, 'check-turkey-regulations.mjs', 'legal sourc
 requireText(turkeyQuarterlyFinisher, 'dispatch-validate-branch.sh', 'protected quarterly PR merge missing');
 requireText(turkeyQuarterlyFinisher, 'refresh-turkey-authority-quarterly.mjs --check-only', 'quarterly finisher must recheck sources before merge');
 requireText(turkeyQuarterlyFinisher, '--match-head-commit', 'quarterly merge must pin validated SHA');
+requireText(turkeyQuarterlyFinisher, "23 11 * * *", 'daily recovery of pending quarterly source-verified PRs missing');
+requireText(turkeyQuarterlyFinisher, "- '.github/workflows/finish-turkey-authority-quarterly.yml'", 'one-time protected main-merge recovery bootstrap missing');
+requireText(turkeyQuarterlyFinisher, "for attempt in 1 2 3", 'bounded replay after concurrent main commits missing');
+requireText(turkeyQuarterlyFinisher, "Quarterly data source workflow not verified", 'bot-sourced PR must be backed by completed official TPWD check');
+requireText(turkeyQuarterlyFinisher, "git merge-base --is-ancestor origin/main", 'must refuse old-base validations on shared main');
+const finisherCrons = [...turkeyQuarterlyFinisher.matchAll(/- cron:\s*['\"]([^'\"]+)['\"]/g)].map(match => match[1]);
+if (!finisherCrons.length || finisherCrons.some(expr => expr.trim().split(/\s+/).length !== 5))
+  throw new Error('Hunting authority validation failed: quarterly finisher recovery cron must contain five fields');
 requireText(turkeyCalendar, '"spring-youth-north"', 'governed turkey season data missing');
 requireText(turkey, 'turkeyCalendar.rows', 'turkey guide not using governed seasons');
 for (const expected of ['TPWD: public hunt Area / Legal Game Search', 'TPWD: official turkey harvest data by county', 'Hagerman NWR', 'Lower Rio Grande Valley NWR', '2027', 'Using TPWD turkey harvest numbers responsibly']) requireText(turkey, expected, 'turkey public-access authority missing ' + expected);

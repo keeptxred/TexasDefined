@@ -229,7 +229,6 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-food-trail",
   "/texas-roadside-oddities",
   "/texas-slang-explained",
-  "/what-does-chud-mean",
   "/texas-tall-tales-folklore",
   "/texas-dance-halls-honky-tonks",
   "/texas-homecoming-mums",
@@ -480,6 +479,7 @@ export const REDIRECT_ONLY_PATHS = [
 ] as const;
 
 export const NON_INDEXABLE_PUBLIC_PATHS = [
+  "/what-does-chud-mean", // non-Texas internet slang; retained only as a factual archive
   "/business/dashboard",
   "/network/apply",
   "/network/billing",

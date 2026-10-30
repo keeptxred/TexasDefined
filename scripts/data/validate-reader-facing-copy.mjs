@@ -33,6 +33,44 @@ for (const file of targets) {
   }
 }
 
+// Preserve visitor-useful language in expanded public authorities. Scoping
+// exact phrases avoids rejecting factual source/legal disclosures elsewhere.
+const visitorFirst = [
+  ["src/data/william-chris-vineyards-hye-destination.ts",
+   "William Chris gives TexasDefined a source-rich winery destination",
+   "visitors can connect a working Hill Country winery"],
+  ["src/data/whirlyball-hurst-destination.ts",
+   "For TexasDefined trip planning",
+   "For a North Texas trip, WhirlyBall Hurst"],
+  ["src/routes/explore.wildlife.lazy.tsx",
+   "TexasDefined ties refuge records into county and regional discovery",
+   "Use the county and regional guides to pair a wildlife refuge visit"],
+  ["src/components/content/EntityDepthSections.tsx",
+   "part of TexasDefined's sports-travel reference collection",
+   "Check its official venue or team information"],
+  ["src/components/content/EntityDepthSections.tsx",
+   "belongs in TexasDefined's outdoor and trip-planning guide",
+   "Check official access, weather, water conditions"],
+  ["src/components/content/EntityDepthSections.tsx",
+   "is a TexasDefined event reference",
+   "Confirm current dates, admission, parking and entry rules"],
+  ["src/components/content/EntityDepthSections.tsx",
+   "is included as a Texas history and place reference",
+   "Explore the history of "],
+  ["src/components/content/EntityDepthSections.tsx",
+   "TexasDefined separates durable reference information",
+   "Some facts change much faster than a place's history"],
+];
+for (const [file, prohibited, expected] of visitorFirst) {
+  if (!fs.existsSync(file)) {
+    failures.push('Missing visitor-first authority target: ' + file);
+    continue;
+  }
+  const source = fs.readFileSync(file, 'utf8');
+  if (source.includes(prohibited)) failures.push(file + ': internal publisher workflow still appears in public copy');
+  if (!source.includes(expected)) failures.push(file + ': practical visitor guidance is missing');
+}
+
 if (failures.length) {
   console.error("Reader-facing copy validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);

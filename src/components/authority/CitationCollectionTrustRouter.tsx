@@ -42,18 +42,18 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
     ],
-    methodology: 'The 250-entry collection is an editorial map of Texas identity. It separates official designations from folklore, labels Texas adoption separately from Texas origin, and routes current operational facts to deeper pages whose linked public agency or operator remains controlling. Automatic deeper-guide links are limited to exact, well-supported matches.',
-    lastVerified: 'Collection structure, methodology and deeper-link policy reviewed August 19, 2026.',
+    methodology: 'The curated collection is an editorial map of Texas identity, not a fixed-length list. It separates official designations from folklore, labels Texas adoption separately from Texas origin, and routes current operational facts to deeper pages whose linked public agency or operator remains controlling. Automatic deeper-guide links are limited to exact, well-supported matches.',
+    lastVerified: 'Editorial selection, methodology and deeper-link policy reviewed October 29, 2026.',
   },
   '/things-unique-to-texas/methodology': {
     title: 'Things That Define Texas methodology sources',
     sources: [
-      { name: 'Main 250-item collection', url: 'https://texasdefined.com/things-unique-to-texas' },
+      { name: 'Main Texas culture guide', url: 'https://texasdefined.com/things-unique-to-texas' },
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
     ],
-    methodology: 'This page controls the inclusion standard, official-fact-versus-folklore distinction, internal cross-link rules, handling of changing information and correction policy for the 250-item collection.',
-    lastVerified: 'Collection methodology documented and reviewed August 19, 2026.',
+    methodology: 'This page controls the inclusion standard, official-fact-versus-folklore distinction, internal cross-link rules, handling of changing information and correction policy for the evolving Texas culture guide.',
+    lastVerified: 'Collection methodology and flexible research scope reviewed October 29, 2026.',
   },
   '/explore/top-attractions': {
     title: 'Top 25 attraction research and verification',

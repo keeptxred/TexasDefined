@@ -135,20 +135,21 @@ for (const token of [
 ]) {
   if (!reference.includes(token)) failures.push(`Texas icon reference-layer coverage contract missing: ${token}`);
 }
-if (!route.includes('deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT')) failures.push('Things That Define Texas loader must expose the computed deeper-guide count.');
-if (!hub.includes('const { categories, itemCount, deeperGuideCount } = Route.useLoaderData();')) failures.push('Things That Define Texas hub must consume the computed deeper-guide count.');
-if (!hub.includes('<Stat value={String(deeperGuideCount)} label="Deeper guide links" />')) failures.push('Things That Define Texas hub must display deeper-guide coverage as a headline statistic.');
-if (!hub.includes('to="/texas-blue-norther-weather-guide"')) failures.push('Things That Define Texas hub must visibly feature the Texas Blue Norther weather guide.');
-if (hub.includes('label="Very big state"')) failures.push('Things That Define Texas hub must not replace its authority metric with the old novelty statistic.');
+// The research layer keeps computed relationships internally, but the reader-facing
+// hub and methodology deliberately do not advertise an arbitrary record count.
+if (!route.includes('numberOfItems: categories.length')) failures.push('Root ItemList must count the displayed chapters, not the research pool.');
+if (!hub.includes('What Makes Texas, Texas?')) failures.push('Hub must answer the editorial Texas identity question.');
+if (!hub.includes('item.description')) failures.push('Hub must explain selected icons rather than rendering a bare list.');
+if (!hub.includes('to="/texas-blue-norther-weather-guide"')) failures.push('Hub must retain its Texas Blue Norther weather guide link.');
+if (/\b250\b|250-item|250-entry/.test(hub)) failures.push('Hub must not advertise the research pool size.');
 for (const token of [
-  'await import("@/data/things-unique-to-texas-reference")',
-  'return { deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT };',
-  'const { deeperGuideCount } = Route.useLoaderData();',
-  'At the current source state, {deeperGuideCount} of the 250 records resolve to a deeper canonical TexasDefined guide.',
-  '<dt className="font-semibold">Deeper guide links</dt>',
-  '{deeperGuideCount} computed relationships',
+  'The research pool can expand, shrink or be reorganized as evidence improves.',
+  'Data distributions',
+  'Cross-link policy',
+  'href="/things-that-define-texas.csv"',
+  'href="/things-that-define-texas.json"',
 ]) {
-  if (!methodology.includes(token)) failures.push(`Things That Define Texas methodology must expose computed deeper-guide coverage through the lazy reference boundary: ${token}`);
+  if (!methodology.includes(token)) failures.push(`Things That Define Texas methodology missing flexible research/authority contract: ${token}`);
 }
 if (methodology.includes('import { TEXAS_ICON_DEEPER_GUIDE_COUNT } from "@/data/things-unique-to-texas-reference";')) {
   failures.push('Things That Define Texas methodology must not eagerly import the 250-record reference graph just to display its computed count.');
