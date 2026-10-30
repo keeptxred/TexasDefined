@@ -27,6 +27,41 @@ test("November collection stays consumer-focused with responsive filters", () =>
   }
 });
 
+
+test("November newly confirmed organizer sources preserve split weekend dates", () => {
+  const byName = (name) => {
+    const target = targets.find((item) => item.name === name);
+    assert(target, `Missing organizer watcher for ${name}`);
+    return target;
+  };
+  assert(verifySource("<p>Sunday, November 22, 2026</p>", byName("GM Financial Parade of Lights")));
+  assert(!verifySource("<p>Sunday, November 23, 2025</p>", byName("GM Financial Parade of Lights")));
+  assert(verifySource("<p>2026 TEXAS CHRISTKINDL MARKET DATES: Nov. 20 – 22, 2026; Nov. 27 – Dec. 23, 2026</p>", byName("Texas Christkindl Market")));
+  assert(!verifySource("<p>2026: Nov. 20 – 23 only</p>", byName("Texas Christkindl Market")));
+  assert(verifySource("<p>2026 Tour: November 14–15 and November 21–22</p>", byName("Austin Studio Tour")));
+  assert(!verifySource("<p>2026 Tour: November 14–15 only</p>", byName("Austin Studio Tour")));
+});
+
+test("November unified filters include organizer picks and honor noncontinuous windows", () => {
+  const picks = read("../../src/data/events/november-official-picks-2026.ts");
+  const layout = read("../../src/routes/events.$collection.lazy.tsx");
+  for (const name of ["GM Financial Parade of Lights", "Texas Christkindl Market", "Austin Studio Tour"]) {
+    assert(picks.includes(`name: "${name}"`), `Missing organizer-confirmed November event: ${name}`);
+  }
+  for (const [start, end] of [
+    ["2026-11-20", "2026-11-22"], ["2026-11-27", "2026-12-23"],
+    ["2026-11-14", "2026-11-15"], ["2026-11-21", "2026-11-22"]
+  ]) {
+    assert(picks.includes(`["${start}", "${end}"]`), `Missing separate operating window ${start} to ${end}`);
+  }
+  assert(layout.includes('const allEvents = [...items, ...officialPicks];'));
+  assert(layout.includes("const filtered = allEvents.filter("));
+  assert(layout.includes("dateWindows(event).some("));
+  assert(layout.includes('event.slug === "a-christmas-affair"'));
+  assert(!layout.includes('id="november-more-official-events"'), "Unfiltered duplicate organizer section reappeared");
+  assert(layout.includes('Official event details →'));
+});
+
 test("canonical event seasons and title deduplication remain correct", () => {
   const johnson = read("../../src/data/major-event-expanded-authority-tranche45.server.ts");
   const j = johnson.slice(johnson.indexOf('slug: "johnson-city-christmas-lights-spectacular"'));
