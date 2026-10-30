@@ -80,6 +80,8 @@ export function graduateBatch011(reg,groups,worker,sha,deployRun,at) {
   assert.equal(reg.batch.remainingAssigned,0);
   assert.equal(reg.completedBatches.find(b=>b.number===10)?.state,'VERIFIED_BATCH_010_COMPLETE');
   assert.equal(reg.completedBatches.find(b=>b.number===10)?.technicalAcceptance?.screenshotsSaved,106);
+  assert.equal(reg.batch.slugs.every(slug=>reg.schoolRecords.some(x=>x.slug===slug && x.batch===11)),true,'Every assigned Batch011 school must exist');
+  assert.equal(reg.schoolRecords.filter(s=>s.batch<=10&&s.status==='VERIFIED').length,230,'Immutable first ten certified cohorts');
   assert.ok(groups.length===5 && SHA.test(sha) && UUID.test(worker));
   assert.ok(Number.isSafeInteger(deployRun)&&deployRun>0);
   for(let i=0;i<5;i++) {
@@ -107,8 +109,8 @@ export function graduateBatch011(reg,groups,worker,sha,deployRun,at) {
     }
   }
   const technicalAcceptance={schoolCount:25,viewports:[1366,390,320],
-    schoolCasesPassed:75,schoolCasesFailed:0,countyCasesPassed:22,
-    countyCasesFailed:0,screenshotsSaved:106,sitemapUrlsPassed:25,
+    schoolCasesPassed:75,schoolCasesFailed:0,countyCasesPassed:18,
+    countyCasesFailed:0,screenshotsSaved:93,sitemapUrlsPassed:25,
     observedWorkerVersions:[worker],workerVersionMatchesDeploy:true,
     productionDeploymentRun:deployRun,productionDeploymentGitSha:sha,
     groups,editorialHumanSignoffsClaimed:0,manualAccessibilityAccepted:false,
@@ -126,6 +128,8 @@ export function graduateBatch011(reg,groups,worker,sha,deployRun,at) {
     notes:'25/25 Batch011 technically VERIFIED by five real production Chrome cohorts; Batch012 not yet assigned. No manual editorial, photographic, current score or stadium ADA certification.'});
   assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,255);
   assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,0);
+  assert.equal(reg.schoolRecords.filter(s=>s.status==='NOT_REVIEWED').length,1037);
+  assert.equal(reg.completedBatches.filter(b=>b.number===10).length,1,'Historical Batch010 certificate must remain unique');
 }
 function findRuns(i) {
   // Query the bounded artifact index first: GitHub reports a green workflow
