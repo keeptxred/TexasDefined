@@ -304,7 +304,7 @@ function NovemberEditorialVisual({ event, className = "" }: { event: any; classN
 function NovemberEventVisual({ event, className = "" }: { event: any; className?: string }) {
   const [imageFailed, setImageFailed] = useState(false);
   const photo = event.image;
-  const available = photo?.url && photo.alt?.trim() && photo.approvedForCommercialUse !== false && !imageFailed;
+  const available = photo?.url && photo.alt?.trim() && photo.approvedForCommercialUse === true && !imageFailed;
   if (available) {
     // AI artwork is an illustration, even when it looks photographic.
     const isGenerated = photo.sourceType === "ai-generated" || /AI-generated/i.test(photo.alt);
