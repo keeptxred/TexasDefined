@@ -134,6 +134,7 @@ for (const marker of ['desktop-cache-bypassed', 'mobile-390', 'small-mobile-320'
   requireText(turkeyBrowserContract, marker, 'turkey Chrome evidence contract missing: ' + marker);
 }
 requireText(turkeyDeployContract, 'node scripts/ci/verify-turkey-hunting-browser.mjs', 'turkey Chrome audit not gated by deployment');
+requireText(turkeyDeployContract, 'node scripts/ci/hunting-browser-release-scope.mjs', 'turkey browser gate must use verified production baseline rather than only last commit');
 requireText(turkeyScheduledContract, 'node scripts/ci/verify-turkey-hunting-browser.mjs', 'turkey Chrome audit not included in bounded schedule');
 requireText(turkeyScheduledContract, 'steps.turkey_browser.outcome', 'turkey scheduled Chrome failure must alert');
 requireText(turkeyQuarterlyFinisher, "git merge-base --is-ancestor origin/main", 'must refuse old-base validations on shared main');
