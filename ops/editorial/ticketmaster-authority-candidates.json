@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-30T02:32:22.627Z",
+  "fetchedAt": "2026-10-30T17:02:25.161Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -568,6 +568,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1A70g86"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "RE: Imagine Fest ft. The Black Angels",
+      "city": "San Antonio",
+      "dates": [
+        "2026-11-28"
+      ],
+      "venues": [
+        "Stable Hall"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAvVZo"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvVZo"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
