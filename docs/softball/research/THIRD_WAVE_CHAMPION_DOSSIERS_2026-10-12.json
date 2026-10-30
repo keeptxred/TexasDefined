@@ -1,0 +1,965 @@
+{
+  "version": 1,
+  "researchDate": "2026-10-12",
+  "season": "2026-27",
+  "status": "research-only",
+  "publicationAuthorization": false,
+  "notice": "These are research leads with documented open items. No page may be published or any topic signed off without 38 full independent source-checked research conclusions and the 13-section/rights/QA contract.",
+  "programs": [
+    {
+      "uilName": "Mt Belvieu Barbers Hill",
+      "publicProgramName": "Barbers Hill Eagles softball",
+      "identity": "Barbers Hill High School, Barbers Hill ISD, Mont Belvieu",
+      "alignment": {
+        "season": "2026-27",
+        "conference": "6A",
+        "district": 18,
+        "region": 3,
+        "url": "https://www.uiltexas.org/files/alignments/266ASB.pdf"
+      },
+      "historicalChampionships": [
+        {
+          "season": "2020-21",
+          "class": "5A"
+        },
+        {
+          "season": "2024-25",
+          "class": "5A Division I"
+        },
+        {
+          "season": "2025-26",
+          "class": "5A Division I"
+        }
+      ],
+      "sources": [
+        {
+          "id": "uil2026",
+          "url": "https://www.uiltexas.org/softball/state-team/mont-belvieu-barbers-hill-2025-2026-softball",
+          "kind": "uil-team-history",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "uil2025",
+          "url": "https://www.uiltexas.org/softball/state-team/mont-belvieu-barbers-hill-2024-2025-softball",
+          "kind": "uil-team-history",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "uilarchive",
+          "url": "https://www.uiltexas.org/softball/archives",
+          "kind": "uil-champion-archive",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "uilaward",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-all-tournament-teams",
+          "kind": "uil-honors",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bhfields",
+          "url": "https://athletics.bhisd.net/inside-athletics/athletic-facilities",
+          "kind": "school-athletics-venue",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bhstaff",
+          "url": "https://athletics.bhisd.net/inside-athletics/athletics-staff",
+          "kind": "school-athletics-coaches",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bhsched",
+          "url": "https://athletics.bhisd.net/inside-athletics/schedules",
+          "kind": "school-athletics-schedules",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bhscore",
+          "url": "https://athletics.bhisd.net/inside-athletics/scoreboard",
+          "kind": "school-athletics-scores",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bhsite",
+          "url": "https://www.bhisd.net/",
+          "kind": "school-system",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "uilalign",
+          "url": "https://www.uiltexas.org/files/alignments/266ASB.pdf",
+          "kind": "uil-2026-27-alignment",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "facts": [
+        {
+          "id": "bh-titles",
+          "claim": "UIL archives document Barbers Hill state softball championships in 2021 5A, 2025 5A Division I and 2026 5A Division I.",
+          "sourceIds": [
+            "uilarchive"
+          ],
+          "limitations": "2026–27 current alignment is 6A; the historical 5A titles must not be relabeled.",
+          "season": "historical-as-labelled",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-school",
+          "claim": "The official athletics directory identifies Aaron Fuller as its head softball coach in the school staff listing checked October 2026.",
+          "sourceIds": [
+            "bhstaff"
+          ],
+          "limitations": "Staff-directory snapshot does not prove a contract for every 2027 game.",
+          "season": "school-site-as-of-2026-10-12",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-team-sheet",
+          "claim": "The UIL 2025–26 tournament team sheet lists coach Aaron Fuller and assistants Jared Smith, Sarah Aguilar and Lacey Eads; it lists 39–5 at tournament submission.",
+          "sourceIds": [
+            "uil2026"
+          ],
+          "limitations": "The team sheet predates the final; 39–5 is not necessarily postfinal.",
+          "season": "2025-26-prefinal",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-tourney",
+          "claim": "UIL team sheet lists state-tournament appearances in 2006, 2014, 2018, 2021, 2025 and 2026.",
+          "sourceIds": [
+            "uil2026"
+          ],
+          "limitations": "Appearance years are not interchangeable with championship years.",
+          "season": "historical-as-labelled",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-2026-final",
+          "claim": "The school athletics scoreboard reports Barbers Hill defeated Aledo 11–0 in the May 29, 2026 5A Division I final.",
+          "sourceIds": [
+            "bhscore"
+          ],
+          "limitations": "A championship-game result is not a full finished season statistic.",
+          "season": "2025-26",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-mvp",
+          "claim": "UIL's state-tournament honors identify Macie Bryant as its 2026 5A Division I all-tournament MVP, selected by TGCA.",
+          "sourceIds": [
+            "uilaward"
+          ],
+          "limitations": "This was the UIL championship all-tournament distinction selected by TGCA, not a statewide season-long softball MVP award or evidence of the player's 2027 enrollment.",
+          "season": "2025-26",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-field",
+          "claim": "Barbers Hill's official athletics-facilities page describes the actual softball field as directly behind the high school, alongside the baseball diamond, about three-quarters of a mile along FM 3180 from I-10 Exit 800; it describes capacity of 440.",
+          "sourceIds": [
+            "bhfields"
+          ],
+          "limitations": "The location description and 9696 Eagle Drive athletic-complex address do not independently confirm spectator gate/parking routing, and Eagle Stadium policies may not apply to softball.",
+          "season": "school-site-as-of-2026-10-12",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-facility-mismatch",
+          "claim": "The official athletics facilities page labels the complex address 9696 Eagle Drive as Baytown while its footer labels the town Mont Belvieu; resolve geocoding before a precise venue entrance is published.",
+          "sourceIds": [
+            "bhfields"
+          ],
+          "limitations": "Do not silently choose one geographic city label or use football-stadium gate instructions.",
+          "season": "source-discrepancy-as-of-2026-10-12",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-schedule",
+          "claim": "Barbers Hill Athletics exposes a 2026–27 high-school softball schedule resource in its sport-specific schedule directory.",
+          "sourceIds": [
+            "bhsched"
+          ],
+          "limitations": "Do not claim complete 2027 dated fixtures until the linked schedule is independently read.",
+          "season": "2026-27-resource-as-of-2026-10-12",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "bh-reclass",
+          "claim": "The 2026–27 UIL softball school registry places Mt Belvieu Barbers Hill in 6A District 18, Region III rather than the 5A bracket in which the team won in May 2026.",
+          "sourceIds": [
+            "uilalign",
+            "uilarchive"
+          ],
+          "limitations": "Do not import previous championship-era conference for new-season opponents.",
+          "season": "2026-27",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "blockers": [
+        "Resolve exact softball field spectator entrance, accessible viewing, route and parking with school-issued softball-specific facilities guidance; football-stadium amenities are not transferable.",
+        "Verify 2026–27 varsity/JV schedule games and actual assigned coaching roles at publication date.",
+        "Collect school-specific county/TEA/NCES identity and dated enrollment with primary records.",
+        "Complete pre-2006 softball origins, prior regional/district championships, historical finalists and coach-era chronology from archived records.",
+        "Establish original photographs licensed for site reuse and written permission; do not copy UIL player/team photos.",
+        "Independently research alumni pathways, community ties, rivalries, score/record chronology, eligibility and personalized visitor FAQ.",
+        "Resolve differing official city designations on the venue page rather than invent a geocoded gate."
+      ],
+      "researchDimensions": {
+        "campusIdentity": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhsite",
+            "bhfields"
+          ],
+          "researchPrompt": "Official campus, correct school and ID distinct from similar campuses"
+        },
+        "districtAndSchoolSystem": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhsite"
+          ],
+          "researchPrompt": "Correct ISD or school operator plus official campus website"
+        },
+        "mascotAndTeamName": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "uil2026"
+          ],
+          "researchPrompt": "Girls softball team identity, name and mascot verified from school"
+        },
+        "countyAndGeography": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Campus county and city verified, not inferred from ISD boundaries"
+        },
+        "softballClassification": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "uilalign"
+          ],
+          "researchPrompt": "Correct UIL softball conference for this specific season"
+        },
+        "softballDistrict": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "uilalign"
+          ],
+          "researchPrompt": "Correct numbered district and region; original UIL softball PDF"
+        },
+        "schoolAthleticsSource": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhstaff",
+            "bhsched"
+          ],
+          "researchPrompt": "Official school/athletics home and softball-specific resource"
+        },
+        "coachAndStaffVerification": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhstaff",
+            "uil2026"
+          ],
+          "researchPrompt": "Current staff verified and season-labelled; source if not publicly named"
+        },
+        "homeFieldIdentity": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhfields"
+          ],
+          "researchPrompt": "Official venue or source-backed current designated playing facility"
+        },
+        "homeFieldLocation": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhfields"
+          ],
+          "researchPrompt": "Actual facility address and campus/venue distinction, independently checked"
+        },
+        "districtOpponents": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "All official softball district peers for the correct conference and year"
+        },
+        "eligibilityAndRecruiting": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Official UIL participation/transfer rules and school athletics contact path"
+        },
+        "publicRosterAndPrivacy": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "School-controlled roster link if available; minors never profiled through inferred identity"
+        },
+        "currentScheduleSource": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhsched"
+          ],
+          "researchPrompt": "Live official schedule source, with exact published season and future status"
+        },
+        "knownSeasonResults": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Documented past and current complete-season results, no unsourced scores"
+        },
+        "programOrigins": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Earliest independently documentable softball program history"
+        },
+        "programMilestones": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Important school-specific eras, changes and turning points"
+        },
+        "postseasonHistory": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "uil2026"
+          ],
+          "researchPrompt": "Regional and state playoff appearances from date-stamped brackets"
+        },
+        "championships": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "uilarchive"
+          ],
+          "researchPrompt": "Verified titles by sport/year/level/division, including evidence of none found"
+        },
+        "recordsAndStatistics": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Authenticated program, coach, season and individual records where available"
+        },
+        "notableAlumni": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Source-confirmed graduates and college/pro advancement; no invented outcomes"
+        },
+        "coachingHistory": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "uil2025",
+            "uil2026"
+          ],
+          "researchPrompt": "Historic coaches with dated records, avoid conflating with current staff"
+        },
+        "honorsAndAwards": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "uilaward"
+          ],
+          "researchPrompt": "Awards credited to exact person/team and correct governing body level"
+        },
+        "localPressArchives": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Independent community reporting examined to supplement official accounts"
+        },
+        "facilitiesHistory": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "bhfields"
+          ],
+          "researchPrompt": "Park/field changes, naming history, upgrades and verified context"
+        },
+        "venueAccessibility": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Source for access and visitor accommodations; do not invent parking or ADA facilities"
+        },
+        "gameDayPlanning": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhfields"
+          ],
+          "researchPrompt": "Verified admissions, schedules and visitor policies, or official verification route"
+        },
+        "uniformAndBrandRights": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Authorized images/logos, ownership and school identity; avoid imitation"
+        },
+        "schoolEnrollment": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "School-specific independently dated enrollment where published, not football eligibility band"
+        },
+        "districtRivalries": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Historically substantiated rivalry or important fixtures, not stereotypes"
+        },
+        "communityTraditions": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Verifiable community role, boosters and documented local history"
+        },
+        "localConnections": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Correct TexasDefined city/county/nearby/venue internal links actually resolving"
+        },
+        "visitorAndFamilyQuestions": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Original useful planning FAQ about access, sources, seasons and game day"
+        },
+        "sourceConflictsAndCorrections": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "bhfields",
+            "uilarchive"
+          ],
+          "researchPrompt": "Conflicts resolved or explicitly attributed, source dates and visible correction path"
+        },
+        "seoAndSchema": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Unique title, canonical, SportsTeam/Article markup and source-specific citations"
+        },
+        "imageAndMediaLicense": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Relevant original or licensed media, attribution, permission and alt text"
+        },
+        "mobileAndAccessibility": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Rendered mobile/tablet/desktop, contrast, keyboard navigation and readable layout"
+        },
+        "liveAndWorkerQA": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Pre-release built Worker SSR, links, sitemap and 200/404; separately require post-deploy live Worker/canonical verification"
+        }
+      },
+      "publicationAuthorization": false,
+      "researchStatus": "NOT READY TO PUBLISH"
+    },
+    {
+      "uilName": "Montgomery Lake Creek",
+      "publicProgramName": "Lake Creek Lions softball",
+      "identity": "Lake Creek High School, Montgomery ISD",
+      "alignment": {
+        "season": "2026-27",
+        "conference": "5A",
+        "district": 17,
+        "region": 3,
+        "url": "https://www.uiltexas.org/files/alignments/265ASB.pdf"
+      },
+      "historicalChampionships": [
+        {
+          "season": "2021-22",
+          "class": "5A"
+        },
+        {
+          "season": "2022-23",
+          "class": "5A"
+        },
+        {
+          "season": "2024-25",
+          "class": "5A Division II"
+        },
+        {
+          "season": "2025-26",
+          "class": "5A Division II"
+        }
+      ],
+      "sources": [
+        {
+          "id": "uil2026",
+          "url": "https://www.uiltexas.org/softball/state-team/montgomery-lake-creek-2025-2026-softball",
+          "kind": "uil-team-history",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "uilarchive",
+          "url": "https://www.uiltexas.org/softball/archives",
+          "kind": "uil-champion-archive",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "uilaward",
+          "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-all-tournament-teams",
+          "kind": "uil-honors",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "misdboard",
+          "url": "https://www.misd.org/news/what_s_new/june_23__2026_board_meeting_recap",
+          "kind": "isd-board-original-history",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lchshome",
+          "url": "https://lakecreekhs.misd.org/",
+          "kind": "official-campus",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lchsathletics",
+          "url": "https://lakecreekhs.misd.org/for_students/athletics",
+          "kind": "official-campus-athletics",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lchspreviouscoach",
+          "url": "https://lakecreekhs.misd.org/directory/faculty/michelle_rochinski",
+          "kind": "possibly-stale-official-coach-biography",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "misdvenue",
+          "url": "https://www.misd.org/departments/athletics/other_athletic_venues",
+          "kind": "district-athletics-facilities",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lchsprogram",
+          "url": "https://www.lakecreeksoftball.com/coaches",
+          "kind": "team-associated-website-secondary-to-isd",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "uilalign",
+          "url": "https://www.uiltexas.org/files/alignments/265ASB.pdf",
+          "kind": "uil-2026-27-alignment",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "facts": [
+        {
+          "id": "lc-first-varsity",
+          "claim": "Montgomery ISD's June 23, 2026 board recap dates Lake Creek's beginning of varsity softball competition to 2019.",
+          "sourceIds": [
+            "misdboard"
+          ],
+          "limitations": "Lake Creek High's 2018 campus opening is NOT the softball varsity first season.",
+          "season": "school-history",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-champions",
+          "claim": "Montgomery ISD's June 2026 board recap names four program championships: 2022, 2023, 2025 and 2026.",
+          "sourceIds": [
+            "misdboard",
+            "uilarchive"
+          ],
+          "limitations": "Do not describe all four as 2026 5A Division II or new district titles.",
+          "season": "historical-as-labelled",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-2026-record",
+          "claim": "The ISD's June 2026 postfinal board recap gives the Lake Creek Lions a final 40–1 softball record; UIL's state-tournament sheet contains an earlier 39–1 submission.",
+          "sourceIds": [
+            "misdboard",
+            "uil2026"
+          ],
+          "limitations": "Keep publication-date cutoff separate; the scores should not be treated as contradictory.",
+          "season": "2025-26-prefinal-versus-final",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-career-record",
+          "claim": "The June 2026 district board recap attributes a 268–23 record to the program since its 2019 varsity start.",
+          "sourceIds": [
+            "misdboard"
+          ],
+          "limitations": "School-published aggregate, not independently reconstructed game-by-game.",
+          "season": "2019-2026",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-mascot",
+          "claim": "The original UIL 2025–26 state team sheet uses Lions as the Lake Creek softball team mascot and identifies historic head coach Candyce Carter and assistants Kacy Spivey and Dylan Larsen.",
+          "sourceIds": [
+            "uil2026"
+          ],
+          "limitations": "2026 tournament coaches cannot automatically be assigned to each 2027 game.",
+          "season": "2025-26",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-current-coach",
+          "claim": "Lake Creek High's official athletics staff page currently identifies Candyce Carter as softball coach, consistent with the UIL 2026 tournament sheet.",
+          "sourceIds": [
+            "lchsathletics",
+            "uil2026"
+          ],
+          "limitations": "A separately indexed older faculty biography still calls Michelle Rochinski the head softball coach; the current athletics grid is more recent/relevant.",
+          "season": "school-site-as-of-2026-10-12",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-coach-conflict",
+          "claim": "An older official Michelle Rochinski faculty profile describes her as head softball coach, whereas the school's sport-specific athletics listing says Candyce Carter; preserve both source dates and do not silently import the old appointment.",
+          "sourceIds": [
+            "lchsathletics",
+            "lchspreviouscoach"
+          ],
+          "limitations": "Older staff biography date is not established, so keep historical status rather than guessing exact transition.",
+          "season": "source-conflict-as-of-2026-10-12",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-start-school",
+          "claim": "Lake Creek High School's official site states the campus opened August 21, 2018, and locates the school near FM 2854; the first varsity softball season is separately documented as 2019.",
+          "sourceIds": [
+            "lchshome",
+            "misdboard"
+          ],
+          "limitations": "School-opening date should never be attributed as girls softball program's first varsity year.",
+          "season": "school-history",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-venue-warning",
+          "claim": "Montgomery ISD's venues page lists an MISD Athletic Complex address covering Montgomery High School baseball/softball, and separately lists Lake Creek High School; it does not itself establish Lake Creek's actual softball field gate address.",
+          "sourceIds": [
+            "misdvenue"
+          ],
+          "limitations": "Never publish Montgomery High School's complex as Lake Creek's home field without source-specific proof.",
+          "season": "school-site-as-of-2026-10-12",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-award",
+          "claim": "UIL's 2026 all-tournament team lists Madalyn Davis as 5A Division II championship all-tournament MVP selected by TGCA.",
+          "sourceIds": [
+            "uilaward"
+          ],
+          "limitations": "Do not present 2026 historic student award as current 2027 roster/recruitment.",
+          "season": "2025-26",
+          "checkedAt": "2026-10-12"
+        },
+        {
+          "id": "lc-alignment",
+          "claim": "UIL's 2026–27 softball alignment places Montgomery Lake Creek in 5A District 17 Region III.",
+          "sourceIds": [
+            "uilalign"
+          ],
+          "limitations": "The 2026 title is 5A Division II, a separately dated bracket designation.",
+          "season": "2026-27",
+          "checkedAt": "2026-10-12"
+        }
+      ],
+      "blockers": [
+        "Confirm actual Lake Creek softball diamond, parcel, spectator gate, public parking, accessible viewing and individual field name using district- or team-issued site-specific primary guidance.",
+        "Verify every 2026–27 coaching appointment, varsity and JV match schedule, roster access and current game-day policies before page promotion.",
+        "Resolve contradictory older faculty biography and 2026 athletics staff list with explicit archive dates or district confirmation; never reassign old coach to 2027.",
+        "Obtain official district-only venue and current transportation sources rather than reuse the MHS softball complex.",
+        "Verify campus TEA/NCES identity, actual county, school enrollment and historical coaching transitions with primary documentation.",
+        "Research pre-2022 playoff milestones, complete yearly district/region/runner-up records and actual archived season scores.",
+        "Document licensed media permissions, player privacy, local traditions, alumni, eligibility, original FAQ and links."
+      ],
+      "researchDimensions": {
+        "campusIdentity": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "lchshome"
+          ],
+          "researchPrompt": "Official campus, correct school and ID distinct from similar campuses"
+        },
+        "districtAndSchoolSystem": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "lchshome"
+          ],
+          "researchPrompt": "Correct ISD or school operator plus official campus website"
+        },
+        "mascotAndTeamName": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "uil2026"
+          ],
+          "researchPrompt": "Girls softball team identity, name and mascot verified from school"
+        },
+        "countyAndGeography": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Campus county and city verified, not inferred from ISD boundaries"
+        },
+        "softballClassification": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "uilalign"
+          ],
+          "researchPrompt": "Correct UIL softball conference for this specific season"
+        },
+        "softballDistrict": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "uilalign"
+          ],
+          "researchPrompt": "Correct numbered district and region; original UIL softball PDF"
+        },
+        "schoolAthleticsSource": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "lchsathletics"
+          ],
+          "researchPrompt": "Official school/athletics home and softball-specific resource"
+        },
+        "coachAndStaffVerification": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "lchsathletics",
+            "uil2026"
+          ],
+          "researchPrompt": "Current staff verified and season-labelled; source if not publicly named"
+        },
+        "homeFieldIdentity": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Official venue or source-backed current designated playing facility"
+        },
+        "homeFieldLocation": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Actual facility address and campus/venue distinction, independently checked"
+        },
+        "districtOpponents": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "uilalign"
+          ],
+          "researchPrompt": "All official softball district peers for the correct conference and year"
+        },
+        "eligibilityAndRecruiting": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Official UIL participation/transfer rules and school athletics contact path"
+        },
+        "publicRosterAndPrivacy": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "School-controlled roster link if available; minors never profiled through inferred identity"
+        },
+        "currentScheduleSource": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "lchsathletics"
+          ],
+          "researchPrompt": "Live official schedule source, with exact published season and future status"
+        },
+        "knownSeasonResults": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Documented past and current complete-season results, no unsourced scores"
+        },
+        "programOrigins": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "misdboard"
+          ],
+          "researchPrompt": "Earliest independently documentable softball program history"
+        },
+        "programMilestones": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Important school-specific eras, changes and turning points"
+        },
+        "postseasonHistory": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "uil2026"
+          ],
+          "researchPrompt": "Regional and state playoff appearances from date-stamped brackets"
+        },
+        "championships": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "misdboard",
+            "uilarchive"
+          ],
+          "researchPrompt": "Verified titles by sport/year/level/division, including evidence of none found"
+        },
+        "recordsAndStatistics": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Authenticated program, coach, season and individual records where available"
+        },
+        "notableAlumni": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Source-confirmed graduates and college/pro advancement; no invented outcomes"
+        },
+        "coachingHistory": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "uil2026",
+            "lchspreviouscoach"
+          ],
+          "researchPrompt": "Historic coaches with dated records, avoid conflating with current staff"
+        },
+        "honorsAndAwards": {
+          "state": "source-lead-not-signed-off",
+          "critical": false,
+          "sourceIds": [
+            "uilaward"
+          ],
+          "researchPrompt": "Awards credited to exact person/team and correct governing body level"
+        },
+        "localPressArchives": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Independent community reporting examined to supplement official accounts"
+        },
+        "facilitiesHistory": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Park/field changes, naming history, upgrades and verified context"
+        },
+        "venueAccessibility": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Source for access and visitor accommodations; do not invent parking or ADA facilities"
+        },
+        "gameDayPlanning": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Verified admissions, schedules and visitor policies, or official verification route"
+        },
+        "uniformAndBrandRights": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Authorized images/logos, ownership and school identity; avoid imitation"
+        },
+        "schoolEnrollment": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "School-specific independently dated enrollment where published, not football eligibility band"
+        },
+        "districtRivalries": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Historically substantiated rivalry or important fixtures, not stereotypes"
+        },
+        "communityTraditions": {
+          "state": "research-open",
+          "critical": false,
+          "sourceIds": [],
+          "researchPrompt": "Verifiable community role, boosters and documented local history"
+        },
+        "localConnections": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Correct TexasDefined city/county/nearby/venue internal links actually resolving"
+        },
+        "visitorAndFamilyQuestions": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Original useful planning FAQ about access, sources, seasons and game day"
+        },
+        "sourceConflictsAndCorrections": {
+          "state": "source-lead-not-signed-off",
+          "critical": true,
+          "sourceIds": [
+            "lchsathletics",
+            "lchspreviouscoach"
+          ],
+          "researchPrompt": "Conflicts resolved or explicitly attributed, source dates and visible correction path"
+        },
+        "seoAndSchema": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Unique title, canonical, SportsTeam/Article markup and source-specific citations"
+        },
+        "imageAndMediaLicense": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Relevant original or licensed media, attribution, permission and alt text"
+        },
+        "mobileAndAccessibility": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Rendered mobile/tablet/desktop, contrast, keyboard navigation and readable layout"
+        },
+        "liveAndWorkerQA": {
+          "state": "research-open",
+          "critical": true,
+          "sourceIds": [],
+          "researchPrompt": "Pre-release built Worker SSR, links, sitemap and 200/404; separately require post-deploy live Worker/canonical verification"
+        }
+      },
+      "publicationAuthorization": false,
+      "researchStatus": "NOT READY TO PUBLISH"
+    }
+  ]
+}
