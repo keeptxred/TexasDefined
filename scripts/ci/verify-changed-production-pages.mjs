@@ -345,9 +345,9 @@ export function assertCompleted2026EventFacts(path, body, surface = 'release') {
     // courthouse image was added. Do not silently serve noindex now that
     // the reviewed exact-location Wikimedia image satisfies event rights QA.
     // This checks rendered robots only; never bypass the image policy.
-    const robotsMetaTags = [...normalized.matchAll(/<meta\\b[^>]*>/gi)]
-      .map(match => match[0]).filter(tag => /\\bname=["']robots["']/i.test(tag));
-    if (robotsMetaTags.some(tag => /\\bnoindex\\b/i.test(tag))) {
+    const robotsMetaTags = [...normalized.matchAll(/<meta\b[^>]*>/gi)]
+      .map(match => match[0]).filter(tag => /\bname=["']robots["']/i.test(tag));
+    if (robotsMetaTags.some(tag => /\bnoindex\b/i.test(tag))) {
       throw new Error('Crossroads event page unexpectedly noindex despite approved exact-location event image: ' + surface);
     }
   }
