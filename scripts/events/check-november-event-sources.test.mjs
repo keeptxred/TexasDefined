@@ -78,3 +78,31 @@ test("Rockport and Shiner guide tickets and date semantics remain visitor-safe",
     assert(s.includes(term), `Shiner missing ${term}`);
   }
 });
+
+
+test("Nutcracker current venue and Dobie sold-out meal sources fail closed", () => {
+  const target = (name) => { const found = targets.find(item => item.name === name); assert(found, name); return found; };
+  const market = target("Houston Ballet Nutcracker Market venue");
+  assert(verifySource("<h1>November 12-15, 2026 | Reliant Center</h1>", market));
+  assert(!verifySource("<h1>November 12-15, 2026 | NRG Center</h1>", market));
+  const dobie = target("Dobie Dichos sold-out meal");
+  assert(verifySource("<h1>Friday, November 6th, 2026</h1><p>Program + Meal</p><p>SOLD OUT</p>", dobie));
+  assert(!verifySource("<h1>Friday, November 6th, 2026</h1><p>Program + Meal now available</p>", dobie));
+});
+
+test("November event guide venue and sold-out ticket schema remain aligned", () => {
+  const market = read("../../src/data/major-event-expanded-authority-tranche36.server.ts");
+  const marketRecord = market.slice(market.indexOf('slug: "houston-ballet-nutcracker-market"'));
+  for (const token of ['venue: "Reliant Center (formerly NRG Center)"', 'within Reliant Park', 'One NRG Park', 'sourceCheckedAt: "2026-10-29"']) {
+    assert(marketRecord.includes(token), "Market guide missing " + token);
+  }
+  const dobie = read("../../src/data/major-event-expanded-authority-tranche10.server.ts");
+  const dobieGuide = dobie.slice(dobie.indexOf('slug: "dobie-dichos"'), dobie.indexOf('slug: "dallas-holiday-parade"'));
+  assert(dobieGuide.includes("Program + Meal tier sold out"));
+  assert(dobieGuide.includes("Program Only"));
+  const schema = read("../../src/data/major-event-schema-enrichment-batch3.server.ts");
+  const block = schema.slice(schema.indexOf('slug: "dobie-dichos"'), schema.indexOf('slug: "dallas-holiday-parade"'));
+  assert(!block.includes('usdOffer("Adult program + meal admission"'));
+  assert(!block.includes('usdOffer("Child 12 and under program + meal admission"'));
+  assert(block.includes('usdOffer("Adult program-only gate admission"'));
+});
