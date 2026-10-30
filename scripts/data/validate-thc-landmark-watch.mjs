@@ -44,6 +44,16 @@ function decodeHtml(text) {
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)));
 }
 
+// THC listing headings may contain tags/nonbreaking-space entities.
+// Match the nearest visible month, not raw markup, to avoid July/August drift.
+function nearestListingDate(markupBeforeLink) {
+  const visible = decodeHtml(markupBeforeLink.replace(/<[^>]*>/g, " "))
+    .replace(/[\u00a0\s]+/g, " ");
+  const headings = [...visible.matchAll(new RegExp(`\\bListed\\s+(${months})\\s+(20\\d{2})\\b`, "gi"))];
+  const heading = headings.at(-1);
+  return heading ? { month: heading[1], year: Number(heading[2]) } : null;
+}
+
 const listed = block("THC_RECENT_LISTED_RAW").map((line) => {
   const parts = line.split("|");
   if (parts.length !== 6) throw Error(`Malformed listed entry: ${line}`);
@@ -73,6 +83,10 @@ for (const entry of pending) {
 if (listed.length < 60 || pending.length < 15) errors.push("Official listing baseline unexpectedly truncated");
 if (!head.includes("CollectionPage") || !page.includes("thcRecentListedLandmarks") ||
     !page.includes("thcPendingLandmarks") || !page.includes("National Register")) errors.push("Research route/status disclosure removed");
+// Regression: official listing headings can separate Listed/month with tags or &nbsp;.
+const julyFixture = nearestListingDate("<h4>Listed&nbsp;August 2026</h4><h4><strong>Listed</strong>&nbsp;July 2026</h4>");
+if (julyFixture?.month !== "July" || julyFixture.year !== 2026) errors.push("THC listing month HTML parsing regression");
+
 const report = {
   checkedAt: new Date().toISOString(),
   source,
@@ -97,13 +111,11 @@ if (!process.argv.includes("--live")) {
     for (const match of html.matchAll(anchorPattern)) {
       const href = /href\s*=\s*["']([^"']+)["']/i.exec(match[1])?.[1] ?? "";
       if (!/atlas\.thc\.texas\.gov\/NR\/pdfs\//i.test(decodeHtml(href))) continue;
-      const preceding = html.slice(0, match.index);
-      const dates = [...preceding.matchAll(new RegExp(`Listed\\s+(${months})\\s+(20\\d{2})`, "gi"))];
-      const lastDate = dates.at(-1);
-      if (!lastDate || ![2025, 2026].includes(Number(lastDate[2]))) continue;
+      const listingDate = nearestListingDate(html.slice(0, match.index));
+      if (!listingDate || ![2025, 2026].includes(listingDate.year)) continue;
       const label = decodeHtml(match[2].replace(/<[^>]*>/g, "")).replace(/\s+/g, " ").trim();
       if (!label || label.length < 4) continue;
-      links.push({ name: label, year: Number(lastDate[2]), month: lastDate[1], sourceUrl: decodeHtml(href) });
+      links.push({ name: label, year: listingDate.year, month: listingDate.month, sourceUrl: decodeHtml(href) });
     }
     // Do not allow a site template change to produce a fake empty "no changes" result.
     if (links.length < 45) throw Error(`Only ${links.length} linked 2025–2026 records parsed: format may have changed`);

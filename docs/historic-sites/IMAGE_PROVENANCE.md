@@ -104,3 +104,14 @@ are represented as unmodified originals. These older photographs are not
 claims about current exhibits, accessibility or building status; the Buffalo
 Soldier interpretation photograph is *a sign*, not a historical troop portrait.
 
+## Texas Historical Commission source and photograph policy — verified October 29, 2026
+
+Official policy: https://thc.texas.gov/policies . THC is a trusted **research and citation source**, but being a Texas state agency does not put its photos into the public domain.
+
+- **Source facts, records and direct links:** Cite THC/Atlas records for designations, nominations, markers and site context. Check visitor access, ownership and dates with the operator; a National Register listing is not an invitation to enter private property. THC recommends links to its homepage, and requires continued verification if linking to subpages.
+- **THC-owned photography:** The more specific *Photo Request* policy says THC retains copyright, requires permission for a specified one-time use, prohibits unapproved changes and requires a credit line. Use the contact on the current Photo Request page. Do not assume its general noncommercial-use language authorizes a monetized TexasDefined image gallery.
+- **Portal to Texas History and Atlas scans:** Viewing, downloading or citing a scan does not grant republishing rights. Check item-level creator and rights; if unclear, keep only an outbound research link.
+- **Technical safeguards:** Do not hotlink THC photos, frame THC pages or use the THC logo as link artwork. THC requests text-only links and discourages image hotlinking.
+- **Automation:** Existing monthly `.github/workflows/thc-atlas-census.yml` and weekly `.github/workflows/thc-landmark-watch.yml` are discovery/verifications, not publication or image-reuse approval. Atlas records can be wrong or sensitive. Keep duplicate/alias, identity, licensing and public-access reviews before indexing.
+
+Source status reconciliation (October 29, 2026): the official THC National Register page lists **Rosewood Elementary (Austin, Travis County) in October 2026** and **Patricia Welder and Hampton C. Robinson Jr. House** and **Cindy Walker House** in **July 2026**. See https://thc.texas.gov/preserve/designate-historic-properties/national-register-historic-places . The watcher now interprets visible month headings rather than markup-sensitive raw text matching.

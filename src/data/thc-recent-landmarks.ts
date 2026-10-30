@@ -25,6 +25,7 @@ export type ThcPendingLandmark = {
 // Do not interpret a district boundary amendment as a new freestanding attraction.
 // Cultural/archeological sensitivity also takes priority over public-map discovery.
 export const THC_RECENT_LISTED_RAW = `
+2026|October|Rosewood Elementary|Austin|Travis|school
 2026|October|First Methodist Episcopal Church South|Dallas|Dallas|church
 2026|September|Style-in-Steel Townhouses|Houston|Harris|building
 2026|September|Culver House|Matagorda|Matagorda|building
@@ -94,7 +95,6 @@ export const THC_RECENT_LISTED_RAW = `
 `.trim();
 
 export const THC_PENDING_RAW = `
-Rosewood Elementary|Austin|Travis|submitted
 Montopolis Negro School|Austin|Travis|submitted
 San Bernard Historic District|Austin|Travis|submitted
 Chambersea (relocation proposal)|Anahuac|Chambers|submitted
