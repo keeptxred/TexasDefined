@@ -180,6 +180,25 @@ if (!eastTexasCopy.includes("not verified 2026 peak-color reports")) {
   fail("East Texas seasonal guidance must not imply verified live peak foliage");
 }
 
+const eastFoliageBrowser = fs.readFileSync("scripts/ci/verify-east-texas-foliage-browser.mjs", "utf8");
+const eastFoliageWorkflow = fs.readFileSync(".github/workflows/verify-east-texas-foliage-browser.yml", "utf8");
+for (const marker of [
+  "East Texas duplicate related-destination section returned",
+  "Missing unique six-park comparison card:",
+  "Contextual TPWD link missing or wrong for",
+  "East Texas FAQ hierarchy regressed:",
+]) {
+  if (!eastFoliageBrowser.includes(marker)) fail(`East Texas post-deploy Chrome acceptance lost: ${marker}`);
+}
+for (const marker of [
+  "src/data/fixtures/seasonal-intent-depth-blocks.ts",
+  "src/components/editorial/ArticleBody.tsx",
+  "src/routes/article.$slug.tsx",
+  "cron: '17 13 * 10-11 *'",
+]) {
+  if (!eastFoliageWorkflow.includes(marker)) fail(`Daily or post-deploy foliage Chrome QA scope missing: ${marker}`);
+}
+
 if (!process.exitCode) {
   console.log(`Seasonal intent depth guard passed: ${slugs.length} canonical seasonal pages retain at least 500 source words, every rendered body clears the ${seasonalIndexMinimum}-word route indexability floor (minimum observed ${minimumObservedBodyWords}), keep one canonical owner, and cannot regress to a one-minute contract.`);
 }
