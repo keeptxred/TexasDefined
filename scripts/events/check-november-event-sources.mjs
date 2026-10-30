@@ -1,6 +1,8 @@
 // Read-only organizer monitoring for the 2026 November collection.
 // Never infer dates from an old season or write changes to published listings.
 export const targets = [
+  { name: "Houston Ballet Nutcracker Market venue", url: "https://www.houstonballet.org/support-us/special-events/nutcracker-market/about/nutcracker-market/", patterns: [/November\s+12\s*[-–]\s*15,?\s*2026/i, /Reliant\s+Center/i] },
+  { name: "Dobie Dichos sold-out meal", url: "https://www.dobiedichos.com/tickets-schedule", patterns: [/November\s+6(?:th)?,?\s+2026/i, /Program\s*\+\s*Meal/i, /SOLD\s+OUT/i] },
   { name: "Johnson City Lights Spectacular", url: "https://lightsspectacular.com/faqs", patterns: [/November\s+27,?\s+2026/i, /January\s+3,?\s+2027/i] },
   { name: "South Pole Illuminated Festival", url: "https://www.southpoleoftexas.com/", patterns: [/November\s+28\s*[-–]\s*December\s+28/i, /2026/i] },
   { name: "Rockport Songwriter Festival", url: "https://rockportsongwriterassociation.com/festival", patterns: [/(?:November|Nov\.?)\s+5\s*[-–]\s*8,?\s*2026/i] },
