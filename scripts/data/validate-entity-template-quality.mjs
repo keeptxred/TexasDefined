@@ -367,6 +367,11 @@ for (const path of [
   }
 }
 
+// A reader-facing heritage guide must not describe our canonicalization model
+// or refer travelers to an internal editorial coverage layer.
+if (read('src/data/museum-expansion-statewide-wave66.ts').includes('TexasDefined treats 130 N. Waco Street as the canonical visitor location')) errors.push('Van Alstyne museum prose still exposes publisher canonical workflow.');
+if (read('src/data/museum-expansion-statewide-wave79.ts').includes("TexasDefined's Rockwall County coverage")) errors.push('Royse City museum prose still exposes publisher editorial coverage.');
+
 if (countyRoute.includes("dateModified: '2026-08-08'")) errors.push('County pages must not use a hard-coded modified date.');
 
 if (errors.length) {
