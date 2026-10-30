@@ -176,6 +176,24 @@ const hillDepthHeadings = [...hillSupplement.matchAll(/\bh\("([^"]+)"\)/g)].map(
 if (new Set([...hillBaseHeadings, ...hillDepthHeadings]).size !== hillBaseHeadings.length + hillDepthHeadings.length)
   fail("Hill Country duplicated a section heading between canonical base and supplements");
 
+// The Hill Country report is refreshed automatically, never by manual seasonal audits.
+const sourceRefresh = fs.readFileSync("scripts/data/refresh-lost-maples-foliage.mjs", "utf8");
+const refreshWorkflow = fs.readFileSync(".github/workflows/refresh-lost-maples-foliage.yml", "utf8");
+const finishWorkflow = fs.readFileSync(".github/workflows/finish-lost-maples-foliage.yml", "utf8");
+const foliageWidget = fs.readFileSync("src/components/editorial/LostMaplesFoliageStatus.tsx", "utf8");
+for (const marker of ["extractOfficialFoliageReport", "No dated official observation paragraph found", "Official TPWD page has no report headed for this calendar year"]) {
+  if (!sourceRefresh.includes(marker)) fail("Automatic Lost Maples official report parser missing fail-closed marker: " + marker);
+}
+if (!refreshWorkflow.includes("cron: '17 14 * 10,11 *'") || !refreshWorkflow.includes("node scripts/data/refresh-lost-maples-foliage.mjs"))
+  fail("Lost Maples requires a daily October–November source refresh, not manual audits");
+if (!finishWorkflow.includes("workflow_run:") || !finishWorkflow.includes("dispatch-validate-branch.sh"))
+  fail("Lost Maples automatic data changes must use trusted protected checks");
+if (!foliageWidget.includes("MAX_AGE_DAYS = 14") || !foliageWidget.includes("report.observations") ||
+    !articleRoute.includes("<LostMaplesFoliageStatus />"))
+  fail("Hill Country live article must display source observations and suppress stale reports");
+if (articleRoute.includes("Official 2026 Lost Maples foliage report"))
+  fail("Hill Country link to annually changing TPWD reports must not hardcode 2026");
+
 // Keep the live East Texas page useful without duplicating its six-park planner.
 // The official TPWD links are authored in canonical copy and rendered as real anchors.
 const eastTexasCopy = depthBlock("east-texas-fall-colors");
