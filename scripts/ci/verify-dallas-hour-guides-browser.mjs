@@ -47,10 +47,18 @@ try {
         check("HTTP 200", response?.status() === 200, response?.status());
         await page.locator("[data-dallas-road-guide]").waitFor({ state: "visible", timeout: 35000 });
         await page.locator('section[aria-labelledby="dallas-small-town-map"]').waitFor({ state: "visible", timeout: 25000 });
+        // The booking panels must mount only in their explicit post-guide slot.
+        // An earlier green run missed panels injected into the first editorial article.
+        await page.locator('[data-stay-nearby-slot] #expedia-travel-surface').waitFor({ state: "attached", timeout: 25000 });
         await page.evaluate(() => document.fonts?.ready);
         const data = await page.evaluate(() => {
           const table = document.querySelector("[data-dallas-road-guide] table");
           const scroller = table?.parentElement;
+          const guide = document.querySelector("[data-dallas-road-guide]");
+          const editorialArticles = [...(guide?.querySelectorAll("article") || [])];
+          const slot = document.querySelector("[data-stay-nearby-slot]");
+          const lodging = document.querySelector("#expedia-travel-surface");
+          const affiliates = document.querySelector("#td-stay-affiliate-options");
           return {
             title: document.querySelector("h1")?.textContent?.trim() || "",
             canonical: document.querySelector('link[rel="canonical"]')?.href || "",
@@ -62,8 +70,18 @@ try {
             tableOverflow: scroller ? getComputedStyle(scroller).overflowX : "",
             disclaimer: document.querySelector("[data-dallas-road-guide]")?.textContent || "",
             tableText: table?.textContent || "",
+            editorialCount: editorialArticles.length,
+            editorialHeadings: editorialArticles.map(a => a.querySelector("h3")?.textContent?.trim() || ""),
+            affiliateInsideEditorial: editorialArticles.some(a => a.contains(lodging) || a.contains(affiliates)),
+            lodgingInDedicatedSlot: Boolean(slot && lodging && slot.contains(lodging)),
+            optionsInsideDedicatedSlot: Boolean(slot && affiliates && slot.contains(affiliates)),
+            slotAfterGuide: Boolean(slot && guide && (guide.compareDocumentPosition(slot) & Node.DOCUMENT_POSITION_FOLLOWING)),
           };
         });
+        check("editorial grid retains three recommendations", data.editorialCount === 3, JSON.stringify(data.editorialHeadings));
+        check("lodging is outside each editorial article", !data.affiliateInsideEditorial, JSON.stringify(data.editorialHeadings));
+        check("Expedia stays in the dedicated post-guide slot", data.lodgingInDedicatedSlot && data.slotAfterGuide);
+        check("CJ booking choices stay with Expedia in that slot", data.optionsInsideDedicatedSlot);
         check("canonical", data.canonical === ORIGIN + guide.path, data.canonical);
         check("published new road-time title", data.title === guide.title, data.title);
         check("source-based one-way duration explanation", data.disclaimer.includes("published typical one-way road-time estimates"));
@@ -96,6 +114,14 @@ try {
         }
         check("tested selections are distinct", locations.size === sample.length, locations.size);
         await buttons.first().click();
+        // A valid iframe URL is not proof of a rendered map. Explicitly scroll
+        // the lazy map into view, then require a real loaded Leaflet tile.
+        const mapFrame = page.locator('iframe[title^="Interactive location map of"]');
+        await mapFrame.scrollIntoViewIfNeeded({ timeout: 15000 });
+        const mapTilesLoaded = await page.frameLocator('iframe[title^="Interactive location map of"]')
+          .locator("img.leaflet-tile-loaded").first().waitFor({ state: "attached", timeout: 15000 })
+          .then(() => true).catch(() => false);
+        check("selected map renders real OpenStreetMap tiles after scroll", mapTilesLoaded);
         if (guide.path.endsWith("1-hour")) {
           const image = page.locator('img[alt^="Red sandstone Ellis County Courthouse"]');
           await image.scrollIntoViewIfNeeded();
