@@ -16,7 +16,7 @@ const cases=[
  ['commerce','hunt','John McSheffery','Tigers']
 ];
 test('Five individually grounded second-cohort guides and exact campus counties',()=>{
- assert.equal(Object.keys(data).length,15,'Exactly two source cohorts; neither fabricated later school');
+ assert.equal(Object.keys(data).length,20,'Exactly two source cohorts; neither fabricated later school');
  const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
  const identities=read('src/data/high-school-football/school-identities.ts');
  const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
@@ -56,7 +56,7 @@ test('Second cohort requires real non-skipped Chrome and exact live release attr
   assert.ok(flow.includes(s),'Protected second-cohort browser workflow missing '+s);
  const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
  assert.equal(reg.batch.number,11);
- assert.equal(reg.batch.implementedOnBranch,15);
+ assert.equal(reg.batch.implementedOnBranch,20);
  assert.equal(reg.batch.remainingToVerify,25);
  assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,230);
  for(const [slug] of cases){

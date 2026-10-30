@@ -19,6 +19,11 @@ export const BATCH011_FOOTBALL_SLUGS = new Set<string>([
   'conroe-caney-creek',
   'conroe-grand-oaks',
   'conroe-oak-ridge',
+  'conroe-the-woodlands',
+  'conroe-woodlands-college-park',
+  'converse-judson',
+  'coolidge',
+  'cooper',
 ]);
 
 export async function loadBatch011FootballProgramEditorial(

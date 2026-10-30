@@ -14,6 +14,10 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'cooper', mascot: 'Bulldogs', sourceUrl: 'https://www.cooperisd.net/athletics', sourceLabel: 'Cooper ISD first-party Bulldogs school athletics and staff', verifiedAt: '2026-10-29' },
+  { slug: 'coolidge', mascot: 'Yellowjackets', sourceUrl: 'https://www.coolidgeisd.org/quick_links/athletics', sourceLabel: 'Coolidge ISD Yellowjackets first-party current football schedules', verifiedAt: '2026-10-29' },
+  { slug: 'converse-judson', mascot: 'Rockets', sourceUrl: 'https://judsonhs.judsonisd.org/o/judsonhs/live_feeds/11483412', sourceLabel: 'Official Judson ISD Rockets appointment and school identity, February 2026', verifiedAt: '2026-10-29' },
+  { slug: 'conroe-woodlands-college-park', mascot: 'Cavaliers', sourceUrl: 'https://anderson.conroeisd.net/o/twcphs/page/athletics', sourceLabel: 'Current College Park High athletics and Cavaliers school identity', verifiedAt: '2026-10-29' },
   { slug: 'como-pickton', mascot: 'Eagles', sourceUrl: 'https://www.cpcisd.net/', sourceLabel: 'Como-Pickton CISD primary-school name and Eagles athletics', verifiedAt: '2026-10-29' },
   { slug: 'comal-pieper', mascot: 'Warriors',
     sourceUrl: 'https://phs.comalisd.org/',
