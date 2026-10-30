@@ -44,9 +44,9 @@ test('Fourth five distinct 2026 football programs, format and first-party staff 
 });
 test('Fourth production verification requires actual screenshot count and GitHub pinned Worker',()=>{
  const r=JSON.parse(read('docs/football-authority/REGISTRY.json'));
- assert.equal(r.batch.number,11);assert.equal(r.batch.implementedOnBranch,20);assert.equal(r.batch.remainingToImplement,5);
+ assert.equal(r.batch.number,11);assert.equal(r.batch.implementedOnBranch,25);assert.equal(r.batch.remainingToImplement,0);
  assert.equal(r.schoolRecords.filter(x=>x.status==='VERIFIED').length,230);
- assert.equal(r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length,20);
+ assert.equal(r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length,25);
  for(const [slug] of cases){
   const x=r.schoolRecords.find(s=>s.slug===slug);
   assert.equal(x.status,'IMPLEMENTED');
