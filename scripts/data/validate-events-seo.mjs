@@ -363,6 +363,33 @@ if (serverHead.includes('"@type": "Event"') || serverHead.includes('eventStatus:
   errors.push('The Events hub must remain collection/discovery markup; Event rich-result occurrence markup belongs on dedicated /event/:slug pages.');
 }
 
+// One-off Event markup must not be restored on multi-window or expired
+// unannounced Mardi Gras guides merely to silence a cached-page verifier.
+// Require both raw-HTML and hydrated-Chrome acceptance to reflect the same
+// existing source/date-confidence policy.
+const mardiGrasFreshness = fs.readFileSync(path.join(root, 'scripts/ci/verify-authority-canonical-freshness.mjs'), 'utf8');
+const mardiGrasChrome = fs.readFileSync(path.join(root, 'scripts/ci/verify-mardi-gras-browser.mjs'), 'utf8');
+const multiOrExpiredMardiGrasGuides = [
+  'mardi-gras-galveston',
+  'kemah-yachty-gras',
+  'mardi-gras-southeast-texas-beaumont',
+  'mardi-gras-on-the-sabine-orange',
+];
+for (const slug of multiOrExpiredMardiGrasGuides) {
+  if (!mardiGrasFreshness.includes(`'/event/${slug}'`)) {
+    errors.push(`Mardi Gras raw-HTML schema confidence contract missing: ${slug}.`);
+  }
+  if (!mardiGrasChrome.includes(`"${slug}"`)) {
+    errors.push(`Mardi Gras real-Chrome schema confidence contract missing: ${slug}.`);
+  }
+}
+for (const marker of ['evergreenMardiGrasWebPageRoutes.has(route)', 'must not claim single Event schema']) {
+  if (!mardiGrasFreshness.includes(marker)) errors.push(`Mardi Gras raw-HTML guarded WebPage schema assertion missing: ${marker}.`);
+}
+for (const marker of ['WEBPAGE_ONLY_SLUGS.has(guide.slug)', 'data.hasWebPage && !data.hasEvent']) {
+  if (!mardiGrasChrome.includes(marker)) errors.push(`Mardi Gras Chrome schema confidence assertion missing: ${marker}.`);
+}
+
 if (errors.length) {
   console.error('Events SEO validation failed:');
   for (const error of errors) console.error(`- ${error}`);
