@@ -125,6 +125,17 @@ requireText(turkeyQuarterlyFinisher, "- '.github/workflows/finish-turkey-authori
 requireText(turkeyQuarterlyFinisher, "for attempt in 1 2 3", 'bounded replay after concurrent main commits missing');
 requireText(turkeyQuarterlyFinisher, "Quarterly data source workflow not verified", 'bot-sourced PR must be backed by completed official TPWD check');
 requireText(turkeyQuarterlyFinisher, 'push|schedule|workflow_dispatch', 'scheduled turkey quarterly refresh must be eligible for protected auto-finish');
+// Keep exact turkey page live browser verification attached to BOTH protected deployments
+// and the existing bounded scheduled freshness workflow, without manual audits.
+const turkeyBrowserContract = read('scripts/ci/verify-turkey-hunting-browser.mjs');
+const turkeyDeployContract = read('.github/workflows/deploy-production.yml');
+const turkeyScheduledContract = read('.github/workflows/monitor-hunting-live-freshness.yml');
+for (const marker of ['desktop-cache-bypassed', 'mobile-390', 'small-mobile-320', 'img.decode()', 'FAQ structured data', 'Article JSON-LD', 'TPWD spring wild turkey hunting zone map', 'TPWD fall wild turkey hunting zone map']) {
+  requireText(turkeyBrowserContract, marker, 'turkey Chrome evidence contract missing: ' + marker);
+}
+requireText(turkeyDeployContract, 'node scripts/ci/verify-turkey-hunting-browser.mjs', 'turkey Chrome audit not gated by deployment');
+requireText(turkeyScheduledContract, 'node scripts/ci/verify-turkey-hunting-browser.mjs', 'turkey Chrome audit not included in bounded schedule');
+requireText(turkeyScheduledContract, 'steps.turkey_browser.outcome', 'turkey scheduled Chrome failure must alert');
 requireText(turkeyQuarterlyFinisher, "git merge-base --is-ancestor origin/main", 'must refuse old-base validations on shared main');
 const finisherCrons = [...turkeyQuarterlyFinisher.matchAll(/- cron:\s*['\"]([^'\"]+)['\"]/g)].map(match => match[1]);
 if (!finisherCrons.length || finisherCrons.some(expr => expr.trim().split(/\s+/).length !== 5))

@@ -62,7 +62,7 @@ function visibleListingText(markup) {
 }
 function listingHeadingMatches(markupBeforeLink) {
   const visible = visibleListingText(markupBeforeLink);
-  const regex = new RegExp(`\\bListed[^a-zA-Z0-9]{0,80}(${months})[^a-zA-Z0-9]{0,30}(20\\d{2})\\b`, "gi");
+  const regex = new RegExp(`\\bL\\s*i\\s*s\\s*t\\s*e\\s*d[^a-zA-Z0-9]{0,80}(${months})[^a-zA-Z0-9]{0,30}(20\\d{2})\\b`, "gi");
   return [...visible.matchAll(regex)].map((match) => ({ month: match[1], year: Number(match[2]), offset: match.index }));
 }
 function nearestListingDate(markupBeforeLink) {
@@ -125,6 +125,8 @@ const julyFixtures = [
   "<h4>Listed&nbsp;August 2026</h4><h4><strong>Listed</strong>&nbsp;<span>July</span>&#8203; 2026</h4>",
   "<p>Listed August 2026</p><h4>Listed&#xA0;<strong>July</strong> 2026</h4>",
   "<p>Listed August 2026</p><h4>Listed&thinsp;July&nbsp;2026</h4>",
+  "<p>Listed August 2026</p><h4>L isted July 2026</h4>",
+  "<p>Listed August 2026</p><h4>L<span>isted</span> July 2026</h4>",
 ];
 if (julyFixtures.some((markup) => {
   const date = nearestListingDate(markup);

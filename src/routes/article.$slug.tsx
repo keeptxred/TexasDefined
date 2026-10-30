@@ -6,6 +6,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
 import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
+import { LostMaplesFoliageStatus } from "@/components/editorial/LostMaplesFoliageStatus";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
@@ -131,6 +132,7 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "texas-flag-etiquette-display-guide",
   "texas-loops-spurs-explained",
   "east-texas-fall-colors",
+  "hill-country-fall-colors",
   "texas-high-school-football-playoffs-explained",
   "moving-to-el-paso-guide",
 ]);
@@ -140,6 +142,7 @@ const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
   "east-texas-fall-colors": "Frequently asked questions",
+  "hill-country-fall-colors": "Frequently asked questions",
   "moving-to-el-paso-guide": "Frequently asked questions about moving to El Paso",
 };
 
@@ -658,9 +661,10 @@ function ArticlePage() {
     </div></Container></Section>}
     {article.slug === "hill-country-fall-colors" && <Section tone="surface"><Container>
       <SectionHeader eyebrow="Plan with current information" title="Lost Maples foliage updates and photo credits" />
+      <LostMaplesFoliageStatus />
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Check dated Texas Parks and Wildlife foliage photographs and park alerts before choosing a trip date. The hero photograph shows golden-orange and rust-red autumn leaves at Lost Maples State Natural Area on November 24, 2012; it is a historical example, not a verified report of current foliage conditions.</p>
       <nav aria-label="Lost Maples current reports and credited hero photograph" className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-        <a href="https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official 2026 Lost Maples foliage report ↗</a>
+        <a href="https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official Lost Maples foliage report ↗</a>
         <a href="https://tpwd.texas.gov/state-parks/lost-maples/images/foliage" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official TPWD foliage photographs ↗</a>
         <a href="https://tpwd.texas.gov/state-parks/lost-maples" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Lost Maples access and alerts ↗</a>
         <a href={foliageHeroRights?.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Hero photo: G. Lamar, November 2012 ↗</a>
