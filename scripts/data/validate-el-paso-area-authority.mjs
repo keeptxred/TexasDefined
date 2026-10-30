@@ -68,6 +68,36 @@ const checks = [
 ];
 
 const failures = [];
+// The state-owned Old Socorro Mission is a protected, CLOSED original site,
+// not the separately operated nineteenth-century Socorro Mission church.
+const oldSocorro = read('src/components/editorial/OldSocorroMissionAuthority.tsx');
+const socorroRoute = read('src/routes/destination.$slug.tsx');
+const socorroFacts = read('src/data/historic-site-fact-corrections.ts');
+const socorroCounty = read('src/components/content/CountyHistoricSites.tsx');
+const elPasoLinks = read('src/components/content/ElPasoAreaAuthority.tsx');
+for (const marker of [
+  'Old Socorro Mission', 'closed to the public', 'Different location',
+  '1680', '1691', '1829', 'Early 1980s', 'thc.texas.gov', 'nps.gov',
+  '/article/el-camino-real-de-tierra-adentro-national-historic-trail',
+  '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso',
+]) if (!oldSocorro.includes(marker)) failures.push('Old Socorro authority missing ' + marker);
+for (const marker of [
+  'const OldSocorroMissionAuthority = lazy(() =>',
+  '<OldSocorroMissionAuthority />',
+  'isOldSocorro ? "Place"',
+  'publicAccess: false',
+  'Old Socorro Mission, Texas: Archaeology, History & Closure',
+  'robots: indexable ? undefined : "noindex, follow"',
+]) if (!socorroRoute.includes(marker)) failures.push('Old Socorro route/schema missing ' + marker);
+for (const marker of [
+  '10551 Nicholas Rd', 'CLOSED TO THE PUBLIC',
+  'hero: missingDestinationHero(destination)',
+  'directions: undefined',
+]) if (!socorroFacts.includes(marker)) failures.push('Old Socorro facts/photo/closure contract missing ' + marker);
+if (socorroCounty.includes('Historic active church on the El Paso Mission Trail')) failures.push('El Paso county mislabels closed original site as active church');
+if (!elPasoLinks.includes('Old Socorro Mission — closed')) failures.push('El Paso related links lost the original archaeological site closure');
+if (['google.com/maps/', 'maps/search/', 'maps/dir/'].some((marker) => oldSocorro.includes(marker))) failures.push('Old Socorro dedicated guide offers directions to the protected closed site');
+
 const localCountyHero = new URL('../../public/images/explore/historic-sites/hueco-tanks-state-park.jpg', import.meta.url);
 try {
   const asset = statSync(localCountyHero);
