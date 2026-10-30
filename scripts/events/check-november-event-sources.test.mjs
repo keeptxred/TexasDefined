@@ -31,6 +31,25 @@ test("November collection stays consumer-focused with responsive filters", () =>
 });
 
 
+test("every November card uses reviewed photography or an explicit editorial illustration", () => {
+  const layout = read("../../src/routes/events.$collection.lazy.tsx");
+  const browser = layout.slice(
+    layout.indexOf("function NovemberCollectionBrowser("),
+    layout.indexOf("function GenericCollectionPage("),
+  );
+  assert(layout.includes("function NovemberEventVisual("), "Missing shared November visual component");
+  assert(layout.includes("function NovemberEditorialVisual("), "Missing honest no-photo editorial design");
+  assert(layout.includes('data-event-visual="editorial"'), "Missing illustration acceptance marker");
+  assert(layout.includes('data-event-visual="photograph"'), "Missing rights-reviewed photo acceptance marker");
+  assert(layout.includes('Not a photograph of the event.'), "Illustrations must never impersonate actual event photographs");
+  assert(layout.includes("event.image.alt?.trim()"), "A source photo needs a meaningful alt to be displayed");
+  assert(layout.includes("onError={() => setImageFailed(true)}"), "Unavailable source images must not break the card");
+  assert.equal((browser.match(/<NovemberEventVisual event=\{event\}/g) ?? []).length, 2, "Both featured and the entire 55-event directory must always render visual media");
+  assert(!browser.includes("event.image?.url ? <img"), "Do not conditionally omit missing event visuals");
+  const picks = read("../../src/data/events/november-official-picks-2026.ts");
+  assert(picks.includes("ThunderCloud Subs Turkey Trot") && picks.includes("GM Financial Parade of Lights"), "Direct organizer cards must retain full image coverage too");
+});
+
 test("November newly confirmed organizer sources preserve split weekend dates", () => {
   const byName = (name) => {
     const target = targets.find((item) => item.name === name);
