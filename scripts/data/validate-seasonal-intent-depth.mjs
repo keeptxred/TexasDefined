@@ -181,6 +181,7 @@ const sourceRefresh = fs.readFileSync("scripts/data/refresh-lost-maples-foliage.
 const refreshWorkflow = fs.readFileSync(".github/workflows/refresh-lost-maples-foliage.yml", "utf8");
 const finishWorkflow = fs.readFileSync(".github/workflows/finish-lost-maples-foliage.yml", "utf8");
 const foliageWidget = fs.readFileSync("src/components/editorial/LostMaplesFoliageStatus.tsx", "utf8");
+const hillArticleRoute = fs.readFileSync("src/routes/article.$slug.tsx", "utf8");
 for (const marker of ["extractOfficialFoliageReport", "No dated official observation paragraph found", "Official TPWD page has no report headed for this calendar year"]) {
   if (!sourceRefresh.includes(marker)) fail("Automatic Lost Maples official report parser missing fail-closed marker: " + marker);
 }
@@ -189,9 +190,9 @@ if (!refreshWorkflow.includes("cron: '17 14 * 10,11 *'") || !refreshWorkflow.inc
 if (!finishWorkflow.includes("workflow_run:") || !finishWorkflow.includes("dispatch-validate-branch.sh"))
   fail("Lost Maples automatic data changes must use trusted protected checks");
 if (!foliageWidget.includes("MAX_AGE_DAYS = 14") || !foliageWidget.includes("report.observations") ||
-    !articleRoute.includes("<LostMaplesFoliageStatus />"))
+    !hillArticleRoute.includes("<LostMaplesFoliageStatus />"))
   fail("Hill Country live article must display source observations and suppress stale reports");
-if (articleRoute.includes("Official 2026 Lost Maples foliage report"))
+if (hillArticleRoute.includes("Official 2026 Lost Maples foliage report"))
   fail("Hill Country link to annually changing TPWD reports must not hardcode 2026");
 
 // Keep the live East Texas page useful without duplicating its six-park planner.
