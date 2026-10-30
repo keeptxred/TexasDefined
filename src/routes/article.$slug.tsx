@@ -132,6 +132,7 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "texas-flag-etiquette-display-guide",
   "texas-loops-spurs-explained",
   "east-texas-fall-colors",
+  "hill-country-fall-colors",
   "texas-high-school-football-playoffs-explained",
   "moving-to-el-paso-guide",
 ]);
@@ -141,6 +142,7 @@ const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
   "east-texas-fall-colors": "Frequently asked questions",
+  "hill-country-fall-colors": "Frequently asked questions",
   "moving-to-el-paso-guide": "Frequently asked questions about moving to El Paso",
 };
 
