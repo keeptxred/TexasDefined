@@ -2763,7 +2763,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
        r.batch.remainingAssigned!==25-implemented ||
        r.batch.remainingToVerify!==25 ||
        r.batch.implementedOnBranch!==implemented ||
-       r.batch.currentSchool!==expected[implemented] ||
+       r.batch.currentSchool!==(implemented===25?null:expected[implemented]) ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==230 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch===11).length!==0)
       errors.push('Batch011 must advance in complete 5-school cohorts, keeping 230 previous VERIFIED');
