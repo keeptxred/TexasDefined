@@ -264,7 +264,11 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
   }));
   // Visitors can filter first-party guides and organizer-confirmed listings together.
   // Official-only entries are NOT counted as permanent event guides.
-  const allEvents = [...items, ...officialPicks];
+  const allEvents = [...items, ...officialPicks].sort((a, b) =>
+    String(a.startDate).localeCompare(String(b.startDate))
+    || String(a.city).localeCompare(String(b.city))
+    || String(a.name).localeCompare(String(b.name))
+  );
   const regions: Record<string, string> = {
     "gulf-coast": "Gulf Coast & Houston",
     "hill-country": "Hill Country & Central Texas",
