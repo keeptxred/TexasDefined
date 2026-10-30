@@ -45,7 +45,10 @@ jobs:
           echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
       - name: Verify live news, published article canonicals and sitemap XML
         if: github.event_name != 'schedule'
-        run: node scripts/ci/verify-texasdefined-publication-production.mjs
+        run: |
+          node scripts/ci/verify-texasdefined-publication-production.mjs
+          node --check scripts/ci/verify-november-imagery-production.mjs
+          node scripts/ci/verify-november-imagery-production.mjs
       # Bounded source-vintage acceptance deliberately runs after *every*
       # successful production deployment. Rapid main merges can cancel the
       # deployment which introduced a data update, while a later unrelated

@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { baselineFromLedger, buildChangePlan, REPRESENTATIVE_PATHS, PAGE_BUDGET } from './production-change-scope.mjs';
 import { verifyChangedPages, assertKatyFootballContents, assertLoneStarFootballContents, assertPortArthurFestivalGateFacts, assertCompleted2026EventFacts, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
 import { createProductionPageFetch } from './reuse-production-page.mjs';
@@ -63,6 +64,22 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
   assert.doesNotMatch(deploy, /node scripts\/ci\/verify-production-surfaces.mjs/);
   for (const group of ['sports','foliage','discovery','events','financial','advertiser','images']) assert.ok(deploy.includes(`steps.change_scope.outputs.${group}`));
   for (const guard of ['verify-production-health.mjs','capture-active-worker-version.mjs','verified-worker-ledger.mjs record','verify-changed-production-pages.mjs']) assert.ok(deploy.includes(guard));
+});
+
+
+test('November imagery acceptance uses existing bounded postdeploy smoke without adding workflow subscriptions', () => {
+  const smoke = text('.github/workflows/texasdefined-publication-production-smoke.yml');
+  const temporal = text('.github/workflows/verify-event-temporal-production.yml');
+  assert.match(smoke, /node scripts\/ci\/verify-november-imagery-production\.mjs/,
+    'Only the already authorized post-deploy smoke should verify November event image coverage');
+  assert.doesNotMatch(temporal, /^  workflow_run:/m,
+    'Standalone temporal verifier must remain manual/scheduled, not subscribed to every deploy');
+  assert.equal((smoke.match(/if: github.event_name != 'schedule'/g) ?? []).length, 3,
+    'No additional publication smoke release-only steps may slip past the cost policy');
+  const result = execFileSync(process.execPath, ['scripts/ci/verify-november-imagery-production.mjs', '--self-test'], {
+    encoding: 'utf8', timeout: 10000
+  });
+  assert.match(result, /November imagery SSR acceptance fixture passed/);
 });
 
 test('turkey authority updates require a bounded production smoke on the actual turkey URL', () => {
