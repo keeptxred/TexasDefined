@@ -45,6 +45,18 @@ const nonExploreCategories = ['sports', 'moving-to-texas', 'home-garden', 'real-
 
 const failures = [];
 const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
+// Avoid making a non-Texas internet-slang reference indexable merely to
+// silence an orphan audit. Preserve a usable public URL while withholding it
+// from the Texas authority sitemap and searchable indexable-route registry.
+{
+  const archivePath = '/what-does-chud-mean';
+  const page = fs.readFileSync('src/routes/what-does-chud-mean.tsx', 'utf8');
+  if (!nonIndexableRoutes.includes(archivePath)) failures.push('Off-topic slang reference must remain in governed NON_INDEXABLE_PUBLIC_PATHS');
+  if (indexableSection.includes('"' + archivePath + '"')) failures.push('Off-topic slang reference incorrectly added to indexable route registry');
+  if (sitemap.includes('"' + archivePath + '"')) failures.push('Off-topic slang reference incorrectly listed in primary sitemap');
+  if (!page.includes('content: "noindex, follow"')) failures.push('Off-topic slang reference must preserve noindex,follow meta');
+}
+
 if (!redirects.length) failures.push('Redirect-only route registry could not be parsed.');
 if (!nonIndexableRoutes.length) failures.push('Non-indexable route registry could not be parsed.');
 
