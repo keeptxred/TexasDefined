@@ -1021,6 +1021,13 @@ test('four concluded 2026 events are checked on normal and release URLs, without
     assert.doesNotThrow(() => assertCompleted2026EventFacts(path, good, 'release'), path);
     assert.throws(() => assertCompleted2026EventFacts(path, good + ' ' + forbidden, 'visitor'), /still advertises past edition as upcoming/, path);
     assert.throws(() => assertCompleted2026EventFacts(path, '', 'visitor'), /missing verified historical content/, path);
+    if (path === '/event/crossroads-of-texas-country-festival') {
+      assert.throws(
+        () => assertCompleted2026EventFacts(path, '<meta name="robots" content="noindex, follow">' + good, 'visitor'),
+        /unexpectedly noindex/,
+        'Crossroads exact-location photo must not silently regress to noindex',
+      );
+    }
   }
   assert.doesNotThrow(() => assertCompleted2026EventFacts('/event/unrelated', '', 'release'));
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/verify-changed-production-pages.mjs'] });
