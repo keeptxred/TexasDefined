@@ -2755,7 +2755,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     const firstFive=expected.slice(0,5);
     const implemented=expected.filter(slug=>r.schoolRecords.find(x=>x.slug===slug)?.status==='IMPLEMENTED').length;
     const sourceReady=implemented>=5;
-    if(![0,5,10,15,20].includes(implemented) ||
+    if(![0,5,10,15,20,25].includes(implemented) ||
        r.batch.state!=='IN_PROGRESS' || r.batch.slugs.length!==25 ||
        JSON.stringify(r.batch.slugs)!==JSON.stringify(expected) ||
        r.batch.individuallyVerified!==0 ||
@@ -2905,7 +2905,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       errors.push('Como-Pickton 2025 head football coach role is not 2026 first-party confirmed');
   }
 
-  if(r.batch.implementedOnBranch===20){
+  if(r.batch.implementedOnBranch>=20){
     const source=read('src/data/high-school-football/program-editorial-b011.ts');
     const identities=read('src/data/high-school-football/school-identities.ts');
     const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
@@ -2942,6 +2942,51 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       const next=source.slice(source.indexOf('"'+slug+'":'),source.indexOf('"'+slug+'":')+4500);
       if(/"coach"\s*:\s*\{/.test(next)) errors.push('Unconfirmed 2026 head football coach must not be asserted: '+slug);
     }
+  }
+
+  if(r.batch.implementedOnBranch===25){
+    const source=read('src/data/high-school-football/program-editorial-b011.ts');
+    const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+    const counties=read('src/routes/$kind.$slug.lazy.tsx');
+    const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts');
+    const identities=read('src/data/high-school-football/school-identities.ts');
+    const profile=read('src/data/high-school-football/football-program-profile.server.ts');
+    const chrome=read('scripts/ci/verify-football-b011-fifth-five-production.mjs');
+    const flow=read('.github/workflows/verify-football-b011-fifth-five-production.yml');
+    const cases=[
+      ['coppell','dallas','Antonio Wiley'],
+      ['copperas-cove','coryell','Rodney Southern'],
+      ['cornerstone-christian','bexar','Clayton Guillory'],
+      ['corpus-christi-calallen','nueces','Charlie Reeve'],
+      ['corpus-christi-carroll','nueces','Calvin Neatherlin']
+    ];
+    for(const [slug,physicalCounty,person] of cases){
+      const dossier=read('docs/football-authority/schools/'+slug+'.md');
+      if(!source.includes('"'+slug+'": {')||!source.includes(person)||
+         !loader.includes("'"+slug+"'")||
+         !identities.includes("slug: '"+slug+"'")||
+         !school.includes("'"+slug+"': '"+physicalCounty+"'")||
+         !counties.includes("slug: '"+slug+"'")||
+         dossier.length<2000||!dossier.includes('https://'))
+        errors.push('Fifth-five individual source, staff, campus county or dossier absent: '+slug);
+    }
+    const privateBranch=profile.slice(profile.indexOf('if (!seed) {'),profile.indexOf('const result = await searchFootballPrograms'));
+    if(!privateBranch.includes('loadBatch011FootballProgramEditorial(legacy.featured.slug)') ||
+      !privateBranch.includes('districtPath: null'))
+      errors.push('Private San Antonio Cornerstone needs modern authored source without invented UIL district');
+    for(const flag of ['report.schoolChecks.length!==15','report.countyChecks.length!==4',
+      'report.screenshots!==19','process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_EXPECTED_WORKER_VERSION','/tmp/td-b011-fifth-chrome/node_modules/playwright-core'])
+      if(!chrome.includes(flag))errors.push('Fifth-five exact live Worker Chrome verification guard missing: '+flag);
+    for(const flag of ['Deploy TexasDefined production','steps.release.outputs.sha',
+      'pin-football-b010-production-release.mjs','artifacts/b011-fifth-five-production-chrome/'])
+      if(!flow.includes(flag))errors.push('Fifth-five protected pinned release or screenshot archive missing: '+flag);
+    for(const slug of ['corpus-christi-calallen','corpus-christi-carroll']){
+      const body=source.slice(source.indexOf('"'+slug+'":'),source.indexOf('"'+slug+'":')+4500);
+      if(/"coach"\s*:\s*\{/.test(body))errors.push('Unverified head football coach must not be assigned from AD/coordinator role: '+slug);
+    }
+    if(!source.includes('not a UIL program')||!source.includes('Rodney Southern'))
+      errors.push('Private Cornerstone non-UIL and new Copperas Cove coach distinctions lost');
   }
 
     if(!r.completedBatches.some(x=>x.number===10 &&
