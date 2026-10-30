@@ -1,10 +1,8 @@
 name: Monitor Texas turkey regulations
 
-on:
+'on':
   schedule:
-    # Weekly: check current regulation, access, drawing and harvest source markers.
     - cron: '21 13 * * 1'
-    # Quarterly legal-source check; nonlegal facts publish through separate protected automation.
     - cron: '41 13 1 1,4,7,10'
   workflow_dispatch:
   pull_request:
@@ -12,74 +10,23 @@ on:
       - 'scripts/data/check-turkey-regulations.mjs'
       - 'src/data/hunting/turkey-guide.ts'
       - 'src/components/hunting/TurkeySeasonGuide.tsx'
+      - 'scripts/automation/monitor-turkey-regulations.sh'
       - '.github/workflows/check-turkey-regulations.yml'
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
-  check-syntax:
-    if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - run: node --check scripts/data/check-turkey-regulations.mjs
-
   monitor:
-    if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: read
-      issues: write
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - name: Check TPWD 2026–27 turkey dates and regulations
-        id: sourcecheck
+          node-version: 22
+      - name: Check official TPWD turkey sources and report unsafe drift
         env:
           GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set +e
-          node scripts/data/check-turkey-regulations.mjs > "$RUNNER_TEMP/turkey-check.log" 2>&1
-          code=$?
-          cat "$RUNNER_TEMP/turkey-check.log"
-          if [[ "$code" != "0" ]]; then
-            case "$code" in
-              2)
-                title="Review changed TPWD turkey regulations (2026–27)"
-                summary="An official TPWD page no longer matches the editor-verified 2026–27 turkey guide. Re-check the original TPWD sources and update the guide, any relevant county exceptions and the editorial verification date only after validating the new rules."
-                ;;
-              3)
-                title="TPWD turkey regulation source unavailable (2026–27)"
-                summary="The official TPWD regulation monitor could not retrieve one or more authoritative pages. This is a transport failure, NOT evidence of a legal change. Investigate the failing requests and repeat the source verification before considering the guide fresh."
-                ;;
-              *)
-                title="TPWD turkey regulation monitor failed unexpectedly"
-                summary="The regulation monitor exited unexpectedly (code $code). Examine the workflow log and repair the monitor; do not advance the guide's verification date until the official sources have been checked."
-                ;;
-            esac
-            existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
-            if [[ -z "$existing" ]]; then
-              {
-                echo "$summary"
-                echo
-                echo "Source-check results:"
-                echo '~~~'
-                cat "$RUNNER_TEMP/turkey-check.log"
-                echo '~~~'
-                echo
-                echo "Page: https://texasdefined.com/hunting/turkey-hunting"
-                echo "Checker: scripts/data/check-turkey-regulations.mjs"
-              } > "$RUNNER_TEMP/turkey-issue.md"
-              gh issue create --title "$title" --body-file "$RUNNER_TEMP/turkey-issue.md"
-            fi
-          fi
-          exit "$code"
+        run: bash scripts/automation/monitor-turkey-regulations.sh
