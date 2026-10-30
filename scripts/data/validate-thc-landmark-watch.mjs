@@ -66,7 +66,7 @@ function extractPendingSections(html) {
   if (start < 0 || middle <= start || finish <= middle) {
     throw Error("Official pending nomination headings absent or reordered; stage comparison unverified");
   }
-  return { submitted: visible.slice(start, middle), review: visible.slice(middle, finish) };
+  return { submitted: normalize(visible.slice(start, middle)), review: normalize(visible.slice(middle, finish)) };
 }
 
 function observedPendingStage(name, sections) {
