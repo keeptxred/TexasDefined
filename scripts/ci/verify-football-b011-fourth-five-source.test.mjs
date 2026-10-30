@@ -15,7 +15,7 @@ const cases=[
  ['cooper','delta','Bruce Silman','Bulldogs']
 ];
 test('Fourth five distinct 2026 football programs, format and first-party staff qualification',()=>{
- assert.equal(Object.keys(data).length,20,'Four implemented school cohorts and no fifth cohort yet');
+ assert.equal(Object.keys(data).length,25,'Four implemented school cohorts and no fifth cohort yet');
  const loader=read('src/data/high-school-football/program-editorial-b011-loader.server.ts'),
  identities=read('src/data/high-school-football/school-identities.ts'),
  team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'),
