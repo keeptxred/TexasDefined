@@ -141,6 +141,17 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
     remainingLinks -= maxLinks;
     return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={policyForSurface('article')} />;
   };
+  // Link only known TPWD paths in the East Texas seasonal guide. Other article
+  // prose keeps the shared auto-entity-link behavior unchanged.
+  const renderFoliageSourceLinks = (text: string, requestedLinks: number) => {
+    if (articleSlug !== "east-texas-fall-colors" || !text.includes("](https://tpwd.texas.gov/")) return render(text, requestedLinks);
+    const pieces = text.split(/(\[[^\]]+\]\(https:\/\/tpwd\.texas\.gov\/state-parks\/[a-z0-9/-]+\))/g);
+    return pieces.map((piece, partIndex) => {
+      const source = piece.match(/^\[([^\]]+)\]\((https:\/\/tpwd\.texas\.gov\/state-parks\/[a-z0-9/-]+)\)$/);
+      if (source) return <a key={"tpwd-" + partIndex} href={source[2]} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{source[1]} ↗</a>;
+      return piece ? <Fragment key={"text-" + partIndex}>{render(piece, requestedLinks)}</Fragment> : null;
+    });
+  };
   return <div className="editorial-body text-foreground/92">
     {articleSlug ? <UnusualBusinessAuthorityPanel slug={articleSlug} /> : null}
     {blocks.slice(0, sixManLeadCount).map((block, index) => block.type === "paragraph"
@@ -163,6 +174,7 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
           if (block.text.endsWith("?") && (
             (articleSlug === "chip-and-joanna-gaines-magnolia-waco" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions about Chip and Joanna Gaines"))
             || (articleSlug === "texas-high-school-football-playoffs-explained" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
+            || (articleSlug === "east-texas-fall-colors" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
             || (articleSlug === "moving-to-el-paso-guide" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions about moving to El Paso"))
           )) {
             return <h3 key={index} id={articleHeadingId(block.text)} className="mb-3 mt-8 scroll-mt-28 font-display text-xl font-semibold">{render(block.text, 2)}</h3>;
@@ -192,7 +204,7 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
               </dl>
             );
           }
-          return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
+          return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{renderFoliageSourceLinks(item, 2)}</li>)}</ul>;
         case "image": {
           const articleImage = articleSlug === "texas-rivers-explained"
             ? TEXAS_RIVERS_BODY_PHOTO_OVERRIDES[block.image.src] ?? block.image
@@ -222,7 +234,7 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
         }
         case "shop": return <ShopTheStory key={index} collectionSlug={block.collectionSlug} />;
         case "paragraph":
-        default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
+        default: return <p key={index} className="mt-6 first:mt-0">{renderFoliageSourceLinks(block.text, 4)}</p>;
         }
       })();
       if (insertBeforeIndex === index && insertBefore) {
