@@ -96,7 +96,8 @@ if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).
     console.error("2026 November monitor has expired: source-qualified 2027 season needs a new reviewed edition.");
     process.exitCode = 1;
   } else {
-    const observations = await Promise.all(targets.map(inspect));
+    // Avoid Array.map passing (target, index, array) into inspect's fetcher argument.
+    const observations = await Promise.all(targets.map((target) => inspect(target)));
     for (const observation of observations) console.log(JSON.stringify(observation));
     if (observations.some((result) => result.status === "review")) {
       console.error("Organizer-source review required. Preserve existing dates and open a bounded issue; do not auto-correct.");
