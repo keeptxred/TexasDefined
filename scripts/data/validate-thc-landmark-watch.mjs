@@ -44,16 +44,27 @@ function decodeHtml(text) {
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)));
 }
 
-// THC listing headings may contain tags/nonbreaking-space entities.
-// Match the nearest visible month, not raw markup, to avoid July/August drift.
-function nearestListingDate(markupBeforeLink) {
-  const visible = decodeHtml(markupBeforeLink.replace(/<[^>]*>/g, " "))
-    .replace(/[\u00a0\s]+/g, " ");
-  const headings = [...visible.matchAll(new RegExp(`\\bListed\\s+(${months})\\s+(20\\d{2})\\b`, "gi"))];
-  const heading = headings.at(-1);
-  return heading ? { month: heading[1], year: Number(heading[2]) } : null;
+// Detect the nearest visible official heading, allowing HTML entities, zero-width
+// characters and CMS markup between its words. A guessed date never overrides
+// the source: mismatches remain explicit source-drift failures.
+function visibleListingText(markup) {
+  return decodeHtml(markup.replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<(?:script|style)\b[^>]*>[\s\S]*?<\/(?:script|style)>/gi, " ")
+    .replace(/<[^>]*>/g, " "))
+    .replace(/&(?:nbsp|ensp|emsp|thinsp|hairsp|zwnj|zwj|lrm|rlm);?/gi, " ")
+    .replace(/&#(?:x0*200[b-d]|0*820[3-5]);?/gi, " ")
+    .replace(/[\u00a0\u2000-\u200f\u202f\u2060\ufeff]/g, " ")
+    .replace(/\s+/g, " ");
 }
-
+function listingHeadingMatches(markupBeforeLink) {
+  const visible = visibleListingText(markupBeforeLink);
+  const regex = new RegExp(`\\bListed[^a-zA-Z0-9]{0,80}(${months})[^a-zA-Z0-9]{0,30}(20\\d{2})\\b`, "gi");
+  return [...visible.matchAll(regex)].map((match) => ({ month: match[1], year: Number(match[2]), offset: match.index }));
+}
+function nearestListingDate(markupBeforeLink) {
+  const heading = listingHeadingMatches(markupBeforeLink).at(-1);
+  return heading ? { month: heading.month, year: heading.year } : null;
+}
 // Pending nomination stages are separate from National Register listing status.
 // Track official stage transitions automatically without publishing attractions.
 function extractPendingSections(html) {
@@ -106,7 +117,7 @@ if (listed.length < 60 || pending.length < 15) errors.push("Official listing bas
 if (!head.includes("CollectionPage") || !page.includes("thcRecentListedLandmarks") ||
     !page.includes("thcPendingLandmarks") || !page.includes("National Register")) errors.push("Research route/status disclosure removed");
 // Regression: official listing headings can separate Listed/month with tags or &nbsp;.
-const julyFixture = nearestListingDate("<h4>Listed&nbsp;August 2026</h4><h4><strong>Listed</strong>&nbsp;July 2026</h4>");
+const julyFixture = nearestListingDate("<h4>Listed&nbsp;August 2026</h4><h4><strong>Listed</strong>&nbsp;<span>July</span>&#8203; 2026</h4>");
 if (julyFixture?.month !== "July" || julyFixture.year !== 2026) errors.push("THC listing month HTML parsing regression");
 
 const pendingFixture = extractPendingSections("<h3>Submitted to the National Park Service</h3><p>Evergreen Cemetery</p><p>Chambersea, Chambers County (Relocation Proposal Approved)</p><h3>Final Draft in Progress</h3><p>Rosewood Park</p><h3>Recent Listings and Nomination Search</h3>");
@@ -136,6 +147,7 @@ if (!process.argv.includes("--live")) {
     if (!html.includes("National Register of Historic Places") || html.length < 5000) throw Error("Unexpected THC source markup");
     // Extract NR nomination PDF labels, keeping each source's nearest Listed month.
     const links = [];
+    const sourceHeadingDiagnostics = [];
     const anchorPattern = /<a\b([^>]+)>([\s\S]*?)<\/a>/gi;
     for (const match of html.matchAll(anchorPattern)) {
       const href = /href\s*=\s*["']([^"']+)["']/i.exec(match[1])?.[1] ?? "";
@@ -145,6 +157,14 @@ if (!process.argv.includes("--live")) {
       const label = decodeHtml(match[2].replace(/<[^>]*>/g, "")).replace(/\s+/g, " ").trim();
       if (!label || label.length < 4) continue;
       links.push({ name: label, year: listingDate.year, month: listingDate.month, sourceUrl: decodeHtml(href) });
+      if (/^(?:Patricia Welder and Hampton C\. Robinson Jr\. House|Cindy Walker House)$/.test(label)) {
+        const before = html.slice(0, match.index);
+        sourceHeadingDiagnostics.push({
+          name: label, inferred: `${listingDate.month} ${listingDate.year}`,
+          nearestParsedHeadings: listingHeadingMatches(before).slice(-3),
+          nearestVisibleText: visibleListingText(before).slice(-500),
+        });
+      }
     }
     // Do not allow a site template change to produce a fake empty "no changes" result.
     if (links.length < 45) throw Error(`Only ${links.length} linked 2025–2026 records parsed: format may have changed`);
@@ -171,7 +191,7 @@ if (!process.argv.includes("--live")) {
     const pendingNotFound = pendingObserved.filter((entry) => ["missing", "ambiguous"].includes(entry.observed));
     Object.assign(report, {
       fetchedAt: new Date().toISOString(), parsedSourceLinks: links.length,
-      newlyObserved, missingFromCurrent, dateChanges, pendingStageChanges, pendingNotFound,
+      newlyObserved, missingFromCurrent, dateChanges, pendingStageChanges, pendingNotFound, sourceHeadingDiagnostics,
     });
     if (newlyObserved.length || missingFromCurrent.length || dateChanges.length || pendingStageChanges.length || pendingNotFound.length) {
       errors.push("THC source changed: research and refresh canonical inventory or pending stage (do not auto-publish)");
