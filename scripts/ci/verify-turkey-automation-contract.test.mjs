@@ -31,7 +31,12 @@ test("scheduled quarterly turkey refresh is eligible for exactly the protected s
 
 test("exact turkey Chrome audit must run on relevant production deployments and scheduled freshness checks", () => {
   assert.ok(deploy.includes('node scripts/ci/verify-turkey-hunting-browser.mjs'), "protected deployment must run browser audit");
-  assert.ok(deploy.includes("verify-turkey-hunting-browser\\.mjs"), "changing the audit must trigger the deployment gate");
+  const releaseScope = read("scripts/ci/hunting-browser-release-scope.mjs");
+  const changeScope = read("scripts/ci/production-change-scope.mjs");
+  assert.ok(deploy.includes("node scripts/ci/hunting-browser-release-scope.mjs"), "deployment must consult last verified production change plan");
+  assert.ok(releaseScope.includes('"scripts/ci/verify-turkey-hunting-browser.mjs"'), "browser audit changes must make release scope eligible");
+  assert.ok(changeScope.includes("'scripts/ci/verify-turkey-hunting-browser.mjs'"), "production change plan must select exact turkey route for audit edits");
+  assert.ok(changeScope.includes("'scripts/ci/hunting-browser-release-scope.mjs'"), "release scope changes must select exact turkey route");
   assert.ok(scheduled.includes("cron: '13 15 * * 2,5'"), "bounded twice-weekly check remains scheduled");
   assert.ok(scheduled.includes("id: turkey_browser"), "separate observed browser outcome");
   assert.ok(scheduled.includes("steps.turkey_browser.outcome == 'failure'"), "browser failure raises GitHub issue and fails closed");
