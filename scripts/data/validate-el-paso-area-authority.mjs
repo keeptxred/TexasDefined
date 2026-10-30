@@ -82,6 +82,25 @@ for (const [path, markers] of checks) {
   }
 }
 
+// The Ysleta cultural center must not reuse the service-yard/panorama
+// photos as its documentary hero. Guard the subject, no-known-restrictions
+// *photograph* claim and separately attributed mural artist rights.
+const muralMedia = read('src/data/ysleta-cultural-center-media.ts');
+const ysletaPage = read('src/components/editorial/YsletaDelSurMuseumAuthority.tsx');
+const ysletaCard = read('src/data/museum-expansion-statewide-wave68.ts');
+for (const marker of ['2014630705', 'Carol M. Highsmith', 'Bobby and Eddie Ortiz', 'Ricky V', 'Tigua \'95', 'no known restrictions']) {
+  if (!muralMedia.includes(marker)) failures.push('Ysleta source provenance marker missing: ' + marker);
+}
+for (const [source,label] of [[ysletaPage,'museum guide'],[ysletaCard,'destination card']]) {
+  if (!source.includes('YSLETA_CULTURAL_CENTER_MURAL')) failures.push('Ysleta actual-source mural photo not wired to ' + label);
+  if (source.includes('Tigua_Cultural_Center.jpg') || source.includes('Tigua_Cultural_Center_2.jpg'))
+    failures.push('Retired service/parking Cultural Center image still used in ' + label);
+}
+if (!ysletaPage.includes('not</strong> a photograph of the museum entrance') ||
+    !ysletaPage.includes('sourceUrl') && !ysletaPage.includes('const photoUrl = YSLETA_CULTURAL_CENTER_MURAL.sourceUrl')) {
+  failures.push('Ysleta documentary photo subject, source and entrance caveat missing');
+}
+
 const authority = read('src/components/content/ElPasoAreaAuthority.tsx');
 const links = [...authority.matchAll(/href:\s*'(\/[a-z0-9-]+(?:\/[a-z0-9-]+)*)'/g)].map((match) => match[1]);
 if (new Set(links).size !== links.length) failures.push('Duplicate editorial link in El Paso authority registry');

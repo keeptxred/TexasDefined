@@ -60,15 +60,15 @@ async function inspectMuseum(page, viewport) {
   await record('after-fonts');
   await page.waitForTimeout(1200);
   await record('after-1200ms');
-  const hero = page.locator('img[alt*="Photograph of the actual Tigua Cultural Center"]');
-  const panorama = page.locator('img[alt*="Wide panoramic photograph"]');
-  await panorama.scrollIntoViewIfNeeded({ timeout: 20_000 });
-  await record('after-panorama-scroll');
+  const hero = page.locator('img[alt*="Tigua wall mural at Ysleta"]');
+  await hero.scrollIntoViewIfNeeded({ timeout: 20_000 });
+  await record('after-verified-mural-scroll');
   let photoWait = null;
   try {
-    await page.waitForFunction(() => [...document.images].filter(img => /Tigua Cultural Center/.test(img.alt)).length === 2 &&
-      [...document.images].filter(img => /Tigua Cultural Center/.test(img.alt)).every(img => img.complete && img.naturalWidth >= 500),
-      null, { timeout: 25_000, polling: 350 });
+    await page.waitForFunction(() => {
+      const imgs = [...document.images].filter(img => img.alt.includes('Tigua wall mural at Ysleta'));
+      return imgs.length === 1 && imgs[0].complete && imgs[0].naturalWidth >= 500;
+    }, null, { timeout: 25_000, polling: 350 });
   } catch (err) { photoWait = err instanceof Error ? err.message : String(err); }
   await record('after-images-loaded');
   await page.evaluate(() => window.scrollTo(0, 0));
@@ -91,10 +91,13 @@ async function inspectMuseum(page, viewport) {
   check(data.text.includes('Wednesday–Sunday') && data.text.includes('Confirm directly') && data.text.includes('second and fourth Saturdays'), viewport + ': visitor claims/caveats missing');
   check(data.documentWidth <= data.viewportWidth + 10, viewport + ': horizontal overflow ' + data.documentWidth + '/' + data.viewportWidth);
   check(data.missingAlt.length === 0, viewport + ': images with missing alt ' + JSON.stringify(data.missingAlt));
-  for (const img of [hero, panorama]) {
-    const state = await img.evaluate(e => ({ src: e.currentSrc || e.src, width: e.naturalWidth, complete: e.complete, rendered: e.getBoundingClientRect().width }));
-    check(state.complete && state.width >= 500 && state.rendered <= data.viewportWidth + 10, viewport + ': failed exact-place licensed image ' + JSON.stringify(state) + ' wait=' + photoWait);
-  }
+  const heroState = await hero.evaluate(e => ({ src: e.currentSrc || e.src, width: e.naturalWidth, complete: e.complete, rendered: e.getBoundingClientRect().width }));
+  check(heroState.complete && heroState.width >= 500 && heroState.rendered <= data.viewportWidth + 10,
+    viewport + ': failed exact-place verified mural image ' + JSON.stringify(heroState) + ' wait=' + photoWait);
+  check(!data.images.some(img => /Tigua_Cultural_Center(?:_2)?[.]jpg/i.test(img.src)),
+    viewport + ': previously rejected service-side Cultural Center photo reappeared');
+  check(data.text.includes('Carol M. Highsmith') && data.text.includes('not') && data.text.includes('museum entrance'),
+    viewport + ': accurate museum-image subject and provenance caption missing');
   return { page: 'museum', viewport, http: response.status(), title: data.title, canonical: data.canonical, robots: data.robots, documentWidth: data.documentWidth, viewportWidth: data.viewportWidth, images: data.images, linkCount: data.links.length };
 }
 async function inspectInbound(page, path, viewport) {
