@@ -34,7 +34,7 @@ function normalize(name) {
     .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
     .replace(/[’‘]/g, "'").replace(/&amp;/g, "&")
     .replace(/\([^)]*(?:boundary|amendment)[^)]*\)/gi, "")
-    .replace(/[^a-z0-9]+/gi, " ").trim().replace(/ +/g, " ");
+    .replace(/[^a-z0-9]+/gi, " ").trim().replace(/ +/g, " ").toLowerCase();
 }
 function decodeHtml(text) {
   return text.replace(/&(?:nbsp|#160);/gi, " ")
@@ -54,6 +54,28 @@ function nearestListingDate(markupBeforeLink) {
   return heading ? { month: heading[1], year: Number(heading[2]) } : null;
 }
 
+// Pending nomination stages are separate from National Register listing status.
+// Track official stage transitions automatically without publishing attractions.
+function extractPendingSections(html) {
+  const visible = decodeHtml(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ").replace(/<[^>]*>/g, " "))
+    .replace(/[\u00a0\s]+/g, " ").toLowerCase();
+  const start = visible.indexOf("submitted to the national park service");
+  const middle = visible.indexOf("final draft in progress", start);
+  const finish = visible.indexOf("recent listings and nomination search", middle);
+  if (start < 0 || middle <= start || finish <= middle) {
+    throw Error("Official pending nomination headings absent or reordered; stage comparison unverified");
+  }
+  return { submitted: visible.slice(start, middle), review: visible.slice(middle, finish) };
+}
+
+function observedPendingStage(name, sections) {
+  // The official page inserts county details inside the Chambersea label.
+  const query = name === "Chambersea (relocation proposal)" ? "chambersea" : normalize(name);
+  const isSubmitted = sections.submitted.includes(query);
+  const isReview = sections.review.includes(query);
+  return isSubmitted && isReview ? "ambiguous" : isSubmitted ? "submitted" : isReview ? "review" : "missing";
+}
 const listed = block("THC_RECENT_LISTED_RAW").map((line) => {
   const parts = line.split("|");
   if (parts.length !== 6) throw Error(`Malformed listed entry: ${line}`);
@@ -87,6 +109,13 @@ if (!head.includes("CollectionPage") || !page.includes("thcRecentListedLandmarks
 const julyFixture = nearestListingDate("<h4>Listed&nbsp;August 2026</h4><h4><strong>Listed</strong>&nbsp;July 2026</h4>");
 if (julyFixture?.month !== "July" || julyFixture.year !== 2026) errors.push("THC listing month HTML parsing regression");
 
+const pendingFixture = extractPendingSections("<h3>Submitted to the National Park Service</h3><p>Evergreen Cemetery</p><p>Chambersea, Chambers County (Relocation Proposal Approved)</p><h3>Final Draft in Progress</h3><p>Rosewood Park</p><h3>Recent Listings and Nomination Search</h3>");
+if (observedPendingStage("Evergreen Cemetery", pendingFixture) !== "submitted" ||
+    observedPendingStage("Rosewood Park", pendingFixture) !== "review" ||
+    observedPendingStage("Chambersea (relocation proposal)", pendingFixture) !== "submitted" ||
+    observedPendingStage("Scotus College", pendingFixture) !== "missing") {
+  errors.push("THC pending nomination stage parsing regression");
+}
 const report = {
   checkedAt: new Date().toISOString(),
   source,
@@ -134,8 +163,19 @@ if (!process.argv.includes("--live")) {
         ? [{ property: row.name, recorded: `${row.month} ${row.year}`, source: `${link.month} ${link.year}` }]
         : [];
     });
-    Object.assign(report, { fetchedAt: new Date().toISOString(), parsedSourceLinks: links.length, newlyObserved, missingFromCurrent, dateChanges });
-    if (newlyObserved.length || missingFromCurrent.length || dateChanges.length) errors.push("THC source changed: research and refresh canonical inventory (do not auto-publish)");
+    const pendingSections = extractPendingSections(html);
+    const pendingObserved = pending.map((entry) => ({
+      name: entry.name, recorded: entry.stage, observed: observedPendingStage(entry.name, pendingSections),
+    }));
+    const pendingStageChanges = pendingObserved.filter((entry) => ["submitted", "review"].includes(entry.observed) && entry.recorded !== entry.observed);
+    const pendingNotFound = pendingObserved.filter((entry) => ["missing", "ambiguous"].includes(entry.observed));
+    Object.assign(report, {
+      fetchedAt: new Date().toISOString(), parsedSourceLinks: links.length,
+      newlyObserved, missingFromCurrent, dateChanges, pendingStageChanges, pendingNotFound,
+    });
+    if (newlyObserved.length || missingFromCurrent.length || dateChanges.length || pendingStageChanges.length || pendingNotFound.length) {
+      errors.push("THC source changed: research and refresh canonical inventory or pending stage (do not auto-publish)");
+    }
     const reportPath = path.join(root, "thc-landmark-watch-report.json");
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + "\n");
     console.log(JSON.stringify(report, null, 2));
