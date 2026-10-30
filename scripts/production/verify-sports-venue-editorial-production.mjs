@@ -280,7 +280,9 @@ for (const [label, source] of [
     'Reed Arena Bag Policy: Parking & Visitor Guide',
     'Reed Arena in College Station uses Texas A&M',
     'clear-bag 12-1-1 policy',
-    '12-1-1 rule',
+    // The visible guide takes its source-backed bag rule from the higher-priority
+    // wave-3 quality profile, not the later fallback Batch 5 arrival text.
+    '12-1-1 clear-bag policy',
     'https://12thman.com/facilities/a-to-z/reed-arena',
   ]) assertIncludes(html, marker, label);
   for (const marker of banned) assertAbsent(html, marker, label);
