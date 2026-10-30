@@ -24,7 +24,7 @@ export interface MajorEventGuideDirectoryItem {
   endDate?: string;
   sourceCheckedAt?: string;
   /** Rights-reviewed event-specific image only; never an unrelated fallback. */
-  image?: { url: string; alt: string };
+  image?: { url: string; alt: string; sourceUrl?: string; sourceType?: string; licenseName?: string; licenseUrl?: string; rightsNote?: string; approvedForCommercialUse?: boolean };
 }
 
 interface EventDiscoveryLink {
@@ -141,7 +141,7 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
         startDate: event.startDate,
         endDate: event.endDate,
         sourceCheckedAt: event.sourceCheckedAt,
-        image: image ? { url: image.url, alt: image.alt } : undefined,
+        image: image ? { url: image.url, alt: image.alt, sourceUrl: image.sourceUrl, sourceType: image.sourceType, licenseName: image.licenseName, licenseUrl: image.licenseUrl, rightsNote: image.rightsNote, approvedForCommercialUse: image.approvedForCommercialUse } : undefined,
       };
       }),
   ].sort((left, right) => {

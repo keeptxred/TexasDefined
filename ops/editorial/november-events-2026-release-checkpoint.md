@@ -95,3 +95,30 @@ Additional affiliate relevance correction: November's shared `CalendarBookingDis
 - The outstanding bounded [November organizer review issue #6403](https://github.com/keeptxred/TexasDefined/issues/6403) originally arose from Houston Ballet's recurring HTTP 403 in GitHub Actions, not a sourced contradiction. Independently confirmed Houston Ballet itself advertises November 12–15, 2026 at Reliant Center. The **venue's official first-party page** https://www.reliantpark.com/event/nutcracker-market/ independently confirms the exact Nov 12–15, 2026 occurrence and Reliant Center.
 - This bounded PR adds a **blocked-source-only official venue fallback** to the existing read-only daily November watcher. It accepts the host listing only if original Houston Ballet fetch returns 403, 429, a server error or network exception; if accessible organizer dates change or organizer page returns 404, it deliberately reports review rather than silently accepting a fallback. Host-source date and venue must match independently. Regression fixtures cover block→correct host fallback, changed organizer→no fallback, organizer 404→review, wrong-year venue and renamed venue rejection.
 - After merge, certify the actual existing daily GitHub-run source observations. Only then consider closing issue #6403 with a source-specific explanation. Do not repeatedly retry the blocked host, disable review entirely, invent ticket availability, trigger new sitewide audits, create a new cron, or reconnect Cloudflare. Leave the original organizer link on public authority guides.
+
+
+## October 30 — release reopened for missing November event imagery
+
+**The prior release cannot be marked fully complete on the strength of text/date validation alone.** User correctly identified the uncompleted event imagery review.
+
+### Verified baseline deficiency
+
+- The `/events/november-events` component previously rendered images only with `event.image?.url ? <img ...> : null`. Every no-photo record therefore showed a **blank visual area / no visual** in both the featured and main event results.
+- All seven direct organizer-only 2026 records in `src/data/events/november-official-picks-2026.ts` do not include an image property; they were definitely missing any visual. Many of the 48 permanent guides have no governed photo image either.
+- Existing genuine event photos must remain subject to `getMajorEventSchemaOccurrenceEnrichmentServer()` and `isCompliantMajorEventImage()`: verified origin, exact subject, license/rights notes, commercial-use approval and meaningful alt. Do not replace these with irrelevant regional stock, claim a photo shows a 2026 event when it is older, or impersonate organizer material.
+
+### Implemented remediation (separate bounded imagery PR)
+
+- Every November guide and direct organizer listing now renders `NovemberEventVisual` (also four featured cards). For an approved rights-reviewed event image: display the existing source image with explicit source/credit link, meaningful alt and category-accurate `data-event-visual`; an AI-generated source is labeled as editorial, not documentary.
+- If no rights-reviewed image exists or a source image fails to load, render an individually titled **Texas Defined editorial event illustration**, with event name, city/date, appropriate sports/music/food/culture/seasonal/rodeo theme and conspicuous `not event photography` disclosure. This is a distinct honest visual for every event, **not** a claim that new 2026 photographs were created.
+- Reuse the existing rights-approved image catalog; no additional paid AI image generation, no questionable hotlinked organizer images, no new cron, no speculative annual rollover and no extra manual image licensing gate.
+- Client `onError` recovers from blocked/broken external photo URLs rather than exposing an empty card.
+- The directory propagates source URL/type/license and commercial-use approval from already reviewed event schema to the November card; disapproved photos cannot display.
+- Focused regression test guards that **both featured cards and 55 event rows** always render a visual and that editorial/photo status is labeled truthfully. The existing November production SSR verifier now requires **one valid `data-event-visual` per all 55 `data-november-event-card` rows**, truthful illustration disclosure, nonempty photo alts and a photo-vs-illustration count. These checks are season-scoped to Oct 29–Nov 30, 2026, and do not affect other months.
+
+### Release acceptance that must still occur
+
+- GitHub **Validate November Event Collection** regression pass and protected **Required merge gate** success on exact PR head; review any concrete compile errors and fix narrowly.
+- Squash merge following protected rules, exact code SHA as deployed (or verified descendant same visual source blobs).
+- Execute existing **Verify temporal event production** check after deploying; require **55/55 visibly represented event cards**, 0 missing imagery, clear differentiations between licensed photographs and editorial illustrations, original filters/chronology and organizer source links unaffected.
+- Only then close this imagery backlog item, append exact PR/commit/deployment/verifier references, and declare the November **page** release complete.

@@ -235,6 +235,33 @@ async function verifyNovember2026EditorialRelease(november) {
   assert(visible.includes('Family activities Nov 13–15; main market Nov 18–22'), 'November A Christmas Affair split windows missing');
   assert(visible.includes('7 direct organizer listings'), 'November listing count does not include all organizer-only events');
 
+  // Real production SSR must show one rights-reviewed photo or explicitly
+  // illustrative event visual for each of the 55 November results.
+  const cards = [...november.matchAll(/<li\b[^>]*\bdata-november-event-card="[^"]*"[^>]*>([\s\S]*?)<\/li>/gi)];
+  const displayedCount = visible.match(/([0-9,]+) of ([0-9,]+) organizer-verified events match your filters/);
+  assert(displayedCount, 'November visual acceptance requires the visible calendar results count');
+  const expectedCards = Number(displayedCount[2].replace(/,/g, ''));
+  assert(expectedCards >= 55, 'November event listings should retain the 55 verified opening events');
+  assert(cards.length === expectedCards, 'November visual acceptance expected ' + expectedCards + ' event cards; received ' + cards.length);
+  let editorialCount = 0;
+  let photoCount = 0;
+  for (const [index, card] of cards.entries()) {
+    const visuals = [...card[1].matchAll(/\bdata-event-visual="(editorial|photograph)"/g)].map((match) => match[1]);
+    assert(visuals.length === 1, 'November card ' + (index + 1) + ' needs exactly one valid visual; got ' + visuals.length);
+    if (visuals[0] === 'editorial') {
+      editorialCount += 1;
+      assert(card[1].includes('not event photography'), 'November card ' + (index + 1) + ' illustration must disclose its nature');
+    } else {
+      photoCount += 1;
+      assert(/<img\b[^>]*\balt="[^"]+"/i.test(card[1]), 'November card ' + (index + 1) + ' source photograph requires alt text');
+    }
+  }
+  assert(editorialCount + photoCount === expectedCards, 'Every November listing needs a visual');
+  const pageVisuals = [...november.matchAll(/\bdata-event-visual="(editorial|photograph)"/g)];
+  assert(pageVisuals.length >= expectedCards + 4, 'The four featured November event cards must also render visuals');
+  console.log('[November imagery] ' + cards.length + '/' + expectedCards + ' visual cards: ' + photoCount + ' existing event images, ' + editorialCount + ' disclosed editorial illustrations');
+
+
   const lights = await fetchProduction('/event/johnson-city-christmas-lights-spectacular', 'Johnson City lights 2026 guide');
   const johnsonText = visiblePageText(lights);
   assert(johnsonText.includes('November 27, 2026') && johnsonText.includes('January 3, 2027'), 'Johnson City event dates reverted from organizer-confirmed season');

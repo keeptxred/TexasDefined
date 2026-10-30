@@ -253,6 +253,96 @@ function FallFestivalBrowser({ page }: { page: any }) {
 }
 
 
+
+const novemberVisualThemes: Record<string, { background: string; accent: string }> = {
+  seasonal: { background: "linear-gradient(135deg,#172044 0%,#542477 52%,#993857 100%)", accent: "#fde68a" },
+  culture: { background: "linear-gradient(135deg,#34134b 0%,#8a256f 55%,#bf4260 100%)", accent: "#ffe4e6" },
+  food: { background: "linear-gradient(135deg,#43200c 0%,#984016 50%,#b83624 100%)", accent: "#fde68a" },
+  music: { background: "linear-gradient(135deg,#112338 0%,#243b74 55%,#167889 100%)", accent: "#bae6fd" },
+  sport: { background: "linear-gradient(135deg,#112a2b 0%,#175b44 55%,#21867a 100%)", accent: "#d1fae5" },
+  rodeo: { background: "linear-gradient(135deg,#31241c 0%,#6e441d 55%,#b35a21 100%)", accent: "#ffedd5" },
+};
+
+/** Event-specific editorial art; never presented as documentary event photography. */
+function NovemberEditorialVisual({ event, className = "" }: { event: any; className?: string }) {
+  const theme = novemberVisualThemes[event.category] ?? novemberVisualThemes.culture;
+  const shortDate = String(event.startDate ?? "").slice(5).replace("-", "/");
+  const visualLabel = "Texas Defined editorial illustration for " + event.name + " in " + event.city + ". Not a photograph of the event.";
+  return <div
+    role="img"
+    aria-label={visualLabel}
+    data-event-visual="editorial"
+    className={["relative aspect-[4/3] w-full overflow-hidden text-white", className].join(" ")}
+    style={{ background: theme.background }}
+  >
+    <svg style={{ pointerEvents: "none", position: "absolute", right: "-9%", top: "-6%", height: "110%", width: "90%", opacity: 0.3 }} viewBox="0 0 640 540" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
+      <circle cx="396" cy="260" r="194" />
+      <circle cx="396" cy="260" r="145" />
+      <circle cx="396" cy="260" r="93" />
+      <path d="M396 12v496M148 260h496M221 85l350 350M571 85L221 435" />
+      {event.category === "sport"
+        ? <path d="M310 165c48-40 118-38 166 0M310 360c48 39 118 39 166 0M284 260h224" strokeWidth="9" />
+        : event.category === "music"
+          ? <path d="M360 158v216m0-216 114-22v212M360 373c-54-28-86 41-35 48 22 3 35-15 35-48Zm114-25c-54-28-86 41-35 48 22 3 35-15 35-48Z" strokeWidth="8" />
+          : event.category === "food"
+            ? <g strokeWidth="8"><circle cx="396" cy="265" r="119" /><circle cx="396" cy="265" r="80" /><path d="M242 154v87m-22-87v70h44v-70m-22 65v144M554 154c-33 26-42 70-35 118h37v91" /></g>
+            : event.category === "seasonal"
+              ? <g strokeWidth="7"><path d="M186 162Q396 331 600 162" /><path d="M259 210v44m133-13v48m133-79v44" /><ellipse cx="259" cy="270" rx="17" ry="24" /><ellipse cx="392" cy="305" rx="17" ry="24" /><ellipse cx="525" cy="270" rx="17" ry="24" /></g>
+              : event.category === "culture"
+                ? <g strokeWidth="8"><path d="M292 165c-90 39-105 151-29 220 34 31 74 9 69-22-10-41 33-50 56-25 44 52 117-16 124-91 9-103-112-157-220-82Z" /><circle cx="288" cy="256" r="16" /><circle cx="363" cy="212" r="16" /><circle cx="447" cy="240" r="16" /><circle cx="426" cy="322" r="16" /></g>
+                : event.category === "rodeo"
+                  ? <g strokeWidth="9"><path d="M255 296c36 25 247 25 283 0-35 81-240 90-283 0ZM304 286l23-114h150l22 114M233 307c12 26 54 42 84 43m203-43c-12 26-54 42-84 43" /></g>
+                  : <path d="m396 125 29 90 92 0-74 55 28 90-75-54-74 54 28-90-74-55 92 0Z" strokeWidth="6" />}
+    </svg>
+    <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.04) 57%,rgba(0,0,0,.38))" }} />
+    <div className="relative flex h-full flex-col justify-between p-5" style={{ gap: 16 }}>
+      <div className="flex justify-between gap-4 uppercase" style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".13em" }}>
+        <span>Texas Defined · Events</span>
+        <span style={{ opacity: 0.78 }}>Editorial illustration</span>
+      </div>
+      <div style={{ maxWidth: "95%" }}>
+        <p style={{ color: theme.accent, marginBottom: 8, fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".08em" }}>{event.city} · {shortDate}</p>
+        <p className="font-display" style={{ fontSize: "clamp(1.45rem,2vw,1.9rem)", lineHeight: 1.08, fontWeight: 700, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{event.name}</p>
+        <p style={{ marginTop: 10, fontSize: 11, opacity: 0.82 }}>Visual guide · not event photography</p>
+      </div>
+    </div>
+  </div>;
+}
+
+/** Preserve licensed event-specific photos; fail closed to truthful art on broken links. */
+function NovemberEventVisual({ event, className = "" }: { event: any; className?: string }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const photo = event.image;
+  const available = photo?.url && photo.alt?.trim() && photo.approvedForCommercialUse === true && !imageFailed;
+  if (available) {
+    const isGenerated = photo.sourceType === "ai-generated" || /AI-generated/i.test(photo.alt);
+    return <figure className={className}>
+      <img
+        src={photo.url}
+        alt={photo.alt}
+        width={800}
+        height={600}
+        loading="lazy"
+        decoding="async"
+        onError={() => setImageFailed(true)}
+        data-event-visual={isGenerated ? "editorial" : "photograph"}
+        className="aspect-[4/3] w-full object-cover"
+      />
+      <figcaption className="text-muted-foreground" style={{ display: "flex", flexWrap: "wrap", gap: 12, padding: "6px 8px", fontSize: 11, lineHeight: 1.5 }}>
+        {isGenerated ? "AI illustration · not event photography" : <>
+          {photo.sourceUrl ? <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
+            {String(photo.rightsNote || "").split(";")[0] || "Photo source"}
+          </a> : "Event photograph"}
+          {photo.licenseUrl ? <a href={photo.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">
+            {photo.licenseName || "Image license"}
+          </a> : null}
+        </>}
+      </figcaption>
+    </figure>;
+  }
+  return <NovemberEditorialVisual event={event} className={className} />;
+}
+
 function NovemberCollectionBrowser({ page }: { page: any }) {
   const [region, setRegion] = useState("all");
   const [category, setCategory] = useState("all");
@@ -324,7 +414,7 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">From early November festivals to opening weekend light displays, these confirmed guides offer useful starting points for a Texas getaway. Individual ticket sessions and daily operating times can vary.</p>
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {featured.map((event: any) => <article key={event.slug} className="flex flex-col overflow-hidden border border-border bg-surface">
-          {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="aspect-[4/3] w-full object-cover" /> : null}
+          <NovemberEventVisual event={event} />
           <div className="flex flex-1 flex-col p-5">
           <p className="text-xs font-semibold uppercase tracking-wide text-primary">{event.city} · {dateDisplay(event)}</p>
           <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
@@ -371,8 +461,8 @@ function NovemberCollectionBrowser({ page }: { page: any }) {
       {isFiltered ? <button type="button" className="text-sm font-semibold text-primary underline" onClick={reset}>Clear filters</button> : null}
     </div>
     {filtered.length ? <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
-      {filtered.map((event) => <li key={event.slug} className="flex flex-col bg-background p-6">
-        {event.image?.url ? <img src={event.image.url} alt={event.image.alt} loading="lazy" width={800} height={600} className="mb-5 aspect-[4/3] w-full object-cover" /> : null}
+      {filtered.map((event) => <li key={event.slug} data-november-event-card={event.name} className="flex flex-col bg-background p-6">
+        <NovemberEventVisual event={event} className="mb-5" />
         <p className="text-xs font-semibold uppercase tracking-wide text-primary">{dateDisplay(event)}</p>
         <p className="eyebrow mt-3 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
         <h3 className="mt-3 font-display text-2xl leading-tight">
