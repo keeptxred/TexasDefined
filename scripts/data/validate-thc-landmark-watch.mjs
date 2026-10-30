@@ -41,6 +41,10 @@ function decodeHtml(text) {
     .replace(/&amp;/gi, "&").replace(/&quot;/gi, '"')
     .replace(/&#0*39;|&apos;/gi, "'")
     .replace(/&ndash;|&mdash;/gi, "–")
+    .replace(/&#x([0-9a-f]{1,6});?/gi, (_, hex) => {
+      const cp = Number.parseInt(hex, 16);
+      return cp <= 0x10ffff ? String.fromCodePoint(cp) : " ";
+    })
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)));
 }
 
@@ -117,8 +121,15 @@ if (listed.length < 60 || pending.length < 15) errors.push("Official listing bas
 if (!head.includes("CollectionPage") || !page.includes("thcRecentListedLandmarks") ||
     !page.includes("thcPendingLandmarks") || !page.includes("National Register")) errors.push("Research route/status disclosure removed");
 // Regression: official listing headings can separate Listed/month with tags or &nbsp;.
-const julyFixture = nearestListingDate("<h4>Listed&nbsp;August 2026</h4><h4><strong>Listed</strong>&nbsp;<span>July</span>&#8203; 2026</h4>");
-if (julyFixture?.month !== "July" || julyFixture.year !== 2026) errors.push("THC listing month HTML parsing regression");
+const julyFixtures = [
+  "<h4>Listed&nbsp;August 2026</h4><h4><strong>Listed</strong>&nbsp;<span>July</span>&#8203; 2026</h4>",
+  "<p>Listed August 2026</p><h4>Listed&#xA0;<strong>July</strong> 2026</h4>",
+  "<p>Listed August 2026</p><h4>Listed&thinsp;July&nbsp;2026</h4>",
+];
+if (julyFixtures.some((markup) => {
+  const date = nearestListingDate(markup);
+  return date?.month !== "July" || date.year !== 2026;
+})) errors.push("THC listing month HTML parsing regression");
 
 const pendingFixture = extractPendingSections("<h3>Submitted to the National Park Service</h3><p>Evergreen Cemetery</p><p>Chambersea, Chambers County (Relocation Proposal Approved)</p><h3>Final Draft in Progress</h3><p>Rosewood Park</p><h3>Recent Listings and Nomination Search</h3>");
 if (observedPendingStage("Evergreen Cemetery", pendingFixture) !== "submitted" ||
