@@ -251,18 +251,23 @@ requireMarker(linkGraph, 'audit-site-quality-local.yml', 'Full internal-link aud
 requireMarker(linkGraph, 'audit: links', 'Internal-link manual entry point must preserve the complete graph audit');
 if (/^  (workflow_run|schedule|push|pull_request):/m.test(linkGraph)) failures.push('Full link-graph crawler must not run on each production deploy');
 const seasonal = workflow('verify-seasonal-production');
-// The full seasonal audit is a manual feature under update-scan-policy.json.
-// Automatic fall coverage stays in protected deploy's foliage scope and
-// the scheduled Chrome acceptance workflow; do not add another deploy fan-out.
+const scheduledSeasonal = scanPolicy.scheduledFeatureWorkflows ?? [];
+if (scheduledSeasonal.length !== 1 || scheduledSeasonal[0] !== 'verify-seasonal-production')
+  failures.push('Weekly seasonal production must remain the only approved scheduled feature audit');
+if (scanPolicy.manualFeatureWorkflows.includes('verify-seasonal-production'))
+  failures.push('Seasonal production must be automated rather than manual-only');
 noDirectPush(seasonal, 'Seasonal production verifier');
-requireMarker(seasonal, 'workflow_dispatch:', 'Seasonal full-audit manual trigger missing');
-requireMarker(seasonal, 'Require successful production release of selected SHA', 'Seasonal manual audit must reject undeployed revisions');
-requireMarker(seasonal, 'texasdefined-production', 'Seasonal manual audit must require verified protected production status');
-requireMarker(seasonal, 'DEPLOY_SHA: ${{ github.sha }}', 'Seasonal manual audit must bind selected revision');
-if (/^  (workflow_run|schedule|push|pull_request):/m.test(seasonal))
-  failures.push('Full seasonal audit must remain manual-only under feature scan policy');
+requireMarker(seasonal, 'workflow_dispatch:', 'Seasonal emergency rerun trigger missing');
+requireMarker(seasonal, "cron: '37 14 * * 1'", 'Weekly seasonal automation schedule missing');
+requireMarker(seasonal, 'Select last successfully deployed protected main revision', 'Seasonal verifier must select deployed rather than moving main');
+requireMarker(seasonal, 'actions/workflows/deploy-production.yml/runs?branch=main&status=success&per_page=1', 'Seasonal verifier must use one bounded successful production lookup');
+requireMarker(seasonal, 'texasdefined-production', 'Seasonal verifier must enforce protected production status');
+requireMarker(seasonal, 'DEPLOY_SHA=$deploy_sha', 'Seasonal status must bind to the deployed SHA');
+requireMarker(seasonal, 'actions: read', 'Seasonal workflow needs read-only deployment lookup');
+if (/^  (workflow_run|push|pull_request):/m.test(seasonal))
+  failures.push('Full seasonal audit must not fan out on pushes, PRs, or every deployment');
 if (seasonal.includes('Wait for production deploy on push fallback') || seasonal.includes('for attempt in $(seq 1 36)'))
-  failures.push('Seasonal manual verifier must not restore deployment polling');
+  failures.push('Scheduled seasonal audit must not restore deployment polling');
 
 const sports = workflow('verify-sports-venue-editorial-production');
 noDirectPush(sports, 'Sports venue standalone helper');
