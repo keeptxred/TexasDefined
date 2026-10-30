@@ -1000,7 +1000,7 @@ test('Fredericksburg sitemap ownership validates a single canonical page and liv
   assert.ok(missingMagoffin.some(r => r.path === '/sitemap-explore.xml' && !r.passed && /Magoffin Home missing/.test(r.error)));
 });
 
-test('three concluded 2026 events are checked on normal and release URLs, without broad event crawling', () => {
+test('four concluded 2026 events are checked on normal and release URLs, without broad event crawling', () => {
   const cases = [
     ['/event/state-fair-classic',
       ['The September 26, 2026 State Fair Classic is complete.', '2026 State Fair Classic: final score and date', 'Grambling State 14'],
@@ -1011,12 +1011,23 @@ test('three concluded 2026 events are checked on normal and release URLs, withou
     ['/event/east-texas-state-fair',
       ['The East Texas State Fair 2026 edition concluded October 4 in Tyler.', '2026 East Texas State Fair: completed', 'Historical 2026 grounds and arena ticket rules'],
       'Use September 25-October 4 as the confirmed 2026 fair run'],
+    ['/event/crossroads-of-texas-country-festival',
+      ['The October 24, 2026 Crossroads of Texas GO TEXAN Country Festival has concluded',
+        '2026 music archive: Jake Worthington', 'CBS Texas — October 25, 2026 post-event report'],
+      'The main-stage headline show is scheduled to end at 7:30 p.m.'],
   ];
   for (const [path, required, forbidden] of cases) {
     const good = required.join(' | ');
     assert.doesNotThrow(() => assertCompleted2026EventFacts(path, good, 'release'), path);
     assert.throws(() => assertCompleted2026EventFacts(path, good + ' ' + forbidden, 'visitor'), /still advertises past edition as upcoming/, path);
     assert.throws(() => assertCompleted2026EventFacts(path, '', 'visitor'), /missing verified historical content/, path);
+    if (path === '/event/crossroads-of-texas-country-festival') {
+      assert.throws(
+        () => assertCompleted2026EventFacts(path, '<meta name="robots" content="noindex, follow">' + good, 'visitor'),
+        /unexpectedly noindex/,
+        'Crossroads exact-location photo must not silently regress to noindex',
+      );
+    }
   }
   assert.doesNotThrow(() => assertCompleted2026EventFacts('/event/unrelated', '', 'release'));
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/verify-changed-production-pages.mjs'] });
