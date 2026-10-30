@@ -39,6 +39,8 @@ test("November newly confirmed organizer sources preserve split weekend dates", 
   assert(verifySource("<p>2026 TEXAS CHRISTKINDL MARKET DATES: Nov. 20 – 22, 2026; Nov. 27 – Dec. 23, 2026</p>", byName("Texas Christkindl Market")));
   assert(!verifySource("<p>2026: Nov. 20 – 23 only</p>", byName("Texas Christkindl Market")));
   assert(verifySource("<p>2026 Tour: November 14–15 and November 21–22</p>", byName("Austin Studio Tour")));
+  assert(verifySource("<h1>November 14–15 & 21–22, 2026</h1>", byName("Austin Studio Tour")), "Real organizer format omits the second November");
+  assert(!verifySource("<h1>November 14–15 & 21–23, 2026</h1>", byName("Austin Studio Tour")), "Date drift must not accept a changed second weekend");
   assert(!verifySource("<p>2026 Tour: November 14–15 only</p>", byName("Austin Studio Tour")));
 });
 
