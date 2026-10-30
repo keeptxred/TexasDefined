@@ -2139,6 +2139,8 @@ const batch009Certification = JSON.parse(read('docs/football-authority/REGISTRY.
 const batch009Certified = batch009Cohort(batch009Certification)?.state === 'VERIFIED_BATCH_009_COMPLETE';
 const batch010Certification = batch009Certification.completedBatches.find(b => b.number === 10 && b.state === 'VERIFIED_BATCH_010_COMPLETE');
 const batch010Certified = Boolean(batch010Certification);
+const batch011Certification = batch009Certification.completedBatches.find(b => b.number === 11 && b.state === 'VERIFIED_BATCH_011_COMPLETE');
+const batch011Certified = Boolean(batch011Certification);
 // The certified Batch010 is immutable historical evidence once Batch011 is
 // assigned; the active registry pointer must be allowed to move forward.
 // This is a read-only validation view, not a rewrite of the signed archive.
@@ -2148,7 +2150,12 @@ const batch010View=(registry)=>{
     errors.push('Batch011 may become active only after fully archived Batch010 technical certification.');
     return registry;
   }
-  return {...registry,batch:{...batch010Certification,currentSchool:null,nextSchool:null}};
+  // This is strictly a read-only historical projection. Reclassify *only* newer
+  // Batch011 technically certified rows as source-implemented while testing the
+  // immutable Batch010 archive; never write this projected record to REGISTRY.
+  return {...registry,batch:{...batch010Certification,currentSchool:null,nextSchool:null},
+    schoolRecords:registry.schoolRecords.map(row=>row.batch>10 && row.status==='VERIFIED'
+      ? {...row,status:'IMPLEMENTED',actualProductionVerified:false}:row)};
 };
 const batch010ExpectedUnreviewed = 1062 -
   batch009Certification.schoolRecords.filter(x=>
@@ -2244,7 +2251,7 @@ if (batch010Certified) {
 }
 const batch009ExpectedStatus = batch009Certified ? 'VERIFIED' : 'IMPLEMENTED';
 const batch009ExpectedProduction = batch009Certified;
-const batch009ExpectedTotalVerified = batch009Certified ? batch010ExpectedTotalVerified : 180;
+const batch009ExpectedTotalVerified = batch009Certified ? (batch011Certified ? 255 : batch010ExpectedTotalVerified) : 180;
 const batch009ExpectedImplemented = batch009Certified ? 0 : 25;
 const batch009ExpectedPending = batch009Certified ? 0 : 25;
 if(batch009Certified) {
@@ -2311,7 +2318,7 @@ if(batch009Certified) {
      r.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===9).length!==0 ||
      r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==(1087-
        r.schoolRecords.filter(x=>x.batch>=10&&x.status!=='NOT_REVIEWED').length) ||
-     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==9).length!==(batch010Certified?205:180) ||
+     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==9).length!==(batch010Certified?(batch011Certified?230:205):180) ||
      r.counts.total!==1292) errors.push('Batch009 technical certification must preserve all historical verified and unreviewed schools.');
 }
 
