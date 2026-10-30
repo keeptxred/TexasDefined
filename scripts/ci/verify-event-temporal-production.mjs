@@ -235,6 +235,27 @@ async function verifyNovember2026EditorialRelease(november) {
   assert(visible.includes('Family activities Nov 13–15; main market Nov 18–22'), 'November A Christmas Affair split windows missing');
   assert(visible.includes('7 direct organizer listings'), 'November listing count does not include all organizer-only events');
 
+  // Real production SSR must show one rights-reviewed photo or explicitly
+  // illustrative event visual for each of the 55 November results.
+  const cards = [...november.matchAll(/<li\b[^>]*\bdata-november-event-card="[^"]*"[^>]*>([\s\S]*?)<\/li>/gi)];
+  assert(cards.length === 55, 'November visual acceptance expected 55 event cards; received ' + cards.length);
+  let editorialCount = 0;
+  let photoCount = 0;
+  for (const [index, card] of cards.entries()) {
+    const visuals = [...card[1].matchAll(/\bdata-event-visual="(editorial|photograph)"/g)].map((match) => match[1]);
+    assert(visuals.length === 1, 'November card ' + (index + 1) + ' needs exactly one valid visual; got ' + visuals.length);
+    if (visuals[0] === 'editorial') {
+      editorialCount += 1;
+      assert(card[1].includes('not event photography'), 'November card ' + (index + 1) + ' illustration must disclose its nature');
+    } else {
+      photoCount += 1;
+      assert(/<img\b[^>]*\balt="[^"]+"/i.test(card[1]), 'November card ' + (index + 1) + ' source photograph requires alt text');
+    }
+  }
+  assert(editorialCount + photoCount === 55, 'Every November listing needs a visual');
+  console.log('[November imagery] ' + cards.length + '/55 visual cards: ' + photoCount + ' existing event images, ' + editorialCount + ' disclosed editorial illustrations');
+
+
   const lights = await fetchProduction('/event/johnson-city-christmas-lights-spectacular', 'Johnson City lights 2026 guide');
   const johnsonText = visiblePageText(lights);
   assert(johnsonText.includes('November 27, 2026') && johnsonText.includes('January 3, 2027'), 'Johnson City event dates reverted from organizer-confirmed season');
