@@ -58,6 +58,8 @@ test("November unified filters include organizer picks and honor noncontinuous w
   }
   assert(layout.includes('const allEvents = [...items, ...officialPicks].sort('));
   assert(layout.includes('String(a.startDate).localeCompare(String(b.startDate))'), "Combined events should be chronological, not append organizer-only entries at the bottom");
+  assert(layout.includes('page.path !== "/events/november-events" ? planningPanel : null'), "Do not put planning copy ahead of November filters");
+  assert(layout.includes('page.path === "/events/november-events" ? planningPanel : null'), "Preserve planning and sourcing after November results");
   assert(layout.includes("const filtered = allEvents.filter("));
   assert(layout.includes("dateWindows(event).some("));
   assert(layout.includes('event.slug === "a-christmas-affair"'));
