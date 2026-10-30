@@ -74,7 +74,7 @@ const pages = [
   {
     label: 'Bandera archive license and contradictory Sunday date disclosure',
     url: 'https://texasdefined.com/event/cowboy-mardi-gras-bandera',
-    required: ['Cowboy Mardi Gras', 'January 28', 'January 30', 'January 31', 'Carol M. Highsmith', 'Public domain', 'data-major-event-hero="true"'],
+    required: ['Cowboy Mardi Gras', 'January 28–31, 2027', 'January 28–30', 'January 30', 'Carol M. Highsmith', 'Public domain', 'data-major-event-hero="true"'],
     forbidden: ['name="robots" content="noindex', 'content="noindex, follow'],
   },
   {
