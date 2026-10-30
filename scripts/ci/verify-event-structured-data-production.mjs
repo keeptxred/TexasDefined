@@ -7,9 +7,9 @@ function verifiedCrossroadsSnapshot() {
   const source = readFileSync('src/data/major-event-expanded-authority-tranche41.server.ts', 'utf8');
   const start = source.indexOf('slug: "crossroads-of-texas-country-festival"');
   if (start < 0) throw new Error('Missing Crossroads source record');
-  const end = source.indexOf('\\n  {\\n    slug:', start + 1);
+  const end = source.indexOf('\n  {\n    slug:', start + 1);
   const record = source.slice(start, end < 0 ? undefined : end);
-  const date = record.match(/sourceCheckedAt:\\s*"(20\\d{2}-\\d{2}-\\d{2})"/)?.[1];
+  const date = record.match(/sourceCheckedAt:\s*"(20\d{2}-\d{2}-\d{2})"/)?.[1];
   if (!date) throw new Error('Missing editorial Crossroads source date');
   const historicalHeading = '2026 music archive: Jake Worthington, Kenny Whitmire and smaller stages';
   if (!record.includes(historicalHeading)) throw new Error('Crossroads archive heading changed; review live expectations');
