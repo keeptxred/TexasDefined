@@ -28,6 +28,22 @@ function forbidText(source, needle, message) {
   if (source.includes(needle)) failures.push(message);
 }
 
+// The permanent Texas Rose Festival page was excluded by noindex at Google's
+// last 2026-10-27 crawl because it lacked an approved image. Do not turn off
+// the fail-closed noindex gate: require an actually licensed venue photograph.
+const roseImageRecord = read('src/data/major-event-schema-enrichment-batch1.server.ts')
+  .split('slug: "texas-rose-festival"')[1]?.split('\n  },')[0] ?? '';
+for (const token of [
+  'Special:Redirect/file/Tyler_Rose_Garden.jpg?width=1600',
+  'sourceUrl: "https://commons.wikimedia.org/wiki/File:Tyler_Rose_Garden.jpg"',
+  'sourceType: "wikimedia"',
+  'licenseName: "Creative Commons Attribution 2.0 Generic"',
+  'licenseUrl: "https://creativecommons.org/licenses/by/2.0/"',
+  'Robert Nunnally',
+  'exactLocation: true',
+  'approvedForCommercialUse: true',
+]) requireText(roseImageRecord, token, 'Texas Rose Festival governed exact-location image must stay licensed and indexable');
+
 for (const [needle, message] of [
   ['"@type": "Event"', 'Dedicated event pages must emit Event JSON-LD.'],
   ['name: event.name', 'Event JSON-LD must include the event name.'],
