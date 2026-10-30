@@ -84,7 +84,34 @@ try {
       if(facts.canonical!==site+path||/noindex/i.test(facts.robots))errors.push('Wrong canonical/noindex');
       if(!facts.schema.includes('SportsTeam')||!facts.schema.includes('FAQPage'))errors.push('Missing SportsTeam or FAQ schema');
       if(!facts.links.includes('/county/'+countyBySlug[slug]))errors.push('No outgoing campus county link');
-      if(facts.pageWidth>width+8)errors.push('Page horizontal overflow');
+      if (facts.pageWidth > width + 8) {
+        errors.push('Page horizontal overflow');
+        // Keep the viewport gate strict, and record the specific overflow
+        // elements so the next genuine production failure is actionable.
+        row.overflow = {
+          documentWidth: facts.pageWidth,
+          viewportWidth: width,
+          elements: await page.evaluate(() => [...document.querySelectorAll('body *')]
+            .filter((element) => {
+              const rect = element.getBoundingClientRect();
+              return rect.width > 0 && rect.right > window.innerWidth + 8 &&
+                getComputedStyle(element).display !== 'none';
+            })
+            .map((element) => {
+              const rect = element.getBoundingClientRect();
+              return {
+                tag: element.tagName.toLowerCase(),
+                className: typeof element.className === 'string' ? element.className.slice(0, 160) : '',
+                right: Math.round(rect.right),
+                width: Math.round(rect.width),
+                text: (element.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 120),
+              };
+            })
+            .sort((left, right) => left.width - right.width)
+            .slice(0, 12)),
+        };
+        console.error('B011 narrow overflow diagnostics', slug, device, JSON.stringify(row.overflow));
+      }
       for(const term of schoolTerms[slug])if(!facts.body.includes(term))errors.push('Missing specific authority fact '+term);
       if(facts.images.some(x=>!x.alt||x.broken))errors.push('Missing alt or broken image');
       if(!facts.body.includes('Original TexasDefined typographic football identity panel'))errors.push('Missing original rights-safe school identity panel');
