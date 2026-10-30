@@ -96,9 +96,11 @@ function selfTest() {
   console.log("November imagery SSR acceptance fixture passed");
 }
 
-const currentChicago = new Intl.DateTimeFormat("en-CA", {
+const texasParts = new Intl.DateTimeFormat("en-US", {
   timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit"
-}).format(new Date());
+}).formatToParts(new Date());
+const texasPart = type => texasParts.find(part => part.type === type)?.value || "00";
+const currentChicago = texasPart("year") + "-" + texasPart("month") + "-" + texasPart("day");
 
 if (process.argv.includes("--self-test")) {
   selfTest();
