@@ -18,7 +18,7 @@
 
 The October 30 acceptance batch updates the page's displayed research-review date from October 12 to **October 30, 2026** and adds **10 Texas Historical Commission assertions** to the existing canonical live, cache-busted production surface validator, `scripts/ci/verify-production-surfaces.mjs`. The assertions check the public page heading, Rosewood, both July properties, July month label, both correctly pending nominees, submission-not-listed disclosure, reviewed date, and visitor-access disclaimer.
 
-**Acceptance rule:** This final batch is complete only when its own merged revision has a `texasdefined-live=success` AND `texasdefined-production=success` commit status from `.github/workflows/deploy-production.yml`, which runs the expanded live surface validator after the Worker deployment. Do not substitute an earlier successful deployment for that acceptance evidence. Add its specific run ID/merge SHA to the closing checkpoint when available.
+**Production acceptance: VERIFIED COMPLETE.** [PR #6456](https://github.com/keeptxred/TexasDefined/pull/6456) merged as [`39cf9824e18649fc93f8ccb17e8fc74268ea91ca`](https://github.com/keeptxred/TexasDefined/commit/39cf9824e18649fc93f8ccb17e8fc74268ea91ca). Its own canonical [production deployment run 41125879072](https://github.com/keeptxred/TexasDefined/actions/runs/41125879072) reports **`Verify base production surfaces: success`**, including the new live, cache-busted THC checks, plus **`texasdefined-live=success`** and **`texasdefined-production=success`** on that exact commit (GitHub commit-status API). Validation, build, runtime smoke, and Cloudflare deployment statuses also passed. This is post-merge, post-deployment acceptance evidence, **not** a cached search snippet or an earlier release's status.
 
 ## Existing unattended workflows retained
 
@@ -26,9 +26,9 @@ The October 30 acceptance batch updates the page's displayed research-review dat
 - [THC Atlas statewide census](../../.github/workflows/thc-atlas-census.yml): **monthly first-of-month** public GIS layer comparison and evidence artifacts; no automatic new site publication.
 - The canonical [Deploy TexasDefined production](../../.github/workflows/deploy-production.yml) remains the **only** permitted publishing workflow. No extra Cloudflare connections or direct deploys are required.
 
-## Guardrails / open questions
+## Ongoing guardrails
 
 - **Never treat National Register designation as public admission**, permission to enter private properties, or authorization to reuse THC-owned photographs. Consult [image provenance](IMAGE_PROVENANCE.md) for THC Photo Request rules.
 - Cayo del Oso is marked **Determined Eligible — Owner Objection**, not an ordinary listed or public-tour attraction; do not publish sensitive archaeological coordinates.
 - Do not duplicate historical attraction pages or broad audits; keep automated factual refreshes and source comparison separate.
-- Until the post-merge **THC-specific** production surface assertions have passed, the final public-page acceptance is **pending**, regardless of previous green site-wide deployment checks.
+- **All originally outstanding THC remediation and public-page acceptance tasks are complete** as of the verified October 30 production run above; continue to rely on automated source drift detection for future changes. This does not waive future visitability or image-rights research.
