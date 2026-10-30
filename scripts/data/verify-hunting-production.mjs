@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const speciesSeasons = JSON.parse(fs.readFileSync('src/data/hunting/species-season-calendar.json', 'utf8'));
 const deerSeasons = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
+const quarterlyCheckedAt = JSON.parse(fs.readFileSync('src/data/hunting/turkey-quarterly-facts.json', 'utf8')).checkedAt;
 const freshnessFile = fs.readFileSync('src/data/hunting/freshness.ts', 'utf8');
 const reviewedLabel = /lastVerifiedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
 const editorialLabel = /editorialUpdatedLabel:\s*"([^"]+)"/.exec(freshnessFile)?.[1];
@@ -34,7 +35,7 @@ const representativeTopics = [
   },
   {
     path: '/hunting/turkey-hunting',
-    needles: ['Texas Turkey Hunting: 2026–27 Seasons, Regulations & Where to Hunt', 'Official 2026–27 wild turkey season dates', 'Matagorda and Wharton', 'No unbearded hens', 'National Refuge Spring Turkey drawings', 'Two verified 2027 public turkey draw opportunities', 'Find walk-in turkey hunting where it is actually legal', 'Using TPWD turkey harvest numbers responsibly', 'TPWD legal-game and property finder', 'Current official sources'],
+    needles: ['Texas Turkey Hunting: 2026–27 Seasons, Regulations & Where to Hunt', 'Official 2026–27 wild turkey season dates', 'Matagorda and Wharton', 'No unbearded hens', 'National Refuge Spring Turkey drawings', 'Two verified 2027 public turkey draw opportunities', 'Find walk-in turkey hunting where it is actually legal', 'Using TPWD turkey harvest numbers responsibly', 'TPWD legal-game and property finder', 'TPWD draw and survey data machine-checked ' + quarterlyCheckedAt, 'Machine-checked ' + quarterlyCheckedAt, 'Current official sources'],
   },
   {
     path: '/hunting/youth-hunting',
