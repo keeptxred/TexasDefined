@@ -102,7 +102,13 @@ requireText(turkeyQuarterlyUpdater, 'assert.deepEqual(ae, e', 'East Lake categor
 requireText(turkeyQuarterlyTests, 'survey narrative/table contradiction', 'quarterly TPWD survey regression missing');
 requireText(turkeyQuarterlyTests, 'legal bag or method changes cannot be auto-published', 'legal auto-update guard missing');
 requireText(turkeyQuarterlyWorkflow, '17 15 2 1,4,7,10', 'quarterly auto-publication schedule missing');
-requireText(turkeyQuarterlyWorkflow, 'gh pr create --base main', 'quarterly source verified PR creation missing');
+const turkeyQuarterlyEntrypoint = read('scripts/automation/refresh-turkey-authority-quarterly.sh');
+const turkeySourceEntrypoint = read('scripts/automation/monitor-turkey-regulations.sh');
+requireText(turkeyWorkflow, 'bash scripts/automation/monitor-turkey-regulations.sh', 'scheduled legal monitor entrypoint missing');
+requireText(turkeyQuarterlyWorkflow, 'bash scripts/automation/refresh-turkey-authority-quarterly.sh', 'scheduled quarterly fact refresher missing');
+requireText(turkeyQuarterlyEntrypoint, 'gh pr create --base main', 'quarterly verified fact PR creation missing');
+requireText(turkeyQuarterlyEntrypoint, 'refresh-turkey-season-calendar.mjs --check-only --strict-check-only', 'quarterly legal/date fail-closed check missing');
+requireText(turkeySourceEntrypoint, 'check-turkey-regulations.mjs', 'legal source check not invoked by monitor');
 requireText(turkeyQuarterlyFinisher, 'dispatch-validate-branch.sh', 'protected quarterly PR merge missing');
 requireText(turkeyQuarterlyFinisher, 'refresh-turkey-authority-quarterly.mjs --check-only', 'quarterly finisher must recheck sources before merge');
 requireText(turkeyQuarterlyFinisher, '--match-head-commit', 'quarterly merge must pin validated SHA');
