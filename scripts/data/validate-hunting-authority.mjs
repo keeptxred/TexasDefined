@@ -124,6 +124,7 @@ requireText(turkeyQuarterlyFinisher, "23 11 * * *", 'daily recovery of pending q
 requireText(turkeyQuarterlyFinisher, "- '.github/workflows/finish-turkey-authority-quarterly.yml'", 'one-time protected main-merge recovery bootstrap missing');
 requireText(turkeyQuarterlyFinisher, "for attempt in 1 2 3", 'bounded replay after concurrent main commits missing');
 requireText(turkeyQuarterlyFinisher, "Quarterly data source workflow not verified", 'bot-sourced PR must be backed by completed official TPWD check');
+requireText(turkeyQuarterlyFinisher, 'push|schedule|workflow_dispatch', 'scheduled turkey quarterly refresh must be eligible for protected auto-finish');
 requireText(turkeyQuarterlyFinisher, "git merge-base --is-ancestor origin/main", 'must refuse old-base validations on shared main');
 const finisherCrons = [...turkeyQuarterlyFinisher.matchAll(/- cron:\s*['\"]([^'\"]+)['\"]/g)].map(match => match[1]);
 if (!finisherCrons.length || finisherCrons.some(expr => expr.trim().split(/\s+/).length !== 5))
