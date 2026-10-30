@@ -151,6 +151,35 @@ if (!depth.includes("Quick answer: when and where to go")) {
   fail("East Texas fall-color canonical depth marker is missing");
 }
 
+// Keep the live East Texas page useful without duplicating its six-park planner.
+// The official TPWD links are authored in canonical copy and rendered as real anchors.
+const eastTexasCopy = depthBlock("east-texas-fall-colors");
+const articleRenderer = fs.readFileSync("src/components/editorial/ArticleBody.tsx", "utf8");
+const articleRoute = fs.readFileSync("src/routes/article.$slug.tsx", "utf8");
+const rawTpwdReferences = eastTexasCopy.match(/https:\/\/tpwd\.texas\.gov\/state-parks\//g) ?? [];
+const linkedTpwdReferences = eastTexasCopy.match(/\]\(https:\/\/tpwd\.texas\.gov\/state-parks\//g) ?? [];
+if (linkedTpwdReferences.length < 8 || linkedTpwdReferences.length !== rawTpwdReferences.length) {
+  fail("East Texas fall guide must have at least eight contextual, directly clickable official TPWD references and no raw URLs");
+}
+if (!eastTexasCopy.includes("2.4-mile Rustling Leaves Trail") || !eastTexasCopy.includes("0.8-mile Mountain View Trail")) {
+  fail("East Texas fall guide lost source-backed Daingerfield trail recommendations");
+}
+if (eastTexasCopy.includes("Uncertain is the name of a nearby Texas community")) {
+  fail("East Texas fall guide contains out-of-context town-name clarification");
+}
+if (!articleRenderer.includes("renderFoliageSourceLinks(block.text, 4)") || !articleRenderer.includes("renderFoliageSourceLinks(item, 2)")) {
+  fail("East Texas fall guide's contextual TPWD source links must render in paragraphs and lists");
+}
+if (!articleRenderer.includes('articleSlug === "east-texas-fall-colors" && blocks.slice(0, index)')) {
+  fail("East Texas foliage FAQ questions must render as nested h3 headings");
+}
+if (!articleRoute.includes('article.slug !== "east-texas-fall-colors" && relatedDestinations.length > 0 && <Section>')) {
+  fail("East Texas foliage page must not duplicate the six-park cards with a stray Caddo destination rail");
+}
+if (!eastTexasCopy.includes("not verified 2026 peak-color reports")) {
+  fail("East Texas seasonal guidance must not imply verified live peak foliage");
+}
+
 if (!process.exitCode) {
   console.log(`Seasonal intent depth guard passed: ${slugs.length} canonical seasonal pages retain at least 500 source words, every rendered body clears the ${seasonalIndexMinimum}-word route indexability floor (minimum observed ${minimumObservedBodyWords}), keep one canonical owner, and cannot regress to a one-minute contract.`);
 }
