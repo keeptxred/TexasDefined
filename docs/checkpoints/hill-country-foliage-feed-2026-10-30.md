@@ -3,6 +3,7 @@
 Page: https://texasdefined.com/article/hill-country-fall-colors
 Repository: keeptxred/TexasDefined
 Branch: `fix/auto-lost-maples-foliage-status-20261030`
+PR: [#6446](https://github.com/keeptxred/TexasDefined/pull/6446) — auto-merge enabled, protected checks required
 
 ## Previously completed, verified before this change
 - PR #6434 merged as commit `86c668d3b328340c93f6e88e82208457b85deca4`: consolidated repetitive Lost Maples/Garner/Guadalupe sections, substantial regional planning, official TPWD links, realistic access/itinerary cautions, FAQ, 8-minute lazy listing reading time and depth safeguards.
@@ -17,6 +18,9 @@ Branch: `fix/auto-lost-maples-foliage-status-20261030`
 - `src/routes/article.$slug.tsx` adds the report widget to Hill Country fall-color guidance, keeps existing licensed image and evergreen canonical URL, and removes a hardcoded 2026 from the live report link.
 - `.github/workflows/refresh-lost-maples-foliage.yml` runs daily in October/November each year (also dispatchable) and opens a generated-data-only PR only for new official evidence; the trusted `finish-lost-maples-foliage.yml` validates bot origin, JSON-only diff, static species phrasing and protected workflows before auto-merge. No recurring human review or direct protected-main writes.
 - Parser year-rollover and non-inference tests plus browser and source-level regression assertions are included.
+
+## Validation/recovery note
+- The initial PR run revealed a validator reference-before-initialization error, which was corrected in follow-up commit `ad2874ac18a19af4ba0653bb8f7ddf7aaca5bf87` before merging. Re-run required CI; do not interpret the first failed check as a production failure.
 
 ## Required final verification / guardrails
 - PR must pass the existing required merge gate; do not bypass branch protection. Auto-merge may handle it after checks.
