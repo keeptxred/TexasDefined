@@ -264,7 +264,7 @@ const baseSeasonalIntentArticles: Article[] = [
   },
   {
     id: "si-11", brandId: BRAND, slug: "hill-country-fall-colors", title: "Where to See Fall Colors in the Texas Hill Country",
-    dek: "Lost Maples is only the beginning: follow the Frio, Guadalupe and Hill Country river corridors for some of the strongest autumn color in Central Texas.", category: "outdoors", region: "hill-country", hero: hillCountryFallColorsHero, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 8,
+    dek: "Lost Maples is only the beginning: follow the Frio, Guadalupe and Hill Country river corridors for some of the strongest autumn color in Central Texas.", category: "outdoors", region: "hill-country", hero: hillCountryFallColorsHero, authorId: "a-dell", publishedAt: "2026-08-20", updatedAt: "2026-10-30", readingMinutes: 8,
     tags: ["Hill Country fall colors", "Lost Maples fall", "Garner State Park fall", "Guadalupe River fall"], relatedCollections: [], relatedDestinations: [],
     sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports",
     internalLinks: [
