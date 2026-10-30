@@ -35,7 +35,6 @@ const AUTHORITY_STATIC_PATHS = [
   "/texas-toll-tags",
   "/start-a-business-in-texas",
   "/everything-bigger-in-texas",
-  "/what-does-chud-mean",
 ] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/best-places-to-go-camping-in-texas": CAMPING_GUIDE_LASTMOD,
