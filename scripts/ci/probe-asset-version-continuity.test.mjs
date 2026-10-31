@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   extractAssetPaths,
   selectCanaryAssets,
@@ -76,4 +77,17 @@ test('a missing post-deploy observation does not manufacture a removal', () => {
     [{ path: '/assets/a-HASH.js', status: 200 }],
     [{ path: '/assets/different-HASH.js', status: 404 }],
   ), []);
+});
+
+test('production deploy records pre/post assets without modifying Cloudflare or bypassing protected gates', () => {
+  const workflow = readFileSync('.github/workflows/deploy-production.yml', 'utf8');
+  const pre = workflow.indexOf('- name: Capture predeploy hashed-asset HTTP baseline');
+  const deploy = workflow.indexOf('- name: Deploy TexasDefined Worker');
+  const post = workflow.indexOf('- name: Measure postdeploy hashed-asset continuity');
+  const archive = workflow.indexOf('- name: Preserve cross-deployment hashed-asset forensic evidence');
+  assert.ok(pre > 0 && pre < deploy, 'baseline must precede Worker publish');
+  assert.ok(post > deploy && archive > post, 'postdeploy probe and evidence retention must follow publish');
+  assert.match(workflow, /run: node scripts\/ci\/probe-asset-version-continuity\.mjs before/);
+  assert.match(workflow, /run: node scripts\/ci\/probe-asset-version-continuity\.mjs after/);
+  assert.match(workflow, /path: \.artifacts\/asset-continuity-\*\.json/);
 });
