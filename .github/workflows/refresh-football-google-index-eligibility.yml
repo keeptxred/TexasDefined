@@ -1,0 +1,28 @@
+name: Refresh Google football index eligibility
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '13 11 * * 1'
+  push:
+    paths:
+      - 'docs/football-authority/REGISTRY.json'
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/seo/generate-football-google-index-eligibility.mjs
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automation/google-football-index-eligibility
+          commit-message: 'chore(seo): refresh verified Google football pages'
+          title: 'SEO: promote newly verified football pages in Google'
+          body: 'Generated from verified authority registry and fixed finalized owner GSC safety snapshot. No new deindexing of pages with recorded clicks.'

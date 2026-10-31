@@ -4,6 +4,7 @@ import {
   type FeaturedFootballProgram,
 } from './featured-programs';
 import { footballProgramProfilePath } from './program-slugs';
+import { isFootballTeamGoogleIndexReady, isFootballDistrictGoogleIndexReady } from './google-index-eligibility';
 import { UIL_FOOTBALL_PROGRAMS_2026 } from './uil-football-alignments-2026.server';
 
 const UIL_NORMALIZED_PROGRAM_NAMES = new Set(
@@ -46,7 +47,7 @@ export function footballProgramSitemapEntries() {
     throw new Error(`UIL football sitemap expected 1,268 unique school profile paths; found ${uniquePaths.size}.`);
   }
 
-  return entries;
+  return entries.filter((e) => isFootballTeamGoogleIndexReady(e.path.split('/').at(-1) ?? ''));
 }
 
 export function privateFootballProgramSitemapEntries() {
@@ -55,7 +56,8 @@ export function privateFootballProgramSitemapEntries() {
     .map((program) => ({
       path: `/texas-high-school-football-teams/${program.slug}`,
       lastmod: '2026-09-19',
-    }));
+    }))
+    .filter((e) => isFootballTeamGoogleIndexReady(e.path.split('/').at(-1) ?? ''));
 }
 
 export function footballDistrictSitemapEntries() {
@@ -68,7 +70,7 @@ export function footballDistrictSitemapEntries() {
     throw new Error(`UIL football district sitemap expected 192 district profiles; found ${entries.length}.`);
   }
 
-  return entries;
+  return entries.filter((e) => isFootballDistrictGoogleIndexReady(e.path.split('/').at(-1) ?? ''));
 }
 
 export function footballGameSitemapEntries() {

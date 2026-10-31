@@ -81,8 +81,30 @@ verify("footballDistrictSitemapEntries" in sitemap, "Core districts removed from
 verify("/texas-high-school-football-teams/$" + "{slug}" in team_route, "Team canonical path changed")
 verify("canonicalLink(texasDefinedBrand, canonicalPath)" in team_route, "Team self canonical removed")
 verify("canonicalLink(texasDefinedBrand, canonicalPath)" in district_route, "District self canonical removed")
-verify(team_route.count("'noindex'") == 1, "Team route changed indexing policy beyond the 404 fallback")
-verify(district_route.count("'noindex'") == 1, "District route changed indexing policy beyond the 404 fallback")
+# A reviewable Googlebot-only eligibility gate replaced the historical blanket-index
+# policy. Missing loader data during streamed SSR must not leave a sticky noindex.
+# Bing remains governed by the unchanged generic robots meta.
+verify(team_route.count("'noindex'") == 0
+       and "applyGoogleOnlyNoindex(buildMeta(" in team_route
+       and "isFootballTeamGoogleIndexReady(slug)" in team_route,
+       "Team route must use only the protected Googlebot-specific policy")
+verify(district_route.count("'noindex'") == 0
+       and "applyGoogleOnlyNoindex(buildMeta(" in district_route
+       and "isFootballDistrictGoogleIndexReady(loaderData.slug)" in district_route,
+       "District route must use only the protected Googlebot-specific policy")
+verify("if (!loaderData) return { meta: applyGoogleOnlyNoindex(" in team_route
+       and "isFootballTeamGoogleIndexReady(params.slug)" in team_route,
+       "Streamed team head must preserve the protected-slug boundary before loader resolves")
+verify("if (!loaderData) return { meta: applyGoogleOnlyNoindex(" in district_route
+       and "isFootballDistrictGoogleIndexReady(params.slug)" in district_route,
+       "Streamed district head must preserve the protected-slug boundary before loader resolves")
+google_meta = source("src/lib/google-only-indexing.ts")
+manifest = source("src/data/high-school-football/google-index-eligibility.generated.json")
+verify("name?.toLowerCase() !== 'googlebot'" in google_meta
+       and "name: 'googlebot', content: 'noindex, follow'" in google_meta,
+       "Google-only helper must preserve generic robots metadata for Bing")
+verify('"teamIndexableSlugs": [' in manifest and '"districtIndexableSlugs": [' in manifest,
+       "Required Google-specific allowlists are missing")
 verify("/texas-high-school-football-districts/" in district_route, "District canonical path changed")
 verify("Disallow: /texas-high-school-football" not in robots, "robots.txt blocks football URLs")
 verify(re.search(r"User-agent:\s*Googlebot[\s\S]*?Allow:\s*/", robots) is not None,

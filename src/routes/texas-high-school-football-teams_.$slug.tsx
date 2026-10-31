@@ -4,6 +4,8 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getFootballProgramProfilePage } from '@/data/high-school-football/football-program-profile.functions';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
+import { applyGoogleOnlyNoindex } from '@/lib/google-only-indexing';
+import { isFootballTeamGoogleIndexReady } from '@/data/high-school-football/google-index-eligibility';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -18,8 +20,9 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
       : await getActiveSportsSponsorPlacement({ data: { surfacePath: `/texas-high-school-football-teams/${profile.slug}` } });
     return { ...profile, sponsorPlacement };
   },
-  head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
+  head: ({ loaderData, params }) => {
+    // SSR may evaluate this before the loader has resolved; never issue a sticky noindex while loading.
+    if (!loaderData) return { meta: applyGoogleOnlyNoindex([{ title: 'Football school profile' }], isFootballTeamGoogleIndexReady(params.slug)) };
     const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, faq, editorial } = loaderData;
     const canonicalPath = `/texas-high-school-football-teams/${slug}`;
     const classification = program
@@ -49,11 +52,11 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
       : `${sportsTeamName} is a non-UIL football program; association placement is published only when verified.`;
 
     return {
-      meta: buildMeta(texasDefinedBrand, {
+      meta: applyGoogleOnlyNoindex(buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: editorial?.seo?.title ?? defaultTitle,
         description,
-      }),
+      }), isFootballTeamGoogleIndexReady(slug)),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         '@context': 'https://schema.org',
