@@ -4,18 +4,38 @@
 // to test that hashes survive two successive regular production replacements.
 // No Cloudflare writes, caching changes, new publisher, or sitewide crawl.
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const CANONICAL = 'https://texasdefined.com';
 const DIRECT = 'https://texasdefined-site.freddy-coppola.workers.dev';
-const PAGES = ['/', '/property-tax/taxing-unit/ennis-isd', '/property-tax/taxing-unit/yoakum-hospital-district'];
+const PAGES = ['/', '/property-tax/taxing-unit/ennis-isd', '/property-tax/taxing-unit/yoakum-hospital-district', '/texas-high-school-football-teams/shepherd'];
 const SNAPSHOT = '.artifacts/asset-handoff-snapshot.json';
 const PRIOR = '.artifacts/prior-asset-handoff.json';
 const REPORT = '.artifacts/asset-delivery-report.json';
 const LIMIT_PER_PAGE = 80;
 const REQUEST_TIMEOUT = 20000;
+
+// Route-specific lazy chunks were observed returning 404 to verified Googlebot.
+// HTML <script>/<link> parsing alone cannot discover them: Vite references
+// these hashes from dynamic import expressions. Read only two exact bundle
+// canaries from the already-built client output, never crawl the whole site.
+const BUILT_ROUTE_PATTERNS = [
+  /^texas-high-school-football-teams_\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^property-tax\.taxing-unit\._unit-[A-Za-z0-9_-]+\.js$/,
+];
+
+export function selectBuiltRouteAssets(files) {
+  return BUILT_ROUTE_PATTERNS.map(pattern => {
+    const matches = files.filter(file => pattern.test(file));
+    if (matches.length !== 1) {
+      throw new Error('Expected exactly one production lazy-route chunk for ' + pattern + ', found ' + matches.length);
+    }
+    return { path: '/assets/' + matches[0], kind: 'js', source: 'built-lazy-route' };
+  });
+}
+
 
 function tagAttributes(tag) {
   const result = {};
@@ -128,6 +148,21 @@ async function capture() {
   catch (error) { if (error.code !== 'ENOENT') throw error; }
   const pages = [];
   for (const page of PAGES) pages.push(await retrieveHtml(CANONICAL, page));
+  // Upcoming release's route chunks are not necessarily present in the old
+  // active Worker. Do not probe them as old assets. Record them so their
+  // existence is checked on both origins immediately AFTER the deployment.
+  const builtAssets = selectBuiltRouteAssets(await readdir('dist/client/assets'));
+  const priorBuilt = prior?.snapshots?.at(-1)?.builtAssets || [];
+  // The most recently deployed build is currently serving: probe its exact
+  // lazily loaded hashes BEFORE replacement, so an old 200 -> new 404 is proof
+  // of version-related disappearance, not a guessed stale URL.
+  const legacyResponses = await auditAssets(CANONICAL, priorBuilt);
+  const legacyAssets = priorBuilt.map(asset => {
+    const observed = legacyResponses.find(item => item.path === asset.path);
+    return { ...asset, wasAvailable: observed?.ok === true,
+      preStatus: observed?.status ?? 'not-checked',
+      preSha256: observed?.ok ? observed.sha256 : null };
+  });
   const checked = await auditAssets(CANONICAL, uniqueAssets(pages));
   const statuses = new Map(checked.map(x => [x.path, x]));
   for (const page of pages) for (const asset of page.assets) {
@@ -137,14 +172,19 @@ async function capture() {
     asset.preSha256 = initial?.ok ? initial.sha256 : null;
   }
   const current = { format: 1, capturedAt: new Date().toISOString(),
-    sourceCommit: process.env.GITHUB_SHA || null, pages };
+    sourceCommit: process.env.GITHUB_SHA || null, pages, builtAssets, legacyAssets };
   const snapshot = nextSnapshotHistory(prior, current);
   await mkdir('.artifacts', { recursive: true });
   await writeFile(SNAPSHOT, JSON.stringify(snapshot, null, 2) + '\n');
   const available = checked.filter(x => x.ok).length;
   console.log('Captured ' + pages.length + ' page HTML manifests, ' + available + '/' + checked.length
-    + ' assets healthy before replacement; retained ' + snapshot.snapshots.length + ' generations.');
+    + ' assets healthy before replacement; built lazy-route canaries=' + builtAssets.length
+    + ', former lazy-route canaries=' + legacyAssets.length
+    + ', retained ' + snapshot.snapshots.length + ' generations.');
   for (const row of checked.filter(x => !x.ok)) console.warn('PREEXISTING missing asset: ' + row.path + ' HTTP ' + row.status);
+  for (const asset of legacyAssets.filter(x => !x.wasAvailable)) {
+    console.warn('PREEXISTING old lazy-route chunk not available before deployment: ' + asset.path + ' HTTP ' + asset.preStatus);
+  }
 }
 
 async function verify() {
@@ -154,6 +194,11 @@ async function verify() {
   if (!expected) throw new Error('EXPECTED_DEPLOYED_WORKER_VERSION is required for production verification');
   const histories = [];
   const inherited = new Map();
+  const latest = saved.snapshots.at(-1);
+  if (!Array.isArray(latest.builtAssets) || latest.builtAssets.length !== BUILT_ROUTE_PATTERNS.length) {
+    throw new Error('No complete built lazy-route canaries in predeploy snapshot; cannot certify');
+  }
+  const newBuilt = latest.builtAssets;
   for (const snapshot of saved.snapshots) {
     const available = [];
     for (const page of snapshot.pages) for (const asset of page.assets || []) {
@@ -163,9 +208,18 @@ async function verify() {
       }
     }
     histories.push({ capturedAt: snapshot.capturedAt, sourceCommit: snapshot.sourceCommit,
-      workerVersions: [...new Set(snapshot.pages.map(x => x.version).filter(Boolean))], availableCount: new Set(available).size });
+      workerVersions: [...new Set(snapshot.pages.map(x => x.version).filter(Boolean))],
+      availableCount: new Set(available).size, builtRouteAssets: snapshot.builtAssets?.map(x => x.path) || [] });
+  }
+  // Include only confirmed predeploy-200 former route chunks. A failed old
+  // baseline is recorded separately and never mislabeled as a new 404.
+  for (const a of latest.legacyAssets || []) {
+    if (a.wasAvailable === true) inherited.set(a.path, { ...a });
   }
   const results = { format: 1, checkedAt: new Date().toISOString(), expected, histories,
+    lazyRouteCanaries: newBuilt.map(x => x.path),
+    preExistingLazyFailures: (latest.legacyAssets || []).filter(x => !x.wasAvailable)
+      .map(x => ({ path: x.path, status: x.preStatus })),
     pages: [], assets: [], failures: [] };
   try {
     for (const origin of [DIRECT, CANONICAL]) {
@@ -179,7 +233,13 @@ async function verify() {
       }
       results.pages.push({ origin: label(origin), pages: currentPages });
       const combined = new Map();
-      for (const a of uniqueAssets(currentPages)) combined.set(a.path, { ...a, sources: ['current'] });
+      for (const a of uniqueAssets(currentPages)) combined.set(a.path, { ...a, sources: ['current-html'] });
+      // Critical: dynamically imported football and property-tax route chunks
+      // are required even if they have no <script> or <link> in server HTML.
+      for (const a of newBuilt) {
+        if (combined.has(a.path)) combined.get(a.path).sources.push('built-lazy-route');
+        else combined.set(a.path, { ...a, sources: ['built-lazy-route'] });
+      }
       for (const a of inherited.values()) {
         if (combined.has(a.path)) {
           combined.get(a.path).sources.push('old');
