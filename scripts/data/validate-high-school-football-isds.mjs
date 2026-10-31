@@ -38,6 +38,7 @@ if (!errors.length) {
   const indexPage = read(files.indexPage);
   const detailRoute = read(files.detailRoute);
   const detailPage = read(files.detailPage);
+  requireText(detailPage, "if (!district) return <Container", "async ISD profile SSR undefined guard");
   const schoolProfile = read(files.schoolProfile);
   const finder = read(files.finder);
   const relocation = read(files.relocation);
