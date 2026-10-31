@@ -2887,5 +2887,196 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/access.phtml",
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/"
     ]
+  },
+  "lake-nasworthy": {
+    "camping": [
+      {
+        "name": "San Angelo city-managed Lake Nasworthy camping areas",
+        "type": "Municipal lakeshore campgrounds; exact site selection required",
+        "summary": "TPWD's Lake Nasworthy public access guide expressly confirms multiple public camping areas run by the San Angelo Parks & Recreation Department along the shore, plus private overnight providers. Campsite amenities, utility hookups, booking contacts and fees vary by named park, so contact the city for specific site verification.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nasworthy/access.phtml"
+      },
+      {
+        "name": "San Angelo State Park — nearby O.C. Fisher Lake camping",
+        "type": "Nearby state park at another lake",
+        "summary": "TPWD specifically identifies San Angelo State Park at O.C. Fisher Lake as a regional campsite alternative for a Lake Nasworthy fishing trip. It has developed campsites and separate park access, but is not a campground on Nasworthy's shore. Book through Texas State Parks.",
+        "href": "https://tpwd.texas.gov/state-parks/san-angelo"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Current statewide harvest rules at Nasworthy",
+        "text": "TPWD's Lake Nasworthy fishing profile identifies species-specific freshwater regulations for bass, catfish and crappie and does not establish a special largemouth protected slot here. Anglers should use the current statewide Outdoor Annual for each fish species rather than copying rules from nearby Twin Buttes Reservoir.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nasworthy/"
+      },
+      {
+        "label": "Zebra mussel decontamination and local boating",
+        "text": "TPWD confirms invasive zebra mussels in Lake Nasworthy, which requires draining boats, livewells and onboard water between public lakes. San Angelo city-managed ramps and campground entrances may have separate fees and boating-use conditions; check these with the city before towing.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nasworthy/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "San Angelo's lakefront city parks and boat ramps",
+        "description": "TPWD's public-access map identifies multiple City of San Angelo lakefront parks with campgrounds, fishing and boat launches on different portions of Nasworthy. These are genuine operator-managed access areas rather than a claim that one generic boat ramp serves all of the shoreline.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nasworthy/access.phtml",
+        "external": true
+      },
+      {
+        "label": "San Angelo State Park — trails and bison/longhorn viewing",
+        "description": "The regional TPWD state park at separate O.C. Fisher Lake offers hiking, mountain-bike and equestrian trails and its own bison and Texas longhorn exhibits. It is a legitimate area side trip, not a mislabeled Nasworthy waterfront attraction.",
+        "href": "https://tpwd.texas.gov/state-parks/san-angelo",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nasworthy/access.phtml",
+      "https://tpwd.texas.gov/state-parks/san-angelo",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nasworthy/"
+    ]
+  },
+  "lake-tyler": {
+    "camping": [
+      {
+        "name": "Lake Tyler Marina — city concession camping access",
+        "type": "TPWD-listed concession marina camping",
+        "summary": "TPWD marks Concession Area #1 at Lake Tyler Marina on Lake Tyler West as camping-equipped, with restrooms, fishing-cleaning facilities, bait, boat ramps and marina services. This is a named facility with an on-site camping designation; the private concession manages actual overnight site terms.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/access.phtml"
+      },
+      {
+        "name": "Hill Creek Park and Chapman Park — primitive lake camping",
+        "type": "City-permitted first-come primitive camping",
+        "summary": "The City of Tyler permits primitive camping in its Lake Tyler public parks on a first-come basis. TPWD names Hill Creek Park and Old #2/Chapman Park as public access points; this camping is primitive, not a promise of 50-amp RV hookups or reservable lakeside cabins.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Lake Tyler state fish rules with local city-water distinction",
+        "text": "TPWD's Lake Tyler fishing profile identifies the fishing rules for both Lake Tyler West and Lake Tyler East; anglers should check the current statewide size/bag limits and any lake-specific provisions before keeping largemouth bass, crappie or catfish. City permit or boat-use restrictions are independent of state harvest law.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/"
+      },
+      {
+        "label": "Lake Tyler West vs Lake Tyler East access differences",
+        "text": "TPWD distinguishes the City's two impoundments: Lake Tyler West has the private concession marina and barge access, while Lake Tyler East has separate public access ramps. Primitive camping is allowed at city parks, but launch and concession fees differ by facility.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Fritz & Opal's Barge — fee-based shoreline fishing",
+        "description": "TPWD identifies Fritz & Opal's Barge near the Old #2/Chapman Park access as an independent paid fishing platform for visitors without boats. The facility charges a fee and is listed as year-round; confirm current operating hours and costs before relying on the original TPWD prices.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Hill Creek Park — named lake launch and fishing",
+        "description": "The city-operated Hill Creek Park has a two-lane concrete ramp, loading piers and parking for trailers, accessed via South Hill Creek Road. It offers a specific alternative to the private marina and its launching fee, with separate primitive camping rules.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tyler/"
+    ]
+  },
+  "lake-cypress-springs": {
+    "camping": [
+      {
+        "name": "Guthrie Park — Franklin County Water District camping",
+        "type": "County water-district campground",
+        "summary": "TPWD explicitly marks Guthrie Park near the north end of Lake Cypress Springs Dam as a public park offering overnight camping, picnic sites, restrooms and a concrete launch ramp. The Franklin County Water District operates the park and charges entry; ask the district which campsites are currently permitted and whether hookups exist.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/access.phtml"
+      },
+      {
+        "name": "Dogwood Park — separate south-dam camping area",
+        "type": "County water-district campsite area",
+        "summary": "TPWD's Cypress Springs access inventory marks Dogwood Park south of the dam as a camping-equipped Franklin County Water District facility, with restrooms, picnic area and paved boat ramp. It is distinct from Guthrie Park's north-dam entrance and requires an independent park access fee.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Grass carp must immediately be released unharmed",
+        "text": "TPWD documents an active Triploid Grass Carp Permit on Lake Cypress Springs. Any grass carp caught must immediately be returned to the water unharmed; this is a specific fish-handling restriction not present on every East Texas lake. All other species are currently managed under statewide rules.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/"
+      },
+      {
+        "label": "Waterdistrict park fees and habitat structures",
+        "text": "The Franklin County Water District operates named launch parks around Cypress Springs and TPWD records a per-person access fee. TPWD also maps artificial fish-habitat structures and describes shoreline riprap and boathouse cover; current fishing method and harvest limits are distinct from park entrance charges.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Walleye Park — named northern lake launch",
+        "description": "The water district's Walleye Park has a concrete all-boat ramp, fish-cleaning facilities and public picnicking on the north shore near Lake Cypress Springs Dam. TPWD gives a specific approach from FM 3122 and SE 4220; day-use fees apply.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Mary King Park — Turkey Cove recreation",
+        "description": "TPWD identifies Mary King Park in Turkey Cove on the lake's south shore, with a public boat ramp, picnicking and day-use access. This is an identifiable mid-lake park away from the two dam-area campgrounds, not a generic related-county suggestion.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cypress_springs/"
+    ]
+  },
+  "lake-weatherford": {
+    "camping": [
+      {
+        "name": "No overnight camping permitted on Lake Weatherford",
+        "type": "Verified camping prohibition; no on-lake campground",
+        "summary": "The official TPWD Lake Weatherford access guide explicitly says overnight camping is not allowed anywhere on this city reservoir. There are no legal on-lake campsite hookups to recommend; callers seeking an RV park must locate accommodation off the lake and should not park overnight at the marina.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/access.phtml"
+      },
+      {
+        "name": "Lake Mineral Wells State Park — separate nearby overnight base",
+        "type": "Nearby state-park camping on a different lake",
+        "summary": "For a regional overnight trip, TPWD offers reservable developed and water-only campsites at Lake Mineral Wells State Park. This campground is on another reservoir west of Weatherford, not on Lake Weatherford. Select the separate park reservation before planning a day trip to the city marina.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide harvest rules at Lake Weatherford",
+        "text": "The TPWD Lake Weatherford fisheries profile confirms all resident fish currently follow statewide size and bag limits. The reservoir supports largemouth bass, white bass, crappie, channel catfish and sunfish, but the legal retention thresholds differ by species and must be checked on the current Outdoor Annual.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/"
+      },
+      {
+        "label": "Overnight camping restriction and launch conditions",
+        "text": "The City of Weatherford does not allow overnight camping at this reservoir. TPWD identifies the marina as the improved public boat ramp with a launch fee, while two upstream unimproved ramps suit only small aluminum craft; do not plan to camp beside either ramp.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Weatherford Marina — city lake ramp and fishing access",
+        "description": "TPWD identifies Weatherford Marina off West Lake Drive as the city's improved launch facility, with tackle, bait, courtesy docks and a fee-based ramp usable by a range of boat types. It is a legitimate fishing starting point, not an overnight campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Lake Mineral Wells State Park — Penitentiary Hollow",
+        "description": "The separate state park northwest of Weatherford includes Penitentiary Hollow's distinctive rock-climbing setting, historic paths and a named lakeside trail network. It is a regional side trip requiring a drive, not an attraction on Lake Weatherford's shoreline.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/access.phtml",
+      "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/",
+      "https://tpwd.texas.gov/state-parks/lake-mineral-wells"
+    ]
   }
 };
