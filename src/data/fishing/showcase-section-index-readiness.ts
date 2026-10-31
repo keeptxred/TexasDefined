@@ -13,6 +13,33 @@ export function isShowcaseLakeSectionIndexReady(
   lake: ShowcaseLakePrototype,
   section: ShowcaseLakeSection,
 ): boolean {
+  if (section === "fish") {
+    // Require several independently described fish targets and real habitat,
+    // not a duplicated summary presented as a seasonal insight.
+    return lake.fish.length >= 3
+      && lake.fish.filter((fish) => fish.summary.trim().length >= 45).length >= 3
+      && lake.habitat.filter((note) => note.trim().length >= 35).length >= 2
+      && /^https:\/\//.test(lake.sources.tpwdLake.url);
+  }
+
+  if (section === "access") {
+    return /^https:\/\//.test(lake.sources.tpwdAccess.url)
+      && lake.access.some((site) => !/public access inventory|access overview/i.test(site.name)
+        && site.launch.trim().length >= 27
+        && !/^(?:tpwd-listed|check|verify|varies)/i.test(site.launch.trim()));
+  }
+
+  if (section === "boating") {
+    // Two statewide template notes interpolate fluctuating water and clarity,
+    // and two are identical on every lake. None establishes a standalone
+    // lake-specific boating authority without a researched local condition.
+    return lake.boatingNotes.some((note) => note.trim().length >= 70
+      && !/is the normal lake-level context published by tpwd/i.test(note)
+      && !/is the normal clarity pattern/i.test(note)
+      && !/check official ramp and managing-agency notices/i.test(note)
+      && !/drain boats, livewells and bait containers as required/i.test(note));
+  }
+
   if (section === "camping") {
     // A confirmed prohibition is itself an actionable, lake-specific answer.
     if (lake.campingProhibited) return true;
