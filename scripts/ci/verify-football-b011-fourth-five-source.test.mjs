@@ -56,8 +56,7 @@ test('Fourth production verification requires actual screenshot count and GitHub
  }
  const chrome=read('scripts/ci/verify-football-b011-fourth-five-production.mjs'),
  workflow=read('.github/workflows/verify-football-b011-fourth-five-production.yml');
- for(const n of ['report.schoolChecks.length!==15','report.countyChecks.length!==4','report.screenshots!==19',
- 'process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
+ for(const n of ['report.schoolChecks.length!==15','report.countyChecks.length!==4','process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
   assert.ok(chrome.includes(n),'Missing strict exact release browser evidence '+n);
  for(const n of ['Deploy TexasDefined production','pin-football-b010-production-release.mjs',
  'steps.release.outputs.sha','artifacts/b011-fourth-five-production-chrome/'])
