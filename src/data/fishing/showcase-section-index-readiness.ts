@@ -66,6 +66,11 @@ export function isShowcaseLakeSectionIndexReady(
   }
 
   if (section === "regulations") {
+    // A separately researched, source-attributed TPWD interpretation
+    // qualifies even when the honest answer is 'statewide limits apply'.
+    if (lake.sectionResearch?.reviewedAt && lake.regulations.some((row) =>
+      /^https:\/\/tpwd\.texas\.gov\//.test(row.sourceUrl ?? "") && row.text.trim().length >= 130
+    )) return true;
     // Distinct local regulations or fish-consumption notices have their own
     // independent source. Generic statewide links alone do not qualify.
     if (lake.sources.cityBoatRules || lake.sources.fishConsumption) return true;

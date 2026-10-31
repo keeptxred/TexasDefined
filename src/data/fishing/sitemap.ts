@@ -1,3 +1,4 @@
+import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
 import { loadShowcaseLakesPageDataServer } from "./showcase-lakes-page-data.server";
 import { isShowcaseLakeSectionIndexReady } from "./showcase-section-index-readiness";
 import { FISHING_HABITAT_VERIFIED_AT, FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "./habitat-guides";
@@ -44,13 +45,13 @@ export const FISHING_SITEMAP_ENTRIES = [
   // qualified section URLs are emitted from the corresponding server loaders.
   ...LAKE_CONROE_SECTION_SLUGS
     .filter((section) => section !== "guides" && section !== "reports")
-    .map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: LAKE_CONROE_VERIFIED_AT })),
+    .map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: (section === "camping" || section === "nearby" || section === "regulations") ? LAKE_AUTHORITY_RESEARCH_WAVE1["lake-conroe"].reviewedAt : LAKE_CONROE_VERIFIED_AT })),
   ...ALL_SHOWCASE_LAKE_SLUGS.flatMap((slug) => [
     { path: showcaseLakeCanonicalPath(slug), lastmod: lakeSitemapDate(slug) },
     ...SHOWCASE_LAKE_SECTION_SLUGS
       .filter((section) => section !== "guides" && section !== "reports")
       .filter((section) => isShowcaseLakeSectionIndexReady(SHOWCASE_LAKE_AUTHORITY_DATA[slug], section))
-      .map((section) => ({ path: showcaseLakeCanonicalPath(slug, section), lastmod: lakeSitemapDate(slug) })),
+      .map((section) => ({ path: showcaseLakeCanonicalPath(slug, section), lastmod: (section === "regulations" || section === "camping" || section === "nearby") ? LAKE_AUTHORITY_RESEARCH_WAVE1[slug]?.reviewedAt ?? lakeSitemapDate(slug) : lakeSitemapDate(slug) })),
   ]),
   { path: FISHING_SPECIES_DIRECTORY_PATH, lastmod: FISHING_SPECIES_VERIFIED_AT },
   ...COMPLETE_FISHING_SPECIES_SLUGS.map((slug) => ({ path: fishingSpeciesCanonicalPath(slug), lastmod: FISHING_SPECIES_VERIFIED_AT })),
