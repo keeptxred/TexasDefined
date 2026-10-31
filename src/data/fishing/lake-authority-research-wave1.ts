@@ -1072,5 +1072,179 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0763",
       "https://www.nps.gov/waco/planyourvisit/basicinfo.htm"
     ]
+  },
+  "lake-livingston": {
+    "camping": [
+      {
+        "name": "Lake Livingston State Park — Piney Shores full hookups",
+        "type": "TPWD-listed overnight campground",
+        "summary": "TPWD lists 22 lake-view full-hookup campsites in the Piney Shores loop, with water, sewer, 20/30/50-amp electricity, fire ring and showers nearby. The park's current campground construction program may temporarily close sites, so select an available numbered site before setting out.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-livingston/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Livingston State Park — Yaupon full hookups",
+        "type": "TPWD-listed overnight campground",
+        "summary": "TPWD's Yaupon loop has 37 full-hookup campsites with water, sewer and 50-amp electricity, picnic tables and nearby showers. These are separate from the lakeshore Piney Shores sites; the park requires weekend bookings to include both Friday and Saturday nights for these facilities.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-livingston/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Livingston State Park — Briar Loop tent camping",
+        "type": "Tent-only campground; no generators or RVs",
+        "summary": "The Briar Loop has 16 water-only campsites set aside for tents; the operator expressly prohibits RVs and generators there. Water is nearby rather than an electrical hookup at each tent, and restroom facilities are close to the loop. This is an actual primitive-style option, not an RV overflow lot.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-livingston/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Blue/channel catfish special bag of 50",
+        "text": "TPWD's current Livingston waterbody schedule allows 50 blue and channel catfish in combination per day, of which no more than five may be 30 inches or longer. This differs materially from the 25-fish allowance on many other reservoirs; flathead catfish follow their own statewide schedule.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0451"
+      },
+      {
+        "label": "Fish consumption advisory and gar reporting",
+        "text": "TPWD identifies an active fish-consumption advisory at Lake Livingston; anglers should read affected species and consumption advice before eating a catch. TPWD also requires reporting harvested alligator gar within 24 hours, and only gar under 48 inches may be retained here under the current schedule.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0451"
+      },
+      {
+        "label": "Zebra mussels and October 2026 park closure notices",
+        "text": "TPWD confirms invasive zebra mussels on Livingston. Drain and clean boats and gear when moving between public waters. Separate park alerts published Oct. 23, 2026 impose a burn ban; low water has left the state-park ramp hazardous, and construction may temporarily close individual campsites through December 2026.",
+        "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-livingston/alert"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Livingston State Park — Pineywoods Boardwalk Trail",
+        "description": "The state's 0.9-mile Pineywoods Boardwalk Trail passes wetlands and forest habitat, while the 2-mile Bakba Trail follows woodland paths. These are individually named on-site hikes, not vague recommendations to explore Polk County.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-livingston/trails-info/",
+        "external": true
+      },
+      {
+        "label": "Lake Livingston State Park — observation tower and Pine Island views",
+        "description": "The park's signed observation tower offers views of Pine Island, the lake's largest island, along with the fishing pier and shoreline raptors. TPWD provides coordinates in its trail guide; use the park map and check current construction restrictions before visiting.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-livingston/trails-info/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-livingston/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0451",
+      "https://tpwd.texas.gov/state-parks/lake-livingston/alert",
+      "https://tpwd.texas.gov/state-parks/lake-livingston/trails-info/"
+    ]
+  },
+  "lake-whitney": {
+    "camping": [
+      {
+        "name": "Lake Whitney State Park — Horseshoe full-hookup loop",
+        "type": "TPWD-listed overnight campground",
+        "summary": "The Horseshoe campground has 43 TPWD-listed full-hookup campsites, with water, sewer, 50-amp electrical service and nearby showers. The operator identifies site numbers 1–38 and 47–51, while nearby Horseshoe water-only loops provide different amenities. Check actual site allocation and park closure dates before booking.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-whitney/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Whitney State Park — Blue Bird, Road Runner and Sunset Ridge",
+        "type": "TPWD-listed overnight campground",
+        "summary": "The park's three electric camping loops collectively have 31 sites with water and 50-amp electricity, located in Blue Bird, Road Runner and Sunset Ridge. They do not publish an individual sewer connection, so distinguish them from the Horseshoe full-hookup sites when choosing RV equipment.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-whitney/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Whitney State Park — Lake View and White-Tail water-only sites",
+        "type": "Water-only state-park campgrounds",
+        "summary": "TPWD lists 63 campsites with water and no electrical service in the Horseshoe, White-Tail, Star View and Lake View areas. Picnic tables, grills and nearby shower facilities are available. This is a separate budget-oriented choice; select a specific Lake View site to seek a shoreline setting.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-whitney/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide black-bass and striped-bass rules",
+        "text": "The official Lake Whitney fishery profile says all species currently use statewide harvest regulations. Lake Whitney supports both largemouth and smallmouth bass, white bass and striped bass, which have different statewide limits; do not confuse a five-fish combined black-bass limit with the separate striped-bass allowance.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/whitney/"
+      },
+      {
+        "label": "Golden-alga fishery risk",
+        "text": "TPWD explicitly warns that golden-alga blooms can occur at Lake Whitney and that blooms are toxic to fish, reducing angling quality. This is lake-specific fisheries guidance rather than a permanent fishing closure; review the agency's current bloom reports before planning a catch-oriented trip.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/whitney/"
+      },
+      {
+        "label": "Upcoming winter 2026–27 park closures",
+        "text": "TPWD currently schedules Lake Whitney State Park closure from 5 p.m. December 6 to 3 p.m. December 11, 2026, and again from 5 p.m. January 15 to 3 p.m. January 22, 2027, except for permitted hunters. These affect access even though the wider reservoir still has its own ramps.",
+        "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-whitney/alert"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Whitney State Park — prairie walking and birding",
+        "description": "The state park manages open limestone prairie, oak mottes and lakeshore habitat suitable for nature photography and birdwatching. TPWD notes that turkeys and bald eagles have been spotted and offers park walking routes. Use its trail information rather than assuming a distant town is a shoreline attraction.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-whitney",
+        "external": true
+      },
+      {
+        "label": "Lake Whitney State Park — shoreline geocaching and stargazing",
+        "description": "TPWD promotes geocaching and nighttime stargazing in addition to swimming, boating, fishing and camping. This is a documented on-site recreational option, but park-wide closures, night access and seasonal programs need operator confirmation before planning an overnight visit.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-whitney",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-whitney/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/whitney/",
+      "https://tpwd.texas.gov/state-parks/lake-whitney/alert",
+      "https://tpwd.texas.gov/state-parks/lake-whitney"
+    ]
+  },
+  "lake-corpus-christi": {
+    "camping": [
+      {
+        "name": "Lake Corpus Christi State Park — Javelina full-hookup loop",
+        "type": "TPWD-listed overnight campground",
+        "summary": "TPWD lists 26 full-hookup campsites, primarily Javelina sites 24–47 plus Catfish Cove site 82. These have water, sewer and electrical connections, grills and nearby shower restrooms. Several have shade shelters and pull-through arrangements; reserve by site for trailer dimensions and lake views.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-corpus-christi/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Corpus Christi State Park — Opossum Bend electric loop",
+        "type": "TPWD-listed overnight campground",
+        "summary": "The Opossum Bend campground contains 23 campsites with electrical hookups and water, picnic tables, grills and nearby restrooms. The operator lists some pull-through spaces and shade shelters. These do not include sewer hookups at each pitch, unlike the Javelina full-hookup facilities.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-corpus-christi/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Corpus Christi State Park — Catfish Cove and Mesquite water-only",
+        "type": "State-park water-only camping",
+        "summary": "TPWD identifies 59 water-only campsites in the Catfish Cove and Mesquite areas with picnic tables, fire rings and restrooms/showers nearby. These are real reservable campsites, not an assumption that every fishing pier or shore access point permits overnight tents.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-corpus-christi/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide limits apply, unlike special-limit reservoirs",
+        "text": "TPWD's Lake Corpus Christi lake-specific fishery page explicitly states that all fish species currently follow statewide regulations. Largemouth bass, white bass, blue/channel/flathead catfish and crappie have different species-specific state limits, so an angler should identify the catch before applying a bag size.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/corpus_christi/"
+      },
+      {
+        "label": "Alligator gar — harvest reporting and restrictions",
+        "text": "TPWD documents a significant alligator-gar fishery at Lake Corpus Christi with large specimens reported. Alligator gar are subject to statewide regulations including mandatory harvest reporting within 24 hours and possible temporary spawning-area closures; do not infer that large fish can be kept simply because trophy catches are described.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/corpus_christi/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Corpus Christi State Park — lighted accessible fishing pier",
+        "description": "TPWD operates two lighted fishing piers at the state park, including a 400-foot wheelchair-accessible pier, and two fish-cleaning shelters. These are named operator-managed facilities for an evening shoreline trip, and state-park bank fishing does not require a license.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-corpus-christi",
+        "external": true
+      },
+      {
+        "label": "Lake Corpus Christi State Park — CCC refectory and birding",
+        "description": "The park preserves a historic stone refectory from Civilian Conservation Corps Company 886, which built park infrastructure during the 1930s. TPWD also reports more than 200 identified bird species in the park, making the history site and birding loops distinct outdoor activities.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-corpus-christi",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-corpus-christi/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/corpus_christi/",
+      "https://tpwd.texas.gov/state-parks/lake-corpus-christi"
+    ]
   }
 };
