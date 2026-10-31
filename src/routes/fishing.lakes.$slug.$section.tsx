@@ -9,6 +9,7 @@ import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.func
 import { LAKE_CONROE_SLUG, isLakeConroeSection, lakeConroeCanonicalPath, type LakeConroeSection } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSection, isShowcaseLakeSlug, showcaseLakeCanonicalPath, type ShowcaseLakeSection } from "@/data/fishing/showcase-lake-routing";
 import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
+import { isShowcaseLakeSectionIndexReady } from "@/data/fishing/showcase-section-index-readiness";
 import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -45,7 +46,9 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     // Do not index thin report/guide sections until real dated reports or verified guides are present.
     const unfilledSection = (loaderData.section === "reports" && loaderData.reports.length === 0)
       || (loaderData.section === "guides" && !loaderData.guides.some((guide) => guide.verifiedListing));
-    const robots = unfilledSection ? "noindex, follow" : undefined;
+    const hasStandaloneAuthority = loaderData.kind !== "showcase"
+      || isShowcaseLakeSectionIndexReady(loaderData.pageData, loaderData.section);
+    const robots = unfilledSection || !hasStandaloneAuthority ? "noindex, follow" : undefined;
     if (loaderData.kind === "conroe") {
       const { section, pageData } = loaderData;
       const page = pageData.sections.find((item) => item.slug === section);
