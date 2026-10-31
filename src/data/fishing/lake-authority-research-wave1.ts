@@ -2367,5 +2367,248 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/austin/",
       "https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures"
     ]
+  },
+  "fayette-county-reservoir": {
+    "camping": [
+      {
+        "name": "Park Prairie Park — LCRA camping and fishing pier",
+        "type": "LCRA-operated north-shore campground",
+        "summary": "TPWD identifies Park Prairie Park on the north side of Fayette County Reservoir about ten miles east of La Grange as a Lower Colorado River Authority facility that offers overnight camping, an improved three-lane ramp, fishing pier and picnic areas. Park fees apply; use LCRA reservations and verify campsite hookups with the operator.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/access.phtml"
+      },
+      {
+        "name": "Oak Thicket Park — LCRA campground and boat access",
+        "type": "LCRA-operated campground",
+        "summary": "TPWD verifies Oak Thicket Park as the other LCRA overnight camping facility on Fayette County Reservoir, two miles east of Park Prairie Road from Texas 159. It has a two-lane paved boat ramp and fishing pier; the operator handles campground reservations and park fees. Confirm individual campsite types before arrival.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Protected largemouth bass slot of 16–24 inches",
+        "text": "TPWD's Fayette County waterbody rule prohibits retaining largemouth bass longer than 16 inches but shorter than 24 inches. Bass 16 inches or less and at least 24 inches may be retained, with no more than one fish of 24 inches or longer daily. The combined black-bass daily bag is five.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0282"
+      },
+      {
+        "label": "Trotlines and bowfishing prohibited",
+        "text": "TPWD's Fayette County schedule specifically prohibits the use of trotlines. The TPWD lake profile also confirms that LCRA prohibits bowfishing on Fayette County Reservoir. These are local method restrictions, not blanket statements about every Texas reservoir, and should appear on the lake's rules page.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/"
+      },
+      {
+        "label": "Blue/channel catfish 14-inch minimum and bag 15",
+        "text": "The Fayette County Reservoir waterbody regulation requires at least 14 inches for blue and channel catfish, with a combined daily bag of 15 fish. Flatheads require 18 inches and have a five-fish daily bag. These site-specific limits differ from typical 25-fish statewide catfish allowances.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0282"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Park Prairie Park — north-shore fishing pier",
+        "description": "TPWD's official Park Prairie entry confirms a fishing pier and three-lane launch ramp, together with picnic and recreation access at the north shore of Fayette County Reservoir. It is an identifiable public lake activity rather than a vague suggestion to visit a county park.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Oak Thicket Park — improved two-lane boat launch and pier",
+        "description": "Oak Thicket Park's named ramp and public fishing pier offer a separate north-shore route to bank fishing and boating. TPWD lists it as a fee-charging LCRA park with year-round access; confirm weather closures and lake conditions before making a trip.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0282",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/"
+    ]
+  },
+  "alan-henry-reservoir": {
+    "camping": [
+      {
+        "name": "Sam Wahl Recreation Area — primitive lake camping",
+        "type": "Primitive campsite and self-contained RV parking only",
+        "summary": "TPWD identifies Sam Wahl Recreation Area as the city-operated primary public lake access at Alan Henry Reservoir, with designated primitive campsites and spaces for self-contained RVs. It explicitly says there are no improved campground facilities or RV utility hookups inside the recreation area; do not mislabel the pier parking lot as a developed RV park.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/alan_henry/access.phtml"
+      },
+      {
+        "name": "Grubbs Bait and Grill — private hookup camping opposite park entrance",
+        "type": "TPWD-listed private RV campground",
+        "summary": "TPWD specifically identifies a privately operated campground at Grubbs Bait and Grill across the road from the Sam Wahl Recreation Area entrance, with campsites offering RV hookups. It is not inside the city recreation park; contact the operator before depending on current hookups, campsite availability or restaurant service.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/alan_henry/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Alan Henry special bass rules",
+        "text": "TPWD's Alan Henry waterbody regulations identify local bass-size restrictions rather than allowing an angler to assume the statewide 14-inch largemouth minimum. Check the actual current reservoir schedule before harvesting largemouth or the stocked Alabama spotted bass population; fish identification changes which limits apply.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0006"
+      },
+      {
+        "label": "Official fish-consumption advisory",
+        "text": "TPWD flags an active consumption advisory for Alan Henry Reservoir. A legal catch may still be subject to separate eating recommendations by species and fish size; check the linked consumption notice before keeping a fish for the table, especially with children or frequent fish meals.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/alan_henry/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Sam Wahl fishing pier and steep-bank lookout",
+        "description": "TPWD documents an improved fishing pier and boat dock at Sam Wahl Recreation Area, the lake's only public access site. The shoreline is unusually steep and restrooms lie a long uphill walk from the pier; this is specific practical visitor information for bank anglers.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/alan_henry/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Sam Wahl four-lane boat ramp and lake trail setting",
+        "description": "The city's Sam Wahl access facility has a four-lane ramp with parking for roughly 100 trailers, one of the few practical entry points to the narrow canyon lake. TPWD describes rock and flooded timber as key local structure and warns of limited alternative shoreline access.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/alan_henry/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/alan_henry/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0006",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/alan_henry/"
+    ]
+  },
+  "lake-stamford": {
+    "camping": [
+      {
+        "name": "Stamford Park — city campground and cabins",
+        "type": "City campground with hookups and cabins",
+        "summary": "TPWD identifies Stamford Park on Stamford Reservoir, off FM 2976, as a city-run overnight facility with camping areas, RV hookups, cabins, a fishing house and a two-lane boat ramp. This is a named operator facility, not a generic access inventory entry. Confirm the specific utility class and current cabin rates with the city.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stamford/access.phtml"
+      },
+      {
+        "name": "Silo Scott Memorial Park — Haskell County hookup camping",
+        "type": "County park with RV hookup camping",
+        "summary": "Haskell County's Silo Scott Memorial Park near Anchor Marina has TPWD-verified camping areas with RV hookups, picnic sites and a single-lane boat ramp. The park is reached off FM 3495. Check county management and reservation terms before visiting; its facilities are separate from Stamford Park.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stamford/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide fish harvest limits, no lake-specific slot",
+        "text": "TPWD's Stamford Reservoir profile expressly says all species are managed under statewide regulations, including largemouth bass, white bass, catfish and white crappie. The correct size/bag limit depends on the caught species, not the presence of a boat launch at a private marina.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stamford/"
+      },
+      {
+        "label": "High water-level fluctuation affects fishing access",
+        "text": "TPWD reports typical reservoir-level fluctuations of four to ten feet annually at Stamford, with occasionally severe low water and turbid clarity. The city's Stamford Marina ramp and county-operated Anchor Marina ramp are separate; contact operators to confirm each launch is usable before traveling.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stamford/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Stamford Park crappie fishing house",
+        "description": "Stamford Marina in the city park includes a TPWD-listed enclosed crappie fishing house, with a fee charged for use. It is an identifiable facility worth planning around, not merely an unsourced recommendation for shoreline fishing.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stamford/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Silo Scott Memorial Park at Anchor Marina",
+        "description": "TPWD identifies this Haskell County park on the reservoir as a public picnic and bank-fishing location with a boat launch. It is a distinct travel stop from Stamford Marina and provides an alternate shore sector when water level permits.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stamford/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stamford/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stamford/"
+    ]
+  },
+  "lake-sweetwater": {
+    "camping": [
+      {
+        "name": "Sweetwater Lake City Park — municipal camping area",
+        "type": "Municipal lake camping; hookups not independently confirmed",
+        "summary": "TPWD's Sweetwater Reservoir public-access guide confirms the City of Sweetwater manages camping facilities, picnic sites, fishing docks and a marina alongside the reservoir's single five-lane lighted boat ramp. Individual RV utility hookups and site prices are not established in the TPWD record; contact the city rather than claiming a full-service RV park.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "All fish species follow statewide harvest limits",
+        "text": "TPWD's Sweetwater Reservoir fisheries page states all game fish currently follow statewide rules, not a local protected-slot bass schedule. Largemouth bass, channel catfish, crappie and sunfish are present, but the same TPWD profile says fish populations have been badly reduced by earlier golden-alga blooms.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/"
+      },
+      {
+        "label": "Golden alga bloom active as of source review",
+        "text": "TPWD's current Sweetwater Reservoir access page prominently warns that an active golden-alga bloom may kill fish and degrade fishing prospects. This is a specifically documented local warning, not a new legal harvest ban. Check current TPWD updates before advertising productive angling or booking a long drive.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Sweetwater City Park — fishing docks and lakeside picnic facilities",
+        "description": "The city-operated Sweetwater Reservoir access area includes public fishing docks, a marina, picnic facilities and a multi-lane lighted launch. TPWD specifies that access is limited primarily to the park and ramp, making this the practical public visitor site at this reservoir.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Sweetwater lake boat ramp — five-lane lighted launch",
+        "description": "The public boat ramp off FM 2035 south of Interstate 20 is a five-lane lighted concrete launch with parking for about 50, managed by the City of Sweetwater. Fees apply. It is not a separate overnight campground even though the park has camping facilities.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/"
+    ]
+  },
+  "benbrook-lake": {
+    "camping": [
+      {
+        "name": "South Holiday Park — USACE developed camping",
+        "type": "Corps campground with partial site closures",
+        "summary": "The Corps identifies South Holiday as one of Benbrook's developed overnight campgrounds with electrical and water campsites, but its October 2026 park status lists substantial site closures and every boat ramp at this campground closed because of low reservoir elevation. Book only a verified available site and do not assume a reservation permits boat launching.",
+        "href": "https://www.swf-wc.usace.army.mil/benbrook/"
+      },
+      {
+        "name": "Bear Creek Campground — USACE developed sites",
+        "type": "Seasonal Corps campground; currently closed",
+        "summary": "USACE operates Bear Creek Campground as another developed utility-hookup camping facility at Benbrook Lake, but current Corps status shows it seasonally closed. This is not an immediately bookable autumn campground; check the federal campground reopening calendar before adding it to a trip itinerary.",
+        "href": "https://www.swf-wc.usace.army.mil/benbrook/Recreation/Camping/"
+      },
+      {
+        "name": "Westcreek Circle — primitive camping",
+        "type": "Primitive camping area; access subject to closures",
+        "summary": "The Corps' Benbrook campground information identifies Westcreek Circle as limited-development primitive camping. There are no RV campsite hookups, and camping is confined to designated park areas rather than anywhere along the shoreline. Confirm whether this loop is currently accessible during low-water restrictions.",
+        "href": "https://www.swf-wc.usace.army.mil/benbrook/Recreation/Camping/"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide species-specific fish harvest at Benbrook",
+        "text": "TPWD confirms Benbrook Lake follows statewide harvest limits for all resident species, including largemouth bass, white/hybrid striped bass, crappie and blue/channel catfish. There is no special slot rule for this lake; consult the official Outdoor Annual for each species before retaining a catch.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/benbrook/"
+      },
+      {
+        "label": "Low-water closures of Benbrook boat ramps",
+        "text": "The USACE 2026 facility status confirms South Holiday campground boat ramps closed, Longhorn and North Holiday launches closed and some day-use parks restricted due to low reservoir levels. Boat availability may change independently of campsite opening; check the Corps live status on the departure date.",
+        "sourceUrl": "https://www.swf-wc.usace.army.mil/benbrook/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Mustang Day Use Park — currently usable lake access",
+        "description": "The Corps status table identifies Mustang Day Use Park as open with its boat ramp open, while its swimming beach is closed because of low lake elevation. This distinction gives visitors a real alternative when ramps in Holiday Park cannot be used.",
+        "href": "https://www.swf-wc.usace.army.mil/benbrook/",
+        "external": true
+      },
+      {
+        "label": "Benbrook Horseback and Nature Trail",
+        "description": "The Corps' Benbrook recreation project manages horseback riding and nature paths as a separate land-based visitor activity. Check trail-gate rules, parking and seasonal restrictions before planning a ride or walk; do not assume access through closed low-water shoreline parks.",
+        "href": "https://www.swf-wc.usace.army.mil/benbrook/Recreation/Camping/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.swf-wc.usace.army.mil/benbrook/",
+      "https://www.swf-wc.usace.army.mil/benbrook/Recreation/Camping/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/benbrook/"
+    ]
   }
 };
