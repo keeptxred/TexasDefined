@@ -413,6 +413,9 @@ function EntityPage() {
   // Distinct programs in the same campus county must all remain discoverable.
   const researchedFootballCountyLinks = entity.kind === 'county'
     ? [...(batch002FootballCountyLinks[entity.slug] ?? []), ...(supplementalFootballCountyLinks[entity.slug] ?? [])]
+        // Imported county-link arrays may temporarily contain missing entries.
+        // Do not let one malformed link break an otherwise valid county page.
+        .filter((school) => Boolean(school?.slug && school?.name))
     : [];
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
