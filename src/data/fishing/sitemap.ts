@@ -45,7 +45,7 @@ export const FISHING_SITEMAP_ENTRIES = [
   // qualified section URLs are emitted from the corresponding server loaders.
   ...LAKE_CONROE_SECTION_SLUGS
     .filter((section) => section !== "guides" && section !== "reports")
-    .map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: LAKE_CONROE_VERIFIED_AT })),
+    .map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: (section === "camping" || section === "nearby" || section === "regulations") ? LAKE_AUTHORITY_RESEARCH_WAVE1["lake-conroe"].reviewedAt : LAKE_CONROE_VERIFIED_AT })),
   ...ALL_SHOWCASE_LAKE_SLUGS.flatMap((slug) => [
     { path: showcaseLakeCanonicalPath(slug), lastmod: lakeSitemapDate(slug) },
     ...SHOWCASE_LAKE_SECTION_SLUGS
