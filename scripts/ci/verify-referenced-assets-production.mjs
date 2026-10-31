@@ -216,6 +216,12 @@ async function verify() {
   for (const a of latest.legacyAssets || []) {
     if (a.wasAvailable === true) inherited.set(a.path, { ...a });
   }
+  // The outgoing Worker's old hash bytes were copied into the upcoming
+  // dist/client bundle before Wrangler deployment. Make their continued
+  // availability a hard live production gate, not a best-effort report.
+  for (const asset of latest.retainedAssets || []) {
+    if (asset.wasAvailable === true) inherited.set(asset.path, { ...asset });
+  }
   const results = { format: 1, checkedAt: new Date().toISOString(), expected, histories,
     lazyRouteCanaries: newBuilt.map(x => x.path),
     preExistingLazyFailures: (latest.legacyAssets || []).filter(x => !x.wasAvailable)
