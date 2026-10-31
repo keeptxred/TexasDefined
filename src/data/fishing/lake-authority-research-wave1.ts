@@ -1655,5 +1655,171 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://www.nps.gov/thingstodo/hike-the-diablo-east-nature-trail.htm",
       "https://www.nps.gov/amis/planyourvisit/hours.htm"
     ]
+  },
+  "canyon-lake": {
+    "camping": [
+      {
+        "name": "Potters Creek Park — USACE electric RV and tent campground",
+        "type": "Operator-verified overnight campground",
+        "summary": "The US Army Corps of Engineers lists 93 single back-in RV sites and five multi-RV family sites with 50-amp electricity and water at Potters Creek. It separately lists ten tent sites with 15-amp service and seven screened shelters. The developed park has showers, dump stations, two boat ramps and a swimming beach; reservations go through Recreation.gov.",
+        "href": "https://www.swf-wc.usace.army.mil/canyon/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "Cranes Mill Park — USACE campground",
+        "type": "Operator-verified overnight campground",
+        "summary": "The Corps operates 30 50-amp electric/water RV sites and 34 water-only tent sites at Cranes Mill on Canyon Lake's south shore. It has showers, a dump station, a two-lane ramp and a dedicated fishing pier for campers. The Corps says campground sites 31–64 are unavailable from October 1 through March 31; check reservation availability before arrival.",
+        "href": "https://www.swf-wc.usace.army.mil/canyon/Recreation/Parks/Corpsparks.shtml"
+      },
+      {
+        "name": "North Park — USACE primitive tent campsites",
+        "type": "USACE primitive tent camping",
+        "summary": "The Corps lists primitive tent-only sites at North Park without campsite utility connections, with centralized drinking water and a vault toilet. This is a different option from the full-service Potters Creek RV sites. Reservations for overnight park sites must be checked through the Corps reservation system.",
+        "href": "https://www.swf-wc.usace.army.mil/canyon/Recreation/Camping/Devareas.shtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide harvest limits apply to Canyon Lake fish",
+        "text": "TPWD's Canyon Lake fishery profile explicitly states that all species currently use statewide fishing regulations. Largemouth bass, smallmouth and Guadalupe bass, white and striped bass and catfish each have distinct statewide size/bag provisions. A valid Texas fishing license is required for Canyon Lake; the below-dam trout stocking area is a separate Guadalupe River fishery.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/canyon/"
+      },
+      {
+        "label": "Fish-consumption advisory and invasive mussels",
+        "text": "TPWD's Canyon Lake fisheries record displays a fish-consumption advisory in effect and reports invasive zebra mussels. Review the advisory's named species before eating fish; drain boats, livewells and other onboard receptacles when changing public fresh waters. These warnings are distinct from recreational harvest bag limits.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/canyon/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "USACE Canyon Dam and Guadalupe River trout fishing pier",
+        "description": "The Corps maintains an ADA-accessible concrete fishing pier downstream of Canyon Dam, near the power plant outlet, where trout have historically been stocked. This is a specific Guadalupe River fishing outing, separate from the Canyon Lake shoreline. Check current stocking, river releases and access rules before visiting.",
+        "href": "https://www.swf-wc.usace.army.mil/canyon/Recreation/Fishing.shtml",
+        "external": true
+      },
+      {
+        "label": "Potters Creek free fishing dock and Cranes Mill day-use dock",
+        "description": "The Corps identifies a fishing dock near the free-use ramp outside Potters Creek's campground, and a free dock immediately outside the Cranes Mill campground. The dock inside Cranes Mill campground is restricted to registered campers. These are three distinct shore-access options, not a generic nearby attraction claim.",
+        "href": "https://www.swf-wc.usace.army.mil/canyon/Recreation/Fishing.shtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.swf-wc.usace.army.mil/canyon/Recreation/Camping/Devareas.shtml",
+      "https://www.swf-wc.usace.army.mil/canyon/Recreation/Parks/Corpsparks.shtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/canyon/",
+      "https://www.swf-wc.usace.army.mil/canyon/Recreation/Fishing.shtml"
+    ]
+  },
+  "toledo-bend-reservoir": {
+    "camping": [
+      {
+        "name": "Ragtown Recreation Area — Sabine National Forest shoreline camping",
+        "type": "SRA-operated federal forest campground",
+        "summary": "The Sabine River Authority operates Ragtown on the Texas shore of Toledo Bend under a US Forest Service permit. It identifies 12 double-family camping units and 13 single-family units with tent pad, picnic table, parking spur and campfire ring, plus a two-lane launch ramp. The campground is high on an east-facing forested bluff; check operator status before visiting.",
+        "href": "https://sratx.org/parks-and-recreation/ragtown/"
+      },
+      {
+        "name": "Lakeview Campground — Toledo Bend Sabine National Forest",
+        "type": "SRA-operated primitive forest campground",
+        "summary": "The Sabine River Authority lists ten camping sites at Lakeview, each with a table, grill and tent pad. The area has centralized water hydrants and portable toilets, and serves as a trailhead for Trail Between the Lakes. This facility is not a full-hookup RV park, and the authority warns it may close if storm damage disrupts the water system.",
+        "href": "https://sratx.org/parks-and-recreation/lakeview/"
+      },
+      {
+        "name": "Lost Frontier RV Park Marina — Toledo Bend mid-lake",
+        "type": "TPWD-listed private RV/marina facility",
+        "summary": "TPWD's Toledo Bend access inventory lists Lost Frontier RV Park Marina off Texas Highway 21 east of Milam, with a three-lane boat ramp and private operator. It is a specifically named RV lodging lead on the reservoir; the inventory does not establish same-day campsite availability, electrical hookups or private booking terms.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/toledo_bend/access2.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Eight-fish black-bass limit and 14-inch largemouth minimum",
+        "text": "Toledo Bend has a special eight-fish daily bag limit for all black-bass species in combination, with a possession limit of ten. Largemouth and smallmouth bass have a 14-inch minimum; Guadalupe, Alabama and spotted bass have no minimum if present. This is the TPWD's Toledo Bend-specific cross-border rule, not the five-fish statewide default.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0734"
+      },
+      {
+        "label": "No minimum length on crappie; 50 combined blue/channel catfish",
+        "text": "TPWD's Toledo Bend waterbody schedule has no crappie minimum length and allows 25 black/white crappie per day combined. Blue and channel catfish have no minimum and a 50-fish combined daily/possession limit, with at most five 30 inches or longer. Flatheads have an 18-inch minimum and a ten-fish bag/possession limit.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0734"
+      },
+      {
+        "label": "Texas-Louisiana reciprocal fishing and consumption advisory",
+        "text": "TPWD says properly licensed Texas or Louisiana residents, and holders of valid nonresident licenses from either state, may fish across the common boundary waters. The same catfish, crappie, white- and black-bass harvest limits apply on both sides, but rules for alligator gar and some other species may differ. A fish-consumption advisory is also in effect.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/toledo_bend/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Ragtown Recreation Area — Mother's Nature Hiking Trail",
+        "description": "The Sabine River Authority identifies a one-mile trail beginning at Ragtown Campground, passing through pine and hardwood forest beside the Toledo Bend shoreline. The operator promotes woodland birdwatching and lake views, making this a named on-site excursion rather than a generic national-forest recommendation.",
+        "href": "https://sratx.org/parks-and-recreation/ragtown/",
+        "external": true
+      },
+      {
+        "label": "Sabinetown Recreation Area — deep-water tournament launch",
+        "description": "The Sabine River Authority operates Sabinetown at 712 Vantage Point in Hemphill, at Palo Gaucho Bayou. It has a six-lane boat ramp, two floating docks, public restrooms and a large pavilion used for fishing tournaments. This is a distinct lakeside day-use facility, not a listed campground.",
+        "href": "https://sratx.org/parks-and-recreation/sabinetown/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://sratx.org/parks-and-recreation/ragtown/",
+      "https://sratx.org/parks-and-recreation/lakeview/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/toledo_bend/access2.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0734",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/toledo_bend/",
+      "https://sratx.org/parks-and-recreation/sabinetown/"
+    ]
+  },
+  "lake-travis": {
+    "camping": [
+      {
+        "name": "Turkey Bend Recreation Area — LCRA lakeshore camping",
+        "type": "Operator-verified overnight campground",
+        "summary": "LCRA operates Turkey Bend Recreation Area on Lake Travis at 4000 Shaw Drive near Marble Falls. The authority lists 30 reservable campsites for up to eight people and a lakeshore landscape with picnic tables, grills and trail access. Review the booking page for actual price and overnight rules; not every lakeshore park allows camping.",
+        "href": "https://lcraparks.com/parks/turkey-bend-recreation-area"
+      },
+      {
+        "name": "Pace Bend Park — Travis County primitive and improved sites",
+        "type": "Travis County lakeside campground",
+        "summary": "Travis County's official park plan documents both improved and primitive camping at Pace Bend, 2805 North Pace Bend Road in Spicewood, with picnic tables, fire rings, trails and Lake Travis shoreline. It also identifies designated boat ramps and park camping loops. Choose an actual campsite and check park closures with Travis County; do not confuse it with Mansfield Dam's day-use access.",
+        "href": "https://www.traviscountytx.gov/citizens-bond-advisory-committee/virtual-open-house/pace-bend-park"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide fish harvest and separate LCRA bowfishing rules",
+        "text": "TPWD explicitly says all Lake Travis species currently follow statewide fishing harvest regulations, but bowfishers are subject to additional rules enforced by the Lower Colorado River Authority. The lake contains largemouth and Guadalupe bass, white and striped bass and catfish, with different harvest limits by species; check LCRA gear restrictions before taking a bow.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/travis/"
+      },
+      {
+        "label": "Zebra mussels and fluctuating lake-level boat ramp restrictions",
+        "text": "TPWD confirms zebra mussels at Lake Travis and requires draining boats and onboard water containers between public lakes. It identifies normal water-level fluctuation of 10–20 feet, and individual ramp usability can change significantly. For example, Mansfield Dam Park's county-operated ramp is documented as usable down to elevation 622 feet; verify the latest status.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/travis/access2.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Turkey Bend — 15-mile LCRA hiking and mountain-bike trail system",
+        "description": "LCRA's official Turkey Bend park map lists 30 campsites and mapped trail segments including the 1.3-mile Azure, 1.9-mile Bowie, 2-mile Fannin and 2.4-mile De Zavala routes, totaling about 15 trail miles. The park is a genuine named lakefront walking and cycling destination with separate overnight sites.",
+        "href": "https://lcraparks.com/parks/turkey-bend-recreation-area",
+        "external": true
+      },
+      {
+        "label": "Pace Bend Park — Lake Travis coves and trails",
+        "description": "Travis County documents over nine miles of Lake Travis shoreline with roughly 20 coves and inlets, two public boat ramps and hiking, biking and equestrian routes at Pace Bend. It supports a trip with water access and inland trails; check low-water ramps and county conditions before visiting.",
+        "href": "https://www.traviscountytx.gov/citizens-bond-advisory-committee/virtual-open-house/pace-bend-park",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://lcraparks.com/parks/turkey-bend-recreation-area",
+      "https://www.traviscountytx.gov/citizens-bond-advisory-committee/virtual-open-house/pace-bend-park",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/travis/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/travis/access2.phtml"
+    ]
   }
 };
