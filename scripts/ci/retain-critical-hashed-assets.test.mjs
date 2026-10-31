@@ -1,7 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { expectedAssetResponse, retentionCandidates, safeCriticalAsset } from './retain-critical-hashed-assets.mjs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { createHash } from 'node:crypto';
+import { expectedAssetResponse, retain, retentionCandidates, safeCriticalAsset } from './retain-critical-hashed-assets.mjs';
 
 const hash = 'b'.repeat(64);
 const historical = '2026-10-30T12:00:00.000Z';
@@ -74,4 +77,49 @@ test('outgoing-Worker retention precedes Wrangler deploy and is covered by postd
   const verifier = readFileSync('scripts/ci/verify-referenced-assets-production.mjs', 'utf8');
   assert.match(verifier, /latest\.retainedAssets/);
   assert.match(verifier, /record\.sha256 === a\.preSha256/);
+});
+
+test('actual retention copies byte-identical prior Worker JS to next client assets, without new storage', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-hashed-assets-'));
+  try {
+    const body = 'export const stillValidOldVersion = true;';
+    const expected = createHash('sha256').update(body).digest('hex');
+    const snapshotPath = join(temp, 'snapshot.json');
+    const reportPath = join(temp, 'report.json');
+    const assetFolder = join(temp, 'client', 'assets');
+    const path = '/assets/main-OldHashA1.js';
+    const now = Date.now();
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      format: 1, capturedAt: new Date(now - 1000).toISOString(),
+      pages: [{ path: '/', assets: [{ path, wasAvailable: true, preSha256: expected }] }],
+      builtAssets: [{ path: '/assets/main-NewHashB2.js' }],
+    }] }));
+    const requested = [];
+    const result = await retain({ snapshotPath, reportPath, assetFolder, now, fetchImpl: async url => {
+      requested.push(url);
+      return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
+    } });
+    assert.deepEqual(requested, ['https://texasdefined.com' + path]);
+    assert.equal(readFileSync(join(assetFolder, 'main-OldHashA1.js'), 'utf8'), body);
+    assert.equal(result.retainedCount, 1);
+    assert.equal(JSON.parse(readFileSync(snapshotPath, 'utf8')).snapshots[0].retainedAssets[0].preSha256, expected);
+    assert.equal(JSON.parse(readFileSync(reportPath, 'utf8')).copied[0].bytes, Buffer.byteLength(body));
+  } finally { rmSync(temp, { recursive: true, force: true }); }
+});
+
+test('previously verified SHA never silently accepts different old code', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-hashed-assets-'));
+  try {
+    const path = '/assets/Container-OldHashA1.js';
+    const snapshotPath = join(temp, 'snapshot.json');
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      format: 1, capturedAt: new Date().toISOString(),
+      pages: [{ path: '/', assets: [{ path, wasAvailable: true, preSha256: 'a'.repeat(64) }] }],
+    }] }));
+    await assert.rejects(() => retain({ snapshotPath, assetFolder: join(temp,'client','assets'),
+      reportPath: join(temp,'report.json'), fetchImpl: async () => new Response('not original bytes',
+        { status: 200, headers: { 'Content-Type': 'application/javascript' } }) }),
+      /changed under identical hashed filename/);
+    assert.equal(existsSync(join(temp, 'client', 'assets', 'Container-OldHashA1.js')), false);
+  } finally { rmSync(temp, { recursive: true, force: true }); }
 });
