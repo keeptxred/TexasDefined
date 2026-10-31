@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 const CENSUS_GEOCODER = 'https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress';
+const CENSUS_LOOKUP_TIMEOUT_MS = 8_000;
 const TIGERWEB = 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_ACS2026/MapServer';
 const ZCTA_LAYER = 2;
 const INCORPORATED_PLACE_LAYER = 28;
@@ -86,6 +87,7 @@ async function queryTigerLayer(layer: number, params: Record<string, string>) {
   const response = await fetch(url, {
     headers: { accept: 'application/json' },
     cache: 'no-store',
+    signal: AbortSignal.timeout(CENSUS_LOOKUP_TIMEOUT_MS),
   });
   if (!response.ok) throw new Error('tigerweb-upstream');
 
@@ -115,6 +117,7 @@ async function countiesForGeometry(geometry: Record<string, unknown>) {
     },
     body,
     cache: 'no-store',
+    signal: AbortSignal.timeout(CENSUS_LOOKUP_TIMEOUT_MS),
   });
   if (!response.ok) throw new Error('tigerweb-upstream');
 
@@ -206,6 +209,7 @@ async function findCountyByAddress(address: string) {
   const response = await fetch(url, {
     headers: { accept: 'application/json' },
     cache: 'no-store',
+    signal: AbortSignal.timeout(CENSUS_LOOKUP_TIMEOUT_MS),
   });
   if (!response.ok) {
     return json({ ok: false, error: 'The Census address service is temporarily unavailable. Try again shortly.' }, 502);
