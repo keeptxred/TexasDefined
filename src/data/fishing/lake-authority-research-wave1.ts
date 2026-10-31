@@ -2212,5 +2212,160 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lop/",
       "https://www.swf-wc.usace.army.mil/lakeopines/Recreation/Camping/Devareas.shtml"
     ]
+  },
+  "grapevine-lake": {
+    "camping": [
+      {
+        "name": "Murrell Park — 11 primitive tent campsites",
+        "type": "USACE reservable primitive tent campground",
+        "summary": "USACE operates eleven designated short-stay tent campsites at Murrell Park. They have fire rings, communal water access and pit toilets but no showers or RV hookups; RV/trailer camping is explicitly prohibited. Sites require reservations through Recreation.gov and may have burn restrictions; don't mistake free day-use access for free overnight camping.",
+        "href": "https://www.swf-wc.usace.army.mil/grapevine/Recreation/Parks/Corpsparks.shtml"
+      },
+      {
+        "name": "Twin Coves Park — Flower Mound RV sites and cabins",
+        "type": "Municipally operated cabins and RV camping",
+        "summary": "The Corps identifies Twin Coves Park on Grapevine Lake's north shore as a Town of Flower Mound lease with overnight RV sites, cabins and primitive sites plus trail and boat access. The town manages reservations, fees and cabin availability, not the Corps' Murrell Park gatehouse.",
+        "href": "https://www.swf-wc.usace.army.mil/grapevine/Recreation/Parks/Leaseparks.shtml"
+      },
+      {
+        "name": "Vineyards Campground — City of Grapevine RV, tent and cabins",
+        "type": "Municipal resort campground",
+        "summary": "The Corps' lease-park inventory verifies that the City of Grapevine operates Vineyards Campground with RV and tent sites, rental cabins, laundry, playground and a boat ramp/fish-cleaning station. Confirm hookup classes and live vacancies directly with the city operator rather than assuming its amenities match primitive Murrell Park.",
+        "href": "https://www.swf-wc.usace.army.mil/grapevine/Recreation/Parks/Leaseparks.shtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Special Grapevine largemouth harvest rule",
+        "text": "TPWD's Grapevine-specific regulations have no general minimum size for largemouth bass, but permit no more than two retained largemouth bass shorter than 18 inches daily. The combined daily bag for all black bass remains five; smallmouth have a 14-inch minimum. This is not an ordinary statewide 14-inch largemouth rule.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0320"
+      },
+      {
+        "label": "Catfish and crappie limits",
+        "text": "The TPWD Grapevine schedule permits 25 combined blue/channel catfish daily, no more than ten of them 20 inches or longer. Flatheads require 18 inches and allow five daily; crappie require 10 inches and allow 25 combined daily. Confirm the current lake page before retaining fish.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0320"
+      },
+      {
+        "label": "Zebra mussel control and reported lake closures",
+        "text": "TPWD warns that invasive zebra mussels have infested Grapevine Lake and some access parks may be closed. Drain the boat and onboard receptacles between freshwater lakes and consult Corps park status before visiting; lakewide fishing regulations do not guarantee access through a closed park gate.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/grapevine/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Northshore Trail from Murrell Park",
+        "description": "The Corps' Murrell Park directory identifies the Northshore Trail access point near the marina, providing a named lakeside hiking and cycling route. Day-use facilities also include bank-fishing trails and lighted ramps, subject to park hours. This is not a generic downtown Grapevine attraction.",
+        "href": "https://www.swf-wc.usace.army.mil/grapevine/Recreation/Parks/Corpsparks.shtml",
+        "external": true
+      },
+      {
+        "label": "Meadowmere Park — beach and primitive camping",
+        "description": "The Corps' municipal lease inventory lists Meadowmere Park with primitive camping, swimming beach, boat access, a playground and group recreation pavilion under City of Grapevine management. It provides a separate shoreline recreation option from Twin Coves and Vineyards; confirm city park access.",
+        "href": "https://www.swf-wc.usace.army.mil/grapevine/Recreation/Parks/Leaseparks.shtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.swf-wc.usace.army.mil/grapevine/Recreation/Parks/Corpsparks.shtml",
+      "https://www.swf-wc.usace.army.mil/grapevine/Recreation/Parks/Leaseparks.shtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0320",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/grapevine/"
+    ]
+  },
+  "lake-bridgeport": {
+    "camping": [
+      {
+        "name": "Wise County Park — county-operated lake campground",
+        "type": "County park with operator-confirmed overnight camping",
+        "summary": "TPWD's Lake Bridgeport access directory verifies Wise County Park on the north end just west of FM 2952. The county charges for camping and other park services, while day use and launching from three two-lane ramps are free. Call Wise County at the published 940-644-1910 to confirm individual site hookups, operating rules and current vacancies.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bridgeport/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide fish-harvest schedule at Bridgeport",
+        "text": "TPWD expressly states all Lake Bridgeport fish species currently follow statewide regulations. Largemouth and smallmouth bass, spotted bass, white/hybrid striped bass, catfish and crappie all occur here, but have distinct size and bag requirements under the Outdoor Annual; do not copy Grapevine's different largemouth exception.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bridgeport/"
+      },
+      {
+        "label": "Zebra mussels and water transfer",
+        "text": "The TPWD Bridgeport lake-access guide confirms invasive zebra mussels. Texas law requires draining onboard water, including livewells and bait buckets, when moving to or from public freshwater. The reservoir typically varies substantially in level; confirm the exact ramp status before launching.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bridgeport/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Wise County Park — boat ramps and lakeshore picnics",
+        "description": "TPWD lists Wise County Park's three two-lane launch ramps, ADA-accessible features, restrooms and picnic grounds, on the north end of Lake Bridgeport. It is a named county facility with free boat launching and day use, separate from the fee-charging campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bridgeport/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Fort Richardson State Park — nearby historic fort",
+        "description": "The TPWD Lake Bridgeport guide explicitly identifies Fort Richardson State Park as a nearby regional state park. Its historic frontier post and nature trails are a real heritage excursion from the lake, but not a walkable shoreline attraction; check current park access.",
+        "href": "https://tpwd.texas.gov/state-parks/fort-richardson",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bridgeport/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bridgeport/",
+      "https://tpwd.texas.gov/state-parks/fort-richardson"
+    ]
+  },
+  "lake-austin": {
+    "camping": [
+      {
+        "name": "Emma Long Metropolitan Park — Grove primitive walk-in campsites",
+        "type": "City-operated primitive tent campground; utility outage",
+        "summary": "Austin Parks and Recreation offers Grove primitive walk-in sites at Emma Long on Lake Austin, accommodating tents without utilities; campers park separately because there is no direct drive-in access. The city requires reservations online. Since October 12, 2026, water supplies, showers and sinks are shut down for maintenance through January 15, 2027, with portable toilets provided.",
+        "href": "https://www.austintexas.gov/parks/emma-long-metropolitan-park"
+      },
+      {
+        "name": "Emma Long Metropolitan Park — RV utility sites, 32-foot limit",
+        "type": "City-operated RV campground; temporary water shutdown",
+        "summary": "The city offers waterfront and non-waterfront RV camping sites with electrical and normally water hookups, but vehicles over 32 feet do not qualify. The water system is shut off October 12 through January 15, 2027, including the dump station, so do not advertise functioning water hookups during this outage. Confirm individual bookable sites before reserving.",
+        "href": "https://www.austintexas.gov/parks/emma-long-metropolitan-park"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Triploid grass carp must be released immediately",
+        "text": "TPWD's Lake Austin fishery page confirms a Triploid Grass Carp Permit is active: any grass carp caught must immediately be returned to the water unharmed. Other resident species follow statewide harvest regulations, so this explicit grass-carp restriction is the critical lake-specific exception.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/austin/"
+      },
+      {
+        "label": "Zebra mussels and mandatory drain-water controls",
+        "text": "TPWD identifies a zebra mussel invasion on Lake Austin. Draining boats and onboard receptacles is required when leaving or approaching public fresh water; cleaning and drying gear reduces transfer risk to other Hill Country reservoirs. Verify lakewide access changes during LCRA maintenance drawdowns.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/austin/"
+      },
+      {
+        "label": "October–November 2026 city ramp and swim closures",
+        "text": "The City of Austin has explicitly closed Emma Long and Commons Ford public boat ramps and swimming areas from October 12 through November 30, 2026, during a managed lake drawdown. This is a verified temporary lake access restriction and must not be replaced with evergreen advice that both ramps are open.",
+        "sourceUrl": "https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Emma Long Park — lakeshore picnic and walking areas",
+        "description": "Austin Parks operates Emma Long Metropolitan Park with reserved group picnic locations, open space, campground access and a designated lake swim area. The swimming area and ramp are temporarily closed through November 30, 2026, and the water system is off through mid-January 2027; verify before visiting.",
+        "href": "https://www.austintexas.gov/parks/emma-long-metropolitan-park",
+        "external": true
+      },
+      {
+        "label": "Commons Ford Ranch Park — Lake Austin shoreline",
+        "description": "Austin Parks identifies Commons Ford Ranch Metropolitan Park as a separate Lake Austin day-use setting with a boat ramp and swimming access, both currently closed through November 30, 2026 because of the drawdown. It remains a named park to revisit after the temporary city closure ends.",
+        "href": "https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.austintexas.gov/parks/emma-long-metropolitan-park",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/austin/",
+      "https://www.austintexas.gov/parks/parks-and-recreation-facilities-closures"
+    ]
   }
 };
