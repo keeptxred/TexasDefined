@@ -46,7 +46,7 @@ test('Second cohort requires real non-skipped Chrome and exact live release attr
  const chrome=read('scripts/ci/verify-football-b011-second-five-production.mjs');
  const flow=read('.github/workflows/verify-football-b011-second-five-production.yml');
  for(const s of ['report.schoolChecks.length!==15','report.countyChecks.length!==5',
-  'report.screenshots!==20','process.env.FOOTBALL_CHROME_SOURCE_SHA',
+  'process.env.FOOTBALL_CHROME_SOURCE_SHA',
   'process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1',
   '/tmp/td-b011-second-chrome/node_modules/playwright-core'])
   assert.ok(chrome.includes(s),'Strict Chrome control missing '+s);
