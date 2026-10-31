@@ -22,7 +22,7 @@ const FETCH_TIMEOUT_MS = 20000;
 export function safeCriticalAsset(path) {
   if (typeof path !== 'string' || !/^\/assets\/[A-Za-z0-9][A-Za-z0-9._-]{1,155}\.(?:js|css)$/.test(path)) return false;
   const name = basename(path);
-  return /^(?:main-|Container-|Header-|Footer-|RouteStatusScreens-|styles-|x-|property-tax\.|texas-high-school-football-teams_|events\.lazy-|events\._collection\.lazy-|food\._slug\.lazy-|article\._slug-|destination\._slug-|events\.index\.lazy-|explore\.index\.lazy-|search\.lazy-|fishing\.lakes\._slug-|texas-high-school-football-playoff-brackets-|MuseumAuthorityNetworkSection-|museum-authority-heroes-|texas-data\.lazy-)/.test(name);
+  return /^(?:main-|Container-|Header-|Footer-|RouteStatusScreens-|styles-|x-|property-tax\.|texas-high-school-football-teams_|texas-high-school-football-districts_|useLocation-|SponsoredSportsPlacement-|createLucideIcon-|ContextualOfficialSources-|CitationCollectionTrustRouter-|analytics-|events\.lazy-|events\._collection\.lazy-|food\._slug\.lazy-|article\._slug-|destination\._slug-|events\.index\.lazy-|explore\.index\.lazy-|search\.lazy-|fishing\.lakes\._slug-|texas-high-school-football-playoff-brackets-|MuseumAuthorityNetworkSection-|museum-authority-heroes-|texas-data\.lazy-)/.test(name);
 }
 
 export function retentionCandidates(history, now = Date.now()) {
