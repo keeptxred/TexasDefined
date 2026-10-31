@@ -77,12 +77,12 @@ test('select exact emitted football and tax lazy-route chunks even when absent f
 });
 
 test('missing or ambiguous lazy-route chunks fail closed instead of silently skipping old Googlebot failures', () => {
-  assert.throws(() => selectBuiltRouteAssets(['main-AbCd.js']), /Expected exactly one production lazy-route chunk/);
+  assert.throws(() => selectBuiltRouteAssets(['main-AbCd.js']), /Expected exactly one production client chunk/);
   assert.throws(() => selectBuiltRouteAssets([
     'texas-high-school-football-teams_._slug.lazy-A.js',
     'texas-high-school-football-teams_._slug.lazy-B.js',
     'property-tax.taxing-unit._unit-C.js',
-  ]), /Expected exactly one production lazy-route chunk/);
+  ]), /Expected exactly one production client chunk/);
 });
 
 test('handoff persists old built hashes and current built hashes for next release', () => {
