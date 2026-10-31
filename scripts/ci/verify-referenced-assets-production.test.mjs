@@ -94,8 +94,16 @@ test('discover event and food lazy-route hashes observed missing for Microsoft s
   ]);
   // Unemitted optional chunks are not fabricated into a deployment.
   assert.equal(selectBuiltRouteAssets(files.slice(0, 2)).length, 2);
-  assert.throws(() => selectBuiltRouteAssets([...files, 'food._slug.lazy-DUPLICATE.js']),
-    /Expected at most one production client chunk/);
+  assert.deepEqual(selectBuiltRouteAssets([...files, 'food._slug.lazy-DUPLICATE.js'])
+    .map(x => x.path).filter(x => x.includes('/food._slug.lazy-')), [
+      '/assets/food._slug.lazy-DUPLICATE.js',
+      '/assets/food._slug.lazy-E5.js',
+    ], 'legitimate multiple Vite outputs within one optional route family stay covered');
+  assert.throws(() => selectBuiltRouteAssets([...files, ...Array.from({length: 9},
+    (_, i) => 'food._slug.lazy-OVERFLOW' + i + '.js')]),
+    /at most eight distinct/, 'unbounded optional route family must fail closed');
+  assert.throws(() => selectBuiltRouteAssets([...files, 'food._slug.lazy-E5.js']),
+    /at most eight distinct/, 'same exact filename duplicated must fail closed');
 });
 
 test('discover observed old major article, destination, sports and discovery JS families', () => {
@@ -118,6 +126,22 @@ test('discover observed old major article, destination, sports and discovery JS 
   const selected = selectBuiltRouteAssets([...base, ...historical]);
   assert.deepEqual(selected.slice(2).map(a => a.path), historical.map(name => '/assets/' + name));
   assert.equal(selectBuiltRouteAssets(base).length, 2, 'optional unbuilt chunks must not be fabricated');
+});
+
+test('production build may emit two distinct article route chunks and both must be checked', () => {
+  const files = [
+    'texas-high-school-football-teams_._slug.lazy-ONE.js',
+    'property-tax.taxing-unit._unit-TWO.js',
+    'article._slug-EAST.js',
+    'article._slug-WEST.js',
+  ];
+  assert.deepEqual(selectBuiltRouteAssets(files).slice(2).map(x => x.path), [
+    '/assets/article._slug-EAST.js',
+    '/assets/article._slug-WEST.js',
+  ]);
+  assert.throws(() => selectBuiltRouteAssets([...files,
+    'property-tax.taxing-unit._unit-ANOTHER.js']),
+    /Expected exactly one production client chunk/);
 });
 
 test('missing or ambiguous lazy-route chunks fail closed instead of silently skipping old Googlebot failures', () => {
