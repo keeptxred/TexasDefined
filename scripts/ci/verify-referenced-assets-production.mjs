@@ -108,6 +108,7 @@ async function retrieveHtml(origin, page) {
     throw new Error('No versioned JS script/modulepreload found on ' + label(origin) + page + '; cannot certify');
   }
   return { path: page, version: response.headers.get('x-texasdefined-worker-version') || null,
+    cacheControl: response.headers.get('cache-control') || null,
     cfRay: response.headers.get('cf-ray') || null,
     cfCacheStatus: response.headers.get('cf-cache-status') || null, assets };
 }
@@ -228,6 +229,11 @@ async function verify() {
         const html = await retrieveHtml(origin, page);
         if (html.version !== expected) {
           throw new Error('Wrong active Worker version on ' + label(origin) + page + ': expected ' + expected + ', got ' + (html.version || 'missing'));
+        }
+        if ((page.startsWith('/property-tax/') || page.startsWith('/texas-high-school-football-teams/'))
+          && !/(?:^|,)\s*no-store(?:,|$)/.test(html.cacheControl || '')) {
+          throw new Error('SSR HTML cache policy permits stale hash references on ' + label(origin)
+            + page + ': ' + (html.cacheControl || 'missing Cache-Control'));
         }
         currentPages.push(html);
       }
