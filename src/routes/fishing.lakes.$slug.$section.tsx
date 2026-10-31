@@ -56,7 +56,12 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       const canonicalPath = lakeConroeCanonicalPath(section);
       const url = `${siteUrl}${canonicalPath}`;
       const overviewUrl = `${siteUrl}${lakeConroeCanonicalPath()}`;
-      const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: pageData.verifiedAt, citation: sectionCitations(section, pageData.sources) };
+      const sourceDate = (section === "camping" || section === "nearby" || section === "regulations") ? pageData.sectionResearch.reviewedAt : pageData.verifiedAt;
+      const sourcesForSection = section === "camping" ? pageData.camping.map((row) => row.href)
+        : section === "regulations" ? pageData.regulations.map((row) => row.sourceUrl)
+        : section === "nearby" ? pageData.nearby.filter((row) => row.external).map((row) => row.href)
+        : sectionCitations(section, pageData.sources);
+      const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: sourceDate, citation: [...new Set(sourcesForSection)] };
       const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` }, { "@type": "ListItem", position: 3, name: pageData.overview.name, item: overviewUrl }, { "@type": "ListItem", position: 4, name: page.label, item: url }] };
       return { meta: buildMeta(texasDefinedBrand, { title: page.title, description: page.description, canonicalPath, robots }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
     }
@@ -66,7 +71,12 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     const canonicalPath = showcaseLakeCanonicalPath(pageData.slug, section);
     const url = `${siteUrl}${canonicalPath}`;
     const overviewUrl = `${siteUrl}${showcaseLakeCanonicalPath(pageData.slug)}`;
-    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: pageData.verifiedAt, citation: showcaseSectionCitations(section, pageData.sources) };
+    const sourceDate = (section === "camping" || section === "nearby" || section === "regulations") ? pageData.sectionResearch?.reviewedAt ?? pageData.verifiedAt : pageData.verifiedAt;
+    const sourcesForSection = section === "camping" ? pageData.camping.map((row) => row.href)
+      : section === "regulations" ? pageData.regulations.map((row) => row.sourceUrl).filter((url): url is string => Boolean(url))
+      : section === "nearby" ? pageData.nearby.filter((row) => row.external).map((row) => row.href)
+      : showcaseSectionCitations(section, pageData.sources);
+    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: page.title, description: page.description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${overviewUrl}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: sourceDate, citation: [...new Set(sourcesForSection)] };
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` }, { "@type": "ListItem", position: 3, name: pageData.overview.name, item: overviewUrl }, { "@type": "ListItem", position: 4, name: page.label, item: url }] };
     return { meta: buildMeta(texasDefinedBrand, { title: page.title, description: page.description, canonicalPath, robots }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
   },
