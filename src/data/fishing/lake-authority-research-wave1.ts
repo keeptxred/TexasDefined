@@ -1415,5 +1415,128 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0714",
       "https://tpwd.texas.gov/state-parks/lake-tawakoni/trails-info"
     ]
+  },
+  "sam-rayburn-reservoir": {
+    "camping": [
+      {
+        "name": "Hanks Creek Park — USACE reservable campground",
+        "type": "Federally operated campground",
+        "summary": "The federal Recreation.gov Sam Rayburn facility index separately lists Hanks Creek Campground for overnight reservations, while TPWD identifies Hanks Creek as a Corps-operated access park off FM 2801 south of FM 2109. Its two two-lane ramps support a fishing-focused stay. Choose actual campsite options on Recreation.gov and verify current ramp elevation before departure.",
+        "href": "https://www.recreation.gov/camping/gateways/505"
+      },
+      {
+        "name": "Mill Creek Park — USACE reservable campground",
+        "type": "Federally operated campground",
+        "summary": "The official federal camping index lists Mill Creek (Texas) as a distinct reservable Corps campground on Sam Rayburn. TPWD places Mill Creek Park about one mile northwest of US 96 off FM 149 with a two-lane ramp and Corps management. Confirm reservation limits, current amenities and facility closure status for this specific campground.",
+        "href": "https://www.recreation.gov/camping/gateways/505"
+      },
+      {
+        "name": "San Augustine Park — USACE reservable campground",
+        "type": "Federally operated campground",
+        "summary": "The Corps' federal Recreation.gov listing includes San Augustine campground, and TPWD locates its four-lane launch ramps off FM 1751 south of FM 83. This is a named lakeshore overnight alternative on the reservoir's eastern sector, rather than a generic national-forest campground. Check individual site hookups and reservation rules directly.",
+        "href": "https://www.recreation.gov/camping/gateways/505"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Blue and channel catfish bag limit of 50",
+        "text": "TPWD's current Sam Rayburn waterbody rules establish a 50-fish combined daily bag for blue and channel catfish, with no more than five of those fish 30 inches or longer. This is different from the 25-fish default on many other lakes and should be shown precisely on the reservoir-specific regulations page.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0640"
+      },
+      {
+        "label": "Consumption advisory and alligator gar reporting",
+        "text": "TPWD's Sam Rayburn profile flags a fish-consumption advisory; anglers should review the affected species and eating restrictions before preparing a catch. The official waterbody schedule also requires reporting harvested alligator gar within 24 hours and cautions that spawning-area harvest closures may be ordered.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0640"
+      },
+      {
+        "label": "Lake-level changes and ramp access",
+        "text": "The official TPWD access map identifies 22 maintained access areas, but cautions that some ramps fail at low reservoir levels. Sam Rayburn's average annual water fluctuation is around seven feet, so always check Corps water levels and the exact ramp's status before towing. This is separate from fishing bag and size rules.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sam_rayburn/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Sam Rayburn Dam Overlook Park — free bank fishing",
+        "description": "TPWD identifies Overlook Park at the west end of Sam Rayburn Dam on FM 255 as a Corps-operated day-use site for bank fishing, free to enter and open year-round according to its access listing. It is a specific shoreline activity, not a reservable overnight campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sam_rayburn/access2.phtml",
+        "external": true
+      },
+      {
+        "label": "Martin Dies, Jr. State Park — Neches River wetlands",
+        "description": "TPWD lists Martin Dies, Jr. State Park as a nearby regional park for Sam Rayburn visitors. Its cypress waterways, lake/river trails and paddling opportunities make a genuine separate Piney Woods excursion; this is not a claim that the park sits on Sam Rayburn's main shoreline.",
+        "href": "https://tpwd.texas.gov/state-parks/martin-dies-jr",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.recreation.gov/camping/gateways/505",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0640",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sam_rayburn/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sam_rayburn/access2.phtml",
+      "https://tpwd.texas.gov/state-parks/martin-dies-jr"
+    ]
+  },
+  "lake-texoma": {
+    "camping": [
+      {
+        "name": "Eisenhower State Park — full-hookup camping",
+        "type": "Lake Texoma state-park full-hookup campground",
+        "summary": "TPWD lists 50 full-hookup campsites at Eisenhower State Park on Lake Texoma, with electrical connections, water, sewer, fire rings and nearby restrooms. These are a distinct RV-friendly category and should not be confused with the same park's water-only tent sites. Check park alerts and campsite reservation status before driving north of Denison.",
+        "href": "https://tpwd.texas.gov/state-parks/eisenhower/fees-facilities/campsites"
+      },
+      {
+        "name": "Eisenhower State Park — Elm Point water-only sites",
+        "type": "State park premium tent campground",
+        "summary": "The park lists 13 premium water-only campsites in the Elm Point area, with tent pads, shared water spigots and restrooms nearby. Unlike its 50 full-hookup sites, these do not have electrical or sewer connections. Confirm site selection and campground accessibility with TPWD before booking.",
+        "href": "https://tpwd.texas.gov/state-parks/eisenhower/fees-facilities/campsites"
+      },
+      {
+        "name": "Preston Bend Park — USACE camper-only access",
+        "type": "Seasonal Corps campground; camper-only boat ramp",
+        "summary": "The official TPWD Lake Texoma access directory identifies Preston Bend Park as a US Army Corps of Engineers facility on FM 120 north of Pottsboro. Its boat ramp is for campers only with no general day use, and the agency lists an April–October open season. Confirm overnight campsite type and current bookings with the Corps operator.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/texoma/access2.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Striped/hybrid bass ten-fish combined bag",
+        "text": "Lake Texoma has a special striped and hybrid striped bass rule: TPWD allows ten combined daily, with only two measuring 20 inches or longer; the possession limit is 20 and culling these fish is prohibited. This differs from the five-fish striped-bass rule at other Texas reservoirs.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0723"
+      },
+      {
+        "label": "Special catfish, crappie and gar restrictions",
+        "text": "TPWD's Texoma schedule allows 15 combined blue/channel catfish daily (no more than one blue catfish at least 30 inches) and 37 crappie daily (50 in possession). It prohibits taking or possessing alligator gar from Lake Texoma during May under the Red River spawning-season rule. Consult the waterbody schedule before keeping or transporting fish.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0723"
+      },
+      {
+        "label": "Texas–Oklahoma licensing and invasive-species boundary",
+        "text": "Only the Texas side is covered by an ordinary Texas freshwater license. TPWD says anglers may use a separate Lake Texoma license to fish the whole reservoir, including Oklahoma waters; check current licensing price and state-specific restrictions. Zebra mussels are established, making the drain-water rule essential before leaving.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/texoma/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Hagerman National Wildlife Refuge — wildlife drive and trails",
+        "description": "The U.S. Fish and Wildlife Service manages a two-mile self-guided wildlife auto tour, five walking trails and a visitor center on the Lake Texoma shoreline, including seasonal waterfowl viewing. Fishing requires a Texas or Lake Texoma license; camping is prohibited on refuge land.",
+        "href": "https://www.fws.gov/refuge/hagerman/visit-us",
+        "external": true
+      },
+      {
+        "label": "Eisenhower State Park — fossil hunting and bluff hikes",
+        "description": "TPWD offers more than four miles of trails, sandy swimming cove, shoreline fossil viewing and an off-highway vehicle trail at Eisenhower State Park. These are specifically named park activities in the Texoma basin, and the OHV trail requires a separate permit.",
+        "href": "https://tpwd.texas.gov/state-parks/eisenhower",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/eisenhower/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/texoma/access2.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0723",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/texoma/",
+      "https://www.fws.gov/refuge/hagerman/visit-us",
+      "https://tpwd.texas.gov/state-parks/eisenhower"
+    ]
   }
 };
