@@ -194,7 +194,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const discoveryOnlyLocalArticlePaths = [
           ...articles
             .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article))
-            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
         ].filter((entry) => !indexableLocalArticlePaths.has(entry.path));
         if (discoveryOnlyLocalArticlePaths.length > 0) {
           console.info(`Primary sitemap omitted ${discoveryOnlyLocalArticlePaths.length} discovery-only article URLs that are not fully index-ready.`);
@@ -275,13 +275,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...fishingReportSitemapEntries,
           ...fishingLocalSitemapEntries,
           ...(indexableRemoteNews.length ? [{ path: "/news" }] : []),
-          ...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
-          ...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.updatedAt ?? article.publishedAt) })),
+          ...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: countyGrowth.verifiedAt }] : []),
           ...(countyHousingCosts?.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }] : []),
           ...collections.filter((collection) => activeCollectionSlugs.has(collection.slug)).map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
-          ...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),

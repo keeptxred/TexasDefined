@@ -1,6 +1,6 @@
 const ORIGIN = 'https://texasdefined.com';
 const KEY = '0c2b08423ce5be707dd931f57239acf1';
-const SITEMAPS = ['/sitemap.xml', '/sitemap-explore.xml', '/sitemap-texas-icons.xml'];
+const SITEMAPS = ['/sitemap.xml', '/sitemap-explore.xml', '/sitemap-evergreen.xml', '/sitemap-texas-icons.xml'];
 const USER_AGENTS = [
   'Googlebot/2.1 (+http://www.google.com/bot.html)',
   'bingbot/2.0 (+http://www.bing.com/bingbot.htm)',
@@ -99,6 +99,31 @@ if (robots.status !== 200) throw new Error(`robots.txt returned HTTP ${robots.st
 const robotsText = await robots.text();
 for (const token of ['Googlebot', 'Bingbot', 'Applebot', 'DuckDuckBot', 'OAI-SearchBot', `Sitemap: ${ORIGIN}/sitemap.xml`]) {
   if (!robotsText.includes(token)) throw new Error(`robots.txt missing ${token}`);
+}
+
+// Verify the stable sitemap index separately from its existing URL feeds.
+// Do not claim that the index itself is a collection of article URLs.
+if (!robotsText.includes(`Sitemap: ${ORIGIN}/sitemap-index.xml`)) {
+  throw new Error('robots.txt does not advertise the sitemap index');
+}
+const sitemapIndexResponse = await fetchResponse(`${ORIGIN}/sitemap-index.xml`, USER_AGENTS[5], 'manual');
+if (sitemapIndexResponse.status !== 200) {
+  throw new Error(`sitemap-index.xml returned HTTP ${sitemapIndexResponse.status}`);
+}
+if (!(sitemapIndexResponse.headers.get('content-type') ?? '').includes('xml')) {
+  throw new Error('sitemap-index.xml is not served with an XML content type');
+}
+const sitemapIndexText = await sitemapIndexResponse.text();
+if (!sitemapIndexText.includes('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')) {
+  throw new Error('sitemap-index.xml does not contain a valid sitemap index root');
+}
+const sitemapIndexFeeds = sitemapIndexText.split('\n')
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith('<sitemap><loc>'))
+  .map((line) => line.replace('<sitemap><loc>', '').replace('</loc></sitemap>', ''));
+const expectedIndexFeeds = SITEMAPS.map((path) => `${ORIGIN}${path}`);
+if (JSON.stringify(sitemapIndexFeeds) !== JSON.stringify(expectedIndexFeeds)) {
+  throw new Error('sitemap-index.xml feed inventory differs from canonical production sitemap paths');
 }
 
 const keyResponse = await fetchResponse(`${ORIGIN}/${KEY}.txt`, USER_AGENTS[5], 'manual');
