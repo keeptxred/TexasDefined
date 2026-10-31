@@ -101,6 +101,31 @@ for (const token of ['Googlebot', 'Bingbot', 'Applebot', 'DuckDuckBot', 'OAI-Sea
   if (!robotsText.includes(token)) throw new Error(`robots.txt missing ${token}`);
 }
 
+// Verify the stable sitemap index separately from its existing URL feeds.
+// Do not claim that the index itself is a collection of article URLs.
+if (!robotsText.includes(`Sitemap: ${ORIGIN}/sitemap-index.xml`)) {
+  throw new Error('robots.txt does not advertise the sitemap index');
+}
+const sitemapIndexResponse = await fetchResponse(`${ORIGIN}/sitemap-index.xml`, USER_AGENTS[5], 'manual');
+if (sitemapIndexResponse.status !== 200) {
+  throw new Error(`sitemap-index.xml returned HTTP ${sitemapIndexResponse.status}`);
+}
+if (!(sitemapIndexResponse.headers.get('content-type') ?? '').includes('xml')) {
+  throw new Error('sitemap-index.xml is not served with an XML content type');
+}
+const sitemapIndexText = await sitemapIndexResponse.text();
+if (!sitemapIndexText.includes('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')) {
+  throw new Error('sitemap-index.xml does not contain a valid sitemap index root');
+}
+const sitemapIndexFeeds = sitemapIndexText.split('\n')
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith('<sitemap><loc>'))
+  .map((line) => line.replace('<sitemap><loc>', '').replace('</loc></sitemap>', ''));
+const expectedIndexFeeds = SITEMAPS.map((path) => `${ORIGIN}${path}`);
+if (JSON.stringify(sitemapIndexFeeds) !== JSON.stringify(expectedIndexFeeds)) {
+  throw new Error('sitemap-index.xml feed inventory differs from canonical production sitemap paths');
+}
+
 const keyResponse = await fetchResponse(`${ORIGIN}/${KEY}.txt`, USER_AGENTS[5], 'manual');
 if (keyResponse.status !== 200 || (await keyResponse.text()).trim() !== KEY) throw new Error('Public IndexNow key verification failed.');
 
