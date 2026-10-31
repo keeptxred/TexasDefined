@@ -52,7 +52,19 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^MuseumAuthorityNetworkSection-[A-Za-z0-9_-]+\.js$/,
   /^museum-authority-heroes-[A-Za-z0-9_-]+\.js$/,
   /^texas-data\.lazy-[A-Za-z0-9_-]+\.js$/,
+  // Exact module families observed missing after Oct31 asset handoff on
+  // existing football-team and district HTML. Capture only real emitted Vite
+  // names; retain only when prior HTTP200+SHA256 provenance exists.
+  /^texas-high-school-football-districts_\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^texas-high-school-football-districts\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^useLocation-[A-Za-z0-9_-]+\.js$/,
+  /^SponsoredSportsPlacement-[A-Za-z0-9_-]+\.js$/,
+  /^createLucideIcon-[A-Za-z0-9_-]+\.js$/,
+  /^ContextualOfficialSources-[A-Za-z0-9_-]+\.js$/,
+  /^CitationCollectionTrustRouter-[A-Za-z0-9_-]+\.js$/,
+  /^analytics-[A-Za-z0-9_-]+\.js$/,
 ];
+
 
 export function selectBuiltRouteAssets(files) {
   function match(pattern, required) {
