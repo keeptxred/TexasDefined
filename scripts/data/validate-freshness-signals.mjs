@@ -10,6 +10,7 @@ const robots = fs.readFileSync('public/robots.txt', 'utf8');
 const expectedSitemapUrls = [
   'https://texasdefined.com/sitemap.xml',
   'https://texasdefined.com/sitemap-explore.xml',
+  'https://texasdefined.com/sitemap-evergreen.xml',
   'https://texasdefined.com/sitemap-texas-icons.xml',
 ];
 
