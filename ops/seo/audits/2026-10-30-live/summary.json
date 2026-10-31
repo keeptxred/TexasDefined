@@ -1,0 +1,43 @@
+{
+  "startedAt": "2026-10-31T04:05:23.432Z",
+  "finishedAt": "2026-10-31T04:24:27.474Z",
+  "source": "LIVE_PRODUCTION_HTML",
+  "scanned": 6704,
+  "discovered": 6704,
+  "sitemapUrls": 4459,
+  "otherLinkedUrls": 2245,
+  "sitemaps": [
+    {
+      "url": "https://texasdefined.com/sitemap.xml",
+      "urls": 3261
+    },
+    {
+      "url": "https://texasdefined.com/sitemap-explore.xml",
+      "urls": 979
+    },
+    {
+      "url": "https://texasdefined.com/sitemap-evergreen.xml",
+      "urls": 19
+    },
+    {
+      "url": "https://texasdefined.com/sitemap-texas-icons.xml",
+      "urls": 219
+    }
+  ],
+  "failures": [
+    {
+      "sitemap": "https://texasdefined.com/rss.xml",
+      "status": 200,
+      "error": "Missing or inaccessible sitemap XML"
+    }
+  ],
+  "counts": {
+    "TECHNICAL_REVIEW": 1281,
+    "HIGH": 181,
+    "MEDIUM": 524,
+    "REVIEW": 88,
+    "NOT_FLAGGED": 4630
+  },
+  "incomplete": true,
+  "notes": "No Google thin-content classification exists; candidates require content review. Live HTTP crawl; no production changes."
+}
