@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['FOOTBALL/DIRECTORY', 'Validate UIL directory URLs, reciprocal links and canonical/indexing guards', 'python3', ['scripts/ci/validate_football_directory_navigation.py']],
   ['COMMERCE/CJ', 'Syntax-check bounded first-party CJ production verification', 'node', ['--check', 'scripts/ci/verify-cj-account-production.mjs']],
   ['COMMERCE/CJ', 'Verify account-specific CJ creatives, exact destinations, stable SIDs and expired relationship fallback', 'node', ['--test', 'scripts/data/cj-account-links.test.mjs']],
   ['CONTENT/GOVERNANCE', 'Reject internal workflow language from public narratives', 'node', ['scripts/data/validate-reader-facing-copy.mjs']],
