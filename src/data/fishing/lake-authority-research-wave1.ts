@@ -1984,5 +1984,233 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lbj/access.phtml",
       "https://tpwd.texas.gov/state-parks/longhorn-cavern"
     ]
+  },
+  "lake-lavon": {
+    "camping": [
+      {
+        "name": "Lavonia Park — 30-amp full-hookup camping",
+        "type": "Corps-operated overnight campground",
+        "summary": "USACE lists 38 full-hookup 30-amp sites and 15 additional water-only sites at Lavonia Park on Lavon Lake, with toilets, showers and two four-lane launch ramps. The developed camping park is listed year-round, with a controlled gate at night; confirm individual reservations and current construction or ramp alerts.",
+        "href": "https://www.swf-wc.usace.army.mil/lavon/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "East Fork Park — 50-amp RV sites and tent sites",
+        "type": "Corps-operated overnight campground",
+        "summary": "The Corps lists 50 campsites with 50-amp electricity and water, plus 12 water-only sites at East Fork Park. Shower restrooms, a swim beach, playground and two four-lane boat ramps serve the park. Overnight camping is year-round; book a specific site and check any temporary USACE notices.",
+        "href": "https://www.swf-wc.usace.army.mil/lavon/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "Clear Lake Park — seasonal campground",
+        "type": "Seasonal Corps campground; closed Oct–March",
+        "summary": "Clear Lake Park has 23 developed 30-amp full-hookup campsites according to USACE, but the overnight park closes annually September 30 and reopens April 1. Its south boat ramp remains available through winter; a functioning winter ramp is not proof that campsites are open.",
+        "href": "https://www.swf-wc.usace.army.mil/lavon/Recreation/Camping/Devareas.shtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Lavon-specific blue/channel catfish limits",
+        "text": "TPWD's Lavon waterbody schedule permits 25 blue and channel catfish combined in a day, of which no more than five may measure 20 inches or longer and no more than one may measure at least 30 inches. Flathead catfish require 18 inches and are limited to five daily; do not use another reservoir's catfish limits.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0434"
+      },
+      {
+        "label": "Black bass and crappie harvest rules",
+        "text": "TPWD's current Lavon waterbody schedule requires a 14-inch minimum for largemouth and smallmouth bass and a five-fish daily bag for all black bass combined. Black and white crappie have a 10-inch minimum and a 25-fish daily bag, while white bass require 10 inches and allow 25 daily.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0434"
+      },
+      {
+        "label": "Zebra mussel decontamination",
+        "text": "TPWD confirms that invasive zebra mussels are established in Lake Lavon. Draining boats, livewells and bait containers when leaving or approaching public fresh water is legally required, and operators should clean and dry their gear before transferring to another lake.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lavon/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Caddo Park — accessible fishing ponds",
+        "description": "USACE identifies Caddo Park as a seasonal day-use park with free accessible fishing ponds, picnic sites and a four-lane public boat ramp. It is not an overnight campground, and its published operating window runs April–September; confirm present gate access before making a dedicated trip.",
+        "href": "https://www.swf-wc.usace.army.mil/lavon/Recreation/Parks/",
+        "external": true
+      },
+      {
+        "label": "East Fork Park — swim beach and playground",
+        "description": "The Corps-operated East Fork Park has a designated swimming beach, playground, picnic facilities and ramp access along with its developed campground. These are actual operator-listed recreational amenities on the lake, distinct from a generic trip suggestion or county directory.",
+        "href": "https://www.swf-wc.usace.army.mil/lavon/Recreation/Parks/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.swf-wc.usace.army.mil/lavon/Recreation/Camping/Devareas.shtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0434",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lavon/",
+      "https://www.swf-wc.usace.army.mil/lavon/Recreation/Parks/"
+    ]
+  },
+  "belton-lake": {
+    "camping": [
+      {
+        "name": "Cedar Ridge Park — USACE RV and tent campground",
+        "type": "Corps-operated overnight campground",
+        "summary": "The Corps lists 61 50-amp single back-in RV sites, two pull-through RV sites, four water/electric tent sites and eight screened camping shelters at Cedar Ridge. There are shower restrooms, dump stations and launch ramps. On October 31, 2026, Corps status shows a seasonal partial closure: campsites 41–68 remain available, but other sites are closed until spring.",
+        "href": "https://www.swf-wc.usace.army.mil/belton/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "Live Oak Ridge Park — USACE camping",
+        "type": "Corps-operated overnight campground",
+        "summary": "USACE lists 29 50-amp back-in RV sites and 19 30-amp RV sites, each with electrical and water connections, at Live Oak Ridge Park. Restrooms, showers, a dump station, playground and two-lane launch ramp are on site. The current Corps park-status page marks Live Oak Ridge open; check reservations for actual vacancy.",
+        "href": "https://www.swf-wc.usace.army.mil/belton/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "Westcliff Park — seasonal Corps camping",
+        "type": "Seasonally closed through February 2027",
+        "summary": "USACE includes developed RV campsites at Westcliff, but its October 2026 facility status explicitly marks the campground seasonally closed until March 1, 2027. Describe it as a spring/summer alternative rather than an available October campsite; the ramp may have a different status.",
+        "href": "https://www.swf-wc.usace.army.mil/belton/"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "All game fish follow statewide rules at Belton",
+        "text": "TPWD explicitly says all game fishes at Belton Lake currently follow statewide fishing regulations. This includes its distinct largemouth/smallmouth bass, white and hybrid striped bass, and channel/flathead catfish fisheries. The general five-fish combined black-bass bag does not substitute for the separate hybrid striped-bass rules.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/belton/"
+      },
+      {
+        "label": "Invasive zebra mussels",
+        "text": "The Belton Lake operator profile confirms zebra mussels have infested this reservoir. Texas requires draining water from boats and onboard receptacles between public freshwaters, and possession or transport of these invasive mussels is prohibited; include this on Belton's boating and fishing planning pages.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/belton/"
+      },
+      {
+        "label": "Actual fall and winter park restrictions",
+        "text": "The USACE October 2026 park-status table shows Cedar Ridge partly closed, Westcliff overnight campground closed for the season, Sparta Valley closed for safety and Belton Overlook permanently closed for safety. These are access conditions rather than new fish-bag regulations; check current Corps status before recommending an outing.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/belton/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Miller Springs Nature Area — hiking below Belton Dam",
+        "description": "The Corps operates Miller Springs Nature Area at Belton Dam with walking trails, rocky terrain and wooded paths. Its park status shows Miller Springs open while the former Belton Overlook area is closed. It is a named nonfishing activity near the dam, not a fictional lakeshore campground.",
+        "href": "https://www.swf-wc.usace.army.mil/belton/",
+        "external": true
+      },
+      {
+        "label": "Cedar Ridge Park — swimming and playground",
+        "description": "USACE lists a designated swimming beach, playground, camper activity center and boat ramps at Cedar Ridge in addition to its camping loops. The official October 2026 status has the swim beach closed, so treat the beach as a facility subject to seasonal reopening rather than open today.",
+        "href": "https://www.swf-wc.usace.army.mil/belton/Recreation/Camping/Devareas.shtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.swf-wc.usace.army.mil/belton/Recreation/Camping/Devareas.shtml",
+      "https://www.swf-wc.usace.army.mil/belton/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/belton/"
+    ]
+  },
+  "stillhouse-hollow-reservoir": {
+    "camping": [
+      {
+        "name": "Union Grove Park — RV, tent and screened-shelter camping",
+        "type": "Corps-operated overnight campground",
+        "summary": "The Corps operates Union Grove with electrical-and-water RV campsites, designated tent camping, screened shelters, hot showers, a swim beach, fishing dock and four-lane concrete boat launch. Camping is reservation-only through the federal reservation service, unlike first-come day-use fishing docks.",
+        "href": "https://www.swf-wc.usace.army.mil/stillhouse/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "Dana Peak Park — 50-amp RV and primitive camping",
+        "type": "Corps-operated overnight campground",
+        "summary": "The Corps lists 17 single back-in RV sites with 50-amp electric and water, three double RV sites, five electric tent sites, two pull-through spaces and eight primitive sites at Dana Peak. Showers, boat ramp, fishing dock and trailhead serve the camping area; reservations are required.",
+        "href": "https://www.swf-wc.usace.army.mil/stillhouse/Recreation/Camping/Devareas.shtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide fish harvest rules at Stillhouse",
+        "text": "TPWD's Stillhouse Hollow Reservoir profile explicitly states all fish species use statewide regulations. Largemouth and smallmouth bass, catfish, crappie and white bass are present but have different statewide size and daily bag limits; the current TPWD Outdoor Annual controls before retaining fish.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stillhouse_hollow/"
+      },
+      {
+        "label": "Zebra mussel boat-transfer rule",
+        "text": "TPWD confirms zebra mussels have invaded Stillhouse Hollow. Boat operators must drain onboard water, livewells and bait receptacles when leaving or approaching public freshwater. Clean and dry boats, trailers and gear before visiting another reservoir, and check Corps ramp conditions separately.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stillhouse_hollow/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Chalk Ridge Falls Nature Area — interpretive hike",
+        "description": "The Corps manages Chalk Ridge Falls Nature Area as an interpretive hiking destination in the Stillhouse Hollow project. It is a named, separate walking experience rather than a marina or a generic Bell County link; verify trail access after flooding or storm damage.",
+        "href": "https://www.swf-wc.usace.army.mil/stillhouse/Recreation/Parks/",
+        "external": true
+      },
+      {
+        "label": "Dana Peak Park — free exterior fishing dock and trails",
+        "description": "USACE identifies a free public fishing dock outside Dana Peak Park's paid campground, plus the Dana Peak Hike and Bike Trail nearby. The dock inside Union Grove has a day-use fee; distinguishing them helps visitors choose an actual activity and entrance.",
+        "href": "https://www.swf-wc.usace.army.mil/stillhouse/Recreation/Fishing.shtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.swf-wc.usace.army.mil/stillhouse/Recreation/Camping/Devareas.shtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/stillhouse_hollow/",
+      "https://www.swf-wc.usace.army.mil/stillhouse/Recreation/Parks/",
+      "https://www.swf-wc.usace.army.mil/stillhouse/Recreation/Fishing.shtml"
+    ]
+  },
+  "lake-o-the-pines": {
+    "camping": [
+      {
+        "name": "Brushy Creek Park — year-round USACE campground",
+        "type": "Corps-operated overnight campground",
+        "summary": "The Corps lists 71 RV sites and 48 tent sites at Brushy Creek Park, with electric/water hookups at developed RV pitches, showers, fishing dock and swimming beach. Its official park table marks Brushy Creek open year-round, although reservations and particular facilities can still close for maintenance.",
+        "href": "https://www.swf-wc.usace.army.mil/lakeopines/Recreation/Parks/"
+      },
+      {
+        "name": "Johnson Creek Park — year-round USACE campground",
+        "type": "Corps-operated overnight campground",
+        "summary": "USACE operates Johnson Creek Park with 63 RV sites and 22 tent sites, plus restrooms/showers, a fishing dock, swim beach and group recreation facilities. It is one of the lake's two year-round overnight parks; reserve a real campsite and distinguish day-use recreation from overnight access.",
+        "href": "https://www.swf-wc.usace.army.mil/lakeopines/Recreation/Parks/"
+      },
+      {
+        "name": "Alley Creek and Buckhorn Creek — summer-season campgrounds",
+        "type": "Seasonal Corps campgrounds",
+        "summary": "USACE lists Alley Creek with 49 RV and 30 tent sites and Buckhorn Creek with 62 RV and 38 tent sites. Both are marked summer-only in the operator park table, so they should not be shown as currently open for late-October overnight camping. Check reopening notices before planning spring travel.",
+        "href": "https://www.swf-wc.usace.army.mil/lakeopines/Recreation/Parks/"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Special winter crappie must-retain rule",
+        "text": "At Lake O' the Pines from December 1 through the end of February, TPWD removes the crappie minimum length and requires retaining every crappie caught. From March through November, crappie require at least 10 inches. The year-round combined black/white crappie daily bag remains 25.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0428"
+      },
+      {
+        "label": "Blue/channel catfish size distribution",
+        "text": "TPWD's O' the Pines waterbody schedule limits blue and channel catfish to 25 daily combined, with at most 10 measuring 20 inches or longer. Flatheads separately require at least 18 inches and have a daily bag of five. Largemouth/smallmouth bass have a 14-inch minimum within the five-fish black-bass bag.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0428"
+      },
+      {
+        "label": "No live nongame fish transport downstream of dam",
+        "text": "TPWD specifically prohibits transporting live nongame fish from Big Cypress Bayou below the Lake O' the Pines dam, including the Texas waters of Caddo Lake, into another waterbody. Locally collected nongame baitfish may be used only in the waterbody where taken; this restriction is not a blanket ban on fishing bait.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lop/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Johnson Creek Park — named swimming and fishing area",
+        "description": "The Corps' developed-park directory lists Johnson Creek with a swimming beach, fishing dock, playground, group area and paved lakeshore recreation. These facilities offer a real family outing at Lake O' the Pines; the campground's year-round status does not guarantee every beach facility is open today.",
+        "href": "https://www.swf-wc.usace.army.mil/lakeopines/Recreation/Camping/Devareas.shtml",
+        "external": true
+      },
+      {
+        "label": "Brushy Creek Park — lakefront fishing dock",
+        "description": "USACE confirms an operator-maintained fishing dock and swimming beach at Brushy Creek, with developed campsite access and nearby day-use recreation. This is a real named lakeshore access point; ask the gate staff which facilities require an overnight campsite or day-use fee.",
+        "href": "https://www.swf-wc.usace.army.mil/lakeopines/Recreation/Camping/Devareas.shtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.swf-wc.usace.army.mil/lakeopines/Recreation/Parks/",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0428",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lop/",
+      "https://www.swf-wc.usace.army.mil/lakeopines/Recreation/Camping/Devareas.shtml"
+    ]
   }
 };
