@@ -842,5 +842,235 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/colorado_city/",
       "https://tpwd.texas.gov/state-parks/lake-colorado-city"
     ]
+  },
+  "cedar-lake-cleburne-state-park": {
+    "camping": [
+      {
+        "name": "Cleburne State Park — Poplar Point full-hookup campsites",
+        "type": "Named overnight camping — operator source",
+        "summary": "The Texas Parks and Wildlife Department lists 15 full-hookup sites at Poplar Point with 20/30/50-amp electrical service, sewer, water, a fire ring and nearby restrooms. This camping loop is inside Cleburne State Park surrounding Cedar Lake; select the specific loop instead of treating every campsite as having identical RV connections.",
+        "href": "https://tpwd.texas.gov/state-parks/cleburne/fees-facilities/campsites"
+      },
+      {
+        "name": "Cleburne State Park — North Creek full-hookup sites",
+        "type": "Named overnight camping — operator source",
+        "summary": "TPWD lists a separate 12 full-hookup campsites in North Creek, with water, sewer and 20/30-amp electricity. They have picnic tables, grills and nearby restrooms but not the same 50-amp capability as the Poplar Point loop. Confirm RV electrical needs and site availability when booking.",
+        "href": "https://tpwd.texas.gov/state-parks/cleburne/fees-facilities/campsites"
+      },
+      {
+        "name": "Cleburne State Park — Shady Springs water/electric camping",
+        "type": "Named overnight camping — operator source",
+        "summary": "The Shady Springs camping area provides seven sites with 20/30/50-amp electrical hookups and water, but no published sewer hookups at the campsite. This is a specific alternative to full-hookup Poplar Point and North Creek. Confirm any current park alerts, access closures and amenities with TPWD before arrival.",
+        "href": "https://tpwd.texas.gov/state-parks/cleburne/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Two-pole, pole-and-line-only fishing",
+        "text": "TPWD's special Cleburne State Park Lake regulation prohibits other fishing gear methods: anglers may use no more than two poles and must fish by pole and line. Because the 107-acre lake lies fully within the park boundary, TPWD says an individual fishing license is not required there. Check the operator's posted rules and daily access.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0176"
+      },
+      {
+        "label": "Current bass, crappie and catfish limits",
+        "text": "The TPWD lake-specific Cleburne schedule imposes a 14-inch minimum on largemouth and smallmouth bass and a five-fish combined daily black-bass limit. Crappie have a 10-inch minimum and 25-fish combined bag. Channel/blue catfish together may total 25 daily with at most 10 measuring 20 inches or longer.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0176"
+      },
+      {
+        "label": "Lake-wide no-wake rule",
+        "text": "The official Cleburne lake fishery profile says all motorboats are subject to a no-wake rule throughout Cedar Lake; personal watercraft are prohibited by the state park. Fishing from its accessible pier and nonmotorized paddling are different ways to use the lake, but neither supersedes park closures.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cleburnesp/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Cleburne State Park — Camp Creek Loop and CCC bridge",
+        "description": "The park's 1.1-mile Camp Creek Loop passes oak woodland, West Camp Creek and a historic bridge built by Civilian Conservation Corps workers. It offers a sourced outdoor and heritage hike that can be combined with lake camping rather than an unverified county attraction.",
+        "href": "https://tpwd.texas.gov/state-parks/cleburne/trails-info",
+        "external": true
+      },
+      {
+        "label": "Cleburne State Park — Fossil Ridge and spillway trails",
+        "description": "TPWD identifies the more strenuous 2.5-mile one-way Fossil Ridge Trail and a separate Spillway Trail to a CCC-built, three-tiered stone spillway. These are named park routes with different effort levels; trail conditions and falls appearance vary with recent rain.",
+        "href": "https://tpwd.texas.gov/state-parks/cleburne",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/cleburne/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0176",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cleburnesp/",
+      "https://tpwd.texas.gov/state-parks/cleburne/trails-info",
+      "https://tpwd.texas.gov/state-parks/cleburne"
+    ]
+  },
+  "fort-parker-state-park-lake": {
+    "camping": [
+      {
+        "name": "Fort Parker State Park — water/electric campground",
+        "type": "Named overnight camping — operator source",
+        "summary": "TPWD operates 24 campsites with water and 30-amp electricity, four of them pull-through, with picnic tables, fire rings and nearby showers. Many have lake views. A current roadwork alert warns that campsite access may change during the October 2026–May 2027 road project, so check operator closures before reserving.",
+        "href": "https://tpwd.texas.gov/state-parks/fort-parker/fees-facilities/campsites"
+      },
+      {
+        "name": "Fort Parker State Park — tent-only water campsite area",
+        "type": "Named overnight camping — operator source",
+        "summary": "The park's campsite inventory lists ten designated water-only tent sites, with spigots nearby rather than at every site, and nearby restrooms. A separate tent-only electrical site 6 has a lake view. Choose a specific site type and check current construction, park alerts and temporary campground restrictions.",
+        "href": "https://tpwd.texas.gov/state-parks/fort-parker/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Two-pole, pole-and-line-only special restriction",
+        "text": "TPWD's official Fort Parker State Park Lake waterbody schedule requires fishing by pole and line only, with no more than two poles used by each angler. Because the lake is inside the state park, no fishing license is required for fishing in that lake. This does not eliminate the license requirement when fishing from a boat in the Navasota River.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0291"
+      },
+      {
+        "label": "Community fishing lake and bag limits",
+        "text": "TPWD classifies Fort Parker Lake as a Community Fishing Lake. Its waterbody schedule gives largemouth and smallmouth bass a 14-inch minimum and five combined black bass daily; channel and blue catfish have a 25-fish combined bag with at most ten measuring 20 inches or more. White and black crappie require a 10-inch minimum and have 25 combined daily.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0291"
+      },
+      {
+        "label": "Current boat ramp and pier closures",
+        "text": "Fort Parker State Park's October 2026 alert says the Navasota River boat ramp is closed October 19, 2026–January 10, 2027 for roadwork, both fishing piers remain closed, and resurfacing may affect park routes and campsites until May 2027. This is an access restriction separate from harvest laws; refer to live alerts before traveling.",
+        "sourceUrl": "https://tpwd.texas.gov/state-parks/fort-parker/alert"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Fort Parker State Park — Springfield Trail and historic cemetery",
+        "description": "The 1.8-mile Springfield Trail explores woodland, the old Springfield settlement and its cemetery, a CCC-built dam and spring-fed Lake Springfield. TPWD identifies it as a family-friendly walk with genuine heritage sites, not a placeholder 'nearby history' suggestion.",
+        "href": "https://tpwd.texas.gov/state-parks/fort-parker/trails-info",
+        "external": true
+      },
+      {
+        "label": "Fort Parker State Park — Limestone Bluffs paddling route",
+        "description": "The official state-park trail guide lists a 10.8-mile round-trip paddle along the Navasota River between Fort Parker and Confederate Reunion Grounds, with scenic limestone bluffs and wildlife habitat. This activity depends on river conditions; October 2026 boat-ramp closures make checking current launch access essential.",
+        "href": "https://tpwd.texas.gov/state-parks/fort-parker/trails-info",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/fort-parker/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0291",
+      "https://tpwd.texas.gov/state-parks/fort-parker/alert",
+      "https://tpwd.texas.gov/state-parks/fort-parker/trails-info"
+    ]
+  },
+  "lake-abilene": {
+    "camping": [
+      {
+        "name": "Abilene State Park — Brushy Trail/Oak Grove campground, across FM 89",
+        "type": "State-park overnight campground across FM 89; not lakefront",
+        "summary": "TPWD lists 15 water-and-electric campsites in the Brushy Trail and Oak Grove loops, with picnic tables, fire rings and nearby showers. Importantly, the official Lake Abilene access inventory says overnight camping is on the main Abilene State Park campus across Farm-to-Market Road 89, not at the lake's ramp or shoreline.",
+        "href": "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites"
+      },
+      {
+        "name": "Abilene State Park — Pecan Grove electric campsites",
+        "type": "State-park campground near lake; separate main campus",
+        "summary": "The park offers 20 developed Pecan Grove campsites with water and electrical hookups, tables and nearby showers, plus two separate tent-only electric sites. It is a source-verified overnight base for visiting Lake Abilene, but users must travel between the park camping loops and lake-access gate rather than assuming waterfront RV parking.",
+        "href": "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites"
+      },
+      {
+        "name": "Abilene State Park — limited full-hookup RV sites",
+        "type": "Limited full-hookup state-park camping; across FM 89",
+        "summary": "TPWD identifies only three full-hookup sites with water, electricity and sewer connections. That limited count makes advance site selection especially important; these campsites are on the main state-park campus and do not imply overnight camping at the separate Lake Abilene access ramps.",
+        "href": "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Community Fishing Lake designation",
+        "text": "TPWD classifies Lake Abilene, which lies within the Abilene State Park operation, as a Community Fishing Lake. Visitors must follow its state-park and community-lake fishing requirements rather than assuming all unrestricted reservoir methods are allowed. TPWD's current rules limit anglers on community lakes to no more than two poles; check gear and species limits before fishing.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/"
+      },
+      {
+        "label": "Boat access is daylight-only and depends strongly on reservoir elevation",
+        "text": "TPWD's official Lake Abilene access page identifies the Dam and Creek single-lane ramps as gated park access, open from sunrise to sunset. The operator warns both ramps become largely unusable when water drops approximately seven feet below spillway level, sometimes requiring four-wheel drive even at moderate low water. Shore fishing remains available when launching fails.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Abilene State Park — CCC historic swimming pool and concession building",
+        "description": "The park preserves a 1930s Civilian Conservation Corps swimming pool and a red-sandstone concession building, with seasonal swimming and interpretation. These are actual state-park history and recreation stops on the campus across FM 89 from the lake, not attractions at the ramp.",
+        "href": "https://tpwd.texas.gov/state-parks/abilene",
+        "external": true
+      },
+      {
+        "label": "Abilene State Park — Buffalo Wallow Pond and Elm Creek nature walks",
+        "description": "TPWD promotes Buffalo Wallow Pond as a family-oriented park fishing location, and its tree-lined nature trails and birding areas provide a separate shaded outdoor outing. These are on the state-park campus rather than Lake Abilene's shoreline; verify seasonal park and pool access first.",
+        "href": "https://tpwd.texas.gov/state-parks/abilene",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/abilene/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/abilene/access.phtml",
+      "https://tpwd.texas.gov/state-parks/abilene"
+    ]
+  },
+  "lake-waco": {
+    "camping": [
+      {
+        "name": "Waco Lake — Airport Park campground (USACE)",
+        "type": "Named overnight camping — operator source",
+        "summary": "The U.S. Army Corps of Engineers identifies Airport Park as a year-round campground on the north shore of Waco Lake, with separate boat access and day-use facilities. Overnight camping is managed under USACE site rules; confirm the correct gate, reserved site, vehicle limits and latest park closure notices before traveling.",
+        "href": "https://www.swf-wc.usace.army.mil/waco/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "Waco Lake — Midway Park campground (USACE)",
+        "type": "Named overnight camping — operator source",
+        "summary": "USACE operates 37 campsites at Midway Park on the South Bosque River arm, including 32 water/electric sites and several sites with sewer service, plus five tent sites. Showers, a playground and a separate two-lane boat ramp are listed. The campground is operated year-round; confirm specific site availability through the Corps reservation system.",
+        "href": "https://www.swf-wc.usace.army.mil/waco/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "Waco Lake — Reynolds Creek Park equestrian and seasonal camping",
+        "type": "Named overnight camping — operator source",
+        "summary": "The Corps lists 41 water/electric sites at Reynolds Creek, including ten equestrian sites, plus six primitive camping areas. Regular camping is published as seasonal April through September, while equestrian camping and day-use boat access continue year-round. These seasonal limitations matter when planning an October or winter lake visit.",
+        "href": "https://www.swf-wc.usace.army.mil/waco/Recreation/Camping/Devareas.shtml"
+      },
+      {
+        "name": "Waco Lake — Speegleville Park campsites",
+        "type": "Named overnight camping — operator source",
+        "summary": "USACE identifies 30 water/electric campsites and two screened shelters at Speegleville Park on the lake's western shore. Its regular camping season runs March through October; access outside these months should not be assumed. The park also has a four-lane launch ramp and separate day-use facilities.",
+        "href": "https://www.swf-wc.usace.army.mil/waco/Recreation/Camping/Devareas.shtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Lake Waco's specific blue/channel catfish limit",
+        "text": "TPWD's current Waco waterbody schedule permits 25 blue and channel catfish combined daily, with no more than five measuring at least 20 inches and no more than one of those at least 30 inches. Flatheads have a separate 18-inch minimum and five-fish daily bag. These explicit waterbody size distributions should not be replaced by a generic statewide summary.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0763"
+      },
+      {
+        "label": "Black bass and crappie harvest limits",
+        "text": "TPWD's Waco-specific regulation page lists a 14-inch minimum for largemouth and smallmouth bass and a combined daily black-bass limit of five. White and black crappie have a 10-inch minimum and a combined daily bag of 25. The waterbody page also confirms zebra mussels have been found; drain boats and gear between lakes.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0763"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Waco Mammoth National Monument — Ice Age fossil shelter",
+        "description": "The National Park Service and City of Waco operate the mammoth fossil monument at 6220 Steinbeck Bend Drive, with a paid Dig Shelter visit, trails and interpretation of a Columbian mammoth nursery herd. This is a genuinely identified regional side trip in the same Waco Lake corridor, not a generic county listing.",
+        "href": "https://www.nps.gov/waco/planyourvisit/basicinfo.htm",
+        "external": true
+      },
+      {
+        "label": "Waco Lake — USACE managed lakeshore parks",
+        "description": "The Corps maintains separate Lake Waco recreation parks and boat launches, including Airport Beach, Midway, Reynolds Creek and Speegleville. Visitors can plan shoreline picnics and access at the named parks, but seasonal camping closures and the distinction between day-use parks and overnight facilities must be checked at each gate.",
+        "href": "https://www.swf-wc.usace.army.mil/waco/Recreation/Camping/Devareas.shtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.swf-wc.usace.army.mil/waco/Recreation/Camping/Devareas.shtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0763",
+      "https://www.nps.gov/waco/planyourvisit/basicinfo.htm"
+    ]
   }
 };
