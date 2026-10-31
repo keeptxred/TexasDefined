@@ -76,7 +76,7 @@ test('select exact emitted football and tax lazy-route chunks even when absent f
   ], 'do not incorrectly assume lazy imports are present as HTML asset tags');
 });
 
-test('discover event and food lazy-route hashes observed missing for verified Googlebot', () => {
+test('discover event and food lazy-route hashes observed missing for Microsoft search crawler', () => {
   const files = [
     'texas-high-school-football-teams_._slug.lazy-A1.js',
     'property-tax.taxing-unit._unit-B2.js',
