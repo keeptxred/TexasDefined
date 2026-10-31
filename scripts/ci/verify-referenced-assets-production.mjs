@@ -36,7 +36,7 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^Footer-[A-Za-z0-9_-]+\.js$/,
   /^RouteStatusScreens-[A-Za-z0-9_-]+\.js$/,
   /^x-[A-Za-z0-9_-]+\.js$/,
-  // Verified Googlebot 404s also hit stale event and food lazy-route chunks.
+  // Verified Microsoft search crawler (ASN 8075) 404s also hit stale event and food lazy-route chunks.
   // Optional in the current build; if emitted, carry into the old-hash handoff.
   /^events\.lazy-[A-Za-z0-9_-]+\.js$/,
   /^events\._collection\.lazy-[A-Za-z0-9_-]+\.js$/,
