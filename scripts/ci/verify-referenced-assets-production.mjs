@@ -134,6 +134,7 @@ async function capture() {
     const initial = statuses.get(asset.path);
     asset.wasAvailable = initial?.ok === true;
     asset.preStatus = initial?.status ?? 'unknown';
+    asset.preSha256 = initial?.ok ? initial.sha256 : null;
   }
   const current = { format: 1, capturedAt: new Date().toISOString(),
     sourceCommit: process.env.GITHUB_SHA || null, pages };
@@ -157,7 +158,7 @@ async function verify() {
     const available = [];
     for (const page of snapshot.pages) for (const asset of page.assets || []) {
       if (asset.wasAvailable === true) {
-        inherited.set(asset.path, { path: asset.path, kind: asset.kind });
+        inherited.set(asset.path, { path: asset.path, kind: asset.kind, preSha256: asset.preSha256 || null });
         available.push(asset.path);
       }
     }
@@ -187,6 +188,8 @@ async function verify() {
       for (const a of combined.values()) {
         const [record] = await auditAssets(origin, [a]);
         record.sources = a.sources;
+        record.oldHashMatches = !a.preSha256 || !record.ok || record.sha256 === a.preSha256;
+        if (record.ok && a.preSha256 && !record.oldHashMatches) record.ok = false;
         results.assets.push(record);
         if (!record.ok) results.failures.push({ origin: label(origin), path: a.path, status: record.status,
           mime: record.mime || null, sources: a.sources, cfRay: record.cfRay || null });
