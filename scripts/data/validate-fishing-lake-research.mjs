@@ -8,6 +8,8 @@ const server = read("src/data/fishing/showcase-lakes-page-data.server.ts");
 const ui = read("src/components/fishing/ShowcaseLakeGuide.tsx");
 const sitemap = read("src/data/fishing/sitemap.ts");
 const gate = read("src/data/fishing/showcase-section-index-readiness.ts");
+const conroeServer = read("src/data/fishing/lake-conroe-page-data.server.ts");
+const conroeUi = read("src/components/fishing/LakeConroeGuide.tsx");
 
 const match = source.match(/export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch> = (\{[\s\S]*\});\s*$/);
 if (!match) throw new Error("Fishing research dossier must use a machine-parseable, individually evidenced record.");
@@ -32,7 +34,7 @@ const official = (value) => {
   catch { return false; }
 };
 for (const [slug, d] of Object.entries(dossiers)) {
-  if (!published.includes(slug) || slug === "lake-conroe") errors.push(`${slug}: no matching published source-driven showcase lake`);
+  if (!published.includes(slug)) errors.push(`${slug}: no matching published lake guide`);
   if (!/^20\d\d-\d\d-\d\d$/.test(d.reviewedAt)) errors.push(`${slug}: review date not independently attributed`);
   if (d.camping.length < 1 || d.regulations.length < 2 || d.nearby.length < 1) errors.push(`${slug}: researched camping, rules and attractions required`);
   for (const site of d.camping) {
@@ -52,6 +54,10 @@ for (const token of ["LAKE_AUTHORITY_RESEARCH_WAVE1", "camping: researched.campi
 for (const token of ["row.sourceUrl", "pageData.sectionResearch?.reviewedAt", "pageData.sectionResearch.reviewedAt"]) if (!ui.includes(token)) errors.push(`Fishing UI fails to show individual research: ${token}`);
 for (const token of ["LAKE_AUTHORITY_RESEARCH_WAVE1", "section === \"regulations\"", "section === \"camping\"", "section === \"nearby\""]) if (!sitemap.includes(token)) errors.push(`Sitemap missing truthful article-section lastmod: ${token}`);
 if (!gate.includes('lake.sectionResearch?.reviewedAt')) errors.push("Regulations lack researched-source index eligibility.");
+for (const marker of ["LAKE_AUTHORITY_RESEARCH_WAVE1", '["lake-conroe"]', "regulations: research.regulations.map", "camping: research.camping.map", "nearby: [...lakeConroeNearby, ...research.nearby]"]) if (!conroeServer.includes(marker)) errors.push(`Dedicated Lake Conroe loader fails to publish researched sections: ${marker}`);
+for (const marker of ["pageData.sectionResearch.reviewedAt", "row.sourceUrl", "item.href"]) if (!conroeUi.includes(marker)) errors.push(`Lake Conroe page missing direct official source attribution: ${marker}`);
+if (!dossiers["lake-conroe"]) errors.push("Dedicated Lake Conroe research dossier missing.");
+
 if (new Date() >= new Date("2027-09-01T00:00:00Z") && source.includes("2026-27")) errors.push("TPWD 2026-27 legal-limit summary expired; independently recheck each rule before next release.");
 
 console.log(`Fishing independent-source review: ${Object.keys(dossiers).length} researched / ${published.length} lake dossiers; ${outstanding.length} remain for operator research.`);
