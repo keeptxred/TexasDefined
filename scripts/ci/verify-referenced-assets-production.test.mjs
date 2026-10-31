@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { nextSnapshotHistory, referencesFromHtml, validAssetResponse } from './verify-referenced-assets-production.mjs';
+import { nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
 
 test('find only same-origin hashed JS/CSS from script, modulepreload and stylesheet', () => {
   const html = [
@@ -55,4 +55,55 @@ test('hidden forensic and cross-release asset artifacts must actually upload', (
     assert.match(config, /include-hidden-files: true/, name + ': .artifacts would be silently excluded');
     assert.match(config, /if-no-files-found: error/, name + ': lost evidence must fail the pipeline');
   }
+});
+
+test('select exact emitted football and tax lazy-route chunks even when absent from HTML', () => {
+  const files = [
+    'texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js',
+    'property-tax.taxing-unit._unit-CGuzIffC.js',
+    'Container-Cz1cjZOJ.js',
+    'main-LkbE9wUL.js',
+    'other.lazy-123.js',
+  ];
+  assert.deepEqual(selectBuiltRouteAssets(files), [
+    { path: '/assets/texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js', kind: 'js', source: 'built-lazy-route' },
+    { path: '/assets/property-tax.taxing-unit._unit-CGuzIffC.js', kind: 'js', source: 'built-lazy-route' },
+  ]);
+  assert.deepEqual(referencesFromHtml('<script src="/assets/main-LkbE9wUL.js"></script>').map(x => x.path), [
+    '/assets/main-LkbE9wUL.js',
+  ], 'do not incorrectly assume lazy imports are present as HTML asset tags');
+});
+
+test('missing or ambiguous lazy-route chunks fail closed instead of silently skipping old Googlebot failures', () => {
+  assert.throws(() => selectBuiltRouteAssets(['main-AbCd.js']), /Expected exactly one production lazy-route chunk/);
+  assert.throws(() => selectBuiltRouteAssets([
+    'texas-high-school-football-teams_._slug.lazy-A.js',
+    'texas-high-school-football-teams_._slug.lazy-B.js',
+    'property-tax.taxing-unit._unit-C.js',
+  ]), /Expected exactly one production lazy-route chunk/);
+});
+
+test('handoff persists old built hashes and current built hashes for next release', () => {
+  const snapshot = id => ({
+    format: 1, pages: [],
+    builtAssets: [{ path: '/assets/property-tax.taxing-unit._unit-' + id + '.js', kind: 'js' }],
+    legacyAssets: [{ path: '/assets/texas-high-school-football-teams_._slug.lazy-' + id + '.js',
+      kind: 'js', wasAvailable: true, preSha256: id }],
+  });
+  const after = nextSnapshotHistory(nextSnapshotHistory(null, snapshot('OLD')), snapshot('NEW'));
+  assert.deepEqual(after.snapshots.map(s => s.builtAssets[0].path), [
+    '/assets/property-tax.taxing-unit._unit-OLD.js',
+    '/assets/property-tax.taxing-unit._unit-NEW.js',
+  ]);
+  assert.equal(after.snapshots[1].legacyAssets[0].preSha256, 'NEW');
+});
+
+test('strict production gate checks built lazy modules and previously confirmed old modules on both origins', () => {
+  const code = readFileSync('scripts/ci/verify-referenced-assets-production.mjs', 'utf8');
+  assert.match(code, /selectBuiltRouteAssets\(await readdir\('dist\/client\/assets'\)\)/);
+  assert.match(code, /const legacyResponses = await auditAssets\(CANONICAL, priorBuilt\)/);
+  assert.match(code, /const a of newBuilt/);
+  assert.match(code, /for \(const a of inherited.values\(\)\)/);
+  assert.match(code, /for \(const origin of \[DIRECT, CANONICAL\]\)/);
+  assert.match(code, /record\.sha256 === a\.preSha256/);
 });
