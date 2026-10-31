@@ -81,6 +81,8 @@ verify("footballDistrictSitemapEntries" in sitemap, "Core districts removed from
 verify("/texas-high-school-football-teams/$" + "{slug}" in team_route, "Team canonical path changed")
 verify("canonicalLink(texasDefinedBrand, canonicalPath)" in team_route, "Team self canonical removed")
 verify("canonicalLink(texasDefinedBrand, canonicalPath)" in district_route, "District self canonical removed")
+verify(team_route.count("'noindex'") == 1, "Team route changed indexing policy beyond the 404 fallback")
+verify(district_route.count("'noindex'") == 1, "District route changed indexing policy beyond the 404 fallback")
 verify("/texas-high-school-football-districts/" in district_route, "District canonical path changed")
 verify("Disallow: /texas-high-school-football" not in robots, "robots.txt blocks football URLs")
 verify(re.search(r"User-agent:\s*Googlebot[\s\S]*?Allow:\s*/", robots) is not None,
