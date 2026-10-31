@@ -48,7 +48,8 @@ export interface ShowcaseLakePrototype {
   fish: ShowcaseLakeFish[];
   access: ShowcaseLakeAccess[];
   boatingNotes: string[];
-  regulations: { label: string; text: string }[];
+  regulations: { label: string; text: string; sourceUrl?: string }[];
+  sectionResearch?: { reviewedAt: string; sourceUrls: string[] };
   camping: { name: string; type: string; summary: string; href: string }[];
   nearby: { label: string; description: string; href: string; external: boolean }[];
   businessCategories: string[];
