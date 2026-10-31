@@ -1,6 +1,6 @@
 const ORIGIN = 'https://texasdefined.com';
 const KEY = '0c2b08423ce5be707dd931f57239acf1';
-const SITEMAPS = ['/sitemap.xml', '/sitemap-explore.xml', '/sitemap-texas-icons.xml'];
+const SITEMAPS = ['/sitemap.xml', '/sitemap-explore.xml', '/sitemap-evergreen.xml', '/sitemap-texas-icons.xml'];
 const USER_AGENTS = [
   'Googlebot/2.1 (+http://www.google.com/bot.html)',
   'bingbot/2.0 (+http://www.bing.com/bingbot.htm)',
