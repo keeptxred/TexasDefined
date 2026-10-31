@@ -25,7 +25,7 @@ const published = [
 ];
 if (published.length !== 72 || new Set(published).size !== 72) errors.push("Expected unique 72 complete-lake source records; reconcile registry before declaring coverage.");
 const outstanding = published.filter((slug) => !dossiers[slug]);
-const approvedDomains = /^(?:tpwd\.texas\.gov|www\.swf-wc\.usace\.army\.mil|www\.cityoflewisville\.com|lcraparks\.com)$/i;
+const approvedDomains = /^(?:tpwd\.texas\.gov|www\.swf-wc\.usace\.army\.mil|www\.cityoflewisville\.com|lcraparks\.com|www\.nps\.gov)$/i;
 const words = (value) => String(value ?? "").trim().split(/\s+/).filter(Boolean).length;
 const official = (value) => {
   try { const u = new URL(value); return u.protocol === "https:" && approvedDomains.test(u.hostname); }
