@@ -28,6 +28,26 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - name: Skip live Chromium QA on unrelated deployments
+        id: qa_scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" != "workflow_run" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --name-only HEAD^ HEAD > /tmp/td-qa-changed-files.txt
+          if grep -Eiq '^(src/(routes|components|data)/.*(fishing|shirt|shop|store|product|checkout|affiliate)|scripts/production/verify-fishing-shirts-|[.]github/workflows/verify-fishing-shirts-production[.]yml)' /tmp/td-qa-changed-files.txt; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Relevant deployed source changed: run focused browser QA."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Unrelated deploy: skip specialized production Chromium QA."
+          fi
       - name: Set up Node.js 22
         uses: actions/setup-node@v4
         with:
@@ -35,10 +55,12 @@ jobs:
       - name: Check fishing shirts verifier syntax
         run: node --check scripts/production/verify-fishing-shirts-release.mjs
       - name: Verify live TexasDefined collection, product details and editorial links
+        if: steps.qa_scope.outputs.run == 'true'
         run: node scripts/production/verify-fishing-shirts-release.mjs
       - name: Check browser verifier syntax
         run: node --check scripts/production/verify-fishing-shirts-browser.mjs
       - name: Install pinned headless browser
+        if: steps.qa_scope.outputs.run == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -51,12 +73,13 @@ jobs:
             node /tmp/td-fishing-qa/node_modules/playwright-core/cli.js install chromium
           fi
       - name: Verify actual product cards and images on fishing pages
+        if: steps.qa_scope.outputs.run == 'true'
         env:
           PLAYWRIGHT_CORE_PATH: /tmp/td-fishing-qa/node_modules/playwright-core
           VERIFY_LIVE_SIZE_ORDER: ${{ (github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch') && '1' || '0' }}
         run: node scripts/production/verify-fishing-shirts-browser.mjs
       - name: Preserve real fishing-shirt card screenshots
-        if: always()
+        if: always() && steps.qa_scope.outputs.run == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: texasdefined-fishing-shirts-browser-qa
