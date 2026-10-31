@@ -1,6 +1,7 @@
 import "./lib/error-capture";
 import { applyHashedModuleDocumentCachePolicy } from "./lib/hashed-asset-document-cache-policy";
 import { LEGACY_EDITORIAL_REDIRECTS } from "./lib/legacy-editorial-redirects";
+import { legacyAppleIconRedirect } from "./lib/legacy-apple-icon";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
 import { allowedRemoteImageUrl, REMOTE_IMAGE_PATH } from "./lib/editorial-image-delivery";
@@ -647,6 +648,8 @@ export default {
     try {
       const canonicalRedirect = canonicalHostRedirect(request);
       if (canonicalRedirect) return canonicalRedirect;
+      const legacyAppleIcon = legacyAppleIconRedirect(request);
+      if (legacyAppleIcon) return legacyAppleIcon;
       const adsTxt = adsTxtResponse(request);
       if (adsTxt) return adsTxt;
       const image = await remoteImageResponse(request, ctx);
