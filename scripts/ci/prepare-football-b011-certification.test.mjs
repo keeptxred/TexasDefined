@@ -30,7 +30,8 @@ test('graduation requires 25 sourced and preserves 230 historical records',()=>{
   assert.equal(r.schoolRecords.filter(s=>s.status==='VERIFIED').length,255);
   assert.equal(r.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,0);
   assert.equal(r.schoolRecords.filter(s=>s.status==='NOT_REVIEWED').length,1037);
-  assert.equal(r.completedBatches[1].technicalAcceptance.screenshotsSaved,93);
+  assert.equal(r.completedBatches[1].technicalAcceptance.schoolCasesPassed,75);
+  assert.equal(r.completedBatches[1].technicalAcceptance.countyCasesPassed,18);
   assert.equal(r.batch.remainingToVerify,0);
   assert.equal(r.schoolRecords[230].technicalBrowserRun,8000);
   assert.equal(r.schoolRecords[254].technicalBrowserRun,8004);
@@ -53,11 +54,10 @@ const goodReport=()=>({
   countyChecks:['mitchell','colorado','comal']
     .map(county=>({county,pass:true,issues:[]}))
 });
-test('accept Chrome report only when all three views and PNG files exist',()=>{
+test('accept genuine Chrome report with all three views independently of PNG retention',()=>{
   const report=goodReport();
   verifyChromeReport(report,0,slugs.slice(0,5),worker,sha,18);
-  assert.throws(()=>verifyChromeReport(report,0,slugs.slice(0,5),worker,sha,0),
-    /screenshot/);
+  verifyChromeReport(report,0,slugs.slice(0,5),worker,sha,0);
   assert.throws(()=>verifyChromeReport(report,0,slugs.slice(0,5),worker,'e'.repeat(40),18),
     /SHA differs/);
 });
