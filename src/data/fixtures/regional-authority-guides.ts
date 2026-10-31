@@ -198,7 +198,7 @@ const baseRegionalAuthorityArticles: Article[] = [
       {
         "href": "/article/fredericksburg-texas-wineries-things-to-do-guide",
         "label": "Fredericksburg winery guide",
-        "description": "Use the maintained Hill Country tasting-room roster."
+        "description": "Compare winery experiences, routes and reservation choices for a Fredericksburg weekend."
       },
       {
         "href": "/destination/william-chris-vineyards-hye",

@@ -320,7 +320,7 @@ export const regionalAuthorityEnrichment: Record<string, Partial<Article>> = {
       },
       {
         "type": "paragraph",
-        "text": "The TTB's current established-AVAs register controls appellation names, nesting and county descriptions. Tasting-room pages and local official visitor offices control reservations, hours, prices and visitor rules. The detailed TexasDefined Fredericksburg guide holds the changing business roster, while this statewide guide interprets viticultural geography. Last research review: October 12, 2026. The Supabase source-watch registry tracks this guide at a 30-day review cadence."
+        "text": "The TTB's current established-AVAs register controls appellation names, nesting and county descriptions. Tasting-room pages and local official visitor offices control reservations, hours, prices and visitor rules. The Fredericksburg destination directory holds the changing business listings, while the separate weekend guide compares routes and this statewide guide interprets viticultural geography. Last research review: October 12, 2026. The Supabase source-watch registry tracks this guide at a 30-day review cadence."
       },
       {
         "type": "image",
