@@ -43,6 +43,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 
 const prebuildChecks = [
   ['FOOTBALL/GOOGLE-INDEX', 'Protect Google-only football noindex and Bing/non-football exclusions', 'node', ['--experimental-strip-types', '--test', 'src/lib/football-google-indexing.test.ts']],
+  ['FOOTBALL/GOOGLE-INDEX', 'Syntax-check bounded live production indexing acceptance', 'node', ['--check', 'scripts/ci/verify-football-google-indexing-production.mjs']],
   ['FOOTBALL/DIRECTORY', 'Validate UIL directory URLs, reciprocal links and canonical/indexing guards', 'python3', ['scripts/ci/validate_football_directory_navigation.py']],
   ['COMMERCE/CJ', 'Syntax-check bounded first-party CJ production verification', 'node', ['--check', 'scripts/ci/verify-cj-account-production.mjs']],
   ['COMMERCE/CJ', 'Verify account-specific CJ creatives, exact destinations, stable SIDs and expired relationship fallback', 'node', ['--test', 'scripts/data/cj-account-links.test.mjs']],
