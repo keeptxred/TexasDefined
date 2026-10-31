@@ -56,3 +56,83 @@ if (sitemap.includes("<loc>https://texasdefined.com/destination/el-paso</loc>"))
   throw new Error("Legacy El Paso destination should not remain indexable in Explore sitemap");
 }
 console.log(JSON.stringify({ kind: "fredericksburg-explore-sitemap", origin: canonicalOrigin, status: sitemapResponse.status, canonical: expected, matches: 1, ok: true }));
+
+
+// Exact, bounded production acceptance for the rewritten Fredericksburg article.
+// A successful Worker deployment or sitemap entry does not prove that the normal
+// visitor URL no longer serves the old, duplicative 50+ winery roster.
+const fredericksburgArticlePath = "/article/fredericksburg-texas-wineries-things-to-do-guide";
+const fredericksburgArticleUrl = new URL(fredericksburgArticlePath, canonicalOrigin).href;
+const expectedFredericksburgTitle = "Fredericksburg Weekend Guide: Winery Routes, Itineraries & Things to Do";
+const expectedFredericksburgSections = [
+  "The first decision: downtown, the 290 corridor or a countryside base",
+  "Which winery experience should you choose?",
+  "A realistic two-night, wine-focused itinerary",
+  "Booking order that prevents wasted driving",
+  "How Texas Defined checked this guide",
+  "Sources and further reading",
+];
+
+function visibleArticleText(html) {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, " ")
+    .replace(/<!--[ \t\S\s]*?-->/g, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&amp;|&#38;|&#x26;/gi, "&")
+    .replace(/&nbsp;|&#160;/gi, " ")
+    .replace(/\s+/g, " ");
+}
+
+function assertFredericksburgRewrite(html, origin, surface) {
+  const text = visibleArticleText(html);
+  for (const marker of [expectedFredericksburgTitle, ...expectedFredericksburgSections]) {
+    if (!text.includes(marker)) {
+      throw new Error(`Fredericksburg article ${surface} on ${origin} missing rewritten section: ${marker}`);
+    }
+  }
+  for (const old of [
+    "Fredericksburg winery and tasting-room research roster",
+    "Augusta Vin — Highway 290 winery and hospitality property",
+  ]) {
+    if (text.includes(old)) {
+      throw new Error(`Fredericksburg article ${surface} on ${origin} still serves retired winery-directory text: ${old}`);
+    }
+  }
+  const canon = [...html.matchAll(/<link\b[^>]*>/gi)]
+    .map((hit) => hit[0])
+    .find((tag) => /\brel=["']canonical["']/i.test(tag));
+  if (!canon || !canon.includes(fredericksburgArticleUrl)) {
+    throw new Error(`Fredericksburg article ${surface} on ${origin} missing its stable canonical URL`);
+  }
+  const robots = [...html.matchAll(/<meta\b[^>]*>/gi)].map((match) => match[0])
+    .filter((tag) => /\bname=["']robots["']/i.test(tag));
+  if (robots.some((tag) => /\bnoindex\b/i.test(tag))) {
+    throw new Error(`Fredericksburg article ${surface} on ${origin} unexpectedly noindexed`);
+  }
+}
+
+for (const origin of [canonicalOrigin, directWorkerOrigin]) {
+  for (const surface of ["canonical-visitor", "cache-busted-release"]) {
+    const url = new URL(fredericksburgArticlePath, origin);
+    if (surface === "cache-busted-release") url.searchParams.set("td_verify", token);
+    const response = await request(url, "error");
+    if (response.status !== 200 || response.headers.get("cf-mitigated")?.toLowerCase() === "challenge"
+      || !/^text\/html\b/i.test(response.headers.get("content-type") || "")) {
+      throw new Error(`Fredericksburg article ${surface} on ${origin} failed HTML response: HTTP ${response.status}`);
+    }
+    const html = await response.text();
+    assertFredericksburgRewrite(html, origin, surface);
+    console.log(JSON.stringify({
+      kind: "fredericksburg-article-live",
+      origin,
+      surface,
+      status: response.status,
+      cache: response.headers.get("cf-cache-status"),
+      rewritten: true,
+      oldRosterRemoved: true,
+      canonical: fredericksburgArticleUrl,
+      ok: true,
+    }));
+  }
+}
