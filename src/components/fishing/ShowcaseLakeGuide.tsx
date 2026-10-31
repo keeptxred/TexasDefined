@@ -207,7 +207,7 @@ function Regulations({ pageData }: { pageData: PageData }) {
     <section>
       <p className="eyebrow text-primary">Rules planning</p>
       <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Fishing Rules for {pageData.overview.name}</h2>
-      <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Source review: {formatDate(pageData.verifiedAt)}. This page identifies the fisheries and locally documented concerns worth checking; it is not a current legal bag-limit table. For an enforceable answer, open TPWD's 2026–27 rules and the waterbody exceptions before keeping a fish.</p>
+      <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Source review: {formatDate(pageData.verifiedAt)}. This page identifies the fisheries and locally documented concerns worth checking; it is not a current legal bag-limit table. For an enforceable answer, open TPWD's current published rules and the waterbody exceptions before keeping a fish.</p>
       <div className="mt-9 border-t border-border">{pageData.regulations.map((row) => <div key={row.label} className="grid gap-2 border-b border-border py-5 sm:grid-cols-[0.3fr_0.7fr]"><h3 className="font-display text-xl">{row.label}</h3><p className="text-sm leading-6 text-muted-foreground">{row.text}</p></div>)}</div>
       <div className="mt-7 flex flex-wrap gap-5 text-sm font-semibold"><a href={officialRules} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">TPWD current freshwater regulations →</a><a href={pageData.sources.tpwdLake.url} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">TPWD lake-specific fishing information →</a></div>
     </section>
