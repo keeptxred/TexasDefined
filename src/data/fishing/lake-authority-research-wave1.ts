@@ -3426,5 +3426,303 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites",
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/"
     ]
+  },
+  "lake-arlington": {
+    "camping": [
+      {
+        "name": "Lake Arlington's three public parks are day-use boat access, not campgrounds",
+        "type": "No overnight camping documented at the three public ramps",
+        "summary": "TPWD's official access matrix shows no camping provision at Richard Simpson Park, Bowman Springs Park or Eugene McCray Park. The city requires an additional boat permit; do not present public parking or picnic facilities as overnight RV or tent sites.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arlington/access.phtml"
+      },
+      {
+        "name": "Cedar Hill State Park — developed camping on Joe Pool Lake",
+        "type": "Off-lake campground, different reservoir",
+        "summary": "TPWD lists reservable electric, full-hookup and primitive camping at Cedar Hill State Park on Joe Pool Lake. It is a genuinely different waterbody and a regional overnight base, not camping on Lake Arlington, so plan the trip and reservations separately.",
+        "href": "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide freshwater harvest rules at Lake Arlington",
+        "text": "The current TPWD Lake Arlington fishery profile says all species are managed under statewide regulations, including largemouth and white bass, crappie and catfish. Largemouth are the primary fishery; the reservoir's hybrid striped-bass stocking program was discontinued, so older claims of annual stocking are misleading.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arlington/"
+      },
+      {
+        "label": "City boating permit and safety near stump fields",
+        "text": "TPWD says the City of Arlington requires a boat-use permit for lake access. Richard Simpson and Bowman Springs have eight-lane ramps and Eugene McCray has a two-lane ramp. Boat operators should note TPWD's buoyed stump-field hazards, distinct from the statewide fish-harvest regulations.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arlington/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Bowman Springs Park — west-shore eight-lane ramp",
+        "description": "This City of Arlington park is reached from Poly Webb Road and offers an eight-lane boat ramp, picnic access and public lake recreation with a city boat-use fee. It is a real separate destination from Richard Simpson Park, not a campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arlington/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Richard Simpson Park — north-shore boating and fishing",
+        "description": "Richard Simpson Park near Arkansas Lane and Green Oaks Boulevard provides another eight-lane public launch, lake access and picnic facilities managed by the City of Arlington. Its city boat permit and park operations should be checked before departure.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arlington/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arlington/access.phtml",
+      "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arlington/"
+    ]
+  },
+  "lake-worth": {
+    "camping": [
+      {
+        "name": "Camping prohibited at all four Lake Worth boat-ramp parks",
+        "type": "Verified lake camping prohibition",
+        "summary": "TPWD's Lake Worth access page expressly says camping is not allowed at the reservoir's four public parks. Launch ramps, picnic areas, and shoreline parking are not overnight campsites. Travelers needing overnight lodging must select a separate permitted destination away from these parks.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/access.phtml"
+      },
+      {
+        "name": "Lake Mineral Wells State Park — separate regional camping alternative",
+        "type": "Off-lake state park, other reservoir",
+        "summary": "TPWD manages reservable electric and primitive campsites at Lake Mineral Wells State Park outside Fort Worth. They are on another lake and require a separate trip, so this is an explicitly off-lake alternative—not a misleading Lake Worth waterfront campground.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Lake Worth fish harvest limits and consumption are separate rules",
+        "text": "TPWD says statewide size and bag limits generally govern fish harvest at Lake Worth. However, its official fish-consumption notice for Lake Worth and the Trinity upstream to Eagle Mountain warns about PCBs and dioxins and imposes species-specific eating restrictions; legal to catch does not mean safe to eat.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/index.phtml"
+      },
+      {
+        "label": "Current revised health advisory — no smallmouth buffalo consumption",
+        "text": "TPWD's revised consumption-advisory table states no one should eat smallmouth buffalo from Lake Worth and the Trinity upstream to Eagle Mountain. It separately restricts flathead, blue catfish, striped/white bass, common carp and freshwater drum; do NOT repeat the older blanket instruction against eating blue or channel catfish without checking the revised advisory.",
+        "sourceUrl": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories"
+      },
+      {
+        "label": "Zebra mussels and no overnight ramp use",
+        "text": "TPWD confirms zebra mussels have invaded Lake Worth, requiring draining onboard water and cleaning/drying gear between public reservoirs. Its access matrix lists four day-use boat-ramp parks and prohibits camping, which affects fishing trip logistics independently of fish harvest limits.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Arrow S Park — public ramp and bank fishing",
+        "description": "TPWD's Lake Worth access directory documents Arrow S Park with its improved lake ramp, picnic space, parking and public shoreline use. It is one of four separate named municipal visitor areas, not a campground or a private marina resort.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Lake Worth City Park — separate public waterfront",
+        "description": "The public Lake Worth City Park launch is listed in TPWD's city-access matrix along with picnic and ramp facilities. Visitors can compare the four distinct public entries for their preferred access, but none offers legal overnight camping.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/access.phtml",
+      "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/index.phtml",
+      "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories"
+    ]
+  },
+  "medina-lake": {
+    "camping": [
+      {
+        "name": "Neither TPWD-listed Medina Lake launch confirms legal overnight camping",
+        "type": "No campground verified at either public launch",
+        "summary": "TPWD's Medina Lake access matrix lists Red Cove Camp at Mico and Bandera County's Park Road 37 launch, but neither has the campground indicator. A place named 'Camp' is not proof of RV/tent reservations. Do not send overnight travelers to either ramp without a separately confirmed operator booking.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/access.phtml"
+      },
+      {
+        "name": "Hill Country State Natural Area — backcountry camping at another site",
+        "type": "Separate state natural area; primitive camping",
+        "summary": "TPWD permits primitive equestrian, hike-in and group campsites in the Hill Country State Natural Area near Bandera. This is a separate public land property, not Lake Medina shoreline. Verify primitive campsite bookings and park access before treating it as an overnight base.",
+        "href": "https://tpwd.texas.gov/state-parks/hill-country"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "All resident fish follow statewide harvest regulations",
+        "text": "TPWD's Medina Lake fishing page explicitly says all fish currently follow statewide freshwater harvest limits. Largemouth, white/hybrid striped bass and blue/channel/flathead catfish each have distinct daily bag and size provisions. Don't transpose Lake Travis's LCRA bowfishing restrictions to this separate Bandera and Medina County reservoir.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/"
+      },
+      {
+        "label": "Zebra mussels and ramps that strand at low water",
+        "text": "TPWD warns zebra mussels have invaded Medina Lake and requires draining water from boats and receptacles. Reservoir levels can fluctuate as much as forty feet: the concrete Red Cove launch may be unusable at lower water and gravel-bank launching may be necessary. Check the present water level before towing.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Red Cove Camp boat ramp — private Mico launch",
+        "description": "Despite its name, Red Cove Camp is verified by TPWD as a private boat launch at Mico off FM 1283, with a two-lane concrete ramp and a fee. At very low water the operator may use a gravel bank; camping is not confirmed by the source.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Park Road 37 — Bandera County public lake entrance",
+        "description": "Bandera County operates a second distinct launch at the end of Park Road 37 in Plum Creek Cove. TPWD lists the ramp open 24 hours but the park as day-use 7 a.m.–8 p.m., with fees and variable ramp reach in low water.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/access.phtml",
+      "https://tpwd.texas.gov/state-parks/hill-country",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/medina/"
+    ]
+  },
+  "bachman-lake": {
+    "camping": [
+      {
+        "name": "No designated camping at Dallas Bachman Lake Park",
+        "type": "No campground documented at urban city lake",
+        "summary": "Bachman Lake is an urban Dallas city park, not a camping destination. The official TPWD access matrix records a city-run ramp and shoreline fishing but no campground or overnight accommodation. Visitors should not infer permission to sleep in the ramp parking area.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/access.phtml"
+      },
+      {
+        "name": "Cedar Hill State Park — separate Dallas-area camping",
+        "type": "Regional camping at a different lake",
+        "summary": "TPWD's Cedar Hill State Park has developed campsites and primitive options at Joe Pool Lake, another waterbody. This is an alternative overnight base for Dallas-area travelers rather than an invented campsite beside Bachman Lake or Love Field.",
+        "href": "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide fish harvest limits apply at Bachman Lake",
+        "text": "TPWD says largemouth bass, channel and blue catfish, crappie and sunfish currently use statewide freshwater harvest rules at Bachman. The lake is only about 132 acres and has no separate lake-specific bass slot published; check the current species size and daily bag before retaining fish.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/"
+      },
+      {
+        "label": "Five-horsepower motor cap on Bachman Lake",
+        "text": "TPWD's main Bachman fishery profile specifies a five-horsepower limit on boat engines, while allowing electric trolling motors. This is a specific Dallas urban watercraft restriction separate from general Texas freshwater harvest rules. Check any city park gate conditions before launching.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Bachman Lake municipal boat ramp — Shorecrest Drive",
+        "description": "TPWD's access inventory identifies a two-lane city concrete ramp off Shorecrest Drive near Dallas Love Field, with only a handful of spaces for boat trailers. It is a named practical launch, not a campground, and may be unsuitable for large trailers.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Bachman Dam shoreline for crappie and sunfish",
+        "description": "TPWD's fisheries page describes productive submerged brush near the dam for crappie, sunfish and bass, and southern riprap for largemouth fishing. These are distinct on-lake fishing patterns on a crowded urban shoreline; observe city park rules.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/access.phtml",
+      "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/"
+    ]
+  },
+  "e-v-spence-reservoir": {
+    "camping": [
+      {
+        "name": "Wildcat Recreation Area — CRMWD camping and marina",
+        "type": "CRMWD camping at Wildcat Marina",
+        "summary": "TPWD expressly marks Wildcat Recreation Area, about three miles west of Robert Lee on Texas 158, as a CRMWD campground with public camping and picnic facilities and a concrete boat ramp. The agency identifies Wildcat Marina as the onsite operator; call to confirm present ramp usability and actual overnight camping arrangements.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/access.phtml"
+      },
+      {
+        "name": "Paint Creek Recreation Area — separate CRMWD camping",
+        "type": "CRMWD camping at Paint Creek",
+        "summary": "TPWD identifies Paint Creek, five miles west of Robert Lee on Texas 158, as another public camping-equipped recreation area, managed by CRMWD and the Paint Creek Marina operator. Water level can prevent launching even while the campground remains accessible; contact the manager before booking.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/access.phtml"
+      },
+      {
+        "name": "Rough Creek recreation area — CLOSED",
+        "type": "Closed facility — DO NOT BOOK",
+        "summary": "TPWD prominently labels Rough Creek closed at present. This area must not be promoted as a legal or accessible overnight campsite or boat ramp, even though old lake brochures may still show its name. Check official agency status before considering reopening.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "All fish currently follow statewide harvest rules",
+        "text": "TPWD says all species at E.V. Spence are managed under statewide freshwater harvest regulations. Its fisheries include largemouth, white and striped bass, catfish and limited crappie; retention limits differ by species, and a boat-entry charge or reservoir pass is not a fishing license.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/"
+      },
+      {
+        "label": "Golden-alga fish-kill history and very low-water access",
+        "text": "TPWD reports severe golden-alga fish kills at Spence in the early 2000s and subsequent modest fishery recovery. This is historical rather than a confirmed active bloom. The current Rough Creek closure and severe water-level decline create real access risks; check timestamped reservoir level and CRMWD park status before towing.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Wildcat Recreation Area — public fishing and boat ramp",
+        "description": "Wildcat, off Texas 158 west of Robert Lee, is a named CRMWD recreation park with camping, picnic areas, a concrete launch and access to the reservoir's steep western shoreline. This is a real visitor facility, with launch usability affected by current elevation.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/access.phtml",
+        "external": true
+      },
+      {
+        "label": "South End of Dam — day-use shoreline fishing",
+        "description": "TPWD identifies South End of Dam as a separate shore-fishing area roughly a mile west of Robert Lee on Texas 158, with picnic facilities but no boat ramp. It is distinct from both closed Rough Creek and overnight Wildcat camping.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/spence/"
+    ]
+  },
+  "brady-creek-reservoir": {
+    "camping": [
+      {
+        "name": "Brady Lake City Park — municipal RV hookups and tent sites",
+        "type": "City-operated camping and cabins",
+        "summary": "TPWD confirms overnight camping at the City Park near the Brady Creek Reservoir dam, reached from FM 2028 and FM 3022. The City of Brady's separately documented park inventory describes RV hookup areas, tent camping and eight lake cabanas; check specific utility service, dated condition notices and reservations with city recreation staff.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/access.phtml"
+      },
+      {
+        "name": "Brady Lake City Park — cabin/cabana lodging",
+        "type": "City-managed cabins; reserve with operator",
+        "summary": "The municipal Brady Lake site lists eight cabanas as a separate paid overnight lodging option from the tent and RV sites. TPWD identifies only one public boat launch and warns that it works best at high water; booking a cabana does not guarantee a usable trailer boat ramp.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide fish harvest rules at Brady Creek",
+        "text": "TPWD's Brady Creek Reservoir profile lists bass, catfish, white bass and crappie under the current statewide fishing regulations rather than a new local protected bass slot. Anglers should apply the current daily bag and size limits to the correctly identified species and should check any active agency advisory.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/"
+      },
+      {
+        "label": "Drought, golden-alga history and launch status",
+        "text": "TPWD rates several Brady Lake fisheries fair after historical golden-alga losses and water-level stress. The park's public ramp is best at high water, so day-use or overnight bookings must be separated from live ramp availability. This is an operator-specific access caution, not a fishing harvest closure.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Brady Lake City Park — city launch and bank-fishing area",
+        "description": "TPWD identifies City Park at the dam as Brady Creek Reservoir's only listed public access point, with a fee-free boat ramp, restrooms, picnic areas, fish access and camping amenities. This is the actual city park rather than a broad McCulloch County recommendation.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Brady Creek rocky bluffs and submerged railroad-bed structure",
+        "description": "TPWD's lake-specific fishery discussion documents rocky bluffs, riprap, submerged timber and an old railroad bed as productive habitat. These are distinctive fishing targets, but historic locations may shift with lake levels and do not imply safe off-limits shoreline access.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brady_creek/"
+    ]
   }
 };
