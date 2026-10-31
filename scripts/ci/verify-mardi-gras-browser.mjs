@@ -221,6 +221,18 @@ try {
   await browser.close();
   await writeFile(OUTPUT + "/qa-report.json", JSON.stringify(report, null, 2) + "\n");
 }
+// Never certify a partial browser run as a complete 12 x 2 release acceptance.
+// Screenshot files are disposable after compact report evidence is retained.
+if (report.results.length !== 24 || report.screenshots.length !== 24) {
+  report.failures.push({
+    path: "all",
+    viewport: "all",
+    name: "complete 12-page x 2-viewport coverage",
+    passed: false,
+    detail: `results=${report.results.length}; screenshots=${report.screenshots.length}; expected=24 each`,
+  });
+  await writeFile(OUTPUT + "/qa-report.json", JSON.stringify(report, null, 2) + "\n");
+}
 console.log("Mardi Gras Chrome acceptance: " + report.results.length + " page/viewport checks; " + report.screenshots.length + " screenshots.");
 for (const row of report.results) {
   console.log(row.path + " " + row.viewport + ": " + row.checks.filter(c => c.passed).length + "/" + row.checks.length + " checks");
