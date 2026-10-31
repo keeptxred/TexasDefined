@@ -86,7 +86,7 @@ if (!failures.length) {
     if (/^import\s+\{[^\n]*fishing(?:Guides|Lake|Reports)Query[^\n]*\}\s+from\s+"@\/data\/fishing\/queries";/m.test(routeSource)) failures.push(`Lake Conroe ${label} route must not statically import fishing queries.`);
   }
   if (!overviewRoute.includes('"@type": "Reservoir"') || !overviewRoute.includes('"@type": "BreadcrumbList"') || !sectionRoute.includes('"@type": "BreadcrumbList"')) failures.push("Lake Conroe structured data incomplete.");
-  if (!overviewRoute.includes("dateModified: verifiedAt") || !sectionRoute.includes("dateModified: pageData.verifiedAt")) failures.push("Lake Conroe freshness metadata is not source-backed.");
+  if (!overviewRoute.includes("dateModified: verifiedAt") || !sectionRoute.includes("dateModified: sourceDate") || !sectionRoute.includes("pageData.sectionResearch") || !sectionRoute.includes("sectionResearch.reviewedAt") || !sectionRoute.includes("pageData.verifiedAt")) failures.push("Lake Conroe freshness metadata is not source-backed.");
 
   if (!sitemap.includes("lake-conroe-routing") || !sitemap.includes("FISHING_SITEMAP_ENTRIES") || !primarySitemap.includes("...FISHING_SITEMAP_ENTRIES")) failures.push("Lake Conroe dynamic sitemap publication incomplete.");
   if (publicRoutes.split("export const REDIRECT_ONLY_PATHS")[0].includes('"/fishing/lakes/lake-conroe"')) failures.push("Dynamic Lake Conroe URL incorrectly classified static.");
