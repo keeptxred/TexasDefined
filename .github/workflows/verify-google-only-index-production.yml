@@ -1,0 +1,41 @@
+name: Verify Google-only indexing production
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify original HTML, Google-only robots, sitemap and Bing safety
+        run: node scripts/ci/verify-google-only-index-production.mjs
+      - name: File actionable issue if Google-only production acceptance fails
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = '[SEO] Google-only football indexing production verification failed';
+            const body = [
+              'The targeted post-deploy verification of Googlebot-only noindex failed. Do not assume the first-wave exclusions are live.',
+              'Run: ' + context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId,
+              'Inspect the raw SSR meta tags for Colorado City (noindex), Jarrell (indexable), District 7 (indexable), primary sitemap parity, public robots.txt and HTTP/Cloudflare status.',
+              'Do not reenable full-site crawls or indiscriminately change other page families.',
+            ].join('\n');
+            const { data: issues } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', per_page: 100 });
+            const old = issues.find(issue => issue.title === title && !issue.pull_request);
+            if(old) await github.rest.issues.update({ ...context.repo, issue_number: old.number, body });
+            else await github.rest.issues.create({ ...context.repo, title, body });
