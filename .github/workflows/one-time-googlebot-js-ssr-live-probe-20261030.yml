@@ -1,0 +1,63 @@
+name: One-time Googlebot-style SSR runtime regression probe
+on:
+  push:
+    branches:
+      - ops/googlebot-js-ssr-live-probe-20261030
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  production-googlebot-ssr-probe:
+    name: Validate affected SSR pages with Googlebot-style requests
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Fetch seven affected production URLs and validate HTML SSR
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          const origin = 'https://texasdefined.com';
+          const tests = [
+            {path:'/explore/search', text:'Find the Texas place you have in mind', indexable:false},
+            {path:'/explore/search?q=lake&origin=Galveston', text:'Find the Texas place you have in mind', indexable:false},
+            {path:'/events', text:'What’s happening across Texas', indexable:true},
+            {path:'/events?start=2028-07-06&end=2028-07-06', text:'What’s happening across Texas', indexable:false},
+            {path:'/county/collin', text:'Collin County', indexable:true},
+            {path:'/texas-high-school-football-isds/katy-isd', text:'football programs', indexable:true},
+            {path:'/texas-high-school-football-isds/mcgregor-isd', text:'football programs', indexable:true},
+          ];
+          const agent = 'Googlebot/2.1 (+http://www.google.com/bot.html)';
+          let failures = 0;
+          for (const test of tests) {
+            let passed = false;
+            for (let attempt=1; attempt<=2&&!passed; attempt++) {
+              try {
+                const response = await fetch(origin+test.path, {
+                  redirect:'follow',
+                  headers:{'User-Agent':agent,'Accept':'text/html','Cache-Control':'no-cache'},
+                  signal:AbortSignal.timeout(25000)
+                });
+                const html=await response.text();
+                const head=html.split('</head>')[0]||html.slice(0,50000);
+                const containsText=html.includes(test.text);
+                const isHTML=/<html[\s>]/i.test(html)&&/<h1[\s>]/i.test(html);
+                const canonical=head.match(/<link[^>]+rel=["']canonical["'][^>]*>/i)?.[0]||'';
+                const robots=(head.match(/<meta[^>]+name=["']robots["'][^>]*>/i)||[])[0]||'';
+                const version=response.headers.get('x-texasdefined-worker-version');
+                const ray=response.headers.get('cf-ray');
+                const htmlException=/TypeError:\s*Cannot read properties of undefined|Application Error|Unexpected Server Error|Internal Server Error/i.test(html);
+                const indexOK=test.indexable!==true||!(/\bnoindex\b/i.test(robots));
+                passed=response.status===200&&isHTML&&containsText&&!htmlException&&indexOK;
+                console.log(JSON.stringify({path:test.path,attempt,status:response.status,ok:passed,h1:isHTML,hasExpectedText:containsText,hasCanonical:!!canonical,robots:robots.slice(0,150),workerVersion:version,ray,bytes:html.length,htmlException}));
+                if(!passed&&attempt===1)await new Promise(resolve=>setTimeout(resolve,1500));
+              }catch(err){
+                console.log(JSON.stringify({path:test.path,attempt,error:String(err)}));
+                if(attempt===1)await new Promise(resolve=>setTimeout(resolve,1500));
+              }
+            }
+            if(!passed)failures++;
+          }
+          assert.equal(failures,0,failures+' production Googlebot-style SSR cases failed');
+          console.log('PASS: all seven synthetic Googlebot-style HTTP and HTML SSR tests');
+          NODE
