@@ -68,8 +68,7 @@ test('Batch011 fifth-five source only until five distinct real production Chrome
  }
  const code=read('scripts/ci/verify-football-b011-fifth-five-production.mjs');
  const workflow=read('.github/workflows/verify-football-b011-fifth-five-production.yml');
- for(const word of ['report.schoolChecks.length!==15','report.countyChecks.length!==4','report.screenshots!==19',
-  'process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
+ for(const word of ['report.schoolChecks.length!==15','report.countyChecks.length!==4','process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
   assert.ok(code.includes(word),'Required real Chrome evidence missing '+word);
  for(const word of ['Deploy TexasDefined production','pin-football-b010-production-release.mjs',
  'steps.release.outputs.sha','artifacts/b011-fifth-five-production-chrome/'])

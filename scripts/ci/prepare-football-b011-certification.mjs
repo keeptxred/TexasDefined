@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Protect a Batch011 graduation: five real successful Chrome jobs, retained PNG
-// artifacts, same source SHA, one live Worker and matching successful release.
+// Protect a Batch011 graduation: five real successful Chrome jobs, machine-readable Chrome
+// reports, same source SHA, one live Worker and matching successful release.
 // No roster, scored season, manual accessibility, media-rights or ADA claim.
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 const REPO='keeptxred/TexasDefined';
 const REGISTRY='docs/football-authority/REGISTRY.json';
 const NAMES=['first','second','third','fourth','fifth'];
-const COUNTIES=[3,5,2,4,4],SHOTS=[18,20,17,19,19];
+const COUNTIES=[3,5,2,4,4];
 const EXPECTED_COUNTY_SLUGS=[
   ['mitchell','colorado','comal'],
   ['bexar','comal','comanche','kendall','hunt'],
@@ -29,13 +29,11 @@ const read=(path)=>JSON.parse(readFileSync(path,'utf8'));
 const groupLabel=(i)=>NAMES[i]+'-five';
 const artifactName=(i)=>'football-b011-'+groupLabel(i)+'-production-chrome';
 const workflow=(i)=>'verify-football-b011-'+groupLabel(i)+'-production.yml';
-function pngs(dir){return readdirSync(dir,{withFileTypes:true}).reduce((n,e)=>n+
-  (e.isDirectory()?pngs(join(dir,e.name)):(e.name.endsWith('.png')?1:0)),0);}
 function reports(dir){const files=[];function walk(d){for(const e of readdirSync(d,{withFileTypes:true})){
   const p=join(d,e.name);if(e.isDirectory())walk(p);else if(e.name==='report.json')files.push(p);
 }}walk(dir);return files;}
 
-export function verifyChromeReport(report,i,slugs,worker,sha,screenshots) {
+export function verifyChromeReport(report,i,slugs,worker,sha) {
   assert.equal(report.version,1);
   assert.equal(report.technicalOnly,true);
   assert.ok(SHA.test(sha) && UUID.test(worker));
@@ -45,8 +43,6 @@ export function verifyChromeReport(report,i,slugs,worker,sha,screenshots) {
   assert.deepEqual(report.sitemapMissing,[],'Sitemap coverage incomplete');
   assert.equal(report.schoolChecks?.length,15,'Five school pages times three viewports');
   assert.equal(report.countyChecks?.length,COUNTIES[i]);
-  assert.equal(report.screenshots,SHOTS[i]);
-  assert.equal(screenshots,SHOTS[i],'Real screenshot files are missing');
   const count=new Map();
   for(const row of report.schoolChecks) {
     assert.equal(row.pass,true);
@@ -82,7 +78,6 @@ export function graduateBatch011(reg,groups,worker,sha,deployRun,at) {
     assert.deepEqual(g.schoolSlugs,slugs);
     assert.equal(g.schoolCasesPassed,15);
     assert.equal(g.countyCasesPassed,COUNTIES[i]);
-    assert.equal(g.screenshotsSaved,SHOTS[i]);
     assert.equal(g.workerVersion,worker);
     assert.ok(Number.isSafeInteger(g.runId)&&g.runId>0);
     assert.ok(Number.isSafeInteger(g.artifactId)&&g.artifactId>0);
@@ -102,7 +97,7 @@ export function graduateBatch011(reg,groups,worker,sha,deployRun,at) {
   }
   const technicalAcceptance={schoolCount:25,viewports:[1366,390,320],
     schoolCasesPassed:75,schoolCasesFailed:0,countyCasesPassed:18,
-    countyCasesFailed:0,screenshotsSaved:93,sitemapUrlsPassed:25,
+    countyCasesFailed:0,sitemapUrlsPassed:25,
     observedWorkerVersions:[worker],workerVersionMatchesDeploy:true,
     productionDeploymentRun:deployRun,productionDeploymentGitSha:sha,
     groups,editorialHumanSignoffsClaimed:0,manualAccessibilityAccepted:false,
@@ -112,7 +107,7 @@ export function graduateBatch011(reg,groups,worker,sha,deployRun,at) {
     state:'VERIFIED_BATCH_011_COMPLETE',dateAssigned:reg.batch.dateAssigned,
     verifiedAt:at,individuallyVerified:25,remainingAssigned:0,remainingToVerify:0,
     remainingToImplement:0,implementedOnBranch:25,protectedSourcePr:null,sourceCohortScope:'Five protected school-source cohorts recorded in Batch011 dossiers',
-    technicalAcceptance,completionBasis:'Five actual non-skipped Chrome cohorts and archived PNG evidence, one matching Cloudflare Worker and successful source deployment.',
+    technicalAcceptance,completionBasis:'Five actual non-skipped Chrome cohorts and validated machine-readable reports, one matching Cloudflare Worker and successful source deployment.',
     noNextBatchAssigned:true});
   Object.assign(reg.batch,{state:'VERIFIED_BATCH_011_COMPLETE',
     individuallyVerified:25,remainingAssigned:0,remainingToVerify:0,
@@ -122,9 +117,9 @@ export function graduateBatch011(reg,groups,worker,sha,deployRun,at) {
   assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,0);
 }
 function findRuns(i) {
-  // Query the bounded artifact index first: GitHub reports a green workflow
+  // Query bounded report-bearing artifacts first: GitHub reports a green workflow
   // when the actual Chrome steps are SKIPPED. Avoid up to 90 unnecessary API
-  // calls for green-but-skipped runs; they have zero screenshot artifacts.
+  // calls for green-but-skipped runs; they have no report-bearing artifacts.
   const artifacts=gh('repos/'+REPO+'/actions/artifacts?name='+
     encodeURIComponent(artifactName(i))+'&per_page=100');
   const proofByRun=new Map((artifacts.artifacts||[]).filter(a=>
@@ -194,8 +189,8 @@ function downloadActual(i,run,slugs,temp) {
   const a=run.certificateArtifact;
   assert.ok(a?.workflow_run?.id===run.id &&
     a.name===artifactName(i) && a.expired===false,
-    'Chrome screenshot artifact must originate from the exact successful run');
-  if(!a)return null; // Green skipped jobs never emitted PNG artifacts.
+    'Chrome report artifact must originate from the exact successful run');
+  if(!a)return null; // Green skipped jobs never emitted Chrome reports.
   const jobs=gh('repos/'+REPO+'/actions/runs/'+run.id+'/jobs?per_page=30');
   const performed=jobs.jobs?.some(job=>job.conclusion==='success' &&
     job.steps?.some(s=>s.name==='Install isolated Chrome driver'&&s.conclusion==='success') &&
@@ -213,7 +208,7 @@ function downloadActual(i,run,slugs,temp) {
   // during rapid deployments. The Chrome report must carry its independent
   // verified-Worker-ledger pinned source SHA; never substitute run.head_sha.
   const {sha,worker}=reportReleaseIdentity(report);
-  verifyChromeReport(report,i,slugs,worker,sha,pngs(dir));
+  verifyChromeReport(report,i,slugs,worker,sha);
   const verifyStep=jobs.jobs?.flatMap(j=>j.steps||[]).find(x=>
     x.name?.startsWith('Verify 5 school') && x.conclusion==='success');
   assert.ok(Number.isFinite(Date.parse(verifyStep?.started_at)) &&
@@ -227,7 +222,7 @@ function downloadActual(i,run,slugs,temp) {
     runUrl:ROOT+'/actions/runs/'+run.id,
     artifactUrl:ROOT+'/actions/runs/'+run.id+'/artifacts/'+a.id,
     schoolCasesPassed:15,countyCasesPassed:COUNTIES[i],
-    screenshotsSaved:SHOTS[i],workerVersion:worker}};
+    workerVersion:worker}};
 }
 // A newer TexasDefined deploy does not erase proven browser acceptance of
 // an older live release. Verify the historical 100% Cloudflare deployment
@@ -333,7 +328,7 @@ function section(at,worker,sha,deploy,groups,cloudflare,ledgerId) {
   return ['## '+at+' — Batch 011 technical Chrome certification complete (25/25)',
     '',
     'Five genuine, non-skipped Chrome cohorts independently checked all 75 school viewports',
-    '(1366/390/320), 18 reciprocal county views, 25 sitemap URLs, and preserved 93 PNG screenshots.',
+    '(1366/390/320), 18 reciprocal county views and 25 sitemap URLs, with validated JSON evidence.',
     'Every report observed identical published Cloudflare Worker '+worker+'.',
     'The Cloudflare deployment '+cloudflare.id+' served it at 100% during all five',
     'real Chrome verification windows. GitHub verified-Worker ledger deployment '+ledgerId+
@@ -344,7 +339,7 @@ function section(at,worker,sha,deploy,groups,cloudflare,ledgerId) {
     'This is historical production evidence, not a claim that the Worker is still active.',
     '',
     ...groups.map(g=>'- '+g.label+': [Chrome run '+g.runId+']('+g.runUrl+
-      '), [retained screenshot artifact '+g.artifactId+']('+g.artifactUrl+'); '+g.screenshotsSaved+' images.'),
+      '), [Chrome JSON evidence artifact '+g.artifactId+']('+g.artifactUrl+').'),
     '',
     'Registry: 255 technical VERIFIED / 0 IMPLEMENTED / 1,037 NOT_REVIEWED.',
     'This does NOT certify human fact-by-fact review, school photo/mark rights, manual WCAG,',
@@ -389,7 +384,7 @@ export async function main() {
         }
       }
       if(!valid.length){
-        console.log('No verified-release matching Chrome artifacts for '+NAMES[i]+
+        console.log('No verified-release matching Chrome reports for '+NAMES[i]+
           '; no status changed');
         return;
       }

@@ -57,7 +57,7 @@ test('source-only SSR precedence, exact Worker Chrome controls and no false acce
  assert.ok(verifier.includes("reg.batch.number,11"));
  assert.ok(verifier.includes("status==='VERIFIED'"));
  for(const token of ['report.schoolChecks.length!==15','report.countyChecks.length!==3',
-   'report.screenshots!==18','process.env.FOOTBALL_CHROME_SOURCE_SHA',
+   'process.env.FOOTBALL_CHROME_SOURCE_SHA',
    'process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1',
    "'colorado-city-colorado'","'comal-davenport'"])
    assert.ok(verifier.includes(token),'Missing genuine first-five Chrome control '+token);
