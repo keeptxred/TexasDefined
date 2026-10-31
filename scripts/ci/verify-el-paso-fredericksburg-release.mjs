@@ -8,10 +8,10 @@ const directWorkerOrigin = "https://texasdefined-site.freddy-coppola.workers.dev
 const token = [process.env.GITHUB_SHA || "local", process.env.GITHUB_RUN_ID || "manual"].join("-");
 const headers = { "cache-control": "no-cache", "user-agent": "TexasDefined-ElPaso-Fredericksburg-Release/1.0" };
 
-async function request(url, redirect = "manual") {
+async function request(url, redirect = "manual", extraHeaders = {}) {
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
-      return await fetch(url, { redirect, cache: "no-store", headers, signal: AbortSignal.timeout(30000) });
+      return await fetch(url, { redirect, cache: "no-store", headers: { ...headers, ...extraHeaders }, signal: AbortSignal.timeout(30000) });
     } catch (error) {
       if (attempt === 2 || !["AbortError", "TimeoutError"].includes(error?.name)) throw error;
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -133,6 +133,43 @@ for (const origin of [canonicalOrigin, directWorkerOrigin]) {
       oldRosterRemoved: true,
       canonical: fredericksburgArticleUrl,
       ok: true,
+    }));
+  }
+}
+
+
+// Google Search Console's URL Inspection fetch can use Google-InspectionTool;
+// its failure may be different from an ordinary Chrome request. Test the exact
+// canonical path, not just a cache-busted preview. These user-agents are
+// simulations from GitHub Actions, NOT authenticated Google-owned IPs.
+const crawlerUserAgents = [
+  ["googlebot-mobile", "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"],
+  ["google-inspection-tool", "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36 (compatible; Google-InspectionTool/1.0;)"],
+  ["bingbot-control", "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"],
+];
+for (const origin of [canonicalOrigin, directWorkerOrigin]) {
+  for (const [agent, userAgent] of crawlerUserAgents) {
+    const response = await request(new URL(fredericksburgArticlePath, origin), "error", {
+      "user-agent": userAgent,
+      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    });
+    const html = await response.text();
+    const xRobotsTag = response.headers.get("x-robots-tag") || "";
+    if (response.status !== 200 || response.headers.get("cf-mitigated")?.toLowerCase() === "challenge"
+        || !/^text\/html\b/i.test(response.headers.get("content-type") || "")
+        || /\bnoindex\b/i.test(xRobotsTag)) {
+      throw new Error(`Fredericksburg ${agent} simulated crawler on ${origin} failed: HTTP ${response.status}; cf-mitigated=${response.headers.get("cf-mitigated")}; x-robots-tag=${xRobotsTag}`);
+    }
+    assertFredericksburgRewrite(html, origin, agent);
+    if (html.includes("This story is no longer available") || html.includes("Story unavailable")) {
+      throw new Error(`Fredericksburg ${agent} on ${origin} returned soft 404 content`);
+    }
+    console.log(JSON.stringify({
+      kind: "fredericksburg-google-crawler-simulated", origin, agent,
+      verifiedGoogleIp: false, status: response.status,
+      cache: response.headers.get("cf-cache-status"),
+      worker: response.headers.get("x-texasdefined-worker-version"),
+      rewritten: true, no404: true, ok: true,
     }));
   }
 }
