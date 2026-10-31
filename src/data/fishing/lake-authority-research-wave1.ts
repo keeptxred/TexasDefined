@@ -3078,5 +3078,353 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/weatherford/",
       "https://tpwd.texas.gov/state-parks/lake-mineral-wells"
     ]
+  },
+  "o-h-ivie-lake": {
+    "camping": [
+      {
+        "name": "Concho Recreation Area — CRMWD lakeshore camping",
+        "type": "Public recreation-area camping",
+        "summary": "The Colorado River Municipal Water District manages Concho Recreation Area on O.H. Ivie Lake. TPWD identifies public camping and boat access at Concho, with an improved ramp and a marina; site utilities, bookings and launch conditions require confirmation with CRMWD, especially when reservoir elevation is low.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/access.phtml"
+      },
+      {
+        "name": "Padgitt Recreation Area — separate CRMWD campground",
+        "type": "Source-checked campground or documented no-camping policy",
+        "summary": "TPWD lists Padgitt Recreation Area as a distinct public camping and boating location at O.H. Ivie, with improved ramps and shore access. It is not a campground at Concho; confirm road entrance, campsite service, day fees and whether low water affects its boat launching before travel.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/access.phtml"
+      },
+      {
+        "name": "Kennedy Recreation Area — CRMWD park camping",
+        "type": "Source-checked campground or documented no-camping policy",
+        "summary": "Kennedy Recreation Area provides another named lakeshore camping area with a concrete ramp, operated under CRMWD and local marina management. The TPWD public-access table confirms overnight facilities, but does not verify a specific available RV pitch or its electrical hookup; ask the operator directly.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Waterbody-specific exceptions and current TPWD schedule",
+        "text": "TPWD expressly labels O.H. Ivie as a special-regulation reservoir for some fish. Its largemouth, smallmouth, catfish, white bass and crappie fisheries should be checked against the O.H. Ivie-specific current waterbody rule before harvest, not an assumed statewide bag limit copied from a neighboring lake.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/"
+      },
+      {
+        "label": "Zebra mussel precautions and launch water level",
+        "text": "TPWD confirms zebra mussels have invaded O.H. Ivie Lake, so vessels and onboard receptacles must be drained between public freshwaters and gear inspected. Its normal level fluctuation of six to ten feet means ramp usability should be verified against today's lake level; an official access inventory does not guarantee a usable launch.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Concho Recreation Area — reservoir angling access",
+        "description": "The official TPWD O.H. Ivie access inventory identifies Concho as a developed reservoir recreation and launch facility for shore and boat anglers. It is one of three separate CRMWD park entrances, so the right marina and camping area should be chosen before towing.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Kennedy and Padgitt recreation-area shoreline",
+        "description": "TPWD identifies Kennedy and Padgitt as distinct public visitor areas with their own ramps, camping and lakeshore facilities. They offer alternatives when one reservoir arm's launch becomes too shallow; confirm individual operating status, not just a generic map pin.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/o_h_ivie/"
+    ]
+  },
+  "falcon-international-reservoir": {
+    "camping": [
+      {
+        "name": "Falcon State Park — Javelina Run 31 full-hookup campsites",
+        "type": "TPWD full-hookup RV campground",
+        "summary": "TPWD lists 31 Javelina Run sites, numbers 201 through 231, with water, sewer and 30/50-amp electricity and pull-through parking. They are near restrooms and have covered picnic tables and grills. State park entrance fees apply separately and reservations should be made for specific sites.",
+        "href": "https://tpwd.texas.gov/state-parks/falcon/fees-facilities/campsites"
+      },
+      {
+        "name": "Falcon State Park — Mesquite Bend 31 water/electric sites",
+        "type": "TPWD electric/water campground",
+        "summary": "Mesquite Bend has 31 separate water-and-electric camping sites, numbered 101–131, with 30/50-amp service, covered picnic tables and wheelchair-accessible restrooms in the area. Unlike Javelina Run, these do not include sewer service at the campsite, so choose the right hookup type before booking.",
+        "href": "https://tpwd.texas.gov/state-parks/falcon/fees-facilities/campsites"
+      },
+      {
+        "name": "Falcon State Park — Black Bass Loop 36 water-only sites",
+        "type": "TPWD nonreservable water-only loop",
+        "summary": "TPWD lists 36 Black Bass Loop sites, numbered 43–79, without utility hookups at each campsite. Water and restrooms are nearby; the agency says these sites are not reservable. Do not present them as guaranteed overnight availability, especially if visiting for a tournament.",
+        "href": "https://tpwd.texas.gov/state-parks/falcon/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Rio Grande border-water rules and species-specific limits",
+        "text": "Falcon International Reservoir lies on the Texas–Mexico Rio Grande border, so fishing or entering Mexico waters has different licensing and access rules from fishing its Texas shoreline. TPWD identifies special waterbody harvest regulations on Falcon; consult its actual Falcon schedule before keeping largemouth bass, catfish or alligator gar.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/falcon/"
+      },
+      {
+        "label": "Severe water-level fluctuations affect launches",
+        "text": "TPWD documents normal Falcon Reservoir fluctuation of forty to fifty feet or more, enough to make an old launch or shoreline campground map misleading. Falcon State Park offers developed camping and a ramp; the separate Zapata County Arroyo Veleno ramp is free but is not listed as overnight camping. Check reservoir levels before towing.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/falcon/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Falcon State Park — Rio Grande birding and hiking",
+        "description": "Falcon State Park's mapped desert and thornscrub trails provide birding for South Texas specialty species and wildlife viewing along the Rio Grande corridor. This is a genuine park activity separate from the reservoir's fishing launch; seasonal heat and park alerts should influence trip planning.",
+        "href": "https://tpwd.texas.gov/state-parks/falcon",
+        "external": true
+      },
+      {
+        "label": "Arroyo Veleno boat launch — Zapata County",
+        "description": "The Arroyo Veleno public ramp, about one mile south of its US 83 bridge, is a distinct Zapata County launch with no access fee according to TPWD. It is not a campground, making it a day-use alternative to Falcon State Park's fee-charging launch.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/falcon/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/falcon/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/falcon/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/falcon/access.phtml",
+      "https://tpwd.texas.gov/state-parks/falcon"
+    ]
+  },
+  "lake-ray-hubbard": {
+    "camping": [
+      {
+        "name": "No overnight camping around Lake Ray Hubbard",
+        "type": "Confirmed no-camping restriction",
+        "summary": "TPWD expressly states that no camping is available around Lake Ray Hubbard. Day-use parks, ramps, marinas and fishing barges are not overnight campgrounds, so visitors should arrange lodging away from the lake rather than assuming any waterfront ramp allows tents or RVs.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/ray_hubbard/access.phtml"
+      },
+      {
+        "name": "Cedar Hill State Park — off-lake camping alternative",
+        "type": "Separate lake campground",
+        "summary": "TPWD offers developed full-hookup and water/electric sites at Cedar Hill State Park on Joe Pool Lake, a completely different reservoir. This is a regional overnight alternative rather than a purported camp at Lake Ray Hubbard; check travel arrangements and park availability separately.",
+        "href": "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "All species currently follow statewide harvest rules",
+        "text": "TPWD's Lake Ray Hubbard fishing guide explicitly states that all fish species currently follow statewide freshwater regulations. Hybrid striped bass and blue catfish are especially productive here, but their size and daily bag limits differ from white bass, largemouth bass and crappie; identify a species before harvesting.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/ray_hubbard/"
+      },
+      {
+        "label": "No camping and separate city boat-launch requirements",
+        "text": "The TPWD access directory prohibits camping and details distinct municipal/private launch options: Paul Jones Park has four concrete lanes without a fee, while privately run Harbor Bay Marina charges a launch fee and offers a fishing barge. These are access policies, not exceptions to state fish-bag limits.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/ray_hubbard/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Paddle Point Park — Rowlett paddling trail put-in",
+        "description": "At 6775 Miller Road, the City of Rowlett's Paddle Point Park provides a gravel/dirt single-lane put-in strictly for nonmotorized craft and is the starting point of a TPWD Paddling Trail. It is not a trailer-motorboat ramp or overnight park.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/ray_hubbard/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Paul Jones Park — Garland public launch",
+        "description": "TPWD lists Paul Jones Park at 4099 Zion Road in Garland as a four-lane public concrete boat launch with parking for roughly fifty vehicles and no fee. It is a distinct shoreline day trip, not a campground; confirm any city gate changes before departure.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/ray_hubbard/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/ray_hubbard/access.phtml",
+      "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/ray_hubbard/"
+    ]
+  },
+  "eagle-mountain-lake": {
+    "camping": [
+      {
+        "name": "West Bay Marina — TPWD-listed private camping facilities",
+        "type": "TPWD camping-indicated private marina; book directly",
+        "summary": "TPWD marks West Bay Marina on Eagle Mountain Lake as a private facility with camping as well as a two-lane concrete launch and restrooms. From Texas 199 it is accessed via FM 730, Timber Road and Liberty School Road. Overnight site inventory and booking are not published by TPWD; verify the actual offering with the operator.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/access.phtml"
+      },
+      {
+        "name": "Lakeview Marina — RV availability not established",
+        "type": "Boat ramp only — camping unverified",
+        "summary": "Lakeview Marina is a named commercial ramp west of Boat Club Road and Peden Road, but its boat-launch listing alone does not establish usable overnight camping. Include it only as a launch alternative rather than silently treating a marina as an RV campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/access2.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide harvest rules for Eagle Mountain fish",
+        "text": "TPWD's official Eagle Mountain Lake fishing profile lists largemouth bass, white bass, channel/blue catfish and crappie and directs anglers to the current statewide freshwater fishing rules. Check the specific limits for the identified species rather than borrowing another North Texas reservoir's trophy slot.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/"
+      },
+      {
+        "label": "Zebra mussels and lake-specific boating access",
+        "text": "TPWD warns that zebra mussels have invaded Eagle Mountain Lake. Boat operators must drain boats and onsite receptacles when leaving or approaching public freshwater; different private marinas and municipal ramps also have separate fees, park operating rules and launch approaches.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Twin Points Park — swimming and lakeshore recreation",
+        "description": "TRWD's Eagle Mountain shoreline Twin Points Park is a named public day-use area with lake swimming and boating access; its seasonal beach operation differs from a marina ramp or overnight campground. Confirm current swimming availability, day passes and parking before the trip.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/access.phtml",
+        "external": true
+      },
+      {
+        "label": "West Bay Marina — named fishing and boating access",
+        "description": "TPWD lists West Bay as a privately operated two-lane boat ramp with parking for up to fifty vehicles off Liberty School Road. It is a specific launch option on Eagle Mountain's shoreline with a commercial entrance fee, not simply an unsourced marina recommendation.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/access2.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/access2.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/eagle_mountain/"
+    ]
+  },
+  "lake-nacogdoches": {
+    "camping": [
+      {
+        "name": "Camping prohibited at Eastside and Westside public lake parks",
+        "type": "Verified no-camping policy",
+        "summary": "The City of Nacogdoches operates Eastside and Westside Parks as public boating, fishing, picnicking and swimming locations, but TPWD explicitly says camping is not permitted at either park. Neither day-use parking lot should be advertised as an overnight campsite; both parks close at 10 p.m.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nacogdoches/access.phtml"
+      },
+      {
+        "name": "Mission Tejas State Park — separate regional campground",
+        "type": "Off-lake state-park campground",
+        "summary": "TPWD identifies Mission Tejas State Park in the regional lake guide's nearby-parks references. This park offers separately managed overnight camping near Weches and is not on Lake Nacogdoches; confirm reservation availability and actual driving route before treating it as a base.",
+        "href": "https://tpwd.texas.gov/state-parks/mission-tejas/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Largemouth bass special 16-inch maximum",
+        "text": "TPWD's Nacogdoches lake fishery profile explicitly calls out a 16-inch maximum-size bass regulation, associated with the lake's trophy-bass fishery. The precise current daily bag and exceptions must be checked on the TPWD Nacogdoches waterbody schedule; this is not the generic 14-inch largemouth minimum of most Texas lakes.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nacogdoches/"
+      },
+      {
+        "label": "Bass conservation and summer fishery outlook",
+        "text": "TPWD describes abundant largemouth bass, hydrilla, lotus and dock habitat at Nacogdoches, plus good bluegill and redear sunfish but only fair crappie populations. Special bass harvest rules must be checked before retaining trophy fish, and Eastside/Westside park closure times apply independently of fishing bag limits.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nacogdoches/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Westside Park — two-thirds-mile nature trail",
+        "description": "TPWD identifies a two-thirds-mile nature trail in the City's Westside Park, off County Road 225 west of Nacogdoches, together with a two-lane boat ramp, swimming and picnic amenities. This is a named on-site walking attraction, not a campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nacogdoches/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Eastside Park — accessible lakeside swimming and picnic",
+        "description": "The City's Eastside Park offers a one-lane concrete boat launch, shore fishing, picnic space and swimming area, open year-round but closing at 10 p.m. according to TPWD. It is another day-use lake visitor area, with no camping allowed.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nacogdoches/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nacogdoches/access.phtml",
+      "https://tpwd.texas.gov/state-parks/mission-tejas/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/nacogdoches/"
+    ]
+  },
+  "aquilla-lake": {
+    "camping": [
+      {
+        "name": "No camping facilities at Aquilla's public boat-ramp parks",
+        "type": "No campground documented at lake public access points",
+        "summary": "TPWD lists Dairy Hill and Old School as lake boat ramps with restrooms and parking but does not identify any camping facility at either, nor at the dam tailrace pier. No lakefront campsite should be inferred from the presence of parking, shoreline fishing, or a public Corps ramp.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/access.phtml"
+      },
+      {
+        "name": "Lake Whitney State Park — separate overnight base",
+        "type": "Nearby state park, different lake",
+        "summary": "TPWD's Lake Whitney State Park operates developed electric and full-hookup campsites and water-only camping on Lake Whitney, a separate reservoir. This offers a researched regional overnight alternative for Aquilla anglers; no implication is made that Whitney campsites are on Aquilla's shoreline.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-whitney/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Apply Aquilla's current species-specific fish limits",
+        "text": "The TPWD Aquilla Lake fishery profile provides freshwater black-bass, crappie, white-bass and catfish guidance and references the applicable state waterbody rules. These limits require identification of the species and must be checked directly before harvest; TPWD lists no source-verified special slot rule in the access inventory.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/"
+      },
+      {
+        "label": "No campsite at ramps; tailrace is fishing-pier-only",
+        "text": "Aquilla's two Corps-operated ramps are Dairy Hill and Old School, both listed year-round without launch fees. TPWD separately identifies a free public tailrace fishing pier below the dam off Highway 310, with no boat ramp. These locations cannot be substituted for an overnight campsite.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Aquilla Dam tailrace fishing pier",
+        "description": "The Corps of Engineers operates a free public fishing pier below Aquilla Dam, reached off Highway 310. TPWD expressly says there is no boat launch at the tailrace. It's a real, separately accessible bank-fishing stop, not another marina or campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Old School Ramp and Dairy Hill lakeshore access",
+        "description": "Old School, west of Aquilla off FM 933, and Dairy Hill on the east shore near FM 1947 are two distinct Corps ramp areas. Both have restroom facilities and vehicle-trailer parking; the access guide does not show overnight camping at either site.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/access.phtml",
+      "https://tpwd.texas.gov/state-parks/lake-whitney/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/"
+    ]
+  },
+  "white-rock-lake": {
+    "camping": [
+      {
+        "name": "No camping permitted at White Rock Lake Park",
+        "type": "Verified city-lake camping prohibition",
+        "summary": "TPWD directly states camping is prohibited around White Rock Lake. Its public shoreline contains piers and boat ramps but the park observes a midnight-to-5 a.m. curfew, so overnight tents or RV parking cannot be recommended regardless of launch access.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/access.phtml"
+      },
+      {
+        "name": "Cedar Hill State Park — separate Joe Pool Lake campground",
+        "type": "Off-lake state-park camping",
+        "summary": "TPWD has developed full-hookup, electric and primitive campsites at Cedar Hill State Park on Joe Pool Lake, a different waterbody southwest of Dallas. It can be considered as a regional camping base, but there are no lakefront campsites at White Rock itself.",
+        "href": "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "White Rock fish use statewide freshwater harvest limits",
+        "text": "TPWD says all species at White Rock Lake currently follow statewide freshwater regulations, including largemouth bass, channel catfish and white crappie. Anglers should distinguish the relevant bag and length limits for each fish species rather than assuming an urban lake has no harvest restrictions.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/"
+      },
+      {
+        "label": "9.9-horsepower motor cap and park curfew",
+        "text": "TPWD's main White Rock fishery profile states a 9.9-horsepower outboard motor limit, while its boat-access page phrases a 10.5-HP cap. Because those TPWD pages disagree, follow the more conservative 9.9-HP interpretation and confirm with Dallas Parks before launching; electric trolling motors are permitted. Park curfew is midnight–5 a.m.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "West Lawther Ramp — free city single-lane launch",
+        "description": "TPWD locates the no-fee West Lawther single-lane ramp opposite Fisher Road, with space for about thirty vehicles. It serves as a distinct White Rock boat and paddling entry, not a campsite or marina resort.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Big Thicket Boat Ramp — White Rock east shore",
+        "description": "The City of Dallas operates the three-lane Big Thicket launch along East Lawther Drive reached from Mockingbird Lane, with about thirty trailer spaces and free year-round access. Shoreline fishing and recreation are separate from overnight camping, which is prohibited.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/access.phtml",
+      "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/"
+    ]
   }
 };
