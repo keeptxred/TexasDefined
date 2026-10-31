@@ -23,10 +23,13 @@ if (!playoffUpdatedAt || playoffUpdatedAt !== playoffSitemapDate) {
 
 // A stable sitemap index must list only live governed feeds. Never invent
 // freshness dates for a sitemap index or overwrite page timestamps on a deploy.
-if (!/<sitemapindex\\s+xmlns="http:\/\/www\\.sitemaps\\.org\/schemas\/sitemap\/0\\.9"/.test(sitemapIndex)) {
+if (!sitemapIndex.includes('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')) {
   failures.push('Sitemap index XML root or namespace missing.');
 }
-const indexedFeeds = [...sitemapIndex.matchAll(/<sitemap>\\s*<loc>([^<]+)<\\/loc>\\s*<\\/sitemap>/g)].map((match) => match[1]);
+const indexedFeeds = sitemapIndex.split('\n')
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith('<sitemap><loc>'))
+  .map((line) => line.replace('<sitemap><loc>', '').replace('</loc></sitemap>', ''));
 if (JSON.stringify(indexedFeeds) !== JSON.stringify(expectedSitemapUrls)) {
   failures.push('Sitemap index must reference each owned and verified feed exactly once, in the documented order.');
 }
@@ -37,8 +40,8 @@ if (!robots.includes('Sitemap: https://texasdefined.com/sitemap-index.xml')) {
 for (const url of expectedSitemapUrls) {
   if (!robots.includes(`Sitemap: ${url}`)) failures.push(`Previously advertised sitemap must stay discoverable: ${url}`);
 }
-const articleLastmodUsesEditorialUpdates = primarySitemap.match(/toDate\\(article\\.updatedAt \\?\\? ARTICLE_LASTMOD_BY_SLUG\\[article\\.slug\\] \\?\\? article\\.publishedAt\\)/g) ?? [];
-if (articleLastmodUsesEditorialUpdates.length !== 3) {
+const articleLastmodUsesEditorialUpdates = primarySitemap.split('toDate(article.updatedAt ?? ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt)').length - 1;
+if (articleLastmodUsesEditorialUpdates !== 3) {
   failures.push('Article sitemap entries must prefer source-backed updatedAt, with reviewed overrides and publishedAt as fallbacks.');
 }
 if (!primarySitemap.includes('toDate(article.updatedAt ?? article.publishedAt)')) {
