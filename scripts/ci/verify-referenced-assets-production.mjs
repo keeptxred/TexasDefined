@@ -56,10 +56,17 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
 
 export function selectBuiltRouteAssets(files) {
   function match(pattern, required) {
-    const matches = files.filter(file => pattern.test(file));
-    if (matches.length !== 1 && (required || matches.length > 1)) {
-      throw new Error('Expected ' + (required ? 'exactly one' : 'at most one') +
-        ' production client chunk for ' + pattern + ', found ' + matches.length);
+    // Vite may legitimately emit multiple differently hashed modules from the
+    // same optional route family (observed article._slug: two emitted chunks).
+    // Preserve each exact emitted filename; never guess or silently collapse
+    // modules. Keep the required route canaries unique and fail closed above
+    // a bounded family ceiling so the handoff cannot grow without limit.
+    const matches = files.filter(file => pattern.test(file)).sort();
+    const maxCount = required ? 1 : 8;
+    if ((required && matches.length !== 1) || matches.length > maxCount ||
+        new Set(matches).size !== matches.length) {
+      throw new Error('Expected ' + (required ? 'exactly one' : 'at most eight distinct') +
+        ' production client chunk(s) for ' + pattern + ', found ' + matches.length);
     }
     return matches.map(file => ({ path: '/assets/' + file,
       kind: file.endsWith('.css') ? 'css' : 'js', source: 'built-client-chunk' }));
