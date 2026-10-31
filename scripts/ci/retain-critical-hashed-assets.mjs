@@ -6,7 +6,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { basename, resolve } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SNAPSHOT = '.artifacts/asset-handoff-snapshot.json';
@@ -58,27 +58,30 @@ export function expectedAssetResponse(kind, status, mime, bytes) {
     : ['text/javascript', 'application/javascript', 'application/x-javascript', 'text/ecmascript', 'application/ecmascript'].includes(contentType));
 }
 
-async function retain() {
-  const saved = JSON.parse(await readFile(SNAPSHOT, 'utf8'));
+export async function retain({
+  snapshotPath = SNAPSHOT, reportPath = REPORT, assetFolder = ASSET_FOLDER,
+  sourceOrigin = SOURCE_ORIGIN, fetchImpl = fetch, now = Date.now(),
+} = {}) {
+  const saved = JSON.parse(await readFile(snapshotPath, 'utf8'));
   const latest = saved.snapshots?.at(-1);
   if (!latest || !Array.isArray(latest.pages)) throw new Error('Current predeploy asset snapshot missing');
-  const candidates = retentionCandidates(saved);
-  const report = { format: 1, checkedAt: new Date().toISOString(), version: 'predeploy-current-worker',
+  const candidates = retentionCandidates(saved, now);
+  const report = { format: 1, checkedAt: new Date(now).toISOString(), version: 'predeploy-current-worker',
     budget: { maxFiles: LIMIT_FILES, maxBytes: LIMIT_BYTES, maxAgeHours: 72 }, inspected: 0,
     copied: [], alreadyInBuild: [], unavailable: [], ignoredOld: Math.max(0, candidates.length - LIMIT_FILES) };
   const kept = [];
   let totalBytes = 0;
-  await mkdir(ASSET_FOLDER, { recursive: true });
+  await mkdir(assetFolder, { recursive: true });
   for (const asset of candidates.slice(0, LIMIT_FILES)) {
     report.inspected += 1;
-    const destination = resolve(ASSET_FOLDER, basename(asset.path));
+    const destination = resolve(assetFolder, basename(asset.path));
     if (existsSync(destination)) {
       report.alreadyInBuild.push(asset.path);
       continue;
     }
     let response;
     try {
-      response = await fetch(SOURCE_ORIGIN + asset.path, {
+      response = await fetchImpl(sourceOrigin + asset.path, {
         redirect: 'manual', cache: 'no-store',
         headers: { 'User-Agent': 'TexasDefined-Predeploy-Chunk-Retention/1.0' },
         signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
@@ -117,13 +120,15 @@ async function retain() {
   latest.retainedAssets = kept;
   report.bytes = totalBytes;
   report.retainedCount = kept.length;
-  await mkdir('.artifacts', { recursive: true });
-  await writeFile(SNAPSHOT, JSON.stringify(saved, null, 2) + '\n');
-  await writeFile(REPORT, JSON.stringify(report, null, 2) + '\n');
+  await mkdir(dirname(snapshotPath), { recursive: true });
+  await mkdir(dirname(reportPath), { recursive: true });
+  await writeFile(snapshotPath, JSON.stringify(saved, null, 2) + '\n');
+  await writeFile(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log('[chunk-retention] copied ' + kept.length + ' old critical JS/CSS assets (' + totalBytes
     + ' bytes) into next Worker; current-build duplicates=' + report.alreadyInBuild.length
     + '; already missing=' + report.unavailable.length + '; aged-out/budget-limited=' + report.ignoredOld);
   for (const missing of report.unavailable) console.warn('::warning title=Pre-existing asset unavailable::' + missing.path + ' HTTP ' + missing.status);
+  return report;
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
