@@ -1821,5 +1821,168 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/travis/",
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/travis/access2.phtml"
     ]
+  },
+  "richland-chambers-reservoir": {
+    "camping": [
+      {
+        "name": "Sunset Cove Marina, RV Park and Grill — lakeshore full-hookup sites",
+        "type": "Private marina RV park; direct operator",
+        "summary": "The operator identifies Sunset Cove at 3001 FM 2859, Corsicana, as a Richland-Chambers shoreline campground with large RV spaces and full hookups. Its marina also has a three-lane boat ramp, live bait, tackle, a convenience store and grill. Call 903-874-2300 for present availability and site-specific electric service before booking.",
+        "href": "https://sunsetcovecorsicana.com/"
+      },
+      {
+        "name": "Midway Landing Campground — gated RV camping at Streetman",
+        "type": "Private RV-only campground; age and booking restrictions",
+        "summary": "Midway Landing's own website lists full septic, electric and water RV hookups, showers and a double-width boat launch at 14860 Midway Landing Lane, Streetman. It does not allow tent camping, requires reservations at least a week in advance, and restricts daily/weekly campers to age 40 or older. The gated entrance uses a code issued at booking.",
+        "href": "https://midwaylandingrc.com/"
+      },
+      {
+        "name": "Fisherman's Cove Lodge — waterfront cabin lodging, not RV pitches",
+        "type": "Private furnished cabin lodging; not a campground",
+        "summary": "Fisherman's Cove Lodge near Kerens markets furnished lakefront cabins sleeping four to six guests, with a fishing pier, kayak rentals, a boat ramp and guided fishing. This is overnight cabin lodging on Richland-Chambers, not a verified tent or RV campground. Confirm the cabin and guide reservations directly with the operator.",
+        "href": "https://fishermanscovelodge.com/"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Specific blue/channel catfish size distribution",
+        "text": "TPWD's current Richland-Chambers waterbody rule permits 25 blue and channel catfish daily in combination, of which no more than five may measure at least 20 inches and no more than one of those may reach 30 inches or longer. Flathead catfish require at least 18 inches and allow five daily. The printed 2018 slot rule is outdated; use the current waterbody schedule.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0615"
+      },
+      {
+        "label": "Black bass, hybrid stripers, crappie and zebra mussels",
+        "text": "The current TPWD schedule requires a 14-inch minimum for largemouth and smallmouth bass, with five combined black bass daily. Striped and hybrid striped bass have an 18-inch minimum and five combined daily; crappie have a 10-inch minimum and 25 combined daily. Zebra mussels have been found here, requiring draining of boats between lakes.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0615"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Purtis Creek State Park — Wolfpen and Beaver Slide trails",
+        "description": "TPWD lists an easy 0.5-mile Solar Walk along the dam, the Beaver Slide nature path and multiple Wolfpen hiking/biking loops at Purtis Creek State Park near Eustace. This is a separate state-park lake excursion from Richland-Chambers, not an attraction directly on its shoreline.",
+        "href": "https://tpwd.texas.gov/state-parks/purtis-creek/trails-info",
+        "external": true
+      },
+      {
+        "label": "Fisherman's Cove Lodge — guided hybrid bass and catfish trips",
+        "description": "The lakeshore lodge operator offers guided fishing trips for hybrid striped bass, sand bass and catfish, plus on-site kayak rentals and fishing-pier access for guests. This is an identifiable local experience with a real provider rather than a generic county attractions link.",
+        "href": "https://fishermanscovelodge.com/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://sunsetcovecorsicana.com/",
+      "https://midwaylandingrc.com/",
+      "https://fishermanscovelodge.com/",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0615",
+      "https://tpwd.texas.gov/state-parks/purtis-creek/trails-info"
+    ]
+  },
+  "cedar-creek-reservoir": {
+    "camping": [
+      {
+        "name": "Log Cabin City RV Park — lakefront city-operated camping",
+        "type": "Municipal RV and tent campground",
+        "summary": "The City of Log Cabin explicitly advertises RV and tent camping at its city park on Cedar Creek Lake, including lake access for boating, fishing and swimming. The city formed from the former Log Cabin Resort and maintains recreation facilities. Verify current electric/water/sewer options and rates with the city before booking; the boat ramp alone is not a campsite.",
+        "href": "https://www.cityoflogcabin.com/visit-us"
+      },
+      {
+        "name": "Pine Gardens RV Park — Tool shoreline RV and cabins",
+        "type": "Operator-listed full-hookup RV park near lake",
+        "summary": "Pine Gardens RV Park's own website lists full-hookup RV spaces with 30/50-amp electric, water and sewer near Cedar Creek Lake, plus cabins, pull-through spaces, a saltwater pool, laundry, playgrounds and a dedicated boat ramp. This is a legitimate private operator; confirm actual availability, cabin requirements and current price directly.",
+        "href": "https://pinegardensrvpark.com/"
+      },
+      {
+        "name": "Fisherman's Wharf Marina Campgrounds — RV and tent sites",
+        "type": "TPWD-listed marina with locally documented camping",
+        "summary": "The established marina at 2904 County Road 1703 near Malakoff is named by TPWD's Cedar Creek access inventory and described by its local listing as offering waterfront RV and tent campsites with water and electrical hookups, plus off-water RV sites. Current commercial operations and overnight reservations need direct confirmation.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cedar_creek/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide species-specific harvest, not a special slot lake",
+        "text": "TPWD's Cedar Creek Reservoir fishery page explicitly states that all species are managed under statewide regulations. Its main fisheries are largemouth bass, blue/channel/flathead catfish, white/hybrid striped bass and crappie; these have different state bag and size rules. Do not import special trophy slots from nearby Lake Fork.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cedar_creek/"
+      },
+      {
+        "label": "TRWD lake recreation ordinance and public shore access",
+        "text": "The Tarrant Regional Water District manages Cedar Creek Lake, and boating/recreation is also subject to its General Ordinance. TRWD identifies Tom Finley Park as a publicly accessible day-use waterfront site with an accessible boat ramp, swimming and picnicking; it is not automatically an overnight campground.",
+        "sourceUrl": "https://www.trwd.com/cedar-creek-lake/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Tom Finley Park — TRWD public Cedar Creek shoreline",
+        "description": "The Tarrant Regional Water District maintains Tom Finley Park as a publicly accessible day-use location on Cedar Creek Lake, offering a boat ramp, picnic space, designated swimming and fishing access. It is a named operator-backed waterfront stop, with separate public entry conditions.",
+        "href": "https://www.trwd.com/cedar-creek-lake/",
+        "external": true
+      },
+      {
+        "label": "Purtis Creek State Park — nearby Wolfpen Hike and Bike Trail",
+        "description": "TPWD expressly promotes nearby Cedar Creek Reservoir as a side trip from Purtis Creek State Park. At the state park, the Wolfpen trails support a 4.1-mile network of walking and biking routes, plus a lakefront Beaver Slide nature path. This is another waterbody and requires a separate drive.",
+        "href": "https://tpwd.texas.gov/state-parks/purtis-creek",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.cityoflogcabin.com/visit-us",
+      "https://pinegardensrvpark.com/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cedar_creek/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/cedar_creek/",
+      "https://www.trwd.com/cedar-creek-lake/",
+      "https://tpwd.texas.gov/state-parks/purtis-creek"
+    ]
+  },
+  "lake-lbj": {
+    "camping": [
+      {
+        "name": "Heart of Texas Lake Resort — 21 full-hookup RV spaces",
+        "type": "Private full-hookup Lake LBJ RV resort",
+        "summary": "The resort's official website describes 21 RV spaces on Lake LBJ with water, septic and 30/50-amp electrical connections, along with eight cabins, a lodge and a swimming pool. These are real bookable private operator facilities, unlike Kingsland Lions Park, which TPWD identifies as day-use only. Contact the resort for availability and current service details.",
+        "href": "https://www.heartoftexaslakeresorts.com/"
+      },
+      {
+        "name": "Inks Lake State Park — separate Highland Lakes campground",
+        "type": "Nearby state park; different reservoir",
+        "summary": "TPWD operates nearly 200 campsites and 22 cabins at Inks Lake State Park near Burnet. This is an explicitly separate lake from LBJ, suitable as an alternative Hill Country overnight base, not a claim of a waterfront campsite on LBJ. State park reservations and trail/boat access have their own restrictions.",
+        "href": "https://tpwd.texas.gov/state-parks/inks-lake"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide harvest with separate LCRA bowfishing rules",
+        "text": "TPWD states that Lake Lyndon B. Johnson follows statewide fish-harvest limits for all species, while bowfishers are subject to additional LCRA regulations. The lake supports largemouth and Guadalupe bass, white bass, crappie and catfish. Verify both TPWD's annual harvest limits and LCRA gear restrictions before fishing across this Highland Lakes waterbody.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lbj/"
+      },
+      {
+        "label": "Algal blooms, invasive mussels and access limitations",
+        "text": "TPWD flags algal bloom precautions and an established zebra-mussel invasion on Lake LBJ; boaters must follow water-draining requirements before moving to a different public lake. TPWD identifies only two main lake ramps: Wirtz Dam/Cottonwood and Kingsland Lions Park, with Kingsland's access being day-use only.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lbj/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Longhorn Cavern State Park — guided cave experience",
+        "description": "TPWD identifies Longhorn Cavern near Burnet as a guided cave-tour destination with Park Road 4 access. The state park is day-use only and does not offer camping; tour schedules, admission and reservations are handled separately. It is a real Highland Lakes area attraction, not a lakeshore ramp at LBJ.",
+        "href": "https://tpwd.texas.gov/state-parks/longhorn-cavern",
+        "external": true
+      },
+      {
+        "label": "Inks Lake State Park — Devil's Waterhole and trails",
+        "description": "At nearby Inks Lake, TPWD identifies Devil's Waterhole as a named swimming and canyon hiking destination, along with nine miles of hiking routes, rental paddling craft and CCC history. This is another lake and another park, not a false claim that Inks Lake's campsites sit on LBJ.",
+        "href": "https://tpwd.texas.gov/state-parks/inks-lake",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.heartoftexaslakeresorts.com/",
+      "https://tpwd.texas.gov/state-parks/inks-lake",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lbj/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lbj/access.phtml",
+      "https://tpwd.texas.gov/state-parks/longhorn-cavern"
+    ]
   }
 };
