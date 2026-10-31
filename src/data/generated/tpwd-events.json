@@ -1,36 +1,12 @@
 {
-  "generatedAt": "2026-10-30T20:22:29.428Z",
+  "generatedAt": "2026-10-31T16:09:04.199Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Creepy Crawlies After Dark: Night Hike 🕸️🦂",
-      "startDate": "2026-10-30",
-      "parkKey": "barton-warnock",
-      "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/creepy-crawlies-after-dark-night-hike-1f578fe0f1f982/2026-10-30"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-10-30",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-10-30"
-    },
-    {
-      "title": "Pollinator Arts & Crafts",
-      "startDate": "2026-10-30",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-10-30"
-    },
     {
       "title": "All About Snakes",
       "startDate": "2026-10-31",
       "parkKey": "lake-livingston",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/all-about-snakes/2026-10-31"
-    },
-    {
-      "title": "All About Us: a Guided Hike",
-      "startDate": "2026-10-31",
-      "parkKey": "brazos-bend",
-      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-10-31"
     },
     {
       "title": "Archery 101",
@@ -45,28 +21,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-10-31"
     },
     {
-      "title": "Halloween Scavenger Hunt",
-      "startDate": "2026-10-31",
-      "parkKey": "eisenhower",
-      "officialUrl": "https://tpwd.texas.gov/calendar/eisenhower/halloween-scavenger-hunt/2026-10-31"
-    },
-    {
-      "title": "Hawk Watch",
-      "startDate": "2026-10-31",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-31"
-    },
-    {
       "title": "Meet The Longhorns",
       "startDate": "2026-10-31",
       "parkKey": "copper-breaks",
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-10-31"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-10-31",
-      "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-10-31"
     },
     {
       "title": "Mission History Tour",
@@ -93,22 +51,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-10-31"
     },
     {
-      "title": "Saturday Morning Check-In (Online)",
-      "startDate": "2026-10-31",
-      "parkKey": "lake-casa-blanca",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-casa-blanca/saturday-morning-check-in/2026-10-31"
-    },
-    {
       "title": "Snakes and Creepy Crawlies",
       "startDate": "2026-10-31",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/creepy-crawly-critters-of-the-desert/2026-10-31"
-    },
-    {
-      "title": "Track Talk",
-      "startDate": "2026-10-31",
-      "parkKey": "dinosaur-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-12/2026-10-31"
     },
     {
       "title": "All About Us: a Guided Hike",
@@ -321,12 +267,6 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-11-08"
     },
     {
-      "title": "Guided Paddle",
-      "startDate": "2026-11-09",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2026-11-09"
-    },
-    {
       "title": "Nature's Classroom Homeschool Program",
       "startDate": "2026-11-10",
       "parkKey": "davis-mountains",
@@ -459,6 +399,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/old-tunnel/batty-buddies-1/2026-11-15"
     },
     {
+      "title": "Blacksmithing Demonstration",
+      "startDate": "2026-11-15",
+      "parkKey": "lyndon-b-johnson",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lyndon-b-johnson/blacksmithing-demonstration/2026-11-15"
+    },
+    {
       "title": "Discovery Walk Sundays",
       "startDate": "2026-11-15",
       "parkKey": "stephen-f-austin",
@@ -487,6 +433,12 @@
       "startDate": "2026-11-18",
       "parkKey": "galveston-island",
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-11-18"
+    },
+    {
+      "title": "Coffee with a Ranger",
+      "startDate": "2026-11-18",
+      "parkKey": "lyndon-b-johnson",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lyndon-b-johnson/coffee-with-a-ranger/2026-11-18"
     },
     {
       "title": "Homeschool Classes at the Park",

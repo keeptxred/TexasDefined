@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-30T21:14:52.934Z",
+  "fetchedAt": "2026-10-31T16:09:04.246Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -710,7 +710,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-10-30",
         "2026-10-31",
         "2026-11-01",
         "2026-11-05",
@@ -748,7 +747,6 @@
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A7OY4E",
         "Z7r9jZ1A7OY4I",
         "Z7r9jZ1A7OY4M",
         "Z7r9jZ1A7OY4U",
@@ -795,7 +793,6 @@
         "Z7r9jZ1AAvPqK"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4E",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4I",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4M",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4U",
