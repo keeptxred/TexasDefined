@@ -173,6 +173,7 @@ if (!errors.length) {
     '...(batch002FootballCountyLinks[entity.slug] ?? [])',
     '...(supplementalFootballCountyLinks[entity.slug] ?? [])',
     'researchedFootballCountyLinks.map((school)',
+    '.filter((school) => Boolean(school?.slug && school?.name))',
   ]) requireText(entityPage, marker, 'Merged campus county reciprocal football links');
   for (const slug of ['bullard','burton','bushland','bridgeport','calvert','brenham','canyon-randall','brownsboro','buda-johnson']) {
     requireText(entityPage, "slug: '" + slug + "'", 'Research school county link ' + slug);
