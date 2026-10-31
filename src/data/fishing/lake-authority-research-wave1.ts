@@ -625,5 +625,222 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/state-parks/lake-casa-blanca/trails-map",
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/casa_blanca/access.phtml"
     ]
+  },
+  "lake-meredith": {
+    "camping": [
+      {
+        "name": "Sanford-Yake Campground — NPS",
+        "type": "Operator-researched overnight camping",
+        "summary": "The National Park Service lists 51 campsites at Sanford-Yake near Lake Meredith Dam, including 10 reservable RV sites with electric and water hookups. Those ten are paid and require calling 806-865-3131; other camping spaces here are free and first-come. Showers, restrooms and a dump station are available, but confirm availability and lake access before arriving.",
+        "href": "https://www.nps.gov/lamr/planyourvisit/camping.htm"
+      },
+      {
+        "name": "Fritch Fortress Campground — NPS",
+        "type": "Operator-researched overnight camping",
+        "summary": "This separate overlook campground sits about 3.5 miles from Fritch via Fritch Fortress Road and has 10 campsites, pull-through parking, shaded picnic tables and seasonal showers. RVs and trailers are welcome but the campsites do not provide utility hookups. NPS lists the sites free and first-come, subject to current closures.",
+        "href": "https://www.nps.gov/lamr/planyourvisit/camping.htm"
+      },
+      {
+        "name": "Harbor Bay Campground — NPS",
+        "type": "NPS primitive shoreline-area campground",
+        "summary": "The National Park Service operates nine developed campsites just outside Fritch, reached from Lakeview Drive. The campground has picnic shelters, grills and a vault-style toilet but no drinking water. It is the trailhead area for Harbor Bay and South Turkey Creek hikes and offers a separate, primitive shoreline-focused experience.",
+        "href": "https://www.nps.gov/lamr/planyourvisit/camping.htm"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide fishing limits, including walleye",
+        "text": "TPWD's Meredith lake fishery profile states that all fish species use statewide harvest regulations. Walleye are this lake's defining sportfish and should be checked against the current statewide 16-inch minimum and five-fish daily bag, while black bass, white bass and catfish have separate requirements. Confirm the Outdoor Annual before taking any fish.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/meredith/"
+      },
+      {
+        "label": "Fish consumption advisory",
+        "text": "TPWD identifies a fish-consumption advisory for Lake Meredith. This is different from a harvest bag limit: check the advisory's affected species, size classes and eating recommendations before preparing a catch. The recreational area is managed by NPS, but TPWD remains the authoritative source for state fishing rules and advisories.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/meredith/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Alibates Flint Quarries National Monument — ranger-led quarry tour",
+        "description": "The National Park Service operates Alibates just outside Lake Meredith National Recreation Area, with an interpretive visitor center and a ranger-led quarry hike covering archaeology, geology and cultural history. Quarry tours require reservations and are cancelled for hazardous weather. This is a real separate monument visit rather than a generic Panhandle attraction.",
+        "href": "https://www.nps.gov/alfl/planyourvisit/guidedtours.htm",
+        "external": true
+      },
+      {
+        "label": "Harbor Bay and South Turkey Creek Trail network",
+        "description": "NPS describes the Harbor Bay hiking and biking system as approximately 5.2 miles including loops, with adjoining South Turkey Creek singletrack along the lake's south shore. The route crosses wetlands and grassland habitats and provides named, navigable outdoor recreation distinct from fishing.",
+        "href": "https://www.nps.gov/lamr/planyourvisit/camping.htm",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.nps.gov/lamr/planyourvisit/camping.htm",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/meredith/",
+      "https://www.nps.gov/alfl/planyourvisit/guidedtours.htm"
+    ]
+  },
+  "lake-mineral-wells": {
+    "camping": [
+      {
+        "name": "Lake Mineral Wells State Park — Live Oak camping area",
+        "type": "Operator-researched overnight camping",
+        "summary": "TPWD lists 47 sites with 50-amp electric service and water in Live Oak, numbered 12 through 58. They include picnic tables, fire rings and nearby showers; sites 48 and 54 have wheelchair-accessible features. This is developed trailer and tent camping, separate from the equestrian or water-only areas.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Mineral Wells State Park — Plateau camping area",
+        "type": "Operator-researched overnight camping",
+        "summary": "The Plateau area includes 30 sites with 30-amp electric hookups and water, numbered 59–88. TPWD notes accessible features at site 86 and showers near the camping loop. Identify Plateau specifically when booking because its utility service and location differ from the Live Oak sites.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Mineral Wells State Park — Cross Timbers equestrian camping",
+        "type": "State-park water-only equestrian campground",
+        "summary": "TPWD maintains 20 water-only equestrian campsites in the Cross Timbers area, numbered 89–108. Tent camping and trailers up to 20 feet are also allowed, but there are no electrical connections. Horse owners must comply with site limits and current Coggins testing requirements; confirm restrictions before reserving.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Pole-and-line only; maximum two rods",
+        "text": "The exact TPWD Lake Mineral Wells waterbody schedule restricts fishing to pole-and-line methods and no more than two poles per angler. It also confirms that no fishing license is required because the water is entirely inside a Texas state park boundary. This is a lake-specific gear restriction, not a general statewide advisory.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0507"
+      },
+      {
+        "label": "Black bass, crappie and catfish limits",
+        "text": "TPWD's Mineral Wells schedule gives largemouth and smallmouth bass a 14-inch minimum with a combined five-fish daily black-bass limit. White and black crappie have a 10-inch minimum and combined 25-fish limit. Channel/blue catfish use a 25-fish combined daily bag with at most 10 measuring 20 inches or more.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0507"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Penitentiary Hollow natural rock climbing area",
+        "description": "TPWD identifies Penitentiary Hollow as one of North Texas's rare natural rock climbing sites. All climbers and rappellers must check in at park headquarters; unsupervised bouldering and free climbing are prohibited. Reach it along the 0.8-mile hiking-only Red Waterfront Trail, rather than treating it as an ordinary lake access point.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+        "external": true
+      },
+      {
+        "label": "Lake Mineral Wells State Trailway",
+        "description": "TPWD maintains a roughly 20-mile rail-to-trail corridor with gently graded segments for walking, cycling and horseback riding. It connects to the state park's network of Cross Timbers hiking trails. Trail closures during wet weather and any temporary wildlife management closures should be checked with the park before setting out.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0507",
+      "https://tpwd.texas.gov/state-parks/lake-mineral-wells"
+    ]
+  },
+  "lake-arrowhead": {
+    "camping": [
+      {
+        "name": "Lake Arrowhead State Park — electrical campsite loop",
+        "type": "Operator-researched overnight camping",
+        "summary": "The state park's official campsite inventory includes 48 campsites with 50-amp electric connections, water hookups, picnic tables and fire rings. Shower restrooms are nearby. These are the developed sites best suited to RV camping; verify current park alerts and make reservations through TPWD.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-arrowhead/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Arrowhead State Park — water-only and walk-in sites",
+        "type": "Operator-researched overnight camping",
+        "summary": "TPWD also lists 19 water-only sites, numbered 49–67, and five primitive walk-in camping sites about 50 yards from the facility access point. These do not provide the same electrical services as the main campground. The primitive area has nearby water and restrooms but requires a short gear carry.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-arrowhead/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Arrowhead State Park — equestrian campsites",
+        "type": "Horse-friendly campsite loop",
+        "summary": "The park maintains four separately reservable equestrian campsites with 50-amp electricity, water, tie rails, corrals and covered horse stalls. This camping is materially different from standard RV loops and is useful to riders bringing horses for the park's multiuse trails.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-arrowhead/fees-facilities/horse-sites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide harvest limits confirmed by TPWD",
+        "text": "The official Lake Arrowhead fisheries page says that all fish species currently follow statewide harvest limits. Its main targets include largemouth bass, white bass, channel/blue/flathead catfish and white crappie. For the 2026–27 cycle the statewide black-bass limit is five fish combined daily with a 14-inch largemouth minimum; check the current TPWD annual.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arrowhead/"
+      },
+      {
+        "label": "Separate catfish and white-bass limits",
+        "text": "Lake Arrowhead's statewide-rules status does not mean all fish have the same limits. The published statewide white-bass daily bag is 25 with a 10-inch minimum, while flathead catfish require at least 18 inches and have a five-fish daily bag. Inspect the TPWD schedule for the species you actually catch.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arrowhead/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Arrowhead State Park — Onion Creek and Dragonfly trails",
+        "description": "The park lists the 4.4-mile Onion Creek Trail, which follows lakeside prairie, passes part of the disc golf area and reaches views of the spillway. The half-mile Dragonfly loop is an easier outing. Both are genuine named park activities suitable for a lake camping trip, separate from generic fishing advice.",
+        "href": "https://tpwd.texas.gov/state-parks/park-information/lake-arrowhead/",
+        "external": true
+      },
+      {
+        "label": "Lake Arrowhead State Park — equestrian trails and disc golf",
+        "description": "TPWD offers a more-than-five-mile shared trail network for horseback riding, cycling and walking, plus an on-site disc-golf course. Equestrian campers can combine the campground's dedicated horse facilities with trail riding; hikers should anticipate exposed prairie conditions and check trail alerts before arriving.",
+        "href": "https://tpwd.texas.gov/state-parks/park-information/lake-arrowhead/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-arrowhead/fees-facilities/campsites",
+      "https://tpwd.texas.gov/state-parks/lake-arrowhead/fees-facilities/horse-sites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/arrowhead/",
+      "https://tpwd.texas.gov/state-parks/park-information/lake-arrowhead/"
+    ]
+  },
+  "lake-colorado-city": {
+    "camping": [
+      {
+        "name": "Lake Colorado City State Park — pull-through electric campsites",
+        "type": "Operator-researched overnight camping",
+        "summary": "TPWD operates nine pull-through campsites with water, electricity, shade shelter, picnic table, lantern post and a grill-equipped fire ring. Restrooms with showers are located nearby. This vehicle-friendly loop is distinct from the regular electric and water-only campsites; confirm availability and park alerts before making the drive.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-colorado-city/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Colorado City State Park — electrical campsites",
+        "type": "Operator-researched overnight camping",
+        "summary": "The official state-park inventory lists 69 campsites with water and electrical hookups, picnic tables, shade shelters and grills. Shower restrooms are nearby. The listing does not promise every campsite a lake view; choose a specific reservable site based on its location and the current park map.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-colorado-city/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Colorado City State Park — water-only campground",
+        "type": "Operator-researched overnight camping",
+        "summary": "TPWD identifies 34 water-only campsites with a picnic table, shade shelter and fire ring, with showers nearby. These are not RV full-hookup sites and are a different budget and convenience choice from the nine pull-through electric sites.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-colorado-city/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "All species use statewide harvest limits",
+        "text": "The TPWD Lake Colorado City fishery profile explicitly confirms that all resident species currently follow statewide fishing regulations, rather than a special lake-level slot limit. It lists largemouth bass, channel catfish and sunfish as main species; anglers should use the current Outdoor Annual for exact bag and length rules.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/colorado_city/"
+      },
+      {
+        "label": "Golden alga and drought have affected fishing quality",
+        "text": "TPWD describes Lake Colorado City's fishery as recovering from prolonged drought and recurring winter golden-alga blooms, with current sportfish opportunity comparatively limited. This is a documented lake-specific condition, not a fishing bag-limit exception. Check official lake reports, park alerts and actual fishing prospects before planning a harvest-focused visit.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/colorado_city/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Colorado City State Park — lakeside birdwatching trails",
+        "description": "TPWD identifies a shoreline hiking trail and a birdwatching landscape with more than 300 species recorded around the park. Visitors can combine wildlife viewing, a shoreline walk and lake photography with overnight camping; trail condition and bird activity vary by season.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-colorado-city",
+        "external": true
+      },
+      {
+        "label": "Lake Colorado City State Park — paddle rentals and ranger programs",
+        "description": "The state park provides canoe and kayak access and rental equipment, and TPWD publishes an events calendar for ranger-led nature and local-history programs. This is an on-site, operator-managed outing, not an invented separate attraction miles from the lake; confirm equipment availability and upcoming program dates.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-colorado-city",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-colorado-city/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/colorado_city/",
+      "https://tpwd.texas.gov/state-parks/lake-colorado-city"
+    ]
   }
 };
