@@ -41,26 +41,47 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - name: Skip live Chromium QA on unrelated deployments
+        id: qa_scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" != "workflow_run" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --name-only HEAD^ HEAD > /tmp/td-qa-changed-files.txt
+          if grep -Eiq '^(src/(routes|components|data)/.*(metro|day.trip|road.trip|travel|city.guide)|scripts/ci/verify-metro-day-trips-production[.]mjs|[.]github/workflows/verify-metro-day-trips-production[.]yml)' /tmp/td-qa-changed-files.txt; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Relevant deployed source changed: run focused browser QA."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Unrelated deploy: skip specialized production Chromium QA."
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Require the exact main commit deployed to production
+        if: steps.qa_scope.outputs.run == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           PRODUCTION_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/wait-for-protected-production.mjs
       - name: Prepare Chrome and isolated Playwright driver
+        if: steps.qa_scope.outputs.run == 'true'
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-metro-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
       - name: Check fourteen curated metro guides at desktop and mobile sizes
+        if: steps.qa_scope.outputs.run == 'true'
         env:
           TARGET_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/verify-metro-day-trips-production.mjs
       - name: Preserve screenshots and machine-readable evidence
-        if: always()
+        if: always() && steps.qa_scope.outputs.run == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: metro-day-trips-production-${{ github.run_id }}
