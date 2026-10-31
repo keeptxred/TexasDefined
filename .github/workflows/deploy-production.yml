@@ -110,6 +110,7 @@ jobs:
         run: |
           python3 scripts/ci/validate_football_directory_navigation.py
           node scripts/ci/run-validation-suite.mjs predeploy
+          node --test scripts/ci/verify-referenced-assets-production.test.mjs
           node scripts/data/validate-national-cemetery-authority.mjs
           node --check scripts/ci/verify-el-paso-fredericksburg-release.mjs
 
@@ -371,6 +372,41 @@ jobs:
         if: success()
         run: node scripts/ci/capture-active-worker-version.mjs
 
+      # A cached page or an old browser tab can request a prior release's hashed
+      # JS/CSS after the Worker has been replaced. Capture the old manifest while
+      # the preceding Worker is still serving, without any extra deployments.
+      - name: Recover one previous release asset snapshot
+        id: historical_asset_snapshot
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts/prior-asset-extraction
+          previous_runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=8" --jq '.workflow_runs[].id' 2>/dev/null || true)"
+          restored=0
+          checked=0
+          while IFS= read -r prior_run; do
+            [[ "$prior_run" =~ ^[0-9]+$ ]] || continue
+            [[ "$prior_run" == "$GITHUB_RUN_ID" ]] && continue
+            checked=$((checked + 1))
+            if gh run download "$prior_run" -n "asset-handoff-$prior_run" -D .artifacts/prior-asset-extraction >/dev/null 2>&1 &&
+               [[ -s .artifacts/prior-asset-extraction/asset-handoff-snapshot.json ]]; then
+              cp .artifacts/prior-asset-extraction/asset-handoff-snapshot.json .artifacts/prior-asset-handoff.json
+              echo "Restored older asset reference history from previous production run $prior_run."
+              restored=1
+              break
+            fi
+            [[ "$checked" -ge 6 ]] && break
+          done <<< "$previous_runs"
+          if [[ "$restored" == 0 ]]; then
+            echo "::notice title=First-run asset handoff::No prior instrumented asset snapshot found; current release capture will seed two-release verification."
+          fi
+
+      - name: Capture old HTML JS/CSS hashes before Worker replacement
+        id: capture_asset_handoff
+        if: success()
+        run: node scripts/ci/verify-referenced-assets-production.mjs --capture
+
       - name: Publish Cloudflare deploy pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare pending "Deploying TexasDefined Worker"
@@ -527,6 +563,27 @@ jobs:
           PRODUCTION_HEALTH_LABEL: canonical-domain
           PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
         run: node scripts/ci/verify-production-health.mjs
+
+      # This is a separate hard gate from homepage HTML health: detect a present
+      # document that references missing JS/CSS, including previously available
+      # hashes carried from the last two regular production versions.
+      - name: Verify current and previous release JS/CSS on both public origins
+        id: live_asset_handoff
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.capture_asset_handoff.outcome == 'success' }}
+        env:
+          EXPECTED_DEPLOYED_WORKER_VERSION: ${{ steps.deployed_worker_version.outputs.version_id }}
+        run: node scripts/ci/verify-referenced-assets-production.mjs --verify
+
+      - name: Preserve old/new asset delivery evidence and next-release handoff
+        if: ${{ always() && steps.capture_asset_handoff.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: asset-handoff-${{ github.run_id }}
+          path: |
+            .artifacts/asset-handoff-snapshot.json
+            .artifacts/asset-delivery-report.json
+          if-no-files-found: error
+          retention-days: 7
 
       # A successful homepage health probe does not guarantee the 2026 Palestine
       # booking guide has correct dates, tickets, photo attribution or affiliate city.
