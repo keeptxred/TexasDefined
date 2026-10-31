@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
+import { FishingLakeAuthorityLinks } from "@/data/fishing/FishingLakeAuthorityLinks";
 import { Container } from "@/components/layout/Container";
 import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { LAKE_VISITOR_DESTINATIONS } from "@/data/fishing/destination-lake-crosslinks";
@@ -69,6 +70,15 @@ export function ShowcaseLakeGuide({
       {section === "nearby" && <Nearby pageData={pageData} />}
       {section === "reports" && <Reports reports={reports} pageData={pageData} />}
       {section === "guides" && <Guides guides={verifiedGuides} placements={placements} pageData={pageData} />}
+      <FishingLakeAuthorityLinks
+        slug={pageData.slug}
+        name={pageData.overview.name}
+        section={section}
+        counties={[...pageData.overview.counties]}
+        cities={[...pageData.overview.nearestCommunities]}
+        fish={pageData.fish.map((row) => ({ id: row.id, name: row.name }))}
+        relatedLakes={pageData.nearby.filter((place) => place.href.startsWith("/fishing/lakes/")).map((place) => ({ href: place.href, label: place.label }))}
+      />
       <SourceFooter pageData={pageData} />
     </Container>
   </>;
