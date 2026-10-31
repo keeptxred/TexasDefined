@@ -1538,5 +1538,122 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://www.fws.gov/refuge/hagerman/visit-us",
       "https://tpwd.texas.gov/state-parks/eisenhower"
     ]
+  },
+  "choke-canyon-reservoir": {
+    "camping": [
+      {
+        "name": "Calliham Unit — Choke Canyon State Park electrical campground",
+        "type": "Calliham Unit state-park campground",
+        "summary": "The TPWD Calliham Unit offers 40 campsites with water, 50-amp electrical connections and picnic tables; sites 100–139, including accessible sites 108, 109, 119, 120 and 134. Restrooms are nearby. Overnight camping is at Calliham, not the South Shore Unit, which is day use only.",
+        "href": "https://tpwd.texas.gov/state-parks/choke-canyon/fees-facilities/campsites"
+      },
+      {
+        "name": "Calliham Unit — walk-in tent camping",
+        "type": "Calliham Unit walk-in tent campground",
+        "summary": "The park has nine separate water-only tent campsites reached by a roughly 50-yard walk from the parking area. Sites provide picnic tables, grills and fire rings, with water and toilets nearby, not at each pitch. These are at Calliham, not the day-use-only South Shore ramp.",
+        "href": "https://tpwd.texas.gov/state-parks/choke-canyon/fees-facilities/campsites/campsites-walkin"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Blue/channel catfish 14-inch minimum and 15 daily",
+        "text": "TPWD's Choke Canyon-specific rule imposes a 14-inch minimum on blue and channel catfish and a combined bag limit of 15 daily. Flatheads have an 18-inch minimum and five daily. The lake's catfish exception differs from the statewide schedule for many other reservoirs.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0164"
+      },
+      {
+        "label": "Alligator gar harvest reporting and spawning closures",
+        "text": "The official Choke Canyon rule allows one alligator gar of any size per day, but harvested alligator gar must be reported to TPWD within 24 hours. The agency may temporarily close particular areas during spawning conditions. Check current closure orders separately before targeting gar.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0164"
+      },
+      {
+        "label": "South Shore is a day-use unit, not a campsite",
+        "text": "TPWD says the Calliham unit is open to overnight guests but the South Shore Unit operates only for day use, generally 6 a.m. to 10 p.m. Both have improved boat ramps, but a fishing-access listing is not an overnight reservation. Check current park alerts for operator restrictions.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/choke_canyon/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Choke Canyon State Park — Calliham wildlife and birding",
+        "description": "The operator promotes guided birding, wildlife watching, geocaching and hiking at Calliham; the park also has lake wildlife including alligators. The South Shore is a separate day-use birdwatching and fishing unit, not a campground, and current park closures should be checked.",
+        "href": "https://tpwd.texas.gov/state-parks/choke-canyon",
+        "external": true
+      },
+      {
+        "label": "James E. Daughtrey Wildlife Management Area — San Miguel access",
+        "description": "TPWD identifies the San Miguel boat ramp within James E. Daughtrey Wildlife Management Area, north of the Choke Canyon reservoir. This is a named public wildlife and recreation area, with its own access and possible public-hunting restrictions, not another campground at Calliham.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/choke_canyon/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/choke-canyon/fees-facilities/campsites",
+      "https://tpwd.texas.gov/state-parks/choke-canyon/fees-facilities/campsites/campsites-walkin",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0164",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/choke_canyon/access.phtml",
+      "https://tpwd.texas.gov/state-parks/choke-canyon"
+    ]
+  },
+  "amistad-reservoir": {
+    "camping": [
+      {
+        "name": "Governors Landing Campground — Amistad NRA",
+        "type": "NPS campground; first-come, no RV hookups",
+        "summary": "The National Park Service operates 15 campsites at Governors Landing, with covered tables, grills and access to popular swimming areas. It is the only park campground with potable water from shared spigots, but no RV electrical or sewer hookups. RVs longer than 28 feet are not suitable; campsites are first-come, first-served.",
+        "href": "https://www.nps.gov/amis/planyourvisit/camping.htm"
+      },
+      {
+        "name": "Rough Canyon Campground — primitive sites",
+        "type": "NPS primitive campground",
+        "summary": "NPS maintains four primitive campsites near the Rough Canyon boat ramp, each with a covered picnic table and grill. Camping is normally year-round, with vault toilets but no potable water or electrical connections at campsites. The left Rough Canyon launch is one of the few ramps currently open under low water.",
+        "href": "https://www.nps.gov/amis/planyourvisit/camping.htm"
+      },
+      {
+        "name": "San Pedro Campground — larger RVs and walk-in tents",
+        "type": "NPS no-hookup campground; first-come",
+        "summary": "The San Pedro area is reached by approximately 1.25 miles of gravel road and is better suited for large RVs than Governors Landing. NPS identifies vehicle sites plus walk-in tent campsites, with no hookups or drinking water, and a separately reservable group site. Regular individual sites are first-come, first-served.",
+        "href": "https://www.nps.gov/amis/planyourvisit/san-pedro-campground.htm"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Texas-side statewide rules, Mexican-water license required",
+        "text": "TPWD states that fish on the Texas side of Amistad follow current statewide size and harvest limits. A Mexico fishing license is required for everyone aboard a boat fishing on the Mexican side, including passengers. A standard Texas license is not sufficient across the international boundary; verify both jurisdictions' requirements before departure.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/amistad/"
+      },
+      {
+        "label": "Zebra and quagga mussels and gear transfer restrictions",
+        "text": "TPWD confirms both zebra and quagga mussels have invaded the reservoir. State law requires draining water from boats, livewells and onboard receptacles when leaving or approaching public freshwater; carrying invasive mussels is illegal. Inspect, clean and dry water-contact gear before towing to another lake.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/amistad/"
+      },
+      {
+        "label": "Current low-water launch closures and marina hazards",
+        "text": "NPS current conditions show only the left side of Rough Canyon and Diablo East ramps open; most remaining launch ramps are closed due to low water. Diablo East Marina Cove and walkway are separately closed because of unsafe docks and unstable ground. Verify the latest NPS alerts before choosing a launch.",
+        "sourceUrl": "https://www.nps.gov/amis/planyourvisit/conditions.htm"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Diablo East Nature Trail — Amistad NRA",
+        "description": "The National Park Service maintains a short interpretive loop starting at the Diablo East parking area, with lake overlooks and signs explaining local vegetation. It involves steps and an unpaved dirt/gravel surface; this is a defined accessible-from-the-day-use-area hiking experience, not a claim of wheelchair access.",
+        "href": "https://www.nps.gov/thingstodo/hike-the-diablo-east-nature-trail.htm",
+        "external": true
+      },
+      {
+        "label": "Pecos River and Diablo East NPS day-use areas",
+        "description": "NPS separately identifies Pecos River and Diablo East viewpoints as designated park day-use areas, offering a land-based alternative when low water makes many launches unusable. Do not imply that closed marina coves or inaccessible ramps can be used for boating; check current day-use status and safety notices.",
+        "href": "https://www.nps.gov/amis/planyourvisit/hours.htm",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://www.nps.gov/amis/planyourvisit/camping.htm",
+      "https://www.nps.gov/amis/planyourvisit/san-pedro-campground.htm",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/amistad/",
+      "https://www.nps.gov/amis/planyourvisit/conditions.htm",
+      "https://www.nps.gov/thingstodo/hike-the-diablo-east-nature-trail.htm",
+      "https://www.nps.gov/amis/planyourvisit/hours.htm"
+    ]
   }
 };
