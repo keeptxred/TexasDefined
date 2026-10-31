@@ -424,5 +424,206 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://www.swf-wc.usace.army.mil/georgetown/Recreation/Trails/",
       "https://www.swf-wc.usace.army.mil/georgetown/Recreation/Parks/Corpsparks.shtml"
     ]
+  },
+  "joe-pool-lake": {
+    "camping": [
+      {
+        "name": "Cedar Hill State Park — developed lakeside camping",
+        "type": "Source-verified named campground",
+        "summary": "TPWD's official inventory lists 147 full-hookup campsites with water, sewer and 30/50-amp electricity, plus 192 sites with electricity and water. These are named camping loops within Cedar Hill State Park on the east shore of Joe Pool Lake, not generic marina access. Restrooms are nearby; reserve by park site and verify active alerts before traveling.",
+        "href": "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites"
+      },
+      {
+        "name": "Cedar Hill State Park — hike-in primitive sites",
+        "type": "Primitive hike-in camping; separate from RV sites",
+        "summary": "TPWD also lists 30 primitive hike-in campsites, separate from its developed vehicle sites. These non-reservable sites require walking along a trail, are limited to four people per site, and prohibit campfires. Confirm trail access and weather closures, since a closed trail can prevent use of the primitive camping area.",
+        "href": "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Largemouth bass protected slot",
+        "text": "The lake-specific TPWD Joe Pool rule establishes a 14–21-inch protected slot for largemouth bass: specimens longer than 14 inches but shorter than 21 inches must be released. Fish 14 inches or shorter or at least 21 inches may be kept, but at most one retained largemouth bass can be 21 inches or longer. The total combined black-bass daily bag is five.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0582"
+      },
+      {
+        "label": "Catfish and crappie harvest limits",
+        "text": "TPWD's Joe Pool schedule allows 25 channel and blue catfish combined daily, but at most 10 may measure 20 inches or longer. Flathead catfish have an 18-inch minimum and a five-fish daily bag. Black and white crappie have a 10-inch minimum and a 25-fish combined daily bag; verify the current lake schedule before keeping fish.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0582"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Penn Farm Agricultural History Center",
+        "description": "Inside Cedar Hill State Park, Penn Farm preserves buildings and equipment from a family farm operating from the mid-1800s through the mid-1900s. Take the 0.6-mile Penn Farm Trail for a distinct historical stop rather than another generic lakeside picnic recommendation; check active park and trail alerts before arrival.",
+        "href": "https://tpwd.texas.gov/state-parks/cedar-hill/trails-info",
+        "external": true
+      },
+      {
+        "label": "Cedar Hill State Park — DORBA and shoreline trails",
+        "description": "TPWD lists the accessible 1-mile Shoreline Trail, 2.3-mile Talala Trail and three more demanding DORBA loops of roughly 3, 8 and 12 miles. Mountain biking access depends on weather and wet-clay trail closures. This provides named, navigable hiking and biking experiences around Joe Pool Lake.",
+        "href": "https://tpwd.texas.gov/state-parks/cedar-hill/dorba-trails-information",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0582",
+      "https://tpwd.texas.gov/state-parks/cedar-hill/trails-info",
+      "https://tpwd.texas.gov/state-parks/cedar-hill/dorba-trails-information"
+    ]
+  },
+  "lake-bob-sandlin": {
+    "camping": [
+      {
+        "name": "Lake Bob Sandlin State Park — electric waterfront campground",
+        "type": "Source-verified named campground",
+        "summary": "TPWD lists 75 camping sites with 30-amp electrical hookups, water, picnic tables, fire rings and nearby showers. Nine sites are directly beside Lake Bob Sandlin, so campers who need a lakeside pitch should check specific site locations when reserving instead of assuming all 75 face the water.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Bob Sandlin State Park — hike-in primitive sites",
+        "type": "Hike-in primitive campground",
+        "summary": "TPWD also manages 16 primitive campsites reached by a quarter-mile to one-mile hike from parking. They sit near Two-Acre Pond rather than directly at the lake, are not reservable, and prohibit ground fires. This is a separate overnight experience for tent campers rather than an unpowered parking spot.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "No lake-specific fish-harvest exception shown by TPWD",
+        "text": "The official Lake Bob Sandlin fishing profile says that all fish species are currently managed under statewide regulations. Its current waterbody schedule lists a 14-inch minimum for largemouth and smallmouth bass with a five-fish combined black-bass daily bag. The source also lists a 10-inch crappie minimum and 25-fish combined daily bag.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0646"
+      },
+      {
+        "label": "Blue and channel catfish size distribution",
+        "text": "The TPWD Bob Sandlin waterbody schedule permits 25 blue and channel catfish combined in a day, but no more than five may measure 20 inches or longer, and no more than one of those may measure at least 30 inches. Flathead catfish separately have an 18-inch minimum and five-fish daily limit. Check TPWD before harvesting.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0646"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Bob Sandlin State Park — multiuse nature trails",
+        "description": "TPWD identifies 3.3 miles of hiking and biking trails amid the meeting point of Pineywoods and prairie ecologies. The 0.6-mile Lakeview Loop overlooks State Park Cove, while the 0.3-mile Brim Pond Trail explores creekside wildlife habitat. These are mapped activities directly at the lake, not unrelated county links.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin/trails-info/",
+        "external": true
+      },
+      {
+        "label": "Lake Bob Sandlin State Park — lighted fishing pier and trout pond",
+        "description": "The state park maintains a lighted fishing pier and park ponds, including the seasonally stocked Trout Pond, as well as kayak rentals and a boat ramp. Anglers may fish from the state park shoreline or pier without an individual license; boat fishing remains subject to licensing rules.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-bob-sandlin",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-bob-sandlin/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0646",
+      "https://tpwd.texas.gov/state-parks/lake-bob-sandlin/trails-info/",
+      "https://tpwd.texas.gov/state-parks/lake-bob-sandlin"
+    ]
+  },
+  "lake-brownwood": {
+    "camping": [
+      {
+        "name": "Lake Brownwood State Park — Council Bluff full-hookup camping",
+        "type": "Source-verified named campground",
+        "summary": "TPWD lists 20 developed full-hookup sites in its Council Bluff campground, with sewer, water, 50/30/20-amp electricity, picnic table and grill. These are materially different from the park's water-only tent sites; verify current park alerts, booking status and specific site availability before travel.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-brownwood/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Brownwood State Park — Willow Point electric campground",
+        "type": "Source-verified named campground",
+        "summary": "The Willow Point area offers 35 campsites with water and electrical hookups, adjacent shower restrooms, tent pads and picnic tables. TPWD identifies accessible features at site 11 near accessible bathrooms; call the park for current accessibility details rather than relying on an assumed fully accessible layout.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-brownwood/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Brownwood State Park — Comanche Trails tent and RV sites",
+        "type": "Source-verified named campground",
+        "summary": "The Comanche Trails area offers 11 electrical sites with a 27-foot maximum trailer/RV length, plus nine separate tent-only electrical sites. TPWD lists water hookups or service and nearby showers; this distinction matters when choosing between a short RV and tent camping.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-brownwood/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide limits apply at Lake Brownwood",
+        "text": "TPWD's own Lake Brownwood fishing profile expressly states that all species are managed under statewide fishing regulations. Its main fisheries include largemouth bass, white bass, white crappie and channel/flathead catfish. For black bass, the current statewide schedule uses a five-fish combined daily bag and a 14-inch minimum for largemouth bass.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brownwood/"
+      },
+      {
+        "label": "Zebra mussel and water-transfer requirements",
+        "text": "TPWD specifically warns that zebra mussels are established in Lake Brownwood. Texas law requires draining water from boats and onboard receptacles when leaving or approaching public fresh waters, and transporting live zebra mussels is prohibited. Clean, drain and dry the boat, trailer and bait gear before changing lakes.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brownwood/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Brownwood State Park — Nopales Ridge Trail",
+        "description": "The official park guide identifies the 2.9-mile Nopales Ridge Trail as the park's only biking-permitted trail, with roughly six miles of walking paths overall. This is a named hiking and mountain-biking outing separate from boating and fishing, and trail conditions should be checked before visiting.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-brownwood",
+        "external": true
+      },
+      {
+        "label": "Lake Brownwood State Park — Civilian Conservation Corps landmarks",
+        "description": "The park preserves 1930s Civilian Conservation Corps structures, including a scenic pavilion, benches, historic cabins and a recreation hall built using local materials. The park offers a self-guided historical walk alongside lakeside recreation; it is a real heritage destination, not a generic recommendation to see Brown County.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-brownwood",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-brownwood/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/brownwood/",
+      "https://tpwd.texas.gov/state-parks/lake-brownwood"
+    ]
+  },
+  "lake-casa-blanca": {
+    "camping": [
+      {
+        "name": "Lake Casa Blanca International State Park — full-hookup sites",
+        "type": "Source-verified named campground",
+        "summary": "TPWD lists 11 full-hookup campsites at Lake Casa Blanca International State Park near Laredo. They include water, electric and sewer connections, a picnic table, fire ring, lantern post and nearby restrooms with showers. The park's public description contains an inconsistent location count, so confirm specific site numbers when booking.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-casa-blanca/fees-facilities/campsites"
+      },
+      {
+        "name": "Lake Casa Blanca International State Park — water/electric campsites",
+        "type": "Source-verified named campground",
+        "summary": "The same state park operates 55 electrical campsites with water hookups, picnic tables, lantern posts, fire rings and nearby showers. They are a different facility type from the 11 full-hookup sites and are not guaranteed waterfront. Check TPWD availability and active park alerts before driving to Laredo.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-casa-blanca/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Largemouth bass 18-inch minimum",
+        "text": "TPWD's current lake-specific Casa Blanca schedule imposes an 18-inch minimum length on largemouth bass, not the ordinary statewide 14-inch minimum. Other black bass have distinct length provisions and the combined black-bass daily bag remains five. Verify exact identification and official lake limits before harvest.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0149"
+      },
+      {
+        "label": "Catfish, crappie and hybrid striped bass",
+        "text": "TPWD's Casa Blanca waterbody schedule allows 25 channel/blue catfish combined, only 10 of them 20 inches or longer, with a separate 18-inch minimum for flatheads and a five-fish daily bag. Crappie have a 10-inch minimum and 25 combined daily; striped/hybrid striped bass have an 18-inch minimum and five combined daily.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0149"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Casa Blanca State Park — Roadrunner Dam Trail",
+        "description": "TPWD's trail inventory lists the one-mile Roadrunner Trail, an easy hike or bicycle ride along the top of the Lake Casa Blanca Dam. It offers an actual park trail to plan rather than another broad 'explore Laredo' placeholder; bring sun protection and verify any temporary trail closures.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-casa-blanca/trails-map",
+        "external": true
+      },
+      {
+        "label": "Lake Casa Blanca State Park — wheelchair-accessible fishing pier",
+        "description": "The state park offers a lit three-lane concrete boat ramp and an ADA-accessible fishing pier, identified in the official TPWD lake-access inventory. These are actionable on-site facilities; check current lake elevation and park restrictions before planning to launch or fish.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/casa_blanca/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-casa-blanca/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0149",
+      "https://tpwd.texas.gov/state-parks/lake-casa-blanca/trails-map",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/casa_blanca/access.phtml"
+    ]
   }
 };
