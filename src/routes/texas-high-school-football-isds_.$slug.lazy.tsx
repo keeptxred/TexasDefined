@@ -9,6 +9,12 @@ export const Route = createLazyFileRoute('/texas-high-school-football-isds/$slug
 
 function Page() {
   const district = Route.useLoaderData();
+  // Streaming SSR may render the route component before its async loader payload
+  // has resolved. Do not dereference districtName until the profile is present.
+  if (!district) return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+    <h1 className="font-display text-4xl">Texas high school football by ISD</h1>
+    <p className="mt-4 text-sm leading-7">The school district profile is loading. <a className="underline" href="/texas-high-school-football-isds">Browse the ISD directory</a>.</p>
+  </Container>;
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">

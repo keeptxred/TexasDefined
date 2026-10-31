@@ -155,7 +155,7 @@ export function buildTexasEventCarouselItemsServer(records: readonly TexasEventR
     categoryLabel: categoryLabels[event.category],
     dateLabel: formatCarouselRange(event),
     locationLabel: `${event.city}${event.venueName ? ` · ${event.venueName}` : ""}`,
-    guideLabel: event.guidePath.startsWith("/events?") ? "View in calendar" : "Event guide",
+    guideLabel: event.guidePath?.startsWith("/events?") ? "View in calendar" : "Event guide",
     statusLabel: eventStatusLabel(event),
     lastVerifiedLabel: formatShortDay(event.lastVerifiedAt.slice(0, 10)),
     ticketCta: activeEventTicketCta(event),
@@ -168,7 +168,7 @@ export function buildGlobalEventCalendarServer(
 ) {
   const today = texasTodayIso();
   const contextMatches = records.filter((event) =>
-    (!search.category || (search.category === "tpwd" ? event.sourceName === "Texas Parks and Wildlife Department" : search.category === "guides" ? !event.guidePath.startsWith("/events") : event.category === search.category))
+    (!search.category || (search.category === "tpwd" ? event.sourceName === "Texas Parks and Wildlife Department" : search.category === "guides" ? Boolean(event.guidePath && !event.guidePath.startsWith("/events")) : event.category === search.category))
     && matchesLocation(event, search.location)
     && (!search.venue || event.venueId === search.venue));
   const filtered = contextMatches.filter((event) => overlapsRange(event, search.start, search.end));
@@ -228,6 +228,8 @@ export function buildGlobalEventCalendarServer(
     }),
     results: displayed.map((event) => ({
       ...event,
+      // When upstream records have no editorial guide, link to the dated calendar instead.
+      guidePath: event.guidePath || calendarHref(search, { start: event.startDate, end: event.startDate }),
       dateLabel: formatRange(event),
       lastVerifiedLabel: formatDay(event.lastVerifiedAt.slice(0, 10)),
       statusLabel: eventStatusLabel(event),
