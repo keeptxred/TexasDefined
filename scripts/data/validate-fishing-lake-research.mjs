@@ -40,8 +40,13 @@ for (const [slug, d] of Object.entries(dossiers)) {
   for (const site of d.camping) {
     if (!official(site.href) || !site.name || words(site.summary) < 22) errors.push(`${slug}: campsite requires named operator source and explanatory detail`);
   }
+  if (!d.regulations.some((rule) => rule.sourceUrl.startsWith("https://tpwd.texas.gov/"))) errors.push(`${slug}: at least one TPWD fisheries/harvest source is required`);
   for (const rule of d.regulations) {
-    if (!official(rule.sourceUrl) || !rule.sourceUrl.includes("tpwd.texas.gov") || words(rule.text) < 20) errors.push(`${slug}: regulation must be tied to a substantive current TPWD source`);
+    // Operators (USACE, NPS, city, water district) are primary sources for
+    // ramp and park closures. TPWD remains primary for actual fish harvest law.
+    const accessNotice = /(?:closure|closed|access|ramp|park|operator|drawdown)/i.test(rule.label);
+    const tpwdLaw = rule.sourceUrl.startsWith("https://tpwd.texas.gov/");
+    if (!official(rule.sourceUrl) || (!tpwdLaw && !accessNotice) || words(rule.text) < 20) errors.push(`${slug}: regulation or park advisory requires its specific competent agency source`);
   }
   for (const place of d.nearby) {
     if (!official(place.href) || !place.external || words(place.description) < 19) errors.push(`${slug}: named attraction needs grounded direct operator link and unique context`);
