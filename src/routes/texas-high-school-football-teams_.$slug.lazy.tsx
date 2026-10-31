@@ -824,7 +824,14 @@ function Page() {
           <p className="mt-4 text-sm leading-7 text-muted-foreground">{editorial?.notice
               ? "These schools share the published 2026–28 UIL district alignment. Because this program announced a 2026 season cancellation, this list is not a schedule of actual opponents or games."
               : "These are the other schools in the same 2026–28 UIL football district. Every opponent links to the same school-profile system."}</p>
-          {districtPath && <a href={districtPath} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open full district guide →</a>}
+          {districtPath && <nav aria-label="UIL football district" className="mt-4">
+            <p className="text-sm leading-7 text-muted-foreground">Competes in{' '}
+              <a href={districtPath} className="font-semibold text-primary underline underline-offset-4">
+                UIL {alignmentLabel(program)} · District {program.district}
+                <span className="ml-2">Open full district guide →</span>
+              </a>.
+            </p>
+          </nav>}
         </div>
         <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
           {districtPeers.map((peer) => <a key={peer.profilePath} href={peer.profilePath} className="group bg-background p-5 hover:bg-surface">

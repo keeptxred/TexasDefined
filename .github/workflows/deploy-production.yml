@@ -108,6 +108,7 @@ jobs:
       - name: Validate authority before deploy
         id: validation
         run: |
+          python3 scripts/ci/validate_football_directory_navigation.py
           node scripts/ci/run-validation-suite.mjs predeploy
           node scripts/data/validate-national-cemetery-authority.mjs
           node --check scripts/ci/verify-el-paso-fredericksburg-release.mjs

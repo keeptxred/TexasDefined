@@ -261,18 +261,20 @@ function Page() {
       <section data-football-district-section="teams" className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">The teams</p>
-          <h2 className="mt-2 font-display text-3xl">District {district.district} schools</h2>
+          <h2 id="football-district-team-directory" className="mt-2 font-display text-3xl">District {district.district} schools</h2>
         </div>
         <div>
-          <div className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-            {district.programs.map((program, index) => <a key={program.profilePath} href={program.profilePath} className="group bg-background p-5 hover:bg-surface">
+          <nav aria-labelledby="football-district-team-directory">
+            <ul className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+              {district.programs.map((program, index) => <li key={program.profilePath} className="bg-background"><a href={program.profilePath} className="group block h-full p-5 hover:bg-surface">
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">Team {String(index + 1).padStart(2, '0')}</p>
               <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName}</h3>
               <p className="mt-2 text-xs text-muted-foreground">{district.classification}{divisionRoman ? ` Division ${divisionRoman}` : ''}</p>
               <p className="mt-1 text-xs text-muted-foreground">UIL reported enrollment: <strong className="text-foreground">{formatEnrollment(program.uilEnrollment)}</strong></p>
               <p className="mt-3 text-xs text-muted-foreground">Team page →</p>
-            </a>)}
-          </div>
+              </a></li>)}
+            </ul>
+          </nav>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">Teams are listed alphabetically; this is not a ranking, projected finish, or statement about team quality.</p>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot, not live campus headcounts. Published cutoff bands explain normal ranges, but the final UIL football alignment controls competition placement.</p>
           {placementExceptionPrograms.length > 0 && <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Placement exception{placementExceptionPrograms.length === 1 ? '' : 's'}:</strong> {placementExceptionPrograms.map((program, index) => <span key={program.profilePath}>{index ? ', ' : ' '}<a href={program.profilePath} className="font-semibold text-primary underline underline-offset-4">{district9Pilot ? district9DisplayName(program.schoolName) : program.schoolName}</a></span>)}. These programs' verified reported enrollment is outside the normal published cutoff for the final UIL placement.</p>}
