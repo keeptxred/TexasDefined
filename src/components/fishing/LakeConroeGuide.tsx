@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
+import { FishingLakeAuthorityLinks } from "@/data/fishing/FishingLakeAuthorityLinks";
 import { Container } from "@/components/layout/Container";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
@@ -48,6 +49,15 @@ export function LakeConroeGuide({ section, reports, guides, pageData }: { sectio
       {section === "nearby" && <Nearby pageData={pageData} />}
       {section === "reports" && <Reports reports={reports} pageData={pageData} />}
       {section === "guides" && <Guides guides={guides} pageData={pageData} />}
+      <FishingLakeAuthorityLinks
+        slug="lake-conroe"
+        name={pageData.overview.name}
+        section={section}
+        counties={[...pageData.overview.counties]}
+        cities={[...pageData.overview.nearestCommunities]}
+        fish={pageData.fish.map((row) => ({ id: row.id, name: row.name }))}
+        relatedLakes={pageData.nearby.filter((place) => place.href.startsWith("/fishing/lakes/")).map((place) => ({ href: place.href, label: place.label }))}
+      />
       <SourceFooter section={section} pageData={pageData} />
     </Container>
   </>;
