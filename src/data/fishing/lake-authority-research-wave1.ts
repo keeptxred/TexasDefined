@@ -1246,5 +1246,174 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/corpus_christi/",
       "https://tpwd.texas.gov/state-parks/lake-corpus-christi"
     ]
+  },
+  "lake-fork": {
+    "camping": [
+      {
+        "name": "Lake Fork Resort — FM 17 lodging and camping",
+        "type": "TPWD-listed private resort; current availability unverified",
+        "summary": "TPWD's Lake Fork public-access inventory lists Lake Fork Resort on FM 17 about a half mile south of FM 515, and marks it as an overnight-accommodation facility with a boat ramp. It is privately operated and has a launch fee; confirm actual RV/tent lodging configuration, current vacancies and booking terms directly with the operator at the TPWD-listed telephone number.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/access.phtml"
+      },
+      {
+        "name": "Lake Fork Marina — marina and camping facility",
+        "type": "TPWD-listed private marina camping; verify operator",
+        "summary": "The official TPWD access chart marks Lake Fork Marina as offering camping, next to multiple marina services and two single-lane concrete ramps. The facility is about one mile south of FM 515 on FM 17. The agency's listing does not guarantee particular hookups or campsite inventory, so call before driving or towing.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/access2.phtml"
+      },
+      {
+        "name": "Chaney Point RV Park — Wood County lakeshore",
+        "type": "TPWD-listed private RV park",
+        "summary": "TPWD identifies Chaney Point RV Park on Wood County Road 1590 north of FM 182 at the south end of Lake Fork, with two single-lane launch ramps and a privately operated RV park designation. Call to confirm the current overnight RV facilities and restrictions; this is not the free Sabine River Authority day-use site.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/access2.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Lake Fork's special 16–24-inch largemouth slot",
+        "text": "TPWD's waterbody-specific regulation establishes a 16–24-inch protected slot for largemouth bass. Fish 16 inches or less and those at least 24 inches may be retained, but only one retained largemouth per day may be 24 inches or longer. All black bass combined share a five-fish daily bag; verify current rules and measure precisely.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0433"
+      },
+      {
+        "label": "Crappie winter retention exception",
+        "text": "At Lake Fork from December 1 through the last day of February, TPWD removes the crappie minimum size and requires retaining every crappie caught. This is a specific exception from the ordinary minimum-size rule and should not be replaced by a generic statewide crappie limit. Check the full TPWD schedule for current bag and possession requirements.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0433"
+      },
+      {
+        "label": "Submerged timber boating safety",
+        "text": "TPWD warns that Lake Fork contains extensive submerged timber; marked boat lanes provide primary passage but do not eliminate hazards outside the lanes. This is an operator-backed navigation issue distinct from fish limits and especially relevant after lake-level changes or before night fishing.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Sabine River Authority Lake Fork Day Use Area",
+        "description": "The SRA's day-use access area near the Highway 154 bridge provides a free public fishing pier according to TPWD's site-specific access inventory. It is a real shoreline day trip, explicitly not a campground or a promise of private resort facilities.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/access2.phtml",
+        "external": true
+      },
+      {
+        "label": "Lake Fork fish-habitat structures and bridge-piling angling",
+        "description": "TPWD documents targeted fish-habitat installations made with the Lake Fork Sportsman's Association and identifies bridge pilings, standing timber and brush piles as fish-holding features. It provides a habitat viewer for finding structures, giving anglers an actionable separate lake exploration activity.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/access2.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0433",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fork/"
+    ]
+  },
+  "possum-kingdom-reservoir": {
+    "camping": [
+      {
+        "name": "Possum Kingdom State Park — Spanish Oaks electric camping",
+        "type": "Operator-listed overnight site",
+        "summary": "TPWD lists 21 Spanish Oaks campsites with water and 20/30/50-amp electric hookups, fire rings and showers nearby. The operator notes this loop has no tent pads and publishes a seasonal rate difference, so confirm tent/RV fit and the exact number of available sites when reserving.",
+        "href": "https://tpwd.texas.gov/state-parks/possum-kingdom/fees-facilities/campsites"
+      },
+      {
+        "name": "Possum Kingdom State Park — Shady Grove seasonal camping",
+        "type": "Operator-listed overnight site",
+        "summary": "The Shady Grove camping loop provides 40 TPWD-listed electric/water sites but limits RVs to 25 feet or shorter. It usually closes in winter and reopens March 1, making it inappropriate to recommend for December without confirming seasonal status. Compare the park's Spanish Oaks or water-only loops for other vehicle lengths.",
+        "href": "https://tpwd.texas.gov/state-parks/possum-kingdom/fees-facilities/campsites"
+      },
+      {
+        "name": "Possum Kingdom State Park — Lakeview and Chaparral water-only",
+        "type": "Seasonal park water-only campsite areas",
+        "summary": "TPWD reports 53 water-only campsites across the Lakeview and Chaparral camping areas, with restrooms nearby. Some pitches share water; the Chaparral Trails loop is closed December–February. These are not full-hookup RV sites and must be booked with correct seasonal restrictions.",
+        "href": "https://tpwd.texas.gov/state-parks/possum-kingdom/fees-facilities/campsites"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide species harvest limits confirmed",
+        "text": "TPWD's Possum Kingdom Reservoir fishery page says all resident fish species currently follow statewide harvest regulations. The reservoir supports largemouth, striped and white bass, crappie and catfish, each with different legal size and bag schedules. This absence of a special lake slot does not remove ordinary state black-bass and catfish restrictions.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/possum_kingdom/"
+      },
+      {
+        "label": "Golden-alga history and fishery monitoring",
+        "text": "TPWD identifies damaging golden-alga blooms at Possum Kingdom in 2001, 2003 and 2010. This is relevant to fish populations but is not evidence of a bloom today; check the current fishing and water-quality reports for conditions rather than presenting historical losses as ongoing emergency closures.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/possum_kingdom/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Possum Kingdom State Park — CCC Camp Trail",
+        "description": "The park's official trail guide names the 0.6-mile CCC Camp Trail through the remains of the original Civilian Conservation Corps camp where Company 2888 helped develop park roads, culverts and campsites. This offers a genuine heritage walk alongside a lake camping trip.",
+        "href": "https://tpwd.texas.gov/state-parks/possum-kingdom/trails-info",
+        "external": true
+      },
+      {
+        "label": "Possum Kingdom State Park — Longhorn Trail Overlook",
+        "description": "TPWD maps Longhorn Trail Overlook at 32.8837 north, 98.5671 west, noting spring wildflower displays and lake views. The named hiking destination is distinct from the private Hell's Gate area; trail conditions and access should be verified at park headquarters before visiting.",
+        "href": "https://tpwd.texas.gov/state-parks/possum-kingdom/trails-info",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/possum-kingdom/fees-facilities/campsites",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/possum_kingdom/",
+      "https://tpwd.texas.gov/state-parks/possum-kingdom/trails-info"
+    ]
+  },
+  "lake-tawakoni": {
+    "camping": [
+      {
+        "name": "Lake Tawakoni State Park — Spring Point full-hookup sites",
+        "type": "Operator-listed overnight site",
+        "summary": "TPWD lists 16 full-hookup Spring Point campsites with 30/50-amp electrical service, water, picnic tables and showers nearby. The loop also contains 16 separate water/electric sites without full sewer hookup. Select a campground site type by hookups rather than assuming all Spring Point pitches are identical.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-tawakoni/fees-facilities/campsites/"
+      },
+      {
+        "name": "Lake Tawakoni State Park — White Deer Reach electric camping",
+        "type": "Operator-listed overnight site",
+        "summary": "TPWD lists 44 water/electric campsites with 30-amp service in the White Deer Reach loop, plus two additional sites with accessible features. The operator distinguishes sites 38 and 39 for accessibility and requires extra hose length for certain sewage connections; confirm details before booking.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-tawakoni/fees-facilities/campsites/"
+      },
+      {
+        "name": "429 Marina & RV Park — southeast Kitsee Inlet",
+        "type": "TPWD-listed private RV marina; current booking not verified",
+        "summary": "TPWD specifically names 429 Marina & RV Park on FM 429 southwest of FM 751 on the southeast shore of Kitsee Inlet, with a concrete ramp and privately operated services. Its RV-park designation establishes an overnight-planning lead, but site availability and hookups must be confirmed with the operator before recommending a reservation.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tawakoni/access2.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Special blue/channel catfish size distribution",
+        "text": "TPWD's current Tawakoni fishing rules allow a combined daily bag of 25 blue and channel catfish, but only five can measure 20 inches or more and no more than one of those can be 30 inches or longer. Flathead catfish have a separate 18-inch minimum and five-fish daily bag; these limits differ from Livingston's special 50-fish rule.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0714"
+      },
+      {
+        "label": "Striped, hybrid and white-bass limits",
+        "text": "The Lake Tawakoni waterbody schedule lists an 18-inch minimum and five-fish daily bag for striped/hybrid striped bass combined. White bass instead have a 10-inch minimum and a 25-fish daily bag. Correctly identify a hybrid striped bass rather than treating all schooling fish as white bass.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0714"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Lake Tawakoni State Park — Red Oak lakeshore trail",
+        "description": "TPWD publishes the 0.4-mile Red Oak Trail along a shoreline hardwood habitat, along with the 0.8-mile Osage Orange loop and 1.5-mile Blackjack Trail. These are mapped, distinct walks from the park's actual trail network rather than a generic county-link suggestion.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-tawakoni/trails-info",
+        "external": true
+      },
+      {
+        "label": "Lake Tawakoni State Park — Spring Point birding and prairie restoration",
+        "description": "The operator's trail map describes Spring Point Trail as a half-mile outing across hardwood forest, pocket prairie and shoreline beach with birding habitat. The park's restoration project and Pear Trees Pond also offer named field stops separate from boat launching.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-tawakoni/trails-info",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/lake-tawakoni/fees-facilities/campsites/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/tawakoni/access2.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0714",
+      "https://tpwd.texas.gov/state-parks/lake-tawakoni/trails-info"
+    ]
   }
 };
