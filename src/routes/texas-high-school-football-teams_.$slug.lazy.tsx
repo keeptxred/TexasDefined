@@ -828,6 +828,7 @@ function Page() {
             <p className="text-sm leading-7 text-muted-foreground">Competes in{' '}
               <a href={districtPath} className="font-semibold text-primary underline underline-offset-4">
                 UIL {alignmentLabel(program)} · District {program.district}
+                <span className="ml-2">Open full district guide →</span>
               </a>.
             </p>
           </nav>}
