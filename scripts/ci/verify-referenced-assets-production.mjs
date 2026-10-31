@@ -181,8 +181,10 @@ async function verify() {
       const combined = new Map();
       for (const a of uniqueAssets(currentPages)) combined.set(a.path, { ...a, sources: ['current'] });
       for (const a of inherited.values()) {
-        if (combined.has(a.path)) combined.get(a.path).sources.push('old');
-        else combined.set(a.path, { ...a, sources: ['old'] });
+        if (combined.has(a.path)) {
+          combined.get(a.path).sources.push('old');
+          combined.get(a.path).preSha256 = a.preSha256;
+        } else combined.set(a.path, { ...a, sources: ['old'] });
       }
       if (combined.size > 250) throw new Error('Cross-release asset verification cap exceeded');
       for (const a of combined.values()) {
@@ -192,7 +194,8 @@ async function verify() {
         if (record.ok && a.preSha256 && !record.oldHashMatches) record.ok = false;
         results.assets.push(record);
         if (!record.ok) results.failures.push({ origin: label(origin), path: a.path, status: record.status,
-          mime: record.mime || null, sources: a.sources, cfRay: record.cfRay || null });
+          mime: record.mime || null, sources: a.sources, hashMismatch: record.oldHashMatches === false,
+          cfRay: record.cfRay || null });
       }
     }
   } catch (error) {
