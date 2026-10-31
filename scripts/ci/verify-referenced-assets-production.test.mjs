@@ -98,6 +98,28 @@ test('discover event and food lazy-route hashes observed missing for verified Go
     /Expected at most one production client chunk/);
 });
 
+test('discover observed old major article, destination, sports and discovery JS families', () => {
+  const base = [
+    'texas-high-school-football-teams_._slug.lazy-BASE.js',
+    'property-tax.taxing-unit._unit-BASE.js',
+  ];
+  const historical = [
+    'article._slug-Bo6h8g51.js',
+    'destination._slug-CyHpA01o.js',
+    'events.index.lazy-Bv3IVzKY.js',
+    'explore.index.lazy-CDks8Iov.js',
+    'search.lazy-DOdUUwCn.js',
+    'fishing.lakes._slug-bnM1eCOw.js',
+    'texas-high-school-football-playoff-brackets-BG2nCdNx.js',
+    'MuseumAuthorityNetworkSection-DMbCzSMq.js',
+    'museum-authority-heroes-DChJMGcZ.js',
+    'texas-data.lazy-Bmna2q7H.js',
+  ];
+  const selected = selectBuiltRouteAssets([...base, ...historical]);
+  assert.deepEqual(selected.slice(2).map(a => a.path), historical.map(name => '/assets/' + name));
+  assert.equal(selectBuiltRouteAssets(base).length, 2, 'optional unbuilt chunks must not be fabricated');
+});
+
 test('missing or ambiguous lazy-route chunks fail closed instead of silently skipping old Googlebot failures', () => {
   assert.throws(() => selectBuiltRouteAssets(['main-AbCd.js']), /Expected exactly one production client chunk/);
   assert.throws(() => selectBuiltRouteAssets([
