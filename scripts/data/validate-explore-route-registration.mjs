@@ -52,7 +52,7 @@ for (const feature of [
   'component: ExploreSearchPage',
   'canonicalPath: "/explore/search"',
   'robots: "noindex, follow"',
-  'const text = z.string().optional().catch("")',
+  'const text = z.string().optional().catch("").default("")',
   'q: text, category: text, region: text, season: text, accessible: text, origin: text, radius: text',
   'const { q, category, region, season, accessible } = Route.useSearch()',
   'const { origin, radius } = Route.useSearch()',

@@ -9,7 +9,7 @@ import { Container } from "@/components/layout/Container";
 import { getDestinationSearchCatalog, type DestinationSearchRecord } from "@/data/destination-collections.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const text = z.string().optional().catch("");
+const text = z.string().optional().catch("").default("");
 const searchSchema = z.object({ q: text, category: text, region: text, season: text, accessible: text, origin: text, radius: text });
 const selectClass = "mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-sm outline-none focus:border-primary";
 const seasons = ["spring", "summer", "fall", "winter"];
