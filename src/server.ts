@@ -1,4 +1,5 @@
 import "./lib/error-capture";
+import { applyGoogleFootballIsolation } from "./lib/football-google-indexing";
 import { LEGACY_EDITORIAL_REDIRECTS } from "./lib/legacy-editorial-redirects";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
@@ -658,7 +659,7 @@ export default {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
-      return await addBingVerificationMeta(request, normalizedResponse);
+      return applyGoogleFootballIsolation(request, await addBingVerificationMeta(request, normalizedResponse));
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
