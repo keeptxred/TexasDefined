@@ -83,6 +83,7 @@ const prebuildChecks = [
   ['DEPLOY/ASSETS', 'Test hashed JS and CSS continuity instrumentation', 'node', ['--test', 'scripts/ci/probe-asset-version-continuity.test.mjs']],
   ['RUNTIME/RECOVERY', 'Ensure one-shot stale lazy-module recovery before hydration', 'node', ['--experimental-strip-types', '--test', 'scripts/ci/stale-chunk-recovery.test.mjs']],
   ['DEPLOY/CHUNK-RETENTION', 'Protect bounded old hashed JS/CSS inclusion and cross-release integrity', 'node', ['--test', 'scripts/ci/retain-critical-hashed-assets.test.mjs']],
+  ['SEO/ASSET-CACHE', 'Keep property-tax and football SSR HTML fresh across hashed asset deployments', 'node', ['--experimental-strip-types', '--test', 'src/lib/hashed-asset-document-cache-policy.test.ts']],
   ['DEPLOY/ASSETS', 'Prevent current and cross-release JS/CSS false-positive acceptance', 'node', ['--test', 'scripts/ci/verify-referenced-assets-production.test.mjs']],
   ['SEO/SITEMAP', 'Ensure swimming authority uses bundled server content and all canonical sitemap rules', 'node', ['scripts/data/validate-swimming-authority-ssr.mjs']],
   ['CONTENT/AUTHORITY', 'Prevent duplicate THC landmark images and lost indexable Holland Hotel page', 'node', ['scripts/data/validate-thc-landmark-authority-batch05.mjs']],
