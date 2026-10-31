@@ -50,6 +50,9 @@ async function discoverImagePurgeUrls() {
 const generatedDiscoverImageUrls = await discoverImagePurgeUrls();
 
 const alwaysPurgeUrls = [
+  // Google-specific indexing changes must not leave a stale primary XML sitemap
+  // in Cloudflare's edge cache after the Worker deploys the new policy.
+  `https://${zoneName}/sitemap.xml`,
   // Keep source-verified 2027 Mardi Gras guide and statewide calendar canonical HTML in sync
   // with new Worker releases. A cancelled deploy can otherwise leave 2026 edge HTML cached.
   `https://${zoneName}/event/oak-cliff-mardi-gras-parade`,

@@ -5,6 +5,8 @@ import { getFootballDistrictPage } from '@/data/high-school-football/football-di
 import { district9DisplayName } from '@/data/high-school-football/district9-display-names';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
+import { applyGoogleOnlyNoindex } from '@/lib/google-only-indexing';
+import { isFootballDistrictGoogleIndexReady } from '@/data/high-school-football/google-index-eligibility';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -17,8 +19,9 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
       sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: district.profilePath } }),
     };
   },
-  head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: 'Football district not found' }, { name: 'robots', content: 'noindex' }] };
+  head: ({ loaderData, params }) => {
+    // SSR may evaluate this before the loader has resolved; never issue a sticky noindex while loading.
+    if (!loaderData) return { meta: applyGoogleOnlyNoindex([{ title: 'Football district profile' }], isFootballDistrictGoogleIndexReady(params.slug)) };
     const divisionRoman = loaderData.division ? (loaderData.division === 1 ? 'I' : 'II') : null;
     const label = divisionRoman
       ? `District ${loaderData.district}-${loaderData.classification} Division ${divisionRoman}`
@@ -49,11 +52,11 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
           : `${label}: ${loaderData.programCount} teams in the 2026–28 UIL alignment, with sourced district game coverage where available, school pages, playoff context and official UIL links.`;
 
     return {
-      meta: buildMeta(texasDefinedBrand, {
+      meta: applyGoogleOnlyNoindex(buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: district9Pilot ? 'District 9-6A Football: UIL Teams, Tickets & Stadiums (2026–28)' : katyPilot ? 'Katy ISD District 22-6A Football: 2026 Scores & Schedule' : district6Pilot ? 'District 6-6A Football: 2026 Teams, Schedule & Tickets' : district5Pilot ? 'District 5-6A Football: 2026 Scores, Records & Schedule' : district21Pilot ? 'District 21-6A Football: 2026 Scores, Standings & Schedule' : district16Pilot ? 'District 16-6A Football: 2026 Standings, Scores & Schedule' : district11Pilot ? 'District 11-4A Division I Football: 2026 Scores & Schedule' : `${label} Football | Teams & UIL Guide`,
         description,
-      }),
+      }), isFootballDistrictGoogleIndexReady(loaderData.slug)),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         '@context': 'https://schema.org',
