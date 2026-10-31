@@ -179,18 +179,21 @@ function Boating({ pageData }: { pageData: PageData }) {
     </section>
 
     <section className="border-t border-border pt-9">
-      <p className="eyebrow text-primary">Launch-day checklist</p><h2 className="mt-3 font-display text-3xl sm:text-4xl">Know Before You Tow</h2>
-      <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <QuickAnswer question="Which ramp should I use?" answer={primaryRamp ? `Start with ${primaryRamp.name}, then compare every listed facility against today's water level and operator notices.` : "Compare the official access inventory against today's water level and operator notices."} />
-        <QuickAnswer question="What changes first at low water?" answer="Usable ramp depth, exposed shoreline and submerged or newly exposed hazards can change before a lake-wide closure is posted." />
-        <QuickAnswer question="What should I verify?" answer="Ramp status, lake level, wind and storms, required safety gear, invasive-species rules and any park or WMA access restrictions." />
-        <QuickAnswer question="Where are the official updates?" answer="Use the live water-data link plus the managing agency's access or alert page linked on this page immediately before departure." />
+      <p className="eyebrow text-primary">Lake-specific operating context</p>
+      <h2 className="mt-3 font-display text-3xl sm:text-4xl">Conditions and Launch Decisions at {o.name}</h2>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These durable lake facts are drawn from the linked official reservoir record, not an assertion of today's launch conditions. Use them to interpret the live lake level and access notices for this particular waterbody.</p>
+      <dl className="mt-7 grid gap-5 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
+        <Fact label="Normal water clarity" value={o.normalClarity} />
+        <Fact label="Published normal fluctuation" value={o.normalFluctuation} />
+        <Fact label="Maximum reported depth" value={`${o.maxDepthFeet} feet`} />
+        <Fact label="Lake area" value={`${o.surfaceAcres.toLocaleString("en-US")} acres`} />
+        <Fact label="Waterway" value={o.waterway} />
+        <Fact label="Managing authority" value={o.controllingAuthority} />
+      </dl>
+      <div className="mt-7">
+        <QuickAnswer question="Where should I start a launch-status check?" answer={primaryRamp ? `Review ${primaryRamp.name}, then compare the full official access inventory, current lake elevation and operator notices before towing.` : "Use the operator's official access inventory and today's lake elevation before towing."} />
       </div>
-    </section>
-
-    <section className="border-t border-border pt-9">
-      <p className="eyebrow text-primary">Safety & navigation</p><h2 className="mt-3 font-display text-3xl sm:text-4xl">Plan for Changing Water, Weather and Cover</h2>
-      <div className="mt-6 grid gap-6 md:grid-cols-3"><div><h3 className="font-display text-xl">Water level</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Reservoir elevation changes shoreline geometry, ramp reach and the location of shallow hazards. Do not navigate from an old shoreline assumption alone.</p></div><div><h3 className="font-display text-xl">Wind & storms</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Open water can build rough conditions quickly. Check the local forecast and radar close to launch time, not only when the trip is planned.</p></div><div><h3 className="font-display text-xl">Timber & structure</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Flooded timber, brush, points, roadbeds and other structure may be productive fishing cover and a navigation concern, especially when water levels shift.</p></div></div>
+      <p className="mt-5 text-xs leading-6 text-muted-foreground">The general Texas boating-safety checklist lives in the statewide guides; this page focuses on what the lake-specific sources actually establish.</p>
     </section>
 
     <section className="border-t border-border pt-9">
