@@ -8,6 +8,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Container } from "@/components/layout/Container";
 import { getDestinationSearchCatalog, type DestinationSearchRecord } from "@/data/destination-collections.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
+import { normalizeExploreSearch } from "@/lib/normalize-explore-search";
 
 const text = z.string().optional().catch("").default("");
 const searchSchema = z.object({ q: text, category: text, region: text, season: text, accessible: text, origin: text, radius: text });
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/explore/search")({
   component: ExploreSearchPage,
 });
 
-function normalized(value: string) { return value.toLowerCase().trim().replace(/\s+/g, " "); }
+function normalized(value: string | null | undefined) { return normalizeExploreSearch(value); }
 function formatLabel(value: string) { return value.replace(/-/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase()); }
 function searchText(destination: DestinationSearchRecord) { return normalized([destination.name, destination.summary, destination.category.replace(/-/g, " "), destination.region.replace(/-/g, " "), destination.nearestTown, destination.county, destination.managingAuthority, destination.bestSeason, ...destination.highlights].filter(Boolean).join(" ")); }
 function scoreDestination(destination: DestinationSearchRecord, query: string) {
@@ -79,7 +80,7 @@ function ExploreSearchPage() {
   const { data: catalog = [], isLoading, error } = useQuery({ queryKey: ["explore-search-catalog"], queryFn: () => getDestinationSearchCatalog() });
   const categories = useMemo(() => [...new Set(catalog.map((destination) => destination.category))].sort(), [catalog]);
   const regions = useMemo(() => [...new Set(catalog.map((destination) => destination.region))].sort(), [catalog]);
-  const requestedOrigin = Boolean(origin.trim());
+  const requestedOrigin = Boolean(normalized(origin));
   const originDestination = useMemo(() => resolveOrigin(catalog, origin), [catalog, origin]);
   const requestedRadius = Number(radius);
   const radiusMiles = radiusOptions.includes(requestedRadius) ? requestedRadius : 75;
