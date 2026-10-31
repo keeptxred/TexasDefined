@@ -2610,5 +2610,282 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://www.swf-wc.usace.army.mil/benbrook/Recreation/Camping/",
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/benbrook/"
     ]
+  },
+  "calaveras-lake": {
+    "camping": [
+      {
+        "name": "Calaveras Park — managed camping and RV hookup sites",
+        "type": "Thousand Trails-operated lake campground",
+        "summary": "The TPWD Calaveras public access inventory confirms that the Thousand Trails-managed Calaveras Park is the reservoir's overnight campground, with picnic areas, two four-lane paved boat ramps and a limited number of RV sites with hookups. Contact the operator at 210-635-8359 to reserve an actual site; day-use and overnight fees are separate.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/calaveras/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Freshwater red-drum special harvest rule",
+        "text": "TPWD expressly identifies a lake-specific red-drum harvest exception on Calaveras Lake. The reservoir's red drum were stocked into freshwater, where anglers must follow the precise inland-lake special rules rather than assuming the coastal 20–28-inch slot and red-drum tagging rules apply. Open the linked waterbody regulation before keeping a red drum.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/calaveras/"
+      },
+      {
+        "label": "Check new CPS Energy park entry restrictions",
+        "text": "TPWD's Calaveras fishery page reports new park visitor rules under the CPS Energy managing authority, separate from fisheries harvest limits. Boat anglers should verify current access hours, park fees and lake-specific restrictions with the public recreation operator instead of using outdated entry information.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/calaveras/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Calaveras Park — bank fishing and two launch facilities",
+        "description": "TPWD identifies two four-lane concrete boat ramps roughly a quarter mile apart, plus good shoreline fishing, picnic grounds and park restrooms at Calaveras Park. The park is the reservoir's sole public lake access area, with entrance fees and current operator rules.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/calaveras/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Calaveras Lake dam and intake riprap fishing structure",
+        "description": "The official TPWD fishery guide identifies rock riprap along the dam and the power-plant intake canal as productive structure for freshwater red drum and other species. Consult operator boundary restrictions before targeting any restricted intake or dam facilities.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/calaveras/",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/calaveras/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/calaveras/"
+    ]
+  },
+  "lake-houston": {
+    "camping": [
+      {
+        "name": "Lake Houston Marina — private camping-equipped waterfront access",
+        "type": "TPWD-listed private marina with camping; confirm operations",
+        "summary": "TPWD's Lake Houston public-access table explicitly marks Lake Houston Marina as offering overnight camping, along with restrooms, marina services, accessible access, a two-lane launch ramp and fishing facilities. It is privately managed near the FM 1960 bridge; verify whether campsite pitches remain commercially available and which hookups are offered before booking.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/houston/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Lake Houston uses statewide fishing regulations",
+        "text": "The TPWD Lake Houston fisheries profile currently directs anglers to the statewide freshwater size and daily bag rules rather than publishing a local protected bass slot. Its shallow, turbid water and river-fed habitat create a different fishery from nearby Lake Conroe, so use the correct Lake Houston species and harvest schedules.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/houston/"
+      },
+      {
+        "label": "Water hyacinth, water lettuce and navigation",
+        "text": "TPWD documents invasive water hyacinth, alligatorweed and water lettuce among Lake Houston's emergent vegetation. Boat operators should verify navigability and ramp conditions at the actual bayou access site; lake-plant management warnings are not themselves a change to catfish or bass bag limits.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/houston/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Deussen Park — Harris County public boat access",
+        "description": "Harris County's Deussen Park near the dam has two multi-lane launch ramps plus a separate sailboat ramp, picnic sites, parking and public bank-fishing access. TPWD lists no day-use ramp fee and daylight operation; the county park is not an overnight campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/houston/access.phtml",
+        "external": true
+      },
+      {
+        "label": "FM 1960 bridge shoreline fishing access",
+        "description": "TPWD explicitly documents public bank-fishing opportunities beneath the FM 1960 bridge over Lake Houston. This is an actual named public access corridor separate from Deussen Park; shore conditions and traffic safety warrant care.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/houston/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/houston/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/houston/"
+    ]
+  },
+  "lake-granbury": {
+    "camping": [
+      {
+        "name": "Dinosaur Valley State Park — separate nearby state-park campground",
+        "type": "Nearby campsite alternative; different park and waterbody",
+        "summary": "TPWD operates developed electric-and-water campsites plus primitive camping at Dinosaur Valley State Park near Glen Rose. This is not a campsite on Lake Granbury or at any Brazos River Authority ramp; it's a regional camping alternative for visitors willing to drive from the reservoir. Reserve using the state-park operator.",
+        "href": "https://tpwd.texas.gov/state-parks/dinosaur-valley"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Statewide limits, no Granbury-specific harvest slot",
+        "text": "TPWD's Lake Granbury fisheries profile states that all species follow statewide harvest regulations. Largemouth bass, white/striped bass, white crappie and channel/flathead catfish use species-specific statewide size and daily bag rules; fish-harvest law is separate from the Brazos River Authority's lake recreation rules.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granbury/"
+      },
+      {
+        "label": "Golden alga and major water-level changes",
+        "text": "TPWD documents a history of golden-alga blooms that can kill fish in Lake Granbury and notes reservoir-level fluctuations up to 30 feet. These are lake-specific warnings about fishing success and safe ramp access, not permanent closures or special harvesting restrictions; consult fresh agency reports before planning a trip.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granbury/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Hewlett Park — Granbury ADA-accessible pier",
+        "description": "The official Lake Granbury access inventory identifies an ADA-accessible fishing pier in Hewlett Park across East Pearl Street from Granbury City Park. It is an actual named public fishing stop with no launch fee, distinct from a private marina or overnight campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granbury/access.phtml",
+        "external": true
+      },
+      {
+        "label": "De Cordova Bend — Brazos tailrace fishing",
+        "description": "TPWD documents a boat launch, public fishing pier and tailrace-area access at De Cordova Bend near the reservoir dam, operated by the Brazos River Authority. Visitors should check flow and dam safety notices, but the site is a real water-access destination.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granbury/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/state-parks/dinosaur-valley",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granbury/",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granbury/access.phtml"
+    ]
+  },
+  "proctor-lake": {
+    "camping": [
+      {
+        "name": "Promontory Point Park — Corps lakeshore camping",
+        "type": "Operator-researched campground",
+        "summary": "TPWD's Proctor Lake recreation directory identifies Promontory Point as a Corps-operated park with camping, restrooms, picnic areas and two lighted two-lane concrete ramps. It is reached from Texas 16 via FM 2318; confirm specific campsites, utilities and bookings with the Corps office before arriving.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/access.phtml"
+      },
+      {
+        "name": "Copperas Creek Park — federal campground and boat launch",
+        "type": "Operator-researched campground",
+        "summary": "The Corps-operated Copperas Creek public access area is explicitly marked by TPWD as offering camping and picnic facilities, plus two lighted concrete boat ramps. The approach is from FM 2861; overnight campsite hookup classes and fees must be checked with the Corps rather than inferred from the ramp listing.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/access.phtml"
+      },
+      {
+        "name": "Sowell Creek Park — developed lakeshore campground",
+        "type": "Operator-researched campground",
+        "summary": "TPWD identifies Sowell Creek as a Corps park with camping and a multi-lane lighted launch ramp, reached from FM 1476. Bank fishing and picnics are offered in the same recreation area. Reserve named campsites via the federal operator and verify any park or boat-access closures.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Proctor's current fishing limits",
+        "text": "The TPWD Proctor Lake fishery profile lists the lake's target fisheries and directs anglers to the current statewide freshwater species rules unless the waterbody schedule has an exception. Bass, catfish, crappie and white bass have separate size/bag limits; do not import the different special rules of Lake O' the Pines.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/"
+      },
+      {
+        "label": "Access gates, launch conditions and water levels",
+        "text": "TPWD lists several separate Corps launch and camping areas at Proctor; only the named recreation parks are documented as campgrounds, while the Dam ramp is primarily a boating access site. Lake levels can affect actual launch usability despite a published 'open all year' inventory entry.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Proctor Dam Recreation Area — public boat ramp",
+        "description": "The USACE Dam access point off US 67/377 has a single-lane concrete ramp and parking for roughly 30 vehicles, according to TPWD's operator inventory. This is a named day-use outing, not proof of an overnight campground at the dam.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Copperas Creek — lake recreation area",
+        "description": "Copperas Creek has Corps-managed public picnicking, boating and bank-fishing facilities accessed via FM 2861. It's a real lake-specific park, and its ramps are distinct from the separate Promontory Point and Sowell Creek launch entrances.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/proctor/"
+    ]
+  },
+  "granger-lake": {
+    "camping": [
+      {
+        "name": "Willis Creek Park — USACE campground",
+        "type": "Operator-researched campground",
+        "summary": "The US Army Corps of Engineers operates Willis Creek on the north side of Granger Lake, at the mouth of Willis Creek on County Road 346. TPWD verifies overnight camping, restrooms, picnicking and a three-lane concrete ramp at the park; confirm site hookups and current reservations with the Corps.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/access.phtml"
+      },
+      {
+        "name": "Taylor Park — Corps campground on south shore",
+        "type": "Operator-researched campground",
+        "summary": "Taylor Park on Granger Lake's southern shore off FM 1331 is a Corps-developed overnight recreation area with camping, restrooms and a four-lane launch ramp. Fees apply and the park is listed year-round. Reserve specific campsites through the managing federal operator.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/access.phtml"
+      },
+      {
+        "name": "Wilson H. Fox Park — multi-ramp campground",
+        "type": "Operator-researched campground",
+        "summary": "TPWD lists Wilson H. Fox Park as another Corps-operated Granger campground with picnic facilities and two separate ramps, one six-lane and one two-lane. Access is via FM 1331; overnight sites are separate from fishing-pier or day-use admissions.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Current statewide harvest limits",
+        "text": "TPWD's Granger Lake fisheries overview describes the reservoir's statewide fish-harvest schedule. Largemouth bass, white bass, catfish and crappie have distinct legal daily bags and minimum sizes, so check the current Outdoor Annual for the species being targeted rather than treating ramp regulations as fishing law.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/"
+      },
+      {
+        "label": "Zebra mussels and boat movement",
+        "text": "TPWD explicitly warns that zebra mussels have invaded Granger Lake. State law requires draining vessels and onboard receptacles on leaving or approaching public freshwater, and anglers should inspect and clean trailers and gear when moving between Granger and other Central Texas lakes.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "San Gabriel WMA — jon boat and canoe launch",
+        "description": "TPWD identifies the San Gabriel Wildlife Management Area at the mouth of the San Gabriel River as a free, primitive one-lane hand-launch location suitable for canoes and jon boats only, with no trailered boats. This is a named wildlife and shoreline access outing, not a developed campground.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Willis Creek Park — public shoreline and launch",
+        "description": "The Corps' Willis Creek location provides picnicking, bank-fishing and a three-lane concrete launch at the creek mouth. It offers a real alternative lake sector to the larger south-shore Taylor and Wilson Fox park ramps, with separate operator fees.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/granger/"
+    ]
+  },
+  "bardwell-lake": {
+    "camping": [
+      {
+        "name": "Highview Park — USACE campground",
+        "type": "Operator-researched campground",
+        "summary": "The official TPWD Lake Bardwell access directory marks Highview Park on the western shore as a Corps-operated campground with public picnic areas and a four-lane launch ramp. The private Highview Marina is a separate business within the park. Confirm specific campsite utilities and reservation status through the Corps.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/access.phtml"
+      },
+      {
+        "name": "Waxahachie Creek Park — Corps campground",
+        "type": "Operator-researched campground",
+        "summary": "TPWD identifies Waxahachie Creek Park upstream of Bardwell's Highway 34 crossing as a camping-equipped USACE recreation park. Its two four-lane ramps and accessible facilities serve boating and camping traffic; the park entrance is reached by a short unpaved road off Texas 34.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/access.phtml"
+      }
+    ],
+    "regulations": [
+      {
+        "label": "Lake Bardwell fish species and statewide rules",
+        "text": "TPWD's Lake Bardwell profile directs anglers to current statewide fish regulations for the listed white bass, hybrid striped bass, crappie and other resident fish. White bass have a different bag and minimum length from hybrid striped bass; identify catch species before applying the current Outdoor Annual.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/"
+      },
+      {
+        "label": "Closed state public ramp and active Corps facilities",
+        "text": "TPWD's current Bardwell access table marks the State Public Ramp CLOSED, while Love, Little Mustang, Waxahachie Creek, Highview and Mott parks retain distinct Corps-run launches. Closure of one ramp is not closure of fishing on the entire lake; verify individual site access before towing.",
+        "sourceUrl": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/access.phtml"
+      }
+    ],
+    "nearby": [
+      {
+        "label": "Mott Park — named bank-fishing areas",
+        "description": "TPWD's Mott Park listing identifies two public bank-fishing areas near the four-lane ramp on Lake Bardwell's west shore. Access is off FM 985; the park is a specific shore-fishing option rather than an invented attraction or an overnight site.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/access.phtml",
+        "external": true
+      },
+      {
+        "label": "Little Mustang Creek — Lake Bardwell upper reach",
+        "description": "The Corps' Little Mustang access area has a four-lane boat ramp and public lakeshore picnicking where Mustang and Little Mustang creeks enter the upper lake. It is an actual named recreation location and has its own entrance route.",
+        "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/access.phtml",
+        "external": true
+      }
+    ],
+    "reviewedAt": "2026-10-31",
+    "sourceUrls": [
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/access.phtml",
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bardwell/"
+    ]
   }
 };
