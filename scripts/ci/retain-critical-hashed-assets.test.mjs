@@ -16,6 +16,11 @@ test('retain only safe critical content-hashed JS/CSS, no arbitrary URL or trave
     '/assets/styles-CGHzhhAO.css', '/assets/property-tax.taxing-unit._unit-BdLFe-27.js',
     '/assets/texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js',
     '/assets/RouteStatusScreens-BpwrK-xE.js',
+    // Actual October 31 verified Googlebot 404 paths, retained only if first
+    // observed healthy and the digest is independently matched.
+    '/assets/events.lazy-BqnK_3OO.js',
+    '/assets/events._collection.lazy-D0ueLEjb.js',
+    '/assets/food._slug.lazy-D_RAXB8y.js',
   ]) assert.equal(safeCriticalAsset(path), true, path);
   for (const path of ['/assets/main-A.js?cachebust=1', '/assets/../../secrets.js',
     '/api/private.js', 'https://other.example/assets/main-A.js',
