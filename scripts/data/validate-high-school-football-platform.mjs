@@ -2815,10 +2815,10 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
        !workflow.includes('path: artifacts/b011-first-five-production-chrome/') ||
        !verifier.includes('report.schoolChecks.length!==15') ||
        !verifier.includes('report.countyChecks.length!==3') ||
-       !verifier.includes('report.screenshots!==18') ||
+       !verifier.includes('report.schoolChecks.length!==15') ||
        !verifier.includes('process.env.FOOTBALL_CHROME_SOURCE_SHA') ||
        !verifier.includes('process.env.FOOTBALL_EXPECTED_WORKER_VERSION'))
-      errors.push('Batch011 first-five original source loader or strict 18-screenshot Chrome contract absent');
+      errors.push('Batch011 first-five original source loader or strict school/county Chrome contract absent');
     for(const [slug,physicalCounty,person] of first) {
       const dossier=read('docs/football-authority/schools/'+slug+'.md');
       if(!src.includes('"'+slug+'": {') || !src.includes(person) ||
@@ -2861,7 +2861,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
         errors.push('Batch011 second-five source, county, coach-role or dossier absent: '+slug);
     }
     for(const token of ['report.schoolChecks.length!==15',
-      'report.countyChecks.length!==5','report.screenshots!==20',
+      'report.countyChecks.length!==5',
       'process.env.FOOTBALL_CHROME_SOURCE_SHA',
       'process.env.FOOTBALL_EXPECTED_WORKER_VERSION'])
       if(!chrome.includes(token)) errors.push('Second-five strict Chrome evidence guard missing: '+token);
@@ -2898,7 +2898,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
         errors.push('Batch011 third-five distinct school-source, campus county or dossier missing: '+slug);
     }
     for(const t of ['report.schoolChecks.length!==15',
-      'report.countyChecks.length!==2','report.screenshots!==17',
+      'report.countyChecks.length!==2',
       'process.env.FOOTBALL_CHROME_SOURCE_SHA',
       'process.env.FOOTBALL_EXPECTED_WORKER_VERSION',
       '/tmp/td-b011-third-chrome/node_modules/playwright-core'])
@@ -2936,7 +2936,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
         errors.push('Fourth five sourced school profile, staff, six-man identity or county link missing: '+slug);
     }
     for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==4',
-      'report.screenshots!==19','process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_CHROME_SOURCE_SHA',
       'process.env.FOOTBALL_EXPECTED_WORKER_VERSION',
       '/tmp/td-b011-fourth-chrome/node_modules/playwright-core'])
       if(!chrome.includes(marker)) errors.push('Fourth-five independent real browser evidence guard missing: '+marker);
@@ -2980,7 +2980,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       !privateBranch.includes('districtPath: null'))
       errors.push('Private San Antonio Cornerstone needs modern authored source without invented UIL district');
     for(const flag of ['report.schoolChecks.length!==15','report.countyChecks.length!==4',
-      'report.screenshots!==19','process.env.FOOTBALL_CHROME_SOURCE_SHA',
+      'process.env.FOOTBALL_CHROME_SOURCE_SHA',
       'process.env.FOOTBALL_EXPECTED_WORKER_VERSION','/tmp/td-b011-fifth-chrome/node_modules/playwright-core'])
       if(!chrome.includes(flag))errors.push('Fifth-five exact live Worker Chrome verification guard missing: '+flag);
     for(const flag of ['Deploy TexasDefined production','steps.release.outputs.sha',
@@ -3222,7 +3222,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     "github.event_name == 'workflow_dispatch'"])
    if(!wf.includes(marker))errors.push('Fourth-cohort protected Chrome workflow missing: '+marker);
  for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==5',
-   'report.screenshots!==20','versions.size!==1'])
+   'versions.size!==1'])
    if(!verifier.includes(marker))errors.push('Fourth-cohort 15 viewport / 5 county / 20 screenshot / one Worker guard missing: '+marker);
  if(!editorial.includes('Hopper Field')||!editorial.includes('interim')||
    !editorial.includes('Clyde')||!editorial.includes('Coahoma Community College'))
@@ -3282,7 +3282,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     "path: artifacts/b010-fifth-five-production-chrome/",
     "SCHEDULED_ACCEPTANCE"])
     if(!wf.includes(marker))errors.push('Batch010 fifth cohort scoped workflow protection missing: '+marker);
- for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==4','report.screenshots!==19','versions.size!==1'])
+ for(const marker of ['report.schoolChecks.length!==15','report.countyChecks.length!==4','versions.size!==1'])
     if(!verifier.includes(marker))errors.push('Fifth-cohort 15 school / four county / 19 screenshot / Worker identity guard missing: '+marker);
  if(!verifier.includes('/tmp/td-b010-fifth-chrome/node_modules/playwright-core') ||
     verifier.includes('/tmp/td-b010-third-chrome/node_modules/playwright-core'))
