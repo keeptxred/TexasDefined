@@ -66,8 +66,10 @@ test('select exact emitted football and tax lazy-route chunks even when absent f
     'other.lazy-123.js',
   ];
   assert.deepEqual(selectBuiltRouteAssets(files), [
-    { path: '/assets/texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js', kind: 'js', source: 'built-lazy-route' },
-    { path: '/assets/property-tax.taxing-unit._unit-CGuzIffC.js', kind: 'js', source: 'built-lazy-route' },
+    { path: '/assets/texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js', kind: 'js', source: 'built-client-chunk' },
+    { path: '/assets/property-tax.taxing-unit._unit-CGuzIffC.js', kind: 'js', source: 'built-client-chunk' },
+    { path: '/assets/main-LkbE9wUL.js', kind: 'js', source: 'built-client-chunk' },
+    { path: '/assets/Container-Cz1cjZOJ.js', kind: 'js', source: 'built-client-chunk' },
   ]);
   assert.deepEqual(referencesFromHtml('<script src="/assets/main-LkbE9wUL.js"></script>').map(x => x.path), [
     '/assets/main-LkbE9wUL.js',
@@ -103,7 +105,25 @@ test('strict production gate checks built lazy modules and previously confirmed 
   assert.match(code, /selectBuiltRouteAssets\(await readdir\('dist\/client\/assets'\)\)/);
   assert.match(code, /const legacyResponses = await auditAssets\(CANONICAL, priorBuilt\)/);
   assert.match(code, /const a of newBuilt/);
+  assert.match(code, /OPTIONAL_BUILT_CHUNK_PATTERNS/);
+  assert.match(code, /RouteStatusScreens-/);
   assert.match(code, /for \(const a of inherited.values\(\)\)/);
   assert.match(code, /for \(const origin of \[DIRECT, CANONICAL\]\)/);
   assert.match(code, /record\.sha256 === a\.preSha256/);
+});
+
+test('capture common CSS, header/footer and fallback chunks when built, without failing on optional missing', () => {
+  const core = [
+    'texas-high-school-football-teams_._slug.lazy-A1.js',
+    'property-tax.taxing-unit._unit-B2.js',
+  ];
+  assert.equal(selectBuiltRouteAssets(core).length, 2);
+  assert.deepEqual(selectBuiltRouteAssets([...core,
+    'styles-C3.css', 'Header-D4.js', 'Footer-E5.js', 'RouteStatusScreens-F6.js', 'x-G7.js'
+  ]).map(x => x.path), [
+    '/assets/texas-high-school-football-teams_._slug.lazy-A1.js',
+    '/assets/property-tax.taxing-unit._unit-B2.js',
+    '/assets/styles-C3.css', '/assets/Header-D4.js', '/assets/Footer-E5.js',
+    '/assets/RouteStatusScreens-F6.js', '/assets/x-G7.js',
+  ]);
 });
