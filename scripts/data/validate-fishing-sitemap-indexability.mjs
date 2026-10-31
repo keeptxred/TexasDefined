@@ -55,9 +55,15 @@ for (const marker of [
   '"noindex, follow"',
 ]) if (!sectionRoute.includes(marker)) errors.push(`Showcase route must mirror sitemap publication eligibility: ${marker}`);
 for (const marker of [
+  'section === "fish"',
+  'section === "access"',
+  'section === "boating"',
   'section === "camping"',
   'section === "nearby"',
   'section === "regulations"',
+  "lake.fish.length >= 3",
+  "lake.access.some",
+  "lake.boatingNotes.some",
   "lake.campingProhibited",
   "sourceBacked && actualFacility",
   "place.description.trim()",
