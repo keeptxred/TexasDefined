@@ -41,6 +41,17 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^events\.lazy-[A-Za-z0-9_-]+\.js$/,
   /^events\._collection\.lazy-[A-Za-z0-9_-]+\.js$/,
   /^food\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,
+  // Additional Oct 24–31 observed 404 families: major content routes.
+  /^article\._slug-[A-Za-z0-9_-]+\.js$/,
+  /^destination\._slug-[A-Za-z0-9_-]+\.js$/,
+  /^events\.index\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^explore\.index\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^search\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^fishing\.lakes\._slug-[A-Za-z0-9_-]+\.js$/,
+  /^texas-high-school-football-playoff-brackets-[A-Za-z0-9_-]+\.js$/,
+  /^MuseumAuthorityNetworkSection-[A-Za-z0-9_-]+\.js$/,
+  /^museum-authority-heroes-[A-Za-z0-9_-]+\.js$/,
+  /^texas-data\.lazy-[A-Za-z0-9_-]+\.js$/,
 ];
 
 export function selectBuiltRouteAssets(files) {
