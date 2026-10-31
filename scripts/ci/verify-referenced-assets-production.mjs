@@ -21,19 +21,37 @@ const REQUEST_TIMEOUT = 20000;
 // HTML <script>/<link> parsing alone cannot discover them: Vite references
 // these hashes from dynamic import expressions. Read only two exact bundle
 // canaries from the already-built client output, never crawl the whole site.
-const BUILT_ROUTE_PATTERNS = [
+const REQUIRED_BUILT_ROUTE_PATTERNS = [
   /^texas-high-school-football-teams_\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,
   /^property-tax\.taxing-unit\._unit-[A-Za-z0-9_-]+\.js$/,
 ];
+// The old Googlebot 404s also included main/Container/styles/Header/Footer/
+// RouteStatusScreens/icon imports that are not always in server-rendered HTML.
+// Keep optional names if actually emitted; never invent a filename.
+const OPTIONAL_BUILT_CHUNK_PATTERNS = [
+  /^main-[A-Za-z0-9_-]+\.js$/,
+  /^Container-[A-Za-z0-9_-]+\.js$/,
+  /^styles-[A-Za-z0-9_-]+\.css$/,
+  /^Header-[A-Za-z0-9_-]+\.js$/,
+  /^Footer-[A-Za-z0-9_-]+\.js$/,
+  /^RouteStatusScreens-[A-Za-z0-9_-]+\.js$/,
+  /^x-[A-Za-z0-9_-]+\.js$/,
+];
 
 export function selectBuiltRouteAssets(files) {
-  return BUILT_ROUTE_PATTERNS.map(pattern => {
+  function match(pattern, required) {
     const matches = files.filter(file => pattern.test(file));
-    if (matches.length !== 1) {
-      throw new Error('Expected exactly one production lazy-route chunk for ' + pattern + ', found ' + matches.length);
+    if (matches.length !== 1 && (required || matches.length > 1)) {
+      throw new Error('Expected ' + (required ? 'exactly one' : 'at most one') +
+        ' production client chunk for ' + pattern + ', found ' + matches.length);
     }
-    return { path: '/assets/' + matches[0], kind: 'js', source: 'built-lazy-route' };
-  });
+    return matches.map(file => ({ path: '/assets/' + file,
+      kind: file.endsWith('.css') ? 'css' : 'js', source: 'built-client-chunk' }));
+  }
+  return [
+    ...REQUIRED_BUILT_ROUTE_PATTERNS.flatMap(pattern => match(pattern, true)),
+    ...OPTIONAL_BUILT_CHUNK_PATTERNS.flatMap(pattern => match(pattern, false)),
+  ];
 }
 
 
@@ -196,7 +214,8 @@ async function verify() {
   const histories = [];
   const inherited = new Map();
   const latest = saved.snapshots.at(-1);
-  if (!Array.isArray(latest.builtAssets) || latest.builtAssets.length !== BUILT_ROUTE_PATTERNS.length) {
+  if (!Array.isArray(latest.builtAssets) || latest.builtAssets.length < REQUIRED_BUILT_ROUTE_PATTERNS.length ||
+      !REQUIRED_BUILT_ROUTE_PATTERNS.every(pattern => latest.builtAssets.some(a => pattern.test(a.path.split('/').pop())))) {
     throw new Error('No complete built lazy-route canaries in predeploy snapshot; cannot certify');
   }
   const newBuilt = latest.builtAssets;
@@ -216,6 +235,12 @@ async function verify() {
   // baseline is recorded separately and never mislabeled as a new 404.
   for (const a of latest.legacyAssets || []) {
     if (a.wasAvailable === true) inherited.set(a.path, { ...a });
+  }
+  // The outgoing Worker's old hash bytes were copied into the upcoming
+  // dist/client bundle before Wrangler deployment. Make their continued
+  // availability a hard live production gate, not a best-effort report.
+  for (const asset of latest.retainedAssets || []) {
+    if (asset.wasAvailable === true) inherited.set(asset.path, { ...asset });
   }
   const results = { format: 1, checkedAt: new Date().toISOString(), expected, histories,
     lazyRouteCanaries: newBuilt.map(x => x.path),

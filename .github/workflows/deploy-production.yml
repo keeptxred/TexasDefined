@@ -412,6 +412,15 @@ jobs:
         if: success()
         run: node scripts/ci/verify-referenced-assets-production.mjs --capture
 
+      # Exact old client JS/CSS filenames were observed returning 404 to
+      # Googlebot after full Worker replacements. Before replacing the still-
+      # active Worker, fetch bounded verified bytes for recent hashes and make
+      # Wrangler include them in this next version's dist/client asset set.
+      - name: Retain bounded old hashed client assets
+        id: retain_critical_assets
+        if: success()
+        run: node scripts/ci/retain-critical-hashed-assets.mjs --retain
+
       - name: Publish Cloudflare deploy pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare pending "Deploying TexasDefined Worker"
@@ -602,6 +611,7 @@ jobs:
           path: |
             .artifacts/asset-handoff-snapshot.json
             .artifacts/asset-delivery-report.json
+            .artifacts/retained-critical-assets-report.json
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
