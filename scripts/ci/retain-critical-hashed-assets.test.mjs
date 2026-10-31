@@ -13,6 +13,14 @@ const now = Date.parse('2026-10-31T12:00:00.000Z');
 test('retain only safe critical content-hashed JS/CSS, no arbitrary URL or traversal', () => {
   for (const path of [
     '/assets/main-BbzNQxMh.js', '/assets/Container-D5VE1rr_.js',
+    '/assets/texas-high-school-football-districts_._slug.lazy-LUNlVWLt.js',
+    '/assets/texas-high-school-football-districts.lazy-qUVgGBGS.js',
+    '/assets/useLocation-BggeWcAi.js',
+    '/assets/SponsoredSportsPlacement-VM9ICMMH.js',
+    '/assets/createLucideIcon-yBqUUiDC.js',
+    '/assets/ContextualOfficialSources-CoOaVWuv.js',
+    '/assets/CitationCollectionTrustRouter-CQsMd_7t.js',
+    '/assets/analytics-aWB69Ydr.js',
     '/assets/styles-CGHzhhAO.css', '/assets/property-tax.taxing-unit._unit-BdLFe-27.js',
     '/assets/texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js',
     '/assets/RouteStatusScreens-BpwrK-xE.js',
