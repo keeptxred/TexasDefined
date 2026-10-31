@@ -581,7 +581,8 @@ jobs:
         with:
           name: hashed-asset-continuity-${{ github.run_id }}
           path: .artifacts/asset-continuity-*.json
-          if-no-files-found: warn
+          include-hidden-files: true
+          if-no-files-found: error
           retention-days: 14
       # This is a separate hard gate from homepage HTML health: detect a present
       # document that references missing JS/CSS, including previously available
@@ -601,6 +602,7 @@ jobs:
           path: |
             .artifacts/asset-handoff-snapshot.json
             .artifacts/asset-delivery-report.json
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
 

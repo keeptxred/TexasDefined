@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { nextSnapshotHistory, referencesFromHtml, validAssetResponse } from './verify-referenced-assets-production.mjs';
 
@@ -43,4 +44,15 @@ test('retain only one older generation plus current, never grow indefinitely', (
   assert.equal(two.snapshots.length, 2);
   const three = nextSnapshotHistory(two, fake(3));
   assert.deepEqual(three.snapshots.map(x => x.pages[0].assets[0].path), ['/assets/x-2.js', '/assets/x-3.js']);
+});
+
+test('hidden forensic and cross-release asset artifacts must actually upload', () => {
+  const workflow = readFileSync('.github/workflows/deploy-production.yml', 'utf8');
+  for (const name of ['hashed-asset-continuity-', 'asset-handoff-']) {
+    const index = workflow.indexOf('name: ' + name);
+    assert.ok(index >= 0, name + ': missing artifact upload');
+    const config = workflow.slice(index, index + 430);
+    assert.match(config, /include-hidden-files: true/, name + ': .artifacts would be silently excluded');
+    assert.match(config, /if-no-files-found: error/, name + ': lost evidence must fail the pipeline');
+  }
 });
