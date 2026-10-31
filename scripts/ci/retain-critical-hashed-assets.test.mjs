@@ -16,7 +16,7 @@ test('retain only safe critical content-hashed JS/CSS, no arbitrary URL or trave
     '/assets/styles-CGHzhhAO.css', '/assets/property-tax.taxing-unit._unit-BdLFe-27.js',
     '/assets/texas-high-school-football-teams_._slug.lazy-ClHVsoFo.js',
     '/assets/RouteStatusScreens-BpwrK-xE.js',
-    // Actual October 31 verified Googlebot 404 paths, retained only if first
+    // Actual October 31 verified Microsoft-crawler 404 paths, retained only if first
     // observed healthy and the digest is independently matched.
     '/assets/events.lazy-BqnK_3OO.js',
     '/assets/events._collection.lazy-D0ueLEjb.js',
