@@ -106,6 +106,26 @@ test('discover event and food lazy-route hashes observed missing for Microsoft s
     /at most eight distinct/, 'same exact filename duplicated must fail closed');
 });
 
+test('handoff discovers actual generated district and sports dependency chunks', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-A1.js',
+    'property-tax.taxing-unit._unit-B2.js',
+  ];
+  const observed = [
+    'texas-high-school-football-districts_._slug.lazy-LUNlVWLt.js',
+    'texas-high-school-football-districts.lazy-qUVgGBGS.js',
+    'useLocation-BggeWcAi.js',
+    'SponsoredSportsPlacement-VM9ICMMH.js',
+    'createLucideIcon-yBqUUiDC.js',
+    'ContextualOfficialSources-CoOaVWuv.js',
+    'CitationCollectionTrustRouter-CQsMd_7t.js',
+    'analytics-aWB69Ydr.js',
+  ];
+  assert.deepEqual(selectBuiltRouteAssets([...required, ...observed]).map(x => x.path).slice(2),
+    observed.map(x => '/assets/' + x));
+  assert.equal(selectBuiltRouteAssets(required).length, 2, 'do not create fictitious old hashes');
+});
+
 test('discover observed old major article, destination, sports and discovery JS families', () => {
   const base = [
     'texas-high-school-football-teams_._slug.lazy-BASE.js',
