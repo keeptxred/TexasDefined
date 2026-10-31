@@ -76,6 +76,28 @@ test('select exact emitted football and tax lazy-route chunks even when absent f
   ], 'do not incorrectly assume lazy imports are present as HTML asset tags');
 });
 
+test('discover event and food lazy-route hashes observed missing for verified Googlebot', () => {
+  const files = [
+    'texas-high-school-football-teams_._slug.lazy-A1.js',
+    'property-tax.taxing-unit._unit-B2.js',
+    'events.lazy-C3.js',
+    'events._collection.lazy-D4.js',
+    'food._slug.lazy-E5.js',
+    'another-unrelated.lazy-Z9.js',
+  ];
+  assert.deepEqual(selectBuiltRouteAssets(files).map(x => x.path), [
+    '/assets/texas-high-school-football-teams_._slug.lazy-A1.js',
+    '/assets/property-tax.taxing-unit._unit-B2.js',
+    '/assets/events.lazy-C3.js',
+    '/assets/events._collection.lazy-D4.js',
+    '/assets/food._slug.lazy-E5.js',
+  ]);
+  // Unemitted optional chunks are not fabricated into a deployment.
+  assert.equal(selectBuiltRouteAssets(files.slice(0, 2)).length, 2);
+  assert.throws(() => selectBuiltRouteAssets([...files, 'food._slug.lazy-DUPLICATE.js']),
+    /Expected at most one production client chunk/);
+});
+
 test('missing or ambiguous lazy-route chunks fail closed instead of silently skipping old Googlebot failures', () => {
   assert.throws(() => selectBuiltRouteAssets(['main-AbCd.js']), /Expected exactly one production client chunk/);
   assert.throws(() => selectBuiltRouteAssets([
