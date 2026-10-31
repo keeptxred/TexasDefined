@@ -1,0 +1,67 @@
+name: One-time LIVE TexasDefined URL-by-URL thin-content scan
+
+# Explicit owner-requested live census. No schedule and no recurring triggers.
+on:
+  push:
+    branches:
+      - audit/one-time-thin-content-20261030
+    paths:
+      - .github/workflows/one-shot-live-thin-content.yml
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: texasdefined-single-live-thin-census-20261030
+  cancel-in-progress: false
+
+jobs:
+  crawl-live-once:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    env:
+      TD_THIN_REPORT_DIR: ops/seo/audits/2026-10-30-live
+      TD_THIN_CONCURRENCY: '4'
+      TD_THIN_MAX_URLS: '12000'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Crawl current live site once with bounded four-request concurrency
+        id: crawl
+        continue-on-error: true
+        run: node scripts/ci/one-shot-live-thin-content-crawl.mjs
+      - name: Commit NEW live URL-level reports to isolated audit branch
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -s "$TD_THIN_REPORT_DIR/all-current-pages.csv" ]]; then
+            echo "No current scan results: refusing to invent URL list."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$TD_THIN_REPORT_DIR"
+          if ! git diff --cached --quiet; then
+            git commit -m "Record new live sitewide content census [skip ci]"
+            git push origin HEAD:audit/one-time-thin-content-20261030
+          fi
+      - name: Preserve complete fresh audit output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texasdefined-live-thin-content-20261030
+          path: ops/seo/audits/2026-10-30-live/
+          retention-days: 30
+          if-no-files-found: error
+      - name: Reject incomplete live census
+        if: always()
+        shell: bash
+        run: |
+          test -s "$TD_THIN_REPORT_DIR/summary.json"
+          node -e 'const x=require("./"+process.env.TD_THIN_REPORT_DIR+"/summary.json");if(x.incomplete)process.exit(1);console.log("Completed fresh URLs:",x.scanned,"risk:",x.counts)'
