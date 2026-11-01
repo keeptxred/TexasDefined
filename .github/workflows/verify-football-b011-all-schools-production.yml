@@ -5,6 +5,8 @@ on:
     types: [completed]
     branches: [main]
   workflow_dispatch:
+  issue_comment:
+    types: [created]
   schedule:
     - cron: '16 14 * 8-12 *'
     - cron: '16 14 * 1-7 3'
@@ -17,7 +19,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   chrome:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ (github.event_name == 'issue_comment' && github.event.issue.number == 5794 && github.actor == 'keeptxred' && github.event.comment.body == '/run-b011-chrome') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:
