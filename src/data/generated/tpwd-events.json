@@ -1,72 +1,12 @@
 {
-  "generatedAt": "2026-10-31T16:09:04.199Z",
+  "generatedAt": "2026-11-01T17:09:27.435Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "All About Snakes",
-      "startDate": "2026-10-31",
-      "parkKey": "lake-livingston",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/all-about-snakes/2026-10-31"
-    },
-    {
-      "title": "Archery 101",
-      "startDate": "2026-10-31",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-10-31"
-    },
-    {
-      "title": "Armadillo Antics",
-      "startDate": "2026-10-31",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/armadillo-antics/2026-10-31"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-10-31",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-10-31"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-10-31",
-      "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy_of_guided-history-tour-1/2026-10-31"
-    },
-    {
-      "title": "Pelts and Tracks",
-      "startDate": "2026-10-31",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/pelts-and-tracks/2026-10-31"
-    },
-    {
-      "title": "Reptiles with a Ranger",
-      "startDate": "2026-10-31",
-      "parkKey": "lake-brownwood",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-10-31"
-    },
-    {
-      "title": "Saturday Honey Creek Guided Walk--Registration Required",
-      "startDate": "2026-10-31",
-      "parkKey": "guadalupe-river",
-      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-10-31"
-    },
-    {
-      "title": "Snakes and Creepy Crawlies",
-      "startDate": "2026-10-31",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/creepy-crawly-critters-of-the-desert/2026-10-31"
-    },
     {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-11-01",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-01"
-    },
-    {
-      "title": "Birding Hike",
-      "startDate": "2026-11-01",
-      "parkKey": "brazos-bend",
-      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/birding-hike_all-26/2026-11-01"
     },
     {
       "title": "Discovery Walk Sundays",
@@ -75,22 +15,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-01"
     },
     {
-      "title": "Frog Pond Frolic",
-      "startDate": "2026-11-01",
-      "parkKey": "enchanted-rock",
-      "officialUrl": "https://tpwd.texas.gov/calendar/enchanted-rock/frog-pond-frolic/2026-11-01"
-    },
-    {
       "title": "Pictograph Tours (Reservations Required)",
       "startDate": "2026-11-01",
       "parkKey": "hueco-tanks",
       "officialUrl": "https://tpwd.texas.gov/calendar/hueco-tanks/pictograph-1-tour/2026-11-01"
-    },
-    {
-      "title": "Pollinator BioBlitz",
-      "startDate": "2026-11-01",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/pollinator-bioblitz/2026-11-01"
     },
     {
       "title": "Sunday Honey Creek Guided Walk--Registration Required",
@@ -217,12 +145,6 @@
       "startDate": "2026-11-07",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-07"
-    },
-    {
-      "title": "Saturday Morning Check-In (Online)",
-      "startDate": "2026-11-07",
-      "parkKey": "lake-casa-blanca",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-casa-blanca/saturday-morning-check-in/2026-11-07"
     },
     {
       "title": "Star Party in the Borderlands *Reservations Required*",
@@ -709,6 +631,12 @@
       "startDate": "2026-11-28",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-28"
+    },
+    {
+      "title": "Saturday Morning Check-In (Online)",
+      "startDate": "2026-11-28",
+      "parkKey": "lake-casa-blanca",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-casa-blanca/saturday-morning-check-in/2026-11-28"
     },
     {
       "title": "Track Talk",
@@ -1363,6 +1291,12 @@
       "startDate": "2027-01-24",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-01-24"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2027-01-30",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-01-30"
     }
   ]
 }

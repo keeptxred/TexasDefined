@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-31T16:09:04.246Z",
+  "fetchedAt": "2026-11-01T17:09:27.472Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -203,30 +203,6 @@
         "rZ7HnEZ1Af78uV"
       ],
       "officialTicketUrls": [],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Fright Fest DaBaby and Friends",
-      "city": "Garland",
-      "dates": [
-        "2026-10-31"
-      ],
-      "venues": [
-        "Curtis Culwell Center"
-      ],
-      "ticketmasterIds": [
-        "Z7r9jZ1AAvSvS"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1AAvSvS"
-      ],
       "status": "requires-organizer-verification",
       "evidence": {
         "organizerUrl": null,
@@ -710,7 +686,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-10-31",
         "2026-11-01",
         "2026-11-05",
         "2026-11-06",
@@ -741,18 +716,17 @@
         "2027-01-17",
         "2027-01-22",
         "2027-01-23",
-        "2027-01-24"
+        "2027-01-24",
+        "2027-01-29"
       ],
       "venues": [
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A7OY4I",
         "Z7r9jZ1A7OY4M",
         "Z7r9jZ1A7OY4U",
         "Z7r9jZ1A7OY4V",
         "Z7r9jZ1A7OY4s",
-        "Z7r9jZ1A7OY4t",
         "Z7r9jZ1A7OY4z",
         "Z7r9jZ1A7OYp6",
         "Z7r9jZ1A7OYp7",
@@ -775,6 +749,7 @@
         "Z7r9jZ1A7OpPs",
         "Z7r9jZ1A7OpPt",
         "Z7r9jZ1A7OpPx",
+        "Z7r9jZ1AA7-F4",
         "Z7r9jZ1AA7-F6",
         "Z7r9jZ1AA7-FF",
         "Z7r9jZ1AA7-FK",
@@ -793,12 +768,10 @@
         "Z7r9jZ1AAvPqK"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4I",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4M",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4U",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4V",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4s",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4t",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4z",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp6",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
@@ -821,6 +794,7 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPs",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPt",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPx",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F4",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F6",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FK",
