@@ -1,5 +1,9 @@
 name: Football Batch 011 single-run 25-school production Chrome acceptance
 on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: '16 14 * 8-12 *'
@@ -13,6 +17,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   chrome:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:
