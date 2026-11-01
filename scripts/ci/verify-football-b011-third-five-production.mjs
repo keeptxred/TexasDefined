@@ -2,6 +2,7 @@
 // Strict postdeployment live-Chrome evidence for Batch 011's third five individual school profiles.
 // This verifier NEVER promotes technical VERIFIED status automatically.
 import assert from 'node:assert/strict';
+import { verifySchoolSitemapCoverage } from './verify-football-b011-sitemap-eligibility.mjs';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
@@ -45,10 +46,9 @@ const report = { version:1,sourceCommit:process.env.FOOTBALL_CHROME_SOURCE_SHA||
   schoolChecks:[],countyChecks:[],sitemapMissing:[],workerVersions:[],failures:[],screenshots:0,
   disclaimer:'Automated source-layout technical evidence, not human WCAG, complete coaching audit, media rights certification, current ticket inventory or ADA approval.' };
 const versions = new Set();
-const xml=await fetch(site+'/sitemap.xml',{signal:AbortSignal.timeout(45000)});
-const urls=new Set([...((await xml.text()).matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi))].map(m=>m[1].trim().replace(/\/$/,'')));
-for(const slug of slugs) if(!urls.has(site+'/texas-high-school-football-teams/'+slug)) report.sitemapMissing.push(slug);
-if(xml.status!==200||report.sitemapMissing.length) report.failures.push('Sitemap exact school coverage: '+report.sitemapMissing.join(','));
+const sitemapFailures = await verifySchoolSitemapCoverage(slugs);
+report.sitemapMissing.push(...sitemapFailures);
+if(sitemapFailures.length) report.failures.push('Sitemap eligibility/coverage: '+sitemapFailures.join(','));
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',
   args:['--no-sandbox','--disable-dev-shm-usage']});
 try {
