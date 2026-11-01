@@ -44,6 +44,9 @@ const DestinationVerifiedVisitorFacts = lazy(() =>
   import("@/components/editorial/DestinationVerifiedVisitorFacts").then((module) => ({ default: module.DestinationVerifiedVisitorFacts })),
 );
 
+const MartinCreekRvAuthority = lazy(() => import("@/components/editorial/MartinCreekRvAuthority"));
+
+
 // This substantial below-the-fold visitor guide streams on demand rather than
 // inflating the site-wide client entry bundle with destination-only logic.
 const DestinationVisitPlanner = lazy(() =>
@@ -432,6 +435,9 @@ function DestinationPage() {
     />
 
     <Suspense fallback={null}><DestinationVerifiedVisitorFacts destination={destination} /></Suspense>
+
+    {destination.slug === "martin-creek-lake-state-park-rv-area" && <Suspense fallback={null}><MartinCreekRvAuthority /></Suspense>}
+
 
     {destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? (
       <section id="visitor-faq" className="bg-surface py-10 sm:py-12" aria-labelledby="magoffin-visitor-faq-title">
