@@ -1,0 +1,67 @@
+name: Certify Batch011 from one genuine 25-school Chrome run
+on:
+  workflow_run:
+    workflows: ['Football Batch 011 single-run 25-school production Chrome acceptance']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/ci/prepare-football-b011-single-run-certification.mjs'
+      - 'scripts/ci/verify-football-b011-single-run-reports.mjs'
+      - '.github/workflows/certify-football-b011-single-run.yml'
+permissions:
+  actions: write
+  contents: write
+  deployments: read
+  pull-requests: write
+concurrency:
+  group: football-b011-single-run-graduation
+  cancel-in-progress: false
+jobs:
+  certification:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: texasdefined-publication
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check single-run collector syntax
+        run: node --check scripts/ci/prepare-football-b011-single-run-certification.mjs
+      - name: Collect actual 25-school Chrome and signed release evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_DEPLOY_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+        run: node scripts/ci/prepare-football-b011-single-run-certification.mjs
+      - name: Submit protected evidence-only graduation PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- docs/football-authority/REGISTRY.json docs/football-authority/MASTER.md docs/football-authority/PROGRESS.md; then
+            echo 'No complete accepted single-run evidence; no graduation.'
+            exit 0
+          fi
+          title='Certify Batch 011 from one real 25-school Chrome run'
+          if gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --json title --jq '.[].title' | grep -Fxq "$title"; then
+            echo 'Evidence-only graduation PR already open.'
+            exit 0
+          fi
+          branch="automation/football-b011-single-cert-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add docs/football-authority/REGISTRY.json docs/football-authority/MASTER.md docs/football-authority/PROGRESS.md
+          git commit -m 'Certify Batch011 from one actual 25-school Chrome release'
+          git push origin "$branch"
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" --title "$title" --body 'Evidence-only technical graduation from one non-skipped 25-school Chrome job, compact reports, one authenticated source SHA/Worker release. No unlicensed scores, images or manual signoff. Protected CI and auto-merge.'
+          gh workflow run merge-gate.yml --repo "$GITHUB_REPOSITORY" --ref "$branch"
+          gh pr merge "$branch" --repo "$GITHUB_REPOSITORY" --auto --squash
