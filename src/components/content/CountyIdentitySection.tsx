@@ -4,7 +4,7 @@ import { CountyHistoricSites } from '@/components/content/CountyHistoricSites';
 import { CountyMadeBuiltBorn } from '@/components/content/CountyMadeBuiltBorn';
 import { CountySeasonalPlanning } from '@/components/content/CountySeasonalPlanning';
 import { CountyStatewideContextSection } from '@/components/content/CountyStatewideContextSection';
-import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection';
+import { CountyTaxRateSection, type CountyTaxRateSummary } from '@/components/property/CountyTaxRateSection';
 import type { CountyProfile } from '@/data/county-profile';
 
 const CountyLandscapeContext = lazy(() => import('@/components/content/CountyLandscapeContext').then((module) => ({ default: module.CountyLandscapeContext })));
@@ -48,7 +48,7 @@ const regionalExplainers: Record<string, Array<{ href: string; label: string }>>
   ],
 };
 
-export function CountyIdentitySection({ countyName, region, profile }: { countyName: string; region?: string; profile: CountyProfile }) {
+export function CountyIdentitySection({ countyName, region, profile, initialTaxSummary }: { countyName: string; region?: string; profile: CountyProfile; initialTaxSummary?: CountyTaxRateSummary | null }) {
   const population = profile.population2020;
   const landArea = profile.landAreaSquareMiles;
   const density = profile.populationDensityPerSquareMile;
@@ -63,7 +63,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
     { href: '/texas-explained', label: 'All 10 Texas Explained guides' },
   ];
 
-  if (!hasIdentitySignal) return <><Suspense fallback={null}><CountyWildlifeDestinations countyName={countyName} /></Suspense><CountySeasonalPlanning countySlug={slug} countyName={countyName} /><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
+  if (!hasIdentitySignal) return <><Suspense fallback={null}><CountyWildlifeDestinations countyName={countyName} /></Suspense><CountySeasonalPlanning countySlug={slug} countyName={countyName} /><CountyTaxRateSection countySlug={slug} countyName={countyName} initialSummary={initialTaxSummary} /><CountyMadeBuiltBorn countySlug={slug} /></>;
 
   return (
     <>
@@ -97,7 +97,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
         </div>
       </section>
       <CountySeasonalPlanning countySlug={slug} countyName={countyName} />
-      <CountyTaxRateSection countySlug={slug} countyName={countyName} />
+      <CountyTaxRateSection countySlug={slug} countyName={countyName} initialSummary={initialTaxSummary} />
       <CountyMadeBuiltBorn countySlug={slug} />
     </>
   );

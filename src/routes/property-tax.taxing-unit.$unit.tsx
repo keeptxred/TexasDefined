@@ -79,6 +79,7 @@ function Page() {
   });
   const latestLocal = latest.localVerification?.mode === 'supplement' ? latest.localVerification : null;
   const latestConflict = latest.localVerification?.mode === 'conflict' ? latest.localVerification : null;
+  const historicalConflicts = displayHistory.filter((record) => record.localMode === 'conflict');
   const rateCount = displayHistory.filter((record) => record.displayTotalRate != null).length;
   const chartMaximum = Math.max(0.01, ...displayHistory.map((record) => record.displayTotalRate ?? 0));
   const first = history[0];
@@ -90,6 +91,27 @@ function Page() {
     <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type === 'city' ? 'Municipal taxing unit' : latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Comptroller tax-rate history, with local records labeled. This is {latest.type === 'city' ? 'city tax only' : 'one jurisdiction’s tax only'}. Combine only taxes actually levied on your parcel.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest Comptroller workbook year" value={String(latest.year)}/><Fact label={latest.type === 'city' ? 'Latest municipal rate' : 'Latest unit rate'} value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${formatTaxRate(latest.totalRate)} per $100`}/><Fact label="Years with numeric source records" value={`${rateCount} of ${history.length}`}/>{latestLocal ? <><Fact label="Latest independently verified local rate (display only)" value={`${formatTaxRate(latestLocal.totalRate)} per $100`}/><dt className="text-muted-foreground">Local source</dt><dd><a href={latestLocal.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{latestLocal.sourceAgency} ↗</a></dd></> : null}</dl></header>
 
     {latestConflict ? <section className="border-b border-border py-7"><p className="max-w-4xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Unresolved official-source discrepancy.</strong> For {latest.year}, the Comptroller statewide record lists {formatTaxRate(latest.totalRate!)} per $100 while {latestConflict.sourceAgency} independently reports {formatTaxRate(latestConflict.totalRate)} per $100. The statewide record is retained unchanged; the locally verified evidence is displayed separately rather than substituted into tax calculators. <a className="font-semibold text-primary underline underline-offset-2" href={latestConflict.sourceUrl} target="_blank" rel="noopener noreferrer">Review the official local tax-rate document ↗</a>.</p></section> : null}
+
+    {historicalConflicts.length ? <section aria-labelledby="historical-tax-disagreements" className="border-b border-border py-8">
+      <p className="eyebrow text-primary">Official-source reconciliation</p>
+      <h2 id="historical-tax-disagreements" className="mt-2 font-display text-2xl">Historical rates requiring reconciliation</h2>
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The following local government records differ from a statewide Comptroller workbook. Both figures remain visible, and the local observation is not silently substituted into any statewide calculation.</p>
+      <ul className="mt-4 space-y-3">{historicalConflicts.map((record) => <li key={record.id} className="border-l-2 border-primary pl-4 text-sm leading-6"><strong>{record.year}: statewide {formatTaxRate(record.totalRate!)} vs local {formatTaxRate(record.localTotalRate!)}, per $100.</strong> <a href={record.localSourceUrl!} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Read the local government's published record ↗</a></li>)}</ul>
+    </section> : null}
+
+    {latest.slug === 'edna' ? <section className="border-b border-border py-8" aria-labelledby="edna-current-adopted-rate">
+      <p className="eyebrow text-primary">Newer local adoption · separate from statewide workbook</p>
+      <h2 id="edna-current-adopted-rate" className="mt-2 font-display text-2xl">Edna's adopted 2026 city tax rate</h2>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">On September 28, 2026, Edna City Council adopted a <strong className="text-foreground">$0.2263 per $100</strong> municipal property-tax rate for fiscal 2026–27: <strong>$0.1314</strong> for general operations and <strong>$0.0949</strong> for debt service. This is an official city announcement, <strong>not</strong> the 2026 Comptroller annual workbook and not a combined parcel rate. The historical table below remains labeled through the latest available statewide workbook year.</p>
+      <a href="https://www.cityofedna.com/article/3160346" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read the city's September 29, 2026 adoption notice ↗</a>
+    </section> : null}
+
+    {latest.slug === 'jackson-county-esd-1' ? <section className="border-b border-border py-8" aria-labelledby="esd-rate-explained">
+      <p className="eyebrow text-primary">What this district rate means</p>
+      <h2 id="esd-rate-explained" className="mt-2 font-display text-2xl">An emergency-services district levy, not a countywide tax bill</h2>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Jackson County Emergency Services District No. 1 is a separate special taxing district. A district rate applies only to taxable property within its legal boundaries, and does not replace county, school, municipal or other applicable taxes. For context, a $0.0620 rate per $100 would produce $124 on $200,000 of <em>taxable value</em> before any parcel-specific adjustments; this illustration is not an assessed bill. Confirm your exact district membership with Jackson County's official tax records.</p>
+      <a href="https://www.co.jackson.tx.us/page/Tax.Rates" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Jackson County tax rates and taxing-unit records ↗</a>
+    </section> : null}
 
     {latest.rateUnavailable ? <section className="border-b border-border py-7"><p className="max-w-3xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Rate not used for calculation.</strong> {statusMessage(latest.sourceStatus)} TexasDefined keeps the taxing-unit reference visible for research but does not substitute an unverified numeric rate.</p></section> : null}
 

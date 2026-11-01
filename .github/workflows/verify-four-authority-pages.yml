@@ -1,0 +1,46 @@
+name: Four authority-page regression and production smoke
+on:
+  pull_request:
+    paths:
+      - 'src/data/property/texas-tax-rates.server.ts'
+      - 'src/data/property/texas-tax-rates.functions.ts'
+      - 'src/routes/property-tax.taxing-unit.$unit.tsx'
+      - 'src/routes/$kind.$slug.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/components/content/CountyIdentitySection.tsx'
+      - 'src/components/property/CountyTaxRateSection.tsx'
+      - 'src/data/events/texas-event-records.server.ts'
+      - 'src/components/events/EventsLandingPage.tsx'
+      - 'scripts/ci/four-authority-pages.test.mjs'
+      - 'scripts/ci/verify-four-authority-production.mjs'
+      - '.github/workflows/verify-four-authority-pages.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'scripts/ci/four-authority-pages.test.mjs'
+      - 'scripts/ci/verify-four-authority-production.mjs'
+  schedule:
+    - cron: '27 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/ci/four-authority-pages.test.mjs
+  production:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+    needs: contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/ci/verify-four-authority-production.mjs
