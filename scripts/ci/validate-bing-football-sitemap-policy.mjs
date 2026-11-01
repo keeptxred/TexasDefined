@@ -10,8 +10,13 @@ const robots = read('public/robots.txt');
 const index = read('public/sitemap-index.xml');
 const googlePolicy = read('src/lib/google-only-indexing.ts');
 
-assert.equal(manifest.teamIndexableSlugs.length + manifest.districtIndexableSlugs.length, 1099);
-assert.equal((1292 - manifest.teamIndexableSlugs.length) + (192 - manifest.districtIndexableSlugs.length), 385);
+// The weekly source-verified eligibility process may PROMOTE more pages. Never
+// freeze today's 385 exclusions as the permanent cohort size.
+const protectedCount = manifest.teamIndexableSlugs.length + manifest.districtIndexableSlugs.length;
+const stagedCount = (1292 - manifest.teamIndexableSlugs.length) +
+  (192 - manifest.districtIndexableSlugs.length);
+assert(protectedCount >= 1099 && protectedCount <= 1484);
+assert(stagedCount >= 0 && stagedCount <= 385);
 assert(server.includes('/sitemap-bing-football.xml'));
 assert(server.includes('bingExcludedFootballSitemapEntries'));
 assert(server.includes('"application/xml; charset=utf-8"'));
