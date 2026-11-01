@@ -5,28 +5,6 @@ on:
       - 'scripts/ci/prepare-football-b011-certification.mjs'
       - 'scripts/ci/prepare-football-b011-certification.test.mjs'
       - '.github/workflows/certify-football-b011-from-chrome.yml'
-  push:
-    branches: [main]
-    paths:
-      # Bounded one-time real-evidence retry on the protected fix itself.
-      - '.github/workflows/certify-football-b011-from-chrome.yml'
-  workflow_dispatch:
-  workflow_run:
-    # All five cohort jobs finish independently. The fifth-numbered cohort
-    # is not guaranteed to be the last job to upload its artifact.
-    # Each completion makes one bounded certification attempt; missing
-    # cohorts produce a safe no-change outcome, never false verification.
-    workflows:
-      - 'Football Batch 011 first-five live production acceptance'
-      - 'Football Batch 011 second-five live production acceptance'
-      - 'Football Batch 011 third-five live production acceptance'
-      - 'Football Batch 011 fourth-five live production acceptance'
-      - 'Football Batch 011 fifth-five live production acceptance'
-    types: [completed]
-    branches: [main]
-  schedule:
-    - cron: '41 14 * 8-12 *'
-    - cron: '41 14 * 1-7 3'
 permissions:
   actions: write
   contents: write
@@ -52,7 +30,7 @@ jobs:
           node --check scripts/ci/prepare-football-b011-certification.mjs
           node --test scripts/ci/prepare-football-b011-certification.test.mjs
   certification:
-    if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event_name == 'push') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') }}
+    if: ${{ false }} # Superseded by single 25-school Chrome job; retain legacy fixtures only.
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: texasdefined-publication
