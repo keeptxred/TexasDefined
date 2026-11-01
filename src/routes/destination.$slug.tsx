@@ -228,7 +228,13 @@ export const Route = createFileRoute("/destination/$slug")({
     ]);
     const graph = destinationAutoLinkGraph(destination, completeGraph);
     const dallasHeritage = destination.nearestTown === "Dallas" && destination.category === "historic-sites" ? (await import("@/data/dallas-black-history-research")).dallasBlackHistoryFor(destination.slug) : undefined;
-    return { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage };
+    // The RV campground is within this park, not a separate nearby attraction.
+    // Keep the park crosslink in the researched RV guide without misleading distance cards or schema.
+    const relevantRelationshipGroups = destination.slug === "martin-creek-lake-state-park-rv-area"
+      ? relationshipGroups.map((group) => ({ ...group, destinations: group.destinations.filter((item) => item.slug !== "martin-creek-lake-state-park") }))
+        .filter((group) => group.destinations.length > 0)
+      : relationshipGroups;
+    return { destination, graph, categories, regions, relatedArticles, relationshipGroups: relevantRelationshipGroups, dallasHeritage };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
