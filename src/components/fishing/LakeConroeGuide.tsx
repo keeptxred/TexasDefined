@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { FishingLakeAuthorityLinks } from "@/data/fishing/FishingLakeAuthorityLinks";
+import { FishingLakeAuthoritySnapshot } from "@/components/fishing/FishingLakeAuthoritySnapshot";
 import { Container } from "@/components/layout/Container";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
@@ -41,6 +42,14 @@ export function LakeConroeGuide({ section, reports, guides, pageData }: { sectio
 
     <Container className="py-12 sm:py-16">
       {!section && <Overview pageData={pageData} />}
+      {!section && <FishingLakeAuthoritySnapshot
+        name={pageData.overview.name}
+        slug="lake-conroe"
+        reviewedAt={pageData.sectionResearch.reviewedAt}
+        campground={pageData.camping[0] && { label: pageData.camping[0].name, summary: pageData.camping[0].summary, href: pageData.camping[0].href }}
+        regulation={pageData.regulations[0] && { label: pageData.regulations[0].species, summary: pageData.regulations[0].limit, href: pageData.regulations[0].sourceUrl }}
+        attraction={pageData.nearby.find((row) => row.external) && (() => { const row = pageData.nearby.find((item) => item.external)!; return { label: row.label, summary: row.description, href: row.href }; })()}
+      />}
       {section === "fish" && <Fish pageData={pageData} />}
       {section === "access" && <Access pageData={pageData} />}
       {section === "boating" && <Boating pageData={pageData} />}
