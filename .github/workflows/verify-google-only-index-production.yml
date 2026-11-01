@@ -23,6 +23,13 @@ jobs:
           node-version: '22'
       - name: Verify original HTML, Google-only robots, sitemap and Bing safety
         run: node scripts/ci/verify-google-only-index-production.mjs
+      - name: Verify supplemental Bing football sitemap without reintroducing Google URLs
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/ci/verify-bing-football-sitemap-production.mjs; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep 15; fi
+          done
+          exit 1
       - name: File actionable issue if Google-only production acceptance fails
         if: failure()
         uses: actions/github-script@v7
