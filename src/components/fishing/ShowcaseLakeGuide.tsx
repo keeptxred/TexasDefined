@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
 import { FishingLakeAuthorityLinks } from "@/data/fishing/FishingLakeAuthorityLinks";
+import { FishingLakeAuthoritySnapshot } from "@/components/fishing/FishingLakeAuthoritySnapshot";
 import { Container } from "@/components/layout/Container";
 import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { LAKE_VISITOR_DESTINATIONS } from "@/data/fishing/destination-lake-crosslinks";
@@ -62,6 +63,14 @@ export function ShowcaseLakeGuide({
     <Container className="py-12 sm:py-16">
       {!section && <OfficialTripPlanningChecklist pageData={pageData} />}
       {!section && <Overview pageData={pageData} businesses={businesses} placements={placements} />}
+      {!section && <FishingLakeAuthoritySnapshot
+        name={pageData.overview.name}
+        slug={pageData.slug}
+        reviewedAt={pageData.sectionResearch?.reviewedAt}
+        campground={pageData.camping[0] && { label: pageData.camping[0].name, summary: pageData.camping[0].summary, href: pageData.camping[0].href }}
+        regulation={pageData.regulations[0] && { label: pageData.regulations[0].label, summary: pageData.regulations[0].text, href: pageData.regulations[0].sourceUrl ?? pageData.sources.tpwdRegulations.url }}
+        attraction={pageData.nearby.find((row) => row.external) && (() => { const row = pageData.nearby.find((item) => item.external)!; return { label: row.label, summary: row.description, href: row.href }; })()}
+      />}
       {section === "fish" && <Fish pageData={pageData} />}
       {section === "access" && <Access pageData={pageData} />}
       {section === "boating" && <Boating pageData={pageData} />}
