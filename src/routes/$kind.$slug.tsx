@@ -48,7 +48,7 @@ export const Route = createFileRoute('/$kind/$slug')({
           ? import('@/data/state-park-county-index').then(({ getCityStateParkLinks }) => getCityStateParkLinks(entity.slug))
           : Promise.resolve([]),
       ]);
-      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks: [] };
+      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks: [], countyTaxSummary: null };
     }
     const countyStateParksPromise = import('@/data/state-park-county-index').then(({ getCountyStateParkLinks }) => getCountyStateParkLinks(entity.slug));
     const countyRvParksPromise = import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug));
@@ -67,8 +67,19 @@ export const Route = createFileRoute('/$kind/$slug')({
       countyStateParksPromise,
       countyWaterParksPromise,
     ]);
+    // Collin County: include the authoritative tax-table snapshot in SSR HTML,
+    // so crawlers and readers are not dependent on a client fetch or hydration.
+    // Scope this to the requested page to avoid changing every county loader.
+    const countyTaxSummary = entity.slug === 'collin'
+      ? await import('@/data/property/texas-tax-rates.server').then(async ({
+          getLatestTaxRateYearServer, getCountyTaxRateSummaryServer,
+        }) => {
+          const year = await getLatestTaxRateYearServer();
+          return (await getCountyTaxRateSummaryServer(entity.slug, year)).summary;
+        }).catch(() => null)
+      : null;
     const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
-    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks };
+    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks, countyTaxSummary };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
