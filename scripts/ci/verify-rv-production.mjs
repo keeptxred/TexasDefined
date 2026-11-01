@@ -173,6 +173,25 @@ for (const profileSpec of curatedProfiles) {
     throw new Error(`RV profile robots policy mismatch for ${profileSpec.name}: ${metaContent(profile.body, 'robots') || 'missing'}`);
   }
 
+  if (profileSpec.path === '/destination/martin-creek-lake-state-park-rv-area') {
+    requireVisibleIncludes(profile.body, [
+      'Choose the right campsite at Martin Creek Lake',
+      'Lakefront electric',
+      '50-amp electric',
+      'Standard electric',
+      'Argentine ants',
+      'burn ban',
+      'before 5 p.m.',
+      'dump station',
+    ], 'Martin Creek RV campground authority content');
+    requireIncludes(profile.body, [
+      'https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/',
+      'https://tpwd.texas.gov/state-parks/martin-creek-lake/alert',
+      '/destination/martin-creek-lake-state-park',
+      '/county/rusk',
+    ], 'Martin Creek RV official booking and contextual links');
+  }
+
   if (profileSpec.path === profilePath) {
     requireIncludes(profile.body, [
       'Campground inside Palo Duro Canyon State Park in Randall County, Texas',
