@@ -44,7 +44,7 @@ test('Five individually grounded second-cohort guides and exact campus counties'
 });
 test('Second cohort requires real non-skipped Chrome and exact live release attribution',()=>{
  const chrome=read('scripts/ci/verify-football-b011-second-five-production.mjs');
- const flow=read('.github/workflows/verify-football-b011-second-five-production.yml');
+ const flow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
  for(const s of ['report.schoolChecks.length!==15','report.countyChecks.length!==5',
   'process.env.FOOTBALL_CHROME_SOURCE_SHA',
   'process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1',
@@ -52,7 +52,7 @@ test('Second cohort requires real non-skipped Chrome and exact live release attr
   assert.ok(chrome.includes(s),'Strict Chrome control missing '+s);
  for(const s of ['Deploy TexasDefined production','steps.release.outputs.sha',
   'pin-football-b010-production-release.mjs',
-  'path: artifacts/b011-second-five-production-chrome/'])
+  'artifacts/b011-single-run-summary.json'])
   assert.ok(flow.includes(s),'Protected second-cohort browser workflow missing '+s);
  const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
  assert.equal(reg.batch.number,11);

@@ -1,15 +1,6 @@
 name: Football Batch 011 second-five live production acceptance
 on:
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
-  schedule:
-    # While this cohort is pending, retry genuine live Chrome acceptance at a
-    # fixed bounded cadence; unrelated deployments still remain path-scoped.
-    - cron: '12 14 * 8-12 *'   # In-season daily UTC
-    - cron: '12 14 * 1-7 3'    # Off-season Wednesday UTC
 permissions:
   contents: read
   deployments: read

@@ -47,10 +47,10 @@ test('Third five require actual production browser and exact deployed Worker',()
  assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,230);
  assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,25);
  const verifier=read('scripts/ci/verify-football-b011-third-five-production.mjs');
- const workflow=read('.github/workflows/verify-football-b011-third-five-production.yml');
+ const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
  for(const needle of ['report.schoolChecks.length!==15','report.countyChecks.length!==2','process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
   assert.ok(verifier.includes(needle),'Missing real Chrome or pinned Worker guard '+needle);
- for(const needle of ['Deploy TexasDefined production','pin-football-b010-production-release.mjs','steps.release.outputs.sha','artifacts/b011-third-five-production-chrome/'])
+ for(const needle of ['Deploy TexasDefined production','pin-football-b010-production-release.mjs','steps.release.outputs.sha','artifacts/b011-single-run-summary.json'])
   assert.ok(workflow.includes(needle),'Missing release/screenshot evidence '+needle);
  for(const [slug] of cases){
   const s=reg.schoolRecords.find(row=>row.slug===slug);

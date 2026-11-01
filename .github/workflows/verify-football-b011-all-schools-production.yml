@@ -1,0 +1,83 @@
+name: Football Batch 011 single-run 25-school production Chrome acceptance
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '16 14 * 8-12 *'
+    - cron: '16 14 * 1-7 3'
+permissions:
+  contents: read
+  deployments: read
+  actions: read
+concurrency:
+  group: football-b011-all-schools-single-run
+  cancel-in-progress: false
+jobs:
+  chrome:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Detect pending Batch011
+        id: scope
+        run: |
+          if node -e 'const r=require("./docs/football-authority/REGISTRY.json");process.exit(r.batch.number===11&&r.schoolRecords.filter(s=>s.batch===11&&s.status==="IMPLEMENTED").length===25?0:1)'; then
+            echo 'run=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'run=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Resolve exact live Worker to verified GitHub source SHA
+        if: steps.scope.outputs.run == 'true'
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --check scripts/ci/pin-football-b010-production-release.mjs
+          node --test scripts/ci/pin-football-b010-production-release.test.mjs
+          node scripts/ci/pin-football-b010-production-release.mjs
+      - name: Check out source that built observed production Worker
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.sha }}
+          fetch-depth: 2
+      - name: Install one isolated Chrome driver for all 25 schools
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          for cohort in first second third fourth fifth; do
+            npm install --prefix "/tmp/td-b011-${cohort}-chrome" --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          done
+      - name: Verify all 25 schools at 1366 390 320 and all required counties in one Chrome execution
+        if: steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        env:
+          FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}
+          FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}
+        run: |
+          set -euo pipefail
+          for cohort in first second third fourth fifth; do
+            node "scripts/ci/verify-football-b011-${cohort}-five-production.mjs"
+          done
+          node scripts/ci/verify-football-b011-single-run-reports.mjs
+      - name: Preserve compact machine-readable evidence, including failures
+        if: always() && steps.scope.outputs.run == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b011-all-schools-production-chrome
+          path: |
+            artifacts/b011-*/report.json
+            artifacts/b011-single-run-summary.json
+          retention-days: 7
+          if-no-files-found: error

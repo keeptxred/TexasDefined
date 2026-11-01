@@ -1,5 +1,10 @@
 # Football Authority — Execution Ledger
 
+## 2026-10-31 — owner decision: one Chrome execution, not five (implementation pending)
+
+The owner expressly rejected the previously imposed five-independent-cohort graduation rule and authorized **one genuine non-skipped Chrome execution per 25-school batch**, covering all 25 schools and desktop/mobile, with fail-closed machine-readable results and exact GitHub SHA ↔ deployed Worker identity. This is an acceptance policy change, **not proof of passing CI or production Chrome**. Obsolete 93-PNG counts and owner screenshot review are not gates. Keep separate protected evidence-only graduation, do not graduate Batch011 until its single complete test passes, then assign Batch012 automatically. Source/score/media safeguards unchanged. Reconcile the actual workflows/collector under protected PR before certifying.
+
+
 ## October 29, 2026 — fifth-five forward-port, source complete / not browser VERIFIED
 
 Current-main dependent port of fourth-five work adds the final source cohort: Coppell, Copperas Cove, San Antonio Cornerstone Christian, Corpus Christi Calallen and Carroll. Each has official-source research, five differentiated FAQs, date-qualified milestones, original school-specific text identity and correct physical-campus county reciprocity. The private Cornerstone school requires its own featured-school editorial loader and no invented UIL district. Registry target: 230 historical VERIFIED (unchanged), 25 source IMPLEMENTED, 1,037 NOT_REVIEWED; Batch011 zero live browser certifications. Once fourth-five merge/release is proven, run all five exact Worker/SHA Chrome cohorts and archive actual screenshots before any certification PR. Strict scoreboard, image rights, ticket and staff-title safeguards unchanged.
