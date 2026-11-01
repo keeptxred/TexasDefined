@@ -2799,7 +2799,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
     const countyPage=read('src/routes/$kind.$slug.lazy.tsx');
     const verifier=read('scripts/ci/verify-football-b011-first-five-production.mjs');
-    const workflow=read('.github/workflows/verify-football-b011-first-five-production.yml');
+    const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
     const first=[
       ['colorado-city-colorado','mitchell','Daniel Mejia'],
       ['columbus','colorado','Matt Schobel'],
@@ -2812,7 +2812,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
        !workflow.includes('Deploy TexasDefined production') ||
        !workflow.includes('steps.release.outputs.sha') ||
        !workflow.includes('node scripts/ci/pin-football-b010-production-release.mjs') ||
-       !workflow.includes('path: artifacts/b011-first-five-production-chrome/') ||
+       !workflow.includes('artifacts/b011-*/report.json') ||
        !verifier.includes('report.schoolChecks.length!==15') ||
        !verifier.includes('report.countyChecks.length!==3') ||
        !verifier.includes('report.schoolChecks.length!==15') ||
@@ -2843,7 +2843,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
     const counties=read('src/routes/$kind.$slug.lazy.tsx');
     const chrome=read('scripts/ci/verify-football-b011-second-five-production.mjs');
-    const flow=read('.github/workflows/verify-football-b011-second-five-production.yml');
+    const flow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
     const cases=[
       ['comal-pieper','bexar','Eduardo (Eddie) Salas'],
       ['comal-smithson-valley','comal','Larry Hill'],
@@ -2867,7 +2867,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       if(!chrome.includes(token)) errors.push('Second-five strict Chrome evidence guard missing: '+token);
     for(const token of ['Deploy TexasDefined production','steps.release.outputs.sha',
       'pin-football-b010-production-release.mjs',
-      'path: artifacts/b011-second-five-production-chrome/'])
+      'artifacts/b011-*/report.json'])
       if(!flow.includes(token)) errors.push('Second-five deployment/source verification workflow missing: '+token);
     if(src.includes('"comfort":') && /"comfort"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"comfort":'),src.indexOf('"commerce":'))))
       errors.push('Comfort 2025 HFC interview cannot be mislabeled confirmed 2026 coaching appointment');
@@ -2879,7 +2879,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
     const county=read('src/routes/$kind.$slug.lazy.tsx');
     const verify=read('scripts/ci/verify-football-b011-third-five-production.mjs');
-    const workflow=read('.github/workflows/verify-football-b011-third-five-production.yml');
+    const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
     const cases=[
       ['como-pickton','hopkins','Jeremy Griffin'],
       ['conroe','montgomery','Cedric Hardeman'],
@@ -2904,7 +2904,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       '/tmp/td-b011-third-chrome/node_modules/playwright-core'])
       if(!verify.includes(t)) errors.push('Third-five real Chrome evidence guard missing '+t);
     for(const t of ['Deploy TexasDefined production','steps.release.outputs.sha',
-      'pin-football-b010-production-release.mjs','artifacts/b011-third-five-production-chrome/'])
+      'pin-football-b010-production-release.mjs','artifacts/b011-*/report.json'])
       if(!workflow.includes(t)) errors.push('Third-five exact production release or evidence workflow missing '+t);
     if(/"como-pickton"\s*:\s*\{[^]*?"coach"\s*:\s*\{/.test(src.slice(src.indexOf('"como-pickton":'),src.indexOf('"conroe":'))))
       errors.push('Como-Pickton 2025 head football coach role is not 2026 first-party confirmed');
@@ -2917,7 +2917,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
     const county=read('src/routes/$kind.$slug.lazy.tsx');
     const chrome=read('scripts/ci/verify-football-b011-fourth-five-production.mjs');
-    const workflow=read('.github/workflows/verify-football-b011-fourth-five-production.yml');
+    const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
     const cases=[
       ['conroe-the-woodlands','montgomery','Jim (James) Rapp'],
       ['conroe-woodlands-college-park','montgomery','Michael Buro'],
@@ -2941,7 +2941,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       '/tmp/td-b011-fourth-chrome/node_modules/playwright-core'])
       if(!chrome.includes(marker)) errors.push('Fourth-five independent real browser evidence guard missing: '+marker);
     for(const marker of ['Deploy TexasDefined production','steps.release.outputs.sha',
-      'pin-football-b010-production-release.mjs','artifacts/b011-fourth-five-production-chrome/'])
+      'pin-football-b010-production-release.mjs','artifacts/b011-*/report.json'])
       if(!workflow.includes(marker)) errors.push('Fourth-five pinned live Worker workflow or artifact hold missing: '+marker);
     for(const slug of ['coolidge','cooper']){
       const next=source.slice(source.indexOf('"'+slug+'":'),source.indexOf('"'+slug+'":')+4500);
@@ -2957,7 +2957,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
     const identities=read('src/data/high-school-football/school-identities.ts');
     const profile=read('src/data/high-school-football/football-program-profile.server.ts');
     const chrome=read('scripts/ci/verify-football-b011-fifth-five-production.mjs');
-    const flow=read('.github/workflows/verify-football-b011-fifth-five-production.yml');
+    const flow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
     const cases=[
       ['coppell','dallas','Antonio Wiley'],
       ['copperas-cove','coryell','Rodney Southern'],
@@ -2984,7 +2984,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       'process.env.FOOTBALL_EXPECTED_WORKER_VERSION','/tmp/td-b011-fifth-chrome/node_modules/playwright-core'])
       if(!chrome.includes(flag))errors.push('Fifth-five exact live Worker Chrome verification guard missing: '+flag);
     for(const flag of ['Deploy TexasDefined production','steps.release.outputs.sha',
-      'pin-football-b010-production-release.mjs','artifacts/b011-fifth-five-production-chrome/'])
+      'pin-football-b010-production-release.mjs','artifacts/b011-*/report.json'])
       if(!flow.includes(flag))errors.push('Fifth-five protected pinned release or screenshot archive missing: '+flag);
     for(const slug of ['corpus-christi-calallen','corpus-christi-carroll']){
       const body=source.slice(source.indexOf('"'+slug+'":'),source.indexOf('"'+slug+'":')+4500);
@@ -3001,6 +3001,15 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
   } else if(r.batch.number!==10){
     errors.push('Football authority active assignment must be certified Batch010 or pending Batch011.');
   }
+}
+
+// Batch011 consolidated release acceptance: source contract is not production proof.
+{
+ const flow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
+ const report=read('scripts/ci/verify-football-b011-single-run-reports.mjs');
+ for(const token of ["workflows: ['Deploy TexasDefined production']",'node scripts/ci/pin-football-b010-production-release.mjs','ref: ${{ steps.release.outputs.sha }}','FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}','scripts/ci/verify-football-b011-single-run-reports.mjs','artifacts/b011-*/report.json','if-no-files-found: error'])if(!flow.includes(token))errors.push('Batch011 consolidated pinned Chrome contract missing: '+token);
+ for(const cohort of ['first','second','third','fourth','fifth'])if(!flow.includes('verify-football-b011-'+cohort+'-five-production.mjs'))errors.push('Batch011 consolidated cohort missing: '+cohort);
+ if(!report.includes('75')||!report.includes('18'))errors.push('Batch011 75 viewport / 18 county compact acceptance missing');
 }
 
 // Batch010 first-five sourced contract. Do not confuse implementation with
