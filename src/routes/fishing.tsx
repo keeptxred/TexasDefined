@@ -32,7 +32,40 @@ export const Route = createFileRoute("/fishing")({
     ]);
     return { lakes, species, lakeSpecies };
   },
-  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide — Lakes, Fish Species & Local Fishing", description: "Explore Texas fishing lake by lake, with verified lake facts, target species, seasonal patterns, access, reports, trip planning and verified local guide infrastructure.", canonicalPath: "/fishing" }), links: [canonicalLink(texasDefinedBrand, "/fishing")] }),
+  head: ({ loaderData }) => {
+    const origin = `https://${texasDefinedBrand.identity.domain}`;
+    const url = `${origin}/fishing`;
+    const title = "Texas Fishing Guide — Lakes, Fish Species & Local Fishing";
+    const description = "Explore Texas fishing lake by lake, with verified lake facts, target species, seasonal patterns, access, reports, trip planning and verified local guide infrastructure.";
+    const publicLakes = (loaderData?.lakes ?? []).filter((lake) => Boolean(lake.verifiedAt) && lake.sources.length > 0);
+    const schema = {
+      "@context": "https://schema.org",
+      "@graph": [
+        { "@type": "CollectionPage", "@id": url + "#page", url, name: title, description,
+          isPartOf: { "@id": origin + "/#website" }, mainEntity: { "@id": url + "#lakes" },
+          citation: [
+            "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/lakelist.phtml",
+            "https://tpwd.texas.gov/regulations/outdoor-annual/fishing",
+          ] },
+        { "@type": "ItemList", "@id": url + "#lakes",
+          name: "Sourced Texas fishing lake guides", numberOfItems: publicLakes.length,
+          itemListElement: publicLakes.map((lake, index) => ({
+            "@type": "ListItem", position: index + 1, name: lake.name,
+            url: origin + "/fishing/lakes/" + lake.slug,
+          })) },
+        { "@type": "BreadcrumbList", "@id": url + "#breadcrumbs",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: origin },
+            { "@type": "ListItem", position: 2, name: "Fishing", item: url },
+          ] },
+      ],
+    };
+    return {
+      meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: "/fishing" }),
+      links: [canonicalLink(texasDefinedBrand, "/fishing")],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
+    };
+  },
   component: FishingPage,
 });
 
