@@ -294,6 +294,39 @@ for (const host of targetHosts) {
     feeds = asArray(await requestForSite("GetFeeds"));
   }
 
+  // This supplemental sitemap is deliberately unadvertised in Google's
+  // robots.txt/sitemap index. It restores durable Bing discovery for the
+  // football detail URLs that intentionally carry Googlebot-only noindex.
+  // Submit the feed once after it is LIVE, not hourly with IndexNow.
+  const supplementalFootballFeed = host === "texasdefined.com"
+    ? `https://${host}/sitemap-bing-football.xml`
+    : null;
+  let supplementalFootballFeedSubmitted = false;
+  if (supplementalFootballFeed && !feeds.some((feed) => feed?.Url === supplementalFootballFeed)) {
+    try {
+      const live = await fetch(supplementalFootballFeed, {
+        headers: { accept: "application/xml", "user-agent": "TexasDefinedBingFeedPreflight/1.0" },
+        signal: AbortSignal.timeout(15_000),
+      });
+      if (!live.ok) throw new Error(`Supplemental sitemap HTTP ${live.status}`);
+      const xml = await live.text();
+      const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+      if (!xml.includes("<urlset") || locs.length < 1 || locs.length > 1484 ||
+          new Set(locs).size !== locs.length ||
+          !locs.every((url) => /^https:\/\/texasdefined\.com\/texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+$/.test(url))) {
+        throw new Error("Supplemental football feed has invalid or empty URL inventory");
+      }
+      await bingPost("SubmitFeed", { siteUrl, feedUrl: supplementalFootballFeed });
+      supplementalFootballFeedSubmitted = true;
+      feeds = asArray(await requestForSite("GetFeeds"));
+      console.log(`Bing supplemental football sitemap submitted: ${locs.length} clean football URLs.`);
+    } catch (error) {
+      // Does not break private daily Webmaster snapshots if the production
+      // deployment has not finished, or Bing temporarily rejects this feed.
+      console.warn("Supplemental Bing football feed not yet submitted:", error instanceof Error ? error.message : String(error));
+    }
+  }
+
   const canonicalFeed = feeds.find((feed) => feed?.Url === canonicalFeedUrl);
   let legacyFeedAliasesRemoved = 0;
   if (canonicalFeed?.Status === "Success") {
@@ -352,6 +385,7 @@ for (const host of targetHosts) {
     },
     canonicalFeedUrl,
     canonicalFeedSubmitted,
+    supplementalFootballFeedSubmitted,
     legacyFeedAliasesRemoved,
   });
 }
