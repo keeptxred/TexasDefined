@@ -1,0 +1,70 @@
+name: Fishing URL authority acceptance
+on:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+  schedule:
+    - cron: "19 8 * * *"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Audit every registered fishing URL instead of a bounded daily batch"
+        required: false
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: fishing-authority-${{ github.event_name }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check whether release changed fishing
+        id: scope
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" != "workflow_run" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif git diff-tree --no-commit-id --name-only -r HEAD | grep -Eq '^(src/data/fishing/|src/components/fishing/|src/routes/fishing[.]|scripts/seo/fishing-|docs/fishing/)'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Unrelated production release: fishing URL scan skipped" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Generate full canonical fishing URL registry
+        if: ${{ steps.scope.outputs.run == 'true' }}
+        run: |
+          node scripts/seo/fishing-authority-inventory.mjs \
+            --json fishing-authority-registered-urls.json \
+            --markdown fishing-authority-registered-urls.md
+      - name: Check live SSR, titles, canonical, schema, citations and crosslinks
+        if: ${{ steps.scope.outputs.run == 'true' }}
+        env:
+          FISHING_AUDIT_FULL: ${{ (github.event_name == 'workflow_run' || inputs.full == true) && '1' || '0' }}
+          FISHING_AUDIT_BATCH_SIZE: "120"
+          FISHING_AUDIT_CONCURRENCY: "2"
+          FISHING_AUDIT_OUTPUT: fishing-live-authority-report.json
+        run: node scripts/seo/verify-fishing-authority-live.mjs
+      - name: Preserve all URL results even when verification fails
+        if: ${{ always() && steps.scope.outputs.run == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-url-authority-${{ github.run_id }}
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            fishing-authority-registered-urls.json
+            fishing-authority-registered-urls.md
+            fishing-live-authority-report.json
+            fishing-live-authority-report.md

@@ -40,14 +40,14 @@ export const FISHING_SITEMAP_ENTRIES = [
     .filter((slug) => isFishingTechniqueHeroReady(slug))
     .map((slug) => ({ path: fishingTechniqueCanonicalPath(slug), lastmod: FISHING_TECHNIQUES_VERIFIED_AT })),
   { path: FISHING_REGULATIONS_PATH, lastmod: FISHING_REGULATIONS_VERIFIED_AT },
-  { path: lakeConroeCanonicalPath(), lastmod: LAKE_CONROE_VERIFIED_AT },
+  { path: lakeConroeCanonicalPath(), lastmod: LAKE_AUTHORITY_RESEARCH_WAVE1["lake-conroe"].reviewedAt },
   // Guides/reports receive noindex until verified records actually exist. The
   // qualified section URLs are emitted from the corresponding server loaders.
   ...LAKE_CONROE_SECTION_SLUGS
     .filter((section) => section !== "guides" && section !== "reports")
     .map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: (section === "camping" || section === "nearby" || section === "regulations") ? LAKE_AUTHORITY_RESEARCH_WAVE1["lake-conroe"].reviewedAt : LAKE_CONROE_VERIFIED_AT })),
   ...ALL_SHOWCASE_LAKE_SLUGS.flatMap((slug) => [
-    { path: showcaseLakeCanonicalPath(slug), lastmod: lakeSitemapDate(slug) },
+    { path: showcaseLakeCanonicalPath(slug), lastmod: LAKE_AUTHORITY_RESEARCH_WAVE1[slug]?.reviewedAt ?? lakeSitemapDate(slug) },
     ...SHOWCASE_LAKE_SECTION_SLUGS
       .filter((section) => section !== "guides" && section !== "reports")
       .filter((section) => isShowcaseLakeSectionIndexReady(SHOWCASE_LAKE_AUTHORITY_DATA[slug], section))

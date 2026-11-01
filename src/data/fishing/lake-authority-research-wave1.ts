@@ -209,6 +209,12 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
         "description": "TPWD operates this fisheries education attraction in Athens, with native-fish exhibit tanks, hatchery interpretation, a wetlands trail and visitor fishing programs. It is a regional side trip, not a claim that the facility is on Lake Palestine's shoreline.",
         "href": "https://tpwd.texas.gov/fishing/tffc/",
         "external": true
+      },
+      {
+        "label": "Tyler State Park — Pineywoods trails and CCC history",
+        "description": "Tyler State Park is an off-reservoir regional day trip from Lake Palestine with a separate 64-acre spring-fed lake, more than thirteen miles of hiking and biking trails, and the CCC-built Whispering Pines Nature Trail. TPWD also lists paddling rentals and historic park structures. It is not on Lake Palestine; check park reservations and alerts independently.",
+        "href": "https://tpwd.texas.gov/state-parks/tyler",
+        "external": true
       }
     ],
     "reviewedAt": "2026-10-31",
@@ -216,7 +222,8 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/palestine/access2.phtml",
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/palestine/access.phtml",
       "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0566",
-      "https://tpwd.texas.gov/fishing/tffc/"
+      "https://tpwd.texas.gov/fishing/tffc/",
+      "https://tpwd.texas.gov/state-parks/tyler"
     ]
   },
   "lake-somerville": {
@@ -1701,6 +1708,12 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
         "description": "The Corps identifies a fishing dock near the free-use ramp outside Potters Creek's campground, and a free dock immediately outside the Cranes Mill campground. The dock inside Cranes Mill campground is restricted to registered campers. These are three distinct shore-access options, not a generic nearby attraction claim.",
         "href": "https://www.swf-wc.usace.army.mil/canyon/Recreation/Fishing.shtml",
         "external": true
+      },
+      {
+        "label": "Canyon Lake Gorge — guided geology and fossil walks",
+        "description": "The Guadalupe-Blanco River Authority operates Canyon Lake Gorge at 16029 South Access Road, with docent-supported walks into exposed limestone, fossil-bearing strata and water-carved geologic formations. The entrance shares a driveway with Tye Preston Memorial Library. Book and verify the Gorge's actual tour and trail access rather than treating the dam viewpoint as a substitute.",
+        "href": "https://www.gbra.org/recreation/canyon-lake-gorge/",
+        "external": true
       }
     ],
     "reviewedAt": "2026-10-31",
@@ -1708,7 +1721,8 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://www.swf-wc.usace.army.mil/canyon/Recreation/Camping/Devareas.shtml",
       "https://www.swf-wc.usace.army.mil/canyon/Recreation/Parks/Corpsparks.shtml",
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/canyon/",
-      "https://www.swf-wc.usace.army.mil/canyon/Recreation/Fishing.shtml"
+      "https://www.swf-wc.usace.army.mil/canyon/Recreation/Fishing.shtml",
+      "https://www.gbra.org/recreation/canyon-lake-gorge/"
     ]
   },
   "toledo-bend-reservoir": {
@@ -2412,13 +2426,27 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
         "description": "Oak Thicket Park's named ramp and public fishing pier offer a separate north-shore route to bank fishing and boating. TPWD lists it as a fee-charging LCRA park with year-round access; confirm weather closures and lake conditions before making a trip.",
         "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/access.phtml",
         "external": true
+      },
+      {
+        "label": "Kreische Brewery State Historic Site — La Grange",
+        "description": "The Texas Historical Commission preserves the ruins of Heinrich Kreische's 1860s brewery and family home overlooking the Colorado River in La Grange. Visitors can follow interpreted paths and tour historical ruins, separate from Fayette County Reservoir's boat ramps. The agency reports visitor-center construction, so check temporary arrival and tour arrangements.",
+        "href": "https://thc.texas.gov/historic-sites/kreische-brewery",
+        "external": true
+      },
+      {
+        "label": "Monument Hill State Historic Site — Dawson and Mier memorial",
+        "description": "The Texas Historical Commission's adjacent Monument Hill site marks the burial place of men killed in the 1842 Dawson Massacre and Mier expedition. Paths, a memorial, picnic grounds and historic interpretation make it a substantive regional excursion from Fayette County Reservoir, not a purported lakefront attraction.",
+        "href": "https://thc.texas.gov/historic-sites/monument-hill",
+        "external": true
       }
     ],
     "reviewedAt": "2026-10-31",
     "sourceUrls": [
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/access.phtml",
       "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0282",
-      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/"
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/fayette/",
+      "https://thc.texas.gov/historic-sites/kreische-brewery",
+      "https://thc.texas.gov/historic-sites/monument-hill"
     ]
   },
   "alan-henry-reservoir": {
@@ -2549,12 +2577,19 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
         "description": "The public boat ramp off FM 2035 south of Interstate 20 is a five-lane lighted concrete launch with parking for about 50, managed by the City of Sweetwater. Fees apply. It is not a separate overnight campground even though the park has camping facilities.",
         "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/access.phtml",
         "external": true
+      },
+      {
+        "label": "National WASP WWII Museum — Avenger Field",
+        "description": "The National WASP WWII Museum at 210 Avenger Field Road in Sweetwater preserves the history of women who flew military aircraft during World War II. Its aircraft and collections provide a distinctive regional attraction to pair with a Lake Sweetwater trip, but the museum is not on the lake shoreline; confirm visiting hours and admission with the operator.",
+        "href": "https://waspmuseum.org/",
+        "external": true
       }
     ],
     "reviewedAt": "2026-10-31",
     "sourceUrls": [
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/access.phtml",
-      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/"
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sweetwater/",
+      "https://waspmuseum.org/"
     ]
   },
   "benbrook-lake": {
@@ -3370,13 +3405,20 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
         "description": "Old School, west of Aquilla off FM 933, and Dairy Hill on the east shore near FM 1947 are two distinct Corps ramp areas. Both have restroom facilities and vehicle-trailer parking; the access guide does not show overnight camping at either site.",
         "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/access.phtml",
         "external": true
+      },
+      {
+        "label": "Lake Whitney State Park — Towash Forest and Two Bridges trails",
+        "description": "The Texas Parks and Wildlife Department operates Lake Whitney State Park on a separate reservoir, with named 0.9-mile Two Bridges and 1.2-mile Towash Forest trails, prairie birding and shoreline views. Its park also offers camping and boat access, but this requires a separate drive from Aquilla Lake and is not an Aquilla shoreline facility.",
+        "href": "https://tpwd.texas.gov/state-parks/lake-whitney/trails-info",
+        "external": true
       }
     ],
     "reviewedAt": "2026-10-31",
     "sourceUrls": [
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/access.phtml",
       "https://tpwd.texas.gov/state-parks/lake-whitney/fees-facilities/campsites",
-      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/"
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/aquilla/",
+      "https://tpwd.texas.gov/state-parks/lake-whitney/trails-info"
     ]
   },
   "white-rock-lake": {
@@ -3418,13 +3460,27 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
         "description": "The City of Dallas operates the three-lane Big Thicket launch along East Lawther Drive reached from Mockingbird Lane, with about thirty trailer spaces and free year-round access. Shoreline fishing and recreation are separate from overnight camping, which is prohibited.",
         "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/access.phtml",
         "external": true
+      },
+      {
+        "label": "White Rock Lake 9.33-mile hike-and-bike loop",
+        "description": "Dallas Parks publishes the 9.33-mile multiuse trail circling White Rock Lake, along with wetlands, Audubon birding areas, lakefront park facilities and public art. Trail access is separate from fishing and does not permit overnight camping; use the city's route map and current maintenance information for an actual lakeside outing.",
+        "href": "https://www.dallasparks.org/235/White-Rock-Lake",
+        "external": true
+      },
+      {
+        "label": "Dallas Arboretum & Botanical Garden — White Rock shore",
+        "description": "Dallas Parks identifies the 66-acre Dallas Arboretum at 8525 Garland Road as a city-contracted botanical destination beside White Rock Lake. Visitors explore display gardens, seasonal exhibitions and historical buildings with a separate admission program. This is an actual lake-adjacent attraction rather than a second fishing ramp.",
+        "href": "https://www.dallasparks.org/216/Dallas-Arboretum-Botanical-Garden",
+        "external": true
       }
     ],
     "reviewedAt": "2026-10-31",
     "sourceUrls": [
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/access.phtml",
       "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites",
-      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/"
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/white_rock/",
+      "https://www.dallasparks.org/235/White-Rock-Lake",
+      "https://www.dallasparks.org/216/Dallas-Arboretum-Botanical-Garden"
     ]
   },
   "lake-arlington": {
@@ -3519,6 +3575,18 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
         "description": "The public Lake Worth City Park launch is listed in TPWD's city-access matrix along with picnic and ramp facilities. Visitors can compare the four distinct public entries for their preferred access, but none offers legal overnight camping.",
         "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/access.phtml",
         "external": true
+      },
+      {
+        "label": "Fort Worth Nature Center & Refuge — Canyon Ridge Trail",
+        "description": "The Fort Worth Nature Center protects forest, prairie and wetland habitat around the northern reaches of Lake Worth. Its 3.25-mile Canyon Ridge Trail crosses limestone and sandstone bluffs with elevated lake views and historic CCC stonework. It has an entrance fee and no overnight camping; check seasonal trail access and allow time for the steep route.",
+        "href": "https://www.fwnaturecenter.org/trails/canyon-ridge-trail/",
+        "external": true
+      },
+      {
+        "label": "Fort Worth Nature Center — Greer Island paddling trail",
+        "description": "TPWD maps a six-to-seven-mile paddle route between Big River and Greer Island launches along the West Fork of the Trinity and upper Lake Worth. River conditions, boat access and park gate hours determine usability; bank fishing is prohibited within the refuge, and older fish-consumption advisories require checking before eating any catch.",
+        "href": "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/fort-worth-nature-center-refuge/",
+        "external": true
       }
     ],
     "reviewedAt": "2026-10-31",
@@ -3526,7 +3594,9 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/access.phtml",
       "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites",
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/worth/index.phtml",
-      "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories"
+      "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories",
+      "https://www.fwnaturecenter.org/trails/canyon-ridge-trail/",
+      "https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/fort-worth-nature-center-refuge/"
     ]
   },
   "medina-lake": {
@@ -3616,13 +3686,27 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
         "description": "TPWD's fisheries page describes productive submerged brush near the dam for crappie, sunfish and bass, and southern riprap for largemouth fishing. These are distinct on-lake fishing patterns on a crowded urban shoreline; observe city park rules.",
         "href": "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/",
         "external": true
+      },
+      {
+        "label": "Bachman Lake Trail — 3.08-mile loop and lakeshore recreation",
+        "description": "Dallas Parks identifies a paved 5K loop around Bachman Lake with 16 exercise stations, benches, cypress trees and close views of aircraft approaching Love Field. The park also has playgrounds, a skate park, recreation center and seasonal aquatic amenities. This is a verified lakefront outing, not a launch ramp disguised as a tourist attraction.",
+        "href": "https://www.dallasparks.org/230/Bachman-Lake",
+        "external": true
+      },
+      {
+        "label": "Frontiers of Flight Museum — Dallas Love Field",
+        "description": "The aviation and space museum at 6911 Lemmon Avenue beside Dallas Love Field interprets aviation history through aircraft and exhibits. It has its own admission, events and occasional private-event closures. This nearby museum is a separate activity from Bachman Lake fishing; review its schedule before visiting.",
+        "href": "https://flightmuseum.com/visit/",
+        "external": true
       }
     ],
     "reviewedAt": "2026-10-31",
     "sourceUrls": [
       "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/access.phtml",
       "https://tpwd.texas.gov/state-parks/cedar-hill/fees-facilities/campsites",
-      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/"
+      "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/bachman/",
+      "https://www.dallasparks.org/230/Bachman-Lake",
+      "https://flightmuseum.com/visit/"
     ]
   },
   "e-v-spence-reservoir": {
