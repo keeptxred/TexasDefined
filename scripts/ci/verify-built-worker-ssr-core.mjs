@@ -35,6 +35,10 @@ const smokeTargets = [
   { path: '/sports/teams', requiredText: 'https://texasdefined.com/sports/teams', label: 'Pro-team index includes server-supplied canonical metadata' },
   { path: '/sports/teams/houston-texans', requiredText: 'data-pro-team-guide="houston-texans"', label: 'Texans weekend guide renders real nested loaders' },
   { path: '/sports/teams/dallas-cowboys', requiredText: 'data-pro-team-guide="dallas-cowboys"', label: 'Cowboys guide renders lodging planning rather than parent hub' },
+  // One locally built Worker request proves the supplemental Bing XML is real
+  // and includes a Google-staged page before any production deployment.
+  { path: '/sitemap-bing-football.xml', requiredText: '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', label: 'Bing-only staged football feed renders XML rather than a 404 or generic page' },
+  { path: '/sitemap-bing-football.xml', requiredText: 'https://texasdefined.com/texas-high-school-football-teams/colorado-city-colorado', label: 'Bing XML preserves discovery of a Google-noindexed team' },
   // Ensure both cold generic and research-overlay UIL team SSR work before we deploy.
   // District 21 previously returned eight HTTP 500s while the district hub was healthy.
   { path: '/texas-high-school-football-teams/fort-bend-hightower', requiredText: 'data-football-d21-team-section="fort-bend-hightower"', label: 'District 21 team SSR must render source-checked football season instead of 500' },
