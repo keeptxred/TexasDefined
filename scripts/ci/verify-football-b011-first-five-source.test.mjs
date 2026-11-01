@@ -15,7 +15,7 @@ const county=readFileSync('src/routes/$kind.$slug.lazy.tsx','utf8');
 const loader=readFileSync('src/data/high-school-football/program-editorial-b011-loader.server.ts','utf8');
 const server=readFileSync('src/data/high-school-football/football-program-profile.server.ts','utf8');
 const verifier=readFileSync('scripts/ci/verify-football-b011-first-five-production.mjs','utf8');
-const workflow=readFileSync('.github/workflows/verify-football-b011-first-five-production.yml','utf8');
+const workflow=readFileSync('.github/workflows/verify-football-b011-all-schools-production.yml','utf8');
 const countyBySlug={
   'colorado-city-colorado':'mitchell','columbus':'colorado',
   'comal-canyon':'comal','comal-canyon-lake':'comal','comal-davenport':'comal'
@@ -63,6 +63,6 @@ test('source-only SSR precedence, exact Worker Chrome controls and no false acce
    assert.ok(verifier.includes(token),'Missing genuine first-five Chrome control '+token);
  for(const token of ['Deploy TexasDefined production','steps.release.outputs.sha',
    'node scripts/ci/pin-football-b010-production-release.mjs',
-   'path: artifacts/b011-first-five-production-chrome/'])
+   'artifacts/b011-single-run-summary.json'])
    assert.ok(workflow.includes(token),'Chrome workflow source/retention guard absent '+token);
 });
