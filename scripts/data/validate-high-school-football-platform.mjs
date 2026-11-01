@@ -3008,7 +3008,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
  const flow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
  const report=read('scripts/ci/verify-football-b011-single-run-reports.mjs');
  for(const token of ["workflows: ['Deploy TexasDefined production']",'node scripts/ci/pin-football-b010-production-release.mjs','ref: ${{ steps.release.outputs.sha }}','FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}','scripts/ci/verify-football-b011-single-run-reports.mjs','artifacts/b011-*/report.json','if-no-files-found: error'])if(!flow.includes(token))errors.push('Batch011 consolidated pinned Chrome contract missing: '+token);
- for(const cohort of ['first','second','third','fourth','fifth'])if(!flow.includes('verify-football-b011-'+cohort+'-five-production.mjs'))errors.push('Batch011 consolidated cohort missing: '+cohort);
+ for(const token of ['for cohort in first second third fourth fifth; do', 'node "scripts/ci/verify-football-b011-${cohort}-five-production.mjs"']) if(!flow.includes(token)) errors.push('Batch011 consolidated five-cohort execution contract missing: '+token);
  if(!report.includes('75')||!report.includes('18'))errors.push('Batch011 75 viewport / 18 county compact acceptance missing');
 }
 
