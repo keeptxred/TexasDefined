@@ -62,7 +62,7 @@ if (new Set(rows.map((r) => r.path)).size !== rows.length)
 export function getFishingAuthorityInventory() {
   return {
     schemaVersion: 1, origin: "https://texasdefined.com",
-    dynamicFamilies: ["/fishing/access/{slug}","/fishing/services/{slug}","/fishing/guide/{slug}","/fishing/report/{slug}"],
+    dynamicFamilies: ["/fishing/access/{slug}","/fishing/services/{slug}","/fishing/guides/{slug}","/fishing/reports/{slug}"],
     counts: { lakes: 72, lakeRoutes: 648, species: 19, techniques: 9, hubs: hubs.length, registeredUrls: rows.length },
     rows,
   };
