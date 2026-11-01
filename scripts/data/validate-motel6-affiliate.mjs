@@ -73,7 +73,6 @@ if (seasonal) {
 for (const marker of [
   'motel6Eligible()',
   'choice?.dataset.motel6Mode === motel6Mode',
-  'window.setTimeout(scheduleSync',
   'dataLayer.push(detail)', 'affiliate_partner: "motel6"',
   'link.rel = "sponsored nofollow noopener noreferrer"',
   'Motel 6 is an additional sponsored budget-stay option',
