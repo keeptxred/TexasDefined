@@ -44,6 +44,9 @@ const DestinationVerifiedVisitorFacts = lazy(() =>
   import("@/components/editorial/DestinationVerifiedVisitorFacts").then((module) => ({ default: module.DestinationVerifiedVisitorFacts })),
 );
 
+const MartinCreekRvAuthority = lazy(() => import("@/components/editorial/MartinCreekRvAuthority"));
+
+
 // This substantial below-the-fold visitor guide streams on demand rather than
 // inflating the site-wide client entry bundle with destination-only logic.
 const DestinationVisitPlanner = lazy(() =>
@@ -225,7 +228,13 @@ export const Route = createFileRoute("/destination/$slug")({
     ]);
     const graph = destinationAutoLinkGraph(destination, completeGraph);
     const dallasHeritage = destination.nearestTown === "Dallas" && destination.category === "historic-sites" ? (await import("@/data/dallas-black-history-research")).dallasBlackHistoryFor(destination.slug) : undefined;
-    return { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage };
+    // The RV campground is within this park, not a separate nearby attraction.
+    // Keep the park crosslink in the researched RV guide without misleading distance cards or schema.
+    const relevantRelationshipGroups = destination.slug === "martin-creek-lake-state-park-rv-area"
+      ? relationshipGroups.map((group) => ({ ...group, destinations: group.destinations.filter((item) => item.slug !== "martin-creek-lake-state-park") }))
+        .filter((group) => group.destinations.length > 0)
+      : relationshipGroups;
+    return { destination, graph, categories, regions, relatedArticles, relationshipGroups: relevantRelationshipGroups, dallasHeritage };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
@@ -432,6 +441,9 @@ function DestinationPage() {
     />
 
     <Suspense fallback={null}><DestinationVerifiedVisitorFacts destination={destination} /></Suspense>
+
+    {destination.slug === "martin-creek-lake-state-park-rv-area" && <Suspense fallback={null}><MartinCreekRvAuthority /></Suspense>}
+
 
     {destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? (
       <section id="visitor-faq" className="bg-surface py-10 sm:py-12" aria-labelledby="magoffin-visitor-faq-title">

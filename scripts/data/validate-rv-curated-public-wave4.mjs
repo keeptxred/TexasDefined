@@ -7,6 +7,10 @@ const indexFacade = read('src/data/rv-parks/index.ts');
 const audit = read('src/data/destination-audit.ts');
 const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const productionSmoke = read('scripts/ci/verify-rv-production.mjs');
+const destinationRoute = read('src/routes/destination.$slug.tsx');
+const martinCreekGuide = read('src/components/editorial/MartinCreekRvAuthority.tsx');
+const monitorWorkflow = read('.github/workflows/monitor-martin-creek-rv.yml');
+const sourceGuard = read('scripts/data/check-martin-creek-rv-source-drift.mjs');
 const rawInventory = [
   'src/data/rv-parks/hill-country.ts',
   'src/data/rv-parks/gulf-coast.ts',
@@ -46,7 +50,12 @@ for (const [slug, name, officialUrl] of wave4) {
     requireText(block, field, `${name} overlay is missing ${field.replace(':', '')}.`);
   }
   requireText(block, `officialUrl: \"${officialUrl}\"`, `${name} must retain its official TPWD park source.`);
-  requireText(block, 'sourceCheckedAt: "2026-09-13"', `${name} must retain the Wave 4 source-review date.`);
+  requireText(block, `sourceCheckedAt: "${slug === 'martin-creek-lake-state-park-rv-area' ? '2026-10-31' : '2026-09-13'}"`, `${name} must retain a truthful source-review date.`);
+  if (slug === 'martin-creek-lake-state-park-rv-area') {
+    for (const fact of ['reservationUrl:', 'visitorFacts:', 'directions:', 'October 31, 2026', '$17', '$20', 'Argentine ants', 'burn ban', 'dump station', '5 p.m.']) {
+      requireText(block, fact, `Martin Creek RV authority page is missing verified evidence: ${fact}`);
+    }
+  }
   const paragraphCount = (block.match(/^\s{6}".+",?$/gm) ?? []).length;
   if (paragraphCount < 3) errors.push(`${name} must retain at least three substantive body paragraphs.`);
   const highlights = block.match(/highlights: \[([^\]]+)\]/s)?.[1] ?? '';
@@ -70,6 +79,15 @@ for (const [slug, name, officialUrl] of wave4) {
 
   requireText(productionSmoke, `{ path: '/destination/${slug}', name: '${name}' }`, `${name} must remain in deployment-coupled RV production smoke.`);
 }
+
+requireText(destinationRoute, 'destination.slug === "martin-creek-lake-state-park-rv-area"', 'Martin Creek campground guide must be rendered only on its RV page.');
+requireText(destinationRoute, '<MartinCreekRvAuthority />', 'Martin Creek campground guide must be mounted on the destination route.');
+for (const fact of ['lakefront electric', '50-amp electric', 'dump station', 'before 5 p.m.', 'Argentine ants', 'burn ban', 'current park alerts', 'RESERVE', 'Martin Creek Lake State Park guide', 'official campground map']) {
+  requireText(martinCreekGuide.toLowerCase(), fact.toLowerCase(), `Martin Creek campsite guide missing ${fact}`);
+}
+requireText(monitorWorkflow, 'schedule:', 'Martin Creek RV source check must run on GitHub Actions.');
+requireText(monitorWorkflow, 'check-martin-creek-rv-source-drift.mjs', 'Scheduled Martin Creek RV source guard must be wired.');
+requireText(sourceGuard, 'reverify', 'Martin Creek operator drift guard must keep actionable failure reasons.');
 
 if (wave.includes('"caddo-lake-state-park-rv-area": {')) errors.push('Caddo Lake must remain outside Wave 4 as the explicit noindex negative control.');
 requireText(productionSmoke, "const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area'", 'Caddo Lake must remain the explicit noindex production control.');
