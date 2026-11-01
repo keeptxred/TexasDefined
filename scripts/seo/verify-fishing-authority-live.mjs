@@ -21,8 +21,7 @@ const getAttr = (tag, name) => {
 const tags = (html, name) => [...html.matchAll(new RegExp("<" + name + "\\b[^>]*>", "gi"))].map((m) => m[0]);
 const decode = (s) => s.replace(/&amp;/gi,"&").replace(/&#38;/gi,"&").replace(/&quot;/gi,'"').replace(/&lt;/gi,"<").replace(/&gt;/gi,">");
 const tidy = (s) => decode(s.replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim());
-const meta = (html, name) => tags(html,"meta").find((tag) => getAttr(tag,"name").toLowerCase() === name)?.match(/./)
-  ? getAttr(tags(html,"meta").find((tag) => getAttr(tag,"name").toLowerCase() === name),"content") : "";
+const meta = (html, name) => { const tag = tags(html,"meta").find((row) => getAttr(row,"name").toLowerCase() === name); return tag ? getAttr(tag,"content") : ""; };
 function canonical(html) {
   const link = tags(html,"link").find((tag) => getAttr(tag,"rel").toLowerCase().split(/\s+/).includes("canonical"));
   return link ? decode(getAttr(link,"href")) : "";
@@ -66,7 +65,7 @@ function auditHtml(row, fetched) {
   const contextual = internal.filter((p) => p.startsWith("/fishing/") || p.startsWith("/county/") || p.startsWith("/destination/"));
   const external = hrefs.filter((href) => href.startsWith("https://") && !href.startsWith(base));
   const official = external.filter((href) => /tpwd\.texas\.gov|\.usace\.army\.mil|recreation\.gov|nps\.gov|lcraparks\.com|waterdatafortexas\.org|\.texas\.gov|\.gov\//i.test(href));
-  const expectedIndex = row.acceptance !== "conditional_on_verified_published_records" && !["hub-or-service-form"].includes(row.family);
+  const expectedIndex = row.acceptance !== "conditional_on_verified_published_records";
   const noindex = /\bnoindex\b/i.test(robots);
   const critical = [];
   const warnings = [];
@@ -82,7 +81,7 @@ function auditHtml(row, fetched) {
   if (row.family === "lake-overview" && tags(html,"img").length === 0) warnings.push("no_HTML_image_verify_governed_photo_or_map");
   if (row.family === "lake-section" && row.section === "regulations" && official.length < 1) critical.push("no_direct_official_regulation_source_link");
   if (row.family === "lake-section" && ["camping","nearby"].includes(row.section) && external.length < 1) critical.push("missing_campground_or_attraction_source");
-  if (!html.includes("application/ld+json")) warnings.push("missing_schema_JSONLD");
+  if (!html.includes("application/ld+json")) { if (expectedIndex) critical.push("missing_schema_JSONLD"); else warnings.push("missing_schema_JSONLD"); }
   if (title.length > 72) warnings.push("title_over_72_chars");
   if (description.length < 65 || description.length > 170) warnings.push("description_length_review");
   const stripped = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ")
