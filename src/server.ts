@@ -652,6 +652,27 @@ export default {
       if (legacyAppleIcon) return legacyAppleIcon;
       const adsTxt = adsTxtResponse(request);
       if (adsTxt) return adsTxt;
+
+      // Supplemental Bing Webmaster feed: intentionally NOT added to Google's
+      // public sitemap index/robots; Bingbot can index staged football HTML.
+      if ((request.method === "GET" || request.method === "HEAD") &&
+          new URL(request.url).pathname === "/sitemap-bing-football.xml") {
+        const { bingExcludedFootballSitemapEntries } = await import("./data/high-school-football/football-sitemap.server");
+        const { paths } = bingExcludedFootballSitemapEntries();
+        const origin = "https://texasdefined.com";
+        const escapeXml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const xml = '<?xml version="1.0" encoding="UTF-8"?>\\n' +
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\\n' +
+          paths.map((path) => `  <url><loc>${escapeXml(origin + path)}</loc></url>`).join('\\n') +
+          '\\n</urlset>\\n';
+        return new Response(request.method === "HEAD" ? null : xml, {
+          status: 200,
+          headers: {
+            "content-type": "application/xml; charset=utf-8",
+            "cache-control": "public, max-age=300",
+          },
+        });
+      }
       const image = await remoteImageResponse(request, ctx);
       if (image) return image;
       const viator = await viatorApiResponse(request, env, ctx);
