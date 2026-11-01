@@ -201,6 +201,27 @@ export async function getTaxingUnitRateHistoryServer(slug: string, type?: TexasT
       mode,
     };
   }
+  // Edna's 2023 Comptroller and county figures disagree. Preserve the statewide
+  // workbook untouched, while showing the dated county evidence on the history
+  // page. Only attach this scoped fallback until the verified-local import adds
+  // the same record; never inject it into parcel calculators or county rollups.
+  const edna2023 = records.find((record) =>
+    record.slug === 'edna' && record.type === 'city' && record.year === 2023);
+  if (edna2023 && !edna2023.localVerification) {
+    const localTotal = 0.2128;
+    edna2023.localVerification = {
+      totalRate: localTotal,
+      maintenanceOperationsRate: 0.1294,
+      debtServiceRate: 0.0834,
+      sourceUrl: 'https://www.co.jackson.tx.us/upload/page/2347/2025%20FIVE%20YEAR%20SUMMARY.pdf',
+      componentSourceUrl: null,
+      sourceAgency: 'Jackson County Tax Assessor-Collector',
+      verifiedOn: '2026-10-31',
+      evidenceNote: 'Jackson County’s 2025 five-year summary gives Edna’s 2023 adopted city rate as $0.2128 per $100 (M&O $0.1294; I&S $0.0834). This differs from the statewide rate if that workbook displays $0.2774; the statewide entry remains unchanged pending reconciliation.',
+      mode: edna2023.totalRate == null ? 'supplement'
+        : Math.abs(edna2023.totalRate - localTotal) > 0.000001 ? 'conflict' : 'corroborated',
+    };
+  }
   return records;
   });
 }
