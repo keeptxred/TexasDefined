@@ -82,3 +82,52 @@ export function footballGameSitemapEntries() {
     { path: '/texas-high-school-football-matchups/2026-10-23-houston-lamar-at-houston-memorial', lastmod: '2026-10-16' },
   ];
 }
+/**
+ * Supplemental Bing-only discovery feed for football details that have
+ * Googlebot-only noindex metadata. This URL is intentionally NOT referenced
+ * in robots.txt, Google's sitemap index, or the public sitemap.xml.
+ *
+ * The source inventory is the same as the regular UIL/private football sitemap.
+ * Indexability is NEVER changed here; Bingbot still sees the original page.
+ */
+export function bingExcludedFootballSitemapEntries() {
+  const uilNames = new Set(
+    UIL_FOOTBALL_PROGRAMS_2026.map((program) => normalizeFeaturedFootballName(program.schoolName)),
+  );
+
+  const teamPaths = [
+    ...UIL_FOOTBALL_PROGRAMS_2026.map((program) => footballProgramProfilePath(program.schoolName)),
+    ...FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS
+      .filter((program) =>
+        ![program.displayName, program.searchName, ...program.aliases]
+          .map(normalizeFeaturedFootballName)
+          .some((name) => uilNames.has(name)),
+      )
+      .map((program) => `/texas-high-school-football-teams/${program.slug}`),
+  ];
+
+  const allTeams = new Set(teamPaths);
+  if (allTeams.size !== 1292) {
+    throw new Error(`Bing football feed expected 1,292 unique team profiles; found ${allTeams.size}.`);
+  }
+
+  const districtPaths = new Set(UIL_FOOTBALL_PROGRAMS_2026.map((program) =>
+    footballDistrictProfilePath(program.classification, program.division, program.district),
+  ));
+  if (districtPaths.size !== 192) {
+    throw new Error(`Bing football feed expected 192 unique district profiles; found ${districtPaths.size}.`);
+  }
+
+  const stagedTeams = [...allTeams].filter((path) =>
+    !isFootballTeamGoogleIndexReady(path.split('/').at(-1) ?? ''),
+  );
+  const stagedDistricts = [...districtPaths].filter((path) =>
+    !isFootballDistrictGoogleIndexReady(path.split('/').at(-1) ?? ''),
+  );
+
+  return {
+    stagedTeams: stagedTeams.sort(),
+    stagedDistricts: stagedDistricts.sort(),
+    paths: [...stagedTeams, ...stagedDistricts].sort(),
+  };
+}

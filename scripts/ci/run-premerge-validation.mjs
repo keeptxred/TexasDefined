@@ -42,6 +42,8 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['SEO/BING/FOOTBALL', 'Keep Bing staged-school discovery separate from Google indexability', 'node', ['scripts/ci/validate-bing-football-sitemap-policy.mjs']],
+  ['SEO/BING/FOOTBALL', 'Syntax-check bounded production Bing supplemental sitemap acceptance', 'node', ['--check', 'scripts/ci/verify-bing-football-sitemap-production.mjs']],
   ['FOOTBALL/DIRECTORY', 'Validate UIL directory URLs, reciprocal links and canonical/indexing guards', 'python3', ['scripts/ci/validate_football_directory_navigation.py']],
   ['COMMERCE/CJ', 'Syntax-check bounded first-party CJ production verification', 'node', ['--check', 'scripts/ci/verify-cj-account-production.mjs']],
   ['COMMERCE/CJ', 'Verify account-specific CJ creatives, exact destinations, stable SIDs and expired relationship fallback', 'node', ['--test', 'scripts/data/cj-account-links.test.mjs']],
