@@ -50,7 +50,7 @@ async function dynamicSitemap() {
     const pages = [...text.matchAll(/<loc>\s*([^<]+)\s*<\/loc>/g)]
       .map((m) => decode(m[1].trim())).filter((href) => href.startsWith(base+"/fishing/"))
       .map((href) => new URL(href).pathname);
-    const dynamic = pages.filter((p) => /^\/fishing\/(?:access|services|guide|report)\/[a-z0-9-]+$/.test(p));
+    const dynamic = pages.filter((p) => /^\/fishing\/(?:access|services|guides|reports)\/[a-z0-9-]+$/.test(p));
     return { pages: [...new Set(dynamic)], error: null };
   } catch (e) { return { pages: [], error: String(e) }; }
 }
