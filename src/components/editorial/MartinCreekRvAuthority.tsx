@@ -7,7 +7,7 @@ import { Link } from "@tanstack/react-router";
  */
 const CAMPSITES = [
   { name: "Lakefront electric", loop: "Bee Tree", power: "30 amp + water", sites: 13, nightly: "$20", href: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites/premium-lake-front-access-campsites" },
-  { name: "50-amp electric", loop: "Bee Tree", power: "50 amp + water", sites: 6, nightly: "$20", href: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites/campsites-with-electricity-50-amp" },
+  { name: "50-amp electric", loop: "Bee Tree", power: "50 amp + water", sites: 6, nightly: "$20", href: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites/campsites-with-50-amp-electric-and-water" },
   { name: "Standard electric", loop: "Bee Tree / Broken Bowl", power: "30 amp + water", sites: 37, nightly: "$17", href: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites/campsites-with-hookups" },
 ] as const;
 const PARK = "https://tpwd.texas.gov/state-parks/martin-creek-lake";
