@@ -405,6 +405,19 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
       if (missingChecks.length) {
         return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
       }
+      // The Bing-only XML must contain the exact evolving Google-staged cohort,
+      // not merely the expected example URL. Fail BEFORE deploying any mismatch.
+      if (group.path === '/sitemap-bing-football.xml') {
+        const policy = JSON.parse(readFileSync('src/data/high-school-football/google-index-eligibility.generated.json', 'utf8'));
+        const expected = 1292 - policy.teamIndexableSlugs.length + 192 - policy.districtIndexableSlugs.length;
+        const entries = [...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+        if (entries.length !== expected || new Set(entries).size !== entries.length) {
+          return `Bing football sitemap count/uniqueness mismatch: ${entries.length} vs expected ${expected}`;
+        }
+        if (!entries.every((value) => /^https:\/\/texasdefined\.com\/texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+$/.test(value))) {
+          return 'Bing football supplemental feed contains a noncanonical or non-football URL';
+        }
+      }
       if (licensedMardiGrasPages.has(group.path)) {
         const robotsMetaTags = body.match(/<meta\b[^>]*>/gi) || [];
         const stillNoindex = robotsMetaTags.some((tag) =>
