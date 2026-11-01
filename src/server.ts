@@ -661,10 +661,10 @@ export default {
         const { paths } = bingExcludedFootballSitemapEntries();
         const origin = "https://texasdefined.com";
         const escapeXml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        const xml = '<?xml version="1.0" encoding="UTF-8"?>\\n' +
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\\n' +
-          paths.map((path) => `  <url><loc>${escapeXml(origin + path)}</loc></url>`).join('\\n') +
-          '\\n</urlset>\\n';
+        const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+          paths.map((path) => `  <url><loc>${escapeXml(origin + path)}</loc></url>`).join('\n') +
+          '\n</urlset>\n';
         return new Response(request.method === "HEAD" ? null : xml, {
           status: 200,
           headers: {
