@@ -61,7 +61,7 @@ export const Route = createFileRoute("/fishing")({
       ],
     };
     return {
-      meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: "/fishing" }),
+      meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide — Lakes, Fish Species & Local Fishing", description: "Explore Texas fishing lake by lake, with verified lake facts, target species, seasonal patterns, access, reports, trip planning and verified local guide infrastructure.", canonicalPath: "/fishing" }),
       links: [canonicalLink(texasDefinedBrand, "/fishing")],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
     };
