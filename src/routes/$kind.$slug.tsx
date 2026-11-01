@@ -71,12 +71,8 @@ export const Route = createFileRoute('/$kind/$slug')({
     // so crawlers and readers are not dependent on a client fetch or hydration.
     // Scope this to the requested page to avoid changing every county loader.
     const countyTaxSummary = entity.slug === 'collin'
-      ? await import('@/data/property/texas-tax-rates.server').then(async ({
-          getLatestTaxRateYearServer, getCountyTaxRateSummaryServer,
-        }) => {
-          const year = await getLatestTaxRateYearServer();
-          return (await getCountyTaxRateSummaryServer(entity.slug, year)).summary;
-        }).catch(() => null)
+      ? await import('@/data/property/texas-tax-rates.functions').then(({ getCountyTaxRateSnapshot }) =>
+          getCountyTaxRateSnapshot({ data: { countySlug: entity.slug } })).catch(() => null)
       : null;
     const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
     return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks, countyTaxSummary };
