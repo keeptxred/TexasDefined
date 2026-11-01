@@ -37,7 +37,13 @@ const rows = [];
 function add(path, family, lake = null, section = null, acceptance = "pending_live_and_editorial_QA") {
   rows.push({ path, family, lake, section, acceptance });
 }
-hubs.forEach((p) => add(p, "hub"));
+hubs.forEach((p) => add(
+  p,
+  p.endsWith("/submit") ? "submission-form" : "hub",
+  null, null,
+  p.endsWith("/submit") || ["/fishing/guides","/fishing/reports","/fishing/access","/fishing/services"].includes(p)
+    ? "conditional_on_verified_published_records" : "pending_live_and_editorial_QA",
+));
 for (const slug of lakes) {
   const d = records[slug];
   if (!d || !d.camping?.length || !d.regulations?.length || !d.nearby?.length)
