@@ -1,0 +1,49 @@
+name: Monitor Martin Creek RV primary sources
+
+on:
+  schedule:
+    - cron: "33 14 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: monitor-martin-creek-rv
+  cancel-in-progress: false
+
+jobs:
+  verify-primary-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check campsite rates, active alerts and late arrival requirements
+        id: verify
+        shell: bash
+        run: |
+          set +e
+          node scripts/data/check-martin-creek-rv-source-drift.mjs
+          result=$?
+          if [ -s /tmp/martin-creek-rv-drift.txt ]; then
+            echo "source_drift=true" >> "$GITHUB_OUTPUT"
+            cat /tmp/martin-creek-rv-drift.txt >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$result"
+      - name: Open one source-drift issue, without overwriting published facts
+        if: always() && steps.verify.outputs.source_drift == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          title="Martin Creek RV: official campsite facts or alerts need re-verification"
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search '"Martin Creek RV: official campsite facts or alerts need re-verification" in:title' --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file /tmp/martin-creek-rv-drift.txt
+          else
+            echo "Existing source-drift issue #$existing; avoiding duplicate."
+          fi
