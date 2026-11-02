@@ -11,7 +11,9 @@ test("source research is weekly and PR checks remain strictly read only", () => 
   const reviewer = workflow.split("  editorial-followup:")[1];
   assert.ok(reviewer, "research reviewer job must exist");
   assert.match(reviewer, /if: github\.event_name == 'schedule' \|\| github\.event_name == 'workflow_dispatch'/);
-  assert.match(reviewer, /    permissions:\n      contents: read\n      issues: write/);
+  assert.match(reviewer, /    permissions:\n      actions: read\n      contents: read\n      issues: write/);
+  assert.match(reviewer, /gh run download/, "reviewer must compare against last persisted source snapshot");
+  assert.match(reviewer, /actions\/upload-artifact@v4/, "each scheduled run persists a new fingerprint snapshot");
 });
 
 test("expired operator answers create one deduplicated issue, without changing verification dates", () => {
@@ -23,7 +25,9 @@ test("expired operator answers create one deduplicated issue, without changing v
   assert.match(reviewer, /gh issue reopen/);
   assert.match(reviewer, /gh issue close/);
   assert.match(reviewer, /gh issue create/);
-  assert.match(reviewer, /grep -q '\^STALE '/);
-  assert.match(reviewer, /already suppressed/);
+  assert.match(reviewer, /grep -Eq '\^\(STALE\|SOURCE_CHANGED\|SOURCE_REVIEW\|SOURCE_UNAVAILABLE\) '/);
+  assert.match(reviewer, /suppressed by runtime freshness gates/);
+  assert.match(reviewer, /pending|unresolved/i, "pending source reviews must not close automatically");
+  assert.match(reviewer, /monitor-operator-sources\.mjs/, "operator-source changes must be monitored");
   assert.doesNotMatch(reviewer, /(?:sed -i|perl -i|git push|npm version)/);
 });

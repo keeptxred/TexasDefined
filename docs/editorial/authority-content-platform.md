@@ -51,3 +51,13 @@ The follow-up branch `feat/authority-visitor-multistop-budget-20261102` improves
 **Admission gate for each additional page:** choose one controlling search intent; confirm a distinct source record and sufficient verified facts; reuse the existing visitor component only if it answers a new decision; suppress unverified price/age/ADA claims; test responsive presentation, source accuracy, canonical and visible SSR text. If the current destination already supplies the same itinerary or comparison, do not add another widget. Register each rollout in the ownership manifest only when the exact real canonical page path has been checked. No mass-generated duplicate URLs.
 
 Original photos and operator interviews require separately documented permission, licensing and dated evidence. Do not present a representative vineyard as a verified venue photograph, invent field visits, or advance checked dates based solely on a scheduled run.
+
+## Weekly operator-source change watch
+
+The existing `.github/workflows/destination-visitor-fact-freshness.yml` is the sole schedule for this review. It checks the bounded list of official URLs already referenced by canonical operator records, normalizes visible HTML and saves a SHA-256 source fingerprint artifact for the next run. The snapshot is technical change evidence, **not** a factual verification or proof that any policy is correct. No extra indexed articles, database clone or new scheduler is created.
+
+A new source URL's first successful read establishes a baseline without advancing `checkedAt`. An observed change remains `SOURCE_REVIEW` in following runs until the oldest checked date across all dependent offers is later than the detection date; a temporarily unreachable or bot-challenged operator website remains `SOURCE_UNAVAILABLE` and is never silently considered verified. The single existing visitor-fact research issue groups these alerts with 45-day expired offers.
+
+A human or verified editorial research process must check the actual changed policy against the source before altering public facts and dates. Never auto-update prices just because the HTML changed, and never treat unchanged content as confirmation of accuracy. The monitoring job deliberately uses a bounded set of ordinary HTTPS requests and does not evade anti-bot protections. GitHub Actions snapshot artifacts are retained for 60 days; any missing/corrupt history must be treated as a new technical baseline, not source approval.
+
+Production deployment remains governed by the existing protected build, SEO, asset continuity, image rights and live Worker acceptance gates.
