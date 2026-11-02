@@ -103,6 +103,26 @@ try {
           throw new Error("Missing unique six-park comparison card: " + name);
         }
       }
+      const tripJump = page.getByRole("link", { name: "Jump to the six-park comparison, map and dated photographs" });
+      if (await tripJump.getAttribute("href") !== "#east-texas-fall-trip-planner") throw new Error("Top-of-guide trip planner jump is broken");
+      if (!await page.locator("#east-texas-fall-trip-planner").count()) throw new Error("Trip planner anchor missing");
+      const expectedGuides = [
+        ["Daingerfield State Park", "/destination/daingerfield-state-park", "Rustling Leaves"],
+        ["Caddo Lake State Park", "/destination/caddo-lake", "Caddo Forest"],
+        ["Lake Bob Sandlin State Park", "/destination/lake-bob-sandlin-state-park", "Lakeview Loop"],
+        ["Tyler State Park", "/destination/tyler-state-park", "Lakeshore"],
+        ["Cooper Lake State Park", "/destination/cooper-lake-state-park", "Honey Creek"],
+        ["Martin Creek Lake State Park", "/destination/martin-creek-lake-state-park", "Harmony Hill"],
+      ];
+      for (const [name, guide, trail] of expectedGuides) {
+        const card = planner.getByRole("heading", { name, level: 3, exact: true }).locator("xpath=ancestor::article[1]");
+        const href = await card.getByRole("link", { name: "Texas Defined guide" }).getAttribute("href");
+        if (href !== guide) throw new Error(name + " internal guide lost: " + href);
+        if (!await card.getByText(trail, { exact: false }).count()) throw new Error(name + " trail comparison missing " + trail);
+      }
+      const caddoCard = planner.getByRole("heading", { name: "Caddo Lake State Park", level: 3, exact: true }).locator("xpath=ancestor::article[1]");
+      if (await caddoCard.getByRole("link", { name: "Current ranger programs" }).getAttribute("href") !== "https://tpwd.texas.gov/state-parks/caddo-lake/park_events/") throw new Error("Caddo current official event calendar missing");
+      if (await page.getByRole("heading", { name: "More fall foliage guides", exact: true }).count()) throw new Error("Duplicate end-of-guide foliage link rail returned");
       for (const [name, destination] of [
         ["Daingerfield State Park visitor information", "daingerfield"],
         ["Caddo Lake State Park visitor information", "caddo-lake"],
