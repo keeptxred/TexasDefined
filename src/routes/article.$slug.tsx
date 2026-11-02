@@ -655,6 +655,7 @@ function ArticlePage() {
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
             <a href={place.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official park info ↗</a>
             {place.guide && <a href={place.guide} className="font-semibold text-primary underline underline-offset-4">Texas Defined guide →</a>}
+            {place.name === "Caddo Lake State Park" && <a href="https://tpwd.texas.gov/state-parks/caddo-lake/park_events/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Current ranger programs ↗</a>}
           </div>
         </article>)}
       </div>
