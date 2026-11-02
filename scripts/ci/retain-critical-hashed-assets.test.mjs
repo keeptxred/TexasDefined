@@ -176,6 +176,7 @@ test('Nov 2 observed Meta/Bing imports are eligible only as same-origin hashed J
   "/assets/TexasExplainedContextLinks-CX8yFupy.js",
   "/assets/TexasEventCarousel-Bjl-TKRv.js",
   "/assets/sports-traffic.functions-BM-ItR2d.js",
+  "/assets/useSuspenseQuery-LwAPVdI7.js",
   "/assets/PropertyCalculatorFramework-BfNaFZpi.js",
   "/assets/AnswerSummary-ClpRNP9w.js",
   "/assets/texas-home-insurance-calculator.lazy-B-Cusmus.js"
