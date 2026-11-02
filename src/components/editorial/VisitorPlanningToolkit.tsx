@@ -97,7 +97,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         </p>
       </section> : null}
 
-      <section aria-labelledby="experience-prices-title">
+      {offers.length ? <section aria-labelledby="experience-prices-title">
         <h3 id="experience-prices-title" className="font-display text-2xl">Verified offering prices and durations</h3>
         {offers.length ? (
           <>
@@ -122,7 +122,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
             Operator price checks have expired. Follow the official booking links in the comparison for current quotes.
           </p>
         )}
-      </section>
+      </section> : null}
 
       {places.length ? <section aria-labelledby="experience-map-title">
         <h3 id="experience-map-title" className="font-display text-2xl">Explore locations and routes</h3>
@@ -241,7 +241,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         </a>
       </section> : null}
 
-      <section aria-labelledby="experience-budget-title">
+      {offers.length ? <section aria-labelledby="experience-budget-title">
         <h3 id="experience-budget-title" className="font-display text-2xl">Estimate your group budget</h3>
         <p className="mt-2 text-sm text-muted-foreground">
           Calculations stay in your browser. Select multiple verified tastings and add your own lodging,
@@ -298,11 +298,12 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
           Planning total: {money(costs)}
           <span className="ml-3 text-sm font-normal text-muted-foreground">({money(perGuest)} per guest)</span>
         </p>
+        {costs === 0 ? <p className="mt-2 text-sm text-muted-foreground">No trip expenses have been selected or entered yet; this is not a free-trip estimate.</p> : null}
         <p className="mt-2 text-xs leading-5 text-muted-foreground">
           Not a booking offer. Taxes, tips, additional tastings, deposits and unentered expenses are excluded.
           Confirm the current price and availability with the operator.
         </p>
-      </section>
+      </section> : null}
     </section>
   );
 }
