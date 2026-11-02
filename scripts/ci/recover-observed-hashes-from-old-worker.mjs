@@ -70,8 +70,20 @@ export const SECOND_PASS_PREVIEW_VERSIONS = [
   '0ea7e9af-3132-41af-9a59-19d4d1084855',
   'f7a0fc9c-89b8-4c87-8bd3-32d27cb232bf',
 ];
+// AI Search ASN714 requested this exact 404 from /search?q=texas%20wine%20country
+// on Nov 2 21:11:32Z; not present in previous 694-asset acceptance cohort.
+export const LATEST_MISSING = new Set(['useSuspenseQuery-LwAPVdI7.js']);
+// Actual Cloudflare metadata.has_preview=true for four first-party Nov2
+// deployed versions, all newer than the first 16 historical candidates.
+export const LATEST_PREVIEW_VERSIONS = [
+  'ad89d209-7f06-4edb-996d-3de4bf9f1a3a',
+  '087cf3fb-68ae-4293-a2a3-b4c984f3e752',
+  'd52362b7-c75c-4d51-8bf6-57eb39f3c973',
+  'eeb54c5c-c511-4a42-beaf-7e13c14877b7',
+];
 export const LOGGED_MISSING = [
   'useQuery-6nTz4IUX.js','ArticleCard-OgqXjgNN.js',
+  'useSuspenseQuery-LwAPVdI7.js',
   'useBaseQuery-DAwRZeNC.js','ElPasoAreaAuthority-D_3Wtymp.js',
   'ArticleBody-Dfj6eFOG.js','external-link-DASm7Sot.js',
   'FootballFanOffers-DXCuhNe8.js','DestinationCard-CogOLLKC.js',
@@ -122,9 +134,10 @@ export async function recoverObserved({
   now=Date.now(), filenames=LOGGED_MISSING, versions=OLD_VERSIONS,
   recentVersions=RECENT_OBSERVED_VERSIONS,
   supplementalVersions=SECOND_PASS_PREVIEW_VERSIONS,
+  latestVersions=LATEST_PREVIEW_VERSIONS,
   snapshotPath=SNAPSHOT, reportPath=REPORT, folder=FOLDER, fetchImpl=fetch,
 }={}) {
-  if (filenames.length > 28 || versions.length > 8 || recentVersions.length > 6 || supplementalVersions.length > 10)
+  if (filenames.length > 28 || versions.length > 8 || recentVersions.length > 6 || supplementalVersions.length > 10 || latestVersions.length > 4)
     throw Error('Historical recovery bounds exceeded');
   const snapshot=JSON.parse(await readFile(snapshotPath,'utf8'));
   const latest=snapshot.snapshots?.at(-1);
@@ -143,7 +156,8 @@ export async function recoverObserved({
     }
     // The newest real Bing/Meta failures take priority if the hard, bounded
     // remote-probe ceiling is reached. Never silently treat skips as recovered.
-    missing.sort((a, b) => Number(SECOND_PASS_MISSING.has(b.name)) - Number(SECOND_PASS_MISSING.has(a.name))
+    missing.sort((a, b) => Number(LATEST_MISSING.has(b.name)) - Number(LATEST_MISSING.has(a.name))
+      || Number(SECOND_PASS_MISSING.has(b.name)) - Number(SECOND_PASS_MISSING.has(a.name))
       || Number(RECENT_MISSING.has(b.name)) - Number(RECENT_MISSING.has(a.name)));
     // Every historical response is checked on its exact path. The previous
     // canary-based shortcut falsely ignored old versions that lacked the sample
@@ -153,7 +167,8 @@ export async function recoverObserved({
     let total=0;
     for (const item of missing) {
       let result=null;
-      const candidates = SECOND_PASS_MISSING.has(item.name) ? supplementalVersions
+      const candidates = LATEST_MISSING.has(item.name) ? latestVersions
+        : SECOND_PASS_MISSING.has(item.name) ? supplementalVersions
         : RECENT_MISSING.has(item.name) ? recentVersions
         : FIRST_THREE_VERSION_MISSES.has(item.name) ? versions.slice(3) : versions;
       for (const version of candidates) {
