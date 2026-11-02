@@ -5,12 +5,14 @@ const base = new URL("../../src/data/authority/", import.meta.url);
 const owners = JSON.parse(readFileSync(fileURLToPath(new URL("content-ownership.json", base)), "utf8"));
 const offers = JSON.parse(readFileSync(fileURLToPath(new URL("experience-offers.json", base)), "utf8"));
 const supplemental = JSON.parse(readFileSync(fileURLToPath(new URL("independent-operators.json", base)), "utf8"));
+const roster = readFileSync(fileURLToPath(new URL("experience-registry.ts", base)), "utf8");
 const errors = [];
 const stale = [];
 const seenPaths = new Set();
 const seenClusters = new Set();
 const seenOffers = new Set();
 const seenSupplemental = new Set();
+const seenAddresses = new Set();
 const today = Date.parse(new Date().toISOString().slice(0, 10) + "T00:00:00Z");
 const validDate = (s) => /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(Date.parse(s + "T00:00:00Z"))
   && new Date(Date.parse(s + "T00:00:00Z")).toISOString().slice(0, 10) === s;
@@ -53,6 +55,12 @@ for (const place of supplemental) {
   seenSupplemental.add(place.slug);
   if (!place.name || !place.address || !place.sourceUrl?.startsWith("https://")) errors.push("Missing verified operator identity " + place.slug);
   if (!validDate(place.checkedAt)) errors.push("Missing verified date for operator " + place.slug);
+  const addressKey = String(place.address).toLowerCase().replace(/[^a-z0-9]/g, "");
+  if (seenAddresses.has(addressKey)) errors.push("Duplicate independent tasting-room address " + place.slug);
+  seenAddresses.add(addressKey);
+  if (!roster.includes('"' + place.slug + '"')) errors.push("Unlisted researched operator location " + place.slug);
+  if (!place.reservationUrl?.startsWith("https://") || !place.officialUrl?.startsWith("https://"))
+    errors.push("Incomplete official handoff for operator " + place.slug);
 }
 for (const offer of offers) {
   const prefix = String(offer.id);
