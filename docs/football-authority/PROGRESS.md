@@ -1,5 +1,13 @@
 # Football Authority — Execution Ledger
 
+## 2026-11-02 — Batch012 next 25 schools ASSIGNED (not yet authored or verified)
+
+Protected Batch011 graduation PR #6520 merged at `6fd2ab1e13e337dec1ead8a0b2e9942edb227c74`; exact registry has 255 VERIFIED and 1,037 NOT_REVIEWED. Batch012 assigns the first 25 remaining canonical schools in registry order, with **zero** claimed research, production acceptance, or Chrome verification. Preserve single genuine Chrome execution covering 25 schools at 1366/390/320, county reciprocity, sitemap, canonical/indexability and authenticated Worker/source identity after actual protected deployment. No manual screenshot gate, unlicensed scores, school photographs or fabricated staff claims.
+
+**Assigned slugs (stable order):** `corpus-christi-flour-bluff`, `corpus-christi-king`, `corpus-christi-london`, `corpus-christi-miller`, `corpus-christi-moody`, `corpus-christi-ray`, `corpus-christi-tuloso-midway`, `corpus-christi-veterans-memorial`, `corpus-christi-west-oso`, `corrigan-camden`, `corsicana`, `cotton-center`, `cotulla`, `covington`, `crandall`, `crane`, `cranfills-gap`, `crawford`, `crockett`, `crosby`, `crosbyton`, `cross-plains`, `crowell`, `crowley`, `crystal-city`.
+
+**Next:** Author and independently source the first five (Flour Bluff, King, London, Miller, Moody); follow the existing protected PR, deployment and technical verification workflow. Do not promote any B012 school to VERIFIED without exact production evidence.
+
 ## 2026-11-02 — Batch011 production Chrome VERIFIED (25/25)
 
 ONE genuine non-skipped Chrome job checked all 25 schools at 1366/390/320, 18 reciprocal counties and sitemap coverage. Run 41380813976, compact artifact 13113198395, Worker 3dcb8101-ae9a-4e19-a407-07dfa4295802, source 496d461f18ecb4d162e6dd4852b1d31b72aa6f7d, protected production run 41380205948, GitHub verified Worker ledger 7483212702, Cloudflare deployment 3b8a8159-7cf3-418e-89fe-84933581af03. No manual accessibility, score, media-rights or editorial signoff claimed.
