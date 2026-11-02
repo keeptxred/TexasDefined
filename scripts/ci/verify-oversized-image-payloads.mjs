@@ -99,7 +99,10 @@ async function probe(entry) {
         headers: { "User-Agent": "TexasDefinedImagePayloadAudit/1.0", Accept: "image/avif,image/webp,image/jpeg,image/png,image/*;q=0.8" },
       });
       const type = response.headers.get("content-type") || "";
-      const variant = response.headers.get("x-texasdefined-image-variant") || null;
+      // fetch() follows the pinned same-origin 302 for two governed WebP assets.
+      const finalUrl = response.url;
+      const pinned = new URL(finalUrl).pathname.startsWith("/images/editorial/optimized/");
+      const variant = pinned ? "local-pinned-webp" : response.headers.get("x-texasdefined-image-variant") || null;
       const length = response.headers.get("content-length") || null;
       let measuredBytes = 0;
       if (response.body) {
@@ -166,6 +169,7 @@ const summary = {
   remote: { count: remote.length, passed: remote.filter(x => x.pass).length,
     beforeBytes: sum(remote, "beforeBytes"), measuredAfterBytes: sum(remote, "afterBytes"),
     optimizedVariant: remote.filter(x => x.variant === "upstream-sized").length,
+    pinnedWebpVariant: remote.filter(x => x.variant === "local-pinned-webp").length,
     originalVariant: remote.filter(x => x.variant === "original").length },
   local: { count: local.length, passed: local.filter(x => x.pass).length,
     beforeBytes: sum(local, "beforeBytes"), measuredAfterBytes: sum(local, "afterBytes") },
@@ -183,7 +187,8 @@ if (process.env.GITHUB_STEP_SUMMARY) {
     "Checked " + summary.count + " actual rows (original paste was labeled 110, but 60 rows were not present).",
     "Passed " + summary.passed + ", failed " + summary.failed + ".",
     "Remote " + summary.remote.passed + "/" + summary.remote.count +
-      "; optimized variant " + summary.remote.optimizedVariant + ", original fallback " + summary.remote.originalVariant + ".",
+      "; upstream-sized " + summary.remote.optimizedVariant +
+      ", pinned WebP " + summary.remote.pinnedWebpVariant + ", original fallback " + summary.remote.originalVariant + ".",
     "Local " + summary.local.passed + "/" + summary.local.count + ".",
     "Measured total " + (summary.measuredAfterBytes / 1e6).toFixed(2) + " MB (only complete if no failures).",
     "Full URL-by-URL data: uploaded JSON and CSV artifacts.",
