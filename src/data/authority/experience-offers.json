@@ -1,0 +1,62 @@
+[
+  {
+    "id": "signor-bar-estate",
+    "destinationSlug": "signor-vineyards",
+    "label": "Signor estate bar-side",
+    "priceUsd": 25,
+    "durationMinutes": 60,
+    "minAge": 21,
+    "maxParty": 4,
+    "sourceUrl": "https://www.signorvineyards.com/reservations",
+    "checkedAt": "2026-11-02",
+    "notes": "Estate location; tasting bar; booking recommended"
+  },
+  {
+    "id": "signor-seated-estate",
+    "destinationSlug": "signor-vineyards",
+    "label": "Signor estate seated",
+    "priceUsd": 30,
+    "durationMinutes": 90,
+    "minAge": 21,
+    "maxParty": 6,
+    "sourceUrl": "https://www.signorvineyards.com/reservations",
+    "checkedAt": "2026-11-02",
+    "notes": "Estate location; charcuterie costs extra"
+  },
+  {
+    "id": "william-chris-winemaker",
+    "destinationSlug": "william-chris-vineyards-hye",
+    "label": "William Chris Winemaker's",
+    "priceUsd": 30,
+    "durationMinutes": 45,
+    "minAge": null,
+    "maxParty": 6,
+    "sourceUrl": "https://williamchriswines.com/visitwcv/",
+    "checkedAt": "2026-11-02",
+    "notes": "Walk-ins Monday–Thursday when space permits"
+  },
+  {
+    "id": "william-chris-elevated",
+    "destinationSlug": "william-chris-vineyards-hye",
+    "label": "William Chris Elevated",
+    "priceUsd": 40,
+    "durationMinutes": 75,
+    "minAge": null,
+    "maxParty": 6,
+    "sourceUrl": "https://williamchriswines.com/visitwcv/",
+    "checkedAt": "2026-11-02",
+    "notes": "Check schedule and charcuterie options"
+  },
+  {
+    "id": "william-chris-chefs-table",
+    "destinationSlug": "william-chris-vineyards-hye",
+    "label": "William Chris Chef's Table",
+    "priceUsd": 95,
+    "durationMinutes": 90,
+    "minAge": 21,
+    "maxParty": 6,
+    "sourceUrl": "https://williamchriswines.com/visitwcv/",
+    "checkedAt": "2026-11-02",
+    "notes": "Includes seasonal food-and-wine pairings"
+  }
+]

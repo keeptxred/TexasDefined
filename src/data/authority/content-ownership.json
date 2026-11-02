@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "policy": "One fact per canonical entity; one distinct intent per indexable page; tools may be reused without duplicating prose.",
+  "clusters": [
+    {
+      "id": "fredericksburg-wine-country",
+      "articleSlug": "fredericksburg-texas-wineries-things-to-do-guide",
+      "pages": [
+        {
+          "path": "/article/fredericksburg-texas-wineries-things-to-do-guide",
+          "role": "winery-comparison-and-trip-itinerary",
+          "intent": "Choose wineries and plan a practical wine-country weekend"
+        },
+        {
+          "path": "/destination/fredericksburg",
+          "role": "town-directory",
+          "intent": "Discover everything to see, do, eat and book in Fredericksburg"
+        },
+        {
+          "path": "/article/texas-wine-country",
+          "role": "regional-explainer",
+          "intent": "Compare Texas wine regions and appellations"
+        },
+        {
+          "path": "/article/fredericksburg-history-weekend-guide",
+          "role": "history-itinerary",
+          "intent": "Plan a museum and heritage-centered Fredericksburg weekend"
+        },
+        {
+          "path": "/destination/becker-vineyards",
+          "role": "venue-facts",
+          "intent": "Evaluate Becker estate and downtown experience details"
+        },
+        {
+          "path": "/destination/grape-creek-vineyards",
+          "role": "venue-facts",
+          "intent": "Evaluate Grape Creek estate visits and tasting options"
+        },
+        {
+          "path": "/destination/pedernales-cellars",
+          "role": "venue-facts",
+          "intent": "Evaluate Pedernales Cellars reservations and estate visit"
+        },
+        {
+          "path": "/destination/signor-vineyards",
+          "role": "venue-facts",
+          "intent": "Evaluate Signor Vineyards estate and downtown locations"
+        },
+        {
+          "path": "/destination/william-chris-vineyards-hye",
+          "role": "venue-facts",
+          "intent": "Evaluate William Chris Hye estate tastings"
+        },
+        {
+          "path": "/explore/trip-planner",
+          "role": "interactive-planner",
+          "intent": "Build personalized multi-stop Texas trips"
+        }
+      ]
+    }
+  ]
+}
