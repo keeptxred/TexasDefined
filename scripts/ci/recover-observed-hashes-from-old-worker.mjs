@@ -39,6 +39,20 @@ export const RECENT_OBSERVED_VERSIONS = [
   '36c47041-8817-425e-9bbd-c71dab3b8ab9',
   'f9a676e3-3dc8-4b07-ae90-9723ffdf0d94',
 ];
+// Five previously healthy old-only hashes escaped the 256-copy cap in protected
+// deployment #41523593259. The outgoing Worker ad89d209 served them at the
+// exact predeploy snapshot, and authenticated Cloudflare version metadata
+// confirms its first-party preview is available. Recover original bytes only.
+export const SATURATED_PREVIOUS_WORKER_VERSIONS = [
+  'ad89d209-7f06-4edb-996d-3de4bf9f1a3a',
+];
+export const SATURATED_PREVIOUS_MISSING = new Set([
+  'TexasExplainedContextLinks-DITTM5Z7.js',
+  'UnusualBusinessAuthorityPanel-BvgokrGB.js',
+  'town-authority-links-BVmzcn2Y.js',
+  'useBaseQuery-CDJ4v9fz.js',
+  'useLocation-BRSWkA7M.js',
+]);
 export const RECENT_MISSING = new Set([
   'PropertyCalculatorFramework-BfNaFZpi.js',
   'AnswerSummary-ClpRNP9w.js',
@@ -58,6 +72,7 @@ export const LOGGED_MISSING = [
   'internal-linking-Dmlhp8ZR.js','RouteStatusScreens-BZDUkz0q.js',
   'useLocation-CqpO0pgs.js','UnusualBusinessAuthorityPanel-oTnuUrSP.js',
   ...RECENT_MISSING,
+  ...SATURATED_PREVIOUS_MISSING,
 ];
 // Authenticated 2026-11-02 production run #41496225567 proved these exact
 // twelve old hashes absent from the first three version previews. Avoid
@@ -98,9 +113,10 @@ async function sourceBytes(version, path, fetchImpl) {
 export async function recoverObserved({
   now=Date.now(), filenames=LOGGED_MISSING, versions=OLD_VERSIONS,
   recentVersions=RECENT_OBSERVED_VERSIONS,
+  saturatedVersions=SATURATED_PREVIOUS_WORKER_VERSIONS,
   snapshotPath=SNAPSHOT, reportPath=REPORT, folder=FOLDER, fetchImpl=fetch,
 }={}) {
-  if (filenames.length > 28 || versions.length > 8 || recentVersions.length > 6)
+  if (filenames.length > 33 || versions.length > 8 || recentVersions.length > 6 || saturatedVersions.length > 1)
     throw Error('Historical recovery bounds exceeded');
   const snapshot=JSON.parse(await readFile(snapshotPath,'utf8'));
   const latest=snapshot.snapshots?.at(-1);
@@ -119,7 +135,8 @@ export async function recoverObserved({
     }
     // The newest real Bing/Meta failures take priority if the hard, bounded
     // remote-probe ceiling is reached. Never silently treat skips as recovered.
-    missing.sort((a, b) => Number(RECENT_MISSING.has(b.name)) - Number(RECENT_MISSING.has(a.name)));
+    missing.sort((a, b) => Number(SATURATED_PREVIOUS_MISSING.has(b.name)) - Number(SATURATED_PREVIOUS_MISSING.has(a.name))
+      || Number(RECENT_MISSING.has(b.name)) - Number(RECENT_MISSING.has(a.name)));
     // Every historical response is checked on its exact path. The previous
     // canary-based shortcut falsely ignored old versions that lacked the sample
     // file but could retain a different missing import. This pass is bounded by
@@ -128,7 +145,8 @@ export async function recoverObserved({
     let total=0;
     for (const item of missing) {
       let result=null;
-      const candidates = RECENT_MISSING.has(item.name) ? recentVersions
+      const candidates = SATURATED_PREVIOUS_MISSING.has(item.name) ? saturatedVersions
+        : RECENT_MISSING.has(item.name) ? recentVersions
         : FIRST_THREE_VERSION_MISSES.has(item.name) ? versions.slice(3) : versions;
       for (const version of candidates) {
         if (report.probed.length >= MAX_HISTORICAL_PROBES) break;
