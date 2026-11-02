@@ -70,7 +70,7 @@ export async function retain({
   const candidates = retentionCandidates(saved, now);
   const report = { format: 1, checkedAt: new Date(now).toISOString(), version: 'predeploy-current-worker',
     budget: { maxFiles: LIMIT_FILES, maxBytes: LIMIT_BYTES, maxAgeHours: 72 }, inspected: 0,
-    copied: [], alreadyInBuild: [], unavailable: [], ignoredOld: 0 };
+    copied: [], alreadyInBuild: [], unavailable: [], ignoredOld: 0, ignoredOldPaths: [] };
   const kept = [];
   let totalBytes = 0;
   let attemptedOld = 0;
@@ -88,6 +88,7 @@ export async function retain({
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
+      report.ignoredOldPaths.push(asset.path);
       continue;
     }
     attemptedOld += 1;
@@ -141,6 +142,12 @@ export async function retain({
     + ' bytes) into next Worker; current-build duplicates=' + report.alreadyInBuild.length
     + '; already missing=' + report.unavailable.length + '; aged-out/budget-limited=' + report.ignoredOld);
   for (const missing of report.unavailable) console.warn('::warning title=Pre-existing asset unavailable::' + missing.path + ' HTTP ' + missing.status);
+  // Never silently ship a Worker that drops previously healthy, in-window old hashes.
+  // The report is already persisted for diagnosis; fail BEFORE Wrangler deploy.
+  if (report.ignoredOld > 0) {
+    throw new Error('Old-only asset retention cap exceeded: ' + report.ignoredOld
+      + ' previously healthy hashes omitted; inspect ' + reportPath + ' and preserve original bytes before deploying');
+  }
   return report;
 }
 
