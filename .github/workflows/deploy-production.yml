@@ -428,7 +428,9 @@ jobs:
       # original binaries stay marked unresolved, never fabricated.
       - name: Recover exact observed old JS hashes from pinned Worker versions
         if: success()
-        run: node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
+        run: |
+          node --test scripts/ci/recover-observed-hashes-from-old-worker.test.mjs
+          node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
 
       - name: Publish Cloudflare deploy pending
         if: success()
