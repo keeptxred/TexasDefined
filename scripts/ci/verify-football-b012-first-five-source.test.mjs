@@ -48,3 +48,21 @@ test('Batch012 second five have source-backed editorial and server-only SSR wiri
   assert.ok(!secondEditorial.includes('wins:'));
   assert.ok(!secondEditorial.includes('losses:'));
 });
+
+
+test('Batch012 group three has five canonical source-backed guides wired into SSR', () => {
+  const loader = read('src/data/high-school-football/program-editorial-b012-group3-loader.server.ts');
+  const editorial = read('src/data/high-school-football/program-editorial-b012-group3.ts');
+  const profile = read('src/data/high-school-football/football-program-profile.server.ts');
+  for (const slug of ['corsicana','cotton-center','cotulla','covington','crandall']) {
+    assert.ok(loader.includes(`'${slug}'`), `missing loader slug ${slug}`);
+    assert.ok(editorial.includes(`"${slug}"`), `missing sourced editorial ${slug}`);
+  }
+  assert.ok(loader.includes("import('./program-editorial-b012-group3')"));
+  assert.ok(profile.includes('loadBatch012Group3FootballProgramEditorial(canonicalSlug)'));
+  assert.ok(editorial.includes('https://www.crandall-isd.net/gameday'));
+  assert.ok(editorial.includes('https://www.covingtonisd.org/athletics-home'));
+  assert.ok(!editorial.includes('imageUrl:'));
+  assert.ok(!editorial.includes('wins:'));
+  assert.ok(!editorial.includes('losses:'));
+});
