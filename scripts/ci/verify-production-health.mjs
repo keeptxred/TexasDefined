@@ -1,4 +1,4 @@
-import { appendFileSync } from 'node:fs';
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { verifyGovernedDiscoverDelivery } from './discover-production-asset-check.mjs';
 
 const origin = String(process.env.PRODUCTION_HEALTH_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
@@ -46,14 +46,23 @@ for (let attempt = 1; attempt <= attempts; attempt += 1) {
       console.log(`[${label}] health attempt ${attempt}/${attempts}: HTTP 200 with required marker (${consecutive}/${requiredConsecutive} consecutive).`);
       if (consecutive >= requiredConsecutive) {
         if (process.env.PRODUCTION_HEALTH_DISCOVER_ASSETS === 'true') {
-          const assets = await verifyGovernedDiscoverDelivery({ origin });
+          const assets = await verifyGovernedDiscoverDelivery({ origin, expectedBytesDir: 'dist/client/images/discover' });
+          // Durable, per-release evidence: both origins served EXACT published build bytes.
+          mkdirSync('.artifacts', { recursive: true });
+          const provenancePath = '.artifacts/governed-discover-delivery-' + label + '.json';
+          writeFileSync(provenancePath, JSON.stringify({
+            format: 1, checkedAt: new Date().toISOString(),
+            sourceCommit: sha,
+            sourceFingerprint: process.env.PRODUCTION_HEALTH_DISCOVER_SOURCE_FINGERPRINT || null,
+            ...assets,
+          }, null, 2) + '\n');
           if (assets.failures.length) {
             for (const issue of assets.failures) console.error(`[${label}] Governed Discover delivery failure: ${issue.url}: ${issue.reason}`);
             console.error(`::error title=${label} missing Discover assets::${assets.failures.length}/${assets.expected} governed WebP images were not delivered from live production.`);
             if (summaryPath) appendFileSync(summaryPath, `| ❌ FAIL | ${label} Discover delivery | ${assets.passed}/${assets.expected} images |\n`);
             process.exit(1);
           }
-          console.log(`[${label}] all ${assets.passed}/${assets.expected} governed Discover WebP assets returned valid images.`);
+          console.log(`[${label}] all ${assets.passed}/${assets.expected} governed Discover WebP assets matched the built release SHA-256 on live production.`);
         }
         if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | ${label} health | HTTP 200 | ${attempt} attempt(s) |\n`);
         console.log(`[${label}] production health passed after ${attempt} attempt(s).`);
