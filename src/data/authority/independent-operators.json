@@ -31,5 +31,16 @@
     "sourceUrl": "https://www.beckervineyards.com/main-street-tasting-room/",
     "checkedAt": "2026-11-02",
     "visitDuration": "Confirm walk-in tasting duration"
+  },
+  {
+    "slug": "signor-downtown-fredericksburg",
+    "name": "Signor Vineyards Downtown",
+    "nearestTown": "Downtown Fredericksburg",
+    "address": "107 N Orange Street, Fredericksburg, TX 78624",
+    "reservationUrl": "https://www.signorvineyards.com/visit",
+    "officialUrl": "https://www.signorvineyards.com/",
+    "sourceUrl": "https://www.signorvineyards.com/",
+    "checkedAt": "2026-11-02",
+    "visitDuration": "Confirm downtown tasting duration with operator"
   }
 ]

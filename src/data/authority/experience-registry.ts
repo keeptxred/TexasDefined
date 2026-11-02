@@ -53,6 +53,7 @@ export const fredericksburgWineExperience = {
     "grape-creek-vineyards",
     "pedernales-cellars",
     "signor-vineyards",
+    "signor-downtown-fredericksburg",
     "william-chris-vineyards-hye",
     "grape-creek-on-main",
     "becker-on-main",
