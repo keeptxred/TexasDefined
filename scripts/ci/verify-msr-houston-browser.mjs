@@ -79,14 +79,16 @@ for (const test of tests) {
     const tableRegion = page.locator('[role="region"][aria-label="MSR Houston participation options"]');
     await tableRegion.focus();
     assert.equal(await tableRegion.evaluate(el => el === document.activeElement), true, 'Participation table not keyboard-focusable');
-    // Mobile React hydration or same-document scroll restoration can settle after
-    // Playwright's click resolves. Wait for the *actual* URL fragment change, but
-    // still fail closed if anchor navigation does not work.
+    // Same-document hash navigation must not depend on every unrelated asset
+    // completing a new "load" event on mobile. Assert the actual fragment
+    // (not just a clicked href) and retain the post-settle URL + target checks.
     const logisticsLink = page.locator('nav[aria-label="MSR Houston guide sections"] a[href="#msr-logistics"]');
     await logisticsLink.click();
-    await page.waitForURL(current => current.pathname === '/sports-venue/msr-houston' && current.hash === '#msr-logistics', {
-      timeout: 10000,
-    });
+    await page.waitForFunction(
+      () => window.location.pathname === '/sports-venue/msr-houston' && window.location.hash === '#msr-logistics',
+      undefined,
+      { timeout: 20000 },
+    );
     await page.waitForTimeout(300);
     assert.equal(new URL(page.url()).hash, '#msr-logistics', 'Section navigation did not retain hash after the route settled');
     assert.equal(await page.locator('#msr-logistics').count(), 1, 'Navigation destination heading is missing');
