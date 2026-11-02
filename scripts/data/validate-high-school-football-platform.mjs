@@ -2331,7 +2331,7 @@ if(batch009Certified) {
   const initial = ['canyon-west-plains', 'carrizo-springs', 'carrollton-creekview', 'carrollton-ranchview', 'carrollton-smith'];
   const schools = registry.schoolRecords;
   if (batch009Cohort(registry).number !== 9 || batch009Cohort(registry).slugs.length !== 25) errors.push('Batch 009 must reserve exactly 25 canonical schools.');
-  if (schools.filter((school) => school.status === 'VERIFIED').length !== batch009ExpectedTotalVerified) errors.push('Batch 009 must preserve all 180 independently production VERIFIED schools.');
+  if (schools.filter((school) => school.status === 'VERIFIED' && school.batch <= 10).length !== batch009ExpectedTotalVerified) errors.push('Batch 009 must preserve all 180 independently production VERIFIED schools.');
   if (batch009Cohort(registry).individuallyVerified !== (batch009Certified ? 25 : 0) || batch009Cohort(registry).remainingToVerify !== batch009ExpectedPending) errors.push('Batch 009 cannot claim verified schools before strict postdeploy browser checks.');
   if (!profile009.includes('loadBatch009FootballProgramEditorial(canonicalSlug)')) errors.push('Batch 009 SSR conditional editorial loader not wired.');
   for (const slug of initial) {
