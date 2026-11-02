@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { createHash } from 'node:crypto';
+import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { governedDiscoverSlugs, verifyGovernedDiscoverDelivery } from './discover-production-asset-check.mjs';
 
 const bytes = Buffer.alloc(12);
@@ -58,4 +62,57 @@ test('fail nonempty image type with corrupt payload', async () => {
     attempts: 1,
   });
   assert.match(result.failures[0].reason, /invalid or empty WebP/);
+});
+
+test('production provenance accepts live WebP only when exact SHA-256 matches the emitted build', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'discover-live-parity-'));
+  try {
+    await writeFile(join(dir, 'collin-county.webp'), bytes);
+    const result = await verifyGovernedDiscoverDelivery({
+      origin: 'https://texasdefined.com',
+      slugs: ['collin-county'], expectedBytesDir: dir,
+      fetcher: async () => okay(), attempts: 1,
+    });
+    assert.equal(result.passed, 1);
+    assert.deepEqual(result.failures, []);
+    assert.equal(result.checks.length, 1);
+    assert.equal(result.checks[0].expectedSha256,
+      createHash('sha256').update(bytes).digest('hex'));
+    assert.equal(result.checks[0].servedSha256, result.checks[0].expectedSha256);
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+test('well-formed but stale/wrong live WebP bytes fail exact build-release SHA parity', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'discover-stale-parity-'));
+  try {
+    await writeFile(join(dir, 'collin-county.webp'), bytes);
+    const stale = Buffer.from(bytes);
+    stale[4] = 1; // Both bytes are RIFF/WEBP, but only the built file is allowed.
+    const result = await verifyGovernedDiscoverDelivery({
+      origin: 'https://texasdefined.com',
+      slugs: ['collin-county'], expectedBytesDir: dir,
+      fetcher: async () => new Response(stale, { status: 200,
+        headers: { 'content-type': 'image/webp' } }),
+      attempts: 1,
+    });
+    assert.equal(result.passed, 0);
+    assert.equal(result.checks.length, 0);
+    assert.match(result.failures[0].reason, /SHA-256 mismatch with built artifact/);
+  } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+test('missing local built image fails closed before network and cannot be masked by CDN 200', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'discover-missing-build-'));
+  let remoteCalls = 0;
+  try {
+    const result = await verifyGovernedDiscoverDelivery({
+      origin: 'https://texasdefined.com',
+      slugs: ['collin-county'], expectedBytesDir: dir,
+      fetcher: async () => { remoteCalls++; return okay(); },
+      attempts: 1,
+    });
+    assert.equal(remoteCalls, 0);
+    assert.equal(result.passed, 0);
+    assert.match(result.failures[0].reason, /No valid matching build image/);
+  } finally { await rm(dir, { recursive: true, force: true }); }
 });
