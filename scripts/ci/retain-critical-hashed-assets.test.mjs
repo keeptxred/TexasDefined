@@ -249,3 +249,17 @@ test('old-only transfer attempts still stop at 96 and report each ignored hash',
     rmSync(tmp, { recursive: true, force: true });
   }
 });
+
+test('Nov2 current search-crawler missing metro/map import paths are safe eligible hashes', () => {
+  const observed = [
+  "/assets/MapPreview-B9_3N0vq.js",
+  "/assets/dallas-small-town-drives-CoKJb-D-.js",
+  "/assets/explore.near._metro._collection.lazy-Bu6boA-B.js",
+  "/assets/explore.near._metro.lazy-ADqGB_m8.js",
+  "/assets/explore.near._metro._collection-HAHNflr3.js",
+  "/assets/explore.near._metro-BsxC36wI.js"
+];
+  for (const path of observed) assert.equal(safeCriticalAsset(path), true, path);
+  assert.equal(safeCriticalAsset('/assets/explore.near._metro._collection.lazy-OLD.js?token=1'), false);
+  assert.equal(safeCriticalAsset('/assets/../internal-SECRET.js'), false);
+});
