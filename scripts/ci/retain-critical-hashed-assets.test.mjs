@@ -19,6 +19,7 @@ test('retain only safe critical content-hashed JS/CSS, no arbitrary URL or trave
     '/assets/SponsoredSportsPlacement-VM9ICMMH.js',
     '/assets/createLucideIcon-yBqUUiDC.js',
     '/assets/ContextualOfficialSources-CoOaVWuv.js',
+    '/assets/CitationTrustPanel-BF2Efeia.js',
     '/assets/CitationCollectionTrustRouter-CQsMd_7t.js',
     '/assets/analytics-aWB69Ydr.js',
     '/assets/styles-CGHzhhAO.css', '/assets/property-tax.taxing-unit._unit-BdLFe-27.js',
