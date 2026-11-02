@@ -8,6 +8,7 @@ import { allowedRemoteImageUrl, REMOTE_IMAGE_PATH } from "./lib/editorial-image-
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { remoteImageRequestHeaders } from "./lib/remote-image-fetch-policy";
+import { optimizedRemoteImageUpstream } from "./lib/remote-image-upstream";
 import { normalizeViatorMarketProducts, VIATOR_LIVE_DESTINATION_IDS, type ViatorLiveMarketResponse } from "./lib/viator-market-feed";
 import { attractionDiscoveryRequestBody, viatorAttractionCandidates, type ViatorAttractionDiscoveryResponse } from "./lib/viator-attraction-discovery";
 import { christmasExperienceSearchBody, normalizeChristmasViatorExperiences } from "./lib/viator-seasonal-discovery";
@@ -540,13 +541,27 @@ async function remoteImageResponse(request: Request, ctx: unknown): Promise<Resp
   if (!target) return new Response("Remote image URL not allowed", { status: 400 });
 
   const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
-  const cacheKey = new Request(request.url, { method: "GET" });
+  // A new internal cache namespace bypasses pre-fix full-resolution entries.
+  // Public URLs and HTML image identity remain unchanged.
+  const cacheKeyUrl = new URL(request.url);
+  cacheKeyUrl.searchParams.set("_tdimg", "sized-v1");
+  const cacheKey = new Request(cacheKeyUrl.toString(), { method: "GET" });
   const cached = cache ? await cache.match(cacheKey) : undefined;
   if (cached) return request.method === "HEAD" ? cachedHeadResponse(cached) : cached;
 
-  const upstream = await fetchAllowedRemoteImage(target);
+  const optimizedTarget = optimizedRemoteImageUpstream(target);
+  let upstream = await fetchAllowedRemoteImage(optimizedTarget);
+  let contentType = upstream.headers.get("content-type") ?? "";
+  let servedOptimized = optimizedTarget.href !== target.href;
+  // If a resized variant is unavailable, preserve the licensed original
+  // instead of silently substituting an unrelated image or returning a 404.
+  if (servedOptimized && (!upstream.ok || !contentType.toLowerCase().startsWith("image/"))) {
+    await upstream.body?.cancel();
+    upstream = await fetchAllowedRemoteImage(target);
+    contentType = upstream.headers.get("content-type") ?? "";
+    servedOptimized = false;
+  }
   if (!upstream.ok) return new Response("Remote image unavailable", { status: upstream.status });
-  const contentType = upstream.headers.get("content-type") ?? "";
   if (!contentType.toLowerCase().startsWith("image/")) {
     return new Response("Remote resource is not an image", { status: 415 });
   }
@@ -555,6 +570,7 @@ async function remoteImageResponse(request: Request, ctx: unknown): Promise<Resp
     "Cache-Control": "public, max-age=86400, s-maxage=604800",
     "Content-Type": contentType,
     "X-Content-Type-Options": "nosniff",
+    "X-TexasDefined-Image-Variant": servedOptimized ? "upstream-sized" : "original",
   });
   for (const headerName of ["etag", "last-modified"]) {
     const value = upstream.headers.get(headerName);
