@@ -343,16 +343,50 @@ for (const [slug, markers] of [
   ["bastrop-state-park", ["Lake Mina", "wood and charcoal"]],
   ["cedar-hill-state-park", ["Argentine ants", "trail-status"]],
   ["lake-livingston-state-park", ["stumps", "December 2026"]],
-  ["lake-mineral-wells-state-park", ["containerized fuel stoves", "ALL fires"]],
+  ["lake-mineral-wells-state-park", ["NO BURN BAN", "ground fires", "November 2, 2026"]],
   ["lake-somerville-state-park", ["Birch Creek", "Flag Pond", "charcoal"]],
 ]) {
   const start = authority.indexOf(`  "${slug}": {`);
   const end = authority.indexOf('\n  "', start + 7);
   const parkFacts = start >= 0 ? authority.slice(start, end >= 0 ? end : undefined) : "";
-  if (!parkFacts.includes('checkedAt: "2026-10-17"')) failures.push(`Missing October 17 source review: ${slug}`);
+  const checkedDate = slug === "lake-mineral-wells-state-park" ? "2026-11-02" : "2026-10-17";
+  if (!parkFacts.includes(`checkedAt: "${checkedDate}"`)) failures.push(`Missing source review ${checkedDate}: ${slug}`);
   if (!parkFacts.includes('supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/')) failures.push(`Missing official park source link: ${slug}`);
   if (!fiveParkGuide.includes(`"${slug}"`)) failures.push(`Missing individual visit narrative: ${slug}`);
   for (const marker of markers) if (!(parkFacts+" "+fiveParkGuide).includes(marker)) failures.push(`Park ${slug} lost source-grounded detail: ${marker}`);
+}
+
+// Lake Mineral Wells: the August 30 all-fire and propane ban is now stale.
+// TPWD live official Nov 2 panel said NO BURN BAN, while primitive sites still
+// independently prohibit ground fires. Never regress to the expired notice.
+const mineralStart = fiveParkGuide.indexOf('"lake-mineral-wells-state-park": {');
+const mineralEnd = fiveParkGuide.indexOf('"lake-somerville-state-park": {', mineralStart);
+const mineralOverlay = mineralStart >= 0 && mineralEnd > mineralStart
+  ? fiveParkGuide.slice(mineralStart, mineralEnd) : "";
+for (const required of [
+  "NO BURN BAN", "November 2, 2026", "Primitive campsites separately prohibit ground fires",
+  '"sourceUrl": "https://tpwd.texas.gov/state-parks/lake-mineral-wells"',
+  'sourceCheckedAt: destination.slug === "lake-mineral-wells-state-park" ? "2026-11-02" : "2026-10-17"',
+]) {
+  if (!(mineralOverlay + fiveParkGuide).includes(required)) failures.push(`Lake Mineral Wells factual freshness guard missing: ${required}`);
+}
+const baseStart = authority.indexOf('"lake-mineral-wells-state-park": {');
+const baseEnd = authority.indexOf('"lake-whitney-state-park": {', baseStart);
+const baseMineral = baseStart >= 0 && baseEnd > baseStart
+  ? authority.slice(baseStart, baseEnd) : "";
+for (const marker of [
+  'checkedAt: "2026-11-02"',
+  'supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells"',
+  'NO BURN BAN',
+  'primitive campsite rules prohibit ground fires',
+]) if (!baseMineral.includes(marker)) failures.push(`Lake Mineral Wells base park source fact missing: ${marker}`);
+if (baseMineral.includes("NO FIRES OF ANY KIND") ||
+    baseMineral.includes("https://tpwd.texas.gov/state-parks/lake-mineral-wells/alert")) {
+  failures.push("Lake Mineral Wells base camp facts retain superseded all-fire ban or broken alert URL");
+}
+if (mineralOverlay.includes("prohibits ALL fires") ||
+    mineralOverlay.includes("https://tpwd.texas.gov/state-parks/lake-mineral-wells/alert")) {
+  failures.push("Lake Mineral Wells overlay retains a superseded blanket burn ban or broken TPWD alert URL");
 }
 
 // TPWD October 17, 2026 source reconciliation for six independently
