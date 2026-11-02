@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
+import { MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
 
 test('find only same-origin hashed JS/CSS from script, modulepreload and stylesheet', () => {
   const html = [
@@ -268,4 +268,23 @@ test('Nov2 current missing metro/map families are discovered only if Vite emitte
   const found=selectBuiltRouteAssets([...required,...observed]).map(x=>x.path);
   for (const filename of observed) assert.ok(found.includes('/assets/'+filename),filename);
   assert.equal(selectBuiltRouteAssets(required).length,2);
+});
+
+test('full cross-release retention cohort is verified without sampling, with a finite per-origin bound', () => {
+  const page = new Map(Array.from({ length: 80 }, (_, i) => ['/assets/entry-' + i + '.js', {kind:'js'}]));
+  // Production retains up to two immutable hash generations and current emitted
+  // lazy-route chunks; the previous 250 limit failed before a single HTTP probe.
+  const retained = new Map([...page, ...Array.from({ length: 192 }, (_, i) =>
+    ['/assets/old-' + i + '.js', {kind:'js', preSha256:'verified'}])]);
+  const combined = new Map([...retained, ...Array.from({ length: 96 }, (_, i) =>
+    ['/assets/built-' + i + '.js', {kind:'js', source:'built-lazy-route'}])]);
+  assert.equal(combined.size, 368);
+  assert.equal(assertBoundedCrossReleaseSet(combined), 368);
+  assert.equal(combined.size, 368, 'the guard must not truncate any old or current asset');
+  assert.equal(assertBoundedCrossReleaseSet(new Map(Array.from({length:MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN},
+    (_, i) => ['/assets/test-' + i + '.js', {kind:'js'}]))), MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN);
+  assert.throws(() => assertBoundedCrossReleaseSet(new Map(Array.from({length:MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN+1},
+    (_, i) => ['/assets/test-' + i + '.js', {kind:'js'}]))),
+    /Cross-release asset verification cap exceeded: 513 > 512; inspect retained-asset history, do not truncate/);
+  assert.throws(() => assertBoundedCrossReleaseSet([]), /must be a Map/);
 });

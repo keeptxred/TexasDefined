@@ -15,6 +15,19 @@ const SNAPSHOT = '.artifacts/asset-handoff-snapshot.json';
 const PRIOR = '.artifacts/prior-asset-handoff.json';
 const REPORT = '.artifacts/asset-delivery-report.json';
 const LIMIT_PER_PAGE = 80;
+// Two historic snapshots, the current build's dynamic route chunks, and
+// previously proven HTTP-200 retained hashes can exceed the original 250.
+// This remains a hard cap PER origin, not a sampling limit or a skipped cohort.
+// Every entry below the cap is checked on BOTH public origins.
+export const MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN = 512;
+export function assertBoundedCrossReleaseSet(assets) {
+  if (!(assets instanceof Map)) throw new Error('Cross-release verification set must be a Map');
+  if (assets.size > MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN) {
+    throw new Error('Cross-release asset verification cap exceeded: ' + assets.size +
+      ' > ' + MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN + '; inspect retained-asset history, do not truncate');
+  }
+  return assets.size;
+}
 const REQUEST_TIMEOUT = 20000;
 
 // Route-specific lazy chunks were observed returning 404 to verified Googlebot.
@@ -347,7 +360,9 @@ async function verify() {
           combined.get(a.path).preSha256 = a.preSha256;
         } else combined.set(a.path, { ...a, sources: ['old'] });
       }
-      if (combined.size > 250) throw new Error('Cross-release asset verification cap exceeded');
+      const count = assertBoundedCrossReleaseSet(combined);
+       console.log('[cross-release-asset-verify] origin=' + label(origin) + ' exactAssetCount=' + count +
+         ' hardCap=' + MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN + ' (no sampling)');
       for (const a of combined.values()) {
         const [record] = await auditAssets(origin, [a]);
         record.sources = a.sources;
