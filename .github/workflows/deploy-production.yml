@@ -421,6 +421,15 @@ jobs:
         if: success()
         run: node scripts/ci/retain-critical-hashed-assets.mjs --retain
 
+      # Recover only known 404 historical hashes if they still exist in a
+      # pinned old first-party Worker version URL. Source MIME, SHA and file
+      # bytes are checked and verified again on both public origins postdeploy.
+      # This emergency backfill expires automatically after 72h; unavailable
+      # original binaries stay marked unresolved, never fabricated.
+      - name: Recover exact observed old JS hashes from pinned Worker versions
+        if: success()
+        run: node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
+
       - name: Publish Cloudflare deploy pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare pending "Deploying TexasDefined Worker"
@@ -630,6 +639,7 @@ jobs:
             .artifacts/asset-handoff-snapshot.json
             .artifacts/asset-delivery-report.json
             .artifacts/retained-critical-assets-report.json
+            .artifacts/observed-hash-recovery-report.json
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
