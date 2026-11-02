@@ -7,6 +7,14 @@ on:
       - 'scripts/ci/verify-oversized-image-payloads.mjs'
       - 'src/lib/remote-image-upstream.ts'
       - 'src/server.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/server.ts'
+      - 'src/lib/pinned-remote-image-variants.ts'
+      - 'scripts/ci/verify-oversized-image-payloads.mjs'
+      - '.github/workflows/audit-oversized-image-payloads.yml'
   workflow_dispatch:
   schedule:
     # A bounded weekly 50-URL audit, never the full-site per-deployment scan.
@@ -14,6 +22,8 @@ on:
 
 permissions:
   contents: read
+  actions: read
+  statuses: read
 
 concurrency:
   group: oversized-image-payloads-${{ github.ref }}
@@ -28,12 +38,18 @@ jobs:
       IMAGE_AUDIT_DIR: .artifacts/image-payloads-20261102
       # Collect evidence even when a live remote fails or exceeds the budget;
       # do not confuse a diagnostic pass with 50/50 payload compliance.
-      IMAGE_AUDIT_STRICT: '0'
+      IMAGE_AUDIT_STRICT: ${{ github.event_name == 'push' && '1' || '0' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Wait for this main commit's protected production deployment
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
       - name: Measure 50 image URLs from pasted audit on live production
         run: node scripts/ci/verify-oversized-image-payloads.mjs
       - name: Preserve full JSON/CSV for failing and passing images
