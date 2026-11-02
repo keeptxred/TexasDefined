@@ -12,48 +12,47 @@
     "total": 1292
   },
   "batch": {
-    "number": 11,
+    "number": 12,
     "slugs": [
-      "colorado-city-colorado",
-      "columbus",
-      "comal-canyon",
-      "comal-canyon-lake",
-      "comal-davenport",
-      "comal-pieper",
-      "comal-smithson-valley",
-      "comanche",
-      "comfort",
-      "commerce",
-      "como-pickton",
-      "conroe",
-      "conroe-caney-creek",
-      "conroe-grand-oaks",
-      "conroe-oak-ridge",
-      "conroe-the-woodlands",
-      "conroe-woodlands-college-park",
-      "converse-judson",
-      "coolidge",
-      "cooper",
-      "coppell",
-      "copperas-cove",
-      "cornerstone-christian",
-      "corpus-christi-calallen",
-      "corpus-christi-carroll"
+      "corpus-christi-flour-bluff",
+      "corpus-christi-king",
+      "corpus-christi-london",
+      "corpus-christi-miller",
+      "corpus-christi-moody",
+      "corpus-christi-ray",
+      "corpus-christi-tuloso-midway",
+      "corpus-christi-veterans-memorial",
+      "corpus-christi-west-oso",
+      "corrigan-camden",
+      "corsicana",
+      "cotton-center",
+      "cotulla",
+      "covington",
+      "crandall",
+      "crane",
+      "cranfills-gap",
+      "crawford",
+      "crockett",
+      "crosby",
+      "crosbyton",
+      "cross-plains",
+      "crowell",
+      "crowley",
+      "crystal-city"
     ],
-    "state": "VERIFIED_BATCH_011_COMPLETE",
-    "dateAssigned": "2026-10-29",
-    "selectionRule": "First 25 canonical NOT_REVIEWED after archived Batch010 technical certification",
-    "individuallyVerified": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "feat/football-b011-registry-archive-transition-20261029",
+    "state": "ASSIGNED_SOURCE_RESEARCH",
+    "dateAssigned": "2026-11-02",
+    "selectionRule": "First 25 canonical NOT_REVIEWED following protected Batch011 graduation",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "feat/football-b012-assign-25-20261102",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "25/25 published-Chrome VERIFIED; Batch011 not yet assigned. Manual editorial, photographs, current scores and ADA access not certified.",
-    "verifiedAt": "2026-11-02"
+    "currentSchool": "corpus-christi-flour-bluff",
+    "nextSchool": "corpus-christi-king",
+    "implementedOnBranch": 0,
+    "remainingToImplement": 25,
+    "remainingToVerify": 25,
+    "notes": "Assignment only; zero source-authored, deployed or production-Chrome-verified B012 pages. One genuine 25-school Chrome run after protected deployment required."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -11575,7 +11574,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-flour-bluff",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corpus-christi-king",
@@ -11589,7 +11590,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-king",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corpus-christi-london",
@@ -11603,7 +11606,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-london",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corpus-christi-miller",
@@ -11617,7 +11622,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-miller",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corpus-christi-moody",
@@ -11631,7 +11638,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-moody",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corpus-christi-ray",
@@ -11645,7 +11654,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-ray",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corpus-christi-tuloso-midway",
@@ -11659,7 +11670,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-tuloso-midway",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corpus-christi-veterans-memorial",
@@ -11673,7 +11686,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-veterans-memorial",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corpus-christi-west-oso",
@@ -11687,7 +11702,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corpus-christi-west-oso",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corrigan-camden",
@@ -11701,7 +11718,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corrigan-camden",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:corsicana",
@@ -11715,7 +11734,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/corsicana",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:cotton-center",
@@ -11729,7 +11750,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cotton-center",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:cotulla",
@@ -11743,7 +11766,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cotulla",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:covington",
@@ -11757,7 +11782,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/covington",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crandall",
@@ -11771,7 +11798,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crandall",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crane",
@@ -11785,7 +11814,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crane",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:cranfills-gap",
@@ -11799,7 +11830,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cranfills-gap",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crawford",
@@ -11813,7 +11846,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crawford",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crockett",
@@ -11827,7 +11862,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crockett",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crosby",
@@ -11841,7 +11878,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crosby",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crosbyton",
@@ -11855,7 +11894,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crosbyton",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:cross-plains",
@@ -11869,7 +11910,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cross-plains",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crowell",
@@ -11883,7 +11926,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crowell",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crowley",
@@ -11897,7 +11942,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crowley",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:crystal-city",
@@ -11911,7 +11958,9 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/crystal-city",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 12,
+      "assignedAt": "2026-11-02",
+      "assignmentNotes": "Batch012 editorial research assignment only. NOT production Chrome verified; no unlicensed scores, media or inferred coach roles."
     },
     {
       "id": "uil:cuero",
@@ -27383,7 +27432,7 @@
         ]
       },
       "completionBasis": "ONE genuine non-skipped Chrome job covering all 25 schools, 75 viewports and 18 counties; authenticated exact source SHA/Worker release.",
-      "noNextBatchAssigned": true
+      "noNextBatchAssigned": false
     }
   ]
 }

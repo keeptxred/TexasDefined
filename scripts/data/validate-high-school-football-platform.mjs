@@ -2149,7 +2149,7 @@ const batch010Certified = Boolean(batch010Certification);
 // This is a read-only validation view, not a rewrite of the signed archive.
 const batch010View=(registry)=>{
   if(registry.batch.number===10)return registry;
-  if(registry.batch.number!==11 || !batch010Certified) {
+  if(![11,12].includes(registry.batch.number) || !batch010Certified) {
     errors.push('Batch011 may become active only after fully archived Batch010 technical certification.');
     return registry;
   }
@@ -3006,8 +3006,32 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       x.state==='VERIFIED_BATCH_010_COMPLETE' &&
       x.technicalAcceptance?.screenshotsSaved===106))
       errors.push('Batch011 assignment cannot weaken archived 106-screenshot Batch010 certificate');
+  } else if(r.batch.number===12){
+    const archived=r.completedBatches.find(x=>x.number===11);
+    const expectedNext=r.schoolRecords.filter(x=>x.batch===12);
+    const first25=r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED'&&x.batch===null).slice(0,25);
+    const assignedIndex=r.schoolRecords.findIndex(x=>x.slug===r.batch.slugs[0]);
+    const originalOrder=r.schoolRecords.slice(assignedIndex,assignedIndex+25).map(x=>x.slug);
+    if(!archived || archived.state!=='VERIFIED_BATCH_011_COMPLETE' ||
+       archived.individuallyVerified!==25 || archived.technicalAcceptance?.schoolCount!==25 ||
+       archived.technicalAcceptance?.schoolCasesPassed!==75 ||
+       archived.technicalAcceptance?.countyCasesPassed!==18 ||
+       archived.technicalAcceptance?.browserExecutionCount!==1 ||
+       archived.noNextBatchAssigned!==false ||
+       r.schoolRecords.filter(x=>x.batch===11&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length!==25)
+      errors.push('Batch012 requires intact protected Batch011 25-school production certificate');
+    if(r.batch.state!=='ASSIGNED_SOURCE_RESEARCH' || r.batch.slugs.length!==25 ||
+       JSON.stringify(r.batch.slugs)!==JSON.stringify(originalOrder) ||
+       expectedNext.length!==25 || r.batch.individuallyVerified!==0 ||
+       r.batch.implementedOnBranch!==0 || r.batch.remainingToImplement!==25 ||
+       r.batch.remainingToVerify!==25 || r.batch.remainingAssigned!==25 ||
+       r.batch.currentSchool!==r.batch.slugs[0] || r.batch.nextSchool!==r.batch.slugs[1] ||
+       r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==255 ||
+       r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1037 ||
+       expectedNext.some(x=>x.status!=='NOT_REVIEWED'||x.actualProductionVerified===true))
+      errors.push('Batch012 must assign exactly 25 next canonical schools without false certification');
   } else if(r.batch.number!==10){
-    errors.push('Football authority active assignment must be certified Batch010 or pending Batch011.');
+    errors.push('Football authority active assignment must be certified Batch010, Batch011, or assigned Batch012.');
   }
 }
 

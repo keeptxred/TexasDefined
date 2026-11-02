@@ -40,11 +40,11 @@ test('Third five source editorial and exact federally sourced campus counties',(
 });
 test('Third five require actual production browser and exact deployed Worker',()=>{
  const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
-const graduatedB011 = reg.batch.state==='VERIFIED_BATCH_011_COMPLETE' && reg.completedBatches.some(b=>b.number===11 && b.state==='VERIFIED_BATCH_011_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===18);
- assert.equal(reg.batch.number,11);
- assert.equal(reg.batch.implementedOnBranch,25);
- assert.equal(reg.batch.remainingAssigned,0);
- assert.equal(reg.batch.remainingToVerify,graduatedB011?0:25);
+const graduatedB011 = reg.completedBatches.some(b=>b.number===11 && b.state==='VERIFIED_BATCH_011_COMPLETE' && b.technicalAcceptance?.schoolCount===25 && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===18 && b.technicalAcceptance?.browserExecutionCount===1) && reg.schoolRecords.filter(x=>x.batch===11&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
+ assert.ok([11,12].includes(reg.batch.number));
+ assert.equal(reg.batch.number===11?reg.batch.implementedOnBranch:reg.completedBatches.find(b=>b.number===11)?.individuallyVerified,25);
+ assert.equal(reg.batch.number===11?reg.batch.remainingAssigned:0,0);
+ assert.equal(reg.batch.number===11?reg.batch.remainingToVerify:(graduatedB011?0:25),graduatedB011?0:25);
  assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,graduatedB011?255:230);
  assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,graduatedB011?0:25);
  const verifier=read('scripts/ci/verify-football-b011-third-five-production.mjs');
