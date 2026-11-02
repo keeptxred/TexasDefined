@@ -349,7 +349,8 @@ for (const [slug, markers] of [
   const start = authority.indexOf(`  "${slug}": {`);
   const end = authority.indexOf('\n  "', start + 7);
   const parkFacts = start >= 0 ? authority.slice(start, end >= 0 ? end : undefined) : "";
-  if (!parkFacts.includes('checkedAt: "2026-10-17"')) failures.push(`Missing October 17 source review: ${slug}`);
+  const checkedDate = slug === "lake-mineral-wells-state-park" ? "2026-11-02" : "2026-10-17";
+  if (!parkFacts.includes(`checkedAt: "${checkedDate}"`)) failures.push(`Missing source review ${checkedDate}: ${slug}`);
   if (!parkFacts.includes('supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/')) failures.push(`Missing official park source link: ${slug}`);
   if (!fiveParkGuide.includes(`"${slug}"`)) failures.push(`Missing individual visit narrative: ${slug}`);
   for (const marker of markers) if (!(parkFacts+" "+fiveParkGuide).includes(marker)) failures.push(`Park ${slug} lost source-grounded detail: ${marker}`);
@@ -368,6 +369,20 @@ for (const required of [
   'sourceCheckedAt: destination.slug === "lake-mineral-wells-state-park" ? "2026-11-02" : "2026-10-17"',
 ]) {
   if (!(mineralOverlay + fiveParkGuide).includes(required)) failures.push(`Lake Mineral Wells factual freshness guard missing: ${required}`);
+}
+const baseStart = authority.indexOf('"lake-mineral-wells-state-park": {');
+const baseEnd = authority.indexOf('"lake-whitney-state-park": {', baseStart);
+const baseMineral = baseStart >= 0 && baseEnd > baseStart
+  ? authority.slice(baseStart, baseEnd) : "";
+for (const marker of [
+  'checkedAt: "2026-11-02"',
+  'supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells"',
+  'NO BURN BAN',
+  'primitive campsite rules prohibit ground fires',
+]) if (!baseMineral.includes(marker)) failures.push(`Lake Mineral Wells base park source fact missing: ${marker}`);
+if (baseMineral.includes("NO FIRES OF ANY KIND") ||
+    baseMineral.includes("https://tpwd.texas.gov/state-parks/lake-mineral-wells/alert")) {
+  failures.push("Lake Mineral Wells base camp facts retain superseded all-fire ban or broken alert URL");
 }
 if (mineralOverlay.includes("prohibits ALL fires") ||
     mineralOverlay.includes("https://tpwd.texas.gov/state-parks/lake-mineral-wells/alert")) {
