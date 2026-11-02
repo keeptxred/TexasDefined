@@ -185,8 +185,8 @@ try {
       const gallery = page.locator('section[aria-labelledby="east-texas-foliage-gallery"]');
       await gallery.scrollIntoViewIfNeeded();
       const photos = gallery.locator("figure");
-      if (await photos.count() !== 7) throw new Error("Expected seven licensed photos covering all six featured parks");
-      for (let i = 0; i < 7; i++) {
+      if (await photos.count() !== 6) throw new Error("Expected six distinct licensed park photographs, one per featured park");
+      for (let i = 0; i < 6; i++) {
         const item = photos.nth(i);
         const photo = item.locator("img");
         await photo.scrollIntoViewIfNeeded();
@@ -207,22 +207,25 @@ try {
       for (const [label, expectedSrc] of [
         ["Martin Creek Lake State Park", "Docks_at_Martin_Creek_Lake_State_Park_2019.jpg"],
         ["Daingerfield State Park — October lake reflection", "Daingerfield_sp_reflection.jpg"],
+        ["Caddo Lake State Park", "Caddo_Lake_at_golden_hour.jpg"],
       ]) {
         const figure = gallery.locator("figure").filter({ has: page.getByText(label, { exact: true }) });
         if (await figure.count() !== 1) throw new Error("Expected exactly one gallery image for " + label);
         const actualSrc = await figure.locator("img").getAttribute("src");
         if (!actualSrc?.includes(expectedSrc)) throw new Error("Unexpected photo source for " + label + ": " + actualSrc);
       }
-      for (const label of ["Daingerfield State Park", "Caddo Lake State Park", "Lake Bob Sandlin State Park", "Tyler State Park", "Cooper Lake State Park (South Sulphur Unit)", "Martin Creek Lake State Park"]) {
+      for (const label of ["Caddo Lake State Park", "Lake Bob Sandlin State Park", "Tyler State Park", "Cooper Lake State Park (South Sulphur Unit)", "Martin Creek Lake State Park"]) {
         if (!await gallery.getByText(label, { exact: true }).count()) throw new Error("Six-park image coverage missing " + label);
       }
       if (!await gallery.getByText("Martin Creek Lake State Park", { exact: true }).count()) throw new Error("Martin Creek lakeshore photograph missing");
       if (!await gallery.getByText("Daingerfield State Park — October lake reflection", { exact: true }).count()) throw new Error("October Daingerfield photograph missing");
+      if (!await gallery.getByText("October 30, 2023", { exact: false }).count()) throw new Error("Dated October Caddo photo disclosure missing");
+      if (!await gallery.getByText("Shiva Shenoy", { exact: false }).count()) throw new Error("Caddo licensed photo author credit missing");
       if (await page.getByRole("heading", { name: "More stories to read next" }).count()) throw new Error("Unrelated magazine rail returned");
       const dimensions = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
       if (dimensions.document > dimensions.viewport + 8) throw new Error("Horizontal overflow: " + (dimensions.document - dimensions.viewport));
       await page.screenshot({ path: output + "/" + viewport.label + ".png", fullPage: true, animations: "disabled" });
-      findings.push({ viewport: viewport.label, parks: selection, photos: 7, routes: 2, overflow: dimensions.document - dimensions.viewport, result: "pass" });
+      findings.push({ viewport: viewport.label, parks: selection, photos: 6, routes: 2, overflow: dimensions.document - dimensions.viewport, result: "pass" });
       console.log("PASS " + viewport.label + " foliage authority links, FAQ, park cards, map, driving links and licensed gallery");
     } catch (error) {
       failures.push(viewport.label + ": " + String(error?.message || error));
