@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "policy": "One fact per canonical entity; one distinct intent per indexable page; tools may be reused without duplicating prose.",
+  "policy": "One fact per canonical entity; one distinct intent per indexable page; tools may be reused without duplicating prose. Specific categories retain their existing authoritative visitor components; shared trip-planner defaults are not independent travel articles.",
   "clusters": [
     {
       "id": "fredericksburg-wine-country",
@@ -55,6 +55,145 @@
           "path": "/explore/trip-planner",
           "role": "interactive-planner",
           "intent": "Build personalized multi-stop Texas trips"
+        }
+      ]
+    },
+    {
+      "id": "hill-country-small-town-discovery",
+      "primaryPath": "/explore/small-towns",
+      "sourceCatalogs": [
+        "src/data/small-town-destinations-wave6.ts",
+        "src/data/small-town-destinations-wave2.ts"
+      ],
+      "pages": [
+        {
+          "path": "/explore/small-towns",
+          "role": "town-comparison-hub",
+          "intent": "Compare different Texas small towns to select a destination before planning a visit"
+        },
+        {
+          "path": "/destination/wimberley",
+          "role": "wimberley-town-guide",
+          "intent": "Plan a Wimberley-focused visit using its local sites and verified access guidance"
+        },
+        {
+          "path": "/destination/boerne",
+          "role": "boerne-town-guide",
+          "intent": "Plan a Boerne-focused visit using its distinct historic and outdoor attractions"
+        }
+      ]
+    },
+    {
+      "id": "corpus-christi-ship-museum",
+      "primaryPath": "/destination/uss-lexington-museum-corpus-christi",
+      "sourceCatalogs": [
+        "src/data/military-museum-destinations.ts",
+        "src/data/fixtures/texas-world-war-ii-historic-sites-guide.ts"
+      ],
+      "pages": [
+        {
+          "path": "/destination/uss-lexington-museum-corpus-christi",
+          "role": "ship-museum-visitor-guide",
+          "intent": "Evaluate tours, access and admission for the individual USS Lexington museum"
+        },
+        {
+          "path": "/article/texas-world-war-ii-historic-sites-guide",
+          "role": "statewide-war-history-overview",
+          "intent": "Compare World War II historic sites around Texas rather than retelling one ship visit"
+        }
+      ]
+    },
+    {
+      "id": "texas-state-park-planning",
+      "primaryPath": "/explore/state-parks",
+      "sourceCatalogs": [
+        "src/data/state-park-authority.ts",
+        "src/data/camping/profiles.ts"
+      ],
+      "pages": [
+        {
+          "path": "/explore/state-parks",
+          "role": "state-parks-discovery-hub",
+          "intent": "Browse Texas state parks and choose an appropriate destination from the statewide network"
+        },
+        {
+          "path": "/destination/enchanted-rock-state-natural-area",
+          "role": "granite-hiking-destination",
+          "intent": "Plan Enchanted Rock hiking, access and seasonal reservation requirements"
+        },
+        {
+          "path": "/destination/brazos-bend-state-park",
+          "role": "brazos-wildlife-park-destination",
+          "intent": "Plan Brazos Bend wildlife, trail and park camping decisions from local information"
+        }
+      ]
+    },
+    {
+      "id": "lake-conroe-fishing",
+      "primaryPath": "/fishing/lakes/lake-conroe",
+      "sourceCatalogs": [
+        "src/data/fishing/lake-conroe-prototype.ts",
+        "src/data/fishing/lake-conroe-page-data.server.ts"
+      ],
+      "pages": [
+        {
+          "path": "/fishing/lakes/lake-conroe",
+          "role": "lake-fishing-overview",
+          "intent": "Understand the Lake Conroe fishery and decide which specialist planning page to open"
+        },
+        {
+          "path": "/fishing/lakes/lake-conroe/access",
+          "role": "lake-specific-boat-access",
+          "intent": "Compare named Lake Conroe launch facilities and current access source references"
+        },
+        {
+          "path": "/fishing/lakes/lake-conroe/regulations",
+          "role": "lake-specific-fishing-rules",
+          "intent": "Review dated Lake Conroe harvest regulations and verify current TPWD rules"
+        },
+        {
+          "path": "/fishing/lakes/lake-conroe/camping",
+          "role": "lake-specific-camp-options",
+          "intent": "Find verified camping options directly serving Lake Conroe without a statewide directory"
+        }
+      ]
+    },
+    {
+      "id": "texas-camping-and-garner",
+      "primaryPath": "/best-places-to-go-camping-in-texas",
+      "sourceCatalogs": [
+        "src/data/camping/profiles.ts",
+        "src/data/camping/discovery.ts"
+      ],
+      "pages": [
+        {
+          "path": "/best-places-to-go-camping-in-texas",
+          "role": "statewide-camping-comparison",
+          "intent": "Compare researched campground types, equipment requirements and verified amenities across Texas"
+        },
+        {
+          "path": "/destination/garner-state-park",
+          "role": "garner-park-specific-trip",
+          "intent": "Plan Garner State Park access, Frio River recreation and venue-specific camping choices"
+        }
+      ]
+    },
+    {
+      "id": "fredericksburg-johnson-city-history-route",
+      "primaryPath": "/article/fredericksburg-johnson-city-historic-road-trip",
+      "sourceCatalogs": [
+        "src/data/fixtures/lazy-standalone-evergreen.ts"
+      ],
+      "pages": [
+        {
+          "path": "/article/fredericksburg-johnson-city-historic-road-trip",
+          "role": "two-town-heritage-driving-route",
+          "intent": "Plan a historically focused driving itinerary across Fredericksburg and Johnson City"
+        },
+        {
+          "path": "/destination/johnson-city",
+          "role": "johnson-city-town-guide",
+          "intent": "Explore Johnson City as an independent town destination rather than a through-route stop"
         }
       ]
     }

@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 const base = new URL("../../src/data/authority/", import.meta.url);
 const owners = JSON.parse(readFileSync(fileURLToPath(new URL("content-ownership.json", base)), "utf8"));
@@ -7,6 +8,7 @@ const supplemental = JSON.parse(readFileSync(fileURLToPath(new URL("independent-
 const errors = [];
 const stale = [];
 const seenPaths = new Set();
+const seenClusters = new Set();
 const seenOffers = new Set();
 const seenSupplemental = new Set();
 const today = Date.parse(new Date().toISOString().slice(0, 10) + "T00:00:00Z");
@@ -14,19 +16,37 @@ const validDate = (s) => /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(Date.p
   && new Date(Date.parse(s + "T00:00:00Z")).toISOString().slice(0, 10) === s;
 for (const cluster of owners.clusters || []) {
   const roles = new Map();
-  if (!cluster.id || !cluster.articleSlug) errors.push("Cluster lacks stable identity and article owner");
+  if (!cluster.id || seenClusters.has(cluster.id)) errors.push("Duplicate/empty authority cluster ID: " + cluster.id);
+  seenClusters.add(cluster.id);
+  // Legacy article-primary clusters and new page-family clusters share this
+  // one ownership manifest; never create a second category-specific registry.
+  const primary = cluster.primaryPath || (cluster.articleSlug && "/article/" + cluster.articleSlug);
+  if (!primary) errors.push("Cluster lacks a canonical primary owner: " + cluster.id);
+  if (!Array.isArray(cluster.pages) || cluster.pages.length < 2)
+    errors.push("Ownership cluster needs at least two distinct page intents: " + cluster.id);
+  if (cluster.primaryPath) {
+    if (!Array.isArray(cluster.sourceCatalogs) || !cluster.sourceCatalogs.length)
+      errors.push("Category cluster lacks researched canonical source catalogs: " + cluster.id);
+    for (const file of cluster.sourceCatalogs || []) {
+      if (typeof file !== "string" || !/^src\/data\/[\w./-]+\.(?:ts|json)$/.test(file) ||
+          file.includes("..") || !existsSync(resolve(file)))
+        errors.push("Missing/unsafe canonical source catalog for " + cluster.id + ": " + file);
+    }
+  }
   for (const page of cluster.pages || []) {
-    if (!/^\/(article|destination|explore)\//.test(page.path) || /[?#]/.test(page.path)) errors.push("Noncanonical path " + page.path);
+    if (!/^\/(?:article\/|destination\/|explore\/|fishing\/lakes\/|best-places-to-go-camping-in-texas$)/.test(page.path) ||
+        /[?#]/.test(page.path) || page.path.endsWith("/"))
+      errors.push("Noncanonical path " + page.path);
     if (seenPaths.has(page.path)) errors.push("Competing declared owner for " + page.path);
     seenPaths.add(page.path);
-    if (!page.role || !page.intent || page.intent.length < 25) errors.push("Missing distinct search intent " + page.path);
+    if (!page.role || !page.intent || page.intent.length < 25)
+      errors.push("Missing distinct search intent " + page.path);
     const key = page.role + "::" + page.intent.toLowerCase().trim();
     if (roles.has(key)) errors.push("Duplicated page role and search intent: " + page.path + " and " + roles.get(key));
-    roles.set(key,page.path);
+    roles.set(key, page.path);
   }
-  if (!(cluster.pages || []).some((p) => p.path === "/article/" + cluster.articleSlug)) {
-    errors.push("Cluster primary article not owned: " + cluster.articleSlug);
-  }
+  if (!(cluster.pages || []).some((p) => p.path === primary))
+    errors.push("Cluster primary canonical path is not owned: " + primary);
 }
 for (const place of supplemental) {
   if (!place.slug || seenSupplemental.has(place.slug)) errors.push("Duplicate/empty independent operator slug: " + place.slug);
