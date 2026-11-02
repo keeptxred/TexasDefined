@@ -89,6 +89,7 @@ export function EastTexasFoliageParkMap() {
 }
 
 
+const PHOTO_SELECTION = [
   {
     slug: "daingerfield-state-park",
     name: "Daingerfield State Park — October lake reflection",
@@ -99,7 +100,7 @@ export function EastTexasFoliageParkMap() {
     overrideSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Daingerfield_sp_reflection.jpg/960px-Daingerfield_sp_reflection.jpg",
     overrideAlt: "October view of Lake Daingerfield, with trees and fall-season color reflected in the water",
   },
-const PHOTO_SELECTION = [
+
   {
     slug: "daingerfield-state-park",
     name: "Daingerfield State Park",
