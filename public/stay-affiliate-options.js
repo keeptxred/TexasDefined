@@ -14,24 +14,14 @@
   // Independently verified 2026-10-26 Hotels.com city directories, not room inventory.
   const MCALLEN_HOTELS_DESTINATION = "https://www.hotels.com/de1644308/hotels-mcallen-and-vicinity-texas/";
   const SOUTH_PADRE_HOTELS_DESTINATION = "https://www.hotels.com/de1644316/hotels-south-padre-island-and-vicinity-texas/";
-  // Motel 6 approved CJ publisher-email creatives: 17198227 (Sep 21,
-  // standard), 17371482 (Oct 26, Halloween). 101876465 is our known PID;
-  // 8062457 is an account CID, not the website tracking ID.
+  // Approved standard Motel 6 CJ creative; PID 101876465 is not account CID 8062457.
   const MOTEL6_STANDARD_AID = "17198227";
-  const MOTEL6_HALLOWEEN_AID = "17371482";
-  const MOTEL6_CAMPAIGN_START = Date.parse("2026-10-26T00:00:00Z");
-  // Conservative publisher display cutoff, NOT merchant-certified expiry.
-  const MOTEL6_CAMPAIGN_END = Date.parse("2026-11-01T05:00:00Z");
   const MOTEL6_PATH = /^\/(?:article\/(?:fredericksburg-history-weekend-guide|goliad-history-weekend-guide|washington-on-the-brazos-weekend-guide)(?:\/|$)|explore\/(?:road-trips(?:\/|$)|weekend-getaways(?:\/|$)|near\/[a-z0-9-]+\/day-trips(?:\/|$))|texas-tailgating-guide(?:\/|$)|texas-roadside-oddities(?:\/|$)|event\/[a-z0-9-]*(?:halloween|haunted|ghost|pumpkin|trick-or-treat)[a-z0-9-]*(?:\/|$))/;
   function motel6Eligible(pathname = window.location.pathname) {
     return MOTEL6_PATH.test(String(pathname || "").replace(/\/+$/, ""));
   }
-  function motel6CampaignActive(now = Date.now()) {
-    return Number.isFinite(now) && now >= MOTEL6_CAMPAIGN_START && now < MOTEL6_CAMPAIGN_END;
-  }
   function buildMotel6Link(aid, pathname = window.location.pathname) {
     if (aid === MOTEL6_STANDARD_AID) return "https://www.tkqlhce.com/click-" + CJ_PUBLISHER_ID + "-" + aid + "?sid=" + encodeURIComponent(hotelsComPageSid(pathname));
-    if (aid === MOTEL6_HALLOWEEN_AID) return "https://www.kqzyfj.com/click-" + CJ_PUBLISHER_ID + "-" + aid + "?sid=" + encodeURIComponent(hotelsComPageSid(pathname));
     throw new Error("Unreviewed Motel 6 CJ link ID");
   }
 
@@ -237,16 +227,16 @@
     return link;
   }
 
-  function createMotel6Link(promo) {
+  function createMotel6Link() {
     const link = document.createElement("a");
-    const label = promo ? "Motel 6 Halloween stay offers" : "Explore Motel 6 budget stays";
-    link.href = buildMotel6Link(promo ? MOTEL6_HALLOWEEN_AID : MOTEL6_STANDARD_AID);
+    const label = "Explore Motel 6 budget stays";
+    link.href = buildMotel6Link(MOTEL6_STANDARD_AID);
     link.target = "_blank";
     link.rel = "sponsored nofollow noopener noreferrer";
     link.className = "td-stay-affiliate-button td-stay-affiliate-button--secondary";
     link.textContent = label;
     link.dataset.affiliatePartner = "motel6";
-    link.dataset.affiliatePlacement = promo ? "motel6-halloween-travel" : "motel6-budget-travel";
+    link.dataset.affiliatePlacement = "motel6-budget-travel";
     link.dataset.commercialPartner = "motel6";
     link.dataset.commercialPlacement = link.dataset.affiliatePlacement;
     link.addEventListener("click", () => {
@@ -468,16 +458,7 @@
     }
 
     }
-    if (motel6Eligible()) {
-      const promo = motel6CampaignActive();
-      actions.appendChild(createMotel6Link(promo));
-      if (promo) {
-        const note = document.createElement("p");
-        note.className = "td-stay-affiliate-copy";
-        note.textContent = "Motel 6's Trip and Treat offer advertises up to 15% off nightly stays, 20% off weekly stays, and 35% off monthly stays. The advertiser provided no expiration date; check current terms, dates and participating properties before booking.";
-        panel.dataset.motel6PromoCopy = note.textContent;
-      }
-    }
+    if (motel6Eligible()) actions.appendChild(createMotel6Link());
     if (showRvshare) {
       actions.appendChild(createTrackedLink({
         destination: RVSHARE_DESTINATION,
@@ -498,13 +479,6 @@
 
     if (motel6Eligible()) disclosure.textContent += " Motel 6 is an additional sponsored budget-stay option; TexasDefined may earn a commission on qualifying reservations.";
     panel.append(eyebrow, heading, copy, actions, disclosure);
-    if (panel.dataset.motel6PromoCopy) {
-      const note = document.createElement("p");
-      note.className = "td-stay-affiliate-copy";
-      note.textContent = panel.dataset.motel6PromoCopy;
-      actions.after(note);
-      delete panel.dataset.motel6PromoCopy;
-    }
     if (hotelPasoExact) {
       const sourceNote = document.createElement("p");
       sourceNote.className = "td-stay-affiliate-source";
@@ -796,7 +770,7 @@
     const exactPropertyFirst = hasExactPropertyAffiliate(expediaSurface);
     const intent = bookingIntent();
     const choiceMode = exactPropertyFirst ? "after-exact" : "broad";
-    const motel6Mode = motel6Eligible() ? (motel6CampaignActive() ? "halloween" : "standard") : "none";
+    const motel6Mode = motel6Eligible() ? "standard" : "none";
     const casinoPath = window.location.pathname.replace(/\/+$/, "") || "/";
     const resolvedChoiceMode = !exactPropertyFirst && casinoHotelChoices().length
       ? `casino:${casinoPath}`
@@ -879,9 +853,6 @@
     const main = document.getElementById("main") || document.body;
     observer = new MutationObserver(scheduleSync);
     observer.observe(main, { childList: true, subtree: true });
-    // Automatically switch back to the ordinary creative at Halloween cutoff.
-    const remaining = MOTEL6_CAMPAIGN_END - Date.now();
-    if (remaining > 0) window.setTimeout(scheduleSync, Math.min(remaining + 250, 2147483647));
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
@@ -894,7 +865,6 @@
   window.TexasDefinedStayAffiliateOptions = {
     buildMotel6Link,
     motel6Eligible,
-    motel6CampaignActive,
     buildCjDeepLink,
     bookingIntent,
     comparisonHotelDestination,
