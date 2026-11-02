@@ -66,3 +66,21 @@ test('Batch012 group three has five canonical source-backed guides wired into SS
   assert.ok(!editorial.includes('wins:'));
   assert.ok(!editorial.includes('losses:'));
 });
+
+test('Batch012 group four has five distinct first-party sourced guides and SSR wiring', () => {
+  const loader = read('src/data/high-school-football/program-editorial-b012-group4-loader.server.ts');
+  const editorial = read('src/data/high-school-football/program-editorial-b012-group4.ts');
+  const profile = read('src/data/high-school-football/football-program-profile.server.ts');
+  for (const slug of ['crane','cranfills-gap','crawford','crockett','crosby']) {
+    assert.ok(loader.includes(`'${slug}'`), `missing group-four loader slug ${slug}`);
+    assert.ok(editorial.includes(`"${slug}"`), `missing group-four editorial ${slug}`);
+  }
+  assert.ok(loader.includes("import('./program-editorial-b012-group4')"));
+  assert.ok(profile.includes('loadBatch012Group4FootballProgramEditorial(canonicalSlug)'));
+  for (const official of ['https://www.craneisd.com/','https://www.cranfillsgapisd.net/high-school-football','https://www.crawford-isd.net/o/crawford/athletics','https://www.crockettisd.net/','https://www.crosbyisd.org/']) {
+    assert.ok(editorial.includes(official), `missing official source ${official}`);
+  }
+  assert.ok(!editorial.includes('imageUrl:'));
+  assert.ok(!editorial.includes('wins:'));
+  assert.ok(!editorial.includes('losses:'));
+});
