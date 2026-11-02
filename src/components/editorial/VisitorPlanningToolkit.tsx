@@ -186,7 +186,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
               Open interactive map and current directions
             </a>
             {activePlace.coordinates ? (
-              <button type="button" className="ml-0 mt-3 block rounded border border-border px-3 py-2 font-semibold text-primary"
+              <button type="button" className="mt-3 block rounded border border-border px-3 py-2 font-semibold text-primary"
                 aria-pressed={routeStopSlugs.includes(activePlace.slug)}
                 disabled={!routeStopSlugs.includes(activePlace.slug) && routeStopSlugs.length >= 5}
                 onClick={() => setRouteStopSlugs((current) =>
