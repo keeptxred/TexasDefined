@@ -38,6 +38,10 @@ const MagnoliaWacoAffiliateLinks = lazy(() =>
   import("@/components/monetization/MagnoliaWacoAffiliateLinks").then((module) => ({ default: module.MagnoliaWacoAffiliateLinks })),
 );
 
+const AuthorityVisitorTools = lazy(() =>
+  import("@/components/editorial/AuthorityVisitorTools").then((module) => ({ default: module.AuthorityVisitorTools })),
+);
+
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
 );
@@ -575,6 +579,11 @@ function ArticlePage() {
             insertBefore={footballTravelOffer} />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
+      {article.slug === "fredericksburg-texas-wineries-things-to-do-guide" ? (
+        <Suspense fallback={<section className="my-10 border-t border-border pt-8" aria-label="Loading wine-country comparison and trip tools" />}>
+          <AuthorityVisitorTools />
+        </Suspense>
+      ) : null}
       {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <Suspense fallback={<div className="my-10 h-36 border-y border-border" aria-label="Loading Waco tour options" />}><MagnoliaWacoAffiliateLinks /></Suspense>}
       <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
       {showFootballTravelOffers && footballTravelInsertIndex < 0 ? footballTravelOffer : null}

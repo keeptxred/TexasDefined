@@ -1,0 +1,35 @@
+[
+  {
+    "slug": "slate-theory-winery",
+    "name": "Slate Theory Winery",
+    "nearestTown": "Fredericksburg · Highway 290",
+    "address": "10915 E US Highway 290, Fredericksburg, TX 78624",
+    "reservationUrl": "https://slatetheory.com/reservation/",
+    "officialUrl": "https://slatetheory.com/",
+    "sourceUrl": "https://slatetheory.com/reservation/",
+    "checkedAt": "2026-11-02",
+    "visitDuration": "Allow 1–2 hours, depending on reserved experience"
+  },
+  {
+    "slug": "grape-creek-on-main",
+    "name": "Grape Creek on Main",
+    "nearestTown": "Downtown Fredericksburg",
+    "address": "223 E Main Street, Fredericksburg, TX 78624",
+    "reservationUrl": "https://heathfamilybrands.com/grape-creek-vineyards/fredericksburg-on-main-st/",
+    "officialUrl": "https://heathfamilybrands.com/grape-creek-vineyards/fredericksburg-on-main-st/",
+    "sourceUrl": "https://heathfamilybrands.com/grape-creek-vineyards/fredericksburg-on-main-st/",
+    "checkedAt": "2026-11-02",
+    "visitDuration": "Confirm walk-in tasting duration"
+  },
+  {
+    "slug": "becker-on-main",
+    "name": "Becker Vineyards Main Street",
+    "nearestTown": "Downtown Fredericksburg",
+    "address": "307 E Main Street, Fredericksburg, TX 78624",
+    "reservationUrl": "https://www.beckervineyards.com/main-street-tasting-room/",
+    "officialUrl": "https://www.beckervineyards.com/main-street-tasting-room/",
+    "sourceUrl": "https://www.beckervineyards.com/main-street-tasting-room/",
+    "checkedAt": "2026-11-02",
+    "visitDuration": "Confirm walk-in tasting duration"
+  }
+]

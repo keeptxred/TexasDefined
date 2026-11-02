@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 import { StateParkVisitorEssentials } from "./StateParkVisitorEssentials";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { DestinationAuthoritySections } from "@/components/editorial/DestinationAuthoritySections";
@@ -7,6 +8,13 @@ import { townAuthorityContextualLinks } from "@/data/town-authority-links";
 import type { Destination } from "@/data/types";
 
 type Props = { destination: Destination };
+const VerifiedExperienceOffers = lazy(() =>
+  import("./VerifiedExperienceOffers").then((module) => ({ default: module.VerifiedExperienceOffers })),
+);
+const destinationOfferSlugs = new Set([
+  "becker-vineyards", "grape-creek-vineyards", "signor-vineyards",
+  "william-chris-vineyards-hye",
+]);
 
 // A reference to an airport, highway or nearby town is not a reason to
 // advertise a rental car on an individual museum or local attraction.
@@ -28,6 +36,9 @@ export function DestinationVisitPlanner({ destination }: Props) {
         <div data-stay-nearby-slot aria-label={`Places to stay near ${destination.name}`} />
       )}
       <StateParkVisitorEssentials destination={destination} />
+      {destinationOfferSlugs.has(destination.slug) ? (
+        <Suspense fallback={null}><VerifiedExperienceOffers destination={destination} /></Suspense>
+      ) : null}
       {showRentalCarOption ? (
         <BookingCarRentalCard
           className="my-10"
