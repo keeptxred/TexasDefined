@@ -15,7 +15,9 @@ const ASSET_FOLDER = 'dist/client/assets';
 const SOURCE_ORIGIN = 'https://texasdefined.com';
 // Verified Nov 2 retention artifact copied 192 old-only hashes but dropped 19 eligible hashes under the 192-file request ceiling.
 // Keep strict 24 MiB total, 2 MiB/file, 72 h, HTTPS, SHA256 and MIME bounds.
-const LIMIT_FILES = 256;
+// Nov 2 real release #41523593259 had 283 eligible old-only files: 256 copied,
+// 27 excluded; only 22 of those were separately recovered. Budget remains 24 MiB.
+const LIMIT_FILES = 384;
 const LIMIT_BYTES = 24 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
@@ -70,7 +72,7 @@ export async function retain({
   const candidates = retentionCandidates(saved, now);
   const report = { format: 1, checkedAt: new Date(now).toISOString(), version: 'predeploy-current-worker',
     budget: { maxFiles: LIMIT_FILES, maxBytes: LIMIT_BYTES, maxAgeHours: 72 }, inspected: 0,
-    copied: [], alreadyInBuild: [], unavailable: [], ignoredOld: 0 };
+    copied: [], alreadyInBuild: [], unavailable: [], ignoredOld: 0, ignoredOldPaths: [] };
   const kept = [];
   let totalBytes = 0;
   let attemptedOld = 0;
@@ -84,10 +86,11 @@ export async function retain({
       report.alreadyInBuild.push(asset.path);
       continue;
     }
-    // Enforce a bounded ceiling of 256 attempted old-only
+    // Enforce a bounded ceiling of 384 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
+      report.ignoredOldPaths.push(asset.path);
       continue;
     }
     attemptedOld += 1;
@@ -141,6 +144,12 @@ export async function retain({
     + ' bytes) into next Worker; current-build duplicates=' + report.alreadyInBuild.length
     + '; already missing=' + report.unavailable.length + '; aged-out/budget-limited=' + report.ignoredOld);
   for (const missing of report.unavailable) console.warn('::warning title=Pre-existing asset unavailable::' + missing.path + ' HTTP ' + missing.status);
+  // Never silently ship a Worker that drops previously healthy, in-window old hashes.
+  // The report is already persisted for diagnosis; fail BEFORE Wrangler deploy.
+  if (report.ignoredOld > 0) {
+    throw new Error('Old-only asset retention cap exceeded: ' + report.ignoredOld
+      + ' previously healthy hashes omitted; inspect ' + reportPath + ' and preserve original bytes before deploying');
+  }
   return report;
 }
 
