@@ -68,17 +68,28 @@ export async function retain({
   const candidates = retentionCandidates(saved, now);
   const report = { format: 1, checkedAt: new Date(now).toISOString(), version: 'predeploy-current-worker',
     budget: { maxFiles: LIMIT_FILES, maxBytes: LIMIT_BYTES, maxAgeHours: 72 }, inspected: 0,
-    copied: [], alreadyInBuild: [], unavailable: [], ignoredOld: Math.max(0, candidates.length - LIMIT_FILES) };
+    copied: [], alreadyInBuild: [], unavailable: [], ignoredOld: 0 };
   const kept = [];
   let totalBytes = 0;
+  let attemptedOld = 0;
   await mkdir(assetFolder, { recursive: true });
-  for (const asset of candidates.slice(0, LIMIT_FILES)) {
-    report.inspected += 1;
+  for (const asset of candidates) {
     const destination = resolve(assetFolder, basename(asset.path));
+    // A chunk already emitted by Vite is guaranteed to enter Wrangler's
+    // current asset manifest. It must NOT use one of the bounded slots needed
+    // for genuinely old-only binaries that would otherwise disappear.
     if (existsSync(destination)) {
       report.alreadyInBuild.push(asset.path);
       continue;
     }
+    // Keep the existing network/copy budget: no more than 96 attempted old
+    // downloads. Count only candidates actually requiring a request.
+    if (attemptedOld >= LIMIT_FILES) {
+      report.ignoredOld += 1;
+      continue;
+    }
+    attemptedOld += 1;
+    report.inspected += 1;
     let response;
     try {
       response = await fetchImpl(sourceOrigin + asset.path, {

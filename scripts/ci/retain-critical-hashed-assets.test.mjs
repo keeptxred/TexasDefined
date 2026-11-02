@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -179,4 +179,73 @@ test('Nov 2 observed Meta/Bing imports are eligible only as same-origin hashed J
   for (const path of observed) assert.equal(safeCriticalAsset(path), true, path);
   for (const path of ['/assets/not-a-verified-family-AbC1234.js', '/assets/../secret-AbC1234.js',
     'https://other.example/assets/ArticleCard-OgqXjgNN.js']) assert.equal(safeCriticalAsset(path), false, path);
+});
+
+test('current-build duplicate hashes do not consume 96 old-binary retention slots', async () => {
+  const tmp = mkdtempSync(join(tmpdir(), 'td-retention-budget-'));
+  try {
+    const assetFolder = join(tmp, 'assets');
+    const snapshotPath = join(tmp, 'snapshot.json');
+    const reportPath = join(tmp, 'report.json');
+    mkdirSync(assetFolder, { recursive: true });
+    const body = 'export const previousVersionStillAvailable = true;';
+    const digest = createHash('sha256').update(body).digest('hex');
+    const now = Date.parse('2026-11-02T17:00:00.000Z');
+    const at = new Date(now - 1000).toISOString();
+    const built = Array.from({ length: 96 }, (_, i) =>
+      '/assets/main-Built' + String(i).padStart(3, '0') + '.js');
+    for (const name of built) writeFileSync(join(assetFolder, name.split('/').at(-1)), 'current build');
+    const old = '/assets/ArticleCard-PreviousVersion123.js';
+    const assets = [...built, old].map(path => ({ path, wasAvailable: true,
+      preSha256: digest, firstSeenAt: at }));
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{ format: 1,
+      capturedAt: at, pages: [{ path: '/', assets }] }] }));
+    const called = [];
+    const result = await retain({ snapshotPath, reportPath, assetFolder, now,
+      fetchImpl: async url => {
+        called.push(url);
+        return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
+      } });
+    assert.deepEqual(called, ['https://texasdefined.com' + old]);
+    assert.equal(result.retainedCount, 1);
+    assert.equal(result.inspected, 1);
+    assert.equal(result.alreadyInBuild.length, 96);
+    assert.equal(result.ignoredOld, 0);
+    assert.equal(readFileSync(join(assetFolder, 'ArticleCard-PreviousVersion123.js'), 'utf8'), body);
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+test('old-only transfer attempts still stop at 96 and report each ignored hash', async () => {
+  const tmp = mkdtempSync(join(tmpdir(), 'td-retention-hard-cap-'));
+  try {
+    const assetFolder = join(tmp, 'assets');
+    const snapshotPath = join(tmp, 'snapshot.json');
+    const reportPath = join(tmp, 'report.json');
+    const body = 'export const retainedOld = 1;';
+    const digest = createHash('sha256').update(body).digest('hex');
+    const now = Date.parse('2026-11-02T17:00:00.000Z');
+    const at = new Date(now - 1000).toISOString();
+    const assets = Array.from({ length: 99 }, (_, i) => ({
+      path: '/assets/ArticleCard-Historical' + String(i).padStart(3, '0') + '.js',
+      wasAvailable: true, preSha256: digest, firstSeenAt: at,
+    }));
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{ format: 1,
+      capturedAt: at, pages: [{ path: '/', assets }] }] }));
+    let requests = 0;
+    const result = await retain({ snapshotPath, reportPath, assetFolder, now,
+      fetchImpl: async () => {
+        requests++;
+        return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
+      } });
+    assert.equal(requests, 96);
+    assert.equal(result.inspected, 96);
+    assert.equal(result.retainedCount, 96);
+    assert.equal(result.ignoredOld, 3);
+    assert.equal(result.unavailable.length, 0);
+    assert.ok(result.bytes < 24 * 1024 * 1024);
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
 });
