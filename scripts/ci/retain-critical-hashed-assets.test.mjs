@@ -185,7 +185,7 @@ test('Nov 2 observed Meta/Bing imports are eligible only as same-origin hashed J
     'https://other.example/assets/ArticleCard-OgqXjgNN.js']) assert.equal(safeCriticalAsset(path), false, path);
 });
 
-test('current-build duplicate hashes do not consume 256 old-binary retention slots', async () => {
+test('current-build duplicate hashes do not consume 384 old-binary retention slots', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-budget-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -196,7 +196,7 @@ test('current-build duplicate hashes do not consume 256 old-binary retention slo
     const digest = createHash('sha256').update(body).digest('hex');
     const now = Date.parse('2026-11-02T17:00:00.000Z');
     const at = new Date(now - 1000).toISOString();
-    const built = Array.from({ length: 256 }, (_, i) =>
+    const built = Array.from({ length: 384 }, (_, i) =>
       '/assets/main-Built' + String(i).padStart(3, '0') + '.js');
     for (const name of built) writeFileSync(join(assetFolder, name.split('/').at(-1)), 'current build');
     const old = '/assets/ArticleCard-PreviousVersion123.js';
@@ -213,7 +213,7 @@ test('current-build duplicate hashes do not consume 256 old-binary retention slo
     assert.deepEqual(called, ['https://texasdefined.com' + old]);
     assert.equal(result.retainedCount, 1);
     assert.equal(result.inspected, 1);
-    assert.equal(result.alreadyInBuild.length, 256);
+    assert.equal(result.alreadyInBuild.length, 384);
     assert.equal(result.ignoredOld, 0);
     assert.equal(readFileSync(join(assetFolder, 'ArticleCard-PreviousVersion123.js'), 'utf8'), body);
   } finally {
@@ -221,7 +221,7 @@ test('current-build duplicate hashes do not consume 256 old-binary retention slo
   }
 });
 
-test('old-only transfer attempts stop at 256 and block deployment if eligible hashes are omitted', async () => {
+test('old-only transfer attempts stop at 384 and block deployment if eligible hashes are omitted', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-hard-cap-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -231,7 +231,7 @@ test('old-only transfer attempts stop at 256 and block deployment if eligible ha
     const digest = createHash('sha256').update(body).digest('hex');
     const now = Date.parse('2026-11-02T17:00:00.000Z');
     const at = new Date(now - 1000).toISOString();
-    const assets = Array.from({ length: 259 }, (_, i) => ({
+    const assets = Array.from({ length: 387 }, (_, i) => ({
       path: '/assets/ArticleCard-Historical' + String(i).padStart(3, '0') + '.js',
       wasAvailable: true, preSha256: digest, firstSeenAt: at,
     }));
@@ -244,14 +244,14 @@ test('old-only transfer attempts stop at 256 and block deployment if eligible ha
         return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
       } }), /Old-only asset retention cap exceeded: 3/);
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
-    assert.equal(requests, 256);
-    assert.equal(report.inspected, 256);
-    assert.equal(report.retainedCount, 256);
+    assert.equal(requests, 384);
+    assert.equal(report.inspected, 384);
+    assert.equal(report.retainedCount, 384);
     assert.equal(report.ignoredOld, 3);
     assert.deepEqual(new Set(report.ignoredOldPaths), new Set([
-      '/assets/ArticleCard-Historical256.js',
-      '/assets/ArticleCard-Historical257.js',
-      '/assets/ArticleCard-Historical258.js',
+      '/assets/ArticleCard-Historical384.js',
+      '/assets/ArticleCard-Historical385.js',
+      '/assets/ArticleCard-Historical386.js',
     ]));
     assert.equal(report.unavailable.length, 0);
     assert.ok(report.bytes < 24 * 1024 * 1024);
