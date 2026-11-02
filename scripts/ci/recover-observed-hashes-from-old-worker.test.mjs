@@ -144,7 +144,7 @@ test('a missing recent logged hash is reported and never replaced by invented co
       recentVersions: RECENT_OBSERVED_VERSIONS.slice(0, 2),
       fetchImpl: async () => new Response('not found', { status: 404,
         headers: { 'content-type': 'text/html' } }) });
-    assert.equal(report.probed.length, 2);
+    assert.equal(report.probed.length, 3, 'after two recent misses, check the pinned older preview');
     assert.equal(report.recovered.length, 0);
     assert.deepEqual(report.unresolved.map(x => x.path), ['/assets/' + name]);
     assert.equal(existsSync(join(x.folder, name)), false);
@@ -173,6 +173,33 @@ test('five exact omitted historical assets are recovered only from the authentic
       assert.equal(recovered.sourceVersionId, SATURATED_PREVIOUS_WORKER_VERSIONS[0]);
     }
   } finally { await rm(root, {recursive: true, force: true}); }
+});
+
+
+test('Bing calculator old hash searches prior verified Worker preview after six-generation miss', async () => {
+  const root = await setup();
+  try {
+    const x = await seed(root);
+    const name = 'PropertyCalculatorFramework-BfNaFZpi.js';
+    const expected = Buffer.from('export const genuinePinnedOldHash = 1;');
+    const urls = [];
+    const report = await recoverObserved({...x, now: NOW, filenames: [name],
+      recentVersions: [RECENT_OBSERVED_VERSIONS[0]], versions: [OLD_VERSIONS[0]],
+      fetchImpl: async url => {
+        urls.push(url);
+        return url.startsWith('https://' + OLD_VERSIONS[0].slice(0, 8) + '-')
+          ? new Response(expected, {status: 200, headers: {'content-type': 'application/javascript'}})
+          : new Response('missing', {status: 404, headers: {'content-type': 'text/html'}});
+      }});
+    assert.equal(report.probed.length, 2);
+    assert.equal(report.recovered.length, 1);
+    assert.equal(report.recovered[0].sourceVersionId, OLD_VERSIONS[0]);
+    assert.deepEqual(urls, [
+      pinnedVersionUrl(RECENT_OBSERVED_VERSIONS[0], '/assets/' + name),
+      pinnedVersionUrl(OLD_VERSIONS[0], '/assets/' + name),
+    ]);
+    assert.deepEqual(await readFile(join(x.folder,name)), expected);
+  } finally { await rm(root,{recursive:true,force:true}); }
 });
 
 test('verified recovery target and version lists stay within hard budgets', () => {
