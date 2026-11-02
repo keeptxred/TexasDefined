@@ -175,7 +175,10 @@ test('Nov 2 observed Meta/Bing imports are eligible only as same-origin hashed J
   "/assets/CityPassCalloutContent-YecoYaOL.js",
   "/assets/TexasExplainedContextLinks-CX8yFupy.js",
   "/assets/TexasEventCarousel-Bjl-TKRv.js",
-  "/assets/sports-traffic.functions-BM-ItR2d.js"
+  "/assets/sports-traffic.functions-BM-ItR2d.js",
+  "/assets/PropertyCalculatorFramework-BfNaFZpi.js",
+  "/assets/AnswerSummary-ClpRNP9w.js",
+  "/assets/texas-home-insurance-calculator.lazy-B-Cusmus.js"
 ];
   for (const path of observed) assert.equal(safeCriticalAsset(path), true, path);
   for (const path of ['/assets/not-a-verified-family-AbC1234.js', '/assets/../secret-AbC1234.js',

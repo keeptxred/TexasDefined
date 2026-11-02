@@ -5,7 +5,7 @@ import { existsSync } from 'node:fs';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { pinnedVersionUrl, recoverObserved, OLD_VERSIONS, LOGGED_MISSING } from './recover-observed-hashes-from-old-worker.mjs';
+import { pinnedVersionUrl, recoverObserved, OLD_VERSIONS, LOGGED_MISSING, RECENT_OBSERVED_VERSIONS, RECENT_MISSING } from './recover-observed-hashes-from-old-worker.mjs';
 
 const NOW=Date.parse('2026-11-02T18:00:00Z');
 function setup() {
@@ -105,4 +105,55 @@ test('the twelve confirmed first-three-version misses search older pinned versio
     assert.equal(requested.length,1, 'proven missing first 3 are not redundantly re-requested');
     assert.deepEqual(await readFile(join(x.folder,'useQuery-6nTz4IUX.js')),expected);
   } finally {await rm(root,{recursive:true,force:true});}
+});
+
+test('Nov2 Bing exact calculator hash checks only real recent first-party preview bytes', async () => {
+  const root = await setup();
+  try {
+    const x = await seed(root);
+    const name = 'PropertyCalculatorFramework-BfNaFZpi.js';
+    assert.equal(RECENT_MISSING.has(name), true);
+    const bytes = Buffer.from('export const verifiedOldCalculatorModule = true;');
+    const urls = [];
+    const report = await recoverObserved({ ...x, now: NOW, filenames: [name],
+      versions: [OLD_VERSIONS[0]], recentVersions: [RECENT_OBSERVED_VERSIONS[0]],
+      fetchImpl: async (url, opts) => {
+        urls.push(url);
+        assert.equal(opts.redirect, 'manual');
+        return new Response(bytes, { status: 200,
+          headers: { 'content-type': 'application/javascript' } });
+      } });
+    assert.deepEqual(urls, [pinnedVersionUrl(RECENT_OBSERVED_VERSIONS[0], '/assets/' + name)]);
+    assert.equal(report.recovered.length, 1);
+    assert.equal(report.unresolved.length, 0);
+    assert.equal(report.recovered[0].sha256,
+      createHash('sha256').update(bytes).digest('hex'));
+    assert.deepEqual(await readFile(join(x.folder, name)), bytes);
+    const saved = JSON.parse(await readFile(x.snapshotPath, 'utf8'));
+    assert.equal(saved.snapshots[0].retainedAssets[0].sourceVersionId, RECENT_OBSERVED_VERSIONS[0]);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('a missing recent logged hash is reported and never replaced by invented content', async () => {
+  const root = await setup();
+  try {
+    const x = await seed(root);
+    const name = 'AnswerSummary-ClpRNP9w.js';
+    const report = await recoverObserved({ ...x, now: NOW,
+      filenames: [name], versions: [OLD_VERSIONS[0]],
+      recentVersions: RECENT_OBSERVED_VERSIONS.slice(0, 2),
+      fetchImpl: async () => new Response('not found', { status: 404,
+        headers: { 'content-type': 'text/html' } }) });
+    assert.equal(report.probed.length, 2);
+    assert.equal(report.recovered.length, 0);
+    assert.deepEqual(report.unresolved.map(x => x.path), ['/assets/' + name]);
+    assert.equal(existsSync(join(x.folder, name)), false);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('verified recovery target and version lists stay within hard budgets', () => {
+  assert.equal(LOGGED_MISSING.length, 25);
+  assert.equal(RECENT_OBSERVED_VERSIONS.length, 6);
+  for (const name of RECENT_MISSING)
+    assert.ok(LOGGED_MISSING.includes(name), name);
 });

@@ -149,6 +149,21 @@ test('discover observed old major article, destination, sports and discovery JS 
   assert.equal(selectBuiltRouteAssets(base).length, 2, 'optional unbuilt chunks must not be fabricated');
 });
 
+test('observed Bing calculator and answer modules are included only when emitted', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-BASE.js',
+    'property-tax.taxing-unit._unit-BASE.js',
+  ];
+  const observed = [
+    'PropertyCalculatorFramework-BfNaFZpi.js',
+    'AnswerSummary-ClpRNP9w.js',
+    'texas-home-insurance-calculator.lazy-B-Cusmus.js',
+  ];
+  const selected = selectBuiltRouteAssets([...required, ...observed]).map(x => x.path);
+  for (const name of observed) assert.ok(selected.includes('/assets/' + name), name);
+  assert.equal(selectBuiltRouteAssets(required).length, 2, 'missing optional files must not be fabricated');
+});
+
 test('production build may emit two distinct article route chunks and both must be checked', () => {
   const files = [
     'texas-high-school-football-teams_._slug.lazy-ONE.js',
