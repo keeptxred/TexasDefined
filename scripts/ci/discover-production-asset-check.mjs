@@ -1,4 +1,7 @@
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 
 export function governedDiscoverSlugs() {
   const result = spawnSync(process.execPath, ['scripts/assets/materialize-discover-overrides.mjs', '--list-slugs'], {
@@ -27,6 +30,8 @@ export async function verifyGovernedDiscoverDelivery({
   origin,
   slugs = governedDiscoverSlugs(),
   fetcher = fetch,
+  // When set by production CI, require exact emitted build bytes, not only a valid WebP header.
+  expectedBytesDir = null,
   attempts = 4,
   concurrency = 6,
   timeoutMs = 15_000,
@@ -34,11 +39,25 @@ export async function verifyGovernedDiscoverDelivery({
   if (!/^https:\/\//.test(String(origin ?? ''))) throw new Error('A production HTTPS origin is required');
   const root = new URL(origin);
   const failures = [];
+  const checks = [];
   let passed = 0;
   let cursor = 0;
   async function check(slug) {
     const url = new URL('/images/discover/' + slug + '.webp', root);
     let reason = 'not attempted';
+    let expectedSha256 = null;
+    if (expectedBytesDir) {
+      try {
+        if (!/^[a-z0-9-]+$/.test(slug)) throw new Error('invalid governed image slug');
+        const built = await readFile(resolve(expectedBytesDir, slug + '.webp'));
+        if (!webpBytes(built)) throw new Error('missing or invalid built WebP payload');
+        expectedSha256 = createHash('sha256').update(built).digest('hex');
+      } catch (error) {
+        // Fail closed: an unknown or missing build file must never be accepted from the CDN.
+        failures.push({ slug, url: url.toString(), reason: 'No valid matching build image: ' + (error instanceof Error ? error.message : String(error)) });
+        return;
+      }
+    }
     for (let attempt = 1; attempt <= attempts; attempt++) {
       try {
         const response = await fetcher(url.toString(), {
@@ -56,10 +75,15 @@ export async function verifyGovernedDiscoverDelivery({
         else {
           const bytes = Buffer.from(await response.arrayBuffer());
           if (webpBytes(bytes)) {
-            passed++;
-            return;
-          }
-          reason = 'invalid or empty WebP bytes';
+            const servedSha256 = createHash('sha256').update(bytes).digest('hex');
+            if (expectedSha256 && servedSha256 !== expectedSha256) {
+              reason = 'WebP SHA-256 mismatch with built artifact (expected ' + expectedSha256 + ', served ' + servedSha256 + ')';
+            } else {
+              checks.push({ slug, bytes: bytes.length, expectedSha256, servedSha256 });
+              passed++;
+              return;
+            }
+          } else reason = 'invalid or empty WebP bytes';
         }
       } catch (error) {
         reason = error instanceof Error ? error.message : String(error);
@@ -75,5 +99,7 @@ export async function verifyGovernedDiscoverDelivery({
     }
   }
   await Promise.all(Array.from({ length: Math.min(Math.max(1, concurrency), slugs.length) }, worker));
-  return { origin: root.origin, expected: slugs.length, passed, failures };
+  checks.sort((a, b) => a.slug.localeCompare(b.slug));
+  failures.sort((a, b) => a.slug.localeCompare(b.slug));
+  return { origin: root.origin, expected: slugs.length, passed, failures, checks };
 }
