@@ -47,6 +47,29 @@ export const RECENT_MISSING = new Set([
   'destination._slug-BGfPNobU.js',
   'Container-2O1NhOAV.js',
 ]);
+// Exactly three still-missing historical Bing calculator chunks were absent
+// in all 6 previously verified Nov2 release previews (artifact #13178379279).
+// Do not burn new release probe budget re-requesting these immutable misses.
+export const SECOND_PASS_MISSING = new Set([
+  'PropertyCalculatorFramework-BfNaFZpi.js',
+  'AnswerSummary-ClpRNP9w.js',
+  'texas-home-insurance-calculator.lazy-B-Cusmus.js',
+]);
+// Cloudflare authenticated Worker version metadata: all 10 have
+// metadata.has_preview === true and were actually deployed Nov 2 2026.
+// Do not assume their contents: HTTP200, JS MIME and exact SHA remain mandatory.
+export const SECOND_PASS_PREVIEW_VERSIONS = [
+  'feb21bdb-7bfb-455f-bb6f-421484837727',
+  'eebe9812-fb69-4533-a4a8-1edfba6cf405',
+  'd4a56916-4cda-4620-9249-6997cd47eb54',
+  'e9b24e77-4770-4620-8320-34d34589e2bf',
+  '30a85542-9349-407f-8625-c75c4b12b661',
+  'b9ea786c-98a8-43db-b4a1-737bc3ef87d2',
+  'ace85899-ac7e-4541-92c0-58e4468a4069',
+  '2dd8f067-06bb-4f37-9d58-f30f13be8409',
+  '0ea7e9af-3132-41af-9a59-19d4d1084855',
+  'f7a0fc9c-89b8-4c87-8bd3-32d27cb232bf',
+];
 export const LOGGED_MISSING = [
   'useQuery-6nTz4IUX.js','ArticleCard-OgqXjgNN.js',
   'useBaseQuery-DAwRZeNC.js','ElPasoAreaAuthority-D_3Wtymp.js',
@@ -98,9 +121,10 @@ async function sourceBytes(version, path, fetchImpl) {
 export async function recoverObserved({
   now=Date.now(), filenames=LOGGED_MISSING, versions=OLD_VERSIONS,
   recentVersions=RECENT_OBSERVED_VERSIONS,
+  supplementalVersions=SECOND_PASS_PREVIEW_VERSIONS,
   snapshotPath=SNAPSHOT, reportPath=REPORT, folder=FOLDER, fetchImpl=fetch,
 }={}) {
-  if (filenames.length > 28 || versions.length > 8 || recentVersions.length > 6)
+  if (filenames.length > 28 || versions.length > 8 || recentVersions.length > 6 || supplementalVersions.length > 10)
     throw Error('Historical recovery bounds exceeded');
   const snapshot=JSON.parse(await readFile(snapshotPath,'utf8'));
   const latest=snapshot.snapshots?.at(-1);
@@ -119,7 +143,8 @@ export async function recoverObserved({
     }
     // The newest real Bing/Meta failures take priority if the hard, bounded
     // remote-probe ceiling is reached. Never silently treat skips as recovered.
-    missing.sort((a, b) => Number(RECENT_MISSING.has(b.name)) - Number(RECENT_MISSING.has(a.name)));
+    missing.sort((a, b) => Number(SECOND_PASS_MISSING.has(b.name)) - Number(SECOND_PASS_MISSING.has(a.name))
+      || Number(RECENT_MISSING.has(b.name)) - Number(RECENT_MISSING.has(a.name)));
     // Every historical response is checked on its exact path. The previous
     // canary-based shortcut falsely ignored old versions that lacked the sample
     // file but could retain a different missing import. This pass is bounded by
@@ -128,7 +153,8 @@ export async function recoverObserved({
     let total=0;
     for (const item of missing) {
       let result=null;
-      const candidates = RECENT_MISSING.has(item.name) ? recentVersions
+      const candidates = SECOND_PASS_MISSING.has(item.name) ? supplementalVersions
+        : RECENT_MISSING.has(item.name) ? recentVersions
         : FIRST_THREE_VERSION_MISSES.has(item.name) ? versions.slice(3) : versions;
       for (const version of candidates) {
         if (report.probed.length >= MAX_HISTORICAL_PROBES) break;
