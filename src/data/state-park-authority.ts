@@ -533,13 +533,13 @@ export const VERIFIED_PARK_FACILITIES: Readonly<Record<string, VerifiedParkFacil
     maps: "Use TPWD's park map for accessible camping and day-use routes; the core campground is distinct from preserved historic hiking and CCC sites.",
   },
   "lake-mineral-wells-state-park": {
-    checkedAt: "2026-10-17",
+    checkedAt: "2026-11-02",
     sourceUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/fees-facilities/campsites",
-    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells/alert",
+    supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
     restrooms: "Showers and restrooms are listed near Live Oak's 47 50-amp campsites, Plateau's 30 30-amp campsites and Cross Timbers' 20 water-only equestrian sites. Post Oak's 11 water sites list nearby restrooms. Hike-in primitive sites have no nearby restrooms or drinking water.",
     parking: "47 Live Oak electric campsites, 30 Plateau electric sites, 11 Post Oak water-only sites and 20 Cross Timbers equestrian water sites are in distinct loops. Cross Timbers allows small trailers 20 feet or less even without horses. Hike-in primitive camping requires roughly 2 miles from parking.",
     camping: "47 50-amp Live Oak sites, 30 30-amp Plateau sites, 11 Post Oak water-only, 20 Cross Timbers water/equestrian sites and remote primitive sites with NO water, restrooms, fire rings or open fires. Hike-in primitive permits are bought at park headquarters, with arrival at least two hours BEFORE DUSK.",
-    access: "Cross Timbers equestrian campers must secure horses using lines, not trees; horses require a current negative Coggins test. Primitive camping reservations must be made at headquarters during office hours. Lake Mineral Wells Trailway access is separate from campground access. TPWD's August 30, 2026 alert specifies NO FIRES OF ANY KIND, including wood, charcoal and containerized fuel stoves such as PROPANE. This is stricter than many other state parks' propane exceptions: do not recommend a propane camp stove as an allowed workaround. Verify the current rule immediately before making camping and meal plans; hike-in primitive users cannot assume fire rings or cooking fuel are permitted.",
+    access: "Cross Timbers equestrian campers must secure horses using lines, not trees; horses require a current negative Coggins test. Primitive camping permits are obtained at park headquarters during office hours. Lake Mineral Wells Trailway access is separate from campground access. The former August 30, 2026 blanket fire ban is no longer a reliable current restriction: TPWD's official park status on November 2, 2026 showed NO BURN BAN. Independently, TPWD's current primitive campsite rules prohibit ground fires and provide no fire rings or grills. Verify the park's current restriction panel before using any cooking fuel or planning a campfire.",
     maps: "Use park, campground and Trailway maps to distinguish lakeside camping from the linear former-railway multiuse trail.",
   },
   "lake-whitney-state-park": {
