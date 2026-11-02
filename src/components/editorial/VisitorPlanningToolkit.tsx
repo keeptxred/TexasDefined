@@ -6,6 +6,7 @@ import { estimateVisitorBudget } from "@/data/authority/visitor-budget";
 export type VisitorPlanningProfile = {
   title: string; subjectPlural: string; destinationSlug: string;
   places: ExperiencePlace[]; offers: VerifiedOffer[]; routes: readonly VisitorRoute[];
+  comparisonNote?: string; mapNote?: string; safetyNote?: string;
 };
 
 /**
@@ -65,13 +66,13 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         </p>
       </header>
 
-      {places.length ? <section aria-labelledby="winery-compare-title">
-        <h3 id="winery-compare-title" className="font-display text-2xl">Which experience fits your visit?</h3>
+      {places.length ? <section aria-labelledby="experience-compare-title">
+        <h3 id="experience-compare-title" className="font-display text-2xl">Which experience fits your visit?</h3>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full min-w-[620px] border-collapse text-left text-sm">
             <thead>
               <tr className="border-y border-border">
-                {["Winery", "Area", "Suggested visit", "Details and reservations"].map((name) =>
+                {["Place", "Area", "Suggested visit", "Details and reservations"].map((name) =>
                   <th key={name} scope="col" className="px-3 py-3 font-semibold">{name}</th>)}
               </tr>
             </thead>
@@ -92,13 +93,12 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
           </table>
         </div>
         <p className="mt-3 text-xs leading-5 text-muted-foreground">
-          This is a selected, source-backed comparison—not a comprehensive winery directory.
-          Unmapped locations use operator-published addresses. Each individual venue guide remains the owner of its detailed story.
+          {profile.comparisonNote ?? "This is a selected, source-backed comparison, not a complete directory. Unknown facts are not assumed. Individual place guides own their detailed history and facilities."}
         </p>
       </section> : null}
 
-      <section aria-labelledby="winery-prices-title">
-        <h3 id="winery-prices-title" className="font-display text-2xl">Verified offering prices and durations</h3>
+      <section aria-labelledby="experience-prices-title">
+        <h3 id="experience-prices-title" className="font-display text-2xl">Verified offering prices and durations</h3>
         {offers.length ? (
           <>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -124,11 +124,10 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         )}
       </section>
 
-      {places.length ? <section aria-labelledby="winery-map-title">
-        <h3 id="winery-map-title" className="font-display text-2xl">Explore locations and routes</h3>
+      {places.length ? <section aria-labelledby="experience-map-title">
+        <h3 id="experience-map-title" className="font-display text-2xl">Explore locations and routes</h3>
         <p className="mt-2 text-sm text-muted-foreground">
-          Select a verified stop to view its location and open an interactive route map.
-          Downtown tasting rooms may have different addresses from their estate winery.
+          {profile.mapNote ?? "Choose mapped stops to build your route. Verify exact addresses, access, opening dates and reservations with each operator."}
         </p>
         {markers.length ? <MapPreview markers={markers} directionsLabel="Fredericksburg-area wineries" variant="list" className="mt-4" /> : null}
         <div className="mt-4 flex flex-wrap gap-2" aria-label="Select a mapped place">
@@ -209,13 +208,13 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
                 Open these stops in order in Google Maps
               </a>
             ) : <p className="mt-2 text-muted-foreground">Add a second mapped stop to build a route.</p>}
-            <p className="mt-2 text-xs text-muted-foreground">Stops are mapped, not checked for current traffic, drive times or availability. Use a sober driver or approved transportation after tastings.</p>
+            <p className="mt-2 text-xs text-muted-foreground">{profile.safetyNote ?? "Stops are mapped, not checked for current traffic, drive times, closures or availability. Confirm access and travel conditions before departure."}</p>
           </div>
         ) : null}
       </section> : null}
 
-      {route ? <section aria-labelledby="winery-routes-title">
-        <h3 id="winery-routes-title" className="font-display text-2xl">Choose a realistic itinerary</h3>
+      {route ? <section aria-labelledby="experience-routes-title">
+        <h3 id="experience-routes-title" className="font-display text-2xl">Choose a realistic itinerary</h3>
         <div className="mt-4 flex flex-wrap gap-2">
           {profile.routes.map((item) => (
             <button type="button" key={item.id} onClick={() => setActiveRoute(item.id)}
@@ -242,8 +241,8 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         </a>
       </section> : null}
 
-      <section aria-labelledby="winery-budget-title">
-        <h3 id="winery-budget-title" className="font-display text-2xl">Estimate your group budget</h3>
+      <section aria-labelledby="experience-budget-title">
+        <h3 id="experience-budget-title" className="font-display text-2xl">Estimate your group budget</h3>
         <p className="mt-2 text-sm text-muted-foreground">
           Calculations stay in your browser. Select multiple verified tastings and add your own lodging,
           food and transportation allowances. Prices are included only while source checks remain recent.
