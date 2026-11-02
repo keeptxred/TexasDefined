@@ -25,8 +25,6 @@ export function DestinationVisitPlanner({ destination }: Props) {
     [...destinationEditorialLinks(destination.slug), ...townAuthorityContextualLinks(destination)]
       .map((item) => [item.href, item]),
   ).values()];
-  const hasExistingTripPlannerLink = editorialLinks.some((item) => item.href.startsWith("/explore/trip-planner"));
-  const showTripPlannerHandoff = Boolean(destination.authorityGuide?.itineraries?.length) && !hasExistingTripPlannerLink;
   const showRentalCarOption = destination.category === "road-trips"
     && drivingIntentPattern.test([destination.summary, destination.entryNote, ...destination.highlights].join(" "));
 
@@ -49,19 +47,6 @@ export function DestinationVisitPlanner({ destination }: Props) {
         />
       ) : null}
       {destination.slug !== "moody-gardens" ? <DestinationAuthoritySections destination={destination} /> : null}
-      {showTripPlannerHandoff ? (
-        <nav aria-label={`Build a personalized trip around ${destination.name}`}
-          className="mt-8 border-t border-border pt-6">
-          <p className="text-sm leading-7 text-muted-foreground">
-            Want to extend this researched visit into a larger trip? The Texas Trip Planner starts from this
-            destination and creates a personal route; it does not replace the source-backed itinerary above.
-          </p>
-          <a href={`/explore/trip-planner?destination=${encodeURIComponent(destination.slug)}`}
-            className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">
-            Customize a route around {destination.name}
-          </a>
-        </nav>
-      ) : null}
       {editorialLinks.length > 0 ? (
         <nav aria-label={`Related editorial guides for ${destination.name}`} className="mt-10 border-t border-border pt-7">
           <p className="eyebrow text-primary">Useful nearby reading</p>
