@@ -77,3 +77,25 @@ test('emergency recovery self-expires without network requests; no guessing of o
     assert.equal(report.recovered.length,0);
   } finally {await rm(root,{recursive:true,force:true});}
 });
+
+test('the twelve confirmed first-three-version misses search older pinned versions by exact path',async()=>{
+  const root=await setup();
+  try {
+    const x=await seed(root);
+    const requested=[];
+    const expected=Buffer.from('export const recovered = "older pinned version";');
+    const older=OLD_VERSIONS[3].slice(0,8);
+    const fetchImpl=async(url)=>{
+      requested.push(url);
+      if(url.startsWith('https://'+older+'-texasdefined-site') && url.endsWith('useQuery-6nTz4IUX.js'))
+        return new Response(expected,{status:200,headers:{'content-type':'application/javascript'}});
+      return new Response('absent',{status:404,headers:{'content-type':'text/html'}});
+    };
+    const report=await recoverObserved({...x,now:NOW,filenames:['useQuery-6nTz4IUX.js'],
+      versions:OLD_VERSIONS,fetchImpl});
+    assert.equal(report.recovered.length,1);
+    assert.equal(report.recovered[0].sourceVersionId,OLD_VERSIONS[3]);
+    assert.equal(requested.length,1, 'proven missing first 3 are not redundantly re-requested');
+    assert.deepEqual(await readFile(join(x.folder,'useQuery-6nTz4IUX.js')),expected);
+  } finally {await rm(root,{recursive:true,force:true});}
+});
