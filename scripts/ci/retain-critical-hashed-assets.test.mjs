@@ -196,7 +196,7 @@ test('current-build duplicate hashes do not consume 384 old-binary retention slo
     const digest = createHash('sha256').update(body).digest('hex');
     const now = Date.parse('2026-11-02T17:00:00.000Z');
     const at = new Date(now - 1000).toISOString();
-    const built = Array.from({ length: 256 }, (_, i) =>
+    const built = Array.from({ length: 384 }, (_, i) =>
       '/assets/main-Built' + String(i).padStart(3, '0') + '.js');
     for (const name of built) writeFileSync(join(assetFolder, name.split('/').at(-1)), 'current build');
     const old = '/assets/ArticleCard-PreviousVersion123.js';
@@ -213,7 +213,7 @@ test('current-build duplicate hashes do not consume 384 old-binary retention slo
     assert.deepEqual(called, ['https://texasdefined.com' + old]);
     assert.equal(result.retainedCount, 1);
     assert.equal(result.inspected, 1);
-    assert.equal(result.alreadyInBuild.length, 256);
+    assert.equal(result.alreadyInBuild.length, 384);
     assert.equal(result.ignoredOld, 0);
     assert.equal(readFileSync(join(assetFolder, 'ArticleCard-PreviousVersion123.js'), 'utf8'), body);
   } finally {
