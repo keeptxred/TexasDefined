@@ -221,7 +221,7 @@ test('current-build duplicate hashes do not consume 256 old-binary retention slo
   }
 });
 
-test('old-only transfer attempts stop at 256 and report each ignored hash', async () => {
+test('old-only transfer attempts stop at 256 and block deployment if eligible hashes are omitted', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-hard-cap-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -238,17 +238,23 @@ test('old-only transfer attempts stop at 256 and report each ignored hash', asyn
     writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{ format: 1,
       capturedAt: at, pages: [{ path: '/', assets }] }] }));
     let requests = 0;
-    const result = await retain({ snapshotPath, reportPath, assetFolder, now,
+    await assert.rejects(() => retain({ snapshotPath, reportPath, assetFolder, now,
       fetchImpl: async () => {
         requests++;
         return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
-      } });
+      } }), /Old-only asset retention cap exceeded: 3/);
+    const report = JSON.parse(readFileSync(reportPath, 'utf8'));
     assert.equal(requests, 256);
-    assert.equal(result.inspected, 256);
-    assert.equal(result.retainedCount, 256);
-    assert.equal(result.ignoredOld, 3);
-    assert.equal(result.unavailable.length, 0);
-    assert.ok(result.bytes < 24 * 1024 * 1024);
+    assert.equal(report.inspected, 256);
+    assert.equal(report.retainedCount, 256);
+    assert.equal(report.ignoredOld, 3);
+    assert.deepEqual(new Set(report.ignoredOldPaths), new Set([
+      '/assets/ArticleCard-Historical256.js',
+      '/assets/ArticleCard-Historical257.js',
+      '/assets/ArticleCard-Historical258.js',
+    ]));
+    assert.equal(report.unavailable.length, 0);
+    assert.ok(report.bytes < 24 * 1024 * 1024);
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }
