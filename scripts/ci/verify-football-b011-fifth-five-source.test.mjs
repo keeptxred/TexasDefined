@@ -54,15 +54,16 @@ test('Private Cornerstone uses current Batch011 loader in non-UIL branch',()=>{
 });
 test('Batch011 fifth-five source only until five distinct real production Chrome passes',()=>{
  const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+const graduatedB011 = registry.batch.state==='VERIFIED_BATCH_011_COMPLETE' && registry.completedBatches.some(b=>b.number===11 && b.state==='VERIFIED_BATCH_011_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===18);
  assert.equal(registry.batch.number,11);
  assert.equal(registry.batch.implementedOnBranch,25);
  assert.equal(registry.batch.remainingAssigned,0);
- assert.equal(registry.batch.remainingToVerify,25);
- assert.equal(registry.schoolRecords.filter(t=>t.status==='VERIFIED').length,230);
- assert.equal(registry.schoolRecords.filter(t=>t.status==='IMPLEMENTED').length,25);
+ assert.equal(registry.batch.remainingToVerify,graduatedB011?0:25);
+ assert.equal(registry.schoolRecords.filter(t=>t.status==='VERIFIED').length,graduatedB011?255:230);
+ assert.equal(registry.schoolRecords.filter(t=>t.status==='IMPLEMENTED').length,graduatedB011?0:25);
  for(const [slug] of cases){const x=registry.schoolRecords.find(t=>t.slug===slug);
-  assert.equal(x.status,'IMPLEMENTED');
-  assert.equal(x.actualProductionVerified,false);
+  assert.equal(x.status,graduatedB011?'VERIFIED':'IMPLEMENTED');
+  assert.equal(x.actualProductionVerified,graduatedB011);
   assert.equal(x.schoolPhotoReuseRightsAccepted,false);
   assert.equal(x.manualAccessibilityAccepted,false);
  }
