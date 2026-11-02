@@ -118,6 +118,7 @@ test('handoff discovers actual generated district and sports dependency chunks',
     'SponsoredSportsPlacement-VM9ICMMH.js',
     'createLucideIcon-yBqUUiDC.js',
     'ContextualOfficialSources-CoOaVWuv.js',
+    'CitationTrustPanel-BF2Efeia.js',
     'CitationCollectionTrustRouter-CQsMd_7t.js',
     'analytics-aWB69Ydr.js',
   ];

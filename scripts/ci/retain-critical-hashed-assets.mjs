@@ -13,7 +13,9 @@ const SNAPSHOT = '.artifacts/asset-handoff-snapshot.json';
 const REPORT = '.artifacts/retained-critical-assets-report.json';
 const ASSET_FOLDER = 'dist/client/assets';
 const SOURCE_ORIGIN = 'https://texasdefined.com';
-const LIMIT_FILES = 96;
+// Proven 96/96 saturation on Nov 2 allowed no headroom for later live hashes.
+// Keep strict 24 MiB total, 2 MiB/file, 72 h, HTTPS, SHA256 and MIME bounds.
+const LIMIT_FILES = 192;
 const LIMIT_BYTES = 24 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
@@ -22,7 +24,7 @@ const FETCH_TIMEOUT_MS = 20000;
 export function safeCriticalAsset(path) {
   if (typeof path !== 'string' || !/^\/assets\/[A-Za-z0-9][A-Za-z0-9._-]{1,155}\.(?:js|css)$/.test(path)) return false;
   const name = basename(path);
-  return /^(?:main-|Container-|Header-|Footer-|RouteStatusScreens-|styles-|x-|property-tax\.|texas-high-school-football-teams_|texas-high-school-football-districts_|texas-high-school-football-districts\.lazy-|useLocation-|SponsoredSportsPlacement-|createLucideIcon-|ContextualOfficialSources-|CitationCollectionTrustRouter-|analytics-|events\.lazy-|events\._collection\.lazy-|food\._slug\.lazy-|article\._slug-|destination\._slug-|events\.index\.lazy-|explore\.index\.lazy-|search\.lazy-|fishing\.lakes\._slug-|texas-high-school-football-playoff-brackets-|MuseumAuthorityNetworkSection-|museum-authority-heroes-|external-link-|useBaseQuery-|DestinationCard-|useQuery-|SectionHeader-|FootballFanOffers-|ElPasoAreaAuthority-|internal-linking-|ArticleCard-|UnusualBusinessAuthorityPanel-|ArticleBody-|ParkingMapPanel-|event\._slug\.lazy-|shop\.lazy-|shop\.product\._productId-|historic-sites-|museum-authority-network-|DestinationVerifiedVisitorFacts-|BookingCarRentalCard-|DestinationViatorBooking-|town-authority-links-|CityPassContextualCallout-|CityPassCalloutContent-|TexasExplainedContextLinks-|TexasEventCarousel-|MapPreview-|dallas-small-town-drives-|explore\.near\._metro\._collection\.lazy-|explore\.near\._metro\.lazy-|explore\.near\._metro\._collection-|explore\.near\._metro-|sports-traffic\.functions-|texas-data\.lazy-)/.test(name);
+  return /^(?:main-|Container-|Header-|Footer-|RouteStatusScreens-|styles-|x-|property-tax\.|texas-high-school-football-teams_|texas-high-school-football-districts_|texas-high-school-football-districts\.lazy-|useLocation-|SponsoredSportsPlacement-|createLucideIcon-|ContextualOfficialSources-|CitationTrustPanel-|CitationCollectionTrustRouter-|analytics-|events\.lazy-|events\._collection\.lazy-|food\._slug\.lazy-|article\._slug-|destination\._slug-|events\.index\.lazy-|explore\.index\.lazy-|search\.lazy-|fishing\.lakes\._slug-|texas-high-school-football-playoff-brackets-|MuseumAuthorityNetworkSection-|museum-authority-heroes-|external-link-|useBaseQuery-|DestinationCard-|useQuery-|SectionHeader-|FootballFanOffers-|ElPasoAreaAuthority-|internal-linking-|ArticleCard-|UnusualBusinessAuthorityPanel-|ArticleBody-|ParkingMapPanel-|event\._slug\.lazy-|shop\.lazy-|shop\.product\._productId-|historic-sites-|museum-authority-network-|DestinationVerifiedVisitorFacts-|BookingCarRentalCard-|DestinationViatorBooking-|town-authority-links-|CityPassContextualCallout-|CityPassCalloutContent-|TexasExplainedContextLinks-|TexasEventCarousel-|MapPreview-|dallas-small-town-drives-|explore\.near\._metro\._collection\.lazy-|explore\.near\._metro\.lazy-|explore\.near\._metro\._collection-|explore\.near\._metro-|sports-traffic\.functions-|texas-data\.lazy-)/.test(name);
 }
 
 export function retentionCandidates(history, now = Date.now()) {
@@ -82,7 +84,7 @@ export async function retain({
       report.alreadyInBuild.push(asset.path);
       continue;
     }
-    // Keep the existing network/copy budget: no more than 96 attempted old
+    // Enforce a bounded ceiling of 192 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
