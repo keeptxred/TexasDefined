@@ -3,6 +3,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
+import {verifySchoolSitemapCoverage} from './verify-football-b011-sitemap-eligibility.mjs';
 const require=createRequire(import.meta.url);
 const {chromium}=require('/tmp/td-b012-chrome/node_modules/playwright-core');
 const origin='https://texasdefined.com';
@@ -21,6 +22,8 @@ mkdirSync('artifacts',{recursive:true});
 const save=()=>writeFileSync('artifacts/b012-chrome-report.json',JSON.stringify(report,null,2)+'\n');
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
 try{
+ const sitemapFailures=await verifySchoolSitemapCoverage(reg.batch.slugs);
+ for(const failure of sitemapFailures)report.failures.push({slug:'sitemap',width:0,error:failure});
  for(const slug of reg.batch.slugs){
   const path='/texas-high-school-football-teams/'+slug;
   for(const width of [1366,390,320]){
@@ -46,6 +49,7 @@ try{
     assert.ok(/football/i.test(data.h1[0]||''),'football H1 '+slug);
     assert.ok(/football/i.test(data.title),'title '+slug);
     assert.ok(data.schema.includes('SportsTeam'),'SportsTeam '+slug);
+    assert.ok(data.schema.includes('FAQPage'),'FAQPage '+slug);
     assert.ok(data.scroll<=width+8,'horizontal overflow '+slug+' '+width+' actual '+data.scroll);
     assert.equal(data.brokenImages,0,'broken image '+slug);
     assert.deepEqual(errors,[],'browser errors '+slug);
