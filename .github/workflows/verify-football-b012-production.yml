@@ -48,7 +48,9 @@ jobs:
         env:
           FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}
           FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}
-        run: node scripts/ci/verify-football-b012-production.mjs
+        run: |
+          node --check scripts/ci/verify-football-b012-production.mjs
+          node scripts/ci/verify-football-b012-production.mjs
       - name: Upload compact Batch012 machine evidence
         if: always() && steps.release.outputs.ready == 'true'
         uses: actions/upload-artifact@v4
