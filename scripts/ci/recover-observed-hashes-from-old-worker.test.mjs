@@ -5,7 +5,7 @@ import { existsSync } from 'node:fs';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { pinnedVersionUrl, recoverObserved, OLD_VERSIONS, LOGGED_MISSING, RECENT_OBSERVED_VERSIONS, RECENT_MISSING, SECOND_PASS_MISSING, SECOND_PASS_PREVIEW_VERSIONS } from './recover-observed-hashes-from-old-worker.mjs';
+import { pinnedVersionUrl, recoverObserved, OLD_VERSIONS, LOGGED_MISSING, RECENT_OBSERVED_VERSIONS, RECENT_MISSING, SECOND_PASS_MISSING, SECOND_PASS_PREVIEW_VERSIONS, LATEST_MISSING, LATEST_PREVIEW_VERSIONS } from './recover-observed-hashes-from-old-worker.mjs';
 
 const NOW=Date.parse('2026-11-02T18:00:00Z');
 function setup() {
@@ -152,9 +152,12 @@ test('a missing recent logged hash is reported and never replaced by invented co
 });
 
 test('verified recovery target and version lists stay within hard budgets', () => {
-  assert.equal(LOGGED_MISSING.length, 25);
+  assert.equal(LOGGED_MISSING.length, 26);
   assert.equal(RECENT_OBSERVED_VERSIONS.length, 6);
   assert.equal(SECOND_PASS_PREVIEW_VERSIONS.length, 10);
+  assert.equal(LATEST_PREVIEW_VERSIONS.length, 4);
+  assert.equal(LATEST_MISSING.size, 1);
+  for (const name of LATEST_MISSING) assert.ok(LOGGED_MISSING.includes(name));
   assert.equal(SECOND_PASS_MISSING.size, 3);
   for (const name of SECOND_PASS_MISSING) assert.ok(RECENT_MISSING.has(name));
   for (const name of RECENT_MISSING)
@@ -197,5 +200,31 @@ test('supplemental first-party previews are bounded to ten exact verified versio
       supplementalVersions: [...SECOND_PASS_PREVIEW_VERSIONS, OLD_VERSIONS[0]],
       fetchImpl: async () => { throw Error('must not request when cap exceeded'); }
     }), /Historical recovery bounds exceeded/);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('new AI-search useSuspenseQuery 404 scans only four currently verified old Worker previews', async () => {
+  const root = await setup();
+  try {
+    const x = await seed(root);
+    const name = 'useSuspenseQuery-LwAPVdI7.js';
+    const expected = Buffer.from('export const exactOriginalSuspenseQueryModule = true;');
+    const seen = [];
+    const version = LATEST_PREVIEW_VERSIONS[1];
+    const report = await recoverObserved({ ...x, now: NOW, filenames: [name],
+      latestVersions: LATEST_PREVIEW_VERSIONS.slice(0, 2),
+      fetchImpl: async url => {
+        seen.push(url);
+        return url.startsWith('https://' + version.slice(0, 8) + '-')
+          ? new Response(expected, { status: 200, headers: { 'content-type': 'text/javascript' } })
+          : new Response('gone', { status: 404, headers: { 'content-type': 'text/html' } });
+      } });
+    assert.deepEqual(seen, [
+      pinnedVersionUrl(LATEST_PREVIEW_VERSIONS[0], '/assets/' + name),
+      pinnedVersionUrl(version, '/assets/' + name)]);
+    assert.equal(report.recovered.length, 1);
+    assert.equal(report.recovered[0].sourceVersionId, version);
+    assert.equal(report.recovered[0].sha256, createHash('sha256').update(expected).digest('hex'));
+    assert.deepEqual(await readFile(join(x.folder, name)), expected);
   } finally { await rm(root, { recursive: true, force: true }); }
 });
