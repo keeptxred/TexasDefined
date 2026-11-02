@@ -63,7 +63,7 @@ export default function MartinCreekRvAuthority() {
             <h3 className="font-display text-2xl">Hookups and rig fit</h3>
             <p className="mt-3 text-sm leading-7">
               These three classes include water plus electricity, <strong>not individual sewer hookups</strong>.
-              The official park map marks a shared dump station near Bee Tree. Showers and restrooms are nearby.
+              The official park map marks a shared dump station serving the campground. Showers and restrooms are nearby.
               Pick 50-amp service only from the six designated sites; never assume a 30-amp site meets a 50-amp rig's requirements.
               Check the exact reserved pad dimensions, shelter and accessibility details with TPWD rather than relying on
               a park-wide maximum RV length.
@@ -77,8 +77,7 @@ export default function MartinCreekRvAuthority() {
             <h3 className="font-display text-2xl">Arrival and gate instructions</h3>
             <p className="mt-3 text-sm leading-7">
               The entrance is at <strong>9515 County Road 2181D, Tatum, TX</strong>. The gate is normally open
-              6 a.m.–10 p.m. If arriving late, <strong>call (903) 836-4336 before 5 p.m. on arrival day</strong>
-              for gate-code instructions. Reserved late arrivals must check in by 9 a.m. the next morning.
+              6 a.m.–10 p.m. If arriving late, <strong>call (903) 836-4336 before 5 p.m. on arrival day</strong>{" "}for gate-code instructions. Reserved late arrivals must check in by 9 a.m. the next morning.
               Do not assume the office will be staffed at your arrival time.
             </p>
             <p className="mt-3 text-sm leading-7">
