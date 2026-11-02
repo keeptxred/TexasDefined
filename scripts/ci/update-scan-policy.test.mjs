@@ -62,7 +62,10 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
   assert.match(text('.github/workflows/site-quality-watchdog.yml'), /^  schedule:/m);
   const deploy = text('.github/workflows/deploy-production.yml');
   assert.doesNotMatch(deploy, /node scripts\/ci\/verify-production-surfaces.mjs/);
-  for (const group of ['sports','foliage','discovery','events','financial','advertiser','images']) assert.ok(deploy.includes(`steps.change_scope.outputs.${group}`));
+  for (const group of ['sports','foliage','discovery','events','financial','advertiser']) assert.ok(deploy.includes(`steps.change_scope.outputs.${group}`));
+  // Governed Discover images are not change-scoped: any deployment can break static assets.
+  assert.equal((deploy.match(/PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/g) || []).length, 2,
+    'both Worker and canonical must independently verify every governed WebP on each release');
   for (const guard of ['verify-production-health.mjs','capture-active-worker-version.mjs','verified-worker-ledger.mjs record','verify-changed-production-pages.mjs']) assert.ok(deploy.includes(guard));
 });
 
