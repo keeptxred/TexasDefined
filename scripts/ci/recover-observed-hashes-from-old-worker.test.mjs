@@ -32,22 +32,28 @@ test('recover old JS only from matching pinned Worker preview; hash and verify o
   const root=await setup();
   try {
     const x=await seed(root),js=Buffer.from('export const trace = "observed-hash-only";\n');
+    // These two hashes were NOT in the first-three-version confirmed-miss set.
+    // The recovery implementation must genuinely probe the supplied first version.
+    const recoverable = 'Header-C0Y_eOti.js';
+    const unavailable = 'Container-mLbojg-d.js';
     const seen=[];
     const fetchImpl=async(url,opts)=>{
       seen.push(url);
       assert.equal(opts.redirect,'manual');
-      return new Response(url.endsWith(LOGGED_MISSING[0])?js:'missing',
-        {status:url.endsWith(LOGGED_MISSING[0])?200:404,
-          headers:{'content-type':url.endsWith(LOGGED_MISSING[0])?'application/javascript':'text/html'}});
+      return new Response(url.endsWith(recoverable)?js:'missing',
+        {status:url.endsWith(recoverable)?200:404,
+          headers:{'content-type':url.endsWith(recoverable)?'application/javascript':'text/html'}});
     };
     const report=await recoverObserved({...x,now:NOW,versions:[OLD_VERSIONS[0]],
-      filenames:LOGGED_MISSING.slice(0,2),fetchImpl});
+      filenames:[recoverable,unavailable],fetchImpl});
     assert.equal(report.recovered.length,1);
     assert.equal(report.unresolved.length,1);
-    assert.equal(report.probed.length,1);
+    assert.equal(report.probed.length,2, 'one recoverable and one unavailable hash must each be tested');
+    assert.equal(report.probed[0].matched,true);
+    assert.equal(report.probed[1].matched,false);
     assert.equal(report.recovered[0].sha256,createHash('sha256').update(js).digest('hex'));
-    assert.deepEqual(await readFile(join(x.folder,LOGGED_MISSING[0])),js);
-    assert.equal(existsSync(join(x.folder,LOGGED_MISSING[1])),false);
+    assert.deepEqual(await readFile(join(x.folder,recoverable)),js);
+    assert.equal(existsSync(join(x.folder,unavailable)),false);
     const saved=JSON.parse(await readFile(x.snapshotPath,'utf8'));
     assert.equal(saved.snapshots[0].retainedAssets[0].preSha256,report.recovered[0].sha256);
     assert.equal(saved.snapshots[0].retainedAssets[0].sourceVersionId,OLD_VERSIONS[0]);
@@ -58,9 +64,10 @@ test('HTML captcha under HTTP200 is never recorded as an old JavaScript asset',a
   const root=await setup();
   try {
     const x=await seed(root);
-    const report=await recoverObserved({...x,now:NOW,filenames:LOGGED_MISSING.slice(0,1),
+    const report=await recoverObserved({...x,now:NOW,filenames:['Header-C0Y_eOti.js'],
       versions:[OLD_VERSIONS[0]],fetchImpl:async()=>new Response('<html>client challenge</html>',
         {headers:{'content-type':'text/html'},status:200})});
+    assert.equal(report.probed.length,1, 'captcha case must exercise a real pinned Worker fetch');
     assert.equal(report.recovered.length,0);
     assert.equal(report.unresolved.length,1);
     assert.deepEqual(JSON.parse(await readFile(x.snapshotPath,'utf8')).snapshots[0].retainedAssets,[]);
