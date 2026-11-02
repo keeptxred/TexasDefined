@@ -7,6 +7,10 @@ on:
     paths:
       - 'src/data/destination-curation*.ts'
       - 'scripts/data/validate-destination-visitor-fact-catalog.mjs'
+      - 'src/data/authority/**'
+      - 'scripts/data/validate-authority-experiences.mjs'
+      - 'src/components/editorial/AuthorityVisitorTools.tsx'
+      - 'src/routes/article.$slug.tsx'
       - '.github/workflows/destination-visitor-fact-freshness.yml'
 
 permissions:
@@ -25,6 +29,8 @@ jobs:
           node-version: '22'
       - name: Detect unsupported, duplicate and stale visitor answers
         run: node scripts/data/validate-destination-visitor-fact-catalog.mjs
+      - name: Validate shared canonical ownership, verified offerings and review dates
+        run: node scripts/data/validate-authority-experiences.mjs
       - name: Verify read-only freshness audit and scheduled follow-up policy
         run: node --test scripts/ci/visitor-fact-followup-contract.test.mjs
 
@@ -54,6 +60,7 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/data/validate-destination-visitor-fact-catalog.mjs 2>&1 | tee "$RUNNER_TEMP/destination-facts-audit.log"
+          node scripts/data/validate-authority-experiences.mjs 2>&1 | tee -a "$RUNNER_TEMP/destination-facts-audit.log"
           issue_title='Destination visitor facts: source refresh needed'
           issue_number="$(gh issue list --state all --search '"Destination visitor facts: source refresh needed" in:title' --limit 100 --json number,title --jq '.[] | select(.title == "Destination visitor facts: source refresh needed") | .number' | head -n 1)"
           if ! grep -q '^STALE ' "$RUNNER_TEMP/destination-facts-audit.log"; then
@@ -66,7 +73,7 @@ jobs:
           {
             echo '## Source-research backlog from weekly published curation audit'
             echo ''
-            echo 'These visitor answers are **already suppressed** from the site by the runtime freshness gate; do not publish them as current without checking each primary operator source again.'
+            echo 'These stale visitor answers and published prices are **suppressed** by runtime freshness gates; do not publish them as current without checking each primary operator source again.'
             echo ''
             echo "**Audit date:** $(date -u +%Y-%m-%d)"
             echo ''
