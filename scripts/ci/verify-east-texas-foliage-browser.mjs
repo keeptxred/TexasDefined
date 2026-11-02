@@ -108,7 +108,7 @@ try {
       if (!await page.locator("#east-texas-fall-trip-planner").count()) throw new Error("Trip planner anchor missing");
       const expectedGuides = [
         ["Daingerfield State Park", "/destination/daingerfield-state-park", "Rustling Leaves"],
-        ["Caddo Lake State Park", "/destination/caddo-lake", "Caddo Forest"],
+        ["Caddo Lake State Park", "/destination/caddo-lake-state-park", "Caddo Forest"],
         ["Lake Bob Sandlin State Park", "/destination/lake-bob-sandlin-state-park", "Lakeview Loop"],
         ["Tyler State Park", "/destination/tyler-state-park", "Lakeshore"],
         ["Cooper Lake State Park", "/destination/cooper-lake-state-park", "Honey Creek"],
