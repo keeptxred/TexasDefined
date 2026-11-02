@@ -253,3 +253,18 @@ test('Nov 2 observed Meta/Bing chunks enter bounded predeploy handoff when emitt
   const absent = selectBuiltRouteAssets(required).map(asset => asset.path);
   assert.equal(absent.length, 2, 'never fabricate absent old assets');
 });
+
+test('Nov2 current missing metro/map families are discovered only if Vite emitted them', () => {
+  const required=['texas-high-school-football-teams_._slug.lazy-ONE.js','property-tax.taxing-unit._unit-TWO.js'];
+  const observed = [
+  "MapPreview-B9_3N0vq.js",
+  "dallas-small-town-drives-CoKJb-D-.js",
+  "explore.near._metro._collection.lazy-Bu6boA-B.js",
+  "explore.near._metro.lazy-ADqGB_m8.js",
+  "explore.near._metro._collection-HAHNflr3.js",
+  "explore.near._metro-BsxC36wI.js"
+];
+  const found=selectBuiltRouteAssets([...required,...observed]).map(x=>x.path);
+  for (const filename of observed) assert.ok(found.includes('/assets/'+filename),filename);
+  assert.equal(selectBuiltRouteAssets(required).length,2);
+});
