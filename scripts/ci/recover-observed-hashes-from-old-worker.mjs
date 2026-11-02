@@ -88,7 +88,7 @@ export async function recoverObserved({
     const working=[];
     for (const version of versions) {
       let matched=null;
-      for (const sample of missing.slice(0,3)) {
+      for (const sample of [missing.find(x=>x.name.startsWith('useQuery-')), missing.find(x=>x.name.startsWith('ArticleBody-')), missing.find(x=>x.name.startsWith('article._slug-')), missing[0]].filter((x,i,a)=>x&&a.findIndex(y=>y?.path===x.path)===i)) {
         if (await sourceBytes(version,sample.path,fetchImpl)) {matched=sample.path;break;}
       }
       report.probed.push({version,matched});
@@ -103,7 +103,7 @@ export async function recoverObserved({
         if(result)break;
       }
       if(!result) {
-        report.unresolved.push({path:item.path,reason:working.length?'not-in-working-versions':'old-previews-unavailable'});
+        report.unresolved.push({path:item.path,reason:working.length?'not-in-working-versions':'sample-hashes-not-found-in-pinned-preview-versions'});
         continue;
       }
       if (total+result.bytes.length>MAX_BYTES) {
