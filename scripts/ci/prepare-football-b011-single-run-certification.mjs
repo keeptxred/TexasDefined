@@ -30,7 +30,7 @@ try{
       if(!step||!jobs.some(j=>j.conclusion==='success'&&j.steps?.some(s=>s.name?.startsWith('Install one isolated Chrome driver')&&s.conclusion==='success')))continue;
       const dir=join(tmp,String(run.id));
       execFileSync('gh',['run','download',String(run.id),'--repo',repo,'--name',artifactName,'--dir',dir],{timeout:60000});
-      const summary=JSON.parse(readFileSync(join(dir,'artifacts/b011-single-run-summary.json'),'utf8'));
+      const summary=JSON.parse(readFileSync(join(dir,'b011-single-run-summary.json'),'utf8'));
       const sha=summary.sourceCommit,worker=summary.workerVersion;
       assert.match(sha,/^[a-f0-9]{40}$/);assert.match(worker,/^[a-f0-9-]{36}$/);
       assert.equal(summary.schoolCasesPassed,75);assert.equal(summary.countyCasesPassed,18);
@@ -38,7 +38,7 @@ try{
       const groups=[];
       for(let i=0;i<5;i++){
         const name=['first','second','third','fourth','fifth'][i];
-        const report=JSON.parse(readFileSync(join(dir,'artifacts/b011-'+name+'-five-production-chrome/report.json'),'utf8'));
+        const report=JSON.parse(readFileSync(join(dir,'b011-'+name+'-five-production-chrome/report.json'),'utf8'));
         const slugs=reg.batch.slugs.slice(i*5,(i+1)*5);
         verifyChromeReport(report,i,slugs,worker,sha);
         groups.push({label:name+'-five',schoolSlugs:slugs,runId:run.id,artifactId:a.id,
