@@ -2204,7 +2204,7 @@ if (batch010Certified) {
       historicalVerifiedThrough010 !== 230 ||
       r.schoolRecords.filter(x=>x.status==='IMPLEMENTED' && x.batch===10).length !== 0 ||
       r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length !== batch010ExpectedUnreviewed ||
-      r.schoolRecords.filter(x=>x.status==='VERIFIED' && x.batch!==10).length !== 205 ||
+      r.schoolRecords.filter(x=>x.status==='VERIFIED' && x.batch<10).length !== 205 ||
       batch010Certification.individuallyVerified !== 25 ||
       batch010Certification.remainingToVerify !== 0 ||
       batch010Certification.slugs.length !== 25 ||
@@ -2318,7 +2318,7 @@ if(batch009Certified) {
      r.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===9).length!==0 ||
      r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==(1087-
        r.schoolRecords.filter(x=>x.batch>=10&&x.status!=='NOT_REVIEWED').length) ||
-     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==9).length!==(batch010Certified?205:180) ||
+     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10&&x.batch!==9).length!==(batch010Certified?205:180) ||
      r.counts.total!==1292) errors.push('Batch009 technical certification must preserve all historical verified and unreviewed schools.');
 }
 
