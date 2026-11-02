@@ -8,6 +8,7 @@ on:
       - 'src/data/destination-curation*.ts'
       - 'scripts/data/validate-destination-visitor-fact-catalog.mjs'
       - 'src/data/authority/**'
+      - 'scripts/data/authority/**'
       - 'scripts/data/validate-authority-experiences.mjs'
       - 'src/components/editorial/AuthorityVisitorTools.tsx'
       - 'src/routes/article.$slug.tsx'
@@ -32,7 +33,7 @@ jobs:
       - name: Validate shared canonical ownership, verified offerings and review dates
         run: node scripts/data/validate-authority-experiences.mjs
       - name: Verify read-only freshness audit and scheduled follow-up policy
-        run: node --test scripts/ci/visitor-fact-followup-contract.test.mjs
+        run: node --test scripts/ci/visitor-fact-followup-contract.test.mjs scripts/data/authority/monitor-operator-sources.test.mjs
 
   editorial-followup:
     # PRs only audit source facts. Only the trusted weekly or manual run may write issues.
@@ -40,6 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
+      actions: read
       contents: read
       issues: write
     concurrency:
@@ -52,6 +54,35 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Retrieve previous read-only source fingerprints
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/authority-prior"
+          while read -r run_id; do
+            [[ -n "$run_id" ]] || continue
+            if gh run download "$run_id" --name authority-operator-source-snapshots --dir "$RUNNER_TEMP/authority-prior" >/dev/null 2>&1; then
+              echo "Loaded previous source monitor artifact from run $run_id."
+              break
+            fi
+          done < <(gh run list --workflow destination-visitor-fact-freshness.yml --status completed --limit 12 --json databaseId --jq '.[].databaseId')
+      - name: Compare official operator sources against previous fingerprints
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/data/authority/monitor-operator-sources.mjs \
+            --baseline="$RUNNER_TEMP/authority-prior/authority-operator-sources.json" \
+            --output="$RUNNER_TEMP/authority-operator-sources.json" | tee "$RUNNER_TEMP/authority-source-watch.log"
+      - name: Preserve source fingerprints for next weekly comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: authority-operator-source-snapshots
+          path: ${{ runner.temp }}/authority-operator-sources.json
+          retention-days: 60
+          if-no-files-found: error
       - name: Open or reconcile the one expired-visitor-fact research issue
         env:
           GH_TOKEN: ${{ github.token }}
@@ -61,25 +92,26 @@ jobs:
           set -euo pipefail
           node scripts/data/validate-destination-visitor-fact-catalog.mjs 2>&1 | tee "$RUNNER_TEMP/destination-facts-audit.log"
           node scripts/data/validate-authority-experiences.mjs 2>&1 | tee -a "$RUNNER_TEMP/destination-facts-audit.log"
+          cat "$RUNNER_TEMP/authority-source-watch.log" >> "$RUNNER_TEMP/destination-facts-audit.log"
           issue_title='Destination visitor facts: source refresh needed'
           issue_number="$(gh issue list --state all --search '"Destination visitor facts: source refresh needed" in:title' --limit 100 --json number,title --jq '.[] | select(.title == "Destination visitor facts: source refresh needed") | .number' | head -n 1)"
-          if ! grep -q '^STALE ' "$RUNNER_TEMP/destination-facts-audit.log"; then
+          if ! grep -Eq '^(STALE|SOURCE_CHANGED|SOURCE_REVIEW|SOURCE_UNAVAILABLE) ' "$RUNNER_TEMP/destination-facts-audit.log"; then
             if [[ -n "$issue_number" && "$(gh issue view "$issue_number" --json state --jq '.state')" == 'OPEN' ]]; then
-              gh issue close "$issue_number" --comment 'Scheduled curation audit now reports zero expired visitor facts. This closes the research review; it does not change source-checked dates.'
+              gh issue close "$issue_number" --comment 'Scheduled source monitoring now reports zero stale, changed, unresolved or unreachable visitor facts. Source checked dates remain unchanged.'
             fi
-            echo 'No visitor facts have expired; no research issue needed.'
+            echo 'No stale or changed visitor sources remain in the monitor; no research issue needed.'
             exit 0
           fi
           {
             echo '## Source-research backlog from weekly published curation audit'
             echo ''
-            echo 'These stale visitor answers and published prices are **already suppressed** by runtime freshness gates; do not publish them as current without checking each primary operator source again.'
+            echo 'Expired published prices are suppressed by runtime freshness gates. An operator webpage fingerprint change is only a research signal, **not** an authenticated policy update. Changing, unresolved or temporarily unreachable sources must not be silently restamped or presented as verified.'
             echo ''
             echo "**Audit date:** $(date -u +%Y-%m-%d)"
             echo ''
             echo '### Expired entries'
             echo '~~~text'
-            grep '^STALE ' "$RUNNER_TEMP/destination-facts-audit.log" | sed -n '1,300p'
+            grep -E '^(STALE|SOURCE_CHANGED|SOURCE_REVIEW|SOURCE_UNAVAILABLE) ' "$RUNNER_TEMP/destination-facts-audit.log" | sed -n '1,300p'
             echo '~~~'
             echo ''
             echo 'Research and correct the precise curation records on a new branch; preserve source URLs, document material operator changes and only then update `checkedAt`. Never restamp by schedule, bypass the 120/365-day policy or invent amenities. Merge through the existing protected CI and verify live rendering.'
