@@ -61,6 +61,7 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^SponsoredSportsPlacement-[A-Za-z0-9_-]+\.js$/,
   /^createLucideIcon-[A-Za-z0-9_-]+\.js$/,
   /^ContextualOfficialSources-[A-Za-z0-9_-]+\.js$/,
+  /^CitationTrustPanel-[A-Za-z0-9_-]+\.js$/,
   /^CitationCollectionTrustRouter-[A-Za-z0-9_-]+\.js$/,
   /^analytics-[A-Za-z0-9_-]+\.js$/,
   // Production-observed Meta/Bing imports, Nov 1-2 2026. Keep exact emitted names only.
