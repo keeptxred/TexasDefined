@@ -255,7 +255,7 @@ for (const marker of [
   "official Tyler trail guide",
   "Honey Creek Interpretive Trail",
   "Harmony Hill Loop",
-  "not a November 2026 observation",
+  "not a live foliage observation",
 ]) if (!eastTexasCopy.includes(marker)) fail("East Texas guide lost verified trail or photo disclosure: " + marker);
 if (!foliageMedia.includes("One real autumn example, plus park reference photographs") ||
     !foliageMedia.includes("photographerCredit")) fail("East Texas gallery requires a real historical fall photograph first and explicit image credits");
