@@ -27,6 +27,12 @@ let savedBytes = 0;
 for (const imagePath of affected) {
   const localPath = path.join(root, "public", imagePath);
   const original = await fs.readFile(localPath);
+  // Prebuild can run more than once in a workspace; never recompress an
+  // already-small rendition and progressively degrade the photo.
+  if (original.byteLength <= 900_000) {
+    console.log("Image audit " + imagePath + ": already within 900 KB budget");
+    continue;
+  }
   const metadata = await sharp(original).metadata();
   if (metadata.format !== "jpeg") {
     throw new Error("Audited JPEG is not JPEG: " + imagePath);
