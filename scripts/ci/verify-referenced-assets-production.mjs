@@ -90,6 +90,13 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^TexasExplainedContextLinks-[A-Za-z0-9_-]+\.js$/,
   /^TexasEventCarousel-[A-Za-z0-9_-]+\.js$/,
   /^sports-traffic\.functions-[A-Za-z0-9_-]+\.js$/,
+  // Actual Nov2 live search-crawler 404s in El Paso /explore/near road-trips.
+  /^MapPreview-[A-Za-z0-9_-]+\.js$/,
+  /^dallas-small-town-drives-[A-Za-z0-9_-]+\.js$/,
+  /^explore\.near\._metro\._collection\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^explore\.near\._metro\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^explore\.near\._metro\._collection-[A-Za-z0-9_-]+\.js$/,
+  /^explore\.near\._metro-[A-Za-z0-9_-]+\.js$/,
 ];
 
 
