@@ -236,6 +236,30 @@ if (!eastTexasCopy.includes("not confirmed reports of current peak color")) {
   fail("East Texas seasonal guidance must not imply verified live peak foliage");
 }
 
+// This editorial URL has one crawlable origin: no tracking-parameter,
+ // trailing-slash, uppercase or www variants may deliver a second 200 document.
+const foliageServer = fs.readFileSync("src/server.ts", "utf8");
+const foliageMedia = fs.readFileSync("src/components/editorial/EastTexasFoliageMedia.tsx", "utf8");
+for (const marker of [
+  "export function eastTexasFoliageCanonicalRedirect(request: Request)",
+  'url.pathname.replace(/\\/+$/, "").toLowerCase()',
+  '"https://texasdefined.com/article/east-texas-fall-colors"',
+  "Response.redirect(canonical, 301)",
+  "const foliageCanonicalRedirect = eastTexasFoliageCanonicalRedirect(request)",
+]) if (!foliageServer.includes(marker)) fail("Single East Texas canonical redirect lost: " + marker);
+for (const marker of [
+  "Rustling Leaves Trail as moderate",
+  "Mountain View Trail as challenging",
+  "official Caddo Lake trail list",
+  "Lakeview Loop is an easy 0.6-mile",
+  "official Tyler trail guide",
+  "Honey Creek Interpretive Trail",
+  "Harmony Hill Loop",
+  "not a November 2026 observation",
+]) if (!eastTexasCopy.includes(marker)) fail("East Texas guide lost verified trail or photo disclosure: " + marker);
+if (!foliageMedia.includes("One real autumn example, plus park reference photographs") ||
+    !foliageMedia.includes("photographerCredit")) fail("East Texas gallery requires a real historical fall photograph first and explicit image credits");
+
 const eastFoliageBrowser = fs.readFileSync("scripts/ci/verify-east-texas-foliage-browser.mjs", "utf8");
 const eastFoliageWorkflow = fs.readFileSync(".github/workflows/verify-east-texas-foliage-browser.yml", "utf8");
 for (const marker of [
