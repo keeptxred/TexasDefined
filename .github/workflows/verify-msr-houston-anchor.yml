@@ -39,3 +39,26 @@ jobs:
           path: artifacts/msr-houston-browser/
           if-no-files-found: warn
           retention-days: 7
+
+  image-payloads:
+    name: Strict live 50-image payload verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify actual responses for all 50 supplied image URLs
+        env:
+          IMAGE_AUDIT_STRICT: '1'
+          IMAGE_AUDIT_DIR: .artifacts/image-payloads-20261102
+        run: node scripts/ci/verify-oversized-image-payloads.mjs
+      - name: Preserve exact measured byte counts and failing source URLs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: certified-50-images-${{ github.run_id }}
+          path: .artifacts/image-payloads-20261102/
+          if-no-files-found: warn
+          retention-days: 30
