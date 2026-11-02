@@ -13,9 +13,11 @@ const SNAPSHOT = '.artifacts/asset-handoff-snapshot.json';
 const REPORT = '.artifacts/retained-critical-assets-report.json';
 const ASSET_FOLDER = 'dist/client/assets';
 const SOURCE_ORIGIN = 'https://texasdefined.com';
-// Verified Nov 2 retention artifact copied 192 old-only hashes but dropped 19 eligible hashes under the 192-file request ceiling.
-// Keep strict 24 MiB total, 2 MiB/file, 72 h, HTTPS, SHA256 and MIME bounds.
-const LIMIT_FILES = 256;
+// Nov2 protected #41523593259 retained 256 old hashes (15,100,465 bytes) and
+// omitted 27 more known healthy hashes (2,086,999 bytes) solely due to slots.
+// 384 provides measured headroom without raising the strict 24 MiB total,
+// 2 MiB/file, 72 h, HTTPS, SHA256 or MIME safeguards.
+const LIMIT_FILES = 384;
 const LIMIT_BYTES = 24 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
@@ -84,7 +86,7 @@ export async function retain({
       report.alreadyInBuild.push(asset.path);
       continue;
     }
-    // Enforce a bounded ceiling of 256 attempted old-only
+    // Enforce a bounded ceiling of 384 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
