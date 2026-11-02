@@ -67,9 +67,10 @@ const expectedFredericksburgTitle = "Fredericksburg Weekend Guide: Winery Routes
 const expectedFredericksburgSections = [
   "The first decision: downtown, the 290 corridor or a countryside base",
   "Which winery experience should you choose?",
+  "Practical booking differences: reservations, age rules and food",
   "A realistic two-night, wine-focused itinerary",
   "Booking order that prevents wasted driving",
-  "How Texas Defined checked this guide",
+  "Sources and visitor-planning notes",
   "Sources and further reading",
 ];
 
@@ -94,6 +95,7 @@ function assertFredericksburgRewrite(html, origin, surface) {
   for (const old of [
     "Fredericksburg winery and tasting-room research roster",
     "Augusta Vin — Highway 290 winery and hospitality property",
+    "This itinerary compares published operating information rather than claiming firsthand wine tastings or personal inspections",
   ]) {
     if (text.includes(old)) {
       throw new Error(`Fredericksburg article ${surface} on ${origin} still serves retired winery-directory text: ${old}`);
@@ -106,20 +108,24 @@ function assertFredericksburgRewrite(html, origin, surface) {
     throw new Error(`Fredericksburg article ${surface} on ${origin} missing its stable canonical URL`);
   }
   const robots = [...html.matchAll(/<meta\b[^>]*>/gi)].map((match) => match[0])
-    .filter((tag) => /\bname=["']robots["']/i.test(tag));
+    .filter((tag) => /\bname=["'](?:robots|googlebot)["']/i.test(tag));
   if (robots.some((tag) => /\bnoindex\b/i.test(tag))) {
     throw new Error(`Fredericksburg article ${surface} on ${origin} unexpectedly noindexed`);
   }
 }
 
 for (const origin of [canonicalOrigin, directWorkerOrigin]) {
-  for (const surface of ["canonical-visitor", "cache-busted-release"]) {
+  for (const surface of ["canonical-visitor", "cache-busted-release", "tracking-parameter"]) {
     const url = new URL(fredericksburgArticlePath, origin);
     if (surface === "cache-busted-release") url.searchParams.set("td_verify", token);
+    if (surface === "tracking-parameter") url.searchParams.set("utm_source", "chatgpt.com");
     const response = await request(url, "error");
     if (response.status !== 200 || response.headers.get("cf-mitigated")?.toLowerCase() === "challenge"
       || !/^text\/html\b/i.test(response.headers.get("content-type") || "")) {
       throw new Error(`Fredericksburg article ${surface} on ${origin} failed HTML response: HTTP ${response.status}`);
+    }
+    if (/\bnoindex\b/i.test(response.headers.get("x-robots-tag") || "")) {
+      throw new Error(`Fredericksburg article ${surface} on ${origin} sent X-Robots-Tag: noindex`);
     }
     const html = await response.text();
     assertFredericksburgRewrite(html, origin, surface);
