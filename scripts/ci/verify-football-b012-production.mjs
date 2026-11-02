@@ -42,7 +42,7 @@ try{
       links:[...document.querySelectorAll('main a[href]')].map(a=>a.getAttribute('href')),
       scroll:document.documentElement.scrollWidth,
       brokenImages:[...document.images].filter(i=>i.getBoundingClientRect().width&&i.complete&&!i.naturalWidth).length,
-      schema:[...document.querySelectorAll('script[type="application/ld+json"]')].map(n=>n.textContent).join('') })));
+      schema:[...document.querySelectorAll('script[type="application/ld+json"]')].map(n=>n.textContent).join('') }));
     assert.equal(data.canonical,origin+path,'canonical '+slug);
     assert.ok(!/noindex/i.test(data.robots),'noindex '+slug);
     assert.equal(data.h1.length,1,'H1 '+slug);
