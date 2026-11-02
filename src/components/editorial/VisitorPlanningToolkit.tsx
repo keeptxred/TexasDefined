@@ -69,7 +69,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
       {places.length ? <section aria-labelledby="experience-compare-title">
         <h3 id="experience-compare-title" className="font-display text-2xl">Which experience fits your visit?</h3>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full min-w-[620px] border-collapse text-left text-sm">
+          <table style={{ minWidth: 620 }} className="w-full border-collapse text-left text-sm">
             <thead>
               <tr className="border-y border-border">
                 {["Place", "Area", "Suggested visit", "Details and reservations"].map((name) =>
