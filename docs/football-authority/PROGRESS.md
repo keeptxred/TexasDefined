@@ -1,5 +1,10 @@
 # Football Authority — Execution Ledger
 
+## 2026-11-02 — Batch011 production Chrome VERIFIED (25/25)
+
+ONE genuine non-skipped Chrome job checked all 25 schools at 1366/390/320, 18 reciprocal counties and sitemap coverage. Run 41380813976, compact artifact 13113198395, Worker 3dcb8101-ae9a-4e19-a407-07dfa4295802, source 496d461f18ecb4d162e6dd4852b1d31b72aa6f7d, protected production run 41380205948, GitHub verified Worker ledger 7483212702, Cloudflare deployment 3b8a8159-7cf3-418e-89fe-84933581af03. No manual accessibility, score, media-rights or editorial signoff claimed.
+
+
 ## 2026-10-31 — owner decision: one Chrome execution, not five (implementation pending)
 
 The owner expressly rejected the previously imposed five-independent-cohort graduation rule and authorized **one genuine non-skipped Chrome execution per 25-school batch**, covering all 25 schools and desktop/mobile, with fail-closed machine-readable results and exact GitHub SHA ↔ deployed Worker identity. This is an acceptance policy change, **not proof of passing CI or production Chrome**. Obsolete 93-PNG counts and owner screenshot review are not gates. Keep separate protected evidence-only graduation, do not graduate Batch011 until its single complete test passes, then assign Batch012 automatically. Source/score/media safeguards unchanged. Reconcile the actual workflows/collector under protected PR before certifying.

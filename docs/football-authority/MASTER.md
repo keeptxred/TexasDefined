@@ -1,5 +1,10 @@
 # TexasDefined — High School Football Authority Project (locked)
 
+## 2026-11-02 — Batch011 production Chrome VERIFIED (25/25)
+
+ONE genuine non-skipped Chrome job checked all 25 schools at 1366/390/320, 18 reciprocal counties and sitemap coverage. Run 41380813976, compact artifact 13113198395, Worker 3dcb8101-ae9a-4e19-a407-07dfa4295802, source 496d461f18ecb4d162e6dd4852b1d31b72aa6f7d, protected production run 41380205948, GitHub verified Worker ledger 7483212702, Cloudflare deployment 3b8a8159-7cf3-418e-89fe-84933581af03. No manual accessibility, score, media-rights or editorial signoff claimed.
+
+
 ## Owner-approved acceptance change — 2026-10-31 (supersedes five-cohort requirement)
 
 **Exactly ONE genuine, non-skipped production Chrome browser test execution is required per 25-school batch, including Batch011 and all future batches.** The execution must cover **all 25 assigned school pages** at desktop and mobile widths (including 320px), required reciprocal county links, canonical/indexability/sitemap and source-fidelity checks. It must emit compact machine-readable pass/fail evidence and be tied to the same authenticated GitHub source SHA and actually deployed Cloudflare Worker release. Missing, skipped, mixed-release, incomplete, or failed evidence is a hard failure; no false VERIFIED promotion. Keep protected CI, auto-merge, and a separate protected evidence-only graduation PR. No 93-PNG count, screenshot archive, owner screenshot review, or five independent cohort requirement. After verified graduation, automatically assign the next maximum 25 unassigned canonical schools in stable registry order. Preserve historical Batch010 certificates and keep unlicensed scores/media prohibited.
