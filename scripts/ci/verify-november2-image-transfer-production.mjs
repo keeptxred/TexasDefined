@@ -32,6 +32,7 @@ async function measure([src, baselineBytes], index) {
     variant: null,
     contentLength: null,
     location: null,
+    resolvedOptimizedUrl: null,
     server: null,
     workerVersion: null,
     transferredBytes: null,
@@ -43,7 +44,7 @@ async function measure([src, baselineBytes], index) {
     const controller = new AbortController();
     const abort = setTimeout(() => controller.abort(), TIMEOUT_MS);
     try {
-      const response = await fetch(publicUrl, {
+      const fetchOptions = {
         method: "GET",
         redirect: "manual",
         headers: {
@@ -51,12 +52,29 @@ async function measure([src, baselineBytes], index) {
           "User-Agent": USER_AGENT,
         },
         signal: controller.signal,
-      });
+      };
+      let response = await fetch(publicUrl, fetchOptions);
+      const initialLocation = response.headers.get("location");
+      // The editorial source can intentionally 302 to the same first-party
+      // optimized WebP. Inspect exactly one allowlisted redirect, never an
+      // unrelated page, external host, or arbitrary second redirect.
+      if (remote && response.status === 302 && initialLocation) {
+        const resolved = new URL(initialLocation, publicUrl);
+        const allowed = resolved.origin === new URL(ORIGIN).origin &&
+          /^\/images\/editorial\/optimized\/[a-z0-9-]+\.webp$/i.test(resolved.pathname) &&
+          !resolved.search && !resolved.hash;
+        if (allowed) {
+          await response.body?.cancel();
+          response = await fetch(resolved.toString(), fetchOptions);
+          entry.resolvedOptimizedUrl = resolved.toString();
+          entry.location = initialLocation;
+        }
+      }
       entry.status = response.status;
       entry.contentType = response.headers.get("content-type");
       entry.variant = response.headers.get("x-texasdefined-image-variant");
       entry.contentLength = Number(response.headers.get("content-length")) || null;
-      entry.location = response.headers.get("location");
+      entry.location ??= response.headers.get("location");
       entry.server = response.headers.get("server");
       entry.workerVersion = response.headers.get("x-texasdefined-worker-version");
       if (response.status !== 200 || !/^image\//i.test(entry.contentType ?? "")) {
@@ -86,9 +104,11 @@ async function measure([src, baselineBytes], index) {
       entry.transferredBytes = bytes;
       entry.withinBudget = bytes <= budgetBytes;
       if (!entry.withinBudget) entry.error = "Image exceeds per-file transfer budget";
-      if (remote && entry.variant !== "upstream-sized") {
+      if (remote && entry.variant !== "upstream-sized" && !(
+        entry.resolvedOptimizedUrl && entry.contentType?.toLowerCase().startsWith("image/webp")
+      )) {
         entry.withinBudget = false;
-        entry.error = "Remote image was not served using optimized upstream variant";
+        entry.error = "Remote image was neither sized upstream nor served as an approved local WebP";
       }
       break;
     } catch (error) {
@@ -104,7 +124,7 @@ async function measure([src, baselineBytes], index) {
       (entry.withinBudget ? "PASS" : "FAIL") + " " +
       (entry.status ?? "?") + " " +
       (entry.transferredBytes ?? "?") + "B / " + budgetBytes + "B " +
-      (entry.variant || "-") + " " + entry.source +
+      (entry.variant || (entry.resolvedOptimizedUrl ? "optimized-webp" : "-")) + " " + entry.source +
       (entry.location ? " redirect=" + entry.location : "") +
       (entry.error ? " error=" + entry.error : ""),
   );

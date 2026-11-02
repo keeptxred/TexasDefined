@@ -6,15 +6,15 @@ import { DestinationAuthoritySections } from "@/components/editorial/Destination
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
 import { townAuthorityContextualLinks } from "@/data/town-authority-links";
 import type { Destination } from "@/data/types";
+import experienceOffers from "@/data/authority/experience-offers.json";
 
 type Props = { destination: Destination };
 const VerifiedExperienceOffers = lazy(() =>
   import("./VerifiedExperienceOffers").then((module) => ({ default: module.VerifiedExperienceOffers })),
 );
-const destinationOfferSlugs = new Set([
-  "becker-vineyards", "grape-creek-vineyards", "signor-vineyards",
-  "william-chris-vineyards-hye",
-]);
+// Derive availability of the reusable offer projection from the canonical registry.
+// Adding source-backed offerings does not require a second hardcoded destination list.
+const destinationOfferSlugs = new Set(experienceOffers.map((offer) => offer.destinationSlug));
 
 // A reference to an airport, highway or nearby town is not a reason to
 // advertise a rental car on an individual museum or local attraction.
@@ -25,6 +25,8 @@ export function DestinationVisitPlanner({ destination }: Props) {
     [...destinationEditorialLinks(destination.slug), ...townAuthorityContextualLinks(destination)]
       .map((item) => [item.href, item]),
   ).values()];
+  const hasExistingTripPlannerLink = editorialLinks.some((item) => item.href.startsWith("/explore/trip-planner"));
+  const showTripPlannerHandoff = Boolean(destination.authorityGuide?.itineraries?.length) && !hasExistingTripPlannerLink;
   const showRentalCarOption = destination.category === "road-trips"
     && drivingIntentPattern.test([destination.summary, destination.entryNote, ...destination.highlights].join(" "));
 
@@ -47,6 +49,19 @@ export function DestinationVisitPlanner({ destination }: Props) {
         />
       ) : null}
       {destination.slug !== "moody-gardens" ? <DestinationAuthoritySections destination={destination} /> : null}
+      {showTripPlannerHandoff ? (
+        <nav aria-label={`Build a personalized trip around ${destination.name}`}
+          className="mt-8 border-t border-border pt-6">
+          <p className="text-sm leading-7 text-muted-foreground">
+            Want to extend this researched visit into a larger trip? The Texas Trip Planner starts from this
+            destination and creates a personal route; it does not replace the source-backed itinerary above.
+          </p>
+          <a href={`/explore/trip-planner?destination=${encodeURIComponent(destination.slug)}`}
+            className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">
+            Customize a route around {destination.name}
+          </a>
+        </nav>
+      ) : null}
       {editorialLinks.length > 0 ? (
         <nav aria-label={`Related editorial guides for ${destination.name}`} className="mt-10 border-t border-border pt-7">
           <p className="eyebrow text-primary">Useful nearby reading</p>
