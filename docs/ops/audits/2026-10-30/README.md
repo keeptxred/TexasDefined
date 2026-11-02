@@ -114,3 +114,12 @@ The historic **212,703** `Warp server error: Thread killed by timeout manager` P
 Current authenticated shared Supabase project read, Nov 1 20:40Z–Nov 2 20:39Z: **3,144** matching PostgREST Warp messages, consistently ~94–147 per full hour; **zero** SQLSTATE 57014 or 25P02 entries and **one** real API gateway HTTP500 (`/rest/v1/texas_news_feed`). The sampled Warp log's `path=/` is a PostgREST service log attribute, **not** a user-request REST URL. There is no credible attribution of each Warp message to a timed-out endpoint or to one of the two sites.
 
 Reclassify exact-string counts as `postgrest_internal_warp_debug_noise`, excluded from customer-facing 5xx and SQL-timeout totals. Track actual REST status codes, Postgres SQLSTATE, PGRST error responses, database resources and latency independently. Do not restart/upgrade/alter a database or disable verification just to stop this potentially normal log. The one genuine `texas_news_feed` gateway 500 remains unresolved, requires an endpoint-specific trace, and is separate from this noise.
+
+
+## 2026-11-02 confirmed TDEM REST timeout repair
+
+- At 2026-11-02T18:12:59.997Z, real HTTP500 on Supabase /rest/v1/texas_news_feed reported PostgREST error=57014, upstream 8601ms and origin 8800ms; gateway request ID 01a19d76-efdd-79a1-94e7-1db340c4fe51. A real SQL timeout, independent of noisy PostgREST Warp logs.
+- Caller: KeepTXRed src/routes/api/public/hooks/build-newsroom-research-packets.ts. Filter on exact TDEM release source and created_at >=14d, descending, limit 8; only 4 matching rows among 10,755 recently created rows. Prior planner scanned date-only index then filtered source (estimated cost 4864.39).
+- KTR PR #3368 https://github.com/keeptxred/texas-heartland-hub/pull/3368 merged 7111dfcc56e687d9967c1ddfb180f42faa566a7c. Exact SQL migration applied successfully via Supabase to project ftkznprjljkhymknvhye. Composite btree (source,created_at DESC) now exists. EXPLAIN ANALYZE on original query used the new index, 4 rows, actual execution 21.981ms, estimated cost 2.63. No permissions/RLS/contents changed.
+- Applied Supabase migration version is 20261102204654; KTR PR #3370 https://github.com/keeptxred/texas-heartland-hub/pull/3370 aligns repository filename to this version, auto-merge enabled but pending at checkpoint. Index fix live, filename alignment separate.
+- Distinguish old 48h Worker HTTP500s on Collingsworth County, Bing football sitemap, and KTR bill detail (Nov1 older Worker versions) from current release faults. No current incident attribution proven.
