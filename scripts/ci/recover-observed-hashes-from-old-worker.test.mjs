@@ -5,7 +5,7 @@ import { existsSync } from 'node:fs';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { pinnedVersionUrl, recoverObserved, OLD_VERSIONS, LOGGED_MISSING, RECENT_OBSERVED_VERSIONS, RECENT_MISSING } from './recover-observed-hashes-from-old-worker.mjs';
+import { pinnedVersionUrl, recoverObserved, OLD_VERSIONS, LOGGED_MISSING, RECENT_OBSERVED_VERSIONS, RECENT_MISSING, SATURATED_PREVIOUS_WORKER_VERSIONS, SATURATED_PREVIOUS_MISSING } from './recover-observed-hashes-from-old-worker.mjs';
 
 const NOW=Date.parse('2026-11-02T18:00:00Z');
 function setup() {
@@ -151,9 +151,34 @@ test('a missing recent logged hash is reported and never replaced by invented co
   } finally { await rm(root, { recursive: true, force: true }); }
 });
 
+test('five exact omitted historical assets are recovered only from the authenticated outgoing Worker preview', async () => {
+  const root = await setup();
+  try {
+    const x = await seed(root);
+    const urls = [];
+    const bytes = Buffer.from('export const originalHistoricalCode = 1;');
+    const names = [...SATURATED_PREVIOUS_MISSING];
+    const report = await recoverObserved({...x, now: NOW, filenames: names,
+      saturatedVersions: SATURATED_PREVIOUS_WORKER_VERSIONS, fetchImpl: async (url, opts) => {
+        urls.push(url);
+        assert.equal(opts.redirect, 'manual');
+        return new Response(bytes, {status: 200, headers: {'content-type': 'application/javascript'}});
+      }});
+    assert.equal(report.recovered.length, 5);
+    assert.equal(report.unresolved.length, 0);
+    assert.deepEqual(new Set(urls), new Set(names.map(n =>
+      pinnedVersionUrl(SATURATED_PREVIOUS_WORKER_VERSIONS[0], '/assets/' + n))));
+    for (const recovered of report.recovered) {
+      assert.equal(recovered.sha256, createHash('sha256').update(bytes).digest('hex'));
+      assert.equal(recovered.sourceVersionId, SATURATED_PREVIOUS_WORKER_VERSIONS[0]);
+    }
+  } finally { await rm(root, {recursive: true, force: true}); }
+});
+
 test('verified recovery target and version lists stay within hard budgets', () => {
-  assert.equal(LOGGED_MISSING.length, 25);
+  assert.equal(LOGGED_MISSING.length, 30);
   assert.equal(RECENT_OBSERVED_VERSIONS.length, 6);
-  for (const name of RECENT_MISSING)
+  assert.equal(SATURATED_PREVIOUS_WORKER_VERSIONS.length, 1);
+  for (const name of [...RECENT_MISSING, ...SATURATED_PREVIOUS_MISSING])
     assert.ok(LOGGED_MISSING.includes(name), name);
 });
