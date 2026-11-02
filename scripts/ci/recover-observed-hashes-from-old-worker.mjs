@@ -117,6 +117,9 @@ export async function recoverObserved({
       if (existsSync(resolve(folder,name))) report.alreadyInBuild.push(path);
       else missing.push({name,path});
     }
+    // The newest real Bing/Meta failures take priority if the hard, bounded
+    // remote-probe ceiling is reached. Never silently treat skips as recovered.
+    missing.sort((a, b) => Number(RECENT_MISSING.has(b.name)) - Number(RECENT_MISSING.has(a.name)));
     // Every historical response is checked on its exact path. The previous
     // canary-based shortcut falsely ignored old versions that lacked the sample
     // file but could retain a different missing import. This pass is bounded by
