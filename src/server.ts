@@ -82,7 +82,7 @@ export function eastTexasFoliageCanonicalRedirect(request: Request): Response | 
   const url = new URL(request.url);
   const hostname = url.hostname.toLowerCase();
   if (hostname !== "texasdefined.com" && hostname !== "www.texasdefined.com") return null;
-  if (url.pathname.replace(/\\/+$/, "").toLowerCase() !== "/article/east-texas-fall-colors") return null;
+  if (url.pathname.replace(/\/+$/, "").toLowerCase() !== "/article/east-texas-fall-colors") return null;
   const canonical = "https://texasdefined.com/article/east-texas-fall-colors";
   if (url.toString() === canonical) return null;
   return Response.redirect(canonical, 301);
