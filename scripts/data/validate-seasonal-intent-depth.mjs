@@ -237,7 +237,7 @@ if (!eastTexasCopy.includes("not confirmed reports of current peak color")) {
 }
 for (const guide of [
   "/destination/daingerfield-state-park",
-  "/destination/caddo-lake",
+  "/destination/caddo-lake-state-park",
   "/destination/lake-bob-sandlin-state-park",
   "/destination/tyler-state-park",
   "/destination/cooper-lake-state-park",
