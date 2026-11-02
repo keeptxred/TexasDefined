@@ -18,6 +18,44 @@ const viewports = [
 ];
 const findings = [];
 const failures = [];
+// Googlebot-style request probes verify HTTP behavior before Chrome follows redirects.
+// A spoofed User-Agent does NOT prove verified Google's IPs are allowed by Cloudflare.
+async function verifyCanonicalHttpContract() {
+  const clean = origin + "/article/east-texas-fall-colors";
+  const googlebotHeaders = { "user-agent": "Googlebot/2.1 (+http://www.google.com/bot.html)" };
+  const variants = [
+    clean + "?utm_source=chatgpt.com",
+    clean + "?foliage_browser_qa=regression",
+    clean + "/",
+    origin + "/article/East-Texas-Fall-Colors",
+    ...(origin === "https://texasdefined.com" ? ["https://www.texasdefined.com/article/east-texas-fall-colors?utm_source=chatgpt.com"] : []),
+  ];
+  for (const url of variants) {
+    const response = await fetch(url, { redirect: "manual", headers: googlebotHeaders });
+    const location = response.headers.get("location");
+    if (response.status !== 301 || location !== clean) {
+      throw new Error("Canonical redirect broken " + url + ": HTTP " + response.status + " Location " + location);
+    }
+    await response.body?.cancel();
+  }
+  const response = await fetch(clean, { redirect: "manual", headers: googlebotHeaders });
+  if (response.status !== 200) throw new Error("Clean foliage page not Googlebot-style accessible: HTTP " + response.status);
+  if (/\b(noindex|nofollow)\b/i.test(response.headers.get("x-robots-tag") || "")) {
+    throw new Error("Clean foliage page has blocking X-Robots-Tag");
+  }
+  const html = await response.text();
+  const links = html.match(/<link\b[^>]*>/gi) || [];
+  const canonicalLinks = links.filter(link => /\brel=["'][^"']*canonical[^"']*["']/i.test(link));
+  if (canonicalLinks.length !== 1 || !canonicalLinks[0].includes(clean)) {
+    throw new Error("Clean foliage page missing unique self-canonical: " + canonicalLinks.length);
+  }
+  const robots = (html.match(/<meta\b[^>]*>/gi) || []).filter(meta => /\bname=["'](?:robots|googlebot)["']/i.test(meta));
+  if (robots.some(tag => /\b(noindex|nofollow)\b/i.test(tag))) throw new Error("Clean foliage page has noindex/nofollow meta");
+  if (!html.includes("Daingerfield") || !html.includes("Caddo Lake")) throw new Error("Googlebot-style HTML missing core destination content");
+  console.log("PASS canonical clean 200, five redirect variants 301, unique self-canonical, no index block, HTML content");
+}
+await verifyCanonicalHttpContract();
+
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
   headless: true,

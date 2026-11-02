@@ -72,6 +72,22 @@ function canonicalHostRedirect(request: Request) {
   return Response.redirect(url.toString(), 301);
 }
 
+/** Keep one permanent, indexable East Texas foliage article URL.
+ * Source variants (UTM/query, trailing slash, mixed case and www) redirect
+ * directly to the published URL; they cannot serve separately crawlable HTML.
+ * Other article URLs and their query parameters are unchanged.
+ */
+export function eastTexasFoliageCanonicalRedirect(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  const hostname = url.hostname.toLowerCase();
+  if (hostname !== "texasdefined.com" && hostname !== "www.texasdefined.com") return null;
+  if (url.pathname.replace(/\/+$/, "").toLowerCase() !== "/article/east-texas-fall-colors") return null;
+  const canonical = "https://texasdefined.com/article/east-texas-fall-colors";
+  if (url.toString() === canonical) return null;
+  return Response.redirect(canonical, 301);
+}
+
 export function adsTxtResponse(request: Request): Response | null {
   const url = new URL(request.url);
   if (url.pathname !== "/ads.txt") return null;
@@ -646,6 +662,8 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const foliageCanonicalRedirect = eastTexasFoliageCanonicalRedirect(request);
+      if (foliageCanonicalRedirect) return foliageCanonicalRedirect;
       const canonicalRedirect = canonicalHostRedirect(request);
       if (canonicalRedirect) return canonicalRedirect;
       const legacyAppleIcon = legacyAppleIconRedirect(request);

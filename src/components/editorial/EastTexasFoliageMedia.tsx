@@ -92,6 +92,17 @@ export function EastTexasFoliageParkMap() {
 const PHOTO_SELECTION = [
   {
     slug: "daingerfield-state-park",
+    name: "Daingerfield State Park — October lake reflection",
+    source: "https://commons.wikimedia.org/wiki/File:Daingerfield_sp_reflection.jpg",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    season: "October 24, 2014 — early autumn with some changing hardwoods, not current conditions",
+    photographerCredit: "Larry D. Moore · October 24, 2014 · CC BY 4.0 · Wikimedia Commons",
+    overrideSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Daingerfield_sp_reflection.jpg/960px-Daingerfield_sp_reflection.jpg",
+    overrideAlt: "October view of Lake Daingerfield, with trees and fall-season color reflected in the water",
+  },
+
+  {
+    slug: "daingerfield-state-park",
     name: "Daingerfield State Park",
     source: "https://commons.wikimedia.org/wiki/File:View_in_Daingerfield_State_Park_Texas_2023.jpg",
     license: "https://creativecommons.org/licenses/by/4.0/",
@@ -131,24 +142,16 @@ const PHOTO_SELECTION = [
     source: "https://commons.wikimedia.org/wiki/File:Docks_at_Martin_Creek_Lake_State_Park_2019.jpg",
     license: "https://creativecommons.org/licenses/by/4.0/",
     season: "June 2019 lakeshore and trees — not fall foliage",
+    photographerCredit: "Larry D. Moore · June 2019 · CC BY 4.0 · Wikimedia Commons",
     overrideSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Docks_at_Martin_Creek_Lake_State_Park_2019.jpg/960px-Docks_at_Martin_Creek_Lake_State_Park_2019.jpg",
     overrideAlt: "Lake shoreline, dock and wooded backdrop at Martin Creek Lake State Park",
-  },
-  {
-    slug: "daingerfield-state-park",
-    name: "Daingerfield State Park — October lake reflection",
-    source: "https://commons.wikimedia.org/wiki/File:Daingerfield_sp_reflection.jpg",
-    license: "https://creativecommons.org/licenses/by/4.0/",
-    season: "October 24, 2014 — early autumn with some changing hardwoods, not current conditions",
-    overrideSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Daingerfield_sp_reflection.jpg/960px-Daingerfield_sp_reflection.jpg",
-    overrideAlt: "October view of Lake Daingerfield, with trees and fall-season color reflected in the water",
   },
 ] as const;
 
 export function EastTexasFoliagePhotoGallery() {
   return <section className="mt-10" aria-labelledby="east-texas-foliage-gallery">
-    <h3 id="east-texas-foliage-gallery" className="font-display text-2xl">Photographs of the featured parks</h3>
-    <p className="mt-2 text-sm leading-7 text-muted-foreground">Seven properly attributed photographs cover all six parks, including an October Daingerfield view. The dates are provided for context; none of these images verifies current 2026 color. The Martin Creek image is a woodland lakeshore view rather than the earlier industrial photograph.</p>
+    <h3 id="east-texas-foliage-gallery" className="font-display text-2xl">One real autumn example, plus park reference photographs</h3>
+    <p className="mt-2 text-sm leading-7 text-muted-foreground">The first photograph shows an actual autumn scene at Daingerfield in October 2014. The other six pictures help identify the parks, but were not all taken in fall. We label the season of every photograph rather than suggesting that spring or summer scenes show current foliage. No image here verifies current-season conditions.</p>
     <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {PHOTO_SELECTION.map((item) => {
         const photo = stateParkHeroMap[item.slug];
@@ -158,7 +161,7 @@ export function EastTexasFoliagePhotoGallery() {
           <figcaption className="p-3 text-xs leading-5 text-muted-foreground">
             <strong className="block text-foreground">{item.name}</strong>
             <span className="block">{item.season}</span>
-            <span className="block">{photo.credit}</span>
+            <span className="block">{"photographerCredit" in item ? item.photographerCredit : photo.credit}</span>
             <span className="block">Displayed image resized/cropped for layout.</span>
             <a href={item.source} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Wikimedia source ↗</a>
             {" · "}
