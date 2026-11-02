@@ -9,6 +9,12 @@ export const PROBES = [
   { site: 'TexasDefined', url: 'https://texasdefined.com/texas-high-school-football-teams/houston-strake-jesuit', kind: 'html' },
   { site: 'TexasDefined', url: 'https://texasdefined.com/property-tax/taxing-unit/anderson', kind: 'html' },
   { site: 'TexasDefined', url: 'https://texasdefined.com/images/discover/collin-county.webp', kind: 'webp' },
+  // Exact 2026-10-21 governed Discover failure cohort: verify both live origins.
+  { site: 'TexasDefined Direct Worker', url: 'https://texasdefined-site.freddy-coppola.workers.dev/images/discover/collin-county.webp', kind: 'webp' },
+  { site: 'TexasDefined', url: 'https://texasdefined.com/images/discover/freeman-coliseum.webp', kind: 'webp' },
+  { site: 'TexasDefined Direct Worker', url: 'https://texasdefined-site.freddy-coppola.workers.dev/images/discover/freeman-coliseum.webp', kind: 'webp' },
+  { site: 'TexasDefined', url: 'https://texasdefined.com/images/discover/dubina-saints-cyril-methodius.webp', kind: 'webp' },
+  { site: 'TexasDefined Direct Worker', url: 'https://texasdefined-site.freddy-coppola.workers.dev/images/discover/dubina-saints-cyril-methodius.webp', kind: 'webp' },
   { site: 'KeepTXRed', url: 'https://keeptxred.com/', kind: 'html' },
   { site: 'KeepTXRed', url: 'https://keeptxred.com/bills', kind: 'html' },
   { site: 'KeepTXRed', url: 'https://keeptxred.com/bills?chamber=senate&page=2', kind: 'html' },
