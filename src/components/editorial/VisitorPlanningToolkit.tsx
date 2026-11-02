@@ -18,16 +18,31 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
   const [mapOpen, setMapOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState<string>(profile.routes[0].id);
   const [partySize, setPartySize] = useState(2);
-  const [selectedOffer, setSelectedOffer] = useState(offers[0]?.id ?? "");
+  const [selectedOfferIds, setSelectedOfferIds] = useState<string[]>([]);
+  const [routeStopSlugs, setRouteStopSlugs] = useState<string[]>([]);
   const [lodging, setLodging] = useState(0);
   const [food, setFood] = useState(0);
   const [transport, setTransport] = useState(0);
   const activePlace = places.find((place) => place.slug === activeSlug) ?? places[0];
-  const selected = offers.find((offer) => offer.id === selectedOffer) ?? null;
+  const selectedOffers = offers.filter((offer) => selectedOfferIds.includes(offer.id));
+  const eligibleOffers = selectedOffers.filter((offer) => offer.maxParty === null || partySize <= offer.maxParty);
+  const ineligibleOffers = selectedOffers.filter((offer) => offer.maxParty !== null && partySize > offer.maxParty);
   const route = profile.routes.find((item) => item.id === activeRoute)
     ?? profile.routes[0];
-  const quotedPriceApplicable = Boolean(selected && partySize >= 1 && (selected.maxParty === null || partySize <= selected.maxParty));
-  const costs = lodging + food + transport + (quotedPriceApplicable && selected ? partySize * selected.priceUsd : 0);
+  const tastingEstimate = eligibleOffers.reduce((total, offer) => total + partySize * offer.priceUsd, 0);
+  const costs = lodging + food + transport + tastingEstimate;
+  const selectedRouteStops = routeStopSlugs
+    .map((slug) => places.find((place) => place.slug === slug))
+    .filter((place): place is ExperiencePlace & { coordinates: { lat: number; lng: number } } =>
+      Boolean(place?.coordinates && Number.isFinite(place.coordinates.lat) && Number.isFinite(place.coordinates.lng)));
+  const routeCoordinates = selectedRouteStops.map((place) => place.coordinates.lat + "," + place.coordinates.lng);
+  const multiStopDirectionsUrl = routeCoordinates.length < 2 ? null
+    : "https://www.google.com/maps/dir/?api=1&travelmode=driving&origin="
+      + encodeURIComponent(routeCoordinates[0])
+      + "&destination=" + encodeURIComponent(routeCoordinates[routeCoordinates.length - 1])
+      + (routeCoordinates.length > 2 ? "&waypoints=" + encodeURIComponent(routeCoordinates.slice(1, -1).join("|")) : "");
+  const toggleOffer = (id: string, checked: boolean) =>
+    setSelectedOfferIds((current) => checked ? [...new Set([...current, id])] : current.filter((value) => value !== id));
   const money = (amount: number) => new Intl.NumberFormat("en-US", {
     style: "currency", currency: "USD", maximumFractionDigits: 0,
   }).format(amount);
@@ -173,6 +188,29 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
               target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-primary underline underline-offset-4">
               Open interactive map and current directions
             </a>
+            {activePlace.coordinates ? (
+              <button type="button" className="ml-0 mt-3 block rounded border border-border px-3 py-2 font-semibold text-primary"
+                aria-pressed={routeStopSlugs.includes(activePlace.slug)}
+                onClick={() => setRouteStopSlugs((current) =>
+                  current.includes(activePlace.slug) ? current.filter((slug) => slug !== activePlace.slug)
+                    : current.length < 5 ? [...current, activePlace.slug] : current)}>
+                {routeStopSlugs.includes(activePlace.slug) ? "Remove from driving route" : "Add to driving route"}
+              </button>
+            ) : null}
+          </div>
+        ) : null}
+        {routeStopSlugs.length ? (
+          <div className="mt-4 border-t border-border pt-4 text-sm" data-visitor-route-stops>
+            <p className="font-semibold">Your route stops ({routeStopSlugs.length} of 5 maximum)</p>
+            <ol className="mt-2 list-decimal pl-5">{selectedRouteStops.map((place) =>
+              <li key={place.slug}>{place.name}</li>)}</ol>
+            {multiStopDirectionsUrl ? (
+              <a href={multiStopDirectionsUrl} target="_blank" rel="noopener noreferrer"
+                className="mt-3 inline-block text-primary underline underline-offset-4">
+                Open these stops in order in Google Maps
+              </a>
+            ) : <p className="mt-2 text-muted-foreground">Add a second mapped stop to build a route.</p>}
+            <p className="mt-2 text-xs text-muted-foreground">Stops are mapped, not checked for current traffic, drive times or availability. Use a sober driver or approved transportation after tastings.</p>
           </div>
         ) : null}
       </section>
@@ -208,8 +246,8 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
       <section aria-labelledby="winery-budget-title">
         <h3 id="winery-budget-title" className="font-display text-2xl">Estimate your group budget</h3>
         <p className="mt-2 text-sm text-muted-foreground">
-          Calculations stay in your browser. Add your own lodging, food and transportation allowances;
-          only recent operator-published prices are prefilled.
+          Calculations stay in your browser. Select multiple verified tastings and add your own lodging,
+          food and transportation allowances. Prices are included only while source checks remain recent.
         </p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <label className="text-sm font-medium">Guests
@@ -217,13 +255,25 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
               setPartySize(Math.min(100, Math.max(1, num(event.target.value))))}
               className="mt-1 block w-full rounded border border-border bg-surface p-2" />
           </label>
-          <label className="text-sm font-medium">Selected offering
-            <select className="mt-1 block w-full rounded border border-border bg-surface p-2"
-              value={selectedOffer} onChange={(event) => setSelectedOffer(event.target.value)}>
-              <option value="">No verified offering selected</option>
-              {offers.map((offer) => <option key={offer.id} value={offer.id}>{offer.label} · {money(offer.priceUsd)}</option>)}
-            </select>
-          </label>
+          <fieldset className="text-sm sm:col-span-2" data-budget-offerings>
+            <legend className="font-medium">Tastings to include (choose any number)</legend>
+            {offers.length ? (
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {offers.map((offer) => (
+                  <label key={offer.id} className="flex items-start gap-2 rounded border border-border p-3">
+                    <input type="checkbox" className="mt-1" checked={selectedOfferIds.includes(offer.id)}
+                      onChange={(event) => toggleOffer(offer.id, event.target.checked)} />
+                    <span>{offer.label} · {money(offer.priceUsd)} each
+                      <span className="block text-xs text-muted-foreground">
+                        {offer.maxParty === null ? "Confirm group limit" : "Group limit " + offer.maxParty}
+                        {" · "}{offer.minAge === null ? "Check age restrictions" : "Age " + offer.minAge + "+"}
+                      </span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            ) : <p className="mt-2 text-muted-foreground">No recently verified operator prices; enter other expenses below and check official sources.</p>}
+          </fieldset>
           {([["Lodging total ($)", lodging, setLodging], ["Food total ($)", food, setFood],
             ["Transportation total ($)", transport, setTransport]] as const).map(([label, value, setter]) => (
             <label key={label} className="text-sm font-medium">{label}
@@ -233,10 +283,17 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
             </label>
           ))}
         </div>
-        {!quotedPriceApplicable && selected ? (
+        {ineligibleOffers.length ? (
           <p className="mt-3 text-sm text-primary" role="status">
-            This published tasting is limited to {selected.maxParty} guests; its tasting charge is excluded from this estimate.
-            Contact the operator for a large-group quote.
+            The following published tastings cannot be priced for {partySize} guests from their stated group limits
+            and are excluded: {ineligibleOffers.map((offer) => offer.label).join(", ")}.
+            Contact each operator for a group quote.
+          </p>
+        ) : null}
+        {eligibleOffers.some((offer) => offer.minAge !== null) ? (
+          <p className="mt-2 text-xs text-muted-foreground">
+            Selected experiences may have minimum ages. This estimate does not confirm guest eligibility;
+            check each official operator's requirements before booking.
           </p>
         ) : null}
         <p className="mt-5 border-t border-border pt-4 text-xl font-semibold" aria-live="polite">
