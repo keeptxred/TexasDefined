@@ -33,12 +33,10 @@ jobs:
         run: |
           node --check scripts/ci/november2-oversized-images.mjs
           node --check scripts/ci/verify-november2-image-transfer-production.mjs
-      - name: Wait for the protected main deployment before measuring bytes
-        if: ${{ github.event_name == 'push' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
-        run: node scripts/ci/wait-for-protected-production.mjs
+      # This workflow changes only audit scripts/data and no production Worker
+      # assets. A GitHub source-only commit may have its Deploy workflow
+      # cancelled by a newer main release; do not wait on that exact SHA.
+      # The prior image-delivery fix (#6541) already passed deployment.
       - name: Measure production image delivery in bounded parallel requests
         run: node scripts/ci/verify-november2-image-transfer-production.mjs
       - name: Upload exact per-image payload and exception evidence
