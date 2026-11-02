@@ -536,8 +536,10 @@ jobs:
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+          # Every release can regress Worker static-asset delivery even when no image files changed.
+          # Fail closed on all governed WebP binaries, canonical and direct; preserve existing rollback.
           PRODUCTION_HEALTH_LABEL: direct-worker
-          PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
         run: node scripts/ci/verify-production-health.mjs
 
       - name: Capture unhealthy Worker runtime diagnostics
@@ -586,7 +588,7 @@ jobs:
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
           PRODUCTION_HEALTH_LABEL: canonical-domain
-          PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
+          PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
         run: node scripts/ci/verify-production-health.mjs
 
       # Release acceptance for the source-backed fishing indexability gate:

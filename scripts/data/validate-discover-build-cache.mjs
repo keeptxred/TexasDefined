@@ -48,8 +48,12 @@ const liveImages = readFileSync("scripts/ci/discover-production-asset-check.mjs"
 assert.match(health, /PRODUCTION_HEALTH_DISCOVER_ASSETS === 'true'/);
 assert.match(health, /verifyGovernedDiscoverDelivery\(\{ origin \}\)/);
 assert.match(health, /process\.exit\(1\)/);
-assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: \$\{\{ steps\.change_scope\.outputs\.images \}\}/);
-assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: \$\{\{ steps\.change_scope\.outputs\.images \}\}/);
+// Any Worker replacement can regress static assets, even with no image-file diff.
+// Two independent live origins must validate every governed WebP on every release.
+assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
+assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
+assert.equal((workflow.match(/PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/g) || []).length, 2,
+  'both public origins must fail closed on real image bytes for every production release');
 assert.match(liveImages, /public HTTP 404|HTTP /); // Verifies HTTP status is checked, not solely source-file presence
 assert.match(liveImages, /webpBytes\(bytes\)/);
 
@@ -106,4 +110,4 @@ for (const route of [
 assert.ok(purgeScript.includes("Discover image failed live post-purge binary verification"),
   "the required WebP response checks must not be bypassed by HTML cache repair");
 
-console.log("Discover artifact cache provenance, fresh local assets, change-scoped full live WebP delivery, image validation and strict deployment gates verified.");
+console.log("Discover artifact cache provenance, fresh local assets, every-release full live WebP delivery, image validation and strict deployment gates verified.");
