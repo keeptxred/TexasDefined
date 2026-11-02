@@ -643,7 +643,7 @@ function ArticlePage() {
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {([
           { name: "Daingerfield State Park", note: "Little Pine Lake and mixed hardwoods", walk: "Rustling Leaves · 2.4 mi · moderate", url: "https://tpwd.texas.gov/state-parks/daingerfield", guide: "/destination/daingerfield-state-park" },
-          { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", walk: "Caddo Forest · 0.7 mi · moderate, with steps", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake" },
+          { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", walk: "Caddo Forest · 0.7 mi · moderate, with steps", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake-state-park" },
           { name: "Lake Bob Sandlin State Park", note: "Woodland shoreline and reflections", walk: "Lakeview Loop · 0.6 mi · easy", url: "https://tpwd.texas.gov/state-parks/lake-bob-sandlin", guide: "/destination/lake-bob-sandlin-state-park" },
           { name: "Tyler State Park", note: "Mixed forest and lakeside trails", walk: "Lakeshore · 2.1 mi · easy", url: "https://tpwd.texas.gov/state-parks/tyler", guide: "/destination/tyler-state-park" },
           { name: "Cooper Lake State Park", note: "South Sulphur and Doctors Creek are separate units", walk: "Honey Creek (South Sulphur) · 0.3 mi · easy", url: "https://tpwd.texas.gov/state-parks/cooper-lake", guide: "/destination/cooper-lake-state-park" },
