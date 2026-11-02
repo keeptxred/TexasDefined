@@ -31,6 +31,9 @@ async function measure([src, baselineBytes], index) {
     contentType: null,
     variant: null,
     contentLength: null,
+    location: null,
+    server: null,
+    workerVersion: null,
     transferredBytes: null,
     withinBudget: false,
     error: null,
@@ -53,6 +56,9 @@ async function measure([src, baselineBytes], index) {
       entry.contentType = response.headers.get("content-type");
       entry.variant = response.headers.get("x-texasdefined-image-variant");
       entry.contentLength = Number(response.headers.get("content-length")) || null;
+      entry.location = response.headers.get("location");
+      entry.server = response.headers.get("server");
+      entry.workerVersion = response.headers.get("x-texasdefined-worker-version");
       if (response.status !== 200 || !/^image\//i.test(entry.contentType ?? "")) {
         entry.error = "Image request returned non-200 or non-image content";
         await response.body?.cancel();
@@ -98,7 +104,9 @@ async function measure([src, baselineBytes], index) {
       (entry.withinBudget ? "PASS" : "FAIL") + " " +
       (entry.status ?? "?") + " " +
       (entry.transferredBytes ?? "?") + "B / " + budgetBytes + "B " +
-      (entry.variant || "-") + " " + entry.source,
+      (entry.variant || "-") + " " + entry.source +
+      (entry.location ? " redirect=" + entry.location : "") +
+      (entry.error ? " error=" + entry.error : ""),
   );
   return entry;
 }
@@ -161,5 +169,5 @@ if (process.env.GITHUB_STEP_SUMMARY) {
   ];
   await fs.appendFile(process.env.GITHUB_STEP_SUMMARY, lines.join("\n") + "\n");
 }
-console.log(JSON.stringify({ checked: results.length, passed: verified.length, failed: overBudget.length, baselineBytes, completeVerifiedBytes, report: REPORT_PATH }));
+console.log(JSON.stringify({ checked: results.length, passed: verified.length, failed: overBudget.length, baselineBytes, completeVerifiedBytes: completeBytes, report: REPORT_PATH }));
 if (overBudget.length) process.exitCode = 1;
