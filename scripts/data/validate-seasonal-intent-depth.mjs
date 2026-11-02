@@ -235,6 +235,22 @@ if (!articleRoute.includes('article.slug !== "east-texas-fall-colors" && related
 if (!eastTexasCopy.includes("not confirmed reports of current peak color")) {
   fail("East Texas seasonal guidance must not imply verified live peak foliage");
 }
+for (const guide of [
+  "/destination/daingerfield-state-park",
+  "/destination/caddo-lake-state-park",
+  "/destination/lake-bob-sandlin-state-park",
+  "/destination/tyler-state-park",
+  "/destination/cooper-lake-state-park",
+  "/destination/martin-creek-lake-state-park",
+]) if (!articleRoute.includes('guide: "' + guide + '"')) fail("East Texas six-park planner missing actual internal guide: " + guide);
+for (const trail of ["Rustling Leaves · 2.4 mi", "Caddo Forest · 0.7 mi", "Lakeview Loop · 0.6 mi", "Lakeshore · 2.1 mi", "Honey Creek (South Sulphur) · 0.3 mi", "Harmony Hill · 1.7 mi"]) {
+  if (!articleRoute.includes(trail)) fail("East Texas quick-comparison lost verified trail " + trail);
+}
+if (!articleRoute.includes('href="#east-texas-fall-trip-planner"') ||
+    !articleRoute.includes('id="east-texas-fall-trip-planner"') ||
+    !articleRoute.includes("https://tpwd.texas.gov/state-parks/caddo-lake/park_events/"))
+  fail("East Texas visitor navigation or self-updating official Caddo program calendar missing");
+if (articleRoute.includes('title="More fall foliage guides"')) fail("East Texas duplicate related-reading section returned");
 
 // This editorial URL has one crawlable origin: no tracking-parameter,
  // trailing-slash, uppercase or www variants may deliver a second 200 document.

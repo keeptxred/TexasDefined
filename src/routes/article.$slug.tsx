@@ -535,6 +535,7 @@ function ArticlePage() {
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
         <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
       </nav>}
+      {article.slug === "east-texas-fall-colors" && <nav aria-label="East Texas fall guide navigation" className="mt-4 text-sm"><a href="#east-texas-fall-trip-planner" className="font-semibold text-primary underline underline-offset-4">Jump to the six-park comparison, map and dated photographs ↓</a></nav>}
       {isTexasExplainedPillar && (isTexasRiversArticle ? <aside className="mt-6 border-y border-border py-4" aria-label="Texas Explained series">
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <p className="font-semibold text-foreground">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
@@ -634,24 +635,27 @@ function ArticlePage() {
     </article>
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
     {article.slug === "east-texas-fall-colors" && <Section tone="surface"><Container>
+      <span id="east-texas-fall-trip-planner" className="block scroll-mt-28" />
       <SectionHeader eyebrow="Plan your fall trip" title="Six places to compare" />
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014, not verified current-season conditions. Photo: <a href={foliageHeroRights?.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Larry D. Moore via Wikimedia Commons ↗</a> · <a href={foliageHeroRights?.license} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">CC BY 4.0 license (cropped to layout) ↗</a>.</p>
 
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Compare the six parks below and use their official visitor information to check current alerts, trails and reservations before setting out.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {([
-          { name: "Daingerfield State Park", note: "Little Pine Lake and mixed hardwoods", url: "https://tpwd.texas.gov/state-parks/daingerfield", guide: "/destination/daingerfield-state-park" },
-          { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake" },
-          { name: "Lake Bob Sandlin State Park", note: "Woodland shoreline and reflections", url: "https://tpwd.texas.gov/state-parks/lake-bob-sandlin", guide: null },
-          { name: "Tyler State Park", note: "Mixed forest and lakeside trails", url: "https://tpwd.texas.gov/state-parks/tyler", guide: "/destination/tyler-state-park" },
-          { name: "Cooper Lake State Park", note: "Additional northeast Texas lake option", url: "https://tpwd.texas.gov/state-parks/cooper-lake", guide: null },
-          { name: "Martin Creek Lake State Park", note: "Alternative woodland and lakeshore outing", url: "https://tpwd.texas.gov/state-parks/martin-creek-lake", guide: "/destination/martin-creek-lake-state-park" },
+          { name: "Daingerfield State Park", note: "Little Pine Lake and mixed hardwoods", walk: "Rustling Leaves · 2.4 mi · moderate", url: "https://tpwd.texas.gov/state-parks/daingerfield", guide: "/destination/daingerfield-state-park" },
+          { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", walk: "Caddo Forest · 0.7 mi · moderate, with steps", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake-state-park" },
+          { name: "Lake Bob Sandlin State Park", note: "Woodland shoreline and reflections", walk: "Lakeview Loop · 0.6 mi · easy", url: "https://tpwd.texas.gov/state-parks/lake-bob-sandlin", guide: "/destination/lake-bob-sandlin-state-park" },
+          { name: "Tyler State Park", note: "Mixed forest and lakeside trails", walk: "Lakeshore · 2.1 mi · easy", url: "https://tpwd.texas.gov/state-parks/tyler", guide: "/destination/tyler-state-park" },
+          { name: "Cooper Lake State Park", note: "South Sulphur and Doctors Creek are separate units", walk: "Honey Creek (South Sulphur) · 0.3 mi · easy", url: "https://tpwd.texas.gov/state-parks/cooper-lake", guide: "/destination/cooper-lake-state-park" },
+          { name: "Martin Creek Lake State Park", note: "Alternative woodland and lakeshore outing", walk: "Harmony Hill · 1.7 mi · easy", url: "https://tpwd.texas.gov/state-parks/martin-creek-lake", guide: "/destination/martin-creek-lake-state-park" },
         ] as const).map((place) => <article key={place.name} className="border border-border bg-background p-5">
           <h3 className="font-display text-xl">{place.name}</h3>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">{place.note}</p>
+          <p className="mt-2 text-sm leading-6"><strong>Suggested first trail:</strong> {place.walk}</p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
             <a href={place.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official park info ↗</a>
             {place.guide && <a href={place.guide} className="font-semibold text-primary underline underline-offset-4">Texas Defined guide →</a>}
+            {place.name === "Caddo Lake State Park" && <a href="https://tpwd.texas.gov/state-parks/caddo-lake/park_events/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Current ranger programs ↗</a>}
           </div>
         </article>)}
       </div>
@@ -663,11 +667,6 @@ function ArticlePage() {
         <a href="/article/best-texas-state-parks-for-fall-colors" className="font-semibold text-primary underline underline-offset-4">More fall-color state parks →</a>
       </nav>
     </Container></Section>}
-    {article.slug === "east-texas-fall-colors" && <Section><Container><SectionHeader eyebrow="Keep planning" title="More fall foliage guides" /><div className="mt-6 grid gap-4 sm:grid-cols-3">
-      <a className="border border-border p-5 text-primary hover:underline" href="/article/fall-in-texas-complete-guide">Texas fall season guide →</a>
-      <a className="border border-border p-5 text-primary hover:underline" href="/article/hill-country-fall-colors">Hill Country fall color →</a>
-      <a className="border border-border p-5 text-primary hover:underline" href="/article/texas-fall-foliage-road-trip">Fall foliage road trip →</a>
-    </div></Container></Section>}
     {article.slug === "hill-country-fall-colors" && <Section tone="surface"><Container>
       <SectionHeader eyebrow="Plan with current information" title="Lost Maples foliage updates and photo credits" />
       <LostMaplesFoliageStatus />
