@@ -113,6 +113,7 @@ jobs:
           node --test scripts/ci/verify-referenced-assets-production.test.mjs
           node scripts/data/validate-national-cemetery-authority.mjs
           node --check scripts/ci/verify-el-paso-fredericksburg-release.mjs
+          node --check scripts/ci/verify-authority-category-live.mjs
 
       - name: Publish validation result
         if: always()
@@ -1035,6 +1036,7 @@ jobs:
           mkdir -p .artifacts
           node scripts/ci/verify-changed-production-pages.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
           node scripts/ci/verify-el-paso-fredericksburg-release.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
+          node scripts/ci/verify-authority-category-live.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
 
       # Hunting-only rendered acceptance. Reuse the standard scoped production
       # deployment, never create another deploy or crawl unrelated pages.
