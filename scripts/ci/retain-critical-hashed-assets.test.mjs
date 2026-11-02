@@ -182,7 +182,7 @@ test('Nov 2 observed Meta/Bing imports are eligible only as same-origin hashed J
     'https://other.example/assets/ArticleCard-OgqXjgNN.js']) assert.equal(safeCriticalAsset(path), false, path);
 });
 
-test('current-build duplicate hashes do not consume 192 old-binary retention slots', async () => {
+test('current-build duplicate hashes do not consume 256 old-binary retention slots', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-budget-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -193,7 +193,7 @@ test('current-build duplicate hashes do not consume 192 old-binary retention slo
     const digest = createHash('sha256').update(body).digest('hex');
     const now = Date.parse('2026-11-02T17:00:00.000Z');
     const at = new Date(now - 1000).toISOString();
-    const built = Array.from({ length: 192 }, (_, i) =>
+    const built = Array.from({ length: 256 }, (_, i) =>
       '/assets/main-Built' + String(i).padStart(3, '0') + '.js');
     for (const name of built) writeFileSync(join(assetFolder, name.split('/').at(-1)), 'current build');
     const old = '/assets/ArticleCard-PreviousVersion123.js';
@@ -210,7 +210,7 @@ test('current-build duplicate hashes do not consume 192 old-binary retention slo
     assert.deepEqual(called, ['https://texasdefined.com' + old]);
     assert.equal(result.retainedCount, 1);
     assert.equal(result.inspected, 1);
-    assert.equal(result.alreadyInBuild.length, 192);
+    assert.equal(result.alreadyInBuild.length, 256);
     assert.equal(result.ignoredOld, 0);
     assert.equal(readFileSync(join(assetFolder, 'ArticleCard-PreviousVersion123.js'), 'utf8'), body);
   } finally {
@@ -218,7 +218,7 @@ test('current-build duplicate hashes do not consume 192 old-binary retention slo
   }
 });
 
-test('old-only transfer attempts stop at 192 and report each ignored hash', async () => {
+test('old-only transfer attempts stop at 256 and report each ignored hash', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-hard-cap-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -228,7 +228,7 @@ test('old-only transfer attempts stop at 192 and report each ignored hash', asyn
     const digest = createHash('sha256').update(body).digest('hex');
     const now = Date.parse('2026-11-02T17:00:00.000Z');
     const at = new Date(now - 1000).toISOString();
-    const assets = Array.from({ length: 195 }, (_, i) => ({
+    const assets = Array.from({ length: 259 }, (_, i) => ({
       path: '/assets/ArticleCard-Historical' + String(i).padStart(3, '0') + '.js',
       wasAvailable: true, preSha256: digest, firstSeenAt: at,
     }));
@@ -240,9 +240,9 @@ test('old-only transfer attempts stop at 192 and report each ignored hash', asyn
         requests++;
         return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
       } });
-    assert.equal(requests, 192);
-    assert.equal(result.inspected, 192);
-    assert.equal(result.retainedCount, 192);
+    assert.equal(requests, 256);
+    assert.equal(result.inspected, 256);
+    assert.equal(result.retainedCount, 256);
     assert.equal(result.ignoredOld, 3);
     assert.equal(result.unavailable.length, 0);
     assert.ok(result.bytes < 24 * 1024 * 1024);
