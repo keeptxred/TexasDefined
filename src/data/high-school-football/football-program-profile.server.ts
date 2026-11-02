@@ -21,6 +21,7 @@ import { loadBatch009FootballProgramEditorial } from './program-editorial-b009-l
 import { loadBatch010FootballProgramEditorial } from './program-editorial-b010-loader.server';
 import { loadBatch011FootballProgramEditorial } from './program-editorial-b011-loader.server';
 import { loadBatch012FootballProgramEditorial } from './program-editorial-b012-loader.server';
+import { loadBatch012GroupTwoEditorial } from './program-editorial-b012-group2-loader.server';
 import { applyAubreyAutoResults } from './aubrey-auto-results';
 import { buildFootballProfileFaq, buildFootballProfileQuickFacts, buildFootballProfileSummary } from './football-profile-content';
 import {
@@ -277,7 +278,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const loneStarEditorial = canonicalSlug === 'frisco-lone-star'
     ? (await import('./program-editorial-frisco-lone-star')).getFriscoLoneStarEditorial()
     : undefined;
-  const baseEditorial = loneStarEditorial ?? (await loadBatch012FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch011FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch010FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
+  const baseEditorial = loneStarEditorial ?? (await loadBatch012GroupTwoEditorial(canonicalSlug)) ?? (await loadBatch012FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch011FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch010FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
   const aubreyAdjustedEditorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;
