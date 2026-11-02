@@ -9,6 +9,7 @@ import { BookingCarRentalCard } from "@/components/monetization/BookingCarRental
 import { destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Destination, TexasRegion } from "@/data/types";
 import { getTpwdActivitiesForDestination, texasLocalDate } from "@/data/tpwd-calendar";
+import { tripDefaultsForDestination } from "@/data/authority/category-trip-presets";
 
 const STORAGE_KEY = "texasdefined.explore.trip.v1";
 const interests = ["hiking", "camping", "swimming", "fishing", "boating", "birding", "wildlife", "history", "museums", "food", "scenic", "family"] as const;
@@ -138,22 +139,18 @@ function TripPlanner() {
   const [saved, setSaved] = useState(false);
   const [message, setMessage] = useState("");
   const seed = useMemo(() => destinations.find((destination) => destination.slug === search.destination), [destinations, search.destination]);
-  // A preset adjusts the existing planner form; it does not create a duplicate
-  // SEO itinerary or pretend generated stops reproduce the editorial article.
-  const preset = search.destination === "fredericksburg" ? ({
-    "downtown-day": { days: 1, title: "Fredericksburg history and downtown day", interests: ["history", "museums", "food"] },
-    "two-night": { days: 3, title: "Fredericksburg wine-country weekend", interests: ["food", "scenic", "history"] },
-    "three-day": { days: 3, title: "Fredericksburg outdoors and history", interests: ["scenic", "hiking", "history"] },
-  } as Record<string, { days: number; title: string; interests: string[] }>)[search.plan ?? ""] : undefined;
+  // One canonical planner uses destination-owned categories to prefill a form,
+  // not to make an additional copy of a destination's editorial itinerary.
+  const preset = tripDefaultsForDestination(seed, search.plan);
   const hasGeneratedDrivingRoute = Boolean(trip?.days.some((day) => day.stops.length));
 
   useEffect(() => {
     if (search.trip) { const shared = decodeTrip(search.trip, destinations); if (shared) { setTrip(shared); return; } }
-    if (search.plan) { setTrip(null); return; } // Curated new request must not show a saved unrelated trip.
+    if (search.destination) { setTrip(null); return; } // Do not display an unrelated locally saved trip for a newly selected destination.
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (!stored) return;
     try { setTrip(JSON.parse(stored) as GeneratedTrip); } catch { window.localStorage.removeItem(STORAGE_KEY); }
-  }, [destinations, search.trip, search.plan]);
+  }, [destinations, search.trip, search.plan, search.destination]);
 
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -215,7 +212,7 @@ function TripPlanner() {
   }
 
   return <main>
-    <section className="border-b border-border bg-surface"><Container className="py-16 sm:py-24"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-foreground">Trip Planner</li></ol></nav><p className="eyebrow mt-8 text-primary">The Texas trip planner</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Trip Planner: build the route before you fill the tank.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Choose the part of Texas, travel month, pace and interests. The planner balances destination relevance, driving distance and route variety using real Texas Defined authority pages.</p>{seed && <p className="eyebrow mt-6 border-t border-border pt-4 text-muted-foreground">Starting point · <strong className="text-foreground">{seed.name}</strong></p>}{preset && <p className="mt-3 max-w-3xl text-sm text-muted-foreground">The selected article itinerary has prefilled your trip length and interests. Build a personalized route below; the resulting stops may differ from the researched article schedule.</p>}</Container></section>
+    <section className="border-b border-border bg-surface"><Container className="py-16 sm:py-24"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-foreground">Trip Planner</li></ol></nav><p className="eyebrow mt-8 text-primary">The Texas trip planner</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas Trip Planner: build the route before you fill the tank.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Choose the part of Texas, travel month, pace and interests. The planner balances destination relevance, driving distance and route variety using real Texas Defined authority pages.</p>{seed && <p className="eyebrow mt-6 border-t border-border pt-4 text-muted-foreground">Starting point · <strong className="text-foreground">{seed.name}</strong></p>}{preset && <p className="mt-3 max-w-3xl text-sm text-muted-foreground">Your destination has prefilled suggested trip length and interests. Build a personalized route below; recommendations are not a copy of a researched itinerary and must be checked with each operator.</p>}</Container></section>
     <PaintedChurchRoutePromo />
     <Container className="py-14 sm:py-18"><div className="grid gap-12 lg:grid-cols-[330px_minmax(0,1fr)] lg:gap-16">
       <form key={(search.destination ?? "") + ":" + (search.plan ?? "")} onSubmit={submit} className="space-y-6 border-t-2 border-foreground pt-6 print:hidden"><div><p className="eyebrow text-primary">Build your trip</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Set the basics. You can adjust the route after it is generated.</p></div><Field label="Trip title" name="title" defaultValue={preset?.title ?? "My Texas trip"} required /><label className="block"><span className="eyebrow text-muted-foreground">Region</span><select name="region" defaultValue={seed?.region ?? ""} className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-sm outline-none focus:border-primary"><option value="">Anywhere in Texas</option>{regions.map((region) => <option key={region.id} value={region.id}>{region.name}</option>)}</select></label><label className="block"><span className="eyebrow text-muted-foreground">Travel month (when no start date)</span><select name="month" defaultValue="" className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-sm outline-none focus:border-primary"><option value="">Any month</option>{monthOptions.map((month, index) => <option key={month} value={index + 1}>{month}</option>)}</select></label><Field label="Trip start date (optional; matches scheduled park programs)" name="startDate" type="date" min={texasLocalDate()} /><div className="grid grid-cols-3 gap-4"><Field label="Days" name="days" type="number" defaultValue={String(preset?.days ?? 2)} min="1" max="14" required /><Field label="Adults" name="adults" type="number" defaultValue="2" min="1" max="20" required /><Field label="Children" name="children" type="number" defaultValue="0" min="0" max="20" required /></div><Field label="Max daily driving (miles)" name="maxDrivingMiles" type="number" defaultValue="150" min="25" max="500" required /><fieldset><legend className="eyebrow text-muted-foreground">Interests</legend><div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">{interests.map((interest) => <label key={interest} className="flex items-center gap-2 text-sm capitalize"><input type="checkbox" name="interests" value={interest} defaultChecked={(preset?.interests ?? ["scenic", "history"]).includes(interest)} />{interest}</label>)}</div></fieldset><label className="flex items-start gap-2 border-t border-border pt-5 text-sm leading-6"><input type="checkbox" name="accessible" className="mt-1" /><span>Only include places with accessibility information</span></label><Button type="submit" className="w-full rounded-none bg-foreground text-background hover:bg-foreground/85">Build itinerary</Button></form>
