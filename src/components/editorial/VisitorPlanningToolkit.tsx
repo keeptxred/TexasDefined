@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MapPreview } from "./MapPreview";
 import { maps } from "@/services/maps";
 import type { ExperiencePlace, VerifiedOffer, VisitorRoute } from "@/data/authority/experience-registry";
+import { estimateVisitorBudget } from "@/data/authority/visitor-budget";
 export type VisitorPlanningProfile = {
   title: string; subjectPlural: string; destinationSlug: string;
   places: ExperiencePlace[]; offers: VerifiedOffer[]; routes: readonly VisitorRoute[];
@@ -24,13 +25,10 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
   const [food, setFood] = useState(0);
   const [transport, setTransport] = useState(0);
   const activePlace = places.find((place) => place.slug === activeSlug) ?? places[0];
-  const selectedOffers = offers.filter((offer) => selectedOfferIds.includes(offer.id));
-  const eligibleOffers = selectedOffers.filter((offer) => offer.maxParty === null || partySize <= offer.maxParty);
-  const ineligibleOffers = selectedOffers.filter((offer) => offer.maxParty !== null && partySize > offer.maxParty);
+  const { eligibleOffers, ineligibleOffers, total: costs, perGuest } =
+    estimateVisitorBudget(offers, selectedOfferIds, partySize, { lodging, food, transport });
   const route = profile.routes.find((item) => item.id === activeRoute)
     ?? profile.routes[0];
-  const tastingEstimate = eligibleOffers.reduce((total, offer) => total + partySize * offer.priceUsd, 0);
-  const costs = lodging + food + transport + tastingEstimate;
   const selectedRouteStops = routeStopSlugs
     .map((slug) => places.find((place) => place.slug === slug))
     .filter((place): place is ExperiencePlace & { coordinates: { lat: number; lng: number } } =>
@@ -299,7 +297,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         ) : null}
         <p className="mt-5 border-t border-border pt-4 text-xl font-semibold" aria-live="polite">
           Planning total: {money(costs)}
-          <span className="ml-3 text-sm font-normal text-muted-foreground">({money(costs / Math.max(1, partySize))} per guest)</span>
+          <span className="ml-3 text-sm font-normal text-muted-foreground">({money(perGuest)} per guest)</span>
         </p>
         <p className="mt-2 text-xs leading-5 text-muted-foreground">
           Not a booking offer. Taxes, tips, additional tastings, deposits and unentered expenses are excluded.
