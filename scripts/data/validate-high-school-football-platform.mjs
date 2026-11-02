@@ -2162,6 +2162,8 @@ const batch010ExpectedUnreviewed = 1062 -
 const batch010ExpectedStatus = batch010Certified ? 'VERIFIED' : 'IMPLEMENTED';
 const batch010ExpectedProduction = batch010Certified;
 const batch010ExpectedTotalVerified = batch010Certified ? 230 : 205;
+// Later certified cohorts do not rewrite the immutable Batch010 baseline.
+const historicalVerifiedThrough010 = batch009Certification.schoolRecords.filter(x => x.status === 'VERIFIED' && x.batch <= 10).length;
 const batch010ExpectedImplemented = batch010Certified ? 0 : 25;
 const batch010ExpectedRemaining = batch010Certified ? 0 : 25;
 if (batch010Certified) {
@@ -2199,10 +2201,10 @@ if (batch010Certified) {
   if (r.batch.number !== 10 || r.batch.slugs.length !== 25 ||
       r.batch.individuallyVerified !== 25 || r.batch.remainingToVerify !== 0 ||
       r.batch.remainingAssigned !== 0 || r.batch.remainingToImplement !== 0 ||
-      r.schoolRecords.filter(x=>x.status==='VERIFIED').length !== 230 ||
+      historicalVerifiedThrough010 !== 230 ||
       r.schoolRecords.filter(x=>x.status==='IMPLEMENTED' && x.batch===10).length !== 0 ||
       r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length !== batch010ExpectedUnreviewed ||
-      r.schoolRecords.filter(x=>x.status==='VERIFIED' && x.batch!==10).length !== 205 ||
+      r.schoolRecords.filter(x=>x.status==='VERIFIED' && x.batch<10).length !== 205 ||
       batch010Certification.individuallyVerified !== 25 ||
       batch010Certification.remainingToVerify !== 0 ||
       batch010Certification.slugs.length !== 25 ||
@@ -2312,11 +2314,11 @@ if(batch009Certified) {
       }
     }
   }
-  if(r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==batch009ExpectedTotalVerified ||
+  if(r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==batch009ExpectedTotalVerified ||
      r.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===9).length!==0 ||
      r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==(1087-
        r.schoolRecords.filter(x=>x.batch>=10&&x.status!=='NOT_REVIEWED').length) ||
-     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch!==9).length!==(batch010Certified?205:180) ||
+     r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10&&x.batch!==9).length!==(batch010Certified?205:180) ||
      r.counts.total!==1292) errors.push('Batch009 technical certification must preserve all historical verified and unreviewed schools.');
 }
 
@@ -2758,25 +2760,31 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       'corpus-christi-calallen','corpus-christi-carroll'
     ];
     const firstFive=expected.slice(0,5);
-    const implemented=expected.filter(slug=>r.schoolRecords.find(x=>x.slug===slug)?.status==='IMPLEMENTED').length;
+    const graduated = r.batch.state === 'VERIFIED_BATCH_011_COMPLETE' &&
+      r.batch.individuallyVerified === 25 &&
+      r.completedBatches.some(b => b.number === 11 && b.state === 'VERIFIED_BATCH_011_COMPLETE' &&
+        b.technicalAcceptance?.schoolCount === 25 &&
+        b.technicalAcceptance?.schoolCasesPassed === 75 &&
+        b.technicalAcceptance?.countyCasesPassed === 18);
+    const implemented=graduated ? 25 : expected.filter(slug=>r.schoolRecords.find(x=>x.slug===slug)?.status==='IMPLEMENTED').length;
     const sourceReady=implemented>=5;
     if(![0,5,10,15,20,25].includes(implemented) ||
-       r.batch.state!=='IN_PROGRESS' || r.batch.slugs.length!==25 ||
+       (!graduated && r.batch.state!=='IN_PROGRESS') || r.batch.slugs.length!==25 ||
        JSON.stringify(r.batch.slugs)!==JSON.stringify(expected) ||
-       r.batch.individuallyVerified!==0 ||
+       r.batch.individuallyVerified!==(graduated?25:0) ||
        r.batch.remainingToImplement!==25-implemented ||
        r.batch.remainingAssigned!==25-implemented ||
-       r.batch.remainingToVerify!==25 ||
+       r.batch.remainingToVerify!==(graduated?0:25) ||
        r.batch.implementedOnBranch!==implemented ||
        r.batch.currentSchool!==(implemented===25?null:expected[implemented]) ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=10).length!==230 ||
-       r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch===11).length!==0)
+       r.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch===11).length!==(graduated?25:0))
       errors.push('Batch011 must advance in complete 5-school cohorts, keeping 230 previous VERIFIED');
     for(const [i,slug] of expected.entries()) {
       const school=r.schoolRecords.find(x=>x.slug===slug);
-      const expectedStatus=sourceReady&&i<implemented?'IMPLEMENTED':'NOT_REVIEWED';
+      const expectedStatus=graduated?'VERIFIED':sourceReady&&i<implemented?'IMPLEMENTED':'NOT_REVIEWED';
       if(!school || school.status!==expectedStatus || school.batch!==11 ||
-        school.actualProductionVerified===true ||
+        school.actualProductionVerified!==graduated ||
         school.schoolPhotoReuseRightsAccepted===true ||
         school.manualAccessibilityAccepted===true)
         errors.push('Batch011 missing safe status or falsely certified: '+slug);
