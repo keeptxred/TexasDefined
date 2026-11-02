@@ -1,0 +1,9 @@
+# Pinned Worker hash recovery fixture: release blocker (2026-11-02)
+
+Production failure [#41499255213](https://github.com/keeptxred/TexasDefined/actions/runs/41499255213) after a verified build and predeploy health: the mandatory in-place test `recover-observed-hashes-from-old-worker.test.mjs` failed with `0 !== 1` at line 45. The test selected `LOGGED_MISSING[0..1]` (= useQuery and ArticleCard), whose first three pinned Worker versions are **intentionally excluded** because an authenticated older deployment proved these exact hashes absent there. It then supplied only one of those known-miss versions and wrongly expected a recovery from it.
+
+This PR corrects only the fixture to exercise two other valid pinned-version hash filenames (`Header-C0Y_eOti.js`, `Container-mLbojg-d.js`). It asserts the recovered SHA, first-party version, exact file bytes, an unresolved second hash and both request outcomes; the HTML-captcha 200 rejection case now genuinely runs a request rather than passing with zero probes. The separate proof that 12 known-miss hashes skip the first three versions remains intact.
+
+No recovery code, strict URI checks, hash validation, Cloudflare asset retention, Googlebot protections, deployment rules, or app content are weakened. Required CI and subsequent release must pass. PR #6553 independently corrects MSR mobile navigation test's reliance on full load; prior production run #41497545976 failed that test, although foliage freshness passed. Neither failure should be hidden or ignored.
+
+Foliage deliverables already merged: [#6549](https://github.com/keeptxred/TexasDefined/pull/6549) dated licensing photo gallery and [#6551](https://github.com/keeptxred/TexasDefined/pull/6551) six-park planner. Google Search Console confirms exact clean canonical indexed from prior crawl, with successful mobile Googlebot fetch. Postrelease exact latest code verification still required.
