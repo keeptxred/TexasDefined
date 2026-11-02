@@ -48,7 +48,9 @@ test('recover old JS only from matching pinned Worker preview; hash and verify o
       filenames:[recoverable,unavailable],fetchImpl});
     assert.equal(report.recovered.length,1);
     assert.equal(report.unresolved.length,1);
-    assert.equal(report.probed.length,1);
+    assert.equal(report.probed.length,2, 'one recoverable and one unavailable hash must each be tested');
+    assert.equal(report.probed[0].matched,true);
+    assert.equal(report.probed[1].matched,false);
     assert.equal(report.recovered[0].sha256,createHash('sha256').update(js).digest('hex'));
     assert.deepEqual(await readFile(join(x.folder,recoverable)),js);
     assert.equal(existsSync(join(x.folder,unavailable)),false);
