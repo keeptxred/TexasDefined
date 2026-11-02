@@ -85,6 +85,7 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^AnswerSummary-[A-Za-z0-9_-]+\.js$/,
   /^texas-home-insurance-calculator\.lazy-[A-Za-z0-9_-]+\.js$/,
   /^useQuery-[A-Za-z0-9_-]+\.js$/,
+  /^useSuspenseQuery-[A-Za-z0-9_-]+\.js$/,
   /^SectionHeader-[A-Za-z0-9_-]+\.js$/,
   /^FootballFanOffers-[A-Za-z0-9_-]+\.js$/,
   /^ElPasoAreaAuthority-[A-Za-z0-9_-]+\.js$/,
