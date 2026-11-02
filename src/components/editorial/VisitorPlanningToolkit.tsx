@@ -237,7 +237,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         <p className="mt-3 text-xs text-muted-foreground">
           Editorial pacing only, not real-time hours, drive times, reservations or availability.
         </p>
-        <a href={"/explore/trip-planner?destination=" + encodeURIComponent(profile.destinationSlug)} className="mt-4 inline-block font-semibold text-primary underline underline-offset-4">
+        <a href={"/explore/trip-planner?destination=" + encodeURIComponent(profile.destinationSlug) + "&plan=" + encodeURIComponent(route.id)} className="mt-4 inline-block font-semibold text-primary underline underline-offset-4">
           Customize this trip in the Texas Trip Planner
         </a>
       </section> : null}
