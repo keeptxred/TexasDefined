@@ -1,0 +1,46 @@
+name: Audit oversized image payloads (50 documented URLs)
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/audit-oversized-image-payloads.yml'
+      - 'scripts/ci/verify-oversized-image-payloads.mjs'
+      - 'src/lib/remote-image-upstream.ts'
+      - 'src/server.ts'
+  workflow_dispatch:
+  schedule:
+    # A bounded weekly 50-URL audit, never the full-site per-deployment scan.
+    - cron: '24 12 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oversized-image-payloads-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Measure actual image response bytes
+    runs-on: ubuntu-latest
+    timeout-minutes: 17
+    env:
+      IMAGE_AUDIT_DIR: .artifacts/image-payloads-20261102
+      # Collect evidence even when a live remote fails or exceeds the budget;
+      # do not confuse a diagnostic pass with 50/50 payload compliance.
+      IMAGE_AUDIT_STRICT: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Measure 50 image URLs from pasted audit on live production
+        run: node scripts/ci/verify-oversized-image-payloads.mjs
+      - name: Preserve full JSON/CSV for failing and passing images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oversized-images-${{ github.run_id }}
+          path: .artifacts/image-payloads-20261102/
+          if-no-files-found: warn
+          retention-days: 30
