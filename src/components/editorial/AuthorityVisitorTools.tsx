@@ -15,6 +15,7 @@ export function AuthorityVisitorTools() {
   const places = fredericksburgWineryPlaces();
   const offers = currentVerifiedOffers();
   const [activeSlug, setActiveSlug] = useState(places[0]?.slug ?? "");
+  const [mapOpen, setMapOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState<string>(fredericksburgWineExperience.routes[0].id);
   const [partySize, setPartySize] = useState(2);
   const [selectedOffer, setSelectedOffer] = useState(offers[0]?.id ?? "");
@@ -135,6 +136,37 @@ export function AuthorityVisitorTools() {
             ) : (
               <p className="mt-1 text-muted-foreground">Accessibility details unverified; contact the venue.</p>
             )}
+            {activePlace.coordinates ? (
+              <>
+                <button type="button" onClick={() => setMapOpen((open) => !open)}
+                  aria-expanded={mapOpen} aria-controls="wine-country-interactive-map"
+                  className="mt-3 block rounded border border-border px-3 py-2 text-sm font-semibold text-primary">
+                  {mapOpen ? "Hide interactive map" : "Show interactive map for this stop"}
+                </button>
+                {mapOpen ? (
+                  <div id="wine-country-interactive-map" className="mt-3">
+                    <iframe
+                      title={"Interactive OpenStreetMap centered on " + activePlace.name}
+                      loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      className="h-80 w-full border border-border"
+                      src={"https://www.openstreetmap.org/export/embed.html?bbox="
+                        + (activePlace.coordinates.lng - 0.035) + "%2C"
+                        + (activePlace.coordinates.lat - 0.025) + "%2C"
+                        + (activePlace.coordinates.lng + 0.035) + "%2C"
+                        + (activePlace.coordinates.lat + 0.025)
+                        + "&layer=mapnik&marker="
+                        + activePlace.coordinates.lat + "%2C" + activePlace.coordinates.lng}
+                    />
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Map data © <a href="https://www.openstreetmap.org/copyright"
+                        target="_blank" rel="noopener noreferrer" className="underline">OpenStreetMap contributors</a>.
+                      Approximate view only; use live directions to plan driving.
+                    </p>
+                  </div>
+                ) : null}
+              </>
+            ) : <p className="mt-2 text-xs text-muted-foreground">An embedded map is unavailable until this location has verified coordinates; use the official address link below.</p>}
             <a href={activePlace.coordinates
               ? maps.directionsUrl(activePlace.coordinates, activePlace.name)
               : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(activePlace.address ?? activePlace.name + " Texas")}
