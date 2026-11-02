@@ -9,6 +9,7 @@ import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { remoteImageRequestHeaders } from "./lib/remote-image-fetch-policy";
 import { optimizedRemoteImageUpstream } from "./lib/remote-image-upstream";
+import { pinnedRemoteImageVariant } from "./lib/pinned-remote-image-variants";
 import { normalizeViatorMarketProducts, VIATOR_LIVE_DESTINATION_IDS, type ViatorLiveMarketResponse } from "./lib/viator-market-feed";
 import { attractionDiscoveryRequestBody, viatorAttractionCandidates, type ViatorAttractionDiscoveryResponse } from "./lib/viator-attraction-discovery";
 import { christmasExperienceSearchBody, normalizeChristmasViatorExperiences } from "./lib/viator-seasonal-discovery";
@@ -539,6 +540,24 @@ async function remoteImageResponse(request: Request, ctx: unknown): Promise<Resp
 
   const target = allowedRemoteImageUrl(requestUrl.searchParams.get("url") ?? "");
   if (!target) return new Response("Remote image URL not allowed", { status: 400 });
+
+  // Two audited Wikimedia photographs have rights-matched 1200px local
+  // WebP copies under the deployment's static assets. Redirect the original
+  // public proxy URLs to those exact immutable photos; the calling page
+  // retains its existing source/creator/license attribution and hero markup.
+  // This branch precedes the old edge cache, so stale oversized responses
+  // cannot hide these approved optimized copies.
+  const pinnedPath = pinnedRemoteImageVariant(target);
+  if (pinnedPath) {
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: new URL(pinnedPath, request.url).href,
+        "Cache-Control": "public, max-age=86400, s-maxage=604800",
+        "X-Content-Type-Options": "nosniff",
+      },
+    });
+  }
 
   const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
   // A new internal cache namespace bypasses pre-fix full-resolution entries.
