@@ -28,6 +28,25 @@ export const OLD_VERSIONS = [
   'ac24c6c9-0e4d-457b-bb9b-0eef784f6760',
   'b633bf9c-a11d-418f-91ae-8f313c4e83db',
 ];
+// Cloudflare verified these exact six historical versions have Worker previews.
+// Prefer the 16:45Z generation that first emitted the newly reported Bing/Meta
+// missing chunk hashes; do not infer the bytes without an actual HTTP200/MIME.
+export const RECENT_OBSERVED_VERSIONS = [
+  '65d863d0-6653-4730-8d0b-0e7a6d443422',
+  'a46f31de-690e-41b0-875b-ab7695e9a4af',
+  '70916cb7-79b8-4b20-bc25-8ffec3e96dd4',
+  '9b183816-2c48-407e-b0d7-72a8234bbb17',
+  '36c47041-8817-425e-9bbd-c71dab3b8ab9',
+  'f9a676e3-3dc8-4b07-ae90-9723ffdf0d94',
+];
+export const RECENT_MISSING = new Set([
+  'PropertyCalculatorFramework-BfNaFZpi.js',
+  'AnswerSummary-ClpRNP9w.js',
+  'texas-home-insurance-calculator.lazy-B-Cusmus.js',
+  'main-BmrHq_-j.js',
+  'destination._slug-BGfPNobU.js',
+  'Container-2O1NhOAV.js',
+]);
 export const LOGGED_MISSING = [
   'useQuery-6nTz4IUX.js','ArticleCard-OgqXjgNN.js',
   'useBaseQuery-DAwRZeNC.js','ElPasoAreaAuthority-D_3Wtymp.js',
@@ -38,6 +57,7 @@ export const LOGGED_MISSING = [
   'article._slug-DsyPOW_g.js','SectionHeader-Do5UIIvo.js',
   'internal-linking-Dmlhp8ZR.js','RouteStatusScreens-BZDUkz0q.js',
   'useLocation-CqpO0pgs.js','UnusualBusinessAuthorityPanel-oTnuUrSP.js',
+  ...RECENT_MISSING,
 ];
 // Authenticated 2026-11-02 production run #41496225567 proved these exact
 // twelve old hashes absent from the first three version previews. Avoid
@@ -50,7 +70,7 @@ export const FIRST_THREE_VERSION_MISSES = new Set([
   'x-BRh_JR62.js', 'SectionHeader-Do5UIIvo.js',
   'internal-linking-Dmlhp8ZR.js', 'UnusualBusinessAuthorityPanel-oTnuUrSP.js',
 ]);
-const MAX_HISTORICAL_PROBES = 85;
+const MAX_HISTORICAL_PROBES = 135;
 export function pinnedVersionUrl(versionId, path) {
   if (!/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/.test(versionId))
     throw Error('Invalid pinned version ID');
@@ -77,9 +97,11 @@ async function sourceBytes(version, path, fetchImpl) {
 }
 export async function recoverObserved({
   now=Date.now(), filenames=LOGGED_MISSING, versions=OLD_VERSIONS,
+  recentVersions=RECENT_OBSERVED_VERSIONS,
   snapshotPath=SNAPSHOT, reportPath=REPORT, folder=FOLDER, fetchImpl=fetch,
 }={}) {
-  if (filenames.length > 24 || versions.length > 8) throw Error('Historical recovery bounds exceeded');
+  if (filenames.length > 28 || versions.length > 8 || recentVersions.length > 6)
+    throw Error('Historical recovery bounds exceeded');
   const snapshot=JSON.parse(await readFile(snapshotPath,'utf8'));
   const latest=snapshot.snapshots?.at(-1);
   if (!latest || !Array.isArray(latest.pages)) throw Error('Predeploy snapshot required');
@@ -103,9 +125,8 @@ export async function recoverObserved({
     let total=0;
     for (const item of missing) {
       let result=null;
-      const candidates = FIRST_THREE_VERSION_MISSES.has(item.name)
-        ? versions.slice(3)
-        : versions;
+      const candidates = RECENT_MISSING.has(item.name) ? recentVersions
+        : FIRST_THREE_VERSION_MISSES.has(item.name) ? versions.slice(3) : versions;
       for (const version of candidates) {
         if (report.probed.length >= MAX_HISTORICAL_PROBES) break;
         result=await sourceBytes(version,item.path,fetchImpl);
