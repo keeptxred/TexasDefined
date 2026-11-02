@@ -84,3 +84,21 @@ test('Batch012 group four has five distinct first-party sourced guides and SSR w
   assert.ok(!editorial.includes('wins:'));
   assert.ok(!editorial.includes('losses:'));
 });
+
+test('Batch012 final five are individually sourced and reachable through canonical SSR', () => {
+  const loader = read('src/data/high-school-football/program-editorial-b012-group5-loader.server.ts');
+  const editorial = read('src/data/high-school-football/program-editorial-b012-group5.ts');
+  const profile = read('src/data/high-school-football/football-program-profile.server.ts');
+  for (const slug of ['crosbyton','cross-plains','crowell','crowley','crystal-city']) {
+    assert.ok(loader.includes(`'${slug}'`), `missing final-five loader slug ${slug}`);
+    assert.ok(editorial.includes(`"${slug}"`), `missing final-five editorial ${slug}`);
+  }
+  assert.ok(loader.includes("import('./program-editorial-b012-group5')"));
+  assert.ok(profile.includes('loadBatch012Group5FootballProgramEditorial(canonicalSlug)'));
+  for (const official of ['https://www.crosbyton.k12.tx.us/page/athletics-schedules','https://www.crossplainsisd.net/','https://www.crowellisd.net/','https://www.crowleyisdtx.org/departments/athletics','https://www.crystalcityisd.org/apps/pages/index.jsp?pREC_ID=544047&type=d&uREC_ID=103114']) {
+    assert.ok(editorial.includes(official), `missing school source ${official}`);
+  }
+  assert.ok(!editorial.includes('imageUrl:'));
+  assert.ok(!editorial.includes('wins:'));
+  assert.ok(!editorial.includes('losses:'));
+});
