@@ -146,3 +146,37 @@ test('previously verified SHA never silently accepts different old code', async 
     assert.equal(existsSync(join(temp, 'client', 'assets', 'Container-OldHashA1.js')), false);
   } finally { rmSync(temp, { recursive: true, force: true }); }
 });
+
+test('Nov 2 observed Meta/Bing imports are eligible only as same-origin hashed JS files', () => {
+  const observed = [
+  "/assets/external-link-DASm7Sot.js",
+  "/assets/useBaseQuery-DAwRZeNC.js",
+  "/assets/DestinationCard-CogOLLKC.js",
+  "/assets/useQuery-6nTz4IUX.js",
+  "/assets/SectionHeader-Do5UIIvo.js",
+  "/assets/FootballFanOffers-DXCuhNe8.js",
+  "/assets/ElPasoAreaAuthority-D_3Wtymp.js",
+  "/assets/internal-linking-Dmlhp8ZR.js",
+  "/assets/ArticleCard-OgqXjgNN.js",
+  "/assets/UnusualBusinessAuthorityPanel-oTnuUrSP.js",
+  "/assets/ArticleBody-Dfj6eFOG.js",
+  "/assets/ParkingMapPanel-BZAeEgAI.js",
+  "/assets/event._slug.lazy-JE-wjs_e.js",
+  "/assets/shop.lazy-tGIKuzrC.js",
+  "/assets/shop.product._productId-BUYhfVVT.js",
+  "/assets/historic-sites-Dw2IKh_M.js",
+  "/assets/museum-authority-network-Bl2sJ_Sq.js",
+  "/assets/DestinationVerifiedVisitorFacts-DsdmC2Dw.js",
+  "/assets/BookingCarRentalCard-BtJO_4As.js",
+  "/assets/DestinationViatorBooking-DzgY8zhJ.js",
+  "/assets/town-authority-links-BTV8jAtI.js",
+  "/assets/CityPassContextualCallout-zSFvIGcO.js",
+  "/assets/CityPassCalloutContent-YecoYaOL.js",
+  "/assets/TexasExplainedContextLinks-CX8yFupy.js",
+  "/assets/TexasEventCarousel-Bjl-TKRv.js",
+  "/assets/sports-traffic.functions-BM-ItR2d.js"
+];
+  for (const path of observed) assert.equal(safeCriticalAsset(path), true, path);
+  for (const path of ['/assets/not-a-verified-family-AbC1234.js', '/assets/../secret-AbC1234.js',
+    'https://other.example/assets/ArticleCard-OgqXjgNN.js']) assert.equal(safeCriticalAsset(path), false, path);
+});
