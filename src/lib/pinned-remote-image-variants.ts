@@ -29,7 +29,7 @@ export function pinnedRemoteImageVariant(original: URL): string | null {
   }
   if (original.hostname === "commons.wikimedia.org" &&
       sourcePath === DALLAS_MUSEUM_ORIGINAL &&
-      (original.search === "" || /^\\?width=\\d{1,4}$/.test(original.search))) {
+      (original.search === "" || /^\?width=\d{1,4}$/.test(original.search))) {
     return PINNED_PHOTO_PATHS[1];
   }
   return null;
