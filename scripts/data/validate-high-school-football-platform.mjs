@@ -2149,7 +2149,7 @@ const batch010Certified = Boolean(batch010Certification);
 // This is a read-only validation view, not a rewrite of the signed archive.
 const batch010View=(registry)=>{
   if(registry.batch.number===10)return registry;
-  if(registry.batch.number!==11 || !batch010Certified) {
+  if(![11,12].includes(registry.batch.number) || !batch010Certified) {
     errors.push('Batch011 may become active only after fully archived Batch010 technical certification.');
     return registry;
   }
