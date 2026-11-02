@@ -151,7 +151,7 @@ const PHOTO_SELECTION = [
 export function EastTexasFoliagePhotoGallery() {
   return <section className="mt-10" aria-labelledby="east-texas-foliage-gallery">
     <h3 id="east-texas-foliage-gallery" className="font-display text-2xl">One real autumn example, plus park reference photographs</h3>
-    <p className="mt-2 text-sm leading-7 text-muted-foreground">The first photograph shows an actual autumn scene at Daingerfield in October 2014. The other six pictures help identify the parks, but were not all taken in fall. We label the season of every photograph rather than suggesting that spring or summer scenes show current foliage. No image here verifies November 2026 conditions.</p>
+    <p className="mt-2 text-sm leading-7 text-muted-foreground">The first photograph shows an actual autumn scene at Daingerfield in October 2014. The other six pictures help identify the parks, but were not all taken in fall. We label the season of every photograph rather than suggesting that spring or summer scenes show current foliage. No image here verifies current-season conditions.</p>
     <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {PHOTO_SELECTION.map((item) => {
         const photo = stateParkHeroMap[item.slug];
