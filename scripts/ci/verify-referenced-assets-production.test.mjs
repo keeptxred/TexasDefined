@@ -215,3 +215,41 @@ test('capture common CSS, header/footer and fallback chunks when built, without 
     '/assets/RouteStatusScreens-F6.js', '/assets/x-G7.js',
   ]);
 });
+
+test('Nov 2 observed Meta/Bing chunks enter bounded predeploy handoff when emitted', () => {
+  const required = ['texas-high-school-football-teams_._slug.lazy-Test1234.js',
+    'property-tax.taxing-unit._unit-Test1234.js'];
+  const observed = [
+  "external-link-DASm7Sot.js",
+  "useBaseQuery-DAwRZeNC.js",
+  "DestinationCard-CogOLLKC.js",
+  "useQuery-6nTz4IUX.js",
+  "SectionHeader-Do5UIIvo.js",
+  "FootballFanOffers-DXCuhNe8.js",
+  "ElPasoAreaAuthority-D_3Wtymp.js",
+  "internal-linking-Dmlhp8ZR.js",
+  "ArticleCard-OgqXjgNN.js",
+  "UnusualBusinessAuthorityPanel-oTnuUrSP.js",
+  "ArticleBody-Dfj6eFOG.js",
+  "ParkingMapPanel-BZAeEgAI.js",
+  "event._slug.lazy-JE-wjs_e.js",
+  "shop.lazy-tGIKuzrC.js",
+  "shop.product._productId-BUYhfVVT.js",
+  "historic-sites-Dw2IKh_M.js",
+  "museum-authority-network-Bl2sJ_Sq.js",
+  "DestinationVerifiedVisitorFacts-DsdmC2Dw.js",
+  "BookingCarRentalCard-BtJO_4As.js",
+  "DestinationViatorBooking-DzgY8zhJ.js",
+  "town-authority-links-BTV8jAtI.js",
+  "CityPassContextualCallout-zSFvIGcO.js",
+  "CityPassCalloutContent-YecoYaOL.js",
+  "TexasExplainedContextLinks-CX8yFupy.js",
+  "TexasEventCarousel-Bjl-TKRv.js",
+  "sports-traffic.functions-BM-ItR2d.js"
+];
+  const selected = selectBuiltRouteAssets([...required, ...observed]).map(asset => asset.path);
+  for (const name of observed) assert.equal(selected.includes('/assets/' + name), true, name);
+  assert.equal(selected.length, observed.length + 2);
+  const absent = selectBuiltRouteAssets(required).map(asset => asset.path);
+  assert.equal(absent.length, 2, 'never fabricate absent old assets');
+});
