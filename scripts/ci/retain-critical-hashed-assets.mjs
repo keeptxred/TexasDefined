@@ -13,7 +13,9 @@ const SNAPSHOT = '.artifacts/asset-handoff-snapshot.json';
 const REPORT = '.artifacts/retained-critical-assets-report.json';
 const ASSET_FOLDER = 'dist/client/assets';
 const SOURCE_ORIGIN = 'https://texasdefined.com';
-const LIMIT_FILES = 96;
+// Proven 96/96 saturation on Nov 2 allowed no headroom for later live hashes.
+// Keep strict 24 MiB total, 2 MiB/file, 72 h, HTTPS, SHA256 and MIME bounds.
+const LIMIT_FILES = 192;
 const LIMIT_BYTES = 24 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
@@ -82,7 +84,7 @@ export async function retain({
       report.alreadyInBuild.push(asset.path);
       continue;
     }
-    // Keep the existing network/copy budget: no more than 96 attempted old
+    // Enforce a bounded ceiling of 192 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
