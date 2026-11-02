@@ -2,6 +2,7 @@ import type { Destination } from "../types";
 import { fredericksburgWineryAuthorityDestinations } from "../fredericksburg-winery-authority-destinations";
 import { williamChrisVineyardsHyeDestinations } from "../william-chris-vineyards-hye-destination";
 import offersJson from "./experience-offers.json";
+import independentOperators from "./independent-operators.json";
 
 /**
  * The destination catalog owns the place, address, map point, nearby attractions
@@ -10,7 +11,7 @@ import offersJson from "./experience-offers.json";
  */
 export type VerifiedOffer = {
   id: string; destinationSlug: string; label: string; priceUsd: number;
-  durationMinutes: number; minAge: number | null; maxParty: number;
+  durationMinutes: number | null; minAge: number | null; maxParty: number | null;
   sourceUrl: string; checkedAt: string; notes: string;
 };
 export type VisitorRoute = {
@@ -22,7 +23,27 @@ const catalog: readonly Destination[] = [
   ...fredericksburgWineryAuthorityDestinations,
   ...williamChrisVineyardsHyeDestinations,
 ];
-const bySlug = new Map(catalog.map((place) => [place.slug, place]));
+export type ExperiencePlace = {
+  slug: string; name: string; nearestTown: string; address?: string;
+  coordinates?: { lat: number; lng: number } | null;
+  officialUrl?: string; reservationUrl?: string; accessibilityNotes?: string;
+  visitDuration?: string; guidePath?: string; sourceUrl?: string;
+};
+const bySlug = new Map<string, ExperiencePlace>(catalog.map((place) => [
+  place.slug,
+  {
+    slug: place.slug, name: place.name, nearestTown: place.nearestTown,
+    address: place.address, coordinates: place.coordinates,
+    officialUrl: place.officialUrl, reservationUrl: place.reservationUrl,
+    accessibilityNotes: place.accessibilityNotes,
+    visitDuration: place.authorityGuide?.assessment.recommendedVisit,
+    guidePath: "/destination/" + place.slug,
+  },
+]));
+for (const place of independentOperators) {
+  if (bySlug.has(place.slug)) throw new Error("Duplicate canonical visitor entity: " + place.slug);
+  bySlug.set(place.slug, { ...place, coordinates: null });
+}
 
 export const fredericksburgWineExperience = {
   articleSlug: "fredericksburg-texas-wineries-things-to-do-guide",
@@ -33,6 +54,9 @@ export const fredericksburgWineExperience = {
     "pedernales-cellars",
     "signor-vineyards",
     "william-chris-vineyards-hye",
+    "grape-creek-on-main",
+    "becker-on-main",
+    "slate-theory-winery",
   ],
   routes: [
     {
@@ -64,10 +88,10 @@ export const fredericksburgWineExperience = {
   ] as readonly VisitorRoute[],
 } as const;
 
-export function fredericksburgWineryPlaces(): Destination[] {
+export function fredericksburgWineryPlaces(): ExperiencePlace[] {
   return fredericksburgWineExperience.operatorSlugs
     .map((slug) => bySlug.get(slug))
-    .filter((place): place is Destination => Boolean(place));
+    .filter((place): place is ExperiencePlace => Boolean(place));
 }
 
 /** Operator offers are suppressed after 45 days; a stale price is never "current". */

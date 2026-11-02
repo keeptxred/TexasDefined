@@ -73,7 +73,7 @@ jobs:
           {
             echo '## Source-research backlog from weekly published curation audit'
             echo ''
-            echo 'These stale visitor answers and published prices are **suppressed** by runtime freshness gates; do not publish them as current without checking each primary operator source again.'
+            echo 'These stale visitor answers and published prices are **already suppressed** by runtime freshness gates; do not publish them as current without checking each primary operator source again.'
             echo ''
             echo "**Audit date:** $(date -u +%Y-%m-%d)"
             echo ''

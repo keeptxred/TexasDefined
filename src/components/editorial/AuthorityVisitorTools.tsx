@@ -25,16 +25,15 @@ export function AuthorityVisitorTools() {
   const selected = offers.find((offer) => offer.id === selectedOffer) ?? null;
   const route = fredericksburgWineExperience.routes.find((item) => item.id === activeRoute)
     ?? fredericksburgWineExperience.routes[0];
-  const quotedPriceApplicable = Boolean(selected && partySize >= 1 && partySize <= selected.maxParty);
+  const quotedPriceApplicable = Boolean(selected && partySize >= 1 && (selected.maxParty === null || partySize <= selected.maxParty));
   const costs = lodging + food + transport + (quotedPriceApplicable && selected ? partySize * selected.priceUsd : 0);
   const money = (amount: number) => new Intl.NumberFormat("en-US", {
     style: "currency", currency: "USD", maximumFractionDigits: 0,
   }).format(amount);
-  const markers = places.filter((place) =>
-    Number.isFinite(place.coordinates?.lat) && Number.isFinite(place.coordinates?.lng),
-  ).map((place) => ({
-    id: place.slug, label: place.name, point: place.coordinates,
-  }));
+  const markers = places.flatMap((place) =>
+    place.coordinates && Number.isFinite(place.coordinates.lat) && Number.isFinite(place.coordinates.lng)
+      ? [{ id: place.slug, label: place.name, point: place.coordinates }] : [],
+  );
   const num = (value: string) => {
     const parsed = Number(value);
     return Number.isFinite(parsed) ? Math.min(100000, Math.max(0, parsed)) : 0;
@@ -67,9 +66,9 @@ export function AuthorityVisitorTools() {
                 <tr key={place.slug} className="border-b border-border align-top">
                   <th scope="row" className="px-3 py-3 font-semibold">{place.name}</th>
                   <td className="px-3 py-3">{place.nearestTown}</td>
-                  <td className="px-3 py-3">{place.authorityGuide?.assessment.recommendedVisit ?? "Confirm with venue"}</td>
+                  <td className="px-3 py-3">{place.visitDuration ?? "Confirm with venue"}</td>
                   <td className="px-3 py-3">
-                    <a className="text-primary underline underline-offset-4" href={"/destination/" + place.slug}>Full venue guide</a>
+                    <a className="text-primary underline underline-offset-4" href={place.guidePath ?? place.officialUrl}> {place.guidePath ? "Full venue guide" : "Official venue details"}</a>
                     {" · "}
                     <a className="text-primary underline underline-offset-4" href={place.reservationUrl ?? place.officialUrl} target="_blank" rel="noopener noreferrer">Official booking or details</a>
                   </td>
@@ -80,8 +79,7 @@ export function AuthorityVisitorTools() {
         </div>
         <p className="mt-3 text-xs leading-5 text-muted-foreground">
           This is a selected, source-backed comparison—not a comprehensive winery directory.
-          Slate Theory and other experiences remain discussed in the editorial guide; an individual venue record
-          is required before we add them to the structured comparison.
+          Unmapped locations use operator-published addresses. Each individual venue guide remains the owner of its detailed story.
         </p>
       </section>
 
@@ -93,9 +91,9 @@ export function AuthorityVisitorTools() {
               {offers.map((offer) => (
                 <div key={offer.id} className="border border-border p-4">
                   <p className="font-semibold">{offer.label}</p>
-                  <p className="mt-1 text-lg font-semibold">{money(offer.priceUsd)} per guest · {offer.durationMinutes} minutes</p>
+                  <p className="mt-1 text-lg font-semibold">{money(offer.priceUsd)} per guest · {offer.durationMinutes === null ? "Confirm duration" : String(offer.durationMinutes) + " minutes"}</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Up to {offer.maxParty} guests · {offer.minAge === null ? "Confirm age policy" : String(offer.minAge) + "+"}
+                    {offer.maxParty === null ? "Confirm group limit" : "Up to " + offer.maxParty + " guests"} · {offer.minAge === null ? "Confirm age policy" : String(offer.minAge) + "+"}
                   </p>
                   <p className="mt-2 text-sm text-muted-foreground">{offer.notes}</p>
                   <a className="mt-2 inline-block text-sm text-primary underline underline-offset-4"
@@ -137,7 +135,9 @@ export function AuthorityVisitorTools() {
             ) : (
               <p className="mt-1 text-muted-foreground">Accessibility details unverified; contact the venue.</p>
             )}
-            <a href={maps.directionsUrl(activePlace.coordinates, activePlace.name)}
+            <a href={activePlace.coordinates
+              ? maps.directionsUrl(activePlace.coordinates, activePlace.name)
+              : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(activePlace.address ?? activePlace.name + " Texas")}
               target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-primary underline underline-offset-4">
               Open interactive map and current directions
             </a>
@@ -203,7 +203,7 @@ export function AuthorityVisitorTools() {
         </div>
         {!quotedPriceApplicable && selected ? (
           <p className="mt-3 text-sm text-primary" role="status">
-            This published tasting is limited to {selected.maxParty} guests; the tasting charge is excluded from this estimate.
+            This published tasting is limited to {selected.maxParty} guests; its tasting charge is excluded from this estimate.
             Contact the operator for a large-group quote.
           </p>
         ) : null}
