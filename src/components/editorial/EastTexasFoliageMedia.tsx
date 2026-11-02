@@ -102,18 +102,14 @@ const PHOTO_SELECTION = [
   },
 
   {
-    slug: "daingerfield-state-park",
-    name: "Daingerfield State Park",
-    source: "https://commons.wikimedia.org/wiki/File:View_in_Daingerfield_State_Park_Texas_2023.jpg",
-    license: "https://creativecommons.org/licenses/by/4.0/",
-    season: "May photograph — park setting, not fall foliage",
-  },
-  {
     slug: "caddo-lake-state-park",
     name: "Caddo Lake State Park",
-    source: "https://commons.wikimedia.org/wiki/File:Bald_cypress_(Taxodium_distichum),_Saw_Mill_Pond,_Caddo_Lake_State_Park,_Harrison_County,_Texas,_USA_(April_2017).jpg",
-    license: "https://creativecommons.org/licenses/by-sa/4.0/",
-    season: "April photograph — bald cypress, not fall color",
+    source: "https://commons.wikimedia.org/wiki/File:Caddo_Lake_at_golden_hour.jpg",
+    license: "https://creativecommons.org/licenses/by/2.0/",
+    season: "October 30, 2023 — a verified late-October scene at Caddo Lake, not evidence of peak color in 2026",
+    photographerCredit: "Shiva Shenoy · October 30, 2023 · CC BY 2.0 · Wikimedia Commons (Flickr license reviewed)",
+    overrideSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Caddo_Lake_at_golden_hour.jpg/960px-Caddo_Lake_at_golden_hour.jpg",
+    overrideAlt: "A late-October golden-hour photograph of Caddo Lake in 2023; not a live fall-foliage report",
   },
   {
     slug: "lake-bob-sandlin-state-park",
@@ -150,8 +146,8 @@ const PHOTO_SELECTION = [
 
 export function EastTexasFoliagePhotoGallery() {
   return <section className="mt-10" aria-labelledby="east-texas-foliage-gallery">
-    <h3 id="east-texas-foliage-gallery" className="font-display text-2xl">One real autumn example, plus park reference photographs</h3>
-    <p className="mt-2 text-sm leading-7 text-muted-foreground">The first photograph shows an actual autumn scene at Daingerfield in October 2014. The other six pictures help identify the parks, but were not all taken in fall. We label the season of every photograph rather than suggesting that spring or summer scenes show current foliage. No image here verifies current-season conditions.</p>
+    <h3 id="east-texas-foliage-gallery" className="font-display text-2xl">Six real park photographs, with dated autumn examples</h3>
+    <p className="mt-2 text-sm leading-7 text-muted-foreground">Daingerfield's October 2014 reflection shows changing hardwoods; the separately dated October 2023 Caddo Lake photograph documents late-autumn light, not a verified foliage peak. The other four images document the parks in different seasons. Every image identifies its source and license, and none certifies current 2026 foliage conditions.</p>
     <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {PHOTO_SELECTION.map((item) => {
         const photo = stateParkHeroMap[item.slug];

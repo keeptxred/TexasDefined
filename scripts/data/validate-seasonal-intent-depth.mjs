@@ -257,8 +257,14 @@ for (const marker of [
   "Harmony Hill Loop",
   "not a live foliage observation",
 ]) if (!eastTexasCopy.includes(marker)) fail("East Texas guide lost verified trail or photo disclosure: " + marker);
-if (!foliageMedia.includes("One real autumn example, plus park reference photographs") ||
-    !foliageMedia.includes("photographerCredit")) fail("East Texas gallery requires a real historical fall photograph first and explicit image credits");
+if (!foliageMedia.includes("Six real park photographs, with dated autumn examples") ||
+    !foliageMedia.includes("photographerCredit") ||
+    !foliageMedia.includes("Caddo_Lake_at_golden_hour.jpg") ||
+    !foliageMedia.includes("Shiva Shenoy") ||
+    !foliageMedia.includes("https://creativecommons.org/licenses/by/2.0/") ||
+    foliageMedia.includes("View_in_Daingerfield_State_Park_Texas_2023.jpg") ||
+    foliageMedia.includes("April photograph — bald cypress, not fall color"))
+  fail("East Texas gallery must retain six distinct source-licensed park images with dated October Daingerfield/Caddo proof and no redundant May photo");
 
 const eastFoliageBrowser = fs.readFileSync("scripts/ci/verify-east-texas-foliage-browser.mjs", "utf8");
 const eastFoliageWorkflow = fs.readFileSync(".github/workflows/verify-east-texas-foliage-browser.yml", "utf8");
