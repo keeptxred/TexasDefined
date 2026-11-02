@@ -192,7 +192,7 @@ const prebuildChecks = [
   ['CODE/REGRESSION', 'Validate date formatting SSR regression', 'node', ['--experimental-strip-types', '--test', 'src/domain/utils/format.test.ts']],
   ['DATA/GEOGRAPHY', 'Validate canonical Texas geography taxonomy', 'node', ['--experimental-strip-types', '--test', 'src/data/__tests__/canonical-geography.test.ts']],
   ['DATA/GEOGRAPHY', 'Validate populated Texas geography knowledge graph', 'node', ['--experimental-strip-types', '--test', 'src/data/__tests__/geography-knowledge-graph.test.ts']],
-  ['IMAGE/NETWORK', 'Validate remote image upstream request policy', 'node', ['--experimental-strip-types', '--test', 'src/lib/remote-image-fetch-policy.test.ts']],
+  ['IMAGE/NETWORK', 'Validate remote image policy and resized upstream identity', 'node', ['--experimental-strip-types', '--test', 'src/lib/remote-image-fetch-policy.test.ts', 'src/lib/remote-image-upstream.test.ts']],
   ['IMAGE/DISCOVER', 'Verify governed Discover delivery regression tests', 'node', ['--test', 'scripts/ci/discover-production-asset-check.test.mjs']],
   ['PROPERTY/DATA', 'Validate priority county property overlays', 'node', ['scripts/data/validate-priority-county-property-overlays.mjs']],
   ['SEO/INDEXING', 'Validate Phase 10 housing index-suppression contract', 'node', ['scripts/data/validate-phase10-housing-indexing.mjs']],
