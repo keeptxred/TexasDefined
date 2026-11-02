@@ -129,7 +129,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         <p className="mt-2 text-sm text-muted-foreground">
           {profile.mapNote ?? "Choose mapped stops to build your route. Verify exact addresses, access, opening dates and reservations with each operator."}
         </p>
-        {markers.length ? <MapPreview markers={markers} directionsLabel="Fredericksburg-area wineries" variant="list" className="mt-4" /> : null}
+        {markers.length ? <MapPreview markers={markers} directionsLabel={profile.title + " locations"} variant="list" className="mt-4" /> : null}
         <div className="mt-4 flex flex-wrap gap-2" aria-label="Select a mapped place">
           {places.map((place) => (
             <button type="button" key={place.slug} onClick={() => setActiveSlug(place.slug)}
