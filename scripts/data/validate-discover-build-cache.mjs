@@ -46,7 +46,12 @@ assert.match(workflow, /- name: Verify current canonical domain before deploy/);
 const health = readFileSync("scripts/ci/verify-production-health.mjs", "utf8");
 const liveImages = readFileSync("scripts/ci/discover-production-asset-check.mjs", "utf8");
 assert.match(health, /PRODUCTION_HEALTH_DISCOVER_ASSETS === 'true'/);
-assert.match(health, /verifyGovernedDiscoverDelivery\(\{ origin \}\)/);
+assert.match(health, /verifyGovernedDiscoverDelivery\(\{ origin, expectedBytesDir: 'dist\/client\/images\/discover' \}\)/);
+assert.match(liveImages, /createHash\('sha256'\)/);
+assert.match(liveImages, /WebP SHA-256 mismatch with built artifact/);
+assert.match(health, /governed-discover-delivery-/);
+assert.match(workflow, /Preserve exact build-to-live Discover WebP SHA-256 provenance/);
+assert.match(workflow, /discover-build-live-sha256-\$\{\{ github\.run_id \}\}/);
 assert.match(health, /process\.exit\(1\)/);
 // Any Worker replacement can regress static assets, even with no image-file diff.
 // Two independent live origins must validate every governed WebP on every release.
