@@ -5,7 +5,7 @@ import { existsSync } from 'node:fs';
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { pinnedVersionUrl, recoverObserved, OLD_VERSIONS, LOGGED_MISSING, RECENT_OBSERVED_VERSIONS, RECENT_MISSING } from './recover-observed-hashes-from-old-worker.mjs';
+import { pinnedVersionUrl, recoverObserved, OLD_VERSIONS, LOGGED_MISSING, RECENT_OBSERVED_VERSIONS, RECENT_MISSING, SECOND_PASS_MISSING, SECOND_PASS_PREVIEW_VERSIONS } from './recover-observed-hashes-from-old-worker.mjs';
 
 const NOW=Date.parse('2026-11-02T18:00:00Z');
 function setup() {
@@ -107,11 +107,11 @@ test('the twelve confirmed first-three-version misses search older pinned versio
   } finally {await rm(root,{recursive:true,force:true});}
 });
 
-test('Nov2 Bing exact calculator hash checks only real recent first-party preview bytes', async () => {
+test('Nov2 exact old main hash checks only real recent first-party preview bytes', async () => {
   const root = await setup();
   try {
     const x = await seed(root);
-    const name = 'PropertyCalculatorFramework-BfNaFZpi.js';
+    const name = 'main-BmrHq_-j.js';
     assert.equal(RECENT_MISSING.has(name), true);
     const bytes = Buffer.from('export const verifiedOldCalculatorModule = true;');
     const urls = [];
@@ -141,7 +141,7 @@ test('a missing recent logged hash is reported and never replaced by invented co
     const name = 'AnswerSummary-ClpRNP9w.js';
     const report = await recoverObserved({ ...x, now: NOW,
       filenames: [name], versions: [OLD_VERSIONS[0]],
-      recentVersions: RECENT_OBSERVED_VERSIONS.slice(0, 2),
+      supplementalVersions: SECOND_PASS_PREVIEW_VERSIONS.slice(0, 2),
       fetchImpl: async () => new Response('not found', { status: 404,
         headers: { 'content-type': 'text/html' } }) });
     assert.equal(report.probed.length, 2);
@@ -154,6 +154,48 @@ test('a missing recent logged hash is reported and never replaced by invented co
 test('verified recovery target and version lists stay within hard budgets', () => {
   assert.equal(LOGGED_MISSING.length, 25);
   assert.equal(RECENT_OBSERVED_VERSIONS.length, 6);
+  assert.equal(SECOND_PASS_PREVIEW_VERSIONS.length, 10);
+  assert.equal(SECOND_PASS_MISSING.size, 3);
+  for (const name of SECOND_PASS_MISSING) assert.ok(RECENT_MISSING.has(name));
   for (const name of RECENT_MISSING)
     assert.ok(LOGGED_MISSING.includes(name), name);
+});
+
+test('supplemental preview search recovers exact previously unavailable Bing calculator bytes without repeating six known misses', async () => {
+  const root = await setup();
+  try {
+    const x = await seed(root);
+    const name = 'AnswerSummary-ClpRNP9w.js';
+    const first = SECOND_PASS_PREVIEW_VERSIONS[0];
+    const second = SECOND_PASS_PREVIEW_VERSIONS[1];
+    const seen = [];
+    const bytes = Buffer.from('export const verifiedOriginalBingChunk = true;');
+    const report = await recoverObserved({ ...x, now: NOW, filenames: [name],
+      supplementalVersions: [first, second], recentVersions: RECENT_OBSERVED_VERSIONS,
+      fetchImpl: async url => {
+        seen.push(url);
+        return url.startsWith('https://' + second.slice(0, 8) + '-')
+          ? new Response(bytes, { status: 200, headers: { 'content-type': 'application/javascript' } })
+          : new Response('not found', { status: 404, headers: { 'content-type': 'text/html' } });
+      } });
+    assert.deepEqual(seen, [pinnedVersionUrl(first, '/assets/' + name),
+      pinnedVersionUrl(second, '/assets/' + name)]);
+    assert.equal(report.probed.length, 2);
+    assert.equal(report.recovered.length, 1);
+    assert.equal(report.recovered[0].sourceVersionId, second);
+    assert.equal(report.recovered[0].sha256, createHash('sha256').update(bytes).digest('hex'));
+    assert.deepEqual(await readFile(join(x.folder, name)), bytes);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('supplemental first-party previews are bounded to ten exact verified version IDs', async () => {
+  const root = await setup();
+  try {
+    const x = await seed(root);
+    await assert.rejects(recoverObserved({ ...x, now: NOW,
+      filenames: ['AnswerSummary-ClpRNP9w.js'],
+      supplementalVersions: [...SECOND_PASS_PREVIEW_VERSIONS, OLD_VERSIONS[0]],
+      fetchImpl: async () => { throw Error('must not request when cap exceeded'); }
+    }), /Historical recovery bounds exceeded/);
+  } finally { await rm(root, { recursive: true, force: true }); }
 });
