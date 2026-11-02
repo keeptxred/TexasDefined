@@ -72,3 +72,24 @@ All findings must be tracked as **historical log entries, distinct actionable de
 - KTR publishing safety net 503 caused by source/image gate must remain fail closed; source-specific verified remediation needed.
 - Shared Supabase `Warp server error: Thread killed by timeout manager` repeated logs, SQL 57014, actual SQL-related backend gateway 5xx and rate limiting: need specific endpoint root-cause before changing production.
 - Verify all new main merges deployed with exact SHA and current/previous bytes; do not claim a CI green check proves production.
+
+## Nov 2, 2026 — verified remediation continuation
+
+### Critical JS hash carryover — first bona fide deployment proof
+- [PR #6535](https://github.com/keeptxred/TexasDefined/pull/6535) merged `bf3a6137e0699f5dabcbd219d4f39f83a5462d33` and deployed Worker version `65d863d0-6653-4730-8d0b-0e7a6d443422` at 16:45:43 UTC Nov 2 (Cloudflare deployment `ba44a4f8-5ff2-400a-8892-101456bab58f`).
+- Actual [protected GitHub artifact #13160354517](https://github.com/keeptxred/TexasDefined/actions/runs/41483925621/artifacts/13160354517) was downloaded and JSON inspected: **63 old-only JS/CSS binaries (5,646,401 bytes) copied**, **33 already present**, **0 unavailable/ignored**; **244/244 live responses valid** across BOTH canonical and direct origins; all 63 copied files tested **126/126** successfully, correct SHA and MIME. Prior release handoff and Worker source versions recorded. This corrects former lack of evidence (Oct31: 0 carried-old bytes).
+- The same prior 24-hour logs still included missing JS to Meta Page Preview and Bing Search Crawler before this deployment. Historical 404s cannot be erased. **Keep [#4913](https://github.com/keeptxred/TexasDefined/issues/4913) open until second subsequent deployment plus continuing real bot/user 404 check; no speculative Google ranking causation**.
+- [PR #6536](https://github.com/keeptxred/TexasDefined/pull/6536) adds bounded **18 total daily GitHub public canaries**, six real WebP response checks for Collin County, Freeman Coliseum and Dubina (canonical AND direct Worker). At checkpoint, protected Merge Gate still running. This addresses an image regression detection gap, NOT #4924 root cause.
+
+### KeepTXRed evergreen publishing
+- Cloudflare observed 10 sampled HTTP500 at `/api/public/hooks/generate-evergreen` in the preceding week, and direct Supabase SQL found **zero published `kind='evergreen'` articles in the last 7 days**.
+- Code-level contradiction: generator appended a strict *breaking-news-only* editorial system addendum saying no clear news event => **leave article fields empty**, to timeless evergreen government topics. [KTR PR #3351](https://github.com/keeptxred/texas-heartland-hub/pull/3351) is **MERGED**, SHA `0115787d949116b0d495080d8a9f1b3e1cf348a0`, protected tests passed. A dedicated evergreen factual evidence brief now expects no breaking news event but requires a complete explanatory article. Existing factual/readability/SEO/length/duplicate validation and 2-call AI ceiling retained, headline matching now enforced rather than waived.
+- Latest KTR Cloudflare deploy as of this checkpoint had **not yet installed merged #3351**. Still requires exact Worker deployment and first successful scheduled publication; do not claim fully repaired.
+
+### TPWD strict-TLS outcome
+- [#5206](https://github.com/keeptxred/TexasDefined/issues/5206) direct PostgreSQL follow-up on 90 historically TLS-failed TPWD (path, URL) pairs: **88 current HTTP200, 1 HTTP206 valid ranged PDF, 1 HTTP400** for a park-specific alert endpoint, **zero remaining certificate errors**. PostgreSQL 17.6 / pg_net 0.20.4. Another TPWD /alert endpoint separately HTTP400 from the original cohort. These 400s were also independently reproduced with external HTTPS web fetch; do not suppress as SSL failures.
+- **31 editorial evidence flags remain**. Do not clear `tpwd_source_transport.needs_independent_recheck` until official factual records actually compared. No TLS validation bypass, HTTP downgrade, or stale certification; transport failure pattern appears resolved, editorial acceptance not complete.
+
+### Scope/incomplete
+- Nov1–Nov2 Supabase gateway and PostgreSQL log aggregation found no fresh server 5xx/SQL ERROR in that 24h window, while KTR RSS relay upstream (Google News and other publishers) still emitted 502/503. Proper upstream statuses stay truthful; published content pipeline should not fabricate success.
+- TD Collin County binary manifest regression #4924 needs exact-worker image bytes and full official manifest proof. Other 22-item backlog groups still open pending root-cause and production evidence. Keep GitHub Actions scheduled monitoring; no new ChatGPT task, no Cloudflare reconnect/cross-site cache purge.
