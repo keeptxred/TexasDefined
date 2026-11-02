@@ -40,12 +40,13 @@ test('Third five source editorial and exact federally sourced campus counties',(
 });
 test('Third five require actual production browser and exact deployed Worker',()=>{
  const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+const graduatedB011 = reg.batch.state==='VERIFIED_BATCH_011_COMPLETE' && reg.completedBatches.some(b=>b.number===11 && b.state==='VERIFIED_BATCH_011_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===18);
  assert.equal(reg.batch.number,11);
  assert.equal(reg.batch.implementedOnBranch,25);
  assert.equal(reg.batch.remainingAssigned,0);
- assert.equal(reg.batch.remainingToVerify,25);
- assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,230);
- assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,25);
+ assert.equal(reg.batch.remainingToVerify,graduatedB011?0:25);
+ assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,graduatedB011?255:230);
+ assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,graduatedB011?0:25);
  const verifier=read('scripts/ci/verify-football-b011-third-five-production.mjs');
  const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
  for(const needle of ['report.schoolChecks.length!==15','report.countyChecks.length!==2','process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
@@ -54,8 +55,8 @@ test('Third five require actual production browser and exact deployed Worker',()
   assert.ok(workflow.includes(needle),'Missing release/screenshot evidence '+needle);
  for(const [slug] of cases){
   const s=reg.schoolRecords.find(row=>row.slug===slug);
-  assert.equal(s.status,'IMPLEMENTED');
-  assert.equal(s.actualProductionVerified,false);
+  assert.equal(s.status,graduatedB011?'VERIFIED':'IMPLEMENTED');
+  assert.equal(s.actualProductionVerified,graduatedB011);
   assert.equal(s.schoolPhotoReuseRightsAccepted,false);
   assert.equal(s.manualAccessibilityAccepted,false);
  }
