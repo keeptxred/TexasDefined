@@ -61,8 +61,39 @@ export const RECENT_MISSING = new Set([
   'destination._slug-BGfPNobU.js',
   'Container-2O1NhOAV.js',
 ]);
+// Three exact calculator-related Bing 404s were proven absent from the first
+// six pinned Nov2 Worker previews in protected artifact #13178379279.
+export const SECOND_PASS_MISSING = new Set([
+  'PropertyCalculatorFramework-BfNaFZpi.js',
+  'AnswerSummary-ClpRNP9w.js',
+  'texas-home-insurance-calculator.lazy-B-Cusmus.js',
+]);
+// All 10 independently verified in Cloudflare API metadata.has_preview=true.
+// Different real source versions; original bytes must still pass all guards.
+export const SECOND_PASS_PREVIEW_VERSIONS = [
+  'feb21bdb-7bfb-455f-bb6f-421484837727',
+  'eebe9812-fb69-4533-a4a8-1edfba6cf405',
+  'd4a56916-4cda-4620-9249-6997cd47eb54',
+  'e9b24e77-4770-4620-8320-34d34589e2bf',
+  '30a85542-9349-407f-8625-c75c4b12b661',
+  'b9ea786c-98a8-43db-b4a1-737bc3ef87d2',
+  'ace85899-ac7e-4541-92c0-58e4468a4069',
+  '2dd8f067-06bb-4f37-9d58-f30f13be8409',
+  '0ea7e9af-3132-41af-9a59-19d4d1084855',
+  'f7a0fc9c-89b8-4c87-8bd3-32d27cb232bf',
+];
+// Verified postrelease live 404 at 21:11:32Z, AI Search ASN714,
+// referrer /search?q=texas%20wine%20country, absent from 694-asset cohort.
+export const LATEST_MISSING = new Set(['useSuspenseQuery-LwAPVdI7.js']);
+export const LATEST_PREVIEW_VERSIONS = [
+  'ad89d209-7f06-4edb-996d-3de4bf9f1a3a',
+  '087cf3fb-68ae-4293-a2a3-b4c984f3e752',
+  'd52362b7-c75c-4d51-8bf6-57eb39f3c973',
+  'eeb54c5c-c511-4a42-beaf-7e13c14877b7',
+];
 export const LOGGED_MISSING = [
   'useQuery-6nTz4IUX.js','ArticleCard-OgqXjgNN.js',
+  'useSuspenseQuery-LwAPVdI7.js',
   'useBaseQuery-DAwRZeNC.js','ElPasoAreaAuthority-D_3Wtymp.js',
   'ArticleBody-Dfj6eFOG.js','external-link-DASm7Sot.js',
   'FootballFanOffers-DXCuhNe8.js','DestinationCard-CogOLLKC.js',
@@ -114,9 +145,11 @@ export async function recoverObserved({
   now=Date.now(), filenames=LOGGED_MISSING, versions=OLD_VERSIONS,
   recentVersions=RECENT_OBSERVED_VERSIONS,
   saturatedVersions=SATURATED_PREVIOUS_WORKER_VERSIONS,
+  supplementalVersions=SECOND_PASS_PREVIEW_VERSIONS,
+  latestVersions=LATEST_PREVIEW_VERSIONS,
   snapshotPath=SNAPSHOT, reportPath=REPORT, folder=FOLDER, fetchImpl=fetch,
 }={}) {
-  if (filenames.length > 33 || versions.length > 8 || recentVersions.length > 6 || saturatedVersions.length > 1)
+  if (filenames.length > 33 || versions.length > 8 || recentVersions.length > 6 || saturatedVersions.length > 1 || supplementalVersions.length > 10 || latestVersions.length > 4)
     throw Error('Historical recovery bounds exceeded');
   const snapshot=JSON.parse(await readFile(snapshotPath,'utf8'));
   const latest=snapshot.snapshots?.at(-1);
@@ -135,7 +168,9 @@ export async function recoverObserved({
     }
     // The newest real Bing/Meta failures take priority if the hard, bounded
     // remote-probe ceiling is reached. Never silently treat skips as recovered.
-    missing.sort((a, b) => Number(SATURATED_PREVIOUS_MISSING.has(b.name)) - Number(SATURATED_PREVIOUS_MISSING.has(a.name))
+    missing.sort((a, b) => Number(LATEST_MISSING.has(b.name)) - Number(LATEST_MISSING.has(a.name))
+      || Number(SECOND_PASS_MISSING.has(b.name)) - Number(SECOND_PASS_MISSING.has(a.name))
+      || Number(SATURATED_PREVIOUS_MISSING.has(b.name)) - Number(SATURATED_PREVIOUS_MISSING.has(a.name))
       || Number(RECENT_MISSING.has(b.name)) - Number(RECENT_MISSING.has(a.name)));
     // For recent logged Bing/Meta 404s, fall back to the separately verified
     // older first-party previews only after the six recent versions miss;
@@ -148,7 +183,9 @@ export async function recoverObserved({
     let total=0;
     for (const item of missing) {
       let result=null;
-      const candidates = SATURATED_PREVIOUS_MISSING.has(item.name) ? saturatedVersions
+      const candidates = LATEST_MISSING.has(item.name) ? latestVersions
+        : SECOND_PASS_MISSING.has(item.name) ? supplementalVersions
+        : SATURATED_PREVIOUS_MISSING.has(item.name) ? saturatedVersions
         : RECENT_MISSING.has(item.name) ? [...recentVersions, ...versions.filter(id => !recentVersions.includes(id))]
         : FIRST_THREE_VERSION_MISSES.has(item.name) ? versions.slice(3) : versions;
       for (const version of candidates) {
