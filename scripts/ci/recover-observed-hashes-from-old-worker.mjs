@@ -137,6 +137,9 @@ export async function recoverObserved({
     // remote-probe ceiling is reached. Never silently treat skips as recovered.
     missing.sort((a, b) => Number(SATURATED_PREVIOUS_MISSING.has(b.name)) - Number(SATURATED_PREVIOUS_MISSING.has(a.name))
       || Number(RECENT_MISSING.has(b.name)) - Number(RECENT_MISSING.has(a.name)));
+    // For recent logged Bing/Meta 404s, fall back to the separately verified
+    // older first-party previews only after the six recent versions miss;
+    // original bytes and provenance are still mandatory. Never guess a hash.
     // Every historical response is checked on its exact path. The previous
     // canary-based shortcut falsely ignored old versions that lacked the sample
     // file but could retain a different missing import. This pass is bounded by
@@ -146,7 +149,7 @@ export async function recoverObserved({
     for (const item of missing) {
       let result=null;
       const candidates = SATURATED_PREVIOUS_MISSING.has(item.name) ? saturatedVersions
-        : RECENT_MISSING.has(item.name) ? recentVersions
+        : RECENT_MISSING.has(item.name) ? [...recentVersions, ...versions.filter(id => !recentVersions.includes(id))]
         : FIRST_THREE_VERSION_MISSES.has(item.name) ? versions.slice(3) : versions;
       for (const version of candidates) {
         if (report.probed.length >= MAX_HISTORICAL_PROBES) break;
