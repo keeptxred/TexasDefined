@@ -6,15 +6,15 @@ import { DestinationAuthoritySections } from "@/components/editorial/Destination
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
 import { townAuthorityContextualLinks } from "@/data/town-authority-links";
 import type { Destination } from "@/data/types";
+import experienceOffers from "@/data/authority/experience-offers.json";
 
 type Props = { destination: Destination };
 const VerifiedExperienceOffers = lazy(() =>
   import("./VerifiedExperienceOffers").then((module) => ({ default: module.VerifiedExperienceOffers })),
 );
-const destinationOfferSlugs = new Set([
-  "becker-vineyards", "grape-creek-vineyards", "signor-vineyards",
-  "william-chris-vineyards-hye",
-]);
+// Derive availability of the reusable offer projection from the canonical registry.
+// Adding source-backed offerings does not require a second hardcoded destination list.
+const destinationOfferSlugs = new Set(experienceOffers.map((offer) => offer.destinationSlug));
 
 // A reference to an airport, highway or nearby town is not a reason to
 // advertise a rental car on an individual museum or local attraction.
