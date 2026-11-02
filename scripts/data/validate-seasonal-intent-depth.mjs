@@ -104,7 +104,7 @@ if (loader.includes("seasonal-intent-depth-blocks") || loader.includes("applySea
 if (!loader.includes('await import("./seasonal-intent-articles")')) {
   fail("lazy seasonal resolver lost its canonical dynamic import");
 }
-if (articles.includes("readingMinutes: 1") || depth.includes("readingMinutes: 1") || loader.includes("readingMinutes: 1")) {
+if ([articles, depth, loader].some((source) => /\breadingMinutes:\s*1(?!\d)/.test(source))) {
   fail("seasonal intent sources must never advertise a one-minute canonical article");
 }
 
