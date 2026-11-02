@@ -144,7 +144,7 @@ test('a missing recent logged hash is reported and never replaced by invented co
       supplementalVersions: SECOND_PASS_PREVIEW_VERSIONS.slice(0, 2),
       fetchImpl: async () => new Response('not found', { status: 404,
         headers: { 'content-type': 'text/html' } }) });
-    assert.equal(report.probed.length, 3, 'after two recent misses, check the pinned older preview');
+    assert.equal(report.probed.length, 2, 'two independent new previews checked without repeating six proven negatives');
     assert.equal(report.recovered.length, 0);
     assert.deepEqual(report.unresolved.map(x => x.path), ['/assets/' + name]);
     assert.equal(existsSync(join(x.folder, name)), false);
