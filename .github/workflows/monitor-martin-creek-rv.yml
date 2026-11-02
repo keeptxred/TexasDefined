@@ -1,6 +1,13 @@
 name: Monitor Martin Creek RV primary sources
 
 on:
+  # Bootstrap the first source check when its monitor is released. Routine
+  # destination copy edits must not retrigger external source checks.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/monitor-martin-creek-rv.yml'
+      - 'scripts/data/check-martin-creek-rv-source-drift.mjs'
   schedule:
     - cron: "33 14 * * 1"
   workflow_dispatch:
