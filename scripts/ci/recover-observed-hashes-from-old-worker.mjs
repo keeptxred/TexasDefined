@@ -39,6 +39,18 @@ export const LOGGED_MISSING = [
   'internal-linking-Dmlhp8ZR.js','RouteStatusScreens-BZDUkz0q.js',
   'useLocation-CqpO0pgs.js','UnusualBusinessAuthorityPanel-oTnuUrSP.js',
 ];
+// Authenticated 2026-11-02 production run #41496225567 proved these exact
+// twelve old hashes absent from the first three version previews. Avoid
+// repeating that known-failing cohort; scan the five older pinned versions.
+export const FIRST_THREE_VERSION_MISSES = new Set([
+  'useQuery-6nTz4IUX.js', 'ArticleCard-OgqXjgNN.js',
+  'useBaseQuery-DAwRZeNC.js', 'ElPasoAreaAuthority-D_3Wtymp.js',
+  'ArticleBody-Dfj6eFOG.js', 'external-link-DASm7Sot.js',
+  'FootballFanOffers-DXCuhNe8.js', 'DestinationCard-CogOLLKC.js',
+  'x-BRh_JR62.js', 'SectionHeader-Do5UIIvo.js',
+  'internal-linking-Dmlhp8ZR.js', 'UnusualBusinessAuthorityPanel-oTnuUrSP.js',
+]);
+const MAX_HISTORICAL_PROBES = 85;
 export function pinnedVersionUrl(versionId, path) {
   if (!/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/.test(versionId))
     throw Error('Invalid pinned version ID');
@@ -83,27 +95,25 @@ export async function recoverObserved({
       if (existsSync(resolve(folder,name))) report.alreadyInBuild.push(path);
       else missing.push({name,path});
     }
-    // Discover working historical versions using 3 real missing filenames;
-    // avoid a blind full 19 x 8 backfill request storm.
-    const working=[];
-    for (const version of versions) {
-      let matched=null;
-      for (const sample of [missing.find(x=>x.name.startsWith('useQuery-')), missing.find(x=>x.name.startsWith('ArticleBody-')), missing.find(x=>x.name.startsWith('article._slug-')), missing[0]].filter((x,i,a)=>x&&a.findIndex(y=>y?.path===x.path)===i)) {
-        if (await sourceBytes(version,sample.path,fetchImpl)) {matched=sample.path;break;}
-      }
-      report.probed.push({version,matched});
-      if (matched) working.push(version);
-      if (working.length>=3) break;
-    }
+    // Every historical response is checked on its exact path. The previous
+    // canary-based shortcut falsely ignored old versions that lacked the sample
+    // file but could retain a different missing import. This pass is bounded by
+    // 85 requests total and skips the three versions already proven absent for
+    // 12 exact hashes in the prior signed production artifact.
     let total=0;
     for (const item of missing) {
       let result=null;
-      for (const version of working) {
+      const candidates = FIRST_THREE_VERSION_MISSES.has(item.name)
+        ? versions.slice(3)
+        : versions;
+      for (const version of candidates) {
+        if (report.probed.length >= MAX_HISTORICAL_PROBES) break;
         result=await sourceBytes(version,item.path,fetchImpl);
+        report.probed.push({version,path:item.path,matched:Boolean(result)});
         if(result)break;
       }
       if(!result) {
-        report.unresolved.push({path:item.path,reason:working.length?'not-in-working-versions':'sample-hashes-not-found-in-pinned-preview-versions'});
+        report.unresolved.push({path:item.path,reason:report.probed.length >= MAX_HISTORICAL_PROBES?'historical-probe-budget-reached':'not-in-pinned-versions'});
         continue;
       }
       if (total+result.bytes.length>MAX_BYTES) {
