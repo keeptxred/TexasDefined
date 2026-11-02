@@ -1,3 +1,7 @@
+## 2026-11-02 — Batch012 source implementation reconciled (NOT production VERIFIED)
+
+All five protected school-specific source cohorts merged: PRs #6528, #6530, #6531, #6533 and #6556. Registry now correctly marks exactly 25 Batch012 schools IMPLEMENTED, with 255 historical VERIFIED and 1,012 NOT_REVIEWED. The genuine Chrome run 41536683944 failed immediately on the prior registry's NOT_REVIEWED status for corpus-christi-flour-bluff; this PR fixes that bookkeeping mismatch without promoting any school to VERIFIED. Production run 41532917995 succeeded, but new Chrome acceptance must be rerun on a release containing this registry change. Require 75 viewport passes, 25 reciprocal county checks, sitemap, FAQ, signed Worker/source, compact artifact, and separate protected graduation PR. No fabricated production acceptance.
+
 # Football Authority — Execution Ledger
 
 ## 2026-11-02 — Batch012 next 25 schools ASSIGNED (not yet authored or verified)
