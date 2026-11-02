@@ -16,7 +16,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
   const offers = profile.offers;
   const [activeSlug, setActiveSlug] = useState(places[0]?.slug ?? "");
   const [mapOpen, setMapOpen] = useState(false);
-  const [activeRoute, setActiveRoute] = useState<string>(profile.routes[0].id);
+  const [activeRoute, setActiveRoute] = useState<string>(profile.routes[0]?.id ?? "");
   const [partySize, setPartySize] = useState(2);
   const [selectedOfferIds, setSelectedOfferIds] = useState<string[]>([]);
   const [routeStopSlugs, setRouteStopSlugs] = useState<string[]>([]);
@@ -67,7 +67,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         </p>
       </header>
 
-      <section aria-labelledby="winery-compare-title">
+      {places.length ? <section aria-labelledby="winery-compare-title">
         <h3 id="winery-compare-title" className="font-display text-2xl">Which experience fits your visit?</h3>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full min-w-[620px] border-collapse text-left text-sm">
@@ -97,7 +97,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
           This is a selected, source-backed comparison—not a comprehensive winery directory.
           Unmapped locations use operator-published addresses. Each individual venue guide remains the owner of its detailed story.
         </p>
-      </section>
+      </section> : null}
 
       <section aria-labelledby="winery-prices-title">
         <h3 id="winery-prices-title" className="font-display text-2xl">Verified offering prices and durations</h3>
@@ -126,7 +126,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         )}
       </section>
 
-      <section aria-labelledby="winery-map-title">
+      {places.length ? <section aria-labelledby="winery-map-title">
         <h3 id="winery-map-title" className="font-display text-2xl">Explore locations and routes</h3>
         <p className="mt-2 text-sm text-muted-foreground">
           Select a verified stop to view its location and open an interactive route map.
@@ -191,6 +191,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
             {activePlace.coordinates ? (
               <button type="button" className="ml-0 mt-3 block rounded border border-border px-3 py-2 font-semibold text-primary"
                 aria-pressed={routeStopSlugs.includes(activePlace.slug)}
+                disabled={!routeStopSlugs.includes(activePlace.slug) && routeStopSlugs.length >= 5}
                 onClick={() => setRouteStopSlugs((current) =>
                   current.includes(activePlace.slug) ? current.filter((slug) => slug !== activePlace.slug)
                     : current.length < 5 ? [...current, activePlace.slug] : current)}>
@@ -213,9 +214,9 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
             <p className="mt-2 text-xs text-muted-foreground">Stops are mapped, not checked for current traffic, drive times or availability. Use a sober driver or approved transportation after tastings.</p>
           </div>
         ) : null}
-      </section>
+      </section> : null}
 
-      <section aria-labelledby="winery-routes-title">
+      {route ? <section aria-labelledby="winery-routes-title">
         <h3 id="winery-routes-title" className="font-display text-2xl">Choose a realistic itinerary</h3>
         <div className="mt-4 flex flex-wrap gap-2">
           {profile.routes.map((item) => (
@@ -241,7 +242,7 @@ export function VisitorPlanningToolkit({ profile }: { profile: VisitorPlanningPr
         <a href={"/explore/trip-planner?destination=" + encodeURIComponent(profile.destinationSlug)} className="mt-4 inline-block font-semibold text-primary underline underline-offset-4">
           Customize this trip in the Texas Trip Planner
         </a>
-      </section>
+      </section> : null}
 
       <section aria-labelledby="winery-budget-title">
         <h3 id="winery-budget-title" className="font-display text-2xl">Estimate your group budget</h3>
