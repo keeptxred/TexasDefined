@@ -17,7 +17,10 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // Keep strict 24 MiB total, 2 MiB/file, 72 h, HTTPS, SHA256 and MIME bounds.
 // Nov 2 real release #41523593259 had 283 eligible old-only files: 256 copied,
 // 27 excluded; only 22 of those were separately recovered. Budget remains 24 MiB.
-const LIMIT_FILES = 384;
+// Run 41529296762 recorded 419 eligible original-byte old hashes (384 retained, 35 omitted).
+// Their recorded combined size is 24,437,049 bytes, below the unchanged 24 MiB limit.
+// Leave room for short-lived additional generations while preserving byte/SHA/age gates.
+const LIMIT_FILES = 448;
 const LIMIT_BYTES = 24 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
@@ -86,7 +89,7 @@ export async function retain({
       report.alreadyInBuild.push(asset.path);
       continue;
     }
-    // Enforce a bounded ceiling of 384 attempted old-only
+    // Enforce a bounded ceiling of 448 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
