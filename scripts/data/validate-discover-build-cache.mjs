@@ -50,8 +50,8 @@ assert.match(health, /verifyGovernedDiscoverDelivery\(\{ origin \}\)/);
 assert.match(health, /process\.exit\(1\)/);
 // Any Worker replacement can regress static assets, even with no image-file diff.
 // Two independent live origins must validate every governed WebP on every release.
-assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\\n\\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
-assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\\n\\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
+assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
+assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/);
 assert.equal((workflow.match(/PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'/g) || []).length, 2,
   'both public origins must fail closed on real image bytes for every production release');
 assert.match(liveImages, /public HTTP 404|HTTP /); // Verifies HTTP status is checked, not solely source-file presence
