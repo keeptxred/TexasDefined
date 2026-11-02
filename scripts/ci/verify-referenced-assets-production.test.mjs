@@ -155,6 +155,7 @@ test('observed Bing calculator and answer modules are included only when emitted
     'property-tax.taxing-unit._unit-BASE.js',
   ];
   const observed = [
+    'useSuspenseQuery-LwAPVdI7.js',
     'PropertyCalculatorFramework-BfNaFZpi.js',
     'AnswerSummary-ClpRNP9w.js',
     'texas-home-insurance-calculator.lazy-B-Cusmus.js',
