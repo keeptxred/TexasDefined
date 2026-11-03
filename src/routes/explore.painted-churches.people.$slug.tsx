@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { GottfriedFluryAuthority } from "@/components/editorial/GottfriedFluryAuthority";
 import { paintedChurchPersonBySlug } from "@/data/painted-church-people";
 import { paintedChurchTechniqueBySlug } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
@@ -20,14 +21,18 @@ export const Route = createFileRoute("/explore/painted-churches/people/$slug")({
     const { person } = loaderData;
     const canonicalPath = `/explore/painted-churches/people/${params.slug}`;
     const pageUrl = `${siteUrl}${canonicalPath}`;
-    const description = `${person.name}: documented role in the Texas Painted Churches, connected churches, techniques, sources and historical significance.`;
+    const isFlury = person.slug === "gottfried-flury";
+    const description = isFlury
+      ? "Gottfried (Godfrey) Flury, 1864–1936: the Swiss-born painter of Praha’s 1895 painted church interior. Explore his biography, documented commissions, artwork, and historical sources."
+      : `${person.name}: documented role in the Texas Painted Churches, connected churches, techniques, sources and historical significance.`;
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: `${person.name} | Texas Painted Churches`, description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: isFlury ? "Gottfried (Godfrey) Flury | Praha Painted Church Artist" : `${person.name} | Texas Painted Churches`, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
         "@graph": [
-          { "@type": "Person", "@id": `${pageUrl}#person`, name: person.name, url: pageUrl, description: person.answer, sameAs: person.sourceUrl, subjectOf: person.churchSlugs.map((slug) => `${siteUrl}/explore/painted-churches/${slug}`), knowsAbout: person.techniqueSlugs?.map((slug) => `${siteUrl}/explore/painted-churches/techniques/${slug}`) },
+          { "@type": "WebPage", "@id": `${pageUrl}#webpage`, url: pageUrl, name: isFlury ? "Gottfried (Godfrey) Flury | Praha Painted Church Artist" : `${person.name} | Texas Painted Churches`, description, mainEntity: { "@id": `${pageUrl}#person` } },
+          { "@type": "Person", "@id": `${pageUrl}#person`, name: person.name, alternateName: isFlury ? "Godfrey Flury" : undefined, birthDate: isFlury ? "1864-07-06" : undefined, deathDate: isFlury ? "1936-10-28" : undefined, birthPlace: isFlury ? { "@type": "Place", name: "Oensingen, Switzerland" } : undefined, hasOccupation: isFlury ? ["Decorative painter", "Commercial artist"] : undefined, url: pageUrl, description: person.answer, mainEntityOfPage: { "@id": `${pageUrl}#webpage` }, sameAs: isFlury ? ["https://www.tshaonline.org/handbook/entries/flury-godfrey"] : undefined, subjectOf: person.churchSlugs.map((slug) => `${siteUrl}/explore/painted-churches/${slug}`), knowsAbout: person.techniqueSlugs?.map((slug) => `${siteUrl}/explore/painted-churches/techniques/${slug}`) },
           { "@type": "BreadcrumbList", itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
             { "@type": "ListItem", position: 2, name: "Painted Churches", item: `${siteUrl}/explore/painted-churches` },
@@ -55,18 +60,11 @@ function PersonPage() {
         </Container>
       </section>
       <Container className="py-14 sm:py-18">
-        <section className="border-t-2 border-foreground pt-8"><p className="eyebrow text-primary">Why this person matters</p><ul className="mt-5 list-disc space-y-3 pl-5 text-base leading-8 text-muted-foreground">{person.significance.map((item) => <li key={item}>{item}</li>)}</ul></section>
-        <section className="mt-14 border-t border-border pt-8">
-          <p className="eyebrow text-primary">How Texas Defined handles attribution</p>
-          <div className="mt-5 max-w-4xl space-y-5 text-base leading-8 text-muted-foreground">
-            <p>A name on a Painted Church page can represent very different work: architect, decorative painter, parish artist, later restorer, historian or researcher. Those roles are not interchangeable. Texas Defined keeps the role labels explicit and connects a person to a church only when the cited record supports that relationship.</p>
-            <p>Attribution also needs a time layer. A surviving interior may combine original work with later repainting, conservation or reconstruction, so identifying a person does not mean that every visible surface can be assigned to that person. The linked church profile carries the narrower chronology and preservation evidence for the building itself.</p>
-            <p>When the historical record is incomplete, this page stays within what the source can support rather than filling gaps from style alone. Follow the connected churches and related techniques to compare documented work, then use the source trail for research, citation or any claim that needs to distinguish original authorship from later intervention.</p>
-          </div>
-        </section>
+        {person.slug !== "gottfried-flury" && <section className="border-t-2 border-foreground pt-8"><p className="eyebrow text-primary">Why this person matters</p><ul className="mt-5 list-disc space-y-3 pl-5 text-base leading-8 text-muted-foreground">{person.significance.map((item) => <li key={item}>{item}</li>)}</ul></section>}
+        {person.slug === "gottfried-flury" && <GottfriedFluryAuthority />}
         <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Connected churches</p><div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2">{churches.map((church) => <article key={church.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{church.city} · {church.county} County</p><h2 className="mt-2 font-display text-2xl"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="hover:text-primary">{church.shortName}</Link></h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{church.summary}</p></article>)}</div></section>
         {person.techniqueSlugs?.length ? <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Related techniques</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{person.techniqueSlugs.map((slug) => <Link key={slug} to="/explore/painted-churches/techniques/$slug" params={{ slug }} className="border-b border-primary text-primary">{paintedChurchTechniqueBySlug.get(slug as any)?.name ?? slug}</Link>)}</div></section> : null}
-        <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Source trail</p><a href={person.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-block font-display text-2xl text-primary hover:underline">{person.sourceLabel}</a><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined distinguishes original authorship, architecture, later restoration and research roles. A name is connected to a church only when a source supports the relationship.</p></section>
+        {person.slug !== "gottfried-flury" && <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Source trail</p><a href={person.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-block font-display text-2xl text-primary hover:underline">{person.sourceLabel}</a><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined distinguishes original authorship, architecture, later restoration and research roles. A name is connected to a church only when a source supports the relationship.</p></section>}
       </Container>
     </main>
   );
