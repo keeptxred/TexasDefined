@@ -427,6 +427,17 @@ jobs:
       # bytes are checked and verified again on both public origins postdeploy.
       # This emergency backfill expires automatically after 72h; unavailable
       # original binaries stay marked unresolved, never fabricated.
+      # Retention failures are fail-closed; retain the exact omitted paths and
+      # budget accounting for diagnosis without relaxing any preservation gate.
+      - name: Upload bounded old-asset retention diagnostic
+        if: always() && steps.retain_critical_assets.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: old-hashed-asset-retention-${{ github.run_id }}
+          path: .artifacts/retained-critical-assets-report.json
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Recover exact observed old JS hashes from pinned Worker versions
         if: success()
         run: |
