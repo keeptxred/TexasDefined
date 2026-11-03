@@ -60,7 +60,9 @@ const graduatedB011 = registry.completedBatches.some(b=>b.number===11 && b.state
  assert.equal(registry.batch.number===11?registry.batch.remainingAssigned:0,0);
  assert.equal(registry.batch.number===11?registry.batch.remainingToVerify:(graduatedB011?0:25),graduatedB011?0:25);
  assert.equal(registry.schoolRecords.filter(t=>t.status==='VERIFIED').length,graduatedB011?255:230);
- assert.equal(registry.schoolRecords.filter(t=>t.status==='IMPLEMENTED').length,graduatedB011?0:25);
+  // A current Batch012 must remain IMPLEMENTED until its own Chrome graduation.
+  assert.equal(registry.schoolRecords.filter(t=>t.status==='IMPLEMENTED').length,
+    registry.batch.number===12 ? 25 : (graduatedB011 ? 0 : 25));
  for(const [slug] of cases){const x=registry.schoolRecords.find(t=>t.slug===slug);
   assert.equal(x.status,graduatedB011?'VERIFIED':'IMPLEMENTED');
   assert.equal(x.actualProductionVerified,graduatedB011);
