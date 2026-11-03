@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { expectedAssetResponse, retain, retentionCandidates, safeCriticalAsset } from './retain-critical-hashed-assets.mjs';
+import { INCIDENT_OMITTED_PROOFS, INCIDENT_FIRST_SEEN } from './incident-omitted-hashed-assets-20261102.mjs';
 
 const hash = 'b'.repeat(64);
 const historical = '2026-10-30T12:00:00.000Z';
@@ -119,7 +120,7 @@ test('actual retention copies byte-identical prior Worker JS to next client asse
       builtAssets: [{ path: '/assets/main-NewHashB2.js' }],
     }] }));
     const requested = [];
-    const result = await retain({ snapshotPath, reportPath, assetFolder, now, fetchImpl: async url => {
+    const result = await retain({ historicalProof: [], snapshotPath, reportPath, assetFolder, now, fetchImpl: async url => {
       requested.push(url);
       return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
     } });
@@ -140,7 +141,7 @@ test('previously verified SHA never silently accepts different old code', async 
       format: 1, capturedAt: new Date().toISOString(),
       pages: [{ path: '/', assets: [{ path, wasAvailable: true, preSha256: 'a'.repeat(64) }] }],
     }] }));
-    await assert.rejects(() => retain({ snapshotPath, assetFolder: join(temp,'client','assets'),
+    await assert.rejects(() => retain({ historicalProof: [], snapshotPath, assetFolder: join(temp,'client','assets'),
       reportPath: join(temp,'report.json'), fetchImpl: async () => new Response('not original bytes',
         { status: 200, headers: { 'Content-Type': 'application/javascript' } }) }),
       /changed under identical hashed filename/);
@@ -205,7 +206,7 @@ test('current-build duplicate hashes do not consume 448 old-binary retention slo
     writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{ format: 1,
       capturedAt: at, pages: [{ path: '/', assets }] }] }));
     const called = [];
-    const result = await retain({ snapshotPath, reportPath, assetFolder, now,
+    const result = await retain({ historicalProof: [], snapshotPath, reportPath, assetFolder, now,
       fetchImpl: async url => {
         called.push(url);
         return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
@@ -238,7 +239,7 @@ test('old-only transfer attempts stop at 448 and block deployment if eligible ha
     writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{ format: 1,
       capturedAt: at, pages: [{ path: '/', assets }] }] }));
     let requests = 0;
-    await assert.rejects(() => retain({ snapshotPath, reportPath, assetFolder, now,
+    await assert.rejects(() => retain({ historicalProof: [], snapshotPath, reportPath, assetFolder, now,
       fetchImpl: async () => {
         requests++;
         return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
@@ -255,6 +256,17 @@ test('old-only transfer attempts stop at 448 and block deployment if eligible ha
     ]));
     assert.equal(report.unavailable.length, 0);
     assert.ok(report.bytes < 24 * 1024 * 1024);
+    const failedSnapshot = JSON.parse(readFileSync(snapshotPath, 'utf8')).snapshots.at(-1);
+    assert.equal(failedSnapshot.omittedAssets.length, 3);
+    // The next production recovery often restores only the newest snapshot.
+    // Its list of retained copies must NOT erase omitted, originally healthy paths.
+    const recovery = retentionCandidates({ snapshots: [{
+      capturedAt: failedSnapshot.capturedAt,
+      pages: [],
+      retainedAssets: failedSnapshot.retainedAssets,
+      omittedAssets: failedSnapshot.omittedAssets,
+    }] }, now);
+    assert.equal(recovery.length, 451);
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }
@@ -290,7 +302,7 @@ test('identical hashed URL cannot conceal different current-build bytes', async 
       pages: [{ assets: [{ path, wasAvailable: true,
         preSha256: createHash('sha256').update(expectedBody).digest('hex') }] }],
     }] }));
-    await assert.rejects(retain({ snapshotPath, assetFolder: folder,
+    await assert.rejects(retain({ historicalProof: [], snapshotPath, assetFolder: folder,
       reportPath: join(temp, 'report.json'), now,
       fetchImpl: async () => { throw Error('Must not fetch duplicate current path'); } }),
       /Current-build asset changed under identical hashed filename/);
@@ -321,4 +333,22 @@ test('seven rapid releases can exceed the old-only cap without refreshing first-
   assert.equal(assets.find(x => x.path === '/assets/main-000000.js').firstSeenAt,
     snapshots[0].capturedAt);
   assert.ok(assets.length > 448, 'existing safe limit must reveal a real multi-release deadlock');
+});
+
+
+test('Nov 2 production omission incident remains fail-closed on next deployment', () => {
+  assert.equal(INCIDENT_OMITTED_PROOFS.length, 27);
+  assert.equal(new Set(INCIDENT_OMITTED_PROOFS.map(x => x.path)).size, 27);
+  for (const asset of INCIDENT_OMITTED_PROOFS) {
+    assert.ok(safeCriticalAsset(asset.path));
+    assert.match(asset.preSha256, /^[a-f0-9]{64}$/);
+    assert.equal(asset.firstSeenAt, INCIDENT_FIRST_SEEN);
+    assert.equal(asset.wasAvailable, true);
+  }
+  const beforeExpiry = Date.parse('2026-11-03T04:43:58.532Z');
+  assert.equal(retentionCandidates({ snapshots: [] }, beforeExpiry,
+    INCIDENT_OMITTED_PROOFS).length, 27);
+  const afterExpiry = Date.parse(INCIDENT_FIRST_SEEN) + 72 * 60 * 60 * 1000 + 1;
+  assert.equal(retentionCandidates({ snapshots: [] }, afterExpiry,
+    INCIDENT_OMITTED_PROOFS).length, 0);
 });
