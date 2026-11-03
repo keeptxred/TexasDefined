@@ -363,10 +363,17 @@ async function verify() {
           combined.get(a.path).preSha256 = a.preSha256;
         } else combined.set(a.path, { ...a, sources: ['old'] });
       }
-      const count = assertBoundedCrossReleaseSet(combined);
-       console.log('[cross-release-asset-verify] origin=' + label(origin) + ' exactAssetCount=' + count +
-         ' hardCap=' + MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN + ' (no sampling)');
-      for (const a of combined.values()) {
+      // Bound each verification cohort, not the complete cross-release set.
+      // Every exact asset is still audited on BOTH origins; never truncate.
+      const allAssets = [...combined.values()];
+      const cohortCount = Math.ceil(allAssets.length / MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN);
+      console.log('[cross-release-asset-verify] origin=' + label(origin) +
+        ' exactAssetCount=' + allAssets.length + ' cohorts=' + cohortCount +
+        ' hardCapPerCohort=' + MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN + ' (no sampling)');
+      for (let offset = 0; offset < allAssets.length; offset += MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN) {
+       const cohort = new Map(allAssets.slice(offset, offset + MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN).map(a => [a.path, a]));
+       assertBoundedCrossReleaseSet(cohort);
+       for (const a of cohort.values()) {
         const [record] = await auditAssets(origin, [a]);
         record.sources = a.sources;
         record.oldHashMatches = !a.preSha256 || !record.ok || record.sha256 === a.preSha256;
@@ -375,6 +382,7 @@ async function verify() {
         if (!record.ok) results.failures.push({ origin: label(origin), path: a.path, status: record.status,
           mime: record.mime || null, sources: a.sources, hashMismatch: record.oldHashMatches === false,
           cfRay: record.cfRay || null });
+       }
       }
     }
   } catch (error) {
