@@ -141,7 +141,26 @@ export async function retain({
       throw new Error('Old static asset changed under identical hashed filename: ' + asset.path);
     }
     if (body.byteLength > LIMIT_ONE_FILE || totalBytes + body.byteLength > LIMIT_BYTES) {
-      throw new Error('Retained client asset size budget exceeded; refuse unbounded release payload');
+      // Persist the exact failing candidate and all previously verified bytes
+      // before refusing to deploy. A thrown error here used to lose the report.
+      report.omittedDetails.push({ path: asset.path, preSha256: actualHash,
+        firstSeenAt: asset.firstSeenAt, kind: asset.kind, bytes: body.byteLength,
+        reason: body.byteLength > LIMIT_ONE_FILE ? 'per-file-byte-cap' : 'total-byte-cap' });
+      omitted.push({ path: asset.path, kind: asset.kind, wasAvailable: true,
+        preSha256: actualHash, firstSeenAt: asset.firstSeenAt });
+      latest.retainedAssets = kept;
+      latest.omittedAssets = omitted;
+      report.bytes = totalBytes;
+      report.retainedCount = kept.length;
+      report.failure = { reason: 'retained-client-asset-size-budget-exceeded',
+        path: asset.path, candidateBytes: body.byteLength,
+        attemptedTotalBytes: totalBytes + body.byteLength,
+        maxBytes: LIMIT_BYTES, maxOneFileBytes: LIMIT_ONE_FILE };
+      await mkdir(dirname(snapshotPath), { recursive: true });
+      await mkdir(dirname(reportPath), { recursive: true });
+      await writeFile(snapshotPath, JSON.stringify(saved, null, 2) + '\\n');
+      await writeFile(reportPath, JSON.stringify(report, null, 2) + '\\n');
+      throw new Error('Retained client asset size budget exceeded; diagnostic saved to ' + reportPath + '; refuse unbounded release payload');
     }
     totalBytes += body.byteLength;
     await writeFile(destination, body);
