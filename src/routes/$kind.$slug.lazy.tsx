@@ -329,6 +329,72 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // Keep previously sourced school cards from being erased by later additions
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
+// Batch012: verified original 25-school campus-to-county source links.
+// Use each independently researched school SEO description instead of inventing
+// match results, campus entrances or unsourced coaching facts. Static anchors
+// are present in the initial HTML even before the county lookup API hydrates.
+const batch012FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  "nueces": [
+    { name: "Flour Bluff Hornets", slug: "corpus-christi-flour-bluff", context: "Independent Flour Bluff Hornets football guide with official school resources, venue caveats and source-qualified visitor information; no unlicensed scores." },
+    { name: "Corpus Christi King Mustangs", slug: "corpus-christi-king", context: "Independent Corpus Christi King Mustangs football guide with official school resources, venue caveats and source-qualified visitor information; no unlicensed scores." },
+    { name: "London Pirates", slug: "corpus-christi-london", context: "Independent London Pirates football guide with official school resources, venue caveats and source-qualified visitor information; no unlicensed scores." },
+    { name: "Corpus Christi Miller Buccaneers", slug: "corpus-christi-miller", context: "Independent Corpus Christi Miller Buccaneers football guide with official school resources, venue caveats and source-qualified visitor information; no unlicensed scores." },
+    { name: "Corpus Christi Moody Trojans", slug: "corpus-christi-moody", context: "Independent Corpus Christi Moody Trojans football guide with official school resources, venue caveats and source-qualified visitor information; no unlicensed scores." },
+    { name: "W. B. Ray Fighting Texans", slug: "corpus-christi-ray", context: "Independent W. B. Ray Fighting Texans football guide: first-party athletics resources, school-specific facts, and source-qualified game-day guidance." },
+    { name: "Tuloso-Midway Warriors", slug: "corpus-christi-tuloso-midway", context: "Independent Tuloso-Midway Warriors football guide: first-party athletics resources, school-specific facts, and source-qualified game-day guidance." },
+    { name: "Corpus Christi Veterans Memorial Fighting Eagles", slug: "corpus-christi-veterans-memorial", context: "Independent Corpus Christi Veterans Memorial Fighting Eagles football guide: first-party athletics resources, school-specific facts, and source-qualified game-day guidance." },
+    { name: "West Oso Bears", slug: "corpus-christi-west-oso", context: "Independent West Oso Bears football guide: first-party athletics resources, school-specific facts, and source-qualified game-day guidance." },
+  ],
+  "polk": [
+    { name: "Corrigan-Camden Bulldogs", slug: "corrigan-camden", context: "Independent Corrigan-Camden Bulldogs football guide: first-party athletics resources, school-specific facts, and source-qualified game-day guidance." },
+  ],
+  "navarro": [
+    { name: "Corsicana Tigers", slug: "corsicana", context: "Source-qualified Corsicana Tigers football guide with district athletics links, specific visitor guidance and no unlicensed score claims." },
+  ],
+  "hale": [
+    { name: "Cotton Center Elks", slug: "cotton-center", context: "Source-qualified Cotton Center Elks football guide with district athletics links, specific visitor guidance and no unlicensed score claims." },
+  ],
+  "la-salle": [
+    { name: "Cotulla Cowboys", slug: "cotulla", context: "Source-qualified Cotulla Cowboys football guide with district athletics links, specific visitor guidance and no unlicensed score claims." },
+  ],
+  "hill": [
+    { name: "Covington Owls", slug: "covington", context: "Source-qualified Covington Owls football guide with district athletics links, specific visitor guidance and no unlicensed score claims." },
+  ],
+  "kaufman": [
+    { name: "Crandall Pirates", slug: "crandall", context: "Source-qualified Crandall Pirates football guide with district athletics links, specific visitor guidance and no unlicensed score claims." },
+  ],
+  "crane": [
+    { name: "Crane Golden Cranes", slug: "crane", context: "Independent Crane Golden Cranes football guide with school-issued sources, specific event and venue caveats and no unlicensed scores." },
+  ],
+  "bosque": [
+    { name: "Cranfills Gap Lions", slug: "cranfills-gap", context: "Independent Cranfills Gap Lions football guide with school-issued sources, specific event and venue caveats and no unlicensed scores." },
+  ],
+  "mclennan": [
+    { name: "Crawford Pirates", slug: "crawford", context: "Independent Crawford Pirates football guide with school-issued sources, specific event and venue caveats and no unlicensed scores." },
+  ],
+  "houston": [
+    { name: "Crockett Bulldogs", slug: "crockett", context: "Independent Crockett Bulldogs football guide with school-issued sources, specific event and venue caveats and no unlicensed scores." },
+  ],
+  "harris": [
+    { name: "Crosby Cougars", slug: "crosby", context: "Independent Crosby Cougars football guide with school-issued sources, specific event and venue caveats and no unlicensed scores." },
+  ],
+  "crosby": [
+    { name: "Crosbyton Chiefs", slug: "crosbyton", context: "Independent Crosbyton Chiefs football guide: school-issued schedules, specific visitor rules and venue distinctions without unlicensed results." },
+  ],
+  "callahan": [
+    { name: "Cross Plains Buffaloes", slug: "cross-plains", context: "Independent Cross Plains Buffaloes football guide: school-issued schedules, specific visitor rules and venue distinctions without unlicensed results." },
+  ],
+  "foard": [
+    { name: "Crowell Wildcats", slug: "crowell", context: "Independent Crowell Wildcats football guide: school-issued schedules, specific visitor rules and venue distinctions without unlicensed results." },
+  ],
+  "tarrant": [
+    { name: "Crowley Eagles", slug: "crowley", context: "Independent Crowley Eagles football guide: school-issued schedules, specific visitor rules and venue distinctions without unlicensed results." },
+  ],
+  "zavala": [
+    { name: "Crystal City Javelinas", slug: "crystal-city", context: "Independent Crystal City Javelinas football guide: school-issued schedules, specific visitor rules and venue distinctions without unlicensed results." },
+  ],
+};
+
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
   'nueces': [{ name: 'Calallen Wildcats', slug: 'corpus-christi-calallen', context: 'NCES Nueces County Calallen High 4001 Wildcat Drive, 4A Division I District 15; Charlie Reeve AD but 2026 HFC not school-confirmed' }, { name: 'Corpus Christi Mary Carroll Tigers', slug: 'corpus-christi-carroll', context: 'Mary Carroll 3202 Saratoga in Nueces County, Calvin Neatherlin school-confirmed athletic coordinator; not Southlake Carroll' }],
   'coryell': [{ name: 'Copperas Cove Bulldawgs', slug: 'copperas-cove', context: 'Coryell County 6A District 12 football; Cove Athletics identifies Rodney Southern current head coach, Tony Johnson is former HFC' }],
@@ -412,7 +478,7 @@ function EntityPage() {
   // Concatenate research batches rather than choosing one map winner.
   // Distinct programs in the same campus county must all remain discoverable.
   const researchedFootballCountyLinks = entity.kind === 'county'
-    ? [...(batch002FootballCountyLinks[entity.slug] ?? []), ...(supplementalFootballCountyLinks[entity.slug] ?? [])]
+    ? [...(batch002FootballCountyLinks[entity.slug] ?? []), ...(supplementalFootballCountyLinks[entity.slug] ?? []), ...(batch012FootballCountyLinks[entity.slug] ?? [])]
         // Imported county-link arrays may temporarily contain missing entries.
         // Do not let one malformed link break an otherwise valid county page.
         .filter((school) => Boolean(school?.slug && school?.name))
