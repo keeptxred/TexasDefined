@@ -204,7 +204,33 @@ function Page() {
     'comfort': 'kendall', // 143 Highway 87 N campus in Kendall County verified by NCES 481479000979.
     'commerce': 'hunt', // Commerce High Tigers campus in Hunt County; school-managed visitor links.
     'corpus-christi-carroll': 'nueces', // Corpus Christi Mary Carroll Tigers school; not Southlake Carroll Dragons.
-    'corpus-christi-calallen': 'nueces', // NCES Calallen High 4001 Wildcat Drive Nueces; athletics office separately located.
+    'corpus-christi-calallen': 'nueces',
+    // Batch012 campus counties: distinguish school campus from stadium gate and ISD service area.
+    'corpus-christi-flour-bluff': 'nueces',
+    'corpus-christi-king': 'nueces',
+    'corpus-christi-london': 'nueces',
+    'corpus-christi-miller': 'nueces',
+    'corpus-christi-moody': 'nueces',
+    'corpus-christi-ray': 'nueces',
+    'corpus-christi-tuloso-midway': 'nueces',
+    'corpus-christi-veterans-memorial': 'nueces',
+    'corpus-christi-west-oso': 'nueces',
+    'corrigan-camden': 'polk',
+    'corsicana': 'navarro',
+    'cotton-center': 'hale',
+    'cotulla': 'la-salle',
+    'covington': 'hill',
+    'crandall': 'kaufman',
+    'crane': 'crane',
+    'cranfills-gap': 'bosque',
+    'crawford': 'mclennan',
+    'crockett': 'houston',
+    'crosby': 'harris',
+    'crosbyton': 'crosby',
+    'cross-plains': 'callahan',
+    'crowell': 'foard',
+    'crowley': 'tarrant',
+    'crystal-city': 'zavala', // NCES Calallen High 4001 Wildcat Drive Nueces; athletics office separately located.
     'cornerstone-christian': 'bexar', // SA NW Military private CCS Warriors; never assign UIL district or Sugar Land namesake.
     'copperas-cove': 'coryell', // High-school campus Coryell; Rodney Southern current HFC, not Tony Johnson.
     'coppell': 'dallas', // NCES Coppell High on West Parkway, Dallas County.
