@@ -294,6 +294,19 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add(page);
     magoffinHomePages.add(page);
   }
+  // Keep one image-metadata canary when the Moody Gardens curation, the
+  // destination schema template or the production verifier changes.
+  const moodyGardensPages = new Set();
+  if (changedFiles.some(path => [
+    'src/data/destination-curation-top-attractions-batch3.ts',
+    'src/routes/destination.$slug.tsx',
+    'scripts/ci/production-change-scope.mjs',
+    'scripts/ci/verify-changed-production-pages.mjs',
+  ].includes(path))) {
+    const page = '/destination/moody-gardens';
+    candidates.add(page);
+    moodyGardensPages.add(page);
+  }
   // A shared football template affects every profile, but two representative
   // verified teams provide a bounded production canary without a 1,268-page crawl.
   const footballGameNightPages = new Set();
@@ -585,7 +598,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...loneStarFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...huntingAuthorityPages, ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...moodyGardensPages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...loneStarFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
@@ -601,6 +614,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     battleshipVisitorPages: selectedPaths.filter(p => battleshipVisitorPages.has(p)),
     fredericksburgSitemapPaths: selectedPaths.filter(p => fredericksburgSitemapPaths.has(p)),
     magoffinHomePages: selectedPaths.filter(p => magoffinHomePages.has(p)),
+    moodyGardensPages: selectedPaths.filter(p => moodyGardensPages.has(p)),
     davisHillPages: selectedPaths.filter(p => davisHillPages.has(p)),
     redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,

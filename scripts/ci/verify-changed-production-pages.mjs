@@ -124,6 +124,38 @@ function assertMagoffinLicensedImageStructuredData(html) {
   }
 }
 
+function assertMoodyGardensLicensedImageStructuredData(html) {
+  const pageUrl = 'https://texasdefined.com/destination/moody-gardens';
+  const documents = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter(([, attrs]) => /\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))
+    .flatMap(([, , source]) => {
+      try { const value = JSON.parse(source); return Array.isArray(value) ? value : [value]; }
+      catch { return []; }
+    });
+  const nodes = documents.flatMap((doc) => doc && typeof doc === 'object'
+    ? Array.isArray(doc['@graph']) ? doc['@graph'] : [doc] : []);
+  const attraction = nodes.find((node) => node?.['@id'] === pageUrl + '#attraction'
+    && [node['@type']].flat().includes('TouristAttraction'));
+  const images = Array.isArray(attraction?.image) ? attraction.image : attraction?.image ? [attraction.image] : [];
+  const image = images.find((node) => node?.['@type'] === 'ImageObject'
+    && node?.['@id'] === pageUrl + '#primaryimage');
+  if (!image
+    || typeof image.url !== 'string' || !image.url.includes('Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg')
+    || image.contentUrl !== image.url
+    || typeof image.caption !== 'string' || !image.caption.includes('Moody Gardens')
+    || !image.creditText?.includes('Larry D. Moore')
+    || image.creator?.['@type'] !== 'Person' || image.creator?.name !== 'Larry D. Moore'
+    || image.copyrightNotice !== '© 2026 Larry D. Moore'
+    || image.license !== 'https://creativecommons.org/licenses/by/4.0/'
+    || image.acquireLicensePage !== 'https://commons.wikimedia.org/wiki/File:Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg') {
+    throw new Error('Moody Gardens primary image metadata missing verified photographer and licensing fields');
+  }
+  const visibleMarkup = html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
+  if (!visibleMarkup.includes('Larry D. Moore') || !visibleMarkup.includes('CC BY 4.0')) {
+    throw new Error('Moody Gardens photograph lacks visible photographer/license attribution');
+  }
+}
+
 // A previously successful deploy could still serve Katy's old title and
 // missing stadium section from the ordinary, cached URL. Inspect both surfaces.
 export function assertKatyFootballContents(html, surface = 'release') {
@@ -379,6 +411,7 @@ const loneStarFootballPages = plan.loneStarFootballPages ?? [];
 const battleshipVisitorPages = plan.battleshipVisitorPages ?? [];
 const fredericksburgSitemapPaths = plan.fredericksburgSitemapPaths ?? [];
 const magoffinHomePages = plan.magoffinHomePages ?? [];
+const moodyGardensPages = plan.moodyGardensPages ?? [];
 const davisHillPages = plan.davisHillPages ?? [];
 if (!Array.isArray(loneStarFootballPages) || loneStarFootballPages.length > 1 || loneStarFootballPages.some(p => p !== '/texas-high-school-football-teams/frisco-lone-star' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Lone Star production contract');
 if (!Array.isArray(katyFootballPages) || katyFootballPages.length > 1 || katyFootballPages.some(p => p !== '/texas-high-school-football-teams/katy' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Katy football production contract');
@@ -395,6 +428,7 @@ if (!Array.isArray(mardiGrasHubPages) || mardiGrasHubPages.length > 1 || mardiGr
 if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 || battleshipVisitorPages.some(p => p !== '/destination/battleship-texas' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Battleship visitor acceptance contract');
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
+if (!Array.isArray(moodyGardensPages) || moodyGardensPages.length > 1 || moodyGardensPages.some(p => p !== '/destination/moody-gardens' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Moody Gardens production metadata contract');
 if (!Array.isArray(davisHillPages) || davisHillPages.length > 1 || davisHillPages.some(p => p !== '/destination/davis-hill-state-park' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Davis Hill image acceptance contract');
 if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 3 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
@@ -709,6 +743,20 @@ for (const path of plan.selectedPaths) {
         }
         const ordinaryHtml = await ordinaryResponse.text();
         assertMagoffinLicensedImageStructuredData(ordinaryHtml);
+      }
+      if (moodyGardensPages.includes(path)) {
+        assertMoodyGardensLicensedImageStructuredData(html);
+        // The public canonical response must be correct as well: a cache-busted
+        // successful smoke alone would not prove Google sees fresh metadata.
+        const ordinaryResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Moody-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!ordinaryResponse.ok || ordinaryResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Moody Gardens canonical visitor URL failed: HTTP ' + ordinaryResponse.status);
+        }
+        assertMoodyGardensLicensedImageStructuredData(await ordinaryResponse.text());
       }
       if (davisHillPages.includes(path)) {
         // The old Davis Hill build had image metadata but no visible hero.
