@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/editorial-policy";
-const reviewedAt = "2026-09-14";
+const reviewedAt = "2026-11-03";
 const description = "Read the Texas Defined editorial policy covering bylines, sourcing, verification, updates, independence, automated tools, visual media, and the distinction between editorial guidance and official authority.";
 
 export const Route = createFileRoute(canonicalPath)({
@@ -95,7 +95,7 @@ function EditorialPolicyPage() {
           <p className="eyebrow text-primary">Editorial standards</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-none sm:text-6xl">Editorial Policy</h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{description}</p>
-          <p className="mt-4 text-sm text-muted-foreground">Policy last reviewed September 14, 2026.</p>
+          <p className="mt-4 text-sm text-muted-foreground">Policy last reviewed November 3, 2026.</p>
         </Container>
       </section>
 
@@ -107,6 +107,13 @@ function EditorialPolicyPage() {
               <p className="mt-4">{section.body}</p>
             </section>
           ))}
+
+          <section className="border-t border-border pt-6" id="historical-attribution">
+            <h2 className="font-display text-3xl text-foreground">How Texas Defined handles attribution</h2>
+            <p className="mt-4">A name on a Painted Church page can represent very different work: architect, decorative painter, parish artist, later restorer, historian or researcher. Those roles are not interchangeable. Texas Defined keeps the role labels explicit and connects a person to a church only when the cited record supports that relationship.</p>
+            <p className="mt-4">Attribution also needs a time layer. A surviving interior may combine original work with later repainting, conservation or reconstruction, so identifying a person does not mean that every visible surface can be assigned to that person. The linked church profile carries the narrower chronology and preservation evidence for the building itself.</p>
+            <p className="mt-4">When the historical record is incomplete, this page stays within what the source can support rather than filling gaps from style alone. Follow the connected churches and related techniques to compare documented work, then use the source trail for research, citation or any claim that needs to distinguish original authorship from later intervention.</p>
+          </section>
 
           <section className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-foreground">Related trust resources</h2>
