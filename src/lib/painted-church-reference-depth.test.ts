@@ -7,6 +7,9 @@ const glossary = routeSource("explore.painted-churches.glossary.$slug.tsx");
 const heritage = routeSource("explore.painted-churches.heritage.$slug.tsx");
 const people = routeSource("explore.painted-churches.people.$slug.tsx");
 const preservation = routeSource("explore.painted-churches.preservation.$slug.tsx");
+const editorial = routeSource("editorial-policy.tsx");
+const flury = readFileSync(new URL("../components/editorial/GottfriedFluryAuthority.tsx", import.meta.url), "utf8");
+const peopleData = readFileSync(new URL("../data/painted-church-people.ts", import.meta.url), "utf8");
 
 describe("Painted Churches reference-page depth", () => {
   it("keeps glossary interpretation tied to church-specific evidence", () => {
@@ -21,10 +24,23 @@ describe("Painted Churches reference-page depth", () => {
     expect(heritage).toContain("documented communities rather than stereotypes");
   });
 
-  it("distinguishes documented people roles and later intervention", () => {
-    expect(people).toContain("How Texas Defined handles attribution");
-    expect(people).toContain("Those roles are not interchangeable");
-    expect(people).toContain("rather than filling gaps from style alone");
+  it("keeps attribution boilerplate out of every biography and only in editorial policy", () => {
+    expect(people).not.toContain("How Texas Defined handles attribution");
+    expect(people).not.toContain("Those roles are not interchangeable");
+    expect(editorial).toContain("How Texas Defined handles attribution");
+    expect(editorial).toContain("Those roles are not interchangeable");
+    expect(editorial).toContain("rather than filling gaps from style alone");
+  });
+
+  it("documents Flury with independently cited biography, verified imagery, and cautious attributions", () => {
+    expect(people).toContain("<GottfriedFluryAuthority />");
+    expect(people).toContain("birthDate: isFlury ?");
+    expect(people).toContain("deathDate: isFlury ?");
+    expect(people).toContain('sameAs: isFlury ? ["https://www.tshaonline.org/handbook/entries/flury-godfrey"] : undefined');
+    expect(peopleData).toContain("Gottfried (Godfrey) Flury (1864–1936)");
+    for (const required of ["Documented versus uncertain work", "1972", "National Register", "Flury's life and the evidence trail", "Gottfried (Godfrey) Flury", "paintedChurchGalleryBySlug", "photo.license", "item-level reuse restrictions", "https://www.tshaonline.org/handbook/entries/flury-godfrey", "https://austinpbs.org/paintedchurches/praha"]) {
+      expect(flury).toContain(required);
+    }
   });
 
   it("distinguishes original fabric, repainting, reconstruction and conservation", () => {
