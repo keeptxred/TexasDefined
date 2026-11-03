@@ -352,3 +352,30 @@ test('Nov 2 production omission incident remains fail-closed on next deployment'
   assert.equal(retentionCandidates({ snapshots: [] }, afterExpiry,
     INCIDENT_OMITTED_PROOFS).length, 0);
 });
+
+
+test('retention byte-cap failure persists parseable JSON diagnostics', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-retention-failure-json-'));
+  try {
+    const body = 'x'.repeat(2 * 1024 * 1024 + 1);
+    const digest = createHash('sha256').update(body).digest('hex');
+    const snapshotPath = join(temp, 'snapshot.json');
+    const reportPath = join(temp, 'report.json');
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      capturedAt: new Date().toISOString(),
+      pages: [{ assets: [{ path: '/assets/main-TooLarge.js',
+        wasAvailable: true, preSha256: digest }] }],
+    }] }));
+    await assert.rejects(() => retain({ historicalProof: [], snapshotPath, reportPath,
+      assetFolder: join(temp, 'assets'), fetchImpl: async () => new Response(body, {
+        status: 200, headers: { 'Content-Type': 'application/javascript' },
+      }) }), /Retained client asset size budget exceeded/);
+    const report = JSON.parse(readFileSync(reportPath, 'utf8'));
+    const snapshot = JSON.parse(readFileSync(snapshotPath, 'utf8'));
+    assert.equal(report.failure.reason, 'retained-client-asset-size-budget-exceeded');
+    assert.equal(report.failure.path, '/assets/main-TooLarge.js');
+    assert.equal(snapshot.snapshots.at(-1).omittedAssets.length, 1);
+  } finally {
+    rmSync(temp, { recursive: true, force: true });
+  }
+});
