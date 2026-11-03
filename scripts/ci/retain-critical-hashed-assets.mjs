@@ -8,6 +8,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { INCIDENT_OMITTED_PROOFS } from './incident-omitted-hashed-assets-20261102.mjs';
 
 const SNAPSHOT = '.artifacts/asset-handoff-snapshot.json';
 const REPORT = '.artifacts/retained-critical-assets-report.json';
@@ -32,7 +33,7 @@ export function safeCriticalAsset(path) {
   return /^(?:main-|Container-|Header-|Footer-|RouteStatusScreens-|styles-|x-|property-tax\.|texas-high-school-football-teams_|texas-high-school-football-districts_|texas-high-school-football-districts\.lazy-|useLocation-|SponsoredSportsPlacement-|createLucideIcon-|ContextualOfficialSources-|CitationTrustPanel-|CitationCollectionTrustRouter-|analytics-|events\.lazy-|events\._collection\.lazy-|food\._slug\.lazy-|article\._slug-|destination\._slug-|events\.index\.lazy-|explore\.index\.lazy-|search\.lazy-|fishing\.lakes\._slug-|texas-high-school-football-playoff-brackets-|MuseumAuthorityNetworkSection-|museum-authority-heroes-|external-link-|useBaseQuery-|DestinationCard-|PropertyCalculatorFramework-|AnswerSummary-|texas-home-insurance-calculator\.lazy-|useQuery-|SectionHeader-|FootballFanOffers-|ElPasoAreaAuthority-|internal-linking-|ArticleCard-|UnusualBusinessAuthorityPanel-|ArticleBody-|ParkingMapPanel-|event\._slug\.lazy-|shop\.lazy-|shop\.product\._productId-|historic-sites-|museum-authority-network-|DestinationVerifiedVisitorFacts-|BookingCarRentalCard-|DestinationViatorBooking-|town-authority-links-|CityPassContextualCallout-|CityPassCalloutContent-|TexasExplainedContextLinks-|TexasEventCarousel-|MapPreview-|dallas-small-town-drives-|explore\.near\._metro\._collection\.lazy-|explore\.near\._metro\.lazy-|explore\.near\._metro\._collection-|explore\.near\._metro-|sports-traffic\.functions-|texas-data\.lazy-)/.test(name);
 }
 
-export function retentionCandidates(history, now = Date.now()) {
+export function retentionCandidates(history, now = Date.now(), historicalProof = []) {
   const snapshots = Array.isArray(history?.snapshots) ? history.snapshots : [];
   const candidates = new Map();
   function include(item, firstSeenAt, priority) {
@@ -53,7 +54,11 @@ export function retentionCandidates(history, now = Date.now()) {
     for (const page of snapshot?.pages || []) for (const asset of page?.assets || []) include(asset, at, 1);
     for (const asset of snapshot?.legacyAssets || []) include(asset, at, 2);
     for (const asset of snapshot?.retainedAssets || []) include(asset, at, 3);
+    // Omitted does not mean unavailable: it was proven healthy before a failed
+    // release; a subsequent handoff must not erase the obligation silently.
+    for (const asset of snapshot?.omittedAssets || []) include(asset, at, 4);
   }
+  for (const asset of historicalProof) include(asset, asset.firstSeenAt, 4);
   return [...candidates.values()].sort((a, b) =>
     b.firstSeenAt.localeCompare(a.firstSeenAt) || b.priority - a.priority || a.path.localeCompare(b.path));
 }
@@ -68,16 +73,18 @@ export function expectedAssetResponse(kind, status, mime, bytes) {
 export async function retain({
   snapshotPath = SNAPSHOT, reportPath = REPORT, assetFolder = ASSET_FOLDER,
   sourceOrigin = SOURCE_ORIGIN, fetchImpl = fetch, now = Date.now(),
+  historicalProof = INCIDENT_OMITTED_PROOFS,
 } = {}) {
   const saved = JSON.parse(await readFile(snapshotPath, 'utf8'));
   const latest = saved.snapshots?.at(-1);
   if (!latest || !Array.isArray(latest.pages)) throw new Error('Current predeploy asset snapshot missing');
-  const candidates = retentionCandidates(saved, now);
+  const candidates = retentionCandidates(saved, now, historicalProof);
   const report = { format: 1, checkedAt: new Date(now).toISOString(), version: 'predeploy-current-worker',
     budget: { maxFiles: LIMIT_FILES, maxBytes: LIMIT_BYTES, maxAgeHours: 72 }, inspected: 0,
     copied: [], alreadyInBuild: [], alreadyInBuildDetails: [], unavailable: [],
     ignoredOld: 0, ignoredOldPaths: [], omittedDetails: [] };
   const kept = [];
+  const omitted = [];
   let totalBytes = 0;
   let attemptedOld = 0;
   await mkdir(assetFolder, { recursive: true });
@@ -105,6 +112,8 @@ export async function retain({
       report.ignoredOldPaths.push(asset.path);
       report.omittedDetails.push({ path: asset.path, preSha256: asset.preSha256,
         firstSeenAt: asset.firstSeenAt, kind: asset.kind });
+      omitted.push({ path: asset.path, kind: asset.kind, wasAvailable: true,
+        preSha256: asset.preSha256, firstSeenAt: asset.firstSeenAt });
       continue;
     }
     attemptedOld += 1;
@@ -149,6 +158,10 @@ export async function retain({
   // separately retained; Wrangler already includes them. Future snapshots
   // will discover their hash from HTML and generated route chunks.
   latest.retainedAssets = kept;
+  // Do not erase previously healthy hashes during a failed retention attempt.
+  // This proof is carried into the next handoff even when only the newest
+  // snapshot is restored. Original first-seen timestamps NEVER restart.
+  latest.omittedAssets = omitted;
   report.bytes = totalBytes;
   report.retainedCount = kept.length;
   await mkdir(dirname(snapshotPath), { recursive: true });
