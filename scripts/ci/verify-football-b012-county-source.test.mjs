@@ -6,7 +6,7 @@ const roster = JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','
 test('Batch012 exactly 25 independently researched canonical reciprocal county links exist in initial HTML', () => {
   assert.equal(roster.batch.number,12);
   assert.equal(roster.batch.slugs.length,25);
-  const match=route.match(/const batch012FootballCountyLinks:[\\s\\S]*?\\n};/);
+  const match=route.match(/const batch012FootballCountyLinks:[\s\S]*?\n};/);
   assert.ok(match,'Static Batch012 county link map missing');
   const slugs=[...match[0].matchAll(/slug: \"([^\"]+)\"/g)].map(m=>m[1]);
   assert.equal(slugs.length,25);
