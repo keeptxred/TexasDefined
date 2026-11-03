@@ -60,7 +60,13 @@ try{
      const countyResponse=await page.goto(origin+county,{waitUntil:'domcontentloaded',timeout:45000});
      assert.equal(countyResponse?.status(),200,'county HTTP '+county);
      assert.equal(await countyResponse.headerValue('x-texasdefined-worker-version'),worker,'mixed county Worker '+county);
-     const reciprocal=await page.locator('a[href="'+path+'"]').count();
+     // County football links are populated asynchronously after the AskTED/UIL
+     // directory request. DOMContentLoaded alone is not evidence that the
+     // county lookup has finished. Wait for the actual reciprocal anchor;
+     // still fail closed on missing links, API failures, or timeout.
+     const reciprocalLink=page.locator('a[href="'+path+'"]');
+     await reciprocalLink.first().waitFor({state:'attached',timeout:20000});
+     const reciprocal=await reciprocalLink.count();
      assert.ok(reciprocal>0,'county reciprocal missing '+slug+' '+county);
      report.countyChecks.push({slug,county,pass:true});
     }
