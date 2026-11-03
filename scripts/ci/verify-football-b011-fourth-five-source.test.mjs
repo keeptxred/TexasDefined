@@ -47,7 +47,9 @@ test('Fourth production verification requires actual screenshot count and GitHub
 const graduatedB011 = r.completedBatches.some(b=>b.number===11 && b.state==='VERIFIED_BATCH_011_COMPLETE' && b.technicalAcceptance?.schoolCount===25 && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===18 && b.technicalAcceptance?.browserExecutionCount===1) && r.schoolRecords.filter(x=>x.batch===11&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
  assert.ok([11,12].includes(r.batch.number));assert.equal(r.batch.number===11?r.batch.implementedOnBranch:r.completedBatches.find(b=>b.number===11)?.individuallyVerified,25);assert.equal(r.batch.number===11?r.batch.remainingToImplement:0,0);
  assert.equal(r.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB011?255:230);
- assert.equal(r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length,graduatedB011?0:25);
+  // Batch012 legitimately has 25 IMPLEMENTED records after Batch011 graduation.
+  assert.equal(r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length,
+    r.batch.number===12 ? 25 : (graduatedB011 ? 0 : 25));
  for(const [slug] of cases){
   const x=r.schoolRecords.find(s=>s.slug===slug);
   assert.equal(x.status,graduatedB011?'VERIFIED':'IMPLEMENTED');
