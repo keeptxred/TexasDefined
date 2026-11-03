@@ -158,8 +158,8 @@ export async function retain({
         maxBytes: LIMIT_BYTES, maxOneFileBytes: LIMIT_ONE_FILE };
       await mkdir(dirname(snapshotPath), { recursive: true });
       await mkdir(dirname(reportPath), { recursive: true });
-      await writeFile(snapshotPath, JSON.stringify(saved, null, 2) + '\\n');
-      await writeFile(reportPath, JSON.stringify(report, null, 2) + '\\n');
+      await writeFile(snapshotPath, JSON.stringify(saved, null, 2) + '\n');
+      await writeFile(reportPath, JSON.stringify(report, null, 2) + '\n');
       throw new Error('Retained client asset size budget exceeded; diagnostic saved to ' + reportPath + '; refuse unbounded release payload');
     }
     totalBytes += body.byteLength;
