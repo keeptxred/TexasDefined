@@ -198,7 +198,7 @@ test('current-build duplicate hashes do not consume 448 old-binary retention slo
     const at = new Date(now - 1000).toISOString();
     const built = Array.from({ length: 448 }, (_, i) =>
       '/assets/main-Built' + String(i).padStart(3, '0') + '.js');
-    for (const name of built) writeFileSync(join(assetFolder, name.split('/').at(-1)), 'current build');
+    for (const name of built) writeFileSync(join(assetFolder, name.split('/').at(-1)), body);
     const old = '/assets/ArticleCard-PreviousVersion123.js';
     const assets = [...built, old].map(path => ({ path, wasAvailable: true,
       preSha256: digest, firstSeenAt: at }));
@@ -272,4 +272,53 @@ test('Nov2 current search-crawler missing metro/map import paths are safe eligib
   for (const path of observed) assert.equal(safeCriticalAsset(path), true, path);
   assert.equal(safeCriticalAsset('/assets/explore.near._metro._collection.lazy-OLD.js?token=1'), false);
   assert.equal(safeCriticalAsset('/assets/../internal-SECRET.js'), false);
+});
+
+
+test('identical hashed URL cannot conceal different current-build bytes', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-current-hash-collision-'));
+  try {
+    const now = Date.parse('2026-11-02T21:00:00Z');
+    const path = '/assets/main-ImmutableHashA1.js';
+    const expectedBody = 'export const v = 1;';
+    const snapshotPath = join(temp, 'snapshot.json');
+    const folder = join(temp, 'assets');
+    mkdirSync(folder, { recursive: true });
+    writeFileSync(join(folder, 'main-ImmutableHashA1.js'), 'export const v = 2;');
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      capturedAt: new Date(now - 1000).toISOString(),
+      pages: [{ assets: [{ path, wasAvailable: true,
+        preSha256: createHash('sha256').update(expectedBody).digest('hex') }] }],
+    }] }));
+    await assert.rejects(retain({ snapshotPath, assetFolder: folder,
+      reportPath: join(temp, 'report.json'), now,
+      fetchImpl: async () => { throw Error('Must not fetch duplicate current path'); } }),
+      /Current-build asset changed under identical hashed filename/);
+  } finally { rmSync(temp, { recursive: true, force: true }); }
+});
+
+test('seven rapid releases can exceed the old-only cap without refreshing first-seen timestamps', () => {
+  const start = Date.parse('2026-11-02T20:00:00Z');
+  const snapshots = [];
+  for (let release = 0; release < 7; release++) {
+    const capturedAt = new Date(start + release * 10 * 60_000).toISOString();
+    const assets = Array.from({ length: 69 }, (_, chunk) => {
+      const path = '/assets/main-' + String(release).padStart(3, '0') +
+        String(chunk).padStart(3, '0') + '.js';
+      return { path, wasAvailable: true,
+        preSha256: createHash('sha256').update(path).digest('hex'),
+        firstSeenAt: capturedAt };
+    });
+    snapshots.push({ capturedAt, pages: [{ path: '/', assets }] });
+  }
+  // Re-observing the same hashed filename must not make it younger.
+  snapshots.at(-1).pages[0].assets.push({
+    ...snapshots[0].pages[0].assets[0],
+    firstSeenAt: snapshots.at(-1).capturedAt,
+  });
+  const assets = retentionCandidates({ snapshots }, start + 70 * 60_000);
+  assert.equal(assets.length, 483);
+  assert.equal(assets.find(x => x.path === '/assets/main-000000.js').firstSeenAt,
+    snapshots[0].capturedAt);
+  assert.ok(assets.length > 448, 'existing safe limit must reveal a real multi-release deadlock');
 });

@@ -75,7 +75,8 @@ export async function retain({
   const candidates = retentionCandidates(saved, now);
   const report = { format: 1, checkedAt: new Date(now).toISOString(), version: 'predeploy-current-worker',
     budget: { maxFiles: LIMIT_FILES, maxBytes: LIMIT_BYTES, maxAgeHours: 72 }, inspected: 0,
-    copied: [], alreadyInBuild: [], unavailable: [], ignoredOld: 0, ignoredOldPaths: [] };
+    copied: [], alreadyInBuild: [], alreadyInBuildDetails: [], unavailable: [],
+    ignoredOld: 0, ignoredOldPaths: [], omittedDetails: [] };
   const kept = [];
   let totalBytes = 0;
   let attemptedOld = 0;
@@ -86,7 +87,15 @@ export async function retain({
     // current asset manifest. It must NOT use one of the bounded slots needed
     // for genuinely old-only binaries that would otherwise disappear.
     if (existsSync(destination)) {
+      // A matching filename is not proof of matching immutable contents.
+      // Reject collisions even when Vite has already emitted this path.
+      const currentHash = createHash('sha256').update(await readFile(destination)).digest('hex');
+      if (currentHash !== asset.preSha256) {
+        throw new Error('Current-build asset changed under identical hashed filename: ' + asset.path);
+      }
       report.alreadyInBuild.push(asset.path);
+      report.alreadyInBuildDetails.push({ path: asset.path, preSha256: currentHash,
+        firstSeenAt: asset.firstSeenAt });
       continue;
     }
     // Enforce a bounded ceiling of 448 attempted old-only
@@ -94,6 +103,8 @@ export async function retain({
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
       report.ignoredOldPaths.push(asset.path);
+      report.omittedDetails.push({ path: asset.path, preSha256: asset.preSha256,
+        firstSeenAt: asset.firstSeenAt, kind: asset.kind });
       continue;
     }
     attemptedOld += 1;
@@ -130,6 +141,7 @@ export async function retain({
       bytes: body.byteLength };
     kept.push(retained);
     report.copied.push({ path: asset.path, bytes: body.byteLength,
+      preSha256: actualHash, firstSeenAt: asset.firstSeenAt,
       cfRay: response.headers.get('cf-ray') || null,
       cfCacheStatus: response.headers.get('cf-cache-status') || null });
   }
