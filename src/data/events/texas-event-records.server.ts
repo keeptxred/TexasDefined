@@ -53,6 +53,65 @@ function eventIdentity(name: string, city: string) {
   return `${name.trim().toLowerCase()}:${city.trim().toLowerCase()}`;
 }
 
+/** Reconcile cross-provider versions of the same sporting fixture, including
+ * "vs." / "versus" / "at" naming variations. Do not collapse multiple
+ * performances, different venues or different event statuses. */
+function sportingFixtureKey(record: TexasEventRecord): string | null {
+  if (record.category !== "sport") return null;
+  const teams = record.title.split(/\s+(?:vs\.?|versus|v\.|at|@)\s+/i);
+  if (teams.length !== 2) return null;
+  const normalize = (value: string) => value.toLowerCase()
+    .replace(/\b(?:football|hockey)\b/g, "")
+    .replace(/[^a-z0-9]+/g, " ").trim();
+  const pair = teams.map(normalize);
+  if (pair.some((name) => name.length < 5) || pair[0] === pair[1]) return null;
+  return [record.startDate, normalize(record.city), ...pair.sort()].join(":");
+}
+
+function reconcileDuplicateSportingFixtures(records: TexasEventRecord[]) {
+  const result: TexasEventRecord[] = [];
+  const candidates = new Map<string, number[]>();
+  const normalizeVenue = (value: string | undefined) => (value ?? "")
+    .toLowerCase().replace(/[^a-z0-9]+/g, "");
+  for (const record of records) {
+    const key = sportingFixtureKey(record);
+    if (!key) { result.push(record); continue; }
+    const existing = (candidates.get(key) ?? []).find((index) => {
+      const old = result[index];
+      const firstVenue = normalizeVenue(old.venueName);
+      const nextVenue = normalizeVenue(record.venueName);
+      return old.status === record.status
+        && (!old.venueId || !record.venueId || old.venueId === record.venueId)
+        && (!firstVenue || !nextVenue || firstVenue === nextVenue);
+    });
+    if (existing === undefined) {
+      const group = candidates.get(key) ?? [];
+      group.push(result.length);
+      candidates.set(key, group);
+      result.push(record);
+      continue;
+    }
+    const old = result[existing];
+    // If independent feeds disagree on start time, display no asserted time
+    // and no ticket call-to-action until the organizer's page is checked.
+    const timeConflict = Boolean(old.startTime && record.startTime && old.startTime !== record.startTime);
+    const preferred = !old.guidePath.startsWith("/events") ? old
+      : !record.guidePath.startsWith("/events") ? record
+      : (old.summary.length >= record.summary.length ? old : record);
+    result[existing] = {
+      ...preferred,
+      startTime: timeConflict ? undefined : (old.startTime ?? record.startTime),
+      summary: timeConflict
+        ? `${preferred.summary} Start times differ between source listings; confirm the time with the official organizer before traveling.`
+        : preferred.summary,
+      ticketing: timeConflict ? undefined : mergeEventTicketing(old.ticketing, record.ticketing),
+      lastVerifiedAt: [old.lastVerifiedAt, record.lastVerifiedAt].sort().at(-1)!,
+      lastUpdatedAt: [old.lastUpdatedAt, record.lastUpdatedAt].sort().at(-1)!,
+    };
+  }
+  return result;
+}
+
 /** Organizer Offer metadata is not perpetual sale authorization. Date-only
  * sale windows use inclusive Texas-local boundaries; timestamp boundaries
  * are exact instants. This is never a live-seat inventory verification. */
@@ -401,7 +460,7 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
       lastUpdatedAt: [editorialRecord.lastUpdatedAt, providerRecord.lastUpdatedAt].sort().at(-1) ?? editorialRecord.lastUpdatedAt,
     };
   }
-  return [...new Map(records.map((record) => [record.id, record] as const)).values()]
+  return reconcileDuplicateSportingFixtures([...new Map(records.map((record) => [record.id, record] as const)).values()])
     .sort((left, right) => left.startDate.localeCompare(right.startDate) || left.title.localeCompare(right.title));
 }
 

@@ -1,4 +1,5 @@
 import { CountyIdentitySection } from '@/components/content/CountyIdentitySection';
+import type { CountyTaxRateSummary } from '@/components/property/CountyTaxRateSection';
 import { VanZandtCountySpotlight } from '@/components/content/VanZandtCountySpotlight';
 import { VAN_ZANDT_HISTORY_REFERENCES } from '@/data/van-zandt-history-references';
 import { ArticleBody } from '@/components/editorial/ArticleBody';
@@ -60,7 +61,7 @@ const COUNTY_INDUSTRY_PATHWAYS: Record<string, CountyIndustryPathway[]> = {
   swisher: [{ href: "/texas-industries/agriculture-livestock", label: "Texas agriculture & livestock", description: "Connect Tulia-area farming and livestock production to the statewide agricultural economy." }],
 };
 
-export function CountyGuideSections({ entity, profile, localGovernment, related, countySeriesArticle }: { entity: TexasEntityRecord; profile: CountyProfile; localGovernment: LocalGovernmentProfile; related: RankedRelatedEntity[]; countySeriesArticle: Article | null }) {
+export function CountyGuideSections({ entity, profile, localGovernment, related, countySeriesArticle, initialTaxSummary }: { entity: TexasEntityRecord; profile: CountyProfile; localGovernment: LocalGovernmentProfile; related: RankedRelatedEntity[]; countySeriesArticle: Article | null; initialTaxSummary?: CountyTaxRateSummary | null }) {
   const nearby = related.filter(({ entity: candidate }) => !['appraisal-district', 'tax-office', 'county-clerk', 'dps-office'].includes(candidate.kind)).slice(0, 6);
   const relatedEntities = related.map(({ entity: candidate }) => candidate);
   const appraisalDistrictEntity = relatedEntities.find((candidate) => candidate.kind === 'appraisal-district' && candidate.countySlug === entity.slug);
@@ -122,7 +123,7 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
         the narrow section-heading column, creating hundreds of empty pixels. */}
     {entity.slug === 'van-zandt' ? <div data-stay-nearby-slot="" aria-label="Stays near Van Zandt County" /> : null}
 
-    <CountyIdentitySection countyName={entity.name} region={entity.region} profile={profile} />
+    <CountyIdentitySection countyName={entity.name} region={entity.region} profile={profile} initialTaxSummary={initialTaxSummary} />
 
     {countyLakeGuides.length ? <section className="border-b border-border py-12" aria-labelledby="county-fishing-lakes-heading"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">Lakes and recreation</p><h2 id="county-fishing-lakes-heading" className="mt-2 font-display text-4xl">Fishing lakes in {entity.name}</h2></div><div><p className="max-w-3xl text-base leading-7 text-muted-foreground">These source-backed TexasDefined guides cover reservoirs and public lakes associated with this county. Review access and the managing agency's current notices before travel; a county link does not imply every part of a lake or every ramp lies within the county.</p><div className="mt-7 grid gap-5 sm:grid-cols-2">{countyLakeGuides.map((lake) => <a key={lake.slug} href={`/fishing/lakes/${lake.slug}`} className="group border-t border-border pt-5"><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{lake.name}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Fish species, public launch sites, boating, camping and official trip-day sources →</span></a>)}</div><a href="/fishing/lakes" className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Explore all completed Texas fishing lake guides →</a></div></div></section> : null}
 
