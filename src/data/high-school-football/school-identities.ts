@@ -2432,7 +2432,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceUrl: 'https://rhs.canyonisd.net/',
     sourceLabel: 'Randall High official school and athletics pages identify the Raiders program',
     verifiedAt: '2026-10-25',
-  }
+  },
   {
     slug: 'corpus-christi-flour-bluff',
     mascot: 'Hornets',
