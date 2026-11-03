@@ -126,8 +126,8 @@ function assertMagoffinLicensedImageStructuredData(html) {
 
 function assertMoodyGardensLicensedImageStructuredData(html) {
   const pageUrl = 'https://texasdefined.com/destination/moody-gardens';
-  const documents = [...html.matchAll(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script\\s*>/gi)]
-    .filter(([, attrs]) => /\\btype\\s*=\\s*["']application\\/ld\\+json["']/i.test(attrs))
+  const documents = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter(([, attrs]) => /\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))
     .flatMap(([, , source]) => {
       try { const value = JSON.parse(source); return Array.isArray(value) ? value : [value]; }
       catch { return []; }
@@ -150,7 +150,7 @@ function assertMoodyGardensLicensedImageStructuredData(html) {
     || image.acquireLicensePage !== 'https://commons.wikimedia.org/wiki/File:Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg') {
     throw new Error('Moody Gardens primary image metadata missing verified photographer and licensing fields');
   }
-  const visibleMarkup = html.replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script\\s*>/gi, '');
+  const visibleMarkup = html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
   if (!visibleMarkup.includes('Larry D. Moore') || !visibleMarkup.includes('CC BY 4.0')) {
     throw new Error('Moody Gardens photograph lacks visible photographer/license attribution');
   }
