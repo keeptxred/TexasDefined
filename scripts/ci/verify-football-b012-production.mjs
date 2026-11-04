@@ -64,8 +64,15 @@ try{
      // directory request. DOMContentLoaded alone is not evidence that the
      // county lookup has finished. Wait for the actual reciprocal anchor;
      // still fail closed on missing links, API failures, or timeout.
-     const reciprocalLink=page.locator('a[href="'+path+'"]');
-     await reciprocalLink.first().waitFor({state:'attached',timeout:20000});
+     // React's county authority route sets this marker only after hydration.
+     // Waiting for an anchor alone cannot distinguish a slow render from a
+     // missing school; require the same hydration contract as other cohorts.
+     await page.waitForFunction(
+       () => document.documentElement.dataset.tdFootballCountyHydrated === '1',
+       null, {timeout:40000}
+     );
+     const reciprocalLink=page.locator('main a[href="'+path+'"]');
+     await reciprocalLink.first().waitFor({state:'visible',timeout:20000});
      const reciprocal=await reciprocalLink.count();
      assert.ok(reciprocal>0,'county reciprocal missing '+slug+' '+county);
      report.countyChecks.push({slug,county,pass:true});
