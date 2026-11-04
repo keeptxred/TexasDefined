@@ -2149,7 +2149,7 @@ const batch010Certified = Boolean(batch010Certification);
 // This is a read-only validation view, not a rewrite of the signed archive.
 const batch010View=(registry)=>{
   if(registry.batch.number===10)return registry;
-  if(![11,12].includes(registry.batch.number) || !batch010Certified) {
+  if(registry.batch.number<11 || !batch010Certified) {
     errors.push('Batch011 may become active only after fully archived Batch010 technical certification.');
     return registry;
   }
@@ -3071,8 +3071,25 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
        r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==(certified?280:255) ||
        r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==(certified?0:implementedPendingChrome?25:0))
       errors.push('Batch012 must preserve exactly 25 canonical assigned, pending, or evidence-backed technically VERIFIED schools; no premature promotion');
+  } else if(r.batch.number>=13){
+    // Historical certificates are immutable. New assignments must never be
+    // interpreted as fresh Batch010/011/012 Chrome evidence.
+    for(const n of [10,11,12]){
+      const cert=r.completedBatches.find(x=>x.number===n);
+      if(!cert || cert.state!==`VERIFIED_BATCH_${String(n).padStart(3,'0')}_COMPLETE` ||
+         cert.individuallyVerified!==25 ||
+         r.schoolRecords.filter(x=>x.batch===n&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length!==25)
+        errors.push('Historical football batch '+n+' must retain its own signed certificate and 25 production-verified schools');
+    }
+    if(r.batch.slugs.length!==25 || new Set(r.batch.slugs).size!==25 ||
+       r.schoolRecords.filter(x=>x.status==='VERIFIED').length<280 ||
+       r.batch.slugs.some(slug=>{
+         const row=r.schoolRecords.find(x=>x.slug===slug);
+         return !row || row.batch!==r.batch.number || row.actualProductionVerified===true;
+       }))
+      errors.push('Future football batch must assign exactly 25 distinct non-verified canonical schools');
   } else if(r.batch.number!==10){
-    errors.push('Football authority active assignment must be certified Batch010, Batch011, or assigned Batch012.');
+    errors.push('Football authority active assignment requires certified historical predecessors.');
   }
 }
 
