@@ -1,0 +1,21 @@
+name: Immutable hashed asset archive staging tests
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/immutable-hashed-asset-archive*'
+      - 'docs/ci/immutable-hashed-asset-archive.md'
+      - '.github/workflows/validate-immutable-hashed-assets.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  immutable-asset-archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test independent original-byte archive invariants
+        run: node --test scripts/ci/immutable-hashed-asset-archive.test.mjs
