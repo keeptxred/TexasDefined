@@ -98,6 +98,8 @@ for (const anchor of ["#camping-trip-types", "#campground-finder", "#camping-sea
 requireText(page, 'href="https://www.weather.gov/"', "camping weather authority outbound citation");
 if (page.includes('to="/texas-weather"')) throw new Error("Camping guide must not link a nonexistent weather route");
 requireText(page, "Why are campground prices not listed here?", "camping price-freshness guidance");
+requireText(page, "Can I bring pets to most Texas state park campgrounds?", "camping state park pets guidance");
+requireText(page, "https://tpwd.texas.gov/state-parks/park-information/frequently-asked-questions/", "camping state park pets official citation");
 requireText(page, "Does “full hookup” apply to every site in a campground?", "camping hookup-scope FAQ");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
 requireText(production, "['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas']", "camping live-production verification");
