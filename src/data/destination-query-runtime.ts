@@ -1,3 +1,4 @@
+import { reviewedAttractionDestinations } from "./reviewed-attraction-authorities";
 import { isOfficialTexasNpsDestination } from "./texas-national-park-service-directory";
 import { isTexasStateParkDestination } from "./state-park-authority";
 import { abileneAreaDestinationFallbacks } from "./abilene-area-destinations";
@@ -330,7 +331,7 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   const cityPassPreserved = await cityPassPreservedFor(params);
   const wacoPreserved = await wacoPreservedFor(params);
   // Preserve the existing remote/core/preserved/local source fallback contract.
-  const baseReady = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, local));
+  const baseReady = reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, enriched, core, preserved, local));
   const wacoReady = reconcileExploreCatalog(mergeDestinations(wacoPreserved, baseReady));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
     wacoReady,
@@ -347,13 +348,15 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
     cityPassPreserved,
     wacoPreserved,
   ));
-  const merged = mergeReadyCatalogs(primaryReady, fallbackReady);
+  const merged = mergeReadyCatalogs(reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, primaryReady)), fallbackReady);
   const scoped = await enhanceWacoMuseumDestinations(filterDestinationsByScope(merged, params));
   if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
   return params.limit ? scoped.slice(0, params.limit) : scoped;
 }
 
 async function getResolvedDestinationBase(slug: Slug) {
+  const reviewed = reviewedAttractionDestinations.find((item) => item.slug === slug);
+  if (reviewed) return resolveSeoReadyDestination(reviewed);
   // The separately researched Yoakum Heritage Museum authority record includes
   // rights-owned, explicitly illustrative museum artwork. A thin remote Explore
   // row may share this slug but carry a generic no-photo placeholder. Select
