@@ -19,8 +19,23 @@ preflight('registry',()=>{
  assert.equal(reg.batch.number,12);
  assert.equal(reg.batch.slugs.length,25);
  assert.equal(new Set(reg.batch.slugs).size,25);
- assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,255);
- for(const slug of reg.batch.slugs)assert.ok(reg.schoolRecords.some(s=>s.slug===slug&&s.batch===12&&s.status==='IMPLEMENTED'),'Unimplemented '+slug);
+ const complete=reg.completedBatches.find(b=>b.number===12 && b.state==='VERIFIED_BATCH_012_COMPLETE');
+ const graduated=reg.batch.state==='VERIFIED_BATCH_012_COMPLETE';
+ assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,graduated?280:255);
+ if(graduated){
+  assert.ok(complete,'B012 graduation requires archived release certificate');
+  assert.equal(complete.technicalAcceptance?.schoolCasesPassed,75);
+  assert.equal(complete.technicalAcceptance?.countyCasesPassed,25);
+  assert.equal(complete.technicalAcceptance?.browserExecutionCount,1);
+  assert.equal(complete.technicalAcceptance?.workerVersionMatchesDeploy,true);
+ }else{
+  assert.equal(complete,undefined,'No premature archived B012 certificate');
+ }
+ for(const slug of reg.batch.slugs)assert.ok(reg.schoolRecords.some(s=>
+   s.slug===slug && s.batch===12 &&
+   s.status===(graduated?'VERIFIED':'IMPLEMENTED') &&
+   (graduated ? s.actualProductionVerified===true : s.actualProductionVerified!==true)),
+   'Batch012 must preserve required live technical status '+slug);
 });
 preflight('release identity',()=>{
  assert.match(source,/^[a-f0-9]{40}$/);
