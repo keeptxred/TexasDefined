@@ -25,10 +25,10 @@ export const reviewedAttractionDestinations: Destination[] = [
     "bestSeason": "Year-round; plan for Texas heat and operator closures.",
     "entryNote": "Free public admission; operator lists 7 a.m.–5 p.m. daily. Upper pavilion/Jingu House accessible by ramp; lower garden requires stairs.",
     "highlights": [
-      "San Antonio's Japanese Tea Garden is the kind of stop that changes the pace of a city trip. Downtown's mission",
-      "This was once a limestone quarry and cement-factory site. The transformation is a large part of the story. Rat",
-      "The Parks Foundation's history traces the idea to Park Commissioner Ray Lambert in 1916, when he imagined a Ja",
-      "For families, the ponds and bridges are obvious highlights. For architecture and local-history visitors, look "
+      "Historic limestone quarry transformed into a Japanese garden",
+      "Koi ponds, stone bridges and waterfall",
+      "Upper-garden accessible route; lower garden requires stairs",
+      "Free admission and Brackenridge Park location"
     ],
     "body": [
       "At a glance: Free admission; normally 7 a.m.–5 p.m. daily; 3853 N. St. Mary's Street, San Antonio; beside the San Antonio Zoo in Brackenridge Park. The upper pavilion and Jingu House area have ramp access, but the lower garden is reached by stairs only. Check the San Antonio Parks Foundation before leaving for closures, special uses, and current access. This is a public garden, not a paid Viator admission attraction.",
@@ -43,7 +43,6 @@ export const reviewedAttractionDestinations: Destination[] = [
       "For groups with different mobility needs, agree on a meeting point in the accessible upper area rather than splitting up unpredictably on the stairs. Strollers and families with toddlers should make their own judgment about the stepped lower paths. Do not promise step-free access to the waterfall base or entire garden.",
       "The Foundation also says leashed dogs are welcome. Its site lists restrictions on drones, balloons, confetti, rose petals, props and wagons. It says casual photography does not require a photography permit, but that statement is not a license to republish someone else's photo on a commercial travel website.",
       "Use 3853 N. St. Mary's Street, San Antonio, TX 78212 for the entrance area. The on-site designated accessible parking is the best official accessibility reference. Because the zoo and park can be popular, avoid promising a particular space or an unchanged parking arrangement. For a snack or a longer pause, Jingu House operates at the garden; confirm its hours and reservation options directly rather than assuming it matches garden hours.",
-      "Nearby browsing opportunities should link to TexasDefined's San Antonio, Bexar County, Brackenridge Park, San Antonio Zoo, and broader city-exploration content only when the canonical destination exists. An attraction guide should link out to nearby places; it shouldn't create duplicate pages for each feature of the garden.",
       "Is San Antonio's Japanese Tea Garden free? Yes. The operator lists free general admission. Restaurant service, private functions and third-party tours are separate.",
       "What are the opening hours? The San Antonio Parks Foundation currently lists 7 a.m.–5 p.m. daily. Recheck the operator on the day of travel, especially after severe weather or for special events.",
       "Can a wheelchair user visit? Yes, the upper areas and pavilion have ramp access, with accessible parking in the garden lot. The lower garden is accessible only by stairs.",
@@ -52,9 +51,15 @@ export const reviewedAttractionDestinations: Destination[] = [
     ],
     "managingAuthority": "San Antonio Parks Foundation",
     "officialUrl": "https://saparks.org/japanese-tea-garden/",
-    "sourceCheckedAt": "2026-11-03",
+    "sourceCheckedAt": "2026-10-29",
     "address": "3853 N St Mary's St, San Antonio, TX 78212",
-    "visitorFaqs": []
+    "visitorFaqs": [
+      {
+        "question": "Is admission free?",
+        "answer": "General garden admission is free. Restaurant service and optional city tours are separate.",
+        "sourceUrl": "https://saparks.org/japanese-tea-garden/"
+      }
+    ]
   },
   {
     "id": "reviewed-attraction-fort-worth-water-gardens",
@@ -80,10 +85,10 @@ export const reviewedAttractionDestinations: Destination[] = [
     "bestSeason": "Year-round; plan for Texas heat and operator closures.",
     "entryNote": "Free public park; city lists 6 a.m.–10 p.m. daily. Swimming and wading are prohibited. Check construction advisories.",
     "highlights": [
-      "The Fort Worth Water Gardens reward visitors who look beyond the dramatic photographs of the Active Pool. The ",
-      "If you're arriving from an out-of-town hotel or a meeting at the nearby convention center, this can be a worth",
-      "The Active Pool is the iconic feature most visitors recognize. Cascading water runs down steeply patterned wal",
-      "The Quiet Pool offers the opposite mood. Still water, controlled edges, and a more enclosed-feeling setting re"
+      "Philip Johnson and John Burgee civic architecture",
+      "Active, Quiet and Aerating pools",
+      "Free downtown Fort Worth public park",
+      "Swimming and wading prohibited"
     ],
     "body": [
       "At a glance: Free admission; official listed hours 6 a.m.–10 p.m. every day; 1502 Commerce Street, downtown Fort Worth, beside the convention-center area. This is a civic park and public artwork, not a waterpark. Swimming and wading are prohibited. Check the City of Fort Worth park page for current operating and construction notices before you go.",
@@ -104,14 +109,19 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Do you pay to enter Fort Worth Water Gardens? No. The official destination tourism bureau identifies the park as free.",
       "How late is the park open? The city lists 6 a.m.–10 p.m. seven days a week; verify current notices for any temporary changes.",
       "Is it a good stop for families? It can be, but the pool edges and stepped areas require attention. There is no swimming or splash-play component.",
-      "Is the Active Pool descent necessary? No. The upper perspectives provide much of the visual experience and are preferable for anyone uneasy with heights or wet stairs.",
-      "Admission: Free city park. Affiliate opportunities: optional walking, architecture and local-history tours may be relevant if a verified provider actually offers them. Such a product must be labeled *a separate experience near or including the Water Gardens*, never a required park entry ticket. An unrelated paid tour should not outrank this guide's free-entry information."
+      "Is the Active Pool descent necessary? No. The upper perspectives provide much of the visual experience and are preferable for anyone uneasy with heights or wet stairs."
     ],
     "managingAuthority": "City of Fort Worth",
     "officialUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
-    "sourceCheckedAt": "2026-11-03",
+    "sourceCheckedAt": "2026-10-29",
     "address": "1502 Commerce St, Fort Worth, TX 76102",
-    "visitorFaqs": []
+    "visitorFaqs": [
+      {
+        "question": "Can you swim at the Water Gardens?",
+        "answer": "No. The City prohibits swimming and wading in all pools.",
+        "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens"
+      }
+    ]
   },
   {
     "id": "reviewed-attraction-houston-botanic-garden",
@@ -137,10 +147,10 @@ export const reviewedAttractionDestinations: Destination[] = [
     "bestSeason": "Year-round; plan for Texas heat and operator closures.",
     "entryNote": "Operator ticket or member reservation required, including for infants. Normally 9 a.m.–5 p.m.; last entry 4:30 p.m. Check closures and current prices directly.",
     "highlights": [
-      "This is a different kind of Houston outing from a traditional indoor museum or a drive-through attraction. The",
-      "The property is 132 acres, but a visitor should not assume every square foot is a manicured flower bed. Part o",
-      "Global Collection Garden: Start here if your main interest is plants from different climates and the way ornam",
-      "Culinary Garden: This is a worthwhile contrast to ornamental collections. Plants grown for food, flavors, medi"
+      "Global Collection Garden and themed plant collections",
+      "Coastal Prairie and wetland ecology",
+      "Family Discovery Garden and educational visits",
+      "Official timed general admission and member reservations"
     ],
     "body": [
       "At a glance: The Houston Botanic Garden normally opens 9 a.m.–5 p.m., with last entry at 4:30 p.m. The operator identifies Thanksgiving Day and Christmas Day closures; verify any additional holiday closure before traveling. Every person entering requires a ticket or member reservation, including infants and young children. On-site parking is free. The main public entrance is One Botanic Lane, Houston, TX 77017, off Park Place Boulevard. Verify hours, current admission, weather-related closures, programs and tickets through the official garden.",
@@ -172,8 +182,14 @@ export const reviewedAttractionDestinations: Destination[] = [
     ],
     "managingAuthority": "Houston Botanic Garden",
     "officialUrl": "https://hbg.org/visit/",
-    "sourceCheckedAt": "2026-11-03",
+    "sourceCheckedAt": "2026-10-29",
     "address": "One Botanic Lane, Houston, TX 77017",
-    "visitorFaqs": []
+    "visitorFaqs": [
+      {
+        "question": "Does a third-party tour include garden admission?",
+        "answer": "Not necessarily. Check the operator's official ticket or member-entry requirements separately.",
+        "sourceUrl": "https://hbg.org/visit/"
+      }
+    ]
   }
 ];
