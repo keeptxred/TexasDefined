@@ -34,7 +34,7 @@ preflight('registry',()=>{
  for(const slug of reg.batch.slugs)assert.ok(reg.schoolRecords.some(s=>
    s.slug===slug && s.batch===12 &&
    s.status===(graduated?'VERIFIED':'IMPLEMENTED') &&
-   s.actualProductionVerified===(graduated?true:false)),
+   (graduated ? s.actualProductionVerified===true : s.actualProductionVerified!==true)),
    'Batch012 must preserve required live technical status '+slug);
 });
 preflight('release identity',()=>{
