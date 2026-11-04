@@ -84,19 +84,19 @@ export function assertCampingGuideGoogleSignals(html) {
   }
 }
 
-async function fetchPage(url) {
+async function fetchPage(url, ordinaryVisitor = false) {
   for (let attempt=1; attempt<=2; attempt++){
-    try { return await fetch(url,{headers,redirect:"error",cache:"no-store",signal:AbortSignal.timeout(30000)}); }
+    try { return await fetch(url,{headers: ordinaryVisitor ? { "user-agent": "Mozilla/5.0 (compatible; TexasDefined-Camping-Visitor-Acceptance/1.0)", accept: "text/html" } : headers,redirect:"error",cache:"no-store",signal:AbortSignal.timeout(30000)}); }
     catch(err){
       if(attempt===2 || !["AbortError","TimeoutError"].includes(err?.name)) throw err;
       await new Promise((resolve)=>setTimeout(resolve, 1000));
     }
   }
 }
-async function check(path, markers, origin, expectedNoindex=false) {
+async function check(path, markers, origin, expectedNoindex=false, ordinaryVisitor=false) {
   const url = new URL(path, origin);
-  url.searchParams.set("td_authority_verify", token);
-  const response = await fetchPage(url);
+  if (!ordinaryVisitor) url.searchParams.set("td_authority_verify", token);
+  const response = await fetchPage(url, ordinaryVisitor);
   if(response.status!==200 || response.headers.get("cf-mitigated")?.toLowerCase()==="challenge"
       || !/^text\/html\b/i.test(response.headers.get("content-type")||""))
     throw new Error("Authority live HTTP/HTML failure: "+url.href+" ("+response.status+")");
@@ -113,12 +113,17 @@ async function check(path, markers, origin, expectedNoindex=false) {
   if(text.length<700)throw new Error("Suspected empty/thin SSR HTML: "+url.href);
   if (path === "/best-places-to-go-camping-in-texas") assertCampingGuideGoogleSignals(html);
   console.log(JSON.stringify({kind:"category-authority-live",origin,path,status:response.status,
-    canonical,indexable:!expectedNoindex,htmlBytes:html.length,markers,ok:true}));
+    canonical,indexable:!expectedNoindex,htmlBytes:html.length,markers,access:ordinaryVisitor?"ordinary-visitor":"cache-busted",ok:true}));
 }
 if(process.argv[1] && new URL(import.meta.url).pathname===process.argv[1]){
   for(const [path,markers] of sample){
-    for(const origin of [canonicalOrigin,directWorkerOrigin])
+    for(const origin of [canonicalOrigin,directWorkerOrigin]) {
       await check(path,markers,origin);
+      // Only the changed camping guide gets additional exact-URL verification:
+      // a cache-busted pass alone cannot certify the visitor-facing cached path.
+      if (path === "/best-places-to-go-camping-in-texas")
+        await check(path,markers,origin,false,true);
+    }
   }
   await check("/explore/trip-planner?destination=wimberley",["Texas Trip Planner"],canonicalOrigin,true);
 }
