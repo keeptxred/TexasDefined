@@ -299,6 +299,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const moodyGardensPages = new Set();
   if (changedFiles.some(path => [
     'src/data/destination-curation-top-attractions-batch3.ts',
+    'src/data/destination-curation-moody-gardens.ts',
     'src/routes/destination.$slug.tsx',
     'scripts/ci/production-change-scope.mjs',
     'scripts/ci/verify-changed-production-pages.mjs',
