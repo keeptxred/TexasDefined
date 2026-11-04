@@ -41,15 +41,16 @@ test('Third five source editorial and exact federally sourced campus counties',(
 test('Third five require actual production browser and exact deployed Worker',()=>{
  const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const graduatedB011 = reg.completedBatches.some(b=>b.number===11 && b.state==='VERIFIED_BATCH_011_COMPLETE' && b.technicalAcceptance?.schoolCount===25 && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===18 && b.technicalAcceptance?.browserExecutionCount===1) && reg.schoolRecords.filter(x=>x.batch===11&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
+ const graduatedB012 = reg.completedBatches.some(b=>b.number===12 && b.state==='VERIFIED_BATCH_012_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1);
  assert.ok([11,12].includes(reg.batch.number));
  assert.equal(reg.batch.number===11?reg.batch.implementedOnBranch:reg.completedBatches.find(b=>b.number===11)?.individuallyVerified,25);
  assert.equal(reg.batch.number===11?reg.batch.remainingAssigned:0,0);
  assert.equal(reg.batch.number===11?reg.batch.remainingToVerify:(graduatedB011?0:25),graduatedB011?0:25);
- assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,graduatedB011?255:230);
+ assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,graduatedB012?280:graduatedB011?255:230);
   // The next active batch legitimately contributes 25 IMPLEMENTED records.
   // Do not attribute Batch012 work to an unfinished Batch011 graduation.
   assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,
-    reg.batch.number===12 ? 25 : (graduatedB011 ? 0 : 25));
+    reg.batch.number===12 ? (graduatedB012 ? 0 : 25) : (graduatedB011 ? 0 : 25));
  const verifier=read('scripts/ci/verify-football-b011-third-five-production.mjs');
  const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
  for(const needle of ['report.schoolChecks.length!==15','report.countyChecks.length!==2','process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
