@@ -25,6 +25,11 @@ function verify(html, { synthetic = false } = {}) {
     "Recent official park advisories",
     "Campground finder",
     "Park camping / reservation instructions",
+    // The daily probe must verify the actual editorial upgrade, not just old page scaffolding.
+    "Six Texas camping starting points, by trip",
+    "Texas Defined editorial desk",
+    "Shady Meadows full-hookup sites",
+    "Pet friendly is a verified-only filter",
   ];
   for (const expected of mustHave) if (!text.includes(expected)) errors.push("missing: " + expected);
   const profileCount = /(?:Showing\s+)?(\d+) of (\d+) verified profiles/i.exec(text);
@@ -60,6 +65,10 @@ if (process.argv.includes("--self-test")) {
   const fixtures = [
     '<link rel="canonical" href="' + CANONICAL + '">',
     '<h1>Best Places to Go Camping in Texas</h1>',
+    '<h2>Six Texas camping starting points, by trip</h2>',
+    '<div>By Texas Defined editorial desk</div>',
+    '<p>Garner Shady Meadows full-hookup sites are RV-only.</p>',
+    '<p>Pet friendly is a verified-only filter.</p>',
     '<h2>Choose your camping type or activity</h2>',
     '<h2>Recent official park advisories</h2>',
     '<div>Campground finder Showing 72 of 72 verified profiles.</div>',
@@ -74,6 +83,9 @@ if (process.argv.includes("--self-test")) {
   ].join("");
   assert.deepEqual(verify(fixtures, { synthetic: true }), { campgrounds: 72, advisories: 5, specificBookingLinks: 4 });
   assert.throws(() => verify(fixtures.replace("Recent official park advisories", "Old alerts"), { synthetic: true }), /missing/);
+  assert.throws(() => verify(fixtures.replace("Six Texas camping starting points, by trip", "Old generic list"), { synthetic: true }), /starting points/);
+  assert.throws(() => verify(fixtures.replace("Shady Meadows full-hookup sites", "Generic Garner camping"), { synthetic: true }), /Shady Meadows/);
+  assert.throws(() => verify(fixtures.replace("Pet friendly is a verified-only filter", "All parks accept pets"), { synthetic: true }), /Pet friendly/);
   assert.throws(() => verify(fixtures.replace('<link rel="canonical"', '<link rel="alternate"'), { synthetic: true }), /canonical/);
   assert.throws(() => verify(fixtures.replace(expectedAlerts[0].notice, "Outdated park information"), { synthetic: true }), /live notice differs/);
   assert.throws(() => verify(fixtures.replace("Showing 72 of 72 verified profiles", "Showing 12 of 12 verified profiles"), { synthetic: true }), /count less/);
