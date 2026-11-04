@@ -73,7 +73,7 @@ For a traveler trying to understand more of Houston than its skyscrapers, the si
 
 **How long does a visit take?** The garden says typical visits last 1.5–2 hours; allow more if exploring multiple collections or traveling with children.
 
-**Is the garden open on Christmas Day?** The official visitor page lists Christmas Day, Thanksgiving Day and New Year's Day as closure dates. Special evening programming is a separate question and requires organizer-confirmed dates.
+**Is the garden open on Christmas Day?** The operator identifies Christmas Day and Thanksgiving Day closures; confirm New Year's Day and any other holiday hours directly before visiting. Special evening programming is a separate question and requires organizer-confirmed dates.
 
 **Can I arrive directly from the Sims Bayou trail?** The garden says there is no direct guest entrance to the South Gardens from the greenway; use the main Park Place approach.
 
