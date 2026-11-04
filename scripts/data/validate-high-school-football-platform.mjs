@@ -3035,7 +3035,7 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       proof?.countyCasesPassed===25 && proof?.countyCasesFailed===0 &&
       proof?.browserExecutionCount===1 && proof?.sitemapUrlsPassed===25 &&
       proof?.workerVersionMatchesDeploy===true &&
-      /^\\w{8}-(?:\\w{4}-){3}\\w{12}$/.test(certifiedWorker||'') &&
+      /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/.test(certifiedWorker||'') &&
       /^[a-f0-9]{40}$/.test(proof?.productionDeploymentGitSha||'') &&
       Number.isSafeInteger(proof?.productionDeploymentRun) &&
       Number.isSafeInteger(proof?.githubWorkerLedgerDeploymentId) &&
