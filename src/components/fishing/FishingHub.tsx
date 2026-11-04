@@ -13,9 +13,10 @@ interface FishingHubProps {
   lakes: FishingLake[];
   species: FishSpecies[];
   lakeSpecies: LakeSpeciesProfile[];
+  resourceAvailability: { reports: boolean; guides: boolean; access: boolean };
 }
 
-export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
+export function FishingHub({ lakes, species, lakeSpecies, resourceAvailability }: FishingHubProps) {
   const speciesById = new Map(species.map((row) => [row.id, row]));
   const featuredSpecies = [...species]
     .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || a.commonName.localeCompare(b.commonName))
@@ -29,7 +30,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
       <Container className="py-16 sm:py-24">
         <p className="eyebrow text-ink-foreground/70">Texas Defined Fishing</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fishing in Texas</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Find lakes by where you want to go and what you want to catch, then move into lake guides, fish-species pages, seasonal patterns, access, regulations and current reports.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Find lakes by where you want to go and what you want to catch, then move into lake guides, fish-species pages, seasonal patterns, source-backed lake access and official regulations.</p>
         <div className="mt-8 flex flex-wrap gap-5 text-sm">
           <Link to="/fishing/plan" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open the full lake finder →</Link>
           <Link to="/texas-fishing-license" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Texas fishing license →</Link>
@@ -81,6 +82,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
           <div className="max-w-3xl"><p className="eyebrow text-primary">Explore fishing lakes</p><h2 id="featured-lakes" className="mt-3 font-display text-4xl sm:text-5xl">Featured Texas Fishing Lakes</h2><p className="mt-4 text-base leading-7 text-muted-foreground">Open a lake for its fish relationships and planning details, or use the finder when you already know the place or species you want.</p></div>
           <Link to="/fishing/lakes" className="eyebrow border-b border-primary pb-1 text-primary">Browse fishing lakes →</Link>
         </div>
+        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Fishery labels such as Excellent, Good and Fair summarize longer-term, source-backed fishing opportunities for each lake and species. They are not live catch reports or guarantees of today’s fishing. Check individual lake citations and <a href="https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" target="_blank" rel="noopener noreferrer" className="border-b border-primary text-primary">TPWD lake assessments</a> before traveling.</p>
         <div className="mt-8 grid gap-x-8 border-t border-border lg:grid-cols-2">
           {featuredLakes.map((lake) => {
             const targets = lakeSpecies
@@ -126,9 +128,9 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
           <Resource href="/fishing/techniques" title="Fishing techniques" copy="Browse source-backed methods connected to Texas lakes and species." />
           <Resource href="/fishing/structure" title="Structure & cover" copy="Learn how points, ledges, channels, brush, timber and docks create fishing targets." />
           <Resource href="/fishing/vegetation" title="Aquatic vegetation" copy="Read grass lines, hydrilla, reeds, flooded plants and vegetation edges." />
-          <Resource href="/fishing/reports" title="Fishing reports" copy="Use dated reports when you need current-condition context." />
-          <Resource href="/fishing/access" title="Fishing access" copy="Find verified ramps, marinas, shoreline access and launches." />
-          <Resource href="/fishing/guides" title="Fishing guides" copy="Browse verified local guide profiles connected to the waters they serve." />
+          {resourceAvailability.reports ? <Resource href="/fishing/reports" title="Fishing reports" copy="Read dated reports and check freshness before planning." /> : null}
+          {resourceAvailability.access ? <Resource href="/fishing/access" title="Fishing access" copy="Explore documented ramps and marinas with official source links." /> : <Resource href="/fishing/lakes/lake-conroe/access" title="Lake Conroe access" copy="Explore the source-backed access guide for Lake Conroe." />}
+          {resourceAvailability.guides ? <Resource href="/fishing/guides" title="Fishing guides" copy="Browse verified local guide profiles connected to the waters they serve." /> : null}
           <Resource href="/shop/fishing-shirts" title="Texas fishing shirts" copy="See Texas Defined bass, lake, tackle and coastal angler graphic tees. Product pages show current options and checkout." />
           <Resource href="/hunting" title="Texas hunting" copy="Explore Texas hunting seasons, species, public-land planning and licensing." />
         </div>

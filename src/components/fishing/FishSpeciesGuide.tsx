@@ -110,7 +110,7 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
                 <div>
                   <h3 className="font-display text-2xl"><a href={row.href} className="hover:text-primary">{row.lake.name}</a></h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{row.lake.summary}</p>
-                  {row.relation.seasonalPatterns.length > 0 && <p className="mt-3 text-xs leading-5 text-muted-foreground">{row.relation.seasonalPatterns.map((pattern) => `${pattern.season}: ${pattern.summary}`).join(" ")}</p>}
+                  {row.relation.seasonalPatterns.length > 0 && <ul className="mt-3 space-y-1 text-xs leading-5 text-muted-foreground">{row.relation.seasonalPatterns.map((pattern, index) => <li key={`${pattern.season}-${index}`}><strong className="text-foreground">{seasonLabel[pattern.season] ?? (pattern.season === "year-round" ? "Year-round" : pattern.season)}:</strong> {pattern.summary}</li>)}</ul>}
                 </div>
                 <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground"><p>{row.relation.quality}</p><p className="mt-1">{row.relation.prominence}</p></div>
               </article>
