@@ -74,9 +74,13 @@ export function proposeGarbageCollection({
 } = {}) {
   if (!Array.isArray(absenceProofs) || absenceProofs.length < 2) return [];
   const proofs = absenceProofs.slice(-2);
+  // This shape check is NOT cryptographic signature verification. Caller
+  // must independently validate the release ledger before passing proofs.
   if (!proofs.every(p=>p && p.signed===true && typeof p.workerVersion==='string' &&
-    typeof p.sourceSha==='string' && SHA.test(p.sourceSha) &&
-    Array.isArray(p.referencedPaths) && Number.isFinite(Date.parse(p.capturedAt)))) return [];
+    p.workerVersion.length>0 && typeof p.sourceSha==='string' && SHA.test(p.sourceSha) &&
+    Array.isArray(p.referencedPaths) && Number.isFinite(Date.parse(p.capturedAt)) &&
+    Date.parse(p.capturedAt)<=now)) return [];
+  if (proofs[0].workerVersion===proofs[1].workerVersion) return [];
   const protectedPaths = new Set(activeReferencePaths);
   for (const proof of proofs) for (const path of proof.referencedPaths) protectedPaths.add(path);
   return stored.map(r=>verifyArchiveRecord(r,now))
