@@ -59,7 +59,7 @@ test('simulate ten days of releases: no deleted hashes, bounded cost and origina
   assert.equal(totalWritten,1400);
   assert.equal(known.length,1400);
   assert.equal(known[0].firstSeenAt,iso(epoch));
-  assert.equal(proposeGarbageCollection({stored:known,now:epoch+40*86400000}),[]);
+  assert.deepEqual(proposeGarbageCollection({stored:known,now:epoch+40*86400000}),[]);
 });
 test('fail closed before exceeding free-tier quota or storage',()=>{
   const incoming=Array.from({length:70},(_,i)=>record('/assets/Q'+String(i).padStart(3,'0')+'-ABCD1234.js','x'));
