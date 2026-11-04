@@ -44,13 +44,12 @@ const graduatedB011 = reg.completedBatches.some(b=>b.number===11 && b.state==='V
  const graduatedB012 = reg.completedBatches.some(b=>b.number===12 && b.state==='VERIFIED_BATCH_012_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1);
  assert.ok(graduatedB011,'Batch011 must retain its independently certified historical acceptance');
  assert.equal(reg.completedBatches.find(b=>b.number===11)?.individuallyVerified,25);
- assert.equal(0,0);
+ 
  assert.equal(graduatedB011?0:25,graduatedB011?0:25);
  assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,graduatedB012?280:graduatedB011?255:230);
   // The next active batch legitimately contributes 25 IMPLEMENTED records.
   // Do not attribute Batch012 work to an unfinished Batch011 graduation.
-  assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED').length,
-    reg.schoolRecords.filter(s=>s.batch===11||s.batch===12).filter(s=>s.status==='IMPLEMENTED').length);
+  assert.equal(reg.schoolRecords.filter(s=>[11,12].includes(s.batch)&&s.status==='IMPLEMENTED').length,0,'Graduated historical batches must not contain IMPLEMENTED records');
  const verifier=read('scripts/ci/verify-football-b011-third-five-production.mjs');
  const workflow=read('.github/workflows/verify-football-b011-all-schools-production.yml');
  for(const needle of ['report.schoolChecks.length!==15','report.countyChecks.length!==2','process.env.FOOTBALL_CHROME_SOURCE_SHA','process.env.FOOTBALL_EXPECTED_WORKER_VERSION','versions.size!==1'])
