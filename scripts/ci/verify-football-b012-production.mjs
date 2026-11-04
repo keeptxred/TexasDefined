@@ -7,19 +7,26 @@ import {verifySchoolSitemapCoverage} from './verify-football-b011-sitemap-eligib
 const require=createRequire(import.meta.url);
 const {chromium}=require('/tmp/td-b012-chrome/node_modules/playwright-core');
 const origin='https://texasdefined.com';
-const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
-assert.equal(reg.batch.number,12);
-assert.equal(reg.batch.slugs.length,25);
-assert.equal(new Set(reg.batch.slugs).size,25);
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,255);
-for(const slug of reg.batch.slugs)assert.ok(reg.schoolRecords.some(s=>s.slug===slug&&s.batch===12&&s.status==='IMPLEMENTED'),'Unimplemented '+slug);
 const source=process.env.FOOTBALL_CHROME_SOURCE_SHA||'';
 const worker=process.env.FOOTBALL_EXPECTED_WORKER_VERSION||'';
-assert.match(source,/^[a-f0-9]{40}$/);
-assert.match(worker,/^[a-f0-9-]{36}$/);
-const report={batch:12,sourceCommit:source,workerVersion:worker,schoolSlugs:reg.batch.slugs,schoolChecks:[],countyChecks:[],failures:[],technicalOnly:true};
+const report={batch:12,sourceCommit:source,workerVersion:worker,schoolSlugs:[],schoolChecks:[],countyChecks:[],failures:[],technicalOnly:true};
 mkdirSync('artifacts',{recursive:true});
 const save=()=>writeFileSync('artifacts/b012-chrome-report.json',JSON.stringify(report,null,2)+'\n');
+const preflight=(name,fn)=>{try{fn();}catch(error){report.failures.push({slug:'preflight',width:0,error:name+': '+String(error.message||error)});save();throw error;}};
+const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
+report.schoolSlugs=reg.batch?.slugs||[];
+preflight('registry',()=>{
+ assert.equal(reg.batch.number,12);
+ assert.equal(reg.batch.slugs.length,25);
+ assert.equal(new Set(reg.batch.slugs).size,25);
+ assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,255);
+ for(const slug of reg.batch.slugs)assert.ok(reg.schoolRecords.some(s=>s.slug===slug&&s.batch===12&&s.status==='IMPLEMENTED'),'Unimplemented '+slug);
+});
+preflight('release identity',()=>{
+ assert.match(source,/^[a-f0-9]{40}$/);
+ assert.match(worker,/^[a-f0-9-]{36}$/);
+});
+save();
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
 try{
  const sitemapFailures=await verifySchoolSitemapCoverage(reg.batch.slugs);
