@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-03T18:30:20.974Z",
+  "fetchedAt": "2026-11-04T18:40:30.487Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -874,6 +874,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1A7J607"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "The Big Dill Pickle Festival",
+      "city": "Arlington",
+      "dates": [
+        "2026-11-07"
+      ],
+      "venues": [
+        "Globe Life Field"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAvvfb"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvvfb"
       ],
       "status": "requires-organizer-verification",
       "evidence": {

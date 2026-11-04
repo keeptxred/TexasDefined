@@ -1,13 +1,7 @@
 {
-  "generatedAt": "2026-11-03T18:30:20.929Z",
+  "generatedAt": "2026-11-04T18:40:30.446Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Morning Nature Walk",
-      "startDate": "2026-11-04",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-04"
-    },
     {
       "title": "Coffee with the Superintendents",
       "startDate": "2026-11-05",
@@ -465,16 +459,16 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/fort-davis-tales-1/2026-11-21"
     },
     {
+      "title": "Guided Nature Walk",
+      "startDate": "2026-11-21",
+      "parkKey": "mother-neff",
+      "officialUrl": "https://tpwd.texas.gov/calendar/mother-neff/guided-nature-walk/2026-11-21"
+    },
+    {
       "title": "Guided Paddle",
       "startDate": "2026-11-21",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2026-11-21"
-    },
-    {
-      "title": "Leaf-Peeping Hike",
-      "startDate": "2026-11-21",
-      "parkKey": "lake-bob-sandlin",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-bob-sandlin/leaf-peeping-hike/2026-11-21"
     },
     {
       "title": "Meet The Longhorns",
@@ -619,6 +613,12 @@
       "startDate": "2026-11-28",
       "parkKey": "eisenhower",
       "officialUrl": "https://tpwd.texas.gov/calendar/eisenhower/gobble-wobble-hunt/2026-11-28"
+    },
+    {
+      "title": "Guided Nature Walk",
+      "startDate": "2026-11-28",
+      "parkKey": "mother-neff",
+      "officialUrl": "https://tpwd.texas.gov/calendar/mother-neff/guided-nature-walk/2026-11-28"
     },
     {
       "title": "Island Trail Hike",
