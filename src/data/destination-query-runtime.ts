@@ -485,7 +485,7 @@ export async function listResolvedDestinationSearchCatalog() {
     : [];
   // Preserve the established publication/readiness contract for the remote,
   // core and locally preserved index before overlaying source-verified Waco.
-  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, enriched, core, preservedExploreDestinations));
+  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))));
   const wacoFirstCatalog = reconcileExploreCatalog(mergeDestinations(wacoFallbacks, preservedSearchCatalog));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
     wacoFirstCatalog,
