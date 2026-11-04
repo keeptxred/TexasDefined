@@ -63,7 +63,11 @@ if (process.argv.includes("--self-test")) {
   assert.equal(relevantSourceDigest(sample), relevantSourceDigest("<script>var updated=Date.now()</script>" + sample), "analytics timestamps do not change campground fingerprint");
   assert.notEqual(relevantSourceDigest(sample), relevantSourceDigest(sample.replace("require advance booking", "are first come first served")), "reservation policy changes must be detected");
   assert.equal(relevantSourceDigest("<html><script>no campsites</script></html>"), null, "no evidence must not be treated as a verified fingerprint");
-  console.log("Camping source health classification self-test passed: 2xx, missing, restricted, rate-limited, server failure and redirect.");
+  const editorialFixture = 'const EDITORIAL_UPDATED_AT = "2026-11-04";';
+  assert.equal(/const EDITORIAL_UPDATED_AT = "(\\d{4}-\\d{2}-\\d{2})";/.exec(editorialFixture)?.[1], "2026-11-04");
+  assert.equal((Date.parse("2027-02-03T00:00:00Z")-Date.parse("2026-11-04T00:00:00Z"))/86400000 > 90, true,
+    "overdue editorial reviews must be flagged without a synthetic new verification date");
+  console.log("Camping source health classification self-test passed: source errors and separate editorial-review age clock.");
   process.exit(0);
 }
 const reviewDates = [];
@@ -80,11 +84,26 @@ for (const name of profileFiles) {
 if (refs.size < 20) throw Error("Unexpectedly small official-source set (" + refs.size + "); refuse a misleading audit");
 if (reviewDates.length < 7) throw Error("Profile review dates missing; refuse a misleading audit");
 const maxAgeDays = 120;
+// The human-facing six-choice editorial comparison has a separate quarterly
+// review clock. A scheduled audit must flag it when stale; it must NEVER
+// advance the displayed date or treat a successful HTTP request as research.
+const EDITORIAL_REVIEW_MAX_DAYS = 90;
+const editorialRouteFile = "src/routes/best-places-to-go-camping-in-texas.tsx";
+const editorialRoute = fs.readFileSync(editorialRouteFile, "utf8");
+const editorialDateMatch = editorialRoute.match(/const EDITORIAL_UPDATED_AT = "(\\d{4}-\\d{2}-\\d{2})";/);
+if (!editorialDateMatch) throw Error("Camping editorial reviewed date missing; do not silently pass the refresh cycle");
 const now = Date.now();
-const stale = reviewDates.filter(x => (now - Date.parse(x.date + "T00:00:00Z")) / 86400000 > maxAgeDays);
+const ageDays = date => (now - Date.parse(date + "T00:00:00Z")) / 86400000;
+const stale = [
+  ...reviewDates.filter(x => ageDays(x.date) > maxAgeDays),
+  ...(ageDays(editorialDateMatch[1]) > EDITORIAL_REVIEW_MAX_DAYS
+    ? [{ file: editorialRouteFile, date: editorialDateMatch[1], category: "editorial-review-overdue" }]
+    : []),
+];
 const report = { checkedAt: new Date().toISOString(), scope: "TexasDefined camping profile sources only",
   officialUrls: refs.size, reviewDates, stale, checked: [], failures: [], categories: {} };
-console.log("Official camping source URLs:", refs.size, "dated profile batches:", reviewDates.length);
+console.log("Official camping source URLs:", refs.size, "dated profile batches:", reviewDates.length,
+  "editorial review:", editorialDateMatch[1], "editorial review max age (days):", EDITORIAL_REVIEW_MAX_DAYS);
 if (process.argv.includes("--offline")) {
   if (stale.length) console.warn("STALE PROFILE BATCHES:", JSON.stringify(stale));
   if (stale.length) process.exitCode = 2;
