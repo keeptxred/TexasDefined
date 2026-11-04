@@ -12,7 +12,7 @@ const sample = [
   ["/destination/uss-lexington-museum-corpus-christi", ["Lexington"]],
   ["/destination/enchanted-rock-state-natural-area", ["Enchanted Rock"]],
   ["/fishing/lakes/lake-conroe", ["Lake Conroe"]],
-  ["/best-places-to-go-camping-in-texas", ["camping"]],
+  ["/best-places-to-go-camping-in-texas", ["Six Texas camping starting points, by trip", "Editorial comparison updated November 4, 2026", "Pet friendly is a verified-only filter", "Can I pitch a tent in Garner State Park", "Can I bring pets to most Texas state park campgrounds?"]],
   ["/article/fredericksburg-johnson-city-historic-road-trip", ["Fredericksburg", "Johnson City"]],
 ];
 export const plannedAuthorityChecks = sample.map(([path]) => path);
@@ -39,6 +39,51 @@ export function extractVisibleText(html) {
     .replace(/<[^>]*>/g," ").replace(/&nbsp;|&#160;/gi," ")
     .replace(/&amp;|&#38;/gi,"&").replace(/\s+/g," ").trim();
 }
+// The canonical guide is a 72-profile research tool, not a thin shell.
+// Inspect parsed JSON-LD on both origins, not incidental script strings.
+export function assertCampingGuideGoogleSignals(html) {
+  const pageUrl = "https://texasdefined.com/best-places-to-go-camping-in-texas";
+  const canonicals = [...html.matchAll(/<link\\b[^>]*>/gi)]
+    .map((match) => match[0]).filter((tag) => /\\brel=["']canonical["']/i.test(tag));
+  if (canonicals.length !== 1 || readCanonical(html) !== pageUrl) {
+    throw new Error("Camping guide must have exactly one self-referencing canonical");
+  }
+  const docs = [...html.matchAll(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script\\s*>/gi)]
+    .filter(([, attrs]) => /\\btype\\s*=\\s*["']application\\/ld\\+json["']/i.test(attrs))
+    .map(([, , raw]) => {
+      try { return JSON.parse(raw); }
+      catch { throw new Error("Camping guide has invalid JSON-LD"); }
+    });
+  const nodes = docs.flatMap((doc) => Array.isArray(doc) ? doc
+    : Array.isArray(doc?.["@graph"]) ? doc["@graph"] : [doc]);
+  const collections = nodes.filter((node) => node?.["@type"] === "CollectionPage"
+    && node?.["@id"] === pageUrl);
+  const lists = nodes.filter((node) => node?.["@type"] === "ItemList"
+    && node?.["@id"] === pageUrl + "#camping-directory");
+  if (collections.length !== 1 || lists.length !== 1) {
+    throw new Error("Camping guide structured data must have one CollectionPage and one linked ItemList");
+  }
+  const page = collections[0], list = lists[0];
+  if (page.mainEntity?.["@id"] !== list["@id"]
+      || page.author?.name !== "Texas Defined"
+      || page.publisher?.name !== "Texas Defined"
+      || !/^20\\d{2}-\\d\\d-\\d\\d$/.test(page.dateModified ?? "")) {
+    throw new Error("Camping guide JSON-LD lacks authentic author, modified date or linked directory");
+  }
+  if (!Number.isInteger(list.numberOfItems)
+      || list.numberOfItems < 72
+      || list.itemListElement?.length !== list.numberOfItems
+      || list.itemListElement.some((item, index) => item.position !== index + 1
+        || item.item?.["@type"] !== "Campground"
+        || !item.item?.name
+        || typeof item.item?.url !== "string")) {
+    throw new Error("Camping guide ItemList is incomplete or has broken campground entries");
+  }
+  if (!html.includes("https://tpwd.texas.gov/state-parks/park-information/frequently-asked-questions/")) {
+    throw new Error("Camping pet policy lacks the official TPWD source link");
+  }
+}
+
 async function fetchPage(url) {
   for (let attempt=1; attempt<=2; attempt++){
     try { return await fetch(url,{headers,redirect:"error",cache:"no-store",signal:AbortSignal.timeout(30000)}); }
@@ -66,6 +111,7 @@ async function check(path, markers, origin, expectedNoindex=false) {
   for(const phrase of markers)if(!text.toLowerCase().includes(phrase.toLowerCase()))
     throw new Error("Missing distinct authority page text "+phrase+" at "+url.href);
   if(text.length<700)throw new Error("Suspected empty/thin SSR HTML: "+url.href);
+  if (path === "/best-places-to-go-camping-in-texas") assertCampingGuideGoogleSignals(html);
   console.log(JSON.stringify({kind:"category-authority-live",origin,path,status:response.status,
     canonical,indexable:!expectedNoindex,htmlBytes:html.length,markers,ok:true}));
 }
