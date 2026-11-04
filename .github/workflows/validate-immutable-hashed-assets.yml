@@ -2,7 +2,7 @@ name: Immutable hashed asset archive staging tests
 on:
   pull_request:
     paths:
-      - 'scripts/ci/immutable-hashed-asset-archive*'
+      - 'scripts/ci/immutable-hashed-asset-*.mjs'
       - 'docs/ci/immutable-hashed-asset-archive.md'
       - '.github/workflows/validate-immutable-hashed-assets.yml'
   workflow_dispatch:
