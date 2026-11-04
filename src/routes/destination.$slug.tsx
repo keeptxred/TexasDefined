@@ -277,7 +277,10 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     // against the exact Wikimedia Commons file description, not inferred from
     // unrelated destination photos or a generic photographer credit.
     const moodyGardensImageRights = destination.slug === "moody-gardens"
-      && destination.hero.src === "https://commons.wikimedia.org/wiki/Special:Redirect/file/Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg?width=1600"
+      // destinationQuery calls prepareDestinationForDelivery(), which proxies Wikimedia
+      // URLs before this loader builds JSON-LD. Match the precise delivered URL,
+      // not the raw source URL, so photo rights survive that transformation.
+      && destination.hero.src === editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg?width=1600")
       && destination.hero.credit === "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
       ? {
           creator: { "@type": "Person", name: "Larry D. Moore" },

@@ -350,6 +350,59 @@ test('slug-keyed article link changes verify actual source pages and newly added
   assert.match(bad[0].error, /Expected changed internal link is missing/);
 });
 
+test('Moody Gardens proxied Commons hero emits exact verified rights on release and visitor HTML', async () => {
+  const original = 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg?width=1600';
+  const proxyUrl = 'https://texasdefined.com/media/remote?url=' + encodeURIComponent(original);
+  const routeSource = text('src/routes/destination.$slug.tsx');
+  const deliverySource = text('src/lib/editorial-image-delivery.ts');
+  assert.ok(deliverySource.includes('const src = editorialImageSrc(image.src)'),
+    'destinationQuery must prepare the image for same-origin delivery');
+  assert.ok(routeSource.includes('destination.hero.src === editorialImageSrc("' + original + '")'),
+    'rights must compare the delivered proxy URL, never the original Wikimedia source');
+  assert.ok(routeSource.includes('destination.hero.credit === "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"'),
+    'do not assign photographer rights to unrelated imagery');
+
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/destination-curation-moody-gardens.ts'] });
+  assert.deepEqual(plan.selectedPaths, ['/destination/moody-gardens']);
+  assert.deepEqual(plan.moodyGardensPages, ['/destination/moody-gardens']);
+  const pageUrl = 'https://texasdefined.com/destination/moody-gardens';
+  const image = {
+    '@type': 'ImageObject',
+    '@id': pageUrl + '#primaryimage',
+    url: proxyUrl,
+    contentUrl: proxyUrl,
+    caption: 'The glass pyramids of Moody Gardens beside the water in Galveston',
+    creditText: 'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
+    creator: { '@type': 'Person', name: 'Larry D. Moore' },
+    copyrightNotice: '© 2026 Larry D. Moore',
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    acquireLicensePage: 'https://commons.wikimedia.org/wiki/File:Moody_Gardens_Pyramids_Galveston_Texas_2026.jpg',
+  };
+  const html = (imageNode = image) => '<html><head><title>Moody Gardens Galveston visitor guide</title>'
+    + '<link rel="canonical" href="' + pageUrl + '"></head><body>'
+    + 'Photograph: Larry D. Moore · CC BY 4.0'
+    + '<script type="application/ld+json">' + JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [{ '@type': 'TouristAttraction', '@id': pageUrl + '#attraction', image: [imageNode] }],
+    }) + '</script></body></html>';
+  const visited = [];
+  const passed = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    visited.push(url.href);
+    return new Response(html());
+  } });
+  assert.equal(passed.length, 1);
+  assert.equal(passed[0].passed, true, JSON.stringify(passed));
+  assert.ok(visited.includes(pageUrl), 'must verify the ordinary visitor URL');
+  assert.ok(visited.some(url => url.includes('deploy_smoke=')), 'must also verify release HTML');
+  const missingRights = await verifyChangedPages({ plan, head, fetchImpl: async () =>
+    new Response(html({ ...image, creator: undefined, license: undefined })) });
+  assert.equal(missingRights[0].passed, false, 'missing image license must fail');
+  assert.match(missingRights[0].error, /Moody Gardens primary image metadata missing/);
+  const staleCache = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(url.searchParams.has('deploy_smoke') ? html() : html({ ...image, copyrightNotice: undefined })) });
+  assert.equal(staleCache[0].passed, false, 'stale canonical HTML cannot pass the release probe');
+});
+
 test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
