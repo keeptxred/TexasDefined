@@ -15,9 +15,12 @@ export const Route = createFileRoute("/fishing/access/$slug")({
     if (!loaderData) return { meta: [{ name: "robots", content: "noindex, nofollow" }] };
     const { point, canonicalPath, lakes } = loaderData;
     const origin = `https://${texasDefinedBrand.identity.domain}`;
+    // A sourced listing can aid visitors before it has enough unique, locatable
+    // detail for a standalone Google entry. Keep those pilot profiles noindex.
+    const hasLocatableFacility = Boolean(point.address || point.coordinates);
     const description = point.description ?? `Verified ${point.kind.replaceAll("-", " ")} fishing access for ${lakes.map((lake) => lake?.name).filter(Boolean).join(", ")}, with sourced access details and current-condition caveats.`;
     return {
-      meta: buildMeta(texasDefinedBrand, { title: `${point.name} — Verified Texas Fishing Access`, description, canonicalPath }),
+      meta: buildMeta(texasDefinedBrand, { title: `${point.name} — Verified Texas Fishing Access`, description, canonicalPath, robots: hasLocatableFacility ? undefined : "noindex, follow" }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify([
         { "@context": "https://schema.org", "@type": "WebPage", name: `${point.name} — Verified Texas Fishing Access`, description, url: `${origin}${canonicalPath}`, dateModified: point.verifiedAt, isPartOf: { "@id": `${origin}/#website` }, citation: point.sources.map((source) => source.url), about: lakes.filter(Boolean).map((lake) => ({ "@type": "LakeBodyOfWater", name: lake!.name, url: `${origin}/fishing/lakes/${lake!.slug}` })) },
