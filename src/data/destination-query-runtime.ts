@@ -331,7 +331,7 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   const cityPassPreserved = await cityPassPreservedFor(params);
   const wacoPreserved = await wacoPreservedFor(params);
   // Preserve the existing remote/core/preserved/local source fallback contract.
-  const baseReady = reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, enriched, core, preserved, local));
+  const baseReady = reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, mergeDestinations(enriched, core, preserved, local)));
   const wacoReady = reconcileExploreCatalog(mergeDestinations(wacoPreserved, baseReady));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
     wacoReady,
