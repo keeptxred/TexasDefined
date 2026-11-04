@@ -83,7 +83,7 @@ requireText(route, "${pageUrl}#${profileAnchor(profile)}", "campground structure
 requireText(component, "Build trip", "campground seeded trip-planner link");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
 requireText(page, "Match the season to the part of Texas", "camping seasonal planning");
-for (const marker of ['id="camping-start-here"', "Six Texas camping starting points, by trip", "campingStartingPoints.map", "tradeoff", "not a numeric ranking", "Texas Defined editorial desk", "Editorial comparison updated November 4, 2026", 'to="/editorial-policy"', "not claims of on-site testing", "Shady Meadows full-hookup sites", "tpwd.texas.gov/state-parks/garner/fees-facilities/campsites"]) {
+for (const marker of ['id="camping-start-here"', "Six Texas camping starting points, by trip", "campingStartingPoints.map", "tradeoff", "not a numeric ranking", "Texas Defined editorial desk", "Editorial comparison updated November 4, 2026", 'to="/editorial-policy"', "not visitor ratings or claims of on-site testing", "Shady Meadows full-hookup sites", "tpwd.texas.gov/state-parks/garner/fees-facilities/campsites"]) {
   requireText(page, marker, "camping editorial decision guidance");
 }
 requireText(route, "EDITORIAL_UPDATED_AT", "substantive editorial modified date");
