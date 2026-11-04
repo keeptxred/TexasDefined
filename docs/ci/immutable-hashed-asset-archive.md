@@ -1,8 +1,8 @@
 # Immutable JS/CSS archive — staged, **not deployed**
 
-This patch provides a provider-portable, tested safety core for the owner-approved
+This patch provides a provider-portable, tested safety core and an idempotent\noriginal-byte readback publisher for the owner-approved
 release-independent asset storage architecture described in recovery issue #5794.
-It **does not** provision KV/R2, configure a Worker binding or change asset routing.
+It **does not** provision KV/R2, configure a Worker binding, upload to live\nKV or change asset routing. The publisher requires an injected storage binding\nand supplies `readyForWorkerRouting: false` even after same-namespace readback;\nglobal eventual consistency must be separately certified.
 
 **Current emergency carry-forward remains active**, with its existing SHA-256,
 mime, freshness, original first-seen, 72-hour and 768-file/48 MiB protections.
