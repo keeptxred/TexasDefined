@@ -43,13 +43,13 @@ export function extractVisibleText(html) {
 // Inspect parsed JSON-LD on both origins, not incidental script strings.
 export function assertCampingGuideGoogleSignals(html) {
   const pageUrl = "https://texasdefined.com/best-places-to-go-camping-in-texas";
-  const canonicals = [...html.matchAll(/<link\\b[^>]*>/gi)]
-    .map((match) => match[0]).filter((tag) => /\\brel=["']canonical["']/i.test(tag));
+  const canonicals = [...html.matchAll(/<link\b[^>]*>/gi)]
+    .map((match) => match[0]).filter((tag) => /\brel=["']canonical["']/i.test(tag));
   if (canonicals.length !== 1 || readCanonical(html) !== pageUrl) {
     throw new Error("Camping guide must have exactly one self-referencing canonical");
   }
-  const docs = [...html.matchAll(/<script\\b([^>]*)>([\\s\\S]*?)<\\/script\\s*>/gi)]
-    .filter(([, attrs]) => /\\btype\\s*=\\s*["']application\\/ld\\+json["']/i.test(attrs))
+  const docs = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter(([, attrs]) => /\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))
     .map(([, , raw]) => {
       try { return JSON.parse(raw); }
       catch { throw new Error("Camping guide has invalid JSON-LD"); }
@@ -67,7 +67,7 @@ export function assertCampingGuideGoogleSignals(html) {
   if (page.mainEntity?.["@id"] !== list["@id"]
       || page.author?.name !== "Texas Defined"
       || page.publisher?.name !== "Texas Defined"
-      || !/^20\\d{2}-\\d\\d-\\d\\d$/.test(page.dateModified ?? "")) {
+      || !/^20\d{2}-\d\d-\d\d$/.test(page.dateModified ?? "")) {
     throw new Error("Camping guide JSON-LD lacks authentic author, modified date or linked directory");
   }
   if (!Number.isInteger(list.numberOfItems)
