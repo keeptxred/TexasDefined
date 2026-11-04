@@ -31,7 +31,7 @@ The [Fort Worth tourism bureau](https://www.fortworth.com/things-to-do/attractio
 
 ## Hours, admission and realistic visit length
 
-The City's Water Gardens page lists **6 a.m. to 10 p.m. daily**. The Fort Worth visitor bureau identifies the park as **free to enter**. These are separate official-source claims, both checked 2026-10-29. Special access restrictions, maintenance or construction can still change portions of the experience, so use the city's current park notices over a third-party calendar entry.
+The City's Water Gardens page lists **6 a.m. to 10 p.m. daily**. The Fort Worth visitor bureau identifies the park as **free to enter**. These are separate official-source claims, both checked 2026-10-29. **Construction advisory:** The City lists a Water Gardens improvement project in final design, with a projected 2027 completion. Work may affect access when construction begins; do not infer an active closure from the project listing. Check the [official project status](https://www.fortworthtexas.gov/projects/pard-projects/pard-water-gardens) and current park notices before visiting.
 
 Allow **30–60 minutes** if you want to see all three pool environments and spend a few minutes at each viewpoint. That is an independent planning estimate, not a required route or scheduled tour duration. A fast circuit is possible, but it misses the way the park's sound and visual scale change from pool to pool.
 
