@@ -19,9 +19,11 @@ export const Route = createFileRoute("/fishing/access")({
   head: ({ loaderData }) => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const items = loaderData?.access ?? [];
+    // A single-lake pilot is useful to visitors but not yet a statewide index.
+    const hasMultiLakeCoverage = new Set(items.flatMap((entry) => entry.lakes.map((lake) => lake?.id).filter(Boolean))).size > 1;
     const description = "Verified Texas fishing access: boat ramps, marinas, shore sites, piers and kayak launches tied to the lakes they serve, with source dates and changing-condition warnings.";
     return {
-      meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Access — Ramps, Marinas, Shore & Kayak Launches", description, canonicalPath: FISHING_ACCESS_DIRECTORY_PATH, robots: items.length ? undefined : "noindex, follow" }),
+      meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Access — Ramps, Marinas, Shore & Kayak Launches", description, canonicalPath: FISHING_ACCESS_DIRECTORY_PATH, robots: items.length && hasMultiLakeCoverage ? undefined : "noindex, follow" }),
       links: [canonicalLink(texasDefinedBrand, FISHING_ACCESS_DIRECTORY_PATH)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify([
         { "@context": "https://schema.org", "@type": "CollectionPage", name: "Texas Fishing Access", description, url: `${origin}${FISHING_ACCESS_DIRECTORY_PATH}` },
