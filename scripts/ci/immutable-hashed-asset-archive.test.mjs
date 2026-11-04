@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { publishImmutableArchive } from './immutable-hashed-asset-publisher.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import {
@@ -101,4 +102,57 @@ test('missing, mismatched, corrupted or unavailable archives never fake a health
   assert.equal((await archivedAssetResponse(new Request(url),corrupt)).status,503);
   assert.equal((await archivedAssetResponse(new Request(url),{getWithMetadata:async()=>{throw Error('KV down');}})).status,503);
   assert.equal(await archivedAssetResponse(new Request(url,{method:'POST'}),corrupt),null);
+});
+
+test('idempotent original-byte publication and rollback: readback verified; not globally certified',async()=>{
+  const p='/assets/main-ABCDEFGH.js',body=Buffer.from('immutable original');
+  const r=record(p,body.toString());
+  const plan=planImmutablePublication({incoming:[r],now:epoch});
+  const data=new Map();let puts=0;
+  const kv={
+    async getWithMetadata(key){return data.get(key)||{value:null,metadata:null};},
+    async put(key,bytes,{metadata}){puts++;data.set(key,{value:bytes,metadata});},
+  };
+  const publish=()=>publishImmutableArchive({plan,namespace:kv,
+    readOriginalBytes:async()=>body});
+  const first=await publish();
+  assert.equal(first.newlyPublished,1);
+  assert.equal(first.fullyReadBack,true);
+  assert.equal(first.globallyReplicated,false);
+  assert.equal(first.readyForWorkerRouting,false);
+  const second=await publish();
+  assert.equal(second.newlyPublished,0);
+  assert.equal(second.alreadyPresent,1);
+  assert.equal(puts,1,'No rewrite of an already published immutable key');
+  const old=await archivedAssetResponse(new Request('https://texasdefined.com'+p),kv);
+  assert.equal(old.status,200);assert.equal(await old.text(),body.toString());
+});
+test('publisher cannot silently replace a tampered object or invented original',async()=>{
+  const p='/assets/main-ABCDEFGH.js',body=Buffer.from('verified body');
+  const r=record(p,body.toString());
+  const plan=planImmutablePublication({incoming:[r],now:epoch});
+  const fake={getWithMetadata:async()=>({value:Buffer.from('evil').buffer,
+    metadata:{version:1,path:p,bytes:r.bytes,sha256:r.preSha256,
+      firstSeenAt:r.firstSeenAt,contentType:'text/javascript'}}),put:async()=>{throw Error('MUST NOT overwrite');}};
+  await assert.rejects(publishImmutableArchive({plan,namespace:fake,
+    readOriginalBytes:async()=>body}),/original-byte SHA mismatch/);
+  const blank={getWithMetadata:async()=>({value:null,metadata:null}),
+    put:async()=>{throw Error('SHOULD NOT PUBLISH');}};
+  await assert.rejects(publishImmutableArchive({plan,namespace:blank,
+    readOriginalBytes:async()=>Buffer.from('wrong body')}),/Original-byte source failed SHA-256/);
+});
+test('interrupted write cannot be certified and a later idempotent run recovers',async()=>{
+  const p='/assets/main-ABCDEFGH.js',body=Buffer.from('previous original');
+  const plan=planImmutablePublication({incoming:[record(p,body.toString())],now:epoch});
+  const data=new Map();let fail=true;
+  const kv={
+    async getWithMetadata(k){return data.get(k)||{value:null,metadata:null};},
+    async put(k,value,{metadata}){if(fail){fail=false;throw Error('network interruption');}
+      data.set(k,{value,metadata});},
+  };
+  const publisher=()=>publishImmutableArchive({plan,namespace:kv,readOriginalBytes:async()=>body});
+  await assert.rejects(publisher(),/network interruption/);
+  const success=await publisher();
+  assert.equal(success.newlyPublished,1);
+  assert.equal(success.readyForWorkerRouting,false);
 });
