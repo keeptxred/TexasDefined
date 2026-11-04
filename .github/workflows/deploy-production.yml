@@ -552,6 +552,7 @@ jobs:
           # Fail closed on all governed WebP binaries, canonical and direct; preserve existing rollback.
           PRODUCTION_HEALTH_LABEL: direct-worker
           PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
+          PRODUCTION_HEALTH_DISCOVER_SOURCE_FINGERPRINT: ${{ steps.discover_fingerprint.outputs.sha }}
         run: node scripts/ci/verify-production-health.mjs
 
       - name: Capture unhealthy Worker runtime diagnostics
@@ -601,7 +602,17 @@ jobs:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
           PRODUCTION_HEALTH_LABEL: canonical-domain
           PRODUCTION_HEALTH_DISCOVER_ASSETS: 'true'
+          PRODUCTION_HEALTH_DISCOVER_SOURCE_FINGERPRINT: ${{ steps.discover_fingerprint.outputs.sha }}
         run: node scripts/ci/verify-production-health.mjs
+
+      - name: Preserve exact build-to-live Discover WebP SHA-256 provenance
+        if: ${{ always() && (steps.live_direct_health.outcome != 'skipped' || steps.live_canonical_health.outcome != 'skipped') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: discover-build-live-sha256-${{ github.run_id }}
+          path: .artifacts/governed-discover-delivery-*.json
+          if-no-files-found: error
+          retention-days: 30
 
       # Release acceptance for the source-backed fishing indexability gate:
       # compare real canonical HTML robots with the four live sitemap feeds.
