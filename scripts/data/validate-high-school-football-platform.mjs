@@ -3022,22 +3022,55 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       errors.push('Batch012 requires intact protected Batch011 25-school production certificate');
     const assignedOnly=r.batch.state==='ASSIGNED_SOURCE_RESEARCH';
     const implementedPendingChrome=r.batch.state==='SOURCE_IMPLEMENTED_PENDING_PRODUCTION_CHROME';
+    const archived012=r.completedBatches.filter(x=>x.number===12);
+    const completed=archived012.length===1 && r.batch.state==='VERIFIED_BATCH_012_COMPLETE';
+    const cert=archived012[0];
+    const proof=cert?.technicalAcceptance;
+    const certifiedWorker=proof?.observedWorkerVersions?.[0];
+    const certified=completed &&
+      cert.state==='VERIFIED_BATCH_012_COMPLETE' &&
+      cert.individuallyVerified===25 &&
+      cert.noNextBatchAssigned===true &&
+      proof?.schoolCount===25 && proof?.schoolCasesPassed===75 && proof?.schoolCasesFailed===0 &&
+      proof?.countyCasesPassed===25 && proof?.countyCasesFailed===0 &&
+      proof?.browserExecutionCount===1 && proof?.sitemapUrlsPassed===25 &&
+      proof?.workerVersionMatchesDeploy===true &&
+      /^\\w{8}-(?:\\w{4}-){3}\\w{12}$/.test(certifiedWorker||'') &&
+      /^[a-f0-9]{40}$/.test(proof?.productionDeploymentGitSha||'') &&
+      Number.isSafeInteger(proof?.productionDeploymentRun) &&
+      Number.isSafeInteger(proof?.githubWorkerLedgerDeploymentId) &&
+      Number.isSafeInteger(proof?.chromeRunId) &&
+      Number.isSafeInteger(proof?.chromeArtifactId) &&
+      r.batch.individuallyVerified===25 && r.batch.remainingToVerify===0 &&
+      r.batch.remainingAssigned===0 && r.batch.implementedOnBranch===25 &&
+      r.batch.remainingToImplement===0 &&
+      expectedNext.every(x=>x.status==='VERIFIED' && x.actualProductionVerified===true &&
+        x.productionWorkerVersion===certifiedWorker &&
+        x.verifiedDeploymentGitSha===proof?.productionDeploymentGitSha &&
+        x.technicalBrowserRun===proof?.chromeRunId &&
+        x.acceptanceEvidenceArtifact===proof?.chromeArtifactId);
     const stateValid=assignedOnly
       ? r.batch.implementedOnBranch===0 && r.batch.remainingToImplement===25 &&
         r.batch.currentSchool===r.batch.slugs[0] && r.batch.nextSchool===r.batch.slugs[1] &&
         r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length===1037 &&
-        expectedNext.every(x=>x.status==='NOT_REVIEWED' && x.actualProductionVerified!==true)
-      : implementedPendingChrome &&
-        r.batch.implementedOnBranch===25 && r.batch.remainingToImplement===0 &&
+        expectedNext.every(x=>x.status==='NOT_REVIEWED' && x.actualProductionVerified!==true) &&
+        archived012.length===0
+      : implementedPendingChrome
+      ? r.batch.implementedOnBranch===25 && r.batch.remainingToImplement===0 &&
         r.batch.currentSchool===null && r.batch.nextSchool===null &&
         r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length===1012 &&
-        expectedNext.every(x=>x.status==='IMPLEMENTED' && x.actualProductionVerified!==true);
+        expectedNext.every(x=>x.status==='IMPLEMENTED' && x.actualProductionVerified!==true) &&
+        archived012.length===0
+      : certified;
     if(!stateValid || r.batch.slugs.length!==25 ||
        JSON.stringify(r.batch.slugs)!==JSON.stringify(originalOrder) ||
-       expectedNext.length!==25 || r.batch.individuallyVerified!==0 ||
-       r.batch.remainingToVerify!==25 || r.batch.remainingAssigned!==25 ||
-       r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==255)
-      errors.push('Batch012 must preserve exactly 25 next canonical schools in assigned or fully implemented pre-Chrome state without false certification');
+       expectedNext.length!==25 ||
+       r.batch.individuallyVerified!==(certified?25:0) ||
+       r.batch.remainingToVerify!==(certified?0:25) ||
+       r.batch.remainingAssigned!==(certified?0:25) ||
+       r.schoolRecords.filter(x=>x.status==='VERIFIED').length!==(certified?280:255) ||
+       r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==(certified?0:implementedPendingChrome?25:0))
+      errors.push('Batch012 must preserve exactly 25 canonical assigned, pending, or evidence-backed technically VERIFIED schools; no premature promotion');
   } else if(r.batch.number!==10){
     errors.push('Football authority active assignment must be certified Batch010, Batch011, or assigned Batch012.');
   }
