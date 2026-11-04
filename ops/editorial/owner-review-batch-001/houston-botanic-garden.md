@@ -5,7 +5,7 @@ proposedCanonical: "/destination/houston-botanic-garden"
 status: "editorial-draft-not-published"
 county: "Harris County"
 city: "Houston"
-checked: "2026-10-29"
+checked: "2026-11-03"
 ownerScopeApproved: true
 ownerFinalPublicationApproved: false
 sourceOfTruth: "Houston Botanic Garden"
@@ -13,7 +13,7 @@ sourceOfTruth: "Houston Botanic Garden"
 
 # Houston Botanic Garden: What to see and how to plan
 
-**At a glance:** The Houston Botanic Garden normally opens **9 a.m.–5 p.m.**, with **last entry at 4:30 p.m.** It is **closed Thanksgiving Day, Christmas Day and New Year's Day**, according to its published visit information. **Every person entering requires a ticket or member reservation, including infants and young children.** On-site parking is free. The main public entrance is **One Botanic Lane, Houston, TX 77017**, off Park Place Boulevard. Verify hours, current admission, weather-related closures, programs and tickets through the [official garden](https://hbg.org/visit/).
+**At a glance:** The Houston Botanic Garden normally opens **9 a.m.–5 p.m.**, with **last entry at 4:30 p.m.** The operator identifies **Thanksgiving Day and Christmas Day** closures; verify any additional holiday closure before traveling. **Every person entering requires a ticket or member reservation, including infants and young children.** On-site parking is free. The main public entrance is **One Botanic Lane, Houston, TX 77017**, off Park Place Boulevard. Verify hours, current admission, weather-related closures, programs and tickets through the [official garden](https://hbg.org/visit/).
 
 This is a different kind of Houston outing from a traditional indoor museum or a drive-through attraction. The garden brings together landscaped collections, native habitats, family exploration spaces and a conservation story built around the Gulf Coast environment. If you come only for a quick photo at the entrance, you miss why some of the grounds are carefully planted displays while others demonstrate how wetlands and prairie can function in a city.
 
