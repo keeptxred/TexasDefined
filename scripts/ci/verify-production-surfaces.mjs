@@ -187,6 +187,11 @@ const surfaces = [
   ['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas'],
   ['camping-guide-direct-filters', '/best-places-to-go-camping-in-texas', 'Electric service'],
   ['camping-guide-wave8', '/best-places-to-go-camping-in-texas', 'Cedar Hill State Park'],
+  // Require the real editorial answer layer to reach cache-busted SSR, not just
+  // the old page heading / finder. This catches a stale successful deployment.
+  ['camping-editorial-starting-points', '/best-places-to-go-camping-in-texas', 'Six Texas camping starting points, by trip'],
+  ['camping-editorial-authorship', '/best-places-to-go-camping-in-texas', 'Texas Defined editorial desk'],
+  ['camping-garner-no-tents', '/best-places-to-go-camping-in-texas', 'Shady Meadows full-hookup sites'],
   ['caverns-count', '/explore/caverns', '11 places are currently mapped'],
   ['caverns-sonora', '/explore/caverns', 'Caverns of Sonora'],
   ['caverns-cascade', '/explore/caverns', 'Cascade Caverns'],
