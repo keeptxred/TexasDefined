@@ -444,6 +444,25 @@ jobs:
           node --test scripts/ci/recover-observed-hashes-from-old-worker.test.mjs
           node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
 
+      # Retried or queued old workflow runs must never roll back a newer main
+      # release. GitHub concurrency serializes jobs but does not guarantee
+      # that a manual rerun is newer than the currently published commit.
+      - name: Refuse superseded Worker revision
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Cannot determine current main::Refusing Worker replacement without a verified main SHA.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo "::error title=Superseded Worker release::This run is ${GITHUB_SHA}; latest main is ${latest_main}. Refusing to replace the current Worker with an older revision."
+            exit 1
+          fi
+          echo "Current main SHA verified: ${latest_main}. Worker replacement may proceed."
+
       - name: Publish Cloudflare deploy pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare pending "Deploying TexasDefined Worker"
