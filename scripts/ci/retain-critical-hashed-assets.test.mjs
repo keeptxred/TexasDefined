@@ -300,7 +300,7 @@ test('verified 72-hour assets exceeding old 24 MiB capacity remain protected by 
       historicalProof: [], snapshotPath, reportPath, assetFolder, now,
       fetchImpl: async url => {
         requests++;
-        const match = url.match(/main-Verified(\\d{3})\\.js$/);
+        const match = url.match(/main-Verified(\d{3})\.js$/);
         assert.ok(match, 'no unexpected external asset may be fetched');
         return new Response(makePayload(Number(match[1])), {
           status: 200, headers: { 'Content-Type': 'text/javascript' },
