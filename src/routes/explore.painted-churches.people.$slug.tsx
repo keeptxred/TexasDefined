@@ -23,7 +23,7 @@ export const Route = createFileRoute("/explore/painted-churches/people/$slug")({
     const pageUrl = `${siteUrl}${canonicalPath}`;
     const isFlury = person.slug === "gottfried-flury";
     const description = isFlury
-      ? "Gottfried (Godfrey) Flury, 1864–1936: the Swiss-born painter of Praha’s 1895 painted church interior. Explore his biography, documented commissions, artwork, and historical sources."
+      ? "Gottfried (Godfrey) Flury painted St. Mary’s Church in Praha in 1895. Read about his life in Texas, the church’s artwork and the sources behind his story."
       : `${person.name}: documented role in the Texas Painted Churches, connected churches, techniques, sources and historical significance.`;
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title: isFlury ? "Gottfried (Godfrey) Flury | Praha Painted Church Artist" : `${person.name} | Texas Painted Churches`, description }),
