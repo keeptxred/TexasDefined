@@ -73,6 +73,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     styles: ["tent", "rv"],
     amenities: ["electric-20", "electric-30", "electric-50", "water-hookup", "sewer-hookup", "full-hookup", "restrooms", "showers", "river-access", "swimming", "hiking"],
     reservationPolicy: "Reservable campsites; choose the exact site type and check seasonal loop availability.",
+    planningDetail: "At Garner, the 12 Shady Meadows full-hookup sites (#144–155) do not allow tents and have no shade. Tent campers must choose an eligible different site type; full-hookup inventory is not a park-wide tent amenity.",
     whyCampHere: "A Frio River base with swimming, showers and verified full-hookup inventory for campers who want both water recreation and RV convenience.",
     reservationUrl: TPWD_RESERVATIONS,
     generatorRules: "Generators may not run during specified quiet hours from 10 p.m. to 6 a.m.",
