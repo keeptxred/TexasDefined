@@ -61,7 +61,7 @@ export const paintedChurchPeople: PaintedChurchPerson[] = [
     slug: "gottfried-flury",
     name: "Gottfried Flury",
     roles: ["artist", "decorator"],
-    answer: "Gottfried (Godfrey) Flury (1864–1936) was a Swiss-born decorative painter and commercial artist. His best-documented surviving church work is the 1895 interior painting campaign at St. Mary's Church of the Assumption in Praha, Texas, where blue vaults, botanical ornament and painted architectural illusion transformed the sanctuary.",
+    answer: "Gottfried (Godfrey) Flury (1864–1936) painted the sky-blue ceiling, false stone ribs and floral designs at St. Mary’s Church of the Assumption in Praha in 1895. Born in Switzerland, he also painted courthouse ceilings, commercial signs and Texas landscapes.",
     significance: ["The 1983 National Register nomination explicitly identifies Flury as the interior craftsman of St. Mary's at Praha.", "The Handbook of Texas documents his 1895 commission, wider commercial-art career and the 1972 authentication of preparatory sketches.", "Later embellishments and restorations by Rev. Louis Netardus and Gene Mikulik must not be indiscriminately attributed to the original painter."],
     churchSlugs: ["praha-st-marys-assumption"],
     techniqueSlugs: ["freehand", "stenciling", "trompe-loeil-architectural-illusion", "decorative-murals"],
