@@ -356,7 +356,10 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 
 async function getResolvedDestinationBase(slug: Slug) {
   const reviewed = reviewedAttractionDestinations.find((item) => item.slug === slug);
-  if (reviewed) return resolveSeoReadyDestination(reviewed);
+  if (reviewed) {
+    const readyReviewed = resolveSeoReadyDestination(reviewed);
+    if (readyReviewed) return readyReviewed;
+  }
   // The separately researched Yoakum Heritage Museum authority record includes
   // rights-owned, explicitly illustrative museum artwork. A thin remote Explore
   // row may share this slug but carry a generic no-photo placeholder. Select
