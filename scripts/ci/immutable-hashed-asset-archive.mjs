@@ -7,6 +7,7 @@ export const FREE_KV_WRITES_PER_DAY = 1000;
 export const MIN_GC_QUIET_MS = 30 * 24 * 60 * 60 * 1000;
 const ASSET_PATH = /^\/assets\/[A-Za-z0-9][A-Za-z0-9._-]{1,155}-[A-Za-z0-9_-]{8,20}\.(?:js|css)$/;
 const SHA = /^[a-f0-9]{64}$/;
+const COMMIT_SHA = /^[a-f0-9]{40}$/;
 const ABSOLUTE_MAX_AGE_MS = 1000 * 60 * 60 * 24 * 365;
 
 export function immutableAssetPath(path) {
@@ -77,7 +78,7 @@ export function proposeGarbageCollection({
   // This shape check is NOT cryptographic signature verification. Caller
   // must independently validate the release ledger before passing proofs.
   if (!proofs.every(p=>p && p.signed===true && typeof p.workerVersion==='string' &&
-    p.workerVersion.length>0 && typeof p.sourceSha==='string' && SHA.test(p.sourceSha) &&
+    p.workerVersion.length>0 && typeof p.sourceSha==='string' && COMMIT_SHA.test(p.sourceSha) &&
     Array.isArray(p.referencedPaths) && Number.isFinite(Date.parse(p.capturedAt)) &&
     Date.parse(p.capturedAt)<=now)) return [];
   if (proofs[0].workerVersion===proofs[1].workerVersion) return [];
