@@ -18,6 +18,48 @@ const riverCampingGuides = [...new Map(riverCampingTopics.flatMap((item) =>
   riverAuthorityLinksForArticleMetadata({ slug: item.slug, title: item.title, dek: item.dek, tags: [] })
 ).map((link) => [link.href, link])).values()];
 
+// Editorial starting points illustrate different trip decisions. They are not a
+// universal ranking, sponsored placements or substitutes for the full finder.
+// Every link resolves to an existing, source-checked campground profile.
+const campingStartingPoints = [
+  {
+    destinationSlug: "garner-state-park",
+    trip: "River weekend",
+    reasoning: "Choose the Frio River setting when swimming and both tent and RV inventory matter to your group.",
+    tradeoff: "Garner's Shady Meadows full-hookup sites are RV-only; tents are not permitted in that loop.",
+  },
+  {
+    destinationSlug: "mustang-island-state-park",
+    trip: "Gulf Coast camping",
+    reasoning: "Compare reservable electric sites behind the dunes with a distinctly different primitive-beach option.",
+    tradeoff: "Primitive beach camping is weather-dependent and not reservable; verify current access.",
+  },
+  {
+    destinationSlug: "enchanted-rock-state-natural-area",
+    trip: "Hiking-focused tent trip",
+    reasoning: "A useful fit when trail access and walk-in or primitive tent camping matter more than RV conveniences.",
+    tradeoff: "Expect to carry gear to some sites; this is not a full-hookup RV option.",
+  },
+  {
+    destinationSlug: "palo-duro-canyon-state-park",
+    trip: "Flexible canyon trip",
+    reasoning: "Developed tent and RV choices coexist with primitive hike-in camping, so groups can compare camping formats.",
+    tradeoff: "The primitive permits, site dimensions and heat exposure need separate planning.",
+  },
+  {
+    destinationSlug: "caddo-lake",
+    trip: "Fishing and lake access",
+    reasoning: "East Texas lake and fishing access with some verified full-hookup RV sites makes this a practical comparison.",
+    tradeoff: "Full hookups are not available at every site; select the specific campsite before paying.",
+  },
+  {
+    destinationSlug: "mckinney-falls-state-park",
+    trip: "Camping near Austin",
+    reasoning: "A developed campground near Austin with trails and water-oriented activities, without a long intercity drive.",
+    tradeoff: "Water and swimming conditions vary; check current park notices rather than assuming access.",
+  },
+] as const;
+
 export const Route = createLazyFileRoute("/best-places-to-go-camping-in-texas")({ component: CampingGuidePage });
 
 function CampingGuidePage() {
@@ -29,6 +71,7 @@ function CampingGuidePage() {
         <p className="eyebrow mt-8 text-primary">Texas camping guide</p>
         <h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight md:text-5xl">Best Places to Go Camping in Texas</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">Find the right Texas campsite for your trip, whether you want an RV hookup, a river weekend, a Gulf beach or a primitive backcountry escape. Filter source-checked public campgrounds and follow the official links to confirm site-level details.</p>
+        <p className="mt-4 max-w-4xl text-sm leading-6 text-muted-foreground">By <Link to="/about" className="font-semibold text-primary underline-offset-4 hover:underline">Texas Defined editorial desk</Link> · Editorial comparison updated November 4, 2026. Each campground retains its separate official-source verification date. This is documented desk research, not a claim that every campground was personally visited.</p>
         <div className="mt-7 flex flex-wrap gap-3">
           <a href="#campground-finder" className="inline-flex items-center border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Search {entries.length} campgrounds ↓</a>
           <a href="#camping-trip-types" className="inline-flex items-center border border-border bg-background px-5 py-3 text-sm font-semibold">Browse camping types</a>
@@ -42,8 +85,32 @@ function CampingGuidePage() {
       </Container>
     </section>
 
+    <section id="camping-start-here" className="scroll-mt-24 py-12 md:py-16" aria-labelledby="camping-starting-points-title">
+      <Container>
+        <p className="eyebrow text-primary">Where to camp first</p>
+        <h2 id="camping-starting-points-title" className="mt-2 font-display text-4xl md:text-5xl">Six Texas camping starting points, by trip</h2>
+        <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">There is no single best campground for every camper. These source-backed examples show meaningful choices and drawbacks. They are not a numeric ranking; the complete campground finder below includes other qualifying places for each camping style.</p>
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {campingStartingPoints.map((point) => {
+            const match = entries.find(({ profile }) => profile.destinationSlug === point.destinationSlug && !profile.profileSlug);
+            if (!match) return null;
+            const profile = match.profile;
+            return <article key={point.destinationSlug} className="border border-border bg-background p-6">
+              <p className="eyebrow text-primary">{point.trip}</p>
+              <h3 className="mt-2 font-display text-2xl">{profile.name}</h3>
+              <p className="mt-3 text-sm leading-7">{point.reasoning}</p>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Plan around:</strong> {point.tradeoff}</p>
+              <a href={`#${profile.profileSlug || profile.destinationSlug}`} className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">See verified profile, sources and booking rules ↓</a>
+            </article>;
+          })}
+        </div>
+        <p className="mt-5 text-sm text-muted-foreground">Selections prioritize distinct camping styles, official facility evidence and trip-specific trade-offs—not paid placement. <a href="#camping-methodology" className="font-semibold text-primary underline">Read the selection method ↓</a></p>
+      </Container>
+    </section>
+
     <nav aria-label="Camping guide sections" className="border-b border-border bg-background">
       <Container className="flex gap-2 overflow-x-auto py-3 text-sm font-semibold">
+        <a href="#camping-start-here" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Start here</a>
         <a href="#camping-trip-types" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Camping types</a>
         <a href="#campground-finder" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Find campgrounds</a>
         <a href="#camping-alerts" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Park advisories</a>
@@ -108,6 +175,7 @@ function CampingGuidePage() {
       <Container>
         <p className="eyebrow text-primary">How the guide is built</p>
         <h2 className="mt-2 font-display text-4xl">Useful first, verified underneath</h2>
+        <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">Our editorial starting points are chosen from the published campground records for their different combinations of setting, camping format, verified facilities and planning constraints. We explain who a campground may suit and where it can be a poor fit. These are comparative editorial judgments, not visitor ratings or claims of on-site testing. Source dates belong to individual profiles and do not automatically reset when the page is edited. For sourcing and corrections, read our <Link to="/editorial-policy" className="font-semibold text-primary underline">editorial policy</Link>.</p>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Official-source amenities</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Hookups, showers, site-length notes, accessibility and generator rules are shown only when an official park or reservation source supports them.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Public camping first</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">The finder prioritizes TPWD, National Park Service, U.S. Army Corps of Engineers, U.S. Forest Service and other public land managers.</p></div>
@@ -124,6 +192,7 @@ function CampingGuidePage() {
         </div>
         <div className="mt-8 grid gap-5 lg:grid-cols-2">
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Does “full hookup” apply to every site in a campground?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">No. Hookups can vary by loop and individual site. The finder only uses the full-hookup filter when an official source verifies that inventory, and you should still confirm the exact site before paying.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Can I pitch a tent in Garner State Park's full-hookup loop?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">No. TPWD lists 12 Shady Meadows full-hookup sites (#144–155) and explicitly prohibits tents at those sites. Other Garner camping categories must be checked separately. The campground-level “Tent” and “Full hookup” labels do not mean both apply to the same site. <a href="https://tpwd.texas.gov/state-parks/garner/fees-facilities/campsites" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Verify on TPWD's campsite list ↗</a>.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Why are campground prices not listed here?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Rates, fees, minimum stays and availability can change faster than the editorial guide. Use the official reservation link on each profile for the current price and booking terms.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Can I search for camping near a city?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Yes. The campground finder indexes researched destination and metro search terms in addition to park, campground, county and managing-agency names.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Is this the same as the RV park directory?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">No. This is a curated public-camping decision guide. The RV Parks & Campgrounds directory is the broader inventory for comparing many more RV-oriented places, including private and public options.</p></div>

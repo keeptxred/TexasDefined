@@ -287,6 +287,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
           })}
         </div>
         <p className="mt-3 text-sm text-muted-foreground" aria-live="polite">{filtered.length} matching campground profiles after your filters. <a className="font-semibold text-primary underline-offset-4 hover:underline" href="#camping-results">See results ↓</a></p>
+        <p className="mt-2 max-w-4xl text-xs leading-6 text-muted-foreground"><strong>Pet friendly is a verified-only filter, not a list of every park that accepts pets.</strong> An absent pet tag means we have not verified that profile's policy, not that pets are prohibited. Rules can differ for primitive areas, trails and individual campsites; check the managing agency's current rules before traveling.</p>
       </div>
 
       <div className="mt-6 border-t border-border pt-6">
