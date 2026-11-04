@@ -55,14 +55,15 @@ test('Private Cornerstone uses current Batch011 loader in non-UIL branch',()=>{
 test('Batch011 fifth-five source only until five distinct real production Chrome passes',()=>{
  const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const graduatedB011 = registry.completedBatches.some(b=>b.number===11 && b.state==='VERIFIED_BATCH_011_COMPLETE' && b.technicalAcceptance?.schoolCount===25 && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===18 && b.technicalAcceptance?.browserExecutionCount===1) && registry.schoolRecords.filter(x=>x.batch===11&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
+ const graduatedB012 = registry.completedBatches.some(b=>b.number===12 && b.state==='VERIFIED_BATCH_012_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1);
  assert.ok([11,12].includes(registry.batch.number));
  assert.equal(registry.batch.number===11?registry.batch.implementedOnBranch:registry.completedBatches.find(b=>b.number===11)?.individuallyVerified,25);
  assert.equal(registry.batch.number===11?registry.batch.remainingAssigned:0,0);
  assert.equal(registry.batch.number===11?registry.batch.remainingToVerify:(graduatedB011?0:25),graduatedB011?0:25);
- assert.equal(registry.schoolRecords.filter(t=>t.status==='VERIFIED').length,graduatedB011?255:230);
+ assert.equal(registry.schoolRecords.filter(t=>t.status==='VERIFIED').length,graduatedB012?280:graduatedB011?255:230);
   // A current Batch012 must remain IMPLEMENTED until its own Chrome graduation.
   assert.equal(registry.schoolRecords.filter(t=>t.status==='IMPLEMENTED').length,
-    registry.batch.number===12 ? 25 : (graduatedB011 ? 0 : 25));
+    registry.batch.number===12 ? (graduatedB012 ? 0 : 25) : (graduatedB011 ? 0 : 25));
  for(const [slug] of cases){const x=registry.schoolRecords.find(t=>t.slug===slug);
   assert.equal(x.status,graduatedB011?'VERIFIED':'IMPLEMENTED');
   assert.equal(x.actualProductionVerified,graduatedB011);
