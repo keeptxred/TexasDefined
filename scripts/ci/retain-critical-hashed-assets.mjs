@@ -14,15 +14,18 @@ const SNAPSHOT = '.artifacts/asset-handoff-snapshot.json';
 const REPORT = '.artifacts/retained-critical-assets-report.json';
 const ASSET_FOLDER = 'dist/client/assets';
 const SOURCE_ORIGIN = 'https://texasdefined.com';
-// Verified Nov 2 retention artifact copied 192 old-only hashes but dropped 19 eligible hashes under the 192-file request ceiling.
-// Keep strict 24 MiB total, 2 MiB/file, 72 h, HTTPS, SHA256 and MIME bounds.
-// Nov 2 real release #41523593259 had 283 eligible old-only files: 256 copied,
-// 27 excluded; only 22 of those were separately recovered. Budget remains 24 MiB.
-// Run 41529296762 recorded 419 eligible original-byte old hashes (384 retained, 35 omitted).
-// Their recorded combined size is 24,437,049 bytes, below the unchanged 24 MiB limit.
-// Leave room for short-lived additional generations while preserving byte/SHA/age gates.
-const LIMIT_FILES = 448;
-const LIMIT_BYTES = 24 * 1024 * 1024;
+// Incident recovery retains immutable JS/CSS from active and prior browser versions.
+// Nov 4 production run 41750349729 verified 424 old-only assets (24,460,827 bytes)
+// and then reached another 1,825,890-byte, SHA-matched main chunk: 26,286,717
+// bytes exceeded the prior 24 MiB budget even though all files were legitimate.
+// The snapshot contains 439 eligible old paths and frequent safe deployments can
+// add versions before the fixed 72-hour expiry. The previous 448-file/24 MiB
+// capacity was therefore below real verified demand, not a security invariant.
+// Budget strictly at 768 files / 48 MiB total to cover the bounded 72-hour
+// release window, retaining unchanged 2 MiB/file, HTTPS, MIME, SHA256, age
+// and same-name collision protections. Still fail closed on either budget.
+const LIMIT_FILES = 768;
+const LIMIT_BYTES = 48 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 20000;
@@ -105,7 +108,7 @@ export async function retain({
         firstSeenAt: asset.firstSeenAt });
       continue;
     }
-    // Enforce a bounded ceiling of 448 attempted old-only
+    // Enforce a bounded ceiling of 768 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
@@ -158,8 +161,8 @@ export async function retain({
         maxBytes: LIMIT_BYTES, maxOneFileBytes: LIMIT_ONE_FILE };
       await mkdir(dirname(snapshotPath), { recursive: true });
       await mkdir(dirname(reportPath), { recursive: true });
-      await writeFile(snapshotPath, JSON.stringify(saved, null, 2) + '\\n');
-      await writeFile(reportPath, JSON.stringify(report, null, 2) + '\\n');
+      await writeFile(snapshotPath, JSON.stringify(saved, null, 2) + '\n');
+      await writeFile(reportPath, JSON.stringify(report, null, 2) + '\n');
       throw new Error('Retained client asset size budget exceeded; diagnostic saved to ' + reportPath + '; refuse unbounded release payload');
     }
     totalBytes += body.byteLength;
