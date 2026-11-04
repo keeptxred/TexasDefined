@@ -249,8 +249,19 @@ function uniqueAssets(pages) {
 }
 async function capture() {
   let prior = null;
-  try { prior = JSON.parse(await readFile(PRIOR, 'utf8')); }
-  catch (error) { if (error.code !== 'ENOENT') throw error; }
+  try {
+    const raw = await readFile(PRIOR, 'utf8');
+    // Some earlier failed-release artifacts end with the two literal bytes
+    // backslash + n after otherwise complete JSON. Accept ONLY this exact
+    // transport suffix; parse the full JSON and reject every other corruption.
+    // Never discard snapshots or weaken the subsequent SHA/HTTP asset checks.
+    try { prior = JSON.parse(raw); }
+    catch (error) {
+      if (!raw.endsWith('\\n')) throw error;
+      prior = JSON.parse(raw.slice(0, -2));
+      console.warn('Normalized one trailing literal \\n in restored asset history');
+    }
+  } catch (error) { if (error.code !== 'ENOENT') throw error; }
   const pages = [];
   for (const page of PAGES) pages.push(await retrieveHtml(CANONICAL, page));
   // Upcoming release's route chunks are not necessarily present in the old
