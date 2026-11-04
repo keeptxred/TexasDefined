@@ -64,7 +64,7 @@ if (process.argv.includes("--self-test")) {
   assert.notEqual(relevantSourceDigest(sample), relevantSourceDigest(sample.replace("require advance booking", "are first come first served")), "reservation policy changes must be detected");
   assert.equal(relevantSourceDigest("<html><script>no campsites</script></html>"), null, "no evidence must not be treated as a verified fingerprint");
   const editorialFixture = 'const EDITORIAL_UPDATED_AT = "2026-11-04";';
-  assert.equal(/const EDITORIAL_UPDATED_AT = "(\\d{4}-\\d{2}-\\d{2})";/.exec(editorialFixture)?.[1], "2026-11-04");
+  assert.equal(/const EDITORIAL_UPDATED_AT = "(\d{4}-\d{2}-\d{2})";/.exec(editorialFixture)?.[1], "2026-11-04");
   assert.equal((Date.parse("2027-02-03T00:00:00Z")-Date.parse("2026-11-04T00:00:00Z"))/86400000 > 90, true,
     "overdue editorial reviews must be flagged without a synthetic new verification date");
   console.log("Camping source health classification self-test passed: source errors and separate editorial-review age clock.");
@@ -90,7 +90,7 @@ const maxAgeDays = 120;
 const EDITORIAL_REVIEW_MAX_DAYS = 90;
 const editorialRouteFile = "src/routes/best-places-to-go-camping-in-texas.tsx";
 const editorialRoute = fs.readFileSync(editorialRouteFile, "utf8");
-const editorialDateMatch = editorialRoute.match(/const EDITORIAL_UPDATED_AT = "(\\d{4}-\\d{2}-\\d{2})";/);
+const editorialDateMatch = editorialRoute.match(/const EDITORIAL_UPDATED_AT = "(\d{4}-\d{2}-\d{2})";/);
 if (!editorialDateMatch) throw Error("Camping editorial reviewed date missing; do not silently pass the refresh cycle");
 const now = Date.now();
 const ageDays = date => (now - Date.parse(date + "T00:00:00Z")) / 86400000;
