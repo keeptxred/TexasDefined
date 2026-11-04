@@ -5,7 +5,7 @@ proposedCanonical: "/destination/fort-worth-water-gardens"
 status: "editorial-draft-not-published"
 county: "Tarrant County"
 city: "Fort Worth"
-checked: "2026-10-29"
+checked: "2026-11-03"
 ownerScopeApproved: true
 ownerFinalPublicationApproved: false
 sourceOfTruth: "City of Fort Worth Park & Recreation Department"
@@ -13,7 +13,7 @@ sourceOfTruth: "City of Fort Worth Park & Recreation Department"
 
 # Fort Worth Water Gardens: How to explore the three pools
 
-**At a glance:** Free admission; official listed hours **6 a.m.–10 p.m. every day**; **1502 Commerce Street**, downtown Fort Worth, beside the convention-center area. This is a civic park and public artwork, not a waterpark. **Swimming and wading are prohibited.** Check the [City of Fort Worth park page](https://www.fortworthtexas.gov/departments/parks/parks-and-trails/water-gardens) for current operating and construction notices before you go.
+**At a glance:** Free admission; official listed hours **6 a.m.–10 p.m. every day**; **1502 Commerce Street**, downtown Fort Worth, beside the convention-center area. This is a civic park and public artwork, not a waterpark. **Swimming and wading are prohibited.** Check the [City of Fort Worth park page](https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens) for current operating and construction notices before you go.
 
 The Fort Worth Water Gardens reward visitors who look beyond the dramatic photographs of the Active Pool. The downtown park presents different ways of experiencing water and sound in one compact city block: the turbulence and descent of the Active Pool, the contemplative surface of the Quiet Pool, and the rising patterns of the Aerating Pool. The geometry feels deliberately urban, in sharp contrast with more natural garden destinations elsewhere in Texas.
 
@@ -69,7 +69,7 @@ This works as a short stop during a Fort Worth museums-and-architecture day. Dow
 
 ## Sources, image license and release checklist
 
-- City of Fort Worth — [Water Gardens location, hours, prohibitions and park status](https://www.fortworthtexas.gov/departments/parks/parks-and-trails/water-gardens), checked 2026-10-29.
+- City of Fort Worth — [Water Gardens location, hours, prohibitions and park status](https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens), checked 2026-10-29.
 - Visit Fort Worth — [Free admission, architect attribution and pool descriptions](https://www.fortworth.com/things-to-do/attractions/fort-worth-water-gardens/), checked 2026-10-29.
 - City of Fort Worth — [Historic context (1974 opening)](https://www.fortworthtexas.gov/files/assets/public/v/1/development-services/documents/all-preservation-and-design/historic/historic-context-survey/post-world-war-ii-suburbanization-1946-1980.pdf), source consulted 2026-10-29.
 - **Hero candidate:** [Fort Worth Water Gardens 01](https://commons.wikimedia.org/wiki/File:Fort_Worth_Water_Gardens_01.jpg), original work by **Farragutful**, **CC BY-SA 4.0**, 4608 × 3456; attribution/license link and indication of crops are necessary. [License](https://creativecommons.org/licenses/by-sa/4.0/). Photo source checked 2026-10-29, **not installed on production**.
