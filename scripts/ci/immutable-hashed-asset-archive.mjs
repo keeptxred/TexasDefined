@@ -5,7 +5,7 @@ export const MAX_ASSET_BYTES = 2 * 1024 * 1024;
 export const MAX_KV_BYTES = 1024 * 1024 * 1024;
 export const FREE_KV_WRITES_PER_DAY = 1000;
 export const MIN_GC_QUIET_MS = 30 * 24 * 60 * 60 * 1000;
-const ASSET_PATH = /^\/assets\/[A-Za-z0-9][A-Za-z0-9._-]{1,155}-[A-Za-z0-9_-]{8,20}\.(?:js|css)$/;
+// Vite emits both dash-delimited names (main-HASH.js) and historical\n// dot-delimited names (property-tax.HASH.js). Never accept unhashed paths.\nconst ASSET_PATH = /^\/assets\/[A-Za-z0-9][A-Za-z0-9._-]{1,155}[-.][A-Za-z0-9_-]{8,20}\.(?:js|css)$/;
 const SHA = /^[a-f0-9]{64}$/;
 const COMMIT_SHA = /^[a-f0-9]{40}$/;
 const ABSOLUTE_MAX_AGE_MS = 1000 * 60 * 60 * 24 * 365;
@@ -40,6 +40,10 @@ export function planImmutablePublication({
   maxTotalBytes = MAX_KV_BYTES, maxDailyWrites = FREE_KV_WRITES_PER_DAY, writesToday = 0,
 } = {}) {
   if (!Array.isArray(stored) || !Array.isArray(incoming)) throw new Error('Archive input must be arrays');
+  if (!Number.isSafeInteger(maxTotalBytes) || maxTotalBytes < 1 || maxTotalBytes > MAX_KV_BYTES ||
+      !Number.isSafeInteger(maxDailyWrites) || maxDailyWrites < 0 ||
+      maxDailyWrites > FREE_KV_WRITES_PER_DAY)
+    throw new Error('Cannot override account storage/write free-tier limits');
   const all = new Map(), published = new Set();
   function insert(rec, alreadyPublished) {
     const r = verifyArchiveRecord(rec, now), previous = all.get(r.path);
@@ -114,7 +118,8 @@ export async function archivedAssetResponse(request, namespace) {
   if (!object?.value) return null;
   try {
     const metadata=typeof object.metadata==='string'?JSON.parse(object.metadata):object.metadata;
-    if (!metadata || metadata.version!==1 || metadata.path!==path) return refusal();
+    if (!metadata || metadata.version!==1 || metadata.path!==path ||
+        !Number.isFinite(Date.parse(metadata.firstSeenAt || ''))) return refusal();
     const bytes=object.value;
     if (!(bytes instanceof ArrayBuffer) || bytes.byteLength<1 || bytes.byteLength>MAX_ASSET_BYTES ||
         metadata.bytes!==bytes.byteLength || !SHA.test(metadata.sha256)) return refusal();
@@ -129,4 +134,24 @@ export async function archivedAssetResponse(request, namespace) {
       },
     });
   } catch { return refusal(); }
+}
+
+/**
+ * Worker-first static asset adapter. The production routing configuration must
+ * explicitly opt in to `/assets/*`; this function NEVER changes Worker routing.
+ * A current asset, or even an upstream 5xx, takes precedence over the archive.
+ * Only a genuine 404 may consult old immutable bytes. No HTML, API or images.
+ */
+export async function serveHashedAssetWithArchive(request, assets, namespace) {
+  if (!['GET', 'HEAD'].includes(request?.method)) return null;
+  let path;
+  try { path = new URL(request.url).pathname; } catch { return null; }
+  if (!immutableAssetPath(path)) return null;
+  if (typeof assets?.fetch !== 'function') return refusal();
+  let current;
+  try { current = await assets.fetch(request); } catch { return refusal(); }
+  if (!(current instanceof Response)) return refusal();
+  if (current.status !== 404) return current;
+  const old = await archivedAssetResponse(request, namespace);
+  return old || current;
 }
