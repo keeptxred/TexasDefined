@@ -9,6 +9,23 @@ const petResearchFile = "pet-policies.ts";
 const petPolicySource = fs.readFileSync(path.join(directory, petResearchFile), "utf8");
 const normalize = value => value.replace(/&amp;/g, "&");
 const refs = new Map();
+const operatorSourceReviews = JSON.parse(fs.readFileSync(path.join(directory, "operator-source-reviews.json"), "utf8"));
+if (!Array.isArray(operatorSourceReviews) || operatorSourceReviews.length !== 5 ||
+    new Set(operatorSourceReviews.map(x => x.sourceUrl)).size !== 5 ||
+    operatorSourceReviews.some(x => !x.destinationSlug || !Array.isArray(x.requiredSourceText) ||
+      x.requiredSourceText.length < 3 || !/^\d{4}-\d{2}-\d{2}$/.test(x.reviewedAt))) {
+  throw Error("Camping operator approvals must be five distinct, dated, evidence-backed reviews");
+}
+const sourceReviewsByUrl = new Map(operatorSourceReviews.map(item => [item.sourceUrl, item]));
+function normalizedSourceVisibleText(html) {
+  return html.replace(/<(?:script|style|noscript|nav|header|footer|svg)\b[^>]*>[\s\S]*?<\/(?:script|style|noscript|nav|header|footer|svg)>/gi, " ")
+    .replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
+    .replace(/&amp;/gi, "&").replace(/\s+/g, " ").trim().toLowerCase();
+}
+function sourceReviewEvidenceMatches(entry, html) {
+  const visible = normalizedSourceVisibleText(html);
+  return entry.requiredSourceText.every(phrase => visible.includes(phrase.replace(/\s+/g, " ").trim().toLowerCase()));
+}
 const label = status => {
   if (status >= 200 && status < 300) return "healthy";
   if (status === 404 || status === 410) return "missing";
@@ -34,6 +51,7 @@ function relevantSourceDigest(raw) {
 const previousPath = process.env.CAMPING_PREVIOUS_SOURCE_REPORT;
 let previous = new Map();
 let previousReviewDates = [];
+let previousSourceApprovals = new Map();
 if (previousPath && fs.existsSync(previousPath)) {
   const saved = JSON.parse(fs.readFileSync(previousPath,'utf8'));
   if (saved.scope !== 'TexasDefined camping profile sources only' || !Array.isArray(saved.checked))
@@ -45,6 +63,7 @@ if (previousPath && fs.existsSync(previousPath)) {
   previous = new Map(saved.checked.filter(x => (x.baselineFingerprint || x.fingerprint) && x.url)
     .map(x => [x.url,x.baselineFingerprint || x.fingerprint]));
   previousReviewDates = Array.isArray(saved.reviewDates) ? saved.reviewDates : [];
+  previousSourceApprovals = new Map(Array.isArray(saved.approvedSourceReviews) ? saved.approvedSourceReviews.map(x => [x.url, x.reviewedAt]) : []);
 }
 const hasNewResearch = files => previousReviewDates.length > 0 && files.every(file => {
   const oldDates = previousReviewDates.filter(x => x.file === file).map(x => x.date);
@@ -61,6 +80,10 @@ if (process.argv.includes("--self-test")) {
   assert.equal(shouldRetry(429), true);
   assert.equal(shouldRetry(503), true);
   assert.equal(shouldRetry(404), false);
+  const exampleReview = operatorSourceReviews[0];
+  const syntheticHtml = exampleReview.requiredSourceText.map(x => `<p>${x}</p>`).join("");
+  assert(sourceReviewEvidenceMatches(exampleReview, syntheticHtml), "complete operator fact set can be approved");
+  assert(!sourceReviewEvidenceMatches(exampleReview, syntheticHtml.replace(exampleReview.requiredSourceText[0], "unrelated park information")), "missing operator evidence must fail closed");
   const sample = "<main><p>Campground reservations require advance booking.</p><li>RV sites have electric hookups and showers.</li></main>";
   assert.equal(relevantSourceDigest(sample), relevantSourceDigest("<script>var updated=Date.now()</script>" + sample), "analytics timestamps do not change campground fingerprint");
   assert.notEqual(relevantSourceDigest(sample), relevantSourceDigest(sample.replace("require advance booking", "are first come first served")), "reservation policy changes must be detected");
@@ -111,8 +134,9 @@ const stale = [
     ? [{ file: editorialRouteFile, date: editorialDateMatch[1], category: "editorial-review-overdue" }]
     : []),
 ];
+const acceptedSourceApprovals = new Map(previousSourceApprovals);
 const report = { checkedAt: new Date().toISOString(), scope: "TexasDefined camping profile sources only",
-  officialUrls: refs.size, reviewDates, stale, checked: [], failures: [], categories: {} };
+  officialUrls: refs.size, reviewDates, stale, checked: [], failures: [], categories: {}, approvedSourceReviews: [] };
 console.log("Official camping source URLs:", refs.size, "dated profile batches:", reviewDates.length,
   "editorial review:", editorialDateMatch[1], "editorial review max age (days):", EDITORIAL_REVIEW_MAX_DAYS);
 if (process.argv.includes("--offline")) {
@@ -143,12 +167,24 @@ if (process.argv.includes("--offline")) {
         const crossHost = requested.hostname !== reached.hostname;
         let category = classification === "healthy" && crossHost ? "redirected-source" : classification;
         let fingerprint = null;
+        let sourceReviewed = false;
         if (category === "healthy" && /(?:text\/html|application\/xhtml\+xml)/i.test(response.headers.get("content-type") || "")) {
-          fingerprint = relevantSourceDigest((await response.text()).slice(0, 2_000_000));
-          if (fingerprint && previous.has(url) && previous.get(url) !== fingerprint && !hasNewResearch(refs.get(url)))
+          const html = (await response.text()).slice(0, 2_000_000);
+          fingerprint = relevantSourceDigest(html);
+          const reviewed = sourceReviewsByUrl.get(url);
+          // An individually documented source review authorizes ONE fingerprint
+          // transition; all quoted operator facts must still appear on the
+          // current HTTP source. No broad file-level date restamping.
+          sourceReviewed = Boolean(reviewed && fingerprint && ageDays(reviewed.reviewedAt) >= 0 &&
+            ageDays(reviewed.reviewedAt) <= 14 &&
+            previousSourceApprovals.get(url) !== reviewed.reviewedAt &&
+            sourceReviewEvidenceMatches(reviewed, html));
+          if (fingerprint && previous.has(url) && previous.get(url) !== fingerprint &&
+              !hasNewResearch(refs.get(url)) && !sourceReviewed)
             category = "source-content-changed";
         }
-        const baselineFingerprint = fingerprint && (hasNewResearch(refs.get(url)) || !previous.has(url))
+        if (sourceReviewed) acceptedSourceApprovals.set(url, sourceReviewsByUrl.get(url).reviewedAt);
+        const baselineFingerprint = fingerprint && (sourceReviewed || hasNewResearch(refs.get(url)) || !previous.has(url))
           ? fingerprint : previous.get(url) || fingerprint;
         const check = { url, status: response.status, category, attempts, finalUrl: response.url, files: refs.get(url), fingerprint, baselineFingerprint };
         report.checked.push(check);
@@ -164,6 +200,7 @@ if (process.argv.includes("--offline")) {
     }
   }
   await Promise.all(Array.from({ length: 4 }, worker));
+  report.approvedSourceReviews = [...acceptedSourceApprovals].map(([url, reviewedAt]) => ({url, reviewedAt}));
   if (report.failures.length || stale.length) process.exitCode = 2;
 }
 const output = process.env.CAMPING_SOURCE_REPORT || ".artifacts/camping-authority-source-health.json";
