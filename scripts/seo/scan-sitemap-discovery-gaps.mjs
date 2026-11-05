@@ -49,7 +49,7 @@ function allowed(u,groups){
 async function sitemapInventory(){
  const r=await fetchSafe(ORIGIN+'/robots.txt');if(r.status!==200)throw Error('robots.txt HTTP '+r.status);
  const robots=await r.text();
- const seeds=[...robots.matchAll(/^\s*Sitemap:\s*(\S+)/gim)].map(x=>norm(x[1])).filter(Boolean).filter(u=>u.endsWith('.xml'));
+ const seeds=[...robots.matchAll(/^\s*Sitemap:\s*(\S+)/gim)].map(x=>norm(x[1])).filter(Boolean).filter(u=>u.endsWith('.xml') && new URL(u).pathname!=='/rss.xml');
  if(!seeds.length)seeds.push(ORIGIN+'/sitemap.xml');
  const pending=[...new Set(seeds)],visited=new Set(),pages=new Set(),counts={};
  while(pending.length){
