@@ -1,5 +1,18 @@
 name: Immutable hashed asset archive staging tests
 on:
+  # Source-only draft PRs can sit without a PR-triggered Actions run.
+  # An exact-branch push check supplies independent CI without publishing.
+  push:
+    branches:
+      - feat/immutable-js-css-kv-archive-staging-20261104
+    paths:
+      - 'scripts/ci/immutable-hashed-asset-*.mjs'
+      - 'scripts/ci/prepare-immutable-hashed-asset-manifest.mjs'
+      - 'scripts/ci/compare-typescript-diagnostics.mjs'
+      - 'src/server-entry.ts'
+      - 'scripts/ci/immutable-hashed-asset-archive.d.mts'
+      - 'docs/ci/immutable-hashed-asset-archive.md'
+      - '.github/workflows/validate-immutable-hashed-assets.yml'
   pull_request:
     paths:
       - 'scripts/ci/immutable-hashed-asset-*.mjs'
