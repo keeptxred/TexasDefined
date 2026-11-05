@@ -7,14 +7,14 @@ import assert from "node:assert/strict";
 
 const origin = process.env.FISHING_BASE_URL ?? "https://texasdefined.com";
 const reports = [];
-async function page(path) {
+async function page(path, { cacheBust = true } = {}) {
   let last;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       const url = new URL(path, origin);
-      url.searchParams.set("fishing_live_acceptance", Date.now().toString());
+      if (cacheBust) url.searchParams.set("fishing_live_acceptance", Date.now().toString());
       const response = await fetch(url, {
-        headers: { "Cache-Control": "no-cache, no-store", Pragma: "no-cache" },
+        headers: cacheBust ? { "Cache-Control": "no-cache, no-store", Pragma: "no-cache" } : {},
         signal: AbortSignal.timeout(20000),
         redirect: "follow",
       });
@@ -48,6 +48,11 @@ has(hub, "not measured catch probabilities, live bite reports or guarantees", "/
 has(hub, "Texas Parks", "/fishing");
 has(hub, "How we research Texas fishing", "/fishing");
 has(hub, "Read our corrections policy and send an update", "/fishing");
+const hubOrdinary = await page("/fishing", { cacheBust: false });
+// What crawlers and visitors see on the normal, unmodified URL must not be a
+// stale pre-release page while a cache-busted URL is correct.
+has(hubOrdinary, "How we research Texas fishing", "/fishing ordinary URL");
+has(hubOrdinary, "Read our corrections policy and send an update", "/fishing ordinary URL");
 has(hub, "Fishing access", "/fishing");
 has(hub, "Historical fishing reports", "/fishing");
 has(hub, "/fishing/guides", "/fishing");
@@ -65,6 +70,13 @@ assert.ok(publishedCoverage, "/fishing/access: expected machine-verifiable live 
 const liveFacilities = Number(publishedCoverage[1].replaceAll(",", ""));
 const liveLakes = Number(publishedCoverage[2].replaceAll(",", ""));
 assert.ok(liveLakes >= 20 && liveFacilities >= 100, "/fishing/access: not yet a meaningful statewide inventory");
+const ordinaryAccess = await page("/fishing/access", { cacheBust: false });
+const ordinaryAccessText = ordinaryAccess.replace(/<!--\s*-->/g, "").replace(/<[^>]+>/g, " ");
+const ordinaryCoverage = ordinaryAccessText.match(/Current source-backed coverage:\s*([\d,]+)\s*facilities across\s*([\d,]+)\s*Texas lakes/i);
+assert.ok(ordinaryCoverage, "/fishing/access ordinary URL: missing current directory inventory; potential stale edge cache");
+assert.equal(Number(ordinaryCoverage[1].replaceAll(",", "")), liveFacilities, "/fishing/access ordinary URL has stale facility count");
+assert.equal(Number(ordinaryCoverage[2].replaceAll(",", "")), liveLakes, "/fishing/access ordinary URL has stale lake count");
+assert.ok(!/<meta\b[^>]*name=["\u0027]robots["\u0027][^>]*content=["\u0027]noindex/i.test(ordinaryAccess), "/fishing/access ordinary URL has stale noindex, though fresh directory is indexable");
 for (const sourceBacked of ["Lake Fork", "Lake Buchanan", "Lake Travis", "Lake Waco", "Lake Georgetown"]) has(access, sourceBacked, "/fishing/access");
 for (const name of ["Stubblefield Lake", "Cagle Recreation Area", "Stow-a-way Marina", "Scott", "FM 830 Ramp", "April Plaza Marina", "Pier 105", "Lakeview Marina"]) {
   has(access, name, "/fishing/access");
@@ -106,4 +118,4 @@ const normalizedBass = bass.replace(/<!--\s*-->/g, "");
 assert.ok(/<strong[^>]*>Spring:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Spring labels");
 assert.ok(/<strong[^>]*>Year-round:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Year-round labels");
 
-console.log(JSON.stringify({ result: "PASS", coverage: { lakes: liveLakes, facilities: liveFacilities }, checks: ["hub copy", "real directory links", "canonical", "statewide lake and facility coverage", "facility-profile noindex", "verified guide businesses", "historical reports noindex", "human-readable bass seasons"], pages: reports }, null, 2));
+console.log(JSON.stringify({ result: "PASS", coverage: { lakes: liveLakes, facilities: liveFacilities }, checks: ["ordinary-vs-fresh canonical URL parity", "hub copy", "real directory links", "canonical", "statewide lake and facility coverage", "facility-profile noindex", "verified guide businesses", "historical reports noindex", "human-readable bass seasons"], pages: reports }, null, 2));
