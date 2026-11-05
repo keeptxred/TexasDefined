@@ -116,3 +116,32 @@ and the machine-readable delta are kept as GitHub Actions evidence.
 The permanent deployment acceptance still requires the normal production
 build and smoke, signed original-byte publishing, propagation, live two-origin
 checks and verified rollback. No staging-only success substitutes for them.
+
+## Credential-free Workers KV REST transport staging
+
+`scripts/ci/immutable-hashed-asset-kv-rest.mjs` is now a transport adapter
+for the **existing proposed** dedicated namespace. It is inert on import and
+on construction: there are **zero network calls** until its methods are
+explicitly invoked by an authenticated, owner-approved release process.
+The implementation uses Cloudflare's documented REST list-keys, raw GET value,
+GET metadata, and multipart PUT-with-metadata endpoints; keys are percent-
+encoded and constrained to the immutable `immutable:v1:/assets/` prefix.
+
+- Listing follows every opaque cursor; rejects duplicate, malformed, expiring,
+  unverified, or beyond-budget keys rather than assuming an empty archive.
+- Value reads preserve raw bytes, then require original KV metadata. HTTP 403,
+  429, API failures and missing original metadata all fail closed.
+- Publishing is constrained to validated JS/CSS paths, original SHA-256 and
+  first-seen evidence, and unexpired objects. The separate idempotent publisher
+  independently checks bytes and metadata before and after any put.
+- Unit tests supply a **mock fetch transport**, not a live Cloudflare token;
+  they verify URL encoding, pagination, multipart byte preservation, readback,
+  idempotency and error refusal.
+- **No owner-approved namespace ID, dedicated KV token, production write step,
+  or cross-region visibility certificate has been supplied or activated in
+  this PR.** Do not route live traffic or delete carry-forward assets based
+  on these mocked transport tests.
+
+Source references: Cloudflare Workers KV documented raw value GET, key listing,
+metadata GET, multipart value PUT, and eventual consistency. No browser or
+Cloudflare API authentication is required for these tests.
