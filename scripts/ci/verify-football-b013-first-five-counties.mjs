@@ -19,6 +19,6 @@ for (const [slug,countySlug] of expected) {
  const countyRow = reciprocalSection.match(new RegExp("'"+countySlug+"'\\s*:\\s*\\[([\\s\\S]*?)\\]\\s*,"));
  assert.ok(countyRow,countySlug+' missing county section');
  assert.ok(countyRow[1].includes("slug: '"+slug+"'"),slug+' missing reciprocal county entry');
- assert.ok(dossier.includes('\\`'+slug+'\\`'),slug+' missing source ledger');
+ assert.ok(dossier.includes('`'+slug+'`'),slug+' missing source ledger');
 }
 console.log('PASS: Batch013 first-five explicit school-to-county and reciprocal county-to-school structural source contract (not Chrome certification)');
