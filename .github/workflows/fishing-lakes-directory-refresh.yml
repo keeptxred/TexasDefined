@@ -83,7 +83,7 @@ jobs:
         run: |
           title='Fishing lakes directory official-source refresh drift'
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
-          detail="$(node -e 'const fs=require("fs");const p=".artifacts/fishing-lake-regulation-sources.json";if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));console.log((r.errors||[]).slice(0,12).join("\\n"))}')"
+          detail="$(node -e 'const fs=require("fs");const p=".artifacts/fishing-lake-regulation-sources.json";if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));console.log((r.errors||[]).slice(0,12).join("; "))}')"
           body="The scheduled fishing lakes directory refresh detected a TPWD access-alert mismatch, a lake-specific fishery/regulation source mismatch, or an authority-contract problem. This is **source integrity monitoring, not verification that bag or length limits have changed**. Preserve conservative visitor warnings and check the official primary sources before revising factual claims. See evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. No verification dates should be updated without a real source check. Source failures (first 12): $detail"
           if [[ -n "$existing" ]]; then
             gh issue comment "$existing" --body "$body"
@@ -91,5 +91,5 @@ jobs:
             gh issue create --title "$title" --body "$body"
           fi
       - name: Fail on unresolved official-source or contract drift
-        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.quarterly.outcome == 'failure')
         run: exit 1
