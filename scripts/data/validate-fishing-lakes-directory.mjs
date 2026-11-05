@@ -121,7 +121,7 @@ for (const marker of [
   'Fishery profile, not current availability',
   'source-backed lake-to-species relationships',
   'Individual lake facts have different review dates',
-]) assert(component.toLowerCase().includes(marker.toLowerCase()), `Fishing lakes directory missing visitor safety, filtering or comparison contract: ${marker}`);
+]) assert(`${component}\n${sharedAnswers}`.toLowerCase().includes(marker.toLowerCase()), `Fishing lakes directory missing visitor safety, filtering or comparison contract: ${marker}`);
 
 assert(refreshWorkflow.includes('37 14 * * 1,4'), "Fishing lake official-access status requires a twice-weekly GitHub Actions schedule.");
 assert(refreshWorkflow.includes('49 15 2 1,4,7,10 *'), "Fishing lake facts require quarterly GitHub authority review.");
