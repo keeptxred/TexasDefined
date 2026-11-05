@@ -7,6 +7,7 @@ const component = read("src/components/camping/CampingDiscovery.tsx");
 const route = read("src/routes/best-places-to-go-camping-in-texas.tsx");
 const page = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
 const destinationGuides = read("src/data/camping/destination-guides.ts");
+const petRules = read("src/data/camping/pet-policies.ts");
 const profileWave2 = read("src/data/camping/profiles-wave2.ts");
 const profileWave3 = read("src/data/camping/profiles-wave3.ts");
 const profileWave4 = read("src/data/camping/profiles-wave4.ts");
@@ -79,6 +80,12 @@ requireText(component, "profile.planningDetail", "campground planning-detail ren
 requireText(component, "hasCampingDestinationGuide", "campground canonical destination-link registry");
 requireText(component, "hasDestinationGuide", "campground destination-link guard");
 requireText(route, "hasCampingDestinationGuide(profile.destinationSlug)", "campground structured-data destination guard");
+requireText(route, "withResearchedCampingPetPolicy(profile)", "apply source-backed pet rules to every discovered campground");
+requireText(component, "profile.petPolicySourceUrl", "link operator pet restrictions at profile level");
+requireText(component, "profile.petPolicyResearchedAt", "pet research provenance separate from campground facility verification");
+for (const marker of ["CAMPING_PET_POLICY_RESEARCHED_AT", "CAMPING_TPWD_PET_RULES_URL", "government-canyon-state-natural-area", "seminole-canyon-state-park-and-historic-site", "enchanted-rock-state-natural-area", "inks-lake-state-park", "big-bend-national-park", "guadalupe-mountains-national-park", "padre-island-national-seashore", "cedar-breaks-park-lake-georgetown", "russell-park-lake-georgetown", "withResearchedCampingPetPolicy"]) {
+  requireText(petRules, marker, "camping official pet-policy source and exception contract");
+}
 requireText(route, "${pageUrl}#${profileAnchor(profile)}", "campground structured-data anchor fallback");
 requireText(component, "Build trip", "campground seeded trip-planner link");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");

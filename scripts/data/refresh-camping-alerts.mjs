@@ -73,8 +73,8 @@ const sources = [
   {
     destinationSlug: "big-bend-national-park", parkName: "Big Bend National Park",
     sourceUrl: "https://www.nps.gov/bibe/planyourvisit/conditions.htm",
-    required: [/weather-related road closures/i, /paved road between Cottonwood Campground and Santa Elena Canyon/i, /Hot Springs Road beyond the overflow parking area/i, /Paint Gap Road/i, /River Road West to Glenn Springs Road/i, /Black Gap Road is c\s*los/i],
-    notice: "NPS reports weather-related closures of the paved road between Cottonwood Campground and Santa Elena Canyon, Hot Springs Road beyond overflow parking, Paint Gap Road, River Road West to Glenn Springs Road, and Black Gap Road. Verify current access before planning a backcountry drive.",
+    required: [/weather-related road closures/i, /paved road between Cottonwood Campground and Santa Elena Canyon/i, /Hot Springs Road past the overflow parking lot/i, /River Road West to Glenn Springs Road/i, /Black Gap Road is c\s*los/i],
+    notice: "NPS lists weather-related closures for the paved road between Cottonwood Campground and Santa Elena Canyon, Hot Springs Road past the overflow parking lot, River Road West to Glenn Springs Road, and Black Gap Road. Paint Gap Road is not on this list, which does not itself establish reopening. Verify road access with NPS before travel.",
   },
   {
     destinationSlug: "brazos-bend-state-park", parkName: "Brazos Bend State Park",
@@ -93,15 +93,34 @@ const sources = [
     notice: "TPWD says final construction work is ongoing. Follow posted safety signs; weekend and holiday capacity may be reached, so reserve entry before visiting.",
   },
 ];
+// The entire current NPS road-closure list must match, not merely four
+// substrings: otherwise additions or removals could silently preserve a
+// stale, misleading complete closure list.
+function verifiedBigBendRoadSet(text) {
+  const segment = /The following weather-related road closures are in effect until f\w* notice:\s*([\s\S]*?)To view weather forecasts/i.exec(text)?.[1];
+  if (!segment) return false;
+  const expected = [
+    /The paved road between Cottonwood Campground and Santa Elena Canyon\.?/i,
+    /Hot Springs Road past the overflow parking lot\.?/i,
+    /River Road West to Glenn Springs Road\.?/i,
+    /Black Gap Road is c\s*losed until further notice due to unsafe conditions from 2025 flash flooding events\.?/i,
+  ];
+  let remaining = segment;
+  for (const phrase of expected) {
+    const matches = remaining.match(new RegExp(phrase.source, "gi"));
+    if (!matches || matches.length !== 1) return false;
+    remaining = remaining.replace(phrase, " ");
+  }
+  return remaining.trim().length === 0;
+}
+
 // All source-listed park-wide closure windows must parse and retain their
 // original date meaning, including year rollovers, or no dated claim ships.
 function isVerified(source, text, asOf = day) {
   if (!source.required.every(pattern => pattern.test(text))) return false;
   if (source.destinationSlug === "enchanted-rock-state-natural-area")
     return parseTPWDClosures(text,source.destinationSlug) !== null;
-  if (source.destinationSlug === "big-bend-national-park") {
-    if (/\b(?:Paint Gap Road|Hot Springs Road|Black Gap Road|River Road West|Cottonwood Campground and Santa Elena Canyon)\s+(?:has\s+)?(?:reopened|is\s+open)\b/i.test(text)) return false;
-  }
+  if (source.destinationSlug === "big-bend-national-park") return verifiedBigBendRoadSet(text);
   if (source.destinationSlug === "brazos-bend-state-park")
     return parseTPWDClosures(text,source.destinationSlug) !== null;
   return true;
@@ -136,7 +155,7 @@ if (process.argv.includes("--self-test")) {
   const fixtures = [
     "Park Alerts Burn Ban Aug. 11, 2026 - The park is under a burn ban. Water Outage Oct. 23, 2026 - Water is out at the Bayfront camping area. Construction Alerts Expect intermittent closures for sites 1 - 24",
     "Park Alerts Trail Closures Oct. 20, 2026 - The backcountry trails may have intermittent closures. Park Closures The park will be closed on the following dates: 12:30 p.m. on Oct. 12 to 2 p.m. on Oct. 16 12:30 p.m. on Nov. 2 to 2 p.m. on Nov. 6 12:30 p.m. on Nov. 30 to 2 p.m. on Dec. 4 12:30 p.m. on Jan. 25 to 2 p.m. on Jan. 29 Only permitted hunters will be allowed on these dates",
-    "Alerts & Conditions weather-related road closures. The paved road between Cottonwood Campground and Santa Elena Canyon. Hot Springs Road beyond the overflow parking area. Paint Gap Road River Road West to Glenn Springs Road Black Gap Road is c losed",
+    "Alerts & Conditions The following weather-related road closures are in effect until futher notice: The paved road between Cottonwood Campground and Santa Elena Canyon. Hot Springs Road past the overflow parking lot River Road West to Glenn Springs Road Black Gap Road is c losed until further notice due to unsafe conditions from 2025 flash flooding events. To view weather forecasts for Big Bend and Brewster County",
     "Park Alerts Burn Ban Aug. 28, 2026 - The park is under a burn ban. No wood fires allowed. You may use charcoal or containerized stoves. Park Closures The park will be closed on the following dates: Nov. 17 to Nov. 19 Dec. 15 to Dec. 17 Only permitted hunters will be allowed on these dates",
     "Park Alert Visiting the Park: final touches are ongoing. The park may reach capacity on weekends and holidays",
   ];
@@ -147,8 +166,9 @@ if (process.argv.includes("--self-test")) {
   assert.equal(isVerified(sources[0], fixtures[0].replace("under a burn ban", "not under a burn ban")), false, "burn ban withdrawal is not confirmed");
   assert.equal(isVerified(sources[1], fixtures[1].replace("on Nov. 30", "on Nov. 30").replace("12:30 p.m. on Nov. 30", "12:30 p.m. on Nov. 8 to 2 p.m. on Nov. 10 12:30 p.m. on Nov. 30")), true, "new source-supported closure is parsed safely");
   assert.equal(isVerified(sources[1], fixtures[1].replace("to 2 p.m. on Nov. 6", "through Nov. 6")), false, "unrecognized new closure format needs review");
-  assert.equal(isVerified(sources[2], fixtures[2].replace("Paint Gap Road", "Paint Gap Road reopened")), false, "reopened access is not a confirmed closure");
-  assert.equal(isVerified(sources[2], fixtures[2].replace("Paint Gap Road", "Reopened side road")), false, "removed road closure triggers review");
+  assert.equal(isVerified(sources[2], fixtures[2].replace("Hot Springs Road past the overflow parking lot", "Hot Springs Road reopened")), false, "reopened road must not be published as closed");
+  assert.equal(isVerified(sources[2], fixtures[2].replace("River Road West to Glenn Springs Road", "Paint Gap Road. River Road West to Glenn Springs Road")), false, "extra unknown road must trigger review");
+  assert.equal(isVerified(sources[2], fixtures[2].replace("River Road West to Glenn Springs Road", "")), false, "removed road must trigger review");
   assert.equal(isVerified(sources[3], fixtures[3].replace("Only permitted hunters will be allowed on these dates", "")), false, "hunting access claim requires source");
   const enchanted = sources[1].notice(fixtures[1], "2026-11-07");
   assert(!enchanted.includes("November 2–6"), "elapsed November closure must expire");

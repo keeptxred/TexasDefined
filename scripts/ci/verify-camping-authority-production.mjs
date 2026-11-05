@@ -35,6 +35,9 @@ function verify(html, { synthetic = false } = {}) {
   const profileCount = /(?:Showing\s+)?(\d+) of (\d+) verified profiles/i.exec(text);
   const count = profileCount ? Number(profileCount[2]) : 0;
   if (!profileCount || Number(profileCount[1]) !== count || count < 72) errors.push("campground profile count less than verified baseline 72");
+  const petMatch = /Pet friendly\s*\((\d+)\)/i.exec(text);
+  if (!petMatch || Number(petMatch[1]) < 55) errors.push("fewer than 55 evidence-backed pet camping profiles in live filter");
+  if (!text.includes("Official pet rules")) errors.push("no operator-specific pet policy links in live SSR");
   for (const alert of expectedAlerts) {
     if (!text.includes(alert.parkName)) errors.push("missing monitored park: " + alert.parkName);
     if (!text.includes(alert.notice.slice(0, 48))) errors.push("live notice differs from committed source snapshot: " + alert.parkName);
@@ -66,6 +69,7 @@ if (process.argv.includes("--self-test")) {
     '<link rel="canonical" href="' + CANONICAL + '">',
     '<h1>Best Places to Go Camping in Texas</h1>',
     '<h2>Six Texas camping starting points, by trip</h2>',
+    '<p>Pet friendly (61)</p><p>Official pet rules</p>',
     '<div>By Texas Defined editorial desk</div>',
     '<p>Garner Shady Meadows full-hookup sites are RV-only.</p>',
     '<p>Pet friendly is a verified-only filter.</p>',
@@ -85,6 +89,8 @@ if (process.argv.includes("--self-test")) {
   assert.throws(() => verify(fixtures.replace("Recent official park advisories", "Old alerts"), { synthetic: true }), /missing/);
   assert.throws(() => verify(fixtures.replace("Six Texas camping starting points, by trip", "Old generic list"), { synthetic: true }), /starting points/);
   assert.throws(() => verify(fixtures.replace("Shady Meadows full-hookup sites", "Generic Garner camping"), { synthetic: true }), /Shady Meadows/);
+  assert.throws(() => verify(fixtures.replace("Pet friendly (61)", "Pet friendly (7)"), { synthetic: true }), /55 evidence-backed/);
+  assert.throws(() => verify(fixtures.replace("Official pet rules", "Unverified dog camping"), { synthetic: true }), /pet policy links/);
   assert.throws(() => verify(fixtures.replace("Pet friendly is a verified-only filter", "All parks accept pets"), { synthetic: true }), /Pet friendly/);
   assert.throws(() => verify(fixtures.replace('<link rel="canonical"', '<link rel="alternate"'), { synthetic: true }), /canonical/);
   assert.throws(() => verify(fixtures.replace(expectedAlerts[0].notice, "Outdated park information"), { synthetic: true }), /live notice differs/);
