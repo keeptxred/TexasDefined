@@ -28,10 +28,9 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-11-04"
     },
     "overview": [
-      "Official program identity: Cuero Gobblers. Cuero ISD publishes separate 2026 varsity Gobbler football and junior-high football schedules. These are different teams and should not be combined into a single results list.",
-      "Before attending, use the linked first-party athletics resource to verify the current varsity schedule, any changes, and the host school's venue instructions. A campus or district office address is not a verified stadium entrance.",
-      "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
-      "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
+          "Cuero ISD separates the 2026 varsity Gobbler schedule from its junior-high football schedule. Choose the varsity document when planning to attend a high-school game; the junior-high listing is not a varsity fixture.",
+          "The district athletics resource also publishes stadium rules and attendance guidance. Read those alongside the specific host's game notice, rather than assuming an away game follows Cuero's home-field procedures.",
+          "The Gobblers' district athletics hub is the most useful first stop because it keeps schedule and stadium guidance in one place; an undated copied schedule may omit late kickoff or location changes."
     ],
     "milestones": [{
       "date": "2026",
@@ -80,10 +79,9 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-11-04"
     },
     "overview": [
-      "Official program identity: Cumby Fighting Trojans. Cumby Collegiate ISD identifies its athletic teams as the Fighting Trojans. Its football document library is the first-party place to check schedules rather than treating a district-office address as a game venue.",
-      "Before attending, use the linked first-party athletics resource to verify the current varsity schedule, any changes, and the host school's venue instructions. A campus or district office address is not a verified stadium entrance.",
-      "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
-      "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
+          "Cumby Collegiate ISD calls its teams the Fighting Trojans. The Collegiate district name matters: another school district uses a Cumby mailing address, so a search result for 'Cumby football' is not necessarily this program.",
+          "The district maintains a football document collection at https://www.cumbyisd.net/documents/athletics/football/564569. Use that collection to locate current football files, then check the event calendar for updates.",
+          "Cumby's district calendar listed a November 6, 2026 varsity trip to Collinsville. That was a scheduled fixture when recorded, not a result, and it does not establish a permanent home-field entrance."
     ],
     "milestones": [{
       "date": "2026",
@@ -132,10 +130,9 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-11-04"
     },
     "overview": [
-      "Official program identity: Cushing Bearkats. Cushing ISD's athletics department publishes school football information and dated announcements. Older first-party documents disagree on coaching roles, so this guide deliberately does not name a current head coach.",
-      "Before attending, use the linked first-party athletics resource to verify the current varsity schedule, any changes, and the host school's venue instructions. A campus or district office address is not a verified stadium entrance.",
-      "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
-      "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
+          "Cushing ISD identifies its teams as the Bearkats and publishes football notices through its athletic department. Its campus address, 1088 Bearkat Drive, should not be substituted for a host's verified stadium gate.",
+          "Coaching references conflict across older first-party material: a legacy district football page names Josh Moore while a 2024 varsity schedule names Scott Holzhauer. Neither document alone establishes who holds the role in 2026.",
+          "The district homepage carried football-related notices dated November 3, 2026. Check the timestamp and whether an item applies to varsity, junior varsity or another activity before relying on it for travel."
     ],
     "milestones": [{
       "date": "2026",
@@ -184,10 +181,9 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-11-04"
     },
     "overview": [
-      "Official program identity: Cy-Fair Bobcats. Cy-Fair High School has its own campus athletics directory within Cypress-Fairbanks ISD. The district's 2026–28 UIL realignment notice identifies Cy-Fair in District 16-6A, but that classification does not establish a specific game venue.",
-      "Before attending, use the linked first-party athletics resource to verify the current varsity schedule, any changes, and the host school's venue instructions. A campus or district office address is not a verified stadium entrance.",
-      "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
-      "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
+          "Cy-Fair High School's Bobcats have a campus-specific athletics directory, including a sports-and-coaches listing at https://cyfair.cfisd.net/athletics/sports-coaches. This is distinct from other Cypress-Fairbanks ISD campuses.",
+          "CFISD's 2026–28 UIL realignment announcement places Cy-Fair in District 16-6A. District alignment helps identify opponents but is not a season standing or a guarantee of a particular stadium.",
+          "The high-school campus is at 22602 Northwest Freeway in Cypress. CFISD operates multiple football venues, so the campus address must not be used as the game-day stadium entrance without a host-specific notice."
     ],
     "milestones": [{
       "date": "2026",
@@ -236,10 +232,9 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-11-04"
     },
     "overview": [
-      "Official program identity: Cypress Creek Cougars. Cypress Creek High School's first-party athletics page identifies Deveon McKinney as athletic coordinator and head football coach. CFISD's 2026–28 realignment announcement places Cypress Creek in District 16-6A.",
-      "Before attending, use the linked first-party athletics resource to verify the current varsity schedule, any changes, and the host school's venue instructions. A campus or district office address is not a verified stadium entrance.",
-      "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
-      "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
+          "Cypress Creek High School's Cougars are a separate CFISD campus program. The school athletics page identifies Deveon McKinney as campus athletic coordinator and head football coach; that role is supported by the first-party directory.",
+          "CFISD's 2026–28 UIL realignment announcement places Cypress Creek in District 16-6A alongside Cy-Fair. Shared alignment does not mean the two campuses share the same home game or venue.",
+          "The school published spring 2026 college signing coverage, but a dated signing announcement is not a 2026 varsity roster. Its 9815 Grant Road campus address is also not confirmation of the football stadium entrance."
     ],
     "milestones": [{
       "date": "2026",
