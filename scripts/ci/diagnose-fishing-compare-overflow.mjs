@@ -29,4 +29,29 @@ for (const viewport of [{width:1366,height:900},{width:390,height:844}]) {
   console.log(JSON.stringify({viewport:viewport.width,result},null,2));
   await ctx.close();
 }
+
+for (const viewport of [{width:1366,height:900},{width:390,height:844}]) {
+  const ctx = await browser.newContext({viewport,deviceScaleFactor:1,isMobile:viewport.width<500,hasTouch:viewport.width<500});
+  const page = await ctx.newPage();
+  await page.goto("https://texasdefined.com/fishing/lakes",{waitUntil:"domcontentloaded",timeout:60000});
+  await page.getByRole("searchbox",{name:"Lake, county or city"}).waitFor({state:"visible",timeout:15000});
+  for (const slug of ["lake-conroe","lake-abilene","sam-rayburn-reservoir"]) {
+    await page.locator('section[aria-labelledby="lake-directory-heading"] article').filter({has:page.locator('h3 a[href="/fishing/lakes/' + slug + '"]')}).getByRole("checkbox",{name:"Compare this lake"}).check();
+  }
+  await page.getByRole("link",{name:/Compare 3 selected lakes/}).click();
+  await page.getByRole("heading",{name:"Compare Texas Fishing Lakes Side by Side"}).waitFor({state:"visible",timeout:25000});
+  const measure=()=>page.evaluate(()=>({location:location.pathname+location.search,innerWidth:innerWidth,docWidth:document.documentElement.scrollWidth,bodyWidth:document.body.scrollWidth,scrollX:window.scrollX,elementWidth:document.querySelector("main")?.scrollWidth,windowWidth:document.documentElement.clientWidth,tableSection:(()=>{let e=document.querySelector('section.overflow-x-auto');return e?{scrollWidth:e.scrollWidth,clientWidth:e.clientWidth,bounds:e.getBoundingClientRect().toJSON()}:null})()}));
+  const snapshots={now:await measure()};
+  await page.waitForTimeout(100);
+  snapshots.after100ms=await measure();
+  await page.waitForTimeout(500);
+  snapshots.after600ms=await measure();
+  await page.evaluate(()=>document.fonts.ready);
+  snapshots.afterFonts=await measure();
+  await page.waitForTimeout(1200);
+  snapshots.after1800ms=await measure();
+  console.log(JSON.stringify({kind:"link-navigation",viewport:viewport.width,snapshots},null,2));
+  await ctx.close();
+}
+
 await browser.close();
