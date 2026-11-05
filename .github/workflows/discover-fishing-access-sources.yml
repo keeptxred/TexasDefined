@@ -56,7 +56,7 @@ jobs:
           issue=$(gh issue list --state open --search 'Fishing statewide source discovery backlog in:title' --json number --jq '.[0].number // empty')
           body="$(cat .artifacts/fishing-access-discovery.md)
 
-          Evidence artifact: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_number }}"
+          Evidence artifact: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ -n "$issue" ]; then gh issue comment "$issue" --body "$body";
           else gh issue create --title 'Fishing statewide source discovery backlog' --body "$body";
           fi
