@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-04T18:40:30.487Z",
+  "fetchedAt": "2026-11-05T18:48:18.843Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -424,6 +424,35 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/mcallen-holiday-parade-2026-presented-by-mcallen-texas-12-05-2026/event/3A0064FBAD17A969"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Midland Festival Ballet Presents The Nutcracker",
+      "city": "Midland",
+      "dates": [
+        "2026-12-12",
+        "2026-12-13"
+      ],
+      "venues": [
+        "Wagner Noel Performing Arts Center"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AA7Ma4",
+        "Z7r9jZ1AA7Maa",
+        "Z7r9jZ1AA7gu6"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7Ma4",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7Maa",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7gu6"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
