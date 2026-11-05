@@ -13,6 +13,9 @@ on:
     paths:
       - 'src/components/fishing/FishingLakesDirectory.tsx'
       - 'src/data/fishing/lake-directory-advisories.json'
+      - 'src/data/fishing/lake-authority-research-wave1.ts'
+      - 'src/data/fishing/slugs.ts'
+      - 'src/data/fishing/fixtures.ts'
       - 'src/routes/fishing.lakes.tsx'
       - 'scripts/ci/audit-fishing-lakes-directory-sources.mjs'
       - 'scripts/ci/audit-fishing-lake-regulation-sources.mjs'
