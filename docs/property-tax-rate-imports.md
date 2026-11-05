@@ -438,3 +438,44 @@ no automatic local-rate assumptions. The verified 2022 Union Valley
 state-versus-local disagreement is shown separately elsewhere and is not
 misclassified as a missing Comptroller source rate. Source gaps in a not-yet-
 published current-year workbook are not fabricated or flagged as omissions.
+
+
+## Austin County ESD #3 — adopted local 2026 rate and automatic source refresh
+
+This is a jurisdiction-specific authority layer above the existing statewide dataset,
+not a substitute or a revision of Texas Comptroller published historical workbooks.
+
+- The [Austin CAD rate table](https://austincad.org/tax-rates/) and the
+  [ESD #3 signed September 21, 2026 resolution](https://austincountyesd3.org/wp-content/uploads/2026/10/2026-Tax-Rate-Resolution.pdf)
+  independently establish **$0.074900 per $100 of taxable value**:
+  **$0.074900 M&O + $0.000000 debt service**.
+- The original 2025 Comptroller rate **$0.075920** remains in the statewide
+  import; the current local adopted rate is shown separately, with dated
+  source links and explicit parcel-jurisdiction warnings. No unreported
+  2026 levy, collections, or exemptions are fabricated.
+- The checked-in primary-source ledger is
+  `src/data/property/austin-county-esd3-adopted.json`. The page's
+  district-specific helpful analysis is
+  `src/components/property/AustinCountyEsd3Authority.tsx`.
+  The 2026 locally sourced history row is visibly labeled, **not** a
+  comptroller workbook record or automatically substituted calculator input.
+- The lightweight GitHub workflow
+  `.github/workflows/verify-austin-esd3-tax-rates.yml`
+  checks on the **6th of every month at 12:17 UTC** plus **Mondays
+  August–November at 12:17 UTC**. The separate statewide importer still
+  runs on the 3rd of each month. No ChatGPT scheduled tasks are involved.
+- The workflow uses `scripts/data/refresh-austin-esd3-adopted.mjs` and
+  its identity/parser tests to compare Austin CAD's exact district row with
+  the **same-year signed ESD resolution**, using a pinned PDF extractor.
+  The district's total must equal M&O plus debt and match Austin CAD within
+  0.0000001. The year, name, adoption date and official HTTPS PDF path must
+  match. A newly corroborated subsequent year is committed only through an
+  auto-mergeable GitHub PR, subject to repository protection and checks.
+  If the sources disagree, go missing, publish an unexpected year or alter a
+  previously recorded rate, the job **fails closed** and creates or retains
+  one investigation issue without rewriting the public record.
+- The verified date only changes when a new annual source record is actually
+  added. Routine verification does not artificially advance page freshness.
+  Review the scheduled workflow's logs, resulting PR, deployment pipeline,
+  and live SSR data before certifying a newly published year. A PR with
+  pending checks is **not certified**.

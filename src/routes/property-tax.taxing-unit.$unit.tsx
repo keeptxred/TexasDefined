@@ -1,6 +1,13 @@
 import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
+import { lazy, Suspense } from 'react';
+import austinEsd3Sources from '@/data/property/austin-county-esd3-adopted.json';
+
+const latestAustinEsd3Adopted = austinEsd3Sources.rates.at(-1)!;
+// Route-specific authority prose must not inflate the sitewide main bundle.
+// React SSR streams the resolved lazy boundary; client loading is split by route.
+const AustinCountyEsd3Authority = lazy(() => import('@/components/property/AustinCountyEsd3Authority').then((m) => ({ default: m.AustinCountyEsd3Authority })));
 import { getTaxingUnitRateHistory } from '@/data/property/texas-tax-rates.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -14,7 +21,10 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
     if (!loaderData) return {};
     const { latest, history } = loaderData;
     const canonicalPath = `/property-tax/taxing-unit/${latest.slug}`;
-    const description = `${latest.name} property-tax rate history through ${latest.year}, distinguishing finalized statewide figures from separately verified local records, missing reports and documented source conflicts. M&O and I&S components are shown only when reported.`;
+    const hasEsd3Adoption = latest.slug === austinEsd3Sources.unitSlug;
+    const description = hasEsd3Adoption
+      ? `${latest.name}: locally adopted ${latestAustinEsd3Adopted.year} rate ${latestAustinEsd3Adopted.totalRate.toFixed(6)} per $100, signed district resolution, parcel-verification steps, and separately labeled Comptroller history through ${latest.year}.`
+      : `${latest.name} property-tax rate history through ${latest.year}, distinguishing finalized statewide figures from separately verified local records, missing reports and documented source conflicts. M&O and I&S components are shown only when reported.`;
     // A credible history can include a fully evidenced local supplement when
     // the Comptroller marked a year as not-reported. A source disagreement
     // never creates an extra verified observation or an indexability shortcut.
@@ -39,7 +49,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         name: `${latest.name} property-tax rate history`,
         description,
         url: pageUrl,
-        temporalCoverage: `${history[0]?.year}/${history.at(-1)?.year}`,
+        temporalCoverage: `${history[0]?.year}/${hasEsd3Adoption ? Math.max(latest.year, latestAustinEsd3Adopted.year) : history.at(-1)?.year}`,
         creator: { '@type': 'Organization', name: 'Texas Defined' },
         // Cite every yearly Comptroller workbook as well as any separately
         // sourced local-rate evidence; do not imply the latest source covers
@@ -49,7 +59,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
           ...(record.localVerification
             ? [record.localVerification.sourceUrl, ...(record.localVerification.componentSourceUrl ? [record.localVerification.componentSourceUrl] : [])]
             : []),
-        ]))],
+        ])), ...(hasEsd3Adoption ? [austinEsd3Sources.sourceRateTable, latestAustinEsd3Adopted.resolutionUrl] : [])],
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
       })],
@@ -80,7 +90,9 @@ function Page() {
   const latestLocal = latest.localVerification?.mode === 'supplement' ? latest.localVerification : null;
   const latestConflict = latest.localVerification?.mode === 'conflict' ? latest.localVerification : null;
   const rateCount = displayHistory.filter((record) => record.displayTotalRate != null).length;
-  const chartMaximum = Math.max(0.01, ...displayHistory.map((record) => record.displayTotalRate ?? 0));
+  const hasEsd3Adoption = latest.slug === austinEsd3Sources.unitSlug;
+  const showLocallyAdoptedHistoryRow = hasEsd3Adoption && latestAustinEsd3Adopted.year > latest.year;
+  const chartMaximum = Math.max(0.01, ...displayHistory.map((record) => record.displayTotalRate ?? 0), ...(showLocallyAdoptedHistoryRow ? [latestAustinEsd3Adopted.totalRate] : []));
   const first = history[0];
   const rateChange = latest.totalRate != null && first?.totalRate != null ? latest.totalRate - first.totalRate : null;
   const countyLinks = latest.countySlugs.map((slug) => ({ slug, name: title(slug) + ' County' }));
@@ -88,6 +100,8 @@ function Page() {
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16"><article className="mx-auto max-w-6xl">
     <nav className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span className="mx-2">/</span><Link to="/property">Property</Link><span className="mx-2">/</span><Link to="/property-tax-calculators">Property tax</Link><span className="mx-2">/</span>{latest.name}</nav>
     <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type === 'city' ? 'Municipal taxing unit' : latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Comptroller tax-rate history, with local records labeled. This is {latest.type === 'city' ? 'city tax only' : 'one jurisdiction’s tax only'}. Combine only taxes actually levied on your parcel.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest Comptroller workbook year" value={String(latest.year)}/><Fact label={latest.type === 'city' ? 'Latest municipal rate' : 'Latest unit rate'} value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${formatTaxRate(latest.totalRate)} per $100`}/><Fact label="Years with numeric source records" value={`${rateCount} of ${history.length}`}/>{latestLocal ? <><Fact label="Latest independently verified local rate (display only)" value={`${formatTaxRate(latestLocal.totalRate)} per $100`}/><dt className="text-muted-foreground">Local source</dt><dd><a href={latestLocal.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{latestLocal.sourceAgency} ↗</a></dd></> : null}</dl></header>
+
+    {hasEsd3Adoption ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading official ESD #3 records…</p>}><AustinCountyEsd3Authority history={history}/></Suspense> : null}
 
     {latestConflict ? <section className="border-b border-border py-7"><p className="max-w-4xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Unresolved official-source discrepancy.</strong> For {latest.year}, the Comptroller statewide record lists {formatTaxRate(latest.totalRate!)} per $100 while {latestConflict.sourceAgency} independently reports {formatTaxRate(latestConflict.totalRate)} per $100. The statewide record is retained unchanged; the locally verified evidence is displayed separately rather than substituted into tax calculators. <a className="font-semibold text-primary underline underline-offset-2" href={latestConflict.sourceUrl} target="_blank" rel="noopener noreferrer">Review the official local tax-rate document ↗</a>.</p></section> : null}
 
@@ -109,10 +123,11 @@ function Page() {
           </div>
           <span className="text-right tabular-nums">{(record.displayTotalRate == null ? undefined : formatTaxRate(record.displayTotalRate)) ?? 'Unavailable'}</span>
         </div>)}
+        {showLocallyAdoptedHistoryRow ? <div className="grid grid-cols-[3.5rem_minmax(0,1fr)_6rem] items-center gap-3 text-sm"><span className="font-semibold">{latestAustinEsd3Adopted.year}</span><div className="h-4 overflow-hidden rounded-sm bg-muted" role="img" aria-label={`${latestAustinEsd3Adopted.year}: locally adopted rate ${formatTaxRate(latestAustinEsd3Adopted.totalRate)} per $100`}><div className="h-full bg-primary" style={{width: `${(latestAustinEsd3Adopted.totalRate / chartMaximum) * 100}%`}} /></div><span className="text-right tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.totalRate)}</span></div> : null}
       </div>
       <div className="mt-6 overflow-x-auto"><table className="w-full min-w-[42rem] text-left text-sm">
         <thead><tr className="border-b border-border"><th className="py-3">Year</th><th>Total / $100</th><th>Operations (M&amp;O)</th><th>Debt service (I&amp;S)</th><th>Status / source</th><th>Reported levy</th></tr></thead>
-        <tbody>{[...displayHistory].reverse().map((record) => <tr key={record.id} className="border-b border-border">
+        <tbody>{showLocallyAdoptedHistoryRow ? <tr className="border-b border-border"><td className="py-3 font-semibold">{latestAustinEsd3Adopted.year}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.totalRate)}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.maintenanceOperationsRate)}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.debtServiceRate)}</td><td>Locally adopted, independently sourced; <a href={latestAustinEsd3Adopted.resolutionUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">district resolution ↗</a>. Not a Comptroller workbook row.</td><td>—</td></tr> : null}{[...displayHistory].reverse().map((record) => <tr key={record.id} className="border-b border-border">
           <td className="py-3 font-semibold">{record.year}</td>
           <td className="tabular-nums">{(record.displayTotalRate == null ? undefined : formatTaxRate(record.displayTotalRate)) ?? '—'}</td>
           <td className="tabular-nums">{(record.displayOperationsRate == null ? undefined : formatTaxRate(record.displayOperationsRate)) ?? '—'}</td>

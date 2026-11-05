@@ -1,0 +1,18 @@
+{
+  "unitSlug": "austin-county-esd-3",
+  "unitName": "Austin County Emergency Services District No. 3",
+  "sourceRateTable": "https://austincad.org/tax-rates/",
+  "sourceResolutionIndex": "https://austincountyesd3.org/tax-rate-worksheets/",
+  "rates": [
+    {
+      "year": 2026,
+      "totalRate": 0.0749,
+      "maintenanceOperationsRate": 0.0749,
+      "debtServiceRate": 0,
+      "adoptedOn": "2026-09-21",
+      "verifiedOn": "2026-11-05",
+      "sourceAgency": "Austin County Appraisal District; Austin County ESD #3",
+      "resolutionUrl": "https://austincountyesd3.org/wp-content/uploads/2026/10/2026-Tax-Rate-Resolution.pdf"
+    }
+  ]
+}

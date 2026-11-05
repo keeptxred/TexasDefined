@@ -1,0 +1,113 @@
+name: Verify Austin County ESD 3 adopted tax rates
+
+on:
+  # Independent lightweight local-source check; does not repeat the
+  # statewide Comptroller import (which runs every month on the 3rd).
+  schedule:
+    - cron: '17 12 6 * *'
+    # Adoption/publication season: weekly August through November.
+    - cron: '17 12 * 8-11 1'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/data/property/austin-county-esd3-adopted.json'
+      - 'src/components/property/AustinCountyEsd3Authority.tsx'
+      - 'src/routes/property-tax.taxing-unit.$unit.tsx'
+      - 'scripts/data/refresh-austin-esd3-adopted.*'
+      - '.github/workflows/verify-austin-esd3-tax-rates.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: austin-esd3-adopted-rate-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  unit-tests:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test scripts/data/refresh-austin-esd3-adopted.test.mjs
+      - run: node --check scripts/data/refresh-austin-esd3-adopted.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF extractor for real primary-source check
+        run: python3 -m pip install --disable-pip-version-check pypdf==5.6.1
+      - name: Check live adopted rate and official identity without publication
+        run: |
+          node scripts/data/refresh-austin-esd3-adopted.mjs
+          git diff --exit-code -- src/data/property/austin-county-esd3-adopted.json
+
+  check-official-sources:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned PDF text extraction dependency
+        run: python3 -m pip install --disable-pip-version-check pypdf==5.6.1
+      - name: Run fail-closed parser and identity tests
+        run: |
+          node --check scripts/data/refresh-austin-esd3-adopted.mjs
+          node --test scripts/data/refresh-austin-esd3-adopted.test.mjs
+      - name: Check Austin CAD against the signed district adoption
+        id: source_check
+        run: node scripts/data/refresh-austin-esd3-adopted.mjs
+      - name: Open or retain one source verification issue on failure
+        if: failure() && steps.source_check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          title='Austin ESD 3: official tax-rate evidence requires review'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "The scheduled two-primary-source check failed for Austin County ESD #3. Inspect the [Austin CAD rates](https://austincad.org/tax-rates/), [district signed resolutions](https://austincountyesd3.org/tax-rate-worksheets/) and this workflow's failed step. The last verified rate is retained. Do not infer a new rate, silently overwrite statewide Comptroller data, or mark this source as certified without checking the same tax year and exact district."
+          else
+            echo "Existing review issue #$existing retained; not creating duplicates."
+          fi
+      - name: Propose independently corroborated new rate through PR
+        if: steps.source_check.outcome == 'success'
+        id: rate_pr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ github.token }}
+          branch: automation/austin-esd3-adopted-rates
+          delete-branch: true
+          add-paths: src/data/property/austin-county-esd3-adopted.json
+          title: 'data(tax): refresh officially adopted Austin County ESD 3 rate'
+          commit-message: 'data(tax): sync signed Austin ESD 3 adoption with CAD'
+          body: |
+            Automated local-source proposal, not a Comptroller override.
+            Guardrails: same district and tax year; Austin CAD rate equals signed ESD resolution total; M&O plus I&S reconciles; official adoption date; no historical silent rewrites.
+            Parser identity tests passed in the source-check job.
+            The production deployment and live route still require verification.
+      - name: Enable policy-respecting automatic merge
+        if: steps.rate_pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.rate_pr.outputs.pull-request-number }}
+        run: gh pr merge "$PR_NUMBER" --auto --squash --delete-branch
+      - name: Record evidence check
+        if: steps.source_check.outcome == 'success'
+        run: |
+          echo '### Austin ESD #3 local adopted rate' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Official Austin CAD rate table and the same-year district adoption resolution agreed. No Comptroller source was changed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'New verified years are proposed as a PR; deployment/live certification remains separate.' >> "$GITHUB_STEP_SUMMARY"
