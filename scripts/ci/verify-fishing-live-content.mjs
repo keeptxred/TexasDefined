@@ -70,8 +70,8 @@ noindex(facility, "/fishing/access/cagle-recreation-area");
 const bass = await page("/fishing/species/largemouth-bass");
 has(bass, "Largemouth Bass Fishing in Texas", "/fishing/species/largemouth-bass");
 // React SSR may place comment markers between text nodes for hydration.
-const normalizedBass = bass.replace(/<!--\\s*-->/g, "");
-assert.ok(/<strong[^>]*>Spring:<\\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Spring labels");
-assert.ok(/<strong[^>]*>Year-round:<\\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Year-round labels");
+const normalizedBass = bass.replace(/<!--\s*-->/g, "");
+assert.ok(/<strong[^>]*>Spring:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Spring labels");
+assert.ok(/<strong[^>]*>Year-round:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Year-round labels");
 
 console.log(JSON.stringify({ result: "PASS", checks: ["hub copy", "verified dynamic resource links", "canonical", "eight source-backed access facilities", "directory and facility noindex", "human-readable bass season labels"], pages: reports }, null, 2));
