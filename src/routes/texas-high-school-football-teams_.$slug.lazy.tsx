@@ -230,6 +230,13 @@ function Page() {
     'dallas-hillcrest': 'dallas', // Dallas ISD Hillcrest High campus, 9924 Hillcrest Rd; not a stadium gate.
     'dallas-jefferson': 'dallas', // Dallas ISD Thomas Jefferson campus, 4001 Walnut Hill Ln.
     'dallas-jesuit': 'dallas', // Jesuit Dallas campus, 12345 Inwood Rd; private school, not Dallas ISD.
+    'cypress-falls': 'harris', // CFISD first-party school directory, Harris County campus; venue separately verified.
+    'cypress-lakes': 'harris', // CFISD first-party school directory, Harris County campus; venue separately verified.
+    'cypress-park': 'harris', // CFISD first-party school directory, Harris County campus; venue separately verified.
+    'cypress-ranch': 'harris', // CFISD first-party school directory, Harris County campus; venue separately verified.
+    'cypress-ridge': 'harris', // CFISD first-party school directory, Harris County campus; venue separately verified.
+    'cypress-springs': 'harris', // CFISD first-party school directory, Harris County campus; venue separately verified.
+    'cypress-woods': 'harris', // CFISD first-party school directory, Harris County campus; venue separately verified.
     'cuero': 'dewitt',
     'cumby': 'hopkins',
     'cushing': 'nacogdoches',

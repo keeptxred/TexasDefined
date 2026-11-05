@@ -222,7 +222,7 @@ test('current-build duplicate hashes do not consume bounded old-binary retention
   }
 });
 
-test('old-only transfer attempts stop at 896 and block deployment if eligible hashes are omitted', async () => {
+test('old-only transfer attempts stop at 1024 and block deployment if eligible hashes are omitted', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-hard-cap-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -232,8 +232,8 @@ test('old-only transfer attempts stop at 896 and block deployment if eligible ha
     const digest = createHash('sha256').update(body).digest('hex');
     const now = Date.parse('2026-11-02T17:00:00.000Z');
     const at = new Date(now - 1000).toISOString();
-    const assets = Array.from({ length: 899 }, (_, i) => ({
-      path: '/assets/ArticleCard-Historical' + String(i).padStart(3, '0') + '.js',
+    const assets = Array.from({ length: 1027 }, (_, i) => ({
+      path: '/assets/ArticleCard-Historical' + String(i).padStart(4, '0') + '.js',
       wasAvailable: true, preSha256: digest, firstSeenAt: at,
     }));
     writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{ format: 1,
@@ -245,17 +245,17 @@ test('old-only transfer attempts stop at 896 and block deployment if eligible ha
         return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
       } }), /Old-only asset retention cap exceeded: 3/);
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
-    assert.equal(requests, 896);
-    assert.equal(report.inspected, 896);
-    assert.equal(report.retainedCount, 896);
+    assert.equal(requests, 1024);
+    assert.equal(report.inspected, 1024);
+    assert.equal(report.retainedCount, 1024);
     assert.equal(report.ignoredOld, 3);
     assert.deepEqual(new Set(report.ignoredOldPaths), new Set([
-      '/assets/ArticleCard-Historical896.js',
-      '/assets/ArticleCard-Historical897.js',
-      '/assets/ArticleCard-Historical898.js',
+      '/assets/ArticleCard-Historical1024.js',
+      '/assets/ArticleCard-Historical1025.js',
+      '/assets/ArticleCard-Historical1026.js',
     ]));
     assert.equal(report.unavailable.length, 0);
-    assert.ok(report.bytes < 48 * 1024 * 1024);
+    assert.ok(report.bytes < 64 * 1024 * 1024);
     const failedSnapshot = JSON.parse(readFileSync(snapshotPath, 'utf8')).snapshots.at(-1);
     assert.equal(failedSnapshot.omittedAssets.length, 3);
     // The next production recovery often restores only the newest snapshot.
@@ -266,13 +266,13 @@ test('old-only transfer attempts stop at 896 and block deployment if eligible ha
       retainedAssets: failedSnapshot.retainedAssets,
       omittedAssets: failedSnapshot.omittedAssets,
     }] }, now);
-    assert.equal(recovery.length, 899);
+    assert.equal(recovery.length, 1027);
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }
 });
 
-test('818 observed old-only hashed assets fit the new file cap without weakening the 48 MiB byte ceiling or SHA checks', async () => {
+test('818 observed old-only hashed assets fit the new file cap without weakening the 64 MiB byte ceiling or SHA checks', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-818-proofs-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -311,15 +311,58 @@ test('818 observed old-only hashed assets fit the new file cap without weakening
     assert.equal(report.retainedCount, count);
     assert.equal(report.ignoredOld, 0);
     assert.equal(report.unavailable.length, 0);
-    assert.equal(report.budget.maxFiles, 896);
-    assert.equal(report.budget.maxBytes, 48 * 1024 * 1024);
+    assert.equal(report.budget.maxFiles, 1024);
+    assert.equal(report.budget.maxBytes, 64 * 1024 * 1024);
     assert.equal(report.bytes, count * 56_400);
     assert.ok(report.bytes < report.budget.maxBytes);
     assert.equal(JSON.parse(readFileSync(snapshotPath, 'utf8')).snapshots[0].omittedAssets.length, 0);
   } finally { rmSync(tmp, { recursive: true, force: true }); }
 });
 
-test('verified 72-hour assets exceeding old 24 MiB capacity remain protected by the 48 MiB hard ceiling', async () => {
+test('Nov 5 observed old-only main-chunk bytes above 48 MiB are fully preserved inside bounded 64 MiB', async () => {
+  const tmp = mkdtempSync(join(tmpdir(), 'td-retention-observed-byte-cap-'));
+  try {
+    const now = Date.parse('2026-11-05T18:37:12.000Z');
+    const at = new Date(now - 1000).toISOString();
+    const bytesPerMain = 1_825_890;
+    const assetFolder = join(tmp, 'assets');
+    const snapshotPath = join(tmp, 'snapshot.json');
+    const reportPath = join(tmp, 'report.json');
+    const payload = index => {
+      const bytes = Buffer.alloc(bytesPerMain, 65);
+      bytes.writeUInt32BE(index, 0);
+      return bytes;
+    };
+    const assets = Array.from({ length: 28 }, (_, index) => ({
+      path: '/assets/main-Observed' + String(index).padStart(3, '0') + '.js',
+      wasAvailable: true,
+      preSha256: createHash('sha256').update(payload(index)).digest('hex'),
+      firstSeenAt: at,
+    }));
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{ capturedAt: at,
+      pages: [{ path: '/', assets }] }] }));
+    let requests = 0;
+    const report = await retain({ historicalProof: [], snapshotPath, reportPath,
+      assetFolder, now, fetchImpl: async url => {
+        requests++;
+        const match = url.match(/main-Observed(\d{3})\.js$/);
+        assert.ok(match, 'only proven same-origin chunks may be fetched');
+        return new Response(payload(Number(match[1])), {
+          status: 200, headers: { 'Content-Type': 'application/javascript' },
+        });
+      } });
+    assert.equal(requests, 28);
+    assert.equal(report.retainedCount, 28);
+    assert.equal(report.bytes, 28 * bytesPerMain);
+    assert.ok(report.bytes > 48 * 1024 * 1024);
+    assert.ok(report.bytes < 64 * 1024 * 1024);
+    assert.equal(report.ignoredOld, 0);
+    assert.equal(report.unavailable.length, 0);
+    assert.equal(JSON.parse(readFileSync(snapshotPath, 'utf8')).snapshots[0].omittedAssets.length, 0);
+  } finally { rmSync(tmp, { recursive: true, force: true }); }
+});
+
+test('verified 72-hour assets exceeding old 24 MiB capacity remain protected by the 64 MiB hard ceiling', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-capacity-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -333,7 +376,7 @@ test('verified 72-hour assets exceeding old 24 MiB capacity remain protected by 
       bytes.writeUInt32BE(index, 0);
       return bytes;
     };
-    const assets = Array.from({ length: 28 }, (_, index) => ({
+    const assets = Array.from({ length: 37 }, (_, index) => ({
       path: '/assets/main-Verified' + String(index).padStart(3, '0') + '.js',
       wasAvailable: true,
       preSha256: createHash('sha256').update(makePayload(index)).digest('hex'),
@@ -357,15 +400,15 @@ test('verified 72-hour assets exceeding old 24 MiB capacity remain protected by 
     // Every matching original SHA remains mandatory; we increase finite capacity,
     // never silently skip a 72-hour URL or disable the over-budget failure.
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
-    assert.equal(report.budget.maxFiles, 896);
-    assert.equal(report.budget.maxBytes, 48 * 1024 * 1024);
-    assert.equal(report.retainedCount, 27);
-    assert.equal(requests, 28);
-    assert.equal(report.bytes, 27 * bytesPerMain);
+    assert.equal(report.budget.maxFiles, 1024);
+    assert.equal(report.budget.maxBytes, 64 * 1024 * 1024);
+    assert.equal(report.retainedCount, 36);
+    assert.equal(requests, 37);
+    assert.equal(report.bytes, 36 * bytesPerMain);
     assert.ok(report.bytes > 24 * 1024 * 1024);
     assert.ok(report.bytes <= report.budget.maxBytes);
     assert.equal(report.failure.reason, 'retained-client-asset-size-budget-exceeded');
-    assert.equal(report.failure.path, '/assets/main-Verified027.js');
+    assert.equal(report.failure.path, '/assets/main-Verified036.js');
     assert.ok(report.failure.attemptedTotalBytes > report.budget.maxBytes);
     assert.equal(JSON.parse(readFileSync(snapshotPath, 'utf8')).snapshots[0].omittedAssets.length, 1);
   } finally {
