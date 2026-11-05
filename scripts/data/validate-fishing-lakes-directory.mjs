@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), "utf8");
 
-const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow] = await Promise.all([
+const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, advisoriesText, lakeFixtures, sharedAnswers] = await Promise.all([
   read("src/routes/fishing.lakes.tsx"),
   read("src/components/fishing/FishingLakesDirectory.tsx"),
   read("src/routes/fishing.tsx"),
@@ -14,9 +14,20 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
   read("src/data/fishing/search.ts"),
   read("src/lib/public-routes.ts"),
   read(".github/workflows/fishing-url-authority.yml"),
+  read(".github/workflows/fishing-lakes-directory-refresh.yml"),
+  read("scripts/ci/audit-fishing-lakes-directory-sources.mjs"),
+  read("src/data/fishing/lake-directory-advisories.json"),
+  read("src/data/fishing/fixtures.ts"),
+  read("src/data/fishing/lake-directory-answers.ts"),
 ]);
 
 const errors = [];
+const advisories = JSON.parse(advisoriesText);
+assertFAQContract();
+function assertFAQContract() {
+  // FAQ structured data and visible answers must share the same pure source.
+  if (!route.includes("buildFishingLakeQuickAnswers(completeLakeCount)") || !component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Visible quick answers must exactly match JSON-LD FAQ content from one shared source.");
+}
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
 for (const marker of [
@@ -47,7 +58,7 @@ for (const marker of [
   'same sourcing standard',
   'source-backed lake-to-species relationships',
   'fishingFoundationAnchor("lake", lake.slug)',
-]) assert(component.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
+]) assert(`${component}\n${sharedAnswers}`.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
 
 for (const forbidden of [
   '@/data/fishing/fixtures',
@@ -94,6 +105,36 @@ for (const marker of [
   "...completeLakeNames",
 ]) assert(search.includes(marker), `Fishing site-search complete-lake metadata is not dynamically derived: ${marker}.`);
 assert(!search.includes("Compare the five complete TexasDefined fishing-lake guides"), "Fishing site-search must not reintroduce the stale five-lake summary.");
+
+
+// The visitor-facing finder filters published guide records, not invented access inventory.
+for (const marker of [
+  'filteredRows.map(({ lake, targets })',
+  'setSearchText', 'setRegion', 'setSpecies', 'setAccess', 'setSortOrder', 'Largest by surface area', 'Smallest by surface area',
+  'Showing {filteredRows.length} of {rows.length} lake guides',
+  'lakeDirectoryAdvisories[lake.slug',
+  'Official access restriction — check before travel',
+  'Excluding flagged restrictions does NOT mean other lakes or ramps are confirmed open',
+  'selectedLakes.length >= 3',
+  '"/fishing/compare?"',
+  'What fishery labels mean',
+  'Fishery profile, not current availability',
+  'source-backed lake-to-species relationships',
+  'Individual lake facts have different review dates',
+]) assert(`${component}\n${sharedAnswers}`.toLowerCase().includes(marker.toLowerCase()), `Fishing lakes directory missing visitor safety, filtering or comparison contract: ${marker}`);
+
+assert(refreshWorkflow.includes('37 14 * * 1,4'), "Fishing lake official-access status requires a twice-weekly GitHub Actions schedule.");
+assert(refreshWorkflow.includes('49 15 2 1,4,7,10 *'), "Fishing lake facts require quarterly GitHub authority review.");
+assert(refreshWorkflow.includes('scripts/data/validate-fishing-lake-research.mjs'), "Quarterly lake-fact authority validation is not wired.");
+assert(refreshWorkflow.includes('audit-fishing-lakes-directory-sources.mjs'), "Scheduled directory official-source verification is not wired.");
+assert(refreshWorkflow.includes('gh issue create'), "Source drift must become an actionable GitHub issue rather than silent data loss.");
+assert(sourceAudit.includes('Lake Abilene Closures') && sourceAudit.includes('swimming and fishing are not allowed'), "Official TPWD Lake Abilene closure language must be checked.");
+assert(advisories["lake-abilene"]?.sourceUrl === "https://tpwd.texas.gov/state-parks/abilene/alert/", "Lake Abilene directory warning must point directly to the official TPWD alert.");
+assert(advisories["lake-abilene"]?.verifiedAt && advisories["lake-abilene"]?.notice.includes("fishing"), "Lake Abilene restriction requires a dated, explicit visible warning.");
+const samRayburnStart = lakeFixtures.indexOf('slug: "sam-rayburn-reservoir"');
+const samRayburnSection = lakeFixtures.slice(samRayburnStart, samRayburnStart + 1400);
+for (const county of ["Angelina", "Jasper", "Nacogdoches", "Sabine", "San Augustine"]) assert(samRayburnSection.includes(`"${county}"`), `Sam Rayburn missing TPWD reservoir-boundary county: ${county}`);
+assert(samRayburnSection.includes("tpwd-sam-rayburn-legal-boundaries"), "Sam Rayburn source for county correction is missing.");
 
 if (errors.length) {
   console.error("Fishing lakes directory validation failed:");
