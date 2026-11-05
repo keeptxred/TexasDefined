@@ -57,6 +57,11 @@ requireText(plannerRoute, '.lazy(() => import("@/lazy/fishing-plan").then((d) =>
 requireText(plannerLazy, 'createLazyFileRoute("/fishing/plan")', "planner lazy route definition missing");
 requireText(compareRoute, '.lazy(() => import("@/lazy/fishing-compare").then((d) => d.Route))', "comparison lazy route boundary missing");
 requireText(compareLazy, 'createLazyFileRoute("/fishing/compare")', "comparison lazy route definition missing");
+requireText(compareLazy, 'aria-label="Lake comparison table"', "lake comparison must have a named keyboard-scrollable region");
+requireText(compareLazy, 'tabIndex={0}', "lake comparison region must support keyboard scrolling");
+requireText(compareLazy, '<table className=', "lake comparison must use a semantic table");
+requireText(compareLazy, 'scope="col"', "lake comparison must expose semantic lake column headers");
+requireText(compareLazy, 'scope="row"', "lake comparison must expose semantic fact row headers");
 requireText(server, "fullGuide: isCompleteFishingLakeSlug", "planner must distinguish full guides from basic lake profiles");
 requireText(server, "Boolean(relation.verifiedAt) && relation.sources.length > 0", "planner lake/species relationships must be verified and sourced");
 requireText(server, ".filter((row) => row.targets.length > 0)", "planner must omit lakes without verified fish relationships");
