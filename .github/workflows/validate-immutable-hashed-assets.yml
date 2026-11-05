@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/immutable-hashed-asset-*.mjs'
+      - 'scripts/ci/prepare-immutable-hashed-asset-manifest.mjs'
       - 'docs/ci/immutable-hashed-asset-archive.md'
       - '.github/workflows/validate-immutable-hashed-assets.yml'
   workflow_dispatch:
