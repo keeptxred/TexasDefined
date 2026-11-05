@@ -24,12 +24,18 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // Observed production run 42065924607 preserved 768 verified original files
 // (43,317,120 bytes) but omitted exactly 50 additional healthy old-only hashes
 // solely because of the FILE COUNT cap; the separate 48 MiB byte cap was not hit.
-// Provide finite headroom of 896 files for this observed 818-file set, WITHOUT
-// increasing the 48 MiB total, 2 MiB per file, 72-hour age or integrity rules.
-// Remaining over-cap assets still fail closed; this is not an unbounded bypass.
-// The 896-file ceiling is temporary compatibility capacity, NOT durable archive.
-const LIMIT_FILES = 896;
-const LIMIT_BYTES = 48 * 1024 * 1024;
+// Nov 5 run 42085396054 actually recovered 884 original-byte, SHA-verified
+// old-only files (48,574,753 bytes); the next healthy main chunk (1,824,174
+// bytes) would make 50,398,927 bytes, just 67,279 bytes over 48 MiB.
+// This is OUR conservative compatibility budget, not a Cloudflare static-asset
+// platform aggregate limit (20,000 files and 25 MiB each on Workers Free).
+// Evidence-based, still-bounded 1,024 files / 64 MiB covers measured 72-hour
+// history with a finite safety margin. Keep strict 2 MiB per-file, 72-hour
+// ORIGINAL firstSeenAt, same-origin, original SHA-256, MIME and 200 checks.
+// No omitted healthy in-window asset is allowed; avoid gratuitous deploys.
+// This is a bridge, NOT an immutable archive or authorization to provision KV.
+const LIMIT_FILES = 1024;
+const LIMIT_BYTES = 64 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 20000;
@@ -112,7 +118,7 @@ export async function retain({
         firstSeenAt: asset.firstSeenAt });
       continue;
     }
-    // Enforce a bounded ceiling of 896 attempted old-only
+    // Enforce a bounded ceiling of 1,024 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
