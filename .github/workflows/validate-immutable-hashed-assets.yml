@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/ci/immutable-hashed-asset-*.mjs'
       - 'scripts/ci/prepare-immutable-hashed-asset-manifest.mjs'
+      - 'scripts/ci/compare-typescript-diagnostics.mjs'
       - 'src/server-entry.ts'
       - 'scripts/ci/immutable-hashed-asset-archive.d.mts'
       - 'docs/ci/immutable-hashed-asset-archive.md'
@@ -24,15 +25,56 @@ jobs:
         run: node --test scripts/ci/immutable-hashed-asset-*.test.mjs
 
   immutable-worker-entry-typecheck:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
-      - name: Typecheck dormant immutable archive Worker integration
-        run: npx tsc --noEmit --pretty false
+      - name: Compare actual TypeScript errors against PR merge-base
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts
+          base_sha="$(git merge-base HEAD origin/main)"
+          if [[ ! "$base_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Missing trusted merge base::Cannot safely compare TypeScript diagnostics.'
+            exit 1
+          fi
+          echo "TypeScript comparison baseline commit: $base_sha"
+          base_dir="$(mktemp -d)"
+          rmdir "$base_dir"
+          cleanup() { git worktree remove --force "$base_dir" >/dev/null 2>&1 || true; }
+          trap cleanup EXIT
+          git worktree add --detach "$base_dir" "$base_sha"
+          ln -s "$GITHUB_WORKSPACE/node_modules" "$base_dir/node_modules"
+          set +e
+          (cd "$base_dir" && "$GITHUB_WORKSPACE/node_modules/.bin/tsc" --noEmit --pretty false) > "$GITHUB_WORKSPACE/.artifacts/immutable-ts-baseline.log" 2>&1
+          baseline_status=$?
+          "$GITHUB_WORKSPACE/node_modules/.bin/tsc" --noEmit --pretty false > .artifacts/immutable-ts-current.log 2>&1
+          current_status=$?
+          set -e
+          BASELINE_TSC_EXIT="$baseline_status" CURRENT_TSC_EXIT="$current_status" \
+            node scripts/ci/compare-typescript-diagnostics.mjs \
+              .artifacts/immutable-ts-baseline.log \
+              .artifacts/immutable-ts-current.log \
+              .artifacts/immutable-ts-delta.json
+
+      - name: Archive full TypeScript baseline and regression evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: immutable-typescript-delta-${{ github.run_id }}
+          path: |
+            .artifacts/immutable-ts-baseline.log
+            .artifacts/immutable-ts-current.log
+            .artifacts/immutable-ts-delta.json
+          if-no-files-found: error
+          retention-days: 14
