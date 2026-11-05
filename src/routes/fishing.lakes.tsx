@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { buildFishingLakeQuickAnswers } from "@/data/fishing/lake-directory-answers";
 import { COMPLETE_FISHING_LAKE_SLUGS, fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -43,7 +44,7 @@ export const Route = createFileRoute("/fishing/lakes")({
   head: ({ loaderData }) => {
     const rows = loaderData?.rows ?? [];
     const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length;
-    const quickAnswers = buildQuickAnswers(completeLakeCount);
+    const quickAnswers = buildFishingLakeQuickAnswers(completeLakeCount);
     const jsonLd = {
       "@context": "https://schema.org",
       "@graph": [
@@ -71,13 +72,5 @@ function FishingLakesPage() {
   );
 }
 
-function buildQuickAnswers(count: number) {
-  return [
-    { question: "How many complete Texas fishing lake guides are here?", answer: `TexasDefined currently publishes ${count} complete fishing-lake guides in this directory. The collection spans East Texas, North and Central Texas, the Hill Country, South Texas and the Rio Grande border region.` },
-    { question: "Are these ranked as the best fishing lakes in Texas?", answer: "No. This directory compares completed, source-backed TexasDefined guides. It does not claim a universal best-lake ranking, and the collection will expand as more lake profiles clear the same verification standard." },
-    { question: "Can I compare what fish each lake is known for?", answer: "Yes. Each lake card shows the strongest verified lake-to-species relationships currently in the fishing catalog, while the full lake guide explains seasonal patterns and techniques without presenting them as a live fishing report." },
-    { question: "Where should I check current regulations and lake conditions?", answer: "Open the individual lake guide and follow its official source links. TexasDefined keeps current regulations, water levels, access restrictions and fishing reports separate from durable lake facts because those details can change." },
-  ];
-}
 function prominenceRank(value: string) { return value === "primary" ? 0 : value === "secondary" ? 1 : 2; }
 function qualityRank(value: string) { return value === "excellent" ? 0 : value === "good" ? 1 : value === "fair" ? 2 : 3; }
