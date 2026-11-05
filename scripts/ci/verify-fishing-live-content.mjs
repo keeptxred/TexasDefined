@@ -57,6 +57,12 @@ assert.ok(/rel=["']canonical["'][^>]*href=["']https:\/\/texasdefined\.com\/fishi
 
 const access = await page("/fishing/access");
 has(access, "Current source-backed coverage:", "/fishing/access");
+const accessText = access.replace(/<!--\s*-->/g, "").replace(/<[^>]+>/g, " ");
+const publishedCoverage = accessText.match(/Current source-backed coverage:\s*([\d,]+)\s*facilities across\s*([\d,]+)\s*Texas lakes/i);
+assert.ok(publishedCoverage, "/fishing/access: expected machine-verifiable live coverage totals");
+const liveFacilities = Number(publishedCoverage[1].replaceAll(",", ""));
+const liveLakes = Number(publishedCoverage[2].replaceAll(",", ""));
+assert.ok(liveLakes >= 20 && liveFacilities >= 100, "/fishing/access: not yet a meaningful statewide inventory");
 for (const sourceBacked of ["Lake Fork", "Lake Buchanan", "Lake Travis", "Lake Waco", "Lake Georgetown"]) has(access, sourceBacked, "/fishing/access");
 for (const name of ["Stubblefield Lake", "Cagle Recreation Area", "Stow-a-way Marina", "Scott", "FM 830 Ramp", "April Plaza Marina", "Pier 105", "Lakeview Marina"]) {
   has(access, name, "/fishing/access");
@@ -98,4 +104,4 @@ const normalizedBass = bass.replace(/<!--\s*-->/g, "");
 assert.ok(/<strong[^>]*>Spring:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Spring labels");
 assert.ok(/<strong[^>]*>Year-round:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Year-round labels");
 
-console.log(JSON.stringify({ result: "PASS", checks: ["hub copy", "real directory links", "canonical", "statewide lake and facility coverage", "facility-profile noindex", "verified guide businesses", "historical reports noindex", "human-readable bass seasons"], pages: reports }, null, 2));
+console.log(JSON.stringify({ result: "PASS", coverage: { lakes: liveLakes, facilities: liveFacilities }, checks: ["hub copy", "real directory links", "canonical", "statewide lake and facility coverage", "facility-profile noindex", "verified guide businesses", "historical reports noindex", "human-readable bass seasons"], pages: reports }, null, 2));
