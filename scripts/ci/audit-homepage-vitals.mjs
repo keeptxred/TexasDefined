@@ -6,7 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPORT_PATH = '.artifacts/homepage-vitals-evidence.json';
-const URL = 'https://texasdefined.com/';
+const HOMEPAGE_URL = 'https://texasdefined.com/';
 const CATEGORIES = ['mobile', 'desktop'];
 
 export function summarizePageSpeed(data, strategy) {
@@ -55,12 +55,12 @@ export async function auditHomepageVitals({
 } = {}) {
   const report = {
     observedAt: new Date().toISOString(), source: 'Google PageSpeed Insights v5',
-    url: URL, indexingStatus: 'not-verified-Google-Search-Console-URL-Inspection-required',
+    url: HOMEPAGE_URL, indexingStatus: 'not-verified-Google-Search-Console-URL-Inspection-required',
     strategies: [], conclusion: 'field-data-unavailable',
   };
   for (const strategy of strategies) {
     const endpoint = new URL('https://www.googleapis.com/pagespeedonline/v5/runPagespeed');
-    endpoint.searchParams.set('url', URL);
+    endpoint.searchParams.set('url', HOMEPAGE_URL);
     endpoint.searchParams.set('strategy', strategy);
     endpoint.searchParams.set('category', 'performance');
     if (key) endpoint.searchParams.set('key', key);
