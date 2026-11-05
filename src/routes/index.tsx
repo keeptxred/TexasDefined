@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
     const homepageDestinations = destinations.some((item) => item.featured) ? destinations.filter((item) => item.featured).slice(0, 4) : destinations.slice(0, 4);
     const curatedItems = [
       ...selectedArticles.map((article) => ({ "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) })),
-      ...homepageDestinations.map((destination) => ({ "@type": "TouristAttraction", name: destination.name, description: destination.summary, url: `${siteUrl}/destination/${destination.slug}`, image: absoluteUrl(texasDefinedBrand, destination.hero.src), sameAs: destination.officialUrl, dateModified: destination.sourceCheckedAt, provider: destination.managingAuthority ? { "@type": "Organization", name: destination.managingAuthority } : undefined })),
+      ...homepageDestinations.map((destination) => ({ "@type": "TouristAttraction", name: destination.name, description: destination.summary, url: `${siteUrl}/destination/${destination.slug}`, image: absoluteUrl(texasDefinedBrand, destination.hero.src), sameAs: destination.officialUrl, provider: destination.managingAuthority ? { "@type": "Organization", name: destination.managingAuthority } : undefined })),
     ];
     const structuredData = { "@context": "https://schema.org", "@graph": [
       { "@type": "WebPage", "@id": `${siteUrl}/#homepage`, url: `${siteUrl}/`, name: pageTitle, description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${siteUrl}/#organization` }, mainEntity: { "@id": `${siteUrl}/#editorial-picks` }, hasPart: [{ "@id": `${siteUrl}/#editorial-picks` }] },
