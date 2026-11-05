@@ -38,7 +38,9 @@ export async function prepareImmutableArchivePlan({
     ...(report.copied||[]),
     ...(report.alreadyInBuildDetails||[]),
     ...(report.omittedDetails||[]),
-  ].filter(x=>x && x.preSha256 && x.path && x.firstSeenAt);
+  ];
+  if (extraEvidence.some(x=>!x || !x.preSha256 || !x.path || !x.firstSeenAt))
+    throw new Error('Malformed original-byte proof in prior-retention report; refusing omission');
   const inventory=await scanImmutableAssetBuild({
     assetDirectory,sourceSha,now,writesToday,published,
     requiredHistorical:[...candidateEvidence,...extraEvidence],
