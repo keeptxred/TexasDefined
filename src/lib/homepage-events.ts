@@ -50,7 +50,7 @@ function usableEvent(event: TexasEvent, today: string, maxSourceAgeDays: number)
   // The statewide index has some deliberately generic research placeholders.
   // Only put those on the homepage once a verified, event-specific description
   // exists. A shorter useful event lineup is better than fabricated detail.
-  const key = event.slug.replace(/-\\d{4}-\\d{2}-\\d{2}$/, "");
+  const key = event.slug.replace(/-\d{4}-\d{2}-\d{2}$/, "");
   if (event.blurb?.startsWith("Major annual event in ") && !permanentEventBlurbs[key]) return false;
   if (!start || !end || !verified || end < start || end < today || verified > today) return false;
   if ((Date.parse(today + "T00:00:00Z") - Date.parse(verified + "T00:00:00Z")) / DAY_MS > maxSourceAgeDays) return false;
