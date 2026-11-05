@@ -1,0 +1,80 @@
+name: Refresh Texas fishing lakes directory
+
+on:
+  # The existing fishing URL acceptance and source-inventory workflows remain
+  # responsible for bounded daily SEO checks and the twice-weekly TPWD inventory.
+  # These schedules add dedicated directory restriction and quarterly fact reviews.
+  schedule:
+    - cron: "37 14 * * 1,4"
+    - cron: "49 15 2 1,4,7,10 *"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/components/fishing/FishingLakesDirectory.tsx'
+      - 'src/data/fishing/lake-directory-advisories.json'
+      - 'src/routes/fishing.lakes.tsx'
+      - 'scripts/ci/audit-fishing-lakes-directory-sources.mjs'
+      - 'scripts/data/validate-fishing-lakes-directory.mjs'
+      - '.github/workflows/fishing-lakes-directory-refresh.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: fishing-lakes-directory-refresh-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate lake directory, source registry and scheduled workflow
+        run: |
+          node scripts/data/validate-fishing-lakes-directory.mjs
+          node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
+      - name: Verify posted official lake access restrictions
+        if: github.event_name != 'pull_request'
+        id: source
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-lakes-directory-sources.mjs
+      - name: Quarterly source and lake authority review
+        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '49 15 2 1,4,7,10 *'
+        id: quarterly
+        continue-on-error: true
+        run: |
+          node scripts/data/validate-fishing-lake-research.mjs
+          node scripts/data/validate-fishing-sitemap-indexability.mjs
+          node scripts/seo/fishing-authority-inventory.mjs
+      - name: Save source review evidence
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-lakes-directory-refresh-${{ github.run_id }}
+          path: |
+            .artifacts/fishing-lakes-directory-source-check.json
+            fishing-authority-registered-urls.json
+            fishing-authority-registered-urls.md
+          if-no-files-found: warn
+          retention-days: 45
+      - name: Create or update actionable GitHub source drift issue
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Fishing lakes directory official-source refresh drift'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          body="The scheduled fishing lakes directory refresh could not verify an official access restriction, a source, or an authority contract. Preserve the current conservative restrictions until the first-party source is checked. Review the evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Do not update verification dates without successful source checks."
+          if [[ -n "$existing" ]]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
+      - name: Fail on unresolved official-source or contract drift
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        run: exit 1
