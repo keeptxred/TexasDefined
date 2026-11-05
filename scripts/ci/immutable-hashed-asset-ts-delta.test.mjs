@@ -60,3 +60,28 @@ test('file-backed regression proof persists real counts; compiler crash cannot b
     }),/did not exit normally/);
   } finally {await rm(dir,{recursive:true,force:true});}
 });
+
+test('equivalent TS import types from temporary worktree and main checkout are not new errors',()=>{
+  const fromBase=[
+    `src/platform/entity-promotion.ts(53,31): error TS2345: Argument of type 'import("/tmp/tmp.Abc123/src/data/knowledge-graph/types").TexasEntityRecord[]' is not assignable to parameter of type 'import("/tmp/tmp.Abc123/src/shared/platform-core/entities").TexasEntityRecord[]'.`,
+    `src/platform/entity-promotion.ts(76,50): error TS2345: Argument of type 'import("/tmp/tmp.Abc123/src/data/knowledge-graph/types").TexasEntityRecord[]' is not assignable to parameter of type 'import("/tmp/tmp.Abc123/src/shared/platform-core/entities").TexasEntityRecord[]'.`,
+    `src/platform/entity-promotion.ts(77,51): error TS2345: Argument of type 'import("/tmp/tmp.Abc123/src/data/knowledge-graph/types").TexasEntityRecord[]' is not assignable to parameter of type 'import("/tmp/tmp.Abc123/src/shared/platform-core/entities").TexasEntityRecord[]'.`,
+    `src/platform/entity-promotion.ts(114,42): error TS2345: Argument of type 'import("/tmp/tmp.Abc123/src/data/knowledge-graph/types").TexasEntityRecord' is not assignable to parameter of type 'import("/tmp/tmp.Abc123/src/shared/platform-core/entities").TexasEntityRecord'.`,
+  ].join('\n');
+  const fromHead=fromBase
+    .replaceAll('/tmp/tmp.Abc123/','/home/runner/work/TexasDefined/TexasDefined/')
+    .replace('(53,31)','(56,31)')
+    .replace('(76,50)','(79,50)');
+  const result=compareTypeScriptDiagnostics(fromBase,fromHead);
+  assert.equal(result.baselineDiagnostics,4);
+  assert.equal(result.currentDiagnostics,4);
+  assert.equal(result.introducedDiagnostics,0);
+  assert.equal(result.noNewTypeScriptErrors,true);
+});
+test('TS delta still rejects changes to the imported project module identity',()=>{
+  const old=`src/example.ts(1,1): error TS2345: Argument of type 'import("/tmp/base/src/first").Thing' is not assignable to type 'import("/tmp/base/src/second").Thing'.`;
+  const changed=`src/example.ts(2,1): error TS2345: Argument of type 'import("/runner/head/src/first").Thing' is not assignable to type 'import("/runner/head/src/third").Thing'.`;
+  const result=compareTypeScriptDiagnostics(old,changed);
+  assert.equal(result.introducedDiagnostics,1);
+  assert.equal(result.noNewTypeScriptErrors,false);
+});
