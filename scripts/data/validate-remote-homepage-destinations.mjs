@@ -36,7 +36,6 @@ for (const feature of [
   'destinations.filter((item) => item.featured).slice(0, 4)',
   'destinations.slice(0, 4)',
   'sameAs: destination.officialUrl',
-  'dateModified: destination.sourceCheckedAt',
   'provider: destination.managingAuthority',
   'const explicitlyFeatured = destinations.filter((item) => item.featured)',
   '(explicitlyFeatured.length ? explicitlyFeatured : destinations).slice(0, 4)',
@@ -44,6 +43,12 @@ for (const feature of [
   'featuredDestinations.length > 0',
 ]) {
   if (!homepage.includes(feature)) errors.push(`Remote-backed homepage feature missing: ${feature}`);
+}
+
+// Source verification is not publication or editorial modification: a future
+// check date must never become dateModified on an embedded TouristAttraction.
+if (/"@type": "TouristAttraction"[^\\n]*dateModified/.test(homepage)) {
+  errors.push('Homepage attraction schema must not expose source-check dates as dateModified.');
 }
 
 if (homepage.includes('const featuredDestinations = destinations.filter((item) => item.featured).slice(0, 4)')) {
