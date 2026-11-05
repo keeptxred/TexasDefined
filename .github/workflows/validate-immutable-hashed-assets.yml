@@ -22,3 +22,17 @@ jobs:
           node-version: '22'
       - name: Test independent original-byte archive invariants
         run: node --test scripts/ci/immutable-hashed-asset-*.test.mjs
+
+  immutable-worker-entry-typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Typecheck dormant immutable archive Worker integration
+        run: npx tsc --noEmit --pretty false
