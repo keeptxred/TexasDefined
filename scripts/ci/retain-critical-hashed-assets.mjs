@@ -21,10 +21,14 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // The snapshot contains 439 eligible old paths and frequent safe deployments can
 // add versions before the fixed 72-hour expiry. The previous 448-file/24 MiB
 // capacity was therefore below real verified demand, not a security invariant.
-// Budget strictly at 768 files / 48 MiB total to cover the bounded 72-hour
-// release window, retaining unchanged 2 MiB/file, HTTPS, MIME, SHA256, age
-// and same-name collision protections. Still fail closed on either budget.
-const LIMIT_FILES = 768;
+// Observed production run 42065924607 preserved 768 verified original files
+// (43,317,120 bytes) but omitted exactly 50 additional healthy old-only hashes
+// solely because of the FILE COUNT cap; the separate 48 MiB byte cap was not hit.
+// Provide finite headroom of 896 files for this observed 818-file set, WITHOUT
+// increasing the 48 MiB total, 2 MiB per file, 72-hour age or integrity rules.
+// Remaining over-cap assets still fail closed; this is not an unbounded bypass.
+// The 896-file ceiling is temporary compatibility capacity, NOT durable archive.
+const LIMIT_FILES = 896;
 const LIMIT_BYTES = 48 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
@@ -108,7 +112,7 @@ export async function retain({
         firstSeenAt: asset.firstSeenAt });
       continue;
     }
-    // Enforce a bounded ceiling of 768 attempted old-only
+    // Enforce a bounded ceiling of 896 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
