@@ -35,8 +35,29 @@ function verify(html, { synthetic = false } = {}) {
   const profileCount = /(?:Showing\s+)?(\d+) of (\d+) verified profiles/i.exec(text);
   const count = profileCount ? Number(profileCount[2]) : 0;
   if (!profileCount || Number(profileCount[1]) !== count || count < 72) errors.push("campground profile count less than verified baseline 72");
-  const petMatch = /Pet friendly\s*\((\d+)\)/i.exec(text);
-  if (!petMatch || Number(petMatch[1]) < 55) errors.push("fewer than 55 evidence-backed pet camping profiles in live filter");
+  // Parse the real trip-filter button first. SSR may split the label and
+  // count with React boundaries, spans, or numeric HTML entities.
+  // Keep the >=55 source-backed minimum; a genuinely stale 7 must fail.
+  const petButtons = [...html.matchAll(/<button\b[^>]*>([\s\S]*?)<\/button>/gi)]
+    .map(([, markup]) => markup.replace(/<!--[\s\S]*?-->/g, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&#(?:40|x28);/gi, "(")
+      .replace(/&#(?:41|x29);/gi, ")")
+      .replace(/&(?:nbsp|#160|#xA0);/gi, " ")
+      .replace(/\s+/g, " ").trim());
+  const petButton = petButtons.find(value => /^Pet friendly(?:\s|\()/i.test(value));
+  const petLabelAndCount = /Pet friendly\s*\(\s*(\d+)\s*\)/i;
+  const petMatch = petLabelAndCount.exec(petButton ?? "") ?? petLabelAndCount.exec(text);
+  const petCount = petMatch ? Number(petMatch[1]) : null;
+  if (petCount === null || petCount < 55) {
+    // Evidence for staleness versus markup drift without dumping page bodies
+    // or silently weakening the protected acceptance contract.
+    errors.push("fewer than 55 evidence-backed pet camping profiles in live filter"
+      + "; parsed=" + (petCount ?? "none")
+      + "; button=" + JSON.stringify((petButton ?? "not-found").slice(0, 100))
+      + "; researched-marker=" + text.includes("Policy researched 2026-11-05")
+      + "; html-bytes=" + html.length);
+  }
   if (!text.includes("Official pet rules")) errors.push("no operator-specific pet policy links in live SSR");
   for (const alert of expectedAlerts) {
     if (!text.includes(alert.parkName)) errors.push("missing monitored park: " + alert.parkName);
@@ -90,6 +111,9 @@ if (process.argv.includes("--self-test")) {
   assert.throws(() => verify(fixtures.replace("Six Texas camping starting points, by trip", "Old generic list"), { synthetic: true }), /starting points/);
   assert.throws(() => verify(fixtures.replace("Shady Meadows full-hookup sites", "Generic Garner camping"), { synthetic: true }), /Shady Meadows/);
   assert.throws(() => verify(fixtures.replace("Pet friendly (61)", "Pet friendly (7)"), { synthetic: true }), /55 evidence-backed/);
+  assert.doesNotThrow(() => verify(fixtures.replace("<p>Pet friendly (61)</p>", '<button>Pet friendly<!-- --> (61)</button>'), { synthetic: true }));
+  assert.doesNotThrow(() => verify(fixtures.replace("<p>Pet friendly (61)</p>", '<button><span>Pet friendly</span> &#40;61&#41;</button>'), { synthetic: true }));
+  assert.throws(() => verify(fixtures.replace("<p>Pet friendly (61)</p>", '<button>Pet friendly<!-- --> (7)</button>'), { synthetic: true }), /55 evidence-backed/);
   assert.throws(() => verify(fixtures.replace("Official pet rules", "Unverified dog camping"), { synthetic: true }), /pet policy links/);
   assert.throws(() => verify(fixtures.replace("Pet friendly is a verified-only filter", "All parks accept pets"), { synthetic: true }), /Pet friendly/);
   assert.throws(() => verify(fixtures.replace('<link rel="canonical"', '<link rel="alternate"'), { synthetic: true }), /canonical/);
