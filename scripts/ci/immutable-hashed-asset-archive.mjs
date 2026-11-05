@@ -10,7 +10,8 @@ export const MIN_GC_QUIET_MS = 30 * 24 * 60 * 60 * 1000;
 const ASSET_PATH = /^\/assets\/[A-Za-z0-9][A-Za-z0-9._-]{1,155}[-.][A-Za-z0-9_-]{8,20}\.(?:js|css)$/;
 const SHA = /^[a-f0-9]{64}$/;
 const COMMIT_SHA = /^[a-f0-9]{40}$/;
-const ABSOLUTE_MAX_AGE_MS = 1000 * 60 * 60 * 24 * 365;
+// Immutable original bytes must remain verifiable beyond annual horizons.
+// Do not impose an arbitrary age cap on browser-retained versions.
 
 export function immutableAssetPath(path) {
   return typeof path === 'string' && ASSET_PATH.test(path) && !path.includes('..');
@@ -31,8 +32,8 @@ export function verifyArchiveRecord(record, now = Date.now()) {
     throw new Error('Original file size outside bounded safety limits');
   const first = timestamp(record.firstSeenAt, 'firstSeenAt');
   const last = timestamp(record.lastObservedAt || record.firstSeenAt, 'lastObservedAt');
-  if (first > now + 60000 || last < first || last > now + 60000 ||
-      last - first > ABSOLUTE_MAX_AGE_MS) throw new Error('Invalid original observation window');
+  if (first > now + 60000 || last < first || last > now + 60000)
+    throw new Error('Invalid original observation window');
   return { path:record.path, preSha256:record.preSha256, bytes:record.bytes,
     firstSeenAt:new Date(first).toISOString(), lastObservedAt:new Date(last).toISOString(),
     kind:record.path.endsWith('.css')?'css':'js' };
