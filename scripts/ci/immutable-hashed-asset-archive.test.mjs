@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import {
   MAX_KV_BYTES, FREE_KV_WRITES_PER_DAY, immutableAssetPath, immutableAssetKey,
   verifyArchiveRecord, planImmutablePublication, proposeGarbageCollection, archivedAssetResponse,
+  serveHashedAssetWithArchive,
 } from './immutable-hashed-asset-archive.mjs';
 const epoch=Date.parse('2026-11-04T12:00:00Z');
 const iso=(n)=>new Date(n).toISOString();
@@ -14,10 +15,12 @@ const record=(path, body,first=epoch,last=first)=>({
   firstSeenAt:iso(first),lastObservedAt:iso(last),
 });
 test('only exact immutable JS/CSS paths; never arbitrary paths or HTML',()=>{
-  for(const p of ['/assets/main-BmrHq_-j.js','/assets/article._slug-DsyPOW_g.js','/assets/styles-QWER1234.css'])
+  for(const p of ['/assets/main-BmrHq_-j.js','/assets/article._slug-DsyPOW_g.js','/assets/styles-QWER1234.css',
+    '/assets/property-tax.ABCDEFGH.js'])
     assert.ok(immutableAssetPath(p),p);
   for(const p of ['/foo.js','/assets/main.js','/assets/../../secret.js','/assets/app-12345678.html',
-    '/assets/main-ABCDEFGH.js?token=x','/assets/main-ABCDEFGH.js/','/assets/main-ABCDEFGH.svg'])
+    '/assets/main-ABCDEFGH.js?token=x','/assets/main-ABCDEFGH.js/','/assets/main-ABCDEFGH.svg',
+    '/assets/property-tax.ABCDEFG.js','/assets/main-ABCDEFGH.js/../x', '/assets/unhashed.css'])
     assert.equal(immutableAssetPath(p),false,p);
   assert.equal(immutableAssetKey('/assets/main-BmrHq_-j.js'),'immutable:v1:/assets/main-BmrHq_-j.js');
 });
@@ -66,6 +69,10 @@ test('fail closed before exceeding free-tier quota or storage',()=>{
   const incoming=Array.from({length:70},(_,i)=>record('/assets/Q'+String(i).padStart(3,'0')+'-ABCD1234.js','x'));
   assert.throws(()=>planImmutablePublication({incoming,now:epoch,writesToday:960}),/daily KV write quota/);
   assert.throws(()=>planImmutablePublication({incoming,now:epoch,maxTotalBytes:30}),/storage budget/);
+  assert.throws(()=>planImmutablePublication({incoming,now:epoch,maxTotalBytes:MAX_KV_BYTES+1}),
+    /Cannot override account/);
+  assert.throws(()=>planImmutablePublication({incoming,now:epoch,maxDailyWrites:1001}),
+    /Cannot override account/);
 });
 test('garbage collection needs two signed release absences and 30 days of quiet, never deletes itself',()=>{
   const p='/assets/main-ABCDEFGH.js',current=epoch+40*86400000;
@@ -83,7 +90,8 @@ test('exact original bytes served for GET and HEAD from release-independent bind
   const data=body.buffer.slice(body.byteOffset,body.byteOffset+body.byteLength);
   const namespace={getWithMetadata:async(key,type)=>{
     assert.equal(key,immutableAssetKey(path)); assert.equal(type,'arrayBuffer');
-    return {value:data,metadata:{version:1,path,bytes:body.length,sha256:sha(body),contentType:'text/javascript'}};
+    return {value:data,metadata:{version:1,path,bytes:body.length,sha256:sha(body),
+      firstSeenAt:iso(epoch),contentType:'text/javascript'}};
   }};
   const url='https://texasdefined.com'+path;
   const get=await archivedAssetResponse(new Request(url),namespace);
@@ -155,4 +163,96 @@ test('interrupted write cannot be certified and a later idempotent run recovers'
   const success=await publisher();
   assert.equal(success.newlyPublished,1);
   assert.equal(success.readyForWorkerRouting,false);
+});
+
+test('Worker-first adapter honors live static assets before any archive fallback',async()=>{
+  const path='/assets/main-ABCDEFGH.js',url='https://texasdefined.com'+path;
+  let archiveReads=0;
+  const kv={getWithMetadata:async()=>{archiveReads++;throw Error('Must never be read');}};
+  const current=new Response('new release',{status:200,headers:{'content-type':'text/javascript'}});
+  const response=await serveHashedAssetWithArchive(new Request(url),{fetch:async()=>current},kv);
+  assert.equal(response.status,200);
+  assert.equal(await response.text(),'new release');
+  assert.equal(archiveReads,0);
+  const broken=new Response('upstream broken',{status:500});
+  const failure=await serveHashedAssetWithArchive(new Request(url),{fetch:async()=>broken},kv);
+  assert.equal(failure.status,500,'Never hide a current static asset 5xx behind stale bytes');
+  assert.equal(archiveReads,0);
+});
+test('Worker-first adapter recovers an exact old hash ONLY on genuine current 404',async()=>{
+  const path='/assets/property-tax.ABCDEFGH.css',url='https://texasdefined.com'+path;
+  const body=Buffer.from('body { color: black; }');
+  const ab=body.buffer.slice(body.byteOffset,body.byteOffset+body.byteLength);
+  const kv={getWithMetadata:async(k)=>{
+    assert.equal(k,immutableAssetKey(path));
+    return {value:ab,metadata:{version:1,path,bytes:body.length,sha256:sha(body),
+      firstSeenAt:iso(epoch),contentType:'text/css'}};
+  }};
+  let fetches=0;
+  const assets={fetch:async()=>{fetches++;return new Response('missing',{status:404});}};
+  const get=await serveHashedAssetWithArchive(new Request(url),assets,kv);
+  assert.equal(get.status,200);
+  assert.equal(get.headers.get('content-type'),'text/css');
+  assert.equal(await get.text(),body.toString());
+  const head=await serveHashedAssetWithArchive(new Request(url,{method:'HEAD'}),assets,kv);
+  assert.equal(head.status,200);
+  assert.equal(head.headers.get('content-length'),String(body.length));
+  assert.equal(await head.text(),'');
+  assert.equal(fetches,2);
+});
+test('Worker-first archive never affects HTML, APIs, images, POST, or missing old hashes',async()=>{
+  const url='https://texasdefined.com/assets/main-ABCDEFGH.js';
+  const missing=new Response('original static not found',{status:404});
+  let fetches=0;
+  const assets={fetch:async()=>{fetches++;return missing;}};
+  const absent={getWithMetadata:async()=>({value:null,metadata:null})};
+  const unchanged=await serveHashedAssetWithArchive(new Request(url),assets,absent);
+  assert.equal(unchanged.status,404);
+  assert.equal(await unchanged.text(),'original static not found');
+  assert.equal(await serveHashedAssetWithArchive(
+    new Request('https://texasdefined.com/explore'),assets,absent),null);
+  assert.equal(await serveHashedAssetWithArchive(
+    new Request('https://texasdefined.com/api/data'),assets,absent),null);
+  assert.equal(await serveHashedAssetWithArchive(
+    new Request('https://texasdefined.com/assets/photo-ABCDEFGH.webp'),assets,absent),null);
+  assert.equal(await serveHashedAssetWithArchive(new Request(url,{method:'POST'}),assets,absent),null);
+  assert.equal(fetches,1);
+});
+test('Worker-first adapter fails closed when static binding unavailable; archive corruption is not silently hidden',async()=>{
+  const url='https://texasdefined.com/assets/main-ABCDEFGH.js';
+  assert.equal((await serveHashedAssetWithArchive(new Request(url),null,null)).status,503);
+  assert.equal((await serveHashedAssetWithArchive(new Request(url),
+    {fetch:async()=>{throw Error('ASSETS binding failed');}},null)).status,503);
+  const bad={getWithMetadata:async()=>({value:Uint8Array.from([1,2,3]).buffer,
+    metadata:{version:1,path:'/assets/main-ABCDEFGH.js',bytes:3,sha256:'a'.repeat(64),
+      firstSeenAt:iso(epoch),contentType:'text/javascript'}})};
+  assert.equal((await serveHashedAssetWithArchive(new Request(url),
+    {fetch:async()=>new Response('not found',{status:404})},bad)).status,503);
+});
+test('publisher refuses re-creating previously published keys outside the planned write budget',async()=>{
+  const p='/assets/main-ABCDEFGH.js';
+  const body=Buffer.from('old immutable bytes'),r=record(p,body.toString());
+  const plan=planImmutablePublication({stored:[r],now:epoch});
+  assert.equal(plan.newWrites,0);
+  let puts=0;
+  await assert.rejects(publishImmutableArchive({
+    plan,
+    namespace:{getWithMetadata:async()=>({value:null,metadata:null}),
+      put:async()=>{puts++;}},
+    readOriginalBytes:async()=>body,
+  }),/Previously published immutable object is missing/);
+  assert.equal(puts,0);
+});
+test('publisher rejects forged missing or invalid firstSeenAt metadata without writes',async()=>{
+  const p='/assets/main-ABCDEFGH.js',body=Buffer.from('good original bytes');
+  const r=record(p,body.toString()),plan=planImmutablePublication({incoming:[r],now:epoch});
+  let puts=0;
+  const namespace={
+    getWithMetadata:async()=>({value:body,metadata:{version:1,path:p,bytes:body.length,
+      sha256:r.preSha256,contentType:'text/javascript'}}),
+    put:async()=>{puts++;},
+  };
+  await assert.rejects(publishImmutableArchive({plan,namespace,
+    readOriginalBytes:async()=>body}),/Existing archive metadata conflicts/);
+  assert.equal(puts,0);
 });
