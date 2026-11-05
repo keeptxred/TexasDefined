@@ -63,7 +63,7 @@ export const Route = createFileRoute(canonicalPath)({
     const entries = loaderData?.entries ?? [];
     // Page metadata reflects substantive operational-notice updates; individual
     // campground verifiedAt dates continue to represent their own source research.
-    const modified = [EDITORIAL_UPDATED_AT, ...entries.map(({ profile }) => profile.verifiedAt), ...CAMPING_OPERATIONAL_ALERTS.map((alert) => alert.checkedAt)].sort().at(-1) ?? EDITORIAL_UPDATED_AT;
+    const modified = [EDITORIAL_UPDATED_AT, ...entries.map(({ profile }) => profile.verifiedAt), ...entries.map(({ profile }) => profile.operatorNoticeReviewedAt ?? ""), ...CAMPING_OPERATIONAL_ALERTS.map((alert) => alert.checkedAt)].sort().at(-1) ?? EDITORIAL_UPDATED_AT;
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
