@@ -78,3 +78,22 @@ integrity tests. The new manifest scanner and publisher are not yet connected
 to the protected production deploy workflow: no network KV writes have been
 made, and prepublication plus global propagation remain mandatory activation
 gates. No Cloudflare API calls are needed to run these tests.
+
+## Protected deploy placement — gated rehearsal only
+
+A new opt-in step in `.github/workflows/deploy-production.yml` runs
+`node scripts/ci/prepare-immutable-hashed-asset-manifest.mjs --plan`
+**after** the existing old-hash recovery and **before** Worker replacement.
+It reconciles the current `.artifacts/asset-handoff-snapshot.json` and
+`.artifacts/retained-critical-assets-report.json` evidence against the
+actual compiled output, and fails on an omitted, changed, or missing old hash.
+It writes `.artifacts/immutable-hashed-asset-plan.json` and uploads the report
+as a protected GitHub Actions artifact; this step **never** writes to KV.
+
+This step is **off by default** and runs only when the repository variable
+`TEXASDEFINED_IMMUTABLE_ASSET_PLAN` is explicitly set to `true`.
+Enabling the rehearsal is not authorization to cut over production routing.
+Its report explicitly states `archivePublished: false`,
+`globallyReplicated: false`, and `readyForWorkerRouting: false`.
+The separate real publisher and two-origin, cross-release verification must
+still be wired and certified before permanent archive claims can be made.
