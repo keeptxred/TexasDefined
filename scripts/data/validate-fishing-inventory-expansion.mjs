@@ -26,15 +26,22 @@ for (const guide of guides) {
   assert.ok(access.some((lake) => lake.lakeId === guide.lakeId) || guide.lakeId === "lake-conroe", guide.slug + ": unknown lake");
   assert.ok(Array.isArray(guide.species) && new Set(guide.species).size === guide.species.length);
 }
-const SOURCE_DETAIL_LAKES = new Set(["cedar-creek-reservoir", "lake-ray-hubbard", "grapevine-lake", "possum-kingdom-reservoir", "lake-palestine", "lake-tawakoni", "amistad-reservoir"]);
+const SOURCE_DETAIL_LAKES = new Set(["cedar-creek-reservoir", "lake-ray-hubbard", "grapevine-lake", "possum-kingdom-reservoir", "lake-palestine", "lake-tawakoni", "amistad-reservoir", "lewisville-lake", "lake-lavon", "richland-chambers-reservoir"]);
 for (const group of access.filter((lake) => SOURCE_DETAIL_LAKES.has(lake.lakeId))) {
   for (const [name, , details] of group.facilities) {
     assert.ok(typeof details === "string" && details.length >= 65, `${group.lakeId}/${name}: missing specific TPWD-sourced access detail`);
   }
 }
-assert.ok(access.length >= 13, "Statewide fishing access expansion must retain 13 explicitly reviewed lake inventories");
-assert.ok(allSites.length >= 150, "Statewide fishing access expansion unexpectedly lost verified facility coverage");
+assert.ok(access.length >= 16, "Statewide fishing access expansion must retain 16 explicitly reviewed lake inventories");
+assert.ok(allSites.length >= 190, "Northern Texas fishing access expansion unexpectedly lost source-reviewed facility coverage");
 assert.ok(!allSites.some((site) => site.lakeId === "sam-rayburn-reservoir" && site.name === "Public Ramp"), "Unidentified generic Sam Rayburn ramp must remain unpublished");
+// TPWD's multi-part facility listings for the three North Texas lakes are fully enumerated.
+for (const [lakeId, expected] of [["lewisville-lake", 17], ["lake-lavon", 16], ["richland-chambers-reservoir", 9]]) {
+  const row = access.find((lake) => lake.lakeId === lakeId);
+  assert.ok(row && row.sourcePage === "access2.phtml", lakeId + ": complete official facility page missing");
+  assert.equal(row.facilities.length, expected, lakeId + ": official ramp and shore access list incomplete");
+}
+assert.equal(access.find((row) => row.lakeId === "lewisville-lake").facilities.find(([name]) => name === "Cottonwood Park")[1], "shore", "Cottonwood Park must not be mislabeled as a boat ramp");
 const guideDirectory = read("src/components/fishing/FishingGuideDirectory.tsx");
 const guideProfileUi = read("src/components/fishing/FishingGuideProfile.tsx");
 assert.ok(guideDirectory.includes("current Texas fishing-guide license"), "Guide directory must disclose licensing verification limitations");
