@@ -764,5 +764,239 @@
         "NPS concrete ramp and fishing pier near the Pecos–Rio Grande confluence, reached from US 90."
       ]
     ]
+  },
+  {
+    "lakeId": "lewisville-lake",
+    "lakeName": "Lewisville Lake",
+    "tpwd": "lewisville",
+    "sourcePage": "access2.phtml",
+    "facilities": [
+      [
+        "Crescent Oaks",
+        "boat-ramp",
+        "Town of Oak Point concrete single-lane ramp reached from FM 720 through McCormack and Lakeshore Boulevard; TPWD lists five parking spaces."
+      ],
+      [
+        "Big Sandy Ramp",
+        "boat-ramp",
+        "Corps of Engineers two-lane concrete launch north of Lewisville via Shady Shores Road; TPWD lists 24 vehicle spaces and no launch fee."
+      ],
+      [
+        "Westlake Park",
+        "boat-ramp",
+        "Corps of Engineers boat launch at Westlake Park Road near Lake Dallas; TPWD describes a ramp accommodating multiple boat types."
+      ],
+      [
+        "Pilot Knoll",
+        "boat-ramp",
+        "Town of Flower Mound two-lane concrete launch off FM 407, Chinn Road and Orchard Hill Lane; TPWD lists 30 parking spaces."
+      ],
+      [
+        "Sycamore Bend Park",
+        "boat-ramp",
+        "Corps of Engineers concrete two-lane launch at Sycamore Creek and Turbeville Drive; TPWD reports 26 parking spaces."
+      ],
+      [
+        "Point Vista",
+        "boat-ramp",
+        "Town of Hickory Creek two-lane launch off Point Vista near Lake Dallas; TPWD reports parking for 50 vehicles."
+      ],
+      [
+        "Arrowhead Park",
+        "boat-ramp",
+        "Town of Hickory Creek boat access just north of the I-35E lake bridge; TPWD lists a six-lane concrete ramp and 50 spaces."
+      ],
+      [
+        "Copperas Branch Park",
+        "boat-ramp",
+        "City of Highland Village access on the west I-35E frontage road with four concrete boat lanes and about 50 trailer spaces."
+      ],
+      [
+        "Tower Bay",
+        "boat-ramp",
+        "City of Lewisville access near the south side of the I-35E lake bridge; TPWD lists four ramp lanes and 50 parking spaces."
+      ],
+      [
+        "Lewisville City Park",
+        "boat-ramp",
+        "City-operated launch reached via North Mill Street and Lake Park Road; TPWD lists 11 boat lanes and capacity for 108 vehicles."
+      ],
+      [
+        "Doe Branch",
+        "boat-ramp",
+        "Corps of Engineers single-lane ramp south of US 380, approached on South Paloma Creek Boulevard; TPWD cautions low water can close it."
+      ],
+      [
+        "Little Elm Park",
+        "boat-ramp",
+        "City of Little Elm three-lane concrete ramp approached from FM 720 and Park Road; TPWD lists 50 truck-and-trailer spaces."
+      ],
+      [
+        "Cottonwood Park",
+        "shore",
+        "City of Little Elm bank-fishing access off FM 720 and Lobo Drive. TPWD describes shoreline fishing, not a standard improved boat ramp."
+      ],
+      [
+        "Hidden Cove Park",
+        "boat-ramp",
+        "City of The Colony three-lane concrete launch west of Texas 423; TPWD lists parking for about 50 vehicles."
+      ],
+      [
+        "Stewart's Creek Park",
+        "boat-ramp",
+        "City of The Colony access via North Colony Boulevard and Sparks Road, with a four-lane concrete ramp and 50 spaces."
+      ],
+      [
+        "Eastvale Park",
+        "boat-ramp",
+        "City of The Colony single-lane concrete ramp north of State Highway 121 along FM 423; TPWD lists a maximum of 20 spaces."
+      ],
+      [
+        "East Hill Park",
+        "boat-ramp",
+        "Privately operated launch off East Hill Park Road east of Lewisville, with four ramp lanes and 59 parking spaces per TPWD."
+      ]
+    ]
+  },
+  {
+    "lakeId": "lake-lavon",
+    "lakeName": "Lake Lavon",
+    "tpwd": "lavon",
+    "sourcePage": "access2.phtml",
+    "facilities": [
+      [
+        "Twin Groves",
+        "boat-ramp",
+        "Corps of Engineers two-lane launch on Twin Groves Creek north of US 380; TPWD lists no dock and no fee for launching."
+      ],
+      [
+        "Caddo Park",
+        "boat-ramp",
+        "Corps of Engineers four-lane ramp on the upper east shore near US 380; TPWD describes a courtesy dock and seasonal park access."
+      ],
+      [
+        "Elm Creek",
+        "boat-ramp",
+        "Corps of Engineers two-lane ramp on the upper east shore, reached from Texas 78 south of Farmersville; TPWD lists no fee."
+      ],
+      [
+        "Lakeland Park",
+        "boat-ramp",
+        "Corps of Engineers four-lane ramp east of the lake on Texas 78; TPWD lists seasonal opening April through September."
+      ],
+      [
+        "Tickey Creek",
+        "boat-ramp",
+        "Corps of Engineers four-lane ramp west of the lake's east arm, approached from FM 982 and FM 3364 near Culleoka."
+      ],
+      [
+        "Pebble Beach",
+        "boat-ramp",
+        "Corps of Engineers four-lane ramp off Texas 78, southeast of Farmersville; TPWD lists seasonal access April through September."
+      ],
+      [
+        "Little Ridge",
+        "boat-ramp",
+        "Corps of Engineers four-lane ramp with courtesy dock off Texas 78 between Lavon and Farmersville; TPWD lists no fee."
+      ],
+      [
+        "Mallard Park",
+        "boat-ramp",
+        "Corps of Engineers four-lane launch and dock southeast of Lake Lavon, approached from Texas 78; TPWD lists no fee."
+      ],
+      [
+        "Lavonia Park",
+        "boat-ramp",
+        "Corps of Engineers location west of FM 6 with two four-lane ramps; TPWD distinguishes seasonal inside access from year-round outside access."
+      ],
+      [
+        "Clear Lake Park",
+        "boat-ramp",
+        "Corps of Engineers park on the west bank of Lavon's east arm with two four-lane ramps and a courtesy dock at the south ramp."
+      ],
+      [
+        "Bratonia Park",
+        "boat-ramp",
+        "Corps of Engineers two-lane launch without a dock, accessed from FM 982 via FM 3286 and FM 546; TPWD lists no fee."
+      ],
+      [
+        "Highland Park",
+        "boat-ramp",
+        "Corps of Engineers four-lane ramp without a dock on the Trinity River arm, approached from Parker Road and FM 3286."
+      ],
+      [
+        "Brockdale Park",
+        "boat-ramp",
+        "Corps of Engineers four-lane launch without a dock on the Trinity River arm, reached via FM 3286 and county access roads."
+      ],
+      [
+        "Collin Park",
+        "boat-ramp",
+        "Privately operated Collin Park Marina area off FM 2514 on the lower west shore, with two four-lane ramps and a park-entry charge."
+      ],
+      [
+        "East Fork Park",
+        "boat-ramp",
+        "Corps of Engineers and marina access west of the dam off Texas 78, with two four-lane ramps and a courtesy dock at the east ramp."
+      ],
+      [
+        "Avalon Park",
+        "boat-ramp",
+        "Corps of Engineers concrete four-lane ramp west of the dam near CR 384; TPWD lists seasonal access and a courtesy dock."
+      ]
+    ]
+  },
+  {
+    "lakeId": "richland-chambers-reservoir",
+    "lakeName": "Richland-Chambers Reservoir",
+    "tpwd": "richland_chambers",
+    "sourcePage": "access2.phtml",
+    "facilities": [
+      [
+        "Cedar Creek Ramp",
+        "boat-ramp",
+        "Navarro County ramp east of US 287 off FM 2859 and CR SE3130; TPWD lists bank fishing and parking for 30 vehicles."
+      ],
+      [
+        "Sunset Cove Marina",
+        "marina",
+        "Privately operated single-lane launch and fishing peninsula on FM 2859 south of the Chambers Creek bridge, with about ten parking spaces."
+      ],
+      [
+        "FM 2859 Crossing",
+        "boat-ramp",
+        "Navarro County one-lane ramp near the Chambers Creek arm crossing on FM 2859, with bank fishing and parking for 20 vehicles."
+      ],
+      [
+        "Cheneyboro Ramp",
+        "boat-ramp",
+        "Navarro County boat ramp southwest of Eureka via FM 3243 and county roads; TPWD lists parking for ten vehicles."
+      ],
+      [
+        "Crab Creek Ramp",
+        "boat-ramp",
+        "Navarro County boat launch off CR SE2140 southwest of Corsicana, with parking for about twenty vehicles according to TPWD."
+      ],
+      [
+        "Oak Cove Marina",
+        "marina",
+        "Privately operated two-lane ramp just before the US 287 lake bridge south of Corsicana, with a fishing jetty and 200 parking spaces."
+      ],
+      [
+        "Harbor Inn Marina",
+        "marina",
+        "Private marina off Spur 294 near the southeastern side of the lake, with two separate single-lane ramps according to TPWD."
+      ],
+      [
+        "Highway 309 Park",
+        "boat-ramp",
+        "Navarro County single-lane ramp and bank-fishing access south of Corsicana on Texas 309; TPWD lists 25 parking spaces."
+      ],
+      [
+        "Fisherman's Point",
+        "boat-ramp",
+        "Private bank-fishing and boat-ramp area off FM 416 near Winkler, reached from US 287 and FM 488, with about forty parking spaces."
+      ]
+    ]
   }
 ]
