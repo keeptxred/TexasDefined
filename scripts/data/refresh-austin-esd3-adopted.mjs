@@ -72,9 +72,15 @@ export function parseSignedResolution(text, year) {
   const debtServiceRate = component(/Debt\s+Service\s+Rate/i);
   const totalRate = component(/Total\s+of\s+Adopted\s+Tax\s+Rates?/i);
   if (Math.abs(maintenanceOperationsRate+debtServiceRate-totalRate)>0.0000001) throw new Error('Signed resolution components do not add to the total');
-  const adoption = normalized.match(new RegExp('(?:On|on)\\s+([A-Z][a-z]+\\s+\\d{1,2},\\s*'+year+')'));
-  if (!adoption) throw new Error('No explicit adoption date for '+year);
-  const ms = Date.parse(adoption[1]);
+  // The published PDF can extract its adoption date either as "On September
+  // 21, 2026" or as "PASSED AND APPROVED this the 21st day of September 2026".
+  // Require an adoption-context date, not an unrelated date elsewhere in PDF.
+  const month = '(January|February|March|April|May|June|July|August|September|October|November|December)';
+  const adoption = normalized.match(new RegExp('\\bOn\\s+'+month+'\\s+(\\d{1,2}),?\\s*'+year+'\\b','i'));
+  const approved = normalized.match(new RegExp('PASSED\\s+AND\\s+APPROVED[^.]{0,100}?\\b(\\d{1,2})(?:st|nd|rd|th)?\\s+day\\s+of\\s+'+month+'\\s*,?\\s*'+year+'\\b','i'));
+  if (!adoption && !approved) throw new Error('No explicit adoption date for '+year);
+  const dateString = adoption ? adoption[1]+' '+adoption[2]+', '+year : approved[2]+' '+approved[1]+', '+year;
+  const ms = Date.parse(dateString);
   if (!Number.isFinite(ms) || new Date(ms).getUTCFullYear() !== year) throw new Error('Invalid adoption date');
   return {totalRate,maintenanceOperationsRate,debtServiceRate,adoptedOn:new Date(ms).toISOString().slice(0,10)};
 }
