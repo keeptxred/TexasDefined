@@ -5,7 +5,9 @@ export const MAX_ASSET_BYTES = 2 * 1024 * 1024;
 export const MAX_KV_BYTES = 1024 * 1024 * 1024;
 export const FREE_KV_WRITES_PER_DAY = 1000;
 export const MIN_GC_QUIET_MS = 30 * 24 * 60 * 60 * 1000;
-// Vite emits both dash-delimited names (main-HASH.js) and historical\n// dot-delimited names (property-tax.HASH.js). Never accept unhashed paths.\nconst ASSET_PATH = /^\/assets\/[A-Za-z0-9][A-Za-z0-9._-]{1,155}[-.][A-Za-z0-9_-]{8,20}\.(?:js|css)$/;
+// Vite emits both dash-delimited names (main-HASH.js) and historical
+// dot-delimited names (property-tax.HASH.js). Never accept unhashed paths.
+const ASSET_PATH = /^\/assets\/[A-Za-z0-9][A-Za-z0-9._-]{1,155}[-.][A-Za-z0-9_-]{8,20}\.(?:js|css)$/;
 const SHA = /^[a-f0-9]{64}$/;
 const COMMIT_SHA = /^[a-f0-9]{40}$/;
 const ABSOLUTE_MAX_AGE_MS = 1000 * 60 * 60 * 24 * 365;
