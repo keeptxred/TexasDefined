@@ -6,6 +6,7 @@ const shop = read("src/routes/sitemap-shop[.]xml.ts");
 const catalog = read("src/data/shop-products-remote.ts");
 const product = read("src/routes/shop.product.$productId.tsx");
 const merchant = read("src/routes/google-merchant-feed[.]xml.ts");
+const fishingPublicationParity = read("scripts/ci/verify-fishing-live-publication-parity.mjs");
 const robots = read("public/robots.txt");
 const index = read("public/sitemap-index.xml");
 
@@ -24,5 +25,9 @@ assert.match(catalog, /url\.searchParams\.set\("offset", String\(offset\)\)/);
 assert.match(catalog, /if \(!response\.ok\) throw new Error/);
 assert.match(catalog, /if \(seen\.has\(row\.id\)\) throw/);
 assert.match(merchant, /fetchAllPublishedShopProductsForIndexing/);
+// All owned sitemap feeds must remain accepted by the fishing indexability checker.
+assert.match(fishingPublicationParity, /expectedIndexXml = fs\\.readFileSync/);
+assert.match(fishingPublicationParity, /JSON\\.stringify\\(childUrls\\) !== JSON\\.stringify\\(expectedChildUrls\\)/);
+assert.doesNotMatch(fishingPublicationParity, /childUrls\\.length !== 4/);
 
 console.log("PASS: every published shop product is eligible for canonical sitemap and Merchant feed coverage, with stable pagination and non-silent upstream failure.");
