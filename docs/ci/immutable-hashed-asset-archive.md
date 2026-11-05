@@ -1,8 +1,12 @@
 # Immutable JS/CSS archive — staged, **not deployed**
 
-This patch provides a provider-portable, tested safety core and an idempotent\noriginal-byte readback publisher for the owner-approved
+This patch provides a provider-portable, tested safety core, current-static-first
+routing adapter, and an idempotent original-byte readback publisher for the proposed
 release-independent asset storage architecture described in recovery issue #5794.
-It **does not** provision KV/R2, configure a Worker binding, upload to live\nKV or change asset routing. The publisher requires an injected storage binding\nand supplies `readyForWorkerRouting: false` even after same-namespace readback;\nglobal eventual consistency must be separately certified.
+It **does not** provision KV/R2, configure a Worker binding, upload to live
+KV or change asset routing. The publisher requires an injected storage binding, a complete publication plan,
+and supplies `readyForWorkerRouting: false` even after same-namespace readback;
+global eventual consistency must be separately certified.
 
 **Current emergency carry-forward remains active**, with its existing SHA-256,
 mime, freshness, original first-seen, 72-hour and 768-file/48 MiB protections.
@@ -35,3 +39,20 @@ successful single deployment nor normal CDN caching proves durability.
 KV is eventually consistent, so prepublication and read-back verification
 must precede switching Worker routing. This staging library alone **does not**
 meet any production DEPLOYED/VERIFIED certification gate.
+
+## GitHub-only hardening (November 5, 2026)
+
+- `serveHashedAssetWithArchive(request, assets, namespace)` is isolated and tested.
+  It requires the current static `ASSETS.fetch()` response first, consults KV
+  **only after 404**, and never changes the current origin 200, 500, HTML,
+  API, image, or POST behavior. Missing bindings and corrupt archived bytes
+  fail closed. This adapter is **not yet invoked** by `src/server-entry.ts`.
+- The immutable allowlist includes historical Vite `property-tax.HASH.js`
+  as well as `main-HASH.js`; never unversioned public assets.
+- Publisher now rejects vanished `stored` objects instead of covertly
+  consuming KV writes not counted in the daily publication budget; it
+  validates original `firstSeenAt` metadata, never overwrites conflicting
+  immutable keys, and rejects attempts to raise free-tier quota ceilings.
+- No change to `wrangler.jsonc`, no production binding, no routing cutover,
+  no removal of existing emergency 72-hour retention. Release-independent
+  durability is therefore **NOT yet production certified**.
