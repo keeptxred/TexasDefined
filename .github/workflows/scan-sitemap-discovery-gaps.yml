@@ -1,0 +1,56 @@
+name: Find indexable pages missing from XML sitemaps
+
+on:
+  pull_request:
+    paths:
+      - scripts/seo/scan-sitemap-discovery-gaps.mjs
+      - .github/workflows/scan-sitemap-discovery-gaps.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '17 12 * * 0'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sitemap-discovery-gap-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    name: Crawl and compare (${{ matrix.host }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        host:
+          - texasdefined.com
+          - keeptxred.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check scanner JavaScript syntax
+        run: node --check scripts/seo/scan-sitemap-discovery-gaps.mjs
+      - name: Scan public links and compare against nested sitemap inventory
+        env:
+          SITE_ORIGIN: https://${{ matrix.host }}
+          MAX_PAGES: 600
+          CONCURRENCY: 3
+        run: node scripts/seo/scan-sitemap-discovery-gaps.mjs
+      - name: Publish URL-by-URL findings in run summary
+        if: always()
+        run: |
+          if test -f ".artifacts/sitemap-discovery-${{ matrix.host }}/summary.md"; then
+            cat ".artifacts/sitemap-discovery-${{ matrix.host }}/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Save complete missing URL reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemap-discovery-${{ matrix.host }}-${{ github.run_id }}
+          path: .artifacts/sitemap-discovery-${{ matrix.host }}/
+          if-no-files-found: warn
+          retention-days: 30
