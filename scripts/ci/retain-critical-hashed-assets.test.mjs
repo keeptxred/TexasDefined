@@ -405,7 +405,7 @@ test('verified 72-hour assets exceeding capacity still fail closed at the 96 MiB
     assert.equal(report.budget.maxBytes, 96 * 1024 * 1024);
     assert.equal(report.retainedCount, 55);
     assert.equal(requests, 56);
-    assert.equal(report.bytes, 36 * bytesPerMain);
+    assert.equal(report.bytes, 55 * bytesPerMain);
     assert.ok(report.bytes > 24 * 1024 * 1024);
     assert.ok(report.bytes <= report.budget.maxBytes);
     assert.equal(report.failure.reason, 'retained-client-asset-size-budget-exceeded');
