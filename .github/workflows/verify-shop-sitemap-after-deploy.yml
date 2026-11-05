@@ -1,0 +1,53 @@
+name: Verify published shop sitemap after deployment
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+  schedule:
+    - cron: '43 12 * * 0'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-shop-sitemap-live-parity
+  cancel-in-progress: true
+
+jobs:
+  shop-sitemap:
+    name: Compare complete live shop catalog with canonical XML sitemap
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate live parity verifier syntax
+        run: node --check scripts/ci/verify-active-shop-sitemap-production.mjs
+      - name: Verify every active product is in indexed sitemap
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/ci/verify-active-shop-sitemap-production.mjs | tee /tmp/shop-sitemap-verification.log
+      - name: Preserve result in GitHub Actions summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## TexasDefined published product sitemap'
+            echo
+            echo 'Validation compares all live published product IDs to the canonical product URLs exposed in sitemap-shop.xml, without variant URLs.'
+            echo
+            echo '### Result'
+            echo '\`\`\`'
+            if test -f /tmp/shop-sitemap-verification.log; then cat /tmp/shop-sitemap-verification.log; else echo 'Verification did not run successfully'; fi
+            echo '\`\`\`'
+          } >> "$GITHUB_STEP_SUMMARY"
