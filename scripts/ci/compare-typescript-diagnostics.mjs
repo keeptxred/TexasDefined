@@ -16,7 +16,15 @@ export function parseTypeScriptDiagnostics(text) {
     const match=line.match(/^(?:(.+?)\(\d+,\d+\): )?error (TS\d+): (.+)$/);
     if (!match) throw new Error('Unrecognized TypeScript error diagnostic; refusing false green: '+line.slice(0,200));
     const path=(match[1]||'<project>').replaceAll('\\','/');
-    const key=JSON.stringify([path,match[2],match[3].replace(/\s+/g,' ').trim()]);
+    // TypeScript embeds checkout-local absolute paths inside import("...") types.
+    // Base worktrees run under /tmp while the head runs under GITHUB_WORKSPACE.
+    // Normalize ONLY absolute imports rooted at this project's src/ tree;
+    // preserve module identity, types, error code and multiplicity.
+    const message=match[3].replace(/\s+/g,' ').trim().replace(
+      /import\("(?:(?:[A-Za-z]:)?[^"]*\/)(src\/[^"]+)"\)/g,
+      'import("$1")',
+    );
+    const key=JSON.stringify([path,match[2],message]);
     errors.set(key,(errors.get(key)||0)+1);
   }
   return errors;
