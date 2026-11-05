@@ -35,6 +35,15 @@ jobs:
           node-version: 22
       - run: node --test scripts/data/refresh-austin-esd3-adopted.test.mjs
       - run: node --check scripts/data/refresh-austin-esd3-adopted.mjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF extractor for real primary-source check
+        run: python3 -m pip install --disable-pip-version-check pypdf==5.6.1
+      - name: Check live adopted rate and official identity without publication
+        run: |
+          node scripts/data/refresh-austin-esd3-adopted.mjs
+          git diff --exit-code -- src/data/property/austin-county-esd3-adopted.json
 
   check-official-sources:
     if: github.event_name != 'pull_request'
