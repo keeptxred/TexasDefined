@@ -112,3 +112,14 @@ for (const slug of ['dallas-hillcrest','dallas-jefferson','dallas-jesuit']) {
   assert.ok(dallasLedger.includes('`'+slug+'`'),slug+' missing first-party campus address evidence');
 }
 console.log('PASS: three first-party-sourced Dallas campus and reciprocal county links (NOT Chrome acceptance)');
+
+// Source-backed school-campus-to-county reciprocal link coverage, not stadium gate evidence.
+const cfisdLedger = fs.readFileSync('docs/football-authority/BATCH013-CFISD-SEVEN-CAMPUS-COUNTIES.md','utf8');
+const harrisCountyRow = reciprocalSection.match(/'harris'\s*:\s*\[([\s\S]*?)\]\s*,/);
+assert.ok(harrisCountyRow,'Harris County reciprocal section missing');
+for (const slug of ["cypress-falls","cypress-lakes","cypress-park","cypress-ranch","cypress-ridge","cypress-springs","cypress-woods"]) {
+  assert.equal([...campusSection.matchAll(new RegExp("'"+slug+"'\\s*:\\s*'harris'",'g'))].length,1,slug+' missing unique Harris campus mapping');
+  assert.ok(harrisCountyRow[1].includes("slug: '"+slug+"'"),slug+' missing Harris County reciprocal link');
+  assert.ok(cfisdLedger.includes('`'+slug+'`'),slug+' missing official CFISD campus source ledger');
+}
+console.log('PASS: seven sourced CFISD school campus and reciprocal Harris County links (NOT Chrome certification)');
