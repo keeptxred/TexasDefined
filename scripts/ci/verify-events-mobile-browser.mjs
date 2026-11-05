@@ -41,7 +41,19 @@ try {
         const page=await context.newPage();
         try {
           const url=origin+target.route+'?event_visual_verifier='+encodeURIComponent((process.env.GITHUB_SHA||'manual').slice(0,12));
-          const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+          // Retry only transport/navigation timeouts; every page still must pass all assertions.
+          let response;
+          for (let attempt=1; attempt<=3; attempt++) {
+            try {
+              response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+              break;
+            } catch (error) {
+              if (attempt===3 || error?.name!=='TimeoutError') throw error;
+              console.warn('EVENT_NAVIGATION_TIMEOUT '+JSON.stringify({page:target.key,viewport:viewport.key,attempt}));
+              await page.goto('about:blank',{waitUntil:'load',timeout:10000});
+              await new Promise(resolve=>setTimeout(resolve,attempt*1000));
+            }
+          }
           assert.equal(response?.status(),200,target.key+' '+viewport.key+' HTTP');
           await page.locator('h1').first().waitFor({state:'visible',timeout:12000});
           const d=await page.evaluate((sourceHostname)=>{
