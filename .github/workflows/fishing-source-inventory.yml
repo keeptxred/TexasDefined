@@ -8,6 +8,8 @@ on:
       - 'src/data/fishing/curated-inventory.ts'
       - 'src/data/fishing/curated-historical-reports.ts'
       - 'src/data/fishing/index.ts'
+      - 'src/data/fishing/statewide-lake-network.ts'
+      - 'src/data/fishing/reused-statewide-access.ts'
       - 'scripts/data/validate-fishing-inventory-expansion.mjs'
       - 'scripts/ci/audit-fishing-inventory-sources.mjs'
       - '.github/workflows/fishing-source-inventory.yml'
@@ -42,7 +44,7 @@ jobs:
       - name: Check official TPWD facilities and first-party guide websites
         id: audit
         continue-on-error: true
-        run: node scripts/ci/audit-fishing-inventory-sources.mjs
+        run: node --experimental-strip-types scripts/ci/audit-fishing-inventory-sources.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
