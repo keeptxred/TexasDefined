@@ -17,6 +17,7 @@ on:
       - 'scripts/ci/audit-fishing-lakes-directory-sources.mjs'
       - 'scripts/ci/audit-fishing-lake-regulation-sources.mjs'
       - 'scripts/data/validate-fishing-lakes-directory.mjs'
+      - 'scripts/data/validate-fishing-lake-research.mjs'
       - '.github/workflows/fishing-lakes-directory-refresh.yml'
 
 permissions:
@@ -47,6 +48,9 @@ jobs:
         id: source
         continue-on-error: true
         run: node scripts/ci/audit-fishing-lakes-directory-sources.mjs
+      - name: Check current published lake authority research in PR
+        if: github.event_name == 'pull_request'
+        run: node scripts/data/validate-fishing-lake-research.mjs
       - name: Smoke-test both official TPWD lake-source types in PR
         if: github.event_name == 'pull_request'
         run: node scripts/ci/audit-fishing-lake-regulation-sources.mjs --smoke
