@@ -98,3 +98,21 @@ still be wired and certified before permanent archive claims can be made.
 ## Dormant Worker entry integration
 
 The PR now stages a guarded import/hook in `src/server-entry.ts` and strong `.d.mts` type declarations for the shared adapter. The Worker consults the immutable archive only if its KV binding is present and only after the current static asset binding returns 404. The `wrangler.jsonc` binding remains absent: **no live KV fallback or permanent repair is claimed**. Cloudflare asset-first routing is preserved.
+
+## TypeScript regression certification
+
+The repository currently has substantial pre-existing full-site TypeScript debt.
+A raw `npx tsc --noEmit` result is **not green** and must not be described as
+green. The staging PR's strict TypeScript comparison runs the compiler against
+both the exact protected merge-base and the candidate Worker entry using
+the same locked dependencies. `compare-typescript-diagnostics.mjs` compares
+the complete multiplicity of each file/error-code/message diagnostic while
+ignoring only shifted line numbers. It fails if **any** diagnostic is added,
+if compilation crashes, if errors cannot be parsed, or if the baseline is
+missing. This is a no-regression gate, **not** certification that all of
+TexasDefined's existing TypeScript errors have been fixed. Both full raw logs
+and the machine-readable delta are kept as GitHub Actions evidence.
+
+The permanent deployment acceptance still requires the normal production
+build and smoke, signed original-byte publishing, propagation, live two-origin
+checks and verified rollback. No staging-only success substitutes for them.
