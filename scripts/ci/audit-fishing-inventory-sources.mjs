@@ -3,6 +3,7 @@ import path from "node:path";
 
 const access = JSON.parse(fs.readFileSync("src/data/fishing/curated-access-sites.json", "utf8"));
 const guides = JSON.parse(fs.readFileSync("src/data/fishing/curated-fishing-guide-businesses.json", "utf8"));
+const { statewideNetworkShowcaseLakePrototypes } = await import("../../src/data/fishing/statewide-lake-network.ts");
 const checkedAt = new Date().toISOString();
 const issues = [];
 const checked = [];
@@ -31,12 +32,31 @@ async function check(url, names = [], textHints = []) {
 for (const lake of access) {
   await check("https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" + lake.tpwd + "/access.phtml", lake.facilities.map(([name]) => name), ["Public Access Facilities"]);
 }
+// Recheck already-researched lake-access dossiers without inventing or restamping facts.
+const seeded = new Set(["lake-conroe", ...access.map((lake) => lake.lakeId)]);
+const network = Object.values(statewideNetworkShowcaseLakePrototypes)
+  .filter((lake) => !seeded.has(lake.slug) && lake.accessReviewedAt
+    && lake.sources?.tpwdAccess?.url?.startsWith("https://tpwd.texas.gov/")
+    && lake.access.some((site) => site.name && !site.name.toLowerCase().includes("public access inventory")))
+  .sort((a, b) => a.slug.localeCompare(b.slug));
+const cohort = new Date().getUTCDay() === 4 ? 1 : 0;
+const batch = process.env.GITHUB_EVENT_NAME === "pull_request" ? []
+  : network.filter((_, i) => i % 2 === cohort);
+let offset = 0;
+await Promise.all(Array.from({ length: 3 }, async () => {
+  while (offset < batch.length) {
+    const lake = batch[offset++];
+    const names = lake.access.map((site) => site.name?.trim())
+      .filter((name) => name && !name.toLowerCase().includes("public access inventory"));
+    await check(lake.sources.tpwdAccess.url, names, ["Public Access Facilities"]);
+  }
+}));
 for (const guide of guides) {
   // Independent first-party URLs, no reviews/pricing/availability are inferred.
   await check(guide.url, [], ["fishing", "guide", "charter", "striper", "crappie", "bass"]);
 }
 await check("https://tpwd.texas.gov/fishboat/fish/recreational/fishreport.phtml", [], ["Weekly Fishing Reports"]);
-const report = { checkedAt, sourceCount: checked.length, lakeGroups: access.length, facilityRecords: access.reduce((n, g) => n + g.facilities.length, 8), guideBusinesses: guides.length, issues, checked };
+const report = { checkedAt, sourceCount: checked.length, reviewedNetworkLakes: network.length, reviewedNetworkChecked: batch.length, lakeGroups: access.length, facilityRecords: access.reduce((n, g) => n + g.facilities.length, 8), guideBusinesses: guides.length, issues, checked };
 fs.mkdirSync(".artifacts", { recursive: true });
 fs.writeFileSync(path.join(".artifacts", "fishing-inventory-sources.json"), JSON.stringify(report, null, 2) + "\n");
 console.log(JSON.stringify({ checkedAt, sources: checked.length, facilities: report.facilityRecords, guides: guides.length, issues: issues.length, sample: issues.slice(0, 12) }, null, 2));
