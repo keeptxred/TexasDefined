@@ -102,3 +102,13 @@ for (const [file, slugs, getter] of laterGroups) {
   }
 }
 console.log('PASS: Batch013 additional 14 authored SSR guides retain distinct, dated source editorial (NOT Chrome certification)');
+
+const dallasLedger = fs.readFileSync('docs/football-authority/BATCH013-DALLAS-CAMPUS-COUNTIES.md','utf8');
+const dallasCountyRow = reciprocalSection.match(/'dallas'\s*:\s*\[([\s\S]*?)\]\s*,/);
+assert.ok(dallasCountyRow, 'Dallas County reciprocal section missing');
+for (const slug of ['dallas-hillcrest','dallas-jefferson','dallas-jesuit']) {
+  assert.equal([...campusSection.matchAll(new RegExp("'"+slug+"'\\s*:\\s*'dallas'",'g'))].length,1,slug+' missing unique Dallas campus mapping');
+  assert.ok(dallasCountyRow[1].includes("slug: '"+slug+"'"),slug+' missing reciprocal Dallas County entry');
+  assert.ok(dallasLedger.includes('`'+slug+'`'),slug+' missing first-party campus address evidence');
+}
+console.log('PASS: three first-party-sourced Dallas campus and reciprocal county links (NOT Chrome acceptance)');
