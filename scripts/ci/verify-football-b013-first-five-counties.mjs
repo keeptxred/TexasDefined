@@ -78,7 +78,8 @@ const laterGroups = [
     ['dallas-gateway-charter-academy','dallas-hutchins','dallas-jesuit'],
     'getBatch013FinalThreeEditorial'],
 ];
-const laterLeads = new Set();
+const laterLeads = new Set(openingParagraphs);
+const allAuthoredSlugs = new Set(expected.map(([slug]) => slug));
 for (const [file, slugs, getter] of laterGroups) {
   const source = fs.readFileSync(file, 'utf8');
   const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
@@ -88,6 +89,8 @@ for (const [file, slugs, getter] of laterGroups) {
   assert.ok(loader.includes('./'+file.split('/').pop().replace('.ts','')), file+' not imported by SSR loader');
   assert.ok(source.includes('export function '+getter), file+' missing exported getter');
   for (const slug of slugs) {
+    assert.ok(!allAuthoredSlugs.has(slug), slug+' authored in multiple Batch013 groups');
+    allAuthoredSlugs.add(slug);
     const guide = guides[slug];
     assert.ok(guide && guide.slug === slug, slug+' missing canonical editorial identity');
     assert.ok(loader.includes("'"+slug+"'"), slug+' missing SSR loader gate');
@@ -112,3 +115,5 @@ for (const slug of ['dallas-hillcrest','dallas-jefferson','dallas-jesuit']) {
   assert.ok(dallasLedger.includes('`'+slug+'`'),slug+' missing first-party campus address evidence');
 }
 console.log('PASS: three first-party-sourced Dallas campus and reciprocal county links (NOT Chrome acceptance)');
+
+assert.equal(allAuthoredSlugs.size,25,'Batch013 requires exactly 25 distinct authored school identities');
