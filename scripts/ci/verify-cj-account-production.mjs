@@ -11,7 +11,20 @@ async function read(path) {
   const url = new URL(path, origin);
   assert.equal(url.origin, new URL(origin).origin, 'Only first-party production requests are allowed');
   url.searchParams.set('td_cj_verify', process.env.GITHUB_SHA || 'manual');
-  const response = await fetch(url, { cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(30000) });
+  // Network timeouts are not evidence of an incorrect advertiser link.
+  // Retry only aborted first-party requests; never retry failed assertions,
+  // HTTP statuses, challenges, or redirects and never visit affiliate URLs.
+  let response;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      response = await fetch(url, { cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(30000) });
+      break;
+    } catch (error) {
+      if (attempt === 3 || error?.name !== 'TimeoutError') throw error;
+      console.warn('CJ_FIRST_PARTY_TIMEOUT ' + JSON.stringify({ path, attempt }));
+      await new Promise(resolve => setTimeout(resolve, attempt * 1000));
+    }
+  }
   assert.equal(response.status, 200, path + ' HTTP status');
   assert.notEqual(response.headers.get('cf-mitigated'), 'challenge');
   const text = await response.text();
