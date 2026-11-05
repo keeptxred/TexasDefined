@@ -1,10 +1,17 @@
 import type { FootballProgramEditorial } from './program-editorial';
 
-// Assigned Batch013: only individually authored first-five routes.
+// Assigned Batch013: load only individually authored routes; never infer VERIFIED status.
 export const BATCH013_AUTHORED_SLUGS = new Set(['cuero','cumby','cushing','cy-fair','cypress-creek']);
+export const BATCH013_SECOND_FIVE_SLUGS = new Set(['cypress-falls','cypress-lakes','cypress-park','cypress-ranch','cypress-ridge']);
 
 export async function loadBatch013FootballProgramEditorial(slug: string): Promise<FootballProgramEditorial | undefined> {
-  if (!BATCH013_AUTHORED_SLUGS.has(slug)) return undefined;
-  const { getBatch013FootballProgramEditorial } = await import('./program-editorial-b013');
-  return getBatch013FootballProgramEditorial(slug);
+  if (BATCH013_AUTHORED_SLUGS.has(slug)) {
+    const { getBatch013FootballProgramEditorial } = await import('./program-editorial-b013');
+    return getBatch013FootballProgramEditorial(slug);
+  }
+  if (BATCH013_SECOND_FIVE_SLUGS.has(slug)) {
+    const { getBatch013SecondFiveEditorial } = await import('./program-editorial-b013-group2');
+    return getBatch013SecondFiveEditorial(slug);
+  }
+  return undefined;
 }
