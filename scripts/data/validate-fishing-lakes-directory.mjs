@@ -110,7 +110,8 @@ assert(!search.includes("Compare the five complete TexasDefined fishing-lake gui
 // The visitor-facing finder filters published guide records, not invented access inventory.
 for (const marker of [
   'filteredRows.map(({ lake, targets })',
-  'setSearchText', 'setRegion', 'setSpecies', 'setAccess', 'setSortOrder', 'Largest by surface area', 'Smallest by surface area',
+  'setSearchText', 'setRegion', 'setSpecies', 'setAccess', 'setSortOrder',
+  'aria-label="Region"', 'aria-label="Target species"', 'aria-label="Documented access restrictions"', 'aria-label="Sort guides"', 'Largest by surface area', 'Smallest by surface area',
   'Showing {filteredRows.length} of {rows.length} lake guides',
   'lakeDirectoryAdvisories[lake.slug',
   'Official access restriction — check before travel',
