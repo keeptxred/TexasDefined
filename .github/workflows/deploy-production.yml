@@ -444,6 +444,23 @@ jobs:
           node --test scripts/ci/recover-observed-hashes-from-old-worker.test.mjs
           node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
 
+      # Optional GitHub-only rehearsal for a future independent archive.
+      # Off by default. No KV writes, new infrastructure, Worker bindings or
+      # route changes. A failure, when explicitly enabled, blocks deployment.
+      - name: Plan immutable client JS/CSS archive (dry-run, opt-in)
+        id: immutable_asset_plan
+        if: ${{ vars.TEXASDEFINED_IMMUTABLE_ASSET_PLAN == 'true' }}
+        run: node scripts/ci/prepare-immutable-hashed-asset-manifest.mjs --plan
+
+      - name: Preserve independent archive planning evidence
+        if: ${{ always() && steps.immutable_asset_plan.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: immutable-hashed-asset-plan-${{ github.run_id }}
+          path: .artifacts/immutable-hashed-asset-plan.json
+          if-no-files-found: error
+          retention-days: 30
+
       # Retried or queued old workflow runs must never roll back a newer main
       # release. GitHub concurrency serializes jobs but does not guarantee
       # that a manual rerun is newer than the currently published commit.
