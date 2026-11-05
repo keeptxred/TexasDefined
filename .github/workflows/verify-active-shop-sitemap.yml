@@ -1,0 +1,40 @@
+name: Verify published shop sitemap after production deployment
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/verify-active-shop-sitemap.yml
+      - scripts/ci/verify-active-shop-sitemap-production.mjs
+
+permissions:
+  contents: read
+
+concurrency:
+  group: active-shop-sitemap-verify-${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Verify live published product URL parity
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Check out verified source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || 'main' }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check verifier syntax
+        run: node --check scripts/ci/verify-active-shop-sitemap-production.mjs
+      - name: Check live sitemap against every published shop product
+        if: ${{ github.event_name != 'pull_request' }}
+        run: node scripts/ci/verify-active-shop-sitemap-production.mjs

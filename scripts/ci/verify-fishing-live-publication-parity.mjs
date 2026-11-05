@@ -19,7 +19,18 @@ const fetchText = async (url) => {
 try {
   const index = await fetchText(`${origin}/sitemap-index.xml`);
   const childUrls = [...index.matchAll(/<loc>\s*(https:\/\/[^<]+)\s*<\/loc>/g)].map((m) => m[1].trim().replace(/&amp;/g, "&"));
-  if (childUrls.length !== 4 || childUrls.some((u) => !u.startsWith(`${origin}/sitemap`))) throw new Error("Unexpected sitemap index feed count/origin");
+  // Keep the exact published feed registry in sync with the governed sitemap
+  // index; adding a shop XML feed must not silently disable fishing validation.
+  const expectedFeeds = [
+    "/sitemap.xml",
+    "/sitemap-explore.xml",
+    "/sitemap-shop.xml",
+    "/sitemap-evergreen.xml",
+    "/sitemap-texas-icons.xml",
+  ].map((path) => `${origin}${path}`);
+  if (JSON.stringify(childUrls) !== JSON.stringify(expectedFeeds)) {
+    throw new Error("Unexpected sitemap index feed list, order, or origin: " + JSON.stringify(childUrls));
+  }
   const feeds = await Promise.all(childUrls.map(fetchText));
   const listed = new Set(feeds.flatMap((xml) => [...xml.matchAll(/<loc>\s*(https:\/\/[^<]+)\s*<\/loc>/g)].map((m) => m[1].trim().replace(/&amp;/g, "&"))));
   for (const path of paths) {
