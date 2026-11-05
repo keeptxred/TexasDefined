@@ -87,6 +87,7 @@ const prebuildChecks = [
   ['DEPLOY/CHUNK-RETENTION', 'Protect bounded old hashed JS/CSS inclusion and cross-release integrity', 'node', ['--test', 'scripts/ci/retain-critical-hashed-assets.test.mjs']],
   ['SEO/ASSET-CACHE', 'Keep property-tax and football SSR HTML fresh across hashed asset deployments', 'node', ['--experimental-strip-types', '--test', 'src/lib/hashed-asset-document-cache-policy.test.ts']],
   ['DEPLOY/ASSETS', 'Prevent current and cross-release JS/CSS false-positive acceptance', 'node', ['--test', 'scripts/ci/verify-referenced-assets-production.test.mjs']],
+  ['CI/DEPLOYMENT', 'Keep financial production page retries bounded and fail-closed', 'node', ['--test', 'scripts/ci/fetch-financial-production-html.test.mjs']],
   ['SEO/SITEMAP', 'Ensure swimming authority uses bundled server content and all canonical sitemap rules', 'node', ['scripts/data/validate-swimming-authority-ssr.mjs']],
   ['CONTENT/AUTHORITY', 'Prevent duplicate THC landmark images and lost indexable Holland Hotel page', 'node', ['scripts/data/validate-thc-landmark-authority-batch05.mjs']],
   ['SEO/SITEMAP', 'Syntax-check THC landmark production sitemap verifier', 'node', ['--check', 'scripts/ci/verify-thc-landmark-sitemap-production.mjs']],
