@@ -114,9 +114,10 @@ jobs:
             echo '::error title=Worker build output missing::Build did not produce hashed client assets.'
             exit 1
           fi
-          hashed="$(find dist/client/assets -maxdepth 1 -type f \\( -name '*.js' -o -name '*.css' \\) | wc -l | tr -d ' ')"
-          if [[ "$hashed" -lt 1 ]]; then
-            echo '::error title=No client chunks::No actual JS/CSS files were built.'
+          js_count="$(find dist/client/assets -maxdepth 1 -type f -name '*.js' | wc -l | tr -d ' ')"
+          css_count="$(find dist/client/assets -maxdepth 1 -type f -name '*.css' | wc -l | tr -d ' ')"
+          if [[ "$js_count" -lt 1 || "$css_count" -lt 1 ]]; then
+            echo "::error title=Missing client bundles::Expected compiled JS and CSS; got JS=$js_count CSS=$css_count."
             exit 1
           fi
-          echo "No-deploy production build created $hashed JS/CSS assets."
+          echo "No-deploy production build created $js_count JS and $css_count CSS files."
