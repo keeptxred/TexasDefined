@@ -63,7 +63,24 @@ for (const marker of ["LAKE_AUTHORITY_RESEARCH_WAVE1", '["lake-conroe"]', "regul
 for (const marker of ["pageData.sectionResearch.reviewedAt", "row.sourceUrl", "item.href"]) if (!conroeUi.includes(marker)) errors.push(`Lake Conroe page missing direct official source attribution: ${marker}`);
 if (!dossiers["lake-conroe"]) errors.push("Dedicated Lake Conroe research dossier missing.");
 
-if (new Date() >= new Date("2027-09-01T00:00:00Z") && source.includes("2026-27")) errors.push("TPWD 2026-27 legal-limit summary expired; independently recheck each rule before next release.");
+// Annual Outdoor Annual / fish-harvest research guard. On August 15 each year,
+// require an actual dated source review before the September regulation rollover.
+// The source dossier and rules remain unchanged until verified; monitor flags
+// staleness instead of automatically rewriting law or restamping reviewedAt.
+const now = new Date();
+const year = now.getUTCFullYear();
+const preseasonReached = Date.UTC(year, now.getUTCMonth(), now.getUTCDate()) >= Date.UTC(year, 7, 15);
+const applicableReviewYear = preseasonReached ? year : year - 1;
+const latestReviewFloor = applicableReviewYear + "-08-01";
+for (const [slug, dossier] of Object.entries(dossiers)) {
+  if (dossier.reviewedAt < latestReviewFloor) errors.push(slug + ": fishing-rule research predates current preseason review window " + latestReviewFloor + "; verify current TPWD rules before dating claims.");
+  for (const rule of dossier.regulations) {
+    for (const match of String(rule.text).matchAll(/\b(20\d{2})\s*[–-]\s*(?:20)?(\d{2})\b/g)) {
+      const claimedYear = Number(match[1]);
+      if (claimedYear < applicableReviewYear) errors.push(slug + ": published regulation still cites an older " + match[0] + " season; independently verify and update the claim.");
+    }
+  }
+}
 
 console.log(`Fishing independent-source review: ${Object.keys(dossiers).length} researched / ${published.length} lake dossiers; ${outstanding.length} remain for operator research.`);
 if (outstanding.length) console.log("Outstanding: " + outstanding.join(", "));
