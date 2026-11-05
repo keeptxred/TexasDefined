@@ -74,6 +74,9 @@ const laterGroups = [
   ['src/data/high-school-football/program-editorial-b013-group5.ts',
     ['dallas-highland-park','dallas-hillcrest','dallas-jefferson'],
     'getBatch013FinalSixFirstThreeEditorial'],
+  ['src/data/high-school-football/program-editorial-b013-group6.ts',
+    ['dallas-gateway-charter-academy','dallas-hutchins','dallas-jesuit'],
+    'getBatch013FinalThreeEditorial'],
 ];
 const laterLeads = new Set();
 for (const [file, slugs, getter] of laterGroups) {
