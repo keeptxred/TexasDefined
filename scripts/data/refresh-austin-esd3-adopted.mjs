@@ -64,7 +64,7 @@ export function parseSignedResolution(text, year) {
   function component(label) {
     const m = label.exec(normalized);
     if (!m) throw new Error('Resolution component not found: '+label);
-    const next = normalized.slice(m.index+m[0].length,m.index+m[0].length+85).match(/(?:\$\s*)?(0?\.\d{4,8})\s*\/\s*100/i);
+    const next = normalized.slice(m.index+m[0].length,m.index+m[0].length+85).match(/(?:\$\s*)?(0?\.\d{4,8})\s*\/\s*\$?\s*100/i);
     if (!next) throw new Error('Rate unreadable beside '+m[0]);
     return Number(next[1]);
   }
