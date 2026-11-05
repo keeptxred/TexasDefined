@@ -29,7 +29,7 @@ async function check(url, names = [], textHints = []) {
   }
 }
 for (const lake of access) {
-  await check("https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" + lake.tpwd + "/access.phtml", lake.facilities.map(([name]) => name), ["Public Access Facilities"]);
+  await check("https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" + lake.tpwd + "/" + (lake.sourcePage ?? "access.phtml"), lake.facilities.map(([name]) => name), ["Public Access Facilities"]);
 }
 for (const guide of guides) {
   // Independent first-party URLs, no reviews/pricing/availability are inferred.
