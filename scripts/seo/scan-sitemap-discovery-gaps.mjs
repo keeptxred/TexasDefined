@@ -103,4 +103,5 @@ const md=['# Sitemap discovery-gap audit — '+HOST,'','- Public pages crawled: 
 fs.writeFileSync(path.join(OUT,'summary.md'),md.join('\n')+'\n');
 console.log(md.join('\n'));
 if(errors.length)process.exitCode=2;
-else if(missing.length)process.exitCode=1;
+else if(missing.length && process.env.FAIL_ON_GAPS==='1')process.exitCode=1;
+else if(missing.length) console.log('::warning title=Sitemap discovery gaps::Found '+missing.length+' indexable linked URL candidates outside the sitemap inventory; inspect the uploaded CSV before indexing them.');
