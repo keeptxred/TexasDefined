@@ -104,6 +104,12 @@ export async function refresh() {
   const newestStored = data.rates.at(-1);
   if (current.year < newestStored.year) throw new Error('Austin CAD no longer publishes the latest previously verified rate year');
   if (current.year > new Date().getUTCFullYear()) throw new Error('Unexpected future tax year on CAD table');
+  for (const stored of data.rates) {
+    const comparable = cad.find((row)=>row.year===stored.year);
+    if (comparable && Math.abs(comparable.rate-stored.totalRate)>0.0000001) {
+      throw new Error('Austin CAD revised previously verified '+stored.year+' rate; keep prior verified record pending source reconciliation');
+    }
+  }
   const resolutionUrl = parseDistrictResolutionUrl(await get(data.sourceResolutionIndex),current.year,data.sourceResolutionIndex);
   const signed = parseSignedResolution(await pdfToText(await get(resolutionUrl,true)),current.year);
   if (Math.abs(signed.totalRate-current.rate)>0.0000001) throw new Error('Austin CAD and signed district resolution disagree on '+current.year+' rate');
