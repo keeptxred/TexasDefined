@@ -396,11 +396,18 @@ const batch012FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 };
 
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  // Batch013 source-qualified campus-county reciprocal edges. Campus != stadium gate.
+  'dewitt': [{ name: 'Cuero Gobblers', slug: 'cuero', context: 'Cuero High School campus in DeWitt County; district athletics publishes separate varsity and junior-high football schedules' }],
+  'nacogdoches': [{ name: 'Cushing Bearkats', slug: 'cushing', context: 'NCES lists Cushing School campus in Nacogdoches County; current football notices are on the district athletics page' }],
+  'harris': [
+    { name: 'Cy-Fair Bobcats', slug: 'cy-fair', context: 'NCES Cy-Fair High campus in Harris County; CFISD 2026–28 realignment identifies District 16-6A' },
+    { name: 'Cypress Creek Cougars', slug: 'cypress-creek', context: 'NCES Cypress Creek High campus in Harris County; CFISD athletics identifies Deveon McKinney as athletic coordinator and head football coach' },
+  ],
   'nueces': [{ name: 'Calallen Wildcats', slug: 'corpus-christi-calallen', context: 'NCES Nueces County Calallen High 4001 Wildcat Drive, 4A Division I District 15; Charlie Reeve AD but 2026 HFC not school-confirmed' }, { name: 'Corpus Christi Mary Carroll Tigers', slug: 'corpus-christi-carroll', context: 'Mary Carroll 3202 Saratoga in Nueces County, Calvin Neatherlin school-confirmed athletic coordinator; not Southlake Carroll' }],
   'coryell': [{ name: 'Copperas Cove Bulldawgs', slug: 'copperas-cove', context: 'Coryell County 6A District 12 football; Cove Athletics identifies Rodney Southern current head coach, Tony Johnson is former HFC' }],
   'delta': [{ name: 'Cooper High Bulldogs', slug: 'cooper', context: 'Cooper ISD Delta County campus, 2A Division I District 9; Bruce Silman 2026 AD but head football role not school-confirmed' }],
   'limestone': [{ name: 'Coolidge Yellowjackets', slug: 'coolidge', context: 'Coolidge ISD Limestone County school, UIL 1A Division I six-man District 14; current school coach title remains unconfirmed' }],
-  'hopkins': [{ name: 'Como-Pickton Eagles', slug: 'como-pickton', context: 'Hopkins County NCES verified rural school; Jeremy Griffin athletic director with 2025 football coach history kept distinctly dated; UIL 2A Division I District 10' }],
+  'hopkins': [{ name: 'Cumby Fighting Trojans', slug: 'cumby', context: 'Cumby Collegiate High School in Hopkins County; official Cumby Collegiate ISD athletics and football document library' }, { name: 'Como-Pickton Eagles', slug: 'como-pickton', context: 'Hopkins County NCES verified rural school; Jeremy Griffin athletic director with 2025 football coach history kept distinctly dated; UIL 2A Division I District 10' }],
   'montgomery': [
     { name: 'Conroe High Tigers', slug: 'conroe', context: 'Cedric Hardeman current football coach at West Davis campus; 6A District 13, distinct from Conroe ISD sister programs' },
     { name: 'Caney Creek Panthers', slug: 'conroe-caney-creek', context: 'Taylor Cobb head football coach; FM 1485 school, school-owned multi-venue ticket policies not a guarantee of the stadium for each game' },
