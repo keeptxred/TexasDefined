@@ -80,7 +80,15 @@ function CorrectionsPolicyPage() {
 
           <section className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-foreground">How to report an error</h2>
-            <p className="mt-4">Use the <Link to="/partner-with-us" className="border-b border-primary text-primary">Texas Defined contact form</Link> and identify the message as a correction or source update. Include the page URL, the specific statement you believe is wrong, the corrected information, and a primary or official source when one is available. That detail makes the issue easier to verify and reduces the chance of replacing one error with another.</p>
+            <p className="mt-4">Send factual corrections and source updates directly to our editorial inbox rather than the advertising inquiry form. Please include the page URL, the exact statement, what should change, and an official or primary source when available.</p>
+            <p className="mt-4"><a href="mailto:admin@texasdefined.com?subject=Texas%20Defined%20editorial%20correction" className="inline-block border-b border-primary font-semibold text-primary">Email a correction to the editorial desk →</a> If the link does not open your email app, write to <a href="mailto:admin@texasdefined.com" className="border-b border-primary text-primary">admin@texasdefined.com</a> with the subject “Editorial correction.”</p>
+          </section>
+
+          <section className="border-t border-border pt-6">
+            <h2 className="font-display text-3xl text-foreground">Share a firsthand Texas update</h2>
+            <p className="mt-4">Have you recently visited a public park, trail, campground, attraction or event we cover? Send an on-the-ground observation about access, conditions, wayfinding or other useful visitor details. Include the place and visit date, what you personally observed, and any official notice or photo you have permission to share. Avoid sending sensitive personal information.</p>
+            <p className="mt-3">A reader report is a lead for verification, not a published review or proof of a fact. We assess it against reliable sources and do not attribute firsthand experience to our editors or publish unverified submissions as established facts.</p>
+            <p className="mt-4"><a href="mailto:admin@texasdefined.com?subject=Texas%20Defined%20firsthand%20visitor%20update" className="border-b border-primary font-semibold text-primary">Send a firsthand visitor update →</a></p>
           </section>
 
           <section className="border-t border-border pt-6">

@@ -121,6 +121,9 @@ function HomePage() {
         <p className="mt-5 text-sm text-muted-foreground">
           Need a specific state service? <Link to="/texas-resources" className="font-semibold text-primary underline underline-offset-4">Texas Resources &amp; State Agencies — Open Start Here →</Link>
         </p>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Recently visited a place we cover or spotted an error? <Link to="/corrections-policy" className="font-semibold text-primary underline underline-offset-4">Share a correction or firsthand Texas tip →</Link>. Reader submissions are verified before they become editorial claims.
+        </p>
       </Container>
     </Section>
     {brand.features.guides && guides.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Texas Life" title="The practical side of living here" description="Homes, moving, money and useful answers for making Texas home." actionLabel="Browse the guidebook" actionTo="/guides" /><ul className="mt-10 grid gap-6 md:grid-cols-3">{guides.slice(0, 3).map((guide) => <li key={guide.id}><GuideCard guide={guide} /></li>)}</ul></Container></Section>}
