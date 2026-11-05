@@ -12,7 +12,7 @@ export async function loadFishingLocalSitemapEntriesServer() {
   // Source-only pilot entries stay browsable but are not independent index targets.
   // Require a real facility location before adding a detailed access URL to Search.
   const indexEligibleAccessPoints = verifiedAccessPoints.filter((point) => Boolean(point.address || point.coordinates));
-  const indexEligibleLakeIds = new Set(indexEligibleAccessPoints.flatMap((point) => point.lakeIds));
+  const indexEligibleLakeIds = new Set(verifiedAccessPoints.flatMap((point) => point.lakeIds));
   const verifiedServices = [...tackleShops.filter(isFishingRecordVerified), ...businesses.filter(isFishingRecordVerified)];
   const entries = [
     ...(indexEligibleLakeIds.size >= 20 && verifiedAccessPoints.length >= 100 ? [{ path: FISHING_ACCESS_DIRECTORY_PATH, lastmod: FISHING_LOCAL_VERIFIED_AT }] : []),

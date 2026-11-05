@@ -27,7 +27,7 @@ for (const guide of guides) {
   assert.ok(Array.isArray(guide.species) && new Set(guide.species).size === guide.species.length);
 }
 const index = read("src/data/fishing/index.ts");
-for (const s of ["expandedSourcedAccessPoints", "curatedVerifiedGuides", "curatedGuideLakes", "curatedGuideSpecies", "curatedHistoricalFishingReports"])
+for (const s of ["expandedSourcedAccessPoints", "sourcedNetworkAccess", "curatedVerifiedGuides", "curatedGuideLakes", "curatedGuideSpecies", "curatedHistoricalFishingReports"])
   assert.ok(index.includes(s), "Catalog binding absent: " + s);
 const reports = read("src/data/fishing/curated-historical-reports.ts");
 assert.ok((reports.match(/publishedAt:"2026-/g) || []).length >= 6, "Archived observed reports missing publication dates");
@@ -36,6 +36,9 @@ const accessRoute = read("src/routes/fishing.access.tsx");
 const localSitemap = read("src/data/fishing/local-sitemap.server.ts");
 assert.ok(accessRoute.includes("coveredLakes >= 20 && items.length >= 100"), "Access pilot index gate missing");
 assert.ok(localSitemap.includes("indexEligibleLakeIds.size >= 20"), "Access sitemap gate missing");
+const network = read("src/data/fishing/reused-statewide-access.ts");
+assert.ok(network.includes("public access inventory") && network.includes("lake.accessReviewedAt") && network.includes("present.has(key)"), "Reused network access must exclude generic placeholders, require review and deduplicate");
+assert.ok(index.includes("deriveReviewedStatewideAccessPoints"), "Statewide authority access dossiers not connected to the shared access catalog");
 const guideProfile = read("src/data/fishing/guide-profile-data.server.ts");
 const guideSitemap = read("src/data/fishing/guide-sitemap.server.ts");
 assert.ok(guideProfile.includes("guide.claimedListing &&"), "Unclaimed generic guide profiles must be noindex");

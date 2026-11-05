@@ -1,6 +1,7 @@
 import { fixtureFishingCatalog } from "./fixtures";
 import { expandedSourcedAccessPoints, curatedVerifiedGuides, curatedGuideLakes, curatedGuideSpecies } from "./curated-inventory";
 import { curatedHistoricalFishingReports } from "./curated-historical-reports";
+import { deriveReviewedStatewideAccessPoints } from "./reused-statewide-access";
 import { expandedFishingLakes, expandedLakeSpeciesProfiles, expandedLakeTechniqueProfiles } from "./lake-expansion-fixtures";
 import { wave2FishingLakes, wave2LakeSpeciesProfiles, wave2LakeTechniqueProfiles } from "./lake-expansion-wave2-fixtures";
 import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
@@ -32,13 +33,18 @@ const verifiedLakePrototypes = [
 const prototypeTechniqueProfiles = derivePrototypeTechniqueProfiles(verifiedLakePrototypes, lakeSpecies);
 const lakeTechniques = reconcileLakeTechniqueProfiles(explicitLakeTechniques, prototypeTechniqueProfiles);
 
+const sourcedNetworkAccess = deriveReviewedStatewideAccessPoints(
+  Object.values(statewideNetworkShowcaseLakePrototypes),
+  [...fixtureFishingCatalog.accessPoints, ...expandedSourcedAccessPoints],
+);
+
 const fishingCatalog = assertValidFishingCatalog({
   ...fixtureFishingCatalog,
   lakes: fishingLakes,
   species: texasFreshwaterFishSpecies,
   lakeSpecies,
   lakeTechniques,
-  accessPoints: [...fixtureFishingCatalog.accessPoints, ...expandedSourcedAccessPoints],
+  accessPoints: [...fixtureFishingCatalog.accessPoints, ...expandedSourcedAccessPoints, ...sourcedNetworkAccess],
   guides: [...fixtureFishingCatalog.guides, ...curatedVerifiedGuides],
   guideLakes: [...fixtureFishingCatalog.guideLakes, ...curatedGuideLakes],
   guideSpecies: [...fixtureFishingCatalog.guideSpecies, ...curatedGuideSpecies],
