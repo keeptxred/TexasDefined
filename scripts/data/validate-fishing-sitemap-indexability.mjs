@@ -26,7 +26,7 @@ for(const marker of [
 ]) if(!reportLoader.includes(marker)) errors.push(`Lake /guides section indexability check missing: ${marker}`);
 for(const marker of [
   "isPublicFishingReportValid(report, context)",
-  'fishingReportFreshness(report) !== "expired"',
+  'fishingReportFreshness(report) === "current"',
   "qualifiedLakeIds.has(lake.id)",
   'lakeConroeCanonicalPath("reports")',
   'showcaseLakeCanonicalPath(lake.slug, "reports")',
