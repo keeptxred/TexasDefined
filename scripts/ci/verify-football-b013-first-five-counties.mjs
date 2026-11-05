@@ -44,13 +44,13 @@ console.log('PASS: Batch013 first-five SSR source dossier/loader/editorial contr
 
 // Regression guard: distinct pages must not collapse back to identical template
 // overview paragraphs. This is deliberately content-sensitive, not a word count.
-const parsedEditorial = JSON.parse(editorial.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\\{[\\s\\S]*?\\});/)?.[1] ?? 'null');
+const parsedEditorial = JSON.parse(editorial.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/)?.[1] ?? 'null');
 assert.ok(parsedEditorial, 'unable to parse Batch013 authored editorial object');
 const openingParagraphs = new Set();
 for (const [slug] of expected) {
   const guide = parsedEditorial[slug];
   assert.ok(guide && Array.isArray(guide.overview) && guide.overview.length >= 3, slug+' missing meaningful authored overview');
-  const lead = guide.overview[0].trim().replace(/\\s+/g, ' ').toLowerCase();
+  const lead = guide.overview[0].trim().replace(/\s+/g, ' ').toLowerCase();
   assert.ok(lead.length > 90, slug+' first overview paragraph lacks school-specific substance');
   assert.ok(!openingParagraphs.has(lead), slug+' duplicates another school guide lead');
   openingParagraphs.add(lead);
