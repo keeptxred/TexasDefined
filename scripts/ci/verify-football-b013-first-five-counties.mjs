@@ -75,7 +75,7 @@ const laterGroups = [
 const laterLeads = new Set();
 for (const [file, slugs, getter] of laterGroups) {
   const source = fs.readFileSync(file, 'utf8');
-  const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\\{[\\s\\S]*?\\});/);
+  const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
   assert.ok(match, file+' missing parseable editorial map');
   const guides = JSON.parse(match[1]);
   assert.equal(Object.keys(guides).length, slugs.length, file+' unexpected or missing authored school');
@@ -89,7 +89,7 @@ for (const [file, slugs, getter] of laterGroups) {
     assert.ok(guide.schedule?.verifiedAt, slug+' missing source verification date');
     assert.ok(Array.isArray(guide.overview) && guide.overview.length >= 3, slug+' missing distinct overview');
     assert.ok(Array.isArray(guide.faq) && guide.faq.length >= 2, slug+' missing visitor questions');
-    const lead = guide.overview[0].trim().replace(/\\s+/g,' ').toLowerCase();
+    const lead = guide.overview[0].trim().replace(/\s+/g,' ').toLowerCase();
     assert.ok(lead.length > 90, slug+' missing school-specific substance');
     assert.ok(!laterLeads.has(lead), slug+' duplicated another Batch013 lead');
     laterLeads.add(lead);
