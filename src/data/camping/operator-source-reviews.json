@@ -1,0 +1,67 @@
+[
+  {
+    "destinationSlug": "possum-kingdom-state-park",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/possum-kingdom/alert",
+    "reviewedAt": "2026-11-05",
+    "notice": "TPWD reports primitive camping, cabins 3/4/6, Lakeview and Longhorn trails, and the boat-ramp parking area closed December 2026–February 2027 for repairs. The park also lists whole-park hunter-only closures December 4–7 and 11–14, 2026. Confirm the exact site and latest alert before booking.",
+    "requiredSourceText": [
+      "The following areas of the park will be closed December 2026 through February 2027",
+      "Primitive camping",
+      "Lakeview and Longhorn Trails",
+      "Boat ramp and parking area",
+      "10 p.m. on Dec. 4 to 6 a.m. on Dec. 7",
+      "10 p.m. on Dec. 11 to 6 a.m. on Dec. 14"
+    ]
+  },
+  {
+    "destinationSlug": "atlanta-state-park",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/atlanta/alert",
+    "reviewedAt": "2026-11-05",
+    "notice": "TPWD lists whole-park hunter-only closures November 30–December 4 and December 27–31, 2026, and January 15–19, 2027. The current alert does not list the previously described wood-and-charcoal burn restriction; that does not guarantee fires will be allowed on your arrival date.",
+    "requiredSourceText": [
+      "Noon on Nov. 30 to 8 a.m. on Dec. 4",
+      "Noon on Dec. 27 to 8 a.m. on Dec. 31",
+      "Noon on Jan. 15 to 8 a.m. on Jan. 19",
+      "Only permitted hunters will be allowed on these dates"
+    ]
+  },
+  {
+    "destinationSlug": "government-canyon-state-natural-area",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/government-canyon",
+    "reviewedAt": "2026-11-05",
+    "notice": "TPWD currently says all trails are closed except the 1.25-mile Discovery Trail. Dogs are allowed on that trail; bicycles are not. These trail restrictions sharply limit the normal hiking options even though tent campground inventory exists. Verify before visiting.",
+    "requiredSourceText": [
+      "ALL TRAILS are CLOSED except for the 1.25-mile Discovery Trail",
+      "Bikes are not permitted on this trail",
+      "dogs are welcome"
+    ]
+  },
+  {
+    "destinationSlug": "lake-mineral-wells-state-park",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+    "reviewedAt": "2026-11-05",
+    "notice": "TPWD's November 4, 2026 status update lists primitive camping, Penitentiary Hollow rock climbing, Cross Timbers trails, and the Trailway as open, with no burn ban at that time. Conditions and fire restrictions may change; verify the current status before departure.",
+    "requiredSourceText": [
+      "November 4, 2026",
+      "Primitive Camping: OPEN",
+      "Cross Timber Trails: OPEN",
+      "Trailway: OPEN",
+      "NO BURN BAN"
+    ]
+  },
+  {
+    "destinationSlug": "abilene-state-park",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/abilene/alert",
+    "reviewedAt": "2026-11-05",
+    "notice": "Lake Abilene's low-water restrictions prohibit swimming and fishing and close boat ramps; kayak rentals are unavailable. TPWD also lists hunter-only LAKE closures November 29–December 10, 2026 and January 15–31, February 4–7 and February 12–28, 2027. These are lake restrictions, not a claimed closure of the entire campground.",
+    "requiredSourceText": [
+      "Boat ramps are closed",
+      "Kayak rentals are not available",
+      "Swimming and fishing are not allowed",
+      "10 p.m. on Nov. 29 to 3 p.m. Dec. 10",
+      "10 p.m. on Jan. 15 to 10 p.m. Jan. 31",
+      "10 p.m. on Feb. 4 to 3 p.m. Feb. 7",
+      "10 p.m. on Feb. 12 to 10 p.m. Feb. 28"
+    ]
+  }
+]
