@@ -52,10 +52,11 @@ if (!failures.length) {
   for (const token of ["useRouterState", "state.location.pathname", "pathname !== FISHING_REPORTS_DIRECTORY_PATH", "return <Outlet />"]) if (!directoryLazy.includes(token)) failures.push(`Fishing report directory child-route guard missing: ${token}`);
   for (const schema of ['"@type": "CollectionPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"']) if (!directoryRoute.includes(schema)) failures.push(`Directory schema missing: ${schema}`);
   for (const schema of ['"@type": "WebPage"', '"@type": "Article"', '"@type": "BreadcrumbList"']) if (!profileRoute.includes(schema)) failures.push(`Profile schema missing: ${schema}`);
-  if (!profileRoute.includes('freshness === "expired"') || !profileRoute.includes('content: "noindex, follow"')) failures.push("Expired-report indexation protection missing.");
+  if (!profileRoute.includes('freshness === "current" ? undefined : "noindex, follow"')) failures.push("Any non-current report must be noindex.");
   if (!search.includes("FISHING_REPORTS_DIRECTORY_PATH") || !search.includes("fishingReportCanonicalPath(report.slug)")) failures.push("Global report search discovery missing.");
   if (!links.includes("fishingReportCanonicalPath(report.slug)")) failures.push("Canonical report internal-link discovery missing.");
-  if (!sitemap.includes("FISHING_REPORTS_DIRECTORY_PATH") || !sitemapServer.includes('fishingReportFreshness(report) !== "expired"') || !primarySitemap.includes("loadFishingReportSitemapEntriesServer") || !primarySitemap.includes("...fishingReportSitemapEntries")) failures.push("Report sitemap coverage/freshness gating incomplete.");
+  if (!directoryRoute.includes('fishingReportFreshness(entry.report) === "current"')) failures.push("Historical-only report directory must remain noindex.");
+  if (!sitemap.includes("FISHING_REPORTS_DIRECTORY_PATH") || !sitemapServer.includes('fishingReportFreshness(report) === "current"') || !primarySitemap.includes("loadFishingReportSitemapEntriesServer") || !primarySitemap.includes("...fishingReportSitemapEntries")) failures.push("Report sitemap coverage/freshness gating incomplete.");
   if (!publicRoutes.includes('"/fishing/reports"')) failures.push("Report directory missing public-route governance.");
   if (!directoryFn.includes("createServerFn") || !profileFn.includes("createServerFn") || !profileFn.includes("inputValidator")) failures.push("Report server/client boundary incomplete.");
   for (const source of [directoryUi, profileUi, directoryRoute, profileRoute]) if (source.includes('from "@/data/fishing/index"') || source.includes("fixtures") || source.includes("repositories")) failures.push("Fishing report UI/route crosses server data boundary.");
