@@ -1,4 +1,4 @@
-import { appendFileSync } from 'node:fs';
+import { appendFileSync, readFileSync } from 'node:fs';
 import { checkYearSpecificTaxRateRow } from './tax-history-row-contract.mjs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
@@ -277,6 +277,71 @@ const taxHistoryOrigins = [
   ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
 ];
 
+const austinEsd3Ledger = JSON.parse(readFileSync(new URL('../../src/data/property/austin-county-esd3-adopted.json', import.meta.url), 'utf8'));
+
+// Guard the exact published authority page, not just unrelated tax-page samples.
+// Read the versioned local evidence ledger so next year's approved automatic
+// rate refresh remains compatible without hard-coding the 2026 figures.
+async function verifyAustinEsd3Authority() {
+  if (austinEsd3Ledger.unitSlug !== 'austin-county-esd-3') {
+    fail('austin-esd3:ledger', 'wrong independently verified tax-district identity');
+    return;
+  }
+  const current = austinEsd3Ledger.rates.at(-1);
+  if (!current || !Number.isInteger(current.year) || !Number.isFinite(current.totalRate) || !current.resolutionUrl) {
+    fail('austin-esd3:ledger', 'missing newest validated local rate / resolution');
+    return;
+  }
+  const path = '/property-tax/taxing-unit/austin-county-esd-3';
+  const expectedRate = current.totalRate.toFixed(6);
+  const expectedTax100k = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+    .format(1000 * current.totalRate);
+  for (const [target, host] of taxHistoryOrigins) {
+    const label = 'tax-unit:austin-county-esd-3:' + target;
+    try {
+      const { response, body } = await fetchProduction(path, host);
+      const content = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+        .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<[^>]*>/g, ' ').replace(/&nbsp;|&#160;/gi, ' ')
+        .replace(/\s+/g, ' ').trim();
+      const requiredContent = [
+        'Austin County ESD #3 property tax rate',
+        'Official local government record',
+        'adopted tax rate',
+        'How to verify the correct bill',
+        'Official documents and verification',
+        'Annual tax rates, with source distinctions',
+        'Locally adopted, independently sourced',
+        'not a Comptroller workbook',
+        expectedRate,
+        expectedTax100k,
+      ];
+      const requiredHtml = [
+        origin + path,
+        current.resolutionUrl,
+        austinEsd3Ledger.sourceRateTable,
+        austinEsd3Ledger.sourceResolutionIndex,
+        'esearch.austincad.org',
+        'Dataset',
+      ];
+      const missing = [
+        ...requiredContent.filter((value) => !content.includes(value)),
+        ...requiredHtml.filter((value) => !body.includes(value)),
+      ];
+      if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (hasNoindex(body)) fail(label, 'unexpected robots noindex on source-backed authority page');
+      else if (missing.length) fail(label, 'missing sourced adopted-rate authority content: ' + missing.join(', '));
+      else {
+        console.log('[' + label + '] verified live ' + current.year + ' independently adopted rate ' + expectedRate + ', source URLs, parcel guidance, calculations, and indexable canonical');
+        appendSummary('| ✅ pass | ' + label + ' | live ' + current.year + ' adopted ' + expectedRate + '/$100, government sources, parcel and history context, indexable canonical |\n');
+      }
+    } catch (error) {
+      fail(label, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
+
 async function verifySourcedTaxingUnit({ slug, year, rate, agency, latest, zeroCity, conflict, statewideRate }) {
   const path = '/property-tax/taxing-unit/' + slug;
   for (const [target, host] of taxHistoryOrigins) {
@@ -387,6 +452,7 @@ if (!TAX_ONLY) {
   await runWithConcurrency(propertyTaxSamples, verifyPropertyTax);
 }
 await verifyEscobaresTaxingUnit();
+await verifyAustinEsd3Authority();
 await runWithConcurrency(verifiedLocalTaxingUnits, verifySourcedTaxingUnit);
 await verifyWoodlandsClassification();
 await runWithConcurrency(gscFiveHundredTaxingUnits, verifyGscFiveHundredTaxingUnit);
