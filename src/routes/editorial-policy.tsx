@@ -122,7 +122,7 @@ function EditorialPolicyPage() {
               <li><a href="/corrections-policy" className="border-b border-primary text-primary">Corrections Policy</a> — how to report factual errors and source changes.</li>
               <li><Link to="/citation-guide" className="border-b border-primary text-primary">Citation Guide</Link> — how maintained Texas Defined references relate to original sources and canonical URLs.</li>
               <li><Link to="/about" className="border-b border-primary text-primary">About Texas Defined</Link> — publication identity, mission and editorial accountability.</li>
-              <li><Link to="/partner-with-us" className="border-b border-primary text-primary">Contact Texas Defined</Link> — submit a correction, source update or editorial question.</li>
+              <li><Link to="/corrections-policy" className="border-b border-primary text-primary">Contact the editorial desk</Link> — report a correction or firsthand visitor update.</li>
             </ul>
           </section>
         </div>
