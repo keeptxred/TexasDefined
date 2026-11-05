@@ -47,25 +47,55 @@ has(hub, "Fishery labels such as Excellent, Good and Fair summarize longer-term,
 has(hub, "They are not live catch reports", "/fishing");
 has(hub, "Texas Parks", "/fishing");
 has(hub, "Fishing access", "/fishing");
-lacks(hub, "title=\"Fishing reports\"", "/fishing");
-lacks(hub, "title=\"Fishing guides\"", "/fishing");
+has(hub, "Historical fishing reports", "/fishing");
+has(hub, "/fishing/guides", "/fishing");
+has(hub, "/fishing/reports", "/fishing");
 lacks(hub, "then move into lake guides, fish-species pages, seasonal patterns, access, regulations and current reports.", "/fishing");
 assert.ok(/rel=["']canonical["'][^>]*href=["']https:\/\/texasdefined\.com\/fishing["']/.test(hub) ||
           /href=["']https:\/\/texasdefined\.com\/fishing["'][^>]*rel=["']canonical["']/.test(hub),
           "/fishing: canonical link missing or incorrect");
 
 const access = await page("/fishing/access");
-has(access, "Current directory coverage:", "/fishing/access");
+has(access, "Current source-backed coverage:", "/fishing/access");
+const accessText = access.replace(/<!--\s*-->/g, "").replace(/<[^>]+>/g, " ");
+const publishedCoverage = accessText.match(/Current source-backed coverage:\s*([\d,]+)\s*facilities across\s*([\d,]+)\s*Texas lakes/i);
+assert.ok(publishedCoverage, "/fishing/access: expected machine-verifiable live coverage totals");
+const liveFacilities = Number(publishedCoverage[1].replaceAll(",", ""));
+const liveLakes = Number(publishedCoverage[2].replaceAll(",", ""));
+assert.ok(liveLakes >= 20 && liveFacilities >= 100, "/fishing/access: not yet a meaningful statewide inventory");
+for (const sourceBacked of ["Lake Fork", "Lake Buchanan", "Lake Travis", "Lake Waco", "Lake Georgetown"]) has(access, sourceBacked, "/fishing/access");
 for (const name of ["Stubblefield Lake", "Cagle Recreation Area", "Stow-a-way Marina", "Scott", "FM 830 Ramp", "April Plaza Marina", "Pier 105", "Lakeview Marina"]) {
   has(access, name, "/fishing/access");
 }
 lacks(access, "No Access Listings Match These Filters", "/fishing/access");
-noindex(access, "/fishing/access");
+// With 20+ lakes and 100+ source-reviewed facilities, the statewide directory
+// should become indexable; incomplete *individual* facility profiles stay noindex.
+assert.ok(!/<meta\b[^>]*name=["\u0027]robots["\u0027][^>]*content=["\u0027]noindex/i.test(access), "/fishing/access: substantive statewide inventory must not remain noindex");
 
 const facility = await page("/fishing/access/cagle-recreation-area");
 has(facility, "Cagle Recreation Area", "/fishing/access/cagle-recreation-area");
 has(facility, "Texas Parks", "/fishing/access/cagle-recreation-area");
 noindex(facility, "/fishing/access/cagle-recreation-area");
+
+const guides = await page("/fishing/guides");
+has(guides, "Texas Fishing Guides", "/fishing/guides");
+has(guides, "Ray Hunt Lake Conroe Fishing Guide", "/fishing/guides");
+has(guides, "Striper Express", "/fishing/guides");
+lacks(guides, "No fishing guide listings are published yet.", "/fishing/guides");
+
+const guideProfile = await page("/fishing/guides/ray-hunt-lake-conroe-fishing-guide");
+has(guideProfile, "Ray Hunt Lake Conroe Fishing Guide", "/fishing/guides/ray-hunt-lake-conroe-fishing-guide");
+noindex(guideProfile, "/fishing/guides/ray-hunt-lake-conroe-fishing-guide");
+
+const historical = await page("/fishing/reports");
+has(historical, "TPWD weekly fishing reports are currently paused", "/fishing/reports");
+has(historical, "Historical snapshot", "/fishing/reports");
+noindex(historical, "/fishing/reports");
+lacks(historical, "No fishing reports are published yet.", "/fishing/reports");
+
+const archive = await page("/fishing/reports/tpwd-conroe-february-25-2026");
+has(archive, "Lake Conroe fishing report", "/fishing/reports/tpwd-conroe-february-25-2026");
+noindex(archive, "/fishing/reports/tpwd-conroe-february-25-2026");
 
 const bass = await page("/fishing/species/largemouth-bass");
 has(bass, "Largemouth Bass Fishing in Texas", "/fishing/species/largemouth-bass");
@@ -74,4 +104,4 @@ const normalizedBass = bass.replace(/<!--\s*-->/g, "");
 assert.ok(/<strong[^>]*>Spring:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Spring labels");
 assert.ok(/<strong[^>]*>Year-round:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Year-round labels");
 
-console.log(JSON.stringify({ result: "PASS", checks: ["hub copy", "verified dynamic resource links", "canonical", "eight source-backed access facilities", "directory and facility noindex", "human-readable bass season labels"], pages: reports }, null, 2));
+console.log(JSON.stringify({ result: "PASS", coverage: { lakes: liveLakes, facilities: liveFacilities }, checks: ["hub copy", "real directory links", "canonical", "statewide lake and facility coverage", "facility-profile noindex", "verified guide businesses", "historical reports noindex", "human-readable bass seasons"], pages: reports }, null, 2));

@@ -199,7 +199,13 @@ for (const token of ['beforeLoad: ({ location })','getFishingTechniquePathNormal
 for (const token of ['DUPLICATED_FISHING_TECHNIQUE_PREFIX = "/fishing/fishing/techniques/"','fishingTechniqueCanonicalPath(slug)','searchStr || ""','statusCode: 301 as const']) requireText(files.redirects, token, `duplicate fishing technique normalization policy missing ${token}`);
 if (`${files.routing}\n${files.sitemap}\n${files.publicRoutes}`.includes("/fishing/fishing/")) throw new Error("Fishing Batch 13 validation failed: malformed duplicated fishing prefix entered canonical discovery.");
 
-for (const token of ['<Resource href="/fishing/techniques" title="Fishing techniques"','<Resource href="/fishing/seasons" title="Fishing seasons"','Link to="/fishing/lakes"','<Resource href="/fishing/guides" title="Fishing guides"','<Resource href="/fishing/access" title="Fishing access"','<Resource href="/fishing/reports" title="Fishing reports"','fishingFoundationAnchor("lake", lake.slug)','fishingFoundationAnchor("species", fish.slug)',"Featured Texas Fishing Lakes","Full fishing guide","Lake profile"]) requireText(files.hubComponent, token, `live fishing hub discovery contract missing ${token}`);
+for (const token of ['<Resource href="/fishing/techniques" title="Fishing techniques"','<Resource href="/fishing/seasons" title="Fishing seasons"','Link to="/fishing/lakes"','<Resource href="/fishing/guides" title="Fishing guides"','<Resource href="/fishing/access" title="Fishing access"','href="/fishing/reports"','fishingFoundationAnchor("lake", lake.slug)','fishingFoundationAnchor("species", fish.slug)',"Featured Texas Fishing Lakes","Full fishing guide","Lake profile"]) requireText(files.hubComponent, token, `live fishing hub discovery contract missing ${token}`);
+for (const token of [
+  'resourceAvailability.reports ? <Resource href="/fishing/reports"',
+  'title={resourceAvailability.reportsCurrent ? "Fishing reports" : "Historical fishing reports"}',
+  'resourceAvailability.reportsCurrent ? "Read dated fishing reports',
+  'weekly reports are currently on hold',
+]) requireText(files.hubComponent, token, "Fishing report discovery must distinguish fresh reports from historical archives: " + token);
 for (const token of ["FISHING_STRUCTURE_PATH","FISHING_VEGETATION_PATH"]) requireText(files.sitemap, token, "fishing habitat sitemap entry missing " + token);
 for (const token of ['"/fishing/structure"','"/fishing/vegetation"']) requireText(files.publicRoutes, token, "fishing habitat public-route governance missing " + token);
 for (const token of ['<Resource href="/fishing/structure"','<Resource href="/fishing/vegetation"']) requireText(files.hubComponent, token, "fishing habitat hub discovery missing " + token);

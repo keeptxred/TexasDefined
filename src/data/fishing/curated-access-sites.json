@@ -1,0 +1,380 @@
+[
+  {
+    "lakeId": "lake-fork",
+    "lakeName": "Lake Fork",
+    "tpwd": "fork",
+    "facilities": [
+      [
+        "Rains County Ramp & Marina",
+        "boat-ramp"
+      ],
+      [
+        "Lake Fork Resort",
+        "boat-ramp"
+      ],
+      [
+        "Lake Fork Marina",
+        "marina"
+      ],
+      [
+        "Lake Fork Lighthouse",
+        "boat-ramp"
+      ],
+      [
+        "Fisherman's Cove",
+        "boat-ramp"
+      ],
+      [
+        "Pope's Landing",
+        "boat-ramp"
+      ],
+      [
+        "Mustang Resort",
+        "boat-ramp"
+      ],
+      [
+        "Chaney Point RV Park",
+        "boat-ramp"
+      ],
+      [
+        "Quail Hollow",
+        "boat-ramp"
+      ],
+      [
+        "Hide-Away Harbor",
+        "boat-ramp"
+      ],
+      [
+        "SRA Day Use Area",
+        "pier"
+      ],
+      [
+        "Highway 515 East Ramp",
+        "boat-ramp"
+      ],
+      [
+        "Highway 154 Ramp",
+        "boat-ramp"
+      ],
+      [
+        "Minnow Bucket Marina",
+        "marina"
+      ],
+      [
+        "Oak Ridge Marina",
+        "marina"
+      ]
+    ]
+  },
+  {
+    "lakeId": "sam-rayburn-reservoir",
+    "lakeName": "Sam Rayburn Reservoir",
+    "tpwd": "sam_rayburn",
+    "facilities": [
+      [
+        "Marion's Ferry",
+        "boat-ramp"
+      ],
+      [
+        "Etoile Park",
+        "boat-ramp"
+      ],
+      [
+        "Ewing Park",
+        "boat-ramp"
+      ],
+      [
+        "Shirley Creek",
+        "boat-ramp"
+      ],
+      [
+        "McAllister Park",
+        "boat-ramp"
+      ],
+      [
+        "Townsend Park",
+        "boat-ramp"
+      ],
+      [
+        "Jackson Hill",
+        "boat-ramp"
+      ],
+      [
+        "Ayish Bayou",
+        "boat-ramp"
+      ],
+      [
+        "San Augustine Park",
+        "boat-ramp"
+      ],
+      [
+        "Mill Creek Park",
+        "boat-ramp"
+      ],
+      [
+        "Powell Park",
+        "boat-ramp"
+      ],
+      [
+        "Bayou Recreation Area",
+        "boat-ramp"
+      ],
+      [
+        "Rayburn Park",
+        "boat-ramp"
+      ],
+      [
+        "Caney Creek",
+        "boat-ramp"
+      ],
+      [
+        "Sandy Creek",
+        "boat-ramp"
+      ],
+      [
+        "Overlook Park",
+        "boat-ramp"
+      ],
+      [
+        "Public Ramp",
+        "boat-ramp"
+      ],
+      [
+        "Twin Dikes",
+        "boat-ramp"
+      ],
+      [
+        "Hanks Creek",
+        "boat-ramp"
+      ],
+      [
+        "Monterrey Park",
+        "boat-ramp"
+      ],
+      [
+        "Cassells-Boykin",
+        "boat-ramp"
+      ]
+    ]
+  },
+  {
+    "lakeId": "lake-livingston",
+    "lakeName": "Lake Livingston",
+    "tpwd": "livingston",
+    "facilities": [
+      [
+        "Parr's Marina & Camp",
+        "marina"
+      ],
+      [
+        "Cauthan Public Ramp",
+        "boat-ramp"
+      ],
+      [
+        "White Rock City Marina",
+        "marina"
+      ],
+      [
+        "Outback Marina",
+        "marina"
+      ],
+      [
+        "Gallaway's Marina",
+        "marina"
+      ],
+      [
+        "Gilmore's Marina",
+        "marina"
+      ],
+      [
+        "Harbor's Point",
+        "boat-ramp"
+      ],
+      [
+        "Riverside Public Ramp",
+        "boat-ramp"
+      ],
+      [
+        "Bethy Creek Resort",
+        "boat-ramp"
+      ],
+      [
+        "Cove Marina & Camp",
+        "marina"
+      ],
+      [
+        "Waterwood RV Park",
+        "boat-ramp"
+      ],
+      [
+        "Lakeside Resort",
+        "boat-ramp"
+      ],
+      [
+        "Fair Four Seasons",
+        "boat-ramp"
+      ],
+      [
+        "Vince's Marina/RV Park",
+        "marina"
+      ],
+      [
+        "Kickapoo Marina",
+        "marina"
+      ],
+      [
+        "Sandy Creek Marina",
+        "marina"
+      ],
+      [
+        "Scenic Cove Marina",
+        "marina"
+      ],
+      [
+        "Patrick's Ferry",
+        "boat-ramp"
+      ]
+    ]
+  },
+  {
+    "lakeId": "lake-texoma",
+    "lakeName": "Lake Texoma",
+    "tpwd": "texoma",
+    "facilities": [
+      [
+        "Texoma Marina & Resort",
+        "marina"
+      ],
+      [
+        "Rock Creek Marina & Resort",
+        "marina"
+      ],
+      [
+        "Cedar Bayou",
+        "boat-ramp"
+      ],
+      [
+        "Juniper Point West",
+        "boat-ramp"
+      ],
+      [
+        "Juniper Point East",
+        "boat-ramp"
+      ],
+      [
+        "Cedar Mills Resort",
+        "boat-ramp"
+      ],
+      [
+        "Walnut Creek Marina",
+        "marina"
+      ],
+      [
+        "Big Mineral Camp",
+        "boat-ramp"
+      ],
+      [
+        "Flowing Wells Resort",
+        "boat-ramp"
+      ],
+      [
+        "Paradise Cove",
+        "boat-ramp"
+      ],
+      [
+        "Mill Creek Marina",
+        "marina"
+      ],
+      [
+        "Highport Resort",
+        "boat-ramp"
+      ],
+      [
+        "Lighthouse Resort",
+        "boat-ramp"
+      ],
+      [
+        "Little Mineral Marina",
+        "marina"
+      ],
+      [
+        "Preston Recreation Area",
+        "boat-ramp"
+      ],
+      [
+        "Grandpappy Point",
+        "boat-ramp"
+      ],
+      [
+        "Eisenhower State Park",
+        "boat-ramp"
+      ],
+      [
+        "Dam Site Park",
+        "boat-ramp"
+      ]
+    ]
+  },
+  {
+    "lakeId": "lake-buchanan",
+    "lakeName": "Lake Buchanan",
+    "tpwd": "buchanan",
+    "facilities": [
+      [
+        "Buchanan Dam",
+        "boat-ramp"
+      ],
+      [
+        "Burnet County Park",
+        "boat-ramp"
+      ],
+      [
+        "Thunderbird Lodge",
+        "boat-ramp"
+      ],
+      [
+        "Canyon of the Eagles",
+        "pier"
+      ],
+      [
+        "Cedar Point",
+        "boat-ramp"
+      ],
+      [
+        "Llano County/Blackrock Park",
+        "boat-ramp"
+      ]
+    ]
+  },
+  {
+    "lakeId": "lake-travis",
+    "lakeName": "Lake Travis",
+    "tpwd": "travis",
+    "facilities": [
+      [
+        "Pace Bend/Collier Cove",
+        "shore"
+      ],
+      [
+        "Pace Bend/Tatum Cove",
+        "shore"
+      ],
+      [
+        "Arkansas Bend",
+        "shore"
+      ],
+      [
+        "Mansfield Dam Park",
+        "boat-ramp"
+      ],
+      [
+        "Bob Wentz at Windy Point",
+        "shore"
+      ],
+      [
+        "Cypress Creek",
+        "shore"
+      ]
+    ]
+  }
+]

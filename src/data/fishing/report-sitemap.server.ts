@@ -13,7 +13,7 @@ export async function loadFishingReportSitemapEntriesServer() {
     fishingPlatform.lakeSpecies.list(fishingScope),
   ]);
   const context = { lakes, species, guides, lakeSpecies };
-  const validReports = reports.filter((report) => isPublicFishingReportValid(report, context) && fishingReportFreshness(report) !== "expired");
+  const validReports = reports.filter((report) => isPublicFishingReportValid(report, context) && fishingReportFreshness(report) === "current");
   // Advertise only reports sections with an independently validated,
   // unexpired published report. The matching empty route retains noindex.
   const qualifiedLakeIds = new Set(validReports.map((report) => report.lakeId));
