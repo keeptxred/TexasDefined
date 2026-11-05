@@ -137,5 +137,127 @@
     ],
     "url": "https://raysstriperguideservice.com/",
     "summary": "Lake Buchanan striped-bass guide business listed by the Lake Buchanan Conservation Corporation and identified by its operator."
+  },
+  {
+    "slug": "chad-ferguson-north-texas-catfish-guide",
+    "businessName": "North Texas Catfish Guide Service",
+    "guideName": "Chad Ferguson",
+    "lakeId": "eagle-mountain-lake",
+    "species": [
+      "catfish"
+    ],
+    "url": "https://www.txcatfishguide.com/",
+    "phone": "817-522-3804",
+    "summary": "Chad Ferguson's first-party site offers guided catfish trips based at Eagle Mountain Lake, with alternative North Texas waters available only on request."
+  },
+  {
+    "slug": "reel-fishing-richland-chambers-hybrids",
+    "businessName": "Reel Fishing Guide Service",
+    "lakeId": "richland-chambers-reservoir",
+    "species": [
+      "hybrid-striped-bass"
+    ],
+    "url": "https://reelfishingtx.com/",
+    "phone": "512-368-1788",
+    "summary": "Richland-Chambers guide operator specializing in hybrid striped bass from a Blazer Bay boat, with bait and gear supplied as described by the business."
+  },
+  {
+    "slug": "pat-small-whitney-striper-guide",
+    "businessName": "Lake Whitney Striper Fishing Guide Service",
+    "guideName": "Pat Small",
+    "lakeId": "lake-whitney",
+    "species": [
+      "striped-bass"
+    ],
+    "url": "https://lakewhitneystriperfishing.com/",
+    "phone": "254-266-0543",
+    "summary": "Pat Small's Lake Whitney striper trips focus on artificial-bait fishing, with tackle, boat equipment and trip arrangements described on the operator's website."
+  },
+  {
+    "slug": "big-bite-lake-whitney-guide",
+    "businessName": "Big Bite Guide Service",
+    "lakeId": "lake-whitney",
+    "species": [
+      "striped-bass",
+      "catfish"
+    ],
+    "url": "https://striperfishinglakewhitney.com/",
+    "phone": "682-459-7057",
+    "summary": "Lake Whitney guide offering separate striped-bass and catfish outings as well as optional electronics lessons, based on its own operator information."
+  },
+  {
+    "slug": "family-style-possum-kingdom",
+    "businessName": "Family Style Guide Service",
+    "guideName": "Randy and Connor Wood",
+    "lakeId": "possum-kingdom-reservoir",
+    "species": [
+      "striped-bass",
+      "catfish"
+    ],
+    "url": "https://www.familystyleguide.com/",
+    "summary": "Father-and-son Possum Kingdom Lake fishing guide operation offering family-friendly trips with bait, tackle, boat and fish-cleaning services described on its website."
+  },
+  {
+    "slug": "tc-guide-belton-hybrids",
+    "businessName": "T C Fishing Guide Service",
+    "guideName": "Tommy Cochran",
+    "lakeId": "belton-lake",
+    "species": [
+      "hybrid-striped-bass",
+      "white-bass"
+    ],
+    "url": "https://tcfishingguide.com/",
+    "phone": "254-760-0107",
+    "summary": "Belton Lake guide business led by Tommy Cochran, specializing in hybrid striped bass and white bass trips according to its first-party site."
+  },
+  {
+    "slug": "all-about-stripes-belton",
+    "businessName": "All About Stripes Guide Service",
+    "guideName": "Jeff Smith",
+    "lakeId": "belton-lake",
+    "species": [
+      "hybrid-striped-bass",
+      "striped-bass"
+    ],
+    "url": "https://www.allaboutstripes.com/",
+    "phone": "254-913-6733",
+    "summary": "Jeff Smith offers Belton Lake hybrid striper fishing and Lake Whitney striper trips; the guide website describes half-day and group outings and equipment."
+  },
+  {
+    "slug": "hook-set-belton-guide",
+    "businessName": "Hook Set Guide Service",
+    "guideName": "Charles Howard",
+    "lakeId": "belton-lake",
+    "species": [
+      "hybrid-striped-bass",
+      "white-bass"
+    ],
+    "url": "https://www.hooksetguideservice.com/",
+    "phone": "254-644-1441",
+    "summary": "Lake Belton guide operator Charles Howard offers boat trips targeting hybrid striped bass and white bass with fishing equipment supplied, as stated on his website."
+  },
+  {
+    "slug": "atx-fishing-travis-bass",
+    "businessName": "ATX Fishing Guide Service",
+    "guideName": "Carson Conklin",
+    "lakeId": "lake-travis",
+    "species": [
+      "largemouth-bass"
+    ],
+    "url": "https://www.atxfishing.com/",
+    "phone": "512-970-5001",
+    "summary": "Austin-area bass guide operator advertising trips on Lake Travis, Lake Austin and Lady Bird Lake; this listing connects only the verified Lake Travis relationship."
+  },
+  {
+    "slug": "brent-hodges-possum-kingdom",
+    "businessName": "Possum Kingdom Fishing Guide",
+    "guideName": "Brent Hodges",
+    "lakeId": "possum-kingdom-reservoir",
+    "species": [
+      "striped-bass"
+    ],
+    "url": "https://possumkingdomfishingguide.com/",
+    "phone": "830-351-4052",
+    "summary": "Brent Hodges' Possum Kingdom Lake guide service describes guided striper trips using fly and conventional fishing methods with gear provided."
   }
 ]
