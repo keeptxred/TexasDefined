@@ -140,10 +140,13 @@ export async function archivedAssetResponse(request, namespace) {
 }
 
 /**
- * Worker-first static asset adapter. The production routing configuration must
- * explicitly opt in to `/assets/*`; this function NEVER changes Worker routing.
- * A current asset, or even an upstream 5xx, takes precedence over the archive.
- * Only a genuine 404 may consult old immutable bytes. No HTML, API or images.
+ * Asset-first missing-hash fallback adapter. Cloudflare serves current static
+ * assets directly and invokes the Worker only when no matching static asset
+ * exists. DO NOT enable run_worker_first for /assets/*: that would divert
+ * healthy JS/CSS traffic into Worker billing and free-tier limits.
+ * If invoked for an absent hash, this adapter asks ASSETS.fetch() first;
+ * only a genuine 404 may consult original bytes in the KV archive.
+ * A current asset or upstream 5xx always wins. No HTML, API or images.
  */
 export async function serveHashedAssetWithArchive(request, assets, namespace) {
   if (!['GET', 'HEAD'].includes(request?.method)) return null;
