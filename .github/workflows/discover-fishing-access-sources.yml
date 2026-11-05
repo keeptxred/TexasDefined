@@ -1,0 +1,61 @@
+name: Discover next TPWD fishing access sources
+
+on:
+  schedule:
+    - cron: '17 14 * * 2,5'
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: 'Optional zero-based batch index; blank rotates'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: fishing-access-source-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect bounded TPWD candidate batch
+        id: discover
+        continue-on-error: true
+        env:
+          FISHING_DISCOVERY_BATCH: ${{ inputs.batch }}
+        run: node scripts/ci/discover-fishing-access-sources.mjs
+      - name: Preserve source evidence and unverified candidates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-access-discovery-${{ github.run_number }}
+          path: |
+            .artifacts/fishing-access-discovery.json
+            .artifacts/fishing-access-discovery.md
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Keep discovery backlog in GitHub
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test -s .artifacts/fishing-access-discovery.md || exit 1
+          issue=$(gh issue list --state open --search 'Fishing statewide source discovery backlog in:title' --json number --jq '.[0].number // empty')
+          body="$(cat .artifacts/fishing-access-discovery.md)
+
+          Evidence artifact: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_number }}"
+          if [ -n "$issue" ]; then gh issue comment "$issue" --body "$body";
+          else gh issue create --title 'Fishing statewide source discovery backlog' --body "$body";
+          fi
+      - name: Preserve unresolved source failures
+        if: steps.discover.outcome == 'failure'
+        run: exit 1

@@ -30,7 +30,7 @@ async function check(url, names = [], textHints = []) {
   }
 }
 for (const lake of access) {
-  await check("https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" + lake.tpwd + "/access.phtml", lake.facilities.map(([name]) => name), ["Public Access Facilities"]);
+  await check("https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" + lake.tpwd + "/" + (lake.sourcePage ?? "access.phtml"), lake.facilities.map(([name]) => name), ["Public Access Facilities"]);
 }
 // Recheck already-researched lake-access dossiers without inventing or restamping facts.
 const seeded = new Set(["lake-conroe", ...access.map((lake) => lake.lakeId)]);
