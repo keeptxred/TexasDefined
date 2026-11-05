@@ -8,6 +8,8 @@ const route = read("src/routes/best-places-to-go-camping-in-texas.tsx");
 const page = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
 const destinationGuides = read("src/data/camping/destination-guides.ts");
 const petRules = read("src/data/camping/pet-policies.ts");
+const operatorUpdates = read("src/data/camping/operator-source-updates.ts");
+const officialOperatorUpdates = JSON.parse(read("src/data/camping/operator-source-reviews.json"));
 const profileWave2 = read("src/data/camping/profiles-wave2.ts");
 const profileWave3 = read("src/data/camping/profiles-wave3.ts");
 const profileWave4 = read("src/data/camping/profiles-wave4.ts");
@@ -81,6 +83,13 @@ requireText(component, "hasCampingDestinationGuide", "campground canonical desti
 requireText(component, "hasDestinationGuide", "campground destination-link guard");
 requireText(route, "hasCampingDestinationGuide(profile.destinationSlug)", "campground structured-data destination guard");
 requireText(route, "withResearchedCampingPetPolicy(profile)", "apply source-backed pet rules to every discovered campground");
+requireText(route, "withCampingOperatorNotice(withResearchedCampingPetPolicy(profile))", "apply researched operator conditions to every campground profile");
+requireText(component, "profile.operatorNoticeSourceUrl", "show operator-specific current condition source");
+requireText(component, "profile.operatorNoticeReviewedAt", "keep dated operator updates separate from campsite facilities");
+requireText(operatorUpdates, 'operator-source-reviews.json', "traceable operator-source evidence");
+if (officialOperatorUpdates.length !== 5 || new Set(officialOperatorUpdates.map(item => item.sourceUrl)).size !== 5 ||
+    officialOperatorUpdates.some(item => !item.notice || !item.reviewedAt || item.requiredSourceText.length < 3))
+  failures.push("five source-reviewed park condition records are required");
 requireText(component, "profile.petPolicySourceUrl", "link operator pet restrictions at profile level");
 requireText(component, "profile.petPolicyResearchedAt", "pet research provenance separate from campground facility verification");
 for (const marker of ["CAMPING_PET_POLICY_RESEARCHED_AT", "CAMPING_TPWD_PET_RULES_URL", "government-canyon-state-natural-area", "seminole-canyon-state-park-and-historic-site", "enchanted-rock-state-natural-area", "inks-lake-state-park", "big-bend-national-park", "guadalupe-mountains-national-park", "padre-island-national-seashore", "cedar-breaks-park-lake-georgetown", "russell-park-lake-georgetown", "withResearchedCampingPetPolicy"]) {
