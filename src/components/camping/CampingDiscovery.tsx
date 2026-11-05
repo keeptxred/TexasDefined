@@ -287,7 +287,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
           })}
         </div>
         <p className="mt-3 text-sm text-muted-foreground" aria-live="polite">{filtered.length} matching campground profiles after your filters. <a className="font-semibold text-primary underline-offset-4 hover:underline" href="#camping-results">See results ↓</a></p>
-        <p className="mt-2 max-w-4xl text-xs leading-6 text-muted-foreground"><strong>Pet friendly is a verified-only filter, not a list of every park that accepts pets.</strong> An absent pet tag means we have not verified that profile's policy, not that pets are prohibited. Rules can differ for primitive areas, trails and individual campsites; check the managing agency's current rules before traveling.</p>
+        <p className="mt-2 max-w-4xl text-xs leading-6 text-muted-foreground"><strong>Pet friendly is a verified-only filter, not a list of every park that accepts pets.</strong> Eligibility means an agency rule or campsite source supports pet access in at least one relevant camping area; it does not mean pets are permitted at every loop, cabin, trail or swimming area. An absent tag means we have not verified that profile's policy, not that pets are prohibited. Read each profile's specific restrictions and confirm the booked site.</p>
       </div>
 
       <div className="mt-6 border-t border-border pt-6">
@@ -406,7 +406,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             <div><dt className="font-semibold">Camping styles</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.styles.map((style) => styleLabels[style]).join(" · ")}</dd></div>
             {comparisonAmenityGroups.map((group) => <div key={group.label}><dt className="font-semibold">{group.label}</dt><dd className="mt-1 leading-6 text-muted-foreground">{verifiedAmenityText(profile, group.amenities)}</dd></div>)}
             <div><dt className="font-semibold">Accessibility</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.includes("ada-site") ? "Accessible campsite feature verified" : "Not verified in this guide"}</dd></div>
-            <div><dt className="font-semibold">Pet policy</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.includes("pets") ? "Pet-friendly camping verified" : "Not verified in this guide"}</dd></div>
+            <div><dt className="font-semibold">Pet policy</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.petPolicy ?? (profile.amenities.includes("pets") ? "Pet access is documented for some campsites; check the official operator source" : "Not verified in this guide")}</dd>{profile.petPolicySourceUrl ? <dd className="mt-1"><a href={profile.petPolicySourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official pet rules ↗</a></dd> : null}</div>
             <div><dt className="font-semibold">Managed by</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.managingAgency}</dd></div>
             <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
             {profile.planningDetail ? <div><dt className="font-semibold">Planning detail</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.planningDetail}</dd></div> : null}
@@ -457,6 +457,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               <dl className="mt-3 space-y-4 text-sm">
                         <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
               <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
+              {profile.petPolicy ? <div><dt className="font-semibold">Pet restrictions</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.petPolicy}{profile.petPolicySourceUrl ? <> · <a href={profile.petPolicySourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official pet rules ↗</a></> : null}{profile.petPolicyResearchedAt ? <span className="block text-xs">Policy researched {profile.petPolicyResearchedAt}; verify before travel.</span> : null}</dd></div> : null}
               {profile.planningDetail ? <div><dt className="font-semibold">Planning detail</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.planningDetail}</dd></div> : null}
               {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
               {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
