@@ -256,3 +256,20 @@ test('publisher rejects forged missing or invalid firstSeenAt metadata without w
     readOriginalBytes:async()=>body}),/Existing archive metadata conflicts/);
   assert.equal(puts,0);
 });
+
+test('immutable archive survives multi-year cached browser versions without resetting first-seen',()=>{
+  const p='/assets/main-ABCDEFGH.js';
+  const first=Date.parse('2020-01-01T00:00:00Z');
+  const later=Date.parse('2026-11-05T12:00:00Z');
+  const historic=record(p,'unchanged original',first,first);
+  const reused=record(p,'unchanged original',later,later);
+  const proof=verifyArchiveRecord({...historic,lastObservedAt:iso(later)},later);
+  assert.equal(proof.firstSeenAt,iso(first));
+  assert.equal(proof.lastObservedAt,iso(later));
+  const plan=planImmutablePublication({stored:[historic],incoming:[reused],now:later});
+  assert.equal(plan.newWrites,0);
+  assert.equal(plan.allRecords[0].firstSeenAt,iso(first));
+  assert.equal(plan.allRecords[0].lastObservedAt,iso(later));
+  assert.throws(()=>verifyArchiveRecord({...historic,lastObservedAt:iso(first-1000)},later),
+    /Invalid original observation window/);
+});
