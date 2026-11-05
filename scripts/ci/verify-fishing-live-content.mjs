@@ -43,9 +43,11 @@ function noindex(body, path) {
 }
 
 const hub = await page("/fishing");
-has(hub, "Fishery labels such as Excellent, Good and Fair summarize longer-term, source-backed", "/fishing");
-has(hub, "They are not live catch reports", "/fishing");
+has(hub, "Fishery labels such as Excellent, Good and Fair are qualitative", "/fishing");
+has(hub, "not measured catch probabilities, live bite reports or guarantees", "/fishing");
 has(hub, "Texas Parks", "/fishing");
+has(hub, "How we research Texas fishing", "/fishing");
+has(hub, "Read our corrections policy and send an update", "/fishing");
 has(hub, "Fishing access", "/fishing");
 has(hub, "Historical fishing reports", "/fishing");
 has(hub, "/fishing/guides", "/fishing");
