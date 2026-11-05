@@ -4,7 +4,6 @@ import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/
 import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
 import { texasEventDateKey } from "./event-occurrence-lifecycle";
 import { fetchPublishedTexasEvents } from "./events-remote";
-import { selectHomepageEvents } from "@/lib/homepage-events";
 import { supplementalExploreCategories } from "./explore-categories";
 import { isArticleDiscoveryReady } from "./fixtures/texas-gateway-index-readiness";
 import { guideIsAvailable } from "./guide-links";
@@ -153,7 +152,8 @@ export const homepageEventsQuery = () => queryOptions({
   queryKey: ["homepage-events", scope.brandId],
   staleTime: 15 * 60 * 1000,
   queryFn: async () => {
-    const [majorEvents, published, fixture] = await Promise.all([
+    const [selectHomepageEvents, majorEvents, published, fixture] = await Promise.all([
+      import("@/lib/homepage-events").then((module) => module.selectHomepageEvents),
       import("./major-event-index").then((module) => module.verifiedMajorEventOccurrences),
       fetchPublishedTexasEvents(50).catch(() => []),
       loadPlatform().then((platform) => platform.events.list({ ...scope, limit: 50 })).catch(() => []),
