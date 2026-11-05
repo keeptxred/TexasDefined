@@ -12,7 +12,7 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 // Each card's occurrence dates and eligibility remain governed by verified sources.
 const permanentEventBlurbs: Readonly<Record<string, string>> = {
   "texas-renaissance-festival": "A costumed festival near Todd Mission with themed performances, artisans and food. It operates on selected season dates, so check the organizer's daily calendar.",
-  "casi-terlingua-international-chili-championship": "Terlingua's desert chili championship brings cooks and judges together at Rancho CASI de los Chisos. Check the organizer for the daily program and visitor information.",
+  "terlingua-international-chili-championship": "At Rancho CASI de los Chisos near Terlingua, championship chili cookoffs share the schedule with live music, dancing and other public activities. The organizer lists daily programs and gate wristbands; check both before traveling.",
   "wurstfest": "New Braunfels' German-Texan festival brings food, live music and dancing together over several days. Check the official schedule before choosing a visit.",
   "texas-capital-air-show": "Watch flying performances and explore modern and historic aircraft displays at San Marcos Airport. Check official flight times, parking and tickets.",
   "austin-celtic-festival": "Traditional Celtic music, dance, Highland Games and workshops fill Pioneer Farms in North Austin. Check official ticketing and workshop schedules.",
@@ -47,6 +47,11 @@ function usableEvent(event: TexasEvent, today: string, maxSourceAgeDays: number)
   const start = isoDay(event.startDate);
   const end = isoDay(event.endDate || event.startDate);
   const verified = isoDay(event.sourceCheckedAt);
+  // The statewide index has some deliberately generic research placeholders.
+  // Only put those on the homepage once a verified, event-specific description
+  // exists. A shorter useful event lineup is better than fabricated detail.
+  const key = event.slug.replace(/-\d{4}-\d{2}-\d{2}$/, "");
+  if (event.blurb?.startsWith("Major annual event in ") && !permanentEventBlurbs[key]) return false;
   if (!start || !end || !verified || end < start || end < today || verified > today) return false;
   if ((Date.parse(today + "T00:00:00Z") - Date.parse(verified + "T00:00:00Z")) / DAY_MS > maxSourceAgeDays) return false;
   try {

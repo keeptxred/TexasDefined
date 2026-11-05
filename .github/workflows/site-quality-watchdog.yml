@@ -27,6 +27,11 @@ jobs:
 
       - run: npm ci
 
+      - name: Validate homepage editorial diversity and concision
+        run: |
+          node --experimental-strip-types --test scripts/data/homepage-editorial.test.mjs
+          node scripts/data/validate-homepage-seo.mjs
+
       - name: Run recurring site quality audit
         id: quality
         continue-on-error: true

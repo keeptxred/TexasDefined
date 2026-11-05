@@ -73,3 +73,33 @@ test("homepage substitutes specific, evergreen details for known major-event boi
   assert.match(selected[0].blurb, /Celtic music.*Highland Games/);
   assert.doesNotMatch(selected[0].blurb, /Major annual event/);
 });
+
+
+test("CASI Terlingua uses its actual authority-record slug and source-specific visitor details", () => {
+  const selected = selectHomepageEvents([
+    event("CASI Terlingua International Chili Championship", "2026-11-03", "2026-11-07", {
+      slug: "terlingua-international-chili-championship",
+      city: "Terlingua",
+      blurb: "Major annual event in Terlingua. Confirm current details with organizer.",
+      officialUrl: "https://www.casichili.net/ticc-home-page.html",
+      sourceCheckedAt: "2026-08-27",
+    }),
+  ], { today: date });
+  assert.equal(selected.length, 1);
+  assert.match(selected[0].blurb, /Rancho CASI de los Chisos/);
+  assert.match(selected[0].blurb, /gate wristbands/);
+  assert.doesNotMatch(selected[0].blurb, /Major annual event/);
+});
+
+test("unresearched major-event boilerplate does not occupy homepage slots", () => {
+  const selected = selectHomepageEvents([
+    event("Unresearched annual festival", "2026-11-06", "2026-11-09", {
+      slug: "unresearched-festival",
+      blurb: "Major annual event in Houston. Confirm current details with organizer.",
+    }),
+    event("Source-described festival", "2026-11-07", "2026-11-08", {
+      blurb: "A local November event with venue details and organizer confirmation.",
+    }),
+  ], { today: date });
+  assert.deepEqual(selected.map((entry) => entry.name), ["Source-described festival"]);
+});

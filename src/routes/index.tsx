@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { articlesQuery, destinationsQuery, homepageEventsQuery, guidesQuery, regionsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+import { selectHomepageEditorPicks } from "@/lib/homepage-editorial";
 
 const pageTitle = "Texas Travel, Culture & Practical Living Guides";
 const description = "Stories, places and practical advice for making the most of life in Texas — from two-lane roads and swimming holes to barbecue, homes and small-town weekends.";
@@ -25,11 +26,13 @@ export const Route = createFileRoute("/")({
   },
   head: ({ loaderData }) => {
     const featured = loaderData?.featured ?? [];
+    const latest = loaderData?.latest ?? [];
+    const selectedArticles = [...featured.slice(0, 1), ...selectHomepageEditorPicks(featured, latest)];
     const destinations = loaderData?.destinations ?? [];
     const heroImage = featured[0]?.hero?.src;
     const homepageDestinations = destinations.some((item) => item.featured) ? destinations.filter((item) => item.featured).slice(0, 4) : destinations.slice(0, 4);
     const curatedItems = [
-      ...featured.slice(0, 4).map((article) => ({ "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) })),
+      ...selectedArticles.map((article) => ({ "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) })),
       ...homepageDestinations.map((destination) => ({ "@type": "TouristAttraction", name: destination.name, description: destination.summary, url: `${siteUrl}/destination/${destination.slug}`, image: absoluteUrl(texasDefinedBrand, destination.hero.src), sameAs: destination.officialUrl, dateModified: destination.sourceCheckedAt, provider: destination.managingAuthority ? { "@type": "Organization", name: destination.managingAuthority } : undefined })),
     ];
     const structuredData = { "@context": "https://schema.org", "@graph": [
