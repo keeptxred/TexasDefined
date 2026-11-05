@@ -143,6 +143,27 @@ export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({
       .filter((event) => (event.endDate || event.startDate) >= today);
   },
 });
+/**
+ * Homepage is a separately curated surface, not a limit=4 slice of a generated
+ * feed that only contains three published rows this season. Keep official
+ * organizer checks as the gate; no invented event dates or recurring rollovers.
+ */
+export const homepageEventsQuery = () => queryOptions({
+  queryKey: ["homepage-events", scope.brandId],
+  staleTime: 15 * 60 * 1000,
+  queryFn: async () => {
+    const [selectHomepageEvents, majorEvents, published, fixture] = await Promise.all([
+      import("@/lib/homepage-events").then((module) => module.selectHomepageEvents),
+      import("./major-event-index").then((module) => module.verifiedMajorEventOccurrences),
+      fetchPublishedTexasEvents(50).catch(() => []),
+      loadPlatform().then((platform) => platform.events.list({ ...scope, limit: 50 })).catch(() => []),
+    ]);
+    return selectHomepageEvents(
+      [...published, ...majorEvents, ...fixture],
+      { today: texasEventDateKey(), limit: 6 },
+    );
+  },
+});
 export const categoriesQuery = () => queryOptions({
   queryKey: ["categories", scope.brandId],
   queryFn: async () => {

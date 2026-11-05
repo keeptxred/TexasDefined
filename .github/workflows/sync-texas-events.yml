@@ -69,6 +69,13 @@ jobs:
         with:
           node-version: "22"
 
+      # Homepage event cards derive from this same daily source-controlled event
+      # refresh; no second scheduler, no arbitrary seasonal date rollovers.
+      - name: Verify homepage selection, freshness and SEO contracts
+        run: |
+          node --experimental-strip-types --test scripts/data/homepage-events.test.mjs
+          node scripts/data/validate-homepage-seo.mjs
+
       # Reuse the governed daily events job. Investigate source drift instead of
       # modifying published event dates based on brittle HTML or stale seasons.
       - name: Validate November collection and date-source safety contracts
