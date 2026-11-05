@@ -10,6 +10,8 @@ export const BATCH013_DALLAS_FIVE_SLUGS = new Set(['dallas-a','dallas-adams','da
 
 export const BATCH013_FINAL_SIX_FIRST_THREE = new Set(['dallas-highland-park','dallas-hillcrest','dallas-jefferson']);
 
+export const BATCH013_FINAL_THREE = new Set(['dallas-gateway-charter-academy','dallas-hutchins','dallas-jesuit']);
+
 export async function loadBatch013FootballProgramEditorial(slug: string): Promise<FootballProgramEditorial | undefined> {
   if (BATCH013_AUTHORED_SLUGS.has(slug)) {
     const { getBatch013FootballProgramEditorial } = await import('./program-editorial-b013');
@@ -30,6 +32,10 @@ export async function loadBatch013FootballProgramEditorial(slug: string): Promis
   if (BATCH013_FINAL_SIX_FIRST_THREE.has(slug)) {
     const { getBatch013FinalSixFirstThreeEditorial } = await import('./program-editorial-b013-group5');
     return getBatch013FinalSixFirstThreeEditorial(slug);
+  }
+  if (BATCH013_FINAL_THREE.has(slug)) {
+    const { getBatch013FinalThreeEditorial } = await import('./program-editorial-b013-group6');
+    return getBatch013FinalThreeEditorial(slug);
   }
   return undefined;
 }
