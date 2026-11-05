@@ -22,7 +22,8 @@ for (const feature of [
   '"@type": "WebPage"',
   '"@type": "ItemList"',
   'numberOfItems: curatedItems.length',
-  'featured.slice(0, 4)',
+  'selectHomepageEditorPicks(featured, latest)',
+  '...selectedArticles.map((article) =>',
   'destinations.filter((item) => item.featured).slice(0, 4)',
   '`${siteUrl}/article/${article.slug}`',
   '`${siteUrl}/destination/${destination.slug}`',
@@ -83,6 +84,25 @@ if (!route.includes('homepageEventsQuery()')) {
 if (route.includes('eventsQuery({ limit: 4 })')) {
   errors.push('Homepage must not cap the stale three-row generated feed at four events.');
 }
+// Keep editorial diversity and the shorter reader journey protected,
+// while retaining discoverable links to evergreen and regional guides.
+for (const feature of [
+  'selectHomepageEditorPicks(featured, latest)',
+  'selectHomepageMoreStories(latest, featured, editorPicks)',
+  'popularTexasSearches.slice(0, 8)',
+  'popularTexasSearches.slice(8)',
+  '<details className=',
+  'uniqueLatest.map((article)',
+]) {
+  if (!lazyRoute.includes(feature)) errors.push('Homepage compact editorial layout missing: ' + feature);
+}
+if (lazyRoute.includes('uniqueLatest.slice(0, 8)') || lazyRoute.includes('Need a Texas answer, not another destination?')) {
+  errors.push('Homepage must not restore duplicate story grid or redundant Start Here band.');
+}
+if (!lazyRoute.includes('Texas Resources &amp; State Agencies — Open Start Here →')) {
+  errors.push('Resources CTA must remain accessible inside compact guide section.');
+}
+
 
 for (const feature of [
   'contactPoint: [{',
