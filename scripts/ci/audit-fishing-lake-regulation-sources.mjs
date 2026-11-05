@@ -19,7 +19,7 @@ const dossiers = JSON.parse(match[1]);
 const all = Object.entries(dossiers).map(([slug, research]) => {
   const urls = research.regulations.map((item) => item.sourceUrl);
   const url = urls.find((candidate) => /\/fishboat\/fish\/action\/fishregs2\.php\?water=\d+/.test(candidate))
-    || urls.find((candidate) => /\/fishboat\/fish\/recreational\/lakes\/[a-z0-9_]+\/?$/i.test(candidate));
+    || urls.find((candidate) => /\/fishboat\/fish\/recreational\/lakes\/[a-z0-9_]+\/(?:index\.phtml)?$/i.test(candidate));
   if (!url) throw new Error(slug + ": missing lake-specific first-party TPWD fisheries/regulations source");
   const parsed = new URL(url);
   if (parsed.protocol !== "https:" || parsed.hostname !== "tpwd.texas.gov")
