@@ -11,6 +11,7 @@ import { Container } from "@/components/layout/Container";
 import { homepageEntryPoints } from "@/content/homepage";
 import { articlesQuery, destinationsQuery, homepageEventsQuery, guidesQuery, regionsQuery } from "@/data/queries";
 import { formatReadingTime } from "@/domain/utils/format";
+import { selectHomepageEditorPicks, selectHomepageMoreStories } from "@/lib/homepage-editorial";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 
 const HOMEPAGE_DESTINATION_LIMIT = 24;
@@ -53,9 +54,8 @@ function HomePage() {
   const { data: guides } = useSuspenseQuery(guidesQuery());
   const { data: events } = useSuspenseQuery(homepageEventsQuery());
   const hero = featured[0];
-  const editorPicks = featured.slice(1, 4);
-  const featuredArticleIds = new Set(featured.map((article) => article.id));
-  const uniqueLatest = latest.filter((article) => !featuredArticleIds.has(article.id));
+  const editorPicks = selectHomepageEditorPicks(featured, latest);
+  const uniqueLatest = selectHomepageMoreStories(latest, featured, editorPicks);
   const explicitlyFeatured = destinations.filter((item) => item.featured);
   const featuredDestinations = (explicitlyFeatured.length ? explicitlyFeatured : destinations).slice(0, 4);
   const featuredIds = new Set(featuredDestinations.map((item) => item.id));
@@ -91,9 +91,39 @@ function HomePage() {
     <Section tone="surface"><Container><SectionHeader eyebrow="Texas sports travel" title="Make game day part of the trip" description="Start with a statewide venue directory, then narrow the trip by market or sport and open the individual venue guide for visitor-planning details." actionLabel="Browse all sports venues" actionTo="/sports-venues" /><ul className="mt-10 grid gap-0 border-y border-border sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-border">{sportsTravelPicks.map((pick, index) => <li key={pick.to} className={`${index > 0 ? "border-t border-border sm:border-t-0" : ""} ${index >= 2 ? "sm:border-t sm:border-border lg:border-t-0" : ""}`}><Link to={pick.to} className="group block h-full px-1 py-7 sm:px-5 lg:px-6"><p className="eyebrow text-primary">{pick.eyebrow}</p><h2 className="mt-3 font-display text-2xl leading-tight transition-colors group-hover:text-primary">{pick.title}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{pick.description}</p><span className="eyebrow mt-5 inline-block text-primary">Open the guide →</span></Link></li>)}</ul></Container></Section>
     {worthTheDrive && <Section tone="surface"><Container><div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]"><div className="relative aspect-[16/10] overflow-hidden bg-muted"><img src={worthTheDrive.hero.src} alt={worthTheDrive.hero.alt} width={worthTheDrive.hero.width} height={worthTheDrive.hero.height} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} /></div><div><p className="eyebrow text-primary">Worth the drive</p><h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">{worthTheDrive.name}</h2><p className="mt-5 text-base leading-7 text-muted-foreground">{worthTheDrive.summary}</p><Link to="/destination/$slug" params={{ slug: worthTheDrive.slug }} className="eyebrow mt-7 inline-block border-b-2 border-primary pb-1 text-primary">Plan Your Visit</Link></div></div></Container></Section>}
     {hiddenGems.length > 0 && <Section><Container><SectionHeader eyebrow="Beyond the usual" title="Take the long way" description="Quieter corners, overlooked stops and places that reward leaving the obvious route." /><ul className="mt-10 grid gap-8 md:grid-cols-[1.15fr_0.85fr]"><li className="md:row-span-2"><DestinationCard destination={hiddenGems[0]} tone="overlay" regionLabel={regionName(hiddenGems[0].region)} /></li>{hiddenGems.slice(1).map((destination) => <li key={destination.id}><DestinationCard destination={destination} regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}
-    <Section><Container><SectionHeader eyebrow="Useful Texas guides" title="Texas questions, answered" description="Useful starting points for exploring Texas traditions, services, places and practical decisions." actionLabel="Open all Texas resources" actionTo="/texas-resources" /><ul className="mt-10 grid border-y border-border sm:grid-cols-2 lg:grid-cols-4">{popularTexasSearches.map((item) => <li key={item.to} className="border-b border-border sm:[&:nth-last-child(-n+2)]:border-b-0 lg:[&:nth-last-child(-n+4)]:border-b-0"><Link to={item.to} className="group block h-full px-1 py-6 sm:px-5"><h2 className="font-display text-xl leading-tight transition-colors group-hover:text-primary">{item.title}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p><span className="eyebrow mt-4 inline-block text-primary">Open guide →</span></Link></li>)}</ul></Container></Section>
-    <Section tone="surface"><Container><div className="grid gap-8 border-y border-border py-9 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-center"><div className="max-w-3xl"><p className="eyebrow text-primary">Start here</p><h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">Need a Texas answer, not another destination?</h2><p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">Start with practical guides for moving, property taxes, state agencies, official records and the everyday questions that come with living in Texas.</p></div><Link to="/texas-resources" className="group border-l-2 border-primary pl-6"><span className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">Texas Resources &amp; State Agencies</span><span className="eyebrow mt-4 block text-primary">Open Start Here →</span></Link></div></Container></Section>
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="Useful Texas guides" title="Texas questions, answered" description="Practical help and deeper background, from licenses and services to Texas places and traditions." actionLabel="Open all Texas resources" actionTo="/texas-resources" />
+        <ul className="mt-8 grid border-y border-border sm:grid-cols-2 lg:grid-cols-4">
+          {popularTexasSearches.slice(0, 8).map((item) => (
+            <li key={item.to} className="border-b border-border lg:[&:nth-last-child(-n+4)]:border-b-0">
+              <Link to={item.to} className="group block h-full px-1 py-5 sm:px-5">
+                <h2 className="font-display text-xl leading-tight transition-colors group-hover:text-primary">{item.title}</h2>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
+                <span className="eyebrow mt-3 inline-block text-primary">Open guide →</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <details className="mt-5 border-b border-border pb-5">
+          <summary className="cursor-pointer font-semibold text-primary focus-visible:outline-offset-4">Explore more outdoor, river, city and regional guides</summary>
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+            {popularTexasSearches.slice(8).map((item) => (
+              <li key={item.to}>
+                <Link to={item.to} className="block border-l-2 border-border py-3 pl-4 hover:border-primary">
+                  <span className="block font-display text-lg font-semibold">{item.title}</span>
+                  <span className="mt-1 block text-sm text-muted-foreground">{item.description}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </details>
+        <p className="mt-5 text-sm text-muted-foreground">
+          Need a specific state service? <Link to="/texas-resources" className="font-semibold text-primary underline underline-offset-4">Texas Resources &amp; State Agencies — Open Start Here →</Link>
+        </p>
+      </Container>
+    </Section>
     {brand.features.guides && guides.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Texas Life" title="The practical side of living here" description="Homes, moving, money and useful answers for making Texas home." actionLabel="Browse the guidebook" actionTo="/guides" /><ul className="mt-10 grid gap-6 md:grid-cols-3">{guides.slice(0, 3).map((guide) => <li key={guide.id}><GuideCard guide={guide} /></li>)}</ul></Container></Section>}
-    {uniqueLatest.length > 0 && <Section><Container><SectionHeader eyebrow="Texas Guidebook" title="More Texas stories to explore" description="Explore additional reporting, history and evergreen guides from Texas Defined." /><ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{uniqueLatest.slice(0, 8).map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>}
+    {uniqueLatest.length > 0 && <Section><Container><SectionHeader eyebrow="Texas Guidebook" title="More Texas stories to explore" description="Explore additional reporting, history and evergreen guides from Texas Defined." /><ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{uniqueLatest.map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>}
   </>;
 }
