@@ -23,7 +23,7 @@ try {
   // fixed count. New verified feeds (for example published shop products) must
   // not break an unrelated fishing indexability check.
   const expectedIndexXml = fs.readFileSync("public/sitemap-index.xml", "utf8");
-  const expectedChildUrls = [...expectedIndexXml.matchAll(/<loc>\\s*(https:\\/\\/[^<]+)\\s*<\\/loc>/g)]
+  const expectedChildUrls = [...expectedIndexXml.matchAll(/<loc>\s*(https:\/\/[^<]+)\s*<\/loc>/g)]
     .map((match) => match[1].trim().replace(/&amp;/g, "&"));
   if (!expectedChildUrls.length || new Set(expectedChildUrls).size !== expectedChildUrls.length) {
     throw new Error("Checked-in sitemap index must contain nonduplicate child feeds");
