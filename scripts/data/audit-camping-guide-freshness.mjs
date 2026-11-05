@@ -5,6 +5,8 @@ import path from "node:path";
 
 const directory = "src/data/camping";
 const profileFiles = fs.readdirSync(directory).filter(name => /^discovery\.ts$|^profiles-wave\d+\.ts$/.test(name));
+const petResearchFile = "pet-policies.ts";
+const petPolicySource = fs.readFileSync(path.join(directory, petResearchFile), "utf8");
 const normalize = value => value.replace(/&amp;/g, "&");
 const refs = new Map();
 const label = status => {
@@ -81,6 +83,15 @@ for (const name of profileFiles) {
     reviewDates.push({ file: name, date: match[1] });
   }
 }
+// Include every newly researched official pet-policy source in the SAME
+// bounded weekly check, rather than creating another scheduled workflow.
+for (const match of petPolicySource.matchAll(/https:\/\/(?:tpwd\.texas\.gov|www\.nps\.gov|www\.recreation\.gov)\/[^"]+/g)) {
+  const url = match[0];
+  refs.set(url, [...new Set([...(refs.get(url) || []), petResearchFile])]);
+}
+const petResearchDate = petPolicySource.match(/CAMPING_PET_POLICY_RESEARCHED_AT = "(\d{4}-\d{2}-\d{2})"/)?.[1];
+if (!petResearchDate) throw Error("Official pet-policy research date missing");
+reviewDates.push({file: petResearchFile, date: petResearchDate});
 if (refs.size < 20) throw Error("Unexpectedly small official-source set (" + refs.size + "); refuse a misleading audit");
 if (reviewDates.length < 7) throw Error("Profile review dates missing; refuse a misleading audit");
 const maxAgeDays = 120;
