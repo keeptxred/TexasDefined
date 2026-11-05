@@ -67,7 +67,7 @@ function HomePage() {
     <header className="border-b border-border bg-surface px-5 py-8 sm:px-8">
       <div className="mx-auto max-w-6xl">
         <p className="eyebrow text-primary">Texas Defined</p>
-        <h1 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">The places, stories &amp; life of Texas</h1>
+        <h1 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">The places, stories & life of Texas</h1>
         <p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">
           Explore Texas destinations, local traditions, history, events and practical guides for living here.
           Start with a trip, find something happening or get an answer about everyday Texas life.
