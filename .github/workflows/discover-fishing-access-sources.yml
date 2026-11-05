@@ -1,6 +1,10 @@
 name: Discover next TPWD fishing access sources
 
 on:
+  pull_request:
+    paths:
+      - 'scripts/ci/discover-fishing-access-sources.mjs'
+      - '.github/workflows/discover-fishing-access-sources.yml'
   schedule:
     - cron: '17 14 * * 2,5'
   workflow_dispatch:
@@ -44,7 +48,7 @@ jobs:
           retention-days: 30
           if-no-files-found: warn
       - name: Keep discovery backlog in GitHub
-        if: always()
+        if: github.event_name != 'pull_request' && always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
