@@ -56,3 +56,43 @@ for (const [slug] of expected) {
   openingParagraphs.add(lead);
 }
 console.log('PASS: Batch013 first-five editorial leads are distinct and substantive (source contract only)');
+
+
+// Batch013 regression: all additional *authored* groups must remain connected to
+// the SSR loader and retain distinct source-dated school-specific editorial.
+// This is not a county-link assertion or production Chrome certification.
+const laterGroups = [
+  ['src/data/high-school-football/program-editorial-b013-group2.ts',
+    ['cypress-falls','cypress-lakes','cypress-park','cypress-ranch','cypress-ridge'],
+    'getBatch013SecondFiveEditorial'],
+  ['src/data/high-school-football/program-editorial-b013-group3.ts',
+    ['cypress-springs','cypress-woods','daingerfield','dalhart'],
+    'getBatch013ThirdGroupEditorial'],
+  ['src/data/high-school-football/program-editorial-b013-group4.ts',
+    ['dallas-a','dallas-adams','dallas-adamson','dallas-carter','dallas-conrad'],
+    'getBatch013DallasFiveEditorial'],
+];
+const laterLeads = new Set();
+for (const [file, slugs, getter] of laterGroups) {
+  const source = fs.readFileSync(file, 'utf8');
+  const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\\{[\\s\\S]*?\\});/);
+  assert.ok(match, file+' missing parseable editorial map');
+  const guides = JSON.parse(match[1]);
+  assert.equal(Object.keys(guides).length, slugs.length, file+' unexpected or missing authored school');
+  assert.ok(loader.includes('./'+file.split('/').pop().replace('.ts','')), file+' not imported by SSR loader');
+  assert.ok(source.includes('export function '+getter), file+' missing exported getter');
+  for (const slug of slugs) {
+    const guide = guides[slug];
+    assert.ok(guide && guide.slug === slug, slug+' missing canonical editorial identity');
+    assert.ok(loader.includes("'"+slug+"'"), slug+' missing SSR loader gate');
+    assert.ok(guide.schedule?.sourceUrl?.startsWith('https://'), slug+' missing official schedule link');
+    assert.ok(guide.schedule?.verifiedAt, slug+' missing source verification date');
+    assert.ok(Array.isArray(guide.overview) && guide.overview.length >= 3, slug+' missing distinct overview');
+    assert.ok(Array.isArray(guide.faq) && guide.faq.length >= 2, slug+' missing visitor questions');
+    const lead = guide.overview[0].trim().replace(/\\s+/g,' ').toLowerCase();
+    assert.ok(lead.length > 90, slug+' missing school-specific substance');
+    assert.ok(!laterLeads.has(lead), slug+' duplicated another Batch013 lead');
+    laterLeads.add(lead);
+  }
+}
+console.log('PASS: Batch013 additional 14 authored SSR guides retain distinct, dated source editorial (NOT Chrome certification)');
