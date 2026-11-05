@@ -17,10 +17,7 @@ mime, freshness, original first-seen, 72-hour and 768-file/48 MiB protections.
 2. Publisher preuploads every previously healthy JS/CSS under its unchanged
    hashed URL key, checks original file bytes and SHA-256, and waits for
    geographically replicated read-back visibility **before** enabling fallback.
-3. Bind namespace `IMMUTABLE_CLIENT_ASSETS`. Configure Worker-first routing
-   ONLY for `/assets/*`, ask `env.ASSETS.fetch()` first, and use
-   `archivedAssetResponse()` only on genuine 404. Never hide a 5xx or
-   skip current/old two-origin original-byte verification.
+3. Bind `IMMUTABLE_CLIENT_ASSETS` and expose `ASSETS`. Preserve the existing asset-first routing: known current assets are served directly; missing old hashes fall through to `src/server-entry.ts`, where `ASSETS.fetch()` must return a genuine 404 before any archive lookup. Do not enable Worker-first globally or mask any 5xx. Verify both public origins with original SHA-256 after deployment.
 4. Record signed source SHA + Worker version + archived manifest and prove
    rollback and several simulated and real releases before removing any
    existing carry-forward.
@@ -46,7 +43,7 @@ meet any production DEPLOYED/VERIFIED certification gate.
   It requires the current static `ASSETS.fetch()` response first, consults KV
   **only after 404**, and never changes the current origin 200, 500, HTML,
   API, image, or POST behavior. Missing bindings and corrupt archived bytes
-  fail closed. This adapter is **not yet invoked** by `src/server-entry.ts`.
+  fail closed. A guarded `src/server-entry.ts` hook is now staged but remains dormant until the approved `IMMUTABLE_CLIENT_ASSETS` binding exists; no production routing changes have been deployed.
 - The immutable allowlist includes historical Vite `property-tax.HASH.js`
   as well as `main-HASH.js`; never unversioned public assets.
 - Publisher now rejects vanished `stored` objects instead of covertly
@@ -97,3 +94,7 @@ Its report explicitly states `archivePublished: false`,
 `globallyReplicated: false`, and `readyForWorkerRouting: false`.
 The separate real publisher and two-origin, cross-release verification must
 still be wired and certified before permanent archive claims can be made.
+
+## Dormant Worker entry integration
+
+The PR now stages a guarded import/hook in `src/server-entry.ts` and strong `.d.mts` type declarations for the shared adapter. The Worker consults the immutable archive only if its KV binding is present and only after the current static asset binding returns 404. The `wrangler.jsonc` binding remains absent: **no live KV fallback or permanent repair is claimed**. Cloudflare asset-first routing is preserved.
