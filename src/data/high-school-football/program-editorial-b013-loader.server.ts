@@ -4,6 +4,8 @@ import type { FootballProgramEditorial } from './program-editorial';
 export const BATCH013_AUTHORED_SLUGS = new Set(['cuero','cumby','cushing','cy-fair','cypress-creek']);
 export const BATCH013_SECOND_FIVE_SLUGS = new Set(['cypress-falls','cypress-lakes','cypress-park','cypress-ranch','cypress-ridge']);
 
+export const BATCH013_THIRD_GROUP_SLUGS = new Set(['cypress-springs','cypress-woods','daingerfield','dalhart']);
+
 export async function loadBatch013FootballProgramEditorial(slug: string): Promise<FootballProgramEditorial | undefined> {
   if (BATCH013_AUTHORED_SLUGS.has(slug)) {
     const { getBatch013FootballProgramEditorial } = await import('./program-editorial-b013');
@@ -12,6 +14,10 @@ export async function loadBatch013FootballProgramEditorial(slug: string): Promis
   if (BATCH013_SECOND_FIVE_SLUGS.has(slug)) {
     const { getBatch013SecondFiveEditorial } = await import('./program-editorial-b013-group2');
     return getBatch013SecondFiveEditorial(slug);
+  }
+  if (BATCH013_THIRD_GROUP_SLUGS.has(slug)) {
+    const { getBatch013ThirdGroupEditorial } = await import('./program-editorial-b013-group3');
+    return getBatch013ThirdGroupEditorial(slug);
   }
   return undefined;
 }
