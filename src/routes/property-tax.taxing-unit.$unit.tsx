@@ -1,7 +1,13 @@
 import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
-import { AustinCountyEsd3Authority, latestAustinEsd3Adopted, austinEsd3Sources } from '@/components/property/AustinCountyEsd3Authority';
+import { lazy, Suspense } from 'react';
+import austinEsd3Sources from '@/data/property/austin-county-esd3-adopted.json';
+
+const latestAustinEsd3Adopted = austinEsd3Sources.rates.at(-1)!;
+// Route-specific authority prose must not inflate the sitewide main bundle.
+// React SSR streams the resolved lazy boundary; client loading is split by route.
+const AustinCountyEsd3Authority = lazy(() => import('@/components/property/AustinCountyEsd3Authority').then((m) => ({ default: m.AustinCountyEsd3Authority })));
 import { getTaxingUnitRateHistory } from '@/data/property/texas-tax-rates.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -95,7 +101,7 @@ function Page() {
     <nav className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span className="mx-2">/</span><Link to="/property">Property</Link><span className="mx-2">/</span><Link to="/property-tax-calculators">Property tax</Link><span className="mx-2">/</span>{latest.name}</nav>
     <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type === 'city' ? 'Municipal taxing unit' : latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Comptroller tax-rate history, with local records labeled. This is {latest.type === 'city' ? 'city tax only' : 'one jurisdiction’s tax only'}. Combine only taxes actually levied on your parcel.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest Comptroller workbook year" value={String(latest.year)}/><Fact label={latest.type === 'city' ? 'Latest municipal rate' : 'Latest unit rate'} value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${formatTaxRate(latest.totalRate)} per $100`}/><Fact label="Years with numeric source records" value={`${rateCount} of ${history.length}`}/>{latestLocal ? <><Fact label="Latest independently verified local rate (display only)" value={`${formatTaxRate(latestLocal.totalRate)} per $100`}/><dt className="text-muted-foreground">Local source</dt><dd><a href={latestLocal.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{latestLocal.sourceAgency} ↗</a></dd></> : null}</dl></header>
 
-    {hasEsd3Adoption ? <AustinCountyEsd3Authority history={history}/> : null}
+    {hasEsd3Adoption ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading official ESD #3 records…</p>}><AustinCountyEsd3Authority history={history}/></Suspense> : null}
 
     {latestConflict ? <section className="border-b border-border py-7"><p className="max-w-4xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Unresolved official-source discrepancy.</strong> For {latest.year}, the Comptroller statewide record lists {formatTaxRate(latest.totalRate!)} per $100 while {latestConflict.sourceAgency} independently reports {formatTaxRate(latestConflict.totalRate)} per $100. The statewide record is retained unchanged; the locally verified evidence is displayed separately rather than substituted into tax calculators. <a className="font-semibold text-primary underline underline-offset-2" href={latestConflict.sourceUrl} target="_blank" rel="noopener noreferrer">Review the official local tax-rate document ↗</a>.</p></section> : null}
 
