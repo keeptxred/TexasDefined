@@ -58,9 +58,9 @@ export function parseDistrictResolutionUrl(html, year, baseUrl) {
 export function parseSignedResolution(text, year) {
   // pypdf sometimes separates a decorative first letter from the remainder:
   // "O n September" and "P ASSED AND APPROVED" in this official resolution.
-  const normalized = String(text).replace(/\\s+/g,' ')
-    .replace(/\\bO\\s+n (?=[A-Z][a-z]+\\s+\\d{1,2})/g, 'On ')
-    .replace(/\\bP\\s+ASSED AND APPROVED\\b/g, 'PASSED AND APPROVED');
+  const normalized = String(text).replace(/\s+/g,' ')
+    .replace(/\bO\s+n (?=[A-Z][a-z]+\s+\d{1,2})/g, 'On ')
+    .replace(/\bP\s+ASSED AND APPROVED\b/g, 'PASSED AND APPROVED');
   if (!new RegExp('RESOLUTION\\s+ADOPTING\\s+THE\\s+'+year+'\\s+AD\\s+VALOREM', 'i').test(normalized)
     || !/AUSTIN\s+COUNTY\s+EMERGENCY\s+SERVICES\s+DISTRICT\s+NO\.?\s*3/i.test(normalized)) {
     throw new Error('Signed resolution does not identify the expected year and taxing district');
