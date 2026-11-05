@@ -4,6 +4,8 @@ import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/
 import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
 import { texasEventDateKey } from "./event-occurrence-lifecycle";
 import { fetchPublishedTexasEvents } from "./events-remote";
+import { verifiedMajorEventOccurrences } from "./major-event-index";
+import { selectHomepageEvents } from "@/lib/homepage-events";
 import { supplementalExploreCategories } from "./explore-categories";
 import { isArticleDiscoveryReady } from "./fixtures/texas-gateway-index-readiness";
 import { guideIsAvailable } from "./guide-links";
@@ -141,6 +143,25 @@ export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({
     const today = texasEventDateKey();
     return (await (await loadPlatform()).events.list({ ...scope, ...params }))
       .filter((event) => (event.endDate || event.startDate) >= today);
+  },
+});
+/**
+ * Homepage is a separately curated surface, not a limit=4 slice of a generated
+ * feed that only contains three published rows this season. Keep official
+ * organizer checks as the gate; no invented event dates or recurring rollovers.
+ */
+export const homepageEventsQuery = () => queryOptions({
+  queryKey: ["homepage-events", scope.brandId],
+  staleTime: 15 * 60 * 1000,
+  queryFn: async () => {
+    const [published, fixture] = await Promise.all([
+      fetchPublishedTexasEvents(50).catch(() => []),
+      loadPlatform().then((platform) => platform.events.list({ ...scope, limit: 50 })).catch(() => []),
+    ]);
+    return selectHomepageEvents(
+      [...published, ...verifiedMajorEventOccurrences, ...fixture],
+      { today: texasEventDateKey(), limit: 6 },
+    );
   },
 });
 export const categoriesQuery = () => queryOptions({
