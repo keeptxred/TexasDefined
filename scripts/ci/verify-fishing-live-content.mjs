@@ -69,6 +69,8 @@ noindex(facility, "/fishing/access/cagle-recreation-area");
 
 const bass = await page("/fishing/species/largemouth-bass");
 has(bass, "Largemouth Bass Fishing in Texas", "/fishing/species/largemouth-bass");
+const seasonalSamples = [...bass.matchAll(/(?:Spring|spring|Year-round|year-round):/g)].slice(0, 5).map((match) => bass.slice(Math.max(0, match.index - 100), match.index + 160));
+console.log("Live largemouth season HTML samples:", JSON.stringify(seasonalSamples));
 assert.ok(/<strong[^>]*>Spring:<\/strong>/.test(bass), "Bass lake seasons must have visitor-friendly Spring labels");
 assert.ok(/<strong[^>]*>Year-round:<\/strong>/.test(bass), "Bass lake seasons must have visitor-friendly Year-round labels");
 
