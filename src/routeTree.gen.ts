@@ -139,6 +139,7 @@ import { Route as SportsRouteImport } from './routes/sports'
 import { Route as SourcingMethodologyRouteImport } from './routes/sourcing-methodology'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapTexasIconsDotxmlRouteImport } from './routes/sitemap-texas-icons[.]xml'
+import { Route as SitemapShopDotxmlRouteImport } from './routes/sitemap-shop[.]xml'
 import { Route as SitemapExploreDotxmlRouteImport } from './routes/sitemap-explore[.]xml'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SearchRouteImport } from './routes/search'
@@ -1442,6 +1443,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const SitemapTexasIconsDotxmlRoute = SitemapTexasIconsDotxmlRouteImport.update({
   id: '/sitemap-texas-icons.xml',
   path: '/sitemap-texas-icons.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapShopDotxmlRoute = SitemapShopDotxmlRouteImport.update({
+  id: '/sitemap-shop.xml',
+  path: '/sitemap-shop.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapExploreDotxmlRoute = SitemapExploreDotxmlRouteImport.update({
@@ -3999,6 +4005,7 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/shop': typeof ShopRouteWithChildren
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
+  '/sitemap-shop.xml': typeof SitemapShopDotxmlRoute
   '/sitemap-texas-icons.xml': typeof SitemapTexasIconsDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-methodology': typeof SourcingMethodologyRoute
@@ -4535,6 +4542,7 @@ export interface FileRoutesByTo {
   '/san-antonio-puffy-taco-history': typeof SanAntonioPuffyTacoHistoryRoute
   '/search': typeof SearchRoute
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
+  '/sitemap-shop.xml': typeof SitemapShopDotxmlRoute
   '/sitemap-texas-icons.xml': typeof SitemapTexasIconsDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-methodology': typeof SourcingMethodologyRoute
@@ -5073,6 +5081,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/shop': typeof ShopRouteWithChildren
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
+  '/sitemap-shop.xml': typeof SitemapShopDotxmlRoute
   '/sitemap-texas-icons.xml': typeof SitemapTexasIconsDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-methodology': typeof SourcingMethodologyRoute
@@ -5614,6 +5623,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/shop'
     | '/sitemap-explore.xml'
+    | '/sitemap-shop.xml'
     | '/sitemap-texas-icons.xml'
     | '/sitemap.xml'
     | '/sourcing-methodology'
@@ -6150,6 +6160,7 @@ export interface FileRouteTypes {
     | '/san-antonio-puffy-taco-history'
     | '/search'
     | '/sitemap-explore.xml'
+    | '/sitemap-shop.xml'
     | '/sitemap-texas-icons.xml'
     | '/sitemap.xml'
     | '/sourcing-methodology'
@@ -6687,6 +6698,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/shop'
     | '/sitemap-explore.xml'
+    | '/sitemap-shop.xml'
     | '/sitemap-texas-icons.xml'
     | '/sitemap.xml'
     | '/sourcing-methodology'
@@ -7227,6 +7239,7 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   ShopRoute: typeof ShopRouteWithChildren
   SitemapExploreDotxmlRoute: typeof SitemapExploreDotxmlRoute
+  SitemapShopDotxmlRoute: typeof SitemapShopDotxmlRoute
   SitemapTexasIconsDotxmlRoute: typeof SitemapTexasIconsDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SourcingMethodologyRoute: typeof SourcingMethodologyRoute
@@ -8489,6 +8502,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap-texas-icons.xml'
       fullPath: '/sitemap-texas-icons.xml'
       preLoaderRoute: typeof SitemapTexasIconsDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-shop.xml': {
+      id: '/sitemap-shop.xml'
+      path: '/sitemap-shop.xml'
+      fullPath: '/sitemap-shop.xml'
+      preLoaderRoute: typeof SitemapShopDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap-explore.xml': {
@@ -12051,6 +12071,7 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   ShopRoute: ShopRouteWithChildren,
   SitemapExploreDotxmlRoute: SitemapExploreDotxmlRoute,
+  SitemapShopDotxmlRoute: SitemapShopDotxmlRoute,
   SitemapTexasIconsDotxmlRoute: SitemapTexasIconsDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SourcingMethodologyRoute: SourcingMethodologyRoute,

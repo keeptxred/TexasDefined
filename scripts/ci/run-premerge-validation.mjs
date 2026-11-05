@@ -80,6 +80,7 @@ const prebuildChecks = [
   ['COMMERCE/VARIANTS', 'Keep apparel sizes descending and colors consistent without changing Printify IDs', 'node', ['--experimental-strip-types', '--test', 'scripts/ci/shop-variant-order.test.mjs']],
   ['DEPLOY/RECOVERY', 'Test Cloudflare Git-build API transient retries and fail-closed behavior', 'node', ['--test', 'scripts/ci/wait-for-cloudflare-git-build.test.mjs']],
   ['COMMERCE/SEO', 'Verify accurate Merchant delivery and variant photo signals', 'node', ['--experimental-strip-types', '--test', 'scripts/data/merchant-quality-signals.test.mjs']],
+  ['COMMERCE/SEO', 'Ensure all published shop products appear in one canonical sitemap with pagination and resilient Merchant feed', 'node', ['scripts/data/validate-active-shop-sitemap.mjs']],
   ['SEO/CTR', 'Protect readable truncated meta descriptions', 'node', ['--experimental-strip-types','--test','src/lib/seo-snippet-trim.test.ts']],
   ['SEO/CTR', 'Detect stale edition claims in finished major-event snippets', 'node', ['--test', 'scripts/ci/expired-event-snippet.test.mjs']],
   ['SEO/CTR', 'Guard expiration of year-specific event search snippets', 'node', ['--experimental-strip-types', '--test', 'src/data/event-snippet-lifecycle.test.ts']],

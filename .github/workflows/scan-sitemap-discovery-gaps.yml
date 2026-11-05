@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - scripts/seo/scan-sitemap-discovery-gaps.mjs
+      - scripts/ci/verify-active-shop-sitemap-production.mjs
       - .github/workflows/scan-sitemap-discovery-gaps.yml
   workflow_dispatch:
   schedule:
@@ -40,6 +41,9 @@ jobs:
           MAX_PAGES: 600
           CONCURRENCY: 3
         run: node scripts/seo/scan-sitemap-discovery-gaps.mjs
+      - name: Verify all published TexasDefined products appear in live shop sitemap
+        if: matrix.host == 'texasdefined.com' && github.event_name != 'pull_request'
+        run: node scripts/ci/verify-active-shop-sitemap-production.mjs
       - name: Publish URL-by-URL findings in run summary
         if: always()
         run: |
