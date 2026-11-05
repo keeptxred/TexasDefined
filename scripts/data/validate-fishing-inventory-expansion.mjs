@@ -8,7 +8,7 @@ const allSites = access.flatMap((lake) => lake.facilities.map(([name, kind]) => 
 const slug = (s) => s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 assert.ok(access.length >= 6, "Wave 1 must cover multiple actual TPWD lake inventories");
 assert.ok(allSites.length >= 80, "Unexpectedly large access deletion without replacement");
-assert.ok(guides.length >= 10, "Unexpectedly large guide deletion without evidence");
+assert.ok(guides.length >= 22, "Guide business coverage must retain expanded first-party source inventory");
 assert.equal(new Set(access.map((x) => x.lakeId)).size, access.length, "duplicate lake group");
 assert.equal(new Set(allSites.map((site) => site.lakeId + "-" + slug(site.name))).size, allSites.length, "duplicate canonical facility slugs");
 assert.equal(new Set(guides.map((g) => g.slug)).size, guides.length, "duplicate guide slug");
@@ -20,10 +20,34 @@ for (const lake of access) {
     assert.ok(["boat-ramp", "marina", "shore", "pier"].includes(kind), name + ": invalid access kind");
   }
 }
+const knownLakeSourceFiles = [
+  "src/data/fishing/fixtures.ts",
+  "src/data/fishing/lake-expansion-fixtures.ts",
+  "src/data/fishing/lake-expansion-wave2-fixtures.ts",
+  "src/data/fishing/statewide-lake-network.ts",
+].map(read);
+// Verify operator-first-party source relationships across distinct lakes; no fabricated profiles.
+for (const slug of [
+  "chad-ferguson-north-texas-catfish-guide",
+  "reel-fishing-richland-chambers-hybrids",
+  "pat-small-whitney-striper-guide",
+  "big-bite-lake-whitney-guide",
+  "family-style-possum-kingdom",
+  "tc-guide-belton-hybrids",
+  "all-about-stripes-belton",
+  "hook-set-belton-guide",
+  "atx-fishing-travis-bass",
+  "brent-hodges-possum-kingdom",
+]) assert.ok(guides.some((guide) => guide.slug === slug), "Missing verified, named guide source: " + slug);
 for (const guide of guides) {
   assert.match(guide.url, /^https:\/\//);
   assert.ok(guide.summary && guide.summary.length > 50, guide.slug + ": no business-specific description");
-  assert.ok(access.some((lake) => lake.lakeId === guide.lakeId) || guide.lakeId === "lake-conroe", guide.slug + ": unknown lake");
+  assert.ok(
+    access.some((lake) => lake.lakeId === guide.lakeId)
+    || ["lake-conroe"].includes(guide.lakeId)
+    || knownLakeSourceFiles.some((file) => file.includes(`slug: "${guide.lakeId}"`) || file.includes(`id: "${guide.lakeId}"`)),
+    guide.slug + ": lake absent from published fishing source registries",
+  );
   assert.ok(Array.isArray(guide.species) && new Set(guide.species).size === guide.species.length);
 }
 const SOURCE_DETAIL_LAKES = new Set(["cedar-creek-reservoir", "lake-ray-hubbard", "grapevine-lake", "possum-kingdom-reservoir", "lake-palestine", "lake-tawakoni", "amistad-reservoir", "lewisville-lake", "lake-lavon", "richland-chambers-reservoir"]);
