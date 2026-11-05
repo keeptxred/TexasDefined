@@ -167,8 +167,34 @@ for (const { name, viewport, mobile } of [
         name + ": compare page dropped " + lake);
     }
     assert.equal(pageErrors.length, 0, name + ": uncaught JS exceptions: " + pageErrors.join("; "));
-    const widthAfter = await page.evaluate(() => ({ width: document.documentElement.scrollWidth, viewport: window.innerWidth }));
-    assert.ok(widthAfter.width <= widthAfter.viewport + 8, name + ": compare page document overflow");
+    // A full-document link can expose the newly parsed headings before its
+    // CSS and fonts finish loading. The previous verifier saw a temporary
+    // 1833px unstyled document at 1366px, then 1366px after ~100ms; direct
+    // loads and settled navigations have no document overflow. Wait for a
+    // *correct finished layout*, not an arbitrary delay or a skipped check.
+    await page.waitForLoadState("load", { timeout: 30000 });
+    await page.waitForFunction(() => {
+      const region = document.querySelector('[role="region"][aria-label="Lake comparison table"]');
+      const table = region?.querySelector("table");
+      return Boolean(region && table &&
+        document.documentElement.scrollWidth <= window.innerWidth + 8 &&
+        region.getBoundingClientRect().right <= window.innerWidth + 8);
+    }, null, { timeout: 15000 });
+    const widthAfter = await page.evaluate(() => {
+      const region = document.querySelector('[role="region"][aria-label="Lake comparison table"]');
+      const table = region?.querySelector("table");
+      return { width: document.documentElement.scrollWidth, viewport: window.innerWidth,
+        scrollableWidth: region?.scrollWidth, scrollableClient: region?.clientWidth,
+        columnHeaders: table?.querySelectorAll('thead th[scope="col"]').length,
+        rowHeaders: table?.querySelectorAll('tbody th[scope="row"]').length,
+        keyboard: region?.tabIndex === 0 };
+    });
+    assert.ok(widthAfter.width <= widthAfter.viewport + 8, name + ": settled compare page document overflow");
+    assert.equal(widthAfter.columnHeaders, 4, name + ": each selected lake requires a semantic column header");
+    assert.equal(widthAfter.rowHeaders, 9, name + ": comparison topics must have semantic row headers");
+    assert.equal(widthAfter.keyboard, true, name + ": the comparison scroll region must be keyboard focusable");
+    if (mobile) assert.ok(widthAfter.scrollableWidth > widthAfter.scrollableClient,
+      name + ": three-lake table must scroll *inside its region* rather than widen the document");
     results.push({ name, canonical: initial.canonical, cards: initial.itemCount, faqParity: true,
       search: true, region: true, species: true, restriction: true, sorting: { largest, smallest },
       compare: true, noDocumentOverflow: true, errors: pageErrors });
