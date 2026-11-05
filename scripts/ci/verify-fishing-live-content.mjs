@@ -71,12 +71,12 @@ const liveFacilities = Number(publishedCoverage[1].replaceAll(",", ""));
 const liveLakes = Number(publishedCoverage[2].replaceAll(",", ""));
 assert.ok(liveLakes >= 20 && liveFacilities >= 100, "/fishing/access: not yet a meaningful statewide inventory");
 const ordinaryAccess = await page("/fishing/access", { cacheBust: false });
-const ordinaryAccessText = ordinaryAccess.replace(/<!--\\s*-->/g, "").replace(/<[^>]+>/g, " ");
-const ordinaryCoverage = ordinaryAccessText.match(/Current source-backed coverage:\\s*([\\d,]+)\\s*facilities across\\s*([\\d,]+)\\s*Texas lakes/i);
+const ordinaryAccessText = ordinaryAccess.replace(/<!--\s*-->/g, "").replace(/<[^>]+>/g, " ");
+const ordinaryCoverage = ordinaryAccessText.match(/Current source-backed coverage:\s*([\d,]+)\s*facilities across\s*([\d,]+)\s*Texas lakes/i);
 assert.ok(ordinaryCoverage, "/fishing/access ordinary URL: missing current directory inventory; potential stale edge cache");
 assert.equal(Number(ordinaryCoverage[1].replaceAll(",", "")), liveFacilities, "/fishing/access ordinary URL has stale facility count");
 assert.equal(Number(ordinaryCoverage[2].replaceAll(",", "")), liveLakes, "/fishing/access ordinary URL has stale lake count");
-assert.ok(!/<meta\\b[^>]*name=["\\u0027]robots["\\u0027][^>]*content=["\\u0027]noindex/i.test(ordinaryAccess), "/fishing/access ordinary URL has stale noindex, though fresh directory is indexable");
+assert.ok(!/<meta\b[^>]*name=["\u0027]robots["\u0027][^>]*content=["\u0027]noindex/i.test(ordinaryAccess), "/fishing/access ordinary URL has stale noindex, though fresh directory is indexable");
 for (const sourceBacked of ["Lake Fork", "Lake Buchanan", "Lake Travis", "Lake Waco", "Lake Georgetown"]) has(access, sourceBacked, "/fishing/access");
 for (const name of ["Stubblefield Lake", "Cagle Recreation Area", "Stow-a-way Marina", "Scott", "FM 830 Ramp", "April Plaza Marina", "Pier 105", "Lakeview Marina"]) {
   has(access, name, "/fishing/access");
