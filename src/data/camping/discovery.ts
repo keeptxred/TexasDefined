@@ -15,6 +15,9 @@ export interface CampingDiscoveryProfile {
   planningDetail?: string;
   searchTerms?: string[];
   reservationUrl: string;
+  petPolicy?: string;
+  petPolicySourceUrl?: string;
+  petPolicyResearchedAt?: string;
   siteLengthNote?: string;
   generatorRules?: string;
   verifiedAt: string;
