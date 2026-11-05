@@ -38,7 +38,6 @@ jobs:
         run: node --test scripts/ci/immutable-hashed-asset-*.test.mjs
 
   immutable-worker-entry-typecheck:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
