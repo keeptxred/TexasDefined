@@ -1,0 +1,141 @@
+[
+  {
+    "slug": "ray-hunt-lake-conroe-fishing-guide",
+    "businessName": "Ray Hunt Lake Conroe Fishing Guide",
+    "guideName": "Ray Hunt",
+    "lakeId": "lake-conroe",
+    "species": [
+      "crappie",
+      "catfish",
+      "largemouth-bass"
+    ],
+    "url": "https://fishingguidelakeconroe.com/",
+    "phone": "713-204-7838",
+    "summary": "Runs guided bass, crappie and catfish trips on Lake Conroe. The operator describes boat capacity and trip options on its own website."
+  },
+  {
+    "slug": "catch-a-trophy-lake-conroe",
+    "businessName": "Catch A Trophy Fishing Guide Service",
+    "guideName": "Chris Edwards",
+    "lakeId": "lake-conroe",
+    "species": [
+      "catfish"
+    ],
+    "url": "https://conroefishingguide.com/",
+    "phone": "817-271-5014",
+    "summary": "Lake Conroe fishing guide service with catfish-focused records and family and group trip options on the operator website."
+  },
+  {
+    "slug": "mark-stevenson-lake-fork-guide",
+    "businessName": "Lake Fork Guide Service",
+    "guideName": "Mark Stevenson",
+    "lakeId": "lake-fork",
+    "species": [
+      "largemouth-bass"
+    ],
+    "url": "https://www.lakefork.com/",
+    "summary": "Lake Fork bass trips offered by Mark Stevenson, whose business site provides guide background and trip options."
+  },
+  {
+    "slug": "james-caldemeyer-lake-fork-bass-guide",
+    "businessName": "James Caldemeyer Lake Fork Bass Guide",
+    "guideName": "James Caldemeyer",
+    "lakeId": "lake-fork",
+    "species": [
+      "largemouth-bass"
+    ],
+    "url": "https://officiallakeforktrophybass.com/",
+    "summary": "Lake Fork bass-guide service offering seasonal technique instruction and guide-authored fishing updates."
+  },
+  {
+    "slug": "fish-sam-rayburn-eric-van-natter",
+    "businessName": "Fish Sam Rayburn",
+    "guideName": "Eric Van Natter",
+    "lakeId": "sam-rayburn-reservoir",
+    "species": [
+      "crappie"
+    ],
+    "url": "https://www.fishsamrayburn.com/",
+    "phone": "409-509-1577",
+    "summary": "Sam Rayburn guided fishing trips with fishing equipment and client preparation information supplied by the operator."
+  },
+  {
+    "slug": "reel-um-n-sam-rayburn-guide",
+    "businessName": "Reel um N Guide Service",
+    "lakeId": "sam-rayburn-reservoir",
+    "species": [
+      "largemouth-bass",
+      "crappie"
+    ],
+    "url": "https://www.rayburncountry.com/",
+    "phone": "979-220-0251",
+    "summary": "Sam Rayburn guide service describing distinct bass and crappie trip options and lake-specific seasonal approaches."
+  },
+  {
+    "slug": "adventure-texoma-guide",
+    "businessName": "Adventure Texoma",
+    "guideName": "Mark Banister Jr.",
+    "lakeId": "lake-texoma",
+    "species": [
+      "striped-bass"
+    ],
+    "url": "https://adventuretex.com/",
+    "phone": "903-744-6169",
+    "summary": "Lake Texoma guide business based around Little Mineral Marina, offering accompanied trips and equipment described by the operator."
+  },
+  {
+    "slug": "striper-express-lake-texoma",
+    "businessName": "Striper Express",
+    "lakeId": "lake-texoma",
+    "species": [
+      "striped-bass"
+    ],
+    "url": "https://striperexpress.com/",
+    "phone": "903-786-4477",
+    "summary": "Lake Texoma striped-bass fishing guide service with operator contact information and trip details."
+  },
+  {
+    "slug": "captain-steve-barnes-texoma",
+    "businessName": "Captain Steve Barnes Lake Texoma Fishing",
+    "guideName": "Steve Barnes",
+    "lakeId": "lake-texoma",
+    "species": [
+      "striped-bass"
+    ],
+    "url": "https://txfishingguide.com/",
+    "phone": "940-841-0910",
+    "summary": "Lake Texoma striped-bass guide departing from the Lighthouse Marina area according to the operator's website."
+  },
+  {
+    "slug": "palmetto-guide-service-livingston",
+    "businessName": "Palmetto Guide Service",
+    "guideName": "Dave Scott Cox",
+    "lakeId": "lake-livingston",
+    "species": [],
+    "url": "https://palmettoguideservice.com/",
+    "summary": "Lake Livingston fishing outfitter providing operator-described freshwater trips, with pricing and availability on its own website."
+  },
+  {
+    "slug": "lake-livingston-adventures-guide",
+    "businessName": "Lake Livingston Adventures",
+    "lakeId": "lake-livingston",
+    "species": [
+      "white-bass",
+      "catfish",
+      "striped-bass"
+    ],
+    "url": "https://www.lakelivingstonadventures.com/",
+    "summary": "Lake Livingston guide operator describing trips beginning at Lake Livingston State Park and covering multiple open-water fisheries."
+  },
+  {
+    "slug": "rays-striper-guide-lake-buchanan",
+    "businessName": "Ray's Striper Fishing Guide Service",
+    "guideName": "Ray Williamson",
+    "lakeId": "lake-buchanan",
+    "species": [
+      "striped-bass"
+    ],
+    "url": "https://raystriperguideservice.com/",
+    "summary": "Lake Buchanan striped-bass guide business listed by the Lake Buchanan Conservation Corporation and identified by its operator."
+  }
+]

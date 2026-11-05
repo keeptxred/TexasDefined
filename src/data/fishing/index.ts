@@ -1,4 +1,5 @@
 import { fixtureFishingCatalog } from "./fixtures";
+import { expandedSourcedAccessPoints, curatedVerifiedGuides, curatedGuideLakes, curatedGuideSpecies } from "./curated-inventory";
 import { expandedFishingLakes, expandedLakeSpeciesProfiles, expandedLakeTechniqueProfiles } from "./lake-expansion-fixtures";
 import { wave2FishingLakes, wave2LakeSpeciesProfiles, wave2LakeTechniqueProfiles } from "./lake-expansion-wave2-fixtures";
 import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
@@ -36,6 +37,10 @@ const fishingCatalog = assertValidFishingCatalog({
   species: texasFreshwaterFishSpecies,
   lakeSpecies,
   lakeTechniques,
+  accessPoints: [...fixtureFishingCatalog.accessPoints, ...expandedSourcedAccessPoints],
+  guides: [...fixtureFishingCatalog.guides, ...curatedVerifiedGuides],
+  guideLakes: [...fixtureFishingCatalog.guideLakes, ...curatedGuideLakes],
+  guideSpecies: [...fixtureFishingCatalog.guideSpecies, ...curatedGuideSpecies],
 });
 
 export const fishingPlatform = createFixtureFishingRepositories(fishingCatalog);
