@@ -18,5 +18,7 @@ test('district PDF link requires exact year and second source column', () => {
 test('signed resolution proves components, jurisdiction, year and adoption date', () => {
   assert.deepEqual(parseSignedResolution(signed,2026),{totalRate:.0749,maintenanceOperationsRate:.0749,debtServiceRate:0,adoptedOn:'2026-09-21'});
   assert.throws(()=>parseSignedResolution(signed.replace('0.00000/$100','0.01200/$100'),2026),/do not add/);
+  assert.deepEqual(parseSignedResolution(signed.replace('On September','O n September').replace('On September','O n September'),2026).adoptedOn,'2026-09-21');
+  assert.deepEqual(parseSignedResolution(signed.replace('On September 21, 2026','Omitted opening date').replace('On September','No').concat(' P ASSED AND APPROVED this the 21st day of September 2026.'),2026).adoptedOn,'2026-09-21');
   assert.throws(()=>parseSignedResolution(signed,2027), /does not identify/);
 });
