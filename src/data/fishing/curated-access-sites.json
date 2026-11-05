@@ -381,27 +381,33 @@
     "facilities": [
       [
         "Chamber Island Ramp",
-        "boat-ramp"
+        "boat-ramp",
+        "TPWD documents a two-lane paved ramp at the Texas 334 causeway, with parking for approximately 75 vehicles."
       ],
       [
         "Sandy Shores Marina",
-        "marina"
+        "marina",
+        "The official inventory lists a one-lane launch on the east shore, with space for approximately 70 vehicles."
       ],
       [
         "Lone Star Marina",
-        "marina"
+        "marina",
+        "TPWD places this marina on the west shore at mid-lake and notes boat-launch parking for approximately 50 vehicles."
       ],
       [
         "Log Cabin",
-        "boat-ramp"
+        "boat-ramp",
+        "The City of Log Cabin operates a four-lane ramp with a fishing pier."
       ],
       [
         "County Public Ramp",
-        "boat-ramp"
+        "boat-ramp",
+        "Henderson County maintains a two-lane paved ramp north of the Caney Creek bridge, with approximately 40 parking spaces."
       ],
       [
         "Fisherman's Wharf",
-        "marina"
+        "marina",
+        "TPWD lists a launch near FM 3062 and CR 1703, with parking for approximately 40 vehicles."
       ]
     ]
   },
@@ -412,35 +418,43 @@
     "facilities": [
       [
         "Paddle Point Park",
-        "boat-ramp"
+        "boat-ramp",
+        "A City of Rowlett gravel-and-dirt launch intended for non-motorized craft, part of a TPWD paddling trail."
       ],
       [
         "Paul Jones Park",
-        "boat-ramp"
+        "boat-ramp",
+        "The City of Garland's facility has four concrete boat lanes and approximately 50 vehicle spaces."
       ],
       [
         "Harbor Bay Marina",
-        "marina"
+        "marina",
+        "A privately operated marina with a two-lane concrete launch and approximately 50 vehicle spaces."
       ],
       [
         "State Highway 66 Boat Ramp",
-        "boat-ramp"
+        "boat-ramp",
+        "City of Rockwall facility with two single-lane ramps and one double-lane concrete ramp."
       ],
       [
         "Terry Park",
-        "boat-ramp"
+        "boat-ramp",
+        "City of Heath site with a two-lane concrete ramp, two courtesy docks and approximately 30 parking spaces."
       ],
       [
         "Chandler's Landing",
-        "marina"
+        "marina",
+        "Privately operated two-lane concrete ramp with approximately 50 vehicle spaces."
       ],
       [
         "Captain's Cove Marina",
-        "marina"
+        "marina",
+        "Privately operated marina on Marina Drive with four concrete boat lanes and approximately 50 spaces."
       ],
       [
         "Sapphire Bay",
-        "marina"
+        "marina",
+        "Privately operated launch with a two-lane concrete ramp and courtesy docks."
       ]
     ]
   },
@@ -451,39 +465,48 @@
     "facilities": [
       [
         "Meadowmere Park",
-        "boat-ramp"
+        "boat-ramp",
+        "Two separate two-lane launches operated by the City of Grapevine; TPWD documents parking near each launch."
       ],
       [
         "Lakeview Park",
-        "boat-ramp"
+        "boat-ramp",
+        "Two separate one-lane launches operated by the City of Grapevine."
       ],
       [
         "Oak Grove/Scotts Landing",
-        "boat-ramp"
+        "boat-ramp",
+        "A named Lake Grapevine access area in TPWD's public facility inventory; verify lake-park and operator conditions before travel."
       ],
       [
         "The Vineyards",
-        "boat-ramp"
+        "boat-ramp",
+        "TPWD indicates that this boat launch is restricted to overnight guests, not general public day-use."
       ],
       [
         "Katie's Woods Park",
-        "boat-ramp"
+        "boat-ramp",
+        "City of Grapevine facility with a regular ramp and a separate high-water ramp."
       ],
       [
         "Silverlake Marina",
-        "marina"
+        "marina",
+        "Private marina with a two-lane ramp; TPWD cautions that its parking area is a long walk from the launch."
       ],
       [
         "Murrell Park & Twin Coves Marina",
-        "marina"
+        "marina",
+        "U.S. Army Corps of Engineers park with two ramps providing four boat lanes; a marina operates inside the park."
       ],
       [
         "Twin Coves Park",
-        "boat-ramp"
+        "boat-ramp",
+        "City of Flower Mound facility with a two-lane ramp and an accessible fishing pier."
       ],
       [
         "Trophy Club Park",
-        "boat-ramp"
+        "boat-ramp",
+        "Town-operated concrete two-lane ramp with parking for approximately 15 vehicles."
       ]
     ]
   },
@@ -494,31 +517,38 @@
     "facilities": [
       [
         "BRA Area #4 North",
-        "boat-ramp"
+        "boat-ramp",
+        "Brazos River Authority ramp that TPWD reports is accessible at higher reservoir levels."
       ],
       [
         "BRA Area #6",
-        "boat-ramp"
+        "boat-ramp",
+        "Brazos River Authority ramp at the west end of FM 2951, usable at higher lake levels."
       ],
       [
         "BRA Area #5",
-        "boat-ramp"
+        "boat-ramp",
+        "Brazos River Authority access off FM 2951 that is susceptible to low-water limitations."
       ],
       [
         "BRA Area #4 South",
-        "boat-ramp"
+        "boat-ramp",
+        "Brazos River Authority ramp that TPWD says can remain accessible at varying lake levels."
       ],
       [
         "BRA Area #1",
-        "boat-ramp"
+        "boat-ramp",
+        "Brazos River Authority ramp off Park Road 36, usable at higher lake levels."
       ],
       [
         "Possum Hollow Camp",
-        "boat-ramp"
+        "boat-ramp",
+        "TPWD lists a boat ramp at Possum Hollow Camp off FM 1148 that accommodates all boat types."
       ],
       [
         "Westside Public Ramp",
-        "boat-ramp"
+        "boat-ramp",
+        "Brazos River Authority facility at the end of FM 1148; higher lake levels are needed for launch access."
       ]
     ]
   }
