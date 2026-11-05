@@ -21,7 +21,6 @@ for (const feature of [
   'const pageTitle = "Texas Travel, Culture & Practical Living Guides"',
   '"@type": "WebPage"',
   '"@type": "ItemList"',
-  '"@type": "FAQPage"',
   'numberOfItems: curatedItems.length',
   'featured.slice(0, 4)',
   'destinations.filter((item) => item.featured).slice(0, 4)',
@@ -31,8 +30,6 @@ for (const feature of [
   'absoluteUrl(texasDefinedBrand, destination.hero.src)',
   'isPartOf: { "@id": `${siteUrl}/#website` }',
   'about: { "@id": `${siteUrl}/#organization` }',
-  '{ "@id": `${siteUrl}/#faq` }',
-  'mainEntity: homepageFaqs.map((item)',
   'to="/texas-resources"',
   'Texas Resources &amp; State Agencies',
   'Open Start Here →',
@@ -43,9 +40,9 @@ for (const feature of [
 for (const feature of [
   '<h1 className="mt-3',
   'The places, stories & life of Texas',
-  'Texas Defined is a guide to Texas places, culture, food, history, travel and practical living',
-  '<dt><h2 className=',
-  'homepageFaqs.map((item)',
+  'Explore Texas destinations, local traditions, history, events and practical guides',
+  '<nav aria-label="Explore Texas Defined"',
+  'homepageEntryPoints.map((item)',
 ]) {
   if (!lazyRoute.includes(feature)) errors.push(`Homepage answer-layer feature missing: ${feature}.`);
 }
@@ -70,10 +67,21 @@ if (!featureHero.includes('<h2 className="mt-5 max-w-[10.5em]')) {
 }
 
 for (const feature of [
-  'question: "What is Texas Defined?"',
-  'question: "What does Texas Defined cover?"',
+  'title: "Explore Texas"',
+  'title: "Events & Festivals"',
+  'title: "Texas Living"',
+  'title: "Guides & Tools"',
 ]) {
-  if (!homepageContent.includes(feature)) errors.push(`Homepage GEO content missing: ${feature}.`);
+  if (!homepageContent.includes(feature)) errors.push(`Homepage evergreen discovery link missing: ${feature}.`);
+}
+if (eagerRoute.includes('"@type": "FAQPage"') || lazyRoute.includes('homepageFaqs')) {
+  errors.push('Homepage must not publish redundant generic FAQ markup or FAQPage schema.');
+}
+if (!route.includes('homepageEventsQuery()')) {
+  errors.push('Homepage verified event query missing.');
+}
+if (route.includes('eventsQuery({ limit: 4 })')) {
+  errors.push('Homepage must not cap the stale three-row generated feed at four events.');
 }
 
 for (const feature of [
@@ -140,4 +148,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage identity, accessible answer layer, FAQ schema, first-class editorial/contact accountability, crawler access, curated ItemList, GSC discovery links and Start Here validation passed.');
+console.log('Homepage identity, evergreen discovery navigation, official event selection, editorial/contact accountability, crawler access, curated ItemList, GSC discovery links and Start Here validation passed.');
