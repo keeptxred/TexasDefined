@@ -22,7 +22,10 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verify the venue and admission with the host",
-      "body": "The official district athletics page links its varsity schedule and stadium rules; the host must confirm each game's venue and current admission arrangements."
+      "body": "The official district athletics page links its varsity schedule and stadium rules; the host must confirm each game's venue and current admission arrangements.",
+      "sourceUrl": "https://www.cueroisd.org/departments/athletics",
+      "sourceLabel": "Official school or district athletics resource",
+      "verifiedAt": "2026-11-04"
     },
     "overview": [
       "Official program identity: Cuero Gobblers. Cuero ISD publishes separate 2026 varsity Gobbler football and junior-high football schedules. These are different teams and should not be combined into a single results list.",
@@ -30,6 +33,13 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
       "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
     ],
+    "milestones": [{
+      "date": "2026",
+      "title": "Official program and schedule reference",
+      "body": "The school's first-party athletics resource is the appropriate place to check current program notices, schedule updates and host-specific information.",
+      "sourceUrl": "https://www.cueroisd.org/departments/athletics",
+      "sourceLabel": "Official school or district athletics resource"
+    }],
     "faq": [
       {
         "question": "Where can I verify Cuero Gobblers varsity football fixtures?",
@@ -64,7 +74,10 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verify the venue and admission with the host",
-      "body": "The district's football document library provides a separate resource for program information; dated calendar fixtures are not evidence that games were played."
+      "body": "The district's football document library provides a separate resource for program information; dated calendar fixtures are not evidence that games were played.",
+      "sourceUrl": "https://www.cumbyisd.net/o/cisd/page/athletics",
+      "sourceLabel": "Official school or district athletics resource",
+      "verifiedAt": "2026-11-04"
     },
     "overview": [
       "Official program identity: Cumby Fighting Trojans. Cumby Collegiate ISD identifies its athletic teams as the Fighting Trojans. Its football document library is the first-party place to check schedules rather than treating a district-office address as a game venue.",
@@ -72,6 +85,13 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
       "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
     ],
+    "milestones": [{
+      "date": "2026",
+      "title": "Official program and schedule reference",
+      "body": "The school's first-party athletics resource is the appropriate place to check current program notices, schedule updates and host-specific information.",
+      "sourceUrl": "https://www.cumbyisd.net/o/cisd/page/athletics",
+      "sourceLabel": "Official school or district athletics resource"
+    }],
     "faq": [
       {
         "question": "Where can I verify Cumby Fighting Trojans varsity football fixtures?",
@@ -106,7 +126,10 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verify the venue and admission with the host",
-      "body": "The district's football page is the authoritative starting point for current notices; the school address is not a verified football gate or game-day parking entrance."
+      "body": "The district's football page is the authoritative starting point for current notices; the school address is not a verified football gate or game-day parking entrance.",
+      "sourceUrl": "https://www.cushingisd.org/departments/athletic_department/football",
+      "sourceLabel": "Official school or district athletics resource",
+      "verifiedAt": "2026-11-04"
     },
     "overview": [
       "Official program identity: Cushing Bearkats. Cushing ISD's athletics department publishes school football information and dated announcements. Older first-party documents disagree on coaching roles, so this guide deliberately does not name a current head coach.",
@@ -114,6 +137,13 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
       "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
     ],
+    "milestones": [{
+      "date": "2026",
+      "title": "Official program and schedule reference",
+      "body": "The school's first-party athletics resource is the appropriate place to check current program notices, schedule updates and host-specific information.",
+      "sourceUrl": "https://www.cushingisd.org/departments/athletic_department/football",
+      "sourceLabel": "Official school or district athletics resource"
+    }],
     "faq": [
       {
         "question": "Where can I verify Cushing Bearkats varsity football fixtures?",
@@ -148,7 +178,10 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verify the venue and admission with the host",
-      "body": "Check the campus sports-and-coaches directory and current CFISD event information. The campus address at 22602 Northwest Freeway is not a confirmed stadium entrance."
+      "body": "Check the campus sports-and-coaches directory and current CFISD event information. The campus address at 22602 Northwest Freeway is not a confirmed stadium entrance.",
+      "sourceUrl": "https://cyfair.cfisd.net/athletics",
+      "sourceLabel": "Official school or district athletics resource",
+      "verifiedAt": "2026-11-04"
     },
     "overview": [
       "Official program identity: Cy-Fair Bobcats. Cy-Fair High School has its own campus athletics directory within Cypress-Fairbanks ISD. The district's 2026–28 UIL realignment notice identifies Cy-Fair in District 16-6A, but that classification does not establish a specific game venue.",
@@ -156,6 +189,13 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
       "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
     ],
+    "milestones": [{
+      "date": "2026",
+      "title": "Official program and schedule reference",
+      "body": "The school's first-party athletics resource is the appropriate place to check current program notices, schedule updates and host-specific information.",
+      "sourceUrl": "https://cyfair.cfisd.net/athletics",
+      "sourceLabel": "Official school or district athletics resource"
+    }],
     "faq": [
       {
         "question": "Where can I verify Cy-Fair Bobcats varsity football fixtures?",
@@ -190,7 +230,10 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verify the venue and admission with the host",
-      "body": "The school campus at 9815 Grant Road is distinct from a verified varsity game venue; check current district notices before traveling."
+      "body": "The school campus at 9815 Grant Road is distinct from a verified varsity game venue; check current district notices before traveling.",
+      "sourceUrl": "https://cycreek.cfisd.net/athletics",
+      "sourceLabel": "Official school or district athletics resource",
+      "verifiedAt": "2026-11-04"
     },
     "overview": [
       "Official program identity: Cypress Creek Cougars. Cypress Creek High School's first-party athletics page identifies Deveon McKinney as athletic coordinator and head football coach. CFISD's 2026–28 realignment announcement places Cypress Creek in District 16-6A.",
@@ -198,6 +241,13 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       "This independent TexasDefined reference does not publish scraped scores, inferred win-loss totals, third-party team logos, or unlicensed photographs. Historical announcements should not be interpreted as current roster or admission policies.",
       "The source linked here is maintained by the school or district. Check its publication dates when comparing schedules, athletic staff assignments, and football notices."
     ],
+    "milestones": [{
+      "date": "2026",
+      "title": "Official program and schedule reference",
+      "body": "The school's first-party athletics resource is the appropriate place to check current program notices, schedule updates and host-specific information.",
+      "sourceUrl": "https://cycreek.cfisd.net/athletics",
+      "sourceLabel": "Official school or district athletics resource"
+    }],
     "faq": [
       {
         "question": "Where can I verify Cypress Creek Cougars varsity football fixtures?",
