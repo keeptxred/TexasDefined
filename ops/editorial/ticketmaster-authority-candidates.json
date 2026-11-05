@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-05T18:48:18.843Z",
+  "fetchedAt": "2026-11-05T20:07:38.122Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -656,9 +656,12 @@
       "publicationAllowed": false
     },
     {
-      "name": "South Pole Illuminated Festival",
+      "name": "South Pole Illuminated Festival  - McAllen Convention Center",
       "city": "McAllen",
       "dates": [
+        "2026-11-27",
+        "2026-11-28",
+        "2026-11-29",
         "2026-12-02",
         "2026-12-03",
         "2026-12-04",
@@ -669,6 +672,9 @@
         "McAllen Convention Center"
       ],
       "ticketmasterIds": [
+        "G5dIZ_2Ri1sI1",
+        "G5dIZ_2RiFsES",
+        "G5dIZ_2RiasEH",
         "G5dIZ_pCQ-4b1",
         "G5dIZ_pCQ0gbx",
         "G5dIZ_pCQNPbj",
@@ -676,41 +682,14 @@
         "G5dIZ_pCQxPbK"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-mcallen-texas-12-02-2026/event/3A0065639A815605",
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-mcallen-texas-12-03-2026/event/3A0065639A85560A",
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-mcallen-texas-12-04-2026/event/3A0065639A8A5613",
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-mcallen-texas-12-05-2026/event/3A0065639A8E561C",
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-mcallen-texas-12-06-2026/event/3A0065639A935622"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "South Pole Illuminated Festival  - McAllen Convention Center",
-      "city": "McAllen",
-      "dates": [
-        "2026-11-27",
-        "2026-11-28",
-        "2026-11-29"
-      ],
-      "venues": [
-        "McAllen Convention Center"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_2Ri1sI1",
-        "G5dIZ_2RiFsES",
-        "G5dIZ_2RiasEH"
-      ],
-      "officialTicketUrls": [
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-27-2026/event/3A0064FBEC2319F3",
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-28-2026/event/3A0064FBEC2719FC",
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-29-2026/event/3A0064FBEC2B1A0A"
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-29-2026/event/3A0064FBEC2B1A0A",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-02-2026/event/3A0065639A815605",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-03-2026/event/3A0065639A85560A",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-04-2026/event/3A0065639A8A5613",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-05-2026/event/3A0065639A8E561C",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-06-2026/event/3A0065639A935622"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -751,7 +730,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-05",
         "2026-11-06",
         "2026-11-07",
         "2026-11-13",
@@ -808,7 +786,6 @@
         "Z7r9jZ1A7OpPI",
         "Z7r9jZ1A7OpPJ",
         "Z7r9jZ1A7OpPN",
-        "Z7r9jZ1A7OpPO",
         "Z7r9jZ1A7OpPP",
         "Z7r9jZ1A7OpPY",
         "Z7r9jZ1A7OpPs",
@@ -854,7 +831,6 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPI",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPJ",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPN",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPO",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPP",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPY",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPs",

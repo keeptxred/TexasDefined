@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T18:48:18.796Z",
+  "generatedAt": "2026-11-05T20:07:38.088Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
     {
@@ -199,6 +199,12 @@
       "startDate": "2026-11-13",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-for-beginners/2026-11-13"
+    },
+    {
+      "title": "Birding with a Ranger",
+      "startDate": "2026-11-13",
+      "parkKey": "falcon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/falcon/copy2_of_birding-with-a-ranger/2026-11-13"
     },
     {
       "title": "Indian Lodge Tour",
@@ -445,6 +451,12 @@
       "startDate": "2026-11-21",
       "parkKey": "choke-canyon",
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-21"
+    },
+    {
+      "title": "Birding with a Ranger",
+      "startDate": "2026-11-21",
+      "parkKey": "falcon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/falcon/copy2_of_birding-with-a-ranger/2026-11-21"
     },
     {
       "title": "Fort Davis Tales",
