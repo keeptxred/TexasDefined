@@ -4,6 +4,8 @@ on:
     paths:
       - 'scripts/ci/immutable-hashed-asset-*.mjs'
       - 'scripts/ci/prepare-immutable-hashed-asset-manifest.mjs'
+      - 'src/server-entry.ts'
+      - 'scripts/ci/immutable-hashed-asset-archive.d.mts'
       - 'docs/ci/immutable-hashed-asset-archive.md'
       - '.github/workflows/validate-immutable-hashed-assets.yml'
   workflow_dispatch:
