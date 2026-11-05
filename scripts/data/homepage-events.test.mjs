@@ -53,9 +53,23 @@ test("homepage never promotes expired, stale, future-verified or invalid occurre
 });
 
 test("duplicate generated and guide records collapse to the descriptive, verified event", () => {
-  const fallback = event("Wurstfest", "2026-11-06", "2026-11-15", { blurb: "Major annual event in Houston. Confirm current details with the organizer before traveling.", sourceCheckedAt: "2026-08-26" });
-  const generated = event("Wurstfest", "2026-11-06", "2026-11-15", { blurb: "Ten days of music and German-Texan heritage in New Braunfels.", sourceCheckedAt: "2026-10-21" });
+  const fallback = event("Sample festival", "2026-11-06", "2026-11-15", { blurb: "Major annual event in Houston. Confirm current details with the organizer before traveling.", sourceCheckedAt: "2026-08-26" });
+  const generated = event("Sample festival", "2026-11-06", "2026-11-15", { blurb: "Ten days of music and German-Texan heritage in New Braunfels.", sourceCheckedAt: "2026-10-21" });
   const selected = selectHomepageEvents([fallback, generated], { today: date });
   assert.equal(selected.length, 1);
   assert.equal(selected[0].blurb, generated.blurb);
+});
+
+
+test("homepage substitutes specific, evergreen details for known major-event boilerplate", () => {
+  const selected = selectHomepageEvents([
+    event("Austin Celtic Festival", "2026-11-07", "2026-11-08", {
+      slug: "austin-celtic-festival",
+      city: "Austin",
+      blurb: "Major annual event in Austin. Confirm current details with the organizer before traveling.",
+    }),
+  ], { today: date });
+  assert.equal(selected.length, 1);
+  assert.match(selected[0].blurb, /Celtic music.*Highland Games/);
+  assert.doesNotMatch(selected[0].blurb, /Major annual event/);
 });
