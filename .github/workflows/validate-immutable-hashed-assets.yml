@@ -27,6 +27,8 @@ permissions:
   contents: read
 jobs:
   immutable-asset-archive:
+    # Draft branch runs on push; avoid duplicate expensive PR jobs.
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -38,6 +40,8 @@ jobs:
         run: node --test scripts/ci/immutable-hashed-asset-*.test.mjs
 
   immutable-worker-entry-typecheck:
+    # Draft branch runs on push; avoid duplicate expensive PR jobs.
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -92,6 +96,8 @@ jobs:
           retention-days: 14
 
   immutable-worker-bundle-build:
+    # Draft branch runs on push; avoid duplicate expensive PR jobs.
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
