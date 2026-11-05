@@ -39,12 +39,18 @@ export async function publishImmutableArchive({plan,namespace,readOriginalBytes}
       plan.newWrites !== plan.toPublish.length)
     throw new Error('Archive publication plan has no trustworthy write accounting');
   const newPaths = new Set(plan.toPublish.map((r) => r.path));
-  if (newPaths.size !== plan.toPublish.length ||
+  const deferred=plan.deferredPaths || [];
+  if (!Array.isArray(deferred))
+    throw new Error('Archive publication plan has malformed deferred paths');
+  const deferredPaths=new Set(deferred);
+  if (deferred.length!==deferredPaths.size ||
+      deferred.some(path=>typeof path!=='string' || newPaths.has(path)) ||
+      newPaths.size !== plan.toPublish.length ||
       plan.allRecords.some((r) => !r || typeof r.path !== 'string') ||
-      newPaths.size > plan.allRecords.length ||
-      [...newPaths].some((path) => !plan.allRecords.some((r) => r.path === path)))
+      newPaths.size+deferredPaths.size > plan.allRecords.length ||
+      [...newPaths,...deferredPaths].some((path) => !plan.allRecords.some((r) => r.path === path)))
     throw new Error('Archive publication plan references inconsistent or duplicate paths');
-  const result={checked:0,newlyPublished:0,alreadyPresent:0,bytesPublished:0,
+  const result={checked:0,newlyPublished:0,alreadyPresent:0,deferredCount:0,bytesPublished:0,
     fullyReadBack:false,globallyReplicated:false,readyForWorkerRouting:false};
   for(const proof of plan.allRecords) {
     const rec=verifyArchiveRecord(proof);
@@ -54,6 +60,9 @@ export async function publishImmutableArchive({plan,namespace,readOriginalBytes}
     const current=await namespace.getWithMetadata(key,'arrayBuffer');
     result.checked++;
     if (await verifyArchivedObject(current,rec)) {result.alreadyPresent++;continue;}
+    // A bootstrap-only deferred original has NO write allocation today.
+    // Its absence is reported, never quietly counted as archived.
+    if (deferredPaths.has(rec.path)) {result.deferredCount++;continue;}
     // An object that the signed release manifest says was already published
     // must never silently disappear and consume an unbudgeted new KV write.
     if (!newPaths.has(rec.path))
@@ -74,6 +83,6 @@ export async function publishImmutableArchive({plan,namespace,readOriginalBytes}
   }
   // Same-namespace readback proves stored bytes, NOT global propagation.
   // Never allow the deployment orchestrator to confuse this with readiness.
-  result.fullyReadBack=true;
+  result.fullyReadBack=result.deferredCount===0;
   return result;
 }

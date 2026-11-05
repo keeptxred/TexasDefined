@@ -32,7 +32,7 @@ function checkedHistorical(proof, now) {
 // verified, never merely emitted files or observed healthy HTTP responses.
 export async function scanImmutableAssetBuild({
   assetDirectory, sourceSha, now=Date.now(), requiredHistorical=[],
-  published=[], writesToday=0,
+  published=[], writesToday=0, allowPartial=false,
 }={}) {
   if (typeof assetDirectory!=='string' || !assetDirectory.trim() ||
       !COMMIT.test(sourceSha || '') || !Array.isArray(requiredHistorical))
@@ -85,7 +85,7 @@ export async function scanImmutableAssetBuild({
         (proof.bytes!==undefined && proof.bytes!==inArchive.bytes))
       throw new Error('Previously healthy unarchived original bytes missing from release: '+proof.path);
   }
-  const plan=planImmutablePublication({stored:published,incoming:scanned,now,writesToday});
+  const plan=planImmutablePublication({stored:published,incoming:scanned,now,writesToday,allowPartial});
   const manifest={
     format:1,
     sourceSha,
@@ -93,6 +93,8 @@ export async function scanImmutableAssetBuild({
     totalBytes:plan.totalBytes,
     archivedRecordCount:plan.allRecords.length,
     newRecordCount:plan.newWrites,
+    deferredRecordCount:plan.deferredPaths.length,
+    archiveComplete:plan.archiveComplete,
     skippedNonJsCss,
     records:plan.allRecords,
   };

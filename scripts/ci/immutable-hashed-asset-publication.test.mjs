@@ -125,3 +125,56 @@ test('publication denies a fabricated success that claims the archive is globall
     assert.equal(saved.status,'blocked');
   });
 });
+
+test('explicit two-day bootstrap never declares partially uploaded originals complete',async()=>{
+  await fixture(async(outputPath)=>{
+    const originals=Array.from({length:4},(_,i)=>{
+      const path='/assets/part-'+String(i).padStart(4,'0')+'-ABCDEFGH.js';
+      const value=Buffer.from('independent-original-'+i);
+      return {record:{path,preSha256:createHash('sha256').update(value).digest('hex'),
+        bytes:value.length,firstSeenAt,lastObservedAt:firstSeenAt},value};
+    });
+    const kv=new Map();
+    const archiveTransport={
+      listStoredRecords:async()=>[...kv.entries()].map(([key,o])=>({
+        path:key.slice('immutable:v1:'.length),preSha256:o.metadata.sha256,
+        bytes:o.metadata.bytes,firstSeenAt:o.metadata.firstSeenAt,
+        lastObservedAt:o.metadata.firstSeenAt,
+      })),
+      getWithMetadata:async(key)=>kv.get(key)||{value:null,metadata:null},
+      put:async(key,value,{metadata})=>{
+        assert.equal(kv.has(key),false,'Never overwrite an immutable original');
+        kv.set(key,{value,metadata});
+      },
+    };
+    const prepare=async({published,now,writesToday,allowPartial})=>{
+      assert.equal(allowPartial,true);
+      return {plan:planImmutablePublication({
+        stored:published,incoming:originals.map(x=>x.record),now,writesToday,allowPartial,
+      }),readOriginalBytes:async(rec)=>originals.find(x=>x.record.path===rec.path).value};
+    };
+    const first=await prepublishApprovedImmutableAssets({
+      env:{...env,TEXASDEFINED_IMMUTABLE_ARCHIVE_BOOTSTRAP:'true',
+        TEXASDEFINED_KV_WRITES_TODAY:'998'},
+      now,outputPath,archiveTransport,prepare,
+    });
+    assert.equal(first.status,'partial-originals-prepublished-not-globally-certified');
+    assert.equal(first.publishedOriginalCount,2);
+    assert.equal(first.deferredOriginalCount,2);
+    assert.equal(first.fullyReadBack,false);
+    assert.equal(first.readyForWorkerRouting,false);
+    assert.equal(kv.size,2);
+    const second=await prepublishApprovedImmutableAssets({
+      env:{...env,TEXASDEFINED_IMMUTABLE_ARCHIVE_BOOTSTRAP:'true',
+        TEXASDEFINED_KV_WRITES_TODAY:'0'},
+      now:now+86400000,outputPath,archiveTransport,prepare,
+    });
+    assert.equal(second.status,'original-bytes-prepublished-not-globally-certified');
+    assert.equal(second.publishedOriginalCount,2);
+    assert.equal(second.deferredOriginalCount,0);
+    assert.equal(second.fullyReadBack,true);
+    assert.equal(second.readyForWorkerRouting,false);
+    assert.equal(second.globallyReplicated,false);
+    assert.equal(kv.size,4);
+  });
+});

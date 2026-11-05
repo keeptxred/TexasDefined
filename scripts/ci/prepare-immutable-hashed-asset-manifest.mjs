@@ -21,7 +21,7 @@ export async function prepareImmutableArchivePlan({
   now=Date.now(),
   published=[],
   historicalProof=INCIDENT_OMITTED_PROOFS,
-  writesToday=0,
+  writesToday=0, allowPartial=false,
 }={}) {
   const [rawHistory,rawReport]=await Promise.all([
     readFile(snapshotPath,'utf8'),readFile(retentionReportPath,'utf8'),
@@ -42,7 +42,7 @@ export async function prepareImmutableArchivePlan({
   if (extraEvidence.some(x=>!x || !x.preSha256 || !x.path || !x.firstSeenAt))
     throw new Error('Malformed original-byte proof in prior-retention report; refusing omission');
   const inventory=await scanImmutableAssetBuild({
-    assetDirectory,sourceSha,now,writesToday,published,
+    assetDirectory,sourceSha,now,writesToday,published,allowPartial,
     requiredHistorical:[...candidateEvidence,...extraEvidence],
   });
   const manifest={
@@ -53,6 +53,8 @@ export async function prepareImmutableArchivePlan({
     readyForWorkerRouting:false,
     historicalProofCount:candidateEvidence.length+extraEvidence.length,
     remainingDailyWrites:inventory.plan.remainingDailyWrites,
+    deferredRecordCount:inventory.plan.deferredPaths.length,
+    archiveComplete:inventory.plan.archiveComplete,
     remainingBytes:inventory.plan.remainingBytes,
   };
   await mkdir(dirname(outputPath),{recursive:true});

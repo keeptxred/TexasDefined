@@ -273,3 +273,33 @@ test('immutable archive survives multi-year cached browser versions without rese
   assert.throws(()=>verifyArchiveRecord({...historic,lastObservedAt:iso(first-1000)},later),
     /Invalid original observation window/);
 });
+
+test('1,295 historical originals bootstrap in quota-bounded day slices without dropping any',()=>{
+  const incoming=Array.from({length:1295},(_,i)=>{
+    const p='/assets/Chunk-'+String(i).padStart(4,'0')+'-ABCDEFGH.js';
+    return record(p,'release-original-'+i);
+  });
+  assert.throws(()=>planImmutablePublication({incoming,now:epoch,writesToday:0}),
+    /daily KV write quota/);
+  const first=planImmutablePublication({incoming,now:epoch,writesToday:0,allowPartial:true});
+  assert.equal(first.allRecords.length,1295);
+  assert.equal(first.newWrites,1000);
+  assert.equal(first.deferredPaths.length,295);
+  assert.equal(first.archiveComplete,false);
+  assert.equal(first.remainingDailyWrites,0);
+  assert.equal(new Set([...first.toPublish.map(x=>x.path),...first.deferredPaths]).size,1295);
+  const noBudget=planImmutablePublication({incoming,now:epoch,writesToday:1000,allowPartial:true});
+  assert.equal(noBudget.newWrites,0);
+  assert.equal(noBudget.deferredPaths.length,1295);
+  assert.equal(noBudget.archiveComplete,false);
+  const second=planImmutablePublication({
+    stored:first.toPublish,incoming,now:epoch+86400000,writesToday:0,allowPartial:true,
+  });
+  assert.equal(second.newWrites,295);
+  assert.equal(second.deferredPaths.length,0);
+  assert.equal(second.archiveComplete,true);
+  assert.equal(second.allRecords.length,1295);
+  assert.equal(second.remainingDailyWrites,705);
+  assert.throws(()=>planImmutablePublication({incoming,now:epoch,
+    writesToday:1001,allowPartial:true}),/Invalid trusted daily KV write budget/);
+});

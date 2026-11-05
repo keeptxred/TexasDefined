@@ -35,21 +35,25 @@ export async function prepublishApprovedImmutableAssets({
   let report;
   try {
     const stored=await archive.listStoredRecords({now});
+    const allowPartial=env.TEXASDEFINED_IMMUTABLE_ARCHIVE_BOOTSTRAP==='true';
     const {plan,readOriginalBytes}=await prepare({published:stored,
-      sourceSha,now,writesToday});
+      sourceSha,now,writesToday,allowPartial});
     const result=await publish({plan,namespace:archive,readOriginalBytes});
-    if (result.fullyReadBack!==true || result.readyForWorkerRouting!==false ||
-        result.globallyReplicated!==false)
+    if (typeof result.fullyReadBack!=='boolean' ||
+        result.readyForWorkerRouting!==false || result.globallyReplicated!==false)
       throw new Error('Publisher misrepresented immutable archive readiness');
-    report={format:1,status:'original-bytes-prepublished-not-globally-certified',
+    report={format:1,status:result.fullyReadBack?
+      'original-bytes-prepublished-not-globally-certified':
+      'partial-originals-prepublished-not-globally-certified',
       sourceSha,checkedAt:new Date(now).toISOString(),
       publishedOriginalCount:result.newlyPublished,
       previouslyPublishedCount:result.alreadyPresent,
       checkedOriginalCount:result.checked,
+      deferredOriginalCount:result.deferredCount,
       bytesPublished:result.bytesPublished,
       allRecords:plan.allRecords.length,
       remainingDailyWrites:plan.remainingDailyWrites,
-      noDelete:true,fullyReadBack:true,
+      noDelete:true,fullyReadBack:result.fullyReadBack,
       globallyReplicated:false,readyForWorkerRouting:false};
   } catch(e) {
     report={format:1,status:'blocked',sourceSha,
@@ -71,6 +75,7 @@ if (process.argv[1] && resolve(process.argv[1])===fileURLToPath(import.meta.url)
     sourceSha:report.sourceSha,status:report.status,
     checkedOriginalCount:report.checkedOriginalCount,
     publishedOriginalCount:report.publishedOriginalCount,
+    deferredOriginalCount:report.deferredOriginalCount,
     readyForWorkerRouting:report.readyForWorkerRouting,
   }));
 }

@@ -9,7 +9,9 @@ and supplies `readyForWorkerRouting: false` even after same-namespace readback;
 global eventual consistency must be separately certified.
 
 **Current emergency carry-forward remains active**, with its existing SHA-256,
-mime, freshness, original first-seen, 72-hour and 768-file/48 MiB protections.
+MIME, freshness, original first-seen and 72-hour protections. Current main's
+bounded safety capacity was subsequently raised to 1,536 files / 96 MiB by
+protected PR #6672; do not revert that production recovery when merging.
 
 ## Activation prerequisites (must all be true)
 1. Owner explicitly authorizes a dedicated Cloudflare KV namespace within
@@ -175,3 +177,35 @@ are committed. This is **NOT** permission to add a paid service, activate
 routing, or remove emergency retention. A trustworthy daily-write counter,
 real KV namespace, dedicated token, and post-publication global readback
 are outstanding activation requirements.
+
+## Quota-bounded multi-day bootstrap (staged source only)
+
+The first independently witnessed successful production deployment retained
+**1,295** old JS/CSS hashes (73,133,987 original bytes) at source
+`0cbe12037c4a2479022e05d5355f4a6cff72d04c`, run `42123156692`.
+That already exceeds Workers KV Free's 1,000 writes/day, even before accounting
+for current-release assets or unrelated account writes. An all-at-once
+prepublish would fail before routing and cannot safely be enabled.
+
+Explicit `TEXASDEFINED_IMMUTABLE_ARCHIVE_BOOTSTRAP=true` activates quota-bounded,
+deterministic *partial* publication while preserving the full original manifest.
+It only operates with the existing independent owner approval, publish flags,
+namespace ID, token and independently authenticated account-day write tally.
+The selected original-byte keys are read back; every not-yet-published key is
+recorded as `deferredOriginalCount`, `fullyReadBack:false` and
+`readyForWorkerRouting:false`. Stored keys are rechecked on the next execution
+and only still-missing originals are written. No data deletion or automatic
+garbage collection exists.
+
+The default (bootstrap **off**) retains the prior strict behavior: reject
+any full publication exceeding the trusted daily budget. Bootstrap never
+silently assumes zero other account writes, increases account write ceilings,
+enables KV routing, removes 72-hour carry-forward or claims cross-region
+replication. Free daily quota resets at **00:00 UTC**; a trusted same-account
+write total and separate verification are required on each day. A complete
+local readback is still insufficient for production routing until separate
+global propagation and multi-release rollback acceptance.
+
+The namespace creation request's outcome is **not verified by this GitHub
+change**. Keep the permanent archive unbound pending confirmed infrastructure
+and safe authenticated publication.

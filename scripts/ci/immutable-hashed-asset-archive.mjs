@@ -41,6 +41,7 @@ export function verifyArchiveRecord(record, now = Date.now()) {
 export function planImmutablePublication({
   stored = [], incoming = [], now = Date.now(),
   maxTotalBytes = MAX_KV_BYTES, maxDailyWrites = FREE_KV_WRITES_PER_DAY, writesToday = 0,
+  allowPartial = false,
 } = {}) {
   if (!Array.isArray(stored) || !Array.isArray(incoming)) throw new Error('Archive input must be arrays');
   if (!Number.isSafeInteger(maxTotalBytes) || maxTotalBytes < 1 || maxTotalBytes > MAX_KV_BYTES ||
@@ -66,11 +67,19 @@ export function planImmutablePublication({
   const totalBytes=allRecords.reduce((sum,r)=>sum+r.bytes,0);
   if (totalBytes > maxTotalBytes) throw new Error('Archive storage budget exceeded; fail closed');
   if (!Number.isSafeInteger(writesToday) || writesToday<0 ||
-      writesToday+newRecords.length > maxDailyWrites)
+      writesToday>maxDailyWrites || typeof allowPartial!=='boolean')
+    throw new Error('Invalid trusted daily KV write budget or bootstrap mode');
+  const available=maxDailyWrites-writesToday;
+  if (!allowPartial && newRecords.length>available)
     throw new Error('Archive daily KV write quota exceeded; fail closed');
-  return { allRecords, toPublish:newRecords, newWrites:newRecords.length,
+  // Explicit bootstrap only: preserve the COMPLETE original inventory while
+  // publishing at most the daily quota slice. Never claim complete while deferred.
+  const toPublish=allowPartial?newRecords.slice(0,available):newRecords;
+  const deferred=allowPartial?newRecords.slice(available):[];
+  return { allRecords, toPublish, newWrites:toPublish.length,
+    deferredPaths:deferred.map(r=>r.path), archiveComplete:deferred.length===0,
     totalBytes, remainingBytes:maxTotalBytes-totalBytes,
-    remainingDailyWrites:maxDailyWrites-writesToday-newRecords.length };
+    remainingDailyWrites:available-toPublish.length };
 }
 
 // Produces candidates ONLY; does not delete bytes. A separate protected,
