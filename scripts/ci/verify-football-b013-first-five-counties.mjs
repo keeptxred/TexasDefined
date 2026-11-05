@@ -78,7 +78,10 @@ const laterGroups = [
     ['dallas-gateway-charter-academy','dallas-hutchins','dallas-jesuit'],
     'getBatch013FinalThreeEditorial'],
 ];
-const laterLeads = new Set();
+// Cross-group guard: 25 canonical assigned schools must have unique authored leads.
+// The first five were previously checked only against each other.
+const laterLeads = new Set(openingParagraphs);
+const allAuthoredSlugs = new Set(expected.map(([slug]) => slug));
 for (const [file, slugs, getter] of laterGroups) {
   const source = fs.readFileSync(file, 'utf8');
   const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
@@ -88,6 +91,8 @@ for (const [file, slugs, getter] of laterGroups) {
   assert.ok(loader.includes('./'+file.split('/').pop().replace('.ts','')), file+' not imported by SSR loader');
   assert.ok(source.includes('export function '+getter), file+' missing exported getter');
   for (const slug of slugs) {
+    assert.ok(!allAuthoredSlugs.has(slug), slug+' is authored in multiple Batch013 groups');
+    allAuthoredSlugs.add(slug);
     const guide = guides[slug];
     assert.ok(guide && guide.slug === slug, slug+' missing canonical editorial identity');
     assert.ok(loader.includes("'"+slug+"'"), slug+' missing SSR loader gate');
@@ -102,3 +107,6 @@ for (const [file, slugs, getter] of laterGroups) {
   }
 }
 console.log('PASS: Batch013 additional 14 authored SSR guides retain distinct, dated source editorial (NOT Chrome certification)');
+
+assert.equal(allAuthoredSlugs.size, 25, 'Batch013 must contain exactly 25 distinct assigned authored guides');
+console.log('PASS: exactly 25 distinct Batch013 authored school identities and unique cross-group leads (NOT production acceptance)');
