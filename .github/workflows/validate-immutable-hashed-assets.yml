@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '22'
       - name: Test independent original-byte archive invariants
-        run: node --test scripts/ci/immutable-hashed-asset-archive.test.mjs
+        run: node --test scripts/ci/immutable-hashed-asset-*.test.mjs
