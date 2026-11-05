@@ -48,4 +48,15 @@ const reportSitemap = read("src/data/fishing/report-sitemap.server.ts");
 assert.ok(reportRoute.includes('fishingReportFreshness(entry.report) === "current"'), "Archive directory noindex missing");
 assert.ok(reportSitemap.includes('fishingReportFreshness(report) === "current"'), "Historical report sitemap exclusion missing");
 assert.ok(read("src/components/fishing/FishingReportDirectory.tsx").includes("weekly fishing reports are currently paused"));
+const inventoryMonitor = read("scripts/ci/audit-fishing-inventory-sources.mjs");
+const inventoryMonitorWorkflow = read(".github/workflows/fishing-source-inventory.yml");
+for (const marker of [
+  'statewideNetworkShowcaseLakePrototypes',
+  'lake.accessReviewedAt',
+  'reviewedNetworkChecked: batch.length',
+  'i % 2 === cohort',
+  'process.env.GITHUB_EVENT_NAME === "pull_request"',
+]) assert.ok(inventoryMonitor.includes(marker), "Reviewed lake-access weekly source monitoring contract missing: " + marker);
+assert.ok(inventoryMonitorWorkflow.includes("node --experimental-strip-types scripts/ci/audit-fishing-inventory-sources.mjs"), "Node must load reviewed statewide lake authority records for scheduled source checks");
+assert.ok(inventoryMonitorWorkflow.includes("cron: '23 14 * * 1,4'"), "Monday/Thursday source review schedule must remain configured");
 console.log(JSON.stringify({ result: "PASS", lakes: access.length + 1, accessPoints: allSites.length + 8, sourcedGuideBusinesses: guides.length, historicalReportRecords: 6, searchGates: "protected" }, null, 2));
