@@ -90,3 +90,33 @@ jobs:
             .artifacts/immutable-ts-delta.json
           if-no-files-found: error
           retention-days: 14
+
+  immutable-worker-bundle-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Compile production Worker assets without deployment
+        run: |
+          npm run prebuild
+          npm run build
+      - name: Verify an SSR Worker entry bundle was produced
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -d dist || ! -d dist/client/assets ]]; then
+            echo '::error title=Worker build output missing::Build did not produce hashed client assets.'
+            exit 1
+          fi
+          hashed="$(find dist/client/assets -maxdepth 1 -type f \\( -name '*.js' -o -name '*.css' \\) | wc -l | tr -d ' ')"
+          if [[ "$hashed" -lt 1 ]]; then
+            echo '::error title=No client chunks::No actual JS/CSS files were built.'
+            exit 1
+          fi
+          echo "No-deploy production build created $hashed JS/CSS assets."
