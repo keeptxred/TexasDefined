@@ -14,6 +14,7 @@ on:
       - 'src/data/fishing/lake-directory-advisories.json'
       - 'src/routes/fishing.lakes.tsx'
       - 'scripts/ci/audit-fishing-lakes-directory-sources.mjs'
+      - 'scripts/ci/audit-fishing-lake-regulation-sources.mjs'
       - 'scripts/data/validate-fishing-lakes-directory.mjs'
       - '.github/workflows/fishing-lakes-directory-refresh.yml'
 
@@ -38,11 +39,23 @@ jobs:
         run: |
           node scripts/data/validate-fishing-lakes-directory.mjs
           node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
+          node --check scripts/ci/audit-fishing-lake-regulation-sources.mjs
+          node scripts/ci/audit-fishing-lake-regulation-sources.mjs --plan
       - name: Verify posted official lake access restrictions
         if: github.event_name != 'pull_request'
         id: source
         continue-on-error: true
         run: node scripts/ci/audit-fishing-lakes-directory-sources.mjs
+      - name: Smoke-test both official TPWD lake-source types in PR
+        if: github.event_name == 'pull_request'
+        run: node scripts/ci/audit-fishing-lake-regulation-sources.mjs --smoke
+      - name: Review lake-specific official TPWD fishing regulations and fishery sources
+        if: github.event_name != 'pull_request'
+        id: regulations
+        continue-on-error: true
+        env:
+          FISHING_LAKES_FULL_REVIEW: ${{ (github.event_name == 'workflow_dispatch' || github.event.schedule == '49 15 2 1,4,7,10 *') && '1' || '0' }}
+        run: node scripts/ci/audit-fishing-lake-regulation-sources.mjs
       - name: Quarterly source and lake authority review
         if: github.event_name == 'workflow_dispatch' || github.event.schedule == '49 15 2 1,4,7,10 *'
         id: quarterly
@@ -58,18 +71,20 @@ jobs:
           name: fishing-lakes-directory-refresh-${{ github.run_id }}
           path: |
             .artifacts/fishing-lakes-directory-source-check.json
+            .artifacts/fishing-lake-regulation-sources.json
             fishing-authority-registered-urls.json
             fishing-authority-registered-urls.md
           if-no-files-found: warn
           retention-days: 45
       - name: Create or update actionable GitHub source drift issue
-        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.quarterly.outcome == 'failure')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           title='Fishing lakes directory official-source refresh drift'
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
-          body="The scheduled fishing lakes directory refresh could not verify an official access restriction, a source, or an authority contract. Preserve the current conservative restrictions until the first-party source is checked. Review the evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Do not update verification dates without successful source checks."
+          detail="$(node -e 'const fs=require("fs");const p=".artifacts/fishing-lake-regulation-sources.json";if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));console.log((r.errors||[]).slice(0,12).join("\\n"))}')"
+          body="The scheduled fishing lakes directory refresh detected a TPWD access-alert mismatch, a lake-specific fishery/regulation source mismatch, or an authority-contract problem. This is **source integrity monitoring, not verification that bag or length limits have changed**. Preserve conservative visitor warnings and check the official primary sources before revising factual claims. See evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. No verification dates should be updated without a real source check. Source failures (first 12): $detail"
           if [[ -n "$existing" ]]; then
             gh issue comment "$existing" --body "$body"
           else
