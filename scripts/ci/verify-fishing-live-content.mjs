@@ -38,7 +38,7 @@ function lacks(body, phrase, path) {
   assert.ok(!body.includes(phrase), `${path}: forbidden stale/empty content: ${phrase}`);
 }
 function noindex(body, path) {
-  const robots = (body.match(/<meta\\b[^>]*name=["']robots["'][^>]*>/gi) ?? []).join(" ");
+  const robots = (body.match(/<meta\b[^>]*name=["']robots["'][^>]*>/gi) ?? []).join(" ");
   assert.ok(/noindex/i.test(robots), `${path}: missing HTML robots noindex; found ${robots.slice(0, 200)}`);
 }
 
