@@ -45,13 +45,33 @@ const missing = [...expected].filter(url => !sitemapProducts.has(url));
 const extra = [...sitemapProducts].filter(url => !expected.has(url));
 console.log(JSON.stringify({catalogProducts: expected.size, sitemapProducts: sitemapProducts.size, missing, extra}));
 if (missing.length || extra.length) throw Error(`Shop sitemap parity failed: ${missing.length} missing, ${extra.length} unpublished`);
-for (const url of [...expected].slice(0, 5)) {
-  const html = await fetchPage(url);
-  const linkTags = html.match(/<link\b[^>]*>/gi) ?? [];
-  const canonical = linkTags.find(tag => /\brel=["']canonical["']/i.test(tag));
-  if (!canonical?.includes(url)) throw Error("Canonical missing or incorrect on "+url);
-  if (/<meta\b[^>]*name=["'](?:robots|googlebot)["'][^>]*content=["'][^"']*noindex/i.test(html)) {
-    throw Error("Active product page is noindex: "+url);
-  }
+// Inspect every active product page while the catalog is small. For very large
+// catalogs, inspect 250 evenly distributed pages and keep strict 1:1
+// catalog-to-sitemap membership checks on every product URL.
+const allProductUrls = [...expected].sort();
+const pageBudget = 250;
+const pagesToInspect = allProductUrls.length <= pageBudget
+  ? allProductUrls
+  : Array.from({ length: pageBudget }, (_, i) => allProductUrls[Math.floor(i * allProductUrls.length / pageBudget)]);
+const pageFailures = [];
+for (let start = 0; start < pagesToInspect.length; start += 5) {
+  const results = await Promise.all(pagesToInspect.slice(start, start + 5).map(async (url) => {
+    try {
+      const response = await fetch(url, { headers: { 'user-agent': ua, 'cache-control': 'no-cache' }, signal: AbortSignal.timeout(15000) });
+      if (response.status !== 200) throw new Error('HTTP ' + response.status);
+      const html = await response.text();
+      const linkTags = html.match(/<link\b[^>]*>/gi) ?? [];
+      const canonical = linkTags.find(tag => /\brel=["']canonical["']/i.test(tag));
+      if (!canonical?.includes(url)) throw new Error('Canonical missing or incorrect');
+      const robots = (html.match(/<meta\b[^>]*>/gi) ?? []).filter(tag => /\bname\s*=\s*["'](?:robots|googlebot)["']/i.test(tag));
+      if (robots.some(tag => /\bnoindex\b/i.test(tag)) || /\bnoindex\b/i.test(response.headers.get('x-robots-tag') ?? '')) {
+        throw new Error('noindex detected');
+      }
+      return null;
+    } catch (error) { return { url, failure: String(error) }; }
+  }));
+  pageFailures.push(...results.filter(Boolean));
 }
-console.log(`PASS: ${expected.size} live assigned shop products have exactly one canonical URL in advertised sitemap, sample product pages indexable`);
+console.log(JSON.stringify({ checkedProductPages: pagesToInspect.length, totalPublished: allProductUrls.length, pageFailures }));
+if (pageFailures.length) throw Error('Active product page indexability failed on ' + pageFailures.length + ' URLs');
+console.log(`PASS: ${expected.size} live published products match the canonical sitemap; ${pagesToInspect.length} product detail pages verified indexable`);
