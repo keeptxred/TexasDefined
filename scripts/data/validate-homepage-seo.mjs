@@ -99,6 +99,7 @@ for (const feature of [
 if (lazyRoute.includes('uniqueLatest.slice(0, 8)') || lazyRoute.includes('Need a Texas answer, not another destination?')) {
   errors.push('Homepage must not restore duplicate story grid or redundant Start Here band.');
 }
+if (!lazyRoute.includes('Share a correction or firsthand Texas tip →') || !lazyRoute.includes('to="/corrections-policy"')) errors.push('Homepage must offer an editorial correction/firsthand tip link.');
 if (!lazyRoute.includes('Texas Resources &amp; State Agencies — Open Start Here →')) {
   errors.push('Resources CTA must remain accessible inside compact guide section.');
 }
@@ -108,7 +109,8 @@ for (const feature of [
   'contactPoint: [{',
   '"@type": "ContactPoint"',
   'contactType: "editorial, corrections and general inquiries"',
-  'url: `${siteUrl}/partner-with-us`',
+  'url: `${siteUrl}/corrections-policy`',
+  'email: "admin@texasdefined.com"',
   'publishingPrinciples: `${siteUrl}/editorial-policy`',
   'areaServed: { "@type": "State", name: "Texas" }',
 ]) {
@@ -120,7 +122,7 @@ for (const feature of [
   '"@type": "ContactPage"',
   '<address id="contact"',
   '<strong className="text-foreground">Contact Texas Defined.</strong>',
-  'For corrections, source updates or general questions',
+  'For corrections or reader updates',
   'texasDefinedBrand.identity.social.map((profile, index)',
   'A street address is published only when there is a verified public business location to list.',
 ]) {
