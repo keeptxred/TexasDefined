@@ -1,3 +1,13 @@
+## 2026-11-05 — Batch013 25/25 guides authored, NOT production VERIFIED
+
+All 25 assigned Batch013 school-specific SSR editorial guides are merged through protected PRs #6627–#6636, #6641 and #6644. The source-level football contract on #6644 passed in run #42060403047; the Merge Gate passed in run #42060403579. These source and CI checks **do not constitute** release-matched Chrome acceptance.
+
+Campus/county reciprocal edges for Cuero, Cumby, Cushing, Cy-Fair and Cypress Creek were established in the initial cohort. Three additional Dallas campus-county reciprocal links for Hillcrest, Thomas Jefferson and Jesuit Dallas were merged in PR #6646, with Batch013 source contract #42060722261 and Merge Gate #42060722306 passing. Other Batch013 campus-county edges remain subject to individual source verification. Campus addresses must not be mistaken for stadium entrances.
+
+The global uniqueness source-contract follow-up PR #6648 passed head Actions #42060996769 and #42060996817 but remained OPEN at this checkpoint, pending protected merge. No status promotion is authorized from that check.
+
+**Batch013 graduation is blocked** until one real non-skipped Chrome execution covers all 25 school pages at 1366, 390 and 320px (75 viewport cases), source-backed reciprocal county links, canonical/indexability/sitemap/structured data and functioning assets, with compact machine-readable evidence tied to an authenticated GitHub source SHA and actually deployed Cloudflare Worker. A separate protected evidence-only graduation PR is then required. **ZERO Batch013 schools have been newly VERIFIED** by these editorial merges. Preserve the completed Batch012 280/1292 historical VERIFIED baseline; do not infer new registry totals from authored guides.
+
 ## 2026-11-04 — Batch012 genuinely VERIFIED (25 schools; source/Worker-attested Chrome)
 
 **Actual protected-production Chrome technical acceptance; not a source-only promotion.** Two independent non-skipped GitHub Actions jobs completed with **75/75 school viewport checks** at **1366, 390 and 320px**, **25/25 county-to-school reciprocal checks**, exact canonical/indexability and sitemap assertions, expected structured data, functioning images and JavaScript, no horizontal overflow, and **zero reported failures**. Neither job's green status is a skipped Chrome job.
