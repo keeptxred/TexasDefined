@@ -28,9 +28,9 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "big-bend-national-park",
     "parkName": "Big Bend National Park",
     "sourceUrl": "https://www.nps.gov/bibe/planyourvisit/conditions.htm",
-    "notice": "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.",
-    "checkedAt": "2026-11-01",
-    "status": "needs-review"
+    "notice": "NPS lists weather-related closures for the paved road between Cottonwood Campground and Santa Elena Canyon, Hot Springs Road past the overflow parking lot, River Road West to Glenn Springs Road, and Black Gap Road. Paint Gap Road is not on this list, which does not itself establish reopening. Verify road access with NPS before travel.",
+    "checkedAt": "2026-11-05",
+    "status": "confirmed"
   },
   {
     "destinationSlug": "brazos-bend-state-park",
