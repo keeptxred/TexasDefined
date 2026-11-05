@@ -14,10 +14,10 @@ export const expandedSourcedAccessPoints: FishingAccessPoint[] = accessGroups.fl
     sourceType: "state",
   };
   return group.facilities.map((facility) => {
-    const [name, listedKind] = facility;
+    const [name, listedKind, facilityDetail] = facility;
     const kind = listedKind as FishingAccessPoint["kind"];
     const canonicalSlug = `${group.lakeId}-${slugify(name)}`;
-    const summary = `TPWD names ${name} in its ${group.lakeName} access inventory. This listing identifies a sourced facility, not a live confirmation of ramp usability, fishing permissions, opening hours or launch fees. Check the linked TPWD inventory and current operator notices before traveling.`;
+    const summary = `${facilityDetail ? `${facilityDetail} ` : `TPWD names ${name} in its ${group.lakeName} access inventory. `}This is documented access information, not live confirmation of ramp usability, fishing permissions, opening hours or launch fees. Check the TPWD source and operator notices before traveling.`;
     const common = {
       id: `tpwd-site-${canonicalSlug}`,
       brandId: "texasdefined" as const,
