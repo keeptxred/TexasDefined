@@ -119,7 +119,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             contactPoint: [{
               "@type": "ContactPoint",
               contactType: "editorial, corrections and general inquiries",
-              url: `${siteUrl}/partner-with-us`,
+              url: `${siteUrl}/corrections-policy`,
+              email: "admin@texasdefined.com",
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
