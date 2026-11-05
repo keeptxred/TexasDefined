@@ -127,3 +127,22 @@ test('listing rejects non-progressing opaque cursors and unauthenticated reads',
     fetchImpl:async()=>Response.json({success:false,errors:[{code:10000}]},{status:403})});
   await assert.rejects(blocked.listStoredRecords({now}),/HTTP 403/);
 });
+
+test('direct KV transport refuses same-length tampered bytes before any network write',async()=>{
+  let requests=0;
+  const kv=createImmutableKvRestTransport({accountId,namespaceId,token,
+    fetchImpl:async()=>{requests++;return ok({});}});
+  const altered=Buffer.from(original);
+  altered[0]=altered[0]===33?34:33;
+  assert.equal(altered.length,original.length);
+  await assert.rejects(
+    kv.put(key,altered,{metadata}),
+    /Refuse original-byte SHA mismatch/,
+  );
+  assert.equal(requests,0);
+  await assert.rejects(
+    kv.put(key,original,{metadata:{...metadata,sha256:'0'.repeat(64)}}),
+    /Refuse original-byte SHA mismatch/,
+  );
+  assert.equal(requests,0);
+});
