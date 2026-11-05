@@ -79,3 +79,14 @@ test('dry-run detects contradiction between current build bytes and handoff orig
     }),/Current build contradicts previously verified original bytes/);
   });
 });
+
+test('dry-run rejects malformed original retention proof rather than filtering it away',async()=>{
+  await fixture(async({assets,snapshot,report,output,retention})=>{
+    await writeFile(join(assets,'main-ABCDEFGH.js'),body);
+    await writeFile(report,JSON.stringify({...retention,copied:[{path,firstSeenAt}]}));
+    await assert.rejects(prepareImmutableArchivePlan({
+      assetDirectory:assets,snapshotPath:snapshot,retentionReportPath:report,
+      outputPath:output,sourceSha,now,historicalProof:[],
+    }),/Malformed original-byte proof/);
+  });
+});
