@@ -127,11 +127,11 @@ for (const signal of [
   'Sources and official records',
   'Corrections and updates',
   'Clear separation of guidance',
-  'To report a factual error or request a correction',
+  'For corrections and firsthand Texas visitor updates',
   '/editorial-policy',
   '/sourcing-methodology',
   '/corrections-policy',
-  'to="/partner-with-us"',
+  'to="/corrections-policy"',
 ]) {
   if (!about.includes(signal)) failures.push(`About-page editorial accountability signal missing: ${signal}.`);
 }
@@ -154,7 +154,8 @@ for (const [name, source, required] of [
     'Time-sensitive information',
     'How to report an error',
     'What happens after a report',
-    'to="/partner-with-us"',
+    'mailto:admin@texasdefined.com?subject=Texas%20Defined%20editorial%20correction',
+    'Share a firsthand Texas update',
   ]],
   ['Sourcing Methodology', sourcingMethodology, [
     'Source hierarchy',
