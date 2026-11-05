@@ -406,6 +406,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             <div><dt className="font-semibold">Camping styles</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.styles.map((style) => styleLabels[style]).join(" · ")}</dd></div>
             {comparisonAmenityGroups.map((group) => <div key={group.label}><dt className="font-semibold">{group.label}</dt><dd className="mt-1 leading-6 text-muted-foreground">{verifiedAmenityText(profile, group.amenities)}</dd></div>)}
             <div><dt className="font-semibold">Accessibility</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.includes("ada-site") ? "Accessible campsite feature verified" : "Not verified in this guide"}</dd></div>
+            {profile.operatorNotice ? <div><dt className="font-semibold">Operator conditions · reviewed {profile.operatorNoticeReviewedAt}</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.operatorNotice} {profile.operatorNoticeSourceUrl ? <a href={profile.operatorNoticeSourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Current official notice ↗</a> : null}</dd></div> : null}
             <div><dt className="font-semibold">Pet policy</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.petPolicy ?? (profile.amenities.includes("pets") ? "Pet access is documented for some campsites; check the official operator source" : "Not verified in this guide")}</dd>{profile.petPolicySourceUrl ? <dd className="mt-1"><a href={profile.petPolicySourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official pet rules ↗</a></dd> : null}</div>
             <div><dt className="font-semibold">Managed by</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.managingAgency}</dd></div>
             <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
@@ -443,6 +444,11 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               <p className="mt-1">{alert.notice}</p>
               <p className="mt-1 text-xs">{alert.status === "confirmed" ? "Advisory verified" : "Advisory last checked"}: {alert.checkedAt}. Conditions may change sooner.</p>
               <a className="underline font-semibold" href={alert.sourceUrl} target="_blank" rel="noopener noreferrer">{alert.sourceUrl.includes("nps.gov") ? "Read current NPS conditions ↗" : "Read current TPWD park alerts ↗"}</a>
+            </aside> : null}
+{profile.operatorNotice ? <aside className="mt-4 border-l-4 border-primary bg-muted/30 p-4 text-sm leading-6" aria-label={`Official operator condition for ${profile.name}`}>
+              <strong>Official park conditions · reviewed {profile.operatorNoticeReviewedAt}</strong>
+              <p className="mt-1">{profile.operatorNotice}</p>
+              {profile.operatorNoticeSourceUrl ? <a href={profile.operatorNoticeSourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block font-semibold text-primary underline">Read current operator notice ↗</a> : null}
             </aside> : null}
             {!isParentDestination ? <p className="mt-2 text-sm font-semibold text-primary">Campground profile</p> : null}
             {profile.whyCampHere ? <p className="mt-3 text-sm leading-6 text-foreground">{profile.whyCampHere}</p> : null}
