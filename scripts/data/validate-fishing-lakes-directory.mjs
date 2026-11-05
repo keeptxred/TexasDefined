@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), "utf8");
 
-const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, advisoriesText, lakeFixtures] = await Promise.all([
+const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, advisoriesText, lakeFixtures, sharedAnswers] = await Promise.all([
   read("src/routes/fishing.lakes.tsx"),
   read("src/components/fishing/FishingLakesDirectory.tsx"),
   read("src/routes/fishing.tsx"),
@@ -18,10 +18,16 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
   read("scripts/ci/audit-fishing-lakes-directory-sources.mjs"),
   read("src/data/fishing/lake-directory-advisories.json"),
   read("src/data/fishing/fixtures.ts"),
+  read("src/data/fishing/lake-directory-answers.ts"),
 ]);
 
 const errors = [];
 const advisories = JSON.parse(advisoriesText);
+assertFAQContract();
+function assertFAQContract() {
+  // FAQ structured data and visible answers must share the same pure source.
+  if (!route.includes("buildFishingLakeQuickAnswers(completeLakeCount)") || !component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Visible quick answers must exactly match JSON-LD FAQ content from one shared source.");
+}
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
 for (const marker of [
@@ -52,7 +58,7 @@ for (const marker of [
   'same sourcing standard',
   'source-backed lake-to-species relationships',
   'fishingFoundationAnchor("lake", lake.slug)',
-]) assert(component.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
+]) assert(`${component}\n${sharedAnswers}`.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
 
 for (const forbidden of [
   '@/data/fishing/fixtures',
