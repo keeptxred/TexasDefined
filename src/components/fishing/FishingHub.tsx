@@ -13,7 +13,7 @@ interface FishingHubProps {
   lakes: FishingLake[];
   species: FishSpecies[];
   lakeSpecies: LakeSpeciesProfile[];
-  resourceAvailability: { reports: boolean; guides: boolean; access: boolean };
+  resourceAvailability: { reports: boolean; reportsCurrent: boolean; guides: boolean; access: boolean };
 }
 
 export function FishingHub({ lakes, species, lakeSpecies, resourceAvailability }: FishingHubProps) {
@@ -128,7 +128,7 @@ export function FishingHub({ lakes, species, lakeSpecies, resourceAvailability }
           <Resource href="/fishing/techniques" title="Fishing techniques" copy="Browse source-backed methods connected to Texas lakes and species." />
           <Resource href="/fishing/structure" title="Structure & cover" copy="Learn how points, ledges, channels, brush, timber and docks create fishing targets." />
           <Resource href="/fishing/vegetation" title="Aquatic vegetation" copy="Read grass lines, hydrilla, reeds, flooded plants and vegetation edges." />
-          {resourceAvailability.reports ? <Resource href="/fishing/reports" title="Fishing reports" copy="Read dated reports and check freshness before planning." /> : null}
+          {resourceAvailability.reports ? <Resource href="/fishing/reports" title={resourceAvailability.reportsCurrent ? "Fishing reports" : "Historical fishing reports"} copy={resourceAvailability.reportsCurrent ? "Read dated fishing reports and check their freshness before planning." : "Explore attributable archived observations; TPWD weekly reports are currently on hold, and these reports are not live conditions."} /> : null}
           {resourceAvailability.access ? <Resource href="/fishing/access" title="Fishing access" copy="Explore documented ramps and marinas with official source links." /> : <Resource href="/fishing/lakes/lake-conroe/access" title="Lake Conroe access" copy="Explore the source-backed access guide for Lake Conroe." />}
           {resourceAvailability.guides ? <Resource href="/fishing/guides" title="Fishing guides" copy="Browse verified local guide profiles connected to the waters they serve." /> : null}
           <Resource href="/shop/fishing-shirts" title="Texas fishing shirts" copy="See Texas Defined bass, lake, tackle and coastal angler graphic tees. Product pages show current options and checkout." />

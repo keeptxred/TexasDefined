@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { fishingReportFreshness } from "./report-routing";
 
 /** Show directory links on the hub only when the public catalog has verified inventory. */
 export const getFishingResourceAvailability = createServerFn({ method: "GET" }).handler(async () => {
@@ -10,6 +11,7 @@ export const getFishingResourceAvailability = createServerFn({ method: "GET" }).
   ]);
   return {
     reports: reports.some(isFishingRecordVerified),
+    reportsCurrent: reports.some((report) => isFishingRecordVerified(report) && fishingReportFreshness(report) === "current"),
     guides: guides.some((guide) => guide.verifiedListing && isFishingRecordVerified(guide)),
     access: accessPoints.some(isFishingRecordVerified),
   };

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getFishingReportDirectoryData } from "@/data/fishing/report-directory-data.functions";
-import { FISHING_REPORTS_DIRECTORY_PATH } from "@/data/fishing/report-routing";
+import { FISHING_REPORTS_DIRECTORY_PATH, fishingReportFreshness } from "@/data/fishing/report-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description = "Browse source-backed Texas fishing reports with explicit publication dates, freshness labels, lake and target-species filters, and no fabricated current-condition claims.";
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/fishing/reports")({
   head: ({ loaderData }) => {
     const reports = loaderData?.reports ?? [];
     const origin = `https://${texasDefinedBrand.identity.domain}`;
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Reports — Verified & Freshness-Labeled", description, canonicalPath: FISHING_REPORTS_DIRECTORY_PATH, robots: reports.length ? undefined : "noindex, follow" }), links: [canonicalLink(texasDefinedBrand, FISHING_REPORTS_DIRECTORY_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify([
+    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Reports — Verified & Freshness-Labeled", description, canonicalPath: FISHING_REPORTS_DIRECTORY_PATH, robots: reports.some((entry) => fishingReportFreshness(entry.report) === "current") ? undefined : "noindex, follow" }), links: [canonicalLink(texasDefinedBrand, FISHING_REPORTS_DIRECTORY_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify([
       { "@context": "https://schema.org", "@type": "CollectionPage", name: "Texas Fishing Reports", description, url: `${origin}${FISHING_REPORTS_DIRECTORY_PATH}`, dateModified: loaderData?.verifiedAt },
       { "@context": "https://schema.org", "@type": "ItemList", name: "Verified Texas fishing reports", numberOfItems: reports.length, itemListElement: reports.map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.report.title, url: `${origin}${entry.href}` })) },
       { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: origin }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${origin}/fishing` }, { "@type": "ListItem", position: 3, name: "Fishing reports", item: `${origin}${FISHING_REPORTS_DIRECTORY_PATH}` }] },
