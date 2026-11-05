@@ -26,23 +26,36 @@ function FishingLakeComparePage() {
           <button type="submit" className="border border-primary px-5 py-3 text-sm font-semibold text-primary">Compare</button>
         </form><p className="mt-4 text-xs text-muted-foreground">This tool compares lake details and does not rank the selected lakes.</p></section>
 
-      {selected.length ? <section className="py-10 overflow-x-auto"><div className="min-w-[760px]"><div className="grid border-y border-border" style={{ gridTemplateColumns: `12rem repeat(${selected.length}, minmax(12rem, 1fr))` }}><div className="p-4"><p className="eyebrow text-primary">Compare</p><h2 className="mt-2 font-display text-3xl">Lake Comparison</h2></div>{selected.map((row) => <div key={row.lake.id} className="border-l border-border p-4"><p className="eyebrow text-primary">{titleCase(row.lake.region)}</p><h3 className="mt-2 font-display text-2xl"><a href={row.href}>{row.lake.name}</a></h3></div>)}
-          <CompareRow label="Surface area" rows={selected.map((row) => row.lake.surfaceAcres ? `${row.lake.surfaceAcres.toLocaleString("en-US")} acres` : "Not published")} />
-          <CompareRow label="Maximum depth" rows={selected.map((row) => row.lake.maxDepthFeet ? `${row.lake.maxDepthFeet} ft` : "Not published")} />
-          <CompareRow label="Counties" rows={selected.map((row) => row.lake.counties.join(", ") || "Not published")} />
-          <CompareRow label="Nearby cities" rows={selected.map((row) => row.lake.nearestCities.join(", ") || "Not published")} />
-          <CompareRow label="Top verified targets" rows={selected.map((row) => row.targets.slice(0, 4).map((target) => `${target.species?.commonName} (${target.relation.quality})`).join(" · ") || "No verified target relationships")} />
-          <CompareRow label="Current reports" rows={selected.map((row) => count(row.reports.current.length))} />
-          <CompareRow label="Verified guides" rows={selected.map((row) => count(row.guides.length))} />
-          <CompareRow label="Verified access" rows={selected.map((row) => count(row.access.length))} />
-          <CompareRow label="Verified services" rows={selected.map((row) => count(row.services.length))} />
-        </div></div></section> : <p className="py-12 text-sm text-muted-foreground">Select at least one lake.</p>}
+      {selected.length ? <section className="py-10" aria-labelledby="lake-comparison-heading">
+        <h2 id="lake-comparison-heading" className="font-display text-3xl">Lake Comparison</h2>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">Compare lake facts side by side. On a narrow screen, scroll the table horizontally. Keyboard users can focus the table area and use the arrow keys.</p>
+        <div role="region" aria-label="Lake comparison table" tabIndex={0} className="mt-5 max-w-full overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+          <table className="w-full min-w-[760px] table-fixed border-collapse">
+            <caption className="sr-only">Source-backed facts for the selected Texas fishing lakes, by lake and comparison topic</caption>
+            <thead><tr>
+              <th scope="col" className="w-1/4 p-4 text-left text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Topic</th>
+              {selected.map((row) => <th key={row.lake.id} scope="col" className="border-l border-border p-4 text-left align-top font-normal"><p className="eyebrow text-primary">{titleCase(row.lake.region)}</p><h3 className="mt-2 font-display text-2xl"><a href={row.href}>{row.lake.name}</a></h3></th>)}
+            </tr></thead>
+            <tbody>
+              <CompareRow label="Surface area" rows={selected.map((row) => row.lake.surfaceAcres ? row.lake.surfaceAcres.toLocaleString("en-US") + " acres" : "Not published")} />
+              <CompareRow label="Maximum depth" rows={selected.map((row) => row.lake.maxDepthFeet ? row.lake.maxDepthFeet + " ft" : "Not published")} />
+              <CompareRow label="Counties" rows={selected.map((row) => row.lake.counties.join(", ") || "Not published")} />
+              <CompareRow label="Nearby cities" rows={selected.map((row) => row.lake.nearestCities.join(", ") || "Not published")} />
+              <CompareRow label="Top verified targets" rows={selected.map((row) => row.targets.slice(0, 4).map((target) => String(target.species?.commonName || "Species not published") + " (" + target.relation.quality + ")").join(" · ") || "No verified target relationships")} />
+              <CompareRow label="Current reports" rows={selected.map((row) => count(row.reports.current.length))} />
+              <CompareRow label="Verified guides" rows={selected.map((row) => count(row.guides.length))} />
+              <CompareRow label="Verified access" rows={selected.map((row) => count(row.access.length))} />
+              <CompareRow label="Verified services" rows={selected.map((row) => count(row.services.length))} />
+            </tbody>
+          </table>
+        </div>
+      </section> : <p className="py-12 text-sm text-muted-foreground">Select at least one lake.</p>}
 
       <section className="border-y border-border py-10"><p className="eyebrow text-primary">Comparison policy</p><h2 className="mt-2 font-display text-3xl">How to Read This Comparison</h2><p className="mt-5 text-sm leading-7 text-muted-foreground">A zero means no verified listing is published here, not that a facility or business does not exist. {data.policy.conditions} {data.policy.ranking} The comparison engine does not accept paid weighting.</p></section>
     </Container>
   </>;
 }
 
-function CompareRow({ label, rows }: { label: string; rows: string[] }) { return <><div className="border-t border-border p-4 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{label}</div>{rows.map((value, index) => <div key={`${label}-${index}`} className="border-l border-t border-border p-4 text-sm leading-6">{value}</div>)}</>; }
+function CompareRow({ label, rows }: { label: string; rows: string[] }) { return <tr><th scope="row" className="border-t border-border p-4 text-left align-top text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{label}</th>{rows.map((value, index) => <td key={label + "-" + index} className="border-l border-t border-border p-4 align-top text-sm leading-6">{value}</td>)}</tr>; }
 function titleCase(value: string) { return value.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase()); }
 function count(value: number) { return value ? String(value) : "None published"; }
