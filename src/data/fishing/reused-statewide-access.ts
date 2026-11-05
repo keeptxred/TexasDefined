@@ -18,8 +18,12 @@ export function deriveReviewedStatewideAccessPoints(
   const present = new Set(existingAccessPoints.flatMap((point) =>
     point.lakeIds.map((lakeId) => `${lakeId}:${normalizeName(point.name)}`),
   ));
+  const seededLakes = new Set(existingAccessPoints.flatMap((point) => point.lakeIds));
   const output: FishingAccessPoint[] = [];
   for (const lake of prototypes) {
+    // A newly source-checked, fully enumerated lake inventory takes precedence
+    // over earlier authority notes; do not duplicate the same ramp under aliases.
+    if (seededLakes.has(lake.slug)) continue;
     // Only the explicit source-reviewed access dossiers, never synthesized
     // generic lake-level access sentences or assumed facilities.
     if (!lake.accessReviewedAt || !lake.sources.tpwdAccess?.url.startsWith("https://tpwd.texas.gov/")) continue;
