@@ -64,6 +64,13 @@ export function createImmutableKvRestTransport({
         value.buffer.slice(value.byteOffset,value.byteOffset+value.byteLength):null;
     if (!(body instanceof ArrayBuffer) || body.byteLength!==record.bytes)
       throw new Error('Refuse malformed immutable KV publication bytes');
+    // Defense in depth: even a caller that bypasses publishImmutableArchive()
+    // cannot send wrong original bytes under a verified immutable name.
+    const digest=await crypto.subtle.digest('SHA-256',body);
+    const actualSha=[...new Uint8Array(digest)]
+      .map(n=>n.toString(16).padStart(2,'0')).join('');
+    if (actualSha!==record.preSha256)
+      throw new Error('Refuse original-byte SHA mismatch in immutable KV upload');
     const form=new FormData();
     form.append('value',new Blob([body],{type:'application/octet-stream'}));
     form.append('metadata',JSON.stringify(metadata));
