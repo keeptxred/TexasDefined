@@ -26,6 +26,19 @@ for (const guide of guides) {
   assert.ok(access.some((lake) => lake.lakeId === guide.lakeId) || guide.lakeId === "lake-conroe", guide.slug + ": unknown lake");
   assert.ok(Array.isArray(guide.species) && new Set(guide.species).size === guide.species.length);
 }
+const SOURCE_DETAIL_LAKES = new Set(["cedar-creek-reservoir", "lake-ray-hubbard", "grapevine-lake", "possum-kingdom-reservoir", "lake-palestine", "lake-tawakoni", "amistad-reservoir"]);
+for (const group of access.filter((lake) => SOURCE_DETAIL_LAKES.has(lake.lakeId))) {
+  for (const [name, , details] of group.facilities) {
+    assert.ok(typeof details === "string" && details.length >= 65, `${group.lakeId}/${name}: missing specific TPWD-sourced access detail`);
+  }
+}
+assert.ok(access.length >= 13, "Statewide fishing access expansion must retain 13 explicitly reviewed lake inventories");
+assert.ok(allSites.length >= 150, "Statewide fishing access expansion unexpectedly lost verified facility coverage");
+assert.ok(!allSites.some((site) => site.lakeId === "sam-rayburn-reservoir" && site.name === "Public Ramp"), "Unidentified generic Sam Rayburn ramp must remain unpublished");
+const guideDirectory = read("src/components/fishing/FishingGuideDirectory.tsx");
+const guideProfileUi = read("src/components/fishing/FishingGuideProfile.tsx");
+assert.ok(guideDirectory.includes("current Texas fishing-guide license"), "Guide directory must disclose licensing verification limitations");
+assert.ok(guideProfileUi.includes("confirmation of current licensing"), "Guide profiles must disclose licensing verification limitations");
 const index = read("src/data/fishing/index.ts");
 for (const s of ["expandedSourcedAccessPoints", "sourcedNetworkAccess", "curatedVerifiedGuides", "curatedGuideLakes", "curatedGuideSpecies", "curatedHistoricalFishingReports"])
   assert.ok(index.includes(s), "Catalog binding absent: " + s);
@@ -59,4 +72,4 @@ for (const marker of [
 ]) assert.ok(inventoryMonitor.includes(marker), "Reviewed lake-access weekly source monitoring contract missing: " + marker);
 assert.ok(inventoryMonitorWorkflow.includes("node --experimental-strip-types scripts/ci/audit-fishing-inventory-sources.mjs"), "Node must load reviewed statewide lake authority records for scheduled source checks");
 assert.ok(inventoryMonitorWorkflow.includes("cron: '23 14 * * 1,4'"), "Monday/Thursday source review schedule must remain configured");
-console.log(JSON.stringify({ result: "PASS", lakes: access.length + 1, accessPoints: allSites.length + 8, sourcedGuideBusinesses: guides.length, historicalReportRecords: 6, searchGates: "protected" }, null, 2));
+console.log(JSON.stringify({ result: "PASS", explicitlyReviewedLakes: access.length + 1, curatedAccessPoints: allSites.length + 8, sourcedGuideBusinesses: guides.length, historicalReportRecords: 6, searchGates: "protected" }, null, 2));
