@@ -15,7 +15,18 @@ const aboutLazyRoutePath = path.join(root, 'src/routes/about.lazy.tsx');
 const aboutLazyRoute = fs.existsSync(aboutLazyRoutePath) ? fs.readFileSync(aboutLazyRoutePath, 'utf8') : '';
 const aboutRoute = `${aboutEagerRoute}\n${aboutLazyRoute}`;
 const robots = read('public/robots.txt');
+const correctionsPolicy = read('src/routes/corrections-policy.tsx');
+const editorialPolicy = read('src/routes/editorial-policy.tsx');
 const errors = [];
+if (!correctionsPolicy.includes('mailto:admin@texasdefined.com?subject=Texas%20Defined%20editorial%20correction') ||
+    !correctionsPolicy.includes('Share a firsthand Texas update') ||
+    correctionsPolicy.includes('to="/partner-with-us"')) {
+  errors.push('Corrections must reach the editorial inbox, not the advertising sales form.');
+}
+if (!aboutRoute.includes('to="/corrections-policy"') || !editorialPolicy.includes('to="/corrections-policy"')) {
+  errors.push('Trust and editorial policy pages must direct reader corrections to the editorial instructions.');
+}
+
 
 for (const feature of [
   'const pageTitle = "Texas Travel, Culture & Practical Living Guides"',
