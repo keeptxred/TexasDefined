@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), "utf8");
 
-const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, advisoriesText, lakeFixtures, sharedAnswers] = await Promise.all([
+const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, regulationAudit, researchValidator, advisoriesText, lakeFixtures, sharedAnswers] = await Promise.all([
   read("src/routes/fishing.lakes.tsx"),
   read("src/components/fishing/FishingLakesDirectory.tsx"),
   read("src/routes/fishing.tsx"),
@@ -16,6 +16,8 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
   read(".github/workflows/fishing-url-authority.yml"),
   read(".github/workflows/fishing-lakes-directory-refresh.yml"),
   read("scripts/ci/audit-fishing-lakes-directory-sources.mjs"),
+  read("scripts/ci/audit-fishing-lake-regulation-sources.mjs"),
+  read("scripts/data/validate-fishing-lake-research.mjs"),
   read("src/data/fishing/lake-directory-advisories.json"),
   read("src/data/fishing/fixtures.ts"),
   read("src/data/fishing/lake-directory-answers.ts"),
@@ -126,8 +128,14 @@ for (const marker of [
 
 assert(refreshWorkflow.includes('37 14 * * 1,4'), "Fishing lake official-access status requires a twice-weekly GitHub Actions schedule.");
 assert(refreshWorkflow.includes('49 15 2 1,4,7,10 *'), "Fishing lake facts require quarterly GitHub authority review.");
+assert(refreshWorkflow.includes('17 15 15 8 *'), "The annual TPWD fishing legal-limit research must be rechecked in August, before September 1 rollover.");
+assert(researchValidator.includes('applicableReviewYear') && researchValidator.includes('latestReviewFloor') && researchValidator.includes('matchAll(/'), "Preseason validation must reject genuinely stale lake research, including season claims written with an en dash.");
 assert(refreshWorkflow.includes('scripts/data/validate-fishing-lake-research.mjs'), "Quarterly lake-fact authority validation is not wired.");
 assert(refreshWorkflow.includes('audit-fishing-lakes-directory-sources.mjs'), "Scheduled directory official-source verification is not wired.");
+assert(refreshWorkflow.includes('id: regulations') && refreshWorkflow.includes('audit-fishing-lake-regulation-sources.mjs'), "Scheduled directory refresh must review lake-specific official TPWD fishery/regulation links, not only Lake Abilene closures.");
+assert(refreshWorkflow.includes('FISHING_LAKES_FULL_REVIEW') && refreshWorkflow.includes('scripts/ci/audit-fishing-lake-regulation-sources.mjs --plan'), "Rotating cohorts and full quarterly 72-lake review must be wired and validated.");
+assert(refreshWorkflow.includes('fishing-lake-regulation-sources.json') && refreshWorkflow.includes("steps.regulations.outcome == 'failure'"), "Scheduled regulation source review must retain evidence and create actionable drift issue.");
+for (const marker of ['all.length !== 72', 'buckets.some((row) => row.length !== 12)', 'tpwd.texas.gov', 'waterbody-regulations', '--smoke', '--full', 'No automated legal claims']) assert(regulationAudit.includes(marker), "Lake-specific source review missing truthful official-source and bounded cohort invariant: " + marker);
 assert(refreshWorkflow.includes('gh issue create'), "Source drift must become an actionable GitHub issue rather than silent data loss.");
 assert(sourceAudit.includes('Lake Abilene Closures') && sourceAudit.includes('swimming and fishing are not allowed'), "Official TPWD Lake Abilene closure language must be checked.");
 assert(advisories["lake-abilene"]?.sourceUrl === "https://tpwd.texas.gov/state-parks/abilene/alert/", "Lake Abilene directory warning must point directly to the official TPWD alert.");
