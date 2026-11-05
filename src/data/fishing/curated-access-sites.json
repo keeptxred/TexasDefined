@@ -376,5 +376,153 @@
         "shore"
       ]
     ]
+  },
+  {
+    "lakeId": "cedar-creek-reservoir",
+    "lakeName": "Cedar Creek Reservoir",
+    "tpwd": "cedar_creek",
+    "facilities": [
+      [
+        "Chamber Island Ramp",
+        "boat-ramp"
+      ],
+      [
+        "Sandy Shores Marina",
+        "marina"
+      ],
+      [
+        "Lone Star Marina",
+        "marina"
+      ],
+      [
+        "Log Cabin",
+        "boat-ramp"
+      ],
+      [
+        "County Public Ramp",
+        "boat-ramp"
+      ],
+      [
+        "Fisherman's Wharf",
+        "marina"
+      ]
+    ]
+  },
+  {
+    "lakeId": "lake-ray-hubbard",
+    "lakeName": "Lake Ray Hubbard",
+    "tpwd": "ray_hubbard",
+    "facilities": [
+      [
+        "Paddle Point Park",
+        "boat-ramp"
+      ],
+      [
+        "Paul Jones Park",
+        "boat-ramp"
+      ],
+      [
+        "Harbor Bay Marina",
+        "marina"
+      ],
+      [
+        "State Highway 66 Boat Ramp",
+        "boat-ramp"
+      ],
+      [
+        "Terry Park",
+        "boat-ramp"
+      ],
+      [
+        "Chandler's Landing",
+        "marina"
+      ],
+      [
+        "Captain's Cove Marina",
+        "marina"
+      ],
+      [
+        "Sapphire Bay",
+        "marina"
+      ]
+    ]
+  },
+  {
+    "lakeId": "grapevine-lake",
+    "lakeName": "Grapevine Lake",
+    "tpwd": "grapevine",
+    "facilities": [
+      [
+        "Meadowmere Park",
+        "boat-ramp"
+      ],
+      [
+        "Lakeview Park",
+        "boat-ramp"
+      ],
+      [
+        "Oak Grove/Scotts Landing",
+        "boat-ramp"
+      ],
+      [
+        "The Vineyards",
+        "boat-ramp"
+      ],
+      [
+        "Katie's Woods Park",
+        "boat-ramp"
+      ],
+      [
+        "Silverlake Marina",
+        "marina"
+      ],
+      [
+        "Murrell Park & Twin Coves Marina",
+        "marina"
+      ],
+      [
+        "Twin Coves Park",
+        "boat-ramp"
+      ],
+      [
+        "Trophy Club Park",
+        "boat-ramp"
+      ]
+    ]
+  },
+  {
+    "lakeId": "possum-kingdom-reservoir",
+    "lakeName": "Possum Kingdom Reservoir",
+    "tpwd": "possum_kingdom",
+    "facilities": [
+      [
+        "BRA Area #4 North",
+        "boat-ramp"
+      ],
+      [
+        "BRA Area #6",
+        "boat-ramp"
+      ],
+      [
+        "BRA Area #5",
+        "boat-ramp"
+      ],
+      [
+        "BRA Area #4 South",
+        "boat-ramp"
+      ],
+      [
+        "BRA Area #1",
+        "boat-ramp"
+      ],
+      [
+        "Possum Hollow Camp",
+        "boat-ramp"
+      ],
+      [
+        "Westside Public Ramp",
+        "boat-ramp"
+      ]
+    ]
   }
 ]
