@@ -56,3 +56,25 @@ meet any production DEPLOYED/VERIFIED certification gate.
 - No change to `wrangler.jsonc`, no production binding, no routing cutover,
   no removal of existing emergency 72-hour retention. Release-independent
   durability is therefore **NOT yet production certified**.
+
+## Reproducible predeployment manifest (GitHub staging)
+
+The new `scanImmutableAssetBuild()` in
+`scripts/ci/immutable-hashed-asset-manifest.mjs` reads **actual compiled**
+`dist/client/assets` files and produces a deterministic source-SHA-bound
+release manifest and publisher plan. It computes SHA-256 from the bytes, keeps
+historical first-seen observations unchanged, rejects any JS/CSS symlinks or
+unhashed files, checks object sizes and daily quotas, and rejects missing
+previously healthy unarchived hashes. Original bytes are read and checked
+**again** at publication, so post-inventory build mutations fail closed.
+
+Previously verified KV objects are explicitly supplied as `published`;
+healthy HTTP observation alone must **never** be classified as published.
+The `requiredHistorical` input is the predeploy handoff evidence, not a list
+of files that can simply be aged out to make the release pass.
+
+GitHub Actions independently runs both original-byte inventory and routing
+integrity tests. The new manifest scanner and publisher are not yet connected
+to the protected production deploy workflow: no network KV writes have been
+made, and prepublication plus global propagation remain mandatory activation
+gates. No Cloudflare API calls are needed to run these tests.
