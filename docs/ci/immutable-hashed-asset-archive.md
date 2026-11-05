@@ -145,3 +145,33 @@ encoded and constrained to the immutable `immutable:v1:/assets/` prefix.
 Source references: Cloudflare Workers KV documented raw value GET, key listing,
 metadata GET, multipart value PUT, and eventual consistency. No browser or
 Cloudflare API authentication is required for these tests.
+
+## Dormant owner-gated prepublication step in protected production workflow
+
+`.github/workflows/deploy-production.yml` now contains a protected,
+**disabled-by-default** prepublication step placed AFTER rejecting obsolete
+queued main revisions and BEFORE Worker replacement. It runs only when the
+following independent repository variables have been explicitly configured:
+
+- `TEXASDEFINED_IMMUTABLE_ARCHIVE_OWNER_APPROVED=true`
+- `TEXASDEFINED_IMMUTABLE_ARCHIVE_PUBLISH=true`
+- `TEXASDEFINED_IMMUTABLE_KV_NAMESPACE_ID` — exact 32-character preexisting
+  namespace ID, not created by these scripts
+- `TEXASDEFINED_KV_WRITES_TODAY` — a trusted, current account-day
+  write count (0–1000); never default it silently to zero
+
+A dedicated `CLOUDFLARE_KV_ARCHIVE_TOKEN` GitHub Actions secret with Workers
+KV read/write permission is also required; the existing Worker-deployment
+token must **not** be assumed to have this scope. The release runner
+`scripts/ci/publish-immutable-hashed-archive.mjs --publish-approved`
+reconciles every historic original-byte proof, enumerates the existing
+archive, verifies each stored original before accepting it, publishes missing
+content once and reads new bytes back. It produces an Actions artifact
+explicitly reporting `readyForWorkerRouting:false` and
+`globallyReplicated:false`.
+
+These opt-ins are not set by this PR and no credentials or namespace IDs
+are committed. This is **NOT** permission to add a paid service, activate
+routing, or remove emergency retention. A trustworthy daily-write counter,
+real KV namespace, dedicated token, and post-publication global readback
+are outstanding activation requirements.
