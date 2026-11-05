@@ -551,5 +551,218 @@
         "Brazos River Authority facility at the end of FM 1148; higher lake levels are needed for launch access."
       ]
     ]
+  },
+  {
+    "lakeId": "lake-palestine",
+    "lakeName": "Lake Palestine",
+    "tpwd": "palestine",
+    "sourcePage": "access2.phtml",
+    "facilities": [
+      [
+        "Chandler River Park",
+        "boat-ramp",
+        "City of Chandler river launch near Texas 31; suitable for small boats, with bank fishing on both sides of the bridge."
+      ],
+      [
+        "Westberry Landing",
+        "boat-ramp",
+        "A private all-boat launch off FM 2661 with approximately 15 vehicle spaces."
+      ],
+      [
+        "Villages Marina",
+        "marina",
+        "Private marina off FM 1261 with a launch for boats of all sizes and approximately 200 parking spaces."
+      ],
+      [
+        "Kickapoo Public Ramp",
+        "boat-ramp",
+        "Public launch and bank access on FM 315 with approximately 50 parking spaces."
+      ],
+      [
+        "Flat Creek Public Ramp",
+        "boat-ramp",
+        "Public launch and bank access on FM 315 at the Flat Creek bridge with approximately 40 vehicle spaces."
+      ],
+      [
+        "Flat Creek Marina",
+        "marina",
+        "Marina at the Flat Creek crossing of FM 315 with a boat ramp for all types and parking for approximately 75 vehicles."
+      ],
+      [
+        "Lake Palestine Marina",
+        "marina",
+        "Private marina at the Saline Creek bridge with a two-lane concrete ramp and approximately 50 parking spaces."
+      ],
+      [
+        "Saline Bay",
+        "boat-ramp",
+        "Two-lane ramp reached by CR 189W from Texas 155 south of Tyler."
+      ],
+      [
+        "Lakeside Getaway",
+        "boat-ramp",
+        "Boat ramp and fishing pier near CR 1170; TPWD notes that motel guests may receive launch access as part of their stay."
+      ],
+      [
+        "Camper's Cove",
+        "boat-ramp",
+        "Private launch near Dogwood City with parking for approximately 30 vehicles."
+      ],
+      [
+        "Deep End Public Ramp",
+        "boat-ramp",
+        "Two-lane public boat launch near the west end of the dam, accessed from FM 1892."
+      ],
+      [
+        "Cherokee Landing",
+        "boat-ramp",
+        "Small-boat ramp near FM 3504 with parking for approximately 15 vehicles."
+      ],
+      [
+        "Chimney Creek Landing",
+        "shore",
+        "Small-boat bank launch by Chimney Creek near FM 346; not a conventional improved large-boat ramp."
+      ]
+    ]
+  },
+  {
+    "lakeId": "lake-tawakoni",
+    "lakeName": "Lake Tawakoni",
+    "tpwd": "tawakoni",
+    "sourcePage": "access2.phtml",
+    "facilities": [
+      [
+        "Wind Point Park",
+        "boat-ramp",
+        "Private park with two two-lane concrete ramps and a long fishing pier, accessed from FM 1571."
+      ],
+      [
+        "Public Ramp, Two Mile Bridge East",
+        "boat-ramp",
+        "TPWD-operated two-lane concrete ramp on Texas 276 at the east end of Tawakoni Causeway."
+      ],
+      [
+        "Kenny's Landing",
+        "boat-ramp",
+        "Private single-lane concrete ramp and fishing pier next to the east causeway public ramp."
+      ],
+      [
+        "Clyde's Marina & Resort",
+        "marina",
+        "Private single-lane concrete launch off Freebridge Road near Texas 276."
+      ],
+      [
+        "Cedar Cove Landing",
+        "boat-ramp",
+        "Private single-lane concrete launch reached from County Road 1502 off Texas 276."
+      ],
+      [
+        "Caddo Creek Public Ramp",
+        "boat-ramp",
+        "Sabine River Authority two-lane concrete ramp off Hunt County Road 2101 near Quinlan."
+      ],
+      [
+        "Tawakoni City Park",
+        "boat-ramp",
+        "City-operated two-lane concrete ramp on Texas 276 in West Tawakoni."
+      ],
+      [
+        "Public Ramp, Two Mile Bridge West",
+        "boat-ramp",
+        "TPWD-operated two-lane concrete ramp at the west end of the Texas 276 causeway."
+      ],
+      [
+        "Anchor Inn Resort",
+        "boat-ramp",
+        "TPWD documents two single-lane concrete boat ramps south of Texas 276 near the causeway."
+      ],
+      [
+        "Red Bear Resort",
+        "boat-ramp",
+        "Private single-lane concrete ramp on the south shore near FM 3706."
+      ],
+      [
+        "Lake Tawakoni State Park",
+        "boat-ramp",
+        "TPWD state park on the southeast shore with a four-lane boat launch; park entry rules apply."
+      ],
+      [
+        "Holiday Marina",
+        "marina",
+        "Private marina west of the dam with two single-lane concrete ramps."
+      ],
+      [
+        "South Shore Marina",
+        "marina",
+        "West-of-dam marina with two single-lane concrete ramps, operated by the Holiday Marina business."
+      ],
+      [
+        "Sabine River Authority Public Ramp",
+        "boat-ramp",
+        "SRA-managed public concrete boat launch west of the dam, accessed from Texas 47."
+      ]
+    ]
+  },
+  {
+    "lakeId": "amistad-reservoir",
+    "lakeName": "Amistad Reservoir",
+    "tpwd": "amistad",
+    "facilities": [
+      [
+        "Diablo East",
+        "boat-ramp",
+        "National Park Service long, steep four-lane concrete ramp reached from US 90 west of Del Rio."
+      ],
+      [
+        "Governors Landing",
+        "shore",
+        "Bank-fishing access below the US 90 bridge; TPWD explicitly says this site has no boat ramp."
+      ],
+      [
+        "Black Brush Point",
+        "boat-ramp",
+        "Concrete NPS launch with a fishing pier, usable only above the reservoir elevation threshold described by TPWD."
+      ],
+      [
+        "Spur 454",
+        "boat-ramp",
+        "National Park Service access from Spur 454 west of Del Rio; consult NPS for current ramp usability."
+      ],
+      [
+        "San Pedro",
+        "shore",
+        "National Park Service access reached from Spur 454; TPWD does not identify a conventional ramp here."
+      ],
+      [
+        "US 277 South",
+        "boat-ramp",
+        "NPS boat launch and fishing pier at the south end of the US 277 bridge; access depends on conditions."
+      ],
+      [
+        "US 277 North",
+        "boat-ramp",
+        "NPS ramp on the east side of the campground; TPWD describes gravel-bank launches in low-water periods."
+      ],
+      [
+        "Rough Canyon",
+        "boat-ramp",
+        "NPS long, steep four-lane concrete ramp that TPWD says works at most lake levels."
+      ],
+      [
+        "Spur 406",
+        "shore",
+        "National Park Service access on the north side of Amistad via Spur 406."
+      ],
+      [
+        "Box Canyon",
+        "boat-ramp",
+        "NPS concrete launch and fishing pier off Box Canyon Estates Road; usable at most lake levels per TPWD."
+      ],
+      [
+        "Pecos River",
+        "boat-ramp",
+        "NPS concrete ramp and fishing pier near the Pecos–Rio Grande confluence, reached from US 90."
+      ]
+    ]
   }
 ]
