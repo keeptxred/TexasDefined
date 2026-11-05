@@ -42,6 +42,8 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['HOMEPAGE/FRESHNESS', 'Reject stale, unverified or duplicated homepage event picks', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-events.test.mjs']],
+  ['HOMEPAGE/SEO', 'Keep evergreen entry navigation, canonical schema and homepage event selection', 'node', ['scripts/data/validate-homepage-seo.mjs']],
   ['SEO/BING/FOOTBALL', 'Keep Bing staged-school discovery separate from Google indexability', 'node', ['scripts/ci/validate-bing-football-sitemap-policy.mjs']],
   ['SEO/BING/FOOTBALL', 'Syntax-check bounded production Bing supplemental sitemap acceptance', 'node', ['--check', 'scripts/ci/verify-bing-football-sitemap-production.mjs']],
   ['FOOTBALL/DIRECTORY', 'Validate UIL directory URLs, reciprocal links and canonical/indexing guards', 'python3', ['scripts/ci/validate_football_directory_navigation.py']],
