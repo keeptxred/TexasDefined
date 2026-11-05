@@ -47,7 +47,7 @@ for (const feature of [
 
 // Source verification is not publication or editorial modification: a future
 // check date must never become dateModified on an embedded TouristAttraction.
-if (/"@type": "TouristAttraction"[^\\n]*dateModified/.test(homepage)) {
+if (/"@type": "TouristAttraction"[^\n]*dateModified/.test(homepage)) {
   errors.push('Homepage attraction schema must not expose source-check dates as dateModified.');
 }
 
