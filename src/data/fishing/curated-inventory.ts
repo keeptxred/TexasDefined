@@ -9,7 +9,7 @@ export const expandedSourcedAccessPoints: FishingAccessPoint[] = accessGroups.fl
   const source: FishingSource = {
     id: `tpwd-access-${group.lakeId}`,
     name: `Texas Parks & Wildlife Department — ${group.lakeName} Access`,
-    url: `https://tpwd.texas.gov/fishboat/fish/recreational/lakes/${group.tpwd}/access.phtml`,
+    url: `https://tpwd.texas.gov/fishboat/fish/recreational/lakes/${group.tpwd}/${group.sourcePage ?? "access.phtml"}`,
     checkedAt: REVIEWED_AT,
     sourceType: "state",
   };
