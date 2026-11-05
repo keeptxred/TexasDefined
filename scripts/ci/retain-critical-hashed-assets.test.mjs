@@ -233,7 +233,7 @@ test('old-only transfer attempts stop at 1024 and block deployment if eligible h
     const now = Date.parse('2026-11-02T17:00:00.000Z');
     const at = new Date(now - 1000).toISOString();
     const assets = Array.from({ length: 1027 }, (_, i) => ({
-      path: '/assets/ArticleCard-Historical' + String(i).padStart(3, '0') + '.js',
+      path: '/assets/ArticleCard-Historical' + String(i).padStart(4, '0') + '.js',
       wasAvailable: true, preSha256: digest, firstSeenAt: at,
     }));
     writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{ format: 1,
