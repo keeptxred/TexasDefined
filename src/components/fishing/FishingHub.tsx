@@ -82,7 +82,7 @@ export function FishingHub({ lakes, species, lakeSpecies, resourceAvailability }
           <div className="max-w-3xl"><p className="eyebrow text-primary">Explore fishing lakes</p><h2 id="featured-lakes" className="mt-3 font-display text-4xl sm:text-5xl">Featured Texas Fishing Lakes</h2><p className="mt-4 text-base leading-7 text-muted-foreground">Open a lake for its fish relationships and planning details, or use the finder when you already know the place or species you want.</p></div>
           <Link to="/fishing/lakes" className="eyebrow border-b border-primary pb-1 text-primary">Browse fishing lakes →</Link>
         </div>
-        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Fishery labels such as Excellent, Good and Fair summarize longer-term, source-backed fishing opportunities for each lake and species. They are not live catch reports or guarantees of today’s fishing. Check individual lake citations and <a href="https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" target="_blank" rel="noopener noreferrer" className="border-b border-primary text-primary">TPWD lake assessments</a> before traveling.</p>
+        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Fishery labels such as Excellent, Good and Fair are qualitative, lake-and-species-specific summaries of the cited fishery information—not measured catch probabilities, live bite reports or guarantees. Read our <a href="#fishing-research-method" className="border-b border-primary text-primary">research methodology</a>, individual lake citations and <a href="https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" target="_blank" rel="noopener noreferrer" className="border-b border-primary text-primary">TPWD lake assessments</a> before traveling.</p>
         <div className="mt-8 grid gap-x-8 border-t border-border lg:grid-cols-2">
           {featuredLakes.map((lake) => {
             const targets = lakeSpecies
@@ -134,6 +134,27 @@ export function FishingHub({ lakes, species, lakeSpecies, resourceAvailability }
           <Resource href="/shop/fishing-shirts" title="Texas fishing shirts" copy="See Texas Defined bass, lake, tackle and coastal angler graphic tees. Product pages show current options and checkout." />
           <Resource href="/hunting" title="Texas hunting" copy="Explore Texas hunting seasons, species, public-land planning and licensing." />
         </div>
+      </section>
+
+      <section className="border-t border-border py-14" aria-labelledby="fishing-research-method">
+        <p className="eyebrow text-primary">Sources and methodology</p>
+        <h2 id="fishing-research-method" className="mt-3 font-display text-4xl">How we research Texas fishing</h2>
+        <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">TexasDefined combines named lake and fish-species records with published sources, especially the Texas Parks and Wildlife Department (TPWD), reservoir authorities and the official regulations. This is desk research, not a claim that our editors personally fished every lake or verified today's conditions at each launch.</p>
+        <div className="mt-8 grid gap-8 md:grid-cols-3">
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">What fishery labels mean</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Excellent, Good, Fair and Poor are source-informed editorial descriptions for a particular fishery, not a statistical rating or a measured chance of catching fish. They summarize durable opportunity; the lake's cited species records give the underlying context. A label never represents a same-day fishing forecast or a paid recommendation.</p>
+          </article>
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Check the right source</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Start with the individual lake guide for its source references and reviewed dates. For harvesting rules, consult the current <a href="https://tpwd.texas.gov/regulations/outdoor-annual/fishing/" target="_blank" rel="noopener noreferrer" className="border-b border-primary text-primary">TPWD Outdoor Annual</a>. For species and lake assessments, compare the <a href="https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" target="_blank" rel="noopener noreferrer" className="border-b border-primary text-primary">TPWD lake registry</a>.</p>
+          </article>
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">What's not live</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Old source-check dates do not establish today's water level, park access, operating hours, launch conditions, fees or fishing reports. Confirm conditions with the site operator before you travel, and check official harvest rules before you keep a fish. Missing or unverified facts are not substitutes for an operator's current notice.</p>
+          </article>
+        </div>
+        <p className="mt-7 max-w-4xl text-sm leading-7 text-muted-foreground">Have a source, facility or species correction? <Link to="/corrections-policy" className="border-b border-primary font-semibold text-primary">Read our corrections policy and send an update</Link>. We distinguish published source evidence from firsthand field reporting and do not invent fishing experiences or customer reviews.</p>
       </section>
 
       <TexasExplainedContextLinks surface="fishing" />
