@@ -20,7 +20,8 @@ export const Route = createFileRoute("/fishing/access")({
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const items = loaderData?.access ?? [];
     // A single-lake pilot is useful to visitors but not yet a statewide index.
-    const hasMultiLakeCoverage = new Set(items.flatMap((entry) => entry.lakes.map((lake) => lake?.id).filter(Boolean))).size > 1;
+    const coveredLakes = new Set(items.flatMap((entry) => entry.lakes.map((lake) => lake?.id).filter(Boolean))).size;
+    const hasMultiLakeCoverage = coveredLakes >= 20 && items.length >= 100;
     const description = "Verified Texas fishing access: boat ramps, marinas, shore sites, piers and kayak launches tied to the lakes they serve, with source dates and changing-condition warnings.";
     return {
       meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Access — Ramps, Marinas, Shore & Kayak Launches", description, canonicalPath: FISHING_ACCESS_DIRECTORY_PATH, robots: items.length && hasMultiLakeCoverage ? undefined : "noindex, follow" }),

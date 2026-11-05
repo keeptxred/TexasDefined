@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), "utf8");
 
-const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes] = await Promise.all([
+const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow] = await Promise.all([
   read("src/routes/fishing.lakes.tsx"),
   read("src/components/fishing/FishingLakesDirectory.tsx"),
   read("src/routes/fishing.tsx"),
@@ -13,6 +13,7 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
   read("src/data/fishing/sitemap.ts"),
   read("src/data/fishing/search.ts"),
   read("src/lib/public-routes.ts"),
+  read(".github/workflows/fishing-url-authority.yml"),
 ]);
 
 const errors = [];
@@ -77,7 +78,11 @@ assert(new Set(completeSlugs).size === 72, `Fishing lakes directory must expose 
 assert(legacyExpectedCompleteSlugs.every((slug) => completeSlugs.includes(slug)), "Fishing lakes complete-guide registry no longer contains the original validated fifteen-lake collection.");
 
 assert(hubRoute.includes('lazy(() => import("@/components/fishing/FishingHub")'), "Fishing hub lazy boundary is missing.");
+assert(authorityWorkflow.includes("FISHING_AUDIT_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full == true && '1' || '0' }}"), "Fishing full URL audit must require manual dispatch; no broad scan on every fishing production deployment.");
+assert(authorityWorkflow.includes('FISHING_AUDIT_BATCH_SIZE: "120"'), "Bounded daily fishing URL audit batch limit must be retained.");
 for (const marker of ['to="/fishing/lakes"', 'Browse fishing lakes →', 'Explore fishing lakes', 'Featured Texas Fishing Lakes']) assert(hubComponent.includes(marker), `Fishing hub is missing lakes-directory discovery marker: ${marker}.`);
+for (const marker of ['id="fishing-research-method"', 'What fishery labels mean', 'desk research', 'TPWD Outdoor Annual', 'Link to="/corrections-policy"']) assert(hubComponent.includes(marker), `Fishing hub must disclose its real source methodology and corrections path: ${marker}.`);
+
 for (const marker of ['FISHING_LAKES_DIRECTORY_PATH = "/fishing/lakes"', '{ path: FISHING_LAKES_DIRECTORY_PATH, lastmod: FISHING_LAKES_DIRECTORY_VERIFIED_AT }']) assert(sitemap.includes(marker), `Fishing sitemap is missing lakes-directory ownership marker: ${marker}.`);
 assert(publicRoutes.includes('"/fishing/lakes"'), 'Public static route registry must sitemap-own /fishing/lakes.');
 for (const marker of ['id: "fishing-directory:texas-fishing"', 'href: "/fishing"', 'id: "fishing-directory:texas-fishing-lakes"', 'title: "Texas Fishing Lakes"', 'href: "/fishing/lakes"', '"compare fishing lakes"']) assert(search.includes(marker), `Fishing site-search index is missing statewide/lakes directory marker: ${marker}.`);

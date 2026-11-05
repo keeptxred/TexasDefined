@@ -1,0 +1,68 @@
+name: Fishing verified source inventory review
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/fishing/curated-access-sites.json'
+      - 'src/data/fishing/curated-fishing-guide-businesses.json'
+      - 'src/data/fishing/curated-inventory.ts'
+      - 'src/data/fishing/curated-historical-reports.ts'
+      - 'src/data/fishing/index.ts'
+      - 'src/data/fishing/statewide-lake-network.ts'
+      - 'src/data/fishing/reused-statewide-access.ts'
+      - 'scripts/data/validate-fishing-inventory-expansion.mjs'
+      - 'scripts/ci/audit-fishing-inventory-sources.mjs'
+      - '.github/workflows/fishing-source-inventory.yml'
+  schedule:
+    - cron: '23 14 * * 1,4'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify sources, catalog relationships and index protections
+        run: node scripts/data/validate-fishing-inventory-expansion.mjs
+
+  source-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check official TPWD facilities and first-party guide websites
+        id: audit
+        continue-on-error: true
+        run: node --experimental-strip-types scripts/ci/audit-fishing-inventory-sources.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fishing-inventory-source-review
+          path: .artifacts/fishing-inventory-sources.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: File an actionable source drift checkpoint
+        if: steps.audit.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          issue=$(gh issue list --state open --search 'Fishing source inventory drift in:title' --json number --jq '.[0].number // empty')
+          url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          body="The official-source inventory check found an unreachable provider or a TPWD source/facility-name mismatch. Inspect the downloadable fishing-inventory-source-review artifact. No unverified records have been silently promoted or altered. Run: $url"
+          if [ -n "$issue" ]; then gh issue comment "$issue" --body "$body";
+          else gh issue create --title 'Fishing source inventory drift' --body "$body" --label documentation || gh issue create --title 'Fishing source inventory drift' --body "$body";
+          fi
+      - name: Preserve failure state when sources change
+        if: steps.audit.outcome == 'failure'
+        run: exit 1

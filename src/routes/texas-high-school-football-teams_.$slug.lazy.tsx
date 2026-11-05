@@ -227,6 +227,9 @@ function Page() {
     // Batch013: campus counties, not district service boundaries or football stadium locations.
     // NCES public-school search identifies Cushing/Cy-Fair/Cypress Creek campus counties;
     // Texas public education records identify Cuero, Cumby district/campus counties.
+    'dallas-hillcrest': 'dallas', // Dallas ISD Hillcrest High campus, 9924 Hillcrest Rd; not a stadium gate.
+    'dallas-jefferson': 'dallas', // Dallas ISD Thomas Jefferson campus, 4001 Walnut Hill Ln.
+    'dallas-jesuit': 'dallas', // Jesuit Dallas campus, 12345 Inwood Rd; private school, not Dallas ISD.
     'cuero': 'dewitt',
     'cumby': 'hopkins',
     'cushing': 'nacogdoches',

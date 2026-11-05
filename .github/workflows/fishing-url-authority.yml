@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       full:
-        description: "Audit every registered fishing URL instead of a bounded daily batch"
+        description: "Explicitly run the full registered fishing URL audit (otherwise bounded to 120 URLs)"
         required: false
         type: boolean
         default: false
@@ -51,7 +51,7 @@ jobs:
       - name: Check live SSR, titles, canonical, schema, citations and crosslinks
         if: ${{ steps.scope.outputs.run == 'true' }}
         env:
-          FISHING_AUDIT_FULL: ${{ (github.event_name == 'workflow_run' || inputs.full == true) && '1' || '0' }}
+          FISHING_AUDIT_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full == true && '1' || '0' }}
           FISHING_AUDIT_BATCH_SIZE: "120"
           FISHING_AUDIT_CONCURRENCY: "2"
           FISHING_AUDIT_OUTPUT: fishing-live-authority-report.json
