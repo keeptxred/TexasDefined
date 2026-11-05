@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { hasCampingDestinationGuide } from "@/data/camping/destination-guides";
 import { withResearchedCampingPetPolicy } from "@/data/camping/pet-policies";
+import { withCampingOperatorNotice } from "@/data/camping/operator-source-updates";
 import { CAMPING_OPERATIONAL_ALERTS } from "@/data/camping/official-alerts.generated";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -56,7 +57,7 @@ export const Route = createFileRoute(canonicalPath)({
       ...CAMPING_DISCOVERY_PROFILES_WAVE9,
       ...CAMPING_DISCOVERY_PROFILES_WAVE10,
     ];
-    return { entries: profiles.map((profile) => ({ profile: withResearchedCampingPetPolicy(profile) })) };
+    return { entries: profiles.map((profile) => ({ profile: withCampingOperatorNotice(withResearchedCampingPetPolicy(profile)) })) };
   },
   head: ({ loaderData }) => {
     const entries = loaderData?.entries ?? [];
