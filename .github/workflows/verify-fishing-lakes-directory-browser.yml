@@ -1,0 +1,74 @@
+name: Verify fishing lakes directory in live Chrome
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-fishing-lakes-directory-browser.mjs'
+      - '.github/workflows/verify-fishing-lakes-directory-browser.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/fishing/FishingLakesDirectory.tsx'
+      - 'src/routes/fishing.lakes.tsx'
+      - 'src/lazy/fishing-compare.tsx'
+      - 'src/data/fishing/lake-directory-advisories.json'
+      - 'src/data/fishing/lake-directory-answers.ts'
+      - 'src/data/fishing/fixtures.ts'
+      - 'src/data/fishing/slugs.ts'
+      - 'scripts/ci/verify-fishing-lakes-directory-browser.mjs'
+      - '.github/workflows/verify-fishing-lakes-directory-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  statuses: read
+
+concurrency:
+  group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  syntax:
+    if: github.event_name == 'pull_request'
+    name: Validate fishing lakes real-browser verifier syntax
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --check scripts/ci/verify-fishing-lakes-directory-browser.mjs
+
+  browser:
+    if: github.event_name != 'pull_request'
+    name: Live desktop and mobile fishing lakes directory acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Wait for protected production deployment of this exact SHA
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Install isolated Chrome driver without changing repository dependencies
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-fishing-lakes-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check real visitor filters, sorting, comparison, safety notices and SEO metadata
+        run: node scripts/ci/verify-fishing-lakes-directory-browser.mjs
+      - name: Preserve screenshots and machine-readable results even if a check fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-lakes-browser-${{ github.run_id }}
+          path: artifacts/fishing-lakes-directory-browser/
+          retention-days: 30
+          if-no-files-found: warn
