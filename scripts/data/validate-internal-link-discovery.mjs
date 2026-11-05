@@ -29,6 +29,7 @@ const guidesPage = read('src/routes/guides.tsx');
 const texasLiving = read('src/routes/texas-living.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const homepage = readRouteSurface('src/routes/index.tsx');
+const eventsLanding = read('src/components/events/EventsLandingPage.tsx');
 const exploreTopicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
 const relationshipPaths = read('src/data/knowledge-graph/relationships.ts');
 const appraisalHub = read('src/routes/learn.appraisal-districts.tsx');
@@ -47,11 +48,18 @@ for (const target of ['/explore/trip-planner', '/browse/cities', '/events']) if 
 for (const target of ['/property', '/decide/financial-tools', '/browse/cities', '/moving-to-texas', '/real-estate', '/texas-explained']) if (!texasLifeDiscovery.includes(`to: "${target}"`)) failures.push(`Texas Life discovery must link to ${target}.`);
 for (const target of ['/decide/financial-tools', '/property', '/browse/counties', '/moving-to-texas', '/browse/cities']) if (!calculatorPage.includes(`to="${target}"`)) failures.push(`Calculator pages must link to ${target}.`);
 
+// The front page is permanent discovery, not a mandatory advertisement for
+// an annual festival after its season ends. Route seasonal discovery through
+// the evergreen events hub and keep individual event guides linked there.
 for (const target of [
-  '/best-places-to-go-camping-in-texas', '/texas-state-fair', '/texas-vs-every-state', '/texas-fishing-license',
+  '/best-places-to-go-camping-in-texas', '/events', '/texas-vs-every-state', '/texas-fishing-license',
   '/texas-drivers-license', '/texas-flag', '/texas-two-step', '/texas-resources',
-]) if (!homepage.includes(`to: "${target}"`) && !homepage.includes(`to="${target}"`)) failures.push(`Homepage priority-search discovery must link to ${target}.`);
-if (!homepage.includes('eyebrow="Popular Texas searches"')) failures.push('Homepage must retain the Popular Texas searches discovery module.');
+]) if (!homepage.includes(`to: "${target}"`) && !homepage.includes(`to="${target}"`)) failures.push(`Homepage practical discovery must link to ${target}.`);
+if (!homepage.includes('eyebrow="Useful Texas guides"')) failures.push('Homepage must retain the useful evergreen Texas guides discovery module.');
+if (!eventsLanding.includes('href="/texas-state-fair"')) failures.push('Events hub must retain discovery of the permanent State Fair guide.');
+if (homepage.includes('to: "/texas-state-fair"') || homepage.includes('to="/texas-state-fair"')) {
+  failures.push('Do not permanently pin annual State Fair promotions to the homepage; promote confirmed current occurrences through the events feed instead.');
+}
 for (const category of ['"lakes-rivers"', '"state-parks"', 'outdoors']) {
   const start = exploreTopicPaths.indexOf(`${category}: [`);
   if (start < 0) {
