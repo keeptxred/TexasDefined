@@ -8,6 +8,8 @@ const generated = fs.readFileSync("src/data/camping/official-alerts.generated.ts
 const captured = generated.match(/export const CAMPING_OPERATIONAL_ALERTS = (\[[\s\S]*?\]) as const;/);
 if (!captured) throw Error("Official camping advisory snapshot could not be parsed");
 const expectedAlerts = JSON.parse(captured[1]);
+const expectedOperatorConditions = JSON.parse(fs.readFileSync("src/data/camping/operator-source-reviews.json", "utf8"));
+if (expectedOperatorConditions.length !== 5) throw Error("Five review-approved operator notices required");
 if (expectedAlerts.length !== 5 || expectedAlerts.some(x => !["confirmed", "needs-review"].includes(x.status)))
   throw Error("Camping advisory snapshot invalid or unexpectedly changed");
 
@@ -38,6 +40,10 @@ function verify(html, { synthetic = false } = {}) {
   const petMatch = /Pet friendly\s*\((\d+)\)/i.exec(text);
   if (!petMatch || Number(petMatch[1]) < 55) errors.push("fewer than 55 evidence-backed pet camping profiles in live filter");
   if (!text.includes("Official pet rules")) errors.push("no operator-specific pet policy links in live SSR");
+  for (const operator of expectedOperatorConditions) {
+    if (!text.includes(operator.notice.slice(0, 50))) errors.push("live operator condition missing or stale: " + operator.destinationSlug);
+    if (!html.includes(operator.sourceUrl)) errors.push("operator conditions link missing: " + operator.sourceUrl);
+  }
   for (const alert of expectedAlerts) {
     if (!text.includes(alert.parkName)) errors.push("missing monitored park: " + alert.parkName);
     if (!text.includes(alert.notice.slice(0, 48))) errors.push("live notice differs from committed source snapshot: " + alert.parkName);
@@ -78,6 +84,7 @@ if (process.argv.includes("--self-test")) {
     '<div>Campground finder Showing 72 of 72 verified profiles.</div>',
     '<div>Park camping / reservation instructions Notice verified</div>',
     ...expectedAlerts.map(alert => '<div>' + alert.parkName + ' ' + alert.notice + '</div><a href="' + alert.sourceUrl + '">Official park alerts</a>'),
+    ...expectedOperatorConditions.map(item => '<aside>' + item.notice + '</aside><a href="' + item.sourceUrl + '">Current operator notice</a>'),
     ...[
       "https://www.recreation.gov/camping/campgrounds/258851",
       "https://www.recreation.gov/camping/campgrounds/258852",
