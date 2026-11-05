@@ -78,7 +78,10 @@ export function parseSignedResolution(text, year) {
   const month = '(January|February|March|April|May|June|July|August|September|October|November|December)';
   const adoption = normalized.match(new RegExp('\\bOn\\s+'+month+'\\s+(\\d{1,2}),?\\s*'+year+'\\b','i'));
   const approved = normalized.match(new RegExp('PASSED\\s+AND\\s+APPROVED[^.]{0,100}?\\b(\\d{1,2})(?:st|nd|rd|th)?\\s+day\\s+of\\s+'+month+'\\s*,?\\s*'+year+'\\b','i'));
-  if (!adoption && !approved) throw new Error('No explicit adoption date for '+year);
+  if (!adoption && !approved) {
+    const dateMarkers = [...normalized.matchAll(/(?:On|PASSED|APPROVED|September|21st|2026)/gi)].slice(-14).map((m)=>normalized.slice(Math.max(0,m.index-55),Math.min(normalized.length,m.index+90)));
+    throw new Error('No explicit adoption date for '+year+'; public resolution date context: '+JSON.stringify(dateMarkers));
+  }
   const dateString = adoption ? adoption[1]+' '+adoption[2]+', '+year : approved[2]+' '+approved[1]+', '+year;
   const ms = Date.parse(dateString);
   if (!Number.isFinite(ms) || new Date(ms).getUTCFullYear() !== year) throw new Error('Invalid adoption date');
