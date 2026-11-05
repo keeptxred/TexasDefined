@@ -29,13 +29,18 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // bytes) would make 50,398,927 bytes, just 67,279 bytes over 48 MiB.
 // This is OUR conservative compatibility budget, not a Cloudflare static-asset
 // platform aggregate limit (20,000 files and 25 MiB each on Workers Free).
-// Evidence-based, still-bounded 1,024 files / 64 MiB covers measured 72-hour
-// history with a finite safety margin. Keep strict 2 MiB per-file, 72-hour
-// ORIGINAL firstSeenAt, same-origin, original SHA-256, MIME and 200 checks.
-// No omitted healthy in-window asset is allowed; avoid gratuitous deploys.
-// This is a bridge, NOT an immutable archive or authorization to provision KV.
-const LIMIT_FILES = 1024;
-const LIMIT_BYTES = 64 * 1024 * 1024;
+// Nov 5 production runs 42103001762 and 42105902951 each failed closed
+// after preserving 1,024 proven original hashes because 66–67 additional
+// originally healthy files remained inside the 72-hour retention window.
+// Latest measured 1,024 files were 56,348,390 bytes; all 1,091 eligible
+// paths require retention, not a CI bypass. The old file ceiling, not a
+// platform file limit, was the observed failure. Keep finite 1,536-file
+// and 96 MiB ceilings with strict 2 MiB per-file, original firstSeenAt,
+// 72-hour expiry, same-origin HTTP 200 MIME and SHA-256 verification.
+// Fail closed again if even the higher measured headroom is exceeded;
+// never drop a healthy in-window URL to make a release succeed.
+const LIMIT_FILES = 1536;
+const LIMIT_BYTES = 96 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 20000;
@@ -118,7 +123,7 @@ export async function retain({
         firstSeenAt: asset.firstSeenAt });
       continue;
     }
-    // Enforce a bounded ceiling of 1,024 attempted old-only
+    // Enforce a bounded ceiling of 1,536 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
