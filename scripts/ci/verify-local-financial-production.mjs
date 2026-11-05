@@ -312,7 +312,7 @@ async function verifyAustinEsd3Authority() {
         'Official documents and verification',
         'Annual tax rates, with source distinctions',
         'Locally adopted, independently sourced',
-        'not a Comptroller workbook',
+        'Not a Comptroller workbook',
         expectedRate,
         expectedTax100k,
       ];
