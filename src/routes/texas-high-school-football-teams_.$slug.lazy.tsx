@@ -224,6 +224,14 @@ function Page() {
     'crane': 'crane',
     'cranfills-gap': 'bosque',
     'crawford': 'mclennan',
+    // Batch013: campus counties, not district service boundaries or football stadium locations.
+    // NCES public-school search identifies Cushing/Cy-Fair/Cypress Creek campus counties;
+    // Texas public education records identify Cuero, Cumby district/campus counties.
+    'cuero': 'dewitt',
+    'cumby': 'hopkins',
+    'cushing': 'nacogdoches',
+    'cy-fair': 'harris',
+    'cypress-creek': 'harris',
     'crockett': 'houston',
     'crosby': 'harris',
     'crosbyton': 'crosby',
