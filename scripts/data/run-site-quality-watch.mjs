@@ -63,6 +63,11 @@ const checks = [
     script: 'scripts/data/validate-content-duplication.mjs',
   },
   {
+    id: 'page-pair-distinctness',
+    label: 'All 42 reported sports/events/fishing content-similarity pairs and canonical safeguards',
+    script: 'scripts/data/validate-page-pair-distinctness.mjs',
+  },
+  {
     id: 'freshness',
     label: 'Freshness and stale-statistic signals',
     script: 'scripts/data/validate-freshness-signals.mjs',
