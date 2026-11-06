@@ -1,0 +1,79 @@
+name: Football Batch013 production Chrome 25-school acceptance
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  issue_comment:
+    types: [created]
+permissions:
+  contents: read
+  deployments: read
+  actions: read
+concurrency:
+  group: football-b013-25-school-chrome
+  cancel-in-progress: false
+jobs:
+  chrome:
+    if: ${{ (github.event_name == 'issue_comment' && github.event.issue.number == 5794 && github.actor == 'keeptxred' && github.event.comment.body == '/run-b013-chrome') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Scope legacy Batch013 Chrome to an active Batch013 assignment
+        id: batch_scope
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync,appendFileSync} from 'node:fs';
+          const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
+          const archived=reg.completedBatches?.some(b=>b.number===13 && b.state==='VERIFIED_BATCH_013_COMPLETE');
+          if(reg.batch?.number===13 && !archived){
+            appendFileSync(process.env.GITHUB_OUTPUT,'active=true' + String.fromCharCode(10));
+          }else if(archived && (reg.batch?.number!==13 || reg.batch?.state==='VERIFIED_BATCH_013_COMPLETE')){
+            appendFileSync(process.env.GITHUB_OUTPUT,'active=false' + String.fromCharCode(10));
+            console.log('Batch013 already certified and archived; preserve prior signed Chrome evidence.');
+          }else{
+            throw new Error('Unexpected Batch013 registry state; refuse silent skip');
+          }
+          NODE
+      - name: Resolve exact live Worker to verified GitHub source SHA
+        if: steps.batch_scope.outputs.active == 'true'
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci/pin-football-b010-production-release.mjs
+      - name: Check out exact published source
+        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.sha }}
+      - name: Install isolated real Chrome driver
+        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b013-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify all Batch013 schools and counties in real Chrome
+        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
+        env:
+          FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}
+          FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}
+        run: |
+          node --check scripts/ci/verify-football-b013-production.mjs
+          node scripts/ci/verify-football-b013-production.mjs
+      - name: Upload compact Batch013 machine evidence
+        if: always() && steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b013-25-school-production-chrome
+          path: artifacts/b013-chrome-report.json
+          retention-days: 7
+          if-no-files-found: error
