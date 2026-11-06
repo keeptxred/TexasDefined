@@ -104,7 +104,7 @@ for (const [file, slugs, getter] of laterGroups) {
     laterLeads.add(lead);
   }
 }
-console.log('PASS: Batch013 additional 14 authored SSR guides retain distinct, dated source editorial (NOT Chrome certification)');
+console.log('PASS: Batch013 additional 20 authored SSR guides retain distinct, dated source editorial (NOT Chrome certification)');
 
 const dallasLedger = fs.readFileSync('docs/football-authority/BATCH013-DALLAS-CAMPUS-COUNTIES.md','utf8');
 const dallasCountyRow = reciprocalSection.match(/'dallas'\s*:\s*\[([\s\S]*?)\]\s*,/);
