@@ -405,10 +405,10 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     habitat: ["Miles of riprap, boulders, coves and points create extensive bass habitat.", "Submerged gravel piles around major points and islands hold white and black bass.", "Sparse pondweed and lotus add limited vegetation."],
     fish: [
       fish("crappie","Crappie","excellent","spring","Deep winter structure gives way to shallow spawning cover in spring.",["jigs-and-minnows"]),
-      fish("white-bass","White bass","excellent","year-round","Submerged gravel, points and open-water forage support a strong schooling fishery.",["vertical-jigging","topwater"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","Hybrids share main-lake schooling patterns with white bass.",["trolling","vertical-jigging","live-bait"]),
-      fish("largemouth-bass","Largemouth bass","good","year-round","Rock, riprap, points and coves create broad bass habitat.",["crankbaits","soft-plastics"]),
-      fish("smallmouth-bass","Smallmouth bass","good","year-round","Clearer rocky water provides meaningful smallmouth opportunity.",["crankbaits","soft-plastics"]),
+      fish("white-bass","White bass","excellent","year-round","TPWD rates White & Hybrid Striped Bass as one combined Excellent category; this grade is not independent for white bass. Schools use submerged gravel and points.",["vertical-jigging","topwater"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","TPWD rates White & Hybrid Striped Bass together as Excellent, not hybrids separately. They share main-lake schooling patterns with white bass.",["trolling","vertical-jigging","live-bait"]),
+      fish("largemouth-bass","Largemouth bass","good","year-round","TPWD rates Largemouth & Smallmouth Bass together as Good, not largemouth independently. Rock, riprap and coves provide habitat.",["crankbaits","soft-plastics"]),
+      fish("smallmouth-bass","Smallmouth bass","good","year-round","TPWD rates Largemouth & Smallmouth Bass together as Good, not smallmouth independently. Clearer rocky water provides habitat.",["crankbaits","soft-plastics"]),
     ],
     access: "Public and private launch sites are distributed around the reservoir; lake-level swings make current ramp verification important.",     accessPoints: [
       { name: "US 380 Bridge Ramp", operator: "Tarrant Regional Water District", kind: "public-ramp", launch: "West end of US 380 bridge over south arm at Runaway Bay. Single-lane concrete ramp with unpaved parking.", fee: "TPWD lists no fee", availability: "TPWD says unusable at high lake levels; TRWD (940) 683-2349 can confirm access." },
