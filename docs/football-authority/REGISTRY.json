@@ -12325,7 +12325,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cuero",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cumby",
@@ -12339,7 +12350,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cumby",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cushing",
@@ -12353,7 +12375,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cushing",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cy-fair",
@@ -12367,7 +12400,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cy-fair",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cypress-creek",
@@ -12381,7 +12425,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-creek",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cypress-falls",
@@ -12395,7 +12450,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-falls",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cypress-lakes",
@@ -12409,7 +12475,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-lakes",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cypress-park",
@@ -12423,7 +12500,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-park",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cypress-ranch",
@@ -12437,7 +12525,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-ranch",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cypress-ridge",
@@ -12451,7 +12550,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-ridge",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cypress-springs",
@@ -12465,7 +12575,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-springs",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:cypress-woods",
@@ -12479,7 +12600,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-woods",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:daingerfield",
@@ -12493,7 +12625,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/daingerfield",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dalhart",
@@ -12507,7 +12650,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dalhart",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-a",
@@ -12521,7 +12675,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-a",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-adams",
@@ -12535,7 +12700,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-adams",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-adamson",
@@ -12549,7 +12725,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-adamson",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-carter",
@@ -12563,7 +12750,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-carter",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-conrad",
@@ -12577,7 +12775,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-conrad",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-gateway-charter-academy",
@@ -12591,7 +12800,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-gateway-charter-academy",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-highland-park",
@@ -12605,7 +12825,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-highland-park",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-hillcrest",
@@ -12619,7 +12850,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-hillcrest",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-hutchins",
@@ -12633,7 +12875,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-hutchins",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-jefferson",
@@ -12647,7 +12900,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-jefferson",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-jesuit",
@@ -12661,7 +12925,18 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-jesuit",
       "status": "VERIFIED",
-      "batch": 13
+      "batch": 13,
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-11-06",
+      "technicalBrowserRun": 42231309646,
+      "acceptanceEvidenceArtifact": 13509411368,
+      "productionWorkerVersion": "0876bb6f-d11e-448d-9798-d27fb1bbbd50",
+      "verifiedDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+      "verifiedGithubWorkerLedgerDeploymentId": 7602055186,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false,
+      "technicalCertificationNotes": "Real non-skipped source-pinned 75 school viewport and 25 county Chrome acceptance; no scores, school photography or manual WCAG certification."
     },
     {
       "id": "uil:dallas-kimball",
