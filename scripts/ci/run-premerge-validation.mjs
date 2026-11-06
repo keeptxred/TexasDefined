@@ -49,6 +49,7 @@ const prebuildChecks = [
   ['HOMEPAGE/EDITORIAL', 'Keep published homepage editorial diversity and prevent repeated cards', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-editorial.test.mjs']],
   ['HOMEPAGE/READTIME', 'Keep lightweight homepage reading estimate in parity with full USS Lexington article', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-reading-time.test.mjs']],
   ['HOMEPAGE/LIVE', 'Fail on cached old HTML, wrong canonical or missing editorial link in mocked public responses', 'node', ['--test', 'scripts/ci/verify-homepage-fresh-production.test.mjs']],
+  ['CI/RELEASE-TRANSPORT', 'Keep fishing and playoff production probes strictly bounded under transient HTTP failures', 'node', ['--test', 'scripts/ci/fetch-live-html-with-retry.test.mjs']],
   ['HOMEPAGE/FIELD', 'Keep URL field, origin-only and lab performance evidence distinct', 'node', ['--test', 'scripts/ci/audit-homepage-vitals.test.mjs']],
   ['HOMEPAGE/SEO', 'Keep evergreen entry navigation, canonical schema and homepage event selection', 'node', ['scripts/data/validate-homepage-seo.mjs']],
   ['SEO/BING/FOOTBALL', 'Keep Bing staged-school discovery separate from Google indexability', 'node', ['scripts/ci/validate-bing-football-sitemap-policy.mjs']],
