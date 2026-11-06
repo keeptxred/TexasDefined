@@ -58,9 +58,10 @@ const graduatedB011 = registry.completedBatches.some(b=>b.number===11 && b.state
  const graduatedB012 = registry.completedBatches.some(b=>b.number===12 && b.state==='VERIFIED_BATCH_012_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1);
  assert.ok(graduatedB011,'Historical Batch011 must retain its own genuine Chrome certificate');
  assert.equal(registry.completedBatches.find(b=>b.number===11)?.individuallyVerified,25);
+ const graduatedB013 = registry.completedBatches.some(b=>b.number===13 && b.state==='VERIFIED_BATCH_013_COMPLETE' && b.individuallyVerified===25 && b.technicalAcceptance?.schoolCount===25 && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.schoolCasesFailed===0 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.countyCasesFailed===0 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId && b.technicalAcceptance?.productionDeploymentGitSha && b.technicalAcceptance?.observedWorkerVersions?.length===1) && registry.schoolRecords.filter(x=>x.batch===13 && x.status==='VERIFIED').length===25;
  assert.equal(registry.schoolRecords.filter(t=>t.batch===11&&t.status==='IMPLEMENTED').length,0,'No unfinished Batch011 school');
  assert.equal(registry.schoolRecords.filter(t=>t.batch===11&&t.status==='VERIFIED'&&t.actualProductionVerified===true).length,25,'Batch011 historical production evidence must cover all 25 schools');
- assert.equal(registry.schoolRecords.filter(t=>t.status==='VERIFIED').length,graduatedB012?280:graduatedB011?255:230);
+ assert.equal(registry.schoolRecords.filter(t=>t.status==='VERIFIED').length,graduatedB013?305:graduatedB012?280:graduatedB011?255:230);
   // A current Batch012 must remain IMPLEMENTED until its own Chrome graduation.
   assert.equal(registry.schoolRecords.filter(t=>[11,12].includes(t.batch)&&t.status==='IMPLEMENTED').length,0,'Graduated historical schools must not regress to IMPLEMENTED');
  for(const [slug] of cases){const x=registry.schoolRecords.find(t=>t.slug===slug);

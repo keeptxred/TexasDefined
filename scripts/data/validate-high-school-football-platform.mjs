@@ -675,7 +675,7 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
     errors.push(`Football school identity data fell below 185 verified canonical UIL profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
-  const obsoleteIdentitySlugs = ["fort-worth-boswell","hebron","flower-mound-marcus","plano-senior","north-shore","cypress-ranch","ce-king","south-oak-cliff","desoto","randle","lake-travis","westlake","smithson-valley","summer-creek","atascocita","pleasant-grove","harker-heights","mt-pleasant","walnut-grove","richland","west-plains"];
+  const obsoleteIdentitySlugs = ["fort-worth-boswell","hebron","flower-mound-marcus","plano-senior","north-shore","ce-king","south-oak-cliff","desoto","randle","lake-travis","westlake","smithson-valley","summer-creek","atascocita","pleasant-grove","harker-heights","mt-pleasant","walnut-grove","richland","west-plains"];
   for (const slug of obsoleteIdentitySlugs) {
     if (schoolIdentities.includes(`slug: '${slug}'`)) {
       errors.push(`Football school identity data must use the canonical UIL slug instead of legacy alias: ${slug}.`);
@@ -3081,7 +3081,38 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
          r.schoolRecords.filter(x=>x.batch===n&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length!==25)
         errors.push('Historical football batch '+n+' must retain its own signed certificate and 25 production-verified schools');
     }
-    if(r.batch.slugs.length!==25 || new Set(r.batch.slugs).size!==25 ||
+    const b013Certificate=r.completedBatches.find(x=>x.number===13 && x.state==='VERIFIED_BATCH_013_COMPLETE');
+    const certifiedB013=r.batch.number===13 && r.batch.state==='VERIFIED_BATCH_013_COMPLETE';
+    if(certifiedB013){
+      const proof=b013Certificate?.technicalAcceptance;
+      const accepted=Boolean(
+        b013Certificate?.individuallyVerified===25 &&
+        proof?.schoolCount===25 && proof?.schoolCasesPassed===75 && proof?.schoolCasesFailed===0 &&
+        proof?.countyCasesPassed===25 && proof?.countyCasesFailed===0 &&
+        proof?.browserExecutionCount===1 && proof?.chromeRunId===42231309646 &&
+        proof?.chromeArtifactId===13509411368 &&
+        proof?.productionDeploymentGitSha==='9a760dd3ee17eb7818f4ab632d3f3445a84115b4' &&
+        proof?.observedWorkerVersions?.length===1 &&
+        proof?.observedWorkerVersions[0]==='0876bb6f-d11e-448d-9798-d27fb1bbbd50' &&
+        proof?.githubWorkerLedgerDeploymentId===7602055186 &&
+        r.batch.individuallyVerified===25 && r.batch.remainingToVerify===0 &&
+        r.batch.remainingAssigned===0 && r.batch.remainingToImplement===0 &&
+        r.schoolRecords.filter(x=>x.status==='VERIFIED').length===305 &&
+        r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length===987 &&
+        r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length===0 &&
+        r.batch.slugs.length===25 && new Set(r.batch.slugs).size===25 &&
+        r.batch.slugs.every(slug=>{
+          const row=r.schoolRecords.find(x=>x.slug===slug);
+          return row?.batch===13 && row.status==='VERIFIED' && row.actualProductionVerified===true &&
+            row.technicalBrowserRun===proof.chromeRunId &&
+            row.acceptanceEvidenceArtifact===proof.chromeArtifactId &&
+            row.productionWorkerVersion===proof.observedWorkerVersions[0] &&
+            row.verifiedDeploymentGitSha===proof.productionDeploymentGitSha &&
+            row.schoolPhotoReuseRightsAccepted===false && row.manualAccessibilityAccepted===false;
+        })
+      );
+      if(!accepted) errors.push('Batch013 certification requires exact 25-school signed 75+25 Chrome evidence and historical 280-school preservation');
+    } else if(r.batch.slugs.length!==25 || new Set(r.batch.slugs).size!==25 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED').length<280 ||
        r.batch.slugs.some(slug=>{
          const row=r.schoolRecords.find(x=>x.slug===slug);
