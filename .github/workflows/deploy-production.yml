@@ -46,6 +46,22 @@ jobs:
       - name: Publish pending production status
         run: node scripts/ci/publish-github-status.mjs texasdefined-production pending "Validating, building and deploying TexasDefined"
 
+      - name: Refuse obsolete source before expensive validation
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Cannot determine current main::Refusing Worker replacement without a verified main SHA.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo "::error title=Superseded Worker release::This run is ${GITHUB_SHA}; latest main is ${latest_main}. Refusing to replace the current Worker with an older revision."
+            exit 1
+          fi
+          echo "Current main SHA verified: ${latest_main}. Worker replacement may proceed."
+
       - name: Validate retired integration traces
         run: node scripts/ci/validate-retired-integration-traces.mjs
 
@@ -202,6 +218,22 @@ jobs:
 
           restored_count="$(find public/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
           echo "Restored $restored_count governed Discover derivatives from $restored_artifacts matching prior production artifact(s)."
+      - name: Refuse obsolete source before production build
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Cannot determine current main::Refusing Worker replacement without a verified main SHA.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo "::error title=Superseded Worker release::This run is ${GITHUB_SHA}; latest main is ${latest_main}. Refusing to replace the current Worker with an older revision."
+            exit 1
+          fi
+          echo "Current main SHA verified: ${latest_main}. Worker replacement may proceed."
+
       - name: Build production bundle
         id: build
         shell: bash
