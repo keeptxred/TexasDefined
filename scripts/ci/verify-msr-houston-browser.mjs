@@ -72,6 +72,28 @@ for (const test of tests) {
       event: [...document.querySelectorAll('h3')].some(el => /xtreme\s*xperience/i.test(el.textContent || '')),
       internalLinks: !!document.querySelector('a[href="/destination/sea-center-texas"]') && !!document.querySelector('a[href="/destination/levi-jordan-plantation"]'),
     }));
+    // Diagnose physical-viewport overflow without weakening the acceptance gate.
+    // Scrollable table descendants are listed separately; page-level horizontal
+    // spill remains a hard failure even when the table itself is accessible.
+    if (facts.width > test.viewport.width + 8 || facts.width > facts.viewport + 8) {
+      const diag = await page.evaluate(() => {
+        const clientWidth = document.documentElement.clientWidth;
+        const nodes = [...document.querySelectorAll('body *')].map((el) => {
+          const rect = el.getBoundingClientRect();
+          const style = getComputedStyle(el);
+          return { tag: el.tagName.toLowerCase(), className: typeof el.className === 'string' ? el.className.slice(0, 120) : '',
+            id: el.id || '', left: Math.round(rect.left), right: Math.round(rect.right),
+            width: Math.round(rect.width), scrollWidth: el.scrollWidth,
+            clientWidth: el.clientWidth, overflowX: style.overflowX, position: style.position };
+        }).filter((row) => row.right > clientWidth + 8 && row.width > 2);
+        return { viewportMeta: document.querySelector('meta[name="viewport"]')?.getAttribute('content') || '',
+          clientWidth, innerWidth: window.innerWidth, visualViewportWidth: window.visualViewport?.width,
+          screenWidth: window.screen.width, devicePixelRatio: window.devicePixelRatio,
+          bodyScrollWidth: document.body.scrollWidth,
+          overflowElements: nodes.sort((a, b) => b.right - a.right).slice(0, 35) };
+      });
+      console.error('MSR responsive overflow diagnostics ' + test.name + ': ' + JSON.stringify(diag));
+    }
     assert.equal(facts.h1.length, 1, 'Must have exactly one main heading');
     assert.match(facts.h1[0], /MSR Houston/i);
     assert.equal(facts.canonical, url, 'Wrong canonical URL');
