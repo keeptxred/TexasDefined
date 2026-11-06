@@ -131,18 +131,18 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             <div>
               <p className="eyebrow text-primary">Where to fish</p>
               <h2 className="mt-3 font-display text-4xl">Where to Fish {technique.name}</h2>
-              <ol className="mt-7 space-y-4">
+              <ol className="mt-7 list-none space-y-4">
                 {guide.whereToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
-                  <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
+                  <span aria-hidden="true" className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
                 </li>)}
               </ol>
             </div>
             <div>
               <p className="eyebrow text-primary">How to fish</p>
               <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">How to Fish {technique.name}</h2>
-              <ol className="mt-7 space-y-4">
+              <ol className="mt-7 list-none space-y-4">
                 {guide.howToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
-                  <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
+                  <span aria-hidden="true" className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
                 </li>)}
               </ol>
             </div>
@@ -215,9 +215,11 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div><p className="eyebrow text-primary">Current conditions</p><h2 className="mt-2 font-display text-3xl">Check Current Conditions Before You Fish</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
-          <p>This page does not claim that {technique.name.toLowerCase()} is productive today, that it is the best technique statewide, or that a particular product or brand should be purchased.</p>
-          <p>For a trip happening now, pair this durable relationship data with <a href="/fishing/reports" className="border-b border-primary text-primary">fresh reports</a>, weather, water conditions, access information and <a href="/fishing/regulations" className="border-b border-primary text-primary">current regulations</a>.</p>
-          <p>Season labels on the verified lake cards describe the seasons explicitly attached to the source-backed lake-technique relationship. The broader seasonal guide above explains technique mechanics and does not override current conditions.</p>
+          <p>Before choosing where and how to use {technique.name.toLowerCase()}, make these method-specific checks. This guide does not claim current fish activity or guaranteed results.</p>
+          {guide?.tripChecks?.length ? <ul className="space-y-3 border-l-2 border-primary pl-5">
+            {guide.tripChecks.map((check) => <li key={check}>{check}</li>)}
+          </ul> : null}
+          <p>Confirm the latest <a href="/fishing/reports" className="border-b border-primary text-primary">lake fishing reports</a>, <a href="/fishing/regulations" className="border-b border-primary text-primary">bait and fishing regulations</a>, weather, access and water conditions before a trip.</p>
         </div>
       </section>
 

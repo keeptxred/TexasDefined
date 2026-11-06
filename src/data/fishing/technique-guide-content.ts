@@ -1,5 +1,6 @@
 export type FishingTechniqueGuideContent = {
   plainEnglish: string;
+  tripChecks: string[];
   whenToUse: string[];
   whereToFish: string[];
   howToFish: string[];
@@ -13,6 +14,11 @@ export type FishingTechniqueGuideContent = {
 
 export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideContent> = {
   "crankbaits": {
+    tripChecks: [
+      "Check the depth of the point, ledge or shoreline cover you intend to work; select a diving range that actually reaches it.",
+      "Review water clarity and wind before choosing a tight wobble, broad wobble or lipless presentation.",
+      "Confirm lake level and submerged-hazard conditions so deliberate bottom contact does not become an avoidable snag or boating risk.",
+    ],
     plainEnglish: "A crankbait is a hard-bodied moving lure designed to swim, wobble or vibrate through a specific part of the water column. The practical question is not simply whether to throw one, but which style reaches the cover, depth and speed you need without spending the whole retrieve above or below the fish.",
     whenToUse: [
       "When you need to cover water and find active fish rather than soak one spot.",
@@ -61,6 +67,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     ]
   },
   "soft-plastics": {
+    tripChecks: [
+      "Identify the cover you will fish—vegetation, docks, timber, rock or offshore structure—before selecting a weedless or finesse rig.",
+      "Check wind and depth to determine whether a weightless fall can be controlled or a sinker is needed.",
+      "Use the lake's current conditions and access report to choose reachable, legal fishing areas rather than assuming an old seasonal pattern is active.",
+    ],
     plainEnglish: "Soft plastics are one of the most adaptable ways to fish Texas bass water because the same bait family can be rigged weedless, weightless, on a jig head or on specialized rigs from inches of water to deep offshore structure. The key is choosing the rig for the cover, depth and mood of the fish before worrying about color.",
     whenToUse: [
       "When bass are holding tightly to vegetation, timber, docks, brush or other cover.",
@@ -112,6 +123,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     ]
   },
   "spinnerbaits": {
+    tripChecks: [
+      "Check wind exposure, visibility and shallow cover before picking a blade profile for lift, flash or vibration.",
+      "Compare the fish-holding depth with the bait's running depth; a fast retrieve can keep an otherwise suitable lure above the target.",
+      "Check grass growth, floating debris and local access so a cover-oriented retrieve remains practical.",
+    ],
     plainEnglish: "Spinnerbaits combine flash, vibration and a single-hook profile that can move efficiently through shallow cover, vegetation and stained water.",
     whenToUse:["Windy banks and low-light periods.","Stained water where vibration helps fish locate the bait.","Around shallow wood, grass and docks.","When baitfish are active and bass are willing to chase."],
     whereToFish:["Wind-blown shorelines.","Standing timber and laydowns.","Grass edges and flooded vegetation.","Riprap, docks and shallow points."],
@@ -121,6 +137,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Retrieving too high above the cover.","Choosing blade combinations without considering water clarity.","Avoiding contact with cover completely.","Failing to retune a bent wire frame."]
   },
   "topwater": {
+    tripChecks: [
+      "Check surface chop, wind direction and safe access before choosing a popper, walking bait, frog or faster-moving surface lure.",
+      "Identify whether the intended area has open water, sparse cover or matted vegetation; each calls for a different surface presentation.",
+      "Treat dawn, dusk and seasonal patterns as planning clues, then confirm current fish activity rather than assuming a surface bite.",
+    ],
     plainEnglish: "Topwater fishing keeps the lure on or near the surface and is most effective when fish are willing to feed upward.",
     whenToUse:["Low light, cloud cover and schooling activity.","Warm-water periods when fish are shallow.","Around vegetation, points and flooded cover.","When baitfish are visibly being chased near the surface."],
     whereToFish:["Grass edges and open pockets.","Points, seawalls and riprap.","Shallow flats and creek mouths.","Around schooling fish in open water."],
@@ -130,6 +151,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Setting the hook at the splash instead of after feeling the fish.","Working every lure at the same cadence.","Ignoring baitfish size.","Using surface presentations when fish are clearly feeding deeper."]
   },
   "trolling": {
+    tripChecks: [
+      "Check the applicable waterbody's trolling and boating rules, marked hazards and current lake level before selecting a route.",
+      "Use depth information and observed forage or fish position to set the target zone; avoid choosing a lure solely by its advertised maximum depth.",
+      "Account for wind, boat speed and traffic when planning safe, repeatable passes.",
+    ],
     plainEnglish: "Trolling presents one or more baits behind a moving boat so anglers can cover open water, maintain depth and intercept roaming fish.",
     whenToUse:["When striped, hybrid or other open-water fish are scattered.","When fish are following creek channels, river channels or bait schools.","When covering large reservoirs efficiently matters.","When depth control is more important than repeated casting."],
     whereToFish:["Channel edges and bends.","Open-water flats near bait.","Main-lake points and humps.","Areas where sonar shows suspended fish or bait."],
@@ -139,6 +165,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Trolling without a target depth.","Making productive passes once instead of repeating them.","Ignoring speed changes during turns.","Failing to monitor for fouled lures."]
   },
   "vertical-jigging": {
+    tripChecks: [
+      "Verify current fish or forage depth with available observations or electronics before lowering a jig to a fixed depth.",
+      "Check wind and boat control; excessive drift can pull the lure away from fish directly under the boat.",
+      "Review underwater timber, bridge restrictions and accessible offshore structure before committing to a precise vertical presentation.",
+    ],
     plainEnglish: "Vertical jigging works a spoon, slab, jig or similar lure directly beneath the boat over fish, structure or bait.",
     whenToUse:["When sonar shows fish concentrated below the boat.","When fish are deep or suspended.","When schooling fish stop chasing horizontally.","When wind or current makes casting inefficient."],
     whereToFish:["Creek and river channels.","Bridge structure and deep timber openings.","Main-lake humps and points.","Directly over suspended schools."],
@@ -148,6 +179,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Jigging below the fish.","Using too light a lure to stay vertical.","Overworking the lure.","Ignoring strikes that occur on the fall."]
   },
   "jigs-and-minnows": {
+    tripChecks: [
+      "Check the depth of brush, timber, bridge structure or suspended crappie before deciding between a vertical jig and a float-controlled presentation.",
+      "If using minnows, verify legal bait species, collection and transport requirements for the specific water.",
+      "Use wind and water clarity to choose jig weight and retrieve pace so the bait can stay just above the holding depth.",
+    ],
     plainEnglish: "Jigs and minnows are core crappie presentations because both can be fished precisely around brush, timber, bridges and seasonal spawning cover.",
     whenToUse:["When crappie are relating tightly to cover.","When fish are suspended at a repeatable depth.","During spring movements toward spawning areas.","When a slow controlled presentation is more effective than searching quickly."],
     whereToFish:["Brush piles and standing timber.","Bridge columns and shade lines.","Creek-channel edges.","Shallow spawning cover in season."],
@@ -157,6 +193,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Fishing beneath suspended crappie.","Moving the bait too aggressively.","Failing to repeat the exact productive depth.","Making excessive noise around shallow cover."]
   },
   "live-bait": {
+    tripChecks: [
+      "Check the latest Texas and water-specific bait regulations, including collection and transport restrictions, before obtaining bait.",
+      "Plan aeration, temperature control and travel time so bait stays healthy and is not carried illegally between waters.",
+      "Check where the target fish are holding in the water column; a healthy bait outside that depth is rarely the right presentation.",
+    ],
     plainEnglish: "Live bait uses natural prey such as shad or minnows to present scent, movement and profile with minimal artificial action.",
     whenToUse:["When fish are keying tightly on natural forage.","For striped, hybrid, crappie or catfish applications where live bait is established locally.","When fish are suspended and a bait can be held at their depth.","When artificial lures are being ignored."],
     whereToFish:["Around bait schools.","Channel edges and points.","Brush, timber and bridge structure.","Open water where target fish are suspended."],
@@ -166,6 +207,11 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Using weak or stressed bait.","Ignoring legal bait restrictions.","Fishing at the wrong depth.","Using hooks or weights that overpower the bait."]
   },
   "cut-bait": {
+    tripChecks: [
+      "Confirm the source fish is legal bait under current Texas and water-specific rules before cutting or transporting it.",
+      "Plan chilled storage and replace pieces that lose firmness or no longer keep the hook point exposed.",
+      "Check flow, wind and channel access before choosing a fixed bottom rig, three-way setup or controlled drift.",
+    ],
     plainEnglish: "Cut bait uses pieces of a legally obtained bait fish to release scent and oils for catfish. In Texas, the source fish matters as much as the rig: game fish or any part of a game fish may not be used as bait, and water-specific bait rules can be more restrictive.",
     whenToUse:[
       "For blue catfish where fresh cut forage is an established reservoir or river presentation.",

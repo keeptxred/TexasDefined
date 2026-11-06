@@ -68,6 +68,27 @@ assert.ok(sportsSeo.includes("canonicalLink(texasDefinedBrand, path)"), "Teams m
 assert.ok(eventsSource.includes("const routeDescription ="), "Events needs independent editorial purpose");
 assert.ok(eventsSource.includes("isGenericTicketingEventSummary(event.summary)"), "Calendar must not repeat generic provider summaries on every card");
 
+// Every technique needs original, practical trip-preparation guidance rather than
+// a shared three-paragraph disclaimer repeated across all nine indexable pages.
+const uniqueTripChecks = new Set();
+for (const slug of techniques) {
+  const block = techniqueBlock(slug);
+  const list = block.match(/tripChecks:\s*\[([\s\S]*?)\],/);
+  assert.ok(list, "Missing method-specific trip checks: " + slug);
+  const checks = [...list[1].matchAll(/"([^"]+)"/g)].map((item) => item[1]);
+  assert.equal(checks.length, 3, "Each technique should provide three useful trip checks: " + slug);
+  for (const check of checks) {
+    assert.ok(check.length >= 60, "Trip check is too generic: " + slug);
+    assert.ok(!uniqueTripChecks.has(check), "Duplicate trip check across techniques: " + slug);
+    uniqueTripChecks.add(check);
+  }
+}
+assert.ok(fishingProfile.includes("guide.tripChecks.map"), "Render specific trip checks in the shared detail template");
+assert.ok(!fishingProfile.includes("This page does not claim that"), "Repeated boilerplate disclaimer restored");
+assert.equal((fishingProfile.match(/<ol className="mt-7 list-none space-y-4">/g) ?? []).length, 2, "Both instruction lists need one visible number per step");
+assert.equal((fishingProfile.match(/<span aria-hidden="true" className="font-display text-2xl text-primary">/g) ?? []).length, 2, "The custom step numbers must not repeat in the accessibility tree");
+
+
 const techniquePairs = combinations(techniques.map((slug) => "/fishing/techniques/" + slug), techniques.map(techniqueBlock));
 const teamEditorial = sports.slice(0, 3).map((slug) => {
   const team = sportsData.find((row) => row.slug === slug);
