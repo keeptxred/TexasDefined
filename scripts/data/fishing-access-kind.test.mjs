@@ -58,7 +58,11 @@ test("river, bank, pier and camper-only sites retain reviewed categories", () =>
     ["Chandler River Park","shore"],
     ["Bear Creek Park","public-ramp"],
   ]) {
-    const match = network.match(new RegExp("name: ?\\\"?" + name.replace(/[.*+?^$()|[\\]{}]/g, "\\$&") + "\\\"?[^\\n]{0,200}?kind: ?\\\"?([a-z-]+)\\\"?"));
+    const spaced = network.indexOf(`name: "${name}"`);
+    const compact = network.indexOf(`name:"${name}"`);
+    const at = spaced >= 0 ? spaced : compact;
+    assert.ok(at >= 0, "Missing source facility " + name);
+    const match = network.slice(at, at + 260).match(/kind:\\s*"([a-z-]+)"/);
     assert.ok(match, "Missing reviewed identity for " + name);
     assert.equal(match[1], kind, name);
   }
