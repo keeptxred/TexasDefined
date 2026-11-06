@@ -1,0 +1,24 @@
+diff --git a/src/api-permissions.ts b/src/api-permissions.ts
+--- a/src/api-permissions.ts
++++ b/src/api-permissions.ts
+@@ -290,7 +290,7 @@
+     case 'unlisted':
+       if (status === 401) {
+         return authorization.connection === 'oauth'
+-          ? 'Cloudflare did not accept this connection’s credentials. Reconnect to sign in again.'
++          ? 'This Cloudflare endpoint returned HTTP 401, but that alone does not show the OAuth connection expired. Check whoami and a harmless GET /user or GET /accounts; if they succeed, do not reconnect or retry this denied endpoint. Check endpoint compatibility and permissions.'
+           : 'Cloudflare did not accept this credential. Check that the API token is valid and has not expired.'
+       }
+       return 'The API spec lists no permissions for this endpoint. HTTP 403 means the credential was accepted but is not allowed to do this, so reconnecting with the same permissions will not help. Check the endpoint’s documentation.'
+diff --git a/tests/api-permissions.test.ts b/tests/api-permissions.test.ts
+--- a/tests/api-permissions.test.ts
++++ b/tests/api-permissions.test.ts
+@@ -253,3 +253,6 @@
+-    // No permissions in the spec.
+-    expect(explain(401, oauth(), undefined)).toContain('Reconnect to sign in again')
++    // No permissions in the spec: an isolated OAuth 401 must not force reconnection.
++    const unknownScope401 = explain(401, oauth(), undefined)
++    expect(unknownScope401).toContain('endpoint returned HTTP 401')
++    expect(unknownScope401).toContain('do not reconnect or retry this denied endpoint')
++    expect(unknownScope401).not.toContain('Reconnect to sign in again')
+     expect(explain(401, DIRECT_CONNECTION, undefined)).toContain('API token is valid')
