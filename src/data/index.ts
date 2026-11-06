@@ -3,7 +3,8 @@ import type { BrandId } from "@/brand/types";
 import { countySlugForLegacyArticle, isLegacyCountySeriesArticle } from "./county-series";
 import { fixturePlatform } from "./fixtures/repositories";
 import type { PlatformRepositories } from "./repositories";
-import type { Article, ArticleBlock, SearchDocument } from "./types";
+import type { Article, SearchDocument } from "./types";
+import { calculateArticleReadingMinutes } from "./article-reading-time";
 
 /**
  * The single binding point between the app and its data source.
@@ -227,18 +228,6 @@ const ARTICLE_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Articl
   ],
 };
 
-const wordsInBlock = (block: ArticleBlock) => {
-  if (block.type === "shop" || block.type === "image") return 0;
-  const text = block.type === "list" ? block.items.join(" ") : block.text;
-  return text.trim().split(/\s+/).filter(Boolean).length;
-};
-
-const computedReadingMinutes = (article: Article) => {
-  const wordCount = article.body.reduce((total, block) => total + wordsInBlock(block), 0);
-  if (wordCount === 0) return Math.max(1, article.readingMinutes);
-  return Math.max(1, Math.ceil(wordCount / 220));
-};
-
 const canonicalizeCountyHref = (href: string) => {
   const match = href.match(/^\/article\/([^?#/]+)([?#].*)?$/);
   if (!match) return href;
@@ -264,7 +253,7 @@ const normalizeArticle = (article: Article): Article => {
     ...article,
     hero,
     internalLinks,
-    readingMinutes: computedReadingMinutes(article),
+    readingMinutes: calculateArticleReadingMinutes(article),
   };
 };
 
