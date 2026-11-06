@@ -7,6 +7,9 @@ on:
     types:
       - completed
   workflow_dispatch:
+  # Catch catalog changes that occur without any application deployment.
+  schedule:
+    - cron: '53 13 * * 0'
   pull_request:
     paths:
       - .github/workflows/verify-active-shop-sitemap.yml
