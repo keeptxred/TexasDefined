@@ -136,8 +136,8 @@ const additionalCampusEdges = [
   ['dallas-carter','dallas'], ['dallas-conrad','dallas']
 ];
 for (const [slug, countySlug] of additionalCampusEdges) {
-  assert.equal([...campusSection.matchAll(new RegExp("'"+slug+"'\\\\s*:\\\\s*'"+countySlug+"'",'g'))].length,1,slug+' missing unique sourced school campus county');
-  const row = reciprocalSection.match(new RegExp("'"+countySlug+"'\\\\s*:\\\\s*\\\\[([\\\\s\\\\S]*?)\\\\]\\\\s*,"));
+  assert.equal([...campusSection.matchAll(new RegExp("'"+slug+"'\\s*:\\s*'"+countySlug+"'",'g'))].length,1,slug+' missing unique sourced school campus county');
+  const row = reciprocalSection.match(new RegExp("'"+countySlug+"'\\s*:\\s*\\[([\\s\\S]*?)\\]\\s*,"));
   assert.ok(row,countySlug+' missing reciprocal county list');
   assert.ok(row[1].includes("slug: '"+slug+"'"),slug+' missing reciprocal county link');
   assert.ok(remainingDossier.includes('`'+slug+'`'),slug+' missing campus evidence record');
