@@ -67,3 +67,17 @@ test('never treats an old HTML snapshot or unavailable origin as a successful re
     assert.ok(report.checks.every(r => r.failures.includes('editorialContact')));
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+test('daily watchdog fails closed on homepage live and field-vitals check failures', () => {
+  const workflow = readFileSync('.github/workflows/site-quality-watchdog.yml', 'utf8');
+  const match = workflow.match(/      - name: Fail workflow when any quality check fails\n        if: ([^\n]+)\n        run: \|/);
+  assert.ok(match, 'missing explicit final watchdog failure gate');
+  for (const check of ['quality', 'homepage_live', 'homepage_vitals']) {
+    assert.ok(match[1].includes(`steps.${check}.outcome == 'failure'`),
+      `${check} failure must mark the job failed`);
+  }
+  const issuePosition = workflow.indexOf('      - name: Open or update watchdog issue');
+  const gatePosition = workflow.indexOf('      - name: Fail workflow when any quality check fails');
+  assert.ok(issuePosition !== -1 && gatePosition > issuePosition,
+    'write the linked diagnostic issue before failing the job');
+});

@@ -144,9 +144,11 @@ jobs:
               });
             }
 
-      - name: Fail workflow when quality checks fail
-        if: steps.quality.outcome == 'failure'
-        run: exit 1
+      - name: Fail workflow when any quality check fails
+        if: steps.quality.outcome == 'failure' || steps.homepage_live.outcome == 'failure' || steps.homepage_vitals.outcome == 'failure'
+        run: |
+          echo "::error title=Site quality watchdog failed::Review quality, homepage live and field-vitals evidence in the report artifact and the linked issue."
+          exit 1
       - name: Audit Dallas Black History live pages and sitemap links
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: node scripts/ci/check-dallas-black-history-production.mjs
