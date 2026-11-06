@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-fishing-access-browser.mjs'
+      - 'scripts/ci/wait-for-fishing-access-protected-production.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.test.mjs'
       - '.github/workflows/verify-fishing-access-browser.yml'
   push:
     branches: [main]
@@ -15,6 +18,9 @@ on:
       - 'src/data/fishing/curated-inventory.ts'
       - 'src/components/fishing/FishingAccessDirectory.tsx'
       - 'scripts/ci/verify-fishing-access-browser.mjs'
+      - 'scripts/ci/wait-for-fishing-access-protected-production.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.test.mjs'
       - '.github/workflows/verify-fishing-access-browser.yml'
   workflow_dispatch:
 
@@ -38,21 +44,23 @@ jobs:
         with:
           node-version: '22'
       - run: node --check scripts/ci/verify-fishing-access-browser.mjs
+      - run: node --check scripts/ci/wait-for-fishing-access-protected-production.mjs
+      - run: node --test scripts/ci/fishing-access-deployment-source.test.mjs
 
   browser:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Wait for successful protected production deployment of this exact SHA
+      - name: Wait for a successfully deployed main descendant that contains the exact fishing-access source SHA
         env:
           GH_TOKEN: ${{ github.token }}
           PRODUCTION_COMMIT_SHA: ${{ github.sha }}
-        run: node scripts/ci/wait-for-protected-production.mjs
+        run: node scripts/ci/wait-for-fishing-access-protected-production.mjs
       - name: Install isolated Chrome driver without changing app dependencies
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
