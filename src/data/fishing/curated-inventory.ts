@@ -14,7 +14,10 @@ export const expandedSourcedAccessPoints: FishingAccessPoint[] = accessGroups.fl
     sourceType: "state",
   };
   return group.facilities.map((facility) => {
-    const [name, listedKind, facilityDetail] = facility;
+    const [name, listedKind, facilityDetail, facilityReviewedAt] = facility;
+    // New source-backed additions carry their own observation date. Do not
+    // silently restamp earlier reviewed facilities or the guide catalog.
+    const checkedAt = facilityReviewedAt ?? REVIEWED_AT;
     const kind = listedKind as FishingAccessPoint["kind"];
     const canonicalSlug = `${group.lakeId}-${slugify(name)}`;
     const accessLabel = kind === "boat-ramp" ? "boat-launch location" : kind === "kayak-launch" ? "non-motorized paddling launch" : kind === "marina" ? "marina" : kind === "pier" ? "fishing pier" : "shore-access location";
@@ -25,8 +28,8 @@ export const expandedSourcedAccessPoints: FishingAccessPoint[] = accessGroups.fl
       slug: canonicalSlug,
       name,
       status: "published" as const,
-      verifiedAt: REVIEWED_AT,
-      sources: [source],
+      verifiedAt: checkedAt,
+      sources: [{ ...source, checkedAt }],
       lakeIds: [group.lakeId],
       description: summary,
     };
