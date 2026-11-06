@@ -10,6 +10,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { homepageEntryPoints } from "@/content/homepage";
 import { articlesQuery, destinationsQuery, homepageEventsQuery, guidesQuery, regionsQuery } from "@/data/queries";
+import { verifiedDiscoveryReadingMinutes } from "@/data/verified-discovery-reading-time";
 import { formatReadingTime } from "@/domain/utils/format";
 import { selectHomepageEditorPicks, selectHomepageMoreStories } from "@/lib/homepage-editorial";
 import { recoverOrHideImage } from "@/lib/image-fallback";
@@ -83,7 +84,7 @@ function HomePage() {
         </nav>
       </div>
     </header>
-    {hero && <FeatureHero variant="split" eyebrow="From the Texas Defined editors" title={hero.title} dek={hero.dek} image={hero.hero} to="/article/$slug" params={{ slug: hero.slug }} meta={formatReadingTime(hero.readingMinutes)} />}
+    {hero && <FeatureHero variant="split" eyebrow="From the Texas Defined editors" title={hero.title} dek={hero.dek} image={hero.hero} to="/article/$slug" params={{ slug: hero.slug }} meta={verifiedDiscoveryReadingMinutes(hero) !== null ? formatReadingTime(hero.readingMinutes) : undefined} />}
     {featuredDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Editor's picks" title="A Different Side of Texas" description="Handpicked places, landscapes and stops that are worth seeing for yourself." actionLabel="Explore the full guide" actionTo="/explore" /><ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{featuredDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} tone="overlay" regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}
     {editorPicks.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="From the editors" title="More from the editors" description="People, places and ideas that reveal something memorable about Texas." /><div className="mt-10 grid gap-8 lg:grid-cols-[1.45fr_1fr]"><ArticleCard article={editorPicks[0]} size="feature" /><div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">{editorPicks.slice(1).map((article) => <ArticleCard key={article.id} article={article} size="compact" />)}</div></div></Container></Section>}
     <Section><Container><SectionHeader eyebrow="Texas Explained" title="Why Texas works the way it does" description="Ten connected guides to the water, roads, towns, landscapes, wildlife, homes, land and migration patterns behind everyday Texas." actionLabel="Read all 10 guides" actionTo="/texas-explained" /><ul className="mt-10 grid gap-0 border-y border-border md:grid-cols-3 md:divide-x md:divide-border">{texasExplainedPicks.map((pick, index) => <li key={pick.to} className={index > 0 ? "border-t border-border md:border-t-0" : undefined}><Link to={pick.to} className="group block h-full px-1 py-7 md:px-6"><p className="eyebrow text-primary">Guide {String(index + 1).padStart(2, "0")}</p><h3 className="mt-3 font-display text-2xl leading-tight transition-colors group-hover:text-primary">{pick.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{pick.description}</p><span className="eyebrow mt-5 inline-block text-primary">Read the guide →</span></Link></li>)}</ul></Container></Section>
