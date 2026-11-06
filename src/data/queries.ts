@@ -57,7 +57,7 @@ export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => que
     const platform = await loadPlatform();
     const discovered = (await platform.articles.list({ ...scope, ...params }))
       .map(prepareArticleForDelivery)
-      .filter(isArticleDiscoveryReady);
+    .filter(isArticleDiscoveryReady);
     // Resolve limited discovery cards against the exact body used by articleQuery.
     // Large directories retain lightweight stubs but suppress unverified times.
     return verifyDiscoveryReadingTimes(discovered, loadCanonicalArticleDetail);
