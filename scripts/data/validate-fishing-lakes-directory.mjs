@@ -173,6 +173,10 @@ assert(wave2Showcase.includes('id: "alligator-gar", name: "Alligator gar", promi
 assert(statewideFixtures.includes("TPWD rates Largemouth & Smallmouth Bass together as Good"), "Bridgeport grouped black bass rating provenance missing.");
 assert(statewideFixtures.includes("TPWD rates White & Hybrid Striped Bass as one combined Excellent category"), "Bridgeport grouped white/hybrid grade provenance missing.");
 assert(wave2Fixtures.includes("TPWD's Excellent rating applies to the combined Hybrid & Striped Bass category"), "Tawakoni combined striper grade provenance missing.");
+assert(component.includes('"lake-palestine": [{ members: ["White bass", "Hybrid striped bass"]'), "Palestine grouped TPWD rating must not be shown independently.");
+assert(statewideFixtures.includes('fish("white-bass","White bass","excellent","spring","TPWD grades White & Hybrid Striped Bass together Excellent'), "Palestine combined white/hybrid TPWD grade is Excellent.");
+assert(component.includes('"cedar-creek-reservoir": [{ members: ["White bass", "Hybrid striped bass"]'), "Cedar Creek must display combined agency category.");
+assert(component.includes('"richland-chambers-reservoir": [{ members: ["White bass", "Hybrid striped bass"]'), "Richland Chambers must display combined agency category.");
 assert(statewideFixtures.includes("TPWD awards Excellent to the combined White & Hybrid Striped Bass category"), "Somerville white/hybrid ratings must disclose TPWD combined category.");
 assert(!/summary:[^\n]*today's water extent/.test(statewideFixtures), "Medina directory summary must not freeze a 'today' lake level.");
 assert(!/water levels are currently far below conservation pool/.test(statewideFixtures), "Sweetwater summary must use official live levels, not a frozen current-level statement.");
