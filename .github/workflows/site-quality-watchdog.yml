@@ -59,6 +59,7 @@ jobs:
           path: |
             site-quality-report.md
             site-quality-report.json
+            .artifacts/42-page-pair-production.json
             .artifacts/homepage-live-parity.json
             .artifacts/homepage-vitals-evidence.json
           if-no-files-found: error
