@@ -1,3 +1,11 @@
+## 2026-11-06 — Batch013 genuine production Chrome technical acceptance (25/25)
+
+**Protected evidence-only graduation proposed; no certification until this PR merges and gates pass.** One real non-skipped Chrome job [#42231309646](https://github.com/keeptxred/TexasDefined/actions/runs/42231309646), job #127937601576, recorded **25 school pages × 3 widths (1366/390/320) = 75 passed**, **25 reciprocal county checks passed**, and zero reported failures; [compact artifact #13509411368](https://github.com/keeptxred/TexasDefined/actions/runs/42231309646/artifacts/13509411368) retained. The real Chrome execution, Worker resolution and evidence upload steps were all **SUCCESS**, not skipped.
+
+Pinned production source **`9a760dd3ee17eb7818f4ab632d3f3445a84115b4`**, Worker **`0876bb6f-d11e-448d-9798-d27fb1bbbd50`**, signed GitHub verified-Worker ledger **`7602055186`**. Independent authenticated Cloudflare GET on 2026-11-06 returned deployment **`a8aac9ac-3cc7-4641-a244-fd80d13a5816`**, created 14:06:01 UTC, this exact Worker at **100%**; Chrome PASS at 14:11:16 UTC. Batch013 source guides and campus-county links merged in protected PR #6702 and predecessors. No new scores/standings, unlicensed media or manual screenshot review claimed.
+
+**After protected graduation merge:** 305/1292 technically VERIFIED, 987 NOT_REVIEWED, 0 IMPLEMENTED. This is automated technical production acceptance, **not** independent current scoreboard, manual WCAG, licensed photography, ADA/parking or human editorial approval. Do not assign Batch014 until this evidence-only PR is actually merged and registry certified. Existing older batches remain unchanged.
+
 ## 2026-11-05 — Batch013 25/25 guides authored, NOT production VERIFIED
 
 All 25 assigned Batch013 school-specific SSR editorial guides are merged through protected PRs #6627–#6636, #6641 and #6644. The source-level football contract on #6644 passed in run #42060403047; the Merge Gate passed in run #42060403579. These source and CI checks **do not constitute** release-matched Chrome acceptance.
