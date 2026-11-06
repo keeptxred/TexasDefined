@@ -21,8 +21,12 @@ export const EXPECTED_LEXINGTON_READING_MINUTES = Number(generatedReadingMinutes
 
 // Anchor to the actual featured story heading, not arbitrary minutes in page JSON-LD,
 // another article card, or the footer. Read visible text only up to the next heading.
+function findLexingtonHeading(html) {
+  return String(html).match(/<h[12]\b[^>]*>[\s\S]{0,1500}?USS Lexington \(CV-16\)[\s\S]{0,1500}?<\/h[12]>/i);
+}
+
 export function extractLexingtonReadingMinutes(html) {
-  const heading = String(html).match(/<h[12]\b[^>]*>[\s\S]{0,1500}?USS Lexington \(CV-16\)[\s\S]{0,1500}?<\/h[12]>/i);
+  const heading = findLexingtonHeading(html);
   if (!heading) return null;
   const start = (heading.index ?? 0) + heading[0].length;
   const following = String(html).slice(start, start + 12000).split(/<h[12]\b/i)[0];
@@ -42,7 +46,10 @@ export function checkHomepageHtml(html, contentType = 'text/html') {
   const checks = {
     htmlDocument: /<html\b/i.test(text) && /<h1\b/i.test(text),
     htmlMime: /text\/html/i.test(contentType),
-    lexingtonHomepageReadTime: extractLexingtonReadingMinutes(text) === EXPECTED_LEXINGTON_READING_MINUTES,
+    // An editorially rotated homepage may feature another story. Only require
+    // Lexington parity while its heading is actually rendered here.
+    lexingtonHomepageReadTime: !findLexingtonHeading(text) ||
+      extractLexingtonReadingMinutes(text) === EXPECTED_LEXINGTON_READING_MINUTES,
     expectedHomepageTitle: text.includes('The places, stories &amp; life of Texas') ||
       text.includes('The places, stories & life of Texas'),
     editorialContact: text.includes('Share a correction or firsthand Texas tip'),
@@ -95,10 +102,11 @@ export async function verifyHomepageProduction({
           const observed = checkHomepageHtml(html, response.headers.get('content-type') ?? '');
           entry.checks = observed.checks;
           entry.failures.push(...observed.failures);
+          entry.lexingtonFeatured = Boolean(findLexingtonHeading(html));
           entry.homepageLexingtonReadingMinutes = extractLexingtonReadingMinutes(html);
           entry.bytes = Buffer.byteLength(html, 'utf8');
           entry.cacheStatus = response.headers.get('cf-cache-status') || null;
-          if (entry.failures.length === 0) {
+          if (entry.failures.length === 0 && entry.lexingtonFeatured) {
             // A homepage-only smoke test cannot catch a disagreement with its
             // linked article. Probe both normal production routes per origin.
             const articleUrl = new URL('/article/' + LEXINGTON_SLUG, origin);
