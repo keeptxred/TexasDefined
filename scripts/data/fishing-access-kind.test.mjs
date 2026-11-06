@@ -50,6 +50,8 @@ test("Arkansas Bend and all nine Travis facilities have direct TPWD concrete-ram
   assert.match(found("lake-travis", "Gloster Bend Recreation Area")[2], /Singleton Road/);
   assert.match(found("lake-travis", "Sandy Creek Park")[2], /Lime Creek Road/);
   assert.match(found("lake-travis", "Hippie Hollow")[2], /17 parked vehicles/);
+  for (const name of newNames) assert.equal(found("lake-travis", name)[3], "2026-11-06", name + ": source must show actual review date");
+  for (const name of originalNames) assert.equal(found("lake-travis", name).length, 3, name + ": original review date must not be restamped");
 });
 test("Bachman public shoreline and Shorecrest ramp are not merged", () => {
   const source = readFileSync("src/data/fishing/statewide-lake-network.ts", "utf8");
