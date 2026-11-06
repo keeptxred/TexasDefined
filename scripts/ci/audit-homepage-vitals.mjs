@@ -24,13 +24,25 @@ export function summarizePageSpeed(data, strategy) {
   const selected = Object.fromEntries(Object.entries(keyed).map(([name, keys]) => {
     const entry = keys.map(key => metrics[key]).find(Boolean);
     return [name, entry && Number.isFinite(entry.percentile)
-      ? { p75: entry.percentile, category: entry.category ?? 'UNKNOWN' } : null];
+      ? {
+        // PSI reports CLS as an integer percentage: 5 corresponds to 0.05.
+        // Retain original API value to distinguish conversion from source data.
+        p75: name === 'cls' ? entry.percentile / 100 : entry.percentile,
+        rawP75: entry.percentile,
+        unit: name === 'cls' ? 'unitless' : 'ms',
+        category: entry.category ?? 'UNKNOWN',
+      } : null];
   }));
-  // Only URL-level CrUX field observations may be called homepage CWV.
-  const categories = Object.values(selected).filter(Boolean).map(m => m.category);
+  // Google's Core Web Vitals assessment requires both LCP and CLS field data.
+  // INP may be absent if sampling is insufficient; LCP+INP alone cannot pass.
+  const required = [selected.lcp, selected.cls];
+  const observed = [selected.lcp, selected.cls, ...(selected.inp ? [selected.inp] : [])].filter(Boolean);
+  const hasRequired = required.every(Boolean);
+  const hasKnownCategories = observed.every(m => ['FAST', 'AVERAGE', 'SLOW'].includes(m.category));
   const urlFieldStatus = fieldSource !== 'homepage-URL' ? 'not-measured'
-    : categories.includes('SLOW') || categories.includes('AVERAGE') ? 'needs-improvement'
-      : categories.length >= 2 && categories.every(c => c === 'FAST') ? 'good' : 'incomplete';
+    : !hasRequired || !hasKnownCategories ? 'incomplete'
+      : observed.some(m => m.category === 'SLOW' || m.category === 'AVERAGE')
+        ? 'needs-improvement' : 'good';
   const labs = data?.lighthouseResult?.audits || {};
   return {
     strategy,
