@@ -49,6 +49,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/ci/pin-football-b010-production-release.mjs
+      - name: Require exact signed production release for active Batch013
+        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready != 'true'
+        run: |
+          echo 'No exact signed Worker/source release: cannot skip 75 Chrome cases.' >&2
+          exit 1
       - name: Check out exact published source
         if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
         uses: actions/checkout@v4
