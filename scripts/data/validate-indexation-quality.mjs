@@ -106,11 +106,19 @@ const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!is
 if (!articleCatalogPattern.test(sitemap)) {
   failures.push('Primary sitemap must publish only non-legacy local article catalog entries that pass lazy-safe discovery readiness.');
 }
-for (const marker of [
-  '.map(prepareArticleForDelivery)\n    .filter(isArticleDiscoveryReady)',
-  'document.kind !== "article" || indexableArticleHrefs.has(document.href)',
-]) {
-  if (!articleQueries.includes(marker)) failures.push(`Article discovery/readiness query contract missing: ${marker}`);
+// The canonical article discovery query must normalize images before applying
+// the publication-readiness filter. Match the actual chained operations, not
+// incidental indentation; otherwise harmless formatting changes break CI.
+const discoveryQueryStart = articleQueries.indexOf("export const articlesQuery");
+const discoveryQueryEnd = articleQueries.indexOf("export const articleQuery", discoveryQueryStart);
+const discoveryQuery = discoveryQueryStart >= 0 && discoveryQueryEnd > discoveryQueryStart
+  ? articleQueries.slice(discoveryQueryStart, discoveryQueryEnd)
+  : "";
+if (!/\.map\(\s*prepareArticleForDelivery\s*\)\s*\.filter\(\s*isArticleDiscoveryReady\s*\)/.test(discoveryQuery)) {
+  failures.push("Article discovery query must apply image delivery then publication-readiness filtering.");
+}
+if (!articleQueries.includes('document.kind !== "article" || indexableArticleHrefs.has(document.href)')) {
+  failures.push("Article search discovery must filter to indexable canonical article URLs.");
 }
 for (const slug of ['muds-pids-hoas-special-districts-texas', 'texas-towns-german-czech-mexican-roots']) {
   if (!lazyEvergreen.includes(`slug: "${slug}"`)) failures.push(`GSC evergreen indexing candidate is missing from the lazy article registry: ${slug}`);
