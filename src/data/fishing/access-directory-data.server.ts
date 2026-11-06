@@ -1,6 +1,7 @@
 import { fishingPlatform, fishingScope } from "./index";
 import { FISHING_LOCAL_VERIFIED_AT, fishingAccessCanonicalPath } from "./local-routing";
 import { isFishingRecordVerified } from "./validation";
+import { latestFishingSourceReviewDate } from "./source-review-dates";
 
 const SPONSORED_ACCESS_KINDS = ["featured-marina", "lake-sponsor", "regional-advertiser", "statewide-advertiser"] as const;
 
@@ -27,7 +28,7 @@ export async function loadFishingAccessDirectoryDataServer() {
     .map((placement) => ({ placement, advertiser: advertiserById.get(placement.advertiserId) }))
     .filter((entry) => Boolean(entry.advertiser));
   return {
-    verifiedAt: FISHING_LOCAL_VERIFIED_AT,
+    verifiedAt: latestFishingSourceReviewDate(access.map(({ point }) => point), FISHING_LOCAL_VERIFIED_AT),
     editorialOrder: "Alphabetical by verified access-site name. Sponsorship never changes access ordering or recommendations.",
     access,
     filters: {
