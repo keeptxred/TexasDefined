@@ -12,6 +12,7 @@ import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
 import { TEXAS_REGION_DEFINITIONS } from "./texas-regions";
 import type { Article, Slug } from "./types";
+import { verifyDiscoveryReadingTimes } from "./verified-discovery-reading-time";
 
 const scope = { brandId: "texasdefined" } as const;
 const loadPlatform = async () => (await import("./index")).platform;
@@ -26,40 +27,45 @@ async function loadLegacyAuthorityDetail(slug: Slug): Promise<Article | null> {
   return loadLegacyAuthorityArticle(scope.brandId, slug);
 }
 
+async function loadCanonicalArticleDetail(slug: Slug): Promise<Article | null> {
+  const authorityArticle = await loadLegacyAuthorityDetail(slug);
+  if (authorityArticle) return prepareArticleDetail(authorityArticle);
+
+  const platform = await loadPlatform();
+  const localArticle = await platform.articles.getBySlug(scope, slug);
+  if (localArticle) {
+    if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleDetail(localArticle);
+    // Validation contract: const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+    const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug).catch(() => null);
+    const sourceHydratedLocalArticle = remoteSourceArticle
+      ? {
+          ...localArticle,
+          sourceName: localArticle.sourceName ?? remoteSourceArticle.sourceName,
+          sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,
+        }
+      : localArticle;
+    return prepareArticleDetail(sourceHydratedLocalArticle);
+  }
+  // Validation contract: const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+  const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug).catch(() => null);
+  return remoteArticle ? prepareArticleDetail(remoteArticle) : null;
+}
+
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["articles", scope.brandId, params],
   queryFn: async () => {
     const platform = await loadPlatform();
-    return (await platform.articles.list({ ...scope, ...params }))
+    const discovered = (await platform.articles.list({ ...scope, ...params }))
       .map(prepareArticleForDelivery)
-    .filter(isArticleDiscoveryReady);
+      .filter(isArticleDiscoveryReady);
+    // Resolve limited discovery cards against the exact body used by articleQuery.
+    // Large directories retain lightweight stubs but suppress unverified times.
+    return verifyDiscoveryReadingTimes(discovered, loadCanonicalArticleDetail);
   },
 });
 export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
-  queryFn: async () => {
-    const authorityArticle = await loadLegacyAuthorityDetail(slug);
-    if (authorityArticle) return prepareArticleDetail(authorityArticle);
-
-    const platform = await loadPlatform();
-    const localArticle = await platform.articles.getBySlug(scope, slug);
-    if (localArticle) {
-      if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleDetail(localArticle);
-      // Validation contract: const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
-      const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug).catch(() => null);
-      const sourceHydratedLocalArticle = remoteSourceArticle
-        ? {
-            ...localArticle,
-            sourceName: localArticle.sourceName ?? remoteSourceArticle.sourceName,
-            sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,
-          }
-        : localArticle;
-      return prepareArticleDetail(sourceHydratedLocalArticle);
-    }
-    // Validation contract: const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
-    const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug).catch(() => null);
-    return remoteArticle ? prepareArticleDetail(remoteArticle) : null;
-  },
+  queryFn: () => loadCanonicalArticleDetail(slug),
 });
 
 const PUBLIC_CAVERN_QUERY_REVISION = "public-caverns-11-v1";
