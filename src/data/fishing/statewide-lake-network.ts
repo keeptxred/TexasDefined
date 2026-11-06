@@ -669,9 +669,9 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     identity: "Alan Henry is one of West Texas' highest-value bass destinations, with a strong trophy largemouth reputation and a distinctive Alabama-spotted-bass component.",
     habitat: ["Flooded trees provide much of the reservoir's primary fish cover.", "Steep shoreline and deep water make electronics and depth control important.", "Upper coves support much of the crappie habitat."],
     fish: [
-      fish("largemouth-bass","Largemouth bass","excellent","spring","The lake has a long trophy-bass identity and multiple ShareLunker-class fish.",["soft-plastics","crankbaits","spinnerbaits"]),
+      fish("largemouth-bass","Largemouth bass","good","spring","The lake has a long trophy-bass identity and multiple ShareLunker-class fish.",["soft-plastics","crankbaits","spinnerbaits"]),
       fish("spotted-bass","Spotted bass","good","year-round","Alabama-spotted-bass stockings created a high-catch secondary black-bass fishery.",["crankbaits","soft-plastics"]),
-      fish("crappie","Crappie","good","spring","Crappie are most abundant in upper-lake coves and suitable cover.",["jigs-and-minnows"]),
+      fish("crappie","Crappie","poor","spring","Crappie are most abundant in upper-lake coves and suitable cover.",["jigs-and-minnows"]),
       fish("catfish","Catfish","good","year-round","Channel and flathead catfish round out the reservoir's major targets.",["cut-bait","live-bait"]),
     ],
     access: "Sam Wahl Recreation Area provides the principal public launch, fishing pier and primitive camping access; shoreline access is otherwise limited.", specialRules: true,     accessPoints: [
