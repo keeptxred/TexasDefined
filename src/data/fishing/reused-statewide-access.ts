@@ -1,4 +1,5 @@
 import type { ShowcaseLakePrototype } from "./showcase-lakes-prototype";
+import { classifySourceReviewedAccessKind } from "./access-kind";
 import type { FishingAccessPoint, FishingSource } from "./types";
 
 /**
@@ -41,14 +42,7 @@ export function deriveReviewedStatewideAccessPoints(
       if (present.has(key)) continue;
       present.add(key);
 
-      // Explicit source-reviewed identity wins over words such as "NO ramp".
-      // Plural "ramps" is also valid evidence of a launch for a park record.
-      const kind = facility.kind === "marina" ? "marina"
-        : facility.kind === "shore" || facility.kind === "pier" || facility.kind === "kayak-launch" ? facility.kind
-        : facility.kind === "public-ramp" ? "boat-ramp"
-        : /\b(?:ramps?|launch(?:es)?|boat lanes?)\b/i.test(facility.launch)
-          && !/\b(?:no (?:boat )?ramp|no launch lane|not (?:an? )?(?:motorboat|boat|standard improved).*ramp|not a motorboat launch)\b/i.test(facility.launch)
-          ? "boat-ramp" : "shore";
+      const kind = classifySourceReviewedAccessKind(facility);
       const slug = `${lake.slug}-${slugify(name)}`;
       const record = {
         id: `statewide-source-access-${slug}`,
