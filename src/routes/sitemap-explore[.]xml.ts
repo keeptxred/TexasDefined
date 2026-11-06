@@ -502,6 +502,16 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         if (auditedMagoffinEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/magoffin-home</loc>`))) {
           destinationEntries.push(auditedMagoffinEntry);
         }
+        // The same canonical public detail-resolution pipeline determines
+        // eligibility for these two source-precedence holdouts. The server-only
+        // helper preserves the Metro proximity sitemap's separate readiness
+        // owner and keeps the destination audit and availability gates intact.
+        const { loadCanonicalDestinationSitemapParity } = await import("@/data/destination-sitemap-detail-parity.server");
+        for (const resolved of await loadCanonicalDestinationSitemapParity()) {
+          const row = entry(resolved.path, resolved.lastmod);
+          const loc = `<loc>${BASE_URL}${resolved.path}</loc>`;
+          if (row && !destinationEntries.some((item) => item.includes(loc))) destinationEntries.push(row);
+        }
         const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
         // Proximity sitemap eligibility intentionally resolves through the same
         // canonical destination pipeline as live metro pages. Do not pass the

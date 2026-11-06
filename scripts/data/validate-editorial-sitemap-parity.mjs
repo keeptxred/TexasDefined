@@ -38,6 +38,21 @@ for (const guard of [
   'originalEditorialDestinations.filter',
 ]) assert.ok(sitemap.includes(guard), `Editorial sitemap must retain quality gate: ${guard}`);
 
+const detailParity = read("src/data/destination-sitemap-detail-parity.server.ts");
+for (const marker of [
+  'const DETAIL_PARITY_SLUGS = ["blanco", "caddo-lake"] as const',
+  'await getResolvedDestination(slug)',
+  'auditDestination(destination).readyForIndexing',
+  'isPrimaryTripPlannerDestination(destination)',
+]) assert.ok(detailParity.includes(marker), `Shared detail parity must retain canonical resolver and audit gate: ${marker}`);
+for (const marker of [
+  'await import("@/data/destination-sitemap-detail-parity.server")',
+  'await loadCanonicalDestinationSitemapParity()',
+  'destinationEntries.some((item) => item.includes(loc))',
+]) assert.ok(sitemap.includes(marker), `Explore sitemap must use shared detail parity: ${marker}`);
+assert.ok(!sitemap.includes('await import("@/data/destination-query-runtime")'),
+  "Do not couple Explore sitemap directly to the runtime; Metro proximity uses a distinct shared readiness owner.");
+
 // Public membership terms are visible and self-canonical in production. Do
 // not exclude them from the sitemap or accidentally index private Network
 // enrollment, billing or callback surfaces.
