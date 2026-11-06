@@ -58,6 +58,7 @@ assert.ok(fishingServer.includes("lakes: relatedLakes"), "Do not lose full verif
 assert.ok(fishingServer.includes("canonicalLink(texasDefinedBrand, canonicalPath)"), "Techniques must retain self-canonicals");
 assert.ok(sportsSeo.includes("canonicalLink(texasDefinedBrand, path)"), "Teams must retain self-canonicals");
 assert.ok(eventsSource.includes("const routeDescription ="), "Events needs independent editorial purpose");
+assert.ok(eventsSource.includes("isGenericTicketingEventSummary(event.summary)"), "Calendar must not repeat generic provider summaries on every card");
 
 const techniquePairs = combinations(techniques.map((slug) => "/fishing/techniques/" + slug), techniques.map(techniqueBlock));
 const teamEditorial = sports.slice(0, 3).map((slug) => {
