@@ -630,3 +630,21 @@ test('72h boundary is inclusive but 72h plus one millisecond expires',()=>{
   assert.equal(retentionCandidates(history,now).length,1);
   assert.equal(retentionCandidates(history,now+1).length,0);
 });
+
+test('docs-only pushes do not replace Workers, while all production source remains deployable',()=>{
+  const text=readFileSync('.github/workflows/deploy-production.yml','utf8');
+  const triggers=text.split(/\npermissions:\s*\n/)[0];
+  const m=triggers.match(/\bpush:\s*\n\s*branches:\s*\n\s*- main\s*\n(?:\s*#.*\n)*\s*paths-ignore:\s*\n((?:\s*-\s*['"][^'"]+['"]\s*\n)+)/);
+  assert.ok(m,'production trigger must explicitly restrict only documentation files');
+  const ignored=m[1].split('\n').filter(Boolean)
+    .map(line=>line.replace(/^\s*-\s*['"]|['"]\s*$/g,''));
+  assert.deepEqual(ignored,['docs/**','README.md']);
+  assert.match(triggers,/\bworkflow_dispatch:\s*\n/);
+  // The original workflow must still deploy source changes (including new
+  // static assets, site pages, schema, CI asset logic and workflow changes).
+  for(const path of ['src/server-entry.ts','public/robots.txt',
+    'scripts/ci/retain-critical-hashed-assets.mjs',
+    '.github/workflows/deploy-production.yml']){
+    assert.equal(ignored.some(p=>p===path||p==='**/*'||p==='**/*.md'),false,path);
+  }
+});

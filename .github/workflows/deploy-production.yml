@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    # Editorial repo notes do not change public Worker assets. A docs+code
+    # push still deploys; only an entirely doc-only push is ignored.
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
   workflow_dispatch:
 
 permissions:
