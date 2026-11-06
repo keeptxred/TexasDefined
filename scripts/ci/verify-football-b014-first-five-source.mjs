@@ -16,7 +16,7 @@ const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 assert.equal(reg.batch.number,14,'wrong active batch');
 assert.deepEqual(reg.batch.slugs.slice(0,5),slugs,'wrong assigned order');
 assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,305,'historical certificates must remain intact');
-assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length,5,'exactly five source-implemented records');
+assert.ok(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length>=5,'previously source-implemented five must not be lost');
 assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED').length,0,'no unsupported Batch014 graduation');
 const schoolIdentities=read('src/data/high-school-football/school-identities.ts');
 const expectedMascots=new Map([['dallas-kimball','Knights'],['dallas-life-oak-cliff','Lions'],['dallas-lincoln','Tigers'],['dallas-madison','Trojans'],['dallas-molina','Jaguars']]);
