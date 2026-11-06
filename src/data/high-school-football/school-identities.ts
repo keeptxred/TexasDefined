@@ -14,6 +14,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'dallas-pinkston', mascot: 'Vikings', sourceUrl: 'https://pinkston.dallasisd.org/', sourceLabel: 'Current official Dallas Pinkston Vikings school home', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-roosevelt', mascot: 'Mustangs', sourceUrl: 'https://roosevelt.dallasisd.org/', sourceLabel: 'Current official Roosevelt High of Innovation Mustangs school home', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-samuell', mascot: 'Spartans', sourceUrl: 'https://samuell.dallasisd.org/', sourceLabel: 'Current Samuell primary school homepage Spartans; old path conflicts', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-seagoville', mascot: 'Dragons', sourceUrl: 'https://seagovillehigh.dallasisd.org/', sourceLabel: 'Current Seagoville Dragons official school home', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-skyline', mascot: 'Raiders', sourceUrl: 'https://skyline.dallasisd.org/', sourceLabel: 'Current Skyline High Raiders official school home', verifiedAt: '2026-11-06' },
   { slug: 'dallas-kimball', mascot: 'Knights', sourceUrl: 'https://kimball.dallasisd.org/', sourceLabel: 'Dallas ISD current school homepage confirms Kimball Knights', verifiedAt: '2026-11-06' },
   { slug: 'dallas-life-oak-cliff', mascot: 'Lions', sourceUrl: 'https://lifeschool.net/general-athletic-information-faqs/what-is-life-schools-mascot', sourceLabel: 'Life School current district mascot FAQ explicitly identifies Dallas County/Oak Cliff Lions, distinct from Ellis County Mustangs', verifiedAt: '2026-11-06' },
   { slug: 'dallas-lincoln', mascot: 'Tigers', sourceUrl: 'https://lincoln.dallasisd.org/', sourceLabel: 'Dallas ISD Lincoln High current school homepage identifies Tigers', verifiedAt: '2026-11-06' },
