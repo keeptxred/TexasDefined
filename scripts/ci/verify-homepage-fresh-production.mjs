@@ -41,6 +41,35 @@ export function extractLexingtonReadingMinutes(html) {
   return minutes ? Number(minutes[1]) : null;
 }
 
+// Discover all visible editorial cards, not a fixed list of homepage slugs.
+// A card without a verified read time has no estimate to contradict the detail.
+export function extractDiscoveryArticleCards(html) {
+  const cards = [];
+  const seen = new Set();
+  for (const match of String(html).matchAll(/<article\b[^>]*>[\s\S]*?<\/article>/gi)) {
+    const cardHtml = match[0];
+    const href = cardHtml.match(/href=["']\/article\/([a-z0-9-]+)(?:\?[^"']*)?["']/i);
+    if (!href || seen.has(href[1])) continue;
+    seen.add(href[1]);
+    const visible = cardHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    const minutes = visible.match(/\bAbout\s+(\d+)\s+minutes?\b/i);
+    cards.push({ slug: href[1], readingMinutes: minutes ? Number(minutes[1]) : null });
+  }
+  return cards;
+}
+
+export function extractGenericArticleReadingMinutes(html) {
+  const heading = String(html).match(/<h1\b[^>]*>[\s\S]{0,2400}?<\/h1>/i);
+  if (!heading) return null;
+  const following = String(html).slice((heading.index ?? 0) + heading[0].length, (heading.index ?? 0) + heading[0].length + 9000);
+  const visible = following.split(/<h2\b/i)[0]
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  const time = visible.slice(0, 1800).match(/\bAbout\s+(\d+)\s+minutes?\b/i);
+  return time ? Number(time[1]) : null;
+}
+
 export function checkHomepageHtml(html, contentType = 'text/html') {
   const text = typeof html === 'string' ? html : '';
   const checks = {
@@ -106,6 +135,41 @@ export async function verifyHomepageProduction({
           entry.homepageLexingtonReadingMinutes = extractLexingtonReadingMinutes(html);
           entry.bytes = Buffer.byteLength(html, 'utf8');
           entry.cacheStatus = response.headers.get('cf-cache-status') || null;
+          // Validate bounded, rotating article cards against their own live detail.
+          // This also protects non-featured articles, not just USS Lexington.
+          entry.discoveryCards = [];
+          if (entry.failures.length === 0) {
+            const cards = extractDiscoveryArticleCards(html).filter((card) => card.readingMinutes !== null).slice(0, 16);
+            const checked = await Promise.all(cards.map(async (card) => {
+              const detailUrl = new URL('/article/' + card.slug, origin);
+              detailUrl.searchParams.set('_td_readtime_fresh', probe + '-' + attempt);
+              const check = { slug: card.slug, displayedMinutes: card.readingMinutes, detailMinutes: null, status: null, failures: [] };
+              try {
+                const detailResponse = await fetchImpl(detailUrl, {
+                  method: 'GET', redirect: 'manual', cache: 'no-store', signal: AbortSignal.timeout(15000),
+                  headers: { 'Cache-Control': 'no-cache, no-store', Pragma: 'no-cache', Accept: 'text/html',
+                    'User-Agent': 'TexasDefined-Homepage-Live-Parity/1.0' },
+                });
+                check.status = detailResponse.status;
+                if (detailResponse.status !== 200 || detailResponse.headers.get('cf-mitigated') === 'challenge' ||
+                    !/text\/html/i.test(detailResponse.headers.get('content-type') ?? '')) {
+                  check.failures.push('article-http-failed');
+                } else {
+                  check.detailMinutes = extractGenericArticleReadingMinutes(await detailResponse.text());
+                  if (check.detailMinutes === null || check.detailMinutes !== card.readingMinutes) {
+                    check.failures.push('article-card-reading-time-disagreement');
+                  }
+                }
+              } catch (error) {
+                check.failures.push('article-request-failed');
+                check.error = String(error);
+              }
+              return check;
+            }));
+            entry.discoveryCards = checked;
+            entry.failures.push(...checked.flatMap((check) =>
+              check.failures.map((failure) => failure + ':' + check.slug)));
+          }
           if (entry.failures.length === 0 && entry.lexingtonFeatured) {
             // A homepage-only smoke test cannot catch a disagreement with its
             // linked article. Probe both normal production routes per origin.

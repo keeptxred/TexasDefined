@@ -55,14 +55,24 @@ requireCondition(body.includes("Georgetown"), "Canonical Christmas authority bod
 requireCondition(body.includes("Grapevine"), "Canonical Christmas authority body is missing Grapevine coverage");
 requireCondition(body.includes("Verify this year's schedule before you leave"), "Canonical Christmas authority body is missing current-season verification guidance");
 
-const queryBlockStart = articleQueries.indexOf("export const articleQuery");
-const queryBlockEnd = articleQueries.indexOf("const PUBLIC_CAVERN_QUERY_REVISION", queryBlockStart);
-const queryBlock = queryBlockStart >= 0
-  ? articleQueries.slice(queryBlockStart, queryBlockEnd > queryBlockStart ? queryBlockEnd : undefined)
+const canonicalResolverStart = articleQueries.indexOf("async function loadCanonicalArticleDetail(slug: Slug)");
+const canonicalResolverEnd = articleQueries.indexOf("export const articlesQuery", canonicalResolverStart);
+const canonicalResolver = canonicalResolverStart >= 0
+  ? articleQueries.slice(canonicalResolverStart, canonicalResolverEnd > canonicalResolverStart ? canonicalResolverEnd : undefined)
   : "";
-requireCondition(queryBlockStart >= 0, "articleQuery could not be located");
-requireCondition(queryBlock.includes("loadLegacyAuthorityDetail(slug)"), "articleQuery legacy authority lookup unexpectedly disappeared");
-requireCondition(queryBlock.includes("platform.articles.getBySlug(scope, slug)"), "articleQuery platform lookup could not be located");
+const detailQueryStart = articleQueries.indexOf("export const articleQuery");
+const detailQueryEnd = articleQueries.indexOf("const PUBLIC_CAVERN_QUERY_REVISION", detailQueryStart);
+const detailQuery = detailQueryStart >= 0
+  ? articleQueries.slice(detailQueryStart, detailQueryEnd > detailQueryStart ? detailQueryEnd : undefined)
+  : "";
+requireCondition(detailQueryStart >= 0, "articleQuery could not be located");
+requireCondition(canonicalResolverStart >= 0, "Shared canonical article resolver could not be located");
+requireCondition(detailQuery.includes("queryFn: () => loadCanonicalArticleDetail(slug)"),
+  "articleQuery must call the shared canonical detail resolver");
+requireCondition(canonicalResolver.includes("loadLegacyAuthorityDetail(slug)"),
+  "Canonical detail resolver lost the legacy authority lookup");
+requireCondition(canonicalResolver.includes("platform.articles.getBySlug(scope, slug)"),
+  "Canonical detail resolver lost the platform article lookup");
 
 requireCondition(
   !fs.existsSync("src/data/fixtures/free-christmas-events-in-texas.ts"),

@@ -3,7 +3,7 @@ import test from 'node:test';
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { checkHomepageHtml, verifyHomepageProduction, extractLexingtonReadingMinutes, EXPECTED_LEXINGTON_READING_MINUTES } from './verify-homepage-fresh-production.mjs';
+import { checkHomepageHtml, verifyHomepageProduction, extractLexingtonReadingMinutes, extractDiscoveryArticleCards, extractGenericArticleReadingMinutes, EXPECTED_LEXINGTON_READING_MINUTES } from './verify-homepage-fresh-production.mjs';
 
 const valid = [
   '<!doctype html><html><head>',
@@ -169,4 +169,51 @@ test('daily watchdog fails closed on homepage live and field-vitals check failur
   const gatePosition = workflow.indexOf('      - name: Fail workflow when any quality check fails');
   assert.ok(issuePosition !== -1 && gatePosition > issuePosition,
     'write the linked diagnostic issue before failing the job');
+});
+
+
+test('rotating discovery card times are discovered without an article whitelist', () => {
+  const home = [
+    '<article><a href="/article/texas-wine-country">Wine country</a><p>About 8 minutes</p></article>',
+    '<article><a href="/article/scenic-drives-in-texas">Scenic</a><p>About 10 minutes</p></article>',
+    '<article><a href="/article/fredericksburg-johnson-city-historic-road-trip">History</a><p>About 11 minutes</p></article>',
+    '<article><a href="/article/texas-pecos-river-guide">Pecos</a><p>About 5 minutes</p></article>',
+    '<article><a href="/article/missing-detail">Unverified</a><p>Read the guide</p></article>',
+  ].join('');
+  assert.deepEqual(extractDiscoveryArticleCards(home).map(a => [a.slug, a.readingMinutes]), [
+    ['texas-wine-country', 8], ['scenic-drives-in-texas', 10],
+    ['fredericksburg-johnson-city-historic-road-trip', 11],
+    ['texas-pecos-river-guide', 5], ['missing-detail', null],
+  ]);
+  assert.equal(extractGenericArticleReadingMinutes(
+    '<main><h1>Scenic Drives in Texas</h1><p>By Texas Defined · About 10 minutes</p></main>'
+  ), 10);
+});
+
+test('live verifier fails on any homepage article-card/detail mismatch, not just Lexington', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'td-card-parity-'));
+  try {
+    const homepage = valid.replace('</main>', [
+      '<article><a href="/article/texas-wine-country">Wine country</a><p>About 23 minutes</p></article>',
+      '<article><a href="/article/scenic-drives-in-texas">Scenic drives</a><p>About 10 minutes</p></article>',
+      '</main>',
+    ].join(''));
+    await assert.rejects(() => verifyHomepageProduction({
+      origins: ['https://texasdefined.com'], attempts: 1,
+      reportPath: join(dir, 'report.json'),
+      fetchImpl: async (url) => new Response(
+        url.pathname === '/article/texas-wine-country'
+          ? '<html><h1>Wine country</h1><p>About 8 minutes</p></html>'
+          : url.pathname === '/article/scenic-drives-in-texas'
+            ? '<html><h1>Scenic Drives</h1><p>About 10 minutes</p></html>'
+            : url.pathname.startsWith('/article/') ? validArticle : homepage,
+        { status: 200, headers: { 'Content-Type': 'text/html' } }
+      ),
+    }), /article-card-reading-time-disagreement:texas-wine-country/);
+    const report = JSON.parse(readFileSync(join(dir, 'report.json')));
+    assert.equal(report.checks[0].discoveryCards.length, 2);
+    assert.equal(report.checks[0].discoveryCards[0].displayedMinutes, 23);
+    assert.equal(report.checks[0].discoveryCards[0].detailMinutes, 8);
+    assert.deepEqual(report.checks[0].discoveryCards[1].failures, []);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });
