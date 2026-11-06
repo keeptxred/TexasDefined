@@ -150,6 +150,7 @@ jobs:
           python3 scripts/ci/validate_football_directory_navigation.py
           node scripts/ci/run-validation-suite.mjs predeploy
           node --test scripts/ci/verify-referenced-assets-production.test.mjs
+          node --test scripts/ci/verify-fishing-lakes-fresh-production.test.mjs
           node scripts/data/validate-national-cemetery-authority.mjs
           node --check scripts/ci/verify-el-paso-fredericksburg-release.mjs
           node --check scripts/ci/verify-authority-category-live.mjs
@@ -692,6 +693,22 @@ jobs:
         with:
           name: fishing-live-publication-parity-${{ github.run_id }}
           path: .artifacts/fishing-live-publication-parity.json
+          if-no-files-found: error
+          retention-days: 14
+
+      # Recheck visitor-visible ordinary HTML after the cache purge, not just
+      # Worker process health or a cached search-reader rendering.
+      - name: Verify current fishing lakes directory and Falcon SSR HTML
+        id: live_fishing_fresh
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/ci/verify-fishing-lakes-fresh-production.mjs
+
+      - name: Preserve fishing directory and Falcon HTML release evidence
+        if: ${{ always() && steps.live_fishing_fresh.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-lakes-fresh-release-${{ github.run_id }}
+          path: .artifacts/fishing-lakes-fresh-release.json
           if-no-files-found: error
           retention-days: 14
 

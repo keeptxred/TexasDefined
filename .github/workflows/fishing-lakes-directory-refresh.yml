@@ -20,6 +20,10 @@ on:
       - 'scripts/ci/audit-fishing-lakes-directory-sources.mjs'
       - 'scripts/ci/audit-fishing-lake-regulation-sources.mjs'
       - 'scripts/data/validate-fishing-lakes-directory.mjs'
+      - 'scripts/ci/verify-fishing-lakes-fresh-production.mjs'
+      - 'scripts/ci/verify-fishing-lakes-fresh-production.test.mjs'
+      - 'scripts/ci/purge-cloudflare-cache.mjs'
+      - '.github/workflows/deploy-production.yml'
       - 'scripts/data/validate-fishing-lake-research.mjs'
       - '.github/workflows/fishing-lakes-directory-refresh.yml'
 
@@ -43,6 +47,8 @@ jobs:
       - name: Validate lake directory, source registry and scheduled workflow
         run: |
           node scripts/data/validate-fishing-lakes-directory.mjs
+          node --check scripts/ci/verify-fishing-lakes-fresh-production.mjs
+          node --test scripts/ci/verify-fishing-lakes-fresh-production.test.mjs
           node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
           node --check scripts/ci/audit-fishing-lake-regulation-sources.mjs
           node scripts/ci/audit-fishing-lake-regulation-sources.mjs --plan
