@@ -60,7 +60,8 @@ const graduatedB011 = reg.completedBatches.some(b=>b.number===11 && b.state==='V
  assert.ok(graduatedB011,'Batch011 must retain its independently certified historical acceptance');
  assert.equal(reg.completedBatches.find(b=>b.number===11)?.individuallyVerified,25);
  assert.equal(graduatedB011?0:25,graduatedB011?0:25);
- assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB012?280:graduatedB011?255:230);
+ const graduatedB013 = reg.completedBatches.some(b=>b.number===13 && b.state==='VERIFIED_BATCH_013_COMPLETE' && b.individuallyVerified===25 && b.technicalAcceptance?.schoolCount===25 && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.schoolCasesFailed===0 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.countyCasesFailed===0 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId && b.technicalAcceptance?.productionDeploymentGitSha && b.technicalAcceptance?.observedWorkerVersions?.length===1) && reg.schoolRecords.filter(x=>x.batch===13 && x.status==='VERIFIED').length===25;
+ assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB013?305:graduatedB012?280:graduatedB011?255:230);
  for(const [slug] of cases){
   const row=reg.schoolRecords.find(x=>x.slug===slug);
   assert.equal(row.status,graduatedB011?'VERIFIED':'IMPLEMENTED');
