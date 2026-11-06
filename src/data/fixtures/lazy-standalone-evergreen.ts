@@ -4,6 +4,7 @@ import kolacheHero from "@/assets/kolache-klobasnek-hero-photo.jpg";
 import orderingBbqHero from "@/assets/ordering-bbq-hero-photo.jpg";
 import sixFlagsHero from "@/assets/six-flags-hero-photo.jpg";
 import type { Article } from "../types";
+import { USS_LEXINGTON_CV16_READING_MINUTES } from "./uss-lexington-reading-time.generated.ts";
 
 const rodeo101Stub: Article = {
   id: "evergreen-rodeo-101", brandId: "texasdefined", slug: "rodeo-101-guide-events-rules-traditions",
@@ -289,7 +290,7 @@ const ussLexingtonCv16HistoryVisitorGuideStub: Article = {
   dek: "The complete story of USS Lexington: Pacific combat, postwar aviation, service as a Navy training carrier, and the preserved Corpus Christi museum with current visitor details and archival photos.",
   category: "texas-history", region: "gulf-coast",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS_Lexington_%28CV-16%29_underway_on_13_June_1944.jpg?width=1600", alt: "USS Lexington CV-16 in the Pacific on June 13, 1944", width: 5732, height: 4313, credit: "U.S. Navy 80-G-236932 · Public domain · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-10-14", updatedAt: "2026-10-14", readingMinutes: 18,
+  authorId: "a-marisol", publishedAt: "2026-10-14", updatedAt: "2026-10-14", readingMinutes: USS_LEXINGTON_CV16_READING_MINUTES,
   tags: ["USS Lexington", "CV-16", "Blue Ghost", "Corpus Christi", "WWII aircraft carrier"], featured: true,
   sourceName: "USS Lexington Museum on the Bay", sourceUrl: "https://usslexington.com/about-the-uss-lexington/the-ship/",
   body: [], relatedCollections: [], relatedDestinations: ["uss-lexington-museum-corpus-christi", "texas-state-aquarium", "battleship-texas"],
