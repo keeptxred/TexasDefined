@@ -160,8 +160,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     fish: [
       fish("catfish","Catfish","excellent","year-round","Blue and channel catfish are widespread and support one of the lake's signature fisheries.",["cut-bait","live-bait"]),
       fish("crappie","Crappie","excellent","year-round","Bridge crossings and upper-arm timber support a consistently strong black- and white-crappie fishery.",["jigs-and-minnows"]),
-      fish("white-bass","White bass","excellent","year-round","Schooling fish are common from the US 287 bridge toward the dam.",["vertical-jigging","topwater"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","Hybrids share the open-water shad fishery with white bass.",["vertical-jigging","trolling","live-bait"]),
+      fish("white-bass","White bass","excellent","year-round","TPWD grades White & Hybrid Striped Bass together Excellent, not white bass independently. Schools range from US 287 bridge toward the dam.",["vertical-jigging","topwater"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","TPWD grades White & Hybrid Striped Bass together Excellent, not hybrids independently. Hybrids share the open-water shad fishery.",["vertical-jigging","trolling","live-bait"]),
       fish("largemouth-bass","Largemouth bass","fair","year-round","Bass opportunity improves where anglers find clearer water, vegetation and underwater structure.",["crankbaits","soft-plastics"]),
     ],
     access: "TPWD lists county ramps, marinas and other launch sites around the reservoir; facility fees and conditions vary.", specialRules: true,     accessPoints: [
@@ -180,8 +180,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     habitat: ["Hydrilla and native aquatic plants are strongest in the upper lake and creek arms.", "Kickapoo Creek is a particularly vegetation-rich arm.", "River and creek channels, docks and shoreline cover create multiple seasonal patterns."],
     fish: [
       fish("largemouth-bass","Largemouth bass","good","spring","Consistent tournament fishing centers on vegetation, cover and creek-channel transitions.",["soft-plastics","spinnerbaits","crankbaits"]),
-      fish("white-bass","White bass","good","spring","Spring runs push fish into the Neches River and Kickapoo Creek.",["jigs-and-minnows","live-bait"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","good","year-round","Open-water hybrids add a major schooling-fish opportunity.",["trolling","vertical-jigging","live-bait"]),
+      fish("white-bass","White bass","excellent","spring","TPWD grades White & Hybrid Striped Bass together Excellent, not white bass independently. Spring runs push fish into the Neches River and Kickapoo Creek.",["jigs-and-minnows","live-bait"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","TPWD grades White & Hybrid Striped Bass together Excellent, not hybrids independently. Open-water hybrids add schooling opportunities.",["trolling","vertical-jigging","live-bait"]),
       fish("catfish","Catfish","excellent","year-round","Channel and blue catfish are abundant and flatheads provide trophy potential.",["cut-bait","live-bait"]),
       fish("crappie","Crappie","good","spring","Crappie use timber, brush and protected spawning cover.",["jigs-and-minnows"]),
     ],
@@ -205,8 +205,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     habitat: ["Submerged vegetation is concentrated in lower-lake coves.", "Shallow upper-lake flats and emergent vegetation create a different fishery from the clearer lower third.", "Submersed islands near the Clear and Caney creek confluence provide offshore structure."],
     fish: [
       fish("catfish","Catfish","excellent","year-round","Blue catfish are especially abundant, with channel and flathead catfish also present.",["cut-bait","live-bait"]),
-      fish("white-bass","White bass","excellent","spring","Schooling fish follow shad and are especially active in spring.",["topwater","vertical-jigging"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","excellent","spring","Stocked hybrids school with white bass and respond to open-water presentations.",["trolling","vertical-jigging","live-bait"]),
+      fish("white-bass","White bass","excellent","spring","TPWD grades White & Hybrid Striped Bass together Excellent, not white bass independently. Schools follow shad and are active in spring.",["topwater","vertical-jigging"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","spring","TPWD grades White & Hybrid Striped Bass together Excellent, not hybrids independently. Stocked hybrids school with white bass in open water.",["trolling","vertical-jigging","live-bait"]),
       fish("largemouth-bass","Largemouth bass","good","spring","The clearer lower end and weedy coves provide the strongest bass habitat.",["soft-plastics","spinnerbaits","crankbaits"]),
       fish("crappie","Crappie","good","spring","Crappie use brush, docks and protected cover.",["jigs-and-minnows"]),
     ],
@@ -405,10 +405,10 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     habitat: ["Miles of riprap, boulders, coves and points create extensive bass habitat.", "Submerged gravel piles around major points and islands hold white and black bass.", "Sparse pondweed and lotus add limited vegetation."],
     fish: [
       fish("crappie","Crappie","excellent","spring","Deep winter structure gives way to shallow spawning cover in spring.",["jigs-and-minnows"]),
-      fish("white-bass","White bass","excellent","year-round","Submerged gravel, points and open-water forage support a strong schooling fishery.",["vertical-jigging","topwater"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","Hybrids share main-lake schooling patterns with white bass.",["trolling","vertical-jigging","live-bait"]),
-      fish("largemouth-bass","Largemouth bass","good","year-round","Rock, riprap, points and coves create broad bass habitat.",["crankbaits","soft-plastics"]),
-      fish("smallmouth-bass","Smallmouth bass","good","year-round","Clearer rocky water provides meaningful smallmouth opportunity.",["crankbaits","soft-plastics"]),
+      fish("white-bass","White bass","excellent","year-round","TPWD rates White & Hybrid Striped Bass as one combined Excellent category; this grade is not independent for white bass. Schools use submerged gravel and points.",["vertical-jigging","topwater"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","TPWD rates White & Hybrid Striped Bass together as Excellent, not hybrids separately. They share main-lake schooling patterns with white bass.",["trolling","vertical-jigging","live-bait"]),
+      fish("largemouth-bass","Largemouth bass","good","year-round","TPWD rates Largemouth & Smallmouth Bass together as Good, not largemouth independently. Rock, riprap and coves provide habitat.",["crankbaits","soft-plastics"]),
+      fish("smallmouth-bass","Smallmouth bass","good","year-round","TPWD rates Largemouth & Smallmouth Bass together as Good, not smallmouth independently. Clearer rocky water provides habitat.",["crankbaits","soft-plastics"]),
     ],
     access: "Public and private launch sites are distributed around the reservoir; lake-level swings make current ramp verification important.",     accessPoints: [
       { name: "US 380 Bridge Ramp", operator: "Tarrant Regional Water District", kind: "public-ramp", launch: "West end of US 380 bridge over south arm at Runaway Bay. Single-lane concrete ramp with unpaved parking.", fee: "TPWD lists no fee", availability: "TPWD says unusable at high lake levels; TRWD (940) 683-2349 can confirm access." },
@@ -470,8 +470,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     fish: [
       fish("largemouth-bass","Largemouth bass","excellent","spring","Vegetation and shallow cover support an excellent bass fishery.",["soft-plastics","spinnerbaits","crankbaits"]),
       fish("catfish","Catfish","excellent","year-round","Channel, blue and flathead catfish provide broad year-round opportunity.",["cut-bait","live-bait"]),
-      fish("white-bass","White bass","excellent","spring","Early spring creek movement is the lake's signature white-bass pattern.",["jigs-and-minnows","live-bait"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","excellent","spring","Hybrids use creeks in early spring and follow open-water shad in summer and fall.",["trolling","vertical-jigging","live-bait"]),
+      fish("white-bass","White bass","excellent","spring","TPWD awards Excellent to the combined White & Hybrid Striped Bass category, not to white bass independently. Early spring creek movement is a signature fishing pattern.",["jigs-and-minnows","live-bait"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","spring","TPWD awards Excellent to its combined White & Hybrid Striped Bass category, not independently to hybrid striped bass. Hybrids use creeks in early spring and follow open-water shad later.",["trolling","vertical-jigging","live-bait"]),
       fish("crappie","Crappie","good","spring","Crappie provide a useful brush and spawning-cover fishery.",["jigs-and-minnows"]),
     ],
     access: "State-park, USACE and private facilities provide a large ramp network; flood conditions can temporarily close some sites.",     accessPoints: [
@@ -972,10 +972,10 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
   },
   {
     slug: "lake-sweetwater", name: "Lake Sweetwater", tpwdSlug: "sweetwater", waterDataSlug: "sweetwater", verifiedAt: "2026-10-12", region: "panhandle",
-    summary: "A small city-owned Nolan County reservoir and historic recreation area, with camping and a municipal golf course; TPWD warns that golden-alga fish kills have severely reduced the fishery and water levels are currently far below conservation pool.",
+    summary: "A city-owned Nolan County reservoir and historic recreation area with camping and a municipal golf course. TPWD documents serious golden-alga impacts; check the latest official water-level reading before planning a fishing trip.",
     surfaceAcres: 630, maxDepthFeet: 45, impoundedYear: 1930, counties: ["Nolan"], nearestCities: ["Sweetwater", "Roscoe", "Colorado City"],
     waterway: "Bitter Creek and Cottonwood Creek", riverBasin: "Brazos River Basin", authority: "City of Sweetwater", conservationPool: "2,116.5 ft msl", fluctuation: "Moderate to prolonged major drawdown", clarity: "Clear to stained, occasionally up to four feet of visibility",
-    identity: "The City of Sweetwater completed the dam in 1930 for water supply and recreation; Civilian Conservation Corps work in the 1930s helped shape the historic lakeside park, amphitheater and recreation landscape. Treat this primarily as a park-and-history stop until current conditions improve: TPWD retains an active golden-alga warning and rates bass, catfish, crappie and sunfish poor. TWDB's gauge shows substantial drawdown, which can make published ramp details unreliable on the day of travel.",
+    identity: "The City of Sweetwater completed the dam in 1930 for water supply and recreation; Civilian Conservation Corps work in the 1930s helped shape the historic lakeside park, amphitheater and recreation landscape. Treat this primarily as a park-and-history stop until current conditions improve: TPWD retains an active golden-alga warning and rates bass, catfish, crappie and sunfish poor. TWDB provides updated lake-storage and elevation observations; compare the latest reading with the published ramp thresholds before travel, since past drawdown can make listed ramps unusable.",
     habitat: ["TPWD documents bulrush and pondweed when the lake is near full pool; exposed shoreline and habitat differ markedly in drought.", "Fish populations have been heavily affected by golden-alga kills, so historical catch reports should not be used as current forecasts.", "TPWD's latest surveys and stocking history offer better context than generic claims of abundant fish."],
     fish: [
       fish("largemouth-bass","Largemouth bass","poor","spring","TPWD rates bass poor after repeated golden-alga impacts. Confirm fishery condition before a fishing-specific trip.",["soft-plastics","spinnerbaits"],"secondary"),
@@ -1692,7 +1692,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
   {
     slug: "medina-lake", name: "Medina Lake", tpwdSlug:"medina", waterDataSlug:"medina",
     region:"hill-country", verifiedAt:"2026-10-13", accessReviewedAt:"2026-10-13",
-    summary:"A historic 1913 Medina River reservoir northwest of San Antonio with drought-sensitive ramps, invasive zebra mussels, two TPWD-listed launch facilities, striped-bass and catfish fishing, and a dramatic gap between full-pool and today's water extent.",
+    summary:"A historic 1913 Medina River reservoir northwest of San Antonio with drought-sensitive ramps, invasive zebra mussels, two TPWD-listed launch facilities, and striped-bass and catfish fishing. Check current storage and ramp conditions with TWDB and operators.",
     surfaceAcres:5426, maxDepthFeet:152, impoundedYear:1913,
     counties:["Bandera","Medina"], nearestCities:["Lakehills","Mico","Bandera","San Antonio"],
     waterway:"Medina River, tributary of the San Antonio River", riverBasin:"San Antonio River Basin",

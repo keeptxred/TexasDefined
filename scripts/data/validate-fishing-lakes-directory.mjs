@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), "utf8");
 
-const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, regulationAudit, researchValidator, advisoriesText, lakeFixtures, sharedAnswers] = await Promise.all([
+const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, regulationAudit, researchValidator, advisoriesText, lakeFixtures, sharedAnswers, wave2Fixtures, statewideFixtures, wave2Showcase] = await Promise.all([
   read("src/routes/fishing.lakes.tsx"),
   read("src/components/fishing/FishingLakesDirectory.tsx"),
   read("src/routes/fishing.tsx"),
@@ -21,6 +21,9 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
   read("src/data/fishing/lake-directory-advisories.json"),
   read("src/data/fishing/fixtures.ts"),
   read("src/data/fishing/lake-directory-answers.ts"),
+  read("src/data/fishing/lake-expansion-wave2-fixtures.ts"),
+  read("src/data/fishing/statewide-lake-network.ts"),
+  read("src/data/fishing/wave2-showcase-lakes-prototype.ts"),
 ]);
 
 const errors = [];
@@ -50,13 +53,13 @@ for (const marker of [
 ]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
 
 for (const marker of [
-  "complete Texas fishing lake guides are published",
+  "Find the right Texas fishing lake",
   'What this directory covers',
-  'not a claim that these are the only or universally “best” fishing lakes in Texas',
+  'Jump to a lake guide',
   'Compare Texas Fishing Lakes',
   'Fishing targets',
   'Check Current Lake Conditions Before You Go',
-  'unfinished lake records are not exposed here as thin pages',
+  'New guides are added as the underlying fishing and access research is completed',
   'same sourcing standard',
   'source-backed lake-to-species relationships',
   'fishingFoundationAnchor("lake", lake.slug)',
@@ -111,7 +114,7 @@ assert(!search.includes("Compare the five complete TexasDefined fishing-lake gui
 
 // The visitor-facing finder filters published guide records, not invented access inventory.
 for (const marker of [
-  'filteredRows.map(({ lake, targets })',
+  'visibleRows.map(({ lake, targets })',
   'setSearchText', 'setRegion', 'setSpecies', 'setAccess', 'setSortOrder',
   'aria-label="Region"', 'aria-label="Target species"', 'aria-label="Documented access restrictions"', 'aria-label="Sort guides"', 'Largest by surface area', 'Smallest by surface area',
   'Showing {filteredRows.length} of {rows.length} lake guides',
@@ -144,6 +147,39 @@ const samRayburnStart = lakeFixtures.indexOf('slug: "sam-rayburn-reservoir"');
 const samRayburnSection = lakeFixtures.slice(samRayburnStart, samRayburnStart + 1400);
 for (const county of ["Angelina", "Jasper", "Nacogdoches", "Sabine", "San Augustine"]) assert(samRayburnSection.includes(`"${county}"`), `Sam Rayburn missing TPWD reservoir-boundary county: ${county}`);
 assert(samRayburnSection.includes("tpwd-sam-rayburn-legal-boundaries"), "Sam Rayburn source for county correction is missing.");
+
+
+// Directory cards are progressive; the complete, visible A-Z link index must retain
+// every matching destination, including before users click "Show more".
+for (const marker of [
+  'visibleRows = filteredRows.slice(0, visibleCount)',
+  'filteredRows.map(({ lake })',
+  'All matching fishing lake guides',
+  'setVisibleCount((count) => count + 12)',
+  'Show 12 more lake cards',
+  'getGroupedFisheryTargets(lake.slug, targets)',
+  'White & hybrid striped bass (TPWD combined)',
+  'Largemouth & smallmouth bass (TPWD combined)',
+  'Hybrid & striped bass (TPWD combined)',
+  'target.quality !== "unknown"',
+  'lake.slug === "lake-bridgeport" || lake.slug === "lake-sweetwater"',
+]) assert(component.includes(marker), `Fishing lake progressive discovery / provenance / visual safeguard missing: ${marker}`);
+
+// Agency angling-opportunity grades may not be inferred from species presence
+// or regulation text. Falcon has a special alligator-gar rule, not a TPWD grade.
+assert(/id: "falcon-alligator-gar"[^\n]*quality: "unknown"/.test(wave2Fixtures), "Falcon gar must remain ungraded until a quality-specific source supports a grade.");
+assert(!/id: "falcon-alligator-gar"[^\n]*quality: "(good|excellent|fair|poor)"/.test(wave2Fixtures), "Do not reintroduce an unsupported Falcon alligator-gar grade.");
+assert(wave2Showcase.includes('id: "alligator-gar", name: "Alligator gar", prominence: "Specialized target", quality: "Not graded by TPWD"'), "Falcon detailed guide must not show a fabricated Good gar grade.");
+assert(statewideFixtures.includes("TPWD rates Largemouth & Smallmouth Bass together as Good"), "Bridgeport grouped black bass rating provenance missing.");
+assert(statewideFixtures.includes("TPWD rates White & Hybrid Striped Bass as one combined Excellent category"), "Bridgeport grouped white/hybrid grade provenance missing.");
+assert(wave2Fixtures.includes("TPWD's Excellent rating applies to the combined Hybrid & Striped Bass category"), "Tawakoni combined striper grade provenance missing.");
+assert(component.includes('"lake-palestine": [{ members: ["White bass", "Hybrid striped bass"]'), "Palestine grouped TPWD rating must not be shown independently.");
+assert(statewideFixtures.includes('fish("white-bass","White bass","excellent","spring","TPWD grades White & Hybrid Striped Bass together Excellent'), "Palestine combined white/hybrid TPWD grade is Excellent.");
+assert(component.includes('"cedar-creek-reservoir": [{ members: ["White bass", "Hybrid striped bass"]'), "Cedar Creek must display combined agency category.");
+assert(component.includes('"richland-chambers-reservoir": [{ members: ["White bass", "Hybrid striped bass"]'), "Richland Chambers must display combined agency category.");
+assert(statewideFixtures.includes("TPWD awards Excellent to the combined White & Hybrid Striped Bass category"), "Somerville white/hybrid ratings must disclose TPWD combined category.");
+assert(!/summary:[^\n]*today's water extent/.test(statewideFixtures), "Medina directory summary must not freeze a 'today' lake level.");
+assert(!/water levels are currently far below conservation pool/.test(statewideFixtures), "Sweetwater summary must use official live levels, not a frozen current-level statement.");
 
 if (errors.length) {
   console.error("Fishing lakes directory validation failed:");
