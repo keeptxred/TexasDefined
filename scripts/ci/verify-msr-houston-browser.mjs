@@ -33,9 +33,16 @@ for (const test of tests) {
   await context.route(/(google-analytics|googletagmanager|facebook\.com\/tr|connect\.facebook\.net|analytics\.google|\/api\/analytics|\/api\/track)/i, route => route.abort());
   const page = await context.newPage();
   try {
-    const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    // The page may stream HTML on an otherwise healthy Worker response. Waiting
+    // for the entire DOMContentLoaded event can stall even when the meaningful
+    // visitor content has arrived, especially on the mobile Chrome run.
+    // Require an actual HTTP response AND the final named source-backed link.
+    // This does not waive any downstream page, accessibility, or media assertion.
+    const response = await page.goto(url, { waitUntil: 'commit', timeout: 45000 });
     assert.equal(response?.status(), 200, 'Canonical MSR page returned non-200 status');
     await page.locator('h1').first().waitFor({ state: 'visible', timeout: 15000 });
+    await page.locator('a[href="/destination/levi-jordan-plantation"]').first()
+      .waitFor({ state: 'attached', timeout: 30000 });
     const facts = await page.evaluate(() => ({
       title: document.title,
       h1: Array.from(document.querySelectorAll('h1')).map(el => el.textContent?.trim()),
