@@ -48,11 +48,11 @@
     "assignmentBranch": "feat/football-b014-assign-25-20261106",
     "maxSchoolsPerBatch": 25,
     "currentSchool": "dallas-kimball",
-    "nextSchool": "dallas-life-oak-cliff",
-    "implementedOnBranch": 0,
-    "remainingToImplement": 25,
+    "nextSchool": "dallas-pinkston",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
     "remainingToVerify": 25,
-    "notes": "ASSIGNMENT ONLY: all 25 remain NOT_REVIEWED; requires individual source-backed editorial, campus reciprocity, protected merge and one genuine source/Worker-pinned 75-viewport/25-county browser certificate."
+    "notes": "First five independently researched original SSR guides and Dallas campus reciprocity source-implemented; pending protected validation/merge and actual production Chrome. Zero Batch014 VERIFIED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -12948,7 +12948,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-kimball",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -12963,7 +12963,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-life-oak-cliff",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -12978,7 +12978,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-lincoln",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -12993,7 +12993,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-madison",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13008,7 +13008,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-molina",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },

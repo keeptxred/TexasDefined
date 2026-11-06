@@ -1,0 +1,56 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+// Batch014 source-only gate. Never call this evidence production certification.
+const read=p=>readFileSync(p,'utf8');
+const slugs=['dallas-kimball','dallas-life-oak-cliff','dallas-lincoln','dallas-madison','dallas-molina'];
+const editorialSource=read('src/data/high-school-football/program-editorial-b014.ts');
+const match=editorialSource.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
+assert.ok(match,'missing parseable authored Batch014 editorial map');
+const guides=JSON.parse(match[1]);
+assert.deepEqual(Object.keys(guides),slugs,'unexpected or missing authored schools');
+const loader=read('src/data/high-school-football/program-editorial-b014-loader.server.ts');
+const server=read('src/data/high-school-football/football-program-profile.server.ts');
+assert.ok(loader.includes("import('./program-editorial-b014')"),'Batch014 SSR loader does not dynamically load original editorial');
+assert.ok(server.includes('await loadBatch014FootballProgramEditorial(canonicalSlug)'),'Batch014 source is not in actual SSR profile resolver');
+const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+assert.equal(reg.batch.number,14,'wrong active batch');
+assert.deepEqual(reg.batch.slugs.slice(0,5),slugs,'wrong assigned order');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,305,'historical certificates must remain intact');
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length,5,'exactly five source-implemented records');
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED').length,0,'no unsupported Batch014 graduation');
+const schoolIdentities=read('src/data/high-school-football/school-identities.ts');
+const expectedMascots=new Map([['dallas-kimball','Knights'],['dallas-life-oak-cliff','Lions'],['dallas-lincoln','Tigers'],['dallas-madison','Trojans'],['dallas-molina','Jaguars']]);
+for(const [slug,mascot] of expectedMascots){
+ assert.ok(schoolIdentities.includes("slug: '"+slug+"', mascot: '"+mascot+"'"),slug+' missing first-party mascot identity');
+}
+const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const county=read('src/routes/$kind.$slug.lazy.tsx');
+const campusSection=team.split('const researchedCampusCounty: Record<string, string> = {')[1]?.split('\n  };')[0];
+const reciprocal=county.split('const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {')[1]?.split('\n};')[0];
+assert.ok(campusSection && reciprocal,'campus/county source maps missing');
+const dallas=reciprocal.match(/'dallas'\s*:\s*\[([\s\S]*?)\]\s*,/);
+assert.ok(dallas,'Dallas county reciprocal list missing');
+const dossier=read('docs/football-authority/BATCH014-FIRST-FIVE-SOURCES.md');
+const beginnings=new Set();
+for(const slug of slugs){
+ const guide=guides[slug];
+ assert.equal(guide.slug,slug);
+ assert.ok(loader.includes("'"+slug+"'"),slug+' not allowed by SSR loader');
+ assert.equal(reg.schoolRecords.find(x=>x.slug===slug)?.status,'IMPLEMENTED',slug+' not source implemented');
+ assert.equal(reg.schoolRecords.find(x=>x.slug===slug)?.actualProductionVerified,false,slug+' must not imply Chrome certification');
+ assert.ok(dossier.includes('`'+slug+'`'),slug+' missing source dossier');
+ assert.ok(campusSection.includes("'"+slug+"': 'dallas'"),slug+' campus county not mapped');
+ assert.ok(dallas[1].includes("slug: '"+slug+"'"),slug+' absent from county-to-school links');
+ assert.ok(guide.campus?.sourceUrl?.startsWith('https://') && guide.schedule?.sourceUrl?.startsWith('https://'));
+ assert.equal(guide.schedule.verifiedAt,'2026-11-06');
+ assert.ok(Array.isArray(guide.overview)&&guide.overview.length>=4,slug+' missing school-specific guide context');
+ assert.ok(Array.isArray(guide.faq)&&guide.faq.length>=3,slug+' missing visitor FAQs');
+ assert.ok(Array.isArray(guide.milestones)&&guide.milestones.length>=2,slug+' missing dated source milestones');
+ const lead=guide.overview[0].trim().toLowerCase();
+ assert.ok(lead.length>=110,slug+' lead lacks detail');
+ assert.ok(!beginnings.has(lead),slug+' repeated school introductory paragraph');
+ beginnings.add(lead);
+}
+assert.ok(guides['dallas-life-oak-cliff'].schedule.sourceUrl.includes('lifeschool.net'),'charter football cannot use Dallas ISD schedule');
+assert.ok(guides['dallas-lincoln'].campus.address.includes('Elsie Faye Heggins'),'historical Lincoln street address cannot supersede current school');
+console.log('PASS: five unique sourced Batch014 SSR guides, exact registry assignment, first-party schedules, Dallas school/county reciprocity, 305 older VERIFIED preserved; source-only, NOT Chrome.');
