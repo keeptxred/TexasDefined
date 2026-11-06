@@ -14,6 +14,7 @@ on:
     paths:
       - .github/workflows/verify-active-shop-sitemap.yml
       - scripts/ci/verify-active-shop-sitemap-production.mjs
+      - scripts/ci/verify-editorial-sitemap-parity-production.mjs
 
 permissions:
   contents: read
@@ -38,6 +39,12 @@ jobs:
           node-version: 22
       - name: Check verifier syntax
         run: node --check scripts/ci/verify-active-shop-sitemap-production.mjs
+      - name: Syntax-check editorial sitemap verifier
+        run: node --check scripts/ci/verify-editorial-sitemap-parity-production.mjs
       - name: Check live sitemap against every published shop product
         if: ${{ github.event_name != 'pull_request' }}
         run: node scripts/ci/verify-active-shop-sitemap-production.mjs
+      - name: Verify reviewed editorial and Network terms sitemap parity
+        if: ${{ github.event_name != 'pull_request' }}
+        run: node scripts/ci/verify-editorial-sitemap-parity-production.mjs
+
