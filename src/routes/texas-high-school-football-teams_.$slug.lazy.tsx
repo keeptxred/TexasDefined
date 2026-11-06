@@ -227,6 +227,16 @@ function Page() {
     // Batch013: campus counties, not district service boundaries or football stadium locations.
     // NCES public-school search identifies Cushing/Cy-Fair/Cypress Creek campus counties;
     // Texas public education records identify Cuero, Cumby district/campus counties.
+    'daingerfield': 'morris', // NCES Daingerfield High campus 202 Tiger Dr, Morris County.
+    'dalhart': 'hartley', // NCES Dalhart High campus 2100 Spirit Trl, HARTLEY County; city spans Dallam/Hartley.
+    'dallas-a': 'dallas', // A+ Academy Secondary 445 S Masters Dr (school official; not third-party 455 or charter office).
+    'dallas-adams': 'dallas', // Dallas ISD Bryan Adams High 2101 Millmar Dr.
+    'dallas-adamson': 'dallas', // Dallas ISD W.H. Adamson High 309 E Ninth St.
+    'dallas-carter': 'dallas', // Dallas ISD David W Carter High 1819 W Wheatland Rd.
+    'dallas-conrad': 'dallas', // Dallas ISD Emmett J Conrad High 7502 Fair Oaks Ave.
+    'dallas-gateway-charter-academy': 'dallas', // NCES Gateway Charter Middle-HS, 1015 E Wheatland Rd (not 6103 University Hills elementary/district).
+    'dallas-highland-park': 'dallas', // HPISD Highland Park High, 4220 Emerson Ave; Highlander Stadium venue is separate evidence.
+    'dallas-hutchins': 'dallas', // Dallas ISD Wilmer-Hutchins High, 5520 Langdon Rd; campus address is not stadium entry.
     'dallas-hillcrest': 'dallas', // Dallas ISD Hillcrest High campus, 9924 Hillcrest Rd; not a stadium gate.
     'dallas-jefferson': 'dallas', // Dallas ISD Thomas Jefferson campus, 4001 Walnut Hill Ln.
     'dallas-jesuit': 'dallas', // Jesuit Dallas campus, 12345 Inwood Rd; private school, not Dallas ISD.

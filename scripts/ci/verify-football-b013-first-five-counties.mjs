@@ -104,17 +104,17 @@ for (const [file, slugs, getter] of laterGroups) {
     laterLeads.add(lead);
   }
 }
-console.log('PASS: Batch013 additional 14 authored SSR guides retain distinct, dated source editorial (NOT Chrome certification)');
+console.log('PASS: Batch013 additional 20 authored SSR guides retain distinct, dated source editorial (NOT Chrome certification)');
 
 const dallasLedger = fs.readFileSync('docs/football-authority/BATCH013-DALLAS-CAMPUS-COUNTIES.md','utf8');
 const dallasCountyRow = reciprocalSection.match(/'dallas'\s*:\s*\[([\s\S]*?)\]\s*,/);
 assert.ok(dallasCountyRow, 'Dallas County reciprocal section missing');
-for (const slug of ['dallas-hillcrest','dallas-jefferson','dallas-jesuit']) {
+for (const slug of ['dallas-gateway-charter-academy','dallas-highland-park','dallas-hillcrest','dallas-hutchins','dallas-jefferson','dallas-jesuit']) {
   assert.equal([...campusSection.matchAll(new RegExp("'"+slug+"'\\s*:\\s*'dallas'",'g'))].length,1,slug+' missing unique Dallas campus mapping');
   assert.ok(dallasCountyRow[1].includes("slug: '"+slug+"'"),slug+' missing reciprocal Dallas County entry');
   assert.ok(dallasLedger.includes('`'+slug+'`'),slug+' missing first-party campus address evidence');
 }
-console.log('PASS: three first-party-sourced Dallas campus and reciprocal county links (NOT Chrome acceptance)');
+console.log('PASS: six first-party/NCES-sourced Dallas campus and reciprocal county links (NOT Chrome acceptance)');
 
 assert.equal(allAuthoredSlugs.size,25,'Batch013 requires exactly 25 distinct authored school identities');
 
@@ -128,3 +128,20 @@ for (const slug of ["cypress-falls","cypress-lakes","cypress-park","cypress-ranc
   assert.ok(cfisdLedger.includes('`'+slug+'`'),slug+' missing official CFISD campus source ledger');
 }
 console.log('PASS: seven sourced CFISD school campus and reciprocal Harris County links (NOT Chrome certification)');
+
+const remainingDossier = fs.readFileSync('docs/football-authority/BATCH013-REMAINING-SEVEN-CAMPUS-COUNTIES.md','utf8');
+const additionalCampusEdges = [
+  ['daingerfield','morris'], ['dalhart','hartley'],
+  ['dallas-a','dallas'], ['dallas-adams','dallas'], ['dallas-adamson','dallas'],
+  ['dallas-carter','dallas'], ['dallas-conrad','dallas']
+];
+for (const [slug, countySlug] of additionalCampusEdges) {
+  assert.equal([...campusSection.matchAll(new RegExp("'"+slug+"'\\s*:\\s*'"+countySlug+"'",'g'))].length,1,slug+' missing unique sourced school campus county');
+  const row = reciprocalSection.match(new RegExp("'"+countySlug+"'\\s*:\\s*\\[([\\s\\S]*?)\\]\\s*,"));
+  assert.ok(row,countySlug+' missing reciprocal county list');
+  assert.ok(row[1].includes("slug: '"+slug+"'"),slug+' missing reciprocal county link');
+  assert.ok(remainingDossier.includes('`'+slug+'`'),slug+' missing campus evidence record');
+}
+assert.equal(new Set([...expected.map(([slug])=>slug), ...laterGroups.flatMap(([,slugs])=>slugs)]).size,25,'all Batch013 assigned identities must be distinct');
+console.log('PASS: last seven source-attested campus counties with reciprocal links; 25 authored slugs covered (NOT Chrome)');
+
