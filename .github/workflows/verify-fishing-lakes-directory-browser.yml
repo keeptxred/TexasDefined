@@ -17,6 +17,9 @@ on:
       - 'src/data/fishing/slugs.ts'
       - 'scripts/ci/verify-fishing-lakes-directory-browser.mjs'
       - '.github/workflows/verify-fishing-lakes-directory-browser.yml'
+      # A production deploy-system repair must re-certify the exact deployed SHA,
+      # even when the fishing directory's source code itself is unchanged.
+      - '.github/workflows/deploy-production.yml'
   workflow_dispatch:
 
 permissions:
