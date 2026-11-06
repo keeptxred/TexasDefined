@@ -8,6 +8,11 @@ const sectionRoute = read("src/routes/fishing.lakes.$slug.$section.tsx");
 const primary = read("src/routes/sitemap[.]xml.ts");
 const showcaseIndexGate = read("src/data/fishing/showcase-section-index-readiness.ts");
 const showcaseGuide = read("src/components/fishing/ShowcaseLakeGuide.tsx");
+const localSitemap = read("src/data/fishing/local-sitemap.server.ts");
+const accessDirectory = read("src/data/fishing/access-directory-data.server.ts");
+const guideDirectory = read("src/data/fishing/guide-directory-data.server.ts");
+const reportDirectory = read("src/data/fishing/report-directory-data.server.ts");
+const reviewDateHelper = read("src/data/fishing/source-review-dates.ts");
 const errors = [];
 
 for (const section of ["guides","reports"]) {
@@ -77,5 +82,29 @@ for (const marker of [
   "Source review:",
 ]) if (!showcaseGuide.includes(marker)) errors.push(`Lake section must disclose research and source boundaries: ${marker}`);
 
+// Directory freshness metadata must reflect source-checked records, not a fixed
+// launch date nor the wall clock of a deployment or GitHub schedule.
+for (const [filename, source] of [
+  ["access directory", accessDirectory],
+  ["access sitemap", localSitemap],
+  ["guide directory", guideDirectory],
+  ["guide sitemap", guideLoader],
+  ["historical report directory", reportDirectory],
+  ["current report sitemap", reportLoader],
+]) {
+  if (!source.includes("latestFishingSourceReviewDate("))
+    errors.push(filename + " must derive directory-level review metadata from evidenced catalog dates");
+}
+for (const token of ["record.verifiedAt", "Date.parse(day)", "day > today", "return day > latest"]) {
+  if (!reviewDateHelper.includes(token)) errors.push("Source-review date helper must reject missing, invalid and future dates and select the latest real review: " + token);
+}
+for (const [filename, source, stale] of [
+  ["access sitemap", localSitemap, "path: FISHING_ACCESS_DIRECTORY_PATH, lastmod: FISHING_LOCAL_VERIFIED_AT"],
+  ["guide sitemap", guideLoader, "lastmod: FISHING_GUIDES_VERIFIED_AT"],
+  ["report sitemap", reportLoader, "lastmod: FISHING_REPORTS_VERIFIED_AT"],
+  ["guide structured data", guideDirectory, "dateModified: FISHING_GUIDES_VERIFIED_AT"],
+]) {
+  if (source.includes(stale)) errors.push(filename + " must not advertise an obsolete fixed date after sourced inventory expands");
+}
 if(errors.length){for(const error of errors)console.error("FAIL "+error);process.exit(1);}
 console.log("PASS fishing sitemap/robots parity: empty guides, reports and insufficiently sourced showcase subsections are noindex and excluded from sitemap.");

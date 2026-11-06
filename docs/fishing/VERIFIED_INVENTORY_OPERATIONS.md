@@ -22,6 +22,12 @@ Verified source review: November 5, 2026. This work does **not** claim complete 
 
 GitHub Actions `Fishing verified source inventory review` runs twice weekly, compares named access points with TPWD's published public-access inventory and checks first-party guide site reachability. It writes a traceable artifact and records drift in a GitHub issue. No source outage may silently yield invented fishing access or status changes.
 
+## Directory source-review and sitemap dates
+
+The statewide access directory, guide directory, and historical report archive derive their displayed dataset review date from the latest **actually verified published record**, with the August 14, 2026 foundation date as a fallback for any still-empty legacy directory. The indexable access and guide directory sitemap `lastmod` values use those source-reviewed dates, and guide/report CollectionPage date metadata follows the same review evidence. This avoids continuing to tell crawlers that the substantially expanded November catalog was last reviewed in August.
+
+These are **catalog source-review dates**, not real-time conditions or a guarantee that all 380 access facilities were checked on the same day. Scheduled reachability and deployment events never automatically advance verification. Individual source citations and the applicable official/operator notices control current validity. Current-report indexing still requires fresh, genuine published observations; historical archive pages remain `noindex`.
+
 ## Subsequent geographic expansion
 
 After the seven-lake seeded cohort, expand across Panhandle, South Texas, Gulf Coast and other lake regions by reusing the existing published lake authority research. Independently verify any source drift before adding new facility claims. Verify each new TPWD access page and resolve ambiguous names, ramps and fee/closure facts before publication. Keep the directory noindex until its stated quality/indexability threshold is actually supported by finished data, rather than lowering that threshold to pass an arbitrary validator.
