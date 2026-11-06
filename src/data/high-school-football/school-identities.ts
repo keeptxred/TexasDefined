@@ -14,6 +14,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'danbury', mascot: 'Panthers', sourceUrl: 'https://www.danburyisd.org/apps/pages/index.jsp?pREC_ID=1714535&type=d&uREC_ID=1588113', sourceLabel: 'Danbury ISD official high-school Panthers athletics and school record', verifiedAt: '2026-11-06' },
+  { slug: 'dawson', mascot: 'Bulldogs', sourceUrl: 'https://www.dawsonisd.net/apps/pages/index.jsp?pREC_ID=738017&type=d&uREC_ID=318627', sourceLabel: 'Navarro County Dawson ISD Bulldogs school athletics, not Welch Dawson', verifiedAt: '2026-11-06' },
+  { slug: 'dayton', mascot: 'Broncos', sourceUrl: 'https://dhs.daytonisd.net/football-home', sourceLabel: 'Dayton High Broncos official varsity football page', verifiedAt: '2026-11-06' },
+  { slug: 'de-kalb', mascot: 'Bears', sourceUrl: 'https://www.dekalbisd.net/59850_2', sourceLabel: 'De Kalb Texas Bears official district varsity football schedule', verifiedAt: '2026-11-06' },
+  { slug: 'de-leon', mascot: 'Bearcats', sourceUrl: 'https://www.deleonisd.net/o/dlhs', sourceLabel: 'De Leon High Fighting Bearcats school-controlled athletics/news source', verifiedAt: '2026-11-06' },
   { slug: 'dallas-spruce', mascot: 'Timberwolves', sourceUrl: 'https://spruce.dallasisd.org/our-school/quick-facts', sourceLabel: 'Current H Grady Spruce High School quick facts confirm Timberwolves, former Apaches', verifiedAt: '2026-11-06' },
   { slug: 'dallas-wilson', mascot: 'Wildcats', sourceUrl: 'https://woodrow.dallasisd.org/', sourceLabel: 'Current Dallas ISD Woodrow Wilson Wildcats school athletics', verifiedAt: '2026-11-06' },
 
