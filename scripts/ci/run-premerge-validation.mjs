@@ -85,6 +85,7 @@ const prebuildChecks = [
   ['SEO/CTR', 'Detect stale edition claims in finished major-event snippets', 'node', ['--test', 'scripts/ci/expired-event-snippet.test.mjs']],
   ['SEO/CTR', 'Guard expiration of year-specific event search snippets', 'node', ['--experimental-strip-types', '--test', 'src/data/event-snippet-lifecycle.test.ts']],
   ['SEO/SITEMAP', 'Reject escaped and literal route-template tokens in crawlable paths', 'node', ['--experimental-strip-types', '--test', 'src/lib/public-route-tokens.test.ts']],
+  ['SEO/SITEMAP', 'Verify canonical editorial pages and public Network terms are governed by sitemap quality gates', 'node', ['scripts/data/validate-editorial-sitemap-parity.mjs']],
   ['CONTENT/AUTHORITY', 'Validate true historic photo subjects and closed-original visit policies', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['SEO/SITEMAP', 'Syntax-check historic photo production verifier', 'node', ['--check', 'scripts/ci/verify-historic-photo-indexability-production.mjs']],
   ['FOOTBALL/AUTHORITY', 'Syntax-check Batch 005 live browser verifier', 'node', ['--check', 'scripts/ci/verify-football-batch-005-production.mjs']],

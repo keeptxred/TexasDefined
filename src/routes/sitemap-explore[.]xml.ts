@@ -234,7 +234,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
     handlers: {
       GET: async () => {
         try {
-        const { categories, regions } = await import("@/data/fixtures/texas");
+        const { categories, regions, destinations: originalEditorialDestinations } = await import("@/data/fixtures/texas");
         const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality");
         const { enrichedTexasLandscapeGuides } = await import("@/data/texas-landscape-guide-enrichment");
         const { enrichedTexasLandscapeProfiles } = await import("@/data/texas-landscape-profile-enrichment");
@@ -363,6 +363,28 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           else rawDestinations.push(firstCapitolReference);
         }
 
+        // A public indexable detail URL must not disappear from the Explore
+        // sitemap because the full reviewed record lives outside the remote
+        // Explore listing. These are the source records used by the detail page.
+        // Keep the ordinary indexability and visitability gates below.
+        const { reviewedAttractionDestinations } = await import("@/data/reviewed-attraction-authorities");
+        const coreGuideSlugs = new Set(["caddo-lake", "blue-hole-wimberley"]);
+        const reviewedAttractionSlugs = new Set([
+          "fort-worth-water-gardens",
+          "houston-botanic-garden",
+          "san-antonio-japanese-tea-garden",
+        ]);
+        const editorialCanonicalSources = [
+          ...originalEditorialDestinations.filter((item) => coreGuideSlugs.has(item.slug)),
+          ...preservedExploreDestinations.filter((item) => item.slug === "blanco"),
+          ...reviewedAttractionDestinations.filter((item) => reviewedAttractionSlugs.has(item.slug)),
+        ];
+        for (const canonicalDestination of editorialCanonicalSources) {
+          const position = rawDestinations.findIndex((item) => item.slug === canonicalDestination.slug);
+          if (position >= 0) rawDestinations[position] = canonicalDestination;
+          else rawDestinations.push(canonicalDestination);
+        }
+
         const destinations = await resolveDestinationCatalog(rawDestinations);
         // Mirror the full, source-checked records served by the lazy Waco
         // destination resolver, even if the remote catalog has stale summaries.
@@ -456,6 +478,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
+          "/explore/big-bend-scenic-drives",
+          "/explore/lighthouses",
           ...route66Paths,
           "/explore/landscapes",
           ...landscapePaths,
