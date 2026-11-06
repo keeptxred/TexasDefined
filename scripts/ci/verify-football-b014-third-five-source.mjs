@@ -10,7 +10,7 @@ const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 assert.equal(reg.batch.number,14,'wrong active batch');
 assert.deepEqual(reg.batch.slugs.slice(10,15),slugs,'third-five assignment not canonical');
 assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,305,'historical signed certificates changed');
-assert.equal(reg.schoolRecords.filter(s=>s.batch===14&&s.status==='IMPLEMENTED').length,15,'exactly fifteen source-implemented school profiles expected');
+assert.ok(reg.schoolRecords.filter(s=>s.batch===14&&s.status==='IMPLEMENTED').length>=15,'third-five authored cohort must remain source-implemented after later cohorts');
 assert.equal(reg.schoolRecords.filter(s=>s.batch===14&&s.status==='VERIFIED').length,0,'no unsupported Chrome graduation');
 const loader=read('src/data/high-school-football/program-editorial-b014-loader.server.ts');
 assert.ok(loader.includes("import('./program-editorial-b014-group3')"),'third group missing SSR import');
@@ -44,5 +44,5 @@ for(const [slug,mascot] of expectedMascot){
  assert.ok(at>=0&&identity.slice(at,at+130).includes("mascot: '"+mascot+"'"),slug+' incorrect current official mascot');
 }
 assert.ok(guides['dallas-spruce'].overview.some(x=>x.includes('Apaches')&&x.includes('Timberwolves')),'Spruce historical mascot must remain distinguished');
-assert.ok(guides['dallas-south-oak-cliff'].overview.some(x=>x.includes('Life School')),'South Oak Cliff must not conflate charter Life School');
+assert.ok(guides['dallas-south-oak-cliff'].overview.some(x=>/Life (?:High )?School(?: Oak Cliff)?/.test(x) && /charter|separat(?:e|ely)|different/i.test(x)),'South Oak Cliff must explicitly distinguish the separate Life School Oak Cliff charter');
 console.log('PASS Batch014 first fifteen individual source guides, unique mascot identity, Dallas reciprocity, 305 prior certified; NOT production Chrome');

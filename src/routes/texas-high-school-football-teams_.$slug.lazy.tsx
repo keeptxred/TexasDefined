@@ -179,6 +179,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'danbury': 'brazoria', // Danbury High 5611 Panther Dr; Brazoria County campus, not inferred stadium gate.
+    'dawson': 'navarro', // Dawson ISD at 199 N School Ave in Navarro County; not Welch Dawson ISD.
+    'dayton': 'liberty', // Dayton High 3200 N Cleveland St, Liberty County; district office is elsewhere.
+    'de-kalb': 'bowie', // De Kalb High 152 W Maple St, Bowie County TX; not DeKalb Illinois.
+    'de-leon': 'comanche', // De Leon High 200 W Manchaca, Comanche County; not 425 S Texas district office.
     'cleveland-tarkington': 'liberty', // Tarkington ISD school in north Liberty County, separate Cleveland High.
     'clifton': 'bosque', // Clifton High on N Avenue Q, Bosque County; stadium gate distinct.
     'clint': 'el-paso', // Clint High Lions campus on Alameda Ave, El Paso County.

@@ -47,12 +47,12 @@
     "remainingAssigned": 25,
     "assignmentBranch": "feat/football-b014-assign-25-20261106",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "dallas-south-oak-cliff",
-    "nextSchool": "danbury",
-    "implementedOnBranch": 15,
-    "remainingToImplement": 10,
+    "currentSchool": "de-soto",
+    "nextSchool": "decatur",
+    "implementedOnBranch": 20,
+    "remainingToImplement": 5,
     "remainingToVerify": 25,
-    "notes": "15 original source-authored SSR guides and county backlinks; 305 historic VERIFIED preserved; Batch014 zero Chrome certified."
+    "notes": "20 distinct first-party source-authored SSR guides and school↔county reciprocity; 305 historical VERIFIED, zero Batch014 browser certificates."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -13173,7 +13173,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/danbury",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13188,7 +13188,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dawson",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13203,7 +13203,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dayton",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13218,7 +13218,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/de-kalb",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13233,7 +13233,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/de-leon",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
