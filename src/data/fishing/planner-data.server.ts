@@ -1,4 +1,5 @@
 import { fishingGuideCanonicalPath } from "./guide-routing";
+import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
 import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
 import { statewideNetworkLakeDefinitions } from "./statewide-lake-network";
 import { fishingAccessCanonicalPath, fishingServiceCanonicalPath } from "./local-routing";
@@ -77,7 +78,7 @@ export async function loadFishingPlannerDataServer() {
         lakeSourceReviewedAt: source?.checkedAt ?? lake.verifiedAt ?? null,
         fisheryReviewedAt: targets.reduce<string | null>((latest, target) => target.relation.verifiedAt && (!latest || target.relation.verifiedAt > latest) ? target.relation.verifiedAt : latest, null),
         accessReviewedAt: lakeAccess.reduce<string | null>((latest, entry) => entry.point.verifiedAt && (!latest || entry.point.verifiedAt > latest) ? entry.point.verifiedAt : latest, null),
-        levelSource: network?.waterDataSlug ? "https://waterdatafortexas.org/reservoirs/individual/" + network.waterDataSlug : null,
+        levelSource: network?.waterDataSlug ? "https://waterdatafortexas.org/reservoirs/individual/" + network.waterDataSlug : (expandedShowcaseLakePrototypes[lake.slug as keyof typeof expandedShowcaseLakePrototypes]?.sources.liveLevel?.url ?? null),
         operatorConditionsSource: lake.slug === "amistad-reservoir" ? "https://www.nps.gov/amis/planyourvisit/conditions.htm" : null,
         advisoryReviewedAt: research?.reviewedAt ?? null,
         importantAdvisories,
