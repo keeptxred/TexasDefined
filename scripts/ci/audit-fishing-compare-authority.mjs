@@ -6,13 +6,14 @@
 import fs from "node:fs";
 
 const network = fs.readFileSync("src/data/fishing/statewide-lake-network.ts", "utf8");
+const expanded = fs.readFileSync("src/data/fishing/lake-expansion-fixtures.ts", "utf8");
 const compare = fs.readFileSync("src/lazy/fishing-compare.tsx", "utf8");
 const server = fs.readFileSync("src/data/fishing/planner-data.server.ts", "utf8");
 const checks = [], errors = [];
 const at = new Date().toISOString();
 function requireContract(ok, message) { if (!ok) errors.push(message); }
 function getLakeBlock(slug) {
-  const start = network.indexOf('slug: "' + slug + '"');
+  const start = network.indexOf('    slug: "' + slug + '", name:');
   if (start < 0) throw new Error("Missing lake definition: " + slug);
   const end = network.indexOf("\n  {", start + 10);
   return network.slice(start, end < 0 ? undefined : end);
@@ -24,9 +25,13 @@ const expected = [
 ];
 const speciesIds = { "Largemouth Bass": "largemouth-bass", Catfish: "catfish", "Spotted Bass": "spotted-bass", Crappie: "crappie", "Striped Bass": "striped-bass", "White Bass": "white-bass" };
 for (const entry of expected) {
-  const lake = getLakeBlock(entry.slug);
+  const isExpanded = entry.slug === "amistad-reservoir";
+  const lake = isExpanded ? expanded : getLakeBlock(entry.slug);
   for (const [name, grade] of Object.entries(entry.grades)) {
-    const re = new RegExp('fish\\("' + speciesIds[name] + '","[^"]+","(excellent|good|fair|poor)"');
+    const speciesId = speciesIds[name];
+    const re = isExpanded
+      ? new RegExp('relation\\(\\{[^\\n]*lakeId: "amistad-reservoir", speciesId: "' + speciesId + '"[^\\n]*quality: "(excellent|good|fair|poor)"')
+      : new RegExp('fish\\("' + speciesId + '","[^"]+","(excellent|good|fair|poor)"');
     const found = lake.match(re)?.[1];
     requireContract(found === grade.toLowerCase(), entry.slug + ": " + name + " published " + (found || "missing") + ", expected " + grade);
   }
