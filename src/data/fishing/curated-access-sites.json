@@ -350,29 +350,36 @@
     "facilities": [
       [
         "Pace Bend/Collier Cove",
-        "shore"
+        "boat-ramp",
+        "TPWD documents a one-lane concrete ramp at Collier Cove in Pace Bend Park, reached from RR 2322 west of Austin. Travis County Parks operates the fee-entry site; check conditions before towing."
       ],
       [
         "Pace Bend/Tatum Cove",
-        "shore"
+        "boat-ramp",
+        "TPWD documents a one-lane concrete ramp at Tatum Cove inside Pace Bend Park, reached via Grisman Trail from Pace Bend Park Road. Travis County Parks operates this fee-entry site."
       ],
       [
         "Arkansas Bend",
-        "shore"
+        "boat-ramp",
+        "TPWD documents a two-lane concrete boat ramp at Arkansas Bend, accessed via FM 1431, Lohmans Ford Road and Sylvester Ford Road. Travis County Parks operates the fee-entry park."
       ],
       [
         "Mansfield Dam Park",
-        "boat-ramp"
+        "boat-ramp",
+        "Travis County Parks' ramp has four concrete lanes at high lake levels and two at low levels. TPWD also documents an adjoining wheelchair-accessible courtesy dock and a stated ramp-use elevation threshold; check the official source and water level."
       ],
       [
         "Bob Wentz at Windy Point",
-        "shore"
+        "boat-ramp",
+        "TPWD lists a two-lane concrete ramp restricted to sailboats at Bob Wentz at Windy Point off Comanche Trail. This is not a general-purpose motorboat launch; Travis County Parks operates the fee-entry day-use site."
       ],
       [
         "Cypress Creek",
-        "shore"
+        "boat-ramp",
+        "TPWD lists a two-lane concrete ramp at Cypress Creek Park off Bullick Hollow Road near FM 2769. Travis County Parks operates the fee-entry site; verify access and water level before launching."
       ]
-    ]
+    ],
+    "sourcePage": "access2.phtml"
   },
   {
     "lakeId": "cedar-creek-reservoir",
@@ -418,8 +425,8 @@
     "facilities": [
       [
         "Paddle Point Park",
-        "boat-ramp",
-        "A City of Rowlett gravel-and-dirt launch intended for non-motorized craft, part of a TPWD paddling trail."
+        "kayak-launch",
+        "TPWD identifies a single-lane gravel-and-dirt put-in at 6775 Miller Road in Rowlett for non-motorized craft only. It is the starting point of a designated paddling trail, not a motorboat ramp; the City of Rowlett operates the park."
       ],
       [
         "Paul Jones Park",

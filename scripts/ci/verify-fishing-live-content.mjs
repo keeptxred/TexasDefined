@@ -74,9 +74,35 @@ assert.ok(publishedCoverage, "/fishing/access: expected machine-verifiable live 
 const liveFacilities = Number(publishedCoverage[1].replaceAll(",", ""));
 const liveLakes = Number(publishedCoverage[2].replaceAll(",", ""));
 assert.ok(liveLakes >= 20 && liveFacilities >= 100, "/fishing/access: not yet a meaningful statewide inventory");
+function directoryVisibleText(html) {
+  return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<head\b[^>]*>[\s\S]*?<\/head>/gi, " ")
+    .replace(/<!--\s*-->/g, "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+function checkFacilityKind(html, name, expectedKind, label) {
+  const visible = directoryVisibleText(html).toLowerCase();
+  assert.ok(visible.includes((expectedKind + " " + name).toLowerCase()),
+    label + ": " + name + " is not visibly classified as " + expectedKind);
+}
+checkFacilityKind(access, "Arkansas Bend", "boat ramp", "/fishing/access fresh");
+checkFacilityKind(access, "Bachman Lake public bank-fishing shoreline", "shore", "/fishing/access fresh");
+checkFacilityKind(access, "Paddle Point Park", "kayak launch", "/fishing/access fresh");
+checkFacilityKind(access, "Bear Creek Park", "boat ramp", "/fishing/access fresh");
 const ordinaryAccess = await page("/fishing/access", { cacheBust: false });
 has(ordinaryAccess, "Email an access correction or listing tip", "/fishing/access ordinary URL");
 has(ordinaryAccess, "Read our corrections policy", "/fishing/access ordinary URL");
+for (const [name, kind] of [
+  ["Arkansas Bend", "boat ramp"],
+  ["Bachman Lake public bank-fishing shoreline", "shore"],
+  ["Paddle Point Park", "kayak launch"],
+  ["Bear Creek Park", "boat ramp"],
+]) checkFacilityKind(ordinaryAccess, name, kind, "/fishing/access ordinary URL");
+assert.ok(/rel=["']canonical["'][^>]*href=["']https:\/\/texasdefined\.com\/fishing\/access["']/.test(ordinaryAccess) ||
+  /href=["']https:\/\/texasdefined\.com\/fishing\/access["'][^>]*rel=["']canonical["']/.test(ordinaryAccess),
+  "/fishing/access ordinary URL canonical mismatch");
 lacks(ordinaryAccess, "Use Partner With Us for a new ramp", "/fishing/access ordinary URL");
 const ordinaryAccessText = ordinaryAccess.replace(/<!--\s*-->/g, "").replace(/<[^>]+>/g, " ");
 const ordinaryCoverage = ordinaryAccessText.match(/Current source-backed coverage:\s*([\d,]+)\s*facilities across\s*([\d,]+)\s*Texas lakes/i);
@@ -93,6 +119,17 @@ lacks(access, "No Access Listings Match These Filters", "/fishing/access");
 // should become indexable; incomplete *individual* facility profiles stay noindex.
 assert.ok(!/<meta\b[^>]*name=["\u0027]robots["\u0027][^>]*content=["\u0027]noindex/i.test(access), "/fishing/access: substantive statewide inventory must not remain noindex");
 
+// Exercise server-rendered search filters, not only unfiltered headlines.
+for (const [filter, must, excluded] of [
+  ["boat-ramp", [["Arkansas Bend", "boat ramp"], ["Bear Creek Park", "boat ramp"]], ["Bachman Lake public bank-fishing shoreline", "Paddle Point Park"]],
+  ["shore", [["Bachman Lake public bank-fishing shoreline", "shore"]], ["Arkansas Bend", "Bear Creek Park"]],
+  ["kayak-launch", [["Paddle Point Park", "kayak launch"]], ["Arkansas Bend", "Bachman Lake public bank-fishing shoreline"]],
+]) {
+  const filtered = await page("/fishing/access?kind=" + filter);
+  for (const [name, kind] of must) checkFacilityKind(filtered, name, kind, "filtered " + filter);
+  const text = directoryVisibleText(filtered);
+  for (const name of excluded) assert.ok(!text.includes(name), "filtered " + filter + " includes unrelated " + name);
+}
 const facility = await page("/fishing/access/cagle-recreation-area");
 has(facility, "Cagle Recreation Area", "/fishing/access/cagle-recreation-area");
 has(facility, "Texas Parks", "/fishing/access/cagle-recreation-area");

@@ -12,6 +12,9 @@ on:
       - 'src/data/fishing/index.ts'
       - 'src/data/fishing/statewide-lake-network.ts'
       - 'src/data/fishing/reused-statewide-access.ts'
+      - 'src/data/fishing/access-kind.ts'
+      - 'src/data/fishing/showcase-lakes-prototype.ts'
+      - 'scripts/data/fishing-access-kind.test.mjs'
       - 'scripts/data/validate-fishing-inventory-expansion.mjs'
       - 'scripts/ci/audit-fishing-inventory-sources.mjs'
       - 'scripts/ci/run-bounded-source-checks.mjs'
@@ -36,6 +39,8 @@ jobs:
           node-version: '22'
       - name: Verify sources, catalog relationships and index protections
         run: node scripts/data/validate-fishing-inventory-expansion.mjs
+      - name: Regress real access types and TPWD-backed corrections
+        run: node --experimental-strip-types --test scripts/data/fishing-access-kind.test.mjs
       - name: Verify source-review concurrency, coverage and fail-closed behavior
         run: node scripts/ci/test-run-bounded-source-checks.mjs
 

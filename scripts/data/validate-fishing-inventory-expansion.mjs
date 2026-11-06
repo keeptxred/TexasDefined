@@ -17,9 +17,37 @@ for (const lake of access) {
   assert.ok(lake.facilities.length >= 4, lake.lakeId + ": no useful source-backed inventory");
   for (const [name, kind] of lake.facilities) {
     assert.ok(name && name.length >= 4);
-    assert.ok(["boat-ramp", "marina", "shore", "pier"].includes(kind), name + ": invalid access kind");
+    assert.ok(["boat-ramp", "marina", "shore", "pier", "kayak-launch"].includes(kind), name + ": invalid access kind");
   }
 }
+// TPWD water-access identity must agree with labels, filters and source claims.
+for (const lake of access) {
+  const sourceUrl = `https://tpwd.texas.gov/fishboat/fish/recreational/lakes/${lake.tpwd}/${lake.sourcePage ?? "access.phtml"}`;
+  assert.match(sourceUrl, /^https:\/\/tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\/[a-z_]+\/access(?:2)?\.phtml$/);
+  for (const [name, kind, detail] of lake.facilities) {
+    const text = detail ?? "";
+    if (kind === "boat-ramp") assert.ok(!/non-motorized craft only|not a motorboat (?:ramp|launch)|walk-in shore fishing|no boat ramp/i.test(text), `${lake.lakeId}/${name}: ramp contradicts source detail`);
+    if (kind === "shore") assert.ok(!/(?:one|two|three|four)[- ]lane concrete (?:boat )?ramp/i.test(text), `${lake.lakeId}/${name}: shoreline entry describes a constructed boat ramp`);
+    if (kind === "kayak-launch") assert.match(text, /paddl|kayak|non-motorized/i, `${lake.lakeId}/${name}: paddle-only classification has no explicit evidence`);
+    if (kind === "marina") assert.ok(!/public (?:restrooms|boat fuel|camping|ADA parking) (?:provided|available)/i.test(text), `${lake.lakeId}/${name}: unsupported public marina amenity`);
+  }
+}
+const travis = access.find((row) => row.lakeId === "lake-travis");
+assert.equal(travis?.sourcePage, "access2.phtml", "Lake Travis detail records must link directly to TPWD's listed facilities");
+for (const name of ["Pace Bend/Collier Cove", "Pace Bend/Tatum Cove", "Arkansas Bend", "Bob Wentz at Windy Point", "Cypress Creek"]) {
+  assert.equal(travis?.facilities.find((f) => f[0] === name)?.[1], "boat-ramp", `TPWD confirms ${name} ramp`);
+}
+assert.match(travis.facilities.find((f) => f[0] === "Bob Wentz at Windy Point")[2], /sailboats/, "Sailboat restriction must be visible");
+const paddle = access.find((row) => row.lakeId === "lake-ray-hubbard")?.facilities.find((f) => f[0] === "Paddle Point Park");
+assert.equal(paddle?.[1], "kayak-launch", "Non-motorized put-in must never appear in motorboat-ramp filters");
+const curatedMapper = read("src/data/fishing/curated-inventory.ts");
+assert.ok(curatedMapper.includes('kind === "shore" || kind === "pier" || kind === "kayak-launch"'),
+  "Curated mapper must preserve kayaking and fishing-pier access types instead of silently changing them to shore");
+assert.ok(curatedMapper.includes("Unsupported curated access kind"),
+  "Unknown curated facility types must fail closed rather than become shore access");
+
+assert.match(paddle?.[2] ?? "", /non-motorized craft only/);
+
 const knownLakeSourceFiles = [
   "src/data/fishing/fixtures.ts",
   "src/data/fishing/lake-expansion-fixtures.ts",
@@ -87,6 +115,23 @@ const accessRoute = read("src/routes/fishing.access.tsx");
 const localSitemap = read("src/data/fishing/local-sitemap.server.ts");
 assert.ok(accessRoute.includes("coveredLakes >= 20 && items.length >= 100"), "Access pilot index gate missing");
 assert.ok(localSitemap.includes("indexEligibleLakeIds.size >= 20"), "Access sitemap gate missing");
+const typed = read("src/data/fishing/access-kind.ts");
+assert.ok(typed.includes('facility.kind === "shore" || facility.kind === "pier" || facility.kind === "kayak-launch"'), "Explicit access identities must override vague text heuristics");
+const statewide = read("src/data/fishing/statewide-lake-network.ts");
+for (const [site, type] of [
+  ["Bachman Lake public bank-fishing shoreline","shore"],
+  ["Paddle Point Park (paddle craft only)","kayak-launch"],
+  ["Bear Creek Park","public-ramp"],
+  ["Spring Canyon fishing pier","pier"],
+]) {
+  const at = Math.max(statewide.indexOf(`name:"${site}"`), statewide.indexOf(`name: "${site}"`));
+  assert.ok(at >= 0, "Missing reviewed statewide source identity " + site);
+  assert.match(statewide.slice(at, at + 300), new RegExp(`kind: ?"\\b${type}\\b"`), "Invalid reviewed source kind: " + site);
+}
+const accessTypes = read("src/data/fishing/reused-statewide-access.ts");
+assert.ok(accessTypes.includes("classifySourceReviewedAccessKind(facility)"), "Access directory must use the tested source classification instead of incidental ramp words");
+assert.ok(localSitemap.includes("accessPoints.filter(isFishingRecordVerified)") && localSitemap.includes("Boolean(point.address || point.coordinates)"), "Unverified source-only access profiles must not enter indexable sitemap");
+
 const network = read("src/data/fishing/reused-statewide-access.ts");
 assert.ok(network.includes("public access inventory") && network.includes("lake.accessReviewedAt") && network.includes("present.has(key)"), "Reused network access must exclude generic placeholders, require review and deduplicate");
 assert.ok(index.includes("deriveReviewedStatewideAccessPoints"), "Statewide authority access dossiers not connected to the shared access catalog");

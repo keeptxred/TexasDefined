@@ -17,7 +17,8 @@ export const expandedSourcedAccessPoints: FishingAccessPoint[] = accessGroups.fl
     const [name, listedKind, facilityDetail] = facility;
     const kind = listedKind as FishingAccessPoint["kind"];
     const canonicalSlug = `${group.lakeId}-${slugify(name)}`;
-    const summary = `${facilityDetail ? `${facilityDetail} ` : `TPWD names ${name} in its ${group.lakeName} access inventory. `}This is documented access information, not live confirmation of ramp usability, fishing permissions, opening hours or launch fees. Check the TPWD source and operator notices before traveling.`;
+    const accessLabel = kind === "boat-ramp" ? "boat-launch location" : kind === "kayak-launch" ? "non-motorized paddling launch" : kind === "marina" ? "marina" : kind === "pier" ? "fishing pier" : "shore-access location";
+    const summary = facilityDetail ?? `TPWD lists ${name} as a ${accessLabel} at ${group.lakeName}. Consult the official facility listing for documented directions and restrictions.`;
     const common = {
       id: `tpwd-site-${canonicalSlug}`,
       brandId: "texasdefined" as const,
@@ -31,7 +32,8 @@ export const expandedSourcedAccessPoints: FishingAccessPoint[] = accessGroups.fl
     };
     if (kind === "boat-ramp") return { ...common, kind, launchNotes: "The source inventory identifies this location; fees and ramp accessibility are not live data." };
     if (kind === "marina") return { ...common, kind };
-    return { ...common, kind: kind === "pier" ? "pier" as const : "shore" as const };
+    if (kind === "shore" || kind === "pier" || kind === "kayak-launch") return { ...common, kind };
+    throw new Error(`Unsupported curated access kind for ${group.lakeId}/${name}: ${String(kind)}`);
   });
 });
 

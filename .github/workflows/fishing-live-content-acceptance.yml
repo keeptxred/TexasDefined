@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-fishing-live-content.mjs'
+      - 'scripts/ci/verify-fishing-access-browser.mjs'
       - '.github/workflows/fishing-live-content-acceptance.yml'
   workflow_dispatch:
   workflow_run:
@@ -26,6 +27,10 @@ jobs:
       - name: Validate acceptance verifier syntax in PR
         if: github.event_name == 'pull_request'
         run: node --check scripts/ci/verify-fishing-live-content.mjs
+      - name: Check access browser verifier syntax in PR
+        if: github.event_name == 'pull_request'
+        run: node --check scripts/ci/verify-fishing-access-browser.mjs
       - name: Verify independently rendered live fishing pages after deploy
         if: github.event_name != 'pull_request'
         run: node scripts/ci/verify-fishing-live-content.mjs
+
