@@ -46,7 +46,8 @@ test('retain only safe critical content-hashed JS/CSS, no arbitrary URL or trave
     '/assets/museum-authority-heroes-DChJMGcZ.js',
     '/assets/texas-data.lazy-Bmna2q7H.js',
   ]) assert.equal(safeCriticalAsset(path), true, path);
-  for (const path of ['/assets/main-A.js?cachebust=1', '/assets/../../secrets.js',
+  for (const path of ['/assets/_config-private-ABCDEFGH.js', '/assets/_kind._slug.lazy-../../secret.js',
+    '/assets/main-A.js?cachebust=1', '/assets/../../secrets.js',
     '/api/private.js', 'https://other.example/assets/main-A.js',
     '/assets/article-something-HASH.js', '/assets/main-A.json']) {
     assert.equal(safeCriticalAsset(path), false, path);
