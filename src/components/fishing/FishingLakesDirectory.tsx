@@ -71,6 +71,9 @@ export function FishingLakesDirectory({ rows, latestReview }: { rows: Row[]; lat
 type FisheryGroup = { members: string[]; name: string; quality: string };
 const TPWD_COMBINED_FISHERY_GROUPS: Record<string, FisheryGroup[]> = {
   "lake-somerville": [{ members: ["White bass", "Hybrid striped bass"], name: "White & hybrid striped bass (TPWD combined)", quality: "excellent" }],
+  "richland-chambers-reservoir": [{ members: ["White bass", "Hybrid striped bass"], name: "White & hybrid striped bass (TPWD combined)", quality: "excellent" }],
+  "cedar-creek-reservoir": [{ members: ["White bass", "Hybrid striped bass"], name: "White & hybrid striped bass (TPWD combined)", quality: "excellent" }],
+  "lake-palestine": [{ members: ["White bass", "Hybrid striped bass"], name: "White & hybrid striped bass (TPWD combined)", quality: "excellent" }],
   "lake-bridgeport": [
     { members: ["White bass", "Hybrid striped bass"], name: "White & hybrid striped bass (TPWD combined)", quality: "excellent" },
     { members: ["Largemouth bass", "Smallmouth bass"], name: "Largemouth & smallmouth bass (TPWD combined)", quality: "good" },
