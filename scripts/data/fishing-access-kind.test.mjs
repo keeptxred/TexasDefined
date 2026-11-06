@@ -50,7 +50,7 @@ test("Ray Hubbard's non-motorized launch never appears as a motorboat ramp", () 
 test("river, bank, pier and camper-only sites retain reviewed categories", () => {
   const network = readFileSync("src/data/fishing/statewide-lake-network.ts", "utf8");
   for (const [name, kind] of [
-    ["Colorado Bend State Park","shore"],
+    ["Colorado Bend State Park","public-ramp"],
     ["Commons Ford Park","shore"],
     ["Selma Hughes Park (bank access only)","shore"],
     ["Fritz Hughes Park (bank access only)","shore"],
