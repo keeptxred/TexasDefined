@@ -11,7 +11,9 @@ const groups = {
   images: /discover|hero|public\/images|materialize/,
   // Changes to the MSR production browser verifier must re-run its sports
   // release checks, even when no sports page source changed in that commit.
-  sports: /sports|venue|football|msr-houston/,
+  // Changing this planner itself must also exercise the corrected MSR
+  // browser gate on the release containing the policy change.
+  sports: /sports|venue|football|msr-houston|production-change-scope/,
   horse_racing: /horse-racing|horseRacing|HorseRacing|verify-horse-racing-production/,
   foliage: /east-texas-fall-colors|fall-foliage/,
   discovery: /public-routes|sitemap|routeTree|discovery|indexing/,
