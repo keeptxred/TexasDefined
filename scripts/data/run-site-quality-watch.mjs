@@ -68,6 +68,11 @@ const checks = [
     script: 'scripts/data/validate-page-pair-distinctness.mjs',
   },
   {
+    id: 'live-page-pair-distinctness',
+    label: 'Daily production SSR and self-canonical checks of all 13 pages / 42 pairs',
+    script: 'scripts/ci/verify-42-page-pairs-production.mjs',
+  },
+  {
     id: 'freshness',
     label: 'Freshness and stale-statistic signals',
     script: 'scripts/data/validate-freshness-signals.mjs',
