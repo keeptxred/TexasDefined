@@ -1,0 +1,31 @@
+name: Verify 42 SEO page pairs against live production
+
+on:
+  push:
+    branches:
+      - verify/live-42-20261106
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-42-pairs:
+    name: Verify 13 actual URLs and all 42 pairs
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run bounded live SEO verification
+        run: node scripts/ci/verify-42-page-pairs-production.mjs
+      - name: Preserve full live SEO evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-42-page-pair-report
+          path: .artifacts/42-page-pair-production.json
+          if-no-files-found: error
+          retention-days: 30
