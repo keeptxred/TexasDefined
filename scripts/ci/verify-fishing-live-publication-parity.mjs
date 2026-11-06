@@ -1,5 +1,6 @@
 // Bounded production fishing publication parity probe. No sitemap mutations.
 import fs from "node:fs";
+import { fetchFishingParityText } from "./fishing-parity-http.mjs";
 const origin = (process.env.PRODUCTION_ORIGIN || "https://texasdefined.com").replace(/\/$/, "");
 const paths = [
   "/fishing/lakes/lake-conroe/fish",
@@ -10,12 +11,10 @@ const paths = [
   "/fishing/lakes/lake-stamford/regulations",
 ];
 const errors = [];
-const evidence = { sourceSha: process.env.GITHUB_SHA || null, runId: process.env.GITHUB_RUN_ID || null, origin, checks: [] };
-const fetchText = async (url) => {
-  const response = await fetch(url, { headers: { "user-agent": "TexasDefinedProductionAcceptance/1.0" }, signal: AbortSignal.timeout(20000) });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return response.text();
-};
+const evidence = { sourceSha: process.env.GITHUB_SHA || null, runId: process.env.GITHUB_RUN_ID || null, origin, checks: [], transportRetries: [] };
+const fetchText = (url) => fetchFishingParityText(url, {
+  onRetry: (event) => evidence.transportRetries.push(event),
+});
 try {
   const index = await fetchText(`${origin}/sitemap-index.xml`);
   const childUrls = [...index.matchAll(/<loc>\s*(https:\/\/[^<]+)\s*<\/loc>/g)].map((m) => m[1].trim().replace(/&amp;/g, "&"));
