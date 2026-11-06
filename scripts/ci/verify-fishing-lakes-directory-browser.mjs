@@ -96,8 +96,28 @@ for (const { name, viewport, mobile } of [
     assert.deepEqual(initial.faq, initial.visible, name + ": FAQ structured data differs from actual visible questions and answers");
     assert.ok(initial.docWidth <= initial.viewport + 8, name + ": document horizontally overflows");
     assert.equal((await count(page)).total, 72);
-    assert.equal(await page.locator('section[aria-labelledby="lake-directory-heading"] article').count(), 72);
+    // All 72 complete guides stay directly linked in the server-rendered A-Z index,
+    // while detailed imagery and card prose render in progressive, accessible batches.
+    const directory = page.locator('section[aria-labelledby="lake-directory-heading"]');
+    const cards = directory.locator("article");
+    const allGuides = page.getByRole("navigation", { name: "All matching fishing lake guides" });
+    const jumpLinks = allGuides.locator('a[href^="/fishing/lakes/"]');
+    assert.equal(await jumpLinks.count(), 72, name + ": complete lake link index missing entries");
+    assert.equal(new Set(await jumpLinks.evaluateAll(links => links.map(a => a.getAttribute("href")))).size, 72,
+      name + ": duplicate A-Z lake guide destinations");
+    assert.equal(await cards.count(), 12, name + ": initial detailed card budget should be 12");
     await page.screenshot({ path: output + "/" + name + "-initial.png", fullPage: false, animations: "disabled" });
+    for (const expected of [24, 36]) {
+      await page.getByRole("button", { name: /Show 12 more lake cards/ }).click();
+      await page.waitForFunction(expectedCards =>
+        document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length === expectedCards,
+        expected, { timeout: 16000 });
+      assert.equal(await jumpLinks.count(), 72, name + ": expanding cards lost complete lake link index");
+    }
+    await page.getByRole("button", { name: "Clear filters" }).click();
+    await page.waitForFunction(() =>
+      document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length === 12,
+      null, { timeout: 16000 });
 
     // Real input events and SSR hydration; not just markup inspection.
     await page.getByRole("searchbox", { name: "Lake, county or city" }).fill("Lake Conroe");
@@ -152,7 +172,17 @@ for (const { name, viewport, mobile } of [
 
     await page.getByRole("button", { name: "Clear filters" }).click();
     await awaitFiltered(page, "all");
-    for (const slug of ["lake-conroe", "lake-abilene", "sam-rayburn-reservoir"]) {
+    for (const { slug, query } of [
+      { slug: "lake-conroe", query: "Lake Conroe" },
+      { slug: "lake-abilene", query: "Lake Abilene" },
+      { slug: "sam-rayburn-reservoir", query: "Sam Rayburn Reservoir" },
+    ]) {
+      // The chosen lake may not be among the first 12 alphabetical cards.
+      // A visitor can find and select it via the existing search; prior
+      // selections must survive filters and progressive rendering changes.
+      await page.getByRole("searchbox", { name: "Lake, county or city" }).fill(query);
+      await lakeCard(page, slug).waitFor({ state: "visible", timeout: 16000 });
+      assert.equal(await lakeCard(page, slug).count(), 1, name + ": searched comparison lake not visible: " + slug);
       await lakeCard(page, slug).getByRole("checkbox", { name: "Compare this lake" }).check();
     }
     const compare = page.getByRole("link", { name: /Compare 3 selected lakes/ });
@@ -195,10 +225,10 @@ for (const { name, viewport, mobile } of [
     assert.equal(widthAfter.keyboard, true, name + ": the comparison scroll region must be keyboard focusable");
     if (mobile) assert.ok(widthAfter.scrollableWidth > widthAfter.scrollableClient,
       name + ": three-lake table must scroll *inside its region* rather than widen the document");
-    results.push({ name, canonical: initial.canonical, cards: initial.itemCount, faqParity: true,
+    results.push({ name, canonical: initial.canonical, guides: initial.itemCount, initialCards: 12, progressiveCardsVerified: 36, allGuideLinks: 72, faqParity: true,
       search: true, region: true, species: true, restriction: true, sorting: { largest, smallest },
       compare: true, noDocumentOverflow: true, errors: pageErrors });
-    console.log("PASS fishing-lakes " + name + ": 72 source-backed lake guides, FAQ parity, all filters/sort/restrictions, three-lake comparison and layout");
+    console.log("PASS fishing-lakes " + name + ": 72 crawlable lake guide links, 12-card progressive rendering, FAQ parity, filters/sort/restrictions, cross-filter comparison and layout");
   } catch (error) {
     failures.push(name + ": " + String(error) + (pageErrors.length ? " JS: " + pageErrors.join("; ") : ""));
     try { await page.screenshot({ path: output + "/" + name + "-failure.png", fullPage: false, timeout: 12000 }); } catch {}

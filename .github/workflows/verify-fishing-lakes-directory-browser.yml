@@ -22,7 +22,7 @@ on:
 permissions:
   contents: read
   actions: read
-  statuses: read
+  statuses: write
 
 concurrency:
   group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.ref }}
@@ -51,6 +51,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Mark live fishing-lakes Chrome certification pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-fishing-lakes-browser pending "Waiting for protected deployment and desktop/mobile acceptance"
       - name: Wait for protected production deployment of this exact SHA
         env:
           GH_TOKEN: ${{ github.token }}
@@ -63,7 +67,18 @@ jobs:
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-fishing-lakes-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
       - name: Check real visitor filters, sorting, comparison, safety notices and SEO metadata
+        id: verify_browser
         run: node scripts/ci/verify-fishing-lakes-directory-browser.mjs
+      - name: Publish honest live fishing-lakes Chrome certification
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BROWSER_OUTCOME: ${{ steps.verify_browser.outcome }}
+        shell: bash
+        run: |
+          outcome=failure
+          [[ "$BROWSER_OUTCOME" == 'success' ]] && outcome=success
+          node scripts/ci/publish-github-status.mjs texasdefined-fishing-lakes-browser "$outcome" "Live desktop and mobile fishing lakes directory accepted" "Live desktop/mobile fishing lakes certification failed or did not run"
       - name: Preserve screenshots and machine-readable results even if a check fails
         if: always()
         uses: actions/upload-artifact@v4
