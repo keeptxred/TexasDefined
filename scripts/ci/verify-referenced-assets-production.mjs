@@ -116,6 +116,11 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^useBaseQuery-[A-Za-z0-9_-]+\.js$/,
   /^DestinationCard-[A-Za-z0-9_-]+\.js$/,
   /^PropertyCalculatorFramework-[A-Za-z0-9_-]+\.js$/,
+  // Three exact JS module families logged HTTP404 for verified Bingbot after the Nov 2 release.
+  // Capture only real Vite-built filenames; previous original bytes still require HTTP200/SHA.
+  /^CountyTaxRateSection-[A-Za-z0-9_-]+\.js$/,
+  /^PublishableGraphic-[A-Za-z0-9_-]+\.js$/,
+  /^_kind\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,
   /^AnswerSummary-[A-Za-z0-9_-]+\.js$/,
   /^texas-home-insurance-calculator\.lazy-[A-Za-z0-9_-]+\.js$/,
   /^useQuery-[A-Za-z0-9_-]+\.js$/,
