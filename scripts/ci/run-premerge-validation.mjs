@@ -48,6 +48,8 @@ const prebuildChecks = [
   ['HOMEPAGE/FRESHNESS', 'Reject stale, unverified or duplicated homepage event picks', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-events.test.mjs']],
   ['HOMEPAGE/EDITORIAL', 'Keep published homepage editorial diversity and prevent repeated cards', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-editorial.test.mjs']],
   ['HOMEPAGE/READTIME', 'Keep lightweight homepage reading estimate in parity with full USS Lexington article', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-reading-time.test.mjs']],
+  ['HOMEPAGE/DISCOVERY-READTIME', 'Verify all limited discovery card times from canonical article bodies', 'node', ['--experimental-strip-types', '--test', 'scripts/data/discovery-reading-time.test.mjs']],
+
   ['HOMEPAGE/LIVE', 'Fail on cached old HTML, wrong canonical or missing editorial link in mocked public responses', 'node', ['--test', 'scripts/ci/verify-homepage-fresh-production.test.mjs']],
   ['CI/RELEASE-TRANSPORT', 'Keep fishing and playoff production probes strictly bounded under transient HTTP failures', 'node', ['--test', 'scripts/ci/fetch-live-html-with-retry.test.mjs']],
   ['HOMEPAGE/FIELD', 'Keep URL field, origin-only and lab performance evidence distinct', 'node', ['--test', 'scripts/ci/audit-homepage-vitals.test.mjs']],
