@@ -1,4 +1,6 @@
 import { fishingGuideCanonicalPath } from "./guide-routing";
+import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
+import { statewideNetworkLakeDefinitions } from "./statewide-lake-network";
 import { fishingAccessCanonicalPath, fishingServiceCanonicalPath } from "./local-routing";
 import { fishingPlatform, fishingScope } from "./index";
 import { FISHING_PLANNER_VERIFIED_AT } from "./planner-routing";
@@ -53,8 +55,26 @@ export async function loadFishingPlannerDataServer() {
       .sort((a, b) => a.service.name.localeCompare(b.service.name))
       .map((entry) => ({ ...entry, href: fishingServiceCanonicalPath(entry.service.slug) }));
 
+    const research = LAKE_AUTHORITY_RESEARCH_WAVE1[lake.slug];
+    const network = statewideNetworkLakeDefinitions.find((entry) => entry.slug === lake.slug);
+    const importantAdvisories = (research?.regulations ?? [])
+      .filter((entry) => /advisory|mussel|closure|launch|ramp|border|licen[cs]e|water level/i.test(entry.label))
+      .slice(0, 4)
+      .map((entry) => ({ label: entry.label, text: entry.text, sourceUrl: entry.sourceUrl }));
+    const source = lake.sources.find((entry) => entry.url.includes("tpwd.texas.gov/fishboat/fish/recreational/lakes/")) ?? lake.sources[0];
+
     return {
       lake,
+      comparisonAuthority: {
+        lakeSource: source?.url ?? "",
+        lakeSourceReviewedAt: source?.checkedAt ?? lake.verifiedAt ?? null,
+        fisheryReviewedAt: targets.reduce<string | null>((latest, target) => target.relation.verifiedAt && (!latest || target.relation.verifiedAt > latest) ? target.relation.verifiedAt : latest, null),
+        accessReviewedAt: lakeAccess.reduce<string | null>((latest, entry) => entry.point.verifiedAt && (!latest || entry.point.verifiedAt > latest) ? entry.point.verifiedAt : latest, null),
+        levelSource: network?.waterDataSlug ? "https://waterdatafortexas.org/reservoirs/individual/" + network.waterDataSlug : null,
+        operatorConditionsSource: lake.slug === "amistad-reservoir" ? "https://www.nps.gov/amis/planyourvisit/conditions.htm" : null,
+        advisoryReviewedAt: research?.reviewedAt ?? null,
+        importantAdvisories,
+      },
       href: fishingFoundationAnchor("lake", lake.slug),
       fullGuide: isCompleteFishingLakeSlug(lake.slug),
       targets,
