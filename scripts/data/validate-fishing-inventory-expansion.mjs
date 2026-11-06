@@ -40,6 +40,12 @@ for (const name of ["Pace Bend/Collier Cove", "Pace Bend/Tatum Cove", "Arkansas 
 assert.match(travis.facilities.find((f) => f[0] === "Bob Wentz at Windy Point")[2], /sailboats/, "Sailboat restriction must be visible");
 const paddle = access.find((row) => row.lakeId === "lake-ray-hubbard")?.facilities.find((f) => f[0] === "Paddle Point Park");
 assert.equal(paddle?.[1], "kayak-launch", "Non-motorized put-in must never appear in motorboat-ramp filters");
+const curatedMapper = read("src/data/fishing/curated-inventory.ts");
+assert.ok(curatedMapper.includes('kind === "shore" || kind === "pier" || kind === "kayak-launch"'),
+  "Curated mapper must preserve kayaking and fishing-pier access types instead of silently changing them to shore");
+assert.ok(curatedMapper.includes("Unsupported curated access kind"),
+  "Unknown curated facility types must fail closed rather than become shore access");
+
 assert.match(paddle?.[2] ?? "", /non-motorized craft only/);
 
 const knownLakeSourceFiles = [
