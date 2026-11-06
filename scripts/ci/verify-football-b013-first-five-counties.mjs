@@ -109,12 +109,12 @@ console.log('PASS: Batch013 additional 20 authored SSR guides retain distinct, d
 const dallasLedger = fs.readFileSync('docs/football-authority/BATCH013-DALLAS-CAMPUS-COUNTIES.md','utf8');
 const dallasCountyRow = reciprocalSection.match(/'dallas'\s*:\s*\[([\s\S]*?)\]\s*,/);
 assert.ok(dallasCountyRow, 'Dallas County reciprocal section missing');
-for (const slug of ['dallas-hillcrest','dallas-jefferson','dallas-jesuit']) {
+for (const slug of ['dallas-gateway-charter-academy','dallas-highland-park','dallas-hillcrest','dallas-hutchins','dallas-jefferson','dallas-jesuit']) {
   assert.equal([...campusSection.matchAll(new RegExp("'"+slug+"'\\s*:\\s*'dallas'",'g'))].length,1,slug+' missing unique Dallas campus mapping');
   assert.ok(dallasCountyRow[1].includes("slug: '"+slug+"'"),slug+' missing reciprocal Dallas County entry');
   assert.ok(dallasLedger.includes('`'+slug+'`'),slug+' missing first-party campus address evidence');
 }
-console.log('PASS: three first-party-sourced Dallas campus and reciprocal county links (NOT Chrome acceptance)');
+console.log('PASS: six first-party/NCES-sourced Dallas campus and reciprocal county links (NOT Chrome acceptance)');
 
 assert.equal(allAuthoredSlugs.size,25,'Batch013 requires exactly 25 distinct authored school identities');
 
