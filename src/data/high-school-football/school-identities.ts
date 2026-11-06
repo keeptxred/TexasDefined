@@ -14,6 +14,10 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'decatur', mascot: 'Eagles', sourceUrl: 'https://www.decatureagles.net/sport/football/boys/', sourceLabel: 'Decatur Texas ISD Eagles official varsity football athletics', verifiedAt: '2026-11-06' },
+  { slug: 'deer-park', mascot: 'Deer', sourceUrl: 'https://www.dpisd.org/apps/pages/index.jsp?pREC_ID=1701303&type=d&uREC_ID=1572541', sourceLabel: 'Deer Park ISD Deer varsity football athletics', verifiedAt: '2026-11-06' },
+  { slug: 'del-rio', mascot: 'Rams', sourceUrl: 'https://www.sfdr-cisd.org/alternative-school/athletics/', sourceLabel: 'San Felipe Del Rio CISD official varsity Rams athletics', verifiedAt: '2026-11-06' },
+  { slug: 'del-valle', mascot: 'Cardinals', sourceUrl: 'https://dvhs.dvisd.net/our-school/campus-profile', sourceLabel: 'Del Valle High official school campus profile confirms Cardinals', verifiedAt: '2026-11-06' },
   { slug: 'danbury', mascot: 'Panthers', sourceUrl: 'https://www.danburyisd.org/apps/pages/index.jsp?pREC_ID=1714535&type=d&uREC_ID=1588113', sourceLabel: 'Danbury ISD official high-school Panthers athletics and school record', verifiedAt: '2026-11-06' },
   { slug: 'dawson', mascot: 'Bulldogs', sourceUrl: 'https://www.dawsonisd.net/apps/pages/index.jsp?pREC_ID=738017&type=d&uREC_ID=318627', sourceLabel: 'Navarro County Dawson ISD Bulldogs school athletics, not Welch Dawson', verifiedAt: '2026-11-06' },
   { slug: 'dayton', mascot: 'Broncos', sourceUrl: 'https://dhs.daytonisd.net/football-home', sourceLabel: 'Dayton High Broncos official varsity football page', verifiedAt: '2026-11-06' },
