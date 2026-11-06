@@ -34,7 +34,9 @@ permissions:
   statuses: write
 
 concurrency:
-  group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.ref }}
+  # PR revisions supersede by PR number; main-push jobs keep source SHA identity.
+  # A later commit must not cancel deployed-descendant desktop/mobile certification.
+  group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
 jobs:
