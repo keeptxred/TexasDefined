@@ -160,8 +160,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     fish: [
       fish("catfish","Catfish","excellent","year-round","Blue and channel catfish are widespread and support one of the lake's signature fisheries.",["cut-bait","live-bait"]),
       fish("crappie","Crappie","excellent","year-round","Bridge crossings and upper-arm timber support a consistently strong black- and white-crappie fishery.",["jigs-and-minnows"]),
-      fish("white-bass","White bass","excellent","year-round","Schooling fish are common from the US 287 bridge toward the dam.",["vertical-jigging","topwater"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","Hybrids share the open-water shad fishery with white bass.",["vertical-jigging","trolling","live-bait"]),
+      fish("white-bass","White bass","excellent","year-round","TPWD grades White & Hybrid Striped Bass together Excellent, not white bass independently. Schools range from US 287 bridge toward the dam.",["vertical-jigging","topwater"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","TPWD grades White & Hybrid Striped Bass together Excellent, not hybrids independently. Hybrids share the open-water shad fishery.",["vertical-jigging","trolling","live-bait"]),
       fish("largemouth-bass","Largemouth bass","fair","year-round","Bass opportunity improves where anglers find clearer water, vegetation and underwater structure.",["crankbaits","soft-plastics"]),
     ],
     access: "TPWD lists county ramps, marinas and other launch sites around the reservoir; facility fees and conditions vary.", specialRules: true,     accessPoints: [
@@ -180,8 +180,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     habitat: ["Hydrilla and native aquatic plants are strongest in the upper lake and creek arms.", "Kickapoo Creek is a particularly vegetation-rich arm.", "River and creek channels, docks and shoreline cover create multiple seasonal patterns."],
     fish: [
       fish("largemouth-bass","Largemouth bass","good","spring","Consistent tournament fishing centers on vegetation, cover and creek-channel transitions.",["soft-plastics","spinnerbaits","crankbaits"]),
-      fish("white-bass","White bass","good","spring","Spring runs push fish into the Neches River and Kickapoo Creek.",["jigs-and-minnows","live-bait"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","good","year-round","Open-water hybrids add a major schooling-fish opportunity.",["trolling","vertical-jigging","live-bait"]),
+      fish("white-bass","White bass","excellent","spring","TPWD grades White & Hybrid Striped Bass together Excellent, not white bass independently. Spring runs push fish into the Neches River and Kickapoo Creek.",["jigs-and-minnows","live-bait"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","TPWD grades White & Hybrid Striped Bass together Excellent, not hybrids independently. Open-water hybrids add schooling opportunities.",["trolling","vertical-jigging","live-bait"]),
       fish("catfish","Catfish","excellent","year-round","Channel and blue catfish are abundant and flatheads provide trophy potential.",["cut-bait","live-bait"]),
       fish("crappie","Crappie","good","spring","Crappie use timber, brush and protected spawning cover.",["jigs-and-minnows"]),
     ],
@@ -205,8 +205,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     habitat: ["Submerged vegetation is concentrated in lower-lake coves.", "Shallow upper-lake flats and emergent vegetation create a different fishery from the clearer lower third.", "Submersed islands near the Clear and Caney creek confluence provide offshore structure."],
     fish: [
       fish("catfish","Catfish","excellent","year-round","Blue catfish are especially abundant, with channel and flathead catfish also present.",["cut-bait","live-bait"]),
-      fish("white-bass","White bass","excellent","spring","Schooling fish follow shad and are especially active in spring.",["topwater","vertical-jigging"]),
-      fish("hybrid-striped-bass","Hybrid striped bass","excellent","spring","Stocked hybrids school with white bass and respond to open-water presentations.",["trolling","vertical-jigging","live-bait"]),
+      fish("white-bass","White bass","excellent","spring","TPWD grades White & Hybrid Striped Bass together Excellent, not white bass independently. Schools follow shad and are active in spring.",["topwater","vertical-jigging"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","spring","TPWD grades White & Hybrid Striped Bass together Excellent, not hybrids independently. Stocked hybrids school with white bass in open water.",["trolling","vertical-jigging","live-bait"]),
       fish("largemouth-bass","Largemouth bass","good","spring","The clearer lower end and weedy coves provide the strongest bass habitat.",["soft-plastics","spinnerbaits","crankbaits"]),
       fish("crappie","Crappie","good","spring","Crappie use brush, docks and protected cover.",["jigs-and-minnows"]),
     ],
