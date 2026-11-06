@@ -25,7 +25,6 @@ type DirectoryHeadEntry = { technique: { name: string }; canonicalPath: string }
 type ProfileHeadEntry = {
   technique: { name: string; slug: string; summary: string; verifiedAt: string };
   canonicalPath: string;
-  lakes: Array<{ name: string; slug: string }>;
   featuredProfiles: Array<{ lake: { name: string; slug: string } }>;
   featuredSources: Array<{ url: string; checkedAt?: string }>;
   species: Array<{ commonName: string }>;
@@ -149,13 +148,13 @@ export async function loadFishingTechniqueDirectoryServer() {
       return {
         technique,
         canonicalPath: fishingTechniqueCanonicalPath(technique.slug),
-        profiles,
+        profileCount: profiles.length,
         featuredProfiles,
         featuredSources,
         species: relatedSpecies,
-        lakes: relatedLakes,
+        lakeCount: relatedLakes.length,
         seasons,
-        sources,
+        lastVerifiedSourceAt: newestDate(sources.map((source) => source.checkedAt)) ?? technique.verifiedAt,
       };
     })
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
@@ -163,7 +162,7 @@ export async function loadFishingTechniqueDirectoryServer() {
 
   const verifiedAt = newestDate([
     FISHING_TECHNIQUES_VERIFIED_AT,
-    ...entries.flatMap((entry) => entry.sources.map((source) => source.checkedAt)),
+    ...entries.map((entry) => entry.lastVerifiedSourceAt),
   ]) ?? FISHING_TECHNIQUES_VERIFIED_AT;
 
   return {

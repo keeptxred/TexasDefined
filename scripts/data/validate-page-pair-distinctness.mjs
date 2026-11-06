@@ -58,8 +58,11 @@ assert.ok(!fishingProfile.includes("data.sources.map"), "The full repeated lake 
 assert.ok(fishingProfile.includes("isGenericLakeTechniqueSummary(row.profile.summary)"), "Generic lake narrative prose must be hidden on detail pages");
 assert.ok(fishingServer.includes("featuredSources: featuredSources") || fishingServer.includes("        featuredSources,"), "SSR must expose page-relevant sources");
 assert.ok(!fishingProfile.includes("data.profiles.map"), "The full repeated lake directory has returned");
-assert.ok(fishingServer.includes("profiles,"), "Do not delete verified lake-technique relationships");
-assert.ok(fishingServer.includes("lakes: relatedLakes"), "Do not lose full verified lake counts");
+assert.ok(fishingServer.includes("profileCount: profiles.length"), "Do not lose the count of verified lake-technique relationships");
+assert.ok(!fishingServer.includes("        profiles,\n        featuredProfiles,"), "Do not serialize the full verified catalog into every technique page");
+assert.ok(fishingProfile.includes("data.profileCount"), "Visible count must be server-derived without rehydrating 72 full records");
+assert.ok(fishingServer.includes("lakeCount: relatedLakes.length"), "Do not lose complete verified lake counts");
+assert.ok(!fishingServer.includes("        lakes: relatedLakes,"), "Do not serialize every lake object in all nine pages");
 assert.ok(fishingServer.includes("canonicalLink(texasDefinedBrand, canonicalPath)"), "Techniques must retain self-canonicals");
 assert.ok(sportsSeo.includes("canonicalLink(texasDefinedBrand, path)"), "Teams must retain self-canonicals");
 assert.ok(eventsSource.includes("const routeDescription ="), "Events needs independent editorial purpose");

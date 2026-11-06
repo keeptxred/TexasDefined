@@ -1,6 +1,10 @@
 import fs from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
+// Live SSR verification runs only from the scheduled/manual watchdog, not pre-merge.
+// A PR cannot pass tests against production HTML that intentionally lacks its changes.
+const includeLiveProduction = process.env.SITE_QUALITY_LIVE === '1';
+
 const checks = [
   {
     id: 'tpwd-lake-official-source-enrollment',
@@ -67,6 +71,11 @@ const checks = [
     label: 'All 42 reported sports/events/fishing content-similarity pairs and canonical safeguards',
     script: 'scripts/data/validate-page-pair-distinctness.mjs',
   },
+  ...(includeLiveProduction ? [{
+    id: 'live-page-pair-distinctness',
+    label: 'Daily production SSR and self-canonical checks of all 13 pages / 42 pairs',
+    script: 'scripts/ci/verify-42-page-pairs-production.mjs',
+  }] : []),
   {
     id: 'freshness',
     label: 'Freshness and stale-statistic signals',
