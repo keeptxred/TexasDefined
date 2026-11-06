@@ -1,0 +1,71 @@
+name: Verify fishing access classifications in live Chrome
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-fishing-access-browser.mjs'
+      - '.github/workflows/verify-fishing-access-browser.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/fishing/curated-access-sites.json'
+      - 'src/data/fishing/statewide-lake-network.ts'
+      - 'src/data/fishing/reused-statewide-access.ts'
+      - 'src/data/fishing/access-kind.ts'
+      - 'src/data/fishing/curated-inventory.ts'
+      - 'src/components/fishing/FishingAccessDirectory.tsx'
+      - 'scripts/ci/verify-fishing-access-browser.mjs'
+      - '.github/workflows/verify-fishing-access-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  statuses: read
+
+concurrency:
+  group: fishing-access-live-chrome-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  syntax:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/verify-fishing-access-browser.mjs
+
+  browser:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for successful protected production deployment of this exact SHA
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Install isolated Chrome driver without changing app dependencies
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-fishing-access-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Inspect ordinary access page in desktop/mobile real Chrome
+        run: node scripts/ci/verify-fishing-access-browser.mjs
+      - name: Preserve screenshots and machine-readable results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-access-browser-${{ github.run_id }}
+          path: artifacts/fishing-access-browser/
+          retention-days: 30
+          if-no-files-found: warn
