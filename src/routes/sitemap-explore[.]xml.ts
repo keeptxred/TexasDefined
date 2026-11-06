@@ -502,6 +502,27 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         if (auditedMagoffinEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/magoffin-home</loc>`))) {
           destinationEntries.push(auditedMagoffinEntry);
         }
+        // The live Blanco and Caddo Lake routes can resolve an already
+        // approved source that differs from the bulk Explore listing. Mirror
+        // that EXACT single-detail resolver before deciding sitemap eligibility.
+        // This preserves its source precedence and our ordinary audited gate:
+        // noindex or weak detail pages still cannot enter the sitemap.
+        const { getResolvedDestination } = await import("@/data/destination-query-runtime");
+        const detailParitySlugs = ["blanco", "caddo-lake"] as const;
+        const detailParityDestinations = await Promise.all(detailParitySlugs.map(async (slug) => {
+          try {
+            return await getResolvedDestination(slug);
+          } catch (error) {
+            console.error("Detail-sitemap parity lookup failed for " + slug, error);
+            return null;
+          }
+        }));
+        for (const resolved of detailParityDestinations) {
+          if (!resolved || !isPrimaryTripPlannerDestination(resolved) || !auditDestination(resolved).readyForIndexing) continue;
+          const row = entry(`/destination/${resolved.slug}`, resolved.sourceCheckedAt);
+          const loc = `<loc>${BASE_URL}/destination/${resolved.slug}</loc>`;
+          if (row && !destinationEntries.some((item) => item.includes(loc))) destinationEntries.push(row);
+        }
         const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
         // Proximity sitemap eligibility intentionally resolves through the same
         // canonical destination pipeline as live metro pages. Do not pass the
