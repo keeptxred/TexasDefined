@@ -4,6 +4,7 @@ import { useBrand } from "@/brand/context";
 import type { Article, ImageRef } from "@/data/types";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { recoverOrHideImage } from "@/lib/image-fallback";
+import { verifiedDiscoveryReadingMinutes } from "@/data/verified-discovery-reading-time";
 
 interface FeatureHeroProps {
   eyebrow: string;
@@ -90,5 +91,5 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
 
 export function ArticleHero({ article }: { article: Article }) {
   const brand = useBrand();
-  return <FeatureHero eyebrow={article.category || article.tags[0] || "Story"} title={article.title} dek={article.dek} image={article.hero} to="/article/$slug" params={{ slug: article.slug }} meta={`${formatDate(article.publishedAt, brand.identity.locale)} · ${formatReadingTime(article.readingMinutes)}`} />;
+  return <FeatureHero eyebrow={article.category || article.tags[0] || "Story"} title={article.title} dek={article.dek} image={article.hero} to="/article/$slug" params={{ slug: article.slug }} meta={`${formatDate(article.publishedAt, brand.identity.locale)}${verifiedDiscoveryReadingMinutes(article) !== null ? ` · ${formatReadingTime(article.readingMinutes)}` : ""}`} />;
 }
