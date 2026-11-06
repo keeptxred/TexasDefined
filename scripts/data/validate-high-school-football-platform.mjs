@@ -675,7 +675,7 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
     errors.push(`Football school identity data fell below 185 verified canonical UIL profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
-  const obsoleteIdentitySlugs = ["fort-worth-boswell","hebron","flower-mound-marcus","plano-senior","north-shore","cypress-ranch","ce-king","south-oak-cliff","desoto","randle","lake-travis","westlake","smithson-valley","summer-creek","atascocita","pleasant-grove","harker-heights","mt-pleasant","walnut-grove","richland","west-plains"];
+  const obsoleteIdentitySlugs = ["fort-worth-boswell","hebron","flower-mound-marcus","plano-senior","north-shore","ce-king","south-oak-cliff","desoto","randle","lake-travis","westlake","smithson-valley","summer-creek","atascocita","pleasant-grove","harker-heights","mt-pleasant","walnut-grove","richland","west-plains"];
   for (const slug of obsoleteIdentitySlugs) {
     if (schoolIdentities.includes(`slug: '${slug}'`)) {
       errors.push(`Football school identity data must use the canonical UIL slug instead of legacy alias: ${slug}.`);
