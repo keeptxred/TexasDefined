@@ -53,6 +53,20 @@ const alwaysPurgeUrls = [
   // Google-specific indexing changes must not leave a stale primary XML sitemap
   // in Cloudflare's edge cache after the Worker deploys the new policy.
   `https://${zoneName}/sitemap.xml`,
+  // Preserve the 72-guide fishing release after every Worker update; a stale
+  // edge snapshot must not show an old species grade, defensive copy or layout.
+  ...[
+    "/fishing/lakes",
+    "/fishing/lakes/falcon-international-reservoir",
+    "/fishing/lakes/lake-somerville",
+    "/fishing/lakes/lake-bridgeport",
+    "/fishing/lakes/lake-tawakoni",
+    "/fishing/lakes/richland-chambers-reservoir",
+    "/fishing/lakes/cedar-creek-reservoir",
+    "/fishing/lakes/lake-palestine",
+    "/fishing/lakes/medina-lake",
+    "/fishing/lakes/lake-sweetwater",
+  ].map((path) => "https://" + zoneName + path),
   // Preserve the live, ordinary Fredericksburg weekend article after editorial rewrites.
   `https://${zoneName}/article/fredericksburg-texas-wineries-things-to-do-guide`,
   // Keep source-verified 2027 Mardi Gras guide and statewide calendar canonical HTML in sync
