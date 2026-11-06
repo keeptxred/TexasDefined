@@ -99,7 +99,7 @@ for (const token of ["record.verifiedAt", "Date.parse(day)", "day > today", "ret
   if (!reviewDateHelper.includes(token)) errors.push("Source-review date helper must reject missing, invalid and future dates and select the latest real review: " + token);
 }
 for (const [filename, source, stale] of [
-  ["access sitemap", localSitemap, "lastmod: FISHING_LOCAL_VERIFIED_AT"],
+  ["access sitemap", localSitemap, "path: FISHING_ACCESS_DIRECTORY_PATH, lastmod: FISHING_LOCAL_VERIFIED_AT"],
   ["guide sitemap", guideLoader, "lastmod: FISHING_GUIDES_VERIFIED_AT"],
   ["report sitemap", reportLoader, "lastmod: FISHING_REPORTS_VERIFIED_AT"],
   ["guide structured data", guideDirectory, "dateModified: FISHING_GUIDES_VERIFIED_AT"],
