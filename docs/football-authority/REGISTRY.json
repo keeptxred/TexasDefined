@@ -12,48 +12,47 @@
     "total": 1292
   },
   "batch": {
-    "number": 13,
+    "number": 14,
     "slugs": [
-      "cuero",
-      "cumby",
-      "cushing",
-      "cy-fair",
-      "cypress-creek",
-      "cypress-falls",
-      "cypress-lakes",
-      "cypress-park",
-      "cypress-ranch",
-      "cypress-ridge",
-      "cypress-springs",
-      "cypress-woods",
-      "daingerfield",
-      "dalhart",
-      "dallas-a",
-      "dallas-adams",
-      "dallas-adamson",
-      "dallas-carter",
-      "dallas-conrad",
-      "dallas-gateway-charter-academy",
-      "dallas-highland-park",
-      "dallas-hillcrest",
-      "dallas-hutchins",
-      "dallas-jefferson",
-      "dallas-jesuit"
+      "dallas-kimball",
+      "dallas-life-oak-cliff",
+      "dallas-lincoln",
+      "dallas-madison",
+      "dallas-molina",
+      "dallas-pinkston",
+      "dallas-roosevelt",
+      "dallas-samuell",
+      "dallas-seagoville",
+      "dallas-skyline",
+      "dallas-south-oak-cliff",
+      "dallas-spruce",
+      "dallas-sunset",
+      "dallas-white",
+      "dallas-wilson",
+      "danbury",
+      "dawson",
+      "dayton",
+      "de-kalb",
+      "de-leon",
+      "de-soto",
+      "decatur",
+      "deer-park",
+      "del-rio",
+      "del-valle"
     ],
-    "state": "VERIFIED_BATCH_013_COMPLETE",
-    "dateAssigned": "2026-11-04",
-    "selectionRule": "First 25 canonical NOT_REVIEWED after protected Batch012 graduation",
-    "individuallyVerified": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "feat/football-b013-assign-25-20261104",
+    "state": "IN_PROGRESS",
+    "dateAssigned": "2026-11-06",
+    "selectionRule": "First 25 canonical NOT_REVIEWED in stable registry order after protected Batch013 graduation",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "feat/football-b014-assign-25-20261106",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "25/25 genuine 2026-11-06 source/Worker-pinned production Chrome verified, protected evidence-only graduation; see technicalAcceptance.",
-    "verifiedAt": "2026-11-06"
+    "currentSchool": "dallas-kimball",
+    "nextSchool": "dallas-life-oak-cliff",
+    "implementedOnBranch": 0,
+    "remainingToImplement": 25,
+    "remainingToVerify": 25,
+    "notes": "ASSIGNMENT ONLY: all 25 remain NOT_REVIEWED; requires individual source-backed editorial, campus reciprocity, protected merge and one genuine source/Worker-pinned 75-viewport/25-county browser certificate."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -12950,7 +12949,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-kimball",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-life-oak-cliff",
@@ -12964,7 +12964,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-life-oak-cliff",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-lincoln",
@@ -12978,7 +12979,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-lincoln",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-madison",
@@ -12992,7 +12994,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-madison",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-molina",
@@ -13006,7 +13009,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-molina",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-pinkston",
@@ -13020,7 +13024,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-pinkston",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-roosevelt",
@@ -13034,7 +13039,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-roosevelt",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-samuell",
@@ -13048,7 +13054,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-samuell",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-seagoville",
@@ -13062,7 +13069,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-seagoville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-skyline",
@@ -13076,7 +13084,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-skyline",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-south-oak-cliff",
@@ -13090,7 +13099,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-south-oak-cliff",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-spruce",
@@ -13104,7 +13114,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-spruce",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-sunset",
@@ -13118,7 +13129,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-sunset",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-white",
@@ -13132,7 +13144,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-white",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dallas-wilson",
@@ -13146,7 +13159,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-wilson",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:danbury",
@@ -13160,7 +13174,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/danbury",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dawson",
@@ -13174,7 +13189,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dawson",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dayton",
@@ -13188,7 +13204,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dayton",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:de-kalb",
@@ -13202,7 +13219,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/de-kalb",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:de-leon",
@@ -13216,7 +13234,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/de-leon",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:de-soto",
@@ -13230,7 +13249,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/de-soto",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:decatur",
@@ -13244,7 +13264,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/decatur",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:deer-park",
@@ -13258,7 +13279,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/deer-park",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:del-rio",
@@ -13272,7 +13294,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/del-rio",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:del-valle",
@@ -13286,7 +13309,8 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/del-valle",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 14,
+      "actualProductionVerified": false
     },
     {
       "id": "uil:dell-city",
@@ -28215,7 +28239,7 @@
         "limitation": "Technical browser verification only; no current scores, licensed school photography, manual WCAG, parking/ADA or human editorial signoff."
       },
       "completionBasis": "One genuine non-skipped 25-school 75-viewport plus 25-county production Chrome job, exact signed source SHA and active Worker, compact artifact; separate protected evidence-only graduation PR.",
-      "noNextBatchAssigned": true
+      "noNextBatchAssigned": false
     }
   ]
 }
