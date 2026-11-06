@@ -47,6 +47,7 @@ const prebuildChecks = [
   ['SEO/DISTINCTNESS', 'Prevent generic lake/source repetition across all nine fishing technique guides', 'node', ['--experimental-strip-types', '--test', 'scripts/data/validate-fishing-technique-selection.test.mjs']],
   ['HOMEPAGE/FRESHNESS', 'Reject stale, unverified or duplicated homepage event picks', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-events.test.mjs']],
   ['HOMEPAGE/EDITORIAL', 'Keep published homepage editorial diversity and prevent repeated cards', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-editorial.test.mjs']],
+  ['HOMEPAGE/READTIME', 'Keep lightweight homepage reading estimate in parity with full USS Lexington article', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-reading-time.test.mjs']],
   ['HOMEPAGE/LIVE', 'Fail on cached old HTML, wrong canonical or missing editorial link in mocked public responses', 'node', ['--test', 'scripts/ci/verify-homepage-fresh-production.test.mjs']],
   ['HOMEPAGE/FIELD', 'Keep URL field, origin-only and lab performance evidence distinct', 'node', ['--test', 'scripts/ci/audit-homepage-vitals.test.mjs']],
   ['HOMEPAGE/SEO', 'Keep evergreen entry navigation, canonical schema and homepage event selection', 'node', ['scripts/data/validate-homepage-seo.mjs']],
