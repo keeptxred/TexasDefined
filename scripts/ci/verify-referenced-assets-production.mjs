@@ -29,6 +29,40 @@ export function assertBoundedCrossReleaseSet(assets) {
   return assets.size;
 }
 const REQUEST_TIMEOUT = 20000;
+// A 1,431-old-hash release previously spent its live acceptance audit doing
+// 1,500 HTTP checks sequentially, then timed out on canonical HTML. Preserve
+// EVERY original SHA check on both origins but use bounded 6-way concurrency.
+export const MAX_ASSET_AUDIT_CONCURRENCY = 6;
+export async function mapBounded(items, concurrency, visit) {
+  if (!Array.isArray(items) || !Number.isSafeInteger(concurrency) ||
+      concurrency < 1 || concurrency > 8 || typeof visit !== 'function')
+    throw new Error('Invalid bounded original-byte asset audit work queue');
+  const result = new Array(items.length);
+  let cursor = 0;
+  await Promise.all(Array.from({length:Math.min(concurrency,items.length)},async()=>{
+    while (true) {
+      const index=cursor++;
+      if (index>=items.length) return;
+      result[index]=await visit(items[index],index);
+    }
+  }));
+  return result;
+}
+
+// One more attempt is permitted ONLY for a transport timeout or connection
+// reset; never retry or reinterpret HTTP 404/500, wrong Worker version, wrong
+// MIME, missing bytes, SHA mismatch or a Cloudflare challenge as successful.
+export async function retryOneTransportTimeout(action, pause=ms=>new Promise(done=>setTimeout(done,ms))) {
+  try { return await action(); }
+  catch (error) {
+    const name=String(error?.name || '');
+    const code=String(error?.cause?.code || '');
+    if (!['TimeoutError','AbortError'].includes(name) &&
+        !['ETIMEDOUT','ECONNRESET','EAI_AGAIN'].includes(code)) throw error;
+    await pause(250);
+    return await action();
+  }
+}
 
 // Route-specific lazy chunks were observed returning 404 to verified Googlebot.
 // HTML <script>/<link> parsing alone cannot discover them: Vite references
@@ -201,7 +235,10 @@ async function get(url, opts = {}) {
     headers: { 'User-Agent': 'TexasDefined-Production-Asset-Handoff/1.0', ...opts.headers } });
 }
 async function retrieveHtml(origin, page) {
-  const response = await get(probeUrl(origin, page), { headers: { 'Cache-Control': 'no-cache, no-store, max-age=0' } });
+  const url=probeUrl(origin,page);
+  const response = await retryOneTransportTimeout(() => get(url, {
+    headers: { 'Cache-Control': 'no-cache, no-store, max-age=0' },
+  }));
   const mime = (response.headers.get('content-type') || '').toLowerCase();
   if (response.status !== 200 || !mime.includes('text/html') || response.headers.get('cf-mitigated') === 'challenge') {
     throw new Error('HTML not usable on ' + label(origin) + page + ' (HTTP ' + response.status + ', ' + mime + ')');
@@ -235,12 +272,12 @@ async function retrieveAsset(origin, path, kind) {
   return record;
 }
 async function auditAssets(origin, assets) {
-  const rows = [];
-  for (const { path, kind } of assets) {
-    try { rows.push(await retrieveAsset(origin, path, kind)); }
-    catch (error) { rows.push({ path, kind, origin: label(origin), status: 'network-error', ok: false, error: String(error) }); }
-  }
-  return rows;
+  // Stable indexed results, no sampling and no skipped candidates. Individual
+  // timeouts become explicit failed records, not a silently shortened list.
+  return mapBounded(assets,MAX_ASSET_AUDIT_CONCURRENCY,async ({path,kind})=>{
+    try {return await retrieveAsset(origin,path,kind);}
+    catch(error){return {path,kind,origin:label(origin),status:'network-error',ok:false,error:String(error)};}
+  });
 }
 function uniqueAssets(pages) {
   const result = new Map();
@@ -345,6 +382,10 @@ async function verify() {
       .map(x => ({ path: x.path, status: x.preStatus })),
     pages: [], assets: [], failures: [] };
   try {
+    // Validate current Worker identity, cache policy and live HTML on BOTH
+    // origins BEFORE the expensive all-hash audit. Never spend several
+    // minutes proving one origin while the other is already unreachable.
+    const witnessedOrigins=[];
     for (const origin of [DIRECT, CANONICAL]) {
       const currentPages = [];
       for (const page of PAGES) {
@@ -360,6 +401,9 @@ async function verify() {
         currentPages.push(html);
       }
       results.pages.push({ origin: label(origin), pages: currentPages });
+      witnessedOrigins.push({origin,currentPages});
+    }
+    for (const {origin,currentPages} of witnessedOrigins) {
       const combined = new Map();
       for (const a of uniqueAssets(currentPages)) combined.set(a.path, { ...a, sources: ['current-html'] });
       // Critical: dynamically imported football and property-tax route chunks
@@ -384,8 +428,14 @@ async function verify() {
       for (let offset = 0; offset < allAssets.length; offset += MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN) {
        const cohort = new Map(allAssets.slice(offset, offset + MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN).map(a => [a.path, a]));
        assertBoundedCrossReleaseSet(cohort);
-       for (const a of cohort.values()) {
-        const [record] = await auditAssets(origin, [a]);
+       const cohortAssets=[...cohort.values()];
+       const audited=await auditAssets(origin,cohortAssets);
+       if (audited.length !== cohortAssets.length)
+         throw new Error('Cross-release audit lost an original asset: '+label(origin));
+       for (let index=0;index<cohortAssets.length;index++) {
+        const a=cohortAssets[index],record=audited[index];
+        if (!record || record.path !== a.path)
+          throw new Error('Cross-release audit order or original path changed: '+a.path);
         record.sources = a.sources;
         record.oldHashMatches = !a.preSha256 || !record.ok || record.sha256 === a.preSha256;
         if (record.ok && a.preSha256 && !record.oldHashMatches) record.ok = false;
