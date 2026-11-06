@@ -44,5 +44,5 @@ for(const [slug,mascot] of expectedMascot){
  assert.ok(at>=0&&identity.slice(at,at+130).includes("mascot: '"+mascot+"'"),slug+' incorrect current official mascot');
 }
 assert.ok(guides['dallas-spruce'].overview.some(x=>x.includes('Apaches')&&x.includes('Timberwolves')),'Spruce historical mascot must remain distinguished');
-assert.ok(guides['dallas-south-oak-cliff'].overview.some(x=>x.includes('Life School')),'South Oak Cliff must not conflate charter Life School');
+assert.ok(guides['dallas-south-oak-cliff'].overview.some(x=>/Life (?:High )?School(?: Oak Cliff)?/.test(x) && /charter|separat(?:e|ely)|different/i.test(x)),'South Oak Cliff must explicitly distinguish the separate Life School Oak Cliff charter');
 console.log('PASS Batch014 first fifteen individual source guides, unique mascot identity, Dallas reciprocity, 305 prior certified; NOT production Chrome');
