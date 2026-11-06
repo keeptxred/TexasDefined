@@ -52,7 +52,7 @@ for (const marker of [
 ]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
 
 for (const marker of [
-  "complete Texas fishing lake guides are published",
+  "Find the right Texas fishing lake",
   'What this directory covers',
   'Jump to a lake guide',
   'Compare Texas Fishing Lakes',
@@ -167,7 +167,7 @@ for (const marker of [
 assert(/id: "falcon-alligator-gar"[^\n]*quality: "unknown"/.test(wave2Fixtures), "Falcon gar must remain ungraded until a quality-specific source supports a grade.");
 assert(!/id: "falcon-alligator-gar"[^\n]*quality: "(good|excellent|fair|poor)"/.test(wave2Fixtures), "Do not reintroduce an unsupported Falcon alligator-gar grade.");
 assert(statewideFixtures.includes("TPWD awards Excellent to the combined White & Hybrid Striped Bass category"), "Somerville white/hybrid ratings must disclose TPWD combined category.");
-assert(!statewideFixtures.includes("today's water extent"), "Medina directory summary must not freeze a 'today' lake level.");
+assert(!/summary:[^\n]*today's water extent/.test(statewideFixtures), "Medina directory summary must not freeze a 'today' lake level.");
 assert(!/water levels are currently far below conservation pool/.test(statewideFixtures), "Sweetwater summary must use official live levels, not a frozen current-level statement.");
 
 if (errors.length) {
