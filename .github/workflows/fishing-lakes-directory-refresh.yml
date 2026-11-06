@@ -13,6 +13,11 @@ on:
     paths:
       - 'src/components/fishing/FishingLakesDirectory.tsx'
       - 'src/data/fishing/lake-directory-advisories.json'
+      - 'src/data/fishing/statewide-lake-network.ts'
+      - 'src/data/fishing/planner-data.server.ts'
+      - 'src/lazy/fishing-compare.tsx'
+      - 'src/routes/fishing.compare.tsx'
+      - 'scripts/ci/audit-fishing-compare-authority.mjs'
       - 'src/data/fishing/lake-authority-research-wave1.ts'
       - 'src/data/fishing/slugs.ts'
       - 'src/data/fishing/fixtures.ts'
@@ -52,11 +57,17 @@ jobs:
           node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
           node --check scripts/ci/audit-fishing-lake-regulation-sources.mjs
           node scripts/ci/audit-fishing-lake-regulation-sources.mjs --plan
+          node scripts/ci/audit-fishing-compare-authority.mjs --local
       - name: Verify posted official lake access restrictions
         if: github.event_name != 'pull_request'
         id: source
         continue-on-error: true
         run: node scripts/ci/audit-fishing-lakes-directory-sources.mjs
+      - name: Check source-backed comparison grades and Amistad NPS current-status provider
+        if: github.event_name != 'pull_request'
+        id: compare
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-compare-authority.mjs --remote
       - name: Check current published lake authority research in PR
         if: github.event_name == 'pull_request'
         run: node scripts/data/validate-fishing-lake-research.mjs
@@ -86,24 +97,25 @@ jobs:
           path: |
             .artifacts/fishing-lakes-directory-source-check.json
             .artifacts/fishing-lake-regulation-sources.json
+            .artifacts/fishing-compare-authority-check.json
             fishing-authority-registered-urls.json
             fishing-authority-registered-urls.md
           if-no-files-found: warn
           retention-days: 45
       - name: Create or update actionable GitHub source drift issue
-        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.quarterly.outcome == 'failure')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           title='Fishing lakes directory official-source refresh drift'
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
-          detail="$(node -e 'const fs=require("fs");const p=".artifacts/fishing-lake-regulation-sources.json";if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));console.log((r.errors||[]).slice(0,12).join("; "))}')"
-          body="The scheduled fishing lakes directory refresh detected a TPWD access-alert mismatch, a lake-specific fishery/regulation source mismatch, or an authority-contract problem. This is **source integrity monitoring, not verification that bag or length limits have changed**. Preserve conservative visitor warnings and check the official primary sources before revising factual claims. See evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. No verification dates should be updated without a real source check. Source failures (first 12): $detail"
+          detail="$(node -e 'const fs=require("fs");for(const p of [".artifacts/fishing-lake-regulation-sources.json",".artifacts/fishing-compare-authority-check.json"]){if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));console.log((r.errors||[]).slice(0,12).join("; "))}}')"
+          body="The scheduled fishing lakes directory refresh detected a TPWD access-alert mismatch, a comparative fishery-grade mismatch, an NPS condition-source drift, a lake-specific fishery/regulation source mismatch, or an authority-contract problem. This is **source integrity monitoring, not verification that bag or length limits have changed**. Preserve conservative visitor warnings and check the official primary sources before revising factual claims. See evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. No verification dates should be updated without a real source check. Source failures (first 12): $detail"
           if [[ -n "$existing" ]]; then
             gh issue comment "$existing" --body "$body"
           else
             gh issue create --title "$title" --body "$body"
           fi
       - name: Fail on unresolved official-source or contract drift
-        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.quarterly.outcome == 'failure')
         run: exit 1
