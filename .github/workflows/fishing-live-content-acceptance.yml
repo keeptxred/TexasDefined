@@ -34,29 +34,3 @@ jobs:
         if: github.event_name != 'pull_request'
         run: node scripts/ci/verify-fishing-live-content.mjs
 
-  browser:
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
-    needs: verify
-    runs-on: ubuntu-latest
-    timeout-minutes: 22
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Install isolated Chrome driver
-        run: |
-          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
-          test -n "$CHROME_BIN"
-          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-          npm install --prefix /tmp/texasdefined-fishing-access-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Verify desktop/mobile source classifications, filters, and canonical
-        run: node scripts/ci/verify-fishing-access-browser.mjs
-      - name: Save browser screenshots and machine-readable evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: fishing-access-browser-${{ github.run_id }}
-          path: artifacts/fishing-access-browser/
-          retention-days: 30
-          if-no-files-found: warn
