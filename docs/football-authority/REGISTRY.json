@@ -47,12 +47,12 @@
     "remainingAssigned": 25,
     "assignmentBranch": "feat/football-b014-assign-25-20261106",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "de-soto",
-    "nextSchool": "decatur",
-    "implementedOnBranch": 20,
-    "remainingToImplement": 5,
+    "currentSchool": null,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "20 distinct first-party source-authored SSR guides and school↔county reciprocity; 305 historical VERIFIED, zero Batch014 browser certificates."
+    "notes": "All 25 individually source-authored SSR guides with source-backed campus↔county reciprocal links; historical 305 VERIFIED preserved. Batch014 remains NOT technically VERIFIED until release-matched 75+25 real Chrome and protected evidence-only graduation."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -13248,7 +13248,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/de-soto",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13263,7 +13263,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/decatur",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13278,7 +13278,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/deer-park",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13293,7 +13293,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/del-rio",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13308,7 +13308,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/del-valle",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
