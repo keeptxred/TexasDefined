@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-fishing-lakes-directory-browser.mjs'
+      - 'scripts/ci/wait-for-fishing-access-protected-production.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.test.mjs'
       - '.github/workflows/verify-fishing-lakes-directory-browser.yml'
   push:
     branches: [main]
@@ -16,6 +19,9 @@ on:
       - 'src/data/fishing/fixtures.ts'
       - 'src/data/fishing/slugs.ts'
       - 'scripts/ci/verify-fishing-lakes-directory-browser.mjs'
+      - 'scripts/ci/wait-for-fishing-access-protected-production.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.mjs'
+      - 'scripts/ci/fishing-access-deployment-source.test.mjs'
       - '.github/workflows/verify-fishing-lakes-directory-browser.yml'
       # A production deploy-system repair must re-certify the exact deployed SHA,
       # even when the fishing directory's source code itself is unchanged.
@@ -43,6 +49,8 @@ jobs:
         with:
           node-version: "22"
       - run: node --check scripts/ci/verify-fishing-lakes-directory-browser.mjs
+      - run: node --check scripts/ci/wait-for-fishing-access-protected-production.mjs
+      - run: node --test scripts/ci/fishing-access-deployment-source.test.mjs
 
   browser:
     if: github.event_name != 'pull_request'
@@ -58,11 +66,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-fishing-lakes-browser pending "Waiting for protected deployment and desktop/mobile acceptance"
-      - name: Wait for protected production deployment of this exact SHA
+      - name: Wait for a successful protected production main descendant that includes this source SHA
         env:
           GH_TOKEN: ${{ github.token }}
           PRODUCTION_COMMIT_SHA: ${{ github.sha }}
-        run: node scripts/ci/wait-for-protected-production.mjs
+        # Reuse the tested fail-closed ancestry + protected-status gate already used by fishing access.
+        run: node scripts/ci/wait-for-fishing-access-protected-production.mjs
       - name: Install isolated Chrome driver without changing repository dependencies
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
