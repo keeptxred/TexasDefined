@@ -30,6 +30,7 @@ jobs:
       - name: Validate homepage editorial diversity and concision
         run: |
           node --experimental-strip-types --test scripts/data/homepage-editorial.test.mjs
+          node --experimental-strip-types --test scripts/data/homepage-reading-time.test.mjs
           node scripts/data/validate-homepage-seo.mjs
           node --test scripts/ci/verify-homepage-fresh-production.test.mjs
           node --test scripts/ci/audit-homepage-vitals.test.mjs
