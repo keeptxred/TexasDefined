@@ -179,6 +179,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'de-soto': 'dallas', // DeSoto High 600 Eagle Dr campus Dallas County; game may be hosted off campus.
+    'decatur': 'wise', // Decatur High 750 E Eagle Summit, Wise County; football stadium 608 E Shoemaker.
+    'deer-park': 'harris', // Deer Park High south 710 W San Augustine and north 402 Ivy, Harris County; not stadium gates.
+    'del-rio': 'val-verde', // Del Rio High 100 Memorial Dr, Val Verde County; district office 315 Griner.
+    'del-valle': 'travis', // Del Valle High 5201 Ross Rd Travis County; district administration 5301 Ross.
     'danbury': 'brazoria', // Danbury High 5611 Panther Dr; Brazoria County campus, not inferred stadium gate.
     'dawson': 'navarro', // Dawson ISD at 199 N School Ave in Navarro County; not Welch Dawson ISD.
     'dayton': 'liberty', // Dayton High 3200 N Cleveland St, Liberty County; district office is elsewhere.
