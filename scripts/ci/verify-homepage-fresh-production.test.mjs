@@ -134,6 +134,29 @@ test('never accepts an outdated 18-minute homepage even if its linked article is
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test('editorial homepage rotation can hide USS Lexington without failing live health', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'td-lexington-rotation-'));
+  try {
+    const rotated = valid.replace(
+      'USS Lexington (CV-16): The Blue Ghost, World War II Aircraft Carrier and Corpus Christi Museum',
+      'A different Texas history feature',
+    );
+    assert.equal(checkHomepageHtml(rotated).failures.length, 0);
+    const requests = [];
+    const result = await verifyHomepageProduction({
+      origins: ['https://texasdefined.com'], attempts: 1,
+      reportPath: join(dir, 'report.json'),
+      fetchImpl: async url => {
+        requests.push(String(url));
+        return new Response(rotated, { status: 200, headers: { 'Content-Type': 'text/html' } });
+      },
+    });
+    assert.equal(result.state, 'verified');
+    assert.equal(result.checks[0].lexingtonFeatured, false);
+    assert.equal(requests.length, 1, 'no article fetch for an unfeatured article');
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('daily watchdog fails closed on homepage live and field-vitals check failures', () => {
   const workflow = readFileSync('.github/workflows/site-quality-watchdog.yml', 'utf8');
   const match = workflow.match(/      - name: Fail workflow when any quality check fails\n        if: ([^\n]+)\n        run: \|/);
