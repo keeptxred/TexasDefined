@@ -1,6 +1,7 @@
 import { fishingPlatform, fishingScope } from "./index";
 import { FISHING_REPORTS_DIRECTORY_PATH, FISHING_REPORTS_VERIFIED_AT, fishingReportCanonicalPath, fishingReportFreshness } from "./report-routing";
 import { isPublicFishingReportValid } from "./report-validation";
+import { latestFishingSourceReviewDate } from "./source-review-dates";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "./lake-conroe-routing";
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "./showcase-lake-routing";
 
@@ -16,6 +17,7 @@ export async function loadFishingReportSitemapEntriesServer() {
   const validReports = reports.filter((report) => isPublicFishingReportValid(report, context) && fishingReportFreshness(report) === "current");
   // Advertise only reports sections with an independently validated,
   // unexpired published report. The matching empty route retains noindex.
+  const latestReportReviewDate = latestFishingSourceReviewDate(validReports, FISHING_REPORTS_VERIFIED_AT);
   const qualifiedLakeIds = new Set(validReports.map((report) => report.lakeId));
   // This loader already has lakes AND verified guides; share the read rather
   // than making another statewide lake request in the guide-sitemap loader.
@@ -35,7 +37,7 @@ export async function loadFishingReportSitemapEntriesServer() {
       ? [{ path: showcaseLakeCanonicalPath(lake.slug, "reports"), lastmod: lake.verifiedAt }]
       : []);
   return [
-    ...(validReports.length ? [{ path: FISHING_REPORTS_DIRECTORY_PATH, lastmod: FISHING_REPORTS_VERIFIED_AT }] : []),
+    ...(validReports.length ? [{ path: FISHING_REPORTS_DIRECTORY_PATH, lastmod: latestReportReviewDate }] : []),
     ...validReports.map((report) => ({ path: fishingReportCanonicalPath(report.slug), lastmod: report.publishedAt.slice(0, 10) })),
     ...lakeSectionEntries,
     ...guideSectionEntries,
