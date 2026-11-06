@@ -18,6 +18,28 @@ const robots = read('public/robots.txt');
 const correctionsPolicy = read('src/routes/corrections-policy.tsx');
 const editorialPolicy = read('src/routes/editorial-policy.tsx');
 const errors = [];
+const guideFixtures = read('src/data/fixtures/texas.ts');
+const guideLinks = read('src/data/guide-links.ts');
+for (const [slug, title, summaryPhrase, expectedHref] of [
+  ['property-tax-estimator', 'Texas Property Tax Estimator', 'separate school and other exemptions', '/texas-property-tax-estimator'],
+  ['cost-of-living-comparison', 'Cost of Living Comparison', 'current-area and Texas-area cost indexes', '/texas-cost-of-living-calculator'],
+  ['state-park-reservation-playbook', 'Texas State Parks Guide', 'confirm availability with TPWD before booking', '/explore/state-parks'],
+]) {
+  const marker = 'slug: "' + slug + '",';
+  const start = guideFixtures.indexOf(marker);
+  const end = start < 0 ? -1 : guideFixtures.indexOf('\n  },', start);
+  const card = start >= 0 && end > start ? guideFixtures.slice(start, end) : '';
+  if (!card.includes('title: "' + title + '"') || !card.includes(summaryPhrase) || !card.includes('status: "available"')) {
+    errors.push('Homepage guide card does not accurately describe its available destination: ' + slug + '.');
+  }
+  if (!guideLinks.includes('"' + slug + '": "' + expectedHref + '"')) {
+    errors.push('Homepage guide card must link to its actual functionality: ' + slug + ' -> ' + expectedHref + '.');
+  }
+}
+if (guideFixtures.includes('The booking windows, release times and backup parks that get you in on a spring Saturday.')) {
+  errors.push('Homepage must not advertise an unimplemented state-park reservation playbook.');
+}
+
 if (!correctionsPolicy.includes('mailto:admin@texasdefined.com?subject=Texas%20Defined%20editorial%20correction') ||
     !correctionsPolicy.includes('Share a firsthand Texas update') ||
     correctionsPolicy.includes('to="/partner-with-us"')) {
