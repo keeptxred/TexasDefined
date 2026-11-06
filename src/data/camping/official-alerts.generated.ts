@@ -4,9 +4,9 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "goose-island-state-park",
     "parkName": "Goose Island State Park",
     "sourceUrl": "https://tpwd.texas.gov/state-parks/goose-island/alert",
-    "notice": "Bayfront camping-area water outage reported October 23, 2026. Fill fresh-water tanks before arriving; TPWD also reports a burn ban and possible intermittent campsite disruptions.",
-    "checkedAt": "2026-10-28",
-    "status": "confirmed"
+    "notice": "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.",
+    "checkedAt": "2026-11-06",
+    "status": "needs-review"
   },
   {
     "destinationSlug": "enchanted-rock-state-natural-area",
