@@ -1118,6 +1118,10 @@ test('MSR Houston browser verifier changes trigger its real production acceptanc
   const plan = buildChangePlan({ baseline, head, changedFiles: changed });
   assert.equal(plan.groups.sports, true,
     'A verifier-only MSR fix must not skip the protected post-deploy sports/MSR Chrome checks');
+  const plannerEdit = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
+  assert.equal(plannerEdit.groups.sports, true,
+    'The release activating this policy must itself rerun the fixed MSR Chrome gate');
+
   const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/data/fishing/access-kind.ts'] });
   assert.equal(unrelated.groups.sports, false,
     'Do not trigger unrelated sports QA on fishing-only source edits');
