@@ -234,6 +234,11 @@ function Page() {
     'dallas-adamson': 'dallas', // Dallas ISD W.H. Adamson High 309 E Ninth St.
     'dallas-carter': 'dallas', // Dallas ISD David W Carter High 1819 W Wheatland Rd.
     'dallas-conrad': 'dallas', // Dallas ISD Emmett J Conrad High 7502 Fair Oaks Ave.
+    'dallas-pinkston': 'dallas', // Current Pinkston Vikings Dallas ISD campus 2815 Bickers St.
+    'dallas-roosevelt': 'dallas', // Dallas Roosevelt High of Innovation Mustangs 525 Bonnie View.
+    'dallas-samuell': 'dallas', // W W Samuell current primary school page Spartans 7625 Hume Dr.
+    'dallas-seagoville': 'dallas', // Seagoville High Dragons 15920 Seagoville Rd Dallas 75253.
+    'dallas-skyline': 'dallas', // Skyline High Raiders 7777 Forney Rd.
     'dallas-kimball': 'dallas', // Kimball HS Dallas ISD campus, 3606 S Westmoreland; not stadium gate.
     'dallas-life-oak-cliff': 'dallas', // Life School charter High School Oak Cliff campus 4400 S R L Thornton; NOT Dallas ISD.
     'dallas-lincoln': 'dallas', // Lincoln High current Elsie Faye Heggins St address; older Hatcher name.
