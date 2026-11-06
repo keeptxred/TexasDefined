@@ -114,6 +114,12 @@ for (const sourceBacked of ["Lake Fork", "Lake Buchanan", "Lake Travis", "Lake W
 for (const name of ["Stubblefield Lake", "Cagle Recreation Area", "Stow-a-way Marina", "Scott", "FM 830 Ramp", "April Plaza Marina", "Pier 105", "Lakeview Marina"]) {
   has(access, name, "/fishing/access");
 }
+// These three Lake Travis facilities are individually documented as concrete
+// ramps by TPWD; check ordinary rendered production HTML after deployment.
+for (const name of ["Gloster Bend Recreation Area", "Sandy Creek Park", "Hippie Hollow"]) {
+  has(access, name, "/fishing/access");
+  has(ordinaryAccess, name, "/fishing/access ordinary URL");
+}
 lacks(access, "No Access Listings Match These Filters", "/fishing/access");
 // With 20+ lakes and 100+ source-reviewed facilities, the statewide directory
 // should become indexable; incomplete *individual* facility profiles stay noindex.
