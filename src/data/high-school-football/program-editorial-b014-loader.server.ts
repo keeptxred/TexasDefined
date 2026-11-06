@@ -3,6 +3,7 @@ export const BATCH014_FIRST_FIVE = new Set(['dallas-kimball','dallas-life-oak-cl
 export const BATCH014_SECOND_FIVE = new Set(['dallas-pinkston','dallas-roosevelt','dallas-samuell','dallas-seagoville','dallas-skyline']);
 export const BATCH014_THIRD_FIVE = new Set(['dallas-south-oak-cliff','dallas-spruce','dallas-sunset','dallas-white','dallas-wilson']);
 export const BATCH014_FOURTH_FIVE = new Set(['danbury','dawson','dayton','de-kalb','de-leon']);
+export const BATCH014_FIFTH_FIVE = new Set(['de-soto','decatur','deer-park','del-rio','del-valle']);
 export async function loadBatch014FootballProgramEditorial(slug: string): Promise<FootballProgramEditorial | undefined> {
   if(BATCH014_FIRST_FIVE.has(slug)){
     const {getBatch014FirstFiveEditorial}=await import('./program-editorial-b014');
@@ -19,6 +20,10 @@ export async function loadBatch014FootballProgramEditorial(slug: string): Promis
   if(BATCH014_FOURTH_FIVE.has(slug)){
     const {getBatch014FourthFiveEditorial}=await import('./program-editorial-b014-group4');
     return getBatch014FourthFiveEditorial(slug);
+  }
+  if(BATCH014_FIFTH_FIVE.has(slug)){
+    const {getBatch014FifthFiveEditorial}=await import('./program-editorial-b014-group5');
+    return getBatch014FifthFiveEditorial(slug);
   }
   return undefined;
 }
