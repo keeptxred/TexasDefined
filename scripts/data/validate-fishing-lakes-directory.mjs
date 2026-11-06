@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), "utf8");
 
-const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, regulationAudit, researchValidator, advisoriesText, lakeFixtures, sharedAnswers, wave2Fixtures, statewideFixtures] = await Promise.all([
+const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes, authorityWorkflow, refreshWorkflow, sourceAudit, regulationAudit, researchValidator, advisoriesText, lakeFixtures, sharedAnswers, wave2Fixtures, statewideFixtures, wave2Showcase] = await Promise.all([
   read("src/routes/fishing.lakes.tsx"),
   read("src/components/fishing/FishingLakesDirectory.tsx"),
   read("src/routes/fishing.tsx"),
@@ -23,6 +23,7 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
   read("src/data/fishing/lake-directory-answers.ts"),
   read("src/data/fishing/lake-expansion-wave2-fixtures.ts"),
   read("src/data/fishing/statewide-lake-network.ts"),
+  read("src/data/fishing/wave2-showcase-lakes-prototype.ts"),
 ]);
 
 const errors = [];
@@ -156,8 +157,10 @@ for (const marker of [
   'All matching fishing lake guides',
   'setVisibleCount((count) => count + 12)',
   'Show 12 more lake cards',
-  'lake.slug === "lake-somerville"',
+  'getGroupedFisheryTargets(lake.slug, targets)',
   'White & hybrid striped bass (TPWD combined)',
+  'Largemouth & smallmouth bass (TPWD combined)',
+  'Hybrid & striped bass (TPWD combined)',
   'target.quality !== "unknown"',
   'lake.slug === "lake-bridgeport" || lake.slug === "lake-sweetwater"',
 ]) assert(component.includes(marker), `Fishing lake progressive discovery / provenance / visual safeguard missing: ${marker}`);
@@ -166,6 +169,10 @@ for (const marker of [
 // or regulation text. Falcon has a special alligator-gar rule, not a TPWD grade.
 assert(/id: "falcon-alligator-gar"[^\n]*quality: "unknown"/.test(wave2Fixtures), "Falcon gar must remain ungraded until a quality-specific source supports a grade.");
 assert(!/id: "falcon-alligator-gar"[^\n]*quality: "(good|excellent|fair|poor)"/.test(wave2Fixtures), "Do not reintroduce an unsupported Falcon alligator-gar grade.");
+assert(wave2Showcase.includes('id: "alligator-gar", name: "Alligator gar", prominence: "Specialized target", quality: "Not graded by TPWD"'), "Falcon detailed guide must not show a fabricated Good gar grade.");
+assert(statewideFixtures.includes("TPWD rates Largemouth & Smallmouth Bass together as Good"), "Bridgeport grouped black bass rating provenance missing.");
+assert(statewideFixtures.includes("TPWD rates White & Hybrid Striped Bass as one combined Excellent category"), "Bridgeport grouped white/hybrid grade provenance missing.");
+assert(wave2Fixtures.includes("TPWD's Excellent rating applies to the combined Hybrid & Striped Bass category"), "Tawakoni combined striper grade provenance missing.");
 assert(statewideFixtures.includes("TPWD awards Excellent to the combined White & Hybrid Striped Bass category"), "Somerville white/hybrid ratings must disclose TPWD combined category.");
 assert(!/summary:[^\n]*today's water extent/.test(statewideFixtures), "Medina directory summary must not freeze a 'today' lake level.");
 assert(!/water levels are currently far below conservation pool/.test(statewideFixtures), "Sweetwater summary must use official live levels, not a frozen current-level statement.");
