@@ -47,12 +47,12 @@
     "remainingAssigned": 25,
     "assignmentBranch": "feat/football-b014-assign-25-20261106",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "dallas-kimball",
-    "nextSchool": "dallas-pinkston",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "currentSchool": "dallas-pinkston",
+    "nextSchool": "dallas-south-oak-cliff",
+    "implementedOnBranch": 10,
+    "remainingToImplement": 15,
     "remainingToVerify": 25,
-    "notes": "First five independently researched original SSR guides and Dallas campus reciprocity source-implemented; pending protected validation/merge and actual production Chrome. Zero Batch014 VERIFIED."
+    "notes": "First ten Batch014 individually source-authored and campus-county linked; 305 historical VERIFIED unchanged, zero Batch014 Chrome-certified."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -13023,7 +13023,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-pinkston",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13038,7 +13038,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-roosevelt",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13053,7 +13053,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-samuell",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13068,7 +13068,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-seagoville",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13083,7 +13083,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-skyline",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
