@@ -1111,3 +1111,22 @@ test('four concluded 2026 events are checked on normal and release URLs, without
   assert.ok(plan.selectedPaths.length <= PAGE_BUDGET, 'Exact event canaries must obey production page budget');
 
 });
+
+
+test('MSR Houston browser verifier changes trigger its real production acceptance', () => {
+  const changed = ['scripts/ci/verify-msr-houston-browser.mjs'];
+  const plan = buildChangePlan({ baseline, head, changedFiles: changed });
+  assert.equal(plan.groups.sports, true,
+    'A verifier-only MSR fix must not skip the protected post-deploy sports/MSR Chrome checks');
+  const plannerEdit = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
+  assert.equal(plannerEdit.groups.sports, true,
+    'The release activating this policy must itself rerun the fixed MSR Chrome gate');
+
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/data/fishing/access-kind.ts'] });
+  assert.equal(unrelated.groups.sports, false,
+    'Do not trigger unrelated sports QA on fishing-only source edits');
+  const workflow = text('.github/workflows/deploy-production.yml');
+  assert.match(workflow, /id: live_msr_browser/);
+  assert.match(workflow, /steps\.change_scope\.outputs\.sports == 'true'/,
+    'Sports scope must control actual MSR production browser execution');
+});
