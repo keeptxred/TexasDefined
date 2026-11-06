@@ -25,9 +25,21 @@ type ProfileHeadEntry = {
   technique: { name: string; slug: string; summary: string; verifiedAt: string };
   canonicalPath: string;
   lakes: Array<{ name: string; slug: string }>;
+  featuredProfiles: Array<{ lake: { name: string; slug: string } }>;
   species: Array<{ commonName: string }>;
   sources: Array<{ url: string; checkedAt?: string }>;
 };
+
+// General TPWD catalog summaries are retained in the verified dataset, not repeated
+// dozens of times on every technique guide's indexable editorial page.
+const genericLakeApplication = /\b(?:is included in TPWD-backed fishing guidance|is documented in the verified)\b/i;
+
+function selectFeaturedLakeApplications<T extends { profile: { summary: string }; lake: { name: string } }>(profiles: T[]): T[] {
+  const specific = profiles.filter((row) => !genericLakeApplication.test(row.profile.summary)).slice(0, 12);
+  const minimum = Math.min(6, profiles.length);
+  const fallback = profiles.filter((row) => !specific.includes(row)).slice(0, Math.max(0, minimum - specific.length));
+  return [...specific, ...fallback].sort((a, b) => a.lake.name.localeCompare(b.lake.name));
+}
 
 function newestDate(values: Array<string | undefined>) {
   return values.filter((value): value is string => Boolean(value)).sort().at(-1);
@@ -56,7 +68,7 @@ function buildFishingTechniqueDirectoryHead(entries: DirectoryHeadEntry[]) {
 }
 
 function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
-  const { technique, canonicalPath, lakes, species, sources } = entry;
+  const { technique, canonicalPath, featuredProfiles, species, sources } = entry;
   const description = `How to fish ${technique.name.toLowerCase()} in Texas: practical setup, where and when to use it, seasonal guidance, and source-backed lake and species applications.`;
   const images = fishingTechniqueImages[technique.slug];
   const imageReady = isFishingTechniqueHeroReady(technique.slug);
@@ -67,7 +79,7 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: sources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` }, ...(imageReady && images?.hero ? { image: images.hero.src.startsWith("http") ? images.hero.src : `${origin}${images.hero.src}` } : {}) },
-      { "@type": "ItemList", "@id": `${origin}${canonicalPath}#lake-applications`, numberOfItems: lakes.length, itemListElement: lakes.map((lake, index) => ({ "@type": "ListItem", position: index + 1, name: `${technique.name} — ${lake.name}`, url: `${origin}${fishingFoundationAnchor("lake", lake.slug)}` })) },
+      { "@type": "ItemList", "@id": `${origin}${canonicalPath}#lake-applications`, numberOfItems: featuredProfiles.length, itemListElement: featuredProfiles.map(({ lake }, index) => ({ "@type": "ListItem", position: index + 1, name: `${technique.name} — ${lake.name}`, url: `${origin}${fishingFoundationAnchor("lake", lake.slug)}` })) },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Front page", item: origin },
         { "@type": "ListItem", position: 2, name: "Fishing", item: `${origin}/fishing` },
@@ -141,6 +153,7 @@ export async function loadFishingTechniqueDirectoryServer() {
         technique,
         canonicalPath: fishingTechniqueCanonicalPath(technique.slug),
         profiles,
+        featuredProfiles: selectFeaturedLakeApplications(profiles),
         species: relatedSpecies,
         lakes: relatedLakes,
         seasons,
