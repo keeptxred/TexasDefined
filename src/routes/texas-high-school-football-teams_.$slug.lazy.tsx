@@ -227,6 +227,9 @@ function Page() {
     // Batch013: campus counties, not district service boundaries or football stadium locations.
     // NCES public-school search identifies Cushing/Cy-Fair/Cypress Creek campus counties;
     // Texas public education records identify Cuero, Cumby district/campus counties.
+    'dallas-gateway-charter-academy': 'dallas', // NCES Gateway Charter Middle-HS, 1015 E Wheatland Rd (not 6103 University Hills elementary/district).
+    'dallas-highland-park': 'dallas', // HPISD Highland Park High, 4220 Emerson Ave; Highlander Stadium venue is separate evidence.
+    'dallas-hutchins': 'dallas', // Dallas ISD Wilmer-Hutchins High, 5520 Langdon Rd; campus address is not stadium entry.
     'dallas-hillcrest': 'dallas', // Dallas ISD Hillcrest High campus, 9924 Hillcrest Rd; not a stadium gate.
     'dallas-jefferson': 'dallas', // Dallas ISD Thomas Jefferson campus, 4001 Walnut Hill Ln.
     'dallas-jesuit': 'dallas', // Jesuit Dallas campus, 12345 Inwood Rd; private school, not Dallas ISD.
