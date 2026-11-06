@@ -181,7 +181,7 @@ for (const { name, viewport, mobile } of [
       // A visitor can find and select it via the existing search; prior
       // selections must survive filters and progressive rendering changes.
       await page.getByRole("searchbox", { name: "Lake, county or city" }).fill(query);
-      await awaitFiltered(page, "some");
+      await lakeCard(page, slug).waitFor({ state: "visible", timeout: 16000 });
       assert.equal(await lakeCard(page, slug).count(), 1, name + ": searched comparison lake not visible: " + slug);
       await lakeCard(page, slug).getByRole("checkbox", { name: "Compare this lake" }).check();
     }
