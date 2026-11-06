@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
+import { MAX_ASSET_AUDIT_CONCURRENCY, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
 
 test('find only same-origin hashed JS/CSS from script, modulepreload and stylesheet', () => {
   const html = [
@@ -302,4 +302,45 @@ test('full cross-release retention cohort is verified without sampling, with a f
     (_, i) => ['/assets/test-' + i + '.js', {kind:'js'}]))),
     /Cross-release asset verification cap exceeded: 513 > 512; inspect retained-asset history, do not truncate/);
   assert.throws(() => assertBoundedCrossReleaseSet([]), /must be a Map/);
+});
+
+test('all 1,500 immutable originals are audited once in stable order and bounded concurrency',async()=>{
+  const originals=Array.from({length:1500},(_,i)=>'/assets/Old-'+String(i).padStart(4,'0')+'.js');
+  let concurrent=0,maxConcurrent=0;
+  const visited=new Set();
+  const result=await mapBounded(originals,MAX_ASSET_AUDIT_CONCURRENCY,async(path,index)=>{
+    assert.equal(visited.has(path),false,'duplicate asset verification');
+    visited.add(path);concurrent++;
+    maxConcurrent=Math.max(maxConcurrent,concurrent);
+    await new Promise(resolve=>setImmediate(resolve));
+    concurrent--;
+    return {path,index,ok:true};
+  });
+  assert.equal(result.length,1500);
+  assert.equal(visited.size,1500);
+  assert.ok(maxConcurrent<=6 && maxConcurrent>1);
+  assert.deepEqual(result.map(x=>x.path),originals);
+  await assert.rejects(mapBounded([],0,async()=>{}),/Invalid bounded/);
+});
+
+test('HTML probe retry permits exactly one transient transport timeout, never false acceptance',async()=>{
+  let calls=0,pauses=0;
+  const success=await retryOneTransportTimeout(async()=>{
+    calls++;
+    if(calls===1)throw Object.assign(new Error('transient timeout'),{name:'TimeoutError'});
+    return {status:200,version:'expected-sha'};
+  },async()=>{pauses++;});
+  assert.deepEqual(success,{status:200,version:'expected-sha'});
+  assert.equal(calls,2);
+  assert.equal(pauses,1);
+  calls=0;
+  await assert.rejects(retryOneTransportTimeout(async()=>{
+    calls++;throw Object.assign(new Error('still unavailable'),{name:'TimeoutError'});
+  },async()=>{}),/still unavailable/);
+  assert.equal(calls,2,'never loop endlessly on a failed source');
+  calls=0;
+  await assert.rejects(retryOneTransportTimeout(async()=>{
+    calls++;throw new Error('wrong Worker SHA or HTTP 503 is not a network timeout');
+  },async()=>{throw Error('must not pause');}),/wrong Worker SHA/);
+  assert.equal(calls,1,'never retry a substantive release failure');
 });
