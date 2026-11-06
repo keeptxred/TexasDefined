@@ -1635,7 +1635,7 @@ export const LAKE_AUTHORITY_RESEARCH_WAVE1: Record<string, LakeAuthorityResearch
       },
       {
         "label": "Current low-water launch closures and marina hazards",
-        "text": "NPS current conditions show only the left side of Rough Canyon and Diablo East ramps open; most remaining launch ramps are closed due to low water. Diablo East Marina Cove and walkway are separately closed because of unsafe docks and unstable ground. Verify the latest NPS alerts before choosing a launch.",
+        "text": "NPS maintains an operational ramp-status table because low water and unsafe infrastructure can restrict boating access at Diablo East, Rough Canyon and other launch points. Its published status, including any separate marina-cove or walkway restrictions, can change; do not treat TPWD-listed access facilities as open ramps. Check the official NPS conditions and lake level on the day of travel.",
         "sourceUrl": "https://www.nps.gov/amis/planyourvisit/conditions.htm"
       }
     ],
