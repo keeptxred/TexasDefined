@@ -43,6 +43,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 
 const prebuildChecks = [
   ['FISHING/PRODUCTION', 'Verify fail-closed bounded fishing sitemap transport timeout handling', 'node', ['--test', 'scripts/ci/fishing-parity-http.test.mjs']],
+  ['FOOTBALL/PRODUCTION', 'Verify bounded playoff guide live HTTP timeout handling', 'node', ['--test', 'scripts/production/playoff-guide-http.test.mjs']],
   ['SEO/DISTINCTNESS', 'Syntax-check bounded live 42-pair SSR validator', 'node', ['--check', 'scripts/ci/verify-42-page-pairs-production.mjs']],
   ['SEO/DISTINCTNESS', 'Verify all 42 sports and fishing page pairs keep distinct editorial content and canonicals', 'node', ['scripts/data/validate-page-pair-distinctness.mjs']],
   ['SEO/DISTINCTNESS', 'Prevent generic lake/source repetition across all nine fishing technique guides', 'node', ['--experimental-strip-types', '--test', 'scripts/data/validate-fishing-technique-selection.test.mjs']],
