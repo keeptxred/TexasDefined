@@ -20,7 +20,7 @@ function getLakeBlock(slug) {
 }
 const expected = [
   { slug: "alan-henry-reservoir", tpwdSlug: "alan_henry", grades: { "Largemouth Bass": "Good", "Catfish": "Good", "Spotted Bass": "Good", "Crappie": "Poor" } },
-  { slug: "amistad-reservoir", tpwdSlug: "amistad", grades: { "Largemouth Bass": "Excellent", "Catfish": "Good", "Striped Bass": "Good", "White Bass": "Good" } },
+  { slug: "amistad-reservoir", tpwdSlug: "amistad", grades: { "Largemouth Bass": "Excellent", "Catfish": "Good", "Striped Bass": "Good", "White Bass": "Good" }, tpwdGrades: { "Largemouth Bass": "Excellent", "Channel & Blue Catfish": "Good", "White & Striped Bass": "Good" } },
   { slug: "aquilla-lake", tpwdSlug: "aquilla", grades: { "Largemouth Bass": "Fair", "Catfish": "Good", "Crappie": "Good", "White Bass": "Fair" } },
 ];
 const speciesIds = { "Largemouth Bass": "largemouth-bass", Catfish: "catfish", "Spotted Bass": "spotted-bass", Crappie: "crappie", "Striped Bass": "striped-bass", "White Bass": "white-bass" };
@@ -40,6 +40,7 @@ for (const [file, tokens] of [
   [compare, ["Source-backed fishery grades", "Recorded access, not open-now status", "Official lake level and conditions", "Reviewed source dates", "Regulations, hazards and launch restrictions", "Verified guides (local fishing businesses)", "does not accept paid weighting", "aria-label=\"Lake comparison table\""]],
   [server, ["LAKE_AUTHORITY_RESEARCH_WAVE1", "comparisonAuthority", "accessReviewedAt", "fisheryReviewedAt", "importantAdvisories", "operatorConditionsSource", "Historical open/closed descriptions may be obsolete"]],
 ]) for (const token of tokens) requireContract(file.includes(token), "Missing compare source contract " + token);
+requireContract(expected.find((entry) => entry.slug === "amistad-reservoir")?.tpwdGrades?.["White & Striped Bass"] === "Good", "Amistad must compare TPWD grouped white/striped bass grade");
 checks.push({ kind: "local-contract", status: errors.length ? "failed" : "matched" });
 
 function toText(html) {
@@ -62,7 +63,7 @@ async function checkTpWd(entry) {
     const begin = text.lastIndexOf("Angling Opportunities"), end = text.indexOf("Fishing Cover", begin);
     if (begin < 0 || end <= begin) throw new Error("TPWD angling-table headings changed");
     const section = text.slice(begin, end), mismatches = [];
-    for (const [species, expectedGrade] of Object.entries(entry.grades)) {
+    for (const [species, expectedGrade] of Object.entries(entry.tpwdGrades ?? entry.grades)) {
       const re = new RegExp("(?:^|\\s)" + species.replace(/[\W]/g, "\\$&") + "\\s+(Poor|Fair|Good|Excellent)(?:\\s|$)", "i");
       const official = section.match(re)?.[1];
       if (!official) mismatches.push(species + " quality grade not parseable");
