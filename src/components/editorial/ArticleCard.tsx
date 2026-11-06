@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { useBrand } from "@/brand/context";
 import type { Article } from "@/data/types";
+import { verifiedDiscoveryReadingMinutes } from "@/data/verified-discovery-reading-time";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { cn } from "@/lib/utils";
@@ -54,7 +55,7 @@ export function ArticleCard({ article, size = "default", eager = false, classNam
           <Link to="/article/$slug" params={{ slug: article.slug }} className="transition-colors hover:text-primary">{article.title}</Link>
         </h3>
         {size !== "compact" && <p className="mt-3 max-w-2xl text-[0.98rem] leading-7 text-muted-foreground">{article.dek}</p>}
-        <p className="mt-4 text-[0.72rem] font-medium uppercase tracking-[0.08em] text-muted-foreground">{formatDate(article.publishedAt, brand.identity.locale)} · {formatReadingTime(article.readingMinutes)}</p>
+        <p className="mt-4 text-[0.72rem] font-medium uppercase tracking-[0.08em] text-muted-foreground">{formatDate(article.publishedAt, brand.identity.locale)}{verifiedDiscoveryReadingMinutes(article) !== null ? ` · ${formatReadingTime(article.readingMinutes)}` : ""}</p>
       </div>
     </article>
   );
