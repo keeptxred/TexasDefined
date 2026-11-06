@@ -49,6 +49,8 @@ jobs:
       - name: Run recurring site quality audit
         id: quality
         continue-on-error: true
+        env:
+          SITE_QUALITY_LIVE: '1'
         run: node scripts/data/run-site-quality-watch.mjs
 
       - name: Preserve quality report
