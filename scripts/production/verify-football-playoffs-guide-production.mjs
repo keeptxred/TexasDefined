@@ -1,5 +1,6 @@
 import { expectedCjAccountClick, expectedHotelsClick } from '../ci/cj-account-link-contract.mjs';
 import assert from 'node:assert/strict';
+import { fetchPlayoffGuideHtml } from './playoff-guide-http.mjs';
 import { readFileSync } from 'node:fs';
 
 const slug = '/article/texas-high-school-football-playoffs-explained';
@@ -34,13 +35,10 @@ let failures = 0;
 for (const { label, origin } of endpoints) {
   const url = origin + slug;
   try {
-    const response = await fetch(url, {
-      headers: { Accept: 'text/html', 'Cache-Control': 'no-cache' },
-      cache: 'no-store',
-      redirect: 'follow',
-      signal: AbortSignal.timeout(30_000),
+    const transportRetries = [];
+    const { response, html, attempts } = await fetchPlayoffGuideHtml(url, {
+      onRetry: (event) => transportRetries.push(event),
     });
-    const html = await response.text();
     const missing = checks.filter(([, marker]) => !html.includes(marker)).map(([name]) => name);
     const oldMarkers = oldContent.filter((marker) => html.includes(marker));
     // Enforce exact approved CJ link IDs, source attribution and destinations.
@@ -58,7 +56,7 @@ for (const { label, origin } of endpoints) {
     const noStore = /\bno-store\b/i.test(response.headers.get('cache-control') ?? '');
     const pass = response.status === 200 && missing.length === 0 && oldMarkers.length === 0 && affiliateContracts.every((link) => link.valid) && noStore;
     results.push({
-      label, url, status: response.status,
+      label, url, attempts, transportRetries, status: response.status,
       cacheControl: response.headers.get('cache-control'),
       cfCacheStatus: response.headers.get('cf-cache-status'),
       age: response.headers.get('age'),
