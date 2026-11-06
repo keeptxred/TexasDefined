@@ -47,12 +47,12 @@
     "remainingAssigned": 25,
     "assignmentBranch": "feat/football-b014-assign-25-20261106",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "dallas-pinkston",
-    "nextSchool": "dallas-south-oak-cliff",
-    "implementedOnBranch": 10,
-    "remainingToImplement": 15,
+    "currentSchool": "dallas-south-oak-cliff",
+    "nextSchool": "danbury",
+    "implementedOnBranch": 15,
+    "remainingToImplement": 10,
     "remainingToVerify": 25,
-    "notes": "First ten Batch014 independently source-authored, 305 older VERIFIED retained, zero new production Chrome certificates."
+    "notes": "15 original source-authored SSR guides and county backlinks; 305 historic VERIFIED preserved; Batch014 zero Chrome certified."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -13098,7 +13098,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-south-oak-cliff",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13113,7 +13113,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-spruce",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13128,7 +13128,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-sunset",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13143,7 +13143,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-white",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },
@@ -13158,7 +13158,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-wilson",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 14,
       "actualProductionVerified": false
     },

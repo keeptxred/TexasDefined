@@ -14,6 +14,9 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'dallas-spruce', mascot: 'Timberwolves', sourceUrl: 'https://spruce.dallasisd.org/our-school/quick-facts', sourceLabel: 'Current H Grady Spruce High School quick facts confirm Timberwolves, former Apaches', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-wilson', mascot: 'Wildcats', sourceUrl: 'https://woodrow.dallasisd.org/', sourceLabel: 'Current Dallas ISD Woodrow Wilson Wildcats school athletics', verifiedAt: '2026-11-06' },
+
   { slug: 'dallas-pinkston', mascot: 'Vikings', sourceUrl: 'https://pinkston.dallasisd.org/', sourceLabel: 'Current official Dallas Pinkston Vikings school home', verifiedAt: '2026-11-06' },
   { slug: 'dallas-roosevelt', mascot: 'Mustangs', sourceUrl: 'https://roosevelt.dallasisd.org/', sourceLabel: 'Current official Roosevelt High of Innovation Mustangs school home', verifiedAt: '2026-11-06' },
   { slug: 'dallas-samuell', mascot: 'Spartans', sourceUrl: 'https://samuell.dallasisd.org/', sourceLabel: 'Current Samuell primary school homepage Spartans; old path conflicts', verifiedAt: '2026-11-06' },

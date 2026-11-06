@@ -234,6 +234,11 @@ function Page() {
     'dallas-adamson': 'dallas', // Dallas ISD W.H. Adamson High 309 E Ninth St.
     'dallas-carter': 'dallas', // Dallas ISD David W Carter High 1819 W Wheatland Rd.
     'dallas-conrad': 'dallas', // Dallas ISD Emmett J Conrad High 7502 Fair Oaks Ave.
+    'dallas-south-oak-cliff': 'dallas', // Dallas ISD Golden Bears school campus 3601 S Marsalis; not Life School Oak Cliff Lions.
+    'dallas-spruce': 'dallas', // Dallas ISD Spruce Timberwolves at 9733 Old Seagoville, formerly Apaches.
+    'dallas-sunset': 'dallas', // Dallas ISD Sunset Bison 2120 W Jefferson, not guaranteed game venue.
+    'dallas-white': 'dallas', // W T White Longhorns Dallas ISD campus 4505 Ridgeside.
+    'dallas-wilson': 'dallas', // Woodrow Wilson Wildcats 100 S Glasgow Dallas ISD school campus.
     'dallas-pinkston': 'dallas', // Current Pinkston Vikings Dallas ISD campus 2815 Bickers St.
     'dallas-roosevelt': 'dallas', // Dallas Roosevelt High of Innovation Mustangs 525 Bonnie View.
     'dallas-samuell': 'dallas', // W W Samuell current official homepage Spartans 7625 Hume Dr.
