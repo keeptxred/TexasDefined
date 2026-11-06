@@ -38,6 +38,17 @@ for (const guard of [
   'originalEditorialDestinations.filter',
 ]) assert.ok(sitemap.includes(guard), `Editorial sitemap must retain quality gate: ${guard}`);
 
+// These two pages were independently proven 200/self-canonical/indexable
+// yet still omitted because bulk catalog and live detail source precedence
+// differed. Use the real detail resolver, not hardcoded URL exceptions.
+for (const marker of [
+  'const detailParitySlugs = ["blanco", "caddo-lake"] as const',
+  'await getResolvedDestination(slug)',
+  'auditDestination(resolved).readyForIndexing',
+  'isPrimaryTripPlannerDestination(resolved)',
+  'destinationEntries.some((item) => item.includes(loc))',
+]) assert.ok(sitemap.includes(marker), `Detail-sitemap resolution/parity safeguard missing: ${marker}`);
+
 // Public membership terms are visible and self-canonical in production. Do
 // not exclude them from the sitemap or accidentally index private Network
 // enrollment, billing or callback surfaces.
