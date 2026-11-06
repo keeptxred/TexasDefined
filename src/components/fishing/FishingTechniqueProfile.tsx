@@ -59,7 +59,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
     <Container className="py-12 sm:py-16">
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-3" aria-label="Technique coverage">
-        <div><p className="eyebrow text-muted-foreground">Lake guides</p><p className="mt-2 font-display text-4xl">{data.lakes.length}</p></div>
+        <div><p className="eyebrow text-muted-foreground">Lake guides</p><p className="mt-2 font-display text-4xl">{data.lakeCount}</p></div>
         <div><p className="eyebrow text-muted-foreground">Verified species</p><p className="mt-2 font-display text-4xl">{data.species.length}</p></div>
         <div><p className="eyebrow text-muted-foreground">Documented seasons</p><p className="mt-2 font-display text-4xl">{data.seasons.length}</p></div>
       </section>
@@ -193,7 +193,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Verified lake coverage</p>
           <h2 id="lake-applications" className="mt-3 font-display text-4xl sm:text-5xl">Texas Lakes Covered in This Guide</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">These {data.featuredProfiles.length} lake examples are selected from {data.profiles.length} source-backed lake-technique relationships, prioritizing lakes with specific technique guidance. The complete relationships remain in the fishing data and in the individual lake guides; this page does not repeat a statewide lake catalog or imply that a technique is working today.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">These {data.featuredProfiles.length} lake examples are selected from {data.profileCount} source-backed lake-technique relationships, prioritizing lakes with specific technique guidance. The complete relationships remain in the fishing data and in the individual lake guides; this page does not repeat a statewide lake catalog or imply that a technique is working today.</p>
           <p className="mt-3 text-sm leading-7"><a href="/fishing/lakes" className="border-b border-primary font-semibold text-primary">Browse all Texas fishing lake guides →</a> and check each lake's species, conditions, regulations and access before a trip.</p>
         </div>
         <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
