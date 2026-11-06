@@ -8,6 +8,7 @@ const read = (path) => readFileSync(path, "utf8");
 const routeSource = read("src/data/fishing/technique-routing.ts");
 const techniqueSource = read("src/data/fishing/technique-guide-content.ts");
 const fishingServer = read("src/data/fishing/technique-data.server.ts");
+const fishingQuality = read("src/data/fishing/technique-content-quality.ts");
 const fishingProfile = read("src/components/fishing/FishingTechniqueProfile.tsx");
 const sportsData = JSON.parse(read("src/data/pro-teams.json"));
 const sportsSeo = read("src/data/pro-team-seo.server.ts");
@@ -49,9 +50,13 @@ for (const slug of techniques) {
   assert.ok(routeSource.includes('"' + slug + '"'), "Technique lost its published route: " + slug);
   assert.ok(routeSource.includes('"/fishing/techniques/' + slug + '"'), "Technique lost its canonical path: " + slug);
 }
-assert.ok(fishingServer.includes("featuredProfiles: selectFeaturedLakeApplications(profiles)"), "Technique SSR no longer selects distinctive lake examples");
-assert.ok(fishingServer.includes("const genericLakeApplication"), "Generic TPWD lake descriptions need a common guard");
+assert.ok(fishingServer.includes("const featuredProfiles = selectFeaturedLakeApplications(profiles)"), "Technique SSR no longer selects distinctive lake examples");
+assert.ok(fishingQuality.includes("isGenericLakeTechniqueSummary"), "Generic TPWD lake descriptions need a shared content-quality guard");
 assert.ok(fishingProfile.includes("data.featuredProfiles.map"), "The detail page must show selected applications, not the repeated entire lake catalog");
+assert.ok(fishingProfile.includes("data.featuredSources.map"), "The page must not repeat every catalog source citation");
+assert.ok(!fishingProfile.includes("data.sources.map"), "The full repeated lake source directory has returned");
+assert.ok(fishingProfile.includes("isGenericLakeTechniqueSummary(row.profile.summary)"), "Generic lake narrative prose must be hidden on detail pages");
+assert.ok(fishingServer.includes("featuredSources: featuredSources") || fishingServer.includes("        featuredSources,"), "SSR must expose page-relevant sources");
 assert.ok(!fishingProfile.includes("data.profiles.map"), "The full repeated lake directory has returned");
 assert.ok(fishingServer.includes("profiles,"), "Do not delete verified lake-technique relationships");
 assert.ok(fishingServer.includes("lakes: relatedLakes"), "Do not lose full verified lake counts");

@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/Container";
 import { fishingTechniqueAuthorityContent, type FishingTechniqueAuthorityContent } from "@/data/fishing/technique-authority-content";
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
+import { isGenericLakeTechniqueSummary } from "@/data/fishing/technique-content-quality";
 import { fishingTechniqueImages } from "@/data/fishing/technique-images";
 import { FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "@/data/fishing/habitat-guides";
 import { relatedFishingTechniques } from "@/data/fishing/related-techniques";
@@ -201,7 +202,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
               <div><p className="eyebrow text-primary">Lake guide</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("lake", row.lake.slug)} className="hover:text-primary">{row.lake.name}</a></h3></div>
               <span className="border border-border px-3 py-1.5 text-xs">{row.profile.seasons.map(titleCase).join(" · ")}</span>
             </div>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">{row.profile.summary}</p>
+            {!isGenericLakeTechniqueSummary(row.profile.summary) && <p className="mt-4 text-sm leading-7 text-muted-foreground">{row.profile.summary}</p>}
             <div className="mt-5">
               <p className="eyebrow text-muted-foreground">Target species</p>
               <ul className="mt-3 flex flex-wrap gap-2">{row.species.map((fish) => <li key={fish.id}><a href={fishingFoundationAnchor("species", fish.slug)} className="inline-block border border-border px-3 py-1.5 text-xs hover:border-primary hover:text-primary">{fish.commonName}</a></li>)}</ul>
@@ -262,7 +263,8 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="py-12" aria-labelledby="technique-sources">
         <p className="eyebrow text-primary">Sources</p>
         <h2 id="technique-sources" className="mt-2 font-display text-4xl">Sources and Verification</h2>
-        <div className="mt-7 grid gap-5 md:grid-cols-2">{data.sources.map((source) => <article key={source.url} className="border-t border-border pt-5">
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These sources support the technique guidance and lake examples shown above. Each linked lake guide retains its own complete source references.</p>
+        <div className="mt-7 grid gap-5 md:grid-cols-2">{data.featuredSources.map((source) => <article key={source.url} className="border-t border-border pt-5">
           <h3 className="font-display text-xl">{source.name}</h3>
           <p className="mt-2 text-xs text-muted-foreground">Checked {source.checkedAt}</p>
           <a href={source.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open official/source page ↗</a>
