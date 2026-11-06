@@ -942,14 +942,6 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-20',
   },
   {
-    slug: 'dallas-skyline',
-    mascot: 'Raider',
-    colors: 'Red and Columbia Blue',
-    sourceUrl: 'https://skyline.dallasisd.org/our-school/general-information/school-spirit',
-    sourceLabel: 'Skyline High School school spirit',
-    verifiedAt: '2026-09-20',
-  },
-  {
     slug: 'mansfield-lake-ridge',
     mascot: 'Eagles',
     colors: 'Hunter Green, Black and White',
