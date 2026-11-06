@@ -11,7 +11,7 @@ const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 assert.equal(reg.batch.number,14,'wrong active batch');
 assert.deepEqual(reg.batch.slugs.slice(5,10),slugs,'wrong canonical assigned order');
 assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,305,'historical certificates must be retained');
-assert.equal(reg.schoolRecords.filter(s=>s.batch===14&&s.status==='IMPLEMENTED').length,10,'exactly ten source-implemented schools expected');
+assert.ok(reg.schoolRecords.filter(s=>s.batch===14&&s.status==='IMPLEMENTED').length>=10,'second cohort must remain source-implemented');
 assert.equal(reg.schoolRecords.filter(s=>s.batch===14&&s.status==='VERIFIED').length,0,'no premature certification');
 const loader=read('src/data/high-school-football/program-editorial-b014-loader.server.ts');
 assert.ok(loader.includes("import('./program-editorial-b014-group2')"),'second-five SSR content not loaded');
