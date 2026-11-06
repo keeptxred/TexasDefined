@@ -149,7 +149,7 @@ export function MSRHoustonStatusNotice() {
 
 /** Render only on /sports-venue/msr-houston; do not add assumptions to other venue types. */
 export function MSRHoustonAuthoritySections() {
-  return <div className="border-b border-border" aria-label="MSR Houston independent motorsports guide">
+  return <div className="min-w-0 max-w-full border-b border-border" aria-label="MSR Houston independent motorsports guide">
     <nav aria-label="MSR Houston guide sections" className="flex flex-wrap gap-x-5 gap-y-3 border-b border-border py-6 text-sm font-semibold">
       <a href="#msr-contact" className="underline underline-offset-4 hover:text-primary">Contact & directions</a>
       <a href="#msr-access" className="underline underline-offset-4 hover:text-primary">How to participate</a>
@@ -173,14 +173,14 @@ export function MSRHoustonAuthoritySections() {
       </div>
     </section>
 
-    <section className="border-b border-border py-10" aria-labelledby="msr-access">
+    <section className="min-w-0 max-w-full border-b border-border py-10" aria-labelledby="msr-access">
       <SectionHeading kicker="Choose your experience" id="msr-access" title="Can you actually drive at MSR Houston?">
         <p>There is no single public admission ticket that guarantees road-course driving. Membership, hosted
         guest sessions, organizer-run track days, competition events and formal schools are distinct ways to use the
         venue. <SourceLink href={references.membership}>Membership & guest policy</SourceLink></p>
       </SectionHeading>
       <p id="msr-table-help" className="mb-2 text-xs leading-6 text-muted-foreground">On narrow screens, swipe across the participation table to view the full requirements.</p>
-      <div role="region" aria-label="MSR Houston participation options" aria-describedby="msr-table-help" tabIndex={0} className="overflow-x-auto rounded-sm border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+      <div role="region" aria-label="MSR Houston participation options" aria-describedby="msr-table-help" tabIndex={0} className="block w-full min-w-0 max-w-full overflow-x-auto rounded-sm border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
         <table className="w-full min-w-[680px] border-collapse text-left text-sm leading-6">
           <caption className="sr-only">How to participate in different activities at MSR Houston, with booking requirements and direct source links.</caption>
           <thead className="bg-muted/40">
