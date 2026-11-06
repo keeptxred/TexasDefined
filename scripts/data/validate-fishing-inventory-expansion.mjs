@@ -76,6 +76,13 @@ for (const s of ["expandedSourcedAccessPoints", "sourcedNetworkAccess", "curated
 const reports = read("src/data/fishing/curated-historical-reports.ts");
 assert.ok((reports.match(/publishedAt:"2026-/g) || []).length >= 6, "Archived observed reports missing publication dates");
 assert.ok(reports.includes("2026-02-25") && reports.includes("2026-10-02"));
+// Reader corrections and source-backed tips belong to the editorial desk,
+ // not to /partner-with-us (the paid advertising sales inquiry).
+const accessDirectoryUi = read("src/components/fishing/FishingAccessDirectory.tsx");
+assert.ok(accessDirectoryUi.includes("mailto:admin@texasdefined.com?subject=Texas%20Defined%20fishing%20access"), "Access directory must route factual corrections to the editorial inbox.");
+assert.ok(accessDirectoryUi.includes('href="/corrections-policy"'), "Access directory must explain how factual corrections are handled.");
+assert.ok(!accessDirectoryUi.includes('href="/partner-with-us"'), "Fishing-access editorial corrections must not send readers to the commercial advertising form.");
+assert.ok(accessDirectoryUi.includes("Reader tips are reviewed before any publication"), "Access reader tips must not be presented as verified facts.");
 const accessRoute = read("src/routes/fishing.access.tsx");
 const localSitemap = read("src/data/fishing/local-sitemap.server.ts");
 assert.ok(accessRoute.includes("coveredLakes >= 20 && items.length >= 100"), "Access pilot index gate missing");

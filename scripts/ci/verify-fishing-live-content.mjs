@@ -64,6 +64,10 @@ assert.ok(/rel=["']canonical["'][^>]*href=["']https:\/\/texasdefined\.com\/fishi
 
 const access = await page("/fishing/access");
 has(access, "Current source-backed coverage:", "/fishing/access");
+has(access, "Email an access correction or listing tip", "/fishing/access");
+has(access, "Read our corrections policy", "/fishing/access");
+has(access, "mailto:admin@texasdefined.com?subject=Texas%20Defined%20fishing%20access", "/fishing/access");
+lacks(access, "Use Partner With Us for a new ramp", "/fishing/access");
 const accessText = access.replace(/<!--\s*-->/g, "").replace(/<[^>]+>/g, " ");
 const publishedCoverage = accessText.match(/Current source-backed coverage:\s*([\d,]+)\s*facilities across\s*([\d,]+)\s*Texas lakes/i);
 assert.ok(publishedCoverage, "/fishing/access: expected machine-verifiable live coverage totals");
@@ -71,6 +75,9 @@ const liveFacilities = Number(publishedCoverage[1].replaceAll(",", ""));
 const liveLakes = Number(publishedCoverage[2].replaceAll(",", ""));
 assert.ok(liveLakes >= 20 && liveFacilities >= 100, "/fishing/access: not yet a meaningful statewide inventory");
 const ordinaryAccess = await page("/fishing/access", { cacheBust: false });
+has(ordinaryAccess, "Email an access correction or listing tip", "/fishing/access ordinary URL");
+has(ordinaryAccess, "Read our corrections policy", "/fishing/access ordinary URL");
+lacks(ordinaryAccess, "Use Partner With Us for a new ramp", "/fishing/access ordinary URL");
 const ordinaryAccessText = ordinaryAccess.replace(/<!--\s*-->/g, "").replace(/<[^>]+>/g, " ");
 const ordinaryCoverage = ordinaryAccessText.match(/Current source-backed coverage:\s*([\d,]+)\s*facilities across\s*([\d,]+)\s*Texas lakes/i);
 assert.ok(ordinaryCoverage, "/fishing/access ordinary URL: missing current directory inventory; potential stale edge cache");
