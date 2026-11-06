@@ -3,17 +3,18 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
 import { FISHING_GUIDES_DIRECTORY_PATH, FISHING_GUIDES_VERIFIED_AT, fishingGuideCanonicalPath } from "./guide-routing";
+import { latestFishingSourceReviewDate } from "./source-review-dates";
 
 const SPONSORED_GUIDE_KINDS = ["featured-guide", "regional-guide", "statewide-advertiser"] as const;
 const description = "Browse Texas fishing guides only after their listings and service relationships are verified, with lake, region and target-species filters activated from real data.";
 
-function buildFishingGuideDirectoryHead(guides: Array<{ guide: { businessName: string }; href: string }>) {
+function buildFishingGuideDirectoryHead(guides: Array<{ guide: { businessName: string }; href: string }>, latestReviewDate: string) {
   const origin = `https://${texasDefinedBrand.identity.domain}`;
   return {
     meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide Directory — Verified Guides", description, canonicalPath: FISHING_GUIDES_DIRECTORY_PATH, robots: guides.length >= 8 ? undefined : "noindex, follow" }),
     links: [canonicalLink(texasDefinedBrand, FISHING_GUIDES_DIRECTORY_PATH)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify([
-      { "@context": "https://schema.org", "@type": "CollectionPage", name: "Texas Fishing Guide Directory", description, url: `${origin}${FISHING_GUIDES_DIRECTORY_PATH}`, dateModified: FISHING_GUIDES_VERIFIED_AT },
+      { "@context": "https://schema.org", "@type": "CollectionPage", name: "Texas Fishing Guide Directory", description, url: `${origin}${FISHING_GUIDES_DIRECTORY_PATH}`, dateModified: latestReviewDate },
       { "@context": "https://schema.org", "@type": "ItemList", name: "Verified Texas fishing guides", numberOfItems: guides.length, itemListElement: guides.map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.guide.businessName, url: `${origin}${entry.href}` })) },
       { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: origin },
@@ -39,6 +40,7 @@ export async function loadFishingGuideDirectoryDataServer() {
   const speciesById = new Map(species.map((row) => [row.id, row]));
   const advertiserById = new Map(advertisers.map((row) => [row.id, row]));
 
+  const latestGuideReviewDate = latestFishingSourceReviewDate(guides, FISHING_GUIDES_VERIFIED_AT);
   const editorialGuides = [...guides]
     .sort((left, right) => left.businessName.localeCompare(right.businessName) || left.slug.localeCompare(right.slug))
     .map((guide) => {
@@ -62,7 +64,7 @@ export async function loadFishingGuideDirectoryDataServer() {
     .filter((entry) => Boolean(entry.advertiser));
 
   return {
-    verifiedAt: FISHING_GUIDES_VERIFIED_AT,
+    verifiedAt: latestGuideReviewDate,
     editorialOrder: "Alphabetical by verified guide business name. Sponsorship never changes this order.",
     guides: editorialGuides,
     filters: {
@@ -72,7 +74,7 @@ export async function loadFishingGuideDirectoryDataServer() {
       tripTypes: [] as string[],
     },
     sponsoredPlacements,
-    head: buildFishingGuideDirectoryHead(editorialGuides),
+    head: buildFishingGuideDirectoryHead(editorialGuides, latestGuideReviewDate),
   };
 }
 
