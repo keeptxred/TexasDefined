@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import consumptionAdvisories from "@/data/fishing/consumption-advisories.json";
 import { FishingResultsMap } from "@/components/fishing/FishingResultsMap";
 import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "@/data/fishing/planner-routing";
 import type { FishSpecies, FishingLake } from "@/data/fishing/types";
@@ -44,7 +45,7 @@ function FishingTripPlannerPage() {
     .filter((fish): fish is FishSpecies => Boolean(fish));
   const locationQuery = search.q?.trim() ?? "";
   const origin = data.resolvedOrigin;
-  const activeSort = search.sort ?? "best";
+  const activeSort = search.sort ?? (origin ? "closest" : "best");
   const view = search.view ?? "list";
   const browserOrigin = typeof search.lat === "number" && typeof search.lng === "number";
   const radiusMiles = search.radius ? Number(search.radius) : null;
@@ -101,6 +102,7 @@ function FishingTripPlannerPage() {
       coordinates: row.lake.coordinates!,
       fullGuide: row.fullGuide,
       distanceMiles: row.distanceMiles,
+      consumptionAdvisory: consumptionAdvisories[row.lake.slug as keyof typeof consumptionAdvisories] ?? null,
       matchedSpecies: selectedSpecies.length
         ? row.matches.filter((item) => item.target).map((item) => item.fish.commonName)
         : row.targets.slice(0, 4).map((item) => item.species!.commonName),
@@ -172,7 +174,7 @@ function FishingTripPlannerPage() {
         </div>
 
         <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <label className="block"><span className="eyebrow text-muted-foreground">Sort results</span><select name="sort" defaultValue={activeSort} className="mt-2 w-full border border-border bg-background px-3 py-2.5 text-sm"><option value="best">Best match</option><option value="closest" disabled={!origin}>Closest{!origin ? " — add a city, ZIP or location" : ""}</option></select></label>
+          <label className="block"><span className="eyebrow text-muted-foreground">Sort results</span><select name="sort" defaultValue={search.sort ?? ""} className="mt-2 w-full border border-border bg-background px-3 py-2.5 text-sm"><option value="">Recommended — closest to a searched place</option><option value="best">Strongest species match</option><option value="closest" disabled={!origin}>Closest{!origin ? " — add a city, ZIP or location" : ""}</option></select></label>
           <label className="block"><span className="eyebrow text-muted-foreground">Distance</span><select name="radius" defaultValue={search.radius ?? ""} disabled={!origin} className="mt-2 w-full border border-border bg-background px-3 py-2.5 text-sm"><option value="">Any distance</option><option value="50">Within 50 miles</option><option value="100">Within 100 miles</option><option value="200">Within 200 miles</option><option value="400">Within 400 miles</option></select></label>
           <label className="mt-6 flex items-center gap-2 text-sm"><input type="checkbox" name="match" value="all" defaultChecked={search.match === "all"} /><span>Require every selected fish</span></label>
         </div>
@@ -186,7 +188,7 @@ function FishingTripPlannerPage() {
             <Filter name="guide" label="Verified fishing guide listed" checked={search.guide === "1"} />
             <Filter name="report" label="Current fishing report available" checked={search.report === "1"} />
           </div>
-          <p className="mt-4 text-xs leading-5 text-muted-foreground">Filters use verified fishing records only. TexasDefined does not infer an amenity when the catalog does not support it.</p>
+          <p className="mt-4 text-xs leading-5 text-muted-foreground">Filters use source-backed fishing records only. A documented ramp or campsite is not proof it is open today. A current report must be published within seven days and not expired; <a href="https://tpwd.texas.gov/fishboat/fish/recreational/fishreport.phtml" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">TPWD says its weekly reports are paused</a>, so its older reports do not count as current.</p>
         </details>
 
         <div className="mt-7 flex flex-wrap items-center gap-5">
@@ -207,9 +209,10 @@ function FishingTripPlannerPage() {
           </div>
         </div>
 
-        {view === "map" ? <FishingResultsMap rows={mapRows} /> : <div className="mt-6 grid gap-x-8 lg:grid-cols-2">
+        {view === "map" ? <FishingResultsMap rows={mapRows} totalMatching={ranked.length} listHref={buildPlannerHref(search, { view: "list" })} /> : <div className="mt-6 grid gap-x-8 lg:grid-cols-2">
           {ranked.map((row) => {
             const currentReport = row.reports.current[0];
+            const consumptionAdvisory = consumptionAdvisories[row.lake.slug as keyof typeof consumptionAdvisories];
             const positiveCoverage = [
               row.shoreAccess ? "Shore/pier access" : null,
               row.boatAccess ? "Boat/kayak access" : null,
@@ -232,6 +235,7 @@ function FishingTripPlannerPage() {
                 </div>
               </div>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">{row.lake.summary}</p>
+              {consumptionAdvisory ? <aside className="mt-4 border-l-4 border-amber-600 bg-amber-50 p-4 text-sm leading-6 text-amber-950" aria-label={`Fish consumption advisory for ${row.lake.name}`}><strong>Official fish-consumption advisory</strong><p className="mt-1">{consumptionAdvisory.summary}</p><p className="mt-1 text-xs">Official source checked {consumptionAdvisory.reviewedAt}. <a href={consumptionAdvisory.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-2">Check affected species and current limits at TPWD</a>.</p></aside> : null}
 
               <div className="mt-6">
                 <p className="eyebrow text-muted-foreground">Why this matches</p>
@@ -242,7 +246,7 @@ function FishingTripPlannerPage() {
               </div>
 
               <dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2">
-                {row.lake.counties.length ? <Fact label="County" value={row.lake.counties.join(", ")} /> : null}
+                <Fact label="County" value={row.lake.counties.length ? row.lake.counties.join(", ") : "Not verified in the catalog — check the lake guide"} />
                 {row.lake.nearestCities.length ? <Fact label="Near" value={row.lake.nearestCities.join(", ")} /> : null}
                 {row.lake.surfaceAcres ? <Fact label="Surface area" value={`${row.lake.surfaceAcres.toLocaleString("en-US")} acres`} /> : null}
                 {row.lake.maxDepthFeet ? <Fact label="Maximum depth" value={`${row.lake.maxDepthFeet} ft`} /> : null}
@@ -258,7 +262,7 @@ function FishingTripPlannerPage() {
         {!ranked.length ? <div className="border-y border-border py-12"><h3 className="font-display text-3xl">No lake matches those choices yet.</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">Try widening the distance, removing an access filter, turning off “require every selected fish,” or selecting fewer species. A missing result means the published fishing dataset does not currently support that combination; it is not a claim that the fish or amenity cannot exist there.</p></div> : null}
       </section>
 
-      <section className="border-y border-border py-10"><p className="eyebrow text-primary">Before you go</p><h2 className="mt-2 font-display text-3xl">Check current fishing conditions before you go</h2><p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Our recommendations are based on each lake's general fishing characteristics, not necessarily what is biting today. {data.policy.conditions} Before heading out, check the latest fishing regulations, lake levels, boat-ramp and access conditions, weather, closures, and current fishing reports from official sources.</p></section>
+      <section className="border-y border-border py-10"><p className="eyebrow text-primary">Before you go</p><h2 className="mt-2 font-display text-3xl">Check current fishing conditions before you go</h2><p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Our recommendations are based on each lake's general fishing characteristics, not necessarily what is biting today. {data.policy.conditions} Verified means supported by a dated source in our catalog, not independently confirmed open or safe on the day of your trip.</p><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Before traveling, check these official sources. A lake without a warning in our results is not guaranteed free from restrictions or consumption advisories.</p><ul className="mt-4 grid gap-3 text-sm sm:grid-cols-2"><li><a className="font-semibold text-primary underline underline-offset-2" href="https://tpwd.texas.gov/regulations/outdoor-annual/fishing/" target="_blank" rel="noopener noreferrer">Current TPWD fishing regulations</a></li><li><a className="font-semibold text-primary underline underline-offset-2" href="https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories" target="_blank" rel="noopener noreferrer">Fish-consumption advisories</a></li><li><a className="font-semibold text-primary underline underline-offset-2" href="https://waterdatafortexas.org/reservoirs/statewide" target="_blank" rel="noopener noreferrer">Texas reservoir levels</a></li><li><a className="font-semibold text-primary underline underline-offset-2" href="https://tpwd.texas.gov/fishboat/fish/recreational/fishreport.phtml" target="_blank" rel="noopener noreferrer">Fishing report availability and archive</a></li><li><a className="font-semibold text-primary underline underline-offset-2" href="https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/possession-and-transport-of-exotic-aquatic-species" target="_blank" rel="noopener noreferrer">Invasive-species and transport rules</a></li></ul><p className="mt-4 text-xs leading-6 text-muted-foreground">Check lake operators separately for boat-ramp status, closures and current fees. Water level alone does not prove a ramp is usable.</p></section>
     </Container>
   </>;
 }

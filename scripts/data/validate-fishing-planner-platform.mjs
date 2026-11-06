@@ -3,6 +3,8 @@ import fs from "node:fs";
 const read = (path) => fs.readFileSync(path, "utf8");
 const requiredFiles = [
   "src/data/fishing/planner-routing.ts",
+  "src/data/fishing/consumption-advisories.json",
+  "scripts/ci/audit-fishing-planner-live-sources.mjs",
   "src/data/fishing/planner-data.server.ts",
   "src/data/fishing/planner-data.functions.ts",
   "src/data/fishing/location.server.ts",
@@ -32,6 +34,8 @@ const planner = `${plannerRoute}\n${plannerLazy}`;
 const locationServer = read("src/data/fishing/location.server.ts");
 const locationFunctions = read("src/data/fishing/location.functions.ts");
 const resultsMap = read("src/components/fishing/FishingResultsMap.tsx");
+const consumptionAdvisories = JSON.parse(read("src/data/fishing/consumption-advisories.json"));
+const plannerSourceAudit = read("scripts/ci/audit-fishing-planner-live-sources.mjs");
 const fishingFixtures = read("src/data/fishing/fixtures.ts");
 const expandedLakeFixtures = read("src/data/fishing/lake-expansion-fixtures.ts");
 const wave2LakeFixtures = read("src/data/fishing/lake-expansion-wave2-fixtures.ts");
@@ -92,6 +96,16 @@ requireText(locationServer, 'source: "zip"', "ZIP origin classification missing"
 requireText(locationServer, 'source: "city"', "city origin classification missing");
 requireText(resultsMap, "Map of matching Texas fishing lakes", "fishing map accessibility title missing");
 requireText(resultsMap, "simplified Texas outline", "fishing map orientation disclosure missing");
+requireText(planner, "totalMatching={ranked.length}", "map must report total matches instead of silently omitting missing coordinates");
+requireText(resultsMap, "unmappedCount", "map must disclose unusable or unverified coordinates");
+requireText(resultsMap, "List view", "map must offer the complete list when coordinates are absent");
+requireText(planner, "consumptionAdvisories", "planner must show source-backed fish-consumption warnings");
+requireText(resultsMap, "selected.consumptionAdvisory", "map-selected result must show applicable consumption warning");
+requireText(planner, "tpwd.texas.gov/regulations/outdoor-annual/fishing/", "planner must link to official current fishing rules");
+requireText(planner, "seven days", "current-report filter must disclose freshness threshold");
+requireText(plannerSourceAudit, "stillPaused", "TPWD report suspension status must be monitored in GitHub");
+requireText(plannerSourceAudit, "sourceNeedle", "fish-consumption advisory source matching must be monitored in GitHub");
+if (Object.keys(consumptionAdvisories).length < 8) throw new Error("Fishing planner consumption registry must retain researched lake advisory matches.");
 const fixtureCoordinateCount = (fishingFixtures.match(/coordinates:\s*\{\s*lat:/g) ?? []).length;
 const expandedCoordinateCount = (expandedLakeFixtures.match(/coordinates:\s*\{\s*lat:/g) ?? []).length;
 const wave2CoordinateCount = (wave2LakeFixtures.match(/coordinates:\s*\{\s*lat:/g) ?? []).length;

@@ -12,12 +12,17 @@ on:
   pull_request:
     paths:
       - 'src/components/fishing/FishingLakesDirectory.tsx'
+      - 'src/components/fishing/FishingResultsMap.tsx'
+      - 'src/lazy/fishing-plan.tsx'
+      - 'src/data/fishing/consumption-advisories.json'
+      - 'scripts/ci/audit-fishing-planner-live-sources.mjs'
       - 'src/data/fishing/lake-directory-advisories.json'
       - 'src/data/fishing/statewide-lake-network.ts'
       - 'src/data/fishing/planner-data.server.ts'
       - 'src/lazy/fishing-compare.tsx'
       - 'src/routes/fishing.compare.tsx'
       - 'scripts/ci/audit-fishing-compare-authority.mjs'
+      - 'scripts/data/validate-fishing-planner-platform.mjs'
       - 'src/data/fishing/lake-authority-research-wave1.ts'
       - 'src/data/fishing/slugs.ts'
       - 'src/data/fishing/fixtures.ts'
@@ -57,6 +62,8 @@ jobs:
           node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
           node --check scripts/ci/audit-fishing-lake-regulation-sources.mjs
           node scripts/ci/audit-fishing-lake-regulation-sources.mjs --plan
+          node --check scripts/ci/audit-fishing-planner-live-sources.mjs
+          node scripts/ci/audit-fishing-planner-live-sources.mjs --plan
           node scripts/ci/audit-fishing-compare-authority.mjs --local
       - name: Verify posted official lake access restrictions
         if: github.event_name != 'pull_request'
@@ -81,6 +88,11 @@ jobs:
         env:
           FISHING_LAKES_FULL_REVIEW: ${{ (github.event_name == 'workflow_dispatch' || github.event.schedule == '49 15 2 1,4,7,10 *' || github.event.schedule == '17 15 15 8 *') && '1' || '0' }}
         run: node scripts/ci/audit-fishing-lake-regulation-sources.mjs
+      - name: Verify planner fish-consumption warnings and TPWD report pause status
+        if: github.event_name != 'pull_request'
+        id: planner
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-planner-live-sources.mjs
       - name: Quarterly source and lake authority review
         if: github.event_name == 'workflow_dispatch' || github.event.schedule == '49 15 2 1,4,7,10 *' || github.event.schedule == '17 15 15 8 *'
         id: quarterly
@@ -97,25 +109,26 @@ jobs:
           path: |
             .artifacts/fishing-lakes-directory-source-check.json
             .artifacts/fishing-lake-regulation-sources.json
+            .artifacts/fishing-planner-source-review.json
             .artifacts/fishing-compare-authority-check.json
             fishing-authority-registered-urls.json
             fishing-authority-registered-urls.md
           if-no-files-found: warn
           retention-days: 45
       - name: Create or update actionable GitHub source drift issue
-        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.planner.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.quarterly.outcome == 'failure')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           title='Fishing lakes directory official-source refresh drift'
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
-          detail="$(node -e 'const fs=require("fs");for(const p of [".artifacts/fishing-lake-regulation-sources.json",".artifacts/fishing-compare-authority-check.json"]){if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));console.log((r.errors||[]).slice(0,12).join("; "))}}')"
-          body="The scheduled fishing lakes directory refresh detected a TPWD access-alert mismatch, a comparative fishery-grade mismatch, an NPS condition-source drift, a lake-specific fishery/regulation source mismatch, or an authority-contract problem. This is **source integrity monitoring, not verification that bag or length limits have changed**. Preserve conservative visitor warnings and check the official primary sources before revising factual claims. See evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. No verification dates should be updated without a real source check. Source failures (first 12): $detail"
+          detail="$(node -e 'const fs=require("fs");for(const p of [".artifacts/fishing-lake-regulation-sources.json",".artifacts/fishing-planner-source-review.json",".artifacts/fishing-compare-authority-check.json"]){if(fs.existsSync(p)){const r=JSON.parse(fs.readFileSync(p,"utf8"));console.log((r.errors||[]).slice(0,12).join("; "))}}')"
+          body="The scheduled fishing lakes directory refresh detected a TPWD access-alert mismatch, a lake-specific fishery/regulation source mismatch, a planner consumption-advisory/report-status change, a comparison fishery-grade mismatch, an NPS condition-source drift, or an authority-contract problem. This is **source integrity monitoring, not verification that bag or length limits have changed**. Preserve conservative visitor warnings and check the official primary sources before revising factual claims. See evidence artifact: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. No verification dates should be updated without a real source check. Source failures (first 12): $detail"
           if [[ -n "$existing" ]]; then
             gh issue comment "$existing" --body "$body"
           else
             gh issue create --title "$title" --body "$body"
           fi
       - name: Fail on unresolved official-source or contract drift
-        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.planner.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.quarterly.outcome == 'failure')
         run: exit 1
