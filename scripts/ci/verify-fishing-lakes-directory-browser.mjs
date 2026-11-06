@@ -105,6 +105,14 @@ for (const { name, viewport, mobile } of [
     assert.equal(await jumpLinks.count(), 72, name + ": complete lake link index missing entries");
     assert.equal(new Set(await jumpLinks.evaluateAll(links => links.map(a => a.getAttribute("href")))).size, 72,
       name + ": duplicate A-Z lake guide destinations");
+    // TanStack Start streams the A–Z jump index before the detailed card grid.
+    // In real mobile Chrome the 72 SSR links may already be present while the
+    // next HTML chunk is still arriving. Require the exact complete first batch
+    // before checking its size; a missing/broken batch still fails after 25s.
+    await page.waitForFunction(
+      () => document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length === 12,
+      null, { timeout: 25000 },
+    );
     assert.equal(await cards.count(), 12, name + ": initial detailed card budget should be 12");
     await page.screenshot({ path: output + "/" + name + "-initial.png", fullPage: false, animations: "disabled" });
     for (const expected of [24, 36]) {
