@@ -73,7 +73,20 @@ try{
     assert.ok(county,'missing school-to-county link '+slug);
     report.schoolChecks.push({slug,width,pass:true,county});
     if(width===1366){
-     const countyResponse=await page.goto(origin+county,{waitUntil:'domcontentloaded',timeout:45000});
+     // The same Dallas county SSR route can occasionally exceed the first
+     // navigation deadline under load (run 42283746613: dallas-samuell).
+     // Retry only that transport timeout once. Every HTTP, Worker, hydration,
+     // and reciprocal-link assertion below remains mandatory and fail-closed.
+     let countyResponse;
+     for(let attempt=1;attempt<=2;attempt++){
+      try{
+       countyResponse=await page.goto(origin+county,{waitUntil:'domcontentloaded',timeout:45000});
+       break;
+      }catch(error){
+       if(attempt===2 || error?.name!=='TimeoutError')throw error;
+       console.warn('Retry county navigation timeout',slug,county,'attempt',attempt);
+      }
+     }
      assert.equal(countyResponse?.status(),200,'county HTTP '+county);
      assert.equal(await countyResponse.headerValue('x-texasdefined-worker-version'),worker,'mixed county Worker '+county);
      // County football links are populated asynchronously after the AskTED/UIL
