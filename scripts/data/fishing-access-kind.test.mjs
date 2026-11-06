@@ -22,17 +22,34 @@ test("source-reviewed access identity overrides accidental ramp keywords", () =>
     ["marina", "Private operator; no public ramp amenities asserted", "marina"],
   ]) assert.equal(classify({ kind, launch }), expected, launch);
 });
-test("Arkansas Bend and all six Travis facilities have direct TPWD ramp evidence", () => {
+test("Arkansas Bend and all nine Travis facilities have direct TPWD concrete-ramp evidence", () => {
   const group = data.find((x) => x.lakeId === "lake-travis");
   assert.equal(group.sourcePage, "access2.phtml");
-  assert.equal(group.facilities.length, 6);
+  const originalNames = [
+    "Pace Bend/Collier Cove", "Pace Bend/Tatum Cove", "Arkansas Bend",
+    "Mansfield Dam Park", "Bob Wentz at Windy Point", "Cypress Creek",
+  ];
+  const newNames = ["Gloster Bend Recreation Area", "Sandy Creek Park", "Hippie Hollow"];
+  assert.equal(group.facilities.length, 9);
+  assert.deepEqual(
+    group.facilities.map(([name]) => name).sort(),
+    [...originalNames, ...newNames].sort(),
+    "Only individually source-verified TPWD concrete ramps belong in this group",
+  );
   for (const [name, kind, description] of group.facilities) {
     assert.equal(kind, "boat-ramp", name);
     assert.match(description, /\b(?:one|two|four)[- ]lane|concrete lane/i, name);
-    assert.match(description, /Travis County Parks/, name);
+    assert.match(
+      description,
+      name === "Gloster Bend Recreation Area" ? /Lower Colorado River Authority/ : /Travis County Parks/,
+      name + ": managing operator must match TPWD",
+    );
   }
   assert.match(found("lake-travis", "Arkansas Bend")[2], /FM 1431.*Sylvester Ford Road/);
   assert.match(found("lake-travis", "Bob Wentz at Windy Point")[2], /restricted to sailboats/);
+  assert.match(found("lake-travis", "Gloster Bend Recreation Area")[2], /Singleton Road/);
+  assert.match(found("lake-travis", "Sandy Creek Park")[2], /Lime Creek Road/);
+  assert.match(found("lake-travis", "Hippie Hollow")[2], /17 parked vehicles/);
 });
 test("Bachman public shoreline and Shorecrest ramp are not merged", () => {
   const source = readFileSync("src/data/fishing/statewide-lake-network.ts", "utf8");
