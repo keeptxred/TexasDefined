@@ -41,9 +41,14 @@ export function deriveReviewedStatewideAccessPoints(
       if (present.has(key)) continue;
       present.add(key);
 
+      // Explicit source-reviewed identity wins over words such as "NO ramp".
+      // Plural "ramps" is also valid evidence of a launch for a park record.
       const kind = facility.kind === "marina" ? "marina"
-        : facility.kind === "public-ramp" || /\bramp\b|launch|boat lane/i.test(facility.launch) ? "boat-ramp"
-        : "shore";
+        : facility.kind === "shore" || facility.kind === "pier" || facility.kind === "kayak-launch" ? facility.kind
+        : facility.kind === "public-ramp" ? "boat-ramp"
+        : /\b(?:ramps?|launch(?:es)?|boat lanes?)\b/i.test(facility.launch)
+          && !/\b(?:no (?:boat )?ramp|no launch lane|not (?:an? )?(?:motorboat|boat|standard improved).*ramp|not a motorboat launch)\b/i.test(facility.launch)
+          ? "boat-ramp" : "shore";
       const slug = `${lake.slug}-${slugify(name)}`;
       const record = {
         id: `statewide-source-access-${slug}`,
@@ -54,11 +59,11 @@ export function deriveReviewedStatewideAccessPoints(
         sources: [source],
         name,
         lakeIds: [lake.slug],
-        description: `${facility.launch} Managing operator in the source: ${facility.operator}. TPWD source-reviewed fee description: ${facility.fee}. Confirm changing access conditions before traveling.`,
+        description: `${facility.launch} Operator listed by TPWD: ${facility.operator}. Source-listed fee terms: ${facility.fee}.`,
       };
       if (kind === "marina") output.push({ ...record, kind: "marina", amenities: undefined });
       else if (kind === "boat-ramp") output.push({ ...record, kind: "boat-ramp", launchNotes: `Original reviewed access notice: ${facility.availability}. Check lake elevation, gates, current fees and ramp availability with the operator.` });
-      else output.push({ ...record, kind: "shore", accessNotes: `Source notice: ${facility.availability}. Verify public shoreline access and applicable restrictions before traveling.` });
+      else output.push({ ...record, kind, accessNotes: `Source notice: ${facility.availability}. Check official conditions before traveling.` });
     }
   }
   return output;
