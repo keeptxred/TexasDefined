@@ -13,7 +13,7 @@ export interface ShowcaseLakeFish {
 export interface ShowcaseLakeAccess {
   name: string;
   operator: string;
-  kind: "public-ramp" | "marina" | "park" | "resort";
+  kind: "public-ramp" | "marina" | "park" | "resort" | "shore" | "pier" | "kayak-launch";
   launch: string;
   fee: string;
   availability: string;
