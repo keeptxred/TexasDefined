@@ -3,6 +3,24 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { MAX_ASSET_AUDIT_CONCURRENCY, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
 
+test('three observed Bingbot 404 module families enter source-matched built handoff only when Vite emits them', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-LUNlVWLt.js',
+    'property-tax.taxing-unit._unit-BdLFe-27.js',
+  ];
+  const observed = [
+    'CountyTaxRateSection-BJBHgsSN.js',
+    'PublishableGraphic-DgFKoNsV.js',
+    '_kind._slug.lazy-Ba1uajBm.js',
+  ];
+  const paths = selectBuiltRouteAssets([...required, ...observed]).map(x => x.path);
+  for (const name of observed) assert.ok(paths.includes('/assets/' + name), name);
+  assert.equal(paths.length, 5);
+  const absent = selectBuiltRouteAssets(required).map(x => x.path);
+  for (const name of observed) assert.ok(!absent.includes('/assets/' + name), name);
+  assert.equal(absent.length, 2);
+});
+
 test('find only same-origin hashed JS/CSS from script, modulepreload and stylesheet', () => {
   const html = [
     '<script type="module" crossorigin src="/assets/main-LkbE9wUL.js"></script>',
