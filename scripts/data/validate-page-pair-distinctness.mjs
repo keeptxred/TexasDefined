@@ -73,7 +73,7 @@ assert.ok(eventsSource.includes("isGenericTicketingEventSummary(event.summary)")
 const uniqueTripChecks = new Set();
 for (const slug of techniques) {
   const block = techniqueBlock(slug);
-  const list = block.match(/tripChecks:\\s*\\[([\\s\\S]*?)\\],/);
+  const list = block.match(/tripChecks:\s*\[([\s\S]*?)\],/);
   assert.ok(list, "Missing method-specific trip checks: " + slug);
   const checks = [...list[1].matchAll(/"([^"]+)"/g)].map((item) => item[1]);
   assert.equal(checks.length, 3, "Each technique should provide three useful trip checks: " + slug);
