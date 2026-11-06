@@ -56,14 +56,17 @@ export function safeCriticalAsset(path) {
   return /^(?:main-|Container-|Header-|Footer-|RouteStatusScreens-|styles-|x-|property-tax\.|texas-high-school-football-teams_|texas-high-school-football-districts_|texas-high-school-football-districts\.lazy-|useLocation-|SponsoredSportsPlacement-|createLucideIcon-|ContextualOfficialSources-|CitationTrustPanel-|CitationCollectionTrustRouter-|analytics-|events\.lazy-|events\._collection\.lazy-|food\._slug\.lazy-|article\._slug-|destination\._slug-|events\.index\.lazy-|explore\.index\.lazy-|search\.lazy-|fishing\.lakes\._slug-|texas-high-school-football-playoff-brackets-|MuseumAuthorityNetworkSection-|museum-authority-heroes-|external-link-|useBaseQuery-|DestinationCard-|PropertyCalculatorFramework-|AnswerSummary-|texas-home-insurance-calculator\.lazy-|useQuery-|SectionHeader-|FootballFanOffers-|ElPasoAreaAuthority-|internal-linking-|ArticleCard-|UnusualBusinessAuthorityPanel-|ArticleBody-|ParkingMapPanel-|event\._slug\.lazy-|shop\.lazy-|shop\.product\._productId-|historic-sites-|museum-authority-network-|DestinationVerifiedVisitorFacts-|BookingCarRentalCard-|DestinationViatorBooking-|town-authority-links-|CityPassContextualCallout-|CityPassCalloutContent-|TexasExplainedContextLinks-|TexasEventCarousel-|MapPreview-|dallas-small-town-drives-|explore\.near\._metro\._collection\.lazy-|explore\.near\._metro\.lazy-|explore\.near\._metro\._collection-|explore\.near\._metro-|sports-traffic\.functions-|texas-data\.lazy-)/.test(name);
 }
 
-export function retentionCandidates(history, now = Date.now(), historicalProof = []) {
+export function retentionCandidates(history, now = Date.now(), historicalProof = [], {includeExpired = false} = {}) {
   const snapshots = Array.isArray(history?.snapshots) ? history.snapshots : [];
   const candidates = new Map();
   function include(item, firstSeenAt, priority) {
     if (!safeCriticalAsset(item?.path) || item.wasAvailable !== true) return;
     if (typeof item.preSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(item.preSha256)) return;
     const timestamp = Date.parse(item.firstSeenAt || firstSeenAt || '');
-    if (!Number.isFinite(timestamp) || timestamp > now + 60_000 || now - timestamp > RETENTION_MS) return;
+    if (!Number.isFinite(timestamp) || timestamp > now + 60_000) return;
+    // Reconcile EVERY previously verified observation before applying expiry.
+    // Filtering stale records first lets a newer snapshot silently re-age the
+    // same old hashed URL, defeating automatic cleanup after 72 hours.
     const existing = candidates.get(item.path);
     const value = { path: item.path, kind: item.path.endsWith('.css') ? 'css' : 'js',
       preSha256: item.preSha256, firstSeenAt: new Date(timestamp).toISOString(), priority };
@@ -82,8 +85,9 @@ export function retentionCandidates(history, now = Date.now(), historicalProof =
     for (const asset of snapshot?.omittedAssets || []) include(asset, at, 4);
   }
   for (const asset of historicalProof) include(asset, asset.firstSeenAt, 4);
-  return [...candidates.values()].sort((a, b) =>
+  const ordered = [...candidates.values()].sort((a, b) =>
     b.firstSeenAt.localeCompare(a.firstSeenAt) || b.priority - a.priority || a.path.localeCompare(b.path));
+  return includeExpired ? ordered : ordered.filter(a => now - Date.parse(a.firstSeenAt) <= RETENTION_MS);
 }
 
 export function expectedAssetResponse(kind, status, mime, bytes) {
@@ -101,11 +105,17 @@ export async function retain({
   const saved = JSON.parse(await readFile(snapshotPath, 'utf8'));
   const latest = saved.snapshots?.at(-1);
   if (!latest || !Array.isArray(latest.pages)) throw new Error('Current predeploy asset snapshot missing');
-  const candidates = retentionCandidates(saved, now, historicalProof);
+  // Build a single earliest-observation ledger across ALL previous releases.
+  // Copies older than 72h must not be fetched or added to the next Worker.
+  const proofLedger = retentionCandidates(saved, now, historicalProof, {includeExpired:true});
+  const candidates = proofLedger.filter(a => now - Date.parse(a.firstSeenAt) <= RETENTION_MS);
+  const expired = proofLedger.filter(a => now - Date.parse(a.firstSeenAt) > RETENTION_MS);
   const report = { format: 1, checkedAt: new Date(now).toISOString(), version: 'predeploy-current-worker',
     budget: { maxFiles: LIMIT_FILES, maxBytes: LIMIT_BYTES, maxAgeHours: 72 }, inspected: 0,
     copied: [], alreadyInBuild: [], alreadyInBuildDetails: [], unavailable: [],
-    ignoredOld: 0, ignoredOldPaths: [], omittedDetails: [] };
+    ignoredOld: 0, ignoredOldPaths: [], omittedDetails: [],
+    expiredOriginalCount: expired.length, expiredOldCopyCount: 0,
+    expiredOldCopyPaths: [] };
   const kept = [];
   const omitted = [];
   function markUnavailable(asset, data) {
@@ -117,6 +127,11 @@ export async function retain({
   let totalBytes = 0;
   let attemptedOld = 0;
   await mkdir(assetFolder, { recursive: true });
+  // Assets genuinely present in today's Vite output are CURRENT assets, not
+  // deletions. Expired old-only copies are omitted from the new Worker build.
+  report.expiredOldCopyPaths = expired.filter(a =>
+    !existsSync(resolve(assetFolder, basename(a.path)))).map(a => a.path);
+  report.expiredOldCopyCount = report.expiredOldCopyPaths.length;
   for (const asset of candidates) {
     const destination = resolve(assetFolder, basename(asset.path));
     // A chunk already emitted by Vite is guaranteed to enter Wrangler's
@@ -224,7 +239,9 @@ export async function retain({
   await writeFile(reportPath, JSON.stringify(report, null, 2) + '\n');
   console.log('[chunk-retention] copied ' + kept.length + ' old critical JS/CSS assets (' + totalBytes
     + ' bytes) into next Worker; current-build duplicates=' + report.alreadyInBuild.length
-    + '; already missing=' + report.unavailable.length + '; aged-out/budget-limited=' + report.ignoredOld);
+    + '; already missing=' + report.unavailable.length
+    + '; expired-old-copies-excluded=' + report.expiredOldCopyCount
+    + '; over-budget-omitted=' + report.ignoredOld);
   for (const missing of report.unavailable) console.warn('::warning title=Pre-existing asset unavailable::' + missing.path + ' HTTP ' + missing.status);
   if(Math.max(report.capacity.fileUtilizationPercent,report.capacity.byteUtilizationPercent)>=80)
     console.warn('::warning title=Old hashed asset retention nearing bounded capacity::'+JSON.stringify(report.capacity));

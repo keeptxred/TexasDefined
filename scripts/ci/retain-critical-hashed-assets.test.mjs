@@ -561,3 +561,72 @@ test('unavailable previously healthy original blocks deployment and preserves it
     assert.equal(snapshot.omittedAssets[0].firstSeenAt,at);
   }finally{rmSync(tmp,{recursive:true,force:true});}
 });
+
+test('global first-seen evidence prevents 72h assets being re-aged by later HTML',()=>{
+  const now=Date.parse('2026-11-06T06:00:00Z');
+  const first=new Date(now-4*86400000).toISOString();
+  const fresh=new Date(now-1000).toISOString();
+  const path='/assets/main-CannotReage123.js';
+  const record=at=>({path,wasAvailable:true,preSha256:hash,firstSeenAt:at});
+  const history={snapshots:[
+    {capturedAt:first,pages:[{assets:[record(first)]}]},
+    {capturedAt:fresh,pages:[{assets:[record(fresh)]}],retainedAssets:[record(fresh)]},
+  ]};
+  assert.deepEqual(retentionCandidates(history,now),[]);
+  const ledger=retentionCandidates(history,now,[],{includeExpired:true});
+  assert.equal(ledger.length,1);
+  assert.equal(ledger[0].firstSeenAt,first);
+  assert.equal(ledger[0].preSha256,hash);
+});
+
+test('automatic 72h cleanup excludes expired old-only JS while keeping current build assets',async()=>{
+  const root=mkdtempSync(join(tmpdir(),'td-expired-hash-prune-'));
+  try {
+    const now=Date.parse('2026-11-06T06:00:00Z');
+    const first=new Date(now-73*60*60*1000).toISOString();
+    const fresh=new Date(now-30*60*1000).toISOString();
+    const old='/assets/main-ExpiredOriginal123.js';
+    const current='/assets/main-CurrentBuild123.js';
+    const live='/assets/main-FreshOriginal123.js';
+    const bytes='export const verified=true';
+    const digest=createHash('sha256').update(bytes).digest('hex');
+    const item=(path,time)=>({path,wasAvailable:true,preSha256:digest,firstSeenAt:time});
+    const snapshotPath=join(root,'snapshot.json');
+    const reportPath=join(root,'report.json'),assetFolder=join(root,'assets');
+    mkdirSync(assetFolder);
+    writeFileSync(join(assetFolder,current.split('/').at(-1)),bytes);
+    writeFileSync(snapshotPath,JSON.stringify({snapshots:[
+      {capturedAt:first,pages:[{assets:[item(old,first),item(current,first)]}]},
+      {capturedAt:fresh,pages:[{assets:[item(old,fresh),item(current,fresh),item(live,fresh)]}]},
+    ]}));
+    const requests=[];
+    const result=await retain({snapshotPath,reportPath,assetFolder,now,historicalProof:[],
+      fetchImpl:async url=>{
+        requests.push(url);
+        return new Response(bytes,{status:200,headers:{'content-type':'text/javascript'}});
+      }});
+    assert.deepEqual(requests,['https://texasdefined.com'+live]);
+    assert.equal(result.expiredOriginalCount,2);
+    assert.equal(result.expiredOldCopyCount,1);
+    assert.deepEqual(result.expiredOldCopyPaths,[old]);
+    assert.equal(existsSync(join(assetFolder,old.split('/').at(-1))),false);
+    assert.equal(existsSync(join(assetFolder,current.split('/').at(-1))),true);
+    assert.equal(result.retainedCount,1);
+    assert.equal(result.unavailable.length,0);
+    const persisted=JSON.parse(readFileSync(reportPath,'utf8'));
+    assert.equal(persisted.expiredOldCopyCount,1);
+    assert.equal(persisted.ignoredOld,0);
+    assert.deepEqual(JSON.parse(readFileSync(snapshotPath,'utf8')).snapshots.at(-1).retainedAssets.map(x=>x.path),[live]);
+  }finally{rmSync(root,{recursive:true,force:true});}
+});
+
+test('72h boundary is inclusive but 72h plus one millisecond expires',()=>{
+  const now=Date.parse('2026-11-06T06:00:00Z');
+  const path='/assets/main-ExpiryBoundary123.js';
+  const item={path,wasAvailable:true,preSha256:hash,
+    firstSeenAt:new Date(now-72*3600000).toISOString()};
+  const history={snapshots:[{capturedAt:new Date(now).toISOString(),
+    pages:[{assets:[item]}]}]};
+  assert.equal(retentionCandidates(history,now).length,1);
+  assert.equal(retentionCandidates(history,now+1).length,0);
+});
