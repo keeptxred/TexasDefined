@@ -234,6 +234,11 @@ function Page() {
     'dallas-adamson': 'dallas', // Dallas ISD W.H. Adamson High 309 E Ninth St.
     'dallas-carter': 'dallas', // Dallas ISD David W Carter High 1819 W Wheatland Rd.
     'dallas-conrad': 'dallas', // Dallas ISD Emmett J Conrad High 7502 Fair Oaks Ave.
+    'dallas-kimball': 'dallas', // Kimball HS Dallas ISD campus, 3606 S Westmoreland; not stadium gate.
+    'dallas-life-oak-cliff': 'dallas', // Life School charter High School Oak Cliff campus 4400 S R L Thornton; NOT Dallas ISD.
+    'dallas-lincoln': 'dallas', // Lincoln High current Elsie Faye Heggins St address; older Hatcher name.
+    'dallas-madison': 'dallas', // James Madison High school MLK Jr Blvd, campus not stadium entrance.
+    'dallas-molina': 'dallas', // Molina High Duncanville Rd campus, Dallas County.
     'dallas-gateway-charter-academy': 'dallas', // NCES Gateway Charter Middle-HS, 1015 E Wheatland Rd (not 6103 University Hills elementary/district).
     'dallas-highland-park': 'dallas', // HPISD Highland Park High, 4220 Emerson Ave; Highlander Stadium venue is separate evidence.
     'dallas-hutchins': 'dallas', // Dallas ISD Wilmer-Hutchins High, 5520 Langdon Rd; campus address is not stadium entry.
