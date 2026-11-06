@@ -125,10 +125,17 @@ for (const token of ["Fish Species at", 'fishingFoundationAnchor("species", fish
 for (const token of ['status: "published"', "Boolean(relationship.verifiedAt) && relationship.sources.length > 0", "fishing/lakes/"]) requireText(lakeSitemap, token, `generic lake sitemap gate missing ${token}`);
 
 requireText(compare, "Choose up to three", "comparison selection control missing");
-requireText(compare, "Top verified targets", "comparison fishery-strength row missing");
-requireText(compare, "Verified guides", "comparison guide coverage row missing");
-requireText(compare, "Verified access", "comparison access coverage row missing");
-requireText(compare, "Verified services", "comparison service coverage row missing");
+requireText(compare, "Source-backed fishery grades", "comparison fishery-strength row and primary source link missing");
+requireText(compare, "Verified guides (local fishing businesses)", "comparison guide business disambiguation missing");
+requireText(compare, "Recorded access, not open-now status", "comparison must not mislabel access facilities as open ramps");
+requireText(compare, "Verified services (published local listings)", "comparison optional local listings missing");
+requireText(compare, "Reviewed source dates", "comparison must disclose source verification dates");
+requireText(compare, "Official lake level and conditions", "comparison official live conditions source links missing");
+requireText(compare, "Regulations, hazards and launch restrictions", "comparison advisory section missing");
+requireText(compare, "Current fishing reports", "comparison fresh-report gating missing");
+requireText(server, "LAKE_AUTHORITY_RESEARCH_WAVE1", "comparison source-backed per-lake restriction data missing");
+requireText(server, "importantAdvisories", "comparison curated source notices missing");
+requireText(server, "Historical open/closed descriptions may be obsolete", "comparison stale operator status warning missing");
 requireText(compare, "How to Read This Comparison", "comparison anti-ranking safeguard missing");
 requireText(compare, "does not rank the selected lakes", "comparison must explicitly reject selection-as-ranking");
 requireText(compare, "does not accept paid weighting", "comparison sponsorship independence missing");
