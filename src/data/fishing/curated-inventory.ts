@@ -32,7 +32,8 @@ export const expandedSourcedAccessPoints: FishingAccessPoint[] = accessGroups.fl
     };
     if (kind === "boat-ramp") return { ...common, kind, launchNotes: "The source inventory identifies this location; fees and ramp accessibility are not live data." };
     if (kind === "marina") return { ...common, kind };
-    return { ...common, kind: kind === "pier" ? "pier" as const : "shore" as const };
+    if (kind === "shore" || kind === "pier" || kind === "kayak-launch") return { ...common, kind };
+    throw new Error(`Unsupported curated access kind for ${group.lakeId}/${name}: ${String(kind)}`);
   });
 });
 
