@@ -18,6 +18,11 @@ assert.deepEqual(reg.batch.slugs.slice(0,5),slugs,'wrong assigned order');
 assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,305,'historical certificates must remain intact');
 assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length,5,'exactly five source-implemented records');
 assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED').length,0,'no unsupported Batch014 graduation');
+const schoolIdentities=read('src/data/high-school-football/school-identities.ts');
+const expectedMascots=new Map([['dallas-kimball','Knights'],['dallas-life-oak-cliff','Lions'],['dallas-lincoln','Tigers'],['dallas-madison','Trojans'],['dallas-molina','Jaguars']]);
+for(const [slug,mascot] of expectedMascots){
+ assert.ok(schoolIdentities.includes("slug: '"+slug+"', mascot: '"+mascot+"'"),slug+' missing first-party mascot identity');
+}
 const team=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county=read('src/routes/$kind.$slug.lazy.tsx');
 const campusSection=team.split('const researchedCampusCounty: Record<string, string> = {')[1]?.split('\n  };')[0];
