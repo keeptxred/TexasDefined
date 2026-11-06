@@ -3,6 +3,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
 import { fishingTechniqueAuthorityContent } from "./technique-authority-content";
+import { selectFeaturedLakeApplications } from "./technique-content-quality";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
 import { fishingTechniqueImages, isFishingTechniqueHeroReady } from "./technique-images";
 import {
@@ -26,20 +27,10 @@ type ProfileHeadEntry = {
   canonicalPath: string;
   lakes: Array<{ name: string; slug: string }>;
   featuredProfiles: Array<{ lake: { name: string; slug: string } }>;
+  featuredSources: Array<{ url: string; checkedAt?: string }>;
   species: Array<{ commonName: string }>;
   sources: Array<{ url: string; checkedAt?: string }>;
 };
-
-// General TPWD catalog summaries are retained in the verified dataset, not repeated
-// dozens of times on every technique guide's indexable editorial page.
-const genericLakeApplication = /\b(?:is included in TPWD-backed fishing guidance|is documented in the verified)\b/i;
-
-function selectFeaturedLakeApplications<T extends { profile: { summary: string }; lake: { name: string } }>(profiles: T[]): T[] {
-  const specific = profiles.filter((row) => !genericLakeApplication.test(row.profile.summary)).slice(0, 12);
-  const minimum = Math.min(6, profiles.length);
-  const fallback = profiles.filter((row) => !specific.includes(row)).slice(0, Math.max(0, minimum - specific.length));
-  return [...specific, ...fallback].sort((a, b) => a.lake.name.localeCompare(b.lake.name));
-}
 
 function newestDate(values: Array<string | undefined>) {
   return values.filter((value): value is string => Boolean(value)).sort().at(-1);
@@ -68,17 +59,17 @@ function buildFishingTechniqueDirectoryHead(entries: DirectoryHeadEntry[]) {
 }
 
 function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
-  const { technique, canonicalPath, featuredProfiles, species, sources } = entry;
+  const { technique, canonicalPath, featuredProfiles, featuredSources, species } = entry;
   const description = `How to fish ${technique.name.toLowerCase()} in Texas: practical setup, where and when to use it, seasonal guidance, and source-backed lake and species applications.`;
   const images = fishingTechniqueImages[technique.slug];
   const imageReady = isFishingTechniqueHeroReady(technique.slug);
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const faq = authority?.faq ?? [];
-  const dateModified = newestDate([technique.verifiedAt, ...sources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
+  const dateModified = newestDate([technique.verifiedAt, ...featuredSources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: sources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` }, ...(imageReady && images?.hero ? { image: images.hero.src.startsWith("http") ? images.hero.src : `${origin}${images.hero.src}` } : {}) },
+      { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: featuredSources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` }, ...(imageReady && images?.hero ? { image: images.hero.src.startsWith("http") ? images.hero.src : `${origin}${images.hero.src}` } : {}) },
       { "@type": "ItemList", "@id": `${origin}${canonicalPath}#lake-applications`, numberOfItems: featuredProfiles.length, itemListElement: featuredProfiles.map(({ lake }, index) => ({ "@type": "ListItem", position: index + 1, name: `${technique.name} — ${lake.name}`, url: `${origin}${fishingFoundationAnchor("lake", lake.slug)}` })) },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Front page", item: origin },
@@ -149,11 +140,18 @@ export async function loadFishingTechniqueDirectoryServer() {
         ...profiles.flatMap((row) => row.profile.sources),
       ].map((source) => [source.url, source])).values()];
 
+      const featuredProfiles = selectFeaturedLakeApplications(profiles);
+      const featuredSources = [...new Map([
+        ...technique.sources,
+        ...featuredProfiles.flatMap((row) => row.profile.sources),
+      ].map((source) => [source.url, source])).values()];
+
       return {
         technique,
         canonicalPath: fishingTechniqueCanonicalPath(technique.slug),
         profiles,
-        featuredProfiles: selectFeaturedLakeApplications(profiles),
+        featuredProfiles,
+        featuredSources,
         species: relatedSpecies,
         lakes: relatedLakes,
         seasons,
