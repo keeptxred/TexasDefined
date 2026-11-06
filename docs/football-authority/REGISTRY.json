@@ -40,19 +40,20 @@
       "dallas-jefferson",
       "dallas-jesuit"
     ],
-    "state": "ASSIGNED_NOT_REVIEWED",
+    "state": "VERIFIED_BATCH_013_COMPLETE",
     "dateAssigned": "2026-11-04",
     "selectionRule": "First 25 canonical NOT_REVIEWED after protected Batch012 graduation",
-    "individuallyVerified": 0,
-    "remainingAssigned": 25,
+    "individuallyVerified": 25,
+    "remainingAssigned": 0,
     "assignmentBranch": "feat/football-b013-assign-25-20261104",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "cuero",
-    "nextSchool": "cuero",
-    "implementedOnBranch": 0,
-    "remainingToImplement": 25,
-    "remainingToVerify": 25,
-    "notes": "Assignment only: no source research, implementation or production Chrome certification claimed."
+    "currentSchool": null,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
+    "remainingToVerify": 0,
+    "notes": "25/25 genuine 2026-11-06 source/Worker-pinned production Chrome verified, protected evidence-only graduation; see technicalAcceptance.",
+    "verifiedAt": "2026-11-06"
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -12323,7 +12324,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cuero",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12337,7 +12338,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cumby",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12351,7 +12352,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cushing",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12365,7 +12366,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cy-fair",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12379,7 +12380,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-creek",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12393,7 +12394,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-falls",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12407,7 +12408,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-lakes",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12421,7 +12422,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-park",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12435,7 +12436,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-ranch",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12449,7 +12450,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-ridge",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12463,7 +12464,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-springs",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12477,7 +12478,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cypress-woods",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12491,7 +12492,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/daingerfield",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12505,7 +12506,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dalhart",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12519,7 +12520,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-a",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12533,7 +12534,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-adams",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12547,7 +12548,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-adamson",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12561,7 +12562,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-carter",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12575,7 +12576,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-conrad",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12589,7 +12590,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-gateway-charter-academy",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12603,7 +12604,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-highland-park",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12617,7 +12618,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-hillcrest",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12631,7 +12632,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-hutchins",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12645,7 +12646,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-jefferson",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -12659,7 +12660,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dallas-jesuit",
-      "status": "NOT_REVIEWED",
+      "status": "VERIFIED",
       "batch": 13
     },
     {
@@ -27864,6 +27865,81 @@
         "limitation": "Genuine deployed-version Chrome technical acceptance, not manual WCAG, independent current 2026 scoreboard, coaching fact audit, licensed school images, parking/ADA details or human editorial signoff."
       },
       "completionBasis": "Two separate non-skipped GitHub Actions real-Chrome production jobs, each 75/75 school and 25/25 reciprocal county pass, zero failures; one exact signed source SHA and deployed Cloudflare Worker; separate evidence-only protected graduation PR.",
+      "noNextBatchAssigned": true
+    },
+    {
+      "number": 13,
+      "slugs": [
+        "cuero",
+        "cumby",
+        "cushing",
+        "cy-fair",
+        "cypress-creek",
+        "cypress-falls",
+        "cypress-lakes",
+        "cypress-park",
+        "cypress-ranch",
+        "cypress-ridge",
+        "cypress-springs",
+        "cypress-woods",
+        "daingerfield",
+        "dalhart",
+        "dallas-a",
+        "dallas-adams",
+        "dallas-adamson",
+        "dallas-carter",
+        "dallas-conrad",
+        "dallas-gateway-charter-academy",
+        "dallas-highland-park",
+        "dallas-hillcrest",
+        "dallas-hutchins",
+        "dallas-jefferson",
+        "dallas-jesuit"
+      ],
+      "state": "VERIFIED_BATCH_013_COMPLETE",
+      "dateAssigned": "2026-11-04",
+      "selectionRule": "First 25 canonical NOT_REVIEWED after protected Batch012 graduation",
+      "individuallyVerified": 25,
+      "remainingAssigned": 0,
+      "assignmentBranch": "feat/football-b013-assign-25-20261104",
+      "maxSchoolsPerBatch": 25,
+      "currentSchool": null,
+      "nextSchool": null,
+      "implementedOnBranch": 25,
+      "remainingToImplement": 0,
+      "remainingToVerify": 0,
+      "notes": "25/25 genuine 2026-11-06 source/Worker-pinned production Chrome verified, protected evidence-only graduation; see technicalAcceptance.",
+      "verifiedAt": "2026-11-06",
+      "technicalAcceptance": {
+        "schoolCount": 25,
+        "viewports": [
+          1366,
+          390,
+          320
+        ],
+        "schoolCasesPassed": 75,
+        "schoolCasesFailed": 0,
+        "countyCasesPassed": 25,
+        "countyCasesFailed": 0,
+        "sitemapUrlsPassed": 25,
+        "observedWorkerVersions": [
+          "0876bb6f-d11e-448d-9798-d27fb1bbbd50"
+        ],
+        "workerVersionMatchesDeploy": true,
+        "productionDeploymentGitSha": "9a760dd3ee17eb7818f4ab632d3f3445a84115b4",
+        "chromeRunId": 42231309646,
+        "chromeArtifactId": 13509411368,
+        "browserExecutionCount": 1,
+        "githubWorkerLedgerDeploymentId": 7602055186,
+        "cloudflareDeploymentId": "a8aac9ac-3cc7-4641-a244-fd80d13a5816",
+        "chromeRunUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/42231309646",
+        "chromeArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/42231309646/artifacts/13509411368",
+        "editorialHumanSignoffsClaimed": 0,
+        "manualAccessibilityAccepted": false,
+        "schoolPhotoReuseRightsAccepted": false,
+        "limitation": "Technical browser verification only; no current scores, licensed school photography, manual WCAG, parking/ADA or human editorial signoff."
+      },
+      "completionBasis": "One genuine non-skipped 25-school 75-viewport plus 25-county production Chrome job, exact signed source SHA and active Worker, compact artifact; separate protected evidence-only graduation PR.",
       "noNextBatchAssigned": true
     }
   ]
