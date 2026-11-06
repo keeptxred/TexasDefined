@@ -75,11 +75,11 @@ const liveFacilities = Number(publishedCoverage[1].replaceAll(",", ""));
 const liveLakes = Number(publishedCoverage[2].replaceAll(",", ""));
 assert.ok(liveLakes >= 20 && liveFacilities >= 100, "/fishing/access: not yet a meaningful statewide inventory");
 function directoryVisibleText(html) {
-  return html.replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, " ")
-    .replace(/<head\\b[^>]*>[\\s\\S]*?<\\/head>/gi, " ")
-    .replace(/<!--\\s*-->/g, "")
+  return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<head\b[^>]*>[\s\S]*?<\/head>/gi, " ")
+    .replace(/<!--\s*-->/g, "")
     .replace(/<[^>]*>/g, " ")
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 function checkFacilityKind(html, name, expectedKind, label) {
@@ -100,8 +100,8 @@ for (const [name, kind] of [
   ["Paddle Point Park", "kayak launch"],
   ["Bear Creek Park", "boat ramp"],
 ]) checkFacilityKind(ordinaryAccess, name, kind, "/fishing/access ordinary URL");
-assert.ok(/rel=["']canonical["'][^>]*href=["']https:\\/\\/texasdefined\\.com\\/fishing\\/access["']/.test(ordinaryAccess) ||
-  /href=["']https:\\/\\/texasdefined\\.com\\/fishing\\/access["'][^>]*rel=["']canonical["']/.test(ordinaryAccess),
+assert.ok(/rel=["']canonical["'][^>]*href=["']https:\/\/texasdefined\.com\/fishing\/access["']/.test(ordinaryAccess) ||
+  /href=["']https:\/\/texasdefined\.com\/fishing\/access["'][^>]*rel=["']canonical["']/.test(ordinaryAccess),
   "/fishing/access ordinary URL canonical mismatch");
 lacks(ordinaryAccess, "Use Partner With Us for a new ramp", "/fishing/access ordinary URL");
 const ordinaryAccessText = ordinaryAccess.replace(/<!--\s*-->/g, "").replace(/<[^>]+>/g, " ");
