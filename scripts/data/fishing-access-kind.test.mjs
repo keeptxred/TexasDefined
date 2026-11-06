@@ -62,7 +62,7 @@ test("river, bank, pier and camper-only sites retain reviewed categories", () =>
     const compact = network.indexOf(`name:"${name}"`);
     const at = spaced >= 0 ? spaced : compact;
     assert.ok(at >= 0, "Missing source facility " + name);
-    const match = network.slice(at, at + 260).match(/kind:\\s*"([a-z-]+)"/);
+    const match = network.slice(at, at + 260).match(/kind:\s*"([a-z-]+)"/);
     assert.ok(match, "Missing reviewed identity for " + name);
     assert.equal(match[1], kind, name);
   }
