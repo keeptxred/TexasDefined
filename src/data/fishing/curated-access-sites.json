@@ -349,6 +349,11 @@
     "tpwd": "travis",
     "facilities": [
       [
+        "Gloster Bend Recreation Area",
+        "boat-ramp",
+        "TPWD identifies a two-lane concrete boat ramp at Gloster Bend Recreation Area north of Lake Travis, accessed from FM 1431 and Singleton Road. The Lower Colorado River Authority operates the fee-entry day-use park; confirm ramp conditions before travel."
+      ],
+      [
         "Pace Bend/Collier Cove",
         "boat-ramp",
         "TPWD documents a one-lane concrete ramp at Collier Cove in Pace Bend Park, reached from RR 2322 west of Austin. Travis County Parks operates the fee-entry site; check conditions before towing."
@@ -372,6 +377,16 @@
         "Bob Wentz at Windy Point",
         "boat-ramp",
         "TPWD lists a two-lane concrete ramp restricted to sailboats at Bob Wentz at Windy Point off Comanche Trail. This is not a general-purpose motorboat launch; Travis County Parks operates the fee-entry day-use site."
+      ],
+      [
+        "Sandy Creek Park",
+        "boat-ramp",
+        "TPWD lists a two-lane concrete ramp at Sandy Creek Park, reached from FM 2769 and Lime Creek Road near Volente. Travis County Parks operates this fee-entry site; check current water levels and park notices before launching."
+      ],
+      [
+        "Hippie Hollow",
+        "boat-ramp",
+        "TPWD identifies a two-lane concrete ramp at Hippie Hollow with space for up to 17 parked vehicles, accessed from RR 620 and Comanche Trail. Travis County Parks operates the fee-entry day-use site; confirm current access rules and launch usability."
       ],
       [
         "Cypress Creek",
