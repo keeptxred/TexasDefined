@@ -9,7 +9,9 @@ const sharedPattern = /^(?:package(?:-lock)?\.json|vite\.config\.|wrangler\.|src
 const groups = {
   cj_affiliate: /cj-account|cj-hotels|stay-affiliate-options|angi-home-services|BookingCarRentalCard|SchoolSupplyPartners|FootballFanOffers|src\/data\/gaming|src\/routes\/gaming_/,
   images: /discover|hero|public\/images|materialize/,
-  sports: /sports|venue|football/,
+  // Changes to the MSR production browser verifier must re-run its sports
+  // release checks, even when no sports page source changed in that commit.
+  sports: /sports|venue|football|msr-houston/,
   horse_racing: /horse-racing|horseRacing|HorseRacing|verify-horse-racing-production/,
   foliage: /east-texas-fall-colors|fall-foliage/,
   discovery: /public-routes|sitemap|routeTree|discovery|indexing/,
