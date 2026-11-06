@@ -94,6 +94,22 @@ for (const [lakeId, expected] of [["lewisville-lake", 17], ["lake-lavon", 16], [
   assert.equal(row.facilities.length, expected, lakeId + ": official ramp and shore access list incomplete");
 }
 assert.equal(access.find((row) => row.lakeId === "lewisville-lake").facilities.find(([name]) => name === "Cottonwood Park")[1], "shore", "Cottonwood Park must not be mislabeled as a boat ramp");
+// Keep Lake Travis access classifications consistent with TPWD's individually
+// named concrete ramps; do not classify these as generic bank access.
+const travisAccess = access.find((lake) => lake.lakeId === "lake-travis");
+assert.equal(travisAccess?.sourcePage, "access2.phtml", "Lake Travis must cite TPWD's detailed facilities page");
+for (const [name, evidence] of [
+  ["Arkansas Bend", "two-lane concrete"],
+  ["Gloster Bend Recreation Area", "two-lane concrete"],
+  ["Sandy Creek Park", "two-lane concrete"],
+  ["Hippie Hollow", "two-lane concrete"],
+]) {
+  const entry = travisAccess.facilities.find(([facility]) => facility === name);
+  assert.ok(entry, name + ": TPWD-listed access facility missing");
+  assert.equal(entry[1], "boat-ramp", name + ": TPWD identifies a concrete boat ramp, not generic shore access");
+  assert.ok(entry[2].includes(evidence), name + ": needs actual TPWD ramp detail, not boilerplate");
+}
+assert.ok(travisAccess.facilities.length >= 9, "Lake Travis regression: known source-backed ramp inventory shrank");
 const guideDirectory = read("src/components/fishing/FishingGuideDirectory.tsx");
 const guideProfileUi = read("src/components/fishing/FishingGuideProfile.tsx");
 assert.ok(guideDirectory.includes("current Texas fishing-guide license"), "Guide directory must disclose licensing verification limitations");
