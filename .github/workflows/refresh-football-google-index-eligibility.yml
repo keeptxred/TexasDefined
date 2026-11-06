@@ -11,6 +11,8 @@ permissions:
   pull-requests: write
 jobs:
   update:
+    # PR branches also modify REGISTRY.json; never generate feature-base SEO PRs.
+    if: github.event_name != 'push' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -23,6 +25,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: automation/google-football-index-eligibility
+          base: main
           commit-message: 'chore(seo): refresh verified Google football pages'
           title: 'SEO: promote newly verified football pages in Google'
           body: 'Generated from verified authority registry and fixed finalized owner GSC safety snapshot. No new deindexing of pages with recorded clicks.'
