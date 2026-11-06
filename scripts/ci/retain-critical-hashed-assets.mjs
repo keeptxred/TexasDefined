@@ -34,13 +34,18 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // originally healthy files remained inside the 72-hour retention window.
 // Latest measured 1,024 files were 56,348,390 bytes; all 1,091 eligible
 // paths require retention, not a CI bypass. The old file ceiling, not a
-// platform file limit, was the observed failure. Keep finite 1,536-file
-// and 96 MiB ceilings with strict 2 MiB per-file, original firstSeenAt,
-// 72-hour expiry, same-origin HTTP 200 MIME and SHA-256 verification.
+// platform file limit, was the observed failure. Nov 6 02:20Z successful
+// production run 42149204797 retained 1,431 old-only files / 80,757,434 bytes,
+// leaving only 105 file slots below 1,536. Until independent KV is fully
+// published and verified, use a finite 3,072-file / 192 MiB bridge, well
+// below the documented Workers Free static-assets file-count limit.
+// This is NOT a permanent archive or a change to original-byte obligations.
+// Preserve strict 2 MiB/file, firstSeenAt, 72-hour expiry, same-origin HTTP
+// 200, MIME, and SHA-256 checks and fail closed rather than omit healthy paths.
 // Fail closed again if even the higher measured headroom is exceeded;
 // never drop a healthy in-window URL to make a release succeed.
-const LIMIT_FILES = 1536;
-const LIMIT_BYTES = 96 * 1024 * 1024;
+const LIMIT_FILES = 3072;
+const LIMIT_BYTES = 192 * 1024 * 1024;
 const LIMIT_ONE_FILE = 2 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 20000;
@@ -103,6 +108,12 @@ export async function retain({
     ignoredOld: 0, ignoredOldPaths: [], omittedDetails: [] };
   const kept = [];
   const omitted = [];
+  function markUnavailable(asset, data) {
+    report.unavailable.push({path:asset.path,...data});
+    // Preserve original SHA and firstSeenAt in the protected failure handoff.
+    omitted.push({path:asset.path,kind:asset.kind,wasAvailable:true,
+      preSha256:asset.preSha256,firstSeenAt:asset.firstSeenAt});
+  }
   let totalBytes = 0;
   let attemptedOld = 0;
   await mkdir(assetFolder, { recursive: true });
@@ -123,7 +134,7 @@ export async function retain({
         firstSeenAt: asset.firstSeenAt });
       continue;
     }
-    // Enforce a bounded ceiling of 1,536 attempted old-only
+    // Enforce a bounded ceiling of 3,072 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
@@ -144,14 +155,14 @@ export async function retain({
         signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       });
     } catch (error) {
-      report.unavailable.push({ path: asset.path, status: 'network-error', detail: String(error) });
+      markUnavailable(asset,{ status:'network-error', detail:String(error) });
       continue;
     }
     const body = Buffer.from(await response.arrayBuffer());
     const contentType = response.headers.get('content-type') || '';
     if (response.headers.get('cf-mitigated') === 'challenge' ||
         !expectedAssetResponse(asset.kind, response.status, contentType, body.byteLength)) {
-      report.unavailable.push({ path: asset.path, status: response.status, contentType });
+      markUnavailable(asset,{ status:response.status, contentType });
       continue;
     }
     const actualHash = createHash('sha256').update(body).digest('hex');
@@ -201,6 +212,12 @@ export async function retain({
   latest.omittedAssets = omitted;
   report.bytes = totalBytes;
   report.retainedCount = kept.length;
+  report.capacity = {remainingOldFileSlots:LIMIT_FILES-attemptedOld,
+    remainingBytes:LIMIT_BYTES-totalBytes,
+    fileUtilizationPercent:Math.round(1000*attemptedOld/LIMIT_FILES)/10,
+    byteUtilizationPercent:Math.round(1000*totalBytes/LIMIT_BYTES)/10};
+  if(report.unavailable.length) report.failure={reason:'previously-healthy-asset-unavailable',
+    count:report.unavailable.length,paths:report.unavailable.map(x=>x.path)};
   await mkdir(dirname(snapshotPath), { recursive: true });
   await mkdir(dirname(reportPath), { recursive: true });
   await writeFile(snapshotPath, JSON.stringify(saved, null, 2) + '\n');
@@ -209,11 +226,17 @@ export async function retain({
     + ' bytes) into next Worker; current-build duplicates=' + report.alreadyInBuild.length
     + '; already missing=' + report.unavailable.length + '; aged-out/budget-limited=' + report.ignoredOld);
   for (const missing of report.unavailable) console.warn('::warning title=Pre-existing asset unavailable::' + missing.path + ' HTTP ' + missing.status);
+  if(Math.max(report.capacity.fileUtilizationPercent,report.capacity.byteUtilizationPercent)>=80)
+    console.warn('::warning title=Old hashed asset retention nearing bounded capacity::'+JSON.stringify(report.capacity));
   // Never silently ship a Worker that drops previously healthy, in-window old hashes.
   // The report is already persisted for diagnosis; fail BEFORE Wrangler deploy.
   if (report.ignoredOld > 0) {
     throw new Error('Old-only asset retention cap exceeded: ' + report.ignoredOld
       + ' previously healthy hashes omitted; inspect ' + reportPath + ' and preserve original bytes before deploying');
+  }
+  if (report.unavailable.length > 0) {
+    throw new Error('Previously healthy in-window old assets are now unavailable: '+
+      report.unavailable.length+'; inspect '+reportPath+'; refuse to drop original hashes');
   }
   return report;
 }
