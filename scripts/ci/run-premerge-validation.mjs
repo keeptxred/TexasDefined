@@ -43,6 +43,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 
 const prebuildChecks = [
   ['SEO/DISTINCTNESS', 'Verify all 42 sports and fishing page pairs keep distinct editorial content and canonicals', 'node', ['scripts/data/validate-page-pair-distinctness.mjs']],
+  ['SEO/DISTINCTNESS', 'Prevent generic lake/source repetition across all nine fishing technique guides', 'node', ['--experimental-strip-types', '--test', 'scripts/data/validate-fishing-technique-selection.test.mjs']],
   ['HOMEPAGE/FRESHNESS', 'Reject stale, unverified or duplicated homepage event picks', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-events.test.mjs']],
   ['HOMEPAGE/EDITORIAL', 'Keep published homepage editorial diversity and prevent repeated cards', 'node', ['--experimental-strip-types', '--test', 'scripts/data/homepage-editorial.test.mjs']],
   ['HOMEPAGE/LIVE', 'Fail on cached old HTML, wrong canonical or missing editorial link in mocked public responses', 'node', ['--test', 'scripts/ci/verify-homepage-fresh-production.test.mjs']],
