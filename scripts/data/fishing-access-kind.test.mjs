@@ -55,7 +55,7 @@ test("river, bank, pier and camper-only sites retain reviewed categories", () =>
     ["Selma Hughes Park (bank access only)","shore"],
     ["Fritz Hughes Park (bank access only)","shore"],
     ["Spring Canyon fishing pier","pier"],
-    ["Chandler River Park","shore"],
+    ["Chandler River Park","public-ramp"],
     ["Bear Creek Park","public-ramp"],
   ]) {
     const spaced = network.indexOf(`name: "${name}"`);
