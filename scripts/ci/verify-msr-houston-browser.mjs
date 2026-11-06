@@ -54,7 +54,7 @@ for (const test of tests) {
         ({ expectedWidth }) => {
           const viewportMeta = document.querySelector('meta[name="viewport"]')?.getAttribute('content') || '';
           const css = [...document.querySelectorAll('link[rel="stylesheet"]')];
-          const viewportReady = /width\\s*=\\s*device-width/i.test(viewportMeta);
+          const viewportReady = /width\s*=\s*device-width/i.test(viewportMeta);
           const cssReady = css.length > 0 && css.every(link => Boolean(link.sheet));
           return viewportReady && cssReady
             && window.innerWidth >= expectedWidth - 8 && window.innerWidth <= expectedWidth + 8
