@@ -1129,4 +1129,14 @@ test('MSR Houston browser verifier changes trigger its real production acceptanc
   assert.match(workflow, /id: live_msr_browser/);
   assert.match(workflow, /steps\.change_scope\.outputs\.sports == 'true'/,
     'Sports scope must control actual MSR production browser execution');
+  const msrBrowser = text('scripts/ci/verify-msr-houston-browser.mjs');
+  assert.match(msrBrowser, /page\.waitForFunction\(/, 'MSR Chrome must await actual layout readiness');
+  assert.ok(msrBrowser.includes('meta[name="viewport"]'), 'MSR mobile gate must verify viewport metadata');
+  assert.ok(msrBrowser.includes('css.every(link => Boolean(link.sheet))'),
+    'MSR mobile gate must await stylesheet loading after streamed HTTP response');
+  assert.ok(msrBrowser.includes('document.documentElement.scrollWidth <= window.innerWidth + 8'),
+    'MSR mobile gate must reject actual horizontal page overflow');
+  assert.ok(msrBrowser.includes('assert.ok(facts.width <= facts.viewport + 8'),
+    'Never remove the independent final overflow assertion');
+
 });
