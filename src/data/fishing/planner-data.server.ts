@@ -60,7 +60,14 @@ export async function loadFishingPlannerDataServer() {
     const importantAdvisories = (research?.regulations ?? [])
       .filter((entry) => /advisory|mussel|closure|launch|ramp|border|licen[cs]e|water level/i.test(entry.label))
       .slice(0, 4)
-      .map((entry) => ({ label: entry.label, text: entry.text, sourceUrl: entry.sourceUrl }));
+      .map((entry) => ({
+        label: entry.label,
+        // A dated research note must never masquerade as today's ramp status.
+        text: /current low-water launch closures|ramp (?:open|clos|status)|launch closures/i.test(entry.label)
+          ? "Managing-agency ramp and facility status changes with water level and maintenance. Historical open/closed descriptions may be obsolete; consult the linked live operator status before choosing a launch."
+          : entry.text,
+        sourceUrl: entry.sourceUrl,
+      }));
     const source = lake.sources.find((entry) => entry.url.includes("tpwd.texas.gov/fishboat/fish/recreational/lakes/")) ?? lake.sources[0];
 
     return {
