@@ -14,6 +14,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'dallas-kimball', mascot: 'Knights', sourceUrl: 'https://kimball.dallasisd.org/', sourceLabel: 'Dallas ISD current school homepage confirms Kimball Knights', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-life-oak-cliff', mascot: 'Lions', sourceUrl: 'https://lifeschool.net/general-athletic-information-faqs/what-is-life-schools-mascot', sourceLabel: 'Life School current district mascot FAQ explicitly identifies Dallas County/Oak Cliff Lions, distinct from Ellis County Mustangs', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-lincoln', mascot: 'Tigers', sourceUrl: 'https://lincoln.dallasisd.org/', sourceLabel: 'Dallas ISD Lincoln High current school homepage identifies Tigers', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-madison', mascot: 'Trojans', sourceUrl: 'https://madison.dallasisd.org/', sourceLabel: 'Dallas ISD James Madison current school homepage identifies Trojans', verifiedAt: '2026-11-06' },
+  { slug: 'dallas-molina', mascot: 'Jaguars', sourceUrl: 'https://molina.dallasisd.org/', sourceLabel: 'Dallas ISD Molina current school homepage identifies Jaguars', verifiedAt: '2026-11-06' },
   { slug: 'cuero', mascot: 'Gobblers', sourceUrl: 'https://www.cueroisd.org/departments/athletics', sourceLabel: 'Official school/district athletics source; identity cross-checked with individual Batch013 source-backed editorial', verifiedAt: '2026-11-06' },
   { slug: 'cumby', mascot: 'Fighting Trojans', sourceUrl: 'https://www.cumbyisd.net/o/cisd/page/athletics', sourceLabel: 'Official school/district athletics source; identity cross-checked with individual Batch013 source-backed editorial', verifiedAt: '2026-11-06' },
   { slug: 'cushing', mascot: 'Bearkats', sourceUrl: 'https://www.cushingisd.org/departments/athletic_department/football', sourceLabel: 'Official school/district athletics source; identity cross-checked with individual Batch013 source-backed editorial', verifiedAt: '2026-11-06' },
