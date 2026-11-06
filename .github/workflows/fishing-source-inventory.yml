@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'src/data/fishing/curated-access-sites.json'
+      - 'src/components/fishing/FishingAccessDirectory.tsx'
+      - 'scripts/ci/verify-fishing-live-content.mjs'
       - 'src/data/fishing/curated-fishing-guide-businesses.json'
       - 'src/data/fishing/curated-inventory.ts'
       - 'src/data/fishing/curated-historical-reports.ts'
