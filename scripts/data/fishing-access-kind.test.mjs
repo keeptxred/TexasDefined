@@ -86,3 +86,29 @@ test("river, bank, pier and camper-only sites retain reviewed categories", () =>
     assert.equal(match[1], kind, name);
   }
 });
+
+test("all five TPWD-documented Lake Cypress Springs public ramps retain source-reviewed boat-ramp categories", () => {
+  const network = readFileSync("src/data/fishing/statewide-lake-network.ts", "utf8");
+  const start = network.indexOf('slug: "lake-cypress-springs",');
+  const end = network.indexOf("\n    campingUrl:", start);
+  assert.ok(start >= 0 && end > start, "Missing Cypress Springs authority access inventory");
+  const inventory = network.slice(start, end);
+  const rampNames = [
+    "Guthrie Park boat ramp",
+    "Dogwood Park boat ramp",
+    "Mary King Park boat ramp",
+    "Overlook Park boat ramp",
+    "Walleye Park boat ramp",
+  ];
+  for (const name of rampNames) {
+    const identity = `name:"${name}"`;
+    const at = inventory.indexOf(identity);
+    assert.ok(at >= 0, "Missing TPWD-confirmed FCWD ramp: " + name);
+    assert.equal(inventory.indexOf(identity, at + identity.length), -1, "Duplicate FCWD ramp: " + name);
+    const row = inventory.slice(at).match(/^name:"[^"]+",operator:"Franklin County Water District",kind:"([^"]+)",launch:"([^"]+)"/);
+    assert.ok(row, "Missing reviewed source identity or launch details: " + name);
+    assert.equal(row[1], "public-ramp", "Never infer " + name + " as generic shoreline");
+    assert.equal(classify({kind:row[1],launch:row[2]}), "boat-ramp", name);
+  }
+  assert.match(inventory, /accessReviewedAt:"2026-10-14"/, "Do not falsely restamp old lake access review");
+});
