@@ -35,9 +35,9 @@ jobs:
           const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
           const archived=reg.completedBatches?.some(b=>b.number===12 && b.state==='VERIFIED_BATCH_012_COMPLETE');
           if(reg.batch?.number===12 && !archived){
-            appendFileSync(process.env.GITHUB_OUTPUT,'active=true\\n');
+            appendFileSync(process.env.GITHUB_OUTPUT,'active=true' + String.fromCharCode(10));
           }else if(archived && reg.batch?.number!==12){
-            appendFileSync(process.env.GITHUB_OUTPUT,'active=false\\n');
+            appendFileSync(process.env.GITHUB_OUTPUT,'active=false' + String.fromCharCode(10));
             console.log('Batch012 already certified and archived; preserve prior signed Chrome evidence.');
           }else{
             throw new Error('Unexpected Batch012 registry state; refuse silent skip');
