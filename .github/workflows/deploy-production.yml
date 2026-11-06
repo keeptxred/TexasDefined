@@ -86,10 +86,44 @@ jobs:
             echo "::error title=Official Ubuntu apt source missing::Cannot safely install governed image dependencies."
             exit 1
           fi
-          timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
-          timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+          # GitHub's westus Azure mirror has stalled on 2.3 MB librsvg2-bin downloads
+          # (2026-11-06, exit 124 after 180s). Use the official Ubuntu archive
+          # directly instead of repeatedly downloading from that broken mirror.
+          # Preserve the runner's Ubuntu suites/components and Signed-By key:
+          # apt signature checking and actual image validation remain mandatory.
+          ubuntu_sources="$(mktemp --suffix=.sources)"
+          trap 'rm -f "$ubuntu_sources"' EXIT
+          python3 - /etc/apt/sources.list.d/ubuntu.sources "$ubuntu_sources" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          original = Path(sys.argv[1]).read_text(encoding="utf-8")
+          entries = []
+          for stanza in re.split(r"\n\s*\n", original.strip()):
+              if not stanza or stanza.lstrip().startswith("#"):
+                  continue
+              suites = re.search(r"^Suites:\s*(.+)$", stanza, re.M)
+              signed = re.search(r"^Signed-By:\s*(.+)$", stanza, re.M)
+              uris = re.search(r"^URIs:\s*(.+)$", stanza, re.M)
+              if not (suites and signed and uris):
+                  raise SystemExit("Refusing to alter Ubuntu source: Suite, URIs or Signed-By missing")
+              mirror = ("https://security.ubuntu.com/ubuntu"
+                        if any(token.endswith("-security") for token in suites.group(1).split())
+                        else "https://archive.ubuntu.com/ubuntu")
+              entries.append(re.sub(r"^URIs:\s*.+$", "URIs: " + mirror, stanza, count=1, flags=re.M))
+          if not entries:
+              raise SystemExit("No signed official Ubuntu sources found")
+          Path(sys.argv[2]).write_text("\n\n".join(entries) + "\n", encoding="utf-8")
+          print("Using Ubuntu's signed official archive/security sources for image dependencies")
+          PY
+          apt_args=(-o "Dir::Etc::sourcelist=$ubuntu_sources" -o "Dir::Etc::sourceparts=-"
+                    -o "Acquire::Retries=1" -o "Acquire::http::Timeout=25" -o "Acquire::https::Timeout=25")
+          timeout 120s sudo apt-get update -qq "${apt_args[@]}"
+          timeout 240s sudo apt-get install -y --no-install-recommends "${apt_args[@]}" imagemagick librsvg2-bin
           (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1)
           command -v rsvg-convert >/dev/null 2>&1
+          rsvg-convert --version
 
       - name: Report Cloudflare deployment credential source
         shell: bash
