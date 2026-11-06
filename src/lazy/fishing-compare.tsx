@@ -67,7 +67,7 @@ function FishingLakeComparePage() {
               </tbody>
             </table>
           </div>
-          {!hasReports ? <p className="mt-4 text-sm leading-7 text-muted-foreground">No current verified fishing reports are published for this selection. This does not mean fishing is closed or unproductive. Check <a href="https://tpwd.texas.gov/fishboat/fish/action/reptmap.php" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">TPWD fishing reports</a> for any new updates; historical reports are not presented as current.</p> : null}
+          {!hasReports ? <p className="mt-4 text-sm leading-7 text-muted-foreground">No current verified fishing reports are published for this selection. This does not mean fishing is closed or unproductive. Check <a href="https://tpwd.texas.gov/fishboat/fish/recreational/fishreport.phtml" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">TPWD fishing reports</a> for any new updates; historical reports are not presented as current.</p> : null}
           {!hasGuideBusinesses && !hasServices ? <p className="mt-2 text-xs leading-6 text-muted-foreground">Unpopulated commercial directories are hidden. No published verified listing does not mean local guides or services do not exist.</p> : null}
         </section>
 
