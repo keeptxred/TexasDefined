@@ -14,6 +14,8 @@ on:
       - 'src/data/fishing/reused-statewide-access.ts'
       - 'scripts/data/validate-fishing-inventory-expansion.mjs'
       - 'scripts/ci/audit-fishing-inventory-sources.mjs'
+      - 'scripts/ci/run-bounded-source-checks.mjs'
+      - 'scripts/ci/test-run-bounded-source-checks.mjs'
       - '.github/workflows/fishing-source-inventory.yml'
   schedule:
     - cron: '23 14 * * 1,4'
@@ -34,6 +36,8 @@ jobs:
           node-version: '22'
       - name: Verify sources, catalog relationships and index protections
         run: node scripts/data/validate-fishing-inventory-expansion.mjs
+      - name: Verify source-review concurrency, coverage and fail-closed behavior
+        run: node scripts/ci/test-run-bounded-source-checks.mjs
 
   source-review:
     runs-on: ubuntu-latest
