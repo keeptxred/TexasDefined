@@ -39,7 +39,7 @@ for (const { name, viewport, mobile } of cases) {
     assert.equal(resp?.status(), 200, "ordinary public directory HTTP status");
     await page.getByRole("heading", { name: "Texas Fishing Access", exact: true }).waitFor({ timeout: 25000 });
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute("href"), canonical);
-    assert.doesNotMatch((await page.locator('meta[name="robots"]').allTextContents()).join(" "), /noindex/i);
+    assert.doesNotMatch((await page.locator('meta[name="robots"]').evaluateAll(nodes => nodes.map(node => node.getAttribute("content") || "").join(" "))), /noindex/i, name + ": unexpected directory noindex");
     for (const [site, kind] of [
       ["Arkansas Bend", "boat ramp"],
       ["Bachman Lake public bank-fishing shoreline", "shore"],
