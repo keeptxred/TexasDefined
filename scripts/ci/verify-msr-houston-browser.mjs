@@ -43,6 +43,41 @@ for (const test of tests) {
     await page.locator('h1').first().waitFor({ state: 'visible', timeout: 15000 });
     await page.locator('a[href="/destination/levi-jordan-plantation"]').first()
       .waitFor({ state: 'attached', timeout: 30000 });
+    // `waitUntil: 'commit'` allows valid streamed HTML without blocking on
+    // DOMContentLoaded, but visible article text can precede the viewport meta
+    // and compiled stylesheet. A mobile Chrome layout measured at that moment
+    // has a desktop-sized layout viewport even with a 390px device setting.
+    // Never certify CSS/mobile geometry until both arrive and the *actual*
+    // document layout fits. This is a bounded readiness assertion, not a skip.
+    try {
+      await page.waitForFunction(
+        ({ expectedWidth }) => {
+          const viewportMeta = document.querySelector('meta[name="viewport"]')?.getAttribute('content') || '';
+          const css = [...document.querySelectorAll('link[rel="stylesheet"]')];
+          const viewportReady = /width\\s*=\\s*device-width/i.test(viewportMeta);
+          const cssReady = css.length > 0 && css.every(link => Boolean(link.sheet));
+          return viewportReady && cssReady
+            && window.innerWidth >= expectedWidth - 8 && window.innerWidth <= expectedWidth + 8
+            && document.documentElement.scrollWidth <= window.innerWidth + 8;
+        },
+        { expectedWidth: test.viewport.width },
+        { timeout: 25000, polling: 250 },
+      );
+    } catch (error) {
+      const details = await page.evaluate(() => ({
+        viewportMeta: document.querySelector('meta[name="viewport"]')?.getAttribute('content'),
+        css: [...document.querySelectorAll('link[rel="stylesheet"]')].map(link => ({
+          href: link.getAttribute('href'), loaded: Boolean(link.sheet),
+        })),
+        innerWidth: window.innerWidth,
+        documentWidth: document.documentElement.scrollWidth,
+        readyState: document.readyState,
+      }));
+      throw new Error('Real mobile/desktop layout did not settle within 25 seconds: '
+        + JSON.stringify(details) + '; ' + String(error));
+    }
+    // Retain the independent post-settle overflow assertion below. A page
+    // that remains too wide after all CSS/meta arrive still fails release QA.
     const facts = await page.evaluate(() => ({
       title: document.title,
       h1: Array.from(document.querySelectorAll('h1')).map(el => el.textContent?.trim()),
