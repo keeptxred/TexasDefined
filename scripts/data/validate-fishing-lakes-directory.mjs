@@ -28,12 +28,11 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
 ]);
 
 const errors = [];
+
 const advisories = JSON.parse(advisoriesText);
-assertFAQContract();
-function assertFAQContract() {
-  // FAQ structured data and visible answers must share the same pure source.
-  if (!route.includes("buildFishingLakeQuickAnswers(completeLakeCount)") || !component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Visible quick answers must exactly match JSON-LD FAQ content from one shared source.");
-}
+// Quick answers remain visible, but obsolete FAQ rich-result schema is not emitted.
+if (!component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Keep original reader-facing quick answers.");
+if (route.includes('"@type": "FAQPage"')) errors.push("Retired Google FAQPage rich-result markup must not be published.");
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
 for (const marker of [
@@ -41,12 +40,13 @@ for (const marker of [
   'await import("@/data/fishing/queries")',
   'fishingLakesQuery({ limit: 100 })',
   'lakeSpeciesProfilesQuery()',
+  'fishingAccessPointsQuery({ limit: 1000 })',
   'isCompleteFishingLakeSlug(lake.slug)',
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
-  '"@type": "FAQPage"',
   '"@type": "BreadcrumbList"',
   'numberOfItems: rows.length',
+  'documentedAccess: accessByLake.get(lake.id)',
   'const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length',
   'title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`',
   'lazy(() => import("@/components/fishing/FishingLakesDirectory")',
@@ -54,11 +54,16 @@ for (const marker of [
 ]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
 
 for (const marker of [
-  "Find the right Texas fishing lake",
+  "Find Texas fishing lakes",
   'What this directory covers',
   'Jump to a lake guide',
   'Compare Texas Fishing Lakes',
   'Fishing targets',
+  'Documented access type',
+  'Research season',
+  'Source-reviewed trip options',
+  'TPWD fishery profile',
+  'Researched seasonal patterns',
   'Check Current Lake Conditions Before You Go',
   'New guides are added as the underlying fishing and access research is completed',
   'same sourcing standard',
