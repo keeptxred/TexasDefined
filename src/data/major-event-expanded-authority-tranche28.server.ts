@@ -11,14 +11,14 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-11-12",
     endDate: "2026-11-15",
-    dateNote: "The public show runs November 12-15, 2026. The organizer lists classes and related educational events beginning November 10; this guide uses the public-show window.",
+    dateNote: "The public quilt show runs November 12–15, 2026 at George R. Brown Convention Center. Education begins November 10. Official 2026 public hours are 10 a.m.–6 p.m. Thursday–Saturday and 10 a.m.–4 p.m. Sunday; the organizer lists $18 daily admission and free admission for children 10 and under. Class enrollees receive show-floor admission.",
     venue: "George R. Brown Convention Center",
     officialUrl: "https://www.quilts.com/quilt-festival/quilt-festival-houston/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "International Quilt Festival/Houston is a major annual textile-arts gathering at the George R. Brown Convention Center, bringing a large juried quilt show, hundreds of vendor booths and extensive classes, lectures and events to downtown Houston.",
     planningSections: [
       { title: "Use November 12-15 for the public show", body: "Quilts, Inc. confirms the 2026 public festival for Thursday through Sunday, November 12-15 at the George R. Brown Convention Center. Classes and related educational programming begin November 10, so travelers taking classes should arrive before the public-show dates." },
-      { title: "Separate show-floor time from classes", body: "The organizer publishes a large class catalog in addition to the exhibition floor. If education is a priority, enroll first and then build show-floor time around the class schedule rather than assuming every activity is drop-in." },
+      { title: "Separate show-floor time from classes", body: "The organizer publishes a separate class catalog beginning November 10 in addition to the November 12–15 exhibition floor. Current general show admission is $18 per day, children 10 and under enter free, and class registration includes show-floor admission; do not buy an unnecessary separate show ticket if already enrolled in an eligible class." },
       { title: "Use the connected downtown hotels if convenience matters", body: "The organizer publishes official hotel blocks and notes that the Marriott Marquis and Hilton Americas connect to the convention center by skywalk. Compare those options with downtown transit and parking before finalizing the stay." },
     ],
     relatedLinks: [
