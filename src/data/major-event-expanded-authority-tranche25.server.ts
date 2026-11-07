@@ -78,9 +78,9 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-11-14",
     endDate: "2026-11-15",
-    venue: "Texas State Capitol and downtown Austin venues",
+    dateNote: "The organizer confirms the 31st Texas Book Festival for November 14–15, 2026 in downtown Austin, including Capitol-area venues and outdoor tents. The public daytime festival is free; use the official schedule for individual talks, signing locations and any separately ticketed headliner session.", venue: "Texas State Capitol and downtown Austin venues",
     officialUrl: "https://texasbookfestival.org/festival/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "The Texas Book Festival returns to downtown Austin for its 31st annual event as a free, public literary weekend with more than 250 writers, programming for different ages and genres, book signings, exhibitors, food and a Saturday-night Lit Crawl.",
     quickFacts: [
       { label: "2026 dates", value: "November 14–15, 2026" },
