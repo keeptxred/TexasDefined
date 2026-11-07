@@ -64,7 +64,7 @@ for (const marker of [
   'same sourcing standard',
   'source-backed lake-to-species relationships',
   'fishingFoundationAnchor("lake", lake.slug)',
-]) assert(`${component}\n${sharedAnswers}`.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
+]) assert(`${route}\n${component}\n${sharedAnswers}`.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
 
 for (const forbidden of [
   '@/data/fishing/fixtures',
@@ -97,6 +97,15 @@ assert(legacyExpectedCompleteSlugs.every((slug) => completeSlugs.includes(slug))
 assert(hubRoute.includes('lazy(() => import("@/components/fishing/FishingHub")'), "Fishing hub lazy boundary is missing.");
 assert(authorityWorkflow.includes("FISHING_AUDIT_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full == true && '1' || '0' }}"), "Fishing full URL audit must require manual dispatch; no broad scan on every fishing production deployment.");
 assert(authorityWorkflow.includes('FISHING_AUDIT_BATCH_SIZE: "120"'), "Bounded daily fishing URL audit batch limit must be retained.");
+// The visitor-facing title and introduction must remain in the route itself,
+// outside the lazy directory Suspense boundary, so hydration cannot transiently
+// remove the only H1. Preserve one semantic heading on desktop and mobile.
+const stableH1 = route.indexOf('>Texas fishing lakes</h1>');
+const suspenseStart = route.indexOf('<Suspense fallback=');
+assert(stableH1 !== -1 && suspenseStart !== -1 && stableH1 < suspenseStart,
+  "Fishing lakes canonical H1 must render outside the lazy Suspense boundary.");
+assert(!component.includes("<h1"), "Lazy lake directory must not create a second H1.");
+assert(route.includes("Browse {rows.length} lake guides"), "Persistent fishing lakes hero must retain the accurate lake-guide count.");
 assert(liveChromeWorkflow.includes("group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.sha }}"), "Live fishing-lakes Chrome must group push runs by source SHA to prevent later main commits cancelling production browser acceptance.");
 for (const marker of ['to="/fishing/lakes"', 'Browse fishing lakes →', 'Explore fishing lakes', 'Featured Texas Fishing Lakes']) assert(hubComponent.includes(marker), `Fishing hub is missing lakes-directory discovery marker: ${marker}.`);
 for (const marker of ['id="fishing-research-method"', 'What fishery labels mean', 'desk research', 'TPWD Outdoor Annual', 'Link to="/corrections-policy"']) assert(hubComponent.includes(marker), `Fishing hub must disclose its real source methodology and corrections path: ${marker}.`);

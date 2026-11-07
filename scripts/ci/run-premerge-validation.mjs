@@ -170,6 +170,8 @@ const prebuildChecks = [
   ['EVENT/TICKETING', 'Validate safe official editorial ticket seller batch probes', 'node', ['--test', 'scripts/events/verify-editorial-ticket-links.test.mjs']],
   ['EVENT/TICKETMASTER', 'Ensure bot refresh merge conflicts protect source recency and manual ticket verification', 'node', ['--test', 'scripts/events/reconcile-ticketing-refresh-conflicts.test.mjs']],
   ['EVENT/ANNUAL', 'Preserve only recent verified future official occurrences across temporary organizer parser failures', 'node', ['--test', 'scripts/events/retain-verified-official-events.test.mjs']],
+  ['EVENT/ALL-PAGES', 'Reject untracked permanent event guides, missing source URLs and uncovered event routes', 'node', ['scripts/events/event-page-refresh-governance.mjs']],
+  ['EVENT/REFRESH-CADENCE', 'Prove every event route has GitHub refresh ownership and safe date-sensitive source monitoring', 'node', ['--test', 'scripts/events/event-page-refresh-governance.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster calendar integration', 'node', ['scripts/data/validate-ticketmaster-integration.mjs']],
   ['EVENT/TICKETING', 'Validate shared ticket architecture', 'node', ['scripts/data/validate-event-ticketing-architecture.mjs']],
   ['EVENT/TICKETING', 'Validate canonical official ticket fallback', 'node', ['scripts/data/validate-event-ticket-positive-path.mjs']],
