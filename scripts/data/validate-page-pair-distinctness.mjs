@@ -89,6 +89,8 @@ for (const slug of techniques) {
 }
 assert.ok(fishingProfile.includes("guide.tripChecks.map"), "Render specific trip checks in the shared detail template");
 assert.ok(!fishingProfile.includes("This page does not claim that"), "Repeated boilerplate disclaimer restored");
+assert.ok(!fishingProfile.includes("These are practical technique fundamentals."), "Repeated publishing-process boilerplate restored on all nine technique guides");
+assert.ok(!fishingProfile.includes("this page does not repeat a statewide lake catalog"), "Public guide should not discuss internal template/catalog deduplication");
 assert.equal((fishingProfile.match(/<ol className="mt-7 list-none space-y-4">/g) ?? []).length, 2, "Both instruction lists need one visible number per step");
 assert.equal((fishingProfile.match(/<span aria-hidden="true" className="font-display text-2xl text-primary">/g) ?? []).length, 2, "The custom step numbers must not repeat in the accessibility tree");
 
