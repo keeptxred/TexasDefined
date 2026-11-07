@@ -47,6 +47,14 @@ const published=publishedLakes.filter(l=>catalog.isCompleteFishingLakeSlug(l.slu
 if(published.length!==72)throw new Error("Live catalog no longer has exactly 72 complete guides");
 const speciesById=new Map(publishedSpecies.map(s=>[s.id,s.commonName]));
 const lakeBySlug=new Map(published.map(l=>[l.slug,l]));
+for(const lake of published){
+  const primary=lake.sources.find(source=>{try{const url=new URL(source.url);return url.hostname==="tpwd.texas.gov" && /^\/fishboat\/fish\/recreational\/lakes\/[a-z0-9_]+\/(?:index\.phtml)?$/i.test(url.pathname)}catch{return false}});
+  if(!primary) throw new Error(lake.slug+": no primary lake-specific TPWD fishery profile");
+}
+if(process.argv.includes("--catalog-check")){
+  console.log("PASS: 72 published lake guides have specific official fishery sources and the grade audit can load real species relationships.");
+  process.exit(0);
+}
 const relationsByLake=new Map();
 for(const r of relations){
   const row=relationsByLake.get(r.lakeId)||[];
@@ -94,6 +102,7 @@ const batch=Array.from({length:Math.min(3,selected.length)},async()=>{
 });
 await Promise.all(batch);
 checks.sort((a,b)=>a.slug.localeCompare(b.slug));
+if(checks.length && checks.every(row=>row.comparisons===0)) errors.push("No published grades could be compared to TPWD across this entire cohort; parser or official table format requires investigation");
 const report={checkedAt:new Date().toISOString(),mode:full?"full":"cohort",cohort:full?null:cohort,
   publishedLakes:published.length,selectedLakes:selected.length,checkedLakes:checks.length,
   comparedRatings:checks.reduce((sum,row)=>sum+(row.comparisons||0),0),
