@@ -107,12 +107,12 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-11-05",
     endDate: "2026-11-08",
-    venue: "Downtown Galveston and Seawall event areas",
+    dateNote: "Official 2026 rally runs November 5–8 with programming across the Strand, Pier 21 and Seawall. The organizer publishes day-specific street, concert and vendor times; music at the two named public stages is free. Historic Strand activity and Seawall concerts do not share identical closing times.", venue: "Downtown Galveston and Seawall event areas",
     officialUrl: "https://lonestarrally.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Lone Star Rally turns central Galveston into a four-day motorcycle gathering with bike and car shows, live entertainment, vendors and rally programming spread through downtown and Seawall event areas.",
     planningSections: [
-      { title: "Hold November 5-8 for the 2026 rally", body: "The organizer's official homepage publishes November 5-8, 2026 for the Galveston rally. Use that four-day window for lodging and travel planning while rechecking the official entertainment schedule as final programming is posted." },
+      { title: "Hold November 5–8 for the 2026 rally", body: "The organizer's detailed 2026 schedule confirms Thursday November 5 through Sunday November 8 across downtown Galveston and the Seawall. Its Thursday–Saturday Strand program generally runs 10 a.m.–11 p.m. and Sunday closes at 6 p.m.; individual concerts, vendors and Seawall performances have their own published windows. Review the date-specific official schedule before attending." },
       { title: "Expect a distributed island event", body: "Official rally information references downtown, Strand, Harborside and Seawall activity rather than one enclosed venue. Review current maps before arrival and plan realistic movement between the areas you want to visit." },
       { title: "Use organizer parking and access guidance", body: "The rally publishes dedicated maps, parking options and accommodations information. Review those resources before driving onto the island because normal Galveston weekend assumptions may not fit a large rally footprint." },
     ],
@@ -122,6 +122,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Lone Star Rally official 2026 site", url: "https://lonestarrally.com/" },
+      { label: "Lone Star Rally official 2026 detailed daily event schedule", url: "https://lonestarrally.com/event-schedule/" },
       { label: "Lone Star Rally official 2026 vendor operating information", url: "https://lonestarrally.com/vendors/food-application/" },
     ],
   },
