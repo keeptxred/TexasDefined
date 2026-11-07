@@ -217,7 +217,8 @@ for (const token of [
   "isCompleteFishingLakeSlug(lake.slug)",
   "numberOfItems: rows.length",
 ]) requireText(files.directoryRoute, token, `fifteen-lake directory SEO/data contract missing ${token}`);
-for (const token of ["Find the right Texas fishing lake", "Check Current Lake Conditions Before You Go", "New guides are added as the underlying fishing and access research is completed"]) requireText(files.directoryUi, token, `fifteen-lake directory UI integrity contract missing ${token}`);
+requireText(files.directoryRoute, "Find the right Texas fishing lake", "fifteen-lake visitor introduction must persist in the eager route before the lazy directory loads");
+for (const token of ["Check Current Lake Conditions Before You Go", "New guides are added as the underlying fishing and access research is completed"]) requireText(files.directoryUi, token, `fifteen-lake directory UI integrity contract missing ${token}`);
 for (const token of ["const featuredLakes = lakes.slice(0, 6)", "Featured Texas Fishing Lakes", "Browse fishing lakes →", 'fishingFoundationAnchor("lake", lake.slug)', 'isCompleteFishingLakeSlug(lake.slug) ? "Full fishing guide" : "Lake profile"']) requireText(files.hub, token, `statewide hub expansion/discovery missing ${token}`);
 for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "ALL_SHOWCASE_LAKE_SLUGS", "showcaseLakeCanonicalPath(slug, section)"]) requireText(files.sitemap, token, `expanded lake sitemap publication missing ${token}`);
 
