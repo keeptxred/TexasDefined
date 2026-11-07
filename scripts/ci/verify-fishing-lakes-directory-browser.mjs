@@ -66,6 +66,32 @@ for (const { name, viewport, mobile } of [
     assert.equal(response?.status(), 200, name + ": directory is not HTTP 200 on ordinary URL");
     await page.getByRole("heading", { name: "Texas fishing lakes", exact: true }).waitFor({ state: "visible", timeout: 25000 });
     await page.getByRole("searchbox", { name: "Lake, county or city" }).waitFor({ state: "visible", timeout: 25000 });
+    // The production failure artifact shows the *correct* visible H1 above
+    // "Loading Texas fishing lakes…" after the earlier DOM sample counted 0
+    // H1s. A streamed TanStack Start boundary can remount between Playwright's
+    // separate heading/searchbox waits and the next immediate DOM evaluation.
+    // Require one finished, coherent directory state for 300ms, not an arbitrary
+    // sleep or a weaker assertion. Missing SSR links, title, cards, or answers
+    // still fail when the bounded readiness deadline expires.
+    await page.waitForFunction(
+      async () => {
+        const directoryIsComplete = () => {
+          const headings = document.querySelectorAll("h1");
+          const status = document.querySelector('p[role="status"][aria-live="polite"]');
+          const links = document.querySelectorAll('nav[aria-label="All matching fishing lake guides"] a[href^="/fishing/lakes/"]');
+          const cards = document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article');
+          const answers = document.querySelectorAll('section[aria-labelledby="lake-answers-heading"] article');
+          return headings.length === 1 &&
+            headings[0].textContent?.trim() === "Texas fishing lakes" &&
+            /Showing\s+72\s+of\s+72\s+lake guides/.test(status?.textContent || "") &&
+            links.length === 72 && cards.length === 12 && answers.length === 4;
+        };
+        if (!directoryIsComplete()) return false;
+        await new Promise(resolve => setTimeout(resolve, 300));
+        return directoryIsComplete();
+      },
+      null, { timeout: 30000 },
+    );
     const initial = await page.evaluate(() => {
       const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
       const nodes = scripts.flatMap(script => {
@@ -88,7 +114,7 @@ for (const { name, viewport, mobile } of [
       };
     });
     assert.equal(initial.canonical, canonical, name + ": canonical mismatch");
-    assert.equal(initial.h1.length, 1, name + ": duplicate H1");
+    assert.deepEqual(initial.h1, ["Texas fishing lakes"], name + ": exactly one correctly titled H1 must remain after streaming");
     assert.match(initial.title, /Texas Fishing Lakes/i);
     assert.doesNotMatch(initial.robots, /noindex/i, name + ": valid collection page incorrectly noindexed");
     assert.equal(initial.itemCount, 72, name + ": directory ItemList count incorrect");
@@ -208,6 +234,8 @@ for (const { name, viewport, mobile } of [
       assert.equal(await lakeCard(page, slug).count(), 1, name + ": searched comparison lake not visible: " + slug);
       await lakeCard(page, slug).getByRole("checkbox", { name: "Compare this lake" }).check();
     }
+    assert.deepEqual(await page.locator("h1").allTextContents(), ["Texas fishing lakes"],
+      name + ": the canonical H1 must survive filtering and lake selection");
     const compare = page.getByRole("link", { name: /Compare 3 selected lakes/ });
     const href = await compare.getAttribute("href");
     assert.equal(href, "/fishing/compare?lake1=lake-conroe&lake2=lake-abilene&lake3=sam-rayburn-reservoir",
