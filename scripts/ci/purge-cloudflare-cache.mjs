@@ -53,6 +53,12 @@ const alwaysPurgeUrls = [
   // Google-specific indexing changes must not leave a stale primary XML sitemap
   // in Cloudflare's edge cache after the Worker deploys the new policy.
   `https://${zoneName}/sitemap.xml`,
+  // List and map use separate query-string cache keys. Purge each visitor
+  // variant after verified Worker replacement; stale ?view=map HTML otherwise
+  // can keep presenting a superseded 15-lake map after source updates.
+  `https://${zoneName}/fishing/plan`,
+  `https://${zoneName}/fishing/plan?view=map`,
+  `https://${zoneName}/fishing/plan?view=list`,
   // Preserve the 72-guide fishing release after every Worker update; a stale
   // edge snapshot must not show an old species grade, defensive copy or layout.
   ...[

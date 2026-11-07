@@ -168,4 +168,47 @@ const normalizedBass = bass.replace(/<!--\s*-->/g, "");
 assert.ok(/<strong[^>]*>Spring:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Spring labels");
 assert.ok(/<strong[^>]*>Year-round:<\/strong>/.test(normalizedBass), "Bass lake seasons must have visitor-friendly Year-round labels");
 
+
+// Both ordinary and cache-busted planner URLs must expose the latest source-
+// verified TWDB map inventory, not two different Worker/edge revisions.
+// Prior general fishing acceptance omitted /fishing/plan entirely.
+function meaningfulPlannerText(html) {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+    .replace(/<head\b[^>]*>[\s\S]*?<\/head>/gi, " ")
+    .replace(/<!--\s*-->/g, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+function assertPlannerCanonical(html, label) {
+  const canonical = (html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/i) ??
+    html.match(/<link\b[^>]*href=["']https:\/\/texasdefined\.com\/fishing\/plan["'][^>]*rel=["']canonical["'][^>]*>/i))?.[0] ?? "";
+  assert.match(canonical, /https:\/\/texasdefined\.com\/fishing\/plan["']/i, label + ": incorrect canonical");
+  assert.ok(!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html), label + ": finder is unexpectedly noindex");
+}
+for (const cacheBust of [false, true]) {
+  const kind = cacheBust ? "fresh" : "ordinary";
+  const listPath = "/fishing/plan";
+  const mapPath = "/fishing/plan?view=map";
+  const listHtml = await page(listPath, { cacheBust });
+  const mapHtml = await page(mapPath, { cacheBust });
+  const listText = meaningfulPlannerText(listHtml);
+  const mapText = meaningfulPlannerText(mapHtml);
+  assertPlannerCanonical(listHtml, "fishing planner list " + kind);
+  assertPlannerCanonical(mapHtml, "fishing planner map " + kind);
+  assert.match(listText, /72 matching lakes/i, "list " + kind + ": lost lakes in the catalog");
+  assert.match(mapText, /72 matching lakes/i, "map " + kind + ": lost lakes in the catalog");
+  assert.match(listText, /Showing 12 of 72 matching lake cards/i, "list " + kind + ": progressive cards or crawlable index missing");
+  assert.match(listText, /Jump directly to any matching lake/i, "list " + kind + ": complete A–Z quick links missing");
+  assert.match(listText, /Official fish-consumption advisory/i, "list " + kind + ": published TPWD advisory absent");
+  assert.match(listText, /A current report must be published within seven days/i, "list " + kind + ": report freshness disclosure missing");
+  assert.match(mapText, /Map coverage:\s*72 of 72 matching lakes/i, "map " + kind + ": stale or incomplete 72-lake map coverage");
+  assert.match(mapText, /Choose a mapped lake/i, "map " + kind + ": keyboard-accessible map selector absent");
+  assert.match(mapText, /Texas Water Development Board/i, "map " + kind + ": TWDB citation missing");
+  assert.match(mapText, /Every matching lake is represented/i, "map " + kind + ": complete source-backed lake coverage not disclosed");
+  assert.match(mapText, /Fish-consumption advisories/i, "map " + kind + ": pre-trip advisory resources absent");
+}
+
 console.log(JSON.stringify({ result: "PASS", coverage: { lakes: liveLakes, facilities: liveFacilities }, checks: ["ordinary-vs-fresh canonical URL parity", "hub copy", "real directory links", "canonical", "statewide lake and facility coverage", "facility-profile noindex", "verified guide businesses", "historical reports noindex", "human-readable bass seasons"], pages: reports }, null, 2));

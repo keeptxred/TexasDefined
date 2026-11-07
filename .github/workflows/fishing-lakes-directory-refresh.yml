@@ -18,6 +18,8 @@ on:
       - 'scripts/ci/audit-fishing-planner-live-sources.mjs'
       - 'scripts/ci/research-fishing-map-coordinates.mjs'
       - 'src/data/fishing/planner-twdb-coordinates.json'
+      - 'src/data/fishing/planner-official-coordinate-fallbacks.json'
+      - 'scripts/ci/audit-fishing-planner-alternate-coordinates.mjs'
       - 'src/data/fishing/planner-data.server.ts'
       - 'scripts/data/validate-fishing-planner-platform.mjs'
       - 'src/data/fishing/lake-directory-advisories.json'
@@ -74,6 +76,8 @@ jobs:
           node scripts/ci/audit-fishing-lake-grade-sources.mjs --plan
           node --check scripts/ci/audit-fishing-planner-live-sources.mjs
           node scripts/ci/audit-fishing-planner-live-sources.mjs --plan
+          node --check scripts/ci/audit-fishing-planner-alternate-coordinates.mjs
+          node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs --plan
           node scripts/ci/audit-fishing-compare-authority.mjs --local
       - name: Verify posted official lake access restrictions
         if: github.event_name != 'pull_request'
@@ -168,12 +172,19 @@ jobs:
         id: twdb
         continue-on-error: true
         run: node scripts/ci/research-fishing-map-coordinates.mjs
+      - name: Check the ten separate TPWD, TCEQ and USGS lake reference sources
+        id: alternates
+        if: github.event_name != 'pull_request'
+        continue-on-error: true
+        run: node scripts/ci/audit-fishing-planner-alternate-coordinates.mjs
       - name: Preserve review candidates and unmatched lakes
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: fishing-planner-twdb-map-review
-          path: .artifacts/fishing-planner-twdb-coordinate-candidates.json
+          path: |
+            .artifacts/fishing-planner-twdb-coordinate-candidates.json
+            .artifacts/fishing-planner-official-coordinate-review.json
           retention-days: 45
           if-no-files-found: warn
       - name: Record TWDB coordinate-source drift without altering published points
@@ -185,6 +196,18 @@ jobs:
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
           body="Official TWDB reservoir point source has become unavailable, ambiguous, or shifted significantly. Do not silently remove or invent lake locations. Review .artifacts/fishing-planner-twdb-coordinate-candidates.json from https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and correct the confirmed source mismatch."
           if [[ -n "$existing" ]]; then gh issue comment "$existing" --body "$body"; else gh issue create --title "$title" --body "$body"; fi
+      - name: Record alternate lake-coordinate official-source drift
+        if: steps.alternates.outcome == 'failure' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Fishing planner government coordinate source drift'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          body="A verified lake-point source from TPWD, USGS or TCEQ changed or was unavailable. Investigate the coordinate source review artifact from https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Never silently restamp source verification dates or guess replacement coordinates."
+          if [[ -n "$existing" ]]; then gh issue comment "$existing" --body "$body"; else gh issue create --title "$title" --body "$body"; fi
+      - name: Fail on unresolved alternate coordinate-source drift
+        if: steps.alternates.outcome == 'failure'
+        run: exit 1
       - name: Fail on unresolved TWDB source drift
         if: steps.twdb.outcome == 'failure'
         run: exit 1

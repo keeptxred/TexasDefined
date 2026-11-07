@@ -1,5 +1,6 @@
 import { fishingGuideCanonicalPath } from "./guide-routing";
 import twdbPlannerCoordinates from "./planner-twdb-coordinates.json";
+import officialCoordinateFallbacks from "./planner-official-coordinate-fallbacks.json";
 import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
 import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
 import { statewideNetworkLakeDefinitions } from "./statewide-lake-network";
@@ -33,8 +34,12 @@ export async function loadFishingPlannerDataServer() {
     const twdbPoint = !lake.coordinates
       ? twdbPlannerCoordinates[lake.slug as keyof typeof twdbPlannerCoordinates]
       : undefined;
-    const mappedLake = twdbPoint
-      ? { ...lake, coordinates: { lat: twdbPoint.lat, lng: twdbPoint.lng } }
+    const alternatePoint = !lake.coordinates && !twdbPoint
+      ? officialCoordinateFallbacks[lake.slug as keyof typeof officialCoordinateFallbacks]
+      : undefined;
+    const sourcePoint = twdbPoint ?? alternatePoint;
+    const mappedLake = sourcePoint
+      ? { ...lake, coordinates: { lat: sourcePoint.lat, lng: sourcePoint.lng } }
       : lake;
     const targets = lakeSpecies
       .filter((relation) => relation.lakeId === lake.id)
@@ -82,10 +87,11 @@ export async function loadFishingPlannerDataServer() {
 
     return {
       lake: mappedLake,
-      coordinateSource: twdbPoint ? {
-        label: `Texas Water Development Board — ${twdbPoint.sourceName}`,
-        url: twdbPoint.sourceUrl,
-        reviewedAt: twdbPoint.reviewedAt,
+      coordinateSource: sourcePoint ? {
+        label: twdbPoint ? `Texas Water Development Board — ${twdbPoint.sourceName}` : alternatePoint!.sourceName,
+        url: sourcePoint.sourceUrl,
+        reviewedAt: sourcePoint.reviewedAt,
+        pointType: alternatePoint?.pointType ?? "Reservoir reference point",
       } : null,
       comparisonAuthority: {
         lakeSource: source?.url ?? "",

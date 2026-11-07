@@ -5,6 +5,7 @@ const requiredFiles = [
   "src/data/fishing/planner-routing.ts",
   "src/data/fishing/consumption-advisories.json",
   "src/data/fishing/planner-twdb-coordinates.json",
+  "src/data/fishing/planner-official-coordinate-fallbacks.json",
   "scripts/ci/research-fishing-map-coordinates.mjs",
   "scripts/ci/audit-fishing-planner-live-sources.mjs",
   "src/data/fishing/planner-data.server.ts",
@@ -38,6 +39,7 @@ const locationFunctions = read("src/data/fishing/location.functions.ts");
 const resultsMap = read("src/components/fishing/FishingResultsMap.tsx");
 const consumptionAdvisories = JSON.parse(read("src/data/fishing/consumption-advisories.json"));
 const sourcedCoordinates = JSON.parse(read("src/data/fishing/planner-twdb-coordinates.json"));
+const officialFallbackCoordinates = JSON.parse(read("src/data/fishing/planner-official-coordinate-fallbacks.json"));
 const coordinateResearch = read("scripts/ci/research-fishing-map-coordinates.mjs");
 const plannerSourceAudit = read("scripts/ci/audit-fishing-planner-live-sources.mjs");
 const fishingFixtures = read("src/data/fishing/fixtures.ts");
@@ -111,7 +113,21 @@ requireText(planner, "ranked.slice(0, visibleCount)", "planner must avoid duplic
 requireText(planner, 'aria-label="All matching fishing lake guides"', "planner must keep all matching lake destinations discoverable to crawlers");
 requireText(coordinateResearch, "waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson", "map coordinates must derive from official TWDB feed");
 const savedPoints = Object.entries(sourcedCoordinates);
-if (savedPoints.length < 47) throw new Error("Fishing planner previously reviewed TWDB coordinates unexpectedly missing");
+if (savedPoints.length !== 47) throw new Error("Fishing planner TWDB registry must retain 47 reviewed coordinates");
+const alternatePoints = Object.entries(officialFallbackCoordinates);
+if (alternatePoints.length !== 10) throw new Error("Fishing planner must retain all ten separately reviewed agency coordinate fallbacks");
+if (savedPoints.length + alternatePoints.length !== 57) throw new Error("Fishing planner 57 previously unmapped statewide lakes must have sourced points");
+const allowedOfficialCoordinateSource = /^https:\/\/(?:waterdata\.usgs\.gov\/monitoring-location\/|www\.waterqualitydata\.us\/provider\/STORET\/TCEQMAIN\/|tpwd\.texas\.gov\/|edits\.nationalmap\.gov\/apps\/gaz-domestic\/public\/summary\/)/;
+for (const [slug, point] of alternatePoints) {
+  if (Object.hasOwn(sourcedCoordinates, slug) || !/^[a-z0-9-]+$/.test(slug) ||
+      !Number.isFinite(point.lat) || !Number.isFinite(point.lng) ||
+      point.lat < 25 || point.lat > 37 || point.lng < -107 || point.lng > -93 ||
+      !point.sourceName || !point.pointType ||
+      !allowedOfficialCoordinateSource.test(point.sourceUrl) ||
+      !/^20\d\d-\d\d-\d\d$/.test(point.reviewedAt)) {
+    throw new Error(`Missing official-source or overlapping fishing coordinate: ${slug}`);
+  }
+}
 for (const [slug, point] of savedPoints) {
   if (!/^[a-z0-9-]+$/.test(slug) ||
       !Number.isFinite(point.lat) || !Number.isFinite(point.lng) ||
@@ -122,6 +138,10 @@ for (const [slug, point] of savedPoints) {
   }
 }
 requireText(resultsMap, "List view", "map must offer the complete list when coordinates are absent");
+requireText(resultsMap, "Every matching lake is represented", "complete source-backed map must display the actual full coverage");
+requireText(resultsMap, "pointType", "alternate agency point types must be available in the map methodology");
+requireText(server, "officialCoordinateFallbacks", "planner must add only official named lake reference points");
+requireText(server, "mappedLake", "planner must carry trusted coordinates to lake search and map results");
 requireText(planner, "consumptionAdvisories", "planner must show source-backed fish-consumption warnings");
 requireText(resultsMap, "selected.consumptionAdvisory", "map-selected result must show applicable consumption warning");
 requireText(planner, "tpwd.texas.gov/regulations/outdoor-annual/fishing/", "planner must link to official current fishing rules");
