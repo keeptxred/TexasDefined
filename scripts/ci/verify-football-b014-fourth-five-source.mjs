@@ -11,8 +11,8 @@ const guides=JSON.parse(m[1]);
 assert.deepEqual(Object.keys(guides),slugs,'wrong or duplicate fourth-five guide roster');
 const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const b014Certified = registry.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId===7613348297 && b.technicalAcceptance?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' && b.technicalAcceptance?.observedWorkerVersions?.[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2') && registry.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
-assert.equal(registry.batch.number,14,'active Batch014 assignment required');
-assert.deepEqual(registry.batch.slugs.slice(15,20),slugs,'fourth-five registry order must remain canonical');
+assert.ok(registry.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE'),'Batch014 signed graduation must remain archived');
+assert.deepEqual(registry.completedBatches.find(b=>b.number===14).slugs.slice(15,20),slugs,'fourth-five registry order must remain canonical');
 assert.equal(registry.schoolRecords.filter(s=>s.status==='VERIFIED').length,b014Certified?330:305,'305 historically certified schools must remain');
 
 
