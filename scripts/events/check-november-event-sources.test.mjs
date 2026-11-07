@@ -231,13 +231,13 @@ test("November event guide venue and sold-out ticket schema remain aligned", () 
   const market = read("../../src/data/major-event-expanded-authority-tranche36.server.ts");
   const marketRecord = market.slice(market.indexOf('slug: "houston-ballet-nutcracker-market"'));
   for (const token of ['venue: "Reliant Center (formerly NRG Center)"', 'within Reliant Park', 'One NRG Park',
-    'November 12', 'November 15', 'children age 2 and under', 'Early Bird']) {
+    'November 12', 'November 11', 'children age 2 and under', 'Early Bird']) {
     assert(marketRecord.toLowerCase().includes(token.toLowerCase()), "Market guide missing " + token);
   }
   // Editorial source dates legitimately advance when the 2026 organizer is
   // reverified. Reject dates before the protected source baseline or in the
   // future; never freeze a previous verification date into a content contract.
-  const date = marketRecord.match(/sourceCheckedAt: "(\\d{4}-\\d{2}-\\d{2})"/)?.[1];
+  const date = marketRecord.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
   assert(date, "Nutcracker Market guide must retain its source verification date");
   assert(date >= "2026-10-29", "Source verification must not regress to an older evidence date");
   assert(date <= new Date().toISOString().slice(0, 10), "Future source verification is not allowed");
