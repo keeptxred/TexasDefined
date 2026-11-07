@@ -16,7 +16,7 @@ assert.deepEqual(reg.batch.slugs.slice(20,25),slugs,'final five canonical assign
 assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,b014Certified?330:305,'preserve all earlier production certificates');
 
 
-assert.equal((reg.completedBatches||[]).some(b=>b.number===14),false,'no premature archived B014 certificate');
+assert.equal((reg.completedBatches||[]).some(b=>b.number===14),b014Certified,'only signed production Chrome permits archived B014 certificate');
 const loader=read('src/data/high-school-football/program-editorial-b014-loader.server.ts');
 assert.ok(loader.includes("import('./program-editorial-b014-group5')"),'fifth-five not wired into SSR loader');
 assert.ok(read('src/data/high-school-football/football-program-profile.server.ts').includes('loadBatch014FootballProgramEditorial(canonicalSlug)'),'production SSR resolver missing B014');
