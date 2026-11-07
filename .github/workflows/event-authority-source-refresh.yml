@@ -1,0 +1,116 @@
+name: Governed event page authority source refresh
+
+on:
+  schedule:
+    # Existing event sync runs daily at 11:17 UTC, temporal page checks 11:23.
+    # This additional bounded source monitor covers every permanent event guide.
+    - cron: '07 13 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/event-authority-source-refresh.yml'
+      - 'scripts/events/event-page-refresh-governance.mjs'
+      - 'scripts/events/monitor-event-authority-sources.mjs'
+      - 'scripts/events/event-page-refresh-governance.test.mjs'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: governed-event-authority-source-refresh
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    name: Inventory and verify due event organizer sources
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - name: Check out event source and route inventory
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install locked TypeScript parser
+        run: npm ci --ignore-scripts
+
+      - name: Test exhaustive event page coverage and source safety
+        run: node --test scripts/events/event-page-refresh-governance.test.mjs
+
+      - name: Refuse uncovered permanent or static event routes
+        run: node scripts/events/event-page-refresh-governance.mjs
+
+      - name: Review due permanent event organizer sources
+        id: source_review
+        continue-on-error: true
+        run: node scripts/events/monitor-event-authority-sources.mjs
+
+      - name: Preserve per-page source and editorial freshness evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: event-authority-source-refresh-${{ github.run_id }}
+          path: .artifacts/event-authority-source-refresh.json
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Maintain one actionable event source freshness issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const title = '[Events] Permanent event authority source freshness';
+            const reportPath = '.artifacts/event-authority-source-refresh.json';
+            if (!fs.existsSync(reportPath)) {
+              core.setFailed('Missing event authority source report: refuse silent coverage failure');
+              return;
+            }
+            const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+            const existing = issues.find(issue => issue.title === title && !issue.pull_request);
+            if (report.needsReview) {
+              const problemRows = (report.findings || []).slice(0, 100).map(item =>
+                `- \`${item.path}\` — ${item.concerns.join(', ')}; source: ${item.source || 'missing'}; prior editorial check: ${item.editorialSourceCheckedAt || 'missing'}`);
+              const body = [
+                'The GitHub event page source-monitor found due organizer-source or editorial freshness reviews.',
+                '',
+                `Latest run: ${runUrl}`,
+                `Coverage: ${report.coverage.permanent} permanent event guides, ${report.coverage.collectionRoutes} event collection routes, ${report.coverage.specialRoutes} separately routed holiday/event pages.`,
+                `Due source observations: ${report.due}; performed: ${report.attempted}; unresolved concerns: ${report.findings.length}; coverage errors: ${report.coverageErrors.length}.`,
+                '',
+                '**Source reachability is NOT proof of confirmed dates.** Do not invent next-year dates, silently rewrite tickets, lift noindex, or update sourceCheckedAt based on a simple HTTP 200.',
+                '',
+                ...report.coverageErrors.map(msg => '- COVERAGE FAILURE: ' + msg),
+                ...problemRows,
+                report.findings.length > 100 ? `… ${report.findings.length - 100} more in the run artifact` : '',
+                '',
+                'Resolve with verified official organizer facts, then use the protected GitHub PR/CI path. The scheduler continues checking every guide regardless of this issue.',
+              ].join('\n').slice(0, 55000);
+              if (existing) {
+                await github.rest.issues.update({ owner, repo, issue_number: existing.number, body });
+              } else {
+                await github.rest.issues.create({ owner, repo, title, body });
+              }
+            } else if (existing) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: existing.number,
+                body: `All due event source and editorial checks recovered: ${runUrl}` });
+              await github.rest.issues.update({ owner, repo, issue_number: existing.number, state: 'closed' });
+            }
+
+      - name: Fail if route coverage or source monitor execution broke
+        if: steps.source_review.outcome == 'failure'
+        run: |
+          echo '::error title=Event authority source monitoring failed::Do not treat missing or partial coverage as a successful automatic refresh.'
+          exit 1
