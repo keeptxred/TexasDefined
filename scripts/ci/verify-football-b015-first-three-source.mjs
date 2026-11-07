@@ -21,6 +21,15 @@ for (const slug of slugs) {
   assert.ok(g.overview.length >= 4 && g.faq.length >= 3 && g.milestones.length >= 2);
   assert.ok(g.campus.address && g.notice.body);
 }
+const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const county = read('src/routes/$kind.$slug.lazy.tsx');
+for (const [slug, countySlug] of [['dell-city','hudspeth'],['denison','grayson'],['denton','denton']]) {
+  assert.ok(team.includes("'" + slug + "': '" + countySlug + "'"), slug + ' missing campus county mapping');
+  assert.ok(county.includes("slug: '" + slug + "'"), slug + ' missing reciprocal county listing');
+}
+for (const countySlug of ['hudspeth','grayson','denton']) {
+  assert.equal([...county.matchAll(new RegExp("^  '" + countySlug + "':", 'gm'))].length, 1, countySlug + ' duplicate county key would erase existing school links');
+}
 assert.ok(guides['denison'].overview.join(' ').includes('326 W. Crawford'));
 assert.ok(guides['denton'].notice.body.includes('not a confirmed universal'));
 assert.ok(guides['dell-city'].faq[0].answer.includes('Not from the reviewed'));
