@@ -37,7 +37,7 @@ export const VERIFIED_TOURNAMENT_BATCH4_PROFILES: readonly VerifiedTournamentBat
     whyItMatters: "The UIL volleyball championship brings Texas public-school title matches across classifications to one North Texas arena over three concentrated days.",
     planningNotes: [
       "UIL confirms November 19–21, 2026 at Curtis Culwell Center in Garland. Thursday has 1A and 2A finals, Friday has 3A/4A finals, and Saturday has 5A/6A finals; verify the division-specific match time in the published UIL state schedule.",
-      "Curtis Culwell Center is the official 2026 venue. UIL says live match webcasts are carried on the NFHS Network with a subscription; do not advertise them as universally free or confuse the volleyball stream with the free football championship broadcast arrangement. Verify current venue admission and parking rules before travel."
+      "Curtis Culwell Center is the official 2026 venue. UIL says live match webcasts are carried on the NFHS Network with a subscription; do not advertise them as universally free or confuse the volleyball stream with the free football championship broadcast arrangement. Verify current venue admission and parking rules before travel.",
       "Build Garland and Dallas County stops around the fixed match schedule rather than assuming every session uses the same arrival or ticket rules.",
     ],
     officialUrl: "https://www.uiltexas.org/volleyball/state",
