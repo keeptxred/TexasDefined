@@ -204,10 +204,10 @@ for (const cacheBust of [false, true]) {
   assert.match(listText, /Jump directly to any matching lake/i, "list " + kind + ": complete A–Z quick links missing");
   assert.match(listText, /Official fish-consumption advisory/i, "list " + kind + ": published TPWD advisory absent");
   assert.match(listText, /A current report must be published within seven days/i, "list " + kind + ": report freshness disclosure missing");
-  assert.match(mapText, /Map coverage:\s*62 of 72 matching lakes/i, "map " + kind + ": old 15-lake result or incomplete TWDB coverage");
+  assert.match(mapText, /Map coverage:\s*72 of 72 matching lakes/i, "map " + kind + ": stale or incomplete 72-lake map coverage");
   assert.match(mapText, /Choose a mapped lake/i, "map " + kind + ": keyboard-accessible map selector absent");
   assert.match(mapText, /Texas Water Development Board/i, "map " + kind + ": TWDB citation missing");
-  assert.match(mapText, /remaining.*List view|other 10.*List view/i, "map " + kind + ": unmapped lakes not disclosed");
+  assert.match(mapText, /Every matching lake is represented/i, "map " + kind + ": complete source-backed lake coverage not disclosed");
   assert.match(mapText, /Fish-consumption advisories/i, "map " + kind + ": pre-trip advisory resources absent");
 }
 
