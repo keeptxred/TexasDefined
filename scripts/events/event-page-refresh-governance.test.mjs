@@ -33,8 +33,15 @@ function fixture() {
         planningSections: [{ title: "Plan", body: "Source-safe" }] },
     ];
   `);
+  put('src/data/tournaments/verified-profiles.ts', `
+    const checkedAt = "2026-11-06";
+    export const VERIFIED_TOURNAMENT_PROFILES = [
+      { slug: "golf-championship", startDate: "2027-03-05",
+        officialUrl: "https://example.org/golf", sourceCheckedAt: checkedAt },
+    ];
+  `);
   put('src/data/major-event-supplemental-registry.server.ts',
-    'export const supplementalMajorEventSlugs = ["winter-parade"] as const;');
+    'export const supplementalMajorEventSlugs = ["winter-parade", "golf-championship"] as const;');
   put('src/data/event-collections.ts',
     'export const EVENT_COLLECTIONS = [{ slug:"fairs", path:"/events/fairs" }];');
   put('src/data/event-temporal-collections.server.ts',
@@ -52,12 +59,13 @@ test('covers all permanent index, supplemental, temporal and specialized route f
   const f = fixture();
   try {
     const i = collectEventPageRefreshInventory(f.root);
-    assert.equal(i.permanent.length, 3);
+    assert.equal(i.permanent.length, 4);
     assert.deepEqual(i.missing, []);
     assert.deepEqual(i.missingSources, []);
     assert.equal(i.collections.length, 2);
     assert.ok(i.permanent.some(x => x.path === '/event/river-festival'));
     assert.ok(i.permanent.some(x => x.path === '/event/winter-parade'));
+    assert.ok(i.permanent.some(x => x.path === '/event/golf-championship'));
     assert.deepEqual(validateEventRefreshCoverage(i), []);
     f.put('src/routes/events.unregistered.tsx', '// new undisclosed event page');
     assert.ok(validateEventRefreshCoverage(collectEventPageRefreshInventory(f.root))
@@ -118,7 +126,7 @@ test('scheduled source monitor enumerates all URLs with bounded calls and writes
         });
       },
     });
-    assert.equal(result.coverage.permanent, 3);
+    assert.equal(result.coverage.permanent, 4);
     assert.ok(result.due >= 1);
     assert.equal(result.attempted, result.due);
     assert.equal(result.state, 'observed');
