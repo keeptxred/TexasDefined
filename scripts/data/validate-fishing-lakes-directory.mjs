@@ -64,7 +64,7 @@ for (const marker of [
   'same sourcing standard',
   'source-backed lake-to-species relationships',
   'fishingFoundationAnchor("lake", lake.slug)',
-]) assert(`${component}\n${sharedAnswers}`.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
+]) assert(`${route}\n${component}\n${sharedAnswers}`.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
 
 for (const forbidden of [
   '@/data/fishing/fixtures',
