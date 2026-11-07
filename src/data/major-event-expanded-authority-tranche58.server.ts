@@ -14,10 +14,10 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-12-23",
     venue: "Galveston Railroad Museum, 2602 Santa Fe Place",
     officialUrl: "https://galvestonrrmuseum.org/event/the-polar-express/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-07",
     seoTitle: "Galveston Polar Express 2026: Tickets, Prices, Seats & Visitor Guide",
     seoDescription: "Plan Galveston's official 2026 Polar Express at the Railroad Museum: November 13–December 23, boarding, seat choices, accessibility, parking and booking.",
-    dateNote: "Scheduled November 13–December 23, 2026. Departure times and tickets vary; the official museum checkout controls availability.",
+    dateNote: "The Galveston Railroad Museum confirms November 13–December 23, 2026, at 1932 Union Depot. The rail ride takes approximately 60 minutes but guests should allow two hours, arrive roughly one hour before departure, and board at least 10 minutes before train time. Tickets and departure times remain date-specific; changes and weather refunds are generally unavailable.",
     whyItMatters: "Galveston's licensed THE POLAR EXPRESS™ experience begins in the 1932 Union Depot, where a staged prelude leads into a moving, hour-long holiday train ride. The museum's production won a 2023 Polar Bell Award for its prologue. Ticket value depends on your car, departure time, the depot program and whether you also plan a Galveston overnight—not on a promise that the train stops at a real North Pole.",
     quickFacts: [
       {
@@ -60,7 +60,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Allow time for the full depot-to-depot event",
-        body: "The ride itself is about 60 minutes, but the museum recommends approximately two hours for the complete visit. Arriving roughly one hour early gives time for refreshments, letters to Santa and its depot prelude. The organizer also says final boarding takes place 10 minutes before departure, and trains leave on schedule. Check the confirmation email for the precise day-of arrival instructions: one section of the museum's FAQ uses a shorter 30-minute minimum."
+        body: "The museum asks guests to allow approximately two hours for the full experience: arrive roughly one hour early for the depot pre-show, food, letters to Santa and check-in, then enjoy a 60-minute round trip. Final boarding is TEN minutes before departure. Train runs in most weather, and regular ticket purchases are not refunded for weather or a guest's change of plans. Check the ticket confirmation for any special class-specific boarding instructions."
       },
       {
         title: "Know the onboard experience—and what the North Pole means",
