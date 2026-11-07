@@ -129,16 +129,25 @@ export function dueForReview(event, asOf = new Date()) {
 }
 
 export function collectEventPageRefreshInventory(root = ROOT) {
-  const sources = fs.readdirSync(path.join(root, dataDirectory))
-    .filter(file => file === 'major-event-index.ts' || /^major-event-expanded-authority-tranche\d+\.server\.ts$/.test(file))
-    .map(file => path.join(dataDirectory, file));
+  const sources = [
+    ...fs.readdirSync(path.join(root, dataDirectory))
+      .filter(file => file === 'major-event-index.ts' || /^major-event-expanded-authority-tranche\d+\.server\.ts$/.test(file))
+      .map(file => path.join(dataDirectory, file)),
+    // 27 permanent /event guides are resolved through verified tournament
+    // profiles rather than the major-event tranche arrays. Do not omit them.
+    ...fs.readdirSync(path.join(root, 'src/data/tournaments'))
+      .filter(file => /^verified-profiles(?:-batch\d+)?\.ts$/.test(file))
+      .map(file => 'src/data/tournaments/' + file),
+  ];
   const records = new Map();
   const duplicateSlugs = new Set();
   for (const relative of sources) for (const row of extractRecords(root, relative)) {
     if (records.has(row.slug)) duplicateSlugs.add(row.slug);
-    // The base client index takes precedence when duplicate supplemental
-    // detail rows exist; otherwise retain the first resolved server record.
-    if (!records.has(row.slug) || (relative === 'src/data/major-event-index.ts')) {
+    // Client index owns the canonical occurrence where present. Otherwise
+    // prefer a fully sourced record over a supplementary metadata stub.
+    const existing = records.get(row.slug);
+    if (!existing || relative === 'src/data/major-event-index.ts' ||
+        (!existing.sourceUrl && row.sourceUrl)) {
       records.set(row.slug, row);
     }
   }
