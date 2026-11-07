@@ -13,6 +13,7 @@ export type FishingMapResult = {
   distanceMiles: number | null;
   matchedSpecies: string[];
   consumptionAdvisory: { summary: string; sourceUrl: string } | null;
+  coordinateSource: { label: string; url: string; reviewedAt: string } | null;
 };
 
 const bounds = { minLon: -106.8, maxLon: -93.45, minLat: 25.65, maxLat: 36.7 };
@@ -97,7 +98,7 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
           </g>;
         })}
       </svg>
-      <p className="border-t border-border px-2 pt-4 text-xs leading-6 text-muted-foreground">The Texas outline is simplified for orientation. Lake pins use representative published reservoir locations from the TexasDefined fishing catalog; they are not shoreline-access coordinates or geometric lake centroids.</p>
+      <p className="border-t border-border px-2 pt-4 text-xs leading-6 text-muted-foreground">The Texas outline is simplified for orientation. Lake pins use published reservoir reference points rather than ramps, shore access coordinates or geometric lake centroids. Nearby pins may overlap; use the lake selector to reach every mapped result.</p>
       <PublishableGraphic
         targetId="texas-fishing-lakes-results-graphic"
         filename="texas-fishing-lakes-map"
@@ -110,11 +111,16 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
 
     <aside className="border-t-2 border-foreground pt-6">
       {selected ? <>
-        <p className="eyebrow text-primary">Selected lake</p>
+        <label htmlFor="fishing-map-lake-selector" className="eyebrow text-primary">Choose a mapped lake</label>
+        <select id="fishing-map-lake-selector" value={selected.id} onChange={(event) => setSelectedId(event.target.value)} className="mt-3 w-full border border-border bg-background px-3 py-3 text-sm">
+          {visible.map((row) => <option key={row.id} value={row.id}>{row.name}</option>)}
+        </select>
+        <p className="mt-5 eyebrow text-primary">Selected lake</p>
         <h3 className="mt-3 font-display text-3xl leading-tight">{selected.name}</h3>
         <p className="mt-2 text-sm text-muted-foreground">{formatRegion(selected.region)} · {selected.fullGuide ? "Full fishing guide" : "Lake profile"}</p>
         {selected.distanceMiles != null ? <p className="mt-4 font-display text-2xl">{Math.round(selected.distanceMiles)} miles away</p> : null}
         {selected.matchedSpecies.length ? <div className="mt-6"><p className="eyebrow text-muted-foreground">Matching fish</p><div className="mt-3 flex flex-wrap gap-2">{selected.matchedSpecies.map((name) => <span key={name} className="border border-border px-3 py-1.5 text-xs">{name}</span>)}</div></div> : null}
+        {selected.coordinateSource ? <p className="mt-4 text-xs leading-6 text-muted-foreground">Map reference: <a href={selected.coordinateSource.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{selected.coordinateSource.label}</a> · Source checked {selected.coordinateSource.reviewedAt}. This point is not a launch site.</p> : null}
         {selected.consumptionAdvisory ? <aside className="mt-5 border-l-4 border-amber-600 bg-amber-50 p-4 text-sm leading-6 text-amber-950"><strong>Official fish-consumption advisory</strong><p className="mt-1">{selected.consumptionAdvisory.summary}</p><a href={selected.consumptionAdvisory.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-2">Check current species-specific limits at TPWD</a></aside> : null}
         <a href={selected.href} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {selected.name} →</a>
       </> : null}
