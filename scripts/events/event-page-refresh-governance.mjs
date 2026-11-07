@@ -20,8 +20,8 @@ const dataDirectory = 'src/data';
 const supplementalPath = 'src/data/major-event-supplemental-registry.server.ts';
 
 export const STATIC_EVENT_PAGES = [
-  { path: '/texas-state-fair', sourceUrl: 'https://bigtex.com/', kind: 'announcement-pending', note: 'Do not infer future State Fair dates from a previous edition' },
-  { path: '/holiday/enchant-christmas-arlington', sourceUrl: 'https://www.enchantchristmas.com/', kind: 'announcement-pending' },
+  { path: '/texas-state-fair', sourceUrl: 'https://bigtex.com/faq/', kind: 'announcement-pending', sourceCheckedAt: '2026-11-07', note: 'Official 2026 edition concluded October 18; do not infer 2027 dates without a current-year announcement' },
+  { path: '/holiday/enchant-christmas-arlington', sourceUrl: 'https://www.enchantchristmas.com/locations/', kind: 'announcement-pending', sourceCheckedAt: '2026-11-07', note: 'Organizer current 2026 locations exclude all Texas cities; do not advertise 2026 Arlington tickets' },
   { path: '/holiday/magical-winter-lights', sourceUrl: 'https://tickets.magicalwinterlights.com/contact.aspx', kind: 'announcement-pending' },
 ];
 
@@ -165,7 +165,7 @@ export function collectEventPageRefreshInventory(root = ROOT) {
   const collections = [...new Set(collectionPaths)].map(p => ({
     path: p, kind: 'collection', cadenceDays: 1, workflow: 'verify-event-temporal-production.yml',
   }));
-  const specials = STATIC_EVENT_PAGES.map(event => ({ ...event, kind: event.kind, sourceCheckedAt: null }));
+  const specials = STATIC_EVENT_PAGES.map(event => ({ ...event, kind: event.kind }));
   const routes = fs.readdirSync(path.join(root, 'src/routes'))
     .filter(file => /^(?:events?|holiday)\.|^texas-state-fair(?:\.|$)|^horse-racing(?:_|\.)/.test(file))
     .filter(file => /\.tsx$/.test(file) && !/\.lazy\.tsx$/.test(file));
