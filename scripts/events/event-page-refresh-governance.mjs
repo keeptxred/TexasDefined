@@ -42,18 +42,26 @@ function extractRecords(root, relative) {
   const source = read(root, relative);
   const ast = ts.createSourceFile(relative, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
   const constants = new Map();
+  const unwrap = node => {
+    while (node && (ts.isAsExpression(node) || ts.isSatisfiesExpression(node) ||
+      ts.isParenthesizedExpression(node))) node = node.expression;
+    return node;
+  };
   const findConstants = node => {
-    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer &&
-        (ts.isStringLiteral(node.initializer) || ts.isNoSubstitutionTemplateLiteral(node.initializer))) {
-      constants.set(node.name.text, node.initializer.text);
+    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.initializer) {
+      const value = unwrap(node.initializer);
+      if (value && (ts.isStringLiteral(value) || ts.isNoSubstitutionTemplateLiteral(value))) {
+        constants.set(node.name.text, value.text);
+      }
     }
     ts.forEachChild(node, findConstants);
   };
   findConstants(ast);
   const literal = (node) => {
-    if (!node) return undefined;
-    if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) return node.text;
-    if (ts.isIdentifier(node)) return constants.get(node.text);
+    const value = unwrap(node);
+    if (!value) return undefined;
+    if (ts.isStringLiteral(value) || ts.isNoSubstitutionTemplateLiteral(value)) return value.text;
+    if (ts.isIdentifier(value)) return constants.get(value.text);
     return undefined;
   };
   const records = [];
