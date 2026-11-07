@@ -8,6 +8,7 @@
  * from the project's locked npm dependencies to read the actual catalog.
  */
 import fs from "node:fs";
+import { parseTpwdGrades } from "./tpwd-fishery-grades.mjs";
 import { writeFileSync, mkdirSync } from "node:fs";
 const dossierFile = "src/data/fishing/lake-authority-research-wave1.ts";
 const text = fs.readFileSync(dossierFile, "utf8");
@@ -57,24 +58,6 @@ const strip=s=>String(s||"").replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ").
 const officialUrl=u=>{try{const p=new URL(u);return p.protocol==="https:"&&p.hostname==="tpwd.texas.gov"&&/^\/fishboat\/fish\/recreational\/lakes\/[a-z0-9_]+\/(?:index\.phtml)?$/i.test(p.pathname)}catch{return false}};
 const grades=["poor","fair","good","excellent"];
 
-export function parseTpwdGrades(html){
-  const results=[];
-  for(const table of html.match(/<table\b[^>]*>[\s\S]*?<\/table>/gi)||[]){
-    const header=strip(table.slice(0,Math.min(table.length,1700))).toLowerCase();
-    if(!["species","poor","fair","good","excellent"].every(word=>header.includes(word)))continue;
-    for(const tr of table.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi)||[]){
-      const cells=[...tr.matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)].map(m=>m[1]);
-      if(cells.length<5)continue;
-      const name=strip(cells[0]);
-      if(!name||/^(species|poor|fair|good|excellent)$/i.test(name))continue;
-      const positives=cells.slice(1,5).flatMap((cell,i)=>
-        /<img\b[^>]*(?:alt\s*=\s*["']yes["']|(?:yes|check|tick)\.(?:gif|png))/i.test(cell)
-          ? [grades[i]] : []);
-      if(positives.length===1)results.push({name,grade:positives[0]});
-    }
-  }
-  return results;
-}
 const checks=[], errors=[], inconclusive=[];
 let position=0;
 const sourceNames=new Set();
