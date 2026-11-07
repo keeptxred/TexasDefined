@@ -9,6 +9,7 @@ import {
 } from './event-page-refresh-governance.mjs';
 import {
   evaluateSourceObservation, reviewEventSources, selectSourceReviewTargets,
+  fullEditorialFreshnessBacklog,
 } from './monitor-event-authority-sources.mjs';
 
 function fixture() {
@@ -144,6 +145,47 @@ test('blocked organizer source can use approved official fallback without preten
     assert.equal(event.primarySourceError, 'HTTP 403');
     assert.equal(event.editorialSourceCheckedAt, '2026-11-05');
     assert.ok(calls.some(x => x.includes('visitcorpuschristi.com')));
+  } finally { f.dispose(); }
+});
+
+test('a clean rotating source cohort cannot close issues for other stale event guides', async () => {
+  const f = fixture();
+  try {
+    const now = Array.from({ length: 7 }, (_, i) => new Date(Date.parse('2026-11-07T13:00:00Z') + i * 86400000))
+      .find(date => !dueForReview({
+        path: '/event/winter-parade', startDate: '2027-02-10',
+      }, date));
+    assert.ok(now);
+    // A long-overdue guide is intentionally NOT in today's deterministic
+    // source crawl; every other sample guide has recently reviewed metadata.
+    const paths = [
+      'src/data/major-event-index.ts',
+      'src/data/major-event-expanded-authority-tranche3.server.ts',
+      'src/data/tournaments/verified-profiles.ts',
+    ];
+    for (const file of paths) {
+      let content = fs.readFileSync(path.join(f.root, file), 'utf8');
+      content = content.replaceAll('2026-11-06', now.toISOString().slice(0, 10))
+        .replaceAll('2026-11-01', now.toISOString().slice(0, 10))
+        .replaceAll('2026-10-01', '2026-01-01');
+      f.put(file, content);
+    }
+    const report = await reviewEventSources({
+      root: f.root, now,
+      outputPath: path.join(f.root, 'full-inventory.json'),
+      fetchImpl: async () => new Response(
+        '<html><body>' + 'Current official organizer information '.repeat(12) + '</body></html>',
+        { status: 200, headers: { 'Content-Type': 'text/html' } },
+      ),
+    });
+    assert.equal(report.findings.length, 0, 'today\'s due cohort has no concerns');
+    assert.ok(report.editorialBacklogCount >= 1, 'other guides remain overdue');
+    assert.ok(report.editorialBacklog.some(row => row.path === '/event/winter-parade'));
+    assert.equal(report.needsReview, true, 'the persistent GitHub issue must stay open');
+    const debt = fullEditorialFreshnessBacklog(
+      collectEventPageRefreshInventory(f.root), now,
+    );
+    assert.deepEqual(report.editorialBacklog, debt);
   } finally { f.dispose(); }
 });
 
