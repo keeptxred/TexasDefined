@@ -76,6 +76,28 @@ for (const lake of lakes) {
   } else if (candidates.length) ambiguous.push({ ...lake, officialName, candidates });
   else unmatched.push({ ...lake, officialName });
 }
+const reviewedCoordinatesPath = "src/data/fishing/planner-twdb-coordinates.json";
+const sourceDrift = [];
+const newlyAvailable = [];
+if (fs.existsSync(reviewedCoordinatesPath)) {
+  const reviewedCoordinates = JSON.parse(fs.readFileSync(reviewedCoordinatesPath, "utf8"));
+  const exactMatches = new Map(matches.map((point) => [point.slug, point]));
+  for (const [slug, reviewed] of Object.entries(reviewedCoordinates)) {
+    const found = exactMatches.get(slug);
+    if (!found) {
+      sourceDrift.push({ slug, problem: "Official source match disappeared or became ambiguous" });
+      continue;
+    }
+    const coordinatesDrifted = Math.abs(found.lat - reviewed.lat) > 0.02
+      || Math.abs(found.lng - reviewed.lng) > 0.02;
+    if (found.sourceName !== reviewed.sourceName || coordinatesDrifted) {
+      sourceDrift.push({ slug, oldSourceName: reviewed.sourceName, sourceName: found.sourceName, coordinatesDrifted });
+    }
+  }
+  for (const found of matches) {
+    if (!Object.hasOwn(reviewedCoordinates, found.slug)) newlyAvailable.push(found.slug);
+  }
+}
 const report = {
   sourceUrl: URL,
   sourceRecords: source.features.length,
@@ -83,6 +105,8 @@ const report = {
   matched: matches.length,
   unmatched,
   ambiguous,
+  sourceDrift,
+  newlyAvailable,
   matches,
   note: "Unreviewed discovery only. Do not publish ambiguous, estimated, or municipality-centroid locations.",
 };
@@ -90,4 +114,8 @@ fs.mkdirSync(".artifacts", { recursive: true });
 const output = path.join(".artifacts", "fishing-planner-twdb-coordinate-candidates.json");
 fs.writeFileSync(output, JSON.stringify(report, null, 2) + "\n");
 console.log(JSON.stringify(report));
-if (ambiguous.length) process.exitCode = 1;
+if (ambiguous.length || sourceDrift.length) {
+  console.error("TWDB coordinate review required; previously sourced map positions must not be silently changed.");
+  process.exitCode = 1;
+}
+if (newlyAvailable.length) console.log("New exact matches await editorial source review: " + newlyAvailable.join(", "));
