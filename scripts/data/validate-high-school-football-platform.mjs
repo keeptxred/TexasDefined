@@ -3112,6 +3112,36 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
         })
       );
       if(!accepted) errors.push('Batch013 certification requires exact 25-school signed 75+25 Chrome evidence and historical 280-school preservation');
+    } else if(r.batch.number===14 && r.batch.state==='VERIFIED_BATCH_014_COMPLETE'){
+      // Signed historical production acceptance is mandatory before promotion.
+      const cert=r.completedBatches.find(x=>x.number===14 && x.state==='VERIFIED_BATCH_014_COMPLETE');
+      const proof=cert?.technicalAcceptance;
+      const accepted=Boolean(cert?.individuallyVerified===25 && proof?.schoolCount===25 &&
+        proof?.schoolCasesPassed===75 && proof?.schoolCasesFailed===0 &&
+        proof?.countyCasesPassed===25 && proof?.countyCasesFailed===0 &&
+        proof?.browserExecutionCount===1 && proof?.chromeRunId===42313435965 &&
+        proof?.chromeArtifactId===13550240398 &&
+        proof?.githubWorkerLedgerDeploymentId===7613348297 &&
+        proof?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' &&
+        proof?.observedWorkerVersions?.length===1 &&
+        proof.observedWorkerVersions[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2' &&
+        r.completedBatches.some(x=>x.number===13 && x.state==='VERIFIED_BATCH_013_COMPLETE' && x.individuallyVerified===25) &&
+        r.batch.individuallyVerified===25 && r.batch.remainingAssigned===0 &&
+        r.batch.remainingToVerify===0 && r.batch.remainingToImplement===0 &&
+        r.schoolRecords.filter(x=>x.status==='VERIFIED').length===330 &&
+        r.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length===0 &&
+        r.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length===962 &&
+        r.batch.slugs.length===25 && new Set(r.batch.slugs).size===25 &&
+        r.batch.slugs.every(slug=>{
+          const row=r.schoolRecords.find(x=>x.slug===slug);
+          return row?.batch===14 && row.status==='VERIFIED' && row.actualProductionVerified===true &&
+            row.technicalBrowserRun===proof.chromeRunId && row.acceptanceEvidenceArtifact===proof.chromeArtifactId &&
+            row.productionWorkerVersion===proof.observedWorkerVersions[0] &&
+            row.verifiedDeploymentGitSha===proof.productionDeploymentGitSha &&
+            row.verifiedGithubWorkerLedgerDeploymentId===proof.githubWorkerLedgerDeploymentId &&
+            row.schoolPhotoReuseRightsAccepted===false && row.manualAccessibilityAccepted===false;
+        }));
+      if(!accepted) errors.push('Batch014 certification requires exact 25-school signed 75+25 Chrome evidence and 305 historical certificates');
     } else if(r.batch.slugs.length!==25 || new Set(r.batch.slugs).size!==25 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED').length<280 ||
        r.batch.slugs.some(slug=>{
