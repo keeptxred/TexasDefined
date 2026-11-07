@@ -83,20 +83,29 @@ jobs:
             if (report.needsReview) {
               const problemRows = (report.findings || []).slice(0, 100).map(item =>
                 `- \`${item.path}\` — ${item.concerns.join(', ')}; source: ${item.source || 'missing'}; prior editorial check: ${item.editorialSourceCheckedAt || 'missing'}`);
+              // Whole-inventory debt remains open even on a day when the
+              // sampled official-source cohort is clean.
+              const backlogRows = (report.editorialBacklog || []).slice(0, 120).map(item =>
+                `- \`${item.path}\` — ${item.concerns.join(', ')}; source: ${item.source || 'missing'}; editorial check: ${item.editorialSourceCheckedAt || 'missing'}; review cadence: ${item.cadenceDays} day(s)`);
               const body = [
-                'The GitHub event page source-monitor found due organizer-source or editorial freshness reviews.',
+                'The GitHub event page source-monitor found official-source or editorial freshness reviews.',
                 '',
                 `Latest run: ${runUrl}`,
                 `Coverage: ${report.coverage.permanent} permanent event guides, ${report.coverage.collectionRoutes} event collection routes, ${report.coverage.specialRoutes} separately routed holiday/event pages.`,
-                `Due source observations: ${report.due}; performed: ${report.attempted}; unresolved concerns: ${report.findings.length}; coverage errors: ${report.coverageErrors.length}.`,
+                `Due source observations: ${report.due}; performed: ${report.attempted}; due-cohort concerns: ${report.findings.length}; **whole-inventory overdue guides: ${report.editorialBacklogCount}**; coverage errors: ${report.coverageErrors.length}.`,
                 '',
                 '**Source reachability is NOT proof of confirmed dates.** Do not invent next-year dates, silently rewrite tickets, lift noindex, or update sourceCheckedAt based on a simple HTTP 200.',
                 '',
                 ...report.coverageErrors.map(msg => '- COVERAGE FAILURE: ' + msg),
+                '**Source failures observed in today\'s rotating cohort**',
                 ...problemRows,
                 report.findings.length > 100 ? `… ${report.findings.length - 100} more in the run artifact` : '',
                 '',
-                'Resolve with verified official organizer facts, then use the protected GitHub PR/CI path. The scheduler continues checking every guide regardless of this issue.',
+                '**All overdue permanent event pages, regardless of today\'s cohort**',
+                ...backlogRows,
+                report.editorialBacklogCount > 120 ? `… ${report.editorialBacklogCount - 120} more in the run artifact` : '',
+                '',
+                'Keep this issue open until the **entire** index is editorially current and there are no unresolved due-source failures. Resolve using verified official organizer facts and protected GitHub PRs; never refresh dates based on HTTP reachability alone.',
               ].join('\n').slice(0, 55000);
               if (existing) {
                 await github.rest.issues.update({ owner, repo, issue_number: existing.number, body });
@@ -105,7 +114,7 @@ jobs:
               }
             } else if (existing) {
               await github.rest.issues.createComment({ owner, repo, issue_number: existing.number,
-                body: `All due event source and editorial checks recovered: ${runUrl}` });
+                body: `All due event source checks AND whole-inventory editorial freshness fully recovered: ${runUrl}` });
               await github.rest.issues.update({ owner, repo, issue_number: existing.number, state: 'closed' });
             }
 
