@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const read = (p) => readFileSync(p, 'utf8');
-const slugs = ['dell-city', 'denison', 'denton'];
+const slugs = ['dell-city', 'denison', 'denton', 'denton-braswell', 'denton-guyer'];
 const source = read('src/data/high-school-football/program-editorial-b015.ts');
 const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
 assert.ok(match, 'Batch015 editorial map missing');
@@ -23,7 +23,7 @@ for (const slug of slugs) {
 }
 const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
-for (const [slug, countySlug] of [['dell-city','hudspeth'],['denison','grayson'],['denton','denton']]) {
+for (const [slug, countySlug] of [['dell-city','hudspeth'],['denison','grayson'],['denton','denton'],['denton-braswell','denton'],['denton-guyer','denton']]) {
   assert.ok(team.includes("'" + slug + "': '" + countySlug + "'"), slug + ' missing campus county mapping');
   assert.ok(county.includes("slug: '" + slug + "'"), slug + ' missing reciprocal county listing');
 }
@@ -31,6 +31,9 @@ for (const countySlug of ['hudspeth','grayson','denton']) {
   assert.equal([...county.matchAll(new RegExp("^  '" + countySlug + "':", 'gm'))].length, 1, countySlug + ' duplicate county key would erase existing school links');
 }
 assert.ok(guides['denison'].overview.join(' ').includes('326 W. Crawford'));
+assert.ok(guides['denton-braswell'].campus.address.includes('Aubrey'));
+assert.ok(guides['denton-guyer'].campus.address.includes('Teasley Lane'));
+assert.ok(guides['denton'].campus.address.includes('Bronco Way'));
 assert.ok(guides['denton'].notice.body.includes('not a confirmed universal'));
 assert.ok(guides['dell-city'].faq[0].answer.includes('Not from the reviewed'));
-console.log('PASS: three distinct first-party Batch015 SSR guides; registry unchanged and NOT production certified.');
+console.log('PASS: five distinct first-party Batch015 SSR guides; registry unchanged and NOT production certified.');
