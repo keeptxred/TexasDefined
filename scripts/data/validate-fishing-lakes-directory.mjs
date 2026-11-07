@@ -39,7 +39,7 @@ for (const marker of [
   "await stableSnapshotHandle.dispose();",
   "snapshot.canonical === expectedCanonical",
   "/Texas Fishing Lakes/i.test(snapshot.title)",
-  "}, canonical, { timeout: 25000 });",
+  "const expectedCanonical = \"https://texasdefined.com/fishing/lakes\";",
   "snapshot.visible.every(item => item.name && item.text)",
 ]) if (!liveChromeVerifier.includes(marker)) errors.push("Fishing lakes real Chrome must capture strict atomic hydrated DOM: " + marker);
 
