@@ -123,6 +123,10 @@ assert(jumpLink > stableH1 && jumpLink < suspenseStart && route.includes('sm:hid
 assert(finderTarget > jumpLink && finderTarget < suspenseStart && route.includes('id="lake-finder" tabIndex={-1}'),
   "The finder fragment target must be keyboard-focusable and rendered outside Suspense.");
 assert(!component.includes('id="lake-finder"'), "Do not duplicate the eager lake finder fragment target.");
+assert(liveChromeVerifier.includes('page.locator(\'a[href="#lake-finder"]\')')
+  && liveChromeVerifier.includes('await mobileFinderLink.click()')
+  && liveChromeVerifier.includes('window.location.hash === "#lake-finder"'),
+  "Chrome acceptance must actually click the mobile finder shortcut and verify its anchor, while keeping it hidden on desktop.");
 assert(route.includes("Browse {rows.length} lake guides"), "Persistent fishing lakes hero must retain the accurate lake-guide count.");
 assert(liveChromeWorkflow.includes("group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.sha }}"), "Live fishing-lakes Chrome must group push runs by source SHA to prevent later main commits cancelling production browser acceptance.");
 for (const marker of ['to="/fishing/lakes"', 'Browse fishing lakes →', 'Explore fishing lakes', 'Featured Texas Fishing Lakes']) assert(hubComponent.includes(marker), `Fishing hub is missing lakes-directory discovery marker: ${marker}.`);
