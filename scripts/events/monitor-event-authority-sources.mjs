@@ -47,10 +47,8 @@ export function selectSourceReviewTargets(inventory, asOf = new Date()) {
 // can prematurely close an issue while other published pages are still overdue.
 export function fullEditorialFreshnessBacklog(inventory, asOf = new Date()) {
   return allEventReviewTargets(inventory, asOf)
-    .filter(event => event.kind === 'permanent' && (
-      event.sourceAgeDays == null ||
-      event.sourceAgeDays > Math.max(7, event.cadenceDays * 3)
-    ))
+    .filter(event => event.sourceAgeDays == null ||
+      event.sourceAgeDays > Math.max(7, event.cadenceDays * 3))
     .map(event => ({
       path: event.path, source: event.sourceUrl,
       editorialSourceCheckedAt: event.sourceCheckedAt,
@@ -71,7 +69,7 @@ export function evaluateSourceObservation(target, outcome, asOf = new Date()) {
   // A page GET is only a source observation. It does not confirm a new
   // occurrence, ticket availability, cancellation status or a date change.
   if (target.sourceAgeDays == null) {
-    if (target.kind === 'permanent') errors.push('missing-editorial-source-check-date');
+    errors.push('missing-editorial-source-check-date');
   } else if (target.sourceAgeDays > Math.max(7, target.cadenceDays * 3)) {
     errors.push('editorial-source-check-overdue');
   }
