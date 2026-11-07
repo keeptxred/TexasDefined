@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-06T18:03:22.183Z",
+  "fetchedAt": "2026-11-07T16:35:32.512Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -38,7 +38,6 @@
       "name": "Austin Food + Wine Festival",
       "city": "Austin",
       "dates": [
-        "2026-11-06",
         "2026-11-07",
         "2026-11-08"
       ],
@@ -47,13 +46,11 @@
       ],
       "ticketmasterIds": [
         "Z7r9jZ1AAv6Gd",
-        "Z7r9jZ1AAv6Ge",
-        "Z7r9jZ1AAv6Gv"
+        "Z7r9jZ1AAv6Ge"
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Gd",
-        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Ge",
-        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Gv"
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Ge"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -277,30 +274,6 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/fwssr-college-rodeo-finals-fort-worth-texas-01-23-2027/event/0C006522BEAF95AB"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Hollydays Market Corpus Christi Fri. 11-6 through Sun. 11-8,",
-      "city": "Corpus Christi",
-      "dates": [
-        "2026-11-06"
-      ],
-      "venues": [
-        "Hilliard Center Exhibit Hall"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_89h5u_P"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/hollydays-market-corpus-christi-fri-116-corpus-christi-texas-11-06-2026/event/3A006505DB2CD665"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -730,7 +703,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-06",
         "2026-11-07",
         "2026-11-13",
         "2026-11-14",
@@ -780,7 +752,6 @@
         "Z7r9jZ1A7OYpa",
         "Z7r9jZ1A7OYpk",
         "Z7r9jZ1A7OYpv",
-        "Z7r9jZ1A7OpP-",
         "Z7r9jZ1A7OpP0",
         "Z7r9jZ1A7OpPE",
         "Z7r9jZ1A7OpPI",
@@ -825,7 +796,6 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpa",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpk",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpv",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpP-",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpP0",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPE",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPI",
