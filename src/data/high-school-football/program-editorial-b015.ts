@@ -680,6 +680,346 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "No. These can change by fixture and season; use the school or host's current official announcement."
       }
     ]
+  },
+  "dhanis": {
+    "slug": "dhanis",
+    "intro": "The district publishes a document labeled 2026 Football Schedule on its own athletics page. Check the PDF for the specific opponent, date, location and any updates; the district contact address is not a stadium entrance.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent, not licensed school branding."
+    },
+    "seo": {
+      "title": "D'Hanis ISD secondary school Football | Official Campus and Athletics",
+      "description": "Original source-bounded D'Hanis ISD secondary school guide to the official campus, athletics updates and visitor planning."
+    },
+    "campus": {
+      "address": "6751 CR 5216, D'Hanis, TX 78850",
+      "sourceUrl": "https://www.dhanisisd.net/",
+      "sourceLabel": "Official school campus or district listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Check official current football schedules and game-day notices",
+      "sourceUrl": "https://www.dhanisisd.net/high-school/athletics",
+      "sourceLabel": "School or district athletics source; individual fixture requires confirmation",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "Confirm the individual game venue",
+      "body": "The district publishes a document labeled 2026 Football Schedule on its own athletics page. Check the PDF for the specific opponent, date, location and any updates; the district contact address is not a stadium entrance.",
+      "sourceUrl": "https://www.dhanisisd.net/high-school/athletics",
+      "sourceLabel": "Official athletics or facilities listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "The district publishes a document labeled 2026 Football Schedule on its own athletics page. Check the PDF for the specific opponent, date, location and any updates; the district contact address is not a stadium entrance.",
+      "The official school campus is listed at 6751 CR 5216, D'Hanis, TX 78850.",
+      "D'Hanis ISD operates a secondary school in a small rural district; do not substitute nearby Hondo or Sabinal varsity schedules.",
+      "A school campus is not automatically the home football stadium or the spectator entrance for every game.",
+      "Do not infer a current head coach, full-season standings, accessibility accommodations, admission fees or licensed team artwork from a general campus directory."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Official school campus reference",
+        "body": "The school's published location is 6751 CR 5216, D'Hanis, TX 78850.",
+        "sourceUrl": "https://www.dhanisisd.net/",
+        "sourceLabel": "School or district campus directory"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and visitor evidence",
+        "body": "The district publishes a document labeled 2026 Football Schedule on its own athletics page. Check the PDF for the specific opponent, date, location and any updates; the district contact address is not a stadium entrance.",
+        "sourceUrl": "https://www.dhanisisd.net/high-school/athletics",
+        "sourceLabel": "Official athletics page"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is D'Hanis ISD secondary school?",
+        "answer": "The listed campus is 6751 CR 5216, D'Hanis, TX 78850. D'Hanis ISD operates a secondary school in a small rural district; do not substitute nearby Hondo or Sabinal varsity schedules."
+      },
+      {
+        "question": "Is the school address also the football stadium gate?",
+        "answer": "Not necessarily. Confirm the venue and spectator entrance in the individual game's official announcement."
+      },
+      {
+        "question": "Where can I verify the current football schedule and tickets?",
+        "answer": "Use the official athletics source: https://www.dhanisisd.net/high-school/athletics. Confirm dates and policies before traveling."
+      }
+    ]
+  },
+  "diana-new-diana": {
+    "slug": "diana-new-diana",
+    "intro": "New Diana High's official school page lists the campus on State Highway 154 East. The district publishes a separate athletics department page; its general district contact on US Highway 259 South is not the high school.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent, not licensed school branding."
+    },
+    "seo": {
+      "title": "New Diana High School Football | Official Campus and Athletics",
+      "description": "Original source-bounded New Diana High School guide to the official campus, athletics updates and visitor planning."
+    },
+    "campus": {
+      "address": "11826 State Hwy 154 East, Diana, TX 75640",
+      "sourceUrl": "https://www.ndisd.org/o/hs/page/contact-school",
+      "sourceLabel": "Official school campus or district listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Check official current football schedules and game-day notices",
+      "sourceUrl": "https://ndisd.ss5.sharpschool.com/departments/athletics",
+      "sourceLabel": "School or district athletics source; individual fixture requires confirmation",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "Confirm the individual game venue",
+      "body": "New Diana High's official school page lists the campus on State Highway 154 East. The district publishes a separate athletics department page; its general district contact on US Highway 259 South is not the high school.",
+      "sourceUrl": "https://ndisd.ss5.sharpschool.com/departments/athletics",
+      "sourceLabel": "Official athletics or facilities listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "New Diana High's official school page lists the campus on State Highway 154 East. The district publishes a separate athletics department page; its general district contact on US Highway 259 South is not the high school.",
+      "The official school campus is listed at 11826 State Hwy 154 East, Diana, TX 75640.",
+      "The New Diana High campus address differs from the New Diana ISD central office; use the actual game announcement for stadium access.",
+      "A school campus is not automatically the home football stadium or the spectator entrance for every game.",
+      "Do not infer a current head coach, full-season standings, accessibility accommodations, admission fees or licensed team artwork from a general campus directory."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Official school campus reference",
+        "body": "The school's published location is 11826 State Hwy 154 East, Diana, TX 75640.",
+        "sourceUrl": "https://www.ndisd.org/o/hs/page/contact-school",
+        "sourceLabel": "School or district campus directory"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and visitor evidence",
+        "body": "New Diana High's official school page lists the campus on State Highway 154 East. The district publishes a separate athletics department page; its general district contact on US Highway 259 South is not the high school.",
+        "sourceUrl": "https://ndisd.ss5.sharpschool.com/departments/athletics",
+        "sourceLabel": "Official athletics page"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is New Diana High School?",
+        "answer": "The listed campus is 11826 State Hwy 154 East, Diana, TX 75640. The New Diana High campus address differs from the New Diana ISD central office; use the actual game announcement for stadium access."
+      },
+      {
+        "question": "Is the school address also the football stadium gate?",
+        "answer": "Not necessarily. Confirm the venue and spectator entrance in the individual game's official announcement."
+      },
+      {
+        "question": "Where can I verify the current football schedule and tickets?",
+        "answer": "Use the official athletics source: https://ndisd.ss5.sharpschool.com/departments/athletics. Confirm dates and policies before traveling."
+      }
+    ]
+  },
+  "diboll": {
+    "slug": "diboll",
+    "intro": "Diboll ISD athletics explicitly lists a Lumberjacks football schedule PDF and a link to purchase football home-game tickets. Diboll High is at 1000 Lumberjack Drive; the district office at 215 North Temple Drive is a different location.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent, not licensed school branding."
+    },
+    "seo": {
+      "title": "Diboll High School Football | Official Campus and Athletics",
+      "description": "Original source-bounded Diboll High School guide to the official campus, athletics updates and visitor planning."
+    },
+    "campus": {
+      "address": "1000 Lumberjack Dr, Diboll, TX 75941",
+      "sourceUrl": "https://hs.dibollisd.com/",
+      "sourceLabel": "Official school campus or district listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Check official current football schedules and game-day notices",
+      "sourceUrl": "https://www.dibollisd.com/90713_2",
+      "sourceLabel": "School or district athletics source; individual fixture requires confirmation",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "Confirm the individual game venue",
+      "body": "Diboll ISD athletics explicitly lists a Lumberjacks football schedule PDF and a link to purchase football home-game tickets. Diboll High is at 1000 Lumberjack Drive; the district office at 215 North Temple Drive is a different location.",
+      "sourceUrl": "https://www.dibollisd.com/90713_2",
+      "sourceLabel": "Official athletics or facilities listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Diboll ISD athletics explicitly lists a Lumberjacks football schedule PDF and a link to purchase football home-game tickets. Diboll High is at 1000 Lumberjack Drive; the district office at 215 North Temple Drive is a different location.",
+      "The official school campus is listed at 1000 Lumberjack Dr, Diboll, TX 75941.",
+      "The NCES 2025–26 school directory identifies Diboll High's physical campus in Angelina County, separate from the district administrative office.",
+      "A school campus is not automatically the home football stadium or the spectator entrance for every game.",
+      "Do not infer a current head coach, full-season standings, accessibility accommodations, admission fees or licensed team artwork from a general campus directory."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Official school campus reference",
+        "body": "The school's published location is 1000 Lumberjack Dr, Diboll, TX 75941.",
+        "sourceUrl": "https://hs.dibollisd.com/",
+        "sourceLabel": "School or district campus directory"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and visitor evidence",
+        "body": "Diboll ISD athletics explicitly lists a Lumberjacks football schedule PDF and a link to purchase football home-game tickets. Diboll High is at 1000 Lumberjack Drive; the district office at 215 North Temple Drive is a different location.",
+        "sourceUrl": "https://www.dibollisd.com/90713_2",
+        "sourceLabel": "Official athletics page"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Diboll High School?",
+        "answer": "The listed campus is 1000 Lumberjack Dr, Diboll, TX 75941. The NCES 2025–26 school directory identifies Diboll High's physical campus in Angelina County, separate from the district administrative office."
+      },
+      {
+        "question": "Is the school address also the football stadium gate?",
+        "answer": "Not necessarily. Confirm the venue and spectator entrance in the individual game's official announcement."
+      },
+      {
+        "question": "Where can I verify the current football schedule and tickets?",
+        "answer": "Use the official athletics source: https://www.dibollisd.com/90713_2. Confirm dates and policies before traveling."
+      }
+    ]
+  },
+  "dickinson": {
+    "slug": "dickinson",
+    "intro": "Dickinson ISD identifies Sam Vitanza Stadium at 3800 Baker Drive and the Dickinson High School Field House at 3300 Baker Drive. These are different district facilities; stadium rules and clear-bag policy on the district facilities page are labeled 2025–26, not necessarily the 2026–27 season.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent, not licensed school branding."
+    },
+    "seo": {
+      "title": "Dickinson High School Football | Official Campus and Athletics",
+      "description": "Original source-bounded Dickinson High School guide to the official campus, athletics updates and visitor planning."
+    },
+    "campus": {
+      "address": "3800 Baker Drive, Dickinson, TX 77539",
+      "sourceUrl": "https://schools.dickinsonisd.org/page/dwilkinson-Contact",
+      "sourceLabel": "Official school campus or district listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Check official current football schedules and game-day notices",
+      "sourceUrl": "https://www.dickinsonisd.org/page/ath.facilities",
+      "sourceLabel": "School or district athletics source; individual fixture requires confirmation",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "Confirm the individual game venue",
+      "body": "Dickinson ISD identifies Sam Vitanza Stadium at 3800 Baker Drive and the Dickinson High School Field House at 3300 Baker Drive. These are different district facilities; stadium rules and clear-bag policy on the district facilities page are labeled 2025–26, not necessarily the 2026–27 season.",
+      "sourceUrl": "https://www.dickinsonisd.org/page/ath.facilities",
+      "sourceLabel": "Official athletics or facilities listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Dickinson ISD identifies Sam Vitanza Stadium at 3800 Baker Drive and the Dickinson High School Field House at 3300 Baker Drive. These are different district facilities; stadium rules and clear-bag policy on the district facilities page are labeled 2025–26, not necessarily the 2026–27 season.",
+      "The official school campus is listed at 3800 Baker Drive, Dickinson, TX 77539.",
+      "This is Dickinson, Texas, not Dickinson High School in North Dakota; confirm the game-specific venue and policy before visiting.",
+      "A school campus is not automatically the home football stadium or the spectator entrance for every game.",
+      "Do not infer a current head coach, full-season standings, accessibility accommodations, admission fees or licensed team artwork from a general campus directory."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Official school campus reference",
+        "body": "The school's published location is 3800 Baker Drive, Dickinson, TX 77539.",
+        "sourceUrl": "https://schools.dickinsonisd.org/page/dwilkinson-Contact",
+        "sourceLabel": "School or district campus directory"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and visitor evidence",
+        "body": "Dickinson ISD identifies Sam Vitanza Stadium at 3800 Baker Drive and the Dickinson High School Field House at 3300 Baker Drive. These are different district facilities; stadium rules and clear-bag policy on the district facilities page are labeled 2025–26, not necessarily the 2026–27 season.",
+        "sourceUrl": "https://www.dickinsonisd.org/page/ath.facilities",
+        "sourceLabel": "Official athletics page"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Dickinson High School?",
+        "answer": "The listed campus is 3800 Baker Drive, Dickinson, TX 77539. This is Dickinson, Texas, not Dickinson High School in North Dakota; confirm the game-specific venue and policy before visiting."
+      },
+      {
+        "question": "Is the school address also the football stadium gate?",
+        "answer": "Not necessarily. Confirm the venue and spectator entrance in the individual game's official announcement."
+      },
+      {
+        "question": "Where can I verify the current football schedule and tickets?",
+        "answer": "Use the official athletics source: https://www.dickinsonisd.org/page/ath.facilities. Confirm dates and policies before traveling."
+      }
+    ]
+  },
+  "dilley": {
+    "slug": "dilley",
+    "intro": "Dilley High's official athletics menu provides football, athletic schedules and a Buy Athletic Tickets option. The school's own campus address is 1 Grey Wolf Drive; these links alone do not prove a specific 2026 stadium gate or admission price.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent, not licensed school branding."
+    },
+    "seo": {
+      "title": "Dilley High School Football | Official Campus and Athletics",
+      "description": "Original source-bounded Dilley High School guide to the official campus, athletics updates and visitor planning."
+    },
+    "campus": {
+      "address": "1 Grey Wolf Dr, Dilley, TX 78017",
+      "sourceUrl": "https://www.dilleyisd.net/o/dhs",
+      "sourceLabel": "Official school campus or district listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Check official current football schedules and game-day notices",
+      "sourceUrl": "https://www.dilleyisd.net/o/dhs/athletics",
+      "sourceLabel": "School or district athletics source; individual fixture requires confirmation",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "Confirm the individual game venue",
+      "body": "Dilley High's official athletics menu provides football, athletic schedules and a Buy Athletic Tickets option. The school's own campus address is 1 Grey Wolf Drive; these links alone do not prove a specific 2026 stadium gate or admission price.",
+      "sourceUrl": "https://www.dilleyisd.net/o/dhs/athletics",
+      "sourceLabel": "Official athletics or facilities listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Dilley High's official athletics menu provides football, athletic schedules and a Buy Athletic Tickets option. The school's own campus address is 1 Grey Wolf Drive; these links alone do not prove a specific 2026 stadium gate or admission price.",
+      "The official school campus is listed at 1 Grey Wolf Dr, Dilley, TX 78017.",
+      "Use the Dilley High School source rather than a generic district contact address when identifying the school campus.",
+      "A school campus is not automatically the home football stadium or the spectator entrance for every game.",
+      "Do not infer a current head coach, full-season standings, accessibility accommodations, admission fees or licensed team artwork from a general campus directory."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Official school campus reference",
+        "body": "The school's published location is 1 Grey Wolf Dr, Dilley, TX 78017.",
+        "sourceUrl": "https://www.dilleyisd.net/o/dhs",
+        "sourceLabel": "School or district campus directory"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and visitor evidence",
+        "body": "Dilley High's official athletics menu provides football, athletic schedules and a Buy Athletic Tickets option. The school's own campus address is 1 Grey Wolf Drive; these links alone do not prove a specific 2026 stadium gate or admission price.",
+        "sourceUrl": "https://www.dilleyisd.net/o/dhs/athletics",
+        "sourceLabel": "Official athletics page"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Dilley High School?",
+        "answer": "The listed campus is 1 Grey Wolf Dr, Dilley, TX 78017. Use the Dilley High School source rather than a generic district contact address when identifying the school campus."
+      },
+      {
+        "question": "Is the school address also the football stadium gate?",
+        "answer": "Not necessarily. Confirm the venue and spectator entrance in the individual game's official announcement."
+      },
+      {
+        "question": "Where can I verify the current football schedule and tickets?",
+        "answer": "Use the official athletics source: https://www.dilleyisd.net/o/dhs/athletics. Confirm dates and policies before traveling."
+      }
+    ]
   }
 };
 export function getBatch015FirstThreeEditorial(slug: string): FootballProgramEditorial | undefined { return EDITORIAL[slug]; }
