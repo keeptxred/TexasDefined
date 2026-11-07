@@ -20,7 +20,7 @@ const dataDirectory = 'src/data';
 const supplementalPath = 'src/data/major-event-supplemental-registry.server.ts';
 
 export const STATIC_EVENT_PAGES = [
-  { path: '/texas-state-fair', sourceUrl: 'https://bigtex.com/', kind: 'seasonal', startDate: '2027-09-01', endDate: '2027-10-31', note: '2027 occurrence must not be claimed without official confirmation' },
+  { path: '/texas-state-fair', sourceUrl: 'https://bigtex.com/', kind: 'announcement-pending', note: 'Do not infer future State Fair dates from a previous edition' },
   { path: '/holiday/enchant-christmas-arlington', sourceUrl: 'https://www.enchantchristmas.com/', kind: 'announcement-pending' },
   { path: '/holiday/magical-winter-lights', sourceUrl: 'https://tickets.magicalwinterlights.com/contact.aspx', kind: 'announcement-pending' },
 ];
