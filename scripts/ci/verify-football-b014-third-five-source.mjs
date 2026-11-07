@@ -7,11 +7,12 @@ assert.ok(m,'missing third-five SSR editorial object');
 const guides=JSON.parse(m[1]);
 assert.deepEqual(Object.keys(guides),slugs,'must keep exactly five individual original guides');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+const b014Certified = reg.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId===7613348297 && b.technicalAcceptance?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' && b.technicalAcceptance?.observedWorkerVersions?.[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2') && reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
 assert.equal(reg.batch.number,14,'wrong active batch');
 assert.deepEqual(reg.batch.slugs.slice(10,15),slugs,'third-five assignment not canonical');
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,305,'historical signed certificates changed');
-assert.ok(reg.schoolRecords.filter(s=>s.batch===14&&s.status==='IMPLEMENTED').length>=15,'third-five authored cohort must remain source-implemented after later cohorts');
-assert.equal(reg.schoolRecords.filter(s=>s.batch===14&&s.status==='VERIFIED').length,0,'no unsupported Chrome graduation');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,b014Certified?330:305,'historical signed certificates changed');
+
+
 const loader=read('src/data/high-school-football/program-editorial-b014-loader.server.ts');
 assert.ok(loader.includes("import('./program-editorial-b014-group3')"),'third group missing SSR import');
 assert.ok(read('src/data/high-school-football/football-program-profile.server.ts').includes('loadBatch014FootballProgramEditorial(canonicalSlug)'),'profile server missing B014 SSR');
@@ -28,8 +29,8 @@ const leads=new Set();
 for(const slug of slugs){
  const guide=guides[slug];assert.equal(guide?.slug,slug);
  assert.ok(loader.includes("'"+slug+"'"),slug+' SSR slug missing');
- assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'IMPLEMENTED',slug+' not source implemented');
- assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.actualProductionVerified,false,slug+' incorrectly Chrome verified');
+ assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,b014Certified?'VERIFIED':'IMPLEMENTED',slug+' not source implemented');
+ assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.actualProductionVerified,b014Certified,slug+' incorrectly Chrome verified');
  assert.ok(source.includes(String.fromCharCode(96)+slug+String.fromCharCode(96)),slug+' primary source dossier missing');
  assert.ok(campus.includes("'"+slug+"': 'dallas'"),slug+' campus county missing');
  assert.ok(dallas[1].includes("slug: '"+slug+"'"),slug+' county reciprocal missing');
@@ -46,3 +47,6 @@ for(const [slug,mascot] of expectedMascot){
 assert.ok(guides['dallas-spruce'].overview.some(x=>x.includes('Apaches')&&x.includes('Timberwolves')),'Spruce historical mascot must remain distinguished');
 assert.ok(guides['dallas-south-oak-cliff'].overview.some(x=>/Life (?:High )?School(?: Oak Cliff)?/.test(x) && /charter|separat(?:e|ely)|different/i.test(x)),'South Oak Cliff must explicitly distinguish the separate Life School Oak Cliff charter');
 console.log('PASS Batch014 first fifteen individual source guides, unique mascot identity, Dallas reciprocity, 305 prior certified; NOT production Chrome');
+
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED').length,b014Certified?25:0,'Batch014 graduation must have signed exact production evidence');
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length,b014Certified?0:25,'all 25 source-authored Batch014 schools must remain accounted for');
