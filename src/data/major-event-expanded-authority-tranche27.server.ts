@@ -69,10 +69,10 @@ const records: MajorEventAuthorityRecord[] = [
     category: "music",
     startDate: "2026-10-16",
     endDate: "2026-10-18",
-    dateNote: "The 65th annual free Texas Jazz Festival at Heritage Park ended October 18, 2026. Do not reuse these dates for a future festival without a new organizer announcement.",
+    dateNote: "The official Texas Jazz Festival Society site confirms the 65th annual October 16–18, 2026 edition at Heritage Park, Corpus Christi, with three free stages of jazz. That edition concluded October 18; the 2027 date and lineup are not yet organizer-confirmed and must not be inferred.",
     venue: "Heritage Park",
     officialUrl: "https://texasjazz-festival.org/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "The Texas Jazz Festival gives Corpus Christi a free three-day music anchor at Heritage Park, with three stages of live jazz plus food and market vendors in a walkable historic setting near the bayfront.",
     quickFacts: [
       { label: "Last completed edition", value: "October 16–18, 2026, 65th annual" },
