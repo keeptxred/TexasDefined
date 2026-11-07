@@ -11,14 +11,15 @@ const records: MajorEventAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-11-12",
     endDate: "2026-11-15",
+    dateNote: "Houston Ballet confirms the general Nutcracker Market November 12–15, 2026 at Reliant Center, with a separate ticketed November 11 Wells Fargo Preview Party. General admission covers one shopping day; Early Bird grants Thursday/Friday early access and repeat entry all four days. Children age 2 and under enter free; all other shoppers require tickets.",
     venue: "Reliant Center (formerly NRG Center)",
     officialUrl: "https://www.houstonballet.org/nutcrackermarket",
-    sourceCheckedAt: "2026-10-29",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Houston Ballet's Nutcracker Market has been a Houston holiday tradition since 1981, bringing hundreds of merchants together for four days of shopping while raising money for Houston Ballet, its Academy and community programs.",
     planningSections: [
       { title: "Use November 12-15 as the confirmed 2026 market window", body: "Houston Ballet's event-specific pages publish the 2026 Nutcracker Market for November 12 through 15. A separate special-events overview includes the November 11 preview period, so Texas Defined uses the public market dates rather than stretching the Event window to include invitation or special-event programming." },
-      { title: "Plan for a large indoor market", body: "Houston Ballet describes a market with more than 280 merchants and extensive shopping space. Tickets, early-entry products and special events have different access rules, so decide which experience you want before arrival rather than assuming one ticket covers every program." },
-      { title: "Use the venue's current transportation guidance", body: "Houston Ballet places the November 12–15, 2026 market at Reliant Center (formerly NRG Center) within Reliant Park. Its published address still reads One NRG Park, Houston, TX 77054; use the current organizer map rather than assuming the older venue name means a different building. Review parking, west-side Hall E rideshare access and METRORail guidance before departure." },
+      { title: "Plan for a large indoor market", body: "Houston Ballet confirms more than 280 merchants. General Admission tickets allow one shopping day; Early Bird offers 8:30–10 a.m. access on Thursday and Friday plus repeat admission on all four public market days. Children age 2 and under enter free; everyone else needs a ticket. Fashion shows and the Wednesday preview are separate ticketed events." },
+      { title: "Use the venue's current transportation guidance", body: "The organizer calls the building Reliant Center (formerly NRG Center) within Reliant Park at One NRG Park, Houston, TX 77054. The 2026 visitor rules prohibit shopping carts, wagons, rolling bags and strollers inside (stroller check available); ADA mobility devices and service animals are permitted. Review the current parking, rideshare and METRORail guidance before departure." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Build more Houston-area stops around the holiday market." },
