@@ -11,7 +11,7 @@ const loader = read('src/data/high-school-football/program-editorial-b015-loader
 const server = read('src/data/high-school-football/football-program-profile.server.ts');
 assert.ok(server.includes('await loadBatch015FootballProgramEditorial(canonicalSlug)'), 'not wired into SSR');
 assert.ok(loader.includes("import('./program-editorial-b015')"), 'missing lazy loader');
-assert.ok(loader.includes('BATCH015_FIRST_TEN.has(slug)'), 'Batch015 loader must check the defined five-school allowlist, not an obsolete variable');
+assert.ok(loader.includes('!BATCH015_FIRST_TEN.has(slug)'), 'Batch015 loader must check the defined five-school allowlist, not an obsolete variable');
 assert.ok(!loader.includes('BATCH015_FIRST_THREE.has(slug)'), 'obsolete loader identifier causes production SSR ReferenceError');
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
 assert.equal(registry.schoolRecords.filter(s => s.status === 'VERIFIED').length, 330, 'do not change historical certifications');
