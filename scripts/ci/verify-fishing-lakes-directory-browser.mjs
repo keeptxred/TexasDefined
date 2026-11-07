@@ -77,7 +77,8 @@ for (const { name, viewport, mobile } of [
     // same complete DOM snapshot that passes the bounded readiness gate.
     // Never weaken assertions: a genuinely absent heading, guide, answer,
     // or SEO graph still times out/fails instead of being ignored.
-    const stableSnapshotHandle = await page.waitForFunction(async (expectedCanonical) => {
+    const stableSnapshotHandle = await page.waitForFunction(async () => {
+      const expectedCanonical = "https://texasdefined.com/fishing/lakes";
       const readSnapshot = () => {
         const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
         const nodes = scripts.flatMap(script => {
@@ -118,7 +119,7 @@ for (const { name, viewport, mobile } of [
       await new Promise(requestAnimationFrame);
       const snapshot = readSnapshot();
       return ready(snapshot) ? snapshot : false;
-    }, canonical, { timeout: 25000 });
+    }, null, { timeout: 25000 });
     const initial = await stableSnapshotHandle.jsonValue();
     await stableSnapshotHandle.dispose();
 
