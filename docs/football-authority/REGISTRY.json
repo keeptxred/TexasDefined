@@ -12,79 +12,48 @@
     "total": 1292
   },
   "batch": {
-    "number": 14,
+    "number": 15,
     "slugs": [
-      "dallas-kimball",
-      "dallas-life-oak-cliff",
-      "dallas-lincoln",
-      "dallas-madison",
-      "dallas-molina",
-      "dallas-pinkston",
-      "dallas-roosevelt",
-      "dallas-samuell",
-      "dallas-seagoville",
-      "dallas-skyline",
-      "dallas-south-oak-cliff",
-      "dallas-spruce",
-      "dallas-sunset",
-      "dallas-white",
-      "dallas-wilson",
-      "danbury",
-      "dawson",
-      "dayton",
-      "de-kalb",
-      "de-leon",
-      "de-soto",
-      "decatur",
-      "deer-park",
-      "del-rio",
-      "del-valle"
+      "dell-city",
+      "denison",
+      "denton",
+      "denton-braswell",
+      "denton-guyer",
+      "denton-ryan",
+      "denver-city",
+      "detroit",
+      "devine",
+      "deweyville",
+      "dhanis",
+      "diana-new-diana",
+      "diboll",
+      "dickinson",
+      "dilley",
+      "dimmitt",
+      "donna",
+      "donna-north",
+      "dripping-springs",
+      "dublin",
+      "dumas",
+      "duncanville",
+      "eagle-mountain",
+      "eagle-pass",
+      "eagle-pass-winn"
     ],
-    "state": "VERIFIED_BATCH_014_COMPLETE",
+    "state": "ASSIGNED_NOT_REVIEWED",
     "dateAssigned": "2026-11-06",
-    "selectionRule": "First 25 canonical NOT_REVIEWED in stable registry order after protected Batch013 graduation",
-    "individuallyVerified": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "feat/football-b014-assign-25-20261106",
+    "selectionRule": "First 25 canonical NOT_REVIEWED schools in stable registry order after merged Batch014 graduation PR #6775",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "feat/football-b015-assign-25-20261106",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "25/25 genuine production Chrome acceptance, source/Worker pinned, protected evidence-only graduation; see technicalAcceptance.",
-    "verifiedAt": "2026-11-06",
-    "technicalAcceptance": {
-      "schoolCount": 25,
-      "viewports": [
-        1366,
-        390,
-        320
-      ],
-      "schoolCasesPassed": 75,
-      "schoolCasesFailed": 0,
-      "countyCasesPassed": 25,
-      "countyCasesFailed": 0,
-      "sitemapUrlsPassed": 25,
-      "observedWorkerVersions": [
-        "93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2"
-      ],
-      "workerVersionMatchesDeploy": true,
-      "productionDeploymentGitSha": "851bff976c187e841a178e58984068ec19b06744",
-      "chromeRunId": 42313435965,
-      "chromeArtifactId": 13550240398,
-      "browserExecutionCount": 1,
-      "githubWorkerLedgerDeploymentId": 7613348297,
-      "cloudflareDeploymentId": "5629c5e2-5c17-4aa9-bc0a-16d9e7a17f58",
-      "chromeRunUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/42313435965",
-      "chromeArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/42313435965/artifacts/13550240398",
-      "editorialHumanSignoffsClaimed": 0,
-      "manualAccessibilityAccepted": false,
-      "schoolPhotoReuseRightsAccepted": false,
-      "limitation": "Technical browser verification only; no current scores, licensed school photography, manual WCAG, parking/ADA or human editorial signoff."
-    },
-    "completionBasis": "One genuine non-skipped 25-school 75-viewport plus 25-county production Chrome job, exact signed source SHA and active Worker at test, compact artifact; separate protected evidence-only graduation PR.",
-    "noNextBatchAssigned": true
+    "currentSchool": "dell-city",
+    "nextSchool": "dell-city",
+    "implementedOnBranch": 0,
+    "remainingToImplement": 25,
+    "remainingToVerify": 25,
+    "notes": "Assignment only. No source research, editorial implementation, deployed release or production Chrome claimed; preserve 330 prior VERIFIED.",
+    "noNextBatchAssigned": false
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -13606,7 +13575,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dell-city",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:denison",
@@ -13620,7 +13589,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/denison",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:denton",
@@ -13634,7 +13603,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/denton",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:denton-braswell",
@@ -13648,7 +13617,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/denton-braswell",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:denton-guyer",
@@ -13662,7 +13631,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/denton-guyer",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:denton-ryan",
@@ -13676,7 +13645,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/denton-ryan",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:denver-city",
@@ -13690,7 +13659,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/denver-city",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:detroit",
@@ -13704,7 +13673,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/detroit",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:devine",
@@ -13718,7 +13687,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/devine",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:deweyville",
@@ -13732,7 +13701,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/deweyville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:dhanis",
@@ -13746,7 +13715,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dhanis",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:diana-new-diana",
@@ -13760,7 +13729,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/diana-new-diana",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:diboll",
@@ -13774,7 +13743,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/diboll",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:dickinson",
@@ -13788,7 +13757,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dickinson",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:dilley",
@@ -13802,7 +13771,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dilley",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:dimmitt",
@@ -13816,7 +13785,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dimmitt",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:donna",
@@ -13830,7 +13799,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/donna",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:donna-north",
@@ -13844,7 +13813,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/donna-north",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:dripping-springs",
@@ -13858,7 +13827,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dripping-springs",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:dublin",
@@ -13872,7 +13841,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dublin",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:dumas",
@@ -13886,7 +13855,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/dumas",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:duncanville",
@@ -13900,7 +13869,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/duncanville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:eagle-mountain",
@@ -13914,7 +13883,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/eagle-mountain",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:eagle-pass",
@@ -13928,7 +13897,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/eagle-pass",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:eagle-pass-winn",
@@ -13942,7 +13911,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/eagle-pass-winn",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 15
     },
     {
       "id": "uil:early",
