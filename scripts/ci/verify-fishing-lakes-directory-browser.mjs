@@ -78,6 +78,7 @@ for (const { name, viewport, mobile } of [
     // Never weaken assertions: a genuinely absent heading, guide, answer,
     // or SEO graph still times out/fails instead of being ignored.
     const stableSnapshotHandle = await page.waitForFunction(async () => {
+      const expectedCanonical = "https://texasdefined.com/fishing/lakes";
       const readSnapshot = () => {
         const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
         const nodes = scripts.flatMap(script => {
@@ -103,6 +104,10 @@ for (const { name, viewport, mobile } of [
       };
       const ready = snapshot =>
         snapshot.h1.length === 1 && snapshot.h1[0] === "Texas fishing lakes" &&
+        // The streaming route head may arrive AFTER the directory cards.
+        // Require the canonical and title in the SAME accepted DOM snapshot.
+        snapshot.canonical === expectedCanonical &&
+        /Texas Fishing Lakes/i.test(snapshot.title) &&
         snapshot.status.includes("Showing 72 of 72 lake guides") &&
         snapshot.initialCards === 12 &&
         snapshot.visible.length === 4 &&

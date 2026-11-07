@@ -37,6 +37,9 @@ for (const marker of [
   "return ready(snapshot) ? snapshot : false;",
   "const initial = await stableSnapshotHandle.jsonValue();",
   "await stableSnapshotHandle.dispose();",
+  "snapshot.canonical === expectedCanonical",
+  "/Texas Fishing Lakes/i.test(snapshot.title)",
+  "const expectedCanonical = \"https://texasdefined.com/fishing/lakes\";",
   "snapshot.visible.every(item => item.name && item.text)",
 ]) if (!liveChromeVerifier.includes(marker)) errors.push("Fishing lakes real Chrome must capture strict atomic hydrated DOM: " + marker);
 
