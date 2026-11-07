@@ -29,10 +29,26 @@ export function assertBoundedCrossReleaseSet(assets) {
   return assets.size;
 }
 const REQUEST_TIMEOUT = 20000;
-// A 1,431-old-hash release previously spent its live acceptance audit doing
-// 1,500 HTTP checks sequentially, then timed out on canonical HTML. Preserve
-// EVERY original SHA check on both origins but use bounded 6-way concurrency.
-export const MAX_ASSET_AUDIT_CONCURRENCY = 6;
+// A previous sequential 1,431-hash audit timed out. Keep bounded parallelism,
+// but the November 7 dual-origin 2,355-hash audit produced ten HTTP 503s only
+// on workers.dev when requests arrived rapidly. Rate-limit the verifier's
+// own bursts without dropping or reclassifying a single original asset.
+export const MAX_ASSET_AUDIT_CONCURRENCY = 3;
+export const ASSET_REQUEST_START_GAP_MS = 40;
+export function createAssetRequestPacer(intervalMs = ASSET_REQUEST_START_GAP_MS,
+    clock = () => Date.now(),
+    sleep = (ms) => new Promise((done) => setTimeout(done, ms))) {
+  if (!Number.isSafeInteger(intervalMs) || intervalMs < 1 || intervalMs > 1000)
+    throw new Error('Invalid per-request asset pacing interval');
+  let nextStart = 0;
+  return async () => {
+    const now = clock();
+    const start = Math.max(now, nextStart);
+    nextStart = start + intervalMs;
+    await sleep(Math.max(0, start - now));
+  };
+}
+const paceAssetRequest = createAssetRequestPacer();
 export async function mapBounded(items, concurrency, visit) {
   if (!Array.isArray(items) || !Number.isSafeInteger(concurrency) ||
       concurrency < 1 || concurrency > 8 || typeof visit !== 'function')
@@ -272,6 +288,14 @@ async function retrieveAsset(origin, path, kind) {
     cfCacheStatus: response.headers.get('cf-cache-status') || null,
     etag: response.headers.get('etag') || null,
     sha256: response.status === 200 ? createHash('sha256').update(Buffer.from(body)).digest('hex') : null,
+    // HTTP 5xx is still a hard failure; retain enough response evidence to
+    // identify edge-generated 503, provider rate controls, or origin errors.
+    server: response.headers.get('server') || null,
+    retryAfter: response.headers.get('retry-after') || null,
+    errorBodySample: response.status >= 500
+      ? Buffer.from(body).subarray(0, 2048).toString('utf8')
+        .replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 240)
+      : null,
   };
   record.ok = validAssetResponse(kind, record);
   return record;
@@ -280,6 +304,9 @@ async function auditAssets(origin, assets) {
   // Stable indexed results, no sampling and no skipped candidates. Individual
   // timeouts become explicit failed records, not a silently shortened list.
   return mapBounded(assets,MAX_ASSET_AUDIT_CONCURRENCY,async ({path,kind})=>{
+    // Pacing is shared across all source capture and verification requests.
+    // Each exact asset still requires HTTP 200, valid MIME, original SHA256.
+    await paceAssetRequest();
     try {return await retrieveAsset(origin,path,kind);}
     catch(error){return {path,kind,origin:label(origin),status:'network-error',ok:false,error:String(error)};}
   });
@@ -447,7 +474,8 @@ async function verify() {
         results.assets.push(record);
         if (!record.ok) results.failures.push({ origin: label(origin), path: a.path, status: record.status,
           mime: record.mime || null, sources: a.sources, hashMismatch: record.oldHashMatches === false,
-          cfRay: record.cfRay || null });
+          cfRay: record.cfRay || null, server: record.server || null,
+          retryAfter: record.retryAfter || null, errorBodySample: record.errorBodySample || null });
        }
       }
     }
