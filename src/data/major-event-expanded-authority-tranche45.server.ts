@@ -101,10 +101,10 @@ const records: MajorEventAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-11-27",
     endDate: "2027-01-03",
-    dateNote: "The Lights Spectacular organizer confirms November 27, 2026–January 3, 2027, with free nightly displays. Individual rides, Santa appearances and special programs have separate schedules.",
+    dateNote: "The organizer confirms free Johnson City Lights Spectacular nightly from November 27, 2026 through January 3, 2027; lighting is from dusk (about 5:45 p.m.) until midnight. Courthouse and PEC lights run throughout the season, while Santa, rides and weekend programs have separately announced dates and weather limits.",
     venue: "Downtown Johnson City",
     officialUrl: "https://lightsspectacular.com/faqs",
-    sourceCheckedAt: "2026-10-29",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Christmas Lights Spectacular transforms Johnson City's compact downtown into a multi-week Hill Country holiday destination, combining nightly light displays with Santa visits, live entertainment, markets, hay rides, movies, church programs, Science Mill activities and year-end events.",
     planningSections: [
       {
