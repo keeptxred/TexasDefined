@@ -1,0 +1,11 @@
+# TexasDefined event source freshness — official evidence wave 4 · November 7, 2026
+
+These **three** event authority guides have been directly compared with current official organizer schedules and visitor policies before setting their individual editorial source verification dates to November 7. Remaining issue #6782 guides are **not** considered refreshed.
+
+| Public guide | Organizer sources | 2026–27 verified visitor facts |
+| --- | --- | --- |
+| `/event/polar-express-galveston` | https://galvestonrrmuseum.org/event/the-polar-express/ and https://galvestonrrmuseum.org/event/ | **November 13–December 23, 2026**, 1932 Union Depot; 60-minute train ride but roughly two hours overall; arrive an hour early for pre-show and board at least 10 minutes before scheduled departure; the museum does not ordinarily refund tickets for weather or changed guest plans. Official checkout controls date/class availability. |
+| `/event/chevron-houston-marathon` | https://www.chevronhoustonmarathon.com/schedule/ and https://www.chevronhoustonmarathon.com/registration/ | Saturday **January 16, 2027** We Are Houston 5K, 8 a.m. start; Sunday **January 17** marathon & half marathon with 6:35 a.m. wheelchair start and divisions around 6:45–6:55 a.m. from Congress & Fannin; January 15 expo 10 a.m.–6 p.m. and January 16 expo 8:30 a.m.–5 p.m. at George R. Brown Convention Center. |
+| `/event/san-antonio-marathon` | https://sanantoniomarathon.com/ and https://sanantoniomarathon.com/courses/ and https://sanantoniomarathon.com/streetclosures/ | New local event **December 4–6, 2026**, SATX 5K Friday Dec 4 at 8 p.m.; marathon/half Sunday Dec 6 at 7:15 a.m. from Hemisfair; seven-hour marathon and four-hour half-marathon course limits. The older Rock 'n' Roll race is not the current San Antonio Marathon. |
+
+Editor verification was fact-specific and sourced from first-party operators, not a successful HTTP response. Source dates, content and canonical URLs remain fixed to documented 2026–27 editions. Ticket inventory and later-year event dates are not inferred. Each guide remains within the automated GitHub per-event refresh cadence and the full-inventory freshness issue #6782 remains open until all unresolved pages receive genuine source reviews.
