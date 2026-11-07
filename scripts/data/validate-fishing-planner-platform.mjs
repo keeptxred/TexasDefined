@@ -4,6 +4,8 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const requiredFiles = [
   "src/data/fishing/planner-routing.ts",
   "src/data/fishing/consumption-advisories.json",
+  "src/data/fishing/planner-twdb-coordinates.json",
+  "scripts/ci/research-fishing-map-coordinates.mjs",
   "scripts/ci/audit-fishing-planner-live-sources.mjs",
   "src/data/fishing/planner-data.server.ts",
   "src/data/fishing/planner-data.functions.ts",
@@ -35,6 +37,8 @@ const locationServer = read("src/data/fishing/location.server.ts");
 const locationFunctions = read("src/data/fishing/location.functions.ts");
 const resultsMap = read("src/components/fishing/FishingResultsMap.tsx");
 const consumptionAdvisories = JSON.parse(read("src/data/fishing/consumption-advisories.json"));
+const sourcedCoordinates = JSON.parse(read("src/data/fishing/planner-twdb-coordinates.json"));
+const coordinateResearch = read("scripts/ci/research-fishing-map-coordinates.mjs");
 const plannerSourceAudit = read("scripts/ci/audit-fishing-planner-live-sources.mjs");
 const fishingFixtures = read("src/data/fishing/fixtures.ts");
 const expandedLakeFixtures = read("src/data/fishing/lake-expansion-fixtures.ts");
@@ -98,6 +102,25 @@ requireText(resultsMap, "Map of matching Texas fishing lakes", "fishing map acce
 requireText(resultsMap, "simplified Texas outline", "fishing map orientation disclosure missing");
 requireText(planner, "totalMatching={ranked.length}", "map must report total matches instead of silently omitting missing coordinates");
 requireText(resultsMap, "unmappedCount", "map must disclose unusable or unverified coordinates");
+requireText(resultsMap, "fishing-map-lake-selector", "map must offer a keyboard-accessible picker when reservoir pins overlap");
+requireText(resultsMap, "selected.coordinateSource", "map-selected lake must cite the source of TWDB reference points");
+requireText(server, "twdbPlannerCoordinates", "planner must enrich source-backed coordinates instead of silently omitting 57 statewide lakes");
+requireText(server, "coordinateSource", "planner must retain precise coordinate provenance");
+requireText(planner, "coordinateSource: row.coordinateSource", "map results must carry source links");
+requireText(planner, "ranked.slice(0, visibleCount)", "planner must avoid duplicating every lake-directory summary in default SSR");
+requireText(planner, 'aria-label="All matching fishing lake guides"', "planner must keep all matching lake destinations discoverable to crawlers");
+requireText(coordinateResearch, "waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson", "map coordinates must derive from official TWDB feed");
+const savedPoints = Object.entries(sourcedCoordinates);
+if (savedPoints.length < 47) throw new Error("Fishing planner previously reviewed TWDB coordinates unexpectedly missing");
+for (const [slug, point] of savedPoints) {
+  if (!/^[a-z0-9-]+$/.test(slug) ||
+      !Number.isFinite(point.lat) || !Number.isFinite(point.lng) ||
+      point.lat < 25 || point.lat > 37 || point.lng < -107 || point.lng > -93 ||
+      !point.sourceName || !point.sourceUrl.startsWith("https://waterdatafortexas.org/") ||
+      !/^20\d\d-\d\d-\d\d$/.test(point.reviewedAt)) {
+    throw new Error(`Unverified or invalid TWDB lake coordinate: ${slug}`);
+  }
+}
 requireText(resultsMap, "List view", "map must offer the complete list when coordinates are absent");
 requireText(planner, "consumptionAdvisories", "planner must show source-backed fish-consumption warnings");
 requireText(resultsMap, "selected.consumptionAdvisory", "map-selected result must show applicable consumption warning");

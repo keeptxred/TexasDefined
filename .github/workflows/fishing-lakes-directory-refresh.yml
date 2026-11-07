@@ -16,6 +16,10 @@ on:
       - 'src/lazy/fishing-plan.tsx'
       - 'src/data/fishing/consumption-advisories.json'
       - 'scripts/ci/audit-fishing-planner-live-sources.mjs'
+      - 'scripts/ci/research-fishing-map-coordinates.mjs'
+      - 'src/data/fishing/planner-twdb-coordinates.json'
+      - 'src/data/fishing/planner-data.server.ts'
+      - 'scripts/data/validate-fishing-planner-platform.mjs'
       - 'src/data/fishing/lake-directory-advisories.json'
       - 'src/data/fishing/statewide-lake-network.ts'
       - 'src/data/fishing/planner-data.server.ts'
@@ -131,4 +135,39 @@ jobs:
           fi
       - name: Fail on unresolved official-source or contract drift
         if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.planner.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.quarterly.outcome == 'failure')
+        run: exit 1
+
+  coordinate-research:
+    # Reuse this established lake-source schedule; discovery never edits lake
+    # catalog records or silently upgrades unreviewed TWDB map coordinates.
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Discover exact-name reservoir positions from official TWDB GeoJSON
+        id: twdb
+        continue-on-error: true
+        run: node scripts/ci/research-fishing-map-coordinates.mjs
+      - name: Preserve review candidates and unmatched lakes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-planner-twdb-map-review
+          path: .artifacts/fishing-planner-twdb-coordinate-candidates.json
+          retention-days: 45
+          if-no-files-found: warn
+      - name: Record TWDB coordinate-source drift without altering published points
+        if: steps.twdb.outcome == 'failure' && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='Fishing planner TWDB map-coordinate source drift'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          body="Official TWDB reservoir point source has become unavailable, ambiguous, or shifted significantly. Do not silently remove or invent lake locations. Review .artifacts/fishing-planner-twdb-coordinate-candidates.json from https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID and correct the confirmed source mismatch."
+          if [[ -n "$existing" ]]; then gh issue comment "$existing" --body "$body"; else gh issue create --title "$title" --body "$body"; fi
+      - name: Fail on unresolved TWDB source drift
+        if: steps.twdb.outcome == 'failure'
         run: exit 1

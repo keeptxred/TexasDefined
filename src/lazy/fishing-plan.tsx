@@ -39,6 +39,7 @@ function FishingTripPlannerPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/fishing/plan" });
   const [locating, setLocating] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(12);
   const [locationError, setLocationError] = useState("");
   const selectedSpecies = (search.species ?? [])
     .map((slug) => data.species.find((fish) => fish.slug === slug))
@@ -103,6 +104,7 @@ function FishingTripPlannerPage() {
       fullGuide: row.fullGuide,
       distanceMiles: row.distanceMiles,
       consumptionAdvisory: consumptionAdvisories[row.lake.slug as keyof typeof consumptionAdvisories] ?? null,
+      coordinateSource: row.coordinateSource,
       matchedSpecies: selectedSpecies.length
         ? row.matches.filter((item) => item.target).map((item) => item.fish.commonName)
         : row.targets.slice(0, 4).map((item) => item.species!.commonName),
@@ -210,7 +212,7 @@ function FishingTripPlannerPage() {
         </div>
 
         {view === "map" ? <FishingResultsMap rows={mapRows} totalMatching={ranked.length} listHref={buildPlannerHref(search, { view: "list" })} /> : <div className="mt-6 grid gap-x-8 lg:grid-cols-2">
-          {ranked.map((row) => {
+          {ranked.slice(0, visibleCount).map((row) => {
             const currentReport = row.reports.current[0];
             const consumptionAdvisory = consumptionAdvisories[row.lake.slug as keyof typeof consumptionAdvisories];
             const positiveCoverage = [
@@ -258,6 +260,18 @@ function FishingTripPlannerPage() {
             </article>;
           })}
         </div>}
+
+        {view === "list" && ranked.length > 0 ? <div className="border-t border-border py-7">
+          <p className="text-sm text-muted-foreground" role="status">Showing {Math.min(visibleCount, ranked.length)} of {ranked.length} matching lake cards. The map covers all lakes with verified coordinates, not only the displayed cards.</p>
+          {ranked.length > visibleCount ? <button type="button" onClick={() => setVisibleCount((count) => count + 12)} className="mt-4 border border-primary px-5 py-3 text-sm font-semibold text-primary">Show 12 more lake cards ({ranked.length - visibleCount} remaining)</button> : null}
+          <p className="mt-5 text-sm">Prefer an alphabetical overview? <a href="/fishing/lakes" className="font-semibold text-primary underline underline-offset-2">Browse the complete Texas fishing lakes directory</a>.</p>
+          <nav aria-label="All matching fishing lake guides" className="mt-5">
+            <h3 className="font-display text-xl">Jump directly to any matching lake</h3>
+            <ul className="mt-3 grid gap-x-5 gap-y-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
+              {ranked.map((row) => <li key={row.lake.id}><a href={row.href} className="text-primary underline decoration-border underline-offset-2 hover:decoration-primary">{row.lake.name}</a></li>)}
+            </ul>
+          </nav>
+        </div> : null}
 
         {!ranked.length ? <div className="border-y border-border py-12"><h3 className="font-display text-3xl">No lake matches those choices yet.</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">Try widening the distance, removing an access filter, turning off “require every selected fish,” or selecting fewer species. A missing result means the published fishing dataset does not currently support that combination; it is not a claim that the fish or amenity cannot exist there.</p></div> : null}
       </section>
