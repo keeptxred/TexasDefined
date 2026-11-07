@@ -13,6 +13,12 @@ on:
       - 'scripts/events/event-page-refresh-governance.mjs'
       - 'scripts/events/monitor-event-authority-sources.mjs'
       - 'scripts/events/event-page-refresh-governance.test.mjs'
+      # Recalculate the whole-inventory overdue count immediately after a
+      # verified event-source PR merges; do not wait for the next daily cron.
+      - 'src/data/major-event-index.ts'
+      - 'src/data/major-event-expanded-authority-tranche*.server.ts'
+      - 'src/data/tournaments/verified-profiles*.ts'
+      - 'src/data/major-event-supplemental-registry.server.ts'
 
 permissions:
   contents: read

@@ -36,13 +36,13 @@ export const VERIFIED_TOURNAMENT_BATCH3_PROFILES: readonly VerifiedTournamentBat
     summary: "The 2026 UIL Football State Championships run December 16–19 at AT&T Stadium in Arlington.",
     whyItMatters: "UIL football championship week brings every Texas public-school football classification to one Arlington venue, making it one of the state's most concentrated high-school sports traditions.",
     planningNotes: [
-      "Use the UIL state-championship page to choose the specific classification and game day before buying tickets or arranging travel.",
-      "AT&T Stadium hosts multiple title games across four days, so parking, gate and session logistics should be checked for the exact day you plan to attend.",
+      "The UIL now publishes all 12 2026 title-game slots December 16–19 at AT&T Stadium: 1A/2A Wednesday, 2A/3A Thursday, 4A/5A/6A sessions Friday and Saturday. Choose the correct classification and kickoff before purchasing tickets or booking travel.",
+      "The UIL publishes 2026 championship broadcasts through local TV and participating digital streaming partners, with free viewing options varying by TV market; consult the official broadcast information page rather than assuming a paid subscription or a specific local channel. For in-person viewing, check AT&T Stadium gate, session ticket and parking rules for the exact game.",
       "Use Texas Defined's Tarrant County and football coverage to build a broader Arlington or Fort Worth trip around championship day.",
     ],
     officialUrl: "https://www.uiltexas.org/football/state",
     officialSourceLabel: "UIL Football State Championships official page",
-    sourceCheckedAt: checkedAt,
+    sourceCheckedAt: "2026-11-07",
   },
   {
     slug: "uil-boys-basketball-state-tournament",
