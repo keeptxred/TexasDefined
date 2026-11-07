@@ -66,6 +66,26 @@ for (const { name, viewport, mobile } of [
     assert.equal(response?.status(), 200, name + ": directory is not HTTP 200 on ordinary URL");
     await page.getByRole("heading", { name: "Texas fishing lakes", exact: true }).waitFor({ state: "visible", timeout: 25000 });
     await page.getByRole("searchbox", { name: "Lake, county or city" }).waitFor({ state: "visible", timeout: 25000 });
+    // Streaming SSR and route-wide hydration can briefly replace the eagerly
+    // rendered route AFTER Playwright first sees its H1. Do not take a snapshot
+    // between those DOM phases. Require the real canonical H1, status, filter
+    // and first 12 cards together in a stable loaded document. An actually
+    // missing/duplicate H1 still FAILS within 25 seconds.
+    await page.waitForLoadState("load", { timeout: 30000 });
+    await page.waitForFunction(async () => {
+      const ready = () => {
+        const h1 = document.querySelectorAll("h1");
+        return h1.length === 1 && h1[0].textContent?.trim() === "Texas fishing lakes"
+          && document.querySelector('p[role="status"][aria-live="polite"]')?.textContent?.includes("Showing 72 of 72 lake guides")
+          && document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length === 12;
+      };
+      if (!ready()) return false;
+      await new Promise(requestAnimationFrame);
+      if (!ready()) return false;
+      await new Promise(requestAnimationFrame);
+      return ready();
+    }, null, { timeout: 25000 });
+
     const initial = await page.evaluate(() => {
       const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
       const nodes = scripts.flatMap(script => {
@@ -88,7 +108,7 @@ for (const { name, viewport, mobile } of [
       };
     });
     assert.equal(initial.canonical, canonical, name + ": canonical mismatch");
-    assert.equal(initial.h1.length, 1, name + ": duplicate H1");
+    assert.equal(initial.h1.length, 1, name + ": canonical page requires exactly one stable H1");
     assert.match(initial.title, /Texas Fishing Lakes/i);
     assert.doesNotMatch(initial.robots, /noindex/i, name + ": valid collection page incorrectly noindexed");
     assert.equal(initial.itemCount, 72, name + ": directory ItemList count incorrect");
