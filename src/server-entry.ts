@@ -1,4 +1,5 @@
 import server from "./server";
+import { immutableAssetPath, serveHashedAssetWithArchive } from "../scripts/ci/immutable-hashed-asset-archive.mjs";
 import { texasBrandLocatorApiResponse } from "./lib/texas-brand-locator-api.server";
 import { texasDefinedGovernmentAiResponse } from "./lib/texas-defined-government-ai.server";
 import { texasDefinedAiResponse } from "./lib/texas-defined-ai.server";
@@ -122,6 +123,23 @@ export default {
 
     const aiResponse = await texasDefinedAiResponse(request, aiEnv);
     if (aiResponse) return aiResponse;
+
+    // Workers Static Assets already serves current compiled bytes before this
+    // Worker executes. Only unmatched old hashed filenames reach this hook.
+    // It is intentionally dormant until the separately provisioned,
+    // independently prepublished IMMUTABLE_CLIENT_ASSETS binding exists.
+    // Do not substitute old bytes for an active asset or any upstream 5xx.
+    if ((request.method === "GET" || request.method === "HEAD") &&
+        immutableAssetPath(new URL(request.url).pathname) &&
+        typeof env === "object" && env !== null) {
+      const archive = Reflect.get(env, "IMMUTABLE_CLIENT_ASSETS");
+      if (archive && typeof archive.getWithMetadata === "function") {
+        const response = await serveHashedAssetWithArchive(
+          request, Reflect.get(env, "ASSETS"), archive,
+        );
+        if (response) return withWorkerVersionHeader(response, env);
+      }
+    }
 
     if (request.method === "GET" || request.method === "HEAD") {
       const url = new URL(request.url);

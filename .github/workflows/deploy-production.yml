@@ -484,6 +484,23 @@ jobs:
           node --test scripts/ci/recover-observed-hashes-from-old-worker.test.mjs
           node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
 
+      # Optional GitHub-only rehearsal for a future independent archive.
+      # Off by default. No KV writes, new infrastructure, Worker bindings or
+      # route changes. A failure, when explicitly enabled, blocks deployment.
+      - name: Plan immutable client JS/CSS archive (dry-run, opt-in)
+        id: immutable_asset_plan
+        if: ${{ vars.TEXASDEFINED_IMMUTABLE_ASSET_PLAN == 'true' }}
+        run: node scripts/ci/prepare-immutable-hashed-asset-manifest.mjs --plan
+
+      - name: Preserve independent archive planning evidence
+        if: ${{ always() && steps.immutable_asset_plan.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: immutable-hashed-asset-plan-${{ github.run_id }}
+          path: .artifacts/immutable-hashed-asset-plan.json
+          if-no-files-found: error
+          retention-days: 30
+
       # Retried or queued old workflow runs must never roll back a newer main
       # release. GitHub concurrency serializes jobs but does not guarantee
       # that a manual rerun is newer than the currently published commit.
@@ -502,6 +519,31 @@ jobs:
             exit 1
           fi
           echo "Current main SHA verified: ${latest_main}. Worker replacement may proceed."
+
+      # Explicitly owner-approved independent original-byte publication.
+      # This must occur AFTER superseded-source refusal, BEFORE Worker deploy.
+      # Both opt-in vars default false: no additional KV calls on normal pushes.
+      # Readback is not cross-region certification. Never remove carry-forward.
+      - name: Prepublish immutable JS/CSS originals to independent KV (owner opt-in)
+        id: immutable_kv_prepublication
+        if: ${{ vars.TEXASDEFINED_IMMUTABLE_ARCHIVE_OWNER_APPROVED == 'true' && vars.TEXASDEFINED_IMMUTABLE_ARCHIVE_PUBLISH == 'true' }}
+        env:
+          TEXASDEFINED_IMMUTABLE_ARCHIVE_OWNER_APPROVED: ${{ vars.TEXASDEFINED_IMMUTABLE_ARCHIVE_OWNER_APPROVED }}
+          TEXASDEFINED_IMMUTABLE_ARCHIVE_PUBLISH: ${{ vars.TEXASDEFINED_IMMUTABLE_ARCHIVE_PUBLISH }}
+          TEXASDEFINED_IMMUTABLE_ARCHIVE_BOOTSTRAP: ${{ vars.TEXASDEFINED_IMMUTABLE_ARCHIVE_BOOTSTRAP }}
+          TEXASDEFINED_IMMUTABLE_KV_NAMESPACE_ID: ${{ vars.TEXASDEFINED_IMMUTABLE_KV_NAMESPACE_ID }}
+          TEXASDEFINED_KV_WRITES_TODAY: ${{ vars.TEXASDEFINED_KV_WRITES_TODAY }}
+          CLOUDFLARE_KV_ARCHIVE_TOKEN: ${{ secrets.CLOUDFLARE_KV_ARCHIVE_TOKEN }}
+        run: node scripts/ci/publish-immutable-hashed-archive.mjs --publish-approved
+
+      - name: Preserve independent KV prepublication proof
+        if: ${{ always() && steps.immutable_kv_prepublication.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: immutable-kv-original-byte-prepublication-${{ github.run_id }}
+          path: .artifacts/immutable-archive-publication.json
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Publish Cloudflare deploy pending
         if: success()
