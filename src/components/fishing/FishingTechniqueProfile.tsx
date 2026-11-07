@@ -70,7 +70,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             <div>
               <p className="eyebrow text-primary">When to use</p>
               <h2 id="when-to-use" className="mt-3 font-display text-4xl sm:text-5xl">When to Use {technique.name}</h2>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">These are practical technique fundamentals. The Texas lake, species and season claims farther down remain tied to the verified source relationships in the fishing dataset.</p>
+              
             </div>
             <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
               {guide.whenToUse.map((item) => <div key={item} className="bg-background p-6"><p className="text-sm leading-7">{item}</p></div>)}
@@ -193,7 +193,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Verified lake coverage</p>
           <h2 id="lake-applications" className="mt-3 font-display text-4xl sm:text-5xl">Texas Lakes Covered in This Guide</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">These {data.featuredProfiles.length} lake examples are selected from {data.profileCount} source-backed lake-technique relationships, prioritizing lakes with specific technique guidance. The complete relationships remain in the fishing data and in the individual lake guides; this page does not repeat a statewide lake catalog or imply that a technique is working today.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">The {data.featuredProfiles.length} examples below show documented {technique.name.toLowerCase()} applications from {data.profileCount} source-backed lake-technique relationships. Follow each lake guide for species, access, local rules and the latest fishing reports before choosing where to go.</p>
           <p className="mt-3 text-sm leading-7"><a href="/fishing/lakes" className="border-b border-primary font-semibold text-primary">Browse all Texas fishing lake guides →</a> and check each lake's species, conditions, regulations and access before a trip.</p>
         </div>
         <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
@@ -215,7 +215,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div><p className="eyebrow text-primary">Current conditions</p><h2 className="mt-2 font-display text-3xl">Check Current Conditions Before You Fish</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
-          <p>Before choosing where and how to use {technique.name.toLowerCase()}, make these method-specific checks. This guide does not claim current fish activity or guaranteed results.</p>
+          <p>Before fishing with {technique.name.toLowerCase()}, review these practical checks for your setup and conditions.</p>
           {guide?.tripChecks?.length ? <ul className="space-y-3 border-l-2 border-primary pl-5">
             {guide.tripChecks.map((check) => <li key={check}>{check}</li>)}
           </ul> : null}
