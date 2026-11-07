@@ -1,49 +1,7 @@
 {
-  "generatedAt": "2026-11-05T20:07:38.088Z",
+  "generatedAt": "2026-11-07T16:35:32.479Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Alligators: Predatory Engineers",
-      "startDate": "2026-11-06",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/alligator-talk/2026-11-06"
-    },
-    {
-      "title": "Arts & Crafts",
-      "startDate": "2026-11-06",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-06"
-    },
-    {
-      "title": "Birding Hike",
-      "startDate": "2026-11-06",
-      "parkKey": "brazos-bend",
-      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/birding-hike_all-26/2026-11-06"
-    },
-    {
-      "title": "Homeschool Hour at Pedernales Falls!",
-      "startDate": "2026-11-06",
-      "parkKey": "pedernales-falls",
-      "officialUrl": "https://tpwd.texas.gov/calendar/pedernales-falls/Friday_homeschool-hour-at-pedernales-falls/2026-11-06"
-    },
-    {
-      "title": "Indian Lodge Tour",
-      "startDate": "2026-11-06",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-11-06"
-    },
-    {
-      "title": "Master Naturalist Hike",
-      "startDate": "2026-11-06",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/copy_of_Master%20Naturalist%20Hike%20-%20Friday/2026-11-06"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-11-06",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-06"
-    },
     {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-11-07",
@@ -87,6 +45,18 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-07"
     },
     {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-07",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-07"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-07",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-07"
+    },
+    {
       "title": "Saturday Honey Creek Guided Walk--Registration Required",
       "startDate": "2026-11-07",
       "parkKey": "guadalupe-river",
@@ -127,6 +97,18 @@
       "startDate": "2026-11-08",
       "parkKey": "stephen-f-austin",
       "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-08"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-08",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-08"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-08",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-08"
     },
     {
       "title": "Paws and Paths: Exploring the Bauer Unit *Registration Required*",
@@ -267,6 +249,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-14"
     },
     {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-14",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-14"
+    },
+    {
       "title": "Reptiles with a Ranger",
       "startDate": "2026-11-14",
       "parkKey": "lake-brownwood",
@@ -319,6 +307,18 @@
       "startDate": "2026-11-15",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/guided-bird-walk-at-honey-creek-ranch/2026-11-15"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-15",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-15"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-15",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-15"
     },
     {
       "title": "Sunday Honey Creek Guided Walk--Registration Required",
@@ -411,6 +411,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-20"
     },
     {
+      "title": "Birding 101 Hike",
+      "startDate": "2026-11-20",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/birding-101/2026-11-20"
+    },
+    {
       "title": "Homeschool Classes at the Park",
       "startDate": "2026-11-20",
       "parkKey": "guadalupe-river",
@@ -427,6 +433,18 @@
       "startDate": "2026-11-20",
       "parkKey": "copper-breaks",
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-20"
+    },
+    {
+      "title": "Nature Tram Tour (Evening)",
+      "startDate": "2026-11-20",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-20"
+    },
+    {
+      "title": "Wilderness Survival Hike",
+      "startDate": "2026-11-20",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/wilderness-survival-hike/2026-11-20"
     },
     {
       "title": "All About Snakes",
@@ -483,6 +501,24 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-21"
     },
     {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-21",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-21"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-21",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-21"
+    },
+    {
+      "title": "Nature Tram Tour (Evening)",
+      "startDate": "2026-11-21",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-21"
+    },
+    {
       "title": "Pelts and Tracks",
       "startDate": "2026-11-21",
       "parkKey": "martin-dies-jr",
@@ -537,10 +573,22 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-22"
     },
     {
-      "title": "Homeschool in the Park: Old School Ink Making",
+      "title": "Mission History Tour",
       "startDate": "2026-11-22",
-      "parkKey": "dinosaur-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/homeschool-in-the-park/2026-11-22"
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-22"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-22",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-22"
+    },
+    {
+      "title": "Nature Tram Tour (Evening)",
+      "startDate": "2026-11-22",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-22"
     },
     {
       "title": "Birding with a Ranger",
@@ -567,6 +615,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-27"
     },
     {
+      "title": "Birding 101 Hike",
+      "startDate": "2026-11-27",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/birding-101/2026-11-27"
+    },
+    {
       "title": "Indian Lodge Tour",
       "startDate": "2026-11-27",
       "parkKey": "davis-mountains",
@@ -583,6 +637,12 @@
       "startDate": "2026-11-27",
       "parkKey": "barton-warnock",
       "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/copy6_of_star-party-in-the-borderlands-reservations-required/2026-11-27"
+    },
+    {
+      "title": "Wilderness Survival Hike",
+      "startDate": "2026-11-27",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/wilderness-survival-hike/2026-11-27"
     },
     {
       "title": "All About Snakes",
@@ -621,6 +681,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/huntsville/dogs-on-the-dogwood/2026-11-28"
     },
     {
+      "title": "Enchanting Junior Ranger Academy",
+      "startDate": "2026-11-28",
+      "parkKey": "enchanted-rock",
+      "officialUrl": "https://tpwd.texas.gov/calendar/enchanted-rock/enchanting-junior-ranger-academy/2026-11-28"
+    },
+    {
       "title": "Gator Talk – Cohabitation with an Apex Predator",
       "startDate": "2026-11-28",
       "parkKey": "huntsville",
@@ -649,6 +715,18 @@
       "startDate": "2026-11-28",
       "parkKey": "copper-breaks",
       "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-28"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-28",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-28"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-28",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-28"
     },
     {
       "title": "Pelts and Tracks",
@@ -727,6 +805,24 @@
       "startDate": "2026-11-29",
       "parkKey": "stephen-f-austin",
       "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-29"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-29",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-29"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-11-29",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-29"
+    },
+    {
+      "title": "Nature Tram Tour (Evening)",
+      "startDate": "2026-11-29",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-29"
     },
     {
       "title": "Pictograph Tours (Reservations Required)",
@@ -1155,6 +1251,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-26"
     },
     {
+      "title": "Enchanting Junior Ranger Academy",
+      "startDate": "2026-12-26",
+      "parkKey": "enchanted-rock",
+      "officialUrl": "https://tpwd.texas.gov/calendar/enchanted-rock/enchanting-junior-ranger-academy/2026-12-26"
+    },
+    {
       "title": "Fort Davis Tales",
       "startDate": "2026-12-26",
       "parkKey": "davis-mountains",
@@ -1363,6 +1465,12 @@
       "startDate": "2027-02-01",
       "parkKey": "hueco-tanks",
       "officialUrl": "https://tpwd.texas.gov/calendar/hueco-tanks/pictograph-1-tour/2027-02-01"
+    },
+    {
+      "title": "Reading With a Ranger",
+      "startDate": "2027-02-04",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/reading-with-a-ranger/2027-02-04"
     }
   ]
 }
