@@ -1,4 +1,5 @@
 import { fishingGuideCanonicalPath } from "./guide-routing";
+import twdbPlannerCoordinates from "./planner-twdb-coordinates.json";
 import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
 import { LAKE_AUTHORITY_RESEARCH_WAVE1 } from "./lake-authority-research-wave1";
 import { statewideNetworkLakeDefinitions } from "./statewide-lake-network";
@@ -27,6 +28,14 @@ export async function loadFishingPlannerDataServer() {
   const verifiedBusinesses = businesses.filter(isFishingRecordVerified);
 
   const rows = lakes.map((lake) => {
+    // TWDB lake coordinates are reservoir reference points, never ramps.
+    // Retain stronger existing source-backed coordinates when already present.
+    const twdbPoint = !lake.coordinates
+      ? twdbPlannerCoordinates[lake.slug as keyof typeof twdbPlannerCoordinates]
+      : undefined;
+    const mappedLake = twdbPoint
+      ? { ...lake, coordinates: { lat: twdbPoint.lat, lng: twdbPoint.lng } }
+      : lake;
     const targets = lakeSpecies
       .filter((relation) => relation.lakeId === lake.id)
       .filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0)
@@ -72,7 +81,12 @@ export async function loadFishingPlannerDataServer() {
     const source = lake.sources.find((entry) => entry.url.includes("tpwd.texas.gov/fishboat/fish/recreational/lakes/")) ?? lake.sources[0];
 
     return {
-      lake,
+      lake: mappedLake,
+      coordinateSource: twdbPoint ? {
+        label: `Texas Water Development Board — ${twdbPoint.sourceName}`,
+        url: twdbPoint.sourceUrl,
+        reviewedAt: twdbPoint.reviewedAt,
+      } : null,
       comparisonAuthority: {
         lakeSource: source?.url ?? "",
         lakeSourceReviewedAt: source?.checkedAt ?? lake.verifiedAt ?? null,
