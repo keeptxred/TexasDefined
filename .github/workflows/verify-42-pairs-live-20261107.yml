@@ -25,11 +25,45 @@ jobs:
           node-version: '22'
       - name: Run existing production 42-pair distinctness checker
         run: node scripts/ci/verify-42-page-pairs-production.mjs
+      - name: Verify live copy from the last nine-page editorial repair
+        run: |
+          node --input-type=module <<'NODE'
+          import { mkdirSync, writeFileSync } from 'node:fs';
+          const slugs = ['soft-plastics','crankbaits','spinnerbaits','topwater','trolling','vertical-jigging','jigs-and-minnows','live-bait','cut-bait'];
+          const rows = [];
+          for (const slug of slugs) {
+            const path = '/fishing/techniques/' + slug;
+            try {
+              const res = await fetch('https://texasdefined.com' + path, { headers: { Accept: 'text/html' }, signal: AbortSignal.timeout(20000) });
+              const html = await res.text();
+              const row = {
+                path, status: res.status,
+                legacyBoilerplate: html.includes('These are practical technique fundamentals.'),
+                legacyCatalogNote: html.includes('this page does not repeat a statewide lake catalog'),
+                newCaveat: html.includes('not a current bite report'),
+                methodSpecificChecks: html.includes('practical checks for your setup and conditions'),
+                cacheStatus: res.headers.get('cf-cache-status'),
+                age: res.headers.get('age')
+              };
+              row.passed = row.status === 200 && !row.legacyBoilerplate && !row.legacyCatalogNote && row.newCaveat && row.methodSpecificChecks;
+              console.log((row.passed ? 'PASS' : 'FAIL') + ' ' + path + ': ' + JSON.stringify(row));
+              rows.push(row);
+            } catch (err) {
+              rows.push({ path, passed: false, error: String(err) });
+              console.error('FAIL ' + path + ': ' + err);
+            }
+          }
+          mkdirSync('.artifacts', { recursive: true });
+          writeFileSync('.artifacts/42-page-fishing-copy.json', JSON.stringify({ checkedAt: new Date().toISOString(), pages: rows, passed: rows.every(r => r.passed) }, null, 2));
+          if (rows.length !== 9 || rows.some(r => !r.passed)) process.exitCode = 1;
+          NODE
       - name: Preserve exact 42-pair live evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: 42-pair-live-evidence
-          path: .artifacts/42-page-pair-production.json
+          path: |
+            .artifacts/42-page-pair-production.json
+            .artifacts/42-page-fishing-copy.json
           if-no-files-found: warn
           retention-days: 30
