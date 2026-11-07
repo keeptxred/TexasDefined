@@ -98,7 +98,7 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
           </g>;
         })}
       </svg>
-      <p className="border-t border-border px-2 pt-4 text-xs leading-6 text-muted-foreground">The Texas outline is simplified for orientation. Lake pins use published reservoir reference points rather than ramps, shore access coordinates or geometric lake centroids. Nearby pins may overlap; use the lake selector to reach every mapped result.</p>
+      <p className="border-t border-border px-2 pt-4 text-xs leading-6 text-muted-foreground">The Texas outline is simplified for orientation. Lake pins use published reservoir reference points rather than ramps, shore access coordinates or geometric lake centroids. Some locations come from Texas Water Development Board reservoir records; selecting those lakes provides the official source link and review date. Nearby pins may overlap; use the lake selector to reach every mapped result.</p>
       <PublishableGraphic
         targetId="texas-fishing-lakes-results-graphic"
         filename="texas-fishing-lakes-map"
