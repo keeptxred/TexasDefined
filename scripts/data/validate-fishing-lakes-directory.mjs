@@ -114,6 +114,15 @@ const suspenseStart = route.indexOf('<Suspense fallback=');
 assert(stableH1 !== -1 && suspenseStart !== -1 && stableH1 < suspenseStart,
   "Fishing lakes canonical H1 must render outside the lazy Suspense boundary.");
 assert(!component.includes("<h1"), "Lazy lake directory must not create a second H1.");
+// The mobile-only finder shortcut must remain immediately after the eager H1,
+// and its target must survive any async Suspense/hydration fallback.
+const jumpLink = route.indexOf('href="#lake-finder"');
+const finderTarget = route.indexOf('id="lake-finder"');
+assert(jumpLink > stableH1 && jumpLink < suspenseStart && route.includes('sm:hidden">Jump to lake finder '),
+  "Keep a prominent mobile-only Jump to lake finder link in the persistent hero.");
+assert(finderTarget > jumpLink && finderTarget < suspenseStart && route.includes('id="lake-finder" tabIndex={-1}'),
+  "The finder fragment target must be keyboard-focusable and rendered outside Suspense.");
+assert(!component.includes('id="lake-finder"'), "Do not duplicate the eager lake finder fragment target.");
 assert(route.includes("Browse {rows.length} lake guides"), "Persistent fishing lakes hero must retain the accurate lake-guide count.");
 assert(liveChromeWorkflow.includes("group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.sha }}"), "Live fishing-lakes Chrome must group push runs by source SHA to prevent later main commits cancelling production browser acceptance.");
 for (const marker of ['to="/fishing/lakes"', 'Browse fishing lakes →', 'Explore fishing lakes', 'Featured Texas Fishing Lakes']) assert(hubComponent.includes(marker), `Fishing hub is missing lakes-directory discovery marker: ${marker}.`);
