@@ -1,0 +1,425 @@
+{
+  "lake-buchanan": {
+    "lat": 30.75156975,
+    "lng": -98.41836548,
+    "sourceName": "Lake Buchanan",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "richland-chambers-reservoir": {
+    "lat": 32.04043579,
+    "lng": -96.20664215,
+    "sourceName": "Richland-Chambers Reservoir",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-palestine": {
+    "lat": 32.0534935,
+    "lng": -95.43689728,
+    "sourceName": "Lake Palestine",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "cedar-creek-reservoir": {
+    "lat": 32.24320221,
+    "lng": -96.14080811,
+    "sourceName": "Cedar Creek Reservoir",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lewisville-lake": {
+    "lat": 33.06928635,
+    "lng": -96.96444702,
+    "sourceName": "Lewisville Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "ray-roberts-lake": {
+    "lat": 33.35539246,
+    "lng": -97.05001068,
+    "sourceName": "Ray Roberts Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-ray-hubbard": {
+    "lat": 32.80012894,
+    "lng": -96.49610138,
+    "sourceName": "Lake Ray Hubbard",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-lavon": {
+    "lat": 33.03178787,
+    "lng": -96.48249054,
+    "sourceName": "Lavon Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "grapevine-lake": {
+    "lat": 32.97262573,
+    "lng": -97.05639648,
+    "sourceName": "Grapevine Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "eagle-mountain-lake": {
+    "lat": 32.87762833,
+    "lng": -97.47502136,
+    "sourceName": "Eagle Mountain Reservoir",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-bridgeport": {
+    "lat": 33.22289276,
+    "lng": -97.83197784,
+    "sourceName": "Bridgeport Reservoir",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-austin": {
+    "lat": 30.31548309,
+    "lng": -97.78639221,
+    "sourceName": "Lake Austin",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-somerville": {
+    "lat": 30.32243347,
+    "lng": -96.52580261,
+    "sourceName": "Somerville Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "belton-lake": {
+    "lat": 31.10628891,
+    "lng": -97.47473145,
+    "sourceName": "Belton Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "stillhouse-hollow-reservoir": {
+    "lat": 31.02240372,
+    "lng": -97.53279114,
+    "sourceName": "Stillhouse Hollow Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "caddo-lake": {
+    "lat": 32.71014404,
+    "lng": -93.91462708,
+    "sourceName": "Caddo Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-o-the-pines": {
+    "lat": 32.7551384,
+    "lng": -94.49936676,
+    "sourceName": "Lake O the Pines",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "review-named-alias"
+  },
+  "lake-bob-sandlin": {
+    "lat": 33.08012009,
+    "lng": -95.00215912,
+    "sourceName": "Lake Bob Sandlin",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "review-named-alias"
+  },
+  "lake-nacogdoches": {
+    "lat": 31.58879089,
+    "lng": -94.82549286,
+    "sourceName": "Lake Nacogdoches",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-corpus-christi": {
+    "lat": 28.03834724,
+    "lng": -97.87110901,
+    "sourceName": "Lake Corpus Christi",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "alan-henry-reservoir": {
+    "lat": 33.06287766,
+    "lng": -101.0476303,
+    "sourceName": "Lake Alan Henry",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "review-named-alias"
+  },
+  "lake-meredith": {
+    "lat": 35.71059799,
+    "lng": -101.5512848,
+    "sourceName": "Lake Meredith",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-houston": {
+    "lat": 29.91633224,
+    "lng": -95.14131927,
+    "sourceName": "Lake Houston",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "joe-pool-lake": {
+    "lat": 32.64346695,
+    "lng": -97.00111389,
+    "sourceName": "Joe Pool Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-granbury": {
+    "lat": 32.37430573,
+    "lng": -97.68919373,
+    "sourceName": "Lake Granbury",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-waco": {
+    "lat": 31.57960892,
+    "lng": -97.19778442,
+    "sourceName": "Waco Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-brownwood": {
+    "lat": 31.83709335,
+    "lng": -99.0039444,
+    "sourceName": "Lake Brownwood",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "proctor-lake": {
+    "lat": 31.96875572,
+    "lng": -98.48616028,
+    "sourceName": "Proctor Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-arrowhead": {
+    "lat": 33.76426697,
+    "lng": -98.37171936,
+    "sourceName": "Lake Arrowhead",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-mineral-wells": {
+    "lat": 32.81679535,
+    "lng": -98.04198456,
+    "sourceName": "Lake Mineral Wells",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-colorado-city": {
+    "lat": 32.344841,
+    "lng": -100.919838,
+    "sourceName": "Lake Colorado City",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-stamford": {
+    "lat": 33.06260681,
+    "lng": -99.57952881,
+    "sourceName": "Lake Stamford",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-sweetwater": {
+    "lat": 32.43873215,
+    "lng": -100.3037109,
+    "sourceName": "Lake Sweetwater",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-georgetown": {
+    "lat": 30.66769218,
+    "lng": -97.72750854,
+    "sourceName": "Lake Georgetown",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "benbrook-lake": {
+    "lat": 32.65068817,
+    "lng": -97.44863129,
+    "sourceName": "Benbrook Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "granger-lake": {
+    "lat": 30.69297218,
+    "lng": -97.3263855,
+    "sourceName": "Granger Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "aquilla-lake": {
+    "lat": 31.89988136,
+    "lng": -97.20278931,
+    "sourceName": "Aquilla Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "bardwell-lake": {
+    "lat": 32.25014877,
+    "lng": -96.64720917,
+    "sourceName": "Bardwell Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-arlington": {
+    "lat": 32.71624374,
+    "lng": -97.19251251,
+    "sourceName": "Lake Arlington",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-worth": {
+    "lat": 32.7892952,
+    "lng": -97.41640472,
+    "sourceName": "Lake Worth",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-nasworthy": {
+    "lat": 31.3886,
+    "lng": -100.4781,
+    "sourceName": "Lake Nasworthy",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "medina-lake": {
+    "lat": 29.5402298,
+    "lng": -98.93392181,
+    "sourceName": "Medina Lake",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-weatherford": {
+    "lat": 32.77262878,
+    "lng": -97.67475128,
+    "sourceName": "Lake Weatherford",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-abilene": {
+    "lat": 32.23457718,
+    "lng": -99.88897705,
+    "sourceName": "Lake Abilene",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "lake-cypress-springs": {
+    "lat": 33.06611252,
+    "lng": -95.15888977,
+    "sourceName": "Lake Cypress Springs",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  },
+  "e-v-spence-reservoir": {
+    "lat": 31.87958908,
+    "lng": -100.5173187,
+    "sourceName": "E. V. Spence Reservoir",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "review-named-alias"
+  },
+  "brady-creek-reservoir": {
+    "lat": 31.13822365,
+    "lng": -99.38561249,
+    "sourceName": "Brady Creek Reservoir",
+    "sourceUrl": "https://waterdatafortexas.org/reservoirs/statewide/recent-conditions.geojson",
+    "reviewedAt": "2026-11-07",
+    "sourceDataAt": "2026-11-07",
+    "matchMethod": "exact-normalized-name"
+  }
+}
