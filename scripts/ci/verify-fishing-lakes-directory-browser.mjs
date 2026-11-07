@@ -137,6 +137,24 @@ for (const { name, viewport, mobile } of [
     );
     assert.equal(await cards.count(), 12, name + ": initial detailed card budget should be 12");
     await page.screenshot({ path: output + "/" + name + "-initial.png", fullPage: false, animations: "disabled" });
+    // Exercise the actual visitor shortcut after the unchanged initial screenshot:
+    // it must be prominent on mobile, absent from desktop layout, and navigate
+    // to the eager directory target (which survives Suspense/hydration).
+    const mobileFinderLink = page.locator('a[href="#lake-finder"]');
+    assert.equal(await mobileFinderLink.count(), 1, name + ": expected one lake finder shortcut");
+    assert.equal(await page.locator("#lake-finder").count(), 1, name + ": expected one stable finder target");
+    assert.equal(await mobileFinderLink.isVisible(), mobile,
+      name + ": finder shortcut must be visible only on mobile");
+    if (mobile) {
+      await mobileFinderLink.click();
+      await page.waitForFunction(() => {
+        const target = document.getElementById("lake-finder");
+        const position = target?.getBoundingClientRect().top;
+        return window.location.hash === "#lake-finder"
+          && typeof position === "number"
+          && position >= -36 && position < window.innerHeight;
+      }, null, { timeout: 8000 });
+    }
     for (const expected of [24, 36]) {
       await page.getByRole("button", { name: /Show 12 more lake cards/ }).click();
       await page.waitForFunction(expectedCards =>
