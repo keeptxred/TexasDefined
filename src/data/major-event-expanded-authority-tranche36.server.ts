@@ -42,8 +42,8 @@ const records: MajorEventAuthorityRecord[] = [
     startDate: "2026-11-07",
     endDate: "2026-11-08",
     venue: "Downtown Lockhart",
-    officialUrl: "https://www.texasmonthly.com/",
-    sourceCheckedAt: "2026-08-29",
+    officialUrl: "https://projects.texasmonthly.com/media-kit/events/",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Texas Monthly BBQ Fest turns Lockhart's barbecue identity into a statewide destination weekend, pairing an open downtown World's Fair with a ticketed Top 50 Picnic built around restaurants and pitmasters recognized by the magazine.",
     planningSections: [
       { title: "Use November 7-8 as the confirmed 2026 weekend", body: "Texas Monthly's first-party 2026 events calendar publishes BBQ Fest for November 7 and 8 in Lockhart. Organizer vendor materials independently confirm the BBQ World's Fair on Saturday, November 7 as part of the same weekend." },
@@ -56,7 +56,8 @@ const records: MajorEventAuthorityRecord[] = [
       { href: "/events", label: "Texas events calendar", description: "Find other Texas food and destination events." },
     ],
     sources: [
-      { label: "Texas Monthly 2026 events calendar", url: "https://link.texasmonthly.com/public/43654613" },
+      { label: "Texas Monthly 2026 signature events and BBQ festival", url: "https://projects.texasmonthly.com/media-kit/events/" },
+      { label: "Texas Monthly published 2026 event dates", url: "https://link.texasmonthly.com/public/43654613" },
       { label: "Texas Monthly BBQ World's Fair vendor application", url: "https://form.jotform.com/261674670961163" },
       { label: "Discover Lockhart event calendar", url: "https://discoverlockharttx.org/events" },
     ],
