@@ -27,7 +27,11 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
   read("src/data/fishing/wave2-showcase-lakes-prototype.ts"),
 ]);
 
+const liveChromeVerifier = await read("scripts/ci/verify-fishing-lakes-directory-browser.mjs");
 const errors = [];
+for (const marker of ['await page.waitForLoadState("load"', 'await page.waitForFunction(async () => {', 'await new Promise(requestAnimationFrame)', 'document.querySelectorAll("h1")', 'section[aria-labelledby="lake-directory-heading"] article']) {
+  if (!liveChromeVerifier.includes(marker)) errors.push("Live mobile Chrome must only sample SEO DOM after stable hydration: " + marker);
+}
 
 const advisories = JSON.parse(advisoriesText);
 // Quick answers remain visible, but obsolete FAQ rich-result schema is not emitted.
