@@ -12,6 +12,10 @@ const otherPaths = ["/sports/teams/dallas-mavericks", "/sports/teams/san-antonio
   "/sports/teams/dallas-stars", "/events"];
 const fishingPaths = fishingSlugs.map((slug) => "/fishing/techniques/" + slug);
 const paths = [...otherPaths, ...fishingPaths];
+// Editorial heuristic for regression detection, not a Google duplicate-content verdict.
+// The previous production baseline was 71%; 75% is a clear high-overlap tripwire.
+// Keep distinct-intent pages self-canonical; fix duplicated copy when this gate fails.
+const MAX_MAIN_TEXT_TERM_OVERLAP_PERCENT = 75;
 const failures = [];
 const records = [];
 
@@ -97,7 +101,12 @@ function compare(group) {
     if (!a || !b) continue;
     if (a.canonical[0] === b.canonical[0] || a.h1 === b.h1)
       failures.push(a.path + " vs " + b.path + ": same canonical or heading despite distinct intents");
-    pairs.push({ left: a.path, right: b.path, mainTextTermOverlapPercent: similarity(a.visibleText, b.visibleText) });
+    const mainTextTermOverlapPercent = similarity(a.visibleText, b.visibleText);
+    if (mainTextTermOverlapPercent === null)
+      failures.push(a.path + " vs " + b.path + ": insufficient visible editorial text to measure overlap");
+    else if (mainTextTermOverlapPercent >= MAX_MAIN_TEXT_TERM_OVERLAP_PERCENT)
+      failures.push(a.path + " vs " + b.path + ": " + mainTextTermOverlapPercent + "% main-text term overlap exceeds the editorial regression gate (must be below " + MAX_MAIN_TEXT_TERM_OVERLAP_PERCENT + "%); improve page-specific content");
+    pairs.push({ left: a.path, right: b.path, mainTextTermOverlapPercent });
   }
 }
 compare(otherPaths);
@@ -107,12 +116,13 @@ const reportPath = ".artifacts/42-page-pair-production.json";
 mkdirSync(dirname(reportPath), { recursive: true });
 writeFileSync(reportPath, JSON.stringify({
   checkedAt: new Date().toISOString(), origin, urlCount: records.length, pairCount: pairs.length,
+  editorialOverlapRegressionThresholdPercent: MAX_MAIN_TEXT_TERM_OVERLAP_PERCENT,
   passed: failures.length === 0, failures,
   pages: records.map(({ visibleText: _, ...row }) => row),
-  // Context-only metric; repeated site chrome and similar vocabulary are NOT automatic duplicate-canonical reasons.
+  // Heuristic quality regression gate, not a Google score or a reason to canonicalize separate page intents.
   pairs,
 }, null, 2));
 if (failures.length) {
   for (const failure of failures) console.error("FAIL " + failure);
   process.exitCode = 1;
-} else console.log("PASS: 13 live canonical pages and all 42 distinct-title/canonical combinations; source boilerplate limits enforced.");
+} else console.log("PASS: 13 live canonical pages, all 42 distinct-title/canonical combinations and editorial term overlap below " + MAX_MAIN_TEXT_TERM_OVERLAP_PERCENT + "%.");

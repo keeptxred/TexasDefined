@@ -13,6 +13,10 @@ const fishingProfile = read("src/components/fishing/FishingTechniqueProfile.tsx"
 const sportsData = JSON.parse(read("src/data/pro-teams.json"));
 const sportsSeo = read("src/data/pro-team-seo.server.ts");
 const eventsSource = read("src/components/events/EventsLandingPage.tsx");
+const livePairVerifier = read("scripts/ci/verify-42-page-pairs-production.mjs");
+assert.match(livePairVerifier, /const MAX_MAIN_TEXT_TERM_OVERLAP_PERCENT = 75;/, "Live production similarity tripwire must remain explicit");
+assert.match(livePairVerifier, /mainTextTermOverlapPercent >= MAX_MAIN_TEXT_TERM_OVERLAP_PERCENT/, "Live production must actually fail when overlap regresses");
+assert.match(livePairVerifier, /failures.push\(a.path \+ " vs " \+ b.path \+ ": " \+ mainTextTermOverlapPercent/, "Regressions must be recorded as failures, not merely reported");
 
 const techniques = [
   "soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling",
