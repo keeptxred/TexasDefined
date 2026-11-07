@@ -205,5 +205,142 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   }
+,
+  "denton-braswell": {
+    "slug": "denton-braswell",
+    "intro": "Braswell High School is a separate Denton ISD campus at 26750 E. University in Aubrey, Texas. The Aubrey postal location must not be confused with Denton High School's Bronco Way campus or Guyer's Teasley Lane campus.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent, not official school colors, logos or third-party photography."
+    },
+    "seo": {
+      "title": "Braswell High School Football | Official Denton ISD Sources",
+      "description": "Independent Braswell football school guide distinguishing campus identity, district venues and game-specific host information."
+    },
+    "campus": {
+      "address": "26750 E. University, Aubrey, TX 76227",
+      "sourceUrl": "https://www.dentonisd.org/our-district/our-schools",
+      "sourceLabel": "Denton ISD official school directory",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Confirm school-specific varsity schedule with Denton ISD athletics",
+      "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+      "sourceLabel": "Denton ISD official district venue directory, not a confirmed school-specific fixture",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "District stadium is not a universal school-specific game assignment",
+      "body": "No Braswell-specific 2026 varsity home-game stadium or fixture was established from the district-wide facility listing.",
+      "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+      "sourceLabel": "Denton ISD athletics facility listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Braswell High School is a separate Denton ISD campus at 26750 E. University in Aubrey, Texas. The Aubrey postal location must not be confused with Denton High School's Bronco Way campus or Guyer's Teasley Lane campus.",
+      "Denton ISD operates district athletics facilities including C.H. Collins Athletic Complex, but a district facility listing alone does not establish Braswell's current home field, its next opponent, or its stadium gate.",
+      "The official campus address is 26750 E. University, Aubrey, TX 76227. Visitors should confirm the host venue, kickoff, spectator entry, tickets and parking for the individual fixture.",
+      "No Braswell-specific 2026 varsity home-game stadium or fixture was established from the district-wide facility listing.",
+      "No current coach, standings, final scores, licensed team imagery, stadium accessibility or season-long venue policy is asserted without separate school-specific first-party evidence."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Separate school campus identity",
+        "body": "Braswell High School is a separate Denton ISD campus at 26750 E. University in Aubrey, Texas. The Aubrey postal location must not be confused with Denton High School's Bronco Way campus or Guyer's Teasley Lane campus.",
+        "sourceUrl": "https://www.dentonisd.org/our-district/our-schools",
+        "sourceLabel": "Denton ISD official school directory"
+      },
+      {
+        "date": "2026",
+        "title": "District facility versus game-specific host",
+        "body": "Denton ISD operates district athletics facilities including C.H. Collins Athletic Complex, but a district facility listing alone does not establish Braswell's current home field, its next opponent, or its stadium gate.",
+        "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+        "sourceLabel": "Denton ISD official athletics facilities"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Braswell High School located at Denton High's Bronco Way address?",
+        "answer": "No. Denton ISD's school directory lists Braswell at 26750 E. University in Aubrey. Check the actual game host before traveling."
+      },
+      {
+        "question": "Does the district's C.H. Collins listing establish this school's next game venue?",
+        "answer": "No. It confirms a district facility; consult the actual school or event host's varsity fixture."
+      },
+      {
+        "question": "Where are current admission, parking and accessible entry details?",
+        "answer": "Consult the specific event host. No permanent ticket or entrance policy is inferred from the school address."
+      }
+    ]
+  },
+  "denton-guyer": {
+    "slug": "denton-guyer",
+    "intro": "Guyer High School is Denton ISD's distinct Teasley Lane campus in Denton, not Denton High's Bronco Way campus and not Braswell's Aubrey campus. School directory addresses are useful for school contact, not necessarily football spectator navigation.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent, not official school colors, logos or third-party photography."
+    },
+    "seo": {
+      "title": "Guyer High School Football | Official Denton ISD Sources",
+      "description": "Independent Guyer football school guide distinguishing campus identity, district venues and game-specific host information."
+    },
+    "campus": {
+      "address": "7501 Teasley Lane, Denton, TX 76210",
+      "sourceUrl": "https://www.dentonisd.org/our-district/our-schools",
+      "sourceLabel": "Denton ISD official school directory",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Confirm school-specific varsity schedule with Denton ISD athletics",
+      "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+      "sourceLabel": "Denton ISD official district venue directory, not a confirmed school-specific fixture",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "District stadium is not a universal school-specific game assignment",
+      "body": "A district athletics facility is documented, but no Guyer-specific universal home venue or 2026 varsity fixture was established.",
+      "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+      "sourceLabel": "Denton ISD athletics facility listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Guyer High School is Denton ISD's distinct Teasley Lane campus in Denton, not Denton High's Bronco Way campus and not Braswell's Aubrey campus. School directory addresses are useful for school contact, not necessarily football spectator navigation.",
+      "C.H. Collins Athletic Complex at 1500 Long Road is a district athletics facility. The district's venue directory does not by itself prove that every Guyer game is hosted there or establish a particular ticket or accessibility policy.",
+      "The official campus address is 7501 Teasley Lane, Denton, TX 76210. Visitors should confirm the host venue, kickoff, spectator entry, tickets and parking for the individual fixture.",
+      "A district athletics facility is documented, but no Guyer-specific universal home venue or 2026 varsity fixture was established.",
+      "No current coach, standings, final scores, licensed team imagery, stadium accessibility or season-long venue policy is asserted without separate school-specific first-party evidence."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Separate school campus identity",
+        "body": "Guyer High School is Denton ISD's distinct Teasley Lane campus in Denton, not Denton High's Bronco Way campus and not Braswell's Aubrey campus. School directory addresses are useful for school contact, not necessarily football spectator navigation.",
+        "sourceUrl": "https://www.dentonisd.org/our-district/our-schools",
+        "sourceLabel": "Denton ISD official school directory"
+      },
+      {
+        "date": "2026",
+        "title": "District facility versus game-specific host",
+        "body": "C.H. Collins Athletic Complex at 1500 Long Road is a district athletics facility. The district's venue directory does not by itself prove that every Guyer game is hosted there or establish a particular ticket or accessibility policy.",
+        "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+        "sourceLabel": "Denton ISD official athletics facilities"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Does Guyer share a campus with Denton High or Braswell?",
+        "answer": "No. Guyer is at 7501 Teasley Lane, Denton; Denton High and Braswell have separately listed campuses."
+      },
+      {
+        "question": "Does the district's C.H. Collins listing establish this school's next game venue?",
+        "answer": "No. It confirms a district facility; consult the actual school or event host's varsity fixture."
+      },
+      {
+        "question": "Where are current admission, parking and accessible entry details?",
+        "answer": "Consult the specific event host. No permanent ticket or entrance policy is inferred from the school address."
+      }
+    ]
+  }
 };
 export function getBatch015FirstThreeEditorial(slug: string): FootballProgramEditorial | undefined { return EDITORIAL[slug]; }
