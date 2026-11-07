@@ -179,6 +179,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'dell-city': 'hudspeth', // Dell City ISD 110 N Main, Hudspeth County; no 2026 varsity fixture inferred.
+    'denison': 'grayson', // Denison High 4200 N State Hwy 91 Grayson County; Munson Stadium separate.
+    'denton': 'denton', // Denton High 3001 Bronco Way Denton County; C.H. Collins district venue separate.
+    'denton-braswell': 'denton', // Braswell 26750 E University, Aubrey postal city; Denton ISD campus, NOT Denton city.
+    'denton-guyer': 'denton', // Guyer 7501 Teasley Lane Denton County; distinct from Denton High.
     'de-soto': 'dallas', // DeSoto High 600 Eagle Dr campus Dallas County; game may be hosted off campus.
     'decatur': 'wise', // Decatur High 750 E Eagle Summit, Wise County; football stadium 608 E Shoemaker.
     'deer-park': 'harris', // Deer Park High south 710 W San Augustine and north 402 Ivy, Harris County; not stadium gates.
