@@ -1,0 +1,82 @@
+{
+  "lake-lbj": {
+    "lat": 30.6411,
+    "lng": -98.4169,
+    "sourceName": "TCEQ — Lake LBJ near FM 1431",
+    "sourceUrl": "https://www.waterqualitydata.us/provider/STORET/TCEQMAIN/TCEQMAIN-12329/",
+    "pointType": "Reservoir water-quality station",
+    "reviewedAt": "2026-11-07"
+  },
+  "fayette-county-reservoir": {
+    "lat": 29.9234,
+    "lng": -96.7333,
+    "sourceName": "TCEQ — Fayette Reservoir at Midpoint",
+    "sourceUrl": "https://www.waterqualitydata.us/provider/STORET/TCEQMAIN/TCEQMAIN-17017/",
+    "pointType": "Reservoir water-quality station",
+    "reviewedAt": "2026-11-07"
+  },
+  "calaveras-lake": {
+    "lat": 29.3274592942846,
+    "lng": -98.3505687406803,
+    "sourceName": "USGS — Calaveras Lake at Foster Road",
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/USGS-291938098210101/",
+    "pointType": "Reservoir monitoring location",
+    "reviewedAt": "2026-11-07"
+  },
+  "lake-casa-blanca": {
+    "lat": 27.5492157,
+    "lng": -99.4317839,
+    "sourceName": "USGS GNIS — Lake Casa Blanca",
+    "sourceUrl": "https://edits.nationalmap.gov/apps/gaz-domestic/public/summary/1332265",
+    "pointType": "GNIS reservoir feature point",
+    "reviewedAt": "2026-11-07"
+  },
+  "white-rock-lake": {
+    "lat": 32.827905078433,
+    "lng": -96.7272208610833,
+    "sourceName": "USGS — White Rock Lake mid-lake",
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/USGS-324940096433701",
+    "pointType": "Mid-lake monitoring location",
+    "reviewedAt": "2026-11-07"
+  },
+  "lake-bastrop": {
+    "lat": 30.1472222222222,
+    "lng": -97.2705555555556,
+    "sourceName": "USGS — Lake Bastrop monitoring location",
+    "sourceUrl": "https://waterdata.usgs.gov/monitoring-location/USGS-300850097161401/statistics/",
+    "pointType": "Reservoir monitoring location",
+    "reviewedAt": "2026-11-07"
+  },
+  "cedar-lake-cleburne-state-park": {
+    "lat": 32.2696,
+    "lng": -97.5622,
+    "sourceName": "TPWD — Cedar Lake Beach at Cleburne State Park",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/cleburne/trails-info",
+    "pointType": "Named shoreline landmark",
+    "reviewedAt": "2026-11-07"
+  },
+  "fort-parker-state-park-lake": {
+    "lat": 31.5876,
+    "lng": -96.5279,
+    "sourceName": "TPWD — Fort Parker Dam",
+    "sourceUrl": "https://tpwd.texas.gov/state-parks/fort-parker/trails-info",
+    "pointType": "Reservoir dam reference point",
+    "reviewedAt": "2026-11-07"
+  },
+  "lake-tyler": {
+    "lat": 32.2786,
+    "lng": -95.1134,
+    "sourceName": "TPWD — Lake Tyler East boat ramp and picnic area",
+    "sourceUrl": "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/ppwe/lake-tyler-loop",
+    "pointType": "East-lake shoreline reference point",
+    "reviewedAt": "2026-11-07"
+  },
+  "bachman-lake": {
+    "lat": 32.850876,
+    "lng": -96.871519,
+    "sourceName": "USGS GNIS — Bachman Lake",
+    "sourceUrl": "https://edits.nationalmap.gov/apps/gaz-domestic/public/summary/1329904",
+    "pointType": "GNIS reservoir feature point",
+    "reviewedAt": "2026-11-07"
+  }
+}
