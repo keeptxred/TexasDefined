@@ -1,0 +1,35 @@
+name: Verify 42 duplicate URL pairs live — scoped
+
+on:
+  push:
+    branches:
+      - verification/42-pairs-live-20261107
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verification-42-pairs-live-20261107
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Verify 13 live pages and 42 pairs
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run existing production 42-pair distinctness checker
+        run: node scripts/ci/verify-42-page-pairs-production.mjs
+      - name: Preserve exact 42-pair live evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 42-pair-live-evidence
+          path: .artifacts/42-page-pair-production.json
+          if-no-files-found: warn
+          retention-days: 30
