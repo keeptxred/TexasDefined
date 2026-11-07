@@ -8,8 +8,8 @@ assert.ok(m,'Batch015 editorial map absent');
 const guides = JSON.parse(m[1]);
 assert.deepEqual(Object.keys(guides).slice(5,10),slugs,'second-five school identities and order');
 const loader = read('src/data/high-school-football/program-editorial-b015-loader.server.ts');
-assert.ok(loader.includes('const BATCH015_FIRST_TEN = new Set('), 'SSR loader allowlist must be defined');
-assert.ok(loader.includes('if (!BATCH015_FIRST_TEN.has(slug)) return undefined;'), 'SSR loader must check its declared allowlist without runtime ReferenceError');
+assert.ok(loader.includes('const BATCH015_FIRST_FIFTEEN = new Set('), 'SSR loader allowlist must be defined');
+assert.ok(loader.includes('if (!BATCH015_FIRST_FIFTEEN.has(slug)) return undefined;'), 'SSR loader must check its declared allowlist without runtime ReferenceError');
 assert.ok(!loader.includes('BATCH015_FIRST_FIVE.has(slug)'), 'obsolete allowlist reference breaks Worker SSR');
 for(const slug of slugs) {
  const g = guides[slug];
