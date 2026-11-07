@@ -72,42 +72,52 @@ for (const { name, viewport, mobile } of [
     // 12 cards and all four visible quick-answer cards together in a stable
     // loaded document. Missing content still FAILS within 25 seconds.
     await page.waitForLoadState("load", { timeout: 30000 });
-    await page.waitForFunction(async () => {
-      const ready = () => {
-        const h1 = document.querySelectorAll("h1");
-        return h1.length === 1 && h1[0].textContent?.trim() === "Texas fishing lakes"
-          && document.querySelector('p[role="status"][aria-live="polite"]')?.textContent?.includes("Showing 72 of 72 lake guides")
-          && document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length === 12
-          && document.querySelectorAll('section[aria-labelledby="lake-answers-heading"] article').length === 4;
+    // TanStack streaming can replace lazy subtrees even between an apparently
+    // stable readiness check and a separate page.evaluate. Capture the exact
+    // same complete DOM snapshot that passes the bounded readiness gate.
+    // Never weaken assertions: a genuinely absent heading, guide, answer,
+    // or SEO graph still times out/fails instead of being ignored.
+    const stableSnapshotHandle = await page.waitForFunction(async () => {
+      const readSnapshot = () => {
+        const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
+        const nodes = scripts.flatMap(script => {
+          try {
+            const value = JSON.parse(script.textContent || "{}");
+            return Array.isArray(value) ? value.flatMap(row => row["@graph"] || [row]) : value["@graph"] || [value];
+          } catch { return []; }
+        });
+        const faq = nodes.find(row => row["@type"] === "FAQPage");
+        const itemList = nodes.find(row => row["@type"] === "ItemList" && row.numberOfItems === 72);
+        const visible = [...document.querySelectorAll('section[aria-labelledby="lake-answers-heading"] article')]
+          .map(article => ({ name: article.querySelector("h3")?.textContent?.trim(), text: article.querySelector("p")?.textContent?.trim() }));
+        return {
+          title: document.title, h1: [...document.querySelectorAll("h1")].map(row => row.textContent?.trim()),
+          canonical: document.querySelector('link[rel="canonical"]')?.href,
+          robots: [...document.querySelectorAll('meta[name="robots"]')].map(row => row.content).join(" "),
+          itemCount: itemList?.numberOfItems, linkCount: itemList?.itemListElement?.length,
+          deprecatedFaqSchemaPresent: Boolean(faq),
+          visible, viewport: window.innerWidth, docWidth: document.documentElement.scrollWidth,
+          status: document.querySelector('p[role="status"][aria-live="polite"]')?.textContent || "",
+          initialCards: document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length,
+        };
       };
-      if (!ready()) return false;
+      const ready = snapshot =>
+        snapshot.h1.length === 1 && snapshot.h1[0] === "Texas fishing lakes" &&
+        snapshot.status.includes("Showing 72 of 72 lake guides") &&
+        snapshot.initialCards === 12 &&
+        snapshot.visible.length === 4 &&
+        snapshot.visible.every(item => item.name && item.text) &&
+        snapshot.itemCount === 72 && snapshot.linkCount === 72;
+      if (!ready(readSnapshot())) return false;
       await new Promise(requestAnimationFrame);
-      if (!ready()) return false;
+      if (!ready(readSnapshot())) return false;
       await new Promise(requestAnimationFrame);
-      return ready();
+      const snapshot = readSnapshot();
+      return ready(snapshot) ? snapshot : false;
     }, null, { timeout: 25000 });
+    const initial = await stableSnapshotHandle.jsonValue();
+    await stableSnapshotHandle.dispose();
 
-    const initial = await page.evaluate(() => {
-      const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
-      const nodes = scripts.flatMap(script => {
-        try {
-          const value = JSON.parse(script.textContent || "{}");
-          return Array.isArray(value) ? value.flatMap(row => row["@graph"] || [row]) : value["@graph"] || [value];
-        } catch { return []; }
-      });
-      const faq = nodes.find(row => row["@type"] === "FAQPage");
-      const itemList = nodes.find(row => row["@type"] === "ItemList" && row.numberOfItems === 72);
-      const visible = [...document.querySelectorAll('section[aria-labelledby="lake-answers-heading"] article')]
-        .map(article => ({ name: article.querySelector("h3")?.textContent?.trim(), text: article.querySelector("p")?.textContent?.trim() }));
-      return {
-        title: document.title, h1: [...document.querySelectorAll("h1")].map(row => row.textContent?.trim()),
-        canonical: document.querySelector('link[rel="canonical"]')?.href,
-        robots: [...document.querySelectorAll('meta[name="robots"]')].map(row => row.content).join(" "),
-        itemCount: itemList?.numberOfItems, linkCount: itemList?.itemListElement?.length,
-        deprecatedFaqSchemaPresent: Boolean(faq),
-        visible, viewport: window.innerWidth, docWidth: document.documentElement.scrollWidth,
-      };
-    });
     assert.equal(initial.canonical, canonical, name + ": canonical mismatch");
     assert.equal(initial.h1.length, 1, name + ": canonical page requires exactly one stable H1");
     assert.match(initial.title, /Texas Fishing Lakes/i);
