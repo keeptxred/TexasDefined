@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {
   collectEventPageRefreshInventory, validateEventRefreshCoverage,
-  refreshCadenceDays, dueForReview,
+  refreshCadenceDays, dueForReview, STATIC_EVENT_PAGES,
 } from './event-page-refresh-governance.mjs';
 import {
   evaluateSourceObservation, reviewEventSources, selectSourceReviewTargets,
@@ -154,7 +154,7 @@ test('a clean rotating source cohort cannot close issues for other stale event g
     const now = Array.from({ length: 7 }, (_, i) => new Date(Date.parse('2026-11-07T13:00:00Z') + i * 86400000))
       .find(date => !dueForReview({
         path: '/event/winter-parade', startDate: '2027-02-10',
-      }, date));
+      }, date) && STATIC_EVENT_PAGES.every(event => !dueForReview(event, date)));
     assert.ok(now);
     // A long-overdue guide is intentionally NOT in today's deterministic
     // source crawl; every other sample guide has recently reviewed metadata.
@@ -181,6 +181,8 @@ test('a clean rotating source cohort cannot close issues for other stale event g
     assert.equal(report.findings.length, 0, 'today\'s due cohort has no concerns');
     assert.ok(report.editorialBacklogCount >= 1, 'other guides remain overdue');
     assert.ok(report.editorialBacklog.some(row => row.path === '/event/winter-parade'));
+    assert.ok(report.editorialBacklog.some(row => row.path === '/holiday/magical-winter-lights'),
+      'independently routed holiday guides also require recorded editorial checks');
     assert.equal(report.needsReview, true, 'the persistent GitHub issue must stay open');
     const debt = fullEditorialFreshnessBacklog(
       collectEventPageRefreshInventory(f.root), now,
