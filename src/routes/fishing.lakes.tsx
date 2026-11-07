@@ -23,7 +23,7 @@ export const Route = createFileRoute("/fishing/lakes")({
     ]);
     const lakes = allLakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
     const speciesById = new Map(species.map((row) => [row.id, row]));
-    const targetsByLake = new Map<string, { name: string; quality: string; prominence: string }[]>();
+    const targetsByLake = new Map<string, { name: string; quality: string; prominence: string; season?: string }[]>();
     for (const relation of lakeSpecies) {
       if (!lakes.some((lake) => lake.id === relation.lakeId)) continue;
       const fish = speciesById.get(relation.speciesId);
