@@ -83,7 +83,7 @@ for (const { name, viewport, mobile } of [
         canonical: document.querySelector('link[rel="canonical"]')?.href,
         robots: [...document.querySelectorAll('meta[name="robots"]')].map(row => row.content).join(" "),
         itemCount: itemList?.numberOfItems, linkCount: itemList?.itemListElement?.length,
-        faq: faq?.mainEntity?.map(item => ({ name: item.name, text: item.acceptedAnswer?.text })),
+        deprecatedFaqSchemaPresent: Boolean(faq),
         visible, viewport: window.innerWidth, docWidth: document.documentElement.scrollWidth,
       };
     });
@@ -93,7 +93,9 @@ for (const { name, viewport, mobile } of [
     assert.doesNotMatch(initial.robots, /noindex/i, name + ": valid collection page incorrectly noindexed");
     assert.equal(initial.itemCount, 72, name + ": directory ItemList count incorrect");
     assert.equal(initial.linkCount, 72, name + ": directory ItemList URLs incomplete");
-    assert.deepEqual(initial.faq, initial.visible, name + ": FAQ structured data differs from actual visible questions and answers");
+    assert.equal(initial.deprecatedFaqSchemaPresent, false, name + ": deprecated FAQPage rich-result markup must be absent");
+    assert.equal(initial.visible.length, 4, name + ": useful visible quick answers were removed");
+    assert.ok(initial.visible.every((item) => item.name && item.text), name + ": reader answers incomplete");
     assert.ok(initial.docWidth <= initial.viewport + 8, name + ": document horizontally overflows");
     assert.equal((await count(page)).total, 72);
     // All 72 complete guides stay directly linked in the server-rendered A-Z index,
@@ -131,6 +133,9 @@ for (const { name, viewport, mobile } of [
     await page.getByRole("searchbox", { name: "Lake, county or city" }).fill("Lake Conroe");
     await awaitFiltered(page, "some");
     assert.equal(await lakeCard(page, "lake-conroe").count(), 1, name + ": Lake Conroe missing from search");
+    const tpwd = lakeCard(page, "lake-conroe").getByRole("link", { name: /TPWD fishery profile/ });
+    assert.match(await tpwd.getAttribute("href"), /^https:\/\/tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\/conroe\//, name + ": card missing exact official source");
+    assert.match(await lakeCard(page, "lake-conroe").textContent(), /Source-reviewed trip options|Researched seasonal patterns/, name + ": researched trip-fit evidence missing");
 
     await page.getByRole("button", { name: "Clear filters" }).click();
     await awaitFiltered(page, "all");
@@ -141,6 +146,16 @@ for (const { name, viewport, mobile } of [
     await page.getByRole("button", { name: "Clear filters" }).click();
     await awaitFiltered(page, "all");
 
+    await page.getByLabel("Documented access type", { exact: true }).selectOption("boat");
+    await awaitFiltered(page, "some");
+    assert.match(await directory.locator("article").first().textContent(), /boat ramp\(s\)/i, name + ": boat-ramp filter returns unsupported facility");
+    await page.getByRole("button", { name: "Clear filters" }).click();
+    await awaitFiltered(page, "all");
+    await page.getByLabel("Research season", { exact: true }).selectOption("winter");
+    const winterStatus = await count(page);
+    assert.ok(winterStatus.shown > 0 && winterStatus.shown <= 72, name + ": winter research filter missing seasonal profiles");
+    await page.getByRole("button", { name: "Clear filters" }).click();
+    await awaitFiltered(page, "all");
     await page.getByLabel("Target species", { exact: true }).selectOption("Alligator gar");
     await awaitFiltered(page, "some");
     for (const text of await page.locator('section[aria-labelledby="lake-directory-heading"] article').allTextContents()) {
@@ -233,7 +248,7 @@ for (const { name, viewport, mobile } of [
     assert.equal(widthAfter.keyboard, true, name + ": the comparison scroll region must be keyboard focusable");
     if (mobile) assert.ok(widthAfter.scrollableWidth > widthAfter.scrollableClient,
       name + ": three-lake table must scroll *inside its region* rather than widen the document");
-    results.push({ name, canonical: initial.canonical, guides: initial.itemCount, initialCards: 12, progressiveCardsVerified: 36, allGuideLinks: 72, faqParity: true,
+    results.push({ name, canonical: initial.canonical, guides: initial.itemCount, initialCards: 12, progressiveCardsVerified: 36, allGuideLinks: 72, retiredFaqSchemaAbsent: true, visibleQuickAnswers: 4, sourceVerifiedTripFilters: true,
       search: true, region: true, species: true, restriction: true, sorting: { largest, smallest },
       compare: true, noDocumentOverflow: true, errors: pageErrors });
     console.log("PASS fishing-lakes " + name + ": 72 crawlable lake guide links, 12-card progressive rendering, FAQ parity, filters/sort/restrictions, cross-filter comparison and layout");

@@ -28,12 +28,11 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
 ]);
 
 const errors = [];
+
 const advisories = JSON.parse(advisoriesText);
-assertFAQContract();
-function assertFAQContract() {
-  // FAQ structured data and visible answers must share the same pure source.
-  if (!route.includes("buildFishingLakeQuickAnswers(completeLakeCount)") || !component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Visible quick answers must exactly match JSON-LD FAQ content from one shared source.");
-}
+// Quick answers remain visible, but obsolete FAQ rich-result schema is not emitted.
+if (!component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Keep original reader-facing quick answers.");
+if (route.includes('"@type": "FAQPage"')) errors.push("Retired Google FAQPage rich-result markup must not be published.");
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
 for (const marker of [
@@ -41,12 +40,13 @@ for (const marker of [
   'await import("@/data/fishing/queries")',
   'fishingLakesQuery({ limit: 100 })',
   'lakeSpeciesProfilesQuery()',
+  'fishingAccessPointsQuery({ limit: 1000 })',
   'isCompleteFishingLakeSlug(lake.slug)',
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
-  '"@type": "FAQPage"',
   '"@type": "BreadcrumbList"',
   'numberOfItems: rows.length',
+  'documentedAccess: accessByLake.get(lake.id)',
   'const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length',
   'title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`',
   'lazy(() => import("@/components/fishing/FishingLakesDirectory")',
@@ -59,6 +59,11 @@ for (const marker of [
   'Jump to a lake guide',
   'Compare Texas Fishing Lakes',
   'Fishing targets',
+  'Documented access type',
+  'Research season',
+  'Source-reviewed trip options',
+  'TPWD fishery profile',
+  'Researched seasonal patterns',
   'Check Current Lake Conditions Before You Go',
   'New guides are added as the underlying fishing and access research is completed',
   'same sourcing standard',
@@ -125,7 +130,7 @@ assert(!search.includes("Compare the five complete TexasDefined fishing-lake gui
 
 // The visitor-facing finder filters published guide records, not invented access inventory.
 for (const marker of [
-  'visibleRows.map(({ lake, targets })',
+  'visibleRows.map(({ lake, targets, documentedAccess })',
   'setSearchText', 'setRegion', 'setSpecies', 'setAccess', 'setSortOrder',
   'aria-label="Region"', 'aria-label="Target species"', 'aria-label="Documented access restrictions"', 'aria-label="Sort guides"', 'Largest by surface area', 'Smallest by surface area',
   'Showing {filteredRows.length} of {rows.length} lake guides',
@@ -151,6 +156,10 @@ assert(refreshWorkflow.includes('FISHING_LAKES_FULL_REVIEW') && refreshWorkflow.
 assert(refreshWorkflow.includes('fishing-lake-regulation-sources.json') && refreshWorkflow.includes("steps.regulations.outcome == 'failure'"), "Scheduled regulation source review must retain evidence and create actionable drift issue.");
 for (const marker of ['all.length !== 72', 'buckets.some((row) => row.length !== 12)', 'tpwd.texas.gov', 'waterbody-regulations', '--smoke', '--full', 'No automated legal claims']) assert(regulationAudit.includes(marker), "Lake-specific source review missing truthful official-source and bounded cohort invariant: " + marker);
 assert(refreshWorkflow.includes('gh issue create'), "Source drift must become an actionable GitHub issue rather than silent data loss.");
+for (const marker of ["id: grades", "audit-fishing-lake-grade-sources.mjs", "fishing-lake-fishery-grade-evidence.json", "steps.grades.outcome == 'failure'", "scripts/ci/tpwd-fishery-grades.test.mjs"]) assert(refreshWorkflow.includes(marker), "Official fishery-grade drift review must stay on existing GitHub schedule: " + marker);
+assert(route.includes("accessByLake") && route.includes("fishingAccessPointsQuery({ limit: 1000 })"), "Original source-reviewed access comparison missing from data loader.");
+assert(component.includes("Documented access type") && component.includes("Research season") && component.includes("TPWD fishery profile"), "Evidence-backed access, season and direct citations missing from directory cards.");
+assert(!route.includes('"@type": "FAQPage"') && component.includes("buildFishingLakeQuickAnswers(rows.length)"), "Reader quick answers must remain visible without deprecated FAQPage structured data.");
 assert(sourceAudit.includes('Lake Abilene Closures') && sourceAudit.includes('swimming and fishing are not allowed'), "Official TPWD Lake Abilene closure language must be checked.");
 assert(advisories["lake-abilene"]?.sourceUrl === "https://tpwd.texas.gov/state-parks/abilene/alert/", "Lake Abilene directory warning must point directly to the official TPWD alert.");
 assert(advisories["lake-abilene"]?.verifiedAt && advisories["lake-abilene"]?.notice.includes("fishing"), "Lake Abilene restriction requires a dated, explicit visible warning.");
