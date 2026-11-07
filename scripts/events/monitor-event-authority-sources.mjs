@@ -28,14 +28,41 @@ const dayMs = 86400000;
 const dayNumber = date => Math.floor(Date.parse(date.slice(0, 10) + 'T00:00:00Z') / dayMs);
 const asIso = date => date.toISOString().slice(0, 10);
 
-export function selectSourceReviewTargets(inventory, asOf = new Date()) {
-  return [...inventory.permanent, ...inventory.specials].filter(event => dueForReview(event, asOf))
+export function allEventReviewTargets(inventory, asOf = new Date()) {
+  return [...inventory.permanent, ...inventory.specials]
     .map(event => ({
       ...event, cadenceDays: refreshCadenceDays(event, asOf),
       sourceAgeDays: event.sourceCheckedAt && /^\d{4}-\d{2}-\d{2}$/.test(event.sourceCheckedAt)
         ? dayNumber(asIso(asOf)) - dayNumber(event.sourceCheckedAt)
         : null,
     })).sort((a, b) => a.path.localeCompare(b.path));
+}
+
+export function selectSourceReviewTargets(inventory, asOf = new Date()) {
+  return allEventReviewTargets(inventory, asOf).filter(event => dueForReview(event, asOf));
+}
+
+// Freshness debt must be computed from the ENTIRE source inventory, not only
+// today's deterministic source-crawl cohort. Otherwise a day with no failures
+// can prematurely close an issue while other published pages are still overdue.
+export function fullEditorialFreshnessBacklog(inventory, asOf = new Date()) {
+  return allEventReviewTargets(inventory, asOf)
+    .filter(event => event.kind === 'permanent' && (
+      event.sourceAgeDays == null ||
+      event.sourceAgeDays > Math.max(7, event.cadenceDays * 3)
+    ))
+    .map(event => ({
+      path: event.path, source: event.sourceUrl,
+      editorialSourceCheckedAt: event.sourceCheckedAt,
+      editorialSourceAgeDays: event.sourceAgeDays,
+      cadenceDays: event.cadenceDays, startDate: event.startDate,
+      concerns: event.sourceAgeDays == null
+        ? ['missing-editorial-source-check-date']
+        : ['editorial-source-check-overdue'],
+    }))
+    .sort((a, b) => a.cadenceDays - b.cadenceDays ||
+      (b.editorialSourceAgeDays ?? 0) - (a.editorialSourceAgeDays ?? 0) ||
+      a.path.localeCompare(b.path));
 }
 
 export function evaluateSourceObservation(target, outcome, asOf = new Date()) {
@@ -108,6 +135,7 @@ export async function reviewEventSources({
   const inventory = collectEventPageRefreshInventory(root);
   const coverageErrors = validateEventRefreshCoverage(inventory);
   const due = selectSourceReviewTargets(inventory, now);
+  const editorialBacklog = fullEditorialFreshnessBacklog(inventory, now);
   if (due.length > maxTargets) coverageErrors.push(
     `Due source checks exceed budget ${maxTargets}; expand the governed capacity, never silently skip pages (${due.length} due)`);
   const targets = due.length <= maxTargets ? due : [];
@@ -156,8 +184,9 @@ export async function reviewEventSources({
       missingSources: inventory.missingSources.length, uncoveredRoutes: inventory.uncoveredRoutes,
     },
     due: due.length, attempted: observations.length, uniqueSources: cache.size,
-    coverageErrors, findings, observations,
-    needsReview: coverageErrors.length > 0 || findings.length > 0,
+    editorialBacklogCount: editorialBacklog.length,
+    editorialBacklog, coverageErrors, findings, observations,
+    needsReview: coverageErrors.length > 0 || findings.length > 0 || editorialBacklog.length > 0,
     state: coverageErrors.length ? 'coverage-failed' : 'observed',
     note: 'HTTP reachability is NOT verification of dates or editorial freshness; only official evidence permits updating event pages.',
   };
@@ -166,6 +195,7 @@ export async function reviewEventSources({
   console.log('Event authority refresh:', JSON.stringify({
     coverage: report.coverage, due: report.due, attempted: report.attempted,
     uniqueSources: report.uniqueSources, findings: findings.length,
+    editorialBacklog: editorialBacklog.length,
     coverageErrors: coverageErrors.length, report: outputPath,
   }));
   if (process.env.GITHUB_STEP_SUMMARY) {
@@ -174,7 +204,7 @@ export async function reviewEventSources({
       `- Permanent event guides: **${report.coverage.permanent}**`,
       `- Daily/rolling collections: **${report.coverage.collectionRoutes}**`,
       `- Due official-source checks: **${due.length}**; attempted **${observations.length}**`,
-      `- Source/editorial concerns: **${findings.length}**; coverage errors: **${coverageErrors.length}**`,
+      `- Source concerns in due cohort: **${findings.length}**; full-inventory editorial backlog: **${editorialBacklog.length}**; coverage errors: **${coverageErrors.length}**`,
       '- Existing event dates and public pages were not silently altered.', '',
     ].join('\n'));
   }
