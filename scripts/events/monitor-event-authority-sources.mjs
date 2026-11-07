@@ -16,6 +16,14 @@ import {
 } from './event-page-refresh-governance.mjs';
 
 export const DEFAULT_REPORT = '.artifacts/event-authority-source-refresh.json';
+// Verified first-party fallback hosts, used ONLY when the primary organizer
+// URL blocks automated reads or returns a thin JS shell. This is NOT approval
+// to replace dates, ticket links or editorial verification timestamps.
+export const OFFICIAL_EVENT_SOURCE_FALLBACKS = Object.freeze({
+  '/event/gaylord-texan-ice': ['https://tickets.gaylordtexan.com/eventperformances.asp?evt=243'],
+  '/event/houston-ballet-nutcracker-market': ['https://www.reliantpark.com/event/nutcracker-market/'],
+  '/event/texas-jazz-festival': ['https://www.visitcorpuschristi.com/texas-jazz-festival/'],
+});
 const dayMs = 86400000;
 const dayNumber = date => Math.floor(Date.parse(date.slice(0, 10) + 'T00:00:00Z') / dayMs);
 const asIso = date => date.toISOString().slice(0, 10);
@@ -49,7 +57,11 @@ export function evaluateSourceObservation(target, outcome, asOf = new Date()) {
   return {
     path: target.path, kind: target.kind, source: target.sourceUrl, cadenceDays: target.cadenceDays,
     editorialSourceCheckedAt: target.sourceCheckedAt, editorialSourceAgeDays: target.sourceAgeDays,
-    fetchedAt: outcome.fetchedAt ?? null, http: outcome.status ?? null, sourceState: outcome.ok ? 'reachable-not-date-verified' : 'unavailable',
+    fetchedAt: outcome.fetchedAt ?? null, http: outcome.status ?? null,
+    sourceState: !outcome.ok ? 'unavailable' :
+      outcome.fallbackUrl ? 'official-fallback-reachable-not-date-verified' : 'reachable-not-date-verified',
+    fallbackSource: outcome.fallbackUrl ?? null,
+    primarySourceError: outcome.primaryError ?? null,
     sourceError: outcome.error ?? null, concerns: [...new Set(errors)],
   };
 }
@@ -106,10 +118,22 @@ export async function reviewEventSources({
     while (cursor < targets.length) {
       const i = cursor++;
       const target = targets[i];
-      if (!cache.has(target.sourceUrl)) {
-        cache.set(target.sourceUrl, boundedSourceFetch(target.sourceUrl, fetchImpl, now, timeoutMs));
+      const fetchSource = async url => {
+        if (!cache.has(url)) cache.set(url, boundedSourceFetch(url, fetchImpl, now, timeoutMs));
+        return cache.get(url);
+      };
+      const primary = await fetchSource(target.sourceUrl);
+      let observed = primary;
+      if (!primary.ok && OFFICIAL_EVENT_SOURCE_FALLBACKS[target.path]) {
+        for (const fallbackUrl of OFFICIAL_EVENT_SOURCE_FALLBACKS[target.path]) {
+          const fallback = await fetchSource(fallbackUrl);
+          if (fallback.ok) {
+            observed = { ...fallback, fallbackUrl, primaryError: primary.error };
+            break;
+          }
+        }
       }
-      observations[i] = evaluateSourceObservation(target, await cache.get(target.sourceUrl), now);
+      observations[i] = evaluateSourceObservation(target, observed, now);
     }
   };
   await Promise.all(Array.from({ length: Math.min(concurrency, targets.length) }, worker));
