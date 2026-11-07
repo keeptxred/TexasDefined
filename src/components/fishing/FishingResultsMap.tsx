@@ -104,7 +104,7 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
         filename="texas-fishing-lakes-map"
         title="Texas fishing lakes map"
         methodologyHref="/sourcing-methodology"
-        sourceNote={`This download contains ${visible.length} verified representative lake locations out of ${totalMatching} matching lakes. Coordinates are not boat-ramp or shoreline-access points. Unmapped matching lakes remain available in List view.`}
+        sourceNote={`This download depicts ${visible.length} officially sourced reservoir reference locations out of ${totalMatching} matching lakes. Points may represent official lake-monitoring stations, shoreline landmarks or referenced waterbody features; they do not confirm public access or launch availability.${unmappedCount ? ` ${unmappedCount} unmapped lakes remain available in List view.` : " All matching lakes have a mapped reference."}`}
         compact
       />
     </div>
