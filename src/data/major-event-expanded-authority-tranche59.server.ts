@@ -215,7 +215,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2027-01-02",
     "venue": "Moody Gardens · 1 Hope Boulevard, Galveston",
     "officialUrl": "https://www.moodygardens.com/holiday-season",
-    "sourceCheckedAt": "2026-10-23",
+    "sourceCheckedAt": "2026-11-07",
     "seoTitle": "Moody Gardens Holiday in the Gardens 2026: Lights, ICE LAND & Tickets",
     "seoDescription": "Holiday in the Gardens runs Nov. 21, 2026–Jan. 2, 2027. Compare the Galveston lights trail, ICE LAND, holiday passes, free parking and family attractions.",
     "whyItMatters": "Holiday in the Gardens is the resort-wide Galveston holiday festival that connects the mile-long Holiday Lights Trail (formerly Festival of Lights), the independently featured ICE LAND: Caribbean Christmas, holiday films, skating, slides, dining and shows. Visitors should decide between a light-trail outing and a multi-attraction evening before choosing admissions.",
@@ -244,7 +244,7 @@ const records: ChristmasExtendedRecord[] = [
     planningSections: [
       {
         title: "Pick a lights-only visit or the Holiday Pass",
-        "body": "The Holiday Lights Trail, ICE LAND, skating, movies and other programs may be ticketed separately or included in specific bundled products. A pass marketed for after-4-p.m. use should not be assumed valid earlier in the day."
+        "body": "Moody Gardens offers individual tickets for its Holiday Lights Trail or ICE LAND and a separate after-4-p.m. Holiday Pass covering several attractions. The Holiday Pass is NOT an all-day pass; skate rentals are sold separately. Compare what a family will actually use before choosing a ticket product."
       },
       {
         title: "Know the ICE LAND temperature",
@@ -307,7 +307,7 @@ const records: ChristmasExtendedRecord[] = [
         "url": "https://www.moodygardens.com/holiday-season/things-to-do"
       }
     ],
-    "dateNote": "The overall festival season spans these dates. Always check the separate operating times for ICE LAND, lights, shows, skating and dining."
+    "dateNote": "Moody Gardens confirms Holiday in the Gardens November 21, 2026–January 2, 2027. The mile-long Holiday Lights Trail generally opens at dusk around 6 p.m. and closes 10 p.m. A Holiday Pass is valid after 4 p.m., with skate rentals extra; specific shows and attractions may use their own daily schedules."
   },
   {
     slug: "grapevine-north-pole-express",
@@ -448,7 +448,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2027-01-03",
     "venue": "Dallas Zoo · 650 South R.L. Thornton Freeway, Dallas",
     "officialUrl": "https://www.dallaszoo.com/event/lights/",
-    "sourceCheckedAt": "2026-10-23",
+    "sourceCheckedAt": "2026-11-07",
     "seoTitle": "Dallas Zoo Lights 2026: Select Dates, Tickets, Parking & Hours",
     "seoDescription": "Plan Dallas Zoo Lights 2026–27 on select nights Nov. 13–Jan. 3, 5:30–9 p.m. Check ticketed nights, Combo Ticket options, parking and Christmas closures.",
     "whyItMatters": "Dallas Zoo Lights is a nighttime walk-through holiday attraction using illuminated themes, lanterns and more than two million lights. It does not operate on every night between November 13 and January 3. The Zoo's official schedule and your exact ticket date are essential because Christmas Eve and Christmas Day are closed.",
@@ -481,7 +481,7 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         title: "Understand the evening ticket",
-        "body": "Zoo Lights is a ticketed nighttime light experience. A regular daytime general admission ticket is different from evening admission; the Zoo also advertises a combined visit option for guests who want to see animals earlier in the day."
+        "body": "Dallas Zoo Lights general evening tickets start at $19, while a daytime-and-evening Combo upgrade costs $10 extra on an eligible evening ticket. Regular daytime admission alone does NOT include Zoo Lights; confirm ticket inclusions and exact operating night before paying."
       },
       {
         title: "Animals generally are not part of the evening visit",
@@ -540,7 +540,7 @@ const records: ChristmasExtendedRecord[] = [
         "url": "https://www.dallaszoo.com/plan-your-visit/general-information/"
       }
     ],
-    "dateNote": "The event operates selected nights only; the accompanying Christmas calendar shows 6 documented windows rather than counting closed dates between them.",
+    "dateNote": "The official Dallas Zoo 2026–27 calendar lists select evenings November 13–January 3, 5:30–9 p.m. General admission begins at $19 and public parking is $15; December 24 and 25 are CLOSED. Do not treat the broad seasonal range as daily operation or mistake daytime zoo tickets for evening admission.",
     "occurrenceWindows": [
       {
         "label": "Nov 13–15",

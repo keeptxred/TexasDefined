@@ -207,8 +207,9 @@ const records: ChristmasAuthorityRecord[] = [
     startDate: "2026-11-13",
     endDate: "2027-01-03",
     venue: "18898 State Highway 6, College Station",
+    dateNote: "Santa’s Wonderland confirms its 2026–27 season November 13, 2026–January 3, 2027 at 18898 Highway 6 in College Station. Admission and premium activities are date-specific; visitors should consult the official ticket and hours calendar for their exact night.",
     officialUrl: "https://www.santas-wonderland.com/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Santa's Wonderland is a destination-scale outdoor Christmas park rather than a roadside light display. Tickets, arrival traffic, activities and potential upgrades shape the experience; a family can devote an entire evening here and extend the trip into a Bryan–College Station weekend.",
     quickFacts: [
       {
@@ -292,9 +293,10 @@ const records: ChristmasAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-11-19",
     endDate: "2027-01-03",
+    dateNote: "Houston Zoo Lights operates select nights November 19, 2026–January 3, 2027, 5:30–10:30 p.m. (last entry 9:30). Zoo Lights is closed December 9 and 24, OPEN Christmas night December 25 while daytime zoo admission is closed, and closes early at 9:30 p.m. on New Year’s Eve December 31.",
     venue: "Houston Zoo, Hermann Park",
     officialUrl: "https://www.houstonzoo.org/events/zoolights/",
-    sourceCheckedAt: "2026-10-23",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Houston Zoo's seasonal light walk makes an accessible-in-city evening outing centered on illuminated animal scenes, themed displays and conservation storytelling. It is a separate nighttime ticket, not simply a continuation of ordinary daytime admission.",
     quickFacts: [
       {
@@ -329,7 +331,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Know the 2026 hours and exceptions",
-        body: "The published season is November 19 through January 3, on select dates. Gates run 5:30–10:30 p.m. with last entry 9:30 p.m.; the zoo lists December 9 and Christmas Eve as closures. Christmas night, however, has Zoo Lights admission in 2026."
+        body: "Zoo Lights runs on selected nights from November 19 through January 3, generally 5:30–10:30 p.m. with last entry at 9:30 p.m. December 9 and Christmas Eve are closed; CHRISTMAS NIGHT December 25 is open for Zoo Lights although daytime zoo admission is closed. New Year’s Eve December 31 has an earlier 9:30 p.m. closing, so check the date-specific event calendar."
       },
       {
         title: "Choose your sensory experience",
@@ -395,7 +397,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2027-01-02",
     venue: "Moody Gardens",
     officialUrl: "https://www.moodygardens.com/holiday-season/ice-land",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "ICE LAND is Galveston's signature indoor ice-sculpture centerpiece within the larger Holiday in the Gardens festival. The 2026 Caribbean Christmas theme uses more than two million pounds of ice in a nine-degree environment, and visitors often combine it with the outdoor Holiday Lights Trail and a Gulf Coast hotel weekend.",
     quickFacts: [
       {
@@ -426,7 +428,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Prepare for nine-degree temperatures",
-        body: "Moody Gardens says ICE LAND is kept at 9°F. Heavy winter layers, suitable shoes and gloves are prudent even on a mild Galveston evening, especially for small children. Confirm the operator's coat and accessory guidance."
+        body: "Moody Gardens confirms ICE LAND is kept at 9°F and PROVIDES parkas. Bring warm socks, gloves, a hat and suitable shoes for comfort, especially with small children. The self-paced icy exhibit has stroller and wheelchair accessible paths; follow the current operator slide rules."
       },
       {
         title: "See the specific 2026 theme",
@@ -442,7 +444,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Check date-specific ticket availability",
-        body: "The official 2026 ICE LAND page lists $35 adult and $29 qualifying child/senior admission, with bundles varying by date and extras. Verify checkout inclusions, hours, refund policy and current capacity before purchasing."
+        body: "The official 2026 ICE LAND page lists adult admission at $35 and ages 4–12 or seniors 65+ at $29. The separate Holiday Pass includes ICE LAND, Holiday Lights, films and other attractions after 4 p.m., but skate rentals are extra. ICE LAND opens November 21 through January 2; check dated tickets, hours and availability before buying."
       }
     ],
     relatedLinks: [
@@ -572,9 +574,10 @@ const records: ChristmasAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-11-14",
     endDate: "2027-01-03",
+    dateNote: "Official 2026–27 Galaxy Lights runs on select dates November 14, 2026–January 3, 2027, with a published 6–10 p.m. event window. The site posts weather-related operating status each event day by 4 p.m.; the season-long range does not imply every night is operating.",
     venue: "Space Center Houston",
     officialUrl: "https://spacecenter.org/galaxy-lights/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Galaxy Lights transforms the Space Center Houston visitor campus into a space-themed nighttime holiday experience, with glowing cosmic installations and interactive areas that distinguish it from a conventional Christmas trail. It is a good anchor for a Clear Lake or NASA-area overnight trip.",
     quickFacts: [
       {
@@ -597,7 +600,7 @@ const records: ChristmasAuthorityRecord[] = [
     planningSections: [
       {
         title: "Reserve an exact operating date",
-        body: "The organizer advertises Galaxy Lights on select dates from November 14 through January 3. Use the live ticket calendar to verify evening start and end times and availability; the date range does not imply the show operates every night."
+        body: "Space Center Houston announces Galaxy Lights from November 14, 2026 through January 3, 2027 on SELECT dates with official 6–10 p.m. event hours. Use the ticket calendar to confirm the particular night, evening admission, and availability; the published range does not mean every date is open."
       },
       {
         title: "Understand Galaxy Lights versus daytime admission",
