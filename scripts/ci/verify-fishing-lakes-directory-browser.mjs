@@ -68,16 +68,17 @@ for (const { name, viewport, mobile } of [
     await page.getByRole("searchbox", { name: "Lake, county or city" }).waitFor({ state: "visible", timeout: 25000 });
     // Streaming SSR and route-wide hydration can briefly replace the eagerly
     // rendered route AFTER Playwright first sees its H1. Do not take a snapshot
-    // between those DOM phases. Require the real canonical H1, status, filter
-    // and first 12 cards together in a stable loaded document. An actually
-    // missing/duplicate H1 still FAILS within 25 seconds.
+    // between those DOM phases. Require the real canonical H1, status, first
+    // 12 cards and all four visible quick-answer cards together in a stable
+    // loaded document. Missing content still FAILS within 25 seconds.
     await page.waitForLoadState("load", { timeout: 30000 });
     await page.waitForFunction(async () => {
       const ready = () => {
         const h1 = document.querySelectorAll("h1");
         return h1.length === 1 && h1[0].textContent?.trim() === "Texas fishing lakes"
           && document.querySelector('p[role="status"][aria-live="polite"]')?.textContent?.includes("Showing 72 of 72 lake guides")
-          && document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length === 12;
+          && document.querySelectorAll('section[aria-labelledby="lake-directory-heading"] article').length === 12
+          && document.querySelectorAll('section[aria-labelledby="lake-answers-heading"] article').length === 4;
       };
       if (!ready()) return false;
       await new Promise(requestAnimationFrame);
