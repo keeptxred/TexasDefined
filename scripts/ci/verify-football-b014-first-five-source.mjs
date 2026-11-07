@@ -13,11 +13,12 @@ const server=read('src/data/high-school-football/football-program-profile.server
 assert.ok(loader.includes("import('./program-editorial-b014')"),'Batch014 SSR loader does not dynamically load original editorial');
 assert.ok(server.includes('await loadBatch014FootballProgramEditorial(canonicalSlug)'),'Batch014 source is not in actual SSR profile resolver');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+const b014Certified = reg.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId===7613348297 && b.technicalAcceptance?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' && b.technicalAcceptance?.observedWorkerVersions?.[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2') && reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
 assert.equal(reg.batch.number,14,'wrong active batch');
 assert.deepEqual(reg.batch.slugs.slice(0,5),slugs,'wrong assigned order');
-assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,305,'historical certificates must remain intact');
-assert.ok(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length>=5,'first-five original source-implemented schools must remain');
-assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED').length,0,'no unsupported Batch014 graduation');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,b014Certified?330:305,'historical certificates must remain intact');
+
+
 const schoolIdentities=read('src/data/high-school-football/school-identities.ts');
 const expectedMascots=new Map([['dallas-kimball','Knights'],['dallas-life-oak-cliff','Lions'],['dallas-lincoln','Tigers'],['dallas-madison','Trojans'],['dallas-molina','Jaguars']]);
 for(const [slug,mascot] of expectedMascots){
@@ -36,8 +37,8 @@ for(const slug of slugs){
  const guide=guides[slug];
  assert.equal(guide.slug,slug);
  assert.ok(loader.includes("'"+slug+"'"),slug+' not allowed by SSR loader');
- assert.equal(reg.schoolRecords.find(x=>x.slug===slug)?.status,'IMPLEMENTED',slug+' not source implemented');
- assert.equal(reg.schoolRecords.find(x=>x.slug===slug)?.actualProductionVerified,false,slug+' must not imply Chrome certification');
+ assert.equal(reg.schoolRecords.find(x=>x.slug===slug)?.status,b014Certified?'VERIFIED':'IMPLEMENTED',slug+' not source implemented');
+ assert.equal(reg.schoolRecords.find(x=>x.slug===slug)?.actualProductionVerified,b014Certified,slug+' must not imply Chrome certification');
  assert.ok(dossier.includes('`'+slug+'`'),slug+' missing source dossier');
  assert.ok(campusSection.includes("'"+slug+"': 'dallas'"),slug+' campus county not mapped');
  assert.ok(dallas[1].includes("slug: '"+slug+"'"),slug+' absent from county-to-school links');
@@ -54,3 +55,6 @@ for(const slug of slugs){
 assert.ok(guides['dallas-life-oak-cliff'].schedule.sourceUrl.includes('lifeschool.net'),'charter football cannot use Dallas ISD schedule');
 assert.ok(guides['dallas-lincoln'].campus.address.includes('Elsie Faye Heggins'),'historical Lincoln street address cannot supersede current school');
 console.log('PASS: five unique sourced Batch014 SSR guides, exact registry assignment, first-party schedules, Dallas school/county reciprocity, 305 older VERIFIED preserved; source-only, NOT Chrome.');
+
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED').length,b014Certified?25:0,'Batch014 graduation must have signed exact production evidence');
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length,b014Certified?0:25,'all 25 source-authored Batch014 schools must remain accounted for');
