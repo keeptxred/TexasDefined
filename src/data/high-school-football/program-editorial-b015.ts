@@ -204,8 +204,7 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Check the actual host's current game notice or contact the district athletics office. No universal gate, ticket or accessibility policy is asserted here."
       }
     ]
-  }
-,
+  },
   "denton-braswell": {
     "slug": "denton-braswell",
     "intro": "Braswell High School is a separate Denton ISD campus at 26750 E. University in Aubrey, Texas. The Aubrey postal location must not be confused with Denton High School's Bronco Way campus or Guyer's Teasley Lane campus.",
@@ -339,6 +338,346 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where are current admission, parking and accessible entry details?",
         "answer": "Consult the specific event host. No permanent ticket or entrance policy is inferred from the school address."
+      }
+    ]
+  },
+  "denton-ryan": {
+    "slug": "denton-ryan",
+    "intro": "Ryan High School is a distinct Denton ISD campus on East McKinney Street, separate from Denton High, Guyer and Braswell. The district lists C.H. Collins Athletic Complex as a district facility, not as proof that every Ryan home football game is played there.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "TexasDefined editorial accent, not official school colors or licensed team artwork."
+    },
+    "seo": {
+      "title": "Ryan High School Football | Campus, Athletics and Game-Day Sources",
+      "description": "Source-bounded Ryan High School football guide separating school campus, athletics references and confirmed game-day information."
+    },
+    "campus": {
+      "address": "5101 E. McKinney St., Denton, TX 76208",
+      "sourceUrl": "https://ryanhs.dentonisd.org/",
+      "sourceLabel": "Official school, district or UIL campus listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Confirm current varsity participation and each fixture with the official athletics source",
+      "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+      "sourceLabel": "Official athletics or UIL listing; not a verified season-long fixture schedule",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "School campus and football venue are not interchangeable",
+      "body": "Denton ISD documents C.H. Collins Athletic Complex as a district venue, but a school-specific 2026 home schedule and gate were not independently confirmed.",
+      "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+      "sourceLabel": "Official source with explicit game-specific evidence limits",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Ryan High School is a distinct Denton ISD campus on East McKinney Street, separate from Denton High, Guyer and Braswell. The district lists C.H. Collins Athletic Complex as a district facility, not as proof that every Ryan home football game is played there.",
+      "The recorded campus location is 5101 E. McKinney St., Denton, TX 76208. Ryan's East McKinney campus is not Denton High's Bronco Way address, Guyer's Teasley Lane campus or Braswell's Aubrey campus.",
+      "Denton ISD documents C.H. Collins Athletic Complex as a district venue, but a school-specific 2026 home schedule and gate were not independently confirmed.",
+      "The geographic reference is Denton County. County geography must not be inferred from the postal city or school district name.",
+      "A campus listing cannot verify a current coach, opponent, season record, stadium gate, accessibility policy, ticket price or licensed school logo. Check the specific school and event host before traveling."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity and visitor routing",
+        "body": "Ryan's East McKinney campus is not Denton High's Bronco Way address, Guyer's Teasley Lane campus or Braswell's Aubrey campus.",
+        "sourceUrl": "https://ryanhs.dentonisd.org/",
+        "sourceLabel": "Official campus listing"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and stadium evidence boundaries",
+        "body": "Denton ISD documents C.H. Collins Athletic Complex as a district venue, but a school-specific 2026 home schedule and gate were not independently confirmed.",
+        "sourceUrl": "https://athletics.dentonisd.org/venues/ch-collins-athletic-complex",
+        "sourceLabel": "Official athletics or UIL source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Ryan High School located?",
+        "answer": "The listed school campus is 5101 E. McKinney St., Denton, TX 76208. Ryan's East McKinney campus is not Denton High's Bronco Way address, Guyer's Teasley Lane campus or Braswell's Aubrey campus."
+      },
+      {
+        "question": "Does the school address prove where the next varsity game is played?",
+        "answer": "No. Confirm the individual game venue, host and spectator entrance with the school's official athletics source."
+      },
+      {
+        "question": "Are the current coach, tickets and kickoff confirmed here?",
+        "answer": "No. These can change by fixture and season; use the school or host's current official announcement."
+      }
+    ]
+  },
+  "denver-city": {
+    "slug": "denver-city",
+    "intro": "Denver City High School publishes its own athletics information and a dated Mustang Football event naming Mustang Stadium. That event establishes a particular host, not a promise that all games or future seasons use the same entrance.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "TexasDefined editorial accent, not official school colors or licensed team artwork."
+    },
+    "seo": {
+      "title": "Denver City High School Football | Campus, Athletics and Game-Day Sources",
+      "description": "Source-bounded Denver City High School football guide separating school campus, athletics references and confirmed game-day information."
+    },
+    "campus": {
+      "address": "601 Mustang Ave, Denver City, TX 79323",
+      "sourceUrl": "https://dchs.dcisd.org/",
+      "sourceLabel": "Official school, district or UIL campus listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Confirm current varsity participation and each fixture with the official athletics source",
+      "sourceUrl": "https://dchs.dcisd.org/athletics",
+      "sourceLabel": "Official athletics or UIL listing; not a verified season-long fixture schedule",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "School campus and football venue are not interchangeable",
+      "body": "An official Nov. 6 Mustang Football versus Shallowater event named Mustang Stadium; check each new fixture for its own host, kickoff, tickets and spectator access.",
+      "sourceUrl": "https://dchs.dcisd.org/athletics",
+      "sourceLabel": "Official source with explicit game-specific evidence limits",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Denver City High School publishes its own athletics information and a dated Mustang Football event naming Mustang Stadium. That event establishes a particular host, not a promise that all games or future seasons use the same entrance.",
+      "The recorded campus location is 601 Mustang Ave, Denver City, TX 79323. The official campus address on Mustang Avenue is not a substitute for a confirmed event-specific stadium entrance.",
+      "An official Nov. 6 Mustang Football versus Shallowater event named Mustang Stadium; check each new fixture for its own host, kickoff, tickets and spectator access.",
+      "The geographic reference is Yoakum County (verify independently before reciprocal mapping). County geography must not be inferred from the postal city or school district name.",
+      "A campus listing cannot verify a current coach, opponent, season record, stadium gate, accessibility policy, ticket price or licensed school logo. Check the specific school and event host before traveling."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity and visitor routing",
+        "body": "The official campus address on Mustang Avenue is not a substitute for a confirmed event-specific stadium entrance.",
+        "sourceUrl": "https://dchs.dcisd.org/",
+        "sourceLabel": "Official campus listing"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and stadium evidence boundaries",
+        "body": "An official Nov. 6 Mustang Football versus Shallowater event named Mustang Stadium; check each new fixture for its own host, kickoff, tickets and spectator access.",
+        "sourceUrl": "https://dchs.dcisd.org/athletics",
+        "sourceLabel": "Official athletics or UIL source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Denver City High School located?",
+        "answer": "The listed school campus is 601 Mustang Ave, Denver City, TX 79323. The official campus address on Mustang Avenue is not a substitute for a confirmed event-specific stadium entrance."
+      },
+      {
+        "question": "Does the school address prove where the next varsity game is played?",
+        "answer": "No. Confirm the individual game venue, host and spectator entrance with the school's official athletics source."
+      },
+      {
+        "question": "Are the current coach, tickets and kickoff confirmed here?",
+        "answer": "No. These can change by fixture and season; use the school or host's current official announcement."
+      }
+    ]
+  },
+  "detroit": {
+    "slug": "detroit",
+    "intro": "Detroit High School's NCES physical school location is 630 1st Street NW. Detroit ISD also publishes district contact information at 110 E Garner; the district office must not be mistaken for the high-school campus or football stadium.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "TexasDefined editorial accent, not official school colors or licensed team artwork."
+    },
+    "seo": {
+      "title": "Detroit High School Football | Campus, Athletics and Game-Day Sources",
+      "description": "Source-bounded Detroit High School football guide separating school campus, athletics references and confirmed game-day information."
+    },
+    "campus": {
+      "address": "630 1st St NW, Detroit, TX 75436",
+      "sourceUrl": "https://www.detroiteagles.net/",
+      "sourceLabel": "Official school, district or UIL campus listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Confirm current varsity participation and each fixture with the official athletics source",
+      "sourceUrl": "https://www.detroiteagles.net/departments/athletics",
+      "sourceLabel": "Official athletics or UIL listing; not a verified season-long fixture schedule",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "School campus and football venue are not interchangeable",
+      "body": "The district athletics page links an HS Football schedule, but the schedule must be checked directly before assigning a particular 2026 kickoff, host stadium, ticket or parking policy.",
+      "sourceUrl": "https://www.detroiteagles.net/departments/athletics",
+      "sourceLabel": "Official source with explicit game-specific evidence limits",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Detroit High School's NCES physical school location is 630 1st Street NW. Detroit ISD also publishes district contact information at 110 E Garner; the district office must not be mistaken for the high-school campus or football stadium.",
+      "The recorded campus location is 630 1st St NW, Detroit, TX 75436. 630 1st St NW is the NCES high-school physical location; 110 E Garner is a separate district contact location.",
+      "The district athletics page links an HS Football schedule, but the schedule must be checked directly before assigning a particular 2026 kickoff, host stadium, ticket or parking policy.",
+      "The geographic reference is Red River County. County geography must not be inferred from the postal city or school district name.",
+      "A campus listing cannot verify a current coach, opponent, season record, stadium gate, accessibility policy, ticket price or licensed school logo. Check the specific school and event host before traveling."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity and visitor routing",
+        "body": "630 1st St NW is the NCES high-school physical location; 110 E Garner is a separate district contact location.",
+        "sourceUrl": "https://www.detroiteagles.net/",
+        "sourceLabel": "Official campus listing"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and stadium evidence boundaries",
+        "body": "The district athletics page links an HS Football schedule, but the schedule must be checked directly before assigning a particular 2026 kickoff, host stadium, ticket or parking policy.",
+        "sourceUrl": "https://www.detroiteagles.net/departments/athletics",
+        "sourceLabel": "Official athletics or UIL source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Detroit High School located?",
+        "answer": "The listed school campus is 630 1st St NW, Detroit, TX 75436. 630 1st St NW is the NCES high-school physical location; 110 E Garner is a separate district contact location."
+      },
+      {
+        "question": "Does the school address prove where the next varsity game is played?",
+        "answer": "No. Confirm the individual game venue, host and spectator entrance with the school's official athletics source."
+      },
+      {
+        "question": "Are the current coach, tickets and kickoff confirmed here?",
+        "answer": "No. These can change by fixture and season; use the school or host's current official announcement."
+      }
+    ]
+  },
+  "devine": {
+    "slug": "devine",
+    "intro": "Devine High School identifies its campus on West Hondo, distinct from the district office at 605 W Hondo. The official athletics page offers football information and an online ticket link, but does not independently establish a permanent stadium entrance or 2026 ticket price.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "TexasDefined editorial accent, not official school colors or licensed team artwork."
+    },
+    "seo": {
+      "title": "Devine High School Football | Campus, Athletics and Game-Day Sources",
+      "description": "Source-bounded Devine High School football guide separating school campus, athletics references and confirmed game-day information."
+    },
+    "campus": {
+      "address": "1225 W Hondo, Devine, TX 78016",
+      "sourceUrl": "https://www.devineisd.org/schools/dhs/about-us/contact-us",
+      "sourceLabel": "Official school, district or UIL campus listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Confirm current varsity participation and each fixture with the official athletics source",
+      "sourceUrl": "https://dhs.devineisd.org/our_campus/athletics",
+      "sourceLabel": "Official athletics or UIL listing; not a verified season-long fixture schedule",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "School campus and football venue are not interchangeable",
+      "body": "The official athletics page includes football and ticket resources; confirm the specific game host, kickoff, admission, parking and accessible entrance before attending.",
+      "sourceUrl": "https://dhs.devineisd.org/our_campus/athletics",
+      "sourceLabel": "Official source with explicit game-specific evidence limits",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Devine High School identifies its campus on West Hondo, distinct from the district office at 605 W Hondo. The official athletics page offers football information and an online ticket link, but does not independently establish a permanent stadium entrance or 2026 ticket price.",
+      "The recorded campus location is 1225 W Hondo, Devine, TX 78016. Devine High is at 1225 W Hondo, while the district office is at 605 W Hondo; neither address alone proves the stadium gate.",
+      "The official athletics page includes football and ticket resources; confirm the specific game host, kickoff, admission, parking and accessible entrance before attending.",
+      "The geographic reference is Medina County (verify independently before reciprocal mapping). County geography must not be inferred from the postal city or school district name.",
+      "A campus listing cannot verify a current coach, opponent, season record, stadium gate, accessibility policy, ticket price or licensed school logo. Check the specific school and event host before traveling."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity and visitor routing",
+        "body": "Devine High is at 1225 W Hondo, while the district office is at 605 W Hondo; neither address alone proves the stadium gate.",
+        "sourceUrl": "https://www.devineisd.org/schools/dhs/about-us/contact-us",
+        "sourceLabel": "Official campus listing"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and stadium evidence boundaries",
+        "body": "The official athletics page includes football and ticket resources; confirm the specific game host, kickoff, admission, parking and accessible entrance before attending.",
+        "sourceUrl": "https://dhs.devineisd.org/our_campus/athletics",
+        "sourceLabel": "Official athletics or UIL source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Devine High School located?",
+        "answer": "The listed school campus is 1225 W Hondo, Devine, TX 78016. Devine High is at 1225 W Hondo, while the district office is at 605 W Hondo; neither address alone proves the stadium gate."
+      },
+      {
+        "question": "Does the school address prove where the next varsity game is played?",
+        "answer": "No. Confirm the individual game venue, host and spectator entrance with the school's official athletics source."
+      },
+      {
+        "question": "Are the current coach, tickets and kickoff confirmed here?",
+        "answer": "No. These can change by fixture and season; use the school or host's current official announcement."
+      }
+    ]
+  },
+  "deweyville": {
+    "slug": "deweyville",
+    "intro": "Deweyville's official UIL school listing places its junior/senior school in Newton County despite an Orange postal city. The UIL registration entry is not a verified current 2026 varsity football schedule or stadium assignment.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "TexasDefined editorial accent, not official school colors or licensed team artwork."
+    },
+    "seo": {
+      "title": "Deweyville Jr/High School Football | Campus, Athletics and Game-Day Sources",
+      "description": "Source-bounded Deweyville Jr/High School football guide separating school campus, athletics references and confirmed game-day information."
+    },
+    "campus": {
+      "address": "171 State Highway 12 West, Orange, TX 77632",
+      "sourceUrl": "https://www.uiltexas.org/form/aplus/register.php?-action=browse&-recid=10911",
+      "sourceLabel": "Official school, district or UIL campus listing",
+      "verifiedAt": "2026-11-07"
+    },
+    "schedule": {
+      "label": "Confirm current varsity participation and each fixture with the official athletics source",
+      "sourceUrl": "https://www.uiltexas.org/form/aplus/register.php?-action=browse&-recid=10911",
+      "sourceLabel": "Official athletics or UIL listing; not a verified season-long fixture schedule",
+      "verifiedAt": "2026-11-07"
+    },
+    "notice": {
+      "title": "School campus and football venue are not interchangeable",
+      "body": "No current 2026 varsity football fixture, home stadium, coach or ticket policy was established by the reviewed UIL campus registration entry.",
+      "sourceUrl": "https://www.uiltexas.org/form/aplus/register.php?-action=browse&-recid=10911",
+      "sourceLabel": "Official source with explicit game-specific evidence limits",
+      "verifiedAt": "2026-11-07"
+    },
+    "overview": [
+      "Deweyville's official UIL school listing places its junior/senior school in Newton County despite an Orange postal city. The UIL registration entry is not a verified current 2026 varsity football schedule or stadium assignment.",
+      "The recorded campus location is 171 State Highway 12 West, Orange, TX 77632. The Orange mailing city does not place the school in Orange County: the UIL record lists Newton County.",
+      "No current 2026 varsity football fixture, home stadium, coach or ticket policy was established by the reviewed UIL campus registration entry.",
+      "The geographic reference is Newton County. County geography must not be inferred from the postal city or school district name.",
+      "A campus listing cannot verify a current coach, opponent, season record, stadium gate, accessibility policy, ticket price or licensed school logo. Check the specific school and event host before traveling."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity and visitor routing",
+        "body": "The Orange mailing city does not place the school in Orange County: the UIL record lists Newton County.",
+        "sourceUrl": "https://www.uiltexas.org/form/aplus/register.php?-action=browse&-recid=10911",
+        "sourceLabel": "Official campus listing"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and stadium evidence boundaries",
+        "body": "No current 2026 varsity football fixture, home stadium, coach or ticket policy was established by the reviewed UIL campus registration entry.",
+        "sourceUrl": "https://www.uiltexas.org/form/aplus/register.php?-action=browse&-recid=10911",
+        "sourceLabel": "Official athletics or UIL source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Deweyville Jr/High School located?",
+        "answer": "The listed school campus is 171 State Highway 12 West, Orange, TX 77632. The Orange mailing city does not place the school in Orange County: the UIL record lists Newton County."
+      },
+      {
+        "question": "Does the school address prove where the next varsity game is played?",
+        "answer": "No. Confirm the individual game venue, host and spectator entrance with the school's official athletics source."
+      },
+      {
+        "question": "Are the current coach, tickets and kickoff confirmed here?",
+        "answer": "No. These can change by fixture and season; use the school or host's current official announcement."
       }
     ]
   }

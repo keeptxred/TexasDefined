@@ -184,6 +184,9 @@ function Page() {
     'denton': 'denton', // Denton High 3001 Bronco Way Denton County; C.H. Collins district venue separate.
     'denton-braswell': 'denton', // Braswell 26750 E University, Aubrey postal city; Denton ISD campus, NOT Denton city.
     'denton-guyer': 'denton', // Guyer 7501 Teasley Lane Denton County; distinct from Denton High.
+    'denton-ryan': 'denton', // Ryan High 5101 E McKinney St, separate Denton ISD campus.
+    'detroit': 'red-river', // NCES Detroit High 630 1st St NW, not district office 110 E Garner.
+    'deweyville': 'newton', // UIL Deweyville campus Newton County despite Orange postal city.
     'de-soto': 'dallas', // DeSoto High 600 Eagle Dr campus Dallas County; game may be hosted off campus.
     'decatur': 'wise', // Decatur High 750 E Eagle Summit, Wise County; football stadium 608 E Shoemaker.
     'deer-park': 'harris', // Deer Park High south 710 W San Augustine and north 402 Ivy, Harris County; not stadium gates.
