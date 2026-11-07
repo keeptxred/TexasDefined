@@ -10,12 +10,13 @@ assert.ok(match,'five distinct last-five editorial entries missing');
 const guides=JSON.parse(match[1]);
 assert.deepEqual(Object.keys(guides),slugs,'fifth-five canonical authored roster must match assigned 25');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+const b014Certified = reg.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId===7613348297 && b.technicalAcceptance?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' && b.technicalAcceptance?.observedWorkerVersions?.[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2') && reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
 assert.equal(reg.batch.number,14,'Batch014 must be active');
 assert.deepEqual(reg.batch.slugs.slice(20,25),slugs,'final five canonical assigned order');
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,305,'preserve all earlier production certificates');
-assert.equal(reg.schoolRecords.filter(s=>s.status==='IMPLEMENTED'&&s.batch===14).length,25,'all 25 Batch014 profiles source-implemented');
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch===14).length,0,'do not claim production Chrome certification');
-assert.equal((reg.completedBatches||[]).some(b=>b.number===14),false,'no premature archived B014 certificate');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,b014Certified?330:305,'preserve all earlier production certificates');
+
+
+assert.equal((reg.completedBatches||[]).some(b=>b.number===14),b014Certified,'only signed production Chrome permits archived B014 certificate');
 const loader=read('src/data/high-school-football/program-editorial-b014-loader.server.ts');
 assert.ok(loader.includes("import('./program-editorial-b014-group5')"),'fifth-five not wired into SSR loader');
 assert.ok(read('src/data/high-school-football/football-program-profile.server.ts').includes('loadBatch014FootballProgramEditorial(canonicalSlug)'),'production SSR resolver missing B014');
@@ -30,8 +31,8 @@ const leadSet=new Set();
 for(const slug of slugs){
  const guide=guides[slug],county=expectedCounties.get(slug);
  assert.equal(guide?.slug,slug,slug+' absent original editorial');
- assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'IMPLEMENTED',slug+' source status not integrated');
- assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.actualProductionVerified,false,slug+' not Chrome certified');
+ assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,b014Certified?'VERIFIED':'IMPLEMENTED',slug+' source status not integrated');
+ assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.actualProductionVerified,b014Certified,slug+' not Chrome certified');
  assert.ok(loader.includes("'"+slug+"'"),slug+' missing SSR loader gate');
  assert.equal(campus.split("'"+slug+"': '"+county+"'").length-1,1,slug+' missing/duplicate correct physical campus county');
  const row=reciprocal.split("'"+county+"': [")[1]?.split('],')[0];
@@ -53,3 +54,6 @@ assert.ok(guides['del-valle'].overview.some(s=>s.includes('JV')&&s.includes('Bur
 assert.ok(guides['del-rio'].overview.some(s=>s.includes('Frenchey McCrea')&&s.includes('athletic director')),'Del Rio leadership caveat required');
 assert.ok(guides['de-soto'].overview.some(s=>s.includes('Mathis')&&s.includes('2025')),'DeSoto district-sourced championship and leadership history required');
 console.log('PASS: Batch014 25/25 source-authored guides, final-five identities and county reciprocity, 305 historical VERIFIED preserved; Chrome certification still pending');
+
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED').length,b014Certified?25:0,'Batch014 graduation must have signed exact production evidence');
+assert.equal(reg.schoolRecords.filter(x=>x.batch===14&&x.status==='IMPLEMENTED').length,b014Certified?0:25,'all 25 source-authored Batch014 schools must remain accounted for');
