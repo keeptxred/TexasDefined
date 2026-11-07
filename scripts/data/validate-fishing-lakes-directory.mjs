@@ -54,7 +54,7 @@ for (const marker of [
 ]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
 
 for (const marker of [
-  "Find Texas fishing lakes",
+  "Find the right Texas fishing lake",
   'What this directory covers',
   'Jump to a lake guide',
   'Compare Texas Fishing Lakes',
