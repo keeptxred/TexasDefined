@@ -16,6 +16,7 @@ on:
       - 'src/lazy/fishing-plan.tsx'
       - 'src/data/fishing/consumption-advisories.json'
       - 'scripts/ci/audit-fishing-planner-live-sources.mjs'
+      - 'scripts/ci/research-fishing-map-coordinates.mjs'
       - 'src/data/fishing/lake-directory-advisories.json'
       - 'src/data/fishing/statewide-lake-network.ts'
       - 'src/data/fishing/planner-data.server.ts'
@@ -132,3 +133,24 @@ jobs:
       - name: Fail on unresolved official-source or contract drift
         if: github.event_name != 'pull_request' && (steps.source.outcome == 'failure' || steps.regulations.outcome == 'failure' || steps.planner.outcome == 'failure' || steps.compare.outcome == 'failure' || steps.quarterly.outcome == 'failure')
         run: exit 1
+
+  coordinate-research:
+    # Reuse this established lake-source schedule; discovery never edits lake
+    # catalog records or silently upgrades unreviewed TWDB map coordinates.
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Discover exact-name reservoir positions from official TWDB GeoJSON
+        run: node scripts/ci/research-fishing-map-coordinates.mjs
+      - name: Preserve review candidates and unmatched lakes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-planner-twdb-map-review
+          path: .artifacts/fishing-planner-twdb-coordinate-candidates.json
+          retention-days: 45
+          if-no-files-found: warn
