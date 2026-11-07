@@ -13,7 +13,7 @@ export type FishingMapResult = {
   distanceMiles: number | null;
   matchedSpecies: string[];
   consumptionAdvisory: { summary: string; sourceUrl: string } | null;
-  coordinateSource: { label: string; url: string; reviewedAt: string } | null;
+  coordinateSource: { label: string; url: string; reviewedAt: string; pointType?: string } | null;
 };
 
 const bounds = { minLon: -106.8, maxLon: -93.45, minLat: 25.65, maxLat: 36.7 };
@@ -58,7 +58,7 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
   }
 
   return <div className="mt-7">
-    {unmappedCount > 0 ? <p className="mb-5 border-l-4 border-amber-600 bg-amber-50 p-4 text-sm leading-6 text-amber-950" role="status">Map coverage: {visible.length} of {totalMatching} matching lakes have usable verified coordinates. The other {unmappedCount} are still available in <a href={listHref} className="font-semibold underline underline-offset-2">List view</a>; they have not been assigned estimated map pins.</p> : null}
+    <p className="mb-5 border-b border-border pb-4 text-sm leading-6 text-muted-foreground" role="status">Map coverage: {visible.length} of {totalMatching} matching lakes have source-backed reference coordinates. {unmappedCount > 0 ? <>The other {unmappedCount} are still available in <a href={listHref} className="font-semibold underline underline-offset-2">List view</a>; they have not been assigned estimated pins.</> : "Every matching lake is represented. Pins identify reference locations, not confirmed public access."}</p>
     <div className="grid gap-8 lg:grid-cols-2">
     <div className="overflow-hidden border border-border bg-surface p-2 sm:p-5">
       <svg id="texas-fishing-lakes-results-graphic" viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="img" aria-labelledby="fishing-map-title fishing-map-desc" className="h-auto w-full">
@@ -98,7 +98,7 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
           </g>;
         })}
       </svg>
-      <p className="border-t border-border px-2 pt-4 text-xs leading-6 text-muted-foreground">The Texas outline is simplified for orientation. Lake pins use published reservoir reference points rather than ramps, shore access coordinates or geometric lake centroids. Some locations come from Texas Water Development Board reservoir records; selecting those lakes provides the official source link and review date. Nearby pins may overlap; use the lake selector to reach every mapped result.</p>
+      <p className="border-t border-border px-2 pt-4 text-xs leading-6 text-muted-foreground">The Texas outline is simplified for orientation. Lake pins use agency-sourced reservoir points, monitoring stations and selected shoreline landmarks, not geometric lake centroids or verified launch availability. Sources include the Texas Water Development Board, U.S. Geological Survey, TCEQ and Texas Parks and Wildlife Department. Select a lake to see the official source and source-check date. Nearby pins may overlap; use the lake selector to reach every mapped result.</p>
       <PublishableGraphic
         targetId="texas-fishing-lakes-results-graphic"
         filename="texas-fishing-lakes-map"
@@ -120,7 +120,7 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
         <p className="mt-2 text-sm text-muted-foreground">{formatRegion(selected.region)} · {selected.fullGuide ? "Full fishing guide" : "Lake profile"}</p>
         {selected.distanceMiles != null ? <p className="mt-4 font-display text-2xl">{Math.round(selected.distanceMiles)} miles away</p> : null}
         {selected.matchedSpecies.length ? <div className="mt-6"><p className="eyebrow text-muted-foreground">Matching fish</p><div className="mt-3 flex flex-wrap gap-2">{selected.matchedSpecies.map((name) => <span key={name} className="border border-border px-3 py-1.5 text-xs">{name}</span>)}</div></div> : null}
-        {selected.coordinateSource ? <p className="mt-4 text-xs leading-6 text-muted-foreground">Map reference: <a href={selected.coordinateSource.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{selected.coordinateSource.label}</a> · Source checked {selected.coordinateSource.reviewedAt}. This point is not a launch site.</p> : null}
+        {selected.coordinateSource ? <p className="mt-4 text-xs leading-6 text-muted-foreground">Map reference: <a href={selected.coordinateSource.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{selected.coordinateSource.label}</a> · {selected.coordinateSource.pointType ?? "Reservoir reference point"} · Source checked {selected.coordinateSource.reviewedAt}. This point does not establish current access or launch availability.</p> : null}
         {selected.consumptionAdvisory ? <aside className="mt-5 border-l-4 border-amber-600 bg-amber-50 p-4 text-sm leading-6 text-amber-950"><strong>Official fish-consumption advisory</strong><p className="mt-1">{selected.consumptionAdvisory.summary}</p><a href={selected.consumptionAdvisory.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-2">Check current species-specific limits at TPWD</a></aside> : null}
         <a href={selected.href} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {selected.name} →</a>
       </> : null}
