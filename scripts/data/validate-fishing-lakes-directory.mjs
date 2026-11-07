@@ -30,6 +30,7 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
 const errors = [];
 
 const advisories = JSON.parse(advisoriesText);
+const chromeVerifier = await read("scripts/ci/verify-fishing-lakes-directory-browser.mjs");
 // Quick answers remain visible, but obsolete FAQ rich-result schema is not emitted.
 if (!component.includes("buildFishingLakeQuickAnswers(rows.length)")) errors.push("Keep original reader-facing quick answers.");
 if (route.includes('"@type": "FAQPage"')) errors.push("Retired Google FAQPage rich-result markup must not be published.");
@@ -110,6 +111,8 @@ const suspenseStart = route.indexOf('<Suspense fallback=');
 assert(stableH1 !== -1 && suspenseStart !== -1 && stableH1 < suspenseStart,
   "Fishing lakes canonical H1 must render outside the lazy Suspense boundary.");
 assert(!component.includes("<h1"), "Lazy lake directory must not create a second H1.");
+assert(chromeVerifier.includes("const directoryIsComplete = () =>") && chromeVerifier.includes("links.length === 72 && cards.length === 12 && answers.length === 4") && chromeVerifier.includes("setTimeout(resolve, 300)") && chromeVerifier.includes('assert.deepEqual(initial.h1, ["Texas fishing lakes"]'),
+  "Real desktop/mobile Chrome must inspect a stable complete streamed directory and exactly one canonical H1, not an intermediate Suspense fallback.");
 assert(route.includes("Browse {rows.length} lake guides"), "Persistent fishing lakes hero must retain the accurate lake-guide count.");
 assert(liveChromeWorkflow.includes("group: fishing-lakes-live-chrome-${{ github.event.pull_request.number || github.sha }}"), "Live fishing-lakes Chrome must group push runs by source SHA to prevent later main commits cancelling production browser acceptance.");
 for (const marker of ['to="/fishing/lakes"', 'Browse fishing lakes →', 'Explore fishing lakes', 'Featured Texas Fishing Lakes']) assert(hubComponent.includes(marker), `Fishing hub is missing lakes-directory discovery marker: ${marker}.`);
