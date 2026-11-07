@@ -489,9 +489,10 @@ const records: ChristmasAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-11-11",
     endDate: "2027-01-03",
+    dateNote: "Official Holiday at the Arboretum runs November 11, 2026–January 3, 2027. Daytime admission is 9 a.m.–4 p.m.; separately ticketed Holiday at Night is 5–10 p.m. On Thanksgiving, Christmas Day and New Year’s Day the gardens close for DAYTIME admission but offer special holiday night access. November 20 has a private evening event, so check the date-specific booking calendar.",
     venue: "Dallas Arboretum and Botanical Garden",
     officialUrl: "https://www.dallasarboretum.org/events-activities/holiday-at-the-arboretum/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Holiday at the Arboretum layers holiday-lit garden landscapes, the European-inspired Christmas Village and decorated DeGolyer House around its distinctive 12 Days of Christmas gazebo exhibition. The 2026–27 season is especially significant: the garden says it is the FINAL season for the 12 Days gazebos, making the date choice timely.",
     quickFacts: [
       {
@@ -522,7 +523,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Select daytime or nighttime access",
-        body: "Daytime and Holiday at Night are separately priced, with different access windows and lighting conditions. The organization lists daytime 9 a.m.–4 p.m. and nighttime 5–10 p.m.; verify the exact booking date before assuming all areas are open."
+        body: "Daytime admission is normally 9 a.m.–4 p.m. and separately ticketed Holiday at Night is 5–10 p.m.; the garden closes between sessions to prepare. Daytime access is unavailable Thanksgiving, Christmas Day and New Year’s Day even though the venue offers special evening Holiday Cheer admissions on those dates. The organizer also reserves November 20 for a private nighttime event. Choose the precise dated official ticket, not only the headline season."
       },
       {
         title: "Understand date-variable tickets",
@@ -657,9 +658,10 @@ const records: ChristmasAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-12-05",
     endDate: "2026-12-31",
+    dateNote: "Concho Christmas Celebration confirms the San Angelo drive-through Tour of Lights December 5–31, 2026, daily 6–10 p.m. Sunday–Thursday and 6 p.m.–midnight Friday–Saturday. The 2.5-mile route enters at Bryant Boulevard and First Street (598 W. First Street). There is no mandatory entry ticket, and any voluntary donation must not be presented as a required fee.",
     venue: "Concho River / 598 W. First Street",
     officialUrl: "https://www.conchochristmascelebration.com/tour-of-lights",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-07",
     whyItMatters: "Concho Christmas is a long-running San Angelo community tradition built around a 2.5-mile drive of roughly three million lights along the Concho River. Unlike timed walk-through ticket destinations, the Tour of Lights is vehicle-based with no required admission charge and a suggested donation.",
     quickFacts: [
       {
