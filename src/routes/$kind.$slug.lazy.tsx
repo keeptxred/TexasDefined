@@ -396,6 +396,9 @@ const batch012FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 };
 
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'hudspeth': [{ name: 'Dell City', slug: 'dell-city', context: 'Dell City ISD contact campus 110 N Main in Hudspeth County; current varsity football fixture not independently confirmed' }],
+  'grayson': [{ name: 'Denison Yellow Jackets', slug: 'denison', context: 'Denison High campus 4200 N State Hwy 91 in Grayson County; Munson Stadium is separately at 326 W Crawford' }],
+  'denton': [{ name: 'Denton Broncos', slug: 'denton', context: 'Denton High campus 3001 Bronco Way in Denton County; C.H. Collins is a district venue, not every game host' }],
   'wise': [{ name: 'Decatur Eagles', slug: 'decatur', context: 'Decatur High campus 750 E Eagle Summit in Wise County; football stadium separately at 608 E Shoemaker St' }],
   'val-verde': [{ name: 'Del Rio Rams', slug: 'del-rio', context: 'San Felipe Del Rio CISD high-school campus 100 Memorial Drive in Val Verde County, separate from district administration' }],
   'travis': [{ name: 'Del Valle Cardinals', slug: 'del-valle', context: 'Del Valle High campus 5201 Ross Rd Travis County, district headquarters 5301 Ross Rd; JV venue notices are not varsity policy' }],
