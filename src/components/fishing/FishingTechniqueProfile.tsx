@@ -192,7 +192,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Verified lake coverage</p>
           <h2 id="lake-applications" className="mt-3 font-display text-4xl sm:text-5xl">Texas Lakes Covered in This Guide</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">The {data.featuredProfiles.length} examples below show documented {technique.name.toLowerCase()} applications from {data.profileCount} source-backed lake-technique relationships. Follow each lake guide for species, access, local rules and the latest fishing reports before choosing where to go.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">The {data.featuredProfiles.length} examples below show documented {technique.name.toLowerCase()} applications from {data.profileCount} source-backed lake-technique relationships. They are not a current bite report; review each lake guide for species, access, local rules and the latest fishing reports before traveling.</p>
           <p className="mt-3 text-sm leading-7"><a href="/fishing/lakes" className="border-b border-primary font-semibold text-primary">Browse all Texas fishing lake guides →</a> to compare additional waters.</p>
         </div>
         <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
