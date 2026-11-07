@@ -1,3 +1,9 @@
+## 2026-11-06 — Batch014 graduation merged; Batch015 assignment proposed
+
+Protected evidence-only Batch014 graduation PR #6775 is **MERGED**; registry on main contains **330 VERIFIED / 962 NOT_REVIEWED / 0 IMPLEMENTED** of 1,292. Actual production Chrome run #42313435965 passed 75/75 school viewport and 25/25 reciprocal county checks, with pinned Worker `93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2`, source `851bff976c187e841a178e58984068ec19b06744`, artifact #13550240398. Historical evidence is retained; do not imply it describes the latest Worker.
+
+**Batch015 assignment in this PR only**: first 25 canonical NOT_REVIEWED rows, `dell-city` through `eagle-pass-winn`, remain NOT_REVIEWED, batch 15. No new editorial, Chrome, deployment, or verification claimed. See `BATCH015-INTAKE.md`. Next five for independently sourced work: `dell-city`, `denison`, `denton`, `denton-braswell`, `denton-guyer`. Do not assign Batch016 before separate Batch015 production certification.
+
 ## 2026-11-06 — Batch014 production Chrome acceptance (protected graduation proposed)
 
 **Evidence-only graduation proposed; do not count 330 VERIFIED until protected PR merges.** Genuine non-skipped [production Chrome run #42313435965](https://github.com/keeptxred/TexasDefined/actions/runs/42313435965), job `128220193587`, passed **25 school pages × 3 viewport widths (1366/390/320) = 75 checks**, **25 reciprocal county checks**, zero reported failures. Compact machine-readable [artifact #13550240398](https://github.com/keeptxred/TexasDefined/actions/runs/42313435965/artifacts/13550240398) retained seven days, with permanent source/Worker evidence in merged PR #6774. The actual browser execution and artifact upload steps were SUCCESS, not skipped.
