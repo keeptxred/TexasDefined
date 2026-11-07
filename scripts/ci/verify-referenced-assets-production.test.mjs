@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { MAX_ASSET_AUDIT_CONCURRENCY, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
+import { MAX_ASSET_AUDIT_CONCURRENCY, ASSET_REQUEST_START_GAP_MS, createAssetRequestPacer, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
 
 test('three observed Bingbot 404 module families enter source-matched built handoff only when Vite emits them', () => {
   const required = [
@@ -48,6 +48,7 @@ test('a missing, challenged, empty or wrong-MIME asset fails closed', () => {
   assert.equal(validAssetResponse('css', okCss), true);
   for (const response of [
     { ...okJs, status: 404 }, { ...okJs, status: 302 },
+    { ...okJs, status: 503, mime: 'text/html' },
     { ...okJs, bytes: 0 }, { ...okJs, challenge: true },
     { ...okJs, mime: 'text/html' },
   ]) assert.equal(validAssetResponse('js', response), false);
@@ -339,6 +340,24 @@ test('all 1,500 immutable originals are audited once in stable order and bounded
   assert.ok(maxConcurrent<=6 && maxConcurrent>1);
   assert.deepEqual(result.map(x=>x.path),originals);
   await assert.rejects(mapBounded([],0,async()=>{}),/Invalid bounded/);
+});
+
+test('bounded request pacing prevents direct Workers.dev 503 probe bursts without sampling',async()=>{
+  assert.ok(MAX_ASSET_AUDIT_CONCURRENCY <= 3, 'asset verifier must not send a six-way rapid flood');
+  assert.ok(ASSET_REQUEST_START_GAP_MS >= 40, 'every asset probe must be paced');
+  const scheduled = [];
+  const clock = () => 1000;
+  const pace = createAssetRequestPacer(40, clock, async (delay) => { scheduled.push(delay); });
+  await Promise.all(Array.from({ length: 5 }, () => pace()));
+  assert.deepEqual(scheduled, [0, 40, 80, 120, 160],
+    'exact requests must start at distinct bounded intervals');
+  assert.throws(() => createAssetRequestPacer(0), /Invalid per-request/);
+  assert.throws(() => createAssetRequestPacer(1001), /Invalid per-request/);
+  const source = readFileSync('scripts/ci/verify-referenced-assets-production.mjs','utf8');
+  assert.match(source, /await paceAssetRequest\(\)/, 'rate limit must be applied to real audit requests');
+  assert.match(source, /for \(const origin of \[DIRECT, CANONICAL\]\)/, 'both origins remain required');
+  assert.match(source, /record\.sha256 === a\.preSha256/, 'original-byte verification remains required');
+  assert.match(source, /errorBodySample/, 'HTTP 503 response evidence must survive into failure artifacts');
 });
 
 test('HTML probe retry permits exactly one transient transport timeout, never false acceptance',async()=>{
