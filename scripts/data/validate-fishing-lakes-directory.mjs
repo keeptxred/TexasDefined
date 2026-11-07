@@ -29,6 +29,17 @@ const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicR
 
 const liveChromeVerifier = await read("scripts/ci/verify-fishing-lakes-directory-browser.mjs");
 const errors = [];
+// Capture the SAME coherent source-backed browser DOM snapshot that satisfied
+// readiness, not a second page.evaluate that can race TanStack stream remounts.
+for (const marker of [
+  "const stableSnapshotHandle = await page.waitForFunction(async () => {",
+  "const snapshot = readSnapshot();",
+  "return ready(snapshot) ? snapshot : false;",
+  "const initial = await stableSnapshotHandle.jsonValue();",
+  "await stableSnapshotHandle.dispose();",
+  "snapshot.visible.every(item => item.name && item.text)",
+]) if (!liveChromeVerifier.includes(marker)) errors.push("Fishing lakes real Chrome must capture strict atomic hydrated DOM: " + marker);
+
 for (const marker of ['await page.waitForLoadState("load"', 'await page.waitForFunction(async () => {', 'await new Promise(requestAnimationFrame)', 'document.querySelectorAll("h1")', 'section[aria-labelledby="lake-directory-heading"] article', 'section[aria-labelledby="lake-answers-heading"] article']) {
   if (!liveChromeVerifier.includes(marker)) errors.push("Live mobile Chrome must only sample SEO DOM after stable hydration: " + marker);
 }
