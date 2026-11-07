@@ -112,6 +112,41 @@ test('organizer HTTP 200 alone never rewrites verified dates or hides stale edit
   assert.ok(unreachable.concerns.includes('organizer-source-unavailable'));
 });
 
+test('blocked organizer source can use approved official fallback without pretending dates were reverified', async () => {
+  const f = fixture();
+  try {
+    const pathName = 'src/data/major-event-index.ts';
+    const previous = fs.readFileSync(path.join(f.root, pathName), 'utf8');
+    f.put(pathName, previous.replace(
+      '    ];',
+      `      { slug:"texas-jazz-festival", startDate:"2026-11-08",
+        officialUrl:"https://texasjazz-festival.org/", sourceCheckedAt:"2026-11-05" },
+    ];`,
+    ));
+    const calls = [];
+    const result = await reviewEventSources({
+      root: f.root, now: new Date('2026-11-07T13:00:00Z'), concurrency: 2,
+      outputPath: path.join(f.root, 'fallback-report.json'),
+      fetchImpl: async url => {
+        calls.push(String(url));
+        return String(url).includes('texasjazz-festival.org')
+          ? new Response('blocked', { status: 403 })
+          : new Response('<html><body>' + 'First-party tourism festival source. '.repeat(10) + '</body></html>', {
+            status: 200, headers: { 'Content-Type': 'text/html' },
+          });
+      },
+    });
+    const event = result.observations.find(x => x.path === '/event/texas-jazz-festival');
+    assert.ok(event, 'new event covered by the route inventory');
+    assert.equal(event.sourceState, 'official-fallback-reachable-not-date-verified');
+    assert.equal(event.source, 'https://texasjazz-festival.org/');
+    assert.equal(event.fallbackSource, 'https://www.visitcorpuschristi.com/texas-jazz-festival/');
+    assert.equal(event.primarySourceError, 'HTTP 403');
+    assert.equal(event.editorialSourceCheckedAt, '2026-11-05');
+    assert.ok(calls.some(x => x.includes('visitcorpuschristi.com')));
+  } finally { f.dispose(); }
+});
+
 test('scheduled source monitor enumerates all URLs with bounded calls and writes review evidence', async () => {
   const f = fixture();
   try {
