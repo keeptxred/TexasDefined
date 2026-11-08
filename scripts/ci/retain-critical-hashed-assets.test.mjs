@@ -551,10 +551,38 @@ test('Nov 2 production omission incident remains fail-closed on next deployment'
 });
 
 
+test('verified original 3 MB state-park chunk survives finite 4 MiB per-file bridge', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-retention-3mb-verified-'));
+  try {
+    const body = Buffer.alloc(3_004_913, 'v');
+    const digest = createHash('sha256').update(body).digest('hex');
+    const snapshotPath = join(temp, 'snapshot.json');
+    const reportPath = join(temp, 'report.json');
+    const path = '/assets/state-park-heroes-BZc-RXc8.js';
+    const at = new Date().toISOString();
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      capturedAt: at,
+      pages: [{ assets: [{ path, wasAvailable: true, preSha256: digest, firstSeenAt: at }] }],
+    }] }));
+    const report = await retain({ historicalProof: [], snapshotPath, reportPath,
+      assetFolder: join(temp, 'assets'), fetchImpl: async () => new Response(body, {
+        status: 200, headers: { 'Content-Type': 'application/javascript' },
+      }) });
+    assert.equal(report.retainedCount, 1);
+    assert.equal(report.bytes, body.byteLength);
+    assert.equal(report.omittedDetails.length, 0);
+    assert.equal(report.budget.maxBytes, 192 * 1024 * 1024);
+    assert.equal(report.budget.maxFiles, 3072);
+    assert.deepEqual(readFileSync(join(temp, 'assets', 'state-park-heroes-BZc-RXc8.js')), body);
+  } finally {
+    rmSync(temp, { recursive: true, force: true });
+  }
+});
+
 test('retention byte-cap failure persists parseable JSON diagnostics', async () => {
   const temp = mkdtempSync(join(tmpdir(), 'td-retention-failure-json-'));
   try {
-    const body = 'x'.repeat(2 * 1024 * 1024 + 1);
+    const body = 'x'.repeat(4 * 1024 * 1024 + 1);
     const digest = createHash('sha256').update(body).digest('hex');
     const snapshotPath = join(temp, 'snapshot.json');
     const reportPath = join(temp, 'report.json');
