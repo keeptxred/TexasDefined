@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/discover-fishing-access-sources.mjs'
+      - 'scripts/ci/parse-tpwd-access-facilities.mjs'
+      - 'scripts/ci/parse-tpwd-access-facilities.test.mjs'
       - '.github/workflows/discover-fishing-access-sources.yml'
   schedule:
     - cron: '17 14 * * 2,5'
@@ -31,6 +33,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Regress TPWD article-only facility name extraction
+        run: node --test scripts/ci/parse-tpwd-access-facilities.test.mjs
       - name: Inspect bounded TPWD candidate batch
         id: discover
         continue-on-error: true
