@@ -1,0 +1,41 @@
+name: MSR Houston desktop and mobile browser contract
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-msr-houston-browser.mjs'
+      - '.github/workflows/msr-houston-browser-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install one bounded browser dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify live desktop and mobile visitor interactions
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-msr-houston-browser.mjs
+      - name: Preserve failing and passing screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: msr-houston-desktop-mobile-${{ github.run_id }}
+          path: artifacts/msr-houston-browser/
+          if-no-files-found: warn
+          retention-days: 14
