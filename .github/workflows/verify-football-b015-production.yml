@@ -56,52 +56,17 @@ jobs:
           # never relax the signed SHA, Worker UUID or success-status assertions.
           for attempt in 1 2 3 4 5; do
             node scripts/ci/pin-football-b010-production-release.mjs
-            if grep -q '^ready=true
-      - name: Require exact signed production release for active Batch015
-        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready != 'true'
-        run: |
-          echo 'No exact signed Worker/source release: cannot skip 75 Chrome cases.' >&2
-          exit 1
-      - name: Check out exact published source
-        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ steps.release.outputs.sha }}
-      - name: Install isolated real Chrome driver
-        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
-        run: |
-          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
-          test -n "$CHROME_BIN"
-          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-          npm install --prefix /tmp/td-b015-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Verify all Batch015 schools and counties in real Chrome
-        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
-        env:
-          FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}
-          FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}
-        run: |
-          node --check scripts/ci/verify-football-b015-production.mjs
-          node scripts/ci/verify-football-b015-production.mjs
-      - name: Upload compact Batch015 machine evidence
-        if: always() && steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: football-b015-25-school-live-chrome-evidence
-          path: |
-            artifacts/b015-chrome-report.json
-            artifacts/b015-chrome-screenshots/*.png
-          retention-days: 7
-          if-no-files-found: error "$GITHUB_OUTPUT"; then
-              echo "Verified Worker ledger pinned on attempt $attempt"
-              exit 0
-            fi
-            if [ "$attempt" -lt 5 ]; then
-              echo "Exact signed Worker ledger not yet visible; retry in 30s ($attempt/5)"
-              sleep 30
-            fi
-          done
-          echo "No exact signed source release after bounded retries" >&2
-          exit 1
+            if grep -q '^ready=true$' "$GITHUB_OUTPUT"; then
+               echo "Verified Worker ledger pinned on attempt $attempt"
+               exit 0
+             fi
+             if [ "$attempt" -lt 5 ]; then
+               echo "Exact signed Worker ledger not yet visible; retry in 30s ($attempt/5)"
+               sleep 30
+             fi
+           done
+           echo "No exact signed source release after bounded retries" >&2
+           exit 1
       - name: Require exact signed production release for active Batch015
         if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready != 'true'
         run: |
