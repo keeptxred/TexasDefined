@@ -191,6 +191,11 @@ function Page() {
     'dilley': 'frio', // TEA district/campus county directory; campus is not necessarily the game venue.
     'dhanis': 'medina', // TEA D'Hanis ISD campus 163902 in Medina County; no current venue inferred.
     'diana-new-diana': 'upshur', // TEA 2025 New Diana High 230906001 in Upshur County.
+    'dimmitt': 'castro', // Dimmitt High Western Circle campus; football venue must be confirmed for each fixture.
+    'donna': 'hidalgo', // Donna High E Wood Ave; distinct from Donna North.
+    'donna-north': 'hidalgo', // Donna North N Val Verde; distinct campus from Donna High.
+    'dripping-springs': 'hays', // Dripping Springs High Hwy 290 campus, not confirmed spectator gate.
+    'dublin': 'erath', // Dublin Secondary Hwy 6 campus; stadium entrance requires confirmation.
     'denton-ryan': 'denton', // Ryan High 5101 E McKinney St, separate Denton ISD campus.
     'detroit': 'red-river', // NCES Detroit High 630 1st St NW, not district office 110 E Garner.
     'deweyville': 'newton', // UIL Deweyville campus Newton County despite Orange postal city.
