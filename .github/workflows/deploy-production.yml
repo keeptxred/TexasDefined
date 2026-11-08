@@ -548,6 +548,15 @@ jobs:
           node --test scripts/ci/recover-nov8-original-hashes.test.mjs
           node scripts/ci/recover-nov8-original-hashes.mjs --recover
 
+      # Only two SHA/size/age-proven original stylesheets in the immutable
+      # successful 05:03Z Worker are eligible. Restore exact bytes when
+      # available before replacement; leave others unresolved or expired.
+      - name: Recover two Nov8 source-SHA-proven CSS originals
+        if: success()
+        run: |
+          node --test scripts/ci/recover-nov8-original-styles.test.mjs
+          node scripts/ci/recover-nov8-original-styles.mjs --recover
+
       # Retried or queued old workflow runs must never roll back a newer main
       # release. GitHub concurrency serializes jobs but does not guarantee
       # that a manual rerun is newer than the currently published commit.
@@ -812,6 +821,7 @@ jobs:
             .artifacts/retained-critical-assets-report.json
             .artifacts/observed-hash-recovery-report.json
             .artifacts/nov8-original-hash-recovery-report.json
+            .artifacts/nov8-original-css-recovery-report.json
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
