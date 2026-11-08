@@ -19,16 +19,17 @@ const stub = (
 export const relocationAuthorityExpansionStubs: Article[] = [
   stub("relocation-authority-houston-commuters", {
     slug: "best-houston-suburbs-for-commuters",
-    title: "Best Houston Suburbs for Commuters: Choose by Job Corridor",
-    dek: "A practical Houston-area shortlist organized around the job corridor, transit option and daily trip—not a generic ranking of suburbs.",
+    title: "Best Houston Suburbs for Commuters: Compare by Job Corridor",
+    dek: "Evidence-backed Houston commuter-area comparisons, real transit options, congestion cautions, a geographic map and a two-home commute cost worksheet.",
     category: "moving-to-texas",
     region: "gulf-coast",
     hero: houstonCommuterHero,
     publishedAt: "2026-09-29",
-    readingMinutes: 8,
+    updatedAt: "2026-11-08",
+    readingMinutes: 11,
     tags: ["houston", "suburbs", "commuting", "relocation", "moving to texas"],
-    sourceName: "METRO Park & Ride",
-    sourceUrl: "https://www.ridemetro.org/riding-metro/transit-services/park-and-ride-bus",
+    sourceName: "Houston TranStar historical travel times",
+    sourceUrl: "https://traffic.houstontranstar.org/hist/hist_traveltimes_menu.aspx",
   }),
   stub("relocation-authority-dallas-commuters", {
     slug: "best-dallas-suburbs-for-commuters",
