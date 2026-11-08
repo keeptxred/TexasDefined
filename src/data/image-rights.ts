@@ -33,7 +33,7 @@ export const imageRightsFor = (src: string) => {
   const source = decodedImageSource(src);
   // Do not reuse Commons ownership or rights for an unrelated similarly named
   // local image. Both the source host and original Commons filename must match.
-  if (/\\b(?:upload|thumb|commons)\\.wikimedia\\.org\\b/i.test(source)) {
+  if (/\b(?:upload|thumb|commons)\.wikimedia\.org\b/i.test(source)) {
     const photoRights = commonsRights.find(({ file }) => source.includes(file));
     if (photoRights) {
       return {
