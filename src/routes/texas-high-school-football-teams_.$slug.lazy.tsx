@@ -180,6 +180,7 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    ...Object.fromEntries(BATCH016_FOOTBALL_COUNTY_EDGES.map(({ slug, county }) => [slug, county])), // shared B016 school-campus county edges
     'dell-city': 'hudspeth', // Dell City ISD 110 N Main, Hudspeth County; no 2026 varsity fixture inferred.
     'denison': 'grayson', // Denison High 4200 N State Hwy 91 Grayson County; Munson Stadium separate.
     'denton': 'denton', // Denton High 3001 Bronco Way Denton County; C.H. Collins district venue separate.
@@ -572,7 +573,7 @@ function Page() {
     'austin-travis': { slug: 'austin', name: 'Austin' },
   };
   const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
-  const researchedCountyLink = BATCH016_FOOTBALL_COUNTY_EDGES.find((edge) => edge.slug === slug)?.county ?? researchedCampusCounty[slug];
+  const researchedCountyLink = researchedCampusCounty[slug];
   const countyPath = researchedCountyLink ? `/county/${researchedCountyLink}`
     : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
