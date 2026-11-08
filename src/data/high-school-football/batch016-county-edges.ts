@@ -143,7 +143,7 @@ export const BATCH016_FOOTBALL_COUNTY_EDGES = [
     "slug": "el-paso-coronado",
     "name": "Coronado Thunderbirds",
     "county": "el-paso",
-    "context": "Coronado High, EPISD, 6A"
+    "context": "Coronado High Thunderbirds campus in El Paso County, EPISD, UIL 6A District 1"
   },
   {
     "slug": "el-paso-del-valle",
