@@ -30,6 +30,24 @@ export const VERIFIED_NOV8_ORIGINALS = Object.freeze([
     bytes: 1201, firstSeenAt: '2026-11-08T04:56:04.752Z' },
   { name: 'main-CHkeSoYv.js', sha256: '92998ebc4b63f476656bc672fcb8e6038432ec04a59498a63cc351819b6678b8',
     bytes: 1831570, firstSeenAt: '2026-11-06T15:45:46.630Z' },
+  // All seven originals were SHA/MIME/HTTP200 proved on BOTH direct and
+  // canonical origins in successful protected run #42448585724; immutable
+  // handoff #13604619152, Worker 953ec55d. First-seen timestamps copied
+  // from that same immutable old-asset inventory; never re-age.
+  { name: 'RouteStatusScreens-BsrCKH8a.js', sha256: 'cc5cc93dc9d633f1ccabe7625605cc23e84b4fbb100a5850c31460a828e0d1b0',
+    bytes: 2444, firstSeenAt: '2026-11-08T04:56:04.752Z' },
+  { name: 'external-link-A_GfxrzX.js', sha256: 'b73eff9dbe6bb0b70523478e706396fa38a54aabc90b332c348d02314cf72303',
+    bytes: 263, firstSeenAt: '2026-11-08T04:56:04.752Z' },
+  { name: 'main-CzG1xxTA.js', sha256: '9e29e2653e16716c25c2b66726dfac4fc2dbd5ff4be427dd88e6dc1aad5b42a4',
+    bytes: 1832312, firstSeenAt: '2026-11-07T13:13:09.292Z' },
+  { name: 'Container-BGUI52xw.js', sha256: '9fb560651801378c0ca0c6c92568f8f8f6d6a1bfd3c9faba867a6d4a20e12fe5',
+    bytes: 27829, firstSeenAt: '2026-11-07T13:13:09.292Z' },
+  { name: 'destination._slug-8Stf_XfD.js', sha256: 'b7e0a6263ef119d8877e71c1d25b3a971cb7827501c70ac409417f26b1640d3c',
+    bytes: 585, firstSeenAt: '2026-11-07T13:13:09.292Z' },
+  { name: 'CitationCollectionTrustRouter-TvMDLA0C.js', sha256: 'e98cc7ef8fc42d5740a85f3f0e8f73a0652473d8478281c479d012d2ee8a471a',
+    bytes: 12197, firstSeenAt: '2026-11-08T04:56:04.752Z' },
+  { name: 'ContextualOfficialSources-CLSZ8gUV.js', sha256: '982968eac92677bd2fc173bf51e14f0d9e9b464aa540c51ed77755c3061bead2',
+    bytes: 4991, firstSeenAt: '2026-11-08T04:56:04.752Z' },
 ]);
 
 export function verifiedSourceUrl(version, name) {
@@ -58,14 +76,14 @@ export async function recoverVerifiedNov8Originals({
   snapshotPath = SNAPSHOT, reportPath = REPORT, assetFolder = ASSETS,
   fetchImpl = fetch, sourceVersion = SOURCE_VERSION,
 } = {}) {
-  if (!UUID.test(sourceVersion) || records.length > 4 || records.reduce((n, r) => n + r.bytes, 0) > MAX_TOTAL)
+  if (!UUID.test(sourceVersion) || records.length > 11 || records.reduce((n, r) => n + r.bytes, 0) > MAX_TOTAL)
     throw new Error('Original-byte recovery limit exceeded');
   const saved = JSON.parse(await readFile(snapshotPath, 'utf8'));
   const current = saved.snapshots?.at(-1);
   if (!current || !Array.isArray(current.pages) || !Array.isArray(current.builtAssets))
     throw new Error('Predeploy asset-handoff snapshot required');
   const report = {format: 1, checkedAt: new Date(now).toISOString(), sourceVersion, sourceRelease: SOURCE_RELEASE,
-    maxAgeHours: 72, maxFiles: 4, maxBytes: MAX_TOTAL,
+    maxAgeHours: 72, maxFiles: 11, maxBytes: MAX_TOTAL,
     recovered: [], alreadyInBuild: [], unresolved: [], expired: []};
   await mkdir(assetFolder, {recursive:true});
   for (const record of records) {
