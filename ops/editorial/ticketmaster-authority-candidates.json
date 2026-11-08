@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-07T16:52:51.981Z",
+  "fetchedAt": "2026-11-08T17:06:26.045Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -38,43 +38,16 @@
       "name": "Austin Food + Wine Festival",
       "city": "Austin",
       "dates": [
-        "2026-11-07",
         "2026-11-08"
       ],
       "venues": [
         "Auditorium Shores"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1AAv6Gd",
-        "Z7r9jZ1AAv6Ge"
+        "Z7r9jZ1AAv6Gd"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Gd",
-        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Ge"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Bands Of America: San Antonio Super Regional Championship Finals",
-      "city": "San Antonio",
-      "dates": [
-        "2026-11-07"
-      ],
-      "venues": [
-        "Alamodome"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_2MN0LQ5"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/bands-of-america-san-antonio-super-san-antonio-texas-11-07-2026/event/3A0064FDE391F68B"
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Gd"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -703,7 +676,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-07",
         "2026-11-13",
         "2026-11-14",
         "2026-11-20",
@@ -733,7 +705,8 @@
         "2027-01-24",
         "2027-01-29",
         "2027-01-30",
-        "2027-01-31"
+        "2027-01-31",
+        "2027-02-05"
       ],
       "venues": [
         "Cowtown Coliseum"
@@ -742,7 +715,6 @@
         "Z7r9jZ1A7OY4M",
         "Z7r9jZ1A7OY4U",
         "Z7r9jZ1A7OY4V",
-        "Z7r9jZ1A7OY4s",
         "Z7r9jZ1A7OY4z",
         "Z7r9jZ1A7OYp6",
         "Z7r9jZ1A7OYp7",
@@ -761,13 +733,13 @@
         "Z7r9jZ1A7OpPY",
         "Z7r9jZ1A7OpPs",
         "Z7r9jZ1A7OpPt",
-        "Z7r9jZ1A7OpPx",
         "Z7r9jZ1AA7-F4",
         "Z7r9jZ1AA7-F6",
         "Z7r9jZ1AA7-F9",
         "Z7r9jZ1AA7-FF",
         "Z7r9jZ1AA7-FK",
         "Z7r9jZ1AA7-Fa",
+        "Z7r9jZ1AA7-Fb",
         "Z7r9jZ1AA7-Fo",
         "Z7r9jZ1AA74PM",
         "Z7r9jZ1AA74Pw",
@@ -786,7 +758,6 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4M",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4U",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4V",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4s",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4z",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp6",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
@@ -805,13 +776,13 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPY",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPs",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPt",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPx",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F4",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F6",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F9",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FK",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fa",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fb",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fo",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA74PM",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA74Pw",
@@ -849,30 +820,6 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1A7J607"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "The Big Dill Pickle Festival",
-      "city": "Arlington",
-      "dates": [
-        "2026-11-07"
-      ],
-      "venues": [
-        "Globe Life Field"
-      ],
-      "ticketmasterIds": [
-        "Z7r9jZ1AAvvfb"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1AAvvfb"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
