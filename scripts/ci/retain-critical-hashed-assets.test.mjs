@@ -752,3 +752,25 @@ test('Nov8 newly observed missing Vite module families are bounded original-only
     '/assets/fishing-FAKEHASH.js?no-cache=1',
   ]) assert.equal(safeCriticalAsset(path),false,path);
 });
+
+
+test('real Nov8 Vite route stylesheets are eligible only as bounded local original CSS', () => {
+  for (const name of [
+    'TexasEventCarousel-BDRm5fsK.css',
+    'events.index-4MFImTVS.css',
+    'network-DHryN7XU.css',
+    'styles-Ks56_bF1.css',
+  ]) {
+    assert.equal(safeCriticalAsset('/assets/'+name),true,name);
+    assert.equal(expectedAssetResponse('css',200,'text/css; charset=utf-8',10),true,name);
+  }
+  for (const name of [
+    '/assets/events.index-FAKEHASH.js',
+    '/assets/network-FAKEHASH.js',
+    '/assets/network.FAKEHASH.css',
+    '/assets/../../../secret.css',
+    '/assets/events.index-FAKEHASH.css?nocache=1',
+  ]) assert.equal(safeCriticalAsset(name),false,name);
+  assert.equal(expectedAssetResponse('css',200,'text/html',10),false,
+    'an HTML challenge can never be preserved as CSS');
+});

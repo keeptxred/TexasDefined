@@ -535,3 +535,26 @@ test('Nov8 Bing and OAI missing JS families are selected only when actually emit
   assert.throws(()=>selectBuiltRouteAssets(overCap),/at most eight distinct/);
   assert.equal(selectBuiltRouteAssets([...required,'ViatorLiveProduct-FAKEHASH.js']).length,2);
 });
+
+
+test('all 4 actual Nov8 Vite CSS entries remain subject to the old/new SHA handoff', () => {
+  const required = ['texas-high-school-football-teams_._slug.lazy-ONE.js',
+    'property-tax.taxing-unit._unit-TWO.js'];
+  const css = [
+    'styles-Ks56_bF1.css','TexasEventCarousel-BDRm5fsK.css',
+    'events.index-4MFImTVS.css','network-DHryN7XU.css',
+  ];
+  const actual = selectBuiltRouteAssets([...required,...css]);
+  assert.equal(actual.length,6);
+  for (const name of css) {
+    const item = actual.find(x=>x.path==='/assets/'+name);
+    assert.ok(item,name);
+    assert.equal(item.kind,'css');
+    assert.equal(item.source,'built-client-chunk');
+  }
+  assert.equal(selectBuiltRouteAssets(required).length,2,
+    'never invent an old stylesheet that the current Vite build did not emit');
+  assert.throws(()=>selectBuiltRouteAssets([...required,...Array.from({length:9},(_,i)=>
+    'network-'+String(i).padStart(8,'0')+'.css')]),/at most eight distinct/,
+    'route CSS must never bypass the per-family finite cap');
+});
