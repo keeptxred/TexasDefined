@@ -74,8 +74,23 @@ for (const slug of newSlugs) {
   assert.ok(g.overview.length >= 4 && g.milestones.length >= 2 && g.faq.length >= 3);
 }
 assert.notEqual(guides.donna.campus.address, guides['donna-north'].campus.address, 'Donna campuses must remain distinct');
+const fifthFive = ['dumas', 'duncanville', 'eagle-mountain', 'eagle-pass', 'eagle-pass-winn'];
+for (const slug of fifthFive) {
+  const g = guides[slug];
+  assert.equal(g?.slug, slug, slug + ' missing distinct editorial');
+  assert.equal(registry.schoolRecords.find(row => row.slug === slug)?.status, 'NOT_REVIEWED', slug + ' cannot be promoted without live browser proof');
+  assert.ok(g.campus.address && g.campus.sourceUrl.startsWith('https://'), slug + ' missing official campus');
+  assert.ok(g.schedule.sourceUrl.startsWith('https://') && g.notice.sourceUrl.startsWith('https://'), slug + ' missing official athletics source');
+  assert.ok(g.overview.length >= 4 && g.milestones.length >= 2 && g.faq.length >= 3);
+}
+assert.notEqual(guides['eagle-pass'].campus.address, guides['eagle-pass-winn'].campus.address, 'Eagle Pass and C.C. Winn are distinct campuses');
+assert.ok(guides.duncanville.overview.join(' ').includes('710 S Cedar Ridge'), 'Duncanville conflicting official addresses must be disclosed');
 const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
+for (const [slug, countySlug] of [['dumas','moore'],['duncanville','dallas'],['eagle-mountain','tarrant'],['eagle-pass','maverick'],['eagle-pass-winn','maverick']]) {
+  assert.ok(team.includes("'" + slug + "': '" + countySlug + "'"), slug + ' missing campus-county mapping');
+  assert.ok(county.includes("slug: '" + slug + "'"), slug + ' missing reciprocal county link');
+}
 for (const [slug, countySlug] of [['dimmitt','castro'],['donna','hidalgo'],['donna-north','hidalgo'],['dripping-springs','hays'],['dublin','erath']]) {
   assert.ok(team.includes("'" + slug + "': '" + countySlug + "'"), slug + ' missing campus-county map');
   assert.ok(county.includes("slug: '" + slug + "'"), slug + ' missing reciprocal county link');
