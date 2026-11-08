@@ -34,7 +34,7 @@ async function inspect(lake) {
 }
 const found = [];
 for (let p = 0; p < batch.length; p += 4) found.push(...await Promise.all(batch.slice(p, p + 4).map(inspect)));
-const report = { checkedAt: new Date().toISOString(), policy: "Unpublished candidates only; never auto-publish before individual source and lake checks", knownStatewideLakeDefinitions: discovery.totalDistinctKnownLakes, curatedLakeGroups: known.size, alreadySourceReviewedNetworkLakeGroups: discovery.reviewedLakeGroups, uncuratedCandidateLakes: lakes.length, batchIndex: index, totalBatches: batches, results: found };
+const report = { checkedAt: new Date().toISOString(), policy: "Unpublished candidates only; never auto-publish before individual source and lake checks", knownStatewideLakeDefinitions: discovery.totalDistinctKnownLakes, curatedLakeGroups: known.size, alreadySourceReviewedNetworkLakeGroups: discovery.reviewedLakeGroups, existingAccessWithoutExplicitDate: discovery.existingAccessWithoutExplicitDate, uncuratedCandidateLakes: lakes.length, batchIndex: index, totalBatches: batches, results: found };
 fs.mkdirSync(".artifacts", { recursive: true });
 fs.writeFileSync(".artifacts/fishing-access-discovery.json", JSON.stringify(report, null, 2) + "\n");
 const lines = ["# Fishing access source discovery", "", "Batch " + (index + 1) + " of " + batches + "; " + found.length + " official lake pages reviewed.", "", "Unpublished source candidates only. Individual facility details require verification before addition to public catalog.", "", ...found.map((x) => "- **" + x.lakeId + "**: " + x.status + "; " + (x.source ?? x.attempts?.[0]?.url ?? "none") + "; names: " + (x.names?.slice(0, 8).join(", ") ?? "none"))];
