@@ -11,7 +11,7 @@ const loader = read('src/data/high-school-football/program-editorial-b015-loader
 const server = read('src/data/high-school-football/football-program-profile.server.ts');
 assert.ok(server.includes('await loadBatch015FootballProgramEditorial(canonicalSlug)'), 'not wired into SSR');
 assert.ok(loader.includes("import('./program-editorial-b015')"), 'missing lazy loader');
-assert.ok(loader.includes('!BATCH015_FIRST_FIFTEEN.has(slug)'), 'Batch015 loader must check the defined five-school allowlist, not an obsolete variable');
+assert.ok(loader.includes('!BATCH015_FIRST_TWENTY.has(slug)'), 'Batch015 loader must check the defined twenty-school allowlist, not an obsolete variable');
 assert.ok(!loader.includes('BATCH015_FIRST_THREE.has(slug)'), 'obsolete loader identifier causes production SSR ReferenceError');
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
 assert.equal(registry.schoolRecords.filter(s => s.status === 'VERIFIED').length, 330, 'do not change historical certifications');
@@ -23,6 +23,17 @@ for (const slug of slugs) {
   assert.ok(g.overview.length >= 4 && g.faq.length >= 3 && g.milestones.length >= 2);
   assert.ok(g.campus.address && g.notice.body);
 }
+const nextFive = ['dimmitt', 'donna', 'donna-north', 'dripping-springs', 'dublin'];
+for (const slug of nextFive) {
+  const g = guides[slug];
+  assert.ok(g && g.slug === slug, slug + ' missing authored guide');
+  assert.equal(registry.schoolRecords.find(s => s.slug === slug)?.status, 'NOT_REVIEWED', slug + ' cannot be promoted without live Chrome');
+  assert.ok(g.campus.address && g.campus.sourceUrl.startsWith('https://'), slug + ' missing official campus evidence');
+  assert.ok(g.schedule.sourceUrl.startsWith('https://') && g.notice.sourceUrl.startsWith('https://'), slug + ' missing official schedule/venue boundary');
+  assert.ok(g.overview.length >= 4 && g.milestones.length >= 2 && g.faq.length >= 3, slug + ' lacks distinct editorial sections');
+  assert.ok(g.overview.join(' ').includes('County'), slug + ' missing county context');
+}
+assert.notEqual(guides['donna'].campus.address, guides['donna-north'].campus.address, 'distinct Donna campuses must not be conflated');
 const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
 for (const [slug, countySlug] of [['dell-city','hudspeth'],['denison','grayson'],['denton','denton'],['denton-braswell','denton'],['denton-guyer','denton']]) {
@@ -38,4 +49,4 @@ assert.ok(guides['denton-guyer'].campus.address.includes('Teasley Lane'));
 assert.ok(guides['denton'].campus.address.includes('Bronco Way'));
 assert.ok(guides['denton'].notice.body.includes('not a confirmed universal'));
 assert.ok(guides['dell-city'].faq[0].answer.includes('Not from the reviewed'));
-console.log('PASS: five distinct first-party Batch015 SSR guides; registry unchanged and NOT production certified.');
+console.log('PASS: twenty distinct first-party Batch015 SSR guides; registry unchanged and NOT production certified.');
