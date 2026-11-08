@@ -179,6 +179,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'early': 'brown', // Official Early High 115 Sudderth, not district office 101 Turtlecreek; Brown County.
+    'earth-springlake': 'lamb', // Region 17 Springlake-Earth High ISD in Lamb County; postal PO Box not stadium.
+    'east-bernard': 'wharton', // NCES East Bernard High 723 College Street, Wharton County; Memorial Stadium venue-specific.
+    'east-chambers': 'chambers', // East Chambers High 234 E Buccaneer Dr Winnie, Chambers County; separate district office.
+    'eastland': 'eastland', // Eastland High 900 W Plummer, Eastland County; game venue distinguished.
     'dell-city': 'hudspeth', // Dell City ISD 110 N Main, Hudspeth County; no 2026 varsity fixture inferred.
     'denison': 'grayson', // Denison High 4200 N State Hwy 91 Grayson County; Munson Stadium separate.
     'denton': 'denton', // Denton High 3001 Bronco Way Denton County; C.H. Collins district venue separate.
