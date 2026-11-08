@@ -138,6 +138,15 @@ try {
           throw new Error("Contextual TPWD link missing or wrong for " + name + ": " + href);
         }
       }
+      for (const [heading, marker] of [
+        ["Choose a park by trail constraints, not a color forecast", "Do not choose solely by distance"],
+        ["Research and evidence behind this guide", "Source review: November 7, 2026"],
+      ]) {
+        if (await page.getByRole("heading", { name: heading, exact: true }).count() !== 1
+          || !await page.getByText(marker, { exact: false }).count()) {
+          throw new Error("East Texas original research or disclosure missing: " + heading);
+        }
+      }
       if (!await page.getByText("2.4-mile Rustling Leaves Trail", { exact: false }).count()) {
         throw new Error("Daingerfield trail specifics missing");
       }
