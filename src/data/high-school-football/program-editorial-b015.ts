@@ -1700,6 +1700,346 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
               "answer": "Start with the official source https://secondary.dublinisd.us/ and verify the specific event with the school or host district before traveling."
           }
       ]
+  },
+  "dumas": {
+    "slug": "dumas",
+    "intro": "The district office is at 421 W 4th Street, while Dumas High School and the athletics contact list 300 S Klein.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; not a school color, logo or third-party photograph."
+    },
+    "seo": {
+      "title": "Dumas High School Football | Official Campus and Game-Day Sources",
+      "description": "Independent Dumas High School football visitor guide in Moore County with campus sources, district context and venue verification."
+    },
+    "campus": {
+      "address": "300 S Klein, Dumas, TX 79029",
+      "sourceUrl": "https://www.dumasisd.org/o/dhs",
+      "sourceLabel": "Official school or district campus source",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity games, tickets and stadium with the host athletics office; no fixture is asserted",
+      "sourceUrl": "https://www.dumasisd.org/o/athletics/live-feed/",
+      "sourceLabel": "Official district or school athletics resource, not a verified individual game ticket",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Campus location is not a universal football gate",
+      "body": "Dumas ISD has identified Demon Stadium for particular home games, but other fixtures have been played at other venues; the host's individual notice controls.",
+      "sourceUrl": "https://www.dumasisd.org/o/athletics/live-feed/",
+      "sourceLabel": "Official athletics or district resource; verify each game",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "The district office is at 421 W 4th Street, while Dumas High School and the athletics contact list 300 S Klein.",
+      "Dumas High School is located in Moore County at 300 S Klein, Dumas, TX 79029. The address identifies a campus, not necessarily the football spectator entrance.",
+      "Dumas athletics publishes dated game updates and ticket links, which should be checked before traveling instead of treating an old game announcement as a standing schedule.",
+      "Dumas ISD has identified Demon Stadium for particular home games, but other fixtures have been played at other venues; the host's individual notice controls.",
+      "Before travel, confirm kickoff, host field, accessibility, parking, bag rules and tickets through https://www.dumasisd.org/o/athletics/live-feed/. No current standings, coaches, results or image licenses are invented here."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity verified",
+        "body": "The district office is at 421 W 4th Street, while Dumas High School and the athletics contact list 300 S Klein.",
+        "sourceUrl": "https://www.dumasisd.org/o/dhs",
+        "sourceLabel": "Official campus or district source"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and venue distinction",
+        "body": "Dumas ISD has identified Demon Stadium for particular home games, but other fixtures have been played at other venues; the host's individual notice controls.",
+        "sourceUrl": "https://www.dumasisd.org/o/athletics/live-feed/",
+        "sourceLabel": "Official athletics or district source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Dumas High School?",
+        "answer": "The documented school campus is 300 S Klein, Dumas, TX 79029 in Moore County; this is not a confirmed universal football gate."
+      },
+      {
+        "question": "Is the campus address the football stadium entrance?",
+        "answer": "Dumas ISD has identified Demon Stadium for particular home games, but other fixtures have been played at other venues; the host's individual notice controls."
+      },
+      {
+        "question": "Where can I check a current game, tickets and accessibility?",
+        "answer": "Consult the host's official athletics resource at https://www.dumasisd.org/o/athletics/live-feed/; confirm the specific fixture before traveling."
+      }
+    ]
+  },
+  "duncanville": {
+    "slug": "duncanville",
+    "intro": "The direct high-school contact and district athletics pages use 900 W Camp Wisdom Road, while a district school directory lists 710 S Cedar Ridge Drive. These are conflicting official address references, not interchangeable gate directions.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; not a school color, logo or third-party photograph."
+    },
+    "seo": {
+      "title": "Duncanville High School Football | Official Campus and Game-Day Sources",
+      "description": "Independent Duncanville High School football visitor guide in Dallas County with campus sources, district context and venue verification."
+    },
+    "campus": {
+      "address": "900 W Camp Wisdom Road, Duncanville, TX 75116",
+      "sourceUrl": "https://dhs.duncanvilleisd.org/contact-us",
+      "sourceLabel": "Official school or district campus source",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity games, tickets and stadium with the host athletics office; no fixture is asserted",
+      "sourceUrl": "https://www.duncanvilleisd.org/departments/athletics",
+      "sourceLabel": "Official district or school athletics resource, not a verified individual game ticket",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Campus location is not a universal football gate",
+      "body": "Duncanville ISD identifies the Bill Savage Athletic Complex at the high school and lists its athletics office at Panther Stadium, but event-specific entrances and parking still need confirmation.",
+      "sourceUrl": "https://www.duncanvilleisd.org/departments/athletics",
+      "sourceLabel": "Official athletics or district resource; verify each game",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "The direct high-school contact and district athletics pages use 900 W Camp Wisdom Road, while a district school directory lists 710 S Cedar Ridge Drive. These are conflicting official address references, not interchangeable gate directions.",
+      "Duncanville High School is located in Dallas County at 900 W Camp Wisdom Road, Duncanville, TX 75116. The address identifies a campus, not necessarily the football spectator entrance.",
+      "The district publishes a separate athletic facilities resource at https://athletics.duncanvilleisd.org/about-us/facilities; confirm the actual event location and any bag policy with that office.",
+      "Duncanville ISD identifies the Bill Savage Athletic Complex at the high school and lists its athletics office at Panther Stadium, but event-specific entrances and parking still need confirmation.",
+      "Before travel, confirm kickoff, host field, accessibility, parking, bag rules and tickets through https://www.duncanvilleisd.org/departments/athletics. No current standings, coaches, results or image licenses are invented here."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity verified",
+        "body": "The direct high-school contact and district athletics pages use 900 W Camp Wisdom Road, while a district school directory lists 710 S Cedar Ridge Drive. These are conflicting official address references, not interchangeable gate directions.",
+        "sourceUrl": "https://dhs.duncanvilleisd.org/contact-us",
+        "sourceLabel": "Official campus or district source"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and venue distinction",
+        "body": "Duncanville ISD identifies the Bill Savage Athletic Complex at the high school and lists its athletics office at Panther Stadium, but event-specific entrances and parking still need confirmation.",
+        "sourceUrl": "https://www.duncanvilleisd.org/departments/athletics",
+        "sourceLabel": "Official athletics or district source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Duncanville High School?",
+        "answer": "The documented school campus is 900 W Camp Wisdom Road, Duncanville, TX 75116 in Dallas County; this is not a confirmed universal football gate."
+      },
+      {
+        "question": "Is the campus address the football stadium entrance?",
+        "answer": "Duncanville ISD identifies the Bill Savage Athletic Complex at the high school and lists its athletics office at Panther Stadium, but event-specific entrances and parking still need confirmation."
+      },
+      {
+        "question": "Where can I check a current game, tickets and accessibility?",
+        "answer": "Consult the host's official athletics resource at https://www.duncanvilleisd.org/departments/athletics; confirm the specific fixture before traveling."
+      }
+    ]
+  },
+  "eagle-mountain": {
+    "slug": "eagle-mountain",
+    "intro": "Eagle Mountain High School is on W Bonds Ranch Road, whereas Eagle Mountain–Saginaw ISD's athletics office is at 1600 Mustang Rock Road.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; not a school color, logo or third-party photograph."
+    },
+    "seo": {
+      "title": "Eagle Mountain High School Football | Official Campus and Game-Day Sources",
+      "description": "Independent Eagle Mountain High School football visitor guide in Tarrant County with campus sources, district context and venue verification."
+    },
+    "campus": {
+      "address": "3451 W Bonds Ranch Road, Fort Worth, TX 76179",
+      "sourceUrl": "https://www.emsisd.com/enroll/campuses",
+      "sourceLabel": "Official school or district campus source",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity games, tickets and stadium with the host athletics office; no fixture is asserted",
+      "sourceUrl": "https://www.eaglemountainathletics.com/",
+      "sourceLabel": "Official district or school athletics resource, not a verified individual game ticket",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Campus location is not a universal football gate",
+      "body": "The official Eagle Mountain Knights athletics site lists varsity football, but a campus mailing address is not a verified entrance for every contest.",
+      "sourceUrl": "https://www.eaglemountainathletics.com/",
+      "sourceLabel": "Official athletics or district resource; verify each game",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "Eagle Mountain High School is on W Bonds Ranch Road, whereas Eagle Mountain–Saginaw ISD's athletics office is at 1600 Mustang Rock Road.",
+      "Eagle Mountain High School is located in Tarrant County at 3451 W Bonds Ranch Road, Fort Worth, TX 76179. The address identifies a campus, not necessarily the football spectator entrance.",
+      "This is the Eagle Mountain Knights program within Eagle Mountain–Saginaw ISD; it must not be confused with other district schools such as Boswell or Chisholm Trail.",
+      "The official Eagle Mountain Knights athletics site lists varsity football, but a campus mailing address is not a verified entrance for every contest.",
+      "Before travel, confirm kickoff, host field, accessibility, parking, bag rules and tickets through https://www.eaglemountainathletics.com/. No current standings, coaches, results or image licenses are invented here."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity verified",
+        "body": "Eagle Mountain High School is on W Bonds Ranch Road, whereas Eagle Mountain–Saginaw ISD's athletics office is at 1600 Mustang Rock Road.",
+        "sourceUrl": "https://www.emsisd.com/enroll/campuses",
+        "sourceLabel": "Official campus or district source"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and venue distinction",
+        "body": "The official Eagle Mountain Knights athletics site lists varsity football, but a campus mailing address is not a verified entrance for every contest.",
+        "sourceUrl": "https://www.eaglemountainathletics.com/",
+        "sourceLabel": "Official athletics or district source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Eagle Mountain High School?",
+        "answer": "The documented school campus is 3451 W Bonds Ranch Road, Fort Worth, TX 76179 in Tarrant County; this is not a confirmed universal football gate."
+      },
+      {
+        "question": "Is the campus address the football stadium entrance?",
+        "answer": "The official Eagle Mountain Knights athletics site lists varsity football, but a campus mailing address is not a verified entrance for every contest."
+      },
+      {
+        "question": "Where can I check a current game, tickets and accessibility?",
+        "answer": "Consult the host's official athletics resource at https://www.eaglemountainathletics.com/; confirm the specific fixture before traveling."
+      }
+    ]
+  },
+  "eagle-pass": {
+    "slug": "eagle-pass",
+    "intro": "Eagle Pass High School at 2020 Second Street is a separate campus from C.C. Winn High School at 265 Foster-Maldonado Boulevard; the district headquarters is at 587 Madison Street.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; not a school color, logo or third-party photograph."
+    },
+    "seo": {
+      "title": "Eagle Pass High School Football | Official Campus and Game-Day Sources",
+      "description": "Independent Eagle Pass High School football visitor guide in Maverick County with campus sources, district context and venue verification."
+    },
+    "campus": {
+      "address": "2020 Second Street, Eagle Pass, TX 78852",
+      "sourceUrl": "https://www.eaglepassisd.net/files/studentparent/2025-26%20Student%20Parent%20Handbook.pdf",
+      "sourceLabel": "Official school or district campus source",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity games, tickets and stadium with the host athletics office; no fixture is asserted",
+      "sourceUrl": "https://www.eaglepassisd.net/schools",
+      "sourceLabel": "Official district or school athletics resource, not a verified individual game ticket",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Campus location is not a universal football gate",
+      "body": "The official district campus directory does not establish a universal football stadium gate or a current varsity kickoff for either school.",
+      "sourceUrl": "https://www.eaglepassisd.net/schools",
+      "sourceLabel": "Official athletics or district resource; verify each game",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "Eagle Pass High School at 2020 Second Street is a separate campus from C.C. Winn High School at 265 Foster-Maldonado Boulevard; the district headquarters is at 587 Madison Street.",
+      "Eagle Pass High School is located in Maverick County at 2020 Second Street, Eagle Pass, TX 78852. The address identifies a campus, not necessarily the football spectator entrance.",
+      "The district's 2025–26 student handbook is the source for these distinct campus addresses, not an athletics fixture or stadium entry policy.",
+      "The official district campus directory does not establish a universal football stadium gate or a current varsity kickoff for either school.",
+      "Before travel, confirm kickoff, host field, accessibility, parking, bag rules and tickets through https://www.eaglepassisd.net/schools. No current standings, coaches, results or image licenses are invented here."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity verified",
+        "body": "Eagle Pass High School at 2020 Second Street is a separate campus from C.C. Winn High School at 265 Foster-Maldonado Boulevard; the district headquarters is at 587 Madison Street.",
+        "sourceUrl": "https://www.eaglepassisd.net/files/studentparent/2025-26%20Student%20Parent%20Handbook.pdf",
+        "sourceLabel": "Official campus or district source"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and venue distinction",
+        "body": "The official district campus directory does not establish a universal football stadium gate or a current varsity kickoff for either school.",
+        "sourceUrl": "https://www.eaglepassisd.net/schools",
+        "sourceLabel": "Official athletics or district source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Eagle Pass High School?",
+        "answer": "The documented school campus is 2020 Second Street, Eagle Pass, TX 78852 in Maverick County; this is not a confirmed universal football gate."
+      },
+      {
+        "question": "Is the campus address the football stadium entrance?",
+        "answer": "The official district campus directory does not establish a universal football stadium gate or a current varsity kickoff for either school."
+      },
+      {
+        "question": "Where can I check a current game, tickets and accessibility?",
+        "answer": "Consult the host's official athletics resource at https://www.eaglepassisd.net/schools; confirm the specific fixture before traveling."
+      }
+    ]
+  },
+  "eagle-pass-winn": {
+    "slug": "eagle-pass-winn",
+    "intro": "C.C. Winn's Foster-Maldonado campus is not Eagle Pass High School's 2020 Second Street campus, even though both belong to Eagle Pass ISD.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; not a school color, logo or third-party photograph."
+    },
+    "seo": {
+      "title": "C.C. Winn High School Football | Official Campus and Game-Day Sources",
+      "description": "Independent C.C. Winn High School football visitor guide in Maverick County with campus sources, district context and venue verification."
+    },
+    "campus": {
+      "address": "265 Foster-Maldonado Blvd, Eagle Pass, TX 78852",
+      "sourceUrl": "https://www.eaglepassisd.net/files/studentparent/2025-26%20Student%20Parent%20Handbook.pdf",
+      "sourceLabel": "Official school or district campus source",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity games, tickets and stadium with the host athletics office; no fixture is asserted",
+      "sourceUrl": "https://www.eaglepassisd.net/schools",
+      "sourceLabel": "Official district or school athletics resource, not a verified individual game ticket",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Campus location is not a universal football gate",
+      "body": "The district's campus address is not evidence that a specific Winn football game uses that location as a spectator entrance.",
+      "sourceUrl": "https://www.eaglepassisd.net/schools",
+      "sourceLabel": "Official athletics or district resource; verify each game",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "C.C. Winn's Foster-Maldonado campus is not Eagle Pass High School's 2020 Second Street campus, even though both belong to Eagle Pass ISD.",
+      "C.C. Winn High School is located in Maverick County at 265 Foster-Maldonado Blvd, Eagle Pass, TX 78852. The address identifies a campus, not necessarily the football spectator entrance.",
+      "Official district publications vary between Foster-Maldonado Avenue and Boulevard; use the host's event-specific directions rather than assuming the suffix resolves the entrance.",
+      "The district's campus address is not evidence that a specific Winn football game uses that location as a spectator entrance.",
+      "Before travel, confirm kickoff, host field, accessibility, parking, bag rules and tickets through https://www.eaglepassisd.net/schools. No current standings, coaches, results or image licenses are invented here."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Campus identity verified",
+        "body": "C.C. Winn's Foster-Maldonado campus is not Eagle Pass High School's 2020 Second Street campus, even though both belong to Eagle Pass ISD.",
+        "sourceUrl": "https://www.eaglepassisd.net/files/studentparent/2025-26%20Student%20Parent%20Handbook.pdf",
+        "sourceLabel": "Official campus or district source"
+      },
+      {
+        "date": "2026",
+        "title": "Athletics and venue distinction",
+        "body": "The district's campus address is not evidence that a specific Winn football game uses that location as a spectator entrance.",
+        "sourceUrl": "https://www.eaglepassisd.net/schools",
+        "sourceLabel": "Official athletics or district source"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is C.C. Winn High School?",
+        "answer": "The documented school campus is 265 Foster-Maldonado Blvd, Eagle Pass, TX 78852 in Maverick County; this is not a confirmed universal football gate."
+      },
+      {
+        "question": "Is the campus address the football stadium entrance?",
+        "answer": "The district's campus address is not evidence that a specific Winn football game uses that location as a spectator entrance."
+      },
+      {
+        "question": "Where can I check a current game, tickets and accessibility?",
+        "answer": "Consult the host's official athletics resource at https://www.eaglepassisd.net/schools; confirm the specific fixture before traveling."
+      }
+    ]
   }
 };
 export function getBatch015FirstThreeEditorial(slug: string): FootballProgramEditorial | undefined { return EDITORIAL[slug]; }
