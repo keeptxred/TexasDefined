@@ -84,10 +84,10 @@ test('incorrect original SHA causes fail-closed before writing fake CSS',async()
 test('72h age limit uses immutable earliest time and blocks expired copy',async()=>{
   const {root,opts}=await setup();
   try{
-    const r=await recoverOriginalCss({...opts,now:Date.parse('2026-11-09T20:00:00Z'),
+    const r=await recoverOriginalCss({...opts,now:Date.parse('2026-11-11T20:00:00Z'),
       records:VERIFIED_STYLES,
       fetchImpl:async()=>{throw Error('expired original must not fetch')}});
-    assert.equal(r.expired.length,1);
+    assert.equal(r.expired.length,2);
     assert.equal(r.unresolved.length,0);
     assert.equal(r.recovered.length,0);
   }finally{await rm(root,{recursive:true,force:true});}
