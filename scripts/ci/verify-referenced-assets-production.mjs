@@ -134,6 +134,23 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^PropertyCalculatorFramework-[A-Za-z0-9_-]+\.js$/,
   // Three exact JS module families logged HTTP404 for verified Bingbot after the Nov 2 release.
   // Capture only real Vite-built filenames; previous original bytes still require HTTP200/SHA.
+  // Nov 7 authenticated edge telemetry: 404s on genuine Vite-built module families.
+  // Follow exact current-build filenames; never invent old hashes or broaden arbitrary assets.
+  /^useSuspenseQuery-[A-Za-z0-9_-]+\.js$/,
+  /^ProductCard-[A-Za-z0-9_-]+\.js$/,
+  /^ProductDetailPage-[A-Za-z0-9_-]+\.js$/,
+  /^DestinationVisitPlanner-[A-Za-z0-9_-]+\.js$/,
+  /^CountySelectorField-[A-Za-z0-9_-]+\.js$/,
+  /^destination-query-runtime-[A-Za-z0-9_-]+\.js$/,
+  /^state-park-heroes-[A-Za-z0-9_-]+\.js$/,
+  /^index\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^index-[A-Za-z0-9_-]+\.js$/,
+  /^events-generated-[A-Za-z0-9_-]+\.js$/,
+  /^HighSchoolFootballLookup-[A-Za-z0-9_-]+\.js$/,
+  /^SchoolSupplyPartners-[A-Za-z0-9_-]+\.js$/,
+  /^PrioritySearchPage-[A-Za-z0-9_-]+\.js$/,
+  /^football-district21-2026-[A-Za-z0-9_-]+\.js$/,
+  /^national-wildlife-refuge-destinations-[A-Za-z0-9_-]+\.js$/,
   /^CountyTaxRateSection-[A-Za-z0-9_-]+\.js$/,
   /^PublishableGraphic-[A-Za-z0-9_-]+\.js$/,
   /^_kind\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,

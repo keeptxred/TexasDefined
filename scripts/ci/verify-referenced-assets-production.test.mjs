@@ -21,6 +21,37 @@ test('three observed Bingbot 404 module families enter source-matched built hand
   assert.equal(absent.length, 2);
 });
 
+test('Nov 7 real 404 dependency families are captured only when Vite emits them', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-LUNlVWLt.js',
+    'property-tax.taxing-unit._unit-BdLFe-27.js',
+  ];
+  const observed = [
+    'useSuspenseQuery-Dia7dPYd.js',
+    'ProductCard-DaXnFySq.js',
+    'ProductDetailPage-V5CkOE3O.js',
+    'DestinationVisitPlanner-DwqBJjIU.js',
+    'CountySelectorField-C7_Bl4DE.js',
+    'destination-query-runtime-CUt-8q2H.js',
+    'state-park-heroes-jjq_cvfi.js',
+    'index.lazy-0y_vgYAe.js',
+    'index-CODHQR2C.js',
+    'events-generated-BWH0jV3u.js',
+    'HighSchoolFootballLookup-BMRQQ3fR.js',
+    'SchoolSupplyPartners-BQBobRkv.js',
+    'PrioritySearchPage-BsxFi8O1.js',
+    'football-district21-2026-s8fTgoDW.js',
+    'national-wildlife-refuge-destinations-DIOyTW1E.js',
+  ];
+  const emitted = selectBuiltRouteAssets([...required, ...observed]).map(x => x.path);
+  for (const file of observed) assert.ok(emitted.includes('/assets/' + file), file);
+  assert.equal(new Set(emitted).size, observed.length + required.length);
+  assert.equal(selectBuiltRouteAssets(required).length, 2, 'no nonexistent optional files');
+  assert.throws(() => selectBuiltRouteAssets([...required,
+    ...Array.from({length:9},(_,i)=>'index-Family'+String(i)+'.js')]),
+    /at most eight distinct/, 'still bound real index variants');
+});
+
 test('find only same-origin hashed JS/CSS from script, modulepreload and stylesheet', () => {
   const html = [
     '<script type="module" crossorigin src="/assets/main-LkbE9wUL.js"></script>',

@@ -54,6 +54,31 @@ test('retain only safe critical content-hashed JS/CSS, no arbitrary URL or trave
   }
 });
 
+test('Nov 7 live edge 404 module families qualify only as original SHA-backed same-origin JS', () => {
+  // Each exact example was returned 404 by the TexasDefined Cloudflare edge
+  // during the postrelease window; inclusion never fabricates original bytes.
+  const observed = [
+    '/assets/useSuspenseQuery-Dia7dPYd.js',
+    '/assets/ProductCard-DaXnFySq.js',
+    '/assets/ProductDetailPage-V5CkOE3O.js',
+    '/assets/DestinationVisitPlanner-DwqBJjIU.js',
+    '/assets/CountySelectorField-C7_Bl4DE.js',
+    '/assets/destination-query-runtime-CUt-8q2H.js',
+    '/assets/state-park-heroes-jjq_cvfi.js',
+    '/assets/index.lazy-0y_vgYAe.js',
+    '/assets/index-CODHQR2C.js',
+    '/assets/events-generated-BWH0jV3u.js',
+    '/assets/HighSchoolFootballLookup-BMRQQ3fR.js',
+    '/assets/SchoolSupplyPartners-BQBobRkv.js',
+    '/assets/PrioritySearchPage-BsxFi8O1.js',
+    '/assets/football-district21-2026-s8fTgoDW.js',
+    '/assets/national-wildlife-refuge-destinations-DIOyTW1E.js',
+  ];
+  for (const path of observed) assert.equal(safeCriticalAsset(path), true, path);
+  for (const path of ["/assets/useSuspenseQuery-MISSING.js?x=1","/assets/ProductCard-../../private.js","https://example.net/assets/ProductDetailPage-V5CkOE3O.js","/assets/index.lazy-MISSING.jsx"])
+    assert.equal(safeCriticalAsset(path), false, path);
+});
+
 test('candidate union contains current HTML old bundle and prior generated lazy modules', () => {
   const old = { path: '/assets/main-BbzNQxMh.js', kind: 'js',
     wasAvailable: true, preSha256: hash };
