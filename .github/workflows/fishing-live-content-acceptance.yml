@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-fishing-live-content.mjs'
+      - 'scripts/ci/verify-fishing-compare-html.mjs'
+      - 'scripts/ci/verify-fishing-compare-html.test.mjs'
       - 'scripts/ci/verify-fishing-access-browser.mjs'
       - '.github/workflows/fishing-live-content-acceptance.yml'
   workflow_dispatch:
@@ -27,6 +29,8 @@ jobs:
       - name: Validate acceptance verifier syntax in PR
         if: github.event_name == 'pull_request'
         run: node --check scripts/ci/verify-fishing-live-content.mjs
+      - name: Test semantic fishing comparison and source-policy acceptance
+        run: node --test scripts/ci/verify-fishing-compare-html.test.mjs
       - name: Check access browser verifier syntax in PR
         if: github.event_name == 'pull_request'
         run: node --check scripts/ci/verify-fishing-access-browser.mjs
