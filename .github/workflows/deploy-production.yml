@@ -537,6 +537,17 @@ jobs:
           node --test scripts/ci/recover-observed-hashes-from-old-worker.test.mjs
           node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
 
+      # The old 2026-11-08 successful Worker genuinely served four exact
+      # immutable hashes that failed during false-predecessor releases.
+      # Restore ONLY identical original bytes from its pinned Cloudflare
+      # version, within original firstSeenAt+72h. Unavailable sources are
+      # reported unresolved, never replaced with generated JS.
+      - name: Recover four Nov8 source-SHA-proven JS originals
+        if: success()
+        run: |
+          node --test scripts/ci/recover-nov8-original-hashes.test.mjs
+          node scripts/ci/recover-nov8-original-hashes.mjs --recover
+
       # Retried or queued old workflow runs must never roll back a newer main
       # release. GitHub concurrency serializes jobs but does not guarantee
       # that a manual rerun is newer than the currently published commit.
@@ -800,6 +811,7 @@ jobs:
             .artifacts/asset-delivery-report.json
             .artifacts/retained-critical-assets-report.json
             .artifacts/observed-hash-recovery-report.json
+            .artifacts/nov8-original-hash-recovery-report.json
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
