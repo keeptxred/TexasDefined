@@ -1,0 +1,122 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
+import { imageRightsFor } from "./image-rights.ts";
+
+// Photo identity, copyright and reuse terms checked against the *individual*
+// Commons file pages. The URLs below are the published hero asset addresses,
+// not arbitrary photos of the same locations.
+const CC_BY_SA_4 = "https://creativecommons.org/licenses/by-sa/4.0/";
+const photos = [
+  {
+    page: "texas-high-school-football-playoffs-explained",
+    src: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Celina_High_School%2C_Friday_Night_Football.jpg",
+    file: "Celina_High_School,_Friday_Night_Football.jpg",
+    creator: "Heidi Knapp",
+    fixture: "src/data/fixtures/texas-high-school-football-playoffs.ts",
+  },
+  {
+    page: "texas-six-man-football-rules-explained",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bart_Coan_Field_from_west.jpg?width=1600",
+    file: "Bart_Coan_Field_from_west.jpg",
+    creator: "Fortguy",
+    fixture: "src/data/fixtures/texas-six-man-football-explained.ts",
+  },
+  {
+    page: "texas-cultural-regions-explained",
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Panna_Maria_%281_of_1%29.jpg",
+    file: "Panna_Maria_(1_of_1).jpg",
+    creator: "Renelibrary",
+    fixture: "src/data/fixtures/texas-cultural-regions-explained.ts",
+  },
+  {
+    page: "texas-major-cities-regional-differences",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Houston_texas_usa_skyline.jpg/1280px-Houston_texas_usa_skyline.jpg",
+    file: "Houston_texas_usa_skyline.jpg",
+    creator: "Leeannoneal",
+    fixture: "src/data/fixtures/texas-life-split-source.ts",
+  },
+  {
+    page: "south-padre-island",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/South_Padre_Island_beach_panorama.jpg?width=1600",
+    file: "South_Padre_Island_beach_panorama.jpg",
+    creator: "Spheroidite",
+    fixture: "src/data/coastal-heritage-authority.ts",
+  },
+] as const;
+
+test("five licensed Commons hero images emit creator, real ownership, license and acquisition page", () => {
+  for (const photo of photos) {
+    const rights = imageRightsFor(photo.src);
+    assert.ok(rights, photo.page);
+    assert.equal(rights.creator.name, photo.creator, photo.page);
+    assert.equal(rights.creator["@type"], "Person", photo.page);
+    assert.equal(rights.copyrightNotice, `© ${photo.creator}`, photo.page);
+    assert.equal(rights.license, CC_BY_SA_4, photo.page);
+    assert.equal(rights.acquireLicensePage, `https://commons.wikimedia.org/wiki/File:${photo.file}`, photo.page);
+    const fixture = readFileSync(photo.fixture, "utf8");
+    // Prevent replacing a photo without updating its verified attribution.
+    assert.ok(fixture.includes(photo.creator), photo.fixture);
+    assert.ok(fixture.includes(photo.file.split(",")[0].split("(")[0]), photo.fixture);
+  }
+});
+
+test("delivered /remote proxy and nested percent encoding keep verified Commons provenance", () => {
+  for (const photo of photos) {
+    const proxied = "/remote?url=" + encodeURIComponent(photo.src);
+    const twiceProxied = "/remote?url=" + encodeURIComponent(proxied);
+    for (const src of [proxied, twiceProxied]) {
+      assert.deepEqual(imageRightsFor(src), imageRightsFor(photo.src), photo.page);
+    }
+  }
+});
+
+test("public-domain Army Corps image does not falsely claim a private copyright owner", () => {
+  const path = "/images/explore/lakes-rivers/ray-roberts-lake-isle-du-bois-unit.jpg";
+  for (const src of [path, `https://texasdefined.com${path}`]) {
+    const rights = imageRightsFor(src);
+    assert.ok(rights);
+    assert.equal(rights.creator["@type"], "Organization");
+    assert.equal(rights.creator.name, "U.S. Army Corps of Engineers");
+    assert.match(rights.copyrightNotice, /public domain/i);
+    assert.match(rights.copyrightNotice, /no copyright claim/i);
+    assert.equal(rights.license, "https://commons.wikimedia.org/wiki/File:USACE_Ray_Roberts_Lake_and_Dam.jpg");
+    assert.equal(rights.acquireLicensePage, rights.license);
+  }
+  const article = readFileSync("src/data/fixtures/texas-lakes-reservoirs-explained.ts", "utf8");
+  const ledger = readFileSync("src/data/fishing/lake-photo-governance.ts", "utf8");
+  assert.ok(article.includes(path));
+  assert.ok(ledger.includes("USACE Ray Roberts Lake and Dam.jpg"));
+  assert.ok(ledger.includes(path));
+});
+
+test("unrelated, replaced or spoofed photos never inherit another creator's rights", () => {
+  for (const src of [
+    "https://example.com/images/Celina_High_School,_Friday_Night_Football.jpg",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/unverified-photo.jpg",
+    "/images/explore/lakes-rivers/replacement.jpg",
+    "/remote?url=https%3A%2F%2Fexample.com%2FCelina_High_School%2C_Friday_Night_Football.jpg",
+    "",
+  ]) assert.equal(imageRightsFor(src), null, src);
+});
+
+test("historically verified fall photos keep their existing rights", () => {
+  const rights = imageRightsFor("https://upload.wikimedia.org/wikipedia/commons/Daingerfield_sp_reflection.jpg");
+  assert.ok(rights);
+  assert.equal(rights.creator.name, "Larry D. Moore");
+  assert.equal(rights.license, "https://creativecommons.org/licenses/by/4.0/");
+});
+
+test("both SEO head routes attach the verified data to the published ImageObject", () => {
+  const article = readFileSync("src/routes/article.$slug.tsx", "utf8");
+  const destination = readFileSync("src/routes/destination.$slug.tsx", "utf8");
+  assert.ok(article.includes("imageRightsFor(article.hero.src)"));
+  assert.ok(article.includes("...(imageRights ?? {})"));
+  assert.ok(article.includes("ray-roberts-lake-isle-du-bois-unit"));
+  for (const photo of photos.slice(0, 4)) {
+    assert.ok(article.includes(photo.file.split("_")[0]), photo.page);
+  }
+  assert.ok(destination.includes("imageRightsFor(destination.hero.src)"));
+  assert.ok(destination.includes("...magoffinImageRights, ...moodyGardensImageRights"),
+    "Existing one-off verified rights must not be removed");
+});
