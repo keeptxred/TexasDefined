@@ -1982,7 +1982,9 @@
       "originalVisitorValue": [
         "Reconciles current regular weekday schedule against separate NCTC summer hours and outdated 2025 opening coverage",
         "Separates Gainesville NCTC museum from Arlington's unrelated National Medal of Honor Museum and the separate Host City Park",
-        "Offers a source-backed school-trip checklist, family fit, sensible museum-and-downtown outing, primary references, and admission/parking cautions"
+        "Offers a source-backed school-trip checklist, family fit, sensible museum-and-downtown outing, primary references, and admission/parking cautions",
+        "Compares three named recipients from dated museum-gallery documentation against primary and institutional citations, marking 2025 panels as historical rather than confirmed current exhibits",
+        "Automates expiry of the verified November 11, 2026 NCTC campus closure warning and schedules a separate fail-closed postdeployment HTML, Museum JSON-LD, canonical, sitemap and inbound-link audit"
       ],
       "openGaps": [
         "Exact-location museum photography reuse permission has not been documented; the published public-domain medals illustration is explicitly not a photograph of the institution",
