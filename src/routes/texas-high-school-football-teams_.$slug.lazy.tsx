@@ -14,6 +14,7 @@ import {
   uilFootballEnrollmentBandForEnrollment,
 } from '@/data/high-school-football/enrollment-bands';
 import { footballIdentityAccentFromColors } from '@/data/high-school-football/football-identity-accent';
+import { BATCH016_FOOTBALL_COUNTY_EDGES } from '@/data/high-school-football/batch016-county-edges';
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
@@ -571,7 +572,7 @@ function Page() {
     'austin-travis': { slug: 'austin', name: 'Austin' },
   };
   const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
-  const researchedCountyLink = researchedCampusCounty[slug];
+  const researchedCountyLink = BATCH016_FOOTBALL_COUNTY_EDGES.find((edge) => edge.slug === slug)?.county ?? researchedCampusCounty[slug];
   const countyPath = researchedCountyLink ? `/county/${researchedCountyLink}`
     : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
