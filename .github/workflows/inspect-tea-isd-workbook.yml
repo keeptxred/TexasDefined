@@ -1,0 +1,21 @@
+name: Inspect official TEA school tax workbook source
+on:
+  pull_request:
+    paths:
+      - 'scripts/data/inspect-tea-isd-workbook.py'
+      - '.github/workflows/inspect-tea-isd-workbook.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  official-source-schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install openpyxl==3.1.5
+      - name: Inspect source SHA, headers and Tolar identity, no mutations
+        run: python scripts/data/inspect-tea-isd-workbook.py
