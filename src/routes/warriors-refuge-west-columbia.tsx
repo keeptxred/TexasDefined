@@ -99,7 +99,7 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 }
 
 function WarriorsRefugePage() {
-  return <main id="main-content" className="">
+  return <main id="main-content" style={{ paddingBottom: "4rem" }}>
     <Container className="">
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
         <Link to="/texas-resources" className="underline">Texas Resources</Link><span aria-hidden="true"> / </span><span aria-current="page">The Warrior's Refuge</span>
@@ -107,12 +107,12 @@ function WarriorsRefugePage() {
 
       <header className="">
         <p className="text-primary">Veteran services · Brazoria County, Texas</p>
-        <h1 className="mt-3 font-display">The Warrior's Refuge: how veterans can get help in West Columbia</h1>
+        <h1 className="mt-3 font-display" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.12 }}>The Warrior's Refuge: how veterans can get help in West Columbia</h1>
         <p className="mt-5 max-w-3xl text-muted-foreground">A practical, independently written guide to the organization's housing, counseling, work support and financial-assistance programs—with direct contacts and important eligibility distinctions.</p>
         <p className="mt-4 text-sm text-muted-foreground">Texas Defined editorial desk · Primary sources checked November 8, 2026 · Independent resource; not an official Warrior's Refuge page.</p>
       </header>
 
-      <section aria-labelledby="get-help" className="">
+      <section aria-labelledby="get-help" style={{ marginTop: "2.5rem", padding: "1.5rem 0", borderBlock: "2px solid currentColor" }}>
         <h2 id="get-help" className="font-display text-3xl">Need help or want to request services?</h2>
         <p className="mt-3 max-w-3xl leading-7">Start with the organization's intake team before traveling. Explain whether you need housing, counseling, help with employment or financial assistance. Ask what is available today and what documents will be needed. The published office number is <a className="font-bold text-primary underline" href="tel:+19793453800">(979) 345-3800</a>.</p>
         <div className="mt-5 flex flex-wrap gap-4 text-sm">
@@ -122,8 +122,8 @@ function WarriorsRefugePage() {
         <p className="mt-4 text-sm text-muted-foreground">The organization lists weekday office hours of 9 a.m.–5 p.m. and weekends by appointment. These are office hours, not a guarantee of walk-in housing or emergency placement. If you have nowhere safe to stay tonight, see the 24/7 VA housing line below.</p>
       </section>
 
-      <div className="grid lg:grid-cols-3">
-        <article className="lg:col-span-2">
+      <div className="grid lg:grid-cols-3" style={{ marginTop: "2.75rem", gap: "2.75rem" }}>
+        <article className="lg:col-span-2" style={{ display: "grid", rowGap: "2.5rem", lineHeight: 1.8 }}>
           <section aria-labelledby="what-is">
             <h2 id="what-is" className="font-display text-3xl">What is The Warrior's Refuge?</h2>
             <p className="mt-4">The Warrior's Refuge is a West Columbia-based nonprofit founded in 2019. It describes its mission around three connected needs: a safe place to stay while recovering from homelessness, counseling and personal support, and education or employment that can help veterans remain housed. It serves veterans through its West Columbia campus and also lists The Rally Point in Alvin.</p>
@@ -157,7 +157,7 @@ function WarriorsRefugePage() {
 
           <section aria-labelledby="request-process">
             <h2 id="request-process" className="font-display text-3xl">A useful first-call checklist</h2>
-            <ol className="mt-5">
+            <ol className="mt-5" style={{ listStyleType: "decimal", paddingLeft: "1.6rem" }}>
               <li><strong>Identify the immediate need.</strong> Tell intake whether you need a place to stay, help keeping your current housing, counseling, work support or an emergency bill paid.</li>
               <li><strong>Ask about the specific program.</strong> Housing, counseling and the grant-funded financial-aid program have different processes; clarify which intake path applies.</li>
               <li><strong>Confirm service area and documents.</strong> Have discharge documents and identification available if you already possess them, but ask the provider what is actually required for your circumstances.</li>
@@ -182,7 +182,7 @@ function WarriorsRefugePage() {
           <section aria-labelledby="sources" className="border-t border-border">
             <h2 id="sources" className="font-display text-3xl">Sources and editorial method</h2>
             <p className="mt-3 text-sm leading-7">This independent guide prioritizes first-party program descriptions and federal assistance information. Provider hours, staff, funding, placement and admission conditions can change. We checked the following public sources on November 8, 2026; this is not a firsthand inspection of care or a guarantee of eligibility or space.</p>
-            <ul className="mt-4 text-sm leading-7">
+            <ul className="mt-4 text-sm leading-7" style={{ listStyleType: "disc", paddingLeft: "1.4rem" }}>
               {sources.map(([label, href]) => <li key={href}><ExternalLink href={href}>{label}</ExternalLink></li>)}
             </ul>
             <p className="mt-5 text-sm">See the <Link to="/editorial-policy" className="text-primary underline">editorial policy</Link>, <Link to="/sourcing-methodology" className="text-primary underline">sourcing methodology</Link> and <Link to="/corrections-policy" className="text-primary underline">corrections process</Link> for factual updates.</p>
