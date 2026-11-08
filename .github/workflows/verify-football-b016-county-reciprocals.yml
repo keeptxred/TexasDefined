@@ -1,0 +1,23 @@
+name: Football Batch016 reciprocal county link contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/high-school-football/batch016-county-edges.ts'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'scripts/ci/verify-football-b016-county-reciprocals.mjs'
+      - '.github/workflows/verify-football-b016-county-reciprocals.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  county-reciprocals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check all 25 shared school-county reciprocal edges
+        run: node scripts/ci/verify-football-b016-county-reciprocals.mjs
