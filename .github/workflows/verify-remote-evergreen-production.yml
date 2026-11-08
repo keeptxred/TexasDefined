@@ -1,6 +1,9 @@
 name: Verify remote evergreen production
 
 on:
+  schedule:
+    # Quarterly evidence and live-page review; detect drift without rewriting facts.
+    - cron: '17 14 1 1,4,7,10 *'
   pull_request:
     paths:
       - '.github/workflows/verify-remote-evergreen-production.yml'
@@ -17,6 +20,10 @@ on:
       - 'src/lib/remote-image-fetch-policy.test.ts'
       - 'src/server.ts'
       - 'src/routes/article.$slug.tsx'
+      - 'src/routes/authors.$author.tsx'
+      - 'src/components/editorial/ArticleBody.tsx'
+      - 'src/data/heritage-photo-license-links.ts'
+      - 'scripts/ci/verify-blue-bell-history-authority.mjs'
       - 'src/routes/sitemap*.ts'
   push:
     branches:
@@ -60,6 +67,8 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - name: Validate authority-source coverage
         run: node scripts/ci/validate-remote-evergreen-authority-sources.mjs
+      - name: Validate Blue Bell historical evidence, sources and author attribution
+        run: node scripts/ci/verify-blue-bell-history-authority.mjs
 
   verify-production:
     name: Verify 19 canonical evergreen pages on texasdefined.com
@@ -79,3 +88,5 @@ jobs:
         run: node scripts/ci/wait-for-protected-production.mjs
       - name: Require canonical, indexable, sourced, image-backed production pages and sitemap discovery
         run: node scripts/ci/verify-remote-evergreen-production.mjs
+      - name: Recheck Blue Bell history, image license, author archive and live source links
+        run: node scripts/ci/verify-blue-bell-history-authority.mjs --live

@@ -27,6 +27,10 @@ const rightsByPath: Record<string, HeritagePhotoRights> = {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:GulftonApartmentComplexes.JPG",
     licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
   },
+  "/article/blue-bell-ice-cream-brenham-texas-history": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+  },
   "/article/best-houston-suburbs-for-commuters": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:2025-09-14_16_24_08_View_north_along_Texas_State_Highway_99_(Grand_Parkway)_just_north_of_its_western_interchange_with_Interstate_10_(Katy_Freeway)_in_Houston,_Harris_County,_Texas.jpg",
     licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",

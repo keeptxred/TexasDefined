@@ -186,6 +186,21 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
           return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
         case "list":
+          // This dated chronology is an editorial timeline, not an unordered list.
+          // Keep it server-rendered, readable without JS and comfortable on mobile.
+          if (articleSlug === "blue-bell-ice-cream-brenham-texas-history"
+            && blocks[index - 1]?.type === "heading"
+            && blocks[index - 1].text === "Blue Bell history at a glance") {
+            return <ol key={index} aria-label="Blue Bell Creameries historical timeline" className="my-8 grid gap-3 sm:grid-cols-2">
+              {block.items.map((item) => {
+                const event = /^(\d{4}|1980s)\s*[—-]\s*(.+)$/.exec(item);
+                return <li key={item} className="border-l-2 border-primary bg-muted/20 px-4 py-4">
+                  <span className="font-display text-2xl font-semibold text-primary">{event?.[1] ?? "History"}</span>
+                  <p className="mt-2 text-sm leading-7 text-foreground/85">{event?.[2] ?? item}</p>
+                </li>;
+              })}
+            </ol>;
+          }
           if (((articleSlug === "texas-rivers-explained" && blocks[index - 1]?.text === "Texas Rivers at a Glance")
             || (articleSlug === "texas-lakes-reservoirs-explained" && blocks[index - 1]?.text === "Texas lakes and reservoirs at a glance"))
             && blocks[index - 1]?.type === "heading") {
