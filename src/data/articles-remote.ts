@@ -3,7 +3,7 @@ import { DEFAULT_EDITORIAL_DESK_ID } from "./editorial-desks";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
-const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url";
+const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url,updated_at";
 const SITEMAP_PAGE_SIZE = 200;
 const SITEMAP_MAX_ROWS = 10_000;
 const ROUTE_REMOTE_TIMEOUT_MS = 2500;
@@ -96,6 +96,7 @@ function mapRow(row: RemoteRow, evergreenInternalLinks: RemoteEvergreenInternalL
     hero: { src: heroUrl, alt: text(row.hero_alt) || title, width: 1600, height: 900, credit: text(row.hero_credit) || undefined },
     authorId: text(row.author_id) || DEFAULT_EDITORIAL_DESK_ID,
     publishedAt: text(row.published_at) || new Date().toISOString(),
+    ...(text(row.updated_at) ? { updatedAt: text(row.updated_at) } : {}),
     readingMinutes: Math.max(1, Math.ceil(JSON.stringify(blocks).split(/\s+/).length / 220)),
     tags: strings(row.tags),
     body: blocks,
