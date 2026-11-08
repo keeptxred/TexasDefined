@@ -41,7 +41,7 @@ const sources = [
   ["Veterans Crisis Line — 988, press 1", "https://www.veteranscrisisline.net/"],
 ] as const;
 
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute("/warriors-refuge-west-columbia")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: path,
