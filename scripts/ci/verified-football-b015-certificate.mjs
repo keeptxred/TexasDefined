@@ -1,6 +1,7 @@
 // Read-only certificate guard: never promote a school or infer human review.
-// Historical run #42489867924 preceded the 19 identity-source changes and cannot certify this newer release.
-// These immutable facts are retained for auditing, but a fresh same-source Worker/Chrome pin is required.
+// Run #42495534916 was executed AFTER 19 school identity-source changes, on deployed source
+// 0621a341 and matched the exact 100%-traffic Worker and signed GitHub release ledger.
+// Graduation is fail-closed on these immutable evidence identities and all 25 row checks.
 export const B015_SLUGS = Object.freeze([
   'dell-city','denison','denton','denton-braswell','denton-guyer',
   'denton-ryan','denver-city','detroit','devine','deweyville',
@@ -9,20 +10,14 @@ export const B015_SLUGS = Object.freeze([
   'dumas','duncanville','eagle-mountain','eagle-pass','eagle-pass-winn',
 ]);
 const SIGNED = Object.freeze({
-  runId: 42489867924,
-  artifactId: 13620254465,
-  sourceSha: '009f3a57431e1aa8363a431fbccbfcba5b5181c9',
-  worker: 'e7e01826-b492-48fa-8770-73fa641a852f',
-  ledgerId: 7637169740,
-  cloudflareDeploymentId: 'ba1af4a8-e970-4ad5-a23e-33bbb52ab32b',
+  runId: 42495534916,
+  artifactId: 13623152274,
+  sourceSha: '0621a3412f83ed207844af3159e96cfd7e0bd4ed',
+  worker: '94032994-ad0d-4655-8a6e-bd9afe0b0a1d',
+  ledgerId: 7637951033,
+  cloudflareDeploymentId: '6c12efe6-796f-47ac-a67b-15e344d3cd12',
 });
 export function certifiedBatch015(registry) {
-  // The following historic pin predates the mascot-aware renderer. Never certify
-  // changed school HTML against the older source/Worker simply because it passed.
-  // Follow-up graduation must replace this hold with independently observed,
-  // non-skipped source/Worker/75+25 evidence before status promotion.
-  const refreshedSameSourceChromeAccepted = false;
-  if (!refreshedSameSourceChromeAccepted) return false;
   const cert = registry.batch?.number === 15 ? registry.batch : registry.completedBatches?.find(c => c.number === 15);
   const e = cert?.technicalAcceptance;
   if (cert?.state !== 'VERIFIED_BATCH_015_COMPLETE' || cert?.individuallyVerified !== 25 ||
