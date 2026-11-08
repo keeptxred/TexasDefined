@@ -10,14 +10,18 @@ const latestAustinEsd3Adopted = austinEsd3Sources.rates.at(-1)!;
 // React SSR streams the resolved lazy boundary; client loading is split by route.
 const AustinCountyEsd3Authority = lazy(() => import('@/components/property/AustinCountyEsd3Authority').then((m) => ({ default: m.AustinCountyEsd3Authority })));
 const IsdTaxAuthority = lazy(() => import('@/components/property/IsdTaxAuthority').then((m) => ({ default: m.IsdTaxAuthority })));
-import { getTaxingUnitRateHistory } from '@/data/property/texas-tax-rates.functions';
+import { getSchoolDistrictPeerRates, getTaxingUnitRateHistory } from '@/data/property/texas-tax-rates.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
   loader: async ({ params }) => {
     const history = await getTaxingUnitRateHistory({ data: { slug: params.unit.trim().toLowerCase() } });
     if (!history.length) throw notFound();
-    return { history, latest: history.at(-1)! };
+    const latest = history.at(-1)!;
+    const peers = latest.type === 'school-district' && latest.totalRate != null && !latest.rateUnavailable && latest.countySlugs.length
+      ? await getSchoolDistrictPeerRates({ data: { countySlug: latest.countySlugs[0], year: latest.year, slug: latest.slug, rate: latest.totalRate } })
+      : [];
+    return { history, latest, peers };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
@@ -77,7 +81,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
 });
 
 function Page() {
-  const { latest, history } = Route.useLoaderData();
+  const { latest, history, peers } = Route.useLoaderData();
   const displayHistory = history.map((record) => {
     const local = record.localVerification;
     const locallyVerified = local?.mode === 'supplement';
@@ -117,7 +121,7 @@ function Page() {
     <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type === 'city' ? 'Municipal taxing unit' : latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Comptroller tax-rate history, with local records labeled. This is {latest.type === 'city' ? 'city tax only' : 'one jurisdiction’s tax only'}. Combine only taxes actually levied on your parcel.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest Comptroller workbook year" value={String(latest.year)}/>{latest.type === 'school-district' && latest.importedAt && Number.isFinite(Date.parse(latest.importedAt)) ? <Fact label="Statewide source row ingested (not a human verification date)" value={new Date(latest.importedAt).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}/> : null}<Fact label={latest.type === 'city' ? 'Latest municipal rate' : 'Latest unit rate'} value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${formatTaxRate(latest.totalRate)} per $100`}/><Fact label="Years with numeric source records" value={`${rateCount} of ${history.length}`}/>{showSchoolAdoption ? <><Fact label={`${hoodIsdEvidence.officialYear} locally adopted school rate (separate official source)`} value={`${formatTaxRate(verifiedSchoolAdoption!.totalRate)} per $100`}/><dt className="text-muted-foreground">Latest locally verified source</dt><dd><a href={hoodIsdEvidence.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Hood CAD adopted-rate table ↗</a></dd></> : null}{latestLocal ? <><Fact label="Latest independently verified local rate (display only)" value={`${formatTaxRate(latestLocal.totalRate)} per $100`}/><dt className="text-muted-foreground">Local source</dt><dd><a href={latestLocal.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{latestLocal.sourceAgency} ↗</a></dd></> : null}</dl></header>
 
     {hasEsd3Adoption ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading official ESD #3 records…</p>}><AustinCountyEsd3Authority history={history}/></Suspense> : null}
-    {latest.type === 'school-district' ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading school district homeowner guidance…</p>}><IsdTaxAuthority history={history}/></Suspense> : null}
+    {latest.type === 'school-district' ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading school district homeowner guidance…</p>}><IsdTaxAuthority history={history} peers={peers}/></Suspense> : null}
 
     {latestConflict ? <section className="border-b border-border py-7"><p className="max-w-4xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Unresolved official-source discrepancy.</strong> For {latest.year}, the Comptroller statewide record lists {formatTaxRate(latest.totalRate!)} per $100 while {latestConflict.sourceAgency} independently reports {formatTaxRate(latestConflict.totalRate)} per $100. The statewide record is retained unchanged; the locally verified evidence is displayed separately rather than substituted into tax calculators. <a className="font-semibold text-primary underline underline-offset-2" href={latestConflict.sourceUrl} target="_blank" rel="noopener noreferrer">Review the official local tax-rate document ↗</a>.</p></section> : null}
 
