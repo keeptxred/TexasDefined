@@ -37,6 +37,28 @@ export const medalOfHonorHostCityMuseumDestinations: Destination[] = [{
     height: 473,
     credit: "U.S. Special Operations Command · public domain · Wikimedia Commons; contextual medals illustration, not the museum or its exhibits",
   },
+  gallery: [
+    {
+      image: {
+        src: "https://media.defense.gov/2015/Apr/13/2001041341/-1/-1/0/150411-F-ZC626-703.JPG",
+        alt: "U.S. military service members at Gainesville's separate Medal of Honor memorial during the 2015 Host City parade; not a photograph of the NCTC museum",
+        width: 1200, height: 800,
+        credit: "U.S. Air Force / Airman 1st Class Robert L. McIlrath · April 11, 2015 · U.S. government work, public domain",
+      },
+      caption: "Historical context: airmen, soldiers and sailors at the Gainesville Medal of Honor memorial during the 2015 Host City parade. This predates the permanent NCTC museum's 2025 opening and shows a different site, not the museum building.",
+      sourceUrl: "https://www.sheppard.af.mil/News/Photos/igphoto/2001041341/",
+    },
+    {
+      image: {
+        src: "https://media.defense.gov/2015/Apr/13/2001041338/-1/-1/0/150411-F-OP138-160.JPG",
+        alt: "Medal of Honor recipient Hershel Woody Williams greeting people from a historic 2015 Gainesville parade vehicle; historical Host City program photo, not a museum exhibit",
+        width: 1200, height: 800,
+        credit: "U.S. Air Force / Senior Airman Kyle Gese · April 11, 2015 · U.S. government work, public domain",
+      },
+      caption: "Historical context: Medal of Honor recipient Hershel “Woody” Williams greeted Gainesville residents during the city's 2015 Host City parade. His participation illustrates the annual community tradition; this is not an image of the NCTC museum or proof of current displays.",
+      sourceUrl: "https://www.sheppard.af.mil/News/Photos/igphoto/2001041338/",
+    },
+  ],
   bestSeason: "A weekday visit can be planned year-round; regular and summer weekday hours differ. Verify campus holidays and event changes with North Central Texas College before driving.",
   entryNote: `${veteransDayCampusClosure}Admission is free per the NCTC museum field-trip handbook. Regular posted hours: Monday–Thursday 8 a.m.–5 p.m., Friday 8 a.m.–noon; closed during ordinary weekend hours. The handbook separately lists summer Monday–Thursday 7:30 a.m.–5:30 p.m. and Friday closed. Confirm your date and building access at the official museum page.`,
   address: "1525 W California St, Gainesville, TX 76240",
