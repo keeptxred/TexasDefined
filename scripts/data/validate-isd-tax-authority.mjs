@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 const evidence = JSON.parse(readFileSync(new URL('../../src/data/property/hood-cad-isd-adopted.json', import.meta.url), 'utf8'));
 const route = readFileSync(new URL('../../src/routes/property-tax.taxing-unit.$unit.tsx', import.meta.url), 'utf8');
+const historyFunction = readFileSync(new URL('../../src/data/property/texas-tax-rates.functions.ts', import.meta.url), 'utf8');
 const detail = readFileSync(new URL('../../src/components/property/TaxingUnitRatePage.tsx', import.meta.url), 'utf8');
 const component = readFileSync(new URL('../../src/components/property/IsdTaxAuthority.tsx', import.meta.url), 'utf8');
 
@@ -45,7 +46,8 @@ assert.match(route, /getVerifiedIsdHistoricalComponents/);
 assert.match(route, /showSchoolAdoption/);
 assert.match(detail, /showSchoolAdoption/);
 assert.match(route, /isdEvidence/);
-assert.match(route, /getSchoolDistrictPeerRates/);
+assert.match(historyFunction, /getSchoolDistrictPeerRatesServer/);
+assert.match(route, /getTaxingUnitRateHistory/);
 assert.match(detail, /Not a Comptroller workbook row/);
 assert.match(component, /\$140,000 general residence-homestead exemption/);
 assert.match(component, /additional \$60,000 school exemption/);
