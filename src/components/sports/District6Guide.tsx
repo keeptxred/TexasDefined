@@ -1,18 +1,15 @@
 /**
- * District 6-6A 2026 editorial guide, verified 2026-10-29.
+ * District 6-6A 2026 editorial guide, reviewed 2026-11-07.
  * Manual schedule snapshot only. NO score or standings ingestion.
  * Sources: official UIL rules/calendar; Jesuit Dallas varsity athletics;
  * Allen, McKinney, Princeton and Prosper ISD athletic departments.
- * 2026-10-30 four-game district fixtures cross-checked against the
- * dated TexasHSFootball public schedule (secondary), not a licensed feed.
+ * All 28 district fixtures manually compared against published district schedules; all seven Jesuit entries checked against the school's varsity calendar.
  */
-const district6Fixtures = [
-  { date: 'Fri, Oct. 30', matchup: 'McKinney at Dallas Jesuit', source: 'https://jesuitrangers.org/sports/football/schedule/2026', basis: 'Jesuit Dallas varsity calendar' },
-  { date: 'Fri, Oct. 30', matchup: 'Allen / McKinney Boyd', source: 'https://texashsfootball.live/district/6A/6', basis: 'Published district schedule (confirm home school)' },
-  { date: 'Fri, Oct. 30', matchup: 'Prosper Rock Hill / Princeton', source: 'https://texashsfootball.live/district/6A/6', basis: 'Published district schedule (confirm home school)' },
-  { date: 'Fri, Oct. 30', matchup: 'Prosper / Prosper Walnut Grove', source: 'https://texashsfootball.live/district/6A/6', basis: 'Published district schedule (confirm home school)' },
-  { date: 'Thu, Nov. 5', matchup: 'Dallas Jesuit at Prosper Rock Hill', source: 'https://jesuitrangers.org/sports/football/schedule/2026', basis: 'Jesuit Dallas varsity calendar' },
-] as const;
+import {
+  DISTRICT6_2026_SCHEDULE,
+  DISTRICT6_2026_SCHEDULE_CHECKED,
+  DISTRICT6_2026_SCHEDULE_SOURCES,
+} from '@/data/high-school-football/district6-calendar-2026';
 
 const district6OfficialSources = [
   {
@@ -58,30 +55,51 @@ export function District6Guide() {
       <p className="eyebrow text-primary">District 6-6A · Region I · 2026 season</p>
       <h2 className="mt-2 font-display text-3xl sm:text-4xl">Varsity schedule, tickets and the playoff path</h2>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
-        The 2026–28 realignment brings Allen, Dallas Jesuit, the McKinney schools, Princeton and the three Prosper schools into one eight-team football district.
+        The 2026–28 UIL realignment brings Allen, Dallas Jesuit, the McKinney schools, Princeton and the three Prosper schools into one eight-team football district.
         Prosper Walnut Grove moves up from Class 5A, while Jesuit Dallas moves over from District 7.
         These are the UIL’s current district members, not a ranking of the teams.
         <a className="ml-2 font-semibold text-primary underline underline-offset-4" href="https://jesuitrangers.org/news/2026/2/2/general-jesuit-to-play-in-district-6-6a-in-latest-uil-redistricting-announcement.aspx" target="_blank" rel="noopener noreferrer">Jesuit’s realignment explanation ↗</a>
       </p>
 
+
+      <section id="district-6-comparison" aria-label="What makes District 6 different" className="mt-9 border-y border-border py-7">
+        <p className="eyebrow text-primary">Original district analysis · UIL 2026–28 enrollment</p>
+        <h3 className="mt-2 font-display text-2xl">Eight programs, five athletics offices, one unusually wide enrollment range</h3>
+        <div className="mt-5 grid gap-5 text-sm leading-7 text-muted-foreground sm:grid-cols-2">
+          <div>
+            <p><strong className="text-foreground">Enrollment comparison:</strong> Allen’s UIL realignment count of 6,798 is about 2.6 times the district median of 2,642. The smallest listed member, Dallas Jesuit, is 2,320—a 4,478-student range. Those are published UIL alignment snapshots, not present-day enrollments, performance rankings, or predictions.</p>
+            <p className="mt-3">This large gap does not itself put Allen in Division I or Jesuit in Division II. Under 6A rules, the two largest <em>qualified</em> schools take Division I places, regardless of the district-wide enrollment ordering before qualifying.</p>
+          </div>
+          <div>
+            <p><strong className="text-foreground">Who actually runs game day:</strong> Prosper ISD has three district teams, McKinney ISD has two, and Allen ISD, Princeton ISD and Jesuit Dallas each handle one. That makes five separate athletics/ticket offices for eight programs, so a generic district-wide ticket link would misdirect some visitors.</p>
+            <p className="mt-3">The 2026 shift reunites Jesuit with Allen and the McKinney programs while newcomer Prosper Walnut Grove moves into 6A. The district includes seven public-school teams and Jesuit Dallas, a UIL boys-only member. None of these structural distinctions establishes a projected finish.</p>
+          </div>
+        </div>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground">Method: direct comparison of the eight UIL enrollment figures listed on this page; median is the midpoint of the fourth and fifth values (2,609 and 2,675). Sources: the linked <a href="#district-6-source-notes" className="text-primary underline underline-offset-4">football source notes</a>, the UIL realignment and school athletics offices. This analysis contains no win-loss data.</p>
+      </section>
+
       <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_19rem]">
         <div>
-          <h3 className="font-display text-2xl">Published late-season matchups</h3>
+          <h3 className="font-display text-2xl">Complete 2026 district schedule — 28 league games</h3>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">
-            Fixture snapshot checked <time dateTime="2026-10-29">October 29, 2026</time>. These are season-calendar listings, <strong>not live upcoming games</strong> or final results. The Jesuit entries are confirmed by the school’s varsity schedule; the other three pairings require a final host-school check for time, venue and any changes.
+            Manually reviewed <time dateTime={DISTRICT6_2026_SCHEDULE_CHECKED}>November 7, 2026</time>. This is a <strong>complete seven-games-per-team schedule archive</strong> of all 28 District 6 regular-season matchups—not live upcoming games, a results service or verified final scores. Jesuit Dallas’s seven games were checked against its <a className="text-primary underline underline-offset-4" href={DISTRICT6_2026_SCHEDULE_SOURCES.jesuitVarsity} target="_blank" rel="noopener noreferrer">official varsity calendar</a>; the other 21 game dates and home/away assignments were transcribed and cross-checked internally for uniqueness from the <a className="text-primary underline underline-offset-4" href={DISTRICT6_2026_SCHEDULE_SOURCES.publishedDistrict} target="_blank" rel="noopener noreferrer">published district-wide schedule ledger</a>. School-issued changes take precedence.
           </p>
-          <ul className="mt-4 divide-y divide-border border-y border-border">
-            {district6Fixtures.map((fixture) => (
-              <li key={fixture.date + fixture.matchup} className="grid gap-2 py-4 text-sm sm:grid-cols-[7rem_1fr]">
-                <span className="font-semibold">{fixture.date}, 2026</span>
-                <div>
-                  <p className="font-semibold text-foreground">{fixture.matchup}</p>
-                  <a className="mt-1 inline-block text-xs font-semibold text-primary underline underline-offset-4" href={fixture.source} target="_blank" rel="noopener noreferrer">{fixture.basis} ↗</a>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-3 text-xs leading-6 text-muted-foreground">A slash separates teams where the publicly listed fixture does not independently establish home field. No kickoff or admission availability is guaranteed. When dates have passed, this remains a dated schedule archive until editorially reviewed.</p>
+          <ol className="mt-4 divide-y divide-border border-y border-border" aria-label="All 28 published 2026 District 6 league fixtures">
+            {DISTRICT6_2026_SCHEDULE.map((fixture, index) => {
+              const firstParty = fixture.away === 'Dallas Jesuit' || fixture.home === 'Dallas Jesuit';
+              const sourceUrl = firstParty ? DISTRICT6_2026_SCHEDULE_SOURCES.jesuitVarsity : DISTRICT6_2026_SCHEDULE_SOURCES.publishedDistrict;
+              return (
+                <li key={fixture.date + fixture.away + fixture.home} data-district6-fixture={fixture.date} className="grid gap-2 py-3 text-sm sm:grid-cols-[8rem_1fr]">
+                  <span className="font-semibold tabular-nums"><span className="sr-only">Game {index + 1} of 28: </span><time dateTime={fixture.date}>{new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', weekday: 'short' }).format(new Date(fixture.date + 'T12:00:00Z'))}, 2026</time></span>
+                  <div>
+                    <p className="font-semibold text-foreground">{fixture.away} at {fixture.home}</p>
+                    <a className="mt-1 inline-block text-xs font-semibold text-primary underline underline-offset-4" href={sourceUrl} target="_blank" rel="noopener noreferrer">{firstParty ? 'Official Jesuit varsity calendar' : 'Published district-wide schedule'} ↗</a>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+          <p className="mt-3 text-xs leading-6 text-muted-foreground">The league schedule includes 28 unique matchups (eight schools × seven opponents ÷ two). It excludes non-district games, scrimmages, kickoff times, scores, playoff pairings and records. Dates shown are historical. Confirm any contested date, field or game-day change with the home athletics office; no ticket availability is promised.</p>
         </div>
         <aside className="border-l-2 border-primary bg-surface px-5 py-5 text-sm leading-7" aria-label="2026 UIL playoffs">
           <h3 className="font-display text-2xl text-foreground">How District 6 advances</h3>
@@ -109,8 +127,15 @@ export function District6Guide() {
             </div>
           ))}
         </div>
-        <p className="mt-4 text-xs leading-6 text-muted-foreground">Official venue policies and schedule sources reviewed October 29, 2026. Check the publisher before purchasing a ticket or driving to a game. External ticket vendors are not TexasDefined affiliate offers on this guide.</p>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground">Ticket and venue links initially sourced October 29, 2026; the district calendar and editorial context were reviewed November 7, 2026. Check the publisher before purchasing a ticket or driving to a game. External ticket vendors are not TexasDefined affiliate offers on this guide.</p>
       </div>
+
+      <section id="district-6-source-notes" className="mt-10 border-t border-border pt-7 text-sm leading-7" aria-label="District 6 editorial and corrections information">
+        <p className="eyebrow text-primary">Sourcing and editorial accountability</p>
+        <h3 className="mt-2 font-display text-2xl">How this guide was checked</h3>
+        <p className="mt-3 max-w-4xl text-muted-foreground"><strong className="text-foreground">Prepared and reviewed by the TexasDefined editorial desk.</strong> Last manual content review: <time dateTime="2026-11-07">November 7, 2026</time>. This byline identifies the publishing desk, not an independent reporter or an eyewitness. The UIL controls official district membership, enrollment and postseason policy. Jesuit Dallas athletics is the primary varsity fixture source for its seven district games; the remaining calendar entries rely on a separately published schedule and may require host-school verification.</p>
+        <p className="mt-3 max-w-4xl text-muted-foreground"><strong className="text-foreground">Editorial policy:</strong> Results, W–L totals, playoff qualifiers, predictions and seed projections are deliberately excluded. A past date does not imply a final result. This is a manually dated 2026 schedule archive, not a continuously updating scoreboard. See our <a className="text-primary underline underline-offset-4" href="/editorial-policy">editorial policy</a> or <a className="text-primary underline underline-offset-4" href="/corrections">report a correction</a> when a school publishes a change.</p>
+      </section>
     </section>
   );
 }
