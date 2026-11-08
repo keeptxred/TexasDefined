@@ -4,22 +4,30 @@ on:
   pull_request:
     paths:
       - 'src/data/medal-of-honor-host-city-museum.ts'
+      - 'src/data/museum-authority-network.ts'
+      - 'src/routes/destination.$slug.tsx'
+      - 'docs/museum-official-site-benchmarks.json'
       - 'src/data/destination-preserved-catalog.ts'
       - 'src/data/fixtures/texas-military-museums-historic-sites-guide.ts'
       - 'src/data/fixtures/texas-medal-of-honor-heroes.ts'
       - 'src/data/fixtures/cooke-county-gainesville-red-river-muenster-north-texas.ts'
       - 'scripts/data/validate-medal-of-honor-host-city-museum.mjs'
+      - 'scripts/data/verify-medal-of-honor-host-city-museum-live.mjs'
       - 'scripts/data/monitor-medal-of-honor-host-city-museum.mjs'
       - '.github/workflows/medal-of-honor-museum-authority.yml'
   push:
     branches: [main]
     paths:
       - 'src/data/medal-of-honor-host-city-museum.ts'
+      - 'src/data/museum-authority-network.ts'
+      - 'src/routes/destination.$slug.tsx'
+      - 'docs/museum-official-site-benchmarks.json'
       - 'src/data/destination-preserved-catalog.ts'
       - 'src/data/fixtures/texas-military-museums-historic-sites-guide.ts'
       - 'src/data/fixtures/texas-medal-of-honor-heroes.ts'
       - 'src/data/fixtures/cooke-county-gainesville-red-river-muenster-north-texas.ts'
       - 'scripts/data/validate-medal-of-honor-host-city-museum.mjs'
+      - 'scripts/data/verify-medal-of-honor-host-city-museum-live.mjs'
       - '.github/workflows/medal-of-honor-museum-authority.yml'
   schedule:
     - cron: '27 15 * * 1'
@@ -42,7 +50,10 @@ jobs:
         with:
           node-version: '22'
       - name: Validate museum data, sources, photo provenance and internal links
-        run: node scripts/data/validate-medal-of-honor-host-city-museum.mjs
+        run: |
+          node --check scripts/data/verify-medal-of-honor-host-city-museum-live.mjs
+          node --check scripts/data/validate-medal-of-honor-host-city-museum.mjs
+          node scripts/data/validate-medal-of-honor-host-city-museum.mjs
       - name: Monitor official museum sources for changed public facts
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         id: monitor
@@ -76,64 +87,61 @@ jobs:
         run: exit 1
 
   verify-live:
-    name: Verify museum live HTML and contextual discovery
-    # Workflow run triggers only after the exact production workflow finishes;
-    # never accept a PR preview or an unrelated main-branch build as publication.
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    name: Check published Gainesville museum, discovery and SEO
+    # On every production attempt, fail and file an issue when publishing failed.
+    # Run same public acceptance checks weekly, not only after deployment.
+    if: (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main') || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     env:
-      DEPLOYED_SHA: ${{ github.event.workflow_run.head_sha }}
+      DEPLOYED_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
     steps:
-      - name: Check out deployed source revision
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
           persist-credentials: false
-      - name: Check canonical destination and all three inbound pages on production
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify successful deployment and public HTML/XML, not just repository source
+        id: live
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
-          # This workflow may run for a deployment that predates the new page.
-          # Skip those revisions; never falsely claim they published the museum.
-          if ! test -f src/data/medal-of-honor-host-city-museum.ts; then
-            echo 'Deployed revision predates museum destination; no museum-live certification'
-            exit 0
+          if [[ "${{ github.event_name }}" == "workflow_run" && "${{ github.event.workflow_run.conclusion }}" != "success" ]]; then
+            echo '::error title=TexasDefined production deployment failed::Museum cannot be certified on a failed deployment'
+            exit 1
           fi
-          root='https://texasdefined.com'
-          canonical='/destination/medal-of-honor-host-city-museum-gainesville'
-          workdir="$(mktemp -d)"
-          trap 'rm -rf "$workdir"' EXIT
-          check_page() {
-            local label="$1" path="$2" title="$3" link="$4"
-            local output="$workdir/$label.html"
-            local success=0
-            for attempt in 1 2 3 4 5 6; do
-              if curl --fail-with-body --location --silent --show-error --max-time 30 \
-                -H 'Accept: text/html' -H 'User-Agent: Mozilla/5.0 (compatible; TexasDefinedAuthorityVerifier/1.0)' \
-                "$root$path?museum_live_sha=$DEPLOYED_SHA&attempt=$attempt" --output "$output"; then
-                if grep -Fq "$title" "$output" && grep -Fq "$link" "$output"; then
-                  success=1
-                  break
-                fi
-              fi
-              echo "$label not confirmed on attempt $attempt"
-              sleep 7
-            done
-            if test "$success" -ne 1; then
-              echo "::error title=Production museum route verification failed::$label page $path missing title or required contextual link"
-              head -c 800 "$output" 2>/dev/null || true
-              return 1
-            fi
-            echo "Verified $label at $root$path for deploy $DEPLOYED_SHA"
-          }
-          check_page museum "$canonical" 'Medal of Honor Host City Museum' 'https://www.nctc.edu/museum/'
-          check_page heroes '/article/texas-medal-of-honor-heroes' 'Texas Medal of Honor Stories' "$canonical"
-          check_page statewide '/article/texas-military-museums-historic-sites-guide' 'Texas Military Museums' "$canonical"
-          check_page cooke '/article/cooke-county-gainesville-red-river-muenster-north-texas' 'Cooke County' "$canonical"
-          # The published page must communicate the correct museum identity
-          # and visitor conditions in HTML, not only in a source fixture.
-          grep -Fq '1525 W California' "$workdir/museum.html"
-          grep -Fq 'Gainesville' "$workdir/museum.html"
-          grep -Fq 'free' "$workdir/museum.html" || grep -Fq 'Free' "$workdir/museum.html"
-          echo 'PASS: live museum page + 3 incoming authority links + operator citation + visitor facts'
+          if ! test -f src/data/medal-of-honor-host-city-museum.ts; then
+            echo '::error title=Outdated release::This deployed revision predates the museum; publication remains uncertified'
+            exit 1
+          fi
+          node --check scripts/data/verify-medal-of-honor-host-city-museum-live.mjs
+          node scripts/data/verify-medal-of-honor-host-city-museum-live.mjs
+      - name: Preserve public acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: medal-of-honor-museum-live-evidence-${{ github.run_id }}
+          path: artifacts/museum-live-qa/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Open or update failure issue instead of silently skipping acceptance
+        if: steps.live.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Gainesville museum: production acceptance failed'
+          body="The museum is NOT certified as publicly published. Release: $DEPLOYED_SHA. Audit: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Inspect the live-evidence artifact; fix deployment, canonical, sitemap, JSON-LD or missing incoming links. No Cloudflare connector retries required."
+          existing="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Gainesville museum: production acceptance failed") | .number' | head -1)"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
+      - name: Enforce failed acceptance as failed job
+        if: steps.live.outcome == 'failure'
+        run: exit 1
