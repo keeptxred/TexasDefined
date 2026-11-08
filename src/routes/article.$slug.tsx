@@ -5,7 +5,6 @@ import { lazy, Suspense, useEffect } from "react";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
-import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
 import { LostMaplesFoliageStatus } from "@/components/editorial/LostMaplesFoliageStatus";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import type { Article } from "@/data/types";
@@ -13,8 +12,6 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { magnoliaPeopleSchemaForArticle } from "@/data/magnolia-people-schema";
-import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
-import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
@@ -33,6 +30,15 @@ import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analy
 import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
 
+// Monetization modules are visitor-only enhancements; avoid loading their
+// application code on every editorial article or in the primary JS bundle.
+const SchoolSupplyPartners = lazy(() =>
+  import("@/components/monetization/SchoolSupplyPartners").then((m) => ({ default: m.SchoolSupplyPartners })),
+);
+const FootballFanOffers = lazy(() =>
+  import("@/components/sports/FootballFanOffers").then((m) => ({ default: m.FootballFanOffers })),
+);
+
 // Magnolia-only affiliate UI stays off the shared article client bundle.
 const MagnoliaWacoAffiliateLinks = lazy(() =>
   import("@/components/monetization/MagnoliaWacoAffiliateLinks").then((module) => ({ default: module.MagnoliaWacoAffiliateLinks })),
@@ -40,6 +46,15 @@ const MagnoliaWacoAffiliateLinks = lazy(() =>
 
 const AuthorityVisitorTools = lazy(() =>
   import("@/components/editorial/AuthorityVisitorTools").then((module) => ({ default: module.AuthorityVisitorTools })),
+);
+
+// Keep the 14 KB interactive foliage map/gallery module out of the default
+// client bundle; these tools are used only by the East Texas fall guide.
+const EastTexasFoliageParkMap = lazy(() =>
+  import("@/components/editorial/EastTexasFoliageMedia").then((module) => ({ default: module.EastTexasFoliageParkMap })),
+);
+const EastTexasFoliagePhotoGallery = lazy(() =>
+  import("@/components/editorial/EastTexasFoliageMedia").then((module) => ({ default: module.EastTexasFoliagePhotoGallery })),
 );
 
 // This large comparison is isolated to the single Houston commuter article.
@@ -287,6 +302,11 @@ export const Route = createFileRoute("/article/$slug")({
     const canonicalPath = `/article/${params.slug}`;
     const articleUrl = `${siteUrl}${canonicalPath}`;
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
+    // This licensed Commons photograph has verified attribution and reuse terms.
+    // Carry its existing on-page credit/source links into Google-readable ImageObject metadata.
+    const houstonCommuterImageRights = article.slug === "best-houston-suburbs-for-commuters"
+      ? heritagePhotoRightsForPath(canonicalPath)
+      : null;
     const author = authors.find((item) => item.id === article.authorId);
     const authorUrl = author ? `${siteUrl}/authors/${author.id}` : null;
     const authorId = authorUrl ? `${authorUrl}#desk` : `${siteUrl}/#organization`;
@@ -316,6 +336,11 @@ export const Route = createFileRoute("/article/$slug")({
       height: article.hero.height,
       representativeOfPage: true,
       ...(article.hero.credit ? { creditText: article.hero.credit } : {}),
+      ...(houstonCommuterImageRights ? {
+        license: houstonCommuterImageRights.licenseUrl,
+        acquireLicensePage: houstonCommuterImageRights.sourceUrl,
+        creator: { "@type": "Person", name: "Famartin" },
+      } : {}),
       ...(imageRights ?? {}),
     };
 
@@ -503,7 +528,7 @@ function ArticlePage() {
       && /^(?:frequently asked questions|sources and verification|sources and further reading)\b/i.test(block.text?.trim() ?? ""))
     : -1;
   const footballTravelOffer = showFootballTravelOffers
-    ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning />
+    ? <Suspense fallback={null}><FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /></Suspense>
     : null;
   const riverBasinHeadingIndex = isTexasRiversArticle
     ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
@@ -618,7 +643,7 @@ function ArticlePage() {
           <TexasWaterSearchResource active={waterTopic} />
         </Suspense>
       ) : null}
-      {hasSchoolSupplyRail ? <><style>{`@media(min-width:1536px){.school-supply-responsive{position:absolute;left:calc(100% + 2rem);top:2.5rem;width:18rem;margin-top:0}}`}</style><SchoolSupplyPartners className="school-supply-responsive mt-8 border border-border bg-surface p-5" /></> : null}
+      {hasSchoolSupplyRail ? <><style>{`@media(min-width:1536px){.school-supply-responsive{position:absolute;left:calc(100% + 2rem);top:2.5rem;width:18rem;margin-top:0}}`}</style><Suspense fallback={null}><SchoolSupplyPartners className="school-supply-responsive mt-8 border border-border bg-surface p-5" /></Suspense></> : null}
       {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {article.slug === "texas-high-school-football-playoffs-explained" ? <>
         <a href="https://commons.wikimedia.org/wiki/File:Celina_High_School,_Friday_Night_Football.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Heidi Knapp · original photograph</a>
         {" · "}
@@ -687,8 +712,8 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
-      <EastTexasFoliageParkMap />
-      <EastTexasFoliagePhotoGallery />
+      <Suspense fallback={<section className="mt-8 border border-border p-6" aria-label="Loading East Texas parks map">Loading the six-park map…</section>}><EastTexasFoliageParkMap /></Suspense>
+      <Suspense fallback={<section className="mt-8 border border-border p-6" aria-label="Loading East Texas photograph gallery">Loading the credited photo gallery…</section>}><EastTexasFoliagePhotoGallery /></Suspense>
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>

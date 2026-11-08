@@ -182,8 +182,23 @@ if (!rootRoute.includes('contactType: "editorial, corrections and general inquir
   failures.push('Publisher Organization contact point must describe editorial and corrections inquiries.');
 }
 
-if (articleRoute.includes('"@type": "Person"')) {
-  failures.push('Article schema still presents institutional bylines as Person; convert it to Organization before remediation is complete.');
+// Scope the institutional-author assertion to authorSchema, rather than
+// incorrectly rejecting legitimate Person creators on licensed ImageObjects.
+const authorSchemaStart = articleRoute.indexOf('const authorSchema =');
+const articleSchemaStart = articleRoute.indexOf('const articleSchema =', authorSchemaStart);
+if (authorSchemaStart < 0 || articleSchemaStart <= authorSchemaStart) {
+  failures.push('Article schema must retain its explicit institutional authorSchema block.');
+} else {
+  const institutionalAuthorSchema = articleRoute.slice(authorSchemaStart, articleSchemaStart);
+  if (!institutionalAuthorSchema.includes('"@type": "Organization"')) {
+    failures.push('Institutional article authorSchema must declare Organization.');
+  }
+  if (institutionalAuthorSchema.includes('"@type": "Person"')) {
+    failures.push('Institutional article authorSchema must not declare Person.');
+  }
+}
+if (!articleRoute.includes('author: { "@id": authorId }')) {
+  failures.push('Article JSON-LD author reference must point to the validated institutional authorSchema ID.');
 }
 
 if (failures.length) {
