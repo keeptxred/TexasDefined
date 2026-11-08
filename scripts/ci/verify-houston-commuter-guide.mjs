@@ -20,6 +20,7 @@ required(article, [
   "The Woodlands Express", "Fort Bend Transit", "METRO", "Houston TranStar",
   "Texas Medical Center", "Port/Ship Channel", "Richmond/Rosenberg",
   "Friendswood", "Missouri City", "Kingwood", "sources:",
+  "2024 five-year", "27.0 ± 2.6", "32.7 ± 1.0",
   "Methodology, sources and what this guide cannot claim",
   "not a measured drive-time dataset", "three normal weekdays"
 ], "editorial content");
@@ -27,7 +28,10 @@ required(tool, [
   "houston-commute-planner", "Regional orientation map",
   "www.openstreetmap.org/export/embed.html", "The Woodlands Express",
   "Fort Bend Transit", "Candidate home A", "Candidate home B",
-  "Round-trip miles", "52 / 12", "not rankings or measured journey times"
+  "Round-trip miles", "52 / 12", "not rankings or measured journey times",
+  "ACS 2024 five-year", "The Woodlands CDP", "Sugar Land city",
+  "League City city", "Katy city proper", "Pearland city",
+  "censusreporter.org/profiles/16000US4872656", "31.3 ± 1.6 min"
 ], "comparison tool");
 required(route, [
   'import("@/components/relocation/HoustonCommuterPlanner")',
