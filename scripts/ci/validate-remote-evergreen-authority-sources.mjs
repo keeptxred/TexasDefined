@@ -23,7 +23,7 @@ const REQUIRED_SLUGS = [
 ];
 
 const APPROVED_SOURCE_HOSTS = new Set([
-  "arlingtoncemetery.mil", "buc-ees.com", "careers.heb.com", "chron.com", "fortworthtexas.gov", "gov.texas.gov",
+  "archive.cdc.gov", "www.justice.gov", "thc.texas.gov", "arlingtoncemetery.mil", "buc-ees.com", "careers.heb.com", "chron.com", "fortworthtexas.gov", "gov.texas.gov",
   "history.navy.mil", "king-ranch.com", "newsroom.heb.com", "nba.com", "sanantonio.gov", "sarodeo.com",
   "thealamo.org", "tshaonline.org", "tsl.texas.gov", "uiltexas.org", "www.arlingtoncemetery.mil", "www.bluebell.com",
   "www.chron.com", "www.fda.gov", "www.fortworthtexas.gov", "www.history.navy.mil", "www.nba.com", "www.navy.mil",
