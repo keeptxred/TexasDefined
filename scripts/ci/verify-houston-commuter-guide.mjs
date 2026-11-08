@@ -32,7 +32,10 @@ required(tool, [
   "Round-trip miles", "52 / 12", "not rankings or measured journey times",
   "ACS 2024 five-year", "The Woodlands CDP", "Sugar Land city",
   "League City city", "Katy city proper", "Pearland city",
-  "censusreporter.org/profiles/16000US4872656", "31.3 ± 1.6 min"
+  "censusreporter.org/profiles/16000US4872656", "31.3 ± 1.6 min",
+  'mode: "drive" | "transit"', "Round-trip transit fares per office day",
+  "Station access, parking and last-mile cost per office day",
+  "Drive to workplace", "Scheduled transit (if verified)"
 ], "comparison tool");
 required(route, [
   'import("@/components/relocation/HoustonCommuterPlanner")',
