@@ -1,6 +1,8 @@
 # District 6-6A 2026 — source ledger and handoff
 
-State: IMPLEMENTED ON FEATURE BRANCH, NOT YET VERIFIED LIVE. Source review 2026-10-29.
+State: MERGED AND PUBLICLY PUBLISHED. PR #6324 merged 2026-10-29 at 494686692ffdc27d5df681d073f500cf0faeffdf. Live canonical HTML checked 2026-11-07: all eight school links, source-attributed guide, dated fixtures, ticket/stadium sources, playoff information and guide-before-sponsor ordering are present. Source review 2026-10-29.
+
+Production acceptance: Added bounded direct-Worker and canonical-domain SSR checks plus one 390px and one 320px production Chrome check in the shared protected deployment workflow (scripts/ci/verify-district6-production.mjs and scripts/ci/verify-district6-responsive-browser.mjs). These new checks must pass on the subsequent protected production run; a source commit alone is NOT evidence that Chrome passed. Cloudflare Browser Rendering screenshot permission returned HTTP 401 during the 2026-11-07 chat verification; this is a scope-specific error, NOT evidence that the site's Worker failed, and no reconnect loop was attempted.
 
 ## Scope
 URL: /texas-high-school-football-districts/6a-district-6
@@ -34,4 +36,6 @@ User PAUSED standings, wins/losses, automated results and records. No scoreboard
 - Link-only UIL-partner district scoreboard: https://www.maxpreps.com/tx/football/26-27/district/6a-region-i-district-6/?leagueid=28ebe920-dd93-4580-bd88-1bb25e74ff7d
 
 ## Release gate
-Open PR; pass protected CI; merge if green; validate deployed HTML, title, links, layout at 390px and 320px, ad ordering, and direct Worker where available. Record merge SHA and deployment ID. Do not claim production completion from a feature commit alone.
+PR #6324 is merged and its guide is visibly published on the canonical host. Production deployment recovery for merge SHA 494686692ffdc27d5df681d073f500cf0faeffdf completed successfully in GitHub run 40912663699; that run did not itself perform the new mobile acceptance.
+
+Every subsequent production release must pass the new District 6 canonical/direct-Worker HTML and 390px/320px rendered Chrome checks, as well as the existing protected checks. Record the actual acceptance workflow run before certifying viewport QA. Do not claim that an unexecuted test passed or revive paused score/standing ingestion.

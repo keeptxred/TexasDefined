@@ -1021,6 +1021,11 @@ jobs:
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         run: node scripts/ci/verify-district16-production.mjs
 
+      - name: Verify District 6 guide, eight team links and no-results policy on both production origins
+        id: live_district6
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/ci/verify-district6-production.mjs
+
       # The district's HTML is checked on every deploy; its responsive browser check
       # must also run on every deploy, not only when the broad sports change group fires.
       # The previous change-scope condition skipped the visual gate on the exact
@@ -1045,6 +1050,12 @@ jobs:
         id: live_district16_browser
         if: ${{ always() && steps.live_district16.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
         run: node scripts/ci/verify-district16-responsive-browser.mjs
+
+      # Reuse the existing single Chrome install; two narrow screens on one District 6 URL.
+      - name: Verify District 6 mobile 390px and 320px rendered layout
+        id: live_district6_browser
+        if: ${{ always() && steps.live_district6.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-district6-responsive-browser.mjs
 
       # Bounded three-page event checkout/accessibility smoke; reuse Chrome
       # already installed for District 5 rather than adding another dependency.
