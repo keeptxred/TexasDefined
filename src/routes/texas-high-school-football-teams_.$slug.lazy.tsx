@@ -184,6 +184,11 @@ function Page() {
     'denton': 'denton', // Denton High 3001 Bronco Way Denton County; C.H. Collins district venue separate.
     'denton-braswell': 'denton', // Braswell 26750 E University, Aubrey postal city; Denton ISD campus, NOT Denton city.
     'denton-guyer': 'denton', // Guyer 7501 Teasley Lane Denton County; distinct from Denton High.
+    'dimmitt': 'castro', // Dimmitt High Western Circle campus; football venue independently confirmed per fixture.
+    'donna': 'hidalgo', // Donna High E Wood Ave; distinct from Donna North.
+    'donna-north': 'hidalgo', // Donna North N Val Verde; distinct campus from Donna High.
+    'dripping-springs': 'hays', // Dripping Springs High Hwy 290 campus, not confirmed spectator gate.
+    'dublin': 'erath', // Dublin Secondary Hwy 6 campus; stadium entrance requires confirmation.
     'denton-ryan': 'denton', // Ryan High 5101 E McKinney St, separate Denton ISD campus.
     'detroit': 'red-river', // NCES Detroit High 630 1st St NW, not district office 110 E Garner.
     'deweyville': 'newton', // UIL Deweyville campus Newton County despite Orange postal city.
