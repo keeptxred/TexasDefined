@@ -76,6 +76,25 @@ for (const test of tests) {
       throw new Error('Real mobile/desktop layout did not settle within 25 seconds: '
         + JSON.stringify(details) + '; ' + String(error));
     }
+    // The Worker streams visible SSR before React attaches event handlers.
+    // On a cold/mobile load, clicking a same-document anchor while the router
+    // hydrates can race with client navigation and lose the fragment. Require
+    // the site's own root-hydration signal before testing real user interaction.
+    // This fails closed if client assets or hydration are actually broken.
+    try {
+      await page.waitForFunction(
+        () => document.documentElement.dataset.tdRootHydrated === '1',
+        null, { timeout: 30000, polling: 250 },
+      );
+    } catch (error) {
+      const state = await page.evaluate(() => ({
+        rootHydrated: document.documentElement.dataset.tdRootHydrated,
+        readyState: document.readyState,
+        scriptCount: document.querySelectorAll('script[src]').length,
+        pathname: location.pathname,
+      }));
+      throw new Error('MSR root hydration did not complete: ' + JSON.stringify(state) + '; ' + String(error));
+    }
     // Retain the independent post-settle overflow assertion below. A page
     // that remains too wide after all CSS/meta arrive still fails release QA.
     const facts = await page.evaluate(() => ({
@@ -127,10 +146,21 @@ for (const test of tests) {
     // the actual live URL state instead; this still fails on broken anchors.
     const logisticsLink = page.locator('nav[aria-label="MSR Houston guide sections"] a[href="#msr-logistics"]');
     await logisticsLink.click();
-    await page.waitForFunction(
-      () => location.pathname === '/sports-venue/msr-houston' && location.hash === '#msr-logistics',
-      null, { timeout: 10000 },
-    );
+    try {
+      await page.waitForFunction(
+        () => location.pathname === '/sports-venue/msr-houston' && location.hash === '#msr-logistics',
+        null, { timeout: 10000, polling: 250 },
+      );
+    } catch (error) {
+      const state = await page.evaluate(() => ({
+        currentUrl: location.href,
+        rootHydrated: document.documentElement.dataset.tdRootHydrated,
+        anchorHref: document.querySelector('nav[aria-label="MSR Houston guide sections"] a[href="#msr-logistics"]')?.getAttribute('href'),
+        destinationPresent: Boolean(document.querySelector('#msr-logistics')),
+        readyState: document.readyState,
+      }));
+      throw new Error('MSR section-anchor click failed after root hydration: ' + JSON.stringify(state) + '; ' + String(error));
+    }
     await page.waitForTimeout(300);
     assert.equal(new URL(page.url()).hash, '#msr-logistics', 'Section navigation did not retain hash after the route settled');
     assert.equal(await page.locator('#msr-logistics').count(), 1, 'Navigation destination heading is missing');
