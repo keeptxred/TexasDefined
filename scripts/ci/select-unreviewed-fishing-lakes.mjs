@@ -7,6 +7,7 @@ export function selectUnreviewedFishingLakes(definitions, curatedLakeIds) {
   const seen = new Set();
   const candidates = [];
   const reviewed = [];
+  const populatedWithoutExplicitReviewDate = [];
   const defined = [];
   for (let i = 0; i < matches.length; i++) {
     const [, lakeId, tpwd] = matches[i];
@@ -17,8 +18,13 @@ export function selectUnreviewedFishingLakes(definitions, curatedLakeIds) {
     const block = definitions.slice(matches[i].index, matches[i + 1]?.index ?? definitions.length);
     const hasReviewedDate = /\baccessReviewedAt:\s*"\d{4}-\d{2}-\d{2}"/.test(block);
     const hasVerifiedSites = /\baccessPoints:\s*\[/.test(block);
-    if (hasReviewedDate && hasVerifiedSites) {
-      reviewed.push(lakeId);
+    if (hasVerifiedSites) {
+      // The public prototype's accessReviewedAt already falls back to
+      // 2026-10-12 for lake definitions with actual accessPoints. Keep
+      // these documented locations in the existing source-drift review,
+      // rather than rediscovering the same TPWD page as if it were new.
+      if (hasReviewedDate) reviewed.push(lakeId);
+      else populatedWithoutExplicitReviewDate.push(lakeId);
       continue;
     }
     candidates.push({ lakeId, tpwd });
@@ -26,6 +32,7 @@ export function selectUnreviewedFishingLakes(definitions, curatedLakeIds) {
   return {
     lakes: candidates,
     reviewedLakeGroups: reviewed.length,
+    existingAccessWithoutExplicitDate: populatedWithoutExplicitReviewDate.length,
     totalDistinctKnownLakes: new Set([...defined, ...curated]).size,
     networkLakeDefinitions: defined.length,
   };
