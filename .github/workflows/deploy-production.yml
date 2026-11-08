@@ -465,9 +465,10 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p .artifacts/prior-asset-extraction
-          # GitHub filters successful completed runs server-side. Failed runs
-          # must never evict the genuine predecessor from the candidate page.
-          previous_runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?status=success&per_page=30" --jq '.workflow_runs[] | [.id, .head_sha] | @tsv')"
+          # A completed successful deploy may precede the unrelated GSC job.
+          # Require the DEPLOY job success plus exact active Worker bytes,
+          # not overall workflow success; never accept an unshipped build.
+          previous_runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=100" --jq '.workflow_runs[] | [.id, .head_sha] | @tsv')"
           if [[ -z "$previous_runs" ]]; then
             echo "::error title=No successful predecessor::Refusing Worker replacement without a verified previous asset handoff."
             exit 1
@@ -484,6 +485,11 @@ jobs:
             if node scripts/ci/verify-prior-asset-handoff.mjs \
               "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
               "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"; then
+              deploy_conclusion="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100" --jq '.jobs[] | select(.name=="deploy") | .conclusion' | head -n 1)"
+              if [[ "$deploy_conclusion" != "success" ]]; then
+                echo "Reject candidate $prior_run: deploy job did not complete successfully."
+                continue
+              fi
               cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
               echo "Restored SHA-backed handoff from successful run $prior_run matching active Worker $EXPECTED_ACTIVE_WORKER_VERSION."
               restored=1
