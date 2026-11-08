@@ -396,6 +396,10 @@ const batch012FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 };
 
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'castro': [{ name: 'Dimmitt High School', slug: 'dimmitt', context: 'Dimmitt ISD Western Circle high-school campus in Castro County; stadium gate and current fixture not inferred' }],
+  'hidalgo': [{ name: 'Donna High School', slug: 'donna', context: 'Donna ISD Wood Avenue campus; distinct from Donna North and no venue assumption' }, { name: 'Donna North High School', slug: 'donna-north', context: 'Separate Donna ISD Val Verde campus; confirm game-specific stadium and tickets' }],
+  'hays': [{ name: 'Dripping Springs High School', slug: 'dripping-springs', context: 'Dripping Springs ISD high-school campus on Highway 290 West; athletics field house is not necessarily the stadium entrance' }],
+  'erath': [{ name: 'Dublin High School', slug: 'dublin', context: 'Dublin ISD secondary campus on East State Highway 6; calendar shorthand is not a verified football field address' }],
   'hudspeth': [{ name: 'Dell City', slug: 'dell-city', context: 'Dell City ISD contact campus 110 N Main in Hudspeth County; current varsity football fixture not independently confirmed' }],
   'denton': [{ name: 'Denton Broncos', slug: 'denton', context: 'Denton High campus 3001 Bronco Way in Denton County; C.H. Collins is a district venue, not every game host' }, { name: 'Braswell', slug: 'denton-braswell', context: 'Denton ISD Braswell campus at 26750 E University in Aubrey, not Denton city; venue unconfirmed' }, { name: 'Guyer', slug: 'denton-guyer', context: 'Guyer campus at 7501 Teasley Lane in Denton, separate from Denton High and Braswell' }, { name: 'Ryan', slug: 'denton-ryan', context: 'Ryan High at 5101 E McKinney, a separate Denton ISD campus; host stadium is fixture-specific' }],
   'wise': [{ name: 'Decatur Eagles', slug: 'decatur', context: 'Decatur High campus 750 E Eagle Summit in Wise County; football stadium separately at 608 E Shoemaker St' }],
