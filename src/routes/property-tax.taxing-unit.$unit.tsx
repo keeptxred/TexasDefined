@@ -9,7 +9,8 @@ const latestAustinEsd3Adopted = austinEsd3Sources.rates.at(-1)!;
 // React SSR streams the resolved lazy boundary; client loading is split by route.
 const AustinCountyEsd3Authority = lazy(() => import('@/components/property/AustinCountyEsd3Authority').then((m) => ({ default: m.AustinCountyEsd3Authority })));
 const IsdTaxAuthority = lazy(() => import('@/components/property/IsdTaxAuthority').then((m) => ({ default: m.IsdTaxAuthority })));
-import { getSchoolDistrictPeerRates, getTaxingUnitRateHistory } from '@/data/property/texas-tax-rates.functions';
+import { getTaxingUnitRateHistory } from '@/data/property/texas-tax-rates.functions';
+import { getSchoolDistrictPeerRates } from '@/data/property/school-district-peers.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
