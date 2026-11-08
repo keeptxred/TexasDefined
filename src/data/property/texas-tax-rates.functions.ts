@@ -10,6 +10,22 @@ export const getTaxingUnitRateHistory = createServerFn({ method: 'GET' })
     const peers = latest?.type === 'school-district' && latest.totalRate != null && !latest.rateUnavailable && latest.countySlugs.length
       ? await getSchoolDistrictPeerRatesServer(latest.countySlugs[0], latest.year, latest.slug, latest.totalRate)
       : [];
-    return { history, peers };
+    // Assemble immutable district-specific evidence on the server only.
+    // Client route receives a small attributed result, not source catalogs.
+    const isdEvidence = latest?.type === 'school-district' ? await (async () => {
+      const source = await import('@/data/property/isd-authority');
+      return {
+        adoption: source.getVerifiedHoodIsdAdoption(latest.slug),
+        officialYear: source.hoodIsdEvidence.officialYear,
+        sourceUrl: source.hoodIsdEvidence.sourceUrl,
+        sourceDocumentsUrl: source.hoodIsdEvidence.sourceDocumentsUrl,
+        exemptionSourceUrl: source.hoodIsdEvidence.exemptionSourceUrl,
+        historicalComponents: history.map((item) => ({
+          year: item.year,
+          components: source.getVerifiedIsdHistoricalComponents(item.slug, item.year, item.totalRate),
+        })).filter((item) => item.components != null),
+      };
+    })() : null;
+    return { history, peers, isdEvidence };
   });
 
