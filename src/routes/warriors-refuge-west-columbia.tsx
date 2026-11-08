@@ -17,12 +17,12 @@ const services = [
   },
   {
     title: "Counseling and recovery",
-    detail: "Its published services include individual and group counseling, peer support, mental-health counseling and substance-use recovery support. Ask intake which services are currently offered, how appointments work and whether referrals are available.",
+    detail: "Its published services include individual and group counseling, peer support, mental-health counseling and substance-use recovery support. The organization says counseling may also be available through its Texas Veterans Family Alliance Grant to eligible spouses and children, including families who do not live on campus. Ask intake about eligibility, scheduling and current availability.",
     source: "https://thewarriorsrefuge.us/how-we-help/",
   },
   {
     title: "Employment and education",
-    detail: "The organization lists job training, employment placement, résumé assistance and help with education enrollment. These are paths toward longer-term stability rather than a promise of an immediate job.",
+    detail: "The organization's Warrior Empowerment Project lists job training, employment placement, résumé assistance and education enrollment. Its published employment eligibility focuses on veterans without a dishonorable discharge who are homeless, at risk of homelessness or recently released from incarceration. Eligibility and current openings must be confirmed; this is not a promise of immediate employment.",
     source: "https://thewarriorsrefuge.us/how-we-help/",
   },
   {
@@ -34,6 +34,7 @@ const services = [
 
 const sources = [
   ["The Warrior's Refuge — programs and housing eligibility", "https://thewarriorsrefuge.us/how-we-help/"],
+  ["The Warrior's Refuge — organization history and mission", "https://thewarriorsrefuge.us/aboutus/"],
   ["The Warrior's Refuge — contact, locations and office hours", "https://thewarriorsrefuge.us/contacts/"],
   ["The Warrior's Refuge — financial assistance grant and limitations", "https://thewarriorsrefuge.us/twr-financial-assistance/"],
   ["The Warrior's Refuge — donations, partnerships and volunteering", "https://thewarriorsrefuge.us/getinvolved/"],
@@ -122,6 +123,7 @@ function WarriorsRefugePage() {
           <a href="tel:+19793453800" className="rounded-md bg-primary px-5 py-3 font-semibold text-primary-foreground">Call the intake office</a>
           <ExternalLink href="https://thewarriorsrefuge.us/contacts/">Official contact and intake information</ExternalLink>
         </div>
+        <p className="mt-4 text-sm">For non-emergency service requests, its <ExternalLink href="https://thewarriorsrefuge.us/contacts/">official contact page</ExternalLink> also lists an intake email: <a href="mailto:rickie@thewarriorsrefuge.us" className="font-semibold text-primary underline">rickie@thewarriorsrefuge.us</a>. Verify the current intake contact on that official page if email delivery fails.</p>
         <p className="mt-4 text-sm text-muted-foreground">The organization lists weekday office hours of 9 a.m.–5 p.m. and weekends by appointment. These are office hours, not a guarantee of walk-in housing or emergency placement. If you have nowhere safe to stay tonight, see the 24/7 VA housing line below.</p>
       </section>
 
@@ -149,6 +151,7 @@ function WarriorsRefugePage() {
 
           <section aria-labelledby="programs">
             <h2 id="programs" className="font-display text-3xl">Programs and what each one does</h2>
+            <p className="mt-4">The provider states its services are free to eligible veterans and families. Availability and eligibility vary by program: housing, counseling, employment and emergency financial aid are not interchangeable. <ExternalLink href="https://thewarriorsrefuge.us/how-we-help/">Check official program descriptions and eligibility</ExternalLink>.</p>
             <div className="">
               {services.map((service) => <section key={service.title} className="border-t border-border">
                 <h3 className="font-display text-2xl">{service.title}</h3>
@@ -169,7 +172,7 @@ function WarriorsRefugePage() {
             <p className="mt-4">The organization's Texas Veterans Commission General Assistance Grant page describes limited help for eligible people in <strong>Brazoria, Fort Bend, Galveston, Harris, Jefferson and Matagorda counties</strong>. Depending on the approved need, eligible expenses may include rent, mortgage, utilities and transportation.</p>
             <p className="mt-4"><strong>This is not guaranteed cash or automatic emergency funding.</strong> The provider states that eligibility screening, complete documentation, allowable expenses and available grant funds all govern assistance. For <strong>this financial-assistance grant</strong>, people may request help by phone, using the provider's online application, or as a walk-in; actual services are provided by appointment with an employee or case manager. A walk-in request does not guarantee an immediate appointment or payment.</p>
             <p className="mt-4">For financial-aid screening, the provider requires proof of identity, Texas residency, qualifying military service or relationship, and financial need. It says eligible participants may receive assistance <strong>up to twice per year</strong>, subject to available funds and program rules. Grant funds do not cover taxes included in covered bills or purchases. Confirm the current rules and required documents directly before applying.</p>
-            <p className="mt-3 text-sm"><ExternalLink href="https://thewarriorsrefuge.us/twr-financial-assistance/">Read full program eligibility, counties, documents and limitations</ExternalLink>.</p>
+            <p className="mt-3 text-sm"><ExternalLink href="https://thewarriorsrefuge.us/twr-financial-assistance/">Check financial-aid eligibility, restrictions, and the provider's online application link</ExternalLink>. This is a separate application from transitional housing intake; the provider's site remains the authoritative place to start.</p>
           </section>
 
           <section aria-labelledby="request-process">
