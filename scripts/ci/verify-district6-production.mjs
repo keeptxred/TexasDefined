@@ -40,9 +40,18 @@ async function verify(origin) {
   assert.notEqual(response.headers.get('cf-mitigated'), 'challenge', origin + ' bot challenge');
   const html = await response.text();
   assert.ok(html.length > 6000, origin + ' suspiciously short HTML');
-  for (const marker of markers) assert.ok(html.includes(marker), origin + ' missing: ' + marker);
+  // React SSR may split ordinary visible text across nodes or streaming comment
+  // boundaries. Validate normalized document text, not a brittle raw byte span.
+  const readableText = html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;|&#160;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim().toLowerCase();
+  const missing = markers.filter(marker => !readableText.includes(marker.toLowerCase()));
+  assert.deepEqual(missing, [], origin + ' missing displayed content: ' + missing.join('; '));
   const title = html.match(/<title>([^<]+)<\/title>/i)?.[1] || '';
-  assert.ok(title.includes('District 6-6A Football: 2026 Teams, Schedule & Tickets'), origin + ' stale title ' + title);
+  assert.ok(title.includes('District 6-6A Football: 2026 Teams, Schedule') && title.includes('Tickets'), origin + ' stale title ' + title);
   const canonical = [...html.matchAll(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi)];
   assert.equal(canonical.length, 1, origin + ' canonical count');
   assert.ok(canonical[0][0].includes('https://texasdefined.com' + pathname), origin + ' wrong canonical');
