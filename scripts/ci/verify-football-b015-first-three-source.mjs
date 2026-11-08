@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const read = (p) => readFileSync(p, 'utf8');
 const slugs = ['dell-city', 'denison', 'denton', 'denton-braswell', 'denton-guyer'];
+const newSlugs = ['dimmitt', 'donna', 'donna-north', 'dripping-springs', 'dublin'];
 const source = read('src/data/high-school-football/program-editorial-b015.ts');
 const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
 assert.ok(match, 'Batch015 editorial map missing');
@@ -11,7 +12,7 @@ const loader = read('src/data/high-school-football/program-editorial-b015-loader
 const server = read('src/data/high-school-football/football-program-profile.server.ts');
 assert.ok(server.includes('await loadBatch015FootballProgramEditorial(canonicalSlug)'), 'not wired into SSR');
 assert.ok(loader.includes("import('./program-editorial-b015')"), 'missing lazy loader');
-assert.ok(loader.includes('!BATCH015_FIRST_TWENTY.has(slug)'), 'Batch015 loader must check the defined fifteen-school allowlist, not an obsolete variable');
+assert.ok(loader.includes('!BATCH015_FIRST_TWENTY.has(slug)'), 'Batch015 loader must check the defined twenty-school allowlist, not an obsolete variable');
 assert.ok(!loader.includes('BATCH015_FIRST_THREE.has(slug)'), 'obsolete loader identifier causes production SSR ReferenceError');
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
 assert.equal(registry.schoolRecords.filter(s => s.status === 'VERIFIED').length, 330, 'do not change historical certifications');
@@ -24,19 +25,20 @@ for (const slug of slugs) {
   assert.ok(g.campus.address && g.notice.body);
 }
 
-// Regression coverage must follow the actual fifteen authored SSR entries, not just
+// Regression coverage must follow the actual twenty authored SSR entries, not just
 // the original first-five cohort. This does not certify production Chrome evidence.
-const expectedFifteen = [
+const expectedTwenty = [
   'dell-city', 'denison', 'denton', 'denton-braswell', 'denton-guyer',
   'denton-ryan', 'denver-city', 'detroit', 'devine', 'deweyville',
   'dhanis', 'diana-new-diana', 'diboll', 'dickinson', 'dilley',
+  'dimmitt', 'donna', 'donna-north', 'dripping-springs', 'dublin',
 ];
-assert.deepEqual(Object.keys(guides), expectedFifteen, 'every authored Batch015 guide must be covered; no silent omissions or unreviewed additions');
+assert.deepEqual(Object.keys(guides), expectedTwenty, 'every authored Batch015 guide must be covered; no silent omissions or unreviewed additions');
 const loaderAllowlist = loader.match(/const BATCH015_FIRST_TWENTY = new Set\((\[[^;]*\])\);/);
-assert.ok(loaderAllowlist, 'defined Batch015 fifteen-school SSR allowlist missing');
+assert.ok(loaderAllowlist, 'defined Batch015 twenty-school SSR allowlist missing');
 const allowedSlugs = [...loaderAllowlist[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
-assert.deepEqual(allowedSlugs, expectedFifteen, 'SSR loader and authored guide order must match for all fifteen schools');
-for (const slug of expectedFifteen) {
+assert.deepEqual(allowedSlugs, expectedTwenty, 'SSR loader and authored guide order must match for all twenty schools');
+for (const slug of expectedTwenty) {
   const guide = guides[slug];
   assert.equal(guide.slug, slug, slug + ' guide identity mismatch');
   assert.equal(registry.schoolRecords.find((row) => row.slug === slug)?.status, 'NOT_REVIEWED', slug + ' cannot be certified by source-only tests');
@@ -90,4 +92,4 @@ assert.ok(guides['denton-guyer'].campus.address.includes('Teasley Lane'));
 assert.ok(guides['denton'].campus.address.includes('Bronco Way'));
 assert.ok(guides['denton'].notice.body.includes('not a confirmed universal'));
 assert.ok(guides['dell-city'].faq[0].answer.includes('Not from the reviewed'));
-console.log('PASS: fifteen distinct source-bounded Batch015 SSR guides, loader parity and no premature production certification.');
+console.log('PASS: twenty distinct source-bounded Batch015 SSR guides, loader parity and no premature production certification.');
