@@ -80,6 +80,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: football-b015-25-school-live-chrome-evidence
-          path: artifacts/b015-chrome-report.json
+          path: |
+            artifacts/b015-chrome-report.json
+            artifacts/b015-chrome-screenshots/*.png
           retention-days: 7
           if-no-files-found: error
