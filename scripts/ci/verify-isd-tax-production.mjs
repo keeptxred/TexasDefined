@@ -26,10 +26,13 @@ for (const slug of slugs) {
         ['canonical', html.includes(`https://texasdefined.com/property-tax/taxing-unit/${slug}`)],
         ['not indexed unexpectedly', !/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(html)],
       ];
-      if (slug === 'tolar-isd') {
-        checks.push(['2023 verified components', html.includes('0.669200') && html.includes('0.281682')]);
-        checks.push(['2021 verified components', html.includes('0.963400')]);
-        checks.push(['2022 historical warning', html.includes('2022 historical-source caution')]);
+      for (const [year, historical] of Object.entries(evidence.historicalComponents[slug] ?? {})) {
+        checks.push([`${year} independently corroborated components`,
+          html.includes(historical.maintenanceOperationsRate.toFixed(6))
+            && html.includes(historical.debtServiceRate.toFixed(6))]);
+      }
+      if (evidence.disputedData.some((item) => item.slug === slug)) {
+        checks.push(['2022 historical source discrepancy', html.includes('2022 historical-source caution')]);
       }
       const missing = checks.filter(([, okay]) => !okay).map(([name]) => name);
       if (missing.length) throw new Error(missing.join(', '));
