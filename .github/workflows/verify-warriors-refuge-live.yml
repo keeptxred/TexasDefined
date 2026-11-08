@@ -35,7 +35,7 @@ jobs:
         run: |
           set -euo pipefail
           title="Warrior's Refuge live page: production verification failed"
-          existing="$(gh issue list --state open --search '"Warrior'''s Refuge live page: production verification failed" in:title' --json number,title --limit 100 --jq '.[] | select(.title == "Warrior\u0027s Refuge live page: production verification failed") | .number' | head -1)"
+          existing="$(gh issue list --state open --limit 100 --json number,title --jq '.[] | select(.title | contains("Warrior") and contains("production verification failed")) | .number' | head -1)"
           if [[ -z "$existing" ]]; then
             gh issue create --title "$title" --body "The exact live Warrior's Refuge URL, reader photo, or primary sitemap failed post-deployment acceptance. Diagnose the failing check and correct the underlying production route, asset, cache, or sitemap; do not bypass the gate. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}."
           else
