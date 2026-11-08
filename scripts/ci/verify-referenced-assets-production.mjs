@@ -176,6 +176,14 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^texas-high-school-football-matchups-[A-Za-z0-9_-]+\.js$/,
   /^FishingMerchSpotlight-[A-Za-z0-9_-]+\.js$/,
   /^sports-venue\._slug-[A-Za-z0-9_-]+\.js$/,
+  // Authenticated 2026-11-08 Bing/OAI crawler 404s: each family is a real
+  // dist/client Vite module in protected production run #42490767790.
+  // Only carry emitted files; original HTTP200/SHA and per-family 8 cap still apply.
+  /^ViatorLiveProducts-[A-Za-z0-9_-]+\.js$/,
+  /^CoastalBeachFieldGuide-[A-Za-z0-9_-]+\.js$/,
+  /^ShowcaseLakeGuide-[A-Za-z0-9_-]+\.js$/,
+  /^fishing-[A-Za-z0-9_-]+\.js$/,
+  /^texas-vs\._state-[A-Za-z0-9_-]+\.js$/,
   /^CountyTaxRateSection-[A-Za-z0-9_-]+\.js$/,
   /^PublishableGraphic-[A-Za-z0-9_-]+\.js$/,
   /^_kind\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,
