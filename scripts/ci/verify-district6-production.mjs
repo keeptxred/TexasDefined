@@ -61,6 +61,17 @@ async function verify(origin) {
   const guide = html.indexOf('id="district-6-2026"');
   const sponsor = html.indexOf('Reach Texas high-school football families');
   assert.ok(guide >= 0 && sponsor > guide, origin + ' sponsorship ahead of guide');
+  // PREDEPLOY main/PR checks can legitimately see the previously published guide.
+  // The protected post-deploy gate opts into strict NEW release acceptance after
+  // Wrangler publishes this exact Worker revision. Never accept stale five-game HTML.
+  if (process.env.DISTRICT6_EXPECT_FULL === '1') {
+    const fixtureRows = [...html.matchAll(/data-district6-fixture=["'](\d{4}-\d{2}-\d{2})["']/g)];
+    assert.equal(fixtureRows.length, 28, origin + ' expected all 28 source-checked league matches on live page');
+    assert.ok(readableText.includes('complete 2026 district schedule'), origin + ' missing full-schedule heading');
+    assert.ok(readableText.includes('texasdefined editorial desk'), origin + ' missing editorial-desk attribution');
+    assert.ok(readableText.includes('eight programs, five athletics offices'), origin + ' missing district-specific analysis');
+    assert.ok(!readableText.includes('friday-night fan essentials'), origin + ' generic affiliate filler still present');
+  }
   const schoolLinks = new Set([...html.matchAll(/href=["']\/texas-high-school-football-teams\/([^"'#?]+)/g)].map(m => m[1]));
   assert.ok(schoolLinks.size >= 8, origin + ' missing linked schools: ' + schoolLinks.size);
   assert.ok(!html.includes('data-football-district-records="source-derived"'), origin + ' paused records were rendered');
