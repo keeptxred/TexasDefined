@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { certifiedBatch015 } from '../ci/verified-football-b015-certificate.mjs';
 
 const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
@@ -3142,6 +3143,12 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
             row.schoolPhotoReuseRightsAccepted===false && row.manualAccessibilityAccepted===false;
         }));
       if(!accepted) errors.push('Batch014 certification requires exact 25-school signed 75+25 Chrome evidence and 305 historical certificates');
+    } else if(r.batch.number===15 && r.batch.state==='VERIFIED_BATCH_015_COMPLETE'){
+      // No generic assignment path may accept production verification. Pin signed
+      // 75-school-viewport + 25 reciprocal-county Chrome, exact Worker/source,
+      // unchanged 330 older certificates and all 25 individual school records.
+      if(!certifiedBatch015(r))
+        errors.push('Batch015 certification requires exact 25-school signed 75+25 Chrome evidence, source/Worker identity and preserved 330 historical certificates');
     } else if(r.batch.slugs.length!==25 || new Set(r.batch.slugs).size!==25 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED').length<280 ||
        r.batch.slugs.some(slug=>{
