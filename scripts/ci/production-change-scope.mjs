@@ -86,11 +86,12 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
-  // Exact six GSC ImageObject examples only. Test their *deployed* JSON-LD
+  // Exact seven GSC ImageObject examples only. Test their *deployed* JSON-LD
   // when the shared rights registry changes; no sitewide image crawl.
   const imageRightsPages = new Set();
   if (changedFiles.includes('src/data/image-rights.ts')) {
     for (const path of [
+      '/article/blue-bell-ice-cream-brenham-texas-history',
       '/article/texas-high-school-football-playoffs-explained',
       '/article/texas-six-man-football-rules-explained',
       '/article/texas-cultural-regions-explained',
