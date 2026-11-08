@@ -77,15 +77,14 @@ for (const { name, viewport, mobile } of [
     // same complete DOM snapshot that passes the bounded readiness gate.
     // Never weaken assertions: a genuinely absent heading, guide, answer,
     // or SEO graph still times out/fails instead of being ignored.
-    // A returned Playwright JSHandle can be read across the stream's route-head
-    // transition. Do not accept a partial hydrated snapshot even if a prior
-    // readiness frame had the full graph: repeat the *same strict atomic gate*
-    // at most three times, and fail with bounded diagnostic evidence if the
-    // transferred result does not retain the canonical and all required data.
-    let initial = null;
-    const incompleteSnapshots = [];
-    for (let snapshotAttempt = 0; snapshotAttempt < 3; snapshotAttempt++) {
-      const stableSnapshotHandle = await page.waitForFunction(async () => {
+    // This must be a SYNCHRONOUS Playwright polling function. An async
+    // waitForFunction predicate can occasionally return a truthy Promise handle
+    // before its snapshot resolves; jsonValue() then transfers {} instead of
+    // canonical, H1 and ItemList evidence (observed in live mobile Chrome).
+    // Retain ALL strict content/SEO requirements, and require the *same* fully
+    // valid DOM signature continuously for at least 120 ms before returning
+    // its own immutable snapshot. Missing content still fails within 25 s.
+    const stableSnapshotHandle = await page.waitForFunction(() => {
       const expectedCanonical = "https://texasdefined.com/fishing/lakes";
       const readSnapshot = () => {
         const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
@@ -121,32 +120,27 @@ for (const { name, viewport, mobile } of [
         snapshot.visible.length === 4 &&
         snapshot.visible.every(item => item.name && item.text) &&
         snapshot.itemCount === 72 && snapshot.linkCount === 72;
-      if (!ready(readSnapshot())) return false;
-      await new Promise(requestAnimationFrame);
-      if (!ready(readSnapshot())) return false;
-      await new Promise(requestAnimationFrame);
       const snapshot = readSnapshot();
-      return ready(snapshot) ? snapshot : false;
-    }, null, { timeout: 25000 });
-      const candidate = await stableSnapshotHandle.jsonValue();
-      await stableSnapshotHandle.dispose();
-      if (candidate?.canonical === canonical &&
-          candidate?.h1?.length === 1 && candidate.h1[0] === "Texas fishing lakes" &&
-          /Texas Fishing Lakes/i.test(candidate?.title || "") &&
-          candidate?.status?.includes("Showing 72 of 72 lake guides") &&
-          candidate?.initialCards === 12 && candidate?.visible?.length === 4 &&
-          candidate.visible.every(item => item.name && item.text) &&
-          candidate?.itemCount === 72 && candidate?.linkCount === 72) {
-        initial = candidate;
-        break;
+      const stableMarker = "__texasDefinedFishingLakesStableSnapshot";
+      if (!ready(snapshot)) {
+        delete window[stableMarker];
+        return false;
       }
-      incompleteSnapshots.push({ attempt: snapshotAttempt + 1,
-        canonical: candidate?.canonical ?? null, title: candidate?.title ?? null,
-        h1: candidate?.h1 ?? null, items: candidate?.itemCount ?? null,
-        answers: candidate?.visible?.length ?? null });
-    }
-    assert.ok(initial, name + ": no complete transferred atomic SEO snapshot after strict retries: "
-      + JSON.stringify(incompleteSnapshots));
+      const signature = JSON.stringify({ title: snapshot.title, h1: snapshot.h1,
+        canonical: snapshot.canonical, robots: snapshot.robots,
+        itemCount: snapshot.itemCount, linkCount: snapshot.linkCount,
+        visible: snapshot.visible, status: snapshot.status, initialCards: snapshot.initialCards });
+      const prior = window[stableMarker];
+      if (!prior || prior.signature !== signature) {
+        window[stableMarker] = { signature, at: performance.now() };
+        return false;
+      }
+      return performance.now() - prior.at >= 120 ? snapshot : false;
+    }, null, { timeout: 25000, polling: "raf" });
+    const initial = await stableSnapshotHandle.jsonValue();
+    await stableSnapshotHandle.dispose();
+    assert.ok(initial && typeof initial === "object" && !Array.isArray(initial),
+      name + ": stable browser SEO snapshot must be an object, never a Promise/boolean");
 
     assert.equal(initial.canonical, canonical, name + ": canonical mismatch");
     assert.equal(initial.h1.length, 1, name + ": canonical page requires exactly one stable H1");
