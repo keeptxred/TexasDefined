@@ -79,6 +79,28 @@ test('Nov 7 live edge 404 module families qualify only as original SHA-backed sa
     assert.equal(safeCriticalAsset(path), false, path);
 });
 
+test('Nov 7 gateway and football recent 200-to-404 hashes remain SHA-gated and safe', () => {
+  const observed = [
+    '/assets/texas-gateway-lifestyle-batch6-CAF9mNoS.js',
+    '/assets/texas-gateway-identity-batch16-Cy6AU-K1.js',
+    '/assets/texas-gateway-monthly-batch15-CHlkxh45.js',
+    '/assets/texas-high-school-football-teams.lazy-B1bsRoZi.js',
+    '/assets/texas-DKPbpnwC.js',
+    '/assets/texas-gateway-decision-batch12-DCeNfaJx.js',
+    '/assets/texas-gateway-decision-batch13-Dz-l0EQZ.js',
+    '/assets/texas-gateway-regional-batch7-El5XsW8Z.js',
+    '/assets/lazy-authority-legacy-DEdbAnqF.js',
+    '/assets/texas-gateway-bestof-batch8-BtR_dD4f.js',
+    '/assets/texas-gateway-lifestyle-batch3-CSzIIG0q.js',
+  ];
+  for (const path of observed) assert.equal(safeCriticalAsset(path), true, path);
+  for (const path of ['/assets/texas-get-your-private-key.js',
+    '/assets/texas-gateway-decision-batch12-BAD.js?bust=1',
+    '/assets/texas-gateway-../../secret.js',
+    'https://evil.example/assets/lazy-authority-legacy-DEdbAnqF.js'])
+    assert.equal(safeCriticalAsset(path), false, path);
+});
+
 test('candidate union contains current HTML old bundle and prior generated lazy modules', () => {
   const old = { path: '/assets/main-BbzNQxMh.js', kind: 'js',
     wasAvailable: true, preSha256: hash };

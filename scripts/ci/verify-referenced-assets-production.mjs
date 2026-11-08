@@ -151,6 +151,17 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^PrioritySearchPage-[A-Za-z0-9_-]+\.js$/,
   /^football-district21-2026-[A-Za-z0-9_-]+\.js$/,
   /^national-wildlife-refuge-destinations-[A-Za-z0-9_-]+\.js$/,
+  // Eleven additional Nov 7 original-byte-eligible 200/304 -> 404 paths.
+  // Six bounded gateway families plus football, legacy and exact 8-char texas hash.
+  /^texas-gateway-lifestyle-batch[0-9]+-[A-Za-z0-9_-]+\.js$/,
+  /^texas-gateway-identity-batch[0-9]+-[A-Za-z0-9_-]+\.js$/,
+  /^texas-gateway-monthly-batch[0-9]+-[A-Za-z0-9_-]+\.js$/,
+  /^texas-gateway-decision-batch[0-9]+-[A-Za-z0-9_-]+\.js$/,
+  /^texas-gateway-regional-batch[0-9]+-[A-Za-z0-9_-]+\.js$/,
+  /^texas-gateway-bestof-batch[0-9]+-[A-Za-z0-9_-]+\.js$/,
+  /^texas-high-school-football-teams\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^lazy-authority-legacy-[A-Za-z0-9_-]+\.js$/,
+  /^texas-[A-Za-z0-9_-]{8}\.js$/,
   /^CountyTaxRateSection-[A-Za-z0-9_-]+\.js$/,
   /^PublishableGraphic-[A-Za-z0-9_-]+\.js$/,
   /^_kind\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,
