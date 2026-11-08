@@ -87,6 +87,9 @@ assert.notEqual(guides['eagle-pass'].campus.address, guides['eagle-pass-winn'].c
 assert.ok(guides.duncanville.overview.join(' ').includes('710 S Cedar Ridge'), 'Duncanville conflicting official addresses must be disclosed');
 const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
+for (const countySlug of ['moore', 'dallas', 'tarrant', 'maverick']) {
+  assert.equal([...county.matchAll(new RegExp("^  '" + countySlug + "':", 'gm'))].length, 1, countySlug + ' duplicate county map key would silently erase existing links');
+}
 for (const [slug, countySlug] of [['dumas','moore'],['duncanville','dallas'],['eagle-mountain','tarrant'],['eagle-pass','maverick'],['eagle-pass-winn','maverick']]) {
   assert.ok(team.includes("'" + slug + "': '" + countySlug + "'"), slug + ' missing campus-county mapping');
   assert.ok(county.includes("slug: '" + slug + "'"), slug + ' missing reciprocal county link');
