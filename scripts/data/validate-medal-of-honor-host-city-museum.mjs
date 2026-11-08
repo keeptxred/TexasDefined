@@ -39,11 +39,20 @@ requireAll(subject, [
   "not a photograph",
   "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
 ], "museum data");
+const route = read("src/routes/destination.$slug.tsx");
+const monitorWorkflow = read(".github/workflows/medal-of-honor-museum-authority.yml");
+const liveVerifier = read("scripts/data/verify-medal-of-honor-host-city-museum-live.mjs");
+requireAll(route, ["Medal of Honor Host City Museum, Gainesville: Hours & Visitor Guide", "isGainesvilleMedalMuseum", "isAccessibleForFree: true"], "museum unique metadata and schema");
+requireAll(subject, ["Duane E. Dewey", "Roger Hugh C. Donlon", "Michael John Fitzmaurice", "veteransDayCampusClosure", "Date.UTC(2026, 10, 12)"], "exhibit evidence and expiring closure");
+requireAll(monitorWorkflow, ["verify-live:", "steps.live.outcome == 'failure'", "scripts/data/verify-medal-of-honor-host-city-museum-live.mjs"], "postdeploy and scheduled verifier");
+requireAll(liveVerifier, ["/sitemap-explore.xml", "museum-canonical", "museum-jsonld", "museum-search-title", "incoming-link", "PUBLICATION NOT CERTIFIED"], "live acceptance");
+
 const dossier = read("src/data/museum-authority-network.ts");
 const faqRegistry = read("src/data/museum-visitor-faqs.ts");
 const slugIndex = read("src/data/museum-authority-slugs.ts");
 const manifest = JSON.parse(read("public/museum-verification-manifest.json"));
 if (!dossier.includes('"medal-of-honor-host-city-museum-gainesville": {') || !dossier.includes('sources: [')) failures.push("Full sourced museum research dossier missing");
+if (!dossier.includes("Documented 2025 recipient-gallery panels") || !dossier.includes("KXII — 2025 photograph of museum recipient gallery panels")) failures.push("Dated primary exhibit research missing");
 if (!faqRegistry.includes('"medal-of-honor-host-city-museum-gainesville": [')) failures.push("Museum-specific researched FAQs missing");
 if (!slugIndex.includes("|medal-of-honor-host-city-museum-gainesville")) failures.push("Lightweight museum SEO registry missing");
 const row = manifest.museums.find((entry) => entry.path === canonical);
