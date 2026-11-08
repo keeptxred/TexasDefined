@@ -67,13 +67,6 @@ export const medalOfHonorHostCityMuseumDestinations: Destination[] = [{
     "For accessibility, step-free routes, seating, hearing assistance, accessible parking, and sensory accommodations are not detailed sufficiently on the public museum page to make definite claims. Contact museum staff ahead of time at 940-668-3330 or MOH.HostCityMuseum@nctc.edu. A lack of published specifics should not be presented as evidence that an accommodation is unavailable.",
     "Sources and methodology: this independently written guide reconciles current NCTC museum hours with the handbook's summer schedule and earlier opening notices. Museum exhibits and accessibility details are presented conservatively; location coordinates derive from the OpenStreetMap museum record. No first-hand visit or special staff access is claimed. Information checked November 8, 2026; changing details require a fresh source review.",
   ],
-  visitorFaqs: [
-    { question: "Is the Medal of Honor Host City Museum free?", answer: "Yes. NCTC's published field-trip handbook explicitly states that admission to the museum is free. Special programs may follow separate arrangements.", sourceUrl: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf" },
-    { question: "Can I visit on Saturday or Sunday?", answer: "The museum's published regular schedule lists weekday hours only. Do not assume weekend admission; contact museum staff about any public special events or private tours.", sourceUrl: "https://www.nctc.edu/museum/" },
-    { question: "Does a school class need a reservation?", answer: "Yes. NCTC requires school groups to schedule at least two weeks in advance, with a maximum 100 participants per session and at least one adult chaperone per ten students.", sourceUrl: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf" },
-    { question: "Is this the National Medal of Honor Museum in Arlington?", answer: "No. Gainesville's museum at NCTC interprets Medal of Honor recipients and the local Host City tradition. The separate National Medal of Honor Museum is in Arlington, Texas.", sourceUrl: "https://www.nctc.edu/museum/" },
-    { question: "Who should I call about access or a special tour?", answer: "NCTC lists 940-668-3330 and MOH.HostCityMuseum@nctc.edu for field trips, events and private tours.", sourceUrl: "https://www.nctc.edu/museum/" },
-  ],
   areaGuide: {
     intro: "Use a weekday museum visit as the starting point for an independent Gainesville history outing. These are nearby, separate destinations with their own hours and access requirements.",
     nearbyAttractions: [
@@ -95,29 +88,5 @@ export const medalOfHonorHostCityMuseumDestinations: Destination[] = [{
       { name: "National Medal of Honor Museum (Arlington)", description: "Different institution and admission arrangement; consult its official website if you plan to visit both.", proximity: "Arlington, Texas" },
     ],
   },
-  authorityGuide: {
-    whyItMatters: "Gainesville's museum makes the Host City tradition concrete. It invites readers to connect official military citations with individual lives and the community that welcomes recipients, without confusing it with the larger National Medal of Honor Museum in Arlington.",
-    assessment: {
-      recommendedVisit: "Visit during verified weekday hours. Treat it as a thoughtful museum stop paired with separate Gainesville historic sites; the operator does not publish a standard tour length.",
-      physicalEffort: "Low to moderate",
-      weatherExposure: "Mostly indoors",
-      planningLevel: "Low",
-      familyFit: "Strong educational fit for students and families; organized school trips require advance notice and chaperones.",
-      firstTimeValue: "Best for stories, civic recognition and Medal of Honor history, rather than aircraft or heavy-equipment displays.",
-    },
-    itineraries: [
-      { label: "Focused first visit", duration: "Self-paced museum stop", steps: ["Confirm current NCTC weekday hours and campus access before departing.", "Begin with recipient life stories, then compare personal artifacts and the Host City tradition.", "Write down an unfamiliar recipient's name to continue independent research afterward."] },
-      { label: "Gainesville history pairing", duration: "Flexible half-day plan", steps: ["Visit the museum during published weekday hours.", "Continue to the separate Medal of Honor Host City Park if public access is available.", "Explore downtown Gainesville and the Morton Museum of Cooke County after checking its hours."] },
-      { label: "School or youth-group learning", duration: "Advance-scheduled educational visit", steps: ["At least two weeks ahead, contact NCTC to schedule and obtain learning materials.", "Arrange one chaperone per ten students and follow the 100-person session limit.", "Arrive early for check-in; use guided or self-guided exhibit materials, then lead a class discussion on the Medal's core values."] },
-    ],
-    sources: [
-      { label: "NCTC — Museum hours, collections and contact", url: "https://www.nctc.edu/museum/", scope: "Current museum mission, regular hours, events, donation and education information, contact" },
-      { label: "NCTC — Field Trip Handbook", url: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf", scope: "Free admission, regular versus summer hours, reservations, chaperones, parking, group policies" },
-      { label: "Medal of Honor Host City Program — museum", url: "https://medalofhonorhostcity.com/museum/", scope: "Gainesville Host City context and independent published museum schedule" },
-      { label: "NCTC — public opening report", url: "https://northcentraltc.squarespace.com/news/medal-of-honor-host-city-museum-now-open-to-the-public", scope: "2025 public opening and museum's NCTC campus address; earlier hours not treated as current" },
-      { label: "City of Gainesville — Medal of Honor Park", url: "https://www.gainesville.tx.us/Facilities/Facility/Details/Medal-of-Honor-Host-City-Park-18", scope: "The separate public Host City Park and its role" },
-      { label: "OpenStreetMap museum geometry via Mapcarta", url: "https://mapcarta.com/W1444560241", scope: "Point location, not primary authority for operating hours" },
-      { label: "Wikimedia Commons — U.S. SOCOM medal image", url: "https://commons.wikimedia.org/wiki/File:Tri-service_medal_of_honor.jpg", scope: "Public-domain historical-topic illustration; not presented as a museum photo" },
-    ],
-  },
+
 }];
