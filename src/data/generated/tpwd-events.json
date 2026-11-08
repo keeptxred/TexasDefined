@@ -1,73 +1,7 @@
 {
-  "generatedAt": "2026-11-07T16:35:32.479Z",
+  "generatedAt": "2026-11-08T17:06:25.998Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "All About Us: a Guided Hike",
-      "startDate": "2026-11-07",
-      "parkKey": "brazos-bend",
-      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-07"
-    },
-    {
-      "title": "Archery 101",
-      "startDate": "2026-11-07",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-07"
-    },
-    {
-      "title": "Art In The Park",
-      "startDate": "2026-11-07",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/art-in-the-park-1/2026-11-07"
-    },
-    {
-      "title": "Dutch Oven Cooking & Tasting",
-      "startDate": "2026-11-07",
-      "parkKey": "daingerfield",
-      "officialUrl": "https://tpwd.texas.gov/calendar/daingerfield/dutch-oven-cooking/2026-11-07"
-    },
-    {
-      "title": "Gator Talk – Cohabitation with an Apex Predator",
-      "startDate": "2026-11-07",
-      "parkKey": "huntsville",
-      "officialUrl": "https://tpwd.texas.gov/calendar/huntsville/gator-talk-2013-cohabitation-with-an-apex-predator-3/2026-11-07"
-    },
-    {
-      "title": "Lake Hike",
-      "startDate": "2026-11-07",
-      "parkKey": "abilene",
-      "officialUrl": "https://tpwd.texas.gov/calendar/abilene/copy3_of_first-day-fitness-hike/2026-11-07"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-11-07",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-07"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-11-07",
-      "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-11-07"
-    },
-    {
-      "title": "Mission History Tour",
-      "startDate": "2026-11-07",
-      "parkKey": "goliad",
-      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/guided-history-tour-1/2026-11-07"
-    },
-    {
-      "title": "Saturday Honey Creek Guided Walk--Registration Required",
-      "startDate": "2026-11-07",
-      "parkKey": "guadalupe-river",
-      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-07"
-    },
-    {
-      "title": "Star Party in the Borderlands *Reservations Required*",
-      "startDate": "2026-11-07",
-      "parkKey": "barton-warnock",
-      "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/copy6_of_star-party-in-the-borderlands-reservations-required/2026-11-07"
-    },
     {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-11-08",
@@ -79,12 +13,6 @@
       "startDate": "2026-11-08",
       "parkKey": "galveston-island",
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-11-08"
-    },
-    {
-      "title": "Birding with a Ranger",
-      "startDate": "2026-11-08",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/birding-with-a-ranger/2026-11-08"
     },
     {
       "title": "Book Lady Book Fair",
@@ -1471,6 +1399,18 @@
       "startDate": "2027-02-04",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/reading-with-a-ranger/2027-02-04"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2027-02-06",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-02-06"
+    },
+    {
+      "title": "Reptiles with a Ranger",
+      "startDate": "2027-02-06",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2027-02-06"
     }
   ]
 }
