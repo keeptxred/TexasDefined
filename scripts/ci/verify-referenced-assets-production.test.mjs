@@ -559,3 +559,19 @@ test('all 4 actual Nov8 Vite CSS entries remain subject to the old/new SHA hando
     'network-'+String(i).padStart(8,'0')+'.css')]),/at most eight distinct/,
     'route CSS must never bypass the per-family finite cap');
 });
+
+
+test('rapid main pushes are rejected after build BEFORE expensive old-worker asset recovery', () => {
+  const workflow=readFileSync('.github/workflows/deploy-production.yml','utf8');
+  const build=workflow.indexOf('      - name: Build production bundle');
+  const early=workflow.indexOf('      - name: Refuse superseded source before historical asset recovery');
+  const restore=workflow.indexOf("      - name: Restore active Worker's verified successful asset handoff");
+  const late=workflow.indexOf('      - name: Refuse superseded Worker revision');
+  assert.ok(build>=0 && early>build && restore>early && late>restore,
+    'after build, refuse obsolete main BEFORE predecessor archive, but preserve final pre-Wrangler refusal');
+  const step=workflow.slice(early,restore);
+  assert.match(step,/if: success\(\)/);
+  assert.match(step,/git ls-remote --exit-code origin refs\/heads\/main/);
+  assert.match(step,/latest_main.*GITHUB_SHA/);
+  assert.match(step,/exit 1/);
+});
