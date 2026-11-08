@@ -1,0 +1,70 @@
+{
+  "sourceAgency": "Hood Central Appraisal District",
+  "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/",
+  "sourceDocumentsUrl": "https://hoodcad.net/truth-in-taxation-documentation/",
+  "exemptionSourceUrl": "https://hoodcad.net/adopted-tax-rates/",
+  "officialYear": 2026,
+  "verifiedOn": "2026-11-08",
+  "districts": {
+    "tolar-isd": {
+      "name": "Tolar ISD",
+      "totalRate": 0.8944,
+      "maintenanceOperationsRate": 0.6128,
+      "debtServiceRate": 0.2816
+    },
+    "granbury-isd": {
+      "name": "Granbury ISD",
+      "totalRate": 0.8781,
+      "maintenanceOperationsRate": 0.7781,
+      "debtServiceRate": 0.1
+    },
+    "lipan-isd": {
+      "name": "Lipan ISD",
+      "totalRate": 1.0469,
+      "maintenanceOperationsRate": 0.7469,
+      "debtServiceRate": 0.3
+    },
+    "bluff-dale-isd": {
+      "name": "Bluff Dale ISD",
+      "totalRate": 0.8195,
+      "maintenanceOperationsRate": 0.7011,
+      "debtServiceRate": 0.1184
+    },
+    "glen-rose-isd": {
+      "name": "Glen Rose ISD",
+      "totalRate": 0.76,
+      "maintenanceOperationsRate": 0.6673,
+      "debtServiceRate": 0.0927
+    },
+    "godley-isd": {
+      "name": "Godley ISD",
+      "totalRate": 1.2845,
+      "maintenanceOperationsRate": 0.7845,
+      "debtServiceRate": 0.5
+    }
+  },
+  "historicalComponents": {
+    "tolar-isd": {
+      "2021": {
+        "totalRate": 1.245082,
+        "maintenanceOperationsRate": 0.9634,
+        "debtServiceRate": 0.281682,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2023": {
+        "totalRate": 0.950882,
+        "maintenanceOperationsRate": 0.6692,
+        "debtServiceRate": 0.281682,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      }
+    }
+  },
+  "disputedData": [
+    {
+      "slug": "tolar-isd",
+      "year": 2022,
+      "explanation": "The Hood CAD 2022 summary does not reconcile the displayed adopted total with its M&O and debt entries. Do not backfill the 2022 components until the source discrepancy is resolved.",
+      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+    }
+  ]
+}
