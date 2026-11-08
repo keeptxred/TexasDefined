@@ -33,7 +33,11 @@ for (const [slug, records] of Object.entries(evidence.historicalComponents)) {
   }
 }
 assert.deepEqual(Object.keys(evidence.historicalComponents['tolar-isd']).sort(), ['2021', '2023'], 'Never backfill disputed Tolar 2022 components');
-assert.ok(evidence.disputedData.some((x) => x.slug === 'tolar-isd' && x.year === 2022));
+assert.equal(Object.values(evidence.historicalComponents).reduce((total, item) => total + Object.keys(item).length, 0), 15, '15 year-specific components must be independently source-qualified');
+assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 2022).map((item) => item.slug)), new Set(['tolar-isd', 'granbury-isd', 'lipan-isd']));
+for (const { slug, year } of evidence.disputedData) {
+  assert.ok(!evidence.historicalComponents[slug]?.[String(year)], `${slug}: ${year} cannot be treated as verified when the source conflicts`);
+}
 assert.match(route, /latest\.type === 'school-district' \? <Suspense/);
 assert.match(route, /getVerifiedIsdHistoricalComponents/);
 assert.match(route, /showSchoolAdoption/);
