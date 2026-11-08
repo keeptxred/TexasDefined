@@ -77,7 +77,15 @@ for (const { name, viewport, mobile } of [
     // same complete DOM snapshot that passes the bounded readiness gate.
     // Never weaken assertions: a genuinely absent heading, guide, answer,
     // or SEO graph still times out/fails instead of being ignored.
-    const stableSnapshotHandle = await page.waitForFunction(async () => {
+    // A returned Playwright JSHandle can be read across the stream's route-head
+    // transition. Do not accept a partial hydrated snapshot even if a prior
+    // readiness frame had the full graph: repeat the *same strict atomic gate*
+    // at most three times, and fail with bounded diagnostic evidence if the
+    // transferred result does not retain the canonical and all required data.
+    let initial = null;
+    const incompleteSnapshots = [];
+    for (let snapshotAttempt = 0; snapshotAttempt < 3; snapshotAttempt++) {
+      const stableSnapshotHandle = await page.waitForFunction(async () => {
       const expectedCanonical = "https://texasdefined.com/fishing/lakes";
       const readSnapshot = () => {
         const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
@@ -120,8 +128,25 @@ for (const { name, viewport, mobile } of [
       const snapshot = readSnapshot();
       return ready(snapshot) ? snapshot : false;
     }, null, { timeout: 25000 });
-    const initial = await stableSnapshotHandle.jsonValue();
-    await stableSnapshotHandle.dispose();
+      const candidate = await stableSnapshotHandle.jsonValue();
+      await stableSnapshotHandle.dispose();
+      if (candidate?.canonical === canonical &&
+          candidate?.h1?.length === 1 && candidate.h1[0] === "Texas fishing lakes" &&
+          /Texas Fishing Lakes/i.test(candidate?.title || "") &&
+          candidate?.status?.includes("Showing 72 of 72 lake guides") &&
+          candidate?.initialCards === 12 && candidate?.visible?.length === 4 &&
+          candidate.visible.every(item => item.name && item.text) &&
+          candidate?.itemCount === 72 && candidate?.linkCount === 72) {
+        initial = candidate;
+        break;
+      }
+      incompleteSnapshots.push({ attempt: snapshotAttempt + 1,
+        canonical: candidate?.canonical ?? null, title: candidate?.title ?? null,
+        h1: candidate?.h1 ?? null, items: candidate?.itemCount ?? null,
+        answers: candidate?.visible?.length ?? null });
+    }
+    assert.ok(initial, name + ": no complete transferred atomic SEO snapshot after strict retries: "
+      + JSON.stringify(incompleteSnapshots));
 
     assert.equal(initial.canonical, canonical, name + ": canonical mismatch");
     assert.equal(initial.h1.length, 1, name + ": canonical page requires exactly one stable H1");
