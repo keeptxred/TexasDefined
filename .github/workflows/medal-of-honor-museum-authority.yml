@@ -60,7 +60,7 @@ jobs:
         run: |
           set -euo pipefail
           title='Museum source drift: Medal of Honor Host City Museum'
-          body='The weekly primary-source audit of the Gainesville museum detected a possible change or retrieval problem. Check the report artifact for this workflow run, compare official museum hours, admission and field-trip handbook, and update the authority page only after confirming actual changes. Canonical: /destination/medal-of-honor-host-city-museum-gainesville. Workflow run: ' "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          body="The weekly primary-source audit of the Gainesville museum detected a possible change or retrieval problem. Check the report artifact for this workflow run, compare official museum hours, admission and field-trip handbook, and update the authority page only after confirming actual changes. Canonical: /destination/medal-of-honor-host-city-museum-gainesville. Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           existing="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Museum source drift: Medal of Honor Host City Museum") | .number' | head -1)"
           if [ -n "$existing" ]; then
             gh issue comment "$existing" --body "$body"
