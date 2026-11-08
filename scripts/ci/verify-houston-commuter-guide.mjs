@@ -40,7 +40,11 @@ required(tool, [
 required(route, [
   'import("@/components/relocation/HoustonCommuterPlanner")',
   'article.slug === "best-houston-suburbs-for-commuters"',
-  "<HoustonCommuterPlanner />"
+  "<HoustonCommuterPlanner />",
+  "houstonCommuterImageRights",
+  "acquireLicensePage: houstonCommuterImageRights.sourceUrl",
+  "license: houstonCommuterImageRights.licenseUrl",
+  'creator: { "@type": "Person", name: "Famartin" }'
 ], "article route");
 required(stub, [slug, "Best Houston Suburbs for Commuters: Compare by Job Corridor", 'updatedAt: "2026-11-08"'], "catalog");
 required(article, ["Best Houston Suburbs for Commuters: Compare by Job Corridor", 'updatedAt: "2026-11-08"'], "article");
