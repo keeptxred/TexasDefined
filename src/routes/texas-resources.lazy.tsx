@@ -53,6 +53,15 @@ const groups: ReadonlyArray<ResourceGroup> = [
     ],
   },
   {
+    title: 'Veterans and military families',
+    description: 'Find a verified local intake contact and understand the distinction between veteran housing, counseling and emergency financial assistance.',
+    links: [
+      ["The Warrior's Refuge — West Columbia", '/warriors-refuge-west-columbia', 'Transitional housing, counseling, employment support, eligibility and direct intake contacts; includes Alvin Rally Point details.'],
+      ['Disabled-veteran property-tax exemptions', '/learn/disabled-veteran-property-tax-benefits', 'Official Texas property-tax benefit rules and county appraisal-district filing guidance.'],
+      ['Emergency and community services finder', '/find-my-emergency-services', 'Find other local resources and understand when to use official crisis or emergency contacts.'],
+    ],
+  },
+  {
     title: 'Work & business',
     description: 'Start with the business or employment task, then follow the relevant Texas agency or guide.',
     links: [
