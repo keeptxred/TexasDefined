@@ -26,7 +26,7 @@ export function extractAccessFacilityHeadings(html) {
     // article. Never search through an entire unrelated document for names.
     if (heading.level <= 2) break;
     if (heading.level < 3 || heading.label.length < 4 || heading.label.length > 100) continue;
-    if (/^return to\b/i.test(heading.label) || /^(?:public access facilities|sign up for email updates|fishing regulations|fishing reports|local information|nearby state parks|water resources)$/i.test(heading.label)) continue;
+    if (/^return to\b/i.test(heading.label) || /\b(?:alert|advisory|warning|notice)$/i.test(heading.label) || /^(?:public access facilities|sign up for email updates|fishing regulations|fishing reports|local information|nearby state parks|water resources)$/i.test(heading.label)) continue;
     if (!candidates.includes(heading.label)) candidates.push(heading.label);
     if (candidates.length >= 30) break;
   }

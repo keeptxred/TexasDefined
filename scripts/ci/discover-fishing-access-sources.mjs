@@ -1,15 +1,13 @@
 import fs from "node:fs";
 import { extractAccessFacilityHeadings } from "./parse-tpwd-access-facilities.mjs";
+import { selectUnreviewedFishingLakes } from "./select-unreviewed-fishing-lakes.mjs";
 const definitions = fs.readFileSync("src/data/fishing/statewide-lake-network.ts", "utf8");
 const curated = JSON.parse(fs.readFileSync("src/data/fishing/curated-access-sites.json", "utf8"));
 const known = new Set(curated.map((x) => x.lakeId));
-const lakes = [...definitions.matchAll(/slug:\s*"([^"]+)"[^\n]*tpwdSlug:\s*"([^"]+)"/g)]
-  .map((m) => ({ lakeId: m[1], tpwd: m[2] }))
-  .filter((row, index, all) => all.findIndex((x) => x.lakeId === row.lakeId) === index)
-  .filter((row) => !known.has(row.lakeId));
-if (lakes.length < 10) throw new Error("Unexpectedly few uncurated lake definitions");
+const discovery = selectUnreviewedFishingLakes(definitions, known);
+const lakes = discovery.lakes;
 const size = 8;
-const batches = Math.ceil(lakes.length / size);
+const batches = Math.max(1, Math.ceil(lakes.length / size));
 const arg = process.env.FISHING_DISCOVERY_BATCH;
 const ordinal = arg === undefined || arg === "" ? Number(process.env.GITHUB_RUN_NUMBER ?? "1") - 1 : Number(arg);
 if (!Number.isInteger(ordinal) || ordinal < 0) throw new Error("Invalid discovery batch");
@@ -36,7 +34,7 @@ async function inspect(lake) {
 }
 const found = [];
 for (let p = 0; p < batch.length; p += 4) found.push(...await Promise.all(batch.slice(p, p + 4).map(inspect)));
-const report = { checkedAt: new Date().toISOString(), policy: "Unpublished candidates only; never auto-publish before individual source and lake checks", knownStatewideLakeDefinitions: lakes.length + known.size, curatedLakeGroups: known.size, uncuratedCandidateLakes: lakes.length, batchIndex: index, totalBatches: batches, results: found };
+const report = { checkedAt: new Date().toISOString(), policy: "Unpublished candidates only; never auto-publish before individual source and lake checks", knownStatewideLakeDefinitions: discovery.totalDistinctKnownLakes, curatedLakeGroups: known.size, alreadySourceReviewedNetworkLakeGroups: discovery.reviewedLakeGroups, existingAccessWithoutExplicitDate: discovery.existingAccessWithoutExplicitDate, uncuratedCandidateLakes: lakes.length, batchIndex: index, totalBatches: batches, results: found };
 fs.mkdirSync(".artifacts", { recursive: true });
 fs.writeFileSync(".artifacts/fishing-access-discovery.json", JSON.stringify(report, null, 2) + "\n");
 const lines = ["# Fishing access source discovery", "", "Batch " + (index + 1) + " of " + batches + "; " + found.length + " official lake pages reviewed.", "", "Unpublished source candidates only. Individual facility details require verification before addition to public catalog.", "", ...found.map((x) => "- **" + x.lakeId + "**: " + x.status + "; " + (x.source ?? x.attempts?.[0]?.url ?? "none") + "; names: " + (x.names?.slice(0, 8).join(", ") ?? "none"))];

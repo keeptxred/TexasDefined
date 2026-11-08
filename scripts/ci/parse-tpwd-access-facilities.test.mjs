@@ -39,3 +39,13 @@ test("TPWD alternate heading depth, deduplication, and link text are supported",
     <h2>Other Facilities</h2><h6>Unrelated</h6>`;
   assert.deepEqual(extractAccessFacilityHeadings(html), ["North & South Ramp", "West Bay Park"]);
 });
+
+test("lake-specific safety alert within article is not an access facility", () => {
+  const html = `<h1>Sweetwater Reservoir</h1><h2>Public Access Facilities</h2>
+    <h4>Golden Alga Alert</h4>
+    <p>Golden alga is a water quality warning, not a ramp.</p>
+    <h6>Boat Ramp</h6>
+    <h2>Sign Up for Email Updates</h2>`;
+  assert.deepEqual(extractAccessFacilityHeadings(html), ["Boat Ramp"]);
+});
+
