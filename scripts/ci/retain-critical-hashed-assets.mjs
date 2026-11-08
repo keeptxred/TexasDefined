@@ -46,7 +46,12 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // never drop a healthy in-window URL to make a release succeed.
 const LIMIT_FILES = 3072;
 const LIMIT_BYTES = 192 * 1024 * 1024;
-const LIMIT_ONE_FILE = 2 * 1024 * 1024;
+// 2026-11-08 incident: run 42450404917 preserved each original SHA but
+// refused /assets/state-park-heroes-BZc-RXc8.js (3,004,913 bytes) under the
+// arbitrary 2 MiB legacy cap. Cloudflare's documented static-asset ceiling is
+// higher; use a measured, finite 4 MiB original-file cap. Keep 192 MiB total,
+// 3,072 old-only files, 72h expiry, verified original SHA/MIME and fail closed.
+const LIMIT_ONE_FILE = 4 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 20000;
 
