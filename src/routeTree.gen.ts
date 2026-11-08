@@ -2895,7 +2895,9 @@ const ExploreLighthousesRoute = ExploreLighthousesRouteImport.update({
   id: '/explore/lighthouses',
   path: '/explore/lighthouses',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/explore.lighthouses.lazy').then((d) => d.Route),
+)
 const ExploreLandscapesRoute = ExploreLandscapesRouteImport.update({
   id: '/explore/landscapes',
   path: '/explore/landscapes',
