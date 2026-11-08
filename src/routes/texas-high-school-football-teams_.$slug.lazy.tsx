@@ -189,6 +189,8 @@ function Page() {
     'diboll': 'angelina', // TEA district/campus county directory; campus is not necessarily the game venue.
     'dickinson': 'galveston', // TEA district/campus county directory; campus is not necessarily the game venue.
     'dilley': 'frio', // TEA district/campus county directory; campus is not necessarily the game venue.
+    'dhanis': 'medina', // TEA D'Hanis ISD campus 163902 in Medina County; no current venue inferred.
+    'diana-new-diana': 'upshur', // TEA 2025 New Diana High 230906001 in Upshur County.
     'denton-ryan': 'denton', // Ryan High 5101 E McKinney St, separate Denton ISD campus.
     'detroit': 'red-river', // NCES Detroit High 630 1st St NW, not district office 110 E Garner.
     'deweyville': 'newton', // UIL Deweyville campus Newton County despite Orange postal city.
