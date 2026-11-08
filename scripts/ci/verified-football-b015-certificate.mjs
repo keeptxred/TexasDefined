@@ -1,5 +1,6 @@
 // Read-only certificate guard: never promote a school or infer human review.
-// Historical same-release Chrome evidence anchored to run #42489867924.
+// Historical run #42489867924 preceded the 19 identity-source changes and cannot certify this newer release.
+// These immutable facts are retained for auditing, but a fresh same-source Worker/Chrome pin is required.
 export const B015_SLUGS = Object.freeze([
   'dell-city','denison','denton','denton-braswell','denton-guyer',
   'denton-ryan','denver-city','detroit','devine','deweyville',
@@ -16,6 +17,12 @@ const SIGNED = Object.freeze({
   cloudflareDeploymentId: 'ba1af4a8-e970-4ad5-a23e-33bbb52ab32b',
 });
 export function certifiedBatch015(registry) {
+  // The following historic pin predates the mascot-aware renderer. Never certify
+  // changed school HTML against the older source/Worker simply because it passed.
+  // Follow-up graduation must replace this hold with independently observed,
+  // non-skipped source/Worker/75+25 evidence before status promotion.
+  const refreshedSameSourceChromeAccepted = false;
+  if (!refreshedSameSourceChromeAccepted) return false;
   const cert = registry.batch?.number === 15 ? registry.batch : registry.completedBatches?.find(c => c.number === 15);
   const e = cert?.technicalAcceptance;
   if (cert?.state !== 'VERIFIED_BATCH_015_COMPLETE' || cert?.individuallyVerified !== 25 ||
