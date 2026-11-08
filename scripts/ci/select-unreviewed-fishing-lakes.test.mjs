@@ -16,9 +16,10 @@ test("exclude curated and already source-reviewed network access dossiers", () =
   assert.deepEqual(selected.lakes, [
     { lakeId: "lake-needs-review", tpwd: "review" },
     { lakeId: "lake-date-only", tpwd: "date_only" },
-    { lakeId: "lake-points-only", tpwd: "points_only" },
+
   ]);
   assert.equal(selected.reviewedLakeGroups, 1);
+  assert.equal(selected.existingAccessWithoutExplicitDate, 1);
   assert.equal(selected.networkLakeDefinitions, 5);
   assert.equal(selected.totalDistinctKnownLakes, 6);
 });
@@ -29,4 +30,5 @@ test("no outstanding unreviewed lake is valid and does not justify duplicate dis
   const selected = selectUnreviewedFishingLakes(onlyReviewed, []);
   assert.deepEqual(selected.lakes, []);
   assert.equal(selected.reviewedLakeGroups, 1);
+  assert.equal(selected.existingAccessWithoutExplicitDate, 0);
 });
