@@ -258,7 +258,7 @@ export const Route = createFileRoute("/article/$slug")({
       loadTexasKnowledgeGraph(),
     ]);
     const graph = articleAutoLinkGraph(article, completeGraph);
-    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg/.test(article.hero.src)
+    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg|Celina_High_School|Bart_Coan_Field_from_west|Panna_Maria_|Houston_texas_usa_skyline|ray-roberts-lake-isle-du-bois-unit/.test(article.hero.src)
       ? (await import("@/data/image-rights")).imageRightsFor(article.hero.src) : null;
     return { article, authors, categories, related, destinations, graph, imageRights };
   },
