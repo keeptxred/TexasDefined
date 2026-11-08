@@ -115,5 +115,11 @@ if (process.argv.includes("--live")) {
   }
   if (/<meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) fail("noindex tag found");
   if (!html.includes("application/ld+json")) fail("JSON-LD absent");
+  // Google's ImageObject licensing feature requires metadata in the rendered
+  // structured data, not just a visible attribution link or fixture constant.
+  if (!html.includes("acquireLicensePage") || !html.includes("creativecommons.org/licenses/by-sa/4.0")) {
+    fail("Houston hero photo ImageObject licensing fields are missing in live HTML");
+  }
+  if (!html.includes("Famartin")) fail("licensed Houston hero photographer attribution missing");
   console.log("PASS deployed content, indexability meta and structured data presence");
 }
