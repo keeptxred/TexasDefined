@@ -3,7 +3,6 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { lazy, Suspense } from 'react';
 import austinEsd3Sources from '@/data/property/austin-county-esd3-adopted.json';
-import { getVerifiedHoodIsdAdoption, getVerifiedIsdHistoricalComponents, hoodIsdEvidence } from '@/data/property/isd-authority';
 
 const latestAustinEsd3Adopted = austinEsd3Sources.rates.at(-1)!;
 // Route-specific authority prose must not inflate the sitewide main bundle.
@@ -21,19 +20,37 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
     const peers = latest.type === 'school-district' && latest.totalRate != null && !latest.rateUnavailable && latest.countySlugs.length
       ? await getSchoolDistrictPeerRates({ data: { countySlug: latest.countySlugs[0], year: latest.year, slug: latest.slug, rate: latest.totalRate } })
       : [];
-    return { history, latest, peers };
+    // Lazy-load source-specific evidence only for the school route. This keeps
+    // the six-district Hood rate catalog out of the sitewide main bundle.
+    const isdEvidence = latest.type === 'school-district'
+      ? await (async () => {
+        const source = await import('@/data/property/isd-authority');
+        return {
+          adoption: source.getVerifiedHoodIsdAdoption(latest.slug),
+          officialYear: source.isdEvidence!.officialYear,
+          sourceUrl: source.isdEvidence!.sourceUrl,
+          sourceDocumentsUrl: source.isdEvidence!.sourceDocumentsUrl,
+          exemptionSourceUrl: source.isdEvidence!.exemptionSourceUrl,
+          historicalComponents: history.map((item) => ({
+            year: item.year,
+            components: source.getVerifiedIsdHistoricalComponents(item.slug, item.year, item.totalRate),
+          })).filter((item) => item.components != null),
+        };
+      })()
+      : null;
+    return { history, latest, peers, isdEvidence };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { latest, history } = loaderData;
+    const { latest, history, isdEvidence } = loaderData;
     const canonicalPath = `/property-tax/taxing-unit/${latest.slug}`;
     const hasEsd3Adoption = latest.slug === austinEsd3Sources.unitSlug;
-    const verifiedSchoolAdoption = latest.type === 'school-district' ? getVerifiedHoodIsdAdoption(latest.slug) : null;
-    const showSchoolAdoption = verifiedSchoolAdoption != null && hoodIsdEvidence.officialYear >= latest.year;
+    const verifiedSchoolAdoption = isdEvidence?.adoption ?? null;
+    const showSchoolAdoption = verifiedSchoolAdoption != null && isdEvidence!.officialYear >= latest.year;
     const description = hasEsd3Adoption
       ? `${latest.name}: locally adopted ${latestAustinEsd3Adopted.year} rate ${latestAustinEsd3Adopted.totalRate.toFixed(6)} per $100, signed district resolution, parcel-verification steps, and separately labeled Comptroller history through ${latest.year}.`
       : showSchoolAdoption
-        ? `${latest.name}: locally adopted ${hoodIsdEvidence.officialYear} school tax rate ${verifiedSchoolAdoption!.totalRate.toFixed(6)} per $100 from Hood CAD, M&O/I&S details, homeowner examples, homestead exemptions, and separately labeled Comptroller history through ${latest.year}.`
+        ? `${latest.name}: locally adopted ${isdEvidence!.officialYear} school tax rate ${verifiedSchoolAdoption!.totalRate.toFixed(6)} per $100 from Hood CAD, M&O/I&S details, homeowner examples, homestead exemptions, and separately labeled Comptroller history through ${latest.year}.`
         : `${latest.name} property-tax rate history through ${latest.year}, distinguishing finalized statewide figures from separately verified local records, missing reports and documented source conflicts. M&O and I&S components are shown only when reported.`;
     // A credible history can include a fully evidenced local supplement when
     // the Comptroller marked a year as not-reported. A source disagreement
@@ -59,7 +76,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         name: `${latest.name} property-tax rate history`,
         description,
         url: pageUrl,
-        temporalCoverage: `${history[0]?.year}/${hasEsd3Adoption ? Math.max(latest.year, latestAustinEsd3Adopted.year) : showSchoolAdoption ? Math.max(latest.year, hoodIsdEvidence.officialYear) : history.at(-1)?.year}`,
+        temporalCoverage: `${history[0]?.year}/${hasEsd3Adoption ? Math.max(latest.year, latestAustinEsd3Adopted.year) : showSchoolAdoption ? Math.max(latest.year, isdEvidence!.officialYear) : history.at(-1)?.year}`,
         creator: { '@type': 'Organization', name: 'Texas Defined' },
         // Cite every yearly Comptroller workbook as well as any separately
         // sourced local-rate evidence; do not imply the latest source covers
@@ -70,8 +87,8 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
             ? [record.localVerification.sourceUrl, ...(record.localVerification.componentSourceUrl ? [record.localVerification.componentSourceUrl] : [])]
             : []),
         ])), ...(hasEsd3Adoption ? [austinEsd3Sources.sourceRateTable, latestAustinEsd3Adopted.resolutionUrl] : []),
-        ...(showSchoolAdoption ? [hoodIsdEvidence.sourceUrl, hoodIsdEvidence.sourceDocumentsUrl, hoodIsdEvidence.exemptionSourceUrl] : []),
-        ...(latest.slug === 'tolar-isd' ? [hoodIsdEvidence.sourceUrl] : [])],
+        ...(showSchoolAdoption ? [isdEvidence!.sourceUrl, isdEvidence!.sourceDocumentsUrl, isdEvidence!.exemptionSourceUrl] : []),
+        ...(latest.slug === 'tolar-isd' ? [isdEvidence!.sourceUrl] : [])],
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
       })],
@@ -81,13 +98,11 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
 });
 
 function Page() {
-  const { latest, history, peers } = Route.useLoaderData();
+  const { latest, history, peers, isdEvidence } = Route.useLoaderData();
   const displayHistory = history.map((record) => {
     const local = record.localVerification;
     const locallyVerified = local?.mode === 'supplement';
-    const historyComponents = record.type === 'school-district'
-      ? getVerifiedIsdHistoricalComponents(record.slug, record.year, record.totalRate)
-      : null;
+    const historyComponents = isdEvidence?.historicalComponents.find((item) => item.year === record.year)?.components ?? null;
     return {
       ...record,
       displayTotalRate: locallyVerified ? local.totalRate : record.totalRate,
@@ -107,10 +122,10 @@ function Page() {
   const latestConflict = latest.localVerification?.mode === 'conflict' ? latest.localVerification : null;
   const rateCount = displayHistory.filter((record) => record.displayTotalRate != null).length;
   const hasEsd3Adoption = latest.slug === austinEsd3Sources.unitSlug;
-  const verifiedSchoolAdoption = latest.type === 'school-district' ? getVerifiedHoodIsdAdoption(latest.slug) : null;
-  const showSchoolAdoption = !!verifiedSchoolAdoption && hoodIsdEvidence.officialYear >= latest.year;
+  const verifiedSchoolAdoption = isdEvidence?.adoption ?? null;
+  const showSchoolAdoption = !!verifiedSchoolAdoption && isdEvidence!.officialYear >= latest.year;
   const showLocallyAdoptedHistoryRow = hasEsd3Adoption && latestAustinEsd3Adopted.year > latest.year;
-  const showIsdAdoptedHistoryRow = showSchoolAdoption && hoodIsdEvidence.officialYear > latest.year;
+  const showIsdAdoptedHistoryRow = showSchoolAdoption && isdEvidence!.officialYear > latest.year;
   const chartMaximum = Math.max(0.01, ...displayHistory.map((record) => record.displayTotalRate ?? 0), ...(showLocallyAdoptedHistoryRow ? [latestAustinEsd3Adopted.totalRate] : []), ...(showIsdAdoptedHistoryRow ? [verifiedSchoolAdoption!.totalRate] : []));
   const first = history[0];
   const rateChange = latest.totalRate != null && first?.totalRate != null ? latest.totalRate - first.totalRate : null;
@@ -118,7 +133,7 @@ function Page() {
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16"><article className="mx-auto max-w-6xl">
     <nav className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span className="mx-2">/</span><Link to="/property">Property</Link><span className="mx-2">/</span><Link to="/property-tax-calculators">Property tax</Link><span className="mx-2">/</span>{latest.name}</nav>
-    <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type === 'city' ? 'Municipal taxing unit' : latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Comptroller tax-rate history, with local records labeled. This is {latest.type === 'city' ? 'city tax only' : 'one jurisdiction’s tax only'}. Combine only taxes actually levied on your parcel.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest Comptroller workbook year" value={String(latest.year)}/>{latest.type === 'school-district' && latest.importedAt && Number.isFinite(Date.parse(latest.importedAt)) ? <Fact label="Statewide source row ingested (not a human verification date)" value={new Date(latest.importedAt).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}/> : null}<Fact label={latest.type === 'city' ? 'Latest municipal rate' : 'Latest unit rate'} value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${formatTaxRate(latest.totalRate)} per $100`}/><Fact label="Years with numeric source records" value={`${rateCount} of ${history.length}`}/>{showSchoolAdoption ? <><Fact label={`${hoodIsdEvidence.officialYear} locally adopted school rate (separate official source)`} value={`${formatTaxRate(verifiedSchoolAdoption!.totalRate)} per $100`}/><dt className="text-muted-foreground">Latest locally verified source</dt><dd><a href={hoodIsdEvidence.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Hood CAD adopted-rate table ↗</a></dd></> : null}{latestLocal ? <><Fact label="Latest independently verified local rate (display only)" value={`${formatTaxRate(latestLocal.totalRate)} per $100`}/><dt className="text-muted-foreground">Local source</dt><dd><a href={latestLocal.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{latestLocal.sourceAgency} ↗</a></dd></> : null}</dl></header>
+    <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type === 'city' ? 'Municipal taxing unit' : latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Comptroller tax-rate history, with local records labeled. This is {latest.type === 'city' ? 'city tax only' : 'one jurisdiction’s tax only'}. Combine only taxes actually levied on your parcel.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest Comptroller workbook year" value={String(latest.year)}/>{latest.type === 'school-district' && latest.importedAt && Number.isFinite(Date.parse(latest.importedAt)) ? <Fact label="Statewide source row ingested (not a human verification date)" value={new Date(latest.importedAt).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}/> : null}<Fact label={latest.type === 'city' ? 'Latest municipal rate' : 'Latest unit rate'} value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${formatTaxRate(latest.totalRate)} per $100`}/><Fact label="Years with numeric source records" value={`${rateCount} of ${history.length}`}/>{showSchoolAdoption ? <><Fact label={`${isdEvidence!.officialYear} locally adopted school rate (separate official source)`} value={`${formatTaxRate(verifiedSchoolAdoption!.totalRate)} per $100`}/><dt className="text-muted-foreground">Latest locally verified source</dt><dd><a href={isdEvidence!.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Hood CAD adopted-rate table ↗</a></dd></> : null}{latestLocal ? <><Fact label="Latest independently verified local rate (display only)" value={`${formatTaxRate(latestLocal.totalRate)} per $100`}/><dt className="text-muted-foreground">Local source</dt><dd><a href={latestLocal.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{latestLocal.sourceAgency} ↗</a></dd></> : null}</dl></header>
 
     {hasEsd3Adoption ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading official ESD #3 records…</p>}><AustinCountyEsd3Authority history={history}/></Suspense> : null}
     {latest.type === 'school-district' ? <Suspense fallback={<p className="border-b border-border py-6 text-sm text-muted-foreground">Loading school district homeowner guidance…</p>}><IsdTaxAuthority history={history} peers={peers}/></Suspense> : null}
@@ -144,11 +159,11 @@ function Page() {
           <span className="text-right tabular-nums">{(record.displayTotalRate == null ? undefined : formatTaxRate(record.displayTotalRate)) ?? 'Unavailable'}</span>
         </div>)}
         {showLocallyAdoptedHistoryRow ? <div className="grid grid-cols-[3.5rem_minmax(0,1fr)_6rem] items-center gap-3 text-sm"><span className="font-semibold">{latestAustinEsd3Adopted.year}</span><div className="h-4 overflow-hidden rounded-sm bg-muted" role="img" aria-label={`${latestAustinEsd3Adopted.year}: locally adopted rate ${formatTaxRate(latestAustinEsd3Adopted.totalRate)} per $100`}><div className="h-full bg-primary" style={{width: `${(latestAustinEsd3Adopted.totalRate / chartMaximum) * 100}%`}} /></div><span className="text-right tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.totalRate)}</span></div> : null}
-        {showIsdAdoptedHistoryRow ? <div className="grid grid-cols-[3.5rem_minmax(0,1fr)_6rem] items-center gap-3 text-sm"><span className="font-semibold">{hoodIsdEvidence.officialYear}</span><div className="h-4 overflow-hidden rounded-sm bg-muted" role="img" aria-label={`${hoodIsdEvidence.officialYear}: locally adopted school tax rate ${formatTaxRate(verifiedSchoolAdoption!.totalRate)} per $100`}><div className="h-full bg-primary" style={{width: `${(verifiedSchoolAdoption!.totalRate / chartMaximum) * 100}%`}} /></div><span className="text-right tabular-nums">{formatTaxRate(verifiedSchoolAdoption!.totalRate)}</span></div> : null}
+        {showIsdAdoptedHistoryRow ? <div className="grid grid-cols-[3.5rem_minmax(0,1fr)_6rem] items-center gap-3 text-sm"><span className="font-semibold">{isdEvidence!.officialYear}</span><div className="h-4 overflow-hidden rounded-sm bg-muted" role="img" aria-label={`${isdEvidence!.officialYear}: locally adopted school tax rate ${formatTaxRate(verifiedSchoolAdoption!.totalRate)} per $100`}><div className="h-full bg-primary" style={{width: `${(verifiedSchoolAdoption!.totalRate / chartMaximum) * 100}%`}} /></div><span className="text-right tabular-nums">{formatTaxRate(verifiedSchoolAdoption!.totalRate)}</span></div> : null}
       </div>
       <div className="mt-6 overflow-x-auto"><table className="w-full min-w-[42rem] text-left text-sm">
         <thead><tr className="border-b border-border"><th className="py-3">Year</th><th>Total / $100</th><th>Operations (M&amp;O)</th><th>Debt service (I&amp;S)</th><th>Status / source</th><th>Reported levy</th></tr></thead>
-        <tbody>{showIsdAdoptedHistoryRow ? <tr className="border-b border-border"><td className="py-3 font-semibold">{hoodIsdEvidence.officialYear}</td><td className="tabular-nums">{formatTaxRate(verifiedSchoolAdoption!.totalRate)}</td><td className="tabular-nums">{formatTaxRate(verifiedSchoolAdoption!.maintenanceOperationsRate)}</td><td className="tabular-nums">{formatTaxRate(verifiedSchoolAdoption!.debtServiceRate)}</td><td>Locally adopted by {verifiedSchoolAdoption!.name}, verified in <a className="text-primary underline" href={hoodIsdEvidence.sourceUrl} target="_blank" rel="noopener noreferrer">Hood CAD records ↗</a>. Not a Comptroller workbook row.</td><td>—</td></tr> : null}{showLocallyAdoptedHistoryRow ? <tr className="border-b border-border"><td className="py-3 font-semibold">{latestAustinEsd3Adopted.year}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.totalRate)}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.maintenanceOperationsRate)}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.debtServiceRate)}</td><td>Locally adopted, independently sourced; <a href={latestAustinEsd3Adopted.resolutionUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">district resolution ↗</a>. Not a Comptroller workbook row.</td><td>—</td></tr> : null}{[...displayHistory].reverse().map((record) => <tr key={record.id} className="border-b border-border">
+        <tbody>{showIsdAdoptedHistoryRow ? <tr className="border-b border-border"><td className="py-3 font-semibold">{isdEvidence!.officialYear}</td><td className="tabular-nums">{formatTaxRate(verifiedSchoolAdoption!.totalRate)}</td><td className="tabular-nums">{formatTaxRate(verifiedSchoolAdoption!.maintenanceOperationsRate)}</td><td className="tabular-nums">{formatTaxRate(verifiedSchoolAdoption!.debtServiceRate)}</td><td>Locally adopted by {verifiedSchoolAdoption!.name}, verified in <a className="text-primary underline" href={isdEvidence!.sourceUrl} target="_blank" rel="noopener noreferrer">Hood CAD records ↗</a>. Not a Comptroller workbook row.</td><td>—</td></tr> : null}{showLocallyAdoptedHistoryRow ? <tr className="border-b border-border"><td className="py-3 font-semibold">{latestAustinEsd3Adopted.year}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.totalRate)}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.maintenanceOperationsRate)}</td><td className="tabular-nums">{formatTaxRate(latestAustinEsd3Adopted.debtServiceRate)}</td><td>Locally adopted, independently sourced; <a href={latestAustinEsd3Adopted.resolutionUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">district resolution ↗</a>. Not a Comptroller workbook row.</td><td>—</td></tr> : null}{[...displayHistory].reverse().map((record) => <tr key={record.id} className="border-b border-border">
           <td className="py-3 font-semibold">{record.year}</td>
           <td className="tabular-nums">{(record.displayTotalRate == null ? undefined : formatTaxRate(record.displayTotalRate)) ?? '—'}</td>
           <td className="tabular-nums">{(record.displayOperationsRate == null ? undefined : formatTaxRate(record.displayOperationsRate)) ?? '—'}</td>
