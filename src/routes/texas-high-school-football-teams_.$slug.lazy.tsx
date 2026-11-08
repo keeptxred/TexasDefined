@@ -196,6 +196,11 @@ function Page() {
     'donna-north': 'hidalgo', // Donna North N Val Verde; distinct campus from Donna High.
     'dripping-springs': 'hays', // Dripping Springs High Hwy 290 campus, not confirmed spectator gate.
     'dublin': 'erath', // Dublin Secondary Hwy 6 campus; stadium entrance requires confirmation.
+    'dumas': 'moore', // Dumas High 300 S Klein; district administrative office is different.
+    'duncanville': 'dallas', // School contact and district directory have conflicting addresses; host-specific venue controls.
+    'eagle-mountain': 'tarrant', // Eagle Mountain High W Bonds Ranch campus, not district athletics office.
+    'eagle-pass': 'maverick', // Eagle Pass High Second Street, separate from C.C. Winn.
+    'eagle-pass-winn': 'maverick', // C.C. Winn Foster-Maldonado campus, separate from Eagle Pass High.
     'denton-ryan': 'denton', // Ryan High 5101 E McKinney St, separate Denton ISD campus.
     'detroit': 'red-river', // NCES Detroit High 630 1st St NW, not district office 110 E Garner.
     'deweyville': 'newton', // UIL Deweyville campus Newton County despite Orange postal city.

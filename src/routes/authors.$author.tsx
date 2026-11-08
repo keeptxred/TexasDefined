@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { fetchPublishedTexasDefinedEvergreenArticles } from "@/data/articles-remote";
 import { articlesQuery, authorsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -11,13 +12,22 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/authors/$author")({
   loader: async ({ context, params }) => {
-    const [authors, articles] = await Promise.all([
+    const [authors, articles, remoteEvergreen] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ limit: 500 })),
+      fetchPublishedTexasDefinedEvergreenArticles({ limit: 200 }).catch(() => []),
     ]);
     const author = authors.find((item) => item.id === params.author);
     if (!author) throw notFound();
-    return { author, articles: articles.filter((article) => article.authorId === author.id) };
+    // Include live evergreen bylines in the archive; preserve canonical local stories
+    // and do not duplicate slugs that exist in both publication systems.
+    const localStories = articles.filter((article) => article.authorId === author.id);
+    const seen = new Set(articles.map((article) => article.slug));
+    const completeArchive = [
+      ...localStories,
+      ...remoteEvergreen.filter((article) => article.authorId === author.id && !seen.has(article.slug)),
+    ];
+    return { author, articles: completeArchive };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Editorial desk unavailable" }, { name: "robots", content: "noindex, nofollow" }] };

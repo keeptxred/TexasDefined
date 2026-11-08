@@ -62,6 +62,19 @@ const TexasRiverBasinReference = lazy(() =>
 );
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+// Primary-record citations appear next to the historical sections they support.
+const BLUE_BELL_SECTION_REFERENCES: Record<string, ReadonlyArray<{ label: string; url: string }>> = {
+  "A creamery built around Washington County dairies": [{ label: "Handbook of Texas", url: "https://www.tshaonline.org/handbook/entries/blue-bell-creameries" }, { label: "Texas Historical Commission", url: "https://thc.texas.gov/blog/little-creamery-ice-cream-dreams-come-true-blue-bell" }],
+  "E. F. Kruse and the change to Blue Bell": [{ label: "Texas Historical Commission", url: "https://thc.texas.gov/blog/little-creamery-ice-cream-dreams-come-true-blue-bell" }, { label: "Blue Bell company history", url: "https://www.bluebell.com/about-us/" }],
+  "Blue Bell history at a glance": [{ label: "Handbook of Texas", url: "https://www.tshaonline.org/handbook/entries/blue-bell-creameries" }, { label: "Homemade Vanilla history", url: "https://www.bluebell.com/news/blue-bell-homemade-vanilla-celebrates-50th-anniversary/" }],
+  "Why Homemade Vanilla became a symbol": [{ label: "Blue Bell 50th-anniversary account", url: "https://www.bluebell.com/news/blue-bell-homemade-vanilla-celebrates-50th-anniversary/" }],
+  "Growth without becoming available everywhere": [{ label: "Blue Bell company history", url: "https://www.bluebell.com/about-us/" }],
+  "The Brenham factory is part of the historical record": [{ label: "Texas Historical Commission", url: "https://thc.texas.gov/blog/little-creamery-ice-cream-dreams-come-true-blue-bell" }],
+  "The 2015 listeria outbreak and recalls": [{ label: "CDC 2015 outbreak record", url: "https://archive.cdc.gov/www_cdc_gov/listeria/outbreaks/ice-cream-03-15/index.html" }, { label: "FDA investigation records", url: "https://www.fda.gov/about-fda/oii-foia-electronic-reading-room/blue-bell-creameries" }],
+  "Federal penalties and what happened in 2020": [{ label: "Justice Department sentencing record", url: "https://www.justice.gov/archives/opa/pr/blue-bell-creameries-ordered-pay-1725-million-criminal-penalties-connection-2015-listeria" }, { label: "DOJ civil resolution", url: "https://www.justice.gov/civil/consumer-protection-branch/cases/blue-bell-creameries" }],
+  "Visiting Blue Bell in Brenham": [{ label: "Official Brenham visitor information", url: "https://www.bluebell.com/visit-blue-bell/" }],
+};
+
 const DISCOVER_MIN_IMAGE_WIDTH = 1200;
 const MOVING_TO_TEXAS_PILLAR_SLUG = "moving-to-texas-what-nobody-tells-you";
 const texasExplainedPillarOrder = [
@@ -587,6 +600,8 @@ function ArticlePage() {
           <ArticleBody blocks={article.body} entities={graph}
             insertBeforeIndex={footballTravelInsertIndex}
             insertBefore={footballTravelOffer} />
+        ) : article.slug === "blue-bell-ice-cream-brenham-texas-history" ? (
+          <ArticleBody blocks={article.body} entities={graph} sectionReferences={BLUE_BELL_SECTION_REFERENCES} />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
       {article.slug === "fredericksburg-texas-wineries-things-to-do-guide" ? (
@@ -613,7 +628,7 @@ function ArticlePage() {
         <a href={imageRights.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a>
         {imageRights.license !== imageRights.acquireLicensePage && <>{" · "}<a href={imageRights.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Image license and reuse terms</a></>}
         {imageRights.creator["@type"] === "Person" && <>{" · Responsive display may crop or resize the photograph"}</>}
-      </> : corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
+      </> : corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}{article.slug === "blue-bell-ice-cream-brenham-texas-history" && corridorHeroRights ? " · Photo may be cropped for responsive display" : null}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>

@@ -8,8 +8,8 @@ assert.ok(m,'Batch015 editorial map missing');
 const guides=JSON.parse(m[1]);
 assert.deepEqual(Object.keys(guides).slice(10,15),slugs,'third five must match canonical roster order');
 const loader=read('src/data/high-school-football/program-editorial-b015-loader.server.ts');
-assert.ok(loader.includes('const BATCH015_FIRST_TWENTY = new Set('),'declared allowlist absent');
-assert.ok(loader.includes('if (!BATCH015_FIRST_TWENTY.has(slug)) return undefined;'),'loader must reference declared allowlist');
+assert.ok(loader.includes('const BATCH015_FIRST_TWENTY_FIVE = new Set('),'declared allowlist absent');
+assert.ok(loader.includes('if (!BATCH015_FIRST_TWENTY_FIVE.has(slug)) return undefined;'),'loader must reference declared allowlist');
 for(const slug of slugs){const g=guides[slug];assert.equal(g?.slug,slug);assert.ok(g.campus.address&&g.campus.sourceUrl.startsWith('https://'));assert.ok(g.schedule.sourceUrl.startsWith('https://'));assert.ok(g.overview.length>=4&&g.milestones.length>=2&&g.faq.length>=3)}
 assert.ok(guides.diboll.overview.join(' ').includes('215 North Temple'),'Diboll school/district-office distinction');
 assert.ok(guides.dickinson.overview.join(' ').includes('3300 Baker'),'Dickinson stadium versus fieldhouse');
