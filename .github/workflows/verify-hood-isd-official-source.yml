@@ -7,6 +7,11 @@ on:
       - '.github/workflows/verify-hood-isd-official-source.yml'
       - 'scripts/data/check-hood-isd-official-source.mjs'
       - 'src/data/property/hood-cad-isd-adopted.json'
+  pull_request:
+    paths:
+      - '.github/workflows/verify-hood-isd-official-source.yml'
+      - 'scripts/data/check-hood-isd-official-source.mjs'
+      - 'src/data/property/hood-cad-isd-adopted.json'
   workflow_dispatch:
   schedule:
     - cron: '41 11 * * 3'
