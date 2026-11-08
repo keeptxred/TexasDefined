@@ -42,6 +42,11 @@ const AuthorityVisitorTools = lazy(() =>
   import("@/components/editorial/AuthorityVisitorTools").then((module) => ({ default: module.AuthorityVisitorTools })),
 );
 
+// This large comparison is isolated to the single Houston commuter article.
+const HoustonCommuterPlanner = lazy(() =>
+  import("@/components/relocation/HoustonCommuterPlanner").then((module) => ({ default: module.HoustonCommuterPlanner })),
+);
+
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
 );
@@ -574,6 +579,10 @@ function ArticlePage() {
             insertBeforeIndex={riverBasinInsertIndex > 0 ? riverBasinInsertIndex : undefined}
             insertBefore={<Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>}
           />
+        ) : article.slug === "best-houston-suburbs-for-commuters" ? (
+          <ArticleBody blocks={article.body} entities={graph}
+            insertBeforeIndex={5}
+            insertBefore={<Suspense fallback={<section className="my-8 border-y border-border py-6 text-sm" aria-label="Houston suburb comparison loading">Loading Houston corridor comparison and cost worksheet…</section>}><HoustonCommuterPlanner /></Suspense>} />
         ) : footballTravelInsertIndex >= 0 ? (
           <ArticleBody blocks={article.body} entities={graph}
             insertBeforeIndex={footballTravelInsertIndex}
