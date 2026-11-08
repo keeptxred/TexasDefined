@@ -28,7 +28,9 @@ test('only a successful active Worker predecessor with both-origin original SHA 
 
 test('GitHub production restores success-only artifacts for exact active Worker, never failed runs', () => {
   const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
-  assert.match(wf,/runs\?status=success&per_page=30/);
+  assert.match(wf,/runs\?per_page=100/);
+  assert.match(wf,/actions\/runs\/\$prior_run\/jobs\?per_page=100/);
+  assert.match(wf,/deploy_conclusion.*success/);
   assert.match(wf,/steps\.rollback_target\.outputs\.version_id/);
   assert.match(wf,/verify-prior-asset-handoff\.mjs/);
   assert.match(wf,/Wrong prior asset handoff/);
