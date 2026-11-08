@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { certifiedBatch015 } from './verified-football-b015-certificate.mjs';
 const read = p => readFileSync(p,'utf8');
 const slugs = ['denton-ryan','denver-city','detroit','devine','deweyville'];
 const source = read('src/data/high-school-football/program-editorial-b015.ts');
@@ -19,8 +20,8 @@ for(const slug of slugs) {
  assert.ok(g.overview.length>=4 && g.faq.length>=3 && g.milestones.length>=2);
 }
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
-assert.equal(registry.schoolRecords.filter(s=>s.status==='VERIFIED').length,330,'preserve historical certified count');
-for(const slug of slugs)assert.equal(registry.schoolRecords.find(s=>s.slug===slug)?.status,'NOT_REVIEWED','no unverified promotion');
+assert.equal(registry.schoolRecords.filter(s=>s.status==='VERIFIED').length,certifiedBatch015(registry)?355:330,'preserve historical certified count');
+for(const slug of slugs)assert.equal(registry.schoolRecords.find(s=>s.slug===slug)?.status,certifiedBatch015(registry)?'VERIFIED':'NOT_REVIEWED','no unverified promotion');
 const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
 for(const [slug,c] of [['denton-ryan','denton'],['detroit','red-river'],['deweyville','newton']]) {

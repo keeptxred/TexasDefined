@@ -14,6 +14,29 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  // Batch015: mascot names confirmed against the attributed current official school/district sources,
+  // or explicitly attributed 2026 Dave Campbell's team indexes where school pages do not publish the nickname.
+  // This verifies only mascot terminology, NOT game schedules, image reuse rights or athlete identities.
+  { slug: 'dell-city', mascot: 'Cougars', sourceUrl: 'https://www.dellcityisd.net/athletics', sourceLabel: 'Dell City ISD athletics identifies DC Cougars', verifiedAt: '2026-11-08' },
+  { slug: 'denison', mascot: 'Yellow Jackets', sourceUrl: 'https://www.denisonisd.net/departments/public-information-communications/denison-isd-branding-guide', sourceLabel: 'Denison ISD Yellow Jacket official branding and mascot guide', verifiedAt: '2026-11-08' },
+  { slug: 'denver-city', mascot: 'Mustangs', sourceUrl: 'https://dchs.dcisd.org/', sourceLabel: 'Denver City High School 2026 Mustang football campus calendar', verifiedAt: '2026-11-08' },
+  { slug: 'detroit', mascot: 'Eagles', sourceUrl: 'https://www.detroiteagles.net/', sourceLabel: 'Detroit ISD official Eagle heritage and athletics', verifiedAt: '2026-11-08' },
+  { slug: 'devine', mascot: 'Warhorses', sourceUrl: 'https://www.devineisd.org/schools/dhs/index', sourceLabel: 'Devine High School Warhorse and Arabian identity, football boys Warhorses', verifiedAt: '2026-11-08' },
+  { slug: 'deweyville', mascot: 'Pirates', sourceUrl: 'https://www.texasfootball.com/team/deweyville-pirates', sourceLabel: 'Dave Campbell\'s Texas Football 2026 Deweyville Pirates program identity', verifiedAt: '2026-11-08' },
+  { slug: 'dhanis', mascot: 'Cowboys', sourceUrl: 'https://www.texasfootball.com/team/d-hanis-cowboys', sourceLabel: 'Dave Campbell\'s Texas Football 2026 D\'Hanis Cowboys identity', verifiedAt: '2026-11-08' },
+  { slug: 'diana-new-diana', mascot: 'Eagles', sourceUrl: 'https://www.ndisd.org/', sourceLabel: 'New Diana ISD official Eagle family and New Diana High School', verifiedAt: '2026-11-08' },
+  { slug: 'diboll', mascot: 'Lumberjacks', sourceUrl: 'https://www.dibollisd.com/90713_2', sourceLabel: 'Diboll ISD athletics varsity Lumberjacks football schedule', verifiedAt: '2026-11-08' },
+  { slug: 'dickinson', mascot: 'Gators', sourceUrl: 'https://www.dickinsonisd.org/page/article/1172', sourceLabel: 'Dickinson ISD 2026 varsity Gators football schedule', verifiedAt: '2026-11-08' },
+  { slug: 'dilley', mascot: 'Wolves', sourceUrl: 'https://www.dilleyisd.net/o/dhs', sourceLabel: 'Dilley High School official Home of the Wolves', verifiedAt: '2026-11-08' },
+  { slug: 'dimmitt', mascot: 'Bobcats', sourceUrl: 'https://hs.dimmittisd.net/', sourceLabel: 'Dimmitt High School official Once a Bobcat school identity', verifiedAt: '2026-11-08' },
+  { slug: 'donna', mascot: 'Redskins', sourceUrl: 'https://www.donnaisd.net/o/donnahigh/article/3067519', sourceLabel: 'Donna High official 2026-27 school identity (its own chosen current nickname)', verifiedAt: '2026-11-08' },
+  { slug: 'donna-north', mascot: 'Chiefs', sourceUrl: 'https://www.donnaisd.net/o/donnanorth/article/2669703', sourceLabel: 'Donna North High School official Chiefs athletic news', verifiedAt: '2026-11-08' },
+  { slug: 'dublin', mascot: 'Lions', sourceUrl: 'https://www.dublinisd.us/departments-organizations/athletics', sourceLabel: 'Dublin ISD official Lions football athletics', verifiedAt: '2026-11-08' },
+  { slug: 'dumas', mascot: 'Demons', sourceUrl: 'https://www.dumasisd.org/o/athletics/live-feed/', sourceLabel: 'Dumas ISD athletics 2026 Demons football official feed', verifiedAt: '2026-11-08' },
+  { slug: 'eagle-mountain', mascot: 'Knights', sourceUrl: 'https://emhs.emsisd.com/about-us/fight-song-alma-mater', sourceLabel: 'Eagle Mountain High official Knight spirit/fight song', verifiedAt: '2026-11-08' },
+  { slug: 'eagle-pass', mascot: 'Eagles', sourceUrl: 'https://www.eaglepassisd.net/sportsschedules/1000', sourceLabel: 'Eagle Pass ISD 2026-27 Eagles football athletics', verifiedAt: '2026-11-08' },
+  { slug: 'eagle-pass-winn', mascot: 'Mavericks', sourceUrl: 'https://www.eaglepassisd.net/sportsschedules/1000', sourceLabel: 'Eagle Pass ISD 2026-27 CC Winn Mavericks football athletics', verifiedAt: '2026-11-08' },
+
   { slug: 'decatur', mascot: 'Eagles', sourceUrl: 'https://www.decatureagles.net/sport/football/boys/', sourceLabel: 'Decatur Texas ISD Eagles official varsity football athletics', verifiedAt: '2026-11-06' },
   { slug: 'deer-park', mascot: 'Deer', sourceUrl: 'https://www.dpisd.org/apps/pages/index.jsp?pREC_ID=1701303&type=d&uREC_ID=1572541', sourceLabel: 'Deer Park ISD Deer varsity football athletics', verifiedAt: '2026-11-06' },
   { slug: 'del-rio', mascot: 'Rams', sourceUrl: 'https://www.sfdr-cisd.org/alternative-school/athletics/', sourceLabel: 'San Felipe Del Rio CISD official varsity Rams athletics', verifiedAt: '2026-11-06' },

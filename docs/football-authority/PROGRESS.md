@@ -1,3 +1,11 @@
+## 2026-11-08 — Batch015 identity and certification-contract repair (no graduation)
+
+**Batch015 remains 25 NOT_REVIEWED**; protected PR #6840 repairs 19 missing independently attributed mascot identity records and makes historical Batch011–014/Batch015 source gates understand *future* graduation only when strict source-pinned, school-by-school evidence exists. **Registry remains 330 VERIFIED / 962 NOT_REVIEWED / 0 IMPLEMENTED** on the proposal. No Batch016 assignment.
+
+Historical [genuine real Chrome run #42489867924](https://github.com/keeptxred/TexasDefined/actions/runs/42489867924) successfully ran 75/75 school viewport and 25/25 county-link checks with [76-file artifact #13620254465](https://github.com/keeptxred/TexasDefined/actions/runs/42489867924/artifacts/13620254465). That run was pinned to source `009f3a57431e1aa8363a431fbccbfcba5b5181c9`, Worker `e7e01826-b492-48fa-8770-73fa641a852f`, ledger `7637169740` and Cloudflare deployment `ba1af4a8-e970-4ad5-a23e-33bbb52ab32b`. **The source identity enrichment added in #6840 postdates this run; it therefore must not be used to graduate the changed pages.** Re-deploy source changes first, verify the exact active Worker/source ledger, rerun one real non-skipped 75+25 Chrome job, then create a *separate* graduation PR with fresh per-school browser proof. The candidate certificate helper is deliberately fail-closed in this source PR.
+
+All source-only, historical 330-school certificates, no-photo-rights, current-stat omission and manual WCAG/human-review limitations remain in force. Asset retention incident #4913 remains independently open; do not conflate Chrome on one release with 72h across-release asset continuity.
+
 ## 2026-11-06 — Batch014 graduation merged; Batch015 assignment proposed
 
 Protected evidence-only Batch014 graduation PR #6775 is **MERGED**; registry on main contains **330 VERIFIED / 962 NOT_REVIEWED / 0 IMPLEMENTED** of 1,292. Actual production Chrome run #42313435965 passed 75/75 school viewport and 25/25 reciprocal county checks, with pinned Worker `93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2`, source `851bff976c187e841a178e58984068ec19b06744`, artifact #13550240398. Historical evidence is retained; do not imply it describes the latest Worker.

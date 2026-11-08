@@ -3,6 +3,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
+import { certifiedBatch015 } from './verified-football-b015-certificate.mjs';
 const read=p=>readFileSync(p,'utf8');
 const source=read('src/data/high-school-football/program-editorial-b011.ts');
 const match=source.match(/const BATCH011_EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});\s*export function/);
@@ -62,7 +63,7 @@ const graduatedB011 = reg.completedBatches.some(b=>b.number===11 && b.state==='V
  assert.equal(graduatedB011?0:25,graduatedB011?0:25);
  const graduatedB013 = reg.completedBatches.some(b=>b.number===13 && b.state==='VERIFIED_BATCH_013_COMPLETE' && b.individuallyVerified===25 && b.technicalAcceptance?.schoolCount===25 && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.schoolCasesFailed===0 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.countyCasesFailed===0 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId && b.technicalAcceptance?.productionDeploymentGitSha && b.technicalAcceptance?.observedWorkerVersions?.length===1) && reg.schoolRecords.filter(x=>x.batch===13 && x.status==='VERIFIED').length===25;
  const graduatedB014 = reg.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId===7613348297 && b.technicalAcceptance?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' && b.technicalAcceptance?.observedWorkerVersions?.[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2') && reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
- assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB014?330:graduatedB013?305:graduatedB012?280:graduatedB011?255:230);
+ assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,certifiedBatch015(reg)?355:graduatedB014?330:graduatedB013?305:graduatedB012?280:graduatedB011?255:230);
  for(const [slug] of cases){
   const row=reg.schoolRecords.find(x=>x.slug===slug);
   assert.equal(row.status,graduatedB011?'VERIFIED':'IMPLEMENTED');

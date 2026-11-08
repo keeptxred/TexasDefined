@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { certifiedBatch015 } from './verified-football-b015-certificate.mjs';
 const read = (p) => readFileSync(p, 'utf8');
 const slugs = ['dell-city', 'denison', 'denton', 'denton-braswell', 'denton-guyer'];
 const newSlugs = ['dimmitt', 'donna', 'donna-north', 'dripping-springs', 'dublin'];
@@ -15,11 +16,11 @@ assert.ok(loader.includes("import('./program-editorial-b015')"), 'missing lazy l
 assert.ok(loader.includes('!BATCH015_FIRST_TWENTY_FIVE.has(slug)'), 'Batch015 loader must check the defined twenty-five-school allowlist, not an obsolete variable');
 assert.ok(!loader.includes('BATCH015_FIRST_THREE.has(slug)'), 'obsolete loader identifier causes production SSR ReferenceError');
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
-assert.equal(registry.schoolRecords.filter(s => s.status === 'VERIFIED').length, 330, 'do not change historical certifications');
+assert.equal(registry.schoolRecords.filter(s => s.status === 'VERIFIED').length,certifiedBatch015(registry)?355:330, 'do not change historical certifications');
 for (const slug of slugs) {
   const g = guides[slug];
   assert.equal(g.slug, slug);
-  assert.equal(registry.schoolRecords.find(s => s.slug === slug)?.status, 'NOT_REVIEWED', 'source branch must not claim production certification');
+  assert.equal(registry.schoolRecords.find(s => s.slug === slug)?.status,certifiedBatch015(registry)?'VERIFIED':'NOT_REVIEWED', 'source branch must not claim production certification');
   assert.ok(g.campus.sourceUrl.startsWith('https://') && g.schedule.sourceUrl.startsWith('https://'));
   assert.ok(g.overview.length >= 4 && g.faq.length >= 3 && g.milestones.length >= 2);
   assert.ok(g.campus.address && g.notice.body);
@@ -42,7 +43,7 @@ assert.deepEqual(allowedSlugs, expectedTwentyFive, 'SSR loader and authored guid
 for (const slug of expectedTwentyFive) {
   const guide = guides[slug];
   assert.equal(guide.slug, slug, slug + ' guide identity mismatch');
-  assert.equal(registry.schoolRecords.find((row) => row.slug === slug)?.status, 'NOT_REVIEWED', slug + ' cannot be certified by source-only tests');
+  assert.equal(registry.schoolRecords.find((row) => row.slug === slug)?.status,certifiedBatch015(registry)?'VERIFIED':'NOT_REVIEWED', slug + ' cannot be certified by source-only tests');
   for (const field of ['campus', 'schedule', 'notice']) {
     assert.ok(guide[field]?.sourceUrl?.startsWith('https://'), slug + ' missing official-source URL for ' + field);
     assert.ok(guide[field]?.verifiedAt, slug + ' missing source check date for ' + field);
@@ -56,7 +57,7 @@ const nextFive = ['dimmitt', 'donna', 'donna-north', 'dripping-springs', 'dublin
 for (const slug of nextFive) {
   const g = guides[slug];
   assert.ok(g && g.slug === slug, slug + ' missing authored guide');
-  assert.equal(registry.schoolRecords.find(s => s.slug === slug)?.status, 'NOT_REVIEWED', slug + ' cannot be promoted without live Chrome');
+  assert.equal(registry.schoolRecords.find(s => s.slug === slug)?.status,certifiedBatch015(registry)?'VERIFIED':'NOT_REVIEWED', slug + ' cannot be promoted without live Chrome');
   assert.ok(g.campus.address && g.campus.sourceUrl.startsWith('https://'), slug + ' missing official campus evidence');
   assert.ok(g.schedule.sourceUrl.startsWith('https://') && g.notice.sourceUrl.startsWith('https://'), slug + ' missing official schedule/venue boundary');
   assert.ok(g.overview.length >= 4 && g.milestones.length >= 2 && g.faq.length >= 3, slug + ' lacks distinct editorial sections');
@@ -66,7 +67,7 @@ assert.notEqual(guides['donna'].campus.address, guides['donna-north'].campus.add
 for (const slug of newSlugs) {
   const g = guides[slug];
   assert.equal(g?.slug, slug, slug + ' missing distinct editorial');
-  assert.equal(registry.schoolRecords.find(row => row.slug === slug)?.status, 'NOT_REVIEWED');
+  assert.equal(registry.schoolRecords.find(row => row.slug === slug)?.status,certifiedBatch015(registry)?'VERIFIED':'NOT_REVIEWED');
   for (const field of ['campus', 'schedule', 'notice']) {
     assert.ok(g[field]?.sourceUrl?.startsWith('https://'), slug + ' missing official-source URL for ' + field);
     assert.ok(g[field]?.verifiedAt, slug + ' missing source date for ' + field);
@@ -78,7 +79,7 @@ const fifthFive = ['dumas', 'duncanville', 'eagle-mountain', 'eagle-pass', 'eagl
 for (const slug of fifthFive) {
   const g = guides[slug];
   assert.equal(g?.slug, slug, slug + ' missing distinct editorial');
-  assert.equal(registry.schoolRecords.find(row => row.slug === slug)?.status, 'NOT_REVIEWED', slug + ' cannot be promoted without live browser proof');
+  assert.equal(registry.schoolRecords.find(row => row.slug === slug)?.status,certifiedBatch015(registry)?'VERIFIED':'NOT_REVIEWED', slug + ' cannot be promoted without live browser proof');
   assert.ok(g.campus.address && g.campus.sourceUrl.startsWith('https://'), slug + ' missing official campus');
   assert.ok(g.schedule.sourceUrl.startsWith('https://') && g.notice.sourceUrl.startsWith('https://'), slug + ' missing official athletics source');
   assert.ok(g.overview.length >= 4 && g.milestones.length >= 2 && g.faq.length >= 3);
