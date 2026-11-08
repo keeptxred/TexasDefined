@@ -581,7 +581,7 @@ function ArticlePage() {
           />
         ) : article.slug === "best-houston-suburbs-for-commuters" ? (
           <ArticleBody blocks={article.body} entities={graph}
-            insertBeforeIndex={5}
+            insertBeforeIndex={7}
             insertBefore={<Suspense fallback={<section className="my-8 border-y border-border py-6 text-sm" aria-label="Houston suburb comparison loading">Loading Houston corridor comparison and cost worksheet…</section>}><HoustonCommuterPlanner /></Suspense>} />
         ) : footballTravelInsertIndex >= 0 ? (
           <ArticleBody blocks={article.body} entities={graph}
