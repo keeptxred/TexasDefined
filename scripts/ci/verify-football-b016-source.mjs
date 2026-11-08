@@ -26,7 +26,7 @@ for(const [name,slugs] of files){
  const source=read('src/data/high-school-football/'+name);
  assert.ok(source.includes('FootballProgramEditorial'),name+' missing typed editorial');
  for(const slug of slugs){
-  assert.ok(source.includes('\\"slug\\": \\"'+slug+'\\"')||source.includes("slug: '"+slug+"'"),name+' missing '+slug);
+  assert.ok(source.includes('"slug": "'+slug+'"')||source.includes("slug: '"+slug+"'"),name+' missing '+slug);
   assert.ok(source.includes(slug),name+' missing slug identity');
  }
 }
@@ -36,7 +36,7 @@ for(const method of ['getBatch016EarlyEditorial','getBatch016EarthEditorial','ge
 }
 for(const name of ['program-editorial-b016-group1.ts','program-editorial-b016-group2.ts','program-editorial-b016-group3.ts','program-editorial-b016-group4.ts','program-editorial-b016-group5.ts']){
  const source=read('src/data/high-school-football/'+name);
- const match=source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\\{[\\s\\S]*?\\});/);
+ const match=source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
  assert.ok(match,name+' editorial map missing');
  const guideMap=JSON.parse(match[1]);
  for(const [slug,g] of Object.entries(guideMap)){
