@@ -21,6 +21,7 @@ required(article, [
   "Texas Medical Center", "Port/Ship Channel", "Richmond/Rosenberg",
   "Friendswood", "Missouri City", "Kingwood", "sources:",
   "2024 five-year", "27.0 ± 2.6", "32.7 ± 1.0",
+  "2025 weekday historical freeway review", "79%", "57%", "46%",
   "Methodology, sources and what this guide cannot claim",
   "not a measured drive-time dataset", "three normal weekdays"
 ], "editorial content");
