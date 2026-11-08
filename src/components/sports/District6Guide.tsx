@@ -89,7 +89,7 @@ export function District6Guide() {
               const firstParty = fixture.away === 'Dallas Jesuit' || fixture.home === 'Dallas Jesuit';
               const sourceUrl = firstParty ? DISTRICT6_2026_SCHEDULE_SOURCES.jesuitVarsity : DISTRICT6_2026_SCHEDULE_SOURCES.publishedDistrict;
               return (
-                <li key={fixture.date + fixture.away + fixture.home} data-district6-fixture={fixture.date} className="grid gap-2 py-3 text-sm sm:grid-cols-[8rem_1fr]">
+                <li key={fixture.date + fixture.away + fixture.home} data-district6-fixture={fixture.date} className="flex flex-col gap-2 py-3 text-sm sm:flex-row">
                   <span className="font-semibold tabular-nums"><span className="sr-only">Game {index + 1} of 28: </span><time dateTime={fixture.date}>{new Intl.DateTimeFormat('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', weekday: 'short' }).format(new Date(fixture.date + 'T12:00:00Z'))}, 2026</time></span>
                   <div>
                     <p className="font-semibold text-foreground">{fixture.away} at {fixture.home}</p>
