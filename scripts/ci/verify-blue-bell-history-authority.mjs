@@ -14,6 +14,11 @@ const sources = readFileSync("src/data/remote-evergreen-authority-sources.ts", "
 const rights = readFileSync("src/data/heritage-photo-license-links.ts", "utf8");
 const author = readFileSync("src/routes/authors.$author.tsx", "utf8");
 const fallback = readFileSync("src/data/remote-evergreen-source-fallbacks.ts", "utf8");
+const licenseMetadata = readFileSync("src/data/image-rights.ts", "utf8");
+assert.ok(article.includes("Modern_Blue_Bell_Creameries_factory_located_in_Brenham"), "Blue Bell image source must load its verified rights");
+for (const token of ["Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg", "© 2008 Larry D. Moore", "https://creativecommons.org/licenses/by/4.0/", "acquireLicensePage"]) {
+  assert.ok(licenseMetadata.includes(token), `Verified Blue Bell ImageObject rights missing: ${token}`);
+}
 
 for (const [name, content, tokens] of [
   ["article", article, [slug, "BLUE_BELL_SECTION_REFERENCES", "sectionReferences={BLUE_BELL_SECTION_REFERENCES}", "2015 listeria outbreak and recalls", "Federal penalties and what happened in 2020", "Visiting Blue Bell in Brenham"]],
@@ -58,5 +63,9 @@ if (process.argv.includes("--live")) {
   assert.ok(!/<meta[^>]+name="robots"[^>]+content="[^"]*noindex/i.test(page), "Article is noindex");
   assert.ok(archive.includes(slug), "Food & Culture author archive does not link to the published article");
   assert.ok(page.includes("/authors/a-marisol"), "Article and editorial archive bylines disagree");
+  // Production-HTML assertion validates Google's exact four optional ImageObject
+  // properties, source URL and visible attribution—not just raw source strings.
+  const { assertGscImageRights } = await import("./verify-changed-production-pages.mjs");
+  assertGscImageRights(page, path, "quarterly Blue Bell authority verification");
   console.log("Live Blue Bell canonical, historical narrative, sources, CC BY, author archive and indexability passed");
 }
