@@ -26,7 +26,7 @@ function testRecord() {
 }
 
 test('only exact source version and safe hashed asset paths accepted',()=>{
-  assert.equal(VERIFIED_NOV8_ORIGINALS.length,4);
+  assert.equal(VERIFIED_NOV8_ORIGINALS.length,11);
   assert.equal(verifiedSourceUrl(VERSION,'Header-BPIUxtUq.js'),
     'https://953ec55d-texasdefined-site.freddy-coppola.workers.dev/assets/Header-BPIUxtUq.js');
   assert.throws(()=>verifiedSourceUrl('invalid','Header-BPIUxtUq.js'));
@@ -63,7 +63,7 @@ test('real original hash budget is fixed and unavailable source never fabricates
     const report=await recoverVerifiedNov8Originals({...opts,now:NOW,
       fetchImpl:async()=>new Response('404',{status:404,headers:{'content-type':'text/html'}})});
     assert.equal(report.recovered.length,0);
-    assert.equal(report.unresolved.length,4);
+    assert.equal(report.unresolved.length,11);
     assert.equal((await readFile(opts.snapshotPath,'utf8')).includes('sourceVersionId'),false);
     assert.equal(existsSync(join(opts.assetFolder,VERIFIED_NOV8_ORIGINALS[0].name)),false);
   }finally {await rm(root,{recursive:true,force:true});}
@@ -90,7 +90,7 @@ test('never reset first-seen expiry or fetch expired originals',async()=>{
     const report=await recoverVerifiedNov8Originals({...opts,
       now:Date.parse('2026-11-12T06:00:00Z'),
       fetchImpl:async()=>{throw new Error('expired probe must never execute');}});
-    assert.equal(report.expired.length,4);
+    assert.equal(report.expired.length,11);
     assert.equal(report.recovered.length,0);
     assert.equal(report.unresolved.length,0);
   }finally {await rm(root,{recursive:true,force:true});}
@@ -107,4 +107,39 @@ test('already-present original must have matching SHA, cannot silently overwrite
     await assert.rejects(recoverVerifiedNov8Originals({...opts,now:NOW,records:[testRecord()]}),
       /integrity mismatch/);
   }finally {await rm(root,{recursive:true,force:true});}
+});
+
+test('seven additional originals are distinct source-digested exact 200-to-404 names, not guesses',()=>{
+  const names = VERIFIED_NOV8_ORIGINALS.map(x=>x.name);
+  assert.equal(names.length,new Set(names).size);
+  const expectedSeven = [
+    'RouteStatusScreens-BsrCKH8a.js','external-link-A_GfxrzX.js',
+    'main-CzG1xxTA.js','Container-BGUI52xw.js','destination._slug-8Stf_XfD.js',
+    'CitationCollectionTrustRouter-TvMDLA0C.js','ContextualOfficialSources-CLSZ8gUV.js'
+  ];
+  for (const name of expectedSeven) {
+    const original = VERIFIED_NOV8_ORIGINALS.find(x=>x.name===name);
+    assert.ok(original,name);
+    assert.match(original.sha256,/^[a-f0-9]{64}$/);
+    assert.ok(Number.isInteger(original.bytes)&&original.bytes>0&&original.bytes<=2*1024*1024);
+    assert.ok(Date.parse(original.firstSeenAt)<NOW);
+    assert.ok(verifiedSourceUrl(VERSION,original.name).endsWith('/assets/'+name));
+  }
+  const allBytes=VERIFIED_NOV8_ORIGINALS.reduce((sum,x)=>sum+x.bytes,0);
+  assert.equal(allBytes,3726158,'original bytes must fit UNCHANGED 4MiB strict cap');
+  assert.ok(allBytes<=4*1024*1024);
+  assert.equal(names.includes('main-DWbuJJ04.js'),false,
+    'unverified crawler-missing main chunk cannot be reconstructed');
+});
+
+test('no 12th historical old hash can silently expand the bounded source-backed cohort',async()=>{
+  const {root,opts}=await setup();
+  try {
+    const extra={...testRecord(),name:'main-EXTRA123.js'};
+    await assert.rejects(
+      recoverVerifiedNov8Originals({...opts,now:NOW,
+        records:[...VERIFIED_NOV8_ORIGINALS,extra],
+        fetchImpl:async()=>{throw Error('must not probe over cap');}}),
+      /Original-byte recovery limit exceeded/);
+  }finally{await rm(root,{recursive:true,force:true});}
 });
