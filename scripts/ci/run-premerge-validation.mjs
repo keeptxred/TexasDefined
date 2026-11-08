@@ -73,6 +73,7 @@ const prebuildChecks = [
   ['HISTORY/CAMINO-REAL', 'Verify factual accuracy, primary sources, indexability and SSR map for El Camino Real', 'node', ['--test', 'scripts/ci/camino-real-factcheck.test.mjs']],
   ['WATERPARK/AUTHORITY', 'Validate source-linked Texas water parks and statewide routing coverage', 'node', ['scripts/data/validate-water-parks-authority.mjs']],
   ['FOOTBALL/BROWSER', 'Syntax-check playoff mobile production acceptance', 'node', ['--check', 'scripts/ci/verify-football-playoffs-browser.mjs']],
+  ['CONTENT/IMAGES', 'Verify source-verified hero image rights, proxy identity and ImageObject bindings', 'node', ['--experimental-strip-types', '--test', 'src/data/image-rights.test.ts']],
   ['CONTENT/IMAGES', 'Syntax-check official state-park photo resolver', 'node', ['--check', 'scripts/data/sync-state-park-hero-assets.mjs']],
   ['COMMERCE/PRIVACY', 'Verify receipt Google Customer Reviews payload boundaries', 'node', ['--experimental-strip-types', '--test', 'scripts/data/google-customer-reviews.test.mjs']],
   ['FOOTBALL/SEO', 'Reject slug-specific football SEO title overrides of researched editorial copy', 'node', ['scripts/ci/validate-football-authored-seo.mjs']],
