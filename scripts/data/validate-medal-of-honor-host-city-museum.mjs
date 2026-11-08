@@ -27,8 +27,6 @@ requireAll(subject, [
   "-97.16337",
   "sourceCheckedAt:",
   "visitorFacts:",
-  "visitorFaqs:",
-  "authorityGuide:",
   "areaGuide:",
   "accessibilityNotes:",
   "Medal of Honor Host City Museum",
@@ -42,6 +40,15 @@ requireAll(subject, [
   "sources:",
   "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
 ], "museum data");
+const dossier = read("src/data/museum-authority-network.ts");
+const faqRegistry = read("src/data/museum-visitor-faqs.ts");
+const slugIndex = read("src/data/museum-authority-slugs.ts");
+const manifest = JSON.parse(read("public/museum-verification-manifest.json"));
+if (!dossier.includes('"medal-of-honor-host-city-museum-gainesville": {')) failures.push("Full museum research dossier missing");
+if (!faqRegistry.includes('"medal-of-honor-host-city-museum-gainesville": [')) failures.push("Museum-specific researched FAQs missing");
+if (!slugIndex.includes("|medal-of-honor-host-city-museum-gainesville")) failures.push("Lightweight museum SEO registry missing");
+const row = manifest.museums.find((entry) => entry.path === canonical);
+if (!row || row.cadenceDays > 30 || row.faqCount < 6) failures.push("Monthly museum source verification and six-plus unique FAQs required");
 for (const path of incoming) {
   const article = read(path);
   if (!article.includes(canonical)) failures.push("Missing crawlable article link: " + path);
