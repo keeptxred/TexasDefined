@@ -58,7 +58,12 @@ export const medalOfHonorHostCityMuseumDestinations: Destination[] = [{
     { topic: "hours", label: "Regular museum hours", detail: "Monday–Thursday 8 a.m.–5 p.m.; Friday 8 a.m.–noon. Check the official calendar for holidays and closures.", sourceUrl: "https://www.nctc.edu/museum/", checkedAt: "2026-11-08" },
     { topic: "hours", label: "Summer hours", detail: "NCTC's school-trip handbook lists Monday–Thursday 7:30 a.m.–5:30 p.m.; Friday closed during the summer schedule. Confirm which calendar currently applies.", sourceUrl: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf", checkedAt: "2026-11-08" },
     { topic: "reservations", label: "School group scheduling", detail: "School groups must book at least two weeks ahead; groups are capped at 100 including teachers and chaperones, with larger groups split across sessions.", sourceUrl: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf", checkedAt: "2026-11-08" },
-    { topic: "hours", label: "NCTC campus closure calendar", detail: `NCTC's official events calendar lists all campuses closed on November 11, 2026 (Veterans Day); confirm any separately arranged museum programming. The time-limited arrival warning is shown only through that date.`, sourceUrl: "https://www.nctc.edu/events-calendar/?day=11&month=11&search=day&year=2026", checkedAt: "2026-11-08" },
+    ...(Date.now() < Date.UTC(2026, 10, 12) ? [{
+      topic: "hours" as const, label: "NCTC campus closure calendar",
+      detail: "The NCTC calendar lists all campuses closed on November 11, 2026 (Veterans Day). Special museum access is not assumed.",
+      sourceUrl: "https://www.nctc.edu/events-calendar/?day=11&month=11&search=day&year=2026",
+      checkedAt: "2026-11-08",
+    }] : []),
     { topic: "parking", label: "Parking and bus arrival", detail: "The school handbook identifies an open lot opposite the museum entrance and bus drop-off/pick-up at the entrance. Check campus access for your visit.", sourceUrl: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf", checkedAt: "2026-11-08" },
   ],
   body: [
