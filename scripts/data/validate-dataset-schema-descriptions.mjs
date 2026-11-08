@@ -54,6 +54,29 @@ function checkFile(file) {
 }
 
 for (const file of filesUnder(root)) checkFile(file);
+
+// Google Search Console's November 2026 Dataset appearance warnings identify
+// these two specific pages. Keep ownership and versioned reuse terms explicit
+// without incorrectly licensing the underlying government data.
+const metadataContracts = [
+  ['src/routes/texas-property-tax-rate-history.tsx',
+    ['creator:', 'publisher:', 'isBasedOn:', 'license: absoluteUrl(texasDefinedBrand, \'/dataset-reference-license-v1.txt\')']],
+  ['src/routes/things-unique-to-texas.tsx',
+    ['creator:', 'license: `\${origin}/dataset-reference-license-v1.txt`']],
+  ['src/routes/citation-guide.tsx',
+    ['href="/dataset-reference-license-v1.txt"']],
+];
+for (const [file, required] of metadataContracts) {
+  const source = fs.readFileSync(file, 'utf8');
+  for (const marker of required) {
+    if (!source.includes(marker)) errors.push(`${file}: missing Dataset ownership or licensing contract: ${marker}`);
+  }
+}
+const licenseNotice = fs.readFileSync('public/dataset-reference-license-v1.txt', 'utf8');
+for (const marker of ['Version 1.0', 'Texas Comptroller', 'not relicensed', 'admin@texasdefined.com']) {
+  if (!licenseNotice.includes(marker)) errors.push(`Dataset reference terms missing: ${marker}`);
+}
+
 if (datasetCount < 10) errors.push(`Unexpectedly found only ${datasetCount} Dataset declarations`);
 if (errors.length) {
   console.error('Dataset structured-data validation failed:\n' + errors.map((e) => '- ' + e).join('\n'));
