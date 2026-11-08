@@ -155,6 +155,7 @@ function TexasLivingPage() {
           <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open section →</span>
         </Link>)}
       </div>
+      <p className="mt-8 max-w-3xl text-sm leading-7 text-muted-foreground">Texas community resource: <Link to="/warriors-refuge-west-columbia" className="font-semibold text-primary underline underline-offset-4">The Warrior's Refuge veteran housing and services in West Columbia</Link>, with provider contact details, program distinctions and emergency assistance links.</p>
     </Container>
 
     <Section tone="surface">
