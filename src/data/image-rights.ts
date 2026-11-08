@@ -45,6 +45,33 @@ export const imageRightsFor = (src: string) => {
     }
   }
 
+  // Exact, source-authenticated Commons photo used on the Blue Bell history article.
+  // Its 2008 copyright, photographer, and CC BY 4.0 license are verified on
+  // https://commons.wikimedia.org/wiki/File:Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg
+  // A new image must never inherit this photograph's rights from an article slug.
+  const blueBellFile = "Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg";
+  let original = source;
+  for (let i = 0; i < 3; i += 1) {
+    let parsed: URL;
+    try { parsed = new URL(original, "https://texasdefined.com"); }
+    catch { break; }
+    if (parsed.hostname === "commons.wikimedia.org") {
+      if (parsed.pathname === `/wiki/Special:Redirect/file/${blueBellFile}`) {
+        return {
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          creator: { "@type": "Person", name: "Larry D. Moore" },
+          copyrightNotice: "© 2008 Larry D. Moore",
+          acquireLicensePage: `https://commons.wikimedia.org/wiki/File:${blueBellFile}`,
+        } as const;
+      }
+      break;
+    }
+    if (parsed.hostname !== "texasdefined.com" || !/^\/(?:media\/)?remote$/.test(parsed.pathname)) break;
+    const nested = parsed.searchParams.get("url");
+    if (!nested) break;
+    original = nested;
+  }
+
   // The image is a federal work in the public domain, not a Texas Defined
   // copyrighted photograph. The copyrightNotice accurately states this status.
   // Source record: https://commons.wikimedia.org/wiki/File:USACE_Ray_Roberts_Lake_and_Dam.jpg
