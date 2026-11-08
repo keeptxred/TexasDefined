@@ -100,6 +100,9 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 
 function WarriorsRefugePage() {
   return <main id="main-content" style={{ paddingBottom: "4rem" }}>
+    <style>{`@media (min-width: 1024px) {
+      .warriors-refuge-layout { grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr); }
+    }`}</style>
     <Container className="">
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
         <Link to="/texas-resources" className="underline">Texas Resources</Link><span aria-hidden="true"> / </span><span aria-current="page">The Warrior's Refuge</span>
@@ -122,8 +125,8 @@ function WarriorsRefugePage() {
         <p className="mt-4 text-sm text-muted-foreground">The organization lists weekday office hours of 9 a.m.–5 p.m. and weekends by appointment. These are office hours, not a guarantee of walk-in housing or emergency placement. If you have nowhere safe to stay tonight, see the 24/7 VA housing line below.</p>
       </section>
 
-      <div className="grid lg:grid-cols-3" style={{ marginTop: "2.75rem", gap: "2.75rem" }}>
-        <article className="lg:col-span-2" style={{ display: "grid", rowGap: "2.5rem", lineHeight: 1.8 }}>
+      <div className="warriors-refuge-layout" style={{ display: "grid", marginTop: "2.75rem", gap: "2.75rem" }}>
+        <article style={{ display: "grid", rowGap: "2.5rem", lineHeight: 1.8 }}>
           <section aria-labelledby="what-is">
             <h2 id="what-is" className="font-display text-3xl">What is The Warrior's Refuge?</h2>
             <p className="mt-4">The Warrior's Refuge is a West Columbia-based nonprofit founded in 2019. It describes its mission around three connected needs: a safe place to stay while recovering from homelessness, counseling and personal support, and education or employment that can help veterans remain housed. It serves veterans through its West Columbia campus and also lists The Rally Point in Alvin.</p>
