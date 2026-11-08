@@ -36,7 +36,9 @@ assert.deepEqual(Object.keys(evidence.historicalComponents['tolar-isd']).sort(),
 assert.ok(evidence.disputedData.some((x) => x.slug === 'tolar-isd' && x.year === 2022));
 assert.match(route, /latest\.type === 'school-district' \? <Suspense/);
 assert.match(route, /getVerifiedIsdHistoricalComponents/);
-assert.match(route, /showIsdAdoptedHistoryRow/);
+assert.match(route, /showSchoolAdoption/);
+assert.match(route, /isdEvidence/);
+assert.match(route, /getSchoolDistrictPeerRates/);
 assert.match(route, /Not a Comptroller workbook row/);
 assert.match(component, /\$140,000 general residence-homestead exemption/);
 assert.match(component, /additional \$60,000 school exemption/);
