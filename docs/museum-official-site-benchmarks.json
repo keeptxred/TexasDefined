@@ -1971,6 +1971,36 @@
         "https://atlas.thc.texas.gov/Details/2080004074",
         "https://business.bellville.com/list/member/austin-county-jail-museum-2116"
       ]
+    },
+    "medal-of-honor-host-city-museum-gainesville": {
+      "name": "Medal of Honor Host City Museum",
+      "operatorStrengths": [
+        "NCTC museum page publishes regular weekday hours, office phone, current programming, staff contact and collection priorities",
+        "NCTC field-trip handbook clearly states free admission, summer schedule, school bookings, group sizes, parking and gallery rules",
+        "Gainesville's Host City Program confirms the distinct institution and its community-military history"
+      ],
+      "originalVisitorValue": [
+        "Reconciles current regular weekday schedule against separate NCTC summer hours and outdated 2025 opening coverage",
+        "Separates Gainesville NCTC museum from Arlington's unrelated National Medal of Honor Museum and the separate Host City Park",
+        "Offers a source-backed school-trip checklist, family fit, sensible museum-and-downtown outing, primary references, and admission/parking cautions"
+      ],
+      "openGaps": [
+        "Exact-location museum photography reuse permission has not been documented; the published public-domain medals illustration is explicitly not a photograph of the institution",
+        "Confirm mobility routes, accessible parking, restrooms, sensory services and current special-event visitor rules directly with operator",
+        "Complete live production mobile/desktop, metadata, JSON-LD Museum and sitemap checks before claiming technical acceptance",
+        "Conduct formal side-by-side editorial review against the museum's live pages and visitor experience, not only static CI"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.nctc.edu/museum/",
+        "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+        "https://medalofhonorhostcity.com/museum/",
+        "https://www.mohmuseum.org/plan-your-visit/museum-map",
+        "https://www.kxii.com/2025/06/19/gainesville-medal-honor-museum-open-public/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
