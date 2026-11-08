@@ -287,6 +287,11 @@ export const Route = createFileRoute("/article/$slug")({
     const canonicalPath = `/article/${params.slug}`;
     const articleUrl = `${siteUrl}${canonicalPath}`;
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
+    // This licensed Commons photograph has verified attribution and reuse terms.
+    // Carry its existing on-page credit/source links into Google-readable ImageObject metadata.
+    const houstonCommuterImageRights = article.slug === "best-houston-suburbs-for-commuters"
+      ? heritagePhotoRightsForPath(canonicalPath)
+      : null;
     const author = authors.find((item) => item.id === article.authorId);
     const authorUrl = author ? `${siteUrl}/authors/${author.id}` : null;
     const authorId = authorUrl ? `${authorUrl}#desk` : `${siteUrl}/#organization`;
@@ -316,6 +321,11 @@ export const Route = createFileRoute("/article/$slug")({
       height: article.hero.height,
       representativeOfPage: true,
       ...(article.hero.credit ? { creditText: article.hero.credit } : {}),
+      ...(houstonCommuterImageRights ? {
+        license: houstonCommuterImageRights.licenseUrl,
+        acquireLicensePage: houstonCommuterImageRights.sourceUrl,
+        creator: { "@type": "Person", name: "Famartin" },
+      } : {}),
       ...(imageRights ?? {}),
     };
 
