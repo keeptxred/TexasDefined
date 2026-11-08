@@ -49,7 +49,7 @@
     "production:pages:audit": "node scripts/ci/audit-production-pages.mjs",
     "gaming:validate": "node scripts/data/validate-gaming-authority.mjs",
     "horse-racing:validate": "node scripts/data/validate-texas-horse-racing-authority.mjs",
-    "calculators:validate": "node --experimental-strip-types scripts/data/validate-calculator-platform.ts",
+    "calculators:validate": "node --experimental-strip-types scripts/data/validate-calculator-platform.ts && node scripts/data/validate-isd-tax-authority.mjs",
     "metro-proximity:validate": "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts src/data/__tests__/metro-county-links.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit",
     "relocation-search:validate": "node scripts/data/validate-relocation-search-spokes.mjs",
     "editorial-outreach:validate": "node scripts/data/validate-editorial-outreach.mjs",
