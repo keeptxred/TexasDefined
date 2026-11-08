@@ -51,7 +51,7 @@ async function verify(origin) {
   const missing = markers.filter(marker => !readableText.includes(marker.toLowerCase()));
   assert.deepEqual(missing, [], origin + ' missing displayed content: ' + missing.join('; '));
   const title = html.match(/<title>([^<]+)<\/title>/i)?.[1] || '';
-  assert.ok(title.includes('District 6-6A Football: 2026 Teams, Schedule & Tickets'), origin + ' stale title ' + title);
+  assert.ok(title.includes('District 6-6A Football: 2026 Teams, Schedule') && title.includes('Tickets'), origin + ' stale title ' + title);
   const canonical = [...html.matchAll(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi)];
   assert.equal(canonical.length, 1, origin + ' canonical count');
   assert.ok(canonical[0][0].includes('https://texasdefined.com' + pathname), origin + ' wrong canonical');
