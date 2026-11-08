@@ -21,9 +21,13 @@ export const Route = createFileRoute("/authors/$author")({
     if (!author) throw notFound();
     // Include live evergreen bylines in the archive; preserve canonical local stories
     // and do not duplicate slugs that exist in both publication systems.
+    const localStories = articles.filter((article) => article.authorId === author.id);
     const seen = new Set(articles.map((article) => article.slug));
-    const completeArchive = [...articles, ...remoteEvergreen.filter((article) => !seen.has(article.slug))];
-    return { author, articles: completeArchive.filter((article) => article.authorId === author.id) };
+    const completeArchive = [
+      ...localStories,
+      ...remoteEvergreen.filter((article) => article.authorId === author.id && !seen.has(article.slug)),
+    ];
+    return { author, articles: completeArchive };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Editorial desk unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
