@@ -18,6 +18,8 @@ export type TexasTaxRateRecord = {
   debtServiceRate: number | null;
   levy: number | null;
   sourceUrl: string;
+  // Timestamp when the official workbook row was last ingested, not an editorial review date.
+  importedAt?: string | null;
   sourceStatus: TexasTaxRateSourceStatus;
   officialTaxingUnitIds: string[];
   splitAcrossCads: boolean;
