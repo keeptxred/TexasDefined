@@ -61,6 +61,8 @@ export const Route = createFileRoute("/things-unique-to-texas")({
               name: "Things That Define Texas reference dataset",
               description: "TexasDefined editorial research reference entries, chapter membership and relationships to canonical deeper guides. The research archive is not an editorial publishing quota.",
               creator: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
+              license: `${origin}/dataset-reference-license-v1.txt`,
+              isAccessibleForFree: true,
               isBasedOn: methodologyUrl,
               variableMeasured: ["item id", "name", "description", "chapter", "deeper guide"],
               distribution: [
