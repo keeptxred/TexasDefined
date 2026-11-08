@@ -503,3 +503,35 @@ test('HTML probe retry permits exactly one transient transport timeout, never fa
   },async()=>{throw Error('must not pause');}),/wrong Worker SHA/);
   assert.equal(calls,1,'never retry a substantive release failure');
 });
+
+
+test('Nov8 Bing and OAI missing JS families are selected only when actually emitted', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-ONE.js',
+    'property-tax.taxing-unit._unit-TWO.js',
+  ];
+  const emitted = [
+    'ViatorLiveProducts-DoZs-ryZ.js',
+    'CoastalBeachFieldGuide-DZ5PpwCp.js',
+    'ShowcaseLakeGuide-mhR86b08.js',
+    'fishing-C5l9Sb8A.js',
+    'texas-vs._state-CnYeEt_l.js',
+  ];
+  const observed404 = [
+    'ViatorLiveProducts-Jux2flJS.js',
+    'CoastalBeachFieldGuide-BAzzF2Bu.js',
+    'ShowcaseLakeGuide-YLPt_fev.js',
+    'fishing-DoHbvkpK.js',
+    'texas-vs._state-CyW7efgg.js',
+  ];
+  const current = selectBuiltRouteAssets([...required, ...emitted]).map(x=>x.path);
+  assert.equal(current.length,7);
+  for (const name of emitted) assert.ok(current.includes('/assets/'+name),name);
+  const missing = selectBuiltRouteAssets(required).map(x=>x.path);
+  for (const name of observed404) assert.equal(missing.includes('/assets/'+name),false,
+    'never synthesize historical hashes only because they were observed 404');
+  const overCap = [...required, ...Array.from({length:9},(_,i)=>
+    'ViatorLiveProducts-D'+String(i).padStart(7,'0')+'.js')];
+  assert.throws(()=>selectBuiltRouteAssets(overCap),/at most eight distinct/);
+  assert.equal(selectBuiltRouteAssets([...required,'ViatorLiveProduct-FAKEHASH.js']).length,2);
+});
