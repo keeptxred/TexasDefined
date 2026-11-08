@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 const evidence = JSON.parse(readFileSync(new URL('../../src/data/property/hood-cad-isd-adopted.json', import.meta.url), 'utf8'));
 const route = readFileSync(new URL('../../src/routes/property-tax.taxing-unit.$unit.tsx', import.meta.url), 'utf8');
+const detail = readFileSync(new URL('../../src/components/property/TaxingUnitRatePage.tsx', import.meta.url), 'utf8');
 const component = readFileSync(new URL('../../src/components/property/IsdTaxAuthority.tsx', import.meta.url), 'utf8');
 
 const tolerance = 0.000002;
@@ -38,12 +39,14 @@ assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 20
 for (const { slug, year } of evidence.disputedData) {
   assert.ok(!evidence.historicalComponents[slug]?.[String(year)], `${slug}: ${year} cannot be treated as verified when the source conflicts`);
 }
-assert.match(route, /latest\.type === 'school-district' \? <Suspense/);
+assert.match(route, /TaxingUnitRatePage = lazy/);
+assert.match(detail, /latest\.type === 'school-district' \? <Suspense/);
 assert.match(route, /getVerifiedIsdHistoricalComponents/);
 assert.match(route, /showSchoolAdoption/);
+assert.match(detail, /showSchoolAdoption/);
 assert.match(route, /isdEvidence/);
 assert.match(route, /getSchoolDistrictPeerRates/);
-assert.match(route, /Not a Comptroller workbook row/);
+assert.match(detail, /Not a Comptroller workbook row/);
 assert.match(component, /\$140,000 general residence-homestead exemption/);
 assert.match(component, /additional \$60,000 school exemption/);
 assert.match(component, /not\s*<\/strong> a/);
