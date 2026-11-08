@@ -7,7 +7,7 @@ assert.ok(match,'Batch016 shared campus-county edges missing');
 const edges=JSON.parse(match[1]);
 assert.equal(edges.length,25,'all 25 school-campus county links required');
 assert.equal(new Set(edges.map(e=>e.slug)).size,25,'duplicate school link');
-const expected={'brown':1,'lamb':1,'wharton':2,'chambers':1,'eastland':1,'hidalgo':6,'concho':1,'van-zandt':1,'jackson':1,'matagorda':1,'el-paso':10};
+const expected={'brown':1,'lamb':1,'wharton':2,'chambers':1,'eastland':1,'hidalgo':5,'concho':1,'van-zandt':1,'jackson':1,'matagorda':1,'el-paso':10};
 for(const [county,count] of Object.entries(expected))assert.equal(edges.filter(e=>e.county===county).length,count,county+' incorrect campus-county school count');
 const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county=read('src/routes/$kind.$slug.lazy.tsx');
