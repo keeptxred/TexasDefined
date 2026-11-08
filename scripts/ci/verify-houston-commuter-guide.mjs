@@ -61,17 +61,31 @@ const references = [
   ["ACS 2024 metro", "https://censusreporter.org/profiles/31000US26420-houston-pasadena-the-woodlands-tx-metro-area/"],
 ];
 async function fetchChecked(url) {
-  const response = await fetch(url, {
-    redirect: "follow",
-    signal: AbortSignal.timeout(18000),
-    headers: { "user-agent": "TexasDefined-Editorial-Source-Verification/1.0" },
-  });
-  if (!response.ok || response.headers.get("cf-mitigated") === "challenge") {
-    fail("HTTP verification needed: " + url + " (" + response.status + ")");
+  let lastFailure = null;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        redirect: "follow",
+        cache: "no-store",
+        signal: AbortSignal.timeout(18000),
+        headers: {
+          "user-agent": "TexasDefined-Editorial-Source-Verification/1.0",
+          "cache-control": "no-cache",
+          pragma: "no-cache",
+        },
+      });
+      if (!response.ok || response.headers.get("cf-mitigated") === "challenge") {
+        throw new Error("HTTP " + response.status + (response.headers.get("cf-mitigated") ? " (Cloudflare challenge)" : ""));
+      }
+      const body = await response.text();
+      if (body.length < 150) throw new Error("suspiciously empty HTTP response");
+      return body;
+    } catch (error) {
+      lastFailure = error;
+      if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt * 1500));
+    }
   }
-  const body = await response.text();
-  if (body.length < 150) fail("suspiciously empty response: " + url);
-  return body;
+  fail("HTTP/source verification needed: " + url + " — " + String(lastFailure));
 }
 if (process.argv.includes("--sources")) {
   const errors = [];
@@ -87,9 +101,14 @@ if (process.argv.includes("--live")) {
   required(html, [
     "Best Houston Suburbs for Commuters: Compare by Job Corridor",
     "The Woodlands Express", "Fort Bend Transit",
-    "31.1-minute", "Methodology, sources and what this guide cannot claim"
+    "31.1-minute", "79% of the time",
+    "Methodology, sources and what this guide cannot claim"
   ], "live HTML");
-  if (!html.includes(origin + "/article/" + slug) || !/rel=["']canonical["']/i.test(html)) fail("canonical missing");
+  const canonical = origin + "/article/" + slug;
+  const canonicalTags = html.match(/<link\\b[^>]*>/gi) ?? [];
+  if (!canonicalTags.some((tag) => /\\brel=["']canonical["']/i.test(tag) && tag.includes(canonical))) {
+    fail("exact canonical link missing for " + canonical);
+  }
   if (/<meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) fail("noindex tag found");
   if (!html.includes("application/ld+json")) fail("JSON-LD absent");
   console.log("PASS deployed content, indexability meta and structured data presence");
