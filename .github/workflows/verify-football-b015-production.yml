@@ -49,7 +49,24 @@ jobs:
         id: release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: node scripts/ci/pin-football-b010-production-release.mjs
+        shell: bash
+        run: |
+          # The verified Worker deployment ledger can arrive after the successful
+          # production workflow event. Retry only the strict identity check;
+          # never relax the signed SHA, Worker UUID or success-status assertions.
+          for attempt in 1 2 3 4 5; do
+            node scripts/ci/pin-football-b010-production-release.mjs
+            if grep -q '^ready=true$' "$GITHUB_OUTPUT"; then
+               echo "Verified Worker ledger pinned on attempt $attempt"
+               exit 0
+             fi
+             if [ "$attempt" -lt 5 ]; then
+               echo "Exact signed Worker ledger not yet visible; retry in 30s ($attempt/5)"
+               sleep 30
+             fi
+           done
+           echo "No exact signed source release after bounded retries" >&2
+           exit 1
       - name: Require exact signed production release for active Batch015
         if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready != 'true'
         run: |
