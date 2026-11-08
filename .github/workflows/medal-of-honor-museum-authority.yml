@@ -24,6 +24,9 @@ on:
   schedule:
     - cron: '27 15 * * 1'
   workflow_dispatch:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
 
 permissions:
   contents: read
@@ -31,6 +34,7 @@ permissions:
 
 jobs:
   authority:
+    if: github.event_name != 'workflow_run'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -70,3 +74,66 @@ jobs:
       - name: Fail source drift verification until facts are reviewed
         if: steps.monitor.outcome == 'failure'
         run: exit 1
+
+  verify-live:
+    name: Verify museum live HTML and contextual discovery
+    # Workflow run triggers only after the exact production workflow finishes;
+    # never accept a PR preview or an unrelated main-branch build as publication.
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DEPLOYED_SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - name: Check out deployed source revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - name: Check canonical destination and all three inbound pages on production
+        shell: bash
+        run: |
+          set -euo pipefail
+          # This workflow may run for a deployment that predates the new page.
+          # Skip those revisions; never falsely claim they published the museum.
+          if ! test -f src/data/medal-of-honor-host-city-museum.ts; then
+            echo 'Deployed revision predates museum destination; no museum-live certification'
+            exit 0
+          fi
+          root='https://texasdefined.com'
+          canonical='/destination/medal-of-honor-host-city-museum-gainesville'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+          check_page() {
+            local label="$1" path="$2" title="$3" link="$4"
+            local output="$workdir/$label.html"
+            local success=0
+            for attempt in 1 2 3 4 5 6; do
+              if curl --fail-with-body --location --silent --show-error --max-time 30 \
+                -H 'Accept: text/html' -H 'User-Agent: Mozilla/5.0 (compatible; TexasDefinedAuthorityVerifier/1.0)' \
+                "$root$path?museum_live_sha=$DEPLOYED_SHA&attempt=$attempt" --output "$output"; then
+                if grep -Fq "$title" "$output" && grep -Fq "$link" "$output"; then
+                  success=1
+                  break
+                fi
+              fi
+              echo "$label not confirmed on attempt $attempt"
+              sleep 7
+            done
+            if test "$success" -ne 1; then
+              echo "::error title=Production museum route verification failed::$label page $path missing title or required contextual link"
+              head -c 800 "$output" 2>/dev/null || true
+              return 1
+            fi
+            echo "Verified $label at $root$path for deploy $DEPLOYED_SHA"
+          }
+          check_page museum "$canonical" 'Medal of Honor Host City Museum' 'https://www.nctc.edu/museum/'
+          check_page heroes '/article/texas-medal-of-honor-heroes' 'Texas Medal of Honor Stories' "$canonical"
+          check_page statewide '/article/texas-military-museums-historic-sites-guide' 'Texas Military Museums' "$canonical"
+          check_page cooke '/article/cooke-county-gainesville-red-river-muenster-north-texas' 'Cooke County' "$canonical"
+          # The published page must communicate the correct museum identity
+          # and visitor conditions in HTML, not only in a source fixture.
+          grep -Fq '1525 W California' "$workdir/museum.html"
+          grep -Fq 'Gainesville' "$workdir/museum.html"
+          grep -Fq 'free' "$workdir/museum.html" || grep -Fq 'Free' "$workdir/museum.html"
+          echo 'PASS: live museum page + 3 incoming authority links + operator citation + visitor facts'
