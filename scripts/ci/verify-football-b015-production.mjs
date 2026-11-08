@@ -8,7 +8,7 @@ const {chromium}=require('/tmp/td-b015-chrome/node_modules/playwright-core');
 const origin='https://texasdefined.com';
 const source=process.env.FOOTBALL_CHROME_SOURCE_SHA||'';
 const worker=process.env.FOOTBALL_EXPECTED_WORKER_VERSION||'';
-const report={batch:15,sourceCommit:source,workerVersion:worker,schoolSlugs:[],schoolChecks:[],countyChecks:[],failures:[],technicalOnly:true};
+const report={batch:15,sourceCommit:source,workerVersion:worker,schoolSlugs:[],schoolChecks:[],countyChecks:[],screenshots:[],failures:[],technicalOnly:true};
 mkdirSync('artifacts',{recursive:true});
 mkdirSync('artifacts/b015-chrome-screenshots',{recursive:true});
 const save=()=>writeFileSync('artifacts/b015-chrome-report.json',JSON.stringify(report,null,2)+'\n');
@@ -60,7 +60,9 @@ try{
     assert.deepEqual(errors,[],'browser errors '+slug);
     const county=data.links.find(l=>/^\/county\/[a-z0-9-]+\/?$/.test(l||''));
     assert.ok(county,'missing school-to-county link '+slug);
-    await page.screenshot({path:'artifacts/b015-chrome-screenshots/'+slug+'-'+width+'.png',fullPage:true,timeout:30000});
+    const screenshotPath='artifacts/b015-chrome-screenshots/'+slug+'-'+width+'.png';
+    await page.screenshot({path:screenshotPath,fullPage:true,timeout:30000});
+    report.screenshots.push({slug,width,path:screenshotPath});
     report.schoolChecks.push({slug,width,pass:true,county});
     if(width===1366){
      // The same Dallas county SSR route can occasionally exceed the first
@@ -102,6 +104,7 @@ try{
  }
 }finally{await browser.close();save();}
 assert.equal(report.schoolChecks.length,75,'all 75 viewports required');
+assert.equal(report.screenshots.length,75,'all 75 screenshot artifacts required');
 assert.equal(report.countyChecks.length,25,'all 25 county reciprocal checks required');
 assert.deepEqual(report.failures,[],'Batch015 Chrome failure');
 console.log('PASS: 25 Batch015 source-authored schools x 3 viewports, 25 reciprocal county checks, one exact signed Worker; registry and indexing remain NOT_REVIEWED.');
