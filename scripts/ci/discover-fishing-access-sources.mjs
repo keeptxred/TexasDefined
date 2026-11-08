@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { extractAccessFacilityHeadings } from "./parse-tpwd-access-facilities.mjs";
 const definitions = fs.readFileSync("src/data/fishing/statewide-lake-network.ts", "utf8");
 const curated = JSON.parse(fs.readFileSync("src/data/fishing/curated-access-sites.json", "utf8"));
 const known = new Set(curated.map((x) => x.lakeId));
@@ -14,13 +15,11 @@ const ordinal = arg === undefined || arg === "" ? Number(process.env.GITHUB_RUN_
 if (!Number.isInteger(ordinal) || ordinal < 0) throw new Error("Invalid discovery batch");
 const index = ordinal % batches;
 const batch = lakes.slice(index * size, (index + 1) * size);
-const plain = (s) => s.replace(/<[^>]*>/g, " ").replace(/&nbsp;|&#160;/gi, " ").replace(/&amp;/gi, "&").replace(/&#x27;|&#39;/gi, "'").replace(/\s+/g, " ").trim();
-const heads = (html) => [...new Set([...html.matchAll(/<h([3-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].map((m) => plain(m[2]).replace(/^[A-Z]\d?:\s*/, "")).filter((s) => s.length >= 4 && s.length <= 100 && !/public access facilities|return to|fishing regulations|fishing reports/i.test(s)))].slice(0, 30);
 async function checkPage(url) {
   const r = await fetch(url, { signal: AbortSignal.timeout(12000), redirect: "follow", headers: { "User-Agent": "TexasDefinedFishingDiscovery/1.0 (+https://texasdefined.com/fishing)" } });
   if (!r.ok) return { url, status: r.status, names: [] };
   const html = (await r.text()).slice(0, 500000);
-  return { url, status: r.status, names: html.toLowerCase().includes("public access facilities") ? heads(html) : [] };
+  return { url, status: r.status, names: html.toLowerCase().includes("public access facilities") ? extractAccessFacilityHeadings(html) : [] };
 }
 async function inspect(lake) {
   const root = "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/" + lake.tpwd + "/";
