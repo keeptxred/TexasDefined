@@ -87,7 +87,7 @@ export const Route = createFileRoute('/texas-data')({
           contentUrl: absoluteUrl(texasDefinedBrand, dataset.csvPath),
         },
       })),
-      { '@type': 'Dataset', name: 'Texas Sports Venue Comparison', url: absoluteUrl(texasDefinedBrand, sportsComparisonPath), distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath) } },
+      { '@type': 'Dataset', name: 'Texas Sports Venue Comparison', description: featuredDataProducts.find((dataset) => dataset.path === sportsComparisonPath)!.description, url: absoluteUrl(texasDefinedBrand, sportsComparisonPath), distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath) } },
     ];
     return {
       meta: buildMeta(texasDefinedBrand, {
