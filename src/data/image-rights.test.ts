@@ -116,6 +116,10 @@ test("both SEO head routes attach the verified data to the published ImageObject
   for (const photo of photos.slice(0, 4)) {
     assert.ok(article.includes(photo.file.split("_")[0]), photo.page);
   }
+  assert.ok(article.includes("href={imageRights.acquireLicensePage}"),
+    "Readers must receive the image's original source and reuse information");
+  assert.ok(article.includes("href={imageRights.license}"),
+    "Creative Commons licensing link must be visible next to attribution");
   assert.ok(destination.includes("imageRightsFor(destination.hero.src)"));
   assert.ok(destination.includes("...magoffinImageRights, ...moodyGardensImageRights"),
     "Existing one-off verified rights must not be removed");
