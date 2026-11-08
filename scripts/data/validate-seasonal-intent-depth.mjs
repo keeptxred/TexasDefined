@@ -220,6 +220,18 @@ if (linkedTpwdReferences.length < 8 || linkedTpwdReferences.length !== rawTpwdRe
 if (!eastTexasCopy.includes("2.4-mile Rustling Leaves Trail") || !eastTexasCopy.includes("0.8-mile Mountain View Trail")) {
   fail("East Texas fall guide lost source-backed Daingerfield trail recommendations");
 }
+for (const marker of [
+  "Choose a park by trail constraints, not a color forecast",
+  "South Sulphur unit of Cooper Lake first for a brief easy interpretive walk",
+  "the short 0.7-mile Caddo Forest Trail is moderate and includes steps",
+  "Research and evidence behind this guide",
+  "Source review: November 7, 2026",
+  "not a six-park live foliage report",
+  "not firsthand field-test results",
+]) if (!eastTexasCopy.includes(marker)) fail("East Texas source transparency or original visitor-fit comparison missing: " + marker);
+if (!articles.includes('slug: "east-texas-fall-colors"') || !articles.includes('updatedAt: "2026-11-07"')) {
+  fail("East Texas editorial modified date must match November 7 source-backed research");
+}
 if (eastTexasCopy.includes("Uncertain is the name of a nearby Texas community")) {
   fail("East Texas fall guide contains out-of-context town-name clarification");
 }
