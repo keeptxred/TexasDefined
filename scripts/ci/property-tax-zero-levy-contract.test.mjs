@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const sql=readFileSync('supabase/migrations/20261021212000_post_oak_bend_2021_2024_local_zero_evidence.sql','utf8');
-const route=readFileSync('src/routes/property-tax.taxing-unit.$unit.tsx','utf8');
+// Inspect both the route entry and the streamed source-aware detail view.
+const route=readFileSync('src/routes/property-tax.taxing-unit.$unit.tsx','utf8')
+  +'\n'+readFileSync('src/components/property/TaxingUnitRatePage.tsx','utf8');
 
 test('Post Oak Bend historical zero levies use year-specific primary sources',()=>{
   assert.match(sql,/2021,'city','post-oak-bend','129-110-03',0\.000000,null,null/);
