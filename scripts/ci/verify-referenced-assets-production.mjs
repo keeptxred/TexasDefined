@@ -95,6 +95,12 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   /^main-[A-Za-z0-9_-]+\.js$/,
   /^Container-[A-Za-z0-9_-]+\.js$/,
   /^styles-[A-Za-z0-9_-]+\.css$/,
+  // Actual production client Vite stylesheet families emitted on Nov 8.
+  // The three route CSS files were previously absent from the protected handoff.
+  // Only preserve emitted original CSS; enforce the same 8-per-family cap.
+  /^TexasEventCarousel-[A-Za-z0-9_-]+\.css$/,
+  /^events\.index-[A-Za-z0-9_-]+\.css$/,
+  /^network-[A-Za-z0-9_-]+\.css$/,
   /^Header-[A-Za-z0-9_-]+\.js$/,
   /^Footer-[A-Za-z0-9_-]+\.js$/,
   /^RouteStatusScreens-[A-Za-z0-9_-]+\.js$/,
