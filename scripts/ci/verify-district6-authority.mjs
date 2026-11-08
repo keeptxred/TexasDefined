@@ -9,10 +9,11 @@ import assert from 'node:assert/strict';
 import { readFile, writeFile, appendFile } from 'node:fs/promises';
 
 const read = async (path) => readFile(new URL('../../' + path, import.meta.url), 'utf8');
-const [page, head, guide, productionWorkflow, productionSmoke, mobileSmoke] = await Promise.all([
+const [page, head, guide, calendar, productionWorkflow, productionSmoke, mobileSmoke] = await Promise.all([
   read('src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'),
   read('src/routes/texas-high-school-football-districts_.$slug.tsx'),
   read('src/components/sports/District6Guide.tsx'),
+  read('src/data/high-school-football/district6-calendar-2026.ts'),
   read('.github/workflows/deploy-production.yml'),
   read('scripts/ci/verify-district6-production.mjs'),
   read('scripts/ci/verify-district6-responsive-browser.mjs'),
@@ -29,6 +30,37 @@ for (const team of ['Allen','Dallas Jesuit','McKinney','McKinney Boyd','Princeto
 }
 for (const section of ['district-6-2026','district-6-fan-info']) assert.ok(guide.includes(section), 'Missing source-backed section: ' + section);
 assert.match(guide, /not live upcoming games/i, 'Dated fixtures must not be mislabeled as live upcoming games');
+
+assert.match(guide, /28 league games/, 'District 6 must display the complete league schedule');
+assert.match(guide, /district-6-comparison/, 'Unique source-based district analysis is mandatory');
+assert.match(guide, /district-6-source-notes/, 'Visible editorial review and sourcing notes are mandatory');
+assert.match(guide, /TexasDefined editorial desk/, 'The page must identify its responsible publisher');
+assert.match(guide, /November 7, 2026/, 'Displayed manual calendar review date missing');
+assert.ok(!guide.includes('Published late-season matchups'), 'Incomplete five-game snapshot must be removed');
+const fixtureRows = [...calendar.matchAll(/\{\s*date:\s*'(\d{4}-\d{2}-\d{2})',\s*away:\s*'([^']+)',\s*home:\s*'([^']+)'\s*\}/g)];
+assert.equal(fixtureRows.length, 28, 'District 6 needs exactly 28 dated league matchups');
+const schoolNames = ['Allen', 'Dallas Jesuit', 'McKinney', 'McKinney Boyd', 'Princeton', 'Prosper', 'Prosper Rock Hill', 'Prosper Walnut Grove'];
+const schoolCounts = new Map(schoolNames.map(name => [name, 0]));
+const uniquePairs = new Set();
+let jesuitGames = 0;
+for (const [, date, away, home] of fixtureRows) {
+  assert.match(date, /^2026-(?:09|10|11)-\d{2}$/, '2026 district season date expected');
+  assert.ok(schoolCounts.has(away) && schoolCounts.has(home) && away !== home, 'Unknown or repeated school ' + away + ' / ' + home);
+  const pair = [away, home].sort().join('|');
+  assert.ok(!uniquePairs.has(pair), 'Repeated district game: ' + pair);
+  uniquePairs.add(pair);
+  schoolCounts.set(away, schoolCounts.get(away) + 1);
+  schoolCounts.set(home, schoolCounts.get(home) + 1);
+  if (away === 'Dallas Jesuit' || home === 'Dallas Jesuit') jesuitGames++;
+}
+assert.equal(uniquePairs.size, 28, 'District 6 needs every unique pairing');
+for (const [school, count] of schoolCounts) assert.equal(count, 7, school + ' must play all seven opponents');
+assert.equal(jesuitGames, 7, 'Official Jesuit varsity schedule requires seven district fixtures');
+assert.match(calendar, /jesuitrangers\.org\/sports\/football\/schedule\/2026/, 'Primary source for Jesuit dates missing');
+assert.match(calendar, /pigskinprep\.com\/showfreeschedules\.asp/, 'Published district-wide schedule source missing');
+assert.ok(!/(?:score:|homeScore:|awayScore:|wins:|losses:|rank:|seed:)/.test(calendar), 'No records, scores, projected rankings or seeds in the schedule archive');
+assert.match(page, /!district6Pilot && <FootballFanOffers/, 'District 6 must not include generic affiliate-filler block');
+
 assert.match(guide, /no standings, automated win\/loss records/i, 'Explicit records pause disclosure missing');
 assert.ok(!/fetch\s*\(|(?:parse|scrape)(?:Standings|Scores|Records)/i.test(guide), 'No automated sports-data ingestion in the guide');
 assert.ok(productionWorkflow.includes('node scripts/ci/verify-district6-production.mjs'), 'District 6 direct-Worker production acceptance missing');
