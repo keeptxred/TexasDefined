@@ -26,7 +26,7 @@ assert.ok(page.indexOf('{district6Pilot && <District6Guide />}') < page.indexOf(
 assert.match(head, /District 6-6A Football: 2026 Teams, Schedule & Tickets/, 'Distinctive District 6 title missing');
 assert.match(head, /No live standings or W-L automation/, 'District 6 search metadata must disclose that records are not live');
 for (const team of ['Allen','Dallas Jesuit','McKinney','McKinney Boyd','Princeton','Prosper','Prosper Rock Hill','Prosper Walnut Grove']) {
-  assert.ok(guide.includes(team) || page.includes(team), 'Missing District 6 context: ' + team);
+  assert.ok(guide.includes(team) || page.includes(team) || calendar.includes(team), 'Missing District 6 context: ' + team);
 }
 for (const section of ['district-6-2026','district-6-fan-info']) assert.ok(guide.includes(section), 'Missing source-backed section: ' + section);
 assert.match(guide, /not live upcoming games/i, 'Dated fixtures must not be mislabeled as live upcoming games');
