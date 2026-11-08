@@ -4,10 +4,13 @@ on:
   schedule:
     # Monthly editorial-source maintenance, not an automated scoreboard feed.
     - cron: '23 14 1 * *'
+    # Weekly link/staleness checks during football season; no game scraping.
+    - cron: '23 14 * 8-11 2'
   workflow_dispatch:
   push:
     paths:
       - 'src/components/sports/District6Guide.tsx'
+      - 'src/data/high-school-football/district6-calendar-2026.ts'
       - 'src/routes/texas-high-school-football-districts_.$slug.tsx'
       - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
       - 'scripts/ci/verify-district6-authority.mjs'
@@ -17,6 +20,7 @@ on:
   pull_request:
     paths:
       - 'src/components/sports/District6Guide.tsx'
+      - 'src/data/high-school-football/district6-calendar-2026.ts'
       - 'src/routes/texas-high-school-football-districts_.$slug.tsx'
       - 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'
       - 'scripts/ci/verify-district6-authority.mjs'

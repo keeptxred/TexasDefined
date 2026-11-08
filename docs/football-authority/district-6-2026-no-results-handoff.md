@@ -1,5 +1,15 @@
 # District 6-6A 2026 — source ledger and handoff
 
+## 2026-11-07 authority follow-up — implementation and verification
+
+The audit is NOT archived until the new 28-game calendar, unique analysis, editorial attribution, and district-specific guide pass the protected branch checks and production (direct Worker, canonical SSR, 390px and 320px Chrome). PR and deployment evidence belong below.
+
+- Replaced the five late-season listings with a hand-curated complete 28-matchup (seven per school) District 6 regular-season archive. Jesuit's seven district dates checked directly against Jesuit Dallas official varsity; the other twenty-one cross-checked from the publicly published Pigskin Prep district schedule. No game scores, W/L standings, projected seeds, kickoff/venue assumptions, or automated ingestion were added.
+- Added District 6 original comparisons: UIL enrollments, district median, five distinct ticket offices, three Prosper and two McKinney programs, public/private participation and the conditional 6A playoff split.
+- Added editorial-desk attribution, a displayed actual manual review date, source provenance and corrections links. Suppressed generic affiliate-footer filler for this one district; retained labelled sponsorship.
+- Expanded authority CI with 28 distinct opponent pairings, 7 games per team, 7 school-first-party Jesuit fixtures, exclusions for scores/results, original analysis and attribution; scheduled weekly source-link checks in-season plus existing monthly checks.
+- The global production HTML checker deliberately accepts both old/new schedule headings while deployment rolls forward; source CI insists on new structure in GitHub, and post-deploy acceptance must confirm 28 rendered rows.
+
 State: MERGED AND PUBLICLY PUBLISHED. PR #6324 merged 2026-10-29 at 494686692ffdc27d5df681d073f500cf0faeffdf. Live canonical HTML checked 2026-11-07: all eight school links, source-attributed guide, dated fixtures, ticket/stadium sources, playoff information and guide-before-sponsor ordering are present. Source review 2026-10-29.
 
 Production acceptance: Added bounded direct-Worker and canonical-domain SSR checks plus one 390px and one 320px production Chrome check in the shared protected deployment workflow (scripts/ci/verify-district6-production.mjs and scripts/ci/verify-district6-responsive-browser.mjs). These new checks must pass on the subsequent protected production run; a source commit alone is NOT evidence that Chrome passed. Cloudflare Browser Rendering screenshot permission returned HTTP 401 during the 2026-11-07 chat verification; this is a scope-specific error, NOT evidence that the site's Worker failed, and no reconnect loop was attempted.
