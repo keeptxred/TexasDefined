@@ -25,6 +25,12 @@ for (const [name, text] of Object.entries({
   "primary provider": "https://thewarriorsrefuge.us/contacts/",
   "official VA": "https://department.va.gov/homeless/nationalcallcenter/",
   "provider distinction": "different eligibility rules",
+  "official intake email": "rickie@thewarriorsrefuge.us",
+  "cost of eligible services": "free to eligible veterans and families",
+  "family counseling access": "families who do not live on campus",
+  "employment eligibility": "recently released from incarceration",
+  "direct provider application guidance": "provider's online application link",
+  "provider historical sourcing": "https://thewarriorsrefuge.us/aboutus/",
   "financial grant request channels": "as a walk-in",
   "financial grant appointment": "provided by appointment",
   "financial grant annual limit": "up to twice per year",
@@ -58,6 +64,9 @@ console.log("PASS Warrior's Refuge guide: source attribution, service distinctio
 if (process.argv.includes("--remote")) {
   const refs = [
     ["contacts", "https://thewarriorsrefuge.us/contacts/", /West Columbia/i],
+    ["published intake contact", "https://thewarriorsrefuge.us/contacts/", /rickie@thewarriorsrefuge\.us/i],
+    ["family counseling program", "https://thewarriorsrefuge.us/how-we-help/", /Texas Veterans Family Alliance Grant/i],
+    ["employment eligibility", "https://thewarriorsrefuge.us/how-we-help/", /recently released from incarceration/i],
     ["programs", "https://thewarriorsrefuge.us/how-we-help/", /Transitional Housing/i],
     ["grant", "https://thewarriorsrefuge.us/twr-financial-assistance/", /Brazoria County/i],
     ["volunteer", "https://thewarriorsrefuge.us/getinvolved/", /VOLUNTEER/i],
