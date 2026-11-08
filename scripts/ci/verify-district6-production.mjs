@@ -12,7 +12,9 @@ const markers = [
   'Allen', 'Dallas Jesuit', 'McKinney Boyd', 'Princeton',
   'Prosper Rock Hill', 'Prosper Walnut Grove',
   'Varsity schedule, tickets and the playoff path',
-  'Published late-season matchups',
+  // The schedule changed from five late-season entries to all 28 matchups.
+  // Structural and fixture-count checks live in verify-district6-authority.mjs;
+  // this production smoke intentionally accepts both pre- and post-deploy text.
   'Official schedules, tickets and game-day rules',
   'Official Allen ISD tickets',
   'Official McKinney ISD tickets and stadium',
