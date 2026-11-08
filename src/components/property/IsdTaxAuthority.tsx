@@ -65,14 +65,14 @@ export function IsdTaxAuthority({ history, peers = [] }: { history: TexasTaxRate
     {comparable.length ? <div className="mt-9">
       <h3 className="font-display text-2xl">Compare other school districts in the same Hood CAD rate table</h3>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Each district below has its own boundaries. These {localYear} adopted rates are comparable per $100 of taxable value but are <strong className="text-foreground">alternatives, not taxes to add together</strong>. Individual properties generally belong to one principal school district; verify your parcel.</p>
-      <div className="mt-5 overflow-x-auto"><table className="w-full min-w-max text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">District</th><th>Adopted {localYear} rate</th><th>M&amp;O</th><th>I&amp;S</th></tr></thead><tbody>{comparable.map((item) => <tr key={item.name} className="border-b border-border"><td className="py-3 font-medium">{item.name}{item.name === latest.name ? ' (this page)' : ''}</td><td className="tabular-nums">{rate(item.totalRate)}</td><td className="tabular-nums">{rate(item.maintenanceOperationsRate)}</td><td className="tabular-nums">{rate(item.debtServiceRate)}</td></tr>)}</tbody></table></div>
+      <div className="mt-5 overflow-x-auto"><table className="w-full w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">District</th><th>Adopted {localYear} rate</th><th>M&amp;O</th><th>I&amp;S</th></tr></thead><tbody>{comparable.map((item) => <tr key={item.name} className="border-b border-border"><td className="py-3 font-medium">{item.name}{item.name === latest.name ? ' (this page)' : ''}</td><td className="tabular-nums">{rate(item.totalRate)}</td><td className="tabular-nums">{rate(item.maintenanceOperationsRate)}</td><td className="tabular-nums">{rate(item.debtServiceRate)}</td></tr>)}</tbody></table></div>
     </div> : null}
     {!showAdopted && peers.length ? <div className="mt-9">
       <h3 className="font-display text-2xl">Related school districts: same-year statewide comparison</h3>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
         The following districts share an associated county with this page and have finalized reported {latest.year} rates. Five nearest published rates are shown for comparison; districts do not necessarily border one another. A parcel owes its actual district's rate, not the sum of these rows. These are not newer locally adopted rates.
       </p>
-      <div className="mt-5 overflow-x-auto"><table className="w-full min-w-max text-left text-sm">
+      <div className="mt-5 overflow-x-auto"><table className="w-full w-full text-left text-sm">
         <thead><tr className="border-b border-border"><th className="py-3">School district</th><th>Total / $100</th><th>M&amp;O</th><th>I&amp;S</th></tr></thead>
         <tbody>{peers.map((item) => <tr key={item.id} className="border-b border-border">
           <td className="py-3"><a href={`/property-tax/taxing-unit/${item.slug}`} className="font-semibold text-primary underline underline-offset-2">{item.name}</a></td>
