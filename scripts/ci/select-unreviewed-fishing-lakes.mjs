@@ -17,7 +17,7 @@ export function selectUnreviewedFishingLakes(definitions, curatedLakeIds) {
     if (curated.has(lakeId)) continue;
     const block = definitions.slice(matches[i].index, matches[i + 1]?.index ?? definitions.length);
     const hasReviewedDate = /\baccessReviewedAt:\s*"\d{4}-\d{2}-\d{2}"/.test(block);
-    const hasVerifiedSites = /\baccessPoints:\s*\[/.test(block);
+    const hasVerifiedSites = /\baccessPoints:\s*\[\s*\{/.test(block);
     if (hasVerifiedSites) {
       // The public prototype's accessReviewedAt already falls back to
       // 2026-10-12 for lake definitions with actual accessPoints. Keep
