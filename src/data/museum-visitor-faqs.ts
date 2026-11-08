@@ -7015,6 +7015,90 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-20"
     }
+  ],
+  "medal-of-honor-host-city-museum-gainesville": [
+    {
+      "question": "Where is the Medal of Honor Host City Museum in Gainesville?",
+      "answer": "The museum is on the North Central Texas College Gainesville campus at 1525 West California Street, Gainesville, Texas 76240. Do not follow a route to the separately operated National Medal of Honor Museum in Arlington; these are different destinations.",
+      "verificationUrl": "https://medalofhonorhostcity.com/museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.kxii.com/2025/06/19/gainesville-medal-honor-museum-open-public/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Is the Gainesville museum free, or do I need an advance ticket?",
+      "answer": "The North Central Texas College field-trip handbook states that museum admission is free. The institution does not specify a general public timed-entry booking requirement on its visitor page; school groups follow separate mandatory advance scheduling rules. Confirm special event arrangements before traveling.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.kxii.com/2025/06/19/gainesville-medal-honor-museum-open-public/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "What days and hours can visitors go to the museum?",
+      "answer": "NCTC currently posts regular hours Monday through Thursday from 8 a.m. to 5 p.m. and Friday from 8 a.m. to noon. It publishes no routine Saturday or Sunday walk-in schedule. Campus holidays and private events may change availability, so verify directly before leaving home.",
+      "verificationUrl": "https://www.nctc.edu/museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://medalofhonorhostcity.com/museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Are the summer hours different from the regular visitor schedule?",
+      "answer": "Yes. The museum's field-trip handbook separately lists summer Monday through Thursday from 7:30 a.m. to 5:30 p.m. and Friday closed. That differs from the currently posted regular Friday hours. Confirm which academic-calendar schedule is in effect for your visit; older 2025 opening stories are not a reliable current-hours source.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://northcentraltc.squarespace.com/news/medal-of-honor-host-city-museum-now-open-to-the-public",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "How do school groups reserve a guided visit and what are the limits?",
+      "answer": "NCTC requires all school groups to schedule at least two weeks in advance. A group is limited to 100 participants including teachers and chaperones; larger groups are split into separate sessions. The handbook calls for one adult chaperone per ten students and arrival at least fifteen minutes early.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nctc.edu/museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Where can I park and how should a school bus arrive?",
+      "answer": "The NCTC field-trip handbook places an open parking lot across from the museum entrance and allows buses to drop off and pick up students at that entrance. Exact accessible parking details and temporary campus access rules are not specified; ask staff if your route or vehicle has special requirements.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mapcarta.com/W1444560241",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "What displays and programs are actually available at the museum?",
+      "answer": "The operator describes Medal of Honor recipient histories, personal artifacts, memorabilia, educational experiences and special lectures. The published donation policy lists the types of objects the museum seeks, but it does not guarantee that every listed artifact is presently displayed. Consult the museum's live event and exhibit information rather than relying on a fixed display inventory.",
+      "verificationUrl": "https://www.nctc.edu/museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.kxii.com/2025/06/19/gainesville-medal-honor-museum-open-public/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Is this the same place as the National Medal of Honor Museum in Arlington?",
+      "answer": "No. The Medal of Honor Host City Museum is in Gainesville on the NCTC campus, focusing on recipient histories and Gainesville's Host City traditions. The National Medal of Honor Museum is a separate Arlington institution with its own museum map, admission conditions and visitor program; verify travel plans for the correct city.",
+      "verificationUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-08"
+    },
+    {
+      "question": "Can wheelchair users visit and are food and photographs permitted?",
+      "answer": "NCTC has not published a complete accessible entrance, gallery route or sensory-services inventory on the museum page. Call 940-668-3330 to confirm accommodations. Its field-trip handbook prohibits gallery food and drinks except lidded bottled water, and allows photographs unless a guide or exhibit says otherwise. Check whether these group instructions also apply to your visit.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.nctc.edu/museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-08"
+    }
   ]
+
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];

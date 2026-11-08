@@ -31,13 +31,14 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
     { href: "/destination/uss-lexington-museum-corpus-christi", label: "USS Lexington Museum", description: "Walk the decks of the World War II Essex-class carrier preserved on Corpus Christi's North Beach." },
     { href: "/destination/national-wasp-wwii-museum-sweetwater", label: "National WASP WWII Museum", description: "Visit Avenger Field in Sweetwater, where Women Airforce Service Pilots trained during World War II." },
     { href: "/destination/silent-wings-museum-lubbock", label: "Silent Wings Museum", description: "See a restored CG-4A and the former South Plains Army Air Field where military glider pilots trained." },
+    { href: "/destination/medal-of-honor-host-city-museum-gainesville", label: "Medal of Honor Host City Museum — Gainesville", description: "Free North Texas museum devoted to Medal of Honor recipients and Gainesville\x27s Host City tradition; check weekday and summer hours." },
     { href: "/destination/texas-military-forces-museum", label: "Texas Military Forces Museum", description: "Use Camp Mabry's collection to understand the Texas militia, National Guard, State Guard and 36th Infantry Division." },
     { href: "/destination/palo-alto-battlefield-national-historical-park", label: "Palo Alto Battlefield", description: "Walk the preserved prairie where the first major battle of the U.S.–Mexican War was fought." },
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas", description: "Follow BB-35 from the dreadnought era through both world wars and its Galveston restoration." },
     { href: "/texas-history", label: "Texas History", description: "Return to the statewide TexasDefined history collection." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["uss-lexington-museum-corpus-christi", "national-wasp-wwii-museum-sweetwater", "silent-wings-museum-lubbock", "texas-military-forces-museum", "palo-alto-battlefield-national-historical-park", "battleship-texas", "national-museum-pacific-war", "fort-davis-national-historic-site", "fort-mckavett", "fort-lancaster"],
+  relatedDestinations: ["uss-lexington-museum-corpus-christi", "national-wasp-wwii-museum-sweetwater", "silent-wings-museum-lubbock", "texas-military-forces-museum", "medal-of-honor-host-city-museum-gainesville", "palo-alto-battlefield-national-historical-park", "battleship-texas", "national-museum-pacific-war", "fort-davis-national-historic-site", "fort-mckavett", "fort-lancaster"],
   body: [
     p("Texas military history is unusually easy to experience on the ground. The state preserves battlefields from the Republic, the U.S.–Mexican War and the Civil War; frontier Army posts; World War training fields; naval vessels; National Guard collections; and museums built around specialized aviation programs. The strongest visits are the ones where the physical place explains something a general timeline cannot."),
     p("This guide is organized by what each place helps you understand, not by a ranking that pretends a carrier museum and a battlefield are interchangeable. Use it to choose a trip by era, geography or type of experience, then open the individual TexasDefined destination pages for current access and nearby-stop planning."),
@@ -55,6 +56,9 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
     h("For the Pacific War: National Museum of the Pacific War in Fredericksburg"),
     p("Fredericksburg's National Museum of the Pacific War is the strongest Texas museum for understanding the Pacific theater as a whole. Its connection to Fleet Admiral Chester W. Nimitz gives the institution a local Texas anchor while the collections expand far beyond one biography."),
     p("Pair it with the town's German-Texan history and nearby Hill Country destinations, but give the museum enough time on its own. It is a collection-heavy experience rather than a quick historic-house stop."),
+
+    h("For Medal of Honor recipients and civic remembrance: Gainesville\x27s Host City Museum"),
+    p("Gainesville has welcomed Medal of Honor recipients through its Host City program since 2001. At North Central Texas College, the free Medal of Honor Host City Museum presents their stories and the values they represent through personal artifacts, exhibitions and educational programming. This is not the separately operated National Medal of Honor Museum in Arlington. TexasDefined has a dedicated Gainesville destination guide with the official weekday hours, summer differences, school-trip rules and a Cooke County day plan."),
 
     h("For Texas citizen-soldiers: Texas Military Forces Museum at Camp Mabry"),
     p("The Texas Military Forces Museum in Austin is the best single place to understand the institutional history of the Texas militia, National Guard, Texas State Guard and the 36th Infantry Division. Vehicles, uniforms and large artifacts connect nineteenth-century volunteer traditions with world wars, border missions, disasters and modern deployments."),

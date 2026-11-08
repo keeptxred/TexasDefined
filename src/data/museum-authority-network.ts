@@ -3359,6 +3359,43 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+
+  "medal-of-honor-host-city-museum-gainesville": {
+    name: "Medal of Honor Host City Museum", slug: "medal-of-honor-host-city-museum-gainesville", county: "Cooke", city: "Gainesville", reviewed: "2026-11-08",
+    topics: ["medal-of-honor", "military-history", "north-texas-history", "veterans-history", "museum-education"],
+    whyVisit: "The Gainesville institution at North Central Texas College is the visitor-facing legacy of a local Medal of Honor Host City tradition dating to 2001. It concentrates on the lives and lessons of recipients and on the community that welcomes them, not an encyclopedic equipment collection. This is distinct from the separately operated National Medal of Honor Museum in Arlington and offers a useful pairing with Gainesville's separate Host City Park and its downtown Cooke County museum.",
+    visitorStrategy: "Navigate to the museum on the NCTC Gainesville campus at 1525 West California Street, not to the different National Medal of Honor Museum in Arlington. NCTC's current regular hours are Monday–Thursday 8 a.m.–5 p.m. and Friday 8 a.m.–noon. The NCTC field-trip handbook states a separate summer schedule of Monday–Thursday 7:30 a.m.–5:30 p.m. with Friday closed, plus free admission. Check campus holiday closures. An open parking lot is described opposite the museum entrance, though public accessibility and the exact visitor route should be confirmed before travel. No official typical tour duration is published, so prefer a flexible weekday museum stop over a guaranteed one-hour or all-day itinerary.",
+    accessibility: "The public operator pages reviewed do not specify complete mobility or sensory accommodations, accessible parking spaces, or step-free routes through every exhibition. A modern campus building is not by itself evidence of universal access. Visitors with mobility, sensory or other specific needs should contact 940-668-3330 or MOH.HostCityMuseum@nctc.edu for precise entry, restroom, seating and group accommodations. The school handbook separately documents bus drop-off at the entrance and an open lot across from the building, but these logistics do not establish ADA details.",
+    familiesAndGroups: "This museum emphasizes recipient stories, historic personal items and educational values; it can provide structured discussion for school-age children and teens rather than primarily hands-on technology or vehicles. Teachers can request guided or self-guided experiences with activity sheets and character-education material. NCTC requires school groups to reserve at least two weeks ahead, caps each session at 100 including adults and specifies at least one adult chaperone per ten students. The themes include wartime danger, death and sacrifice; younger children may need sensitive explanations, and a toddler-play area is not confirmed. Ordinary visitors should confirm whether special events alter galleries or opening times.",
+    researchValue: "Gainesville's long-running Host City event provides the interpretive difference. The museum opened for public visits in 2025 following an April 10 ribbon-cutting, and the official collection statement identifies medals, uniforms, original letters, photographs, oral histories and military mementos as collecting priorities. These are not a guarantee that each artifact class is displayed. Research should compare official military citations with full biographies and post-service lives; a medal is a formal record of particular actions, not an individual's entire story. The museum's NCTC educational mission also links military history to civic discussions, while the unrelated National Medal of Honor Museum in Arlington has a different scale and exhibit program.",
+    exhibits: [
+      { heading: "Stories of Medal of Honor recipients", detail: "Use named recipient narratives to connect the award's citations with the individual's service, choices and life beyond the citation. Actual displays can rotate." },
+      { heading: "Personal artifacts and military memorabilia", detail: "The museum identifies meaningful personal artifacts as part of its interpretation. Ask which items are on display instead of assuming every type in its collecting policy is currently available." },
+      { heading: "The Medal of Honor and its core values", detail: "The educational handbook emphasizes courage, commitment, citizenship, sacrifice, integrity and patriotism; compare these interpretive themes with historical accounts." },
+      { heading: "Gainesville's Host City program", detail: "Understand why local residents host living recipients annually and how museum programs extend that community tradition beyond the event week." },
+      { heading: "Lectures and educational programming", detail: "NCTC publishes a changing program calendar. Lectures and classes are not assumed to run during ordinary walk-in visits; confirm event-specific terms." }
+    ],
+    routes: [
+      { label: "A first-time museum stop", steps: ["Confirm regular versus summer weekday hours and college closures", "Read several recipient narratives and compare their experiences with the military citations", "Ask staff about current artifacts, events and independent research resources"] },
+      { label: "A Cooke County history day", steps: ["Begin at the NCTC Medal of Honor Host City Museum while it is open", "Visit the separate Medal of Honor Host City Park if current access is available", "Continue to Gainesville's courthouse square and the Morton Museum after checking its own hours"] },
+      { label: "A planned school visit", steps: ["Contact museum staff at least two weeks in advance to book and obtain educational materials", "Arrange at least one adult per ten students, not exceeding the 100-person session cap", "Use the museum's guided or self-guided lesson options and plan a post-visit discussion"] }
+    ],
+    sources: [
+      { label: "NCTC museum — current official hours, exhibits and contacts", url: "https://www.nctc.edu/museum/", use: "Regular opening hours, mission, collection scope, educational contacts and current programming" },
+      { label: "NCTC — Medal of Honor museum field-trip handbook", url: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf", use: "Admission, summer hours, group booking rules, parking, educational experience and chaperones" },
+      { label: "Gainesville Medal of Honor Host City Program", url: "https://medalofhonorhostcity.com/museum/", use: "Museum identity, current public opening schedule and local Host City tradition" },
+      { label: "NCTC — museum's 2025 public opening", url: "https://northcentraltc.squarespace.com/news/medal-of-honor-host-city-museum-now-open-to-the-public", use: "Historical opening date and the initial schedule, which is superseded by current operator information" },
+      { label: "City of Gainesville — Medal of Honor Host City Park", url: "https://www.gainesville.tx.us/Facilities/Facility/Details/Medal-of-Honor-Host-City-Park-18", use: "Park is a separate historical visitor destination, not the campus museum" }
+    ],
+    connections: [
+      { label: "Cooke County", href: "/county/cooke", reason: "Context for Gainesville's civic and wartime history." },
+      { label: "Morton Museum of Cooke County", href: "/destination/morton-museum-of-cooke-county", reason: "Compare local civic collections with the Medal of Honor recipient focus." },
+      { label: "Texas Medal of Honor stories", href: "/article/texas-medal-of-honor-heroes", reason: "Independent background on Texans awarded the national decoration." },
+      { label: "Texas military museums", href: "/article/texas-military-museums-historic-sites-guide", reason: "Compare this museum to aviation, naval, and military-history collections statewide." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Discover distinct museums with their own visitor-access guidance." }
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));

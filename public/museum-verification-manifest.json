@@ -1643,6 +1643,34 @@
       ]
     },
     {
+      "path": "/destination/medal-of-honor-host-city-museum-gainesville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://medalofhonorhostcity.com/museum/",
+          "fetchUrl": "https://medalofhonorhostcity.com/museum/",
+          "label": "Gainesville Host City Program official museum visitor summary"
+        },
+        {
+          "sourceUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+          "fetchUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
+          "label": "Current field-trip handbook: admission, summer hours, parking and group policies"
+        },
+        {
+          "sourceUrl": "https://www.nctc.edu/museum/",
+          "fetchUrl": "https://www.nctc.edu/museum/",
+          "label": "Current NCTC official museum visitor information"
+        },
+        {
+          "sourceUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
+          "fetchUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
+          "label": "Separate National Medal of Honor Museum official Arlington visitor map"
+        }
+      ]
+    },
+    {
       "path": "/destination/menil-collection-houston",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,

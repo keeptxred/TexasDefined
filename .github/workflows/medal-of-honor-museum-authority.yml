@@ -1,0 +1,72 @@
+name: Medal of Honor Host City Museum authority verification
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/medal-of-honor-host-city-museum.ts'
+      - 'src/data/destination-preserved-catalog.ts'
+      - 'src/data/fixtures/texas-military-museums-historic-sites-guide.ts'
+      - 'src/data/fixtures/texas-medal-of-honor-heroes.ts'
+      - 'src/data/fixtures/cooke-county-gainesville-red-river-muenster-north-texas.ts'
+      - 'scripts/data/validate-medal-of-honor-host-city-museum.mjs'
+      - 'scripts/data/monitor-medal-of-honor-host-city-museum.mjs'
+      - '.github/workflows/medal-of-honor-museum-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/medal-of-honor-host-city-museum.ts'
+      - 'src/data/destination-preserved-catalog.ts'
+      - 'src/data/fixtures/texas-military-museums-historic-sites-guide.ts'
+      - 'src/data/fixtures/texas-medal-of-honor-heroes.ts'
+      - 'src/data/fixtures/cooke-county-gainesville-red-river-muenster-north-texas.ts'
+      - 'scripts/data/validate-medal-of-honor-host-city-museum.mjs'
+      - '.github/workflows/medal-of-honor-museum-authority.yml'
+  schedule:
+    - cron: '27 15 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  authority:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate museum data, sources, photo provenance and internal links
+        run: node scripts/data/validate-medal-of-honor-host-city-museum.mjs
+      - name: Monitor official museum sources for changed public facts
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        id: monitor
+        continue-on-error: true
+        run: node scripts/data/monitor-medal-of-honor-host-city-museum.mjs
+      - name: Save source-check report
+        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-artifact@v4
+        with:
+          name: medal-of-honor-museum-source-review
+          path: artifacts/museum-source-review/
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Open or update issue when current official information requires review
+        if: steps.monitor.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Museum source drift: Medal of Honor Host City Museum'
+          body="The weekly primary-source audit of the Gainesville museum detected a possible change or retrieval problem. Check the report artifact for this workflow run, compare official museum hours, admission and field-trip handbook, and update the authority page only after confirming actual changes. Canonical: /destination/medal-of-honor-host-city-museum-gainesville. Workflow run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          existing="$(gh issue list --state open --search "$title in:title" --json number,title --jq '.[] | select(.title == "Museum source drift: Medal of Honor Host City Museum") | .number' | head -1)"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
+      - name: Fail source drift verification until facts are reviewed
+        if: steps.monitor.outcome == 'failure'
+        run: exit 1
