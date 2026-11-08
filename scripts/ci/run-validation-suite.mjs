@@ -119,7 +119,7 @@ const predeployIds = new Set([
   'stamford-sweetwater-crosslinks',
   'fishing-county-authority-links',
   'fishing-city-authority-links',
-  'machine-indexing', 'things-unique-to-texas', 'texas-icon-link-depth', 'texas-weather-authority',
+  'dataset-schema-descriptions', 'machine-indexing', 'things-unique-to-texas', 'texas-icon-link-depth', 'texas-weather-authority',
   'texas-food-history', 'texas-culture-citation-index', 'texas-flag-authority', 'painted-churches-seo',
   'painted-church-search-intents', 'painted-church-map', 'painted-church-completion', 'military-history-expansion',
   'texas-talent-launch-contract', 'texas-talent-launch-depth-gate', 'texas-talent-flagship-depth',
