@@ -21,6 +21,7 @@ on:
       - 'src/server.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/authors.$author.tsx'
+      - 'src/components/editorial/ArticleBody.tsx'
       - 'src/data/heritage-photo-license-links.ts'
       - 'scripts/ci/verify-blue-bell-history-authority.mjs'
       - 'src/routes/sitemap*.ts'
