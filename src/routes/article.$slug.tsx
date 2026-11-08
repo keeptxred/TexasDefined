@@ -276,7 +276,7 @@ export const Route = createFileRoute("/article/$slug")({
       loadTexasKnowledgeGraph(),
     ]);
     const graph = articleAutoLinkGraph(article, completeGraph);
-    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg/.test(article.hero.src)
+    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg|Celina_High_School|Bart_Coan_Field_from_west|Panna_Maria_|Houston_texas_usa_skyline|ray-roberts-lake-isle-du-bois-unit/.test(article.hero.src)
       ? (await import("@/data/image-rights")).imageRightsFor(article.hero.src) : null;
     return { article, authors, categories, related, destinations, graph, imageRights };
   },
@@ -624,6 +624,10 @@ function ArticlePage() {
         {" · "}
         <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">CC BY-SA 4.0 license</a>
         {" · Responsive display may crop the photograph"}
+      </> : imageRights ? <>
+        <a href={imageRights.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a>
+        {imageRights.license !== imageRights.acquireLicensePage && <>{" · "}<a href={imageRights.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Image license and reuse terms</a></>}
+        {imageRights.creator["@type"] === "Person" && <>{" · Responsive display may crop or resize the photograph"}</>}
       </> : corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}{article.slug === "blue-bell-ice-cream-brenham-texas-history" && corridorHeroRights ? " · Photo may be cropped for responsive display" : null}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">

@@ -391,6 +391,80 @@ export function assertCompleted2026EventFacts(path, body, surface = 'release') {
   }
 }
 
+// Source-verified, fixed six-URL regression contract for the 2026-11-08
+// Google Search Console image metadata warning. No unrelated page crawling.
+const GSC_IMAGE_RIGHTS_EXPECTED = Object.freeze({
+  '/article/texas-high-school-football-playoffs-explained': {
+    creator: 'Heidi Knapp', type: 'Person', copyright: '© Heidi Knapp',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Celina_High_School,_Friday_Night_Football.jpg',
+  },
+  '/article/texas-six-man-football-rules-explained': {
+    creator: 'Fortguy', type: 'Person', copyright: '© Fortguy',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Bart_Coan_Field_from_west.jpg',
+  },
+  '/article/texas-cultural-regions-explained': {
+    creator: 'Renelibrary', type: 'Person', copyright: '© Renelibrary',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Panna_Maria_(1_of_1).jpg',
+  },
+  '/article/texas-major-cities-regional-differences': {
+    creator: 'Leeannoneal', type: 'Person', copyright: '© Leeannoneal',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Houston_texas_usa_skyline.jpg',
+  },
+  '/article/texas-lakes-reservoirs-explained': {
+    creator: 'U.S. Army Corps of Engineers', type: 'Organization',
+    copyright: 'Public domain — official U.S. Army Corps of Engineers federal government work; no copyright claim',
+    license: 'https://commons.wikimedia.org/wiki/File:USACE_Ray_Roberts_Lake_and_Dam.jpg',
+    source: 'https://commons.wikimedia.org/wiki/File:USACE_Ray_Roberts_Lake_and_Dam.jpg',
+  },
+  '/destination/south-padre-island': {
+    creator: 'Spheroidite', type: 'Person', copyright: '© Spheroidite',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:South_Padre_Island_beach_panorama.jpg',
+  },
+});
+
+export function assertGscImageRights(html, path, surface = 'production') {
+  const expected = GSC_IMAGE_RIGHTS_EXPECTED[path];
+  if (!expected) throw new Error('Unexpected image-rights page in production acceptance: ' + path);
+  const pageUrl = 'https://texasdefined.com' + path;
+  const documents = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter(([, attrs]) => /\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))
+    .flatMap(([, , json]) => {
+      try {
+        const doc = JSON.parse(json);
+        return Array.isArray(doc) ? doc : [doc];
+      } catch { return []; }
+    });
+  const nodes = documents.flatMap(doc => doc && typeof doc === 'object'
+    ? Array.isArray(doc['@graph']) ? doc['@graph'] : [doc] : []);
+  const objects = nodes.flatMap(node => {
+    const images = Array.isArray(node?.image) ? node.image : node?.image ? [node.image] : [];
+    return [node, ...images];
+  });
+  const image = objects.find(node => node?.['@type'] === 'ImageObject'
+    && node?.['@id'] === pageUrl + '#primaryimage');
+  if (!image
+    || typeof image.contentUrl !== 'string' || !/^https:\/\//.test(image.contentUrl)
+    || image.contentUrl !== image.url
+    || image.creator?.['@type'] !== expected.type
+    || image.creator?.name !== expected.creator
+    || image.copyrightNotice !== expected.copyright
+    || image.license !== expected.license
+    || image.acquireLicensePage !== expected.source
+    || !image.creditText?.includes(expected.creator)) {
+    throw new Error('Missing or incorrect ImageObject source rights on ' + path + ' (' + surface + ')');
+  }
+  // Rights must be visible to readers, not only in structured data.
+  const visible = html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
+  if (!visible.includes(expected.creator)) {
+    throw new Error('Visible creator attribution missing on ' + path + ' (' + surface + ')');
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
@@ -412,6 +486,7 @@ const battleshipVisitorPages = plan.battleshipVisitorPages ?? [];
 const fredericksburgSitemapPaths = plan.fredericksburgSitemapPaths ?? [];
 const magoffinHomePages = plan.magoffinHomePages ?? [];
 const moodyGardensPages = plan.moodyGardensPages ?? [];
+const imageRightsPages = plan.imageRightsPages ?? [];
 const davisHillPages = plan.davisHillPages ?? [];
 if (!Array.isArray(loneStarFootballPages) || loneStarFootballPages.length > 1 || loneStarFootballPages.some(p => p !== '/texas-high-school-football-teams/frisco-lone-star' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Lone Star production contract');
 if (!Array.isArray(katyFootballPages) || katyFootballPages.length > 1 || katyFootballPages.some(p => p !== '/texas-high-school-football-teams/katy' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Katy football production contract');
@@ -429,6 +504,9 @@ if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
 if (!Array.isArray(moodyGardensPages) || moodyGardensPages.length > 1 || moodyGardensPages.some(p => p !== '/destination/moody-gardens' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Moody Gardens production metadata contract');
+if (!Array.isArray(imageRightsPages) || imageRightsPages.length > 6
+  || imageRightsPages.some(path => !Object.hasOwn(GSC_IMAGE_RIGHTS_EXPECTED, path) || !plan.selectedPaths?.includes(path)))
+  throw new Error('Invalid bounded GSC ImageObject production acceptance contract');
 if (!Array.isArray(davisHillPages) || davisHillPages.length > 1 || davisHillPages.some(p => p !== '/destination/davis-hill-state-park' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Davis Hill image acceptance contract');
 if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 3 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
@@ -472,6 +550,18 @@ for (const path of plan.selectedPaths) {
         for (const href of expectedHrefs) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
         }
+      }
+      if (imageRightsPages.includes(path)) {
+        assertGscImageRights(html, path, 'cache-busted release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Image-Rights-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('GSC image-rights ordinary visitor URL failed: HTTP ' + visitor.status);
+        }
+        assertGscImageRights(await visitor.text(), path, 'ordinary visitor URL');
       }
       if (path === '/hunting') {
         assertHuntingHubPlanner(html, 'cache-busted release');
