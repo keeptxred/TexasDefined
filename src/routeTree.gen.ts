@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatDoesChudMeanRouteImport } from './routes/what-does-chud-mean'
+import { Route as WarriorsRefugeWestColumbiaRouteImport } from './routes/warriors-refuge-west-columbia'
 import { Route as WacoGhostToursRouteImport } from './routes/waco-ghost-tours'
 import { Route as WacoAttractionsRouteImport } from './routes/waco-attractions'
 import { Route as TrackTexasDriversLicenseRouteImport } from './routes/track-texas-drivers-license'
@@ -553,6 +554,12 @@ const WhatDoesChudMeanRoute = WhatDoesChudMeanRouteImport.update({
   path: '/what-does-chud-mean',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WarriorsRefugeWestColumbiaRoute =
+  WarriorsRefugeWestColumbiaRouteImport.update({
+    id: '/warriors-refuge-west-columbia',
+    path: '/warriors-refuge-west-columbia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const WacoGhostToursRoute = WacoGhostToursRouteImport.update({
   id: '/waco-ghost-tours',
   path: '/waco-ghost-tours',
@@ -4137,6 +4144,7 @@ export interface FileRoutesByFullPath {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/waco-attractions': typeof WacoAttractionsRoute
   '/waco-ghost-tours': typeof WacoGhostToursRoute
+  '/warriors-refuge-west-columbia': typeof WarriorsRefugeWestColumbiaRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -4674,6 +4682,7 @@ export interface FileRoutesByTo {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/waco-attractions': typeof WacoAttractionsRoute
   '/waco-ghost-tours': typeof WacoGhostToursRoute
+  '/warriors-refuge-west-columbia': typeof WarriorsRefugeWestColumbiaRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -5213,6 +5222,7 @@ export interface FileRoutesById {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/waco-attractions': typeof WacoAttractionsRoute
   '/waco-ghost-tours': typeof WacoGhostToursRoute
+  '/warriors-refuge-west-columbia': typeof WarriorsRefugeWestColumbiaRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -5755,6 +5765,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/waco-attractions'
     | '/waco-ghost-tours'
+    | '/warriors-refuge-west-columbia'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -6292,6 +6303,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/waco-attractions'
     | '/waco-ghost-tours'
+    | '/warriors-refuge-west-columbia'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -6830,6 +6842,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/waco-attractions'
     | '/waco-ghost-tours'
+    | '/warriors-refuge-west-columbia'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -7371,6 +7384,7 @@ export interface RootRouteChildren {
   TrackTexasDriversLicenseRoute: typeof TrackTexasDriversLicenseRoute
   WacoAttractionsRoute: typeof WacoAttractionsRoute
   WacoGhostToursRoute: typeof WacoGhostToursRoute
+  WarriorsRefugeWestColumbiaRoute: typeof WarriorsRefugeWestColumbiaRoute
   WhatDoesChudMeanRoute: typeof WhatDoesChudMeanRoute
   KindSlugRoute: typeof KindSlugRoute
   AgencySlugRoute: typeof AgencySlugRoute
@@ -7601,6 +7615,13 @@ declare module '@tanstack/react-router' {
       path: '/what-does-chud-mean'
       fullPath: '/what-does-chud-mean'
       preLoaderRoute: typeof WhatDoesChudMeanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/warriors-refuge-west-columbia': {
+      id: '/warriors-refuge-west-columbia'
+      path: '/warriors-refuge-west-columbia'
+      fullPath: '/warriors-refuge-west-columbia'
+      preLoaderRoute: typeof WarriorsRefugeWestColumbiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/waco-ghost-tours': {
@@ -12214,6 +12235,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrackTexasDriversLicenseRoute: TrackTexasDriversLicenseRoute,
   WacoAttractionsRoute: WacoAttractionsRoute,
   WacoGhostToursRoute: WacoGhostToursRoute,
+  WarriorsRefugeWestColumbiaRoute: WarriorsRefugeWestColumbiaRoute,
   WhatDoesChudMeanRoute: WhatDoesChudMeanRoute,
   KindSlugRoute: KindSlugRoute,
   AgencySlugRoute: AgencySlugRoute,
