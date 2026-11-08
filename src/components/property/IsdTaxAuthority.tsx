@@ -23,7 +23,7 @@ export function IsdTaxAuthority({ history, peers = [] }: { history: TexasTaxRate
   const annualChange = sample != null && prior?.totalRate != null ? sample - prior.totalRate : null;
   const annualPercent = annualChange != null && prior?.totalRate ? 100 * annualChange / prior.totalRate : null;
   const associatedCounties = latest.countySlugs.map((slug) => slug.replaceAll('-', ' ').replace(/\b\w/g, (c) => c.toUpperCase()));
-  const unresolved2022 = latest.slug === 'tolar-isd';
+  const unresolved2022 = hoodIsdEvidence.disputedData.find((item) => item.slug === latest.slug && item.year === 2022);
   const comparable = showAdopted
     ? Object.values(hoodIsdEvidence.districts).sort((a, b) => a.totalRate - b.totalRate)
     : [];
@@ -83,7 +83,7 @@ export function IsdTaxAuthority({ history, peers = [] }: { history: TexasTaxRate
       </table></div>
       <p className="mt-3 text-xs leading-6 text-muted-foreground">Source: {latest.year} Texas Comptroller school-district taxing-unit workbook. Selection is based on county association and nearest published rate, not parcel boundaries or school performance.</p>
     </div> : null}
-    {unresolved2022 ? <p className="mt-8 border-l-2 border-amber-600 pl-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">2022 historical-source caution:</strong> Hood CAD's 2022 published component columns do not reconcile with the adopted Tolar ISD total. We preserve the statewide historical total and leave uncorroborated M&amp;O/I&amp;S components blank rather than fabricate a breakdown. <a href={hoodIsdEvidence.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">Inspect the original Hood CAD table ↗</a>.</p> : null}
+    {unresolved2022 ? <p className="mt-8 border-l-2 border-amber-600 pl-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">2022 historical-source caution:</strong> {unresolved2022.explanation} We preserve the statewide historical total and leave uncorroborated M&amp;O/I&amp;S components blank rather than fabricate a breakdown. <a href={hoodIsdEvidence.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">Inspect the original Hood CAD table ↗</a>.</p> : null}
     <div className="mt-8 border-t border-border pt-5 text-sm leading-7 text-muted-foreground">
       <strong className="text-foreground">How to verify a real parcel:</strong> find the property in its county appraisal-district account search, confirm the named school taxing unit, selected tax year, appraised and taxable values and exemptions, then use the applicable official tax statement for payment questions.
       {showAdopted ? <> <a href="https://esearch.hoodcad.net/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">Open the official Hood CAD parcel search ↗</a>.</> : <> Open the linked county page above to locate the appropriate appraisal district and tax-office sources.</>}
