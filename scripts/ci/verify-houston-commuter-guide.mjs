@@ -21,6 +21,7 @@ required(article, [
   "Texas Medical Center", "Port/Ship Channel", "Richmond/Rosenberg",
   "Friendswood", "Missouri City", "Kingwood", "sources:",
   "2024 five-year", "27.0 ± 2.6", "32.7 ± 1.0",
+  "2025 weekday historical freeway review", "79%", "57%", "46%",
   "Methodology, sources and what this guide cannot claim",
   "not a measured drive-time dataset", "three normal weekdays"
 ], "editorial content");
@@ -31,7 +32,10 @@ required(tool, [
   "Round-trip miles", "52 / 12", "not rankings or measured journey times",
   "ACS 2024 five-year", "The Woodlands CDP", "Sugar Land city",
   "League City city", "Katy city proper", "Pearland city",
-  "censusreporter.org/profiles/16000US4872656", "31.3 ± 1.6 min"
+  "censusreporter.org/profiles/16000US4872656", "31.3 ± 1.6 min",
+  'mode: "drive" | "transit"', "Round-trip transit fares per office day",
+  "Station access, parking and last-mile cost per office day",
+  "Drive to workplace", "Scheduled transit (if verified)"
 ], "comparison tool");
 required(route, [
   'import("@/components/relocation/HoustonCommuterPlanner")',
