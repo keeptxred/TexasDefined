@@ -37,14 +37,13 @@ requireAll(subject, [
   "parking",
   "U.S. Special Operations Command",
   "not a photograph",
-  "sources:",
   "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
 ], "museum data");
 const dossier = read("src/data/museum-authority-network.ts");
 const faqRegistry = read("src/data/museum-visitor-faqs.ts");
 const slugIndex = read("src/data/museum-authority-slugs.ts");
 const manifest = JSON.parse(read("public/museum-verification-manifest.json"));
-if (!dossier.includes('"medal-of-honor-host-city-museum-gainesville": {')) failures.push("Full museum research dossier missing");
+if (!dossier.includes('"medal-of-honor-host-city-museum-gainesville": {') || !dossier.includes('sources: [')) failures.push("Full sourced museum research dossier missing");
 if (!faqRegistry.includes('"medal-of-honor-host-city-museum-gainesville": [')) failures.push("Museum-specific researched FAQs missing");
 if (!slugIndex.includes("|medal-of-honor-host-city-museum-gainesville")) failures.push("Lightweight museum SEO registry missing");
 const row = manifest.museums.find((entry) => entry.path === canonical);
