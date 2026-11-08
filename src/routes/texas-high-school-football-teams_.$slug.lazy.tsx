@@ -184,6 +184,11 @@ function Page() {
     'denton': 'denton', // Denton High 3001 Bronco Way Denton County; C.H. Collins district venue separate.
     'denton-braswell': 'denton', // Braswell 26750 E University, Aubrey postal city; Denton ISD campus, NOT Denton city.
     'denton-guyer': 'denton', // Guyer 7501 Teasley Lane Denton County; distinct from Denton High.
+    'denver-city': 'yoakum', // TEA district/campus county directory; campus is not necessarily the game venue.
+    'devine': 'medina', // TEA district/campus county directory; campus is not necessarily the game venue.
+    'diboll': 'angelina', // TEA district/campus county directory; campus is not necessarily the game venue.
+    'dickinson': 'galveston', // TEA district/campus county directory; campus is not necessarily the game venue.
+    'dilley': 'frio', // TEA district/campus county directory; campus is not necessarily the game venue.
     'denton-ryan': 'denton', // Ryan High 5101 E McKinney St, separate Denton ISD campus.
     'detroit': 'red-river', // NCES Detroit High 630 1st St NW, not district office 110 E Garner.
     'deweyville': 'newton', // UIL Deweyville campus Newton County despite Orange postal city.
