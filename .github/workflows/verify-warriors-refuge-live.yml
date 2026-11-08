@@ -1,0 +1,43 @@
+name: Verify Warrior's Refuge live publication
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify page, sign photo and sitemap at live domain
+        run: node scripts/production/verify-warriors-refuge-live.mjs
+      - name: Record failure as actionable release follow-up
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="Warrior's Refuge live page: production verification failed"
+          existing="$(gh issue list --state open --search '"Warrior'''s Refuge live page: production verification failed" in:title' --json number,title --limit 100 --jq '.[] | select(.title == "Warrior\u0027s Refuge live page: production verification failed") | .number' | head -1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "The exact live Warrior's Refuge URL, reader photo, or primary sitemap failed post-deployment acceptance. Diagnose the failing check and correct the underlying production route, asset, cache, or sitemap; do not bypass the gate. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+          else
+            gh issue comment "$existing" --body "Post-deploy verification is still failing: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}. Diagnose and repair; do not silently close."
+          fi
