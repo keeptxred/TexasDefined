@@ -65,7 +65,7 @@ async function verify(origin) {
   // The protected post-deploy gate opts into strict NEW release acceptance after
   // Wrangler publishes this exact Worker revision. Never accept stale five-game HTML.
   if (process.env.DISTRICT6_EXPECT_FULL === '1') {
-    const fixtureRows = [...html.matchAll(/data-district6-fixture=["'](\\d{4}-\\d{2}-\\d{2})["']/g)];
+    const fixtureRows = [...html.matchAll(/data-district6-fixture=["'](\d{4}-\d{2}-\d{2})["']/g)];
     assert.equal(fixtureRows.length, 28, origin + ' expected all 28 source-checked league matches on live page');
     assert.ok(readableText.includes('complete 2026 district schedule'), origin + ' missing full-schedule heading');
     assert.ok(readableText.includes('texasdefined editorial desk'), origin + ' missing editorial-desk attribution');
