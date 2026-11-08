@@ -32,22 +32,23 @@ const errors = [];
 // Capture the SAME coherent source-backed browser DOM snapshot that satisfied
 // readiness, not a second page.evaluate that can race TanStack stream remounts.
 for (const marker of [
-  "const stableSnapshotHandle = await page.waitForFunction(async () => {",
+  "const stableSnapshotHandle = await page.waitForFunction(() => {",
   "const snapshot = readSnapshot();",
-  "return ready(snapshot) ? snapshot : false;",
-  "const candidate = await stableSnapshotHandle.jsonValue();",
-  "candidate?.canonical === canonical",
-  "for (let snapshotAttempt = 0; snapshotAttempt < 3; snapshotAttempt++) {",
-  "assert.ok(initial, name + \": no complete transferred atomic SEO snapshot",
+  "const initial = await stableSnapshotHandle.jsonValue();",
   "await stableSnapshotHandle.dispose();",
   "snapshot.canonical === expectedCanonical",
   "/Texas Fishing Lakes/i.test(snapshot.title)",
   "const expectedCanonical = \"https://texasdefined.com/fishing/lakes\";",
   "snapshot.visible.every(item => item.name && item.text)",
-]) if (!liveChromeVerifier.includes(marker)) errors.push("Fishing lakes real Chrome must capture strict atomic hydrated DOM: " + marker);
+  "delete window[stableMarker];",
+  "return performance.now() - prior.at >= 120 ? snapshot : false;",
+  "polling: \"raf\"",
+  "assert.ok(initial && typeof initial === \"object\"",
+]) if (!liveChromeVerifier.includes(marker)) errors.push("Fishing lakes real Chrome must capture strict synchronous stable-frame SEO evidence: " + marker);
+if (liveChromeVerifier.includes("waitForFunction(async")) errors.push("Fishing browser must never use an async predicate that may return a Promise handle instead of complete SEO evidence.");
 
-for (const marker of ['await page.waitForLoadState("load"', 'await page.waitForFunction(async () => {', 'await new Promise(requestAnimationFrame)', 'document.querySelectorAll("h1")', 'section[aria-labelledby="lake-directory-heading"] article', 'section[aria-labelledby="lake-answers-heading"] article']) {
-  if (!liveChromeVerifier.includes(marker)) errors.push("Live mobile Chrome must only sample SEO DOM after stable hydration: " + marker);
+for (const marker of ['await page.waitForLoadState("load"', 'await page.waitForFunction(() => {', 'performance.now() - prior.at >= 120', 'document.querySelectorAll("h1")', 'section[aria-labelledby="lake-directory-heading"] article', 'section[aria-labelledby="lake-answers-heading"] article']) {
+  if (!liveChromeVerifier.includes(marker)) errors.push("Live mobile Chrome must sample SEO DOM after synchronous stable-frame hydration: " + marker);
 }
 
 const advisories = JSON.parse(advisoriesText);
