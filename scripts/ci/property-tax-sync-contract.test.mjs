@@ -5,7 +5,9 @@ import { readFileSync } from 'node:fs';
 const importer = readFileSync('supabase/functions/import-texas-property-tax-rates/index.ts','utf8');
 const schema = readFileSync('supabase/migrations/20261021184000_atomic_tax_rate_sync_and_local_sources.sql','utf8');
 const workflow = readFileSync('.github/workflows/sync-property-tax-rates.yml','utf8');
-const route = readFileSync('src/routes/property-tax.taxing-unit.$unit.tsx','utf8');
+// Audit both canonical route policy and its on-demand rendered tax detail.
+const route = readFileSync('src/routes/property-tax.taxing-unit.$unit.tsx','utf8')
+  +'\n'+readFileSync('src/components/property/TaxingUnitRatePage.tsx','utf8');
 const server = readFileSync('src/data/property/texas-tax-rates.server.ts','utf8');
 
 test('unsafe multi-request delete-and-upsert importer cannot regress',()=>{

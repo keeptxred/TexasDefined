@@ -1,0 +1,170 @@
+{
+  "sourceAgency": "Hood Central Appraisal District",
+  "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/",
+  "sourceDocumentsUrl": "https://hoodcad.net/truth-in-taxation-documentation/",
+  "exemptionSourceUrl": "https://hoodcad.net/adopted-tax-rates/",
+  "officialYear": 2026,
+  "verifiedOn": "2026-11-08",
+  "districts": {
+    "tolar-isd": {
+      "name": "Tolar ISD",
+      "totalRate": 0.8944,
+      "maintenanceOperationsRate": 0.6128,
+      "debtServiceRate": 0.2816
+    },
+    "granbury-isd": {
+      "name": "Granbury ISD",
+      "totalRate": 0.8781,
+      "maintenanceOperationsRate": 0.7781,
+      "debtServiceRate": 0.1
+    },
+    "lipan-isd": {
+      "name": "Lipan ISD",
+      "totalRate": 1.0469,
+      "maintenanceOperationsRate": 0.7469,
+      "debtServiceRate": 0.3
+    },
+    "bluff-dale-isd": {
+      "name": "Bluff Dale ISD",
+      "totalRate": 0.8195,
+      "maintenanceOperationsRate": 0.7011,
+      "debtServiceRate": 0.1184
+    },
+    "glen-rose-isd": {
+      "name": "Glen Rose ISD",
+      "totalRate": 0.76,
+      "maintenanceOperationsRate": 0.6673,
+      "debtServiceRate": 0.0927
+    },
+    "godley-isd": {
+      "name": "Godley ISD",
+      "totalRate": 1.2845,
+      "maintenanceOperationsRate": 0.7845,
+      "debtServiceRate": 0.5
+    }
+  },
+  "historicalComponents": {
+    "tolar-isd": {
+      "2021": {
+        "totalRate": 1.245082,
+        "maintenanceOperationsRate": 0.9634,
+        "debtServiceRate": 0.281682,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2023": {
+        "totalRate": 0.950882,
+        "maintenanceOperationsRate": 0.6692,
+        "debtServiceRate": 0.281682,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      }
+    },
+    "granbury-isd": {
+      "2021": {
+        "totalRate": 1.0888,
+        "maintenanceOperationsRate": 0.9438,
+        "debtServiceRate": 0.145,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2023": {
+        "totalRate": 0.9342,
+        "maintenanceOperationsRate": 0.7892,
+        "debtServiceRate": 0.145,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      }
+    },
+    "lipan-isd": {
+      "2021": {
+        "totalRate": 1.2953,
+        "maintenanceOperationsRate": 0.9603,
+        "debtServiceRate": 0.335,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2023": {
+        "totalRate": 1.0814,
+        "maintenanceOperationsRate": 0.7514,
+        "debtServiceRate": 0.33,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      }
+    },
+    "bluff-dale-isd": {
+      "2021": {
+        "totalRate": 1.1147,
+        "maintenanceOperationsRate": 0.9603,
+        "debtServiceRate": 0.1544,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2022": {
+        "totalRate": 1.068,
+        "maintenanceOperationsRate": 0.9429,
+        "debtServiceRate": 0.1251,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2023": {
+        "totalRate": 0.869,
+        "maintenanceOperationsRate": 0.7575,
+        "debtServiceRate": 0.1115,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      }
+    },
+    "glen-rose-isd": {
+      "2021": {
+        "totalRate": 0.975,
+        "maintenanceOperationsRate": 0.8747,
+        "debtServiceRate": 0.1003,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2022": {
+        "totalRate": 0.975,
+        "maintenanceOperationsRate": 0.8546,
+        "debtServiceRate": 0.1204,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2023": {
+        "totalRate": 0.7896,
+        "maintenanceOperationsRate": 0.6692,
+        "debtServiceRate": 0.1204,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      }
+    },
+    "godley-isd": {
+      "2021": {
+        "totalRate": 1.492,
+        "maintenanceOperationsRate": 0.992,
+        "debtServiceRate": 0.5,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2022": {
+        "totalRate": 1.4746,
+        "maintenanceOperationsRate": 0.9746,
+        "debtServiceRate": 0.5,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2023": {
+        "totalRate": 1.2892,
+        "maintenanceOperationsRate": 0.7892,
+        "debtServiceRate": 0.5,
+        "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      }
+    }
+  },
+  "disputedData": [
+    {
+      "slug": "tolar-isd",
+      "year": 2022,
+      "explanation": "The Hood CAD 2022 summary does not reconcile the displayed adopted total with its M&O and debt entries. Do not backfill the 2022 components until the source discrepancy is resolved.",
+      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+    },
+    {
+      "slug": "granbury-isd",
+      "year": 2022,
+      "explanation": "The Hood CAD 2022 Granbury ISD M&O and debt cells sum to a different district's adopted total; keep both unverified components blank until a primary resolution verifies the proper values.",
+      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+    },
+    {
+      "slug": "lipan-isd",
+      "year": 2022,
+      "explanation": "The Hood CAD 2022 Lipan ISD M&O and debt cells do not reconcile with its adopted total; keep both unverified components blank until official independent confirmation.",
+      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+    }
+  ]
+}
