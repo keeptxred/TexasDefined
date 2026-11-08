@@ -79,6 +79,36 @@ test('recently healthy Texas Gateway and football 404 modules enter bounded emit
     /at most eight distinct/, 'gateway family is finite, never silently truncated');
 });
 
+test('Nov 8 live emitted crawler and 200-to-404 families receive source-matched handoff only if built', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-LUNlVWLt.js',
+    'property-tax.taxing-unit._unit-BdLFe-27.js',
+  ];
+  const observedEmitted = [
+    'county.lazy-CN-npj2N.js',
+    'fishing.lakes._slug._section-SAcYBOjM.js',
+    'TexasPointMapGraphic-DGvrlMw4.js',
+    'TopAttractionCollectionLinks-B0LbmQB9.js',
+    'CategoryPage-DOTe1bzN.js',
+    'ExploreDestinationComparison-mu2hvhSD.js',
+    'image-library-Dd8HPpM7.js',
+    'SamRayburnContext-v6bOT7Dp.js',
+    'explore._category.lazy-DZiO3Vjf.js',
+    'texas-high-school-football-matchups-CENB0BVf.js',
+    'FishingMerchSpotlight-BMgKvqHG.js',
+    'sports-venue._slug-r1wTB9Ju.js',
+    'fishing.lakes._slug._section-ujh1drSP.js',
+    'fishing.lakes._slug._section-6ou4C88I.js',
+  ];
+  const selected = selectBuiltRouteAssets([...required,...observedEmitted]).map(x=>x.path);
+  for (const name of observedEmitted) assert.ok(selected.includes('/assets/'+name), name);
+  assert.equal(new Set(selected).size, required.length+observedEmitted.length);
+  assert.equal(selectBuiltRouteAssets(required).length, 2, 'never invent missing old chunk bytes');
+  assert.throws(() => selectBuiltRouteAssets([...required,
+    ...Array.from({length:9},(_,i)=>'fishing.lakes._slug._section-Hash'+i+'.js')]),
+    /at most eight distinct/, 'source-matched fishing-family bound remains enforced');
+});
+
 test('find only same-origin hashed JS/CSS from script, modulepreload and stylesheet', () => {
   const html = [
     '<script type="module" crossorigin src="/assets/main-LkbE9wUL.js"></script>',
