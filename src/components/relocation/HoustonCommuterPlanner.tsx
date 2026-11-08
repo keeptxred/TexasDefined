@@ -38,23 +38,33 @@ const areas: readonly Area[] = [
   { name: "Baytown", roads: "I-10 / SH 146 / SH 330", appropriate: ["ship"], tradeoff: "Bridge crossings, industrial sites and shift schedules can alter otherwise short-looking drives.", transit: "Plan on verifying the specific job-site trip and alternatives during closures." },
 ];
 
-type Budget = { miles: number; tolls: number; parking: number };
-const initialBudget: Budget = { miles: 0, tolls: 0, parking: 0 };
+type Budget = { mode: "drive" | "transit"; miles: number; tolls: number; parking: number; transitFare: number; accessCost: number };
+type BudgetNumberKey = Exclude<keyof Budget, "mode">;
+const initialBudget: Budget = { mode: "drive", miles: 0, tolls: 0, parking: 0, transitFare: 0, accessCost: 0 };
 const fmt = (amount: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount);
 
 function BudgetFields({ label, value, onChange }: { label: string; value: Budget; onChange: (next: Budget) => void }) {
-  const fields: { key: keyof Budget; label: string; suffix: string }[] = [
+  const fields: { key: BudgetNumberKey; label: string; suffix: string }[] = value.mode === "drive" ? [
     { key: "miles", label: "Round-trip miles", suffix: "miles" },
     { key: "tolls", label: "Tolls per office day", suffix: "USD" },
     { key: "parking", label: "Parking per office day", suffix: "USD" },
+  ] : [
+    { key: "transitFare", label: "Round-trip transit fares per office day", suffix: "USD" },
+    { key: "accessCost", label: "Station access, parking and last-mile cost per office day", suffix: "USD" },
   ];
   return <fieldset className="rounded-xl border border-border p-4">
     <legend className="font-semibold">{label}</legend>
-    <div className="grid gap-3 sm:grid-cols-2">
+    <label className="block text-sm">Planned commute mode
+      <select className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2 text-foreground" value={value.mode} onChange={(event) => onChange({ ...value, mode: event.target.value as Budget["mode"] })}>
+        <option value="drive">Drive to workplace</option>
+        <option value="transit">Scheduled transit (if verified)</option>
+      </select>
+    </label>
+    <div className="mt-4 grid gap-3 sm:grid-cols-2">
       {fields.map((field) => <label key={field.key} className="block text-sm">
         <span className="block text-muted-foreground">{field.label}</span>
         <span className="mt-1 flex items-center gap-2">
-          <input className="w-full rounded-xl border border-border bg-background px-3 py-2 text-foreground" type="number" min="0" max="1000" step={field.key === "miles" ? "1" : "0.5"} value={value[field.key]} onChange={(event) => onChange({ ...value, [field.key]: Math.max(0, Number(event.target.value) || 0) })} />
+          <input className="w-full rounded-xl border border-border bg-background px-3 py-2 text-foreground" type="number" min="0" max="1000" step={field.key === "miles" ? "1" : "0.5"} value={value[field.key]} onChange={(event) => onChange({ ...value, [field.key]: Math.min(1000, Math.max(0, Number(event.target.value) || 0)) })} />
           <span className="text-xs text-muted-foreground">{field.suffix}</span>
         </span>
       </label>)}
@@ -72,7 +82,7 @@ export function HoustonCommuterPlanner() {
   const candidates = areas.filter((area) => area.appropriate.includes(job));
   const monthly = (value: Budget) => {
     const weeks = 52 / 12;
-    return days * weeks * ((value.miles / Math.max(1, mpg)) * fuelPrice + value.tolls + value.parking);
+    return days * weeks * (value.mode === "drive" ? (value.miles / Math.max(1, mpg)) * fuelPrice + value.tolls + value.parking : value.transitFare + value.accessCost);
   };
   const aCost = monthly(a);
   const bCost = monthly(b);
@@ -97,7 +107,7 @@ export function HoustonCommuterPlanner() {
     </div>
     <section aria-labelledby="houston-acs-comparison-heading" className="border-t border-border pt-6">
       <h3 id="houston-acs-comparison-heading" className="font-display text-xl font-semibold">Measured comparison: average commutes of residents in five suburbs</h3>
-      <p className="mt-2 text-sm leading-7 text-muted-foreground">The following figures are from the U.S. Census Bureau's 2020–2024 American Community Survey five-year estimates, as presented by Census Reporter. Each measures mean one-way travel time among residents who commute to work anywhere—not travel from a listed city to Downtown, NASA, the Medical Center or your own office. Uncertainty intervals overlap. City boundaries (particularly Katy) are not equivalent to postal address labels or entire development areas.</p>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">The following figures are from the U.S. Census Bureau's 2020–2024 American Community Survey five-year estimates, as presented by Census Reporter. Each measures mean one-way travel time among residents who commute to work anywhere—not travel from a listed city to Downtown, NASA, the Medical Center or your own office. Some margins-of-error ranges overlap; even the distinct averages do not determine which place offers a faster trip to your workplace. City boundaries (particularly Katy) are not equivalent to postal address labels or entire development areas.</p>
       <div style={{ overflowX: "auto" }}>
         <table className="w-full text-sm" style={{ borderCollapse: "collapse", minWidth: 400, textAlign: "left" }}>
           <caption className="mb-3 text-left text-sm">ACS 2024 five-year mean journey to work, with published margins of error</caption>
@@ -125,7 +135,7 @@ export function HoustonCommuterPlanner() {
     </div>
     <div className="space-y-3 border-t border-border pt-6">
       <h3 className="font-display text-xl font-semibold">Two-address commute cost worksheet</h3>
-      <p className="text-sm text-muted-foreground">Compare two real prospective homes. Enter your own tested round-trip mileage, actual toll and parking estimates. Defaults are illustrative inputs only; $0 is not a real-world cost estimate.</p>
+      <p className="text-sm text-muted-foreground">Compare two real prospective homes and choose driving or scheduled transit independently for each. Enter tested mileage, tolls and parking if driving, or actual round-trip fares and access costs if transit is confirmed. $0 defaults are unfilled inputs, not real-world price estimates.</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="text-sm">Office days per week
           <input className="mt-1 w-full rounded-xl border border-border bg-background p-4" type="number" min="1" max="7" step="1" value={days} onChange={(event) => setDays(Math.min(7, Math.max(1, Number(event.target.value) || 1)))} />
@@ -142,10 +152,10 @@ export function HoustonCommuterPlanner() {
         <BudgetFields label="Candidate home B" value={b} onChange={setB} />
       </div>
       <div className="grid gap-3 sm:grid-cols-2" aria-live="polite">
-        <div className="rounded-xl bg-surface p-4"><p className="text-sm">Home A estimated monthly fuel, tolls and parking</p><p className="mt-1 text-2xl font-semibold">{fmt(aCost)}</p></div>
-        <div className="rounded-xl bg-surface p-4"><p className="text-sm">Home B estimated monthly fuel, tolls and parking</p><p className="mt-1 text-2xl font-semibold">{fmt(bCost)}</p></div>
+        <div className="rounded-xl bg-surface p-4"><p className="text-sm">Home A estimated monthly {a.mode === "drive" ? "fuel, tolls and parking" : "transit fare and station access"}</p><p className="mt-1 text-2xl font-semibold">{fmt(aCost)}</p></div>
+        <div className="rounded-xl bg-surface p-4"><p className="text-sm">Home B estimated monthly {b.mode === "drive" ? "fuel, tolls and parking" : "transit fare and station access"}</p><p className="mt-1 text-2xl font-semibold">{fmt(bCost)}</p></div>
       </div>
-      <p className="text-xs leading-6 text-muted-foreground">Method: office days/week × 52 ÷ 12 × [(round-trip miles ÷ MPG × gasoline price) + daily tolls + daily parking]. Excludes vehicle depreciation, maintenance, insurance, transit fares, time value, deviations and non-work trips. Do not treat the result as a quote or guaranteed saving.</p>
+      <p className="text-xs leading-6 text-muted-foreground">Method: office days/week × 52 ÷ 12 × daily cost. Driving daily cost = (round-trip miles ÷ MPG × gasoline price) + tolls + parking. Transit daily cost = round-trip fares + first/last-mile access and parking costs that you enter. Driving excludes depreciation, maintenance and insurance; both modes exclude time value, delays, service disruptions and non-work trips. Compare current operator timetables and actual addresses before relying on transit. These are estimates, not quotes or guaranteed savings.</p>
     </div>
     <aside className="border-t border-border pt-5 text-sm leading-7">
       <h3 className="font-semibold">Verify current services and congestion</h3>
