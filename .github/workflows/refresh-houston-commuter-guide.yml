@@ -1,0 +1,52 @@
+name: Refresh Houston commuter guide sources
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/fixtures/relocation-authority-expansion.ts'
+      - 'src/data/fixtures/lazy-relocation-authority-expansion.ts'
+      - 'src/components/relocation/HoustonCommuterPlanner.tsx'
+      - 'src/routes/article.$slug.tsx'
+      - 'scripts/ci/verify-houston-commuter-guide.mjs'
+      - '.github/workflows/refresh-houston-commuter-guide.yml'
+  schedule:
+    - cron: '20 14 7 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: houston-commuter-guide-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate static guide contract
+        run: node scripts/ci/verify-houston-commuter-guide.mjs
+      - name: Check source URLs and deployed article
+        if: github.event_name != 'pull_request'
+        run: node scripts/ci/verify-houston-commuter-guide.mjs --sources --live
+      - name: Open a focused refresh issue if verification fails
+        if: failure() && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          GH_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Houston commuter guide: verify changed sources or stale research'
+          existing="$(gh issue list --state open --limit 100 --json title,number --jq '.[] | select(.title == "Houston commuter guide: verify changed sources or stale research") | .number' | head -1)"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Focused source/production check failed: ${GH_RUN_URL}. Review transport timetables, ACS/TxDOT context, and the live article before changing the review date."
+          else
+            gh issue create --title "$title" --body "The scheduled Houston commuter authority check failed: ${GH_RUN_URL}. Repair any invalid source, claim, or live-page response, rerun validation, then update the truthful review date. Do not rebuild unrelated pages."
+          fi
