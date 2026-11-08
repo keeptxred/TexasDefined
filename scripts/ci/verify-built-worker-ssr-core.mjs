@@ -31,6 +31,11 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // Gainesville's user-requested authority page must render locally before deployment.
+  // A valid source fixture alone is not publication evidence.
+  { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: 'Medal of Honor Host City Museum', label: 'Gainesville Medal of Honor museum SSR renders rather than an unfound route' },
+  { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: '1525 W California', label: 'Gainesville museum SSR renders the source-verified physical location' },
+  { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: 'Duane E. Dewey', label: 'Gainesville museum SSR carries dated original recipient-gallery research' },
   { path: '/sports/teams', requiredText: 'Pick the game.', label: 'Pro-team index renders its actual loader and 13-team guide' },
   { path: '/sports/teams', requiredText: 'https://texasdefined.com/sports/teams', label: 'Pro-team index includes server-supplied canonical metadata' },
   { path: '/sports/teams/houston-texans', requiredText: 'data-pro-team-guide="houston-texans"', label: 'Texans weekend guide renders real nested loaders' },
