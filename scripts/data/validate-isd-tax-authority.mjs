@@ -42,7 +42,7 @@ for (const { slug, year } of evidence.disputedData) {
 }
 assert.match(route, /TaxingUnitRatePage = lazy/);
 assert.match(detail, /latest\.type === 'school-district' \? <Suspense/);
-assert.match(route, /getVerifiedIsdHistoricalComponents/);
+assert.match(historyFunction, /getVerifiedIsdHistoricalComponents/);
 assert.match(route, /showSchoolAdoption/);
 assert.match(detail, /showSchoolAdoption/);
 assert.match(route, /isdEvidence/);
