@@ -19,6 +19,7 @@ const discoveryLinks = [
   ['Texas fishing license', '/texas-fishing-license'],
   ['Texas hunting licenses and public hunting', '/hunting'],
   ['Emergency and community services', '/find-my-emergency-services'],
+  ["The Warrior's Refuge veteran housing and support", '/warriors-refuge-west-columbia'],
   ['Texas voter-registration resources', '/find-my-voter-registration'],
   ['Money and property tools', '/decide/financial-tools'],
   ['Texas state agency guides', '/agency/texas-secretary-of-state'],

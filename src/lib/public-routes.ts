@@ -265,6 +265,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/guides/citypass-texas",
   "/texas-living",
   "/texas-resources",
+  "/warriors-refuge-west-columbia",
   "/start-a-business-in-texas",
   "/texas-explained",
   "/texas-data",
