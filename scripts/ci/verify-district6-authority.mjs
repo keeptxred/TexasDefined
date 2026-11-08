@@ -9,10 +9,13 @@ import assert from 'node:assert/strict';
 import { readFile, writeFile, appendFile } from 'node:fs/promises';
 
 const read = async (path) => readFile(new URL('../../' + path, import.meta.url), 'utf8');
-const [page, head, guide] = await Promise.all([
+const [page, head, guide, productionWorkflow, productionSmoke, mobileSmoke] = await Promise.all([
   read('src/routes/texas-high-school-football-districts_.$slug.lazy.tsx'),
   read('src/routes/texas-high-school-football-districts_.$slug.tsx'),
   read('src/components/sports/District6Guide.tsx'),
+  read('.github/workflows/deploy-production.yml'),
+  read('scripts/ci/verify-district6-production.mjs'),
+  read('scripts/ci/verify-district6-responsive-browser.mjs'),
 ]);
 
 assert.match(page, /district6Pilot\s*=\s*district\.slug === '6a-district-6'/, 'District 6 selector missing');
@@ -28,6 +31,10 @@ for (const section of ['district-6-2026','district-6-fan-info']) assert.ok(guide
 assert.match(guide, /not live upcoming games/i, 'Dated fixtures must not be mislabeled as live upcoming games');
 assert.match(guide, /no standings, automated win\/loss records/i, 'Explicit records pause disclosure missing');
 assert.ok(!/fetch\s*\(|(?:parse|scrape)(?:Standings|Scores|Records)/i.test(guide), 'No automated sports-data ingestion in the guide');
+assert.ok(productionWorkflow.includes('node scripts/ci/verify-district6-production.mjs'), 'District 6 direct-Worker production acceptance missing');
+assert.ok(productionWorkflow.includes('node scripts/ci/verify-district6-responsive-browser.mjs'), 'District 6 responsive Chrome acceptance missing');
+assert.match(mobileSmoke, /for \(const width of \[390, 320\]\)/, 'Both mobile widths must be verified');
+assert.ok(productionSmoke.includes('District 6 production acceptance failed'), 'Production smoke must fail closed on broken releases');
 const officialSources = [
   'https://www.uiltexas.org/football',
   'https://www.uiltexas.org/football/playoff-brackets',
