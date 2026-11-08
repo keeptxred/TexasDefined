@@ -192,7 +192,8 @@ test('hidden forensic and cross-release asset artifacts must actually upload', (
   for (const name of ['hashed-asset-continuity-', 'asset-handoff-']) {
     const index = workflow.indexOf('name: ' + name);
     assert.ok(index >= 0, name + ': missing artifact upload');
-    const config = workflow.slice(index, index + 430);
+    const nextStep = workflow.indexOf('\n      - name:', index + 1);
+    const config = workflow.slice(index, nextStep >= 0 ? nextStep : workflow.length);
     assert.match(config, /include-hidden-files: true/, name + ': .artifacts would be silently excluded');
     assert.match(config, /if-no-files-found: error/, name + ': lost evidence must fail the pipeline');
   }
