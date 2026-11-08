@@ -1,0 +1,131 @@
+name: Immutable hashed asset archive staging tests
+on:
+  # Source-only draft PRs can sit without a PR-triggered Actions run.
+  # An exact-branch push check supplies independent CI without publishing.
+  push:
+    branches:
+      - feat/immutable-js-css-kv-archive-staging-20261104
+    paths:
+      - 'scripts/ci/immutable-hashed-asset-*.mjs'
+      - 'scripts/ci/prepare-immutable-hashed-asset-manifest.mjs'
+      - 'scripts/ci/compare-typescript-diagnostics.mjs'
+      - 'scripts/ci/publish-immutable-hashed-archive.mjs'
+      - 'src/server-entry.ts'
+      - 'scripts/ci/immutable-hashed-asset-archive.d.mts'
+      - 'docs/ci/immutable-hashed-asset-archive.md'
+      - '.github/workflows/validate-immutable-hashed-assets.yml'
+  pull_request:
+    paths:
+      - 'scripts/ci/immutable-hashed-asset-*.mjs'
+      - 'scripts/ci/prepare-immutable-hashed-asset-manifest.mjs'
+      - 'scripts/ci/compare-typescript-diagnostics.mjs'
+      - 'scripts/ci/publish-immutable-hashed-archive.mjs'
+      - 'src/server-entry.ts'
+      - 'scripts/ci/immutable-hashed-asset-archive.d.mts'
+      - 'docs/ci/immutable-hashed-asset-archive.md'
+      - '.github/workflows/validate-immutable-hashed-assets.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  immutable-asset-archive:
+    # Draft branch runs on push; avoid duplicate expensive PR jobs.
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test independent original-byte archive invariants
+        run: node --test scripts/ci/immutable-hashed-asset-*.test.mjs
+
+  immutable-worker-entry-typecheck:
+    # Draft branch runs on push; avoid duplicate expensive PR jobs.
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Compare actual TypeScript errors against PR merge-base
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts
+          base_sha="$(git merge-base HEAD origin/main)"
+          if [[ ! "$base_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Missing trusted merge base::Cannot safely compare TypeScript diagnostics.'
+            exit 1
+          fi
+          echo "TypeScript comparison baseline commit: $base_sha"
+          base_dir="$(mktemp -d)"
+          rmdir "$base_dir"
+          cleanup() { git worktree remove --force "$base_dir" >/dev/null 2>&1 || true; }
+          trap cleanup EXIT
+          git worktree add --detach "$base_dir" "$base_sha"
+          ln -s "$GITHUB_WORKSPACE/node_modules" "$base_dir/node_modules"
+          set +e
+          (cd "$base_dir" && "$GITHUB_WORKSPACE/node_modules/.bin/tsc" --noEmit --pretty false) > "$GITHUB_WORKSPACE/.artifacts/immutable-ts-baseline.log" 2>&1
+          baseline_status=$?
+          "$GITHUB_WORKSPACE/node_modules/.bin/tsc" --noEmit --pretty false > .artifacts/immutable-ts-current.log 2>&1
+          current_status=$?
+          set -e
+          BASELINE_TSC_EXIT="$baseline_status" CURRENT_TSC_EXIT="$current_status" \
+            node scripts/ci/compare-typescript-diagnostics.mjs \
+              .artifacts/immutable-ts-baseline.log \
+              .artifacts/immutable-ts-current.log \
+              .artifacts/immutable-ts-delta.json
+
+      - name: Archive full TypeScript baseline and regression evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: immutable-typescript-delta-${{ github.run_id }}
+          path: |
+            .artifacts/immutable-ts-baseline.log
+            .artifacts/immutable-ts-current.log
+            .artifacts/immutable-ts-delta.json
+          if-no-files-found: error
+          retention-days: 14
+
+  immutable-worker-bundle-build:
+    # Draft branch runs on push; avoid duplicate expensive PR jobs.
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Compile production Worker assets without deployment
+        run: |
+          npm run prebuild
+          npm run build
+      - name: Verify an SSR Worker entry bundle was produced
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -d dist || ! -d dist/client/assets ]]; then
+            echo '::error title=Worker build output missing::Build did not produce hashed client assets.'
+            exit 1
+          fi
+          js_count="$(find dist/client/assets -maxdepth 1 -type f -name '*.js' | wc -l | tr -d ' ')"
+          css_count="$(find dist/client/assets -maxdepth 1 -type f -name '*.css' | wc -l | tr -d ' ')"
+          if [[ "$js_count" -lt 1 || "$css_count" -lt 1 ]]; then
+            echo "::error title=Missing client bundles::Expected compiled JS and CSS; got JS=$js_count CSS=$css_count."
+            exit 1
+          fi
+          echo "No-deploy production build created $js_count JS and $css_count CSS files."
