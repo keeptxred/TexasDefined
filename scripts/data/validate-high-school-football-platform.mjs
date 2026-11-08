@@ -3482,6 +3482,57 @@ for (const marker of [
   'All UIL 6A football districts',
 ]) requireText(districtDetailBody, marker, 'Specific 6A district-to-statewide-list contextual navigation');
 
+
+/** Batch016 first-five research proof is SOURCE-only, never a Chrome or editorial-human certificate.
+ * Keep this in the existing canonical validator instead of adding another broad Actions job.
+ */
+{
+  const reg = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const authored = read('src/data/high-school-football/program-editorial-b016.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b016-loader.server.ts');
+  const profile = read('src/data/high-school-football/football-program-profile.server.ts');
+  const identity = read('src/data/high-school-football/school-identities.ts');
+  const schoolPage = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const countyPage = read('src/routes/$kind.$slug.lazy.tsx');
+  const cohort = [
+    ['early','brown','Longhorns','115 Sudderth'],
+    ['earth-springlake','lamb','Wolverines','PO Box 130'],
+    ['east-bernard','wharton','Brahmas','723 College'],
+    ['east-chambers','chambers','Buccaneers','234 E'],
+    ['eastland','eastland','Mavericks','900 W Plummer'],
+  ];
+  if(reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<=15).length!==355 ||
+     reg.schoolRecords.filter(x=>x.batch===16).length!==25)
+    errors.push('Batch016 first-five must preserve 355 previously technically VERIFIED and exact 25 assigned rows');
+  if(!profile.includes('loadBatch016FootballProgramEditorial(canonicalSlug)') ||
+     !loader.includes('if (!BATCH016_SOURCE_QUALIFIED.has(slug)) return undefined'))
+    errors.push('Batch016 isolated conditional SSR loader must be wired without loading unresearched schools');
+  for(const [slug,county,mascot,address] of cohort){
+    const row=reg.schoolRecords.find(x=>x.slug===slug);
+    if(!row || row.batch!==16 || (row.status!=='NOT_REVIEWED' && row.status!=='IMPLEMENTED' && row.status!=='VERIFIED'))
+      errors.push('Batch016 canonical first-five assigned row lost or falsely bypassed: '+slug);
+    if(!authored.includes('"'+slug+'": {') || !authored.includes('"'+slug+'"') ||
+       !authored.includes(address) || !authored.includes('"sourceUrl": "https://'))
+      errors.push('Batch016 distinct sourced school/campus guide missing '+slug);
+    if(!loader.includes("'"+slug+"'") ||
+       !schoolPage.includes("'"+slug+"': '"+county+"'"))
+      errors.push('Batch016 school SSR loader/campus county lookup missing '+slug);
+    const countyEntry=countyPage.split(new RegExp("^  '"+county+"':", 'm'))[1]?.split(/^  '[a-z-]+':/m)[0]||'';
+    if(!countyEntry.includes("slug: '"+slug+"'"))
+      errors.push('Batch016 county reciprocal card missing '+county+' → '+slug);
+    if([...countyPage.matchAll(new RegExp("^  '"+county+"':", 'gm'))].length!==1)
+      errors.push('Batch016 duplicate/missing county map key '+county);
+    if(!identity.includes("slug: '"+slug+"', mascot: '"+mascot+"'"))
+      errors.push('Batch016 school-specific first-party mascot evidence missing '+slug);
+  }
+  if(!authored.includes('street address not established') ||
+     !authored.includes('Van Vleck') ||
+     !authored.includes('junior-high and JV') ||
+     !authored.includes('Matthew Landers') ||
+     !authored.includes('online ticket sales'))
+    errors.push('Batch016 missing original source-specific distinctions; generic five-page duplication forbidden');
+}
+
 if (errors.length) {
   console.error('High-school football platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);
