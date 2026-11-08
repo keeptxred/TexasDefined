@@ -1020,6 +1020,346 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Use the official athletics source: https://www.dilleyisd.net/o/dhs/athletics. Confirm dates and policies before traveling."
       }
     ]
+  },
+  "dimmitt": {
+    "slug": "dimmitt",
+    "intro": "Dimmitt ISD's high-school campus is on Western Circle; the district administrative office at 608 W Halsell is a different destination.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; no school mark, official palette, logo or third-party photography."
+    },
+    "seo": {
+      "title": "Dimmitt High School Football | Campus, County & Official Updates",
+      "description": "Independent Dimmitt High School football visitor guide: documented Castro County campus, official school sources and game-venue cautions."
+    },
+    "campus": {
+      "address": "1405 Western Circle, Dimmitt, TX 79027",
+      "sourceUrl": "https://hs.dimmittisd.net/",
+      "sourceLabel": "Official school campus page",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity fixtures directly with the school or district; no season schedule is reproduced here",
+      "sourceUrl": "https://dimmittisd.net/athletics-department",
+      "sourceLabel": "Official school or district channel; not a verified fixture-specific schedule",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Verify the actual host venue before travel",
+      "body": "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Dimmitt High School's current official channels.",
+      "sourceUrl": "https://dimmittisd.net/athletics-department",
+      "sourceLabel": "Official school or district channel; individual game venue remains unconfirmed",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "Dimmitt ISD's high-school campus is on Western Circle; the district administrative office at 608 W Halsell is a different destination.",
+      "The district athletics department links a Bobcats Football program, but the athletics landing page alone does not prove the location, date or ticket policy for any particular varsity game.",
+      "Dimmitt High School is in Castro County. The documented school address is 1405 Western Circle, Dimmitt, TX 79027; it should not be entered as a football stadium gate without a fixture-specific host announcement.",
+      "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Dimmitt High School's current official channels.",
+      "No current coach, wins, losses, standings, opponent, ticket price, accessibility guarantee or photo license is asserted without an independently checked official record."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Distinct official campus identity",
+        "body": "Dimmitt ISD's high-school campus is on Western Circle; the district administrative office at 608 W Halsell is a different destination.",
+        "sourceUrl": "https://hs.dimmittisd.net/",
+        "sourceLabel": "Official school campus"
+      },
+      {
+        "date": "2026",
+        "title": "Football information boundary",
+        "body": "The district athletics department links a Bobcats Football program, but the athletics landing page alone does not prove the location, date or ticket policy for any particular varsity game.",
+        "sourceUrl": "https://dimmittisd.net/athletics-department",
+        "sourceLabel": "Official school or district resource"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Dimmitt High School?",
+        "answer": "The official campus is 1405 Western Circle, Dimmitt, TX 79027, in Castro County. This is not automatically a spectator entrance."
+      },
+      {
+        "question": "Is the school address the stadium entrance?",
+        "answer": "Not established. Check the host school's fixture announcement for the stadium, gate and parking before travel."
+      },
+      {
+        "question": "Where can I confirm a varsity game or ticket information?",
+        "answer": "Start with https://dimmittisd.net/athletics-department. The current fixture and admission details have not been independently confirmed in this guide."
+      }
+    ]
+  },
+  "donna": {
+    "slug": "donna",
+    "intro": "Donna High School's Wood Avenue campus is not Donna North High School's Val Verde campus, even though both are in Donna ISD.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; no school mark, official palette, logo or third-party photography."
+    },
+    "seo": {
+      "title": "Donna High School Football | Campus, County & Official Updates",
+      "description": "Independent Donna High School football visitor guide: documented Hidalgo County campus, official school sources and game-venue cautions."
+    },
+    "campus": {
+      "address": "2301 E. Wood Ave, Donna, TX 78537",
+      "sourceUrl": "https://donnahigh.donnaisd.net/",
+      "sourceLabel": "Official school campus page",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity fixtures directly with the school or district; no season schedule is reproduced here",
+      "sourceUrl": "https://donnahigh.donnaisd.net/",
+      "sourceLabel": "Official school or district channel; not a verified fixture-specific schedule",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Verify the actual host venue before travel",
+      "body": "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Donna High School's current official channels.",
+      "sourceUrl": "https://donnahigh.donnaisd.net/",
+      "sourceLabel": "Official school or district channel; individual game venue remains unconfirmed",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "Donna High School's Wood Avenue campus is not Donna North High School's Val Verde campus, even though both are in Donna ISD.",
+      "Do not apply Donna North's football announcements, field address or opponent list to Donna High; the official Donna High campus page is the starting point for identifying the correct program.",
+      "Donna High School is in Hidalgo County. The documented school address is 2301 E. Wood Ave, Donna, TX 78537; it should not be entered as a football stadium gate without a fixture-specific host announcement.",
+      "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Donna High School's current official channels.",
+      "No current coach, wins, losses, standings, opponent, ticket price, accessibility guarantee or photo license is asserted without an independently checked official record."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Distinct official campus identity",
+        "body": "Donna High School's Wood Avenue campus is not Donna North High School's Val Verde campus, even though both are in Donna ISD.",
+        "sourceUrl": "https://donnahigh.donnaisd.net/",
+        "sourceLabel": "Official school campus"
+      },
+      {
+        "date": "2026",
+        "title": "Football information boundary",
+        "body": "Do not apply Donna North's football announcements, field address or opponent list to Donna High; the official Donna High campus page is the starting point for identifying the correct program.",
+        "sourceUrl": "https://donnahigh.donnaisd.net/",
+        "sourceLabel": "Official school or district resource"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Donna High School?",
+        "answer": "The official campus is 2301 E. Wood Ave, Donna, TX 78537, in Hidalgo County. This is not automatically a spectator entrance."
+      },
+      {
+        "question": "Is the school address the stadium entrance?",
+        "answer": "Not established. Check the host school's fixture announcement for the stadium, gate and parking before travel."
+      },
+      {
+        "question": "Where can I confirm a varsity game or ticket information?",
+        "answer": "Start with https://donnahigh.donnaisd.net/. The current fixture and admission details have not been independently confirmed in this guide."
+      }
+    ]
+  },
+  "donna-north": {
+    "slug": "donna-north",
+    "intro": "Donna North's Val Verde campus is separate from Donna High on East Wood Avenue; these two school names must not be treated as interchangeable.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; no school mark, official palette, logo or third-party photography."
+    },
+    "seo": {
+      "title": "Donna North High School Football | Campus, County & Official Updates",
+      "description": "Independent Donna North High School football visitor guide: documented Hidalgo County campus, official school sources and game-venue cautions."
+    },
+    "campus": {
+      "address": "7250 N. Val Verde, Donna, TX 78537",
+      "sourceUrl": "https://donnanorth.donnaisd.net/",
+      "sourceLabel": "Official school campus page",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity fixtures directly with the school or district; no season schedule is reproduced here",
+      "sourceUrl": "https://donnanorth.donnaisd.net/",
+      "sourceLabel": "Official school or district channel; not a verified fixture-specific schedule",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Verify the actual host venue before travel",
+      "body": "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Donna North High School's current official channels.",
+      "sourceUrl": "https://donnanorth.donnaisd.net/",
+      "sourceLabel": "Official school or district channel; individual game venue remains unconfirmed",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "Donna North's Val Verde campus is separate from Donna High on East Wood Avenue; these two school names must not be treated as interchangeable.",
+      "The Donna North official campus publishes a separate school contact, 956-464-4190. Ask that campus or its current athletics office about the specific fixture rather than assuming Donna High's arrangements.",
+      "Donna North High School is in Hidalgo County. The documented school address is 7250 N. Val Verde, Donna, TX 78537; it should not be entered as a football stadium gate without a fixture-specific host announcement.",
+      "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Donna North High School's current official channels.",
+      "No current coach, wins, losses, standings, opponent, ticket price, accessibility guarantee or photo license is asserted without an independently checked official record."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Distinct official campus identity",
+        "body": "Donna North's Val Verde campus is separate from Donna High on East Wood Avenue; these two school names must not be treated as interchangeable.",
+        "sourceUrl": "https://donnanorth.donnaisd.net/",
+        "sourceLabel": "Official school campus"
+      },
+      {
+        "date": "2026",
+        "title": "Football information boundary",
+        "body": "The Donna North official campus publishes a separate school contact, 956-464-4190. Ask that campus or its current athletics office about the specific fixture rather than assuming Donna High's arrangements.",
+        "sourceUrl": "https://donnanorth.donnaisd.net/",
+        "sourceLabel": "Official school or district resource"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Donna North High School?",
+        "answer": "The official campus is 7250 N. Val Verde, Donna, TX 78537, in Hidalgo County. This is not automatically a spectator entrance."
+      },
+      {
+        "question": "Is the school address the stadium entrance?",
+        "answer": "Not established. Check the host school's fixture announcement for the stadium, gate and parking before travel."
+      },
+      {
+        "question": "Where can I confirm a varsity game or ticket information?",
+        "answer": "Start with https://donnanorth.donnaisd.net/. The current fixture and admission details have not been independently confirmed in this guide."
+      }
+    ]
+  },
+  "dripping-springs": {
+    "slug": "dripping-springs",
+    "intro": "Dripping Springs ISD lists the high-school campus at 940 Highway 290 West and separately publishes district high-school athletics information.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; no school mark, official palette, logo or third-party photography."
+    },
+    "seo": {
+      "title": "Dripping Springs High School Football | Campus, County & Official Updates",
+      "description": "Independent Dripping Springs High School football visitor guide: documented Hays County campus, official school sources and game-venue cautions."
+    },
+    "campus": {
+      "address": "940 Highway 290 West, Dripping Springs, TX 78620",
+      "sourceUrl": "https://www.dsisdtx.us/o/dshs/page/about-dshs/",
+      "sourceLabel": "Official school campus page",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity fixtures directly with the school or district; no season schedule is reproduced here",
+      "sourceUrl": "https://www.dsisdtx.us/page/highschool-athletics",
+      "sourceLabel": "Official school or district channel; not a verified fixture-specific schedule",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Verify the actual host venue before travel",
+      "body": "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Dripping Springs High School's current official channels.",
+      "sourceUrl": "https://www.dsisdtx.us/page/highschool-athletics",
+      "sourceLabel": "Official school or district channel; individual game venue remains unconfirmed",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "Dripping Springs ISD lists the high-school campus at 940 Highway 290 West and separately publishes district high-school athletics information.",
+      "The district athletics listing includes football and a field-house address on Highway 290 West. A field house or campus address is not independent confirmation of the spectator gate, parking or venue for an individual contest.",
+      "Dripping Springs High School is in Hays County. The documented school address is 940 Highway 290 West, Dripping Springs, TX 78620; it should not be entered as a football stadium gate without a fixture-specific host announcement.",
+      "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Dripping Springs High School's current official channels.",
+      "No current coach, wins, losses, standings, opponent, ticket price, accessibility guarantee or photo license is asserted without an independently checked official record."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Distinct official campus identity",
+        "body": "Dripping Springs ISD lists the high-school campus at 940 Highway 290 West and separately publishes district high-school athletics information.",
+        "sourceUrl": "https://www.dsisdtx.us/o/dshs/page/about-dshs/",
+        "sourceLabel": "Official school campus"
+      },
+      {
+        "date": "2026",
+        "title": "Football information boundary",
+        "body": "The district athletics listing includes football and a field-house address on Highway 290 West. A field house or campus address is not independent confirmation of the spectator gate, parking or venue for an individual contest.",
+        "sourceUrl": "https://www.dsisdtx.us/page/highschool-athletics",
+        "sourceLabel": "Official school or district resource"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Dripping Springs High School?",
+        "answer": "The official campus is 940 Highway 290 West, Dripping Springs, TX 78620, in Hays County. This is not automatically a spectator entrance."
+      },
+      {
+        "question": "Is the school address the stadium entrance?",
+        "answer": "Not established. Check the host school's fixture announcement for the stadium, gate and parking before travel."
+      },
+      {
+        "question": "Where can I confirm a varsity game or ticket information?",
+        "answer": "Start with https://www.dsisdtx.us/page/highschool-athletics. The current fixture and admission details have not been independently confirmed in this guide."
+      }
+    ]
+  },
+  "dublin": {
+    "slug": "dublin",
+    "intro": "Dublin ISD's secondary-school campus is on East State Highway 6 in Erath County; this is Dublin, Texas, not another city with the same name.",
+    "theme": {
+      "accentHex": "#476781",
+      "label": "Original TexasDefined editorial accent; no school mark, official palette, logo or third-party photography."
+    },
+    "seo": {
+      "title": "Dublin High School Football | Campus, County & Official Updates",
+      "description": "Independent Dublin High School football visitor guide: documented Erath County campus, official school sources and game-venue cautions."
+    },
+    "campus": {
+      "address": "2233 East State Hwy 6, Dublin, TX 76446",
+      "sourceUrl": "https://secondary.dublinisd.us/",
+      "sourceLabel": "Official school campus page",
+      "verifiedAt": "2026-11-08"
+    },
+    "schedule": {
+      "label": "Confirm current varsity fixtures directly with the school or district; no season schedule is reproduced here",
+      "sourceUrl": "https://secondary.dublinisd.us/",
+      "sourceLabel": "Official school or district channel; not a verified fixture-specific schedule",
+      "verifiedAt": "2026-11-08"
+    },
+    "notice": {
+      "title": "Verify the actual host venue before travel",
+      "body": "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Dublin High School's current official channels.",
+      "sourceUrl": "https://secondary.dublinisd.us/",
+      "sourceLabel": "Official school or district channel; individual game venue remains unconfirmed",
+      "verifiedAt": "2026-11-08"
+    },
+    "overview": [
+      "Dublin ISD's secondary-school campus is on East State Highway 6 in Erath County; this is Dublin, Texas, not another city with the same name.",
+      "The school's published calendar has identified varsity district football events, but a calendar shorthand such as '@ DHS' does not establish a verified street address for a football field. Its syllabi page warns of inaccuracies and is not used here.",
+      "Dublin High School is in Erath County. The documented school address is 2233 East State Hwy 6, Dublin, TX 76446; it should not be entered as a football stadium gate without a fixture-specific host announcement.",
+      "The campus address is not a verified universal football stadium entrance. Confirm the individual game's host, kickoff, accessible entry, parking and ticket details through Dublin High School's current official channels.",
+      "No current coach, wins, losses, standings, opponent, ticket price, accessibility guarantee or photo license is asserted without an independently checked official record."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Distinct official campus identity",
+        "body": "Dublin ISD's secondary-school campus is on East State Highway 6 in Erath County; this is Dublin, Texas, not another city with the same name.",
+        "sourceUrl": "https://secondary.dublinisd.us/",
+        "sourceLabel": "Official school campus"
+      },
+      {
+        "date": "2026",
+        "title": "Football information boundary",
+        "body": "The school's published calendar has identified varsity district football events, but a calendar shorthand such as '@ DHS' does not establish a verified street address for a football field. Its syllabi page warns of inaccuracies and is not used here.",
+        "sourceUrl": "https://secondary.dublinisd.us/",
+        "sourceLabel": "Official school or district resource"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where is Dublin High School?",
+        "answer": "The official campus is 2233 East State Hwy 6, Dublin, TX 76446, in Erath County. This is not automatically a spectator entrance."
+      },
+      {
+        "question": "Is the school address the stadium entrance?",
+        "answer": "Not established. Check the host school's fixture announcement for the stadium, gate and parking before travel."
+      },
+      {
+        "question": "Where can I confirm a varsity game or ticket information?",
+        "answer": "Start with https://secondary.dublinisd.us/. The current fixture and admission details have not been independently confirmed in this guide."
+      }
+    ]
   }
 };
 export function getBatch015FirstThreeEditorial(slug: string): FootballProgramEditorial | undefined { return EDITORIAL[slug]; }
