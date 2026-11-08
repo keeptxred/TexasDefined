@@ -52,6 +52,33 @@ test('Nov 7 real 404 dependency families are captured only when Vite emits them'
     /at most eight distinct/, 'still bound real index variants');
 });
 
+test('recently healthy Texas Gateway and football 404 modules enter bounded emitted-chunk handoff', () => {
+  const required = [
+    'texas-high-school-football-teams_._slug.lazy-LUNlVWLt.js',
+    'property-tax.taxing-unit._unit-BdLFe-27.js',
+  ];
+  const observed = [
+    'texas-gateway-lifestyle-batch6-CAF9mNoS.js',
+    'texas-gateway-identity-batch16-Cy6AU-K1.js',
+    'texas-gateway-monthly-batch15-CHlkxh45.js',
+    'texas-high-school-football-teams.lazy-B1bsRoZi.js',
+    'texas-DKPbpnwC.js',
+    'texas-gateway-decision-batch12-DCeNfaJx.js',
+    'texas-gateway-decision-batch13-Dz-l0EQZ.js',
+    'texas-gateway-regional-batch7-El5XsW8Z.js',
+    'lazy-authority-legacy-DEdbAnqF.js',
+    'texas-gateway-bestof-batch8-BtR_dD4f.js',
+    'texas-gateway-lifestyle-batch3-CSzIIG0q.js',
+  ];
+  const built = selectBuiltRouteAssets([...required,...observed]).map(x=>x.path);
+  for (const name of observed) assert.ok(built.includes('/assets/'+name), name);
+  assert.equal(new Set(built).size,required.length+observed.length);
+  assert.equal(selectBuiltRouteAssets(required).length,2, 'unemitted old file is never fabricated');
+  assert.throws(() => selectBuiltRouteAssets([...required,
+    ...Array.from({length:9}, (_,i)=>'texas-gateway-lifestyle-batch'+i+'-HashA123.js')]),
+    /at most eight distinct/, 'gateway family is finite, never silently truncated');
+});
+
 test('find only same-origin hashed JS/CSS from script, modulepreload and stylesheet', () => {
   const html = [
     '<script type="module" crossorigin src="/assets/main-LkbE9wUL.js"></script>',
