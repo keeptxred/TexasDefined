@@ -1,7 +1,39 @@
 import assert from 'node:assert/strict';
+import { verifyPriorAssetHandoff } from './verify-prior-asset-handoff.mjs';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { MAX_ASSET_AUDIT_CONCURRENCY, ASSET_REQUEST_START_GAP_MS, createAssetRequestPacer, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
+
+test('only a successful active Worker predecessor with both-origin original SHA proof is accepted', () => {
+  const version='953ec55d-c98c-41e8-b59e-613878d2a7c3', sha='a'.repeat(40);
+  const chunks=['/assets/Header-BPIUxtUq.js','/assets/createLucideIcon-DbfCmcaA.js'];
+  const snap={snapshots:[{sourceCommit:sha,builtAssets:chunks.map(path=>({path}))}]};
+  const delivery={expected:version,failures:[],assets:chunks.flatMap(path=>
+    ['direct','canonical'].map(origin=>({path,origin,status:200,ok:true,sha256:'b'.repeat(64),oldHashMatches:true})))};
+  assert.deepEqual(verifyPriorAssetHandoff(snap,delivery,{expectedWorkerVersion:version,expectedSourceSha:sha}),
+    {worker:version,sha,emitted:2,checked:4});
+  assert.throws(()=>verifyPriorAssetHandoff(snap,delivery,
+    {expectedWorkerVersion:version,expectedSourceSha:'c'.repeat(40)}),/source SHA/);
+  assert.throws(()=>verifyPriorAssetHandoff(snap,delivery,
+    {expectedWorkerVersion:'d6028a42-0535-460f-9c8e-b8d2d5db8a8f',expectedSourceSha:sha}),/active Worker/);
+  assert.throws(()=>verifyPriorAssetHandoff(snap,{...delivery,failures:['real missing hash']},
+    {expectedWorkerVersion:version,expectedSourceSha:sha}),/failed asset deliveries/);
+  assert.throws(()=>verifyPriorAssetHandoff(snap,{...delivery,assets:delivery.assets.filter(x=>x.origin==='direct')},
+    {expectedWorkerVersion:version,expectedSourceSha:sha}),/both-origin|direct and canonical/);
+  assert.throws(()=>verifyPriorAssetHandoff(snap,{...delivery,assets:[{...delivery.assets[0],sha256:'wrong'},...delivery.assets.slice(1)]},
+    {expectedWorkerVersion:version,expectedSourceSha:sha}),/invalid SHA/);
+  assert.throws(()=>verifyPriorAssetHandoff({snapshots:[]},delivery,
+    {expectedWorkerVersion:version,expectedSourceSha:sha}),/source SHA/);
+});
+
+test('GitHub production restores success-only artifacts for exact active Worker, never failed runs', () => {
+  const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
+  assert.match(wf,/runs\?status=success&per_page=30/);
+  assert.match(wf,/steps\.rollback_target\.outputs\.version_id/);
+  assert.match(wf,/verify-prior-asset-handoff\.mjs/);
+  assert.match(wf,/Wrong prior asset handoff/);
+  assert.doesNotMatch(wf,/runs\?per_page=8/);
+});
 
 test('three observed Bingbot 404 module families enter source-matched built handoff only when Vite emits them', () => {
   const required = [
