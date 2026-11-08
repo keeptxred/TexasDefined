@@ -60,6 +60,7 @@ const prebuildChecks = [
   ['FOOTBALL/B015', 'Validate first three Batch015 school guides, canonical SSR and reciprocal county links without promotion', 'node', ['scripts/ci/verify-football-b015-first-three-source.mjs']],
   ['FOOTBALL/B015/SECOND-FIVE', 'Validate next five school guides, distinct campuses and verified reciprocal county links', 'node', ['scripts/ci/verify-football-b015-second-five-source.mjs']],
   ['FOOTBALL/B015/THIRD-FIVE', 'Validate third five school guides and exact SSR allowlist without premature certification', 'node', ['scripts/ci/verify-football-b015-third-five-source.mjs']],
+  ['FOOTBALL/B015/CHROME', 'Syntax-check bounded 25-school signed production Chrome evidence verifier', 'node', ['--check', 'scripts/ci/verify-football-b015-production.mjs']],
   ['COMMERCE/CJ', 'Syntax-check bounded first-party CJ production verification', 'node', ['--check', 'scripts/ci/verify-cj-account-production.mjs']],
   ['COMMERCE/CJ', 'Verify account-specific CJ creatives, exact destinations, stable SIDs and expired relationship fallback', 'node', ['--test', 'scripts/data/cj-account-links.test.mjs']],
   ['CONTENT/GOVERNANCE', 'Reject internal workflow language from public narratives', 'node', ['scripts/data/validate-reader-facing-copy.mjs']],
