@@ -9,7 +9,7 @@ function dollars(value: number) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
 }
 
-export function IsdTaxAuthority({ history }: { history: TexasTaxRateRecord[] }) {
+export function IsdTaxAuthority({ history, peers = [] }: { history: TexasTaxRateRecord[]; peers?: TexasTaxRateRecord[] }) {
   const latest = history.at(-1);
   if (!latest || latest.type !== 'school-district') return null;
   const adopted = getVerifiedHoodIsdAdoption(latest.slug);
@@ -66,6 +66,22 @@ export function IsdTaxAuthority({ history }: { history: TexasTaxRateRecord[] }) 
       <h3 className="font-display text-2xl">Compare other school districts in the same Hood CAD rate table</h3>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Each district below has its own boundaries. These {localYear} adopted rates are comparable per $100 of taxable value but are <strong className="text-foreground">alternatives, not taxes to add together</strong>. Individual properties generally belong to one principal school district; verify your parcel.</p>
       <div className="mt-5 overflow-x-auto"><table className="w-full min-w-[32rem] text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">District</th><th>Adopted {localYear} rate</th><th>M&amp;O</th><th>I&amp;S</th></tr></thead><tbody>{comparable.map((item) => <tr key={item.name} className="border-b border-border"><td className="py-3 font-medium">{item.name}{item.name === latest.name ? ' (this page)' : ''}</td><td className="tabular-nums">{rate(item.totalRate)}</td><td className="tabular-nums">{rate(item.maintenanceOperationsRate)}</td><td className="tabular-nums">{rate(item.debtServiceRate)}</td></tr>)}</tbody></table></div>
+    </div> : null}
+    {!showAdopted && peers.length ? <div className="mt-9">
+      <h3 className="font-display text-2xl">Related school districts: same-year statewide comparison</h3>
+      <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+        The following districts share an associated county with this page and have finalized reported {latest.year} rates. Five nearest published rates are shown for comparison; districts do not necessarily border one another. A parcel owes its actual district's rate, not the sum of these rows. These are not newer locally adopted rates.
+      </p>
+      <div className="mt-5 overflow-x-auto"><table className="w-full min-w-[35rem] text-left text-sm">
+        <thead><tr className="border-b border-border"><th className="py-3">School district</th><th>Total / $100</th><th>M&amp;O</th><th>I&amp;S</th></tr></thead>
+        <tbody>{peers.map((item) => <tr key={item.id} className="border-b border-border">
+          <td className="py-3"><a href={`/property-tax/taxing-unit/${item.slug}`} className="font-semibold text-primary underline underline-offset-2">{item.name}</a></td>
+          <td className="tabular-nums">{rate(item.totalRate!)}</td>
+          <td className="tabular-nums">{item.maintenanceOperationsRate == null ? 'Unreported' : rate(item.maintenanceOperationsRate)}</td>
+          <td className="tabular-nums">{item.debtServiceRate == null ? 'Unreported' : rate(item.debtServiceRate)}</td>
+        </tr>)}</tbody>
+      </table></div>
+      <p className="mt-3 text-xs leading-6 text-muted-foreground">Source: {latest.year} Texas Comptroller school-district taxing-unit workbook. Selection is based on county association and nearest published rate, not parcel boundaries or school performance.</p>
     </div> : null}
     {unresolved2022 ? <p className="mt-8 border-l-2 border-amber-600 pl-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">2022 historical-source caution:</strong> Hood CAD's 2022 published component columns do not reconcile with the adopted Tolar ISD total. We preserve the statewide historical total and leave uncorroborated M&amp;O/I&amp;S components blank rather than fabricate a breakdown. <a href={hoodIsdEvidence.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">Inspect the original Hood CAD table ↗</a>.</p> : null}
     <div className="mt-8 border-t border-border pt-5 text-sm leading-7 text-muted-foreground">
