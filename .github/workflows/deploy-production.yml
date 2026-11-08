@@ -453,31 +453,46 @@ jobs:
       # A cached page or an old browser tab can request a prior release's hashed
       # JS/CSS after the Worker has been replaced. Capture the old manifest while
       # the preceding Worker is still serving, without any extra deployments.
-      - name: Recover one previous release asset snapshot
+      # Do NOT inherit an unshipped build from a failed/superseded prior run.
+      # Its built hashes never existed on the active Worker, and selecting it
+      # silently drops otherwise healthy old assets from the next release.
+      - name: Restore active Worker's verified successful asset handoff
         id: historical_asset_snapshot
         if: success()
         shell: bash
+        env:
+          EXPECTED_ACTIVE_WORKER_VERSION: ${{ steps.rollback_target.outputs.version_id }}
         run: |
           set -euo pipefail
           mkdir -p .artifacts/prior-asset-extraction
-          previous_runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=8" --jq '.workflow_runs[].id' 2>/dev/null || true)"
+          # GitHub filters successful completed runs server-side. Failed runs
+          # must never evict the genuine predecessor from the candidate page.
+          previous_runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?status=success&per_page=30" --jq '.workflow_runs[] | [.id, .head_sha] | @tsv')"
+          if [[ -z "$previous_runs" ]]; then
+            echo "::error title=No successful predecessor::Refusing Worker replacement without a verified previous asset handoff."
+            exit 1
+          fi
           restored=0
-          checked=0
-          while IFS= read -r prior_run; do
-            [[ "$prior_run" =~ ^[0-9]+$ ]] || continue
-            [[ "$prior_run" == "$GITHUB_RUN_ID" ]] && continue
-            checked=$((checked + 1))
-            if gh run download "$prior_run" -n "asset-handoff-$prior_run" -D .artifacts/prior-asset-extraction >/dev/null 2>&1 &&
-               [[ -s .artifacts/prior-asset-extraction/asset-handoff-snapshot.json ]]; then
-              cp .artifacts/prior-asset-extraction/asset-handoff-snapshot.json .artifacts/prior-asset-handoff.json
-              echo "Restored older asset reference history from previous production run $prior_run."
+          while IFS=$'\t' read -r prior_run prior_sha; do
+            [[ "$prior_run" =~ ^[0-9]+$ && "$prior_sha" =~ ^[0-9a-f]{40}$ ]] || continue
+            [[ "$prior_run" != "$GITHUB_RUN_ID" ]] || continue
+            candidate=".artifacts/prior-asset-extraction/$prior_run"
+            mkdir -p "$candidate"
+            if ! gh run download "$prior_run" -n "asset-handoff-$prior_run" -D "$candidate" >/dev/null 2>&1; then
+              continue
+            fi
+            if node scripts/ci/verify-prior-asset-handoff.mjs \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
+              "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"; then
+              cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+              echo "Restored SHA-backed handoff from successful run $prior_run matching active Worker $EXPECTED_ACTIVE_WORKER_VERSION."
               restored=1
               break
             fi
-            [[ "$checked" -ge 6 ]] && break
           done <<< "$previous_runs"
-          if [[ "$restored" == 0 ]]; then
-            echo "::notice title=First-run asset handoff::No prior instrumented asset snapshot found; current release capture will seed two-release verification."
+          if [[ "$restored" != 1 ]]; then
+            echo "::error title=Wrong prior asset handoff::No successful release matches the current 100%-traffic Worker $EXPECTED_ACTIVE_WORKER_VERSION. Fail before replacement."
+            exit 1
           fi
 
       - name: Capture old HTML JS/CSS hashes before Worker replacement
