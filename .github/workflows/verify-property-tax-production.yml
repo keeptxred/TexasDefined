@@ -11,6 +11,7 @@ on:
       - 'scripts/ci/verify-local-financial-production.mjs'
       - 'scripts/ci/tax-history-row-contract.mjs'
       - 'scripts/data/validate-isd-tax-authority.mjs'
+      - 'scripts/ci/verify-isd-tax-production.mjs'
   # Run tax-only live verification after successful and failed main-branch
   # deployments: the general deploy gate may skip local-financial smoke,
   # and an unrelated editorial/event failure can obscure a healthy Worker.
@@ -48,6 +49,9 @@ jobs:
           echo "Success or failure of a site deployment triggers this separate read-only tax-history check. The daily schedule also tests currently served pages independently of any deployment." >> "$GITHUB_STEP_SUMMARY"
       - name: Check ISD source integrity and shared template
         run: node scripts/data/validate-isd-tax-authority.mjs
+
+      - name: Verify locally adopted ISD rates on both public origins
+        run: node scripts/ci/verify-isd-tax-production.mjs
 
       - name: Verify verified local-rate histories and Woodlands on both origins
         env:
