@@ -12,9 +12,17 @@ export function getVerifiedHoodIsdAdoption(slug: string): VerifiedHoodIsdRate | 
 }
 
 export function getVerifiedIsdHistoricalComponents(slug: string, year: number, statewideTotal: number | null) {
-  // The 2022 Tolar summary contains unreconciled columns; never infer those components.
-  if (slug !== 'tolar-isd' || statewideTotal == null) return null;
-  const entry = hood.historicalComponents['tolar-isd'][String(year) as keyof typeof hood.historicalComponents['tolar-isd']];
+  // Never backfill a disputed observation or derive components by subtraction.
+  // Every candidate must be in the source-qualified allowlist and reconcile
+  // against the unchanged Comptroller year-specific adopted total.
+  if (statewideTotal == null) return null;
+  const entries = hood.historicalComponents as Record<string, Record<string, {
+    totalRate: number;
+    maintenanceOperationsRate: number;
+    debtServiceRate: number;
+    sourceUrl: string;
+  }>>;
+  const entry = entries[slug]?.[String(year)];
   if (!entry) return null;
   if (Math.abs(entry.totalRate - statewideTotal) > 0.000002) return null;
   if (Math.abs(entry.maintenanceOperationsRate + entry.debtServiceRate - entry.totalRate) > 0.000002) return null;
