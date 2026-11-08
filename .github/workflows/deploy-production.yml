@@ -456,6 +456,26 @@ jobs:
       # Do NOT inherit an unshipped build from a failed/superseded prior run.
       # Its built hashes never existed on the active Worker, and selecting it
       # silently drops otherwise healthy old assets from the next release.
+      # Main can advance DURING the expensive build. Check again before
+      # downloading archived outgoing Worker chunks or making any CDN probes.
+      # This saves the serialized publisher queue from wasting minutes on
+      # already obsolete source. Keep the final pre-Wrangler guard as well.
+      - name: Refuse superseded source before historical asset recovery
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Cannot determine current main::Refusing asset recovery without a verified main SHA.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo "::error title=Superseded Worker release::This run is ${GITHUB_SHA}; latest main is ${latest_main}. Refusing costly old-asset recovery for an obsolete build."
+            exit 1
+          fi
+          echo "Post-build main SHA verified before asset handoff: ${latest_main}."
+
       - name: Restore active Worker's verified successful asset handoff
         id: historical_asset_snapshot
         if: success()
