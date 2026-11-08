@@ -95,35 +95,35 @@ export const Route = createFileRoute("/warriors-refuge-west-columbia")({
 });
 
 function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4 hover:no-underline">{children}</a>;
+  return <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{children}</a>;
 }
 
 function WarriorsRefugePage() {
   return <main id="main-content" className="pb-16">
-    <Container className="pt-10 sm:pt-14">
+    <Container className="pt-10">
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
         <Link to="/texas-resources" className="underline underline-offset-4">Texas Resources</Link><span aria-hidden="true"> / </span><span aria-current="page">The Warrior's Refuge</span>
       </nav>
 
-      <header className="mt-7 max-w-4xl">
+      <header className="max-w-4xl">
         <p className="eyebrow text-primary">Veteran services · Brazoria County, Texas</p>
-        <h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">The Warrior's Refuge: how veterans can get help in West Columbia</h1>
+        <h1 className="mt-3 font-display text-4xl leading-tight">The Warrior's Refuge: how veterans can get help in West Columbia</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">A practical, independently written guide to the organization's housing, counseling, work support and financial-assistance programs—with direct contacts and important eligibility distinctions.</p>
         <p className="mt-4 text-sm text-muted-foreground">Texas Defined editorial desk · Primary sources checked November 8, 2026 · Independent resource; not an official Warrior's Refuge page.</p>
       </header>
 
-      <section aria-labelledby="get-help" className="mt-10 border-y-2 border-foreground py-7">
+      <section aria-labelledby="get-help" className="mt-10 py-7">
         <h2 id="get-help" className="font-display text-3xl">Need help or want to request services?</h2>
         <p className="mt-3 max-w-3xl leading-7">Start with the organization's intake team before traveling. Explain whether you need housing, counseling, help with employment or financial assistance. Ask what is available today and what documents will be needed. The published office number is <a className="font-bold text-primary underline underline-offset-4" href="tel:+19793453800">(979) 345-3800</a>.</p>
         <div className="mt-5 flex flex-wrap gap-4 text-sm">
-          <a href="tel:+19793453800" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 font-semibold text-primary-foreground">Call the intake office</a>
+          <a href="tel:+19793453800" className="inline-flex items-center rounded-md bg-primary px-5 py-3 font-semibold text-primary-foreground">Call the intake office</a>
           <ExternalLink href="https://thewarriorsrefuge.us/contacts/">Official contact and intake information</ExternalLink>
         </div>
         <p className="mt-4 text-sm leading-6 text-muted-foreground">The organization lists weekday office hours of 9 a.m.–5 p.m. and weekends by appointment. These are office hours, not a guarantee of walk-in housing or emergency placement. If you have nowhere safe to stay tonight, see the 24/7 VA housing line below.</p>
       </section>
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
-        <article className="min-w-0 space-y-12 leading-8">
+      <div className="mt-12 grid gap-12 lg:grid-cols-3">
+        <article className="space-y-12 leading-8 lg:col-span-2">
           <section aria-labelledby="what-is">
             <h2 id="what-is" className="font-display text-3xl">What is The Warrior's Refuge?</h2>
             <p className="mt-4">The Warrior's Refuge is a West Columbia-based nonprofit founded in 2019. It describes its mission around three connected needs: a safe place to stay while recovering from homelessness, counseling and personal support, and education or employment that can help veterans remain housed. It serves veterans through its West Columbia campus and also lists The Rally Point in Alvin.</p>
@@ -157,7 +157,7 @@ function WarriorsRefugePage() {
 
           <section aria-labelledby="request-process">
             <h2 id="request-process" className="font-display text-3xl">A useful first-call checklist</h2>
-            <ol className="mt-5 list-decimal space-y-3 pl-6 marker:font-bold">
+            <ol className="mt-5 list-decimal space-y-3 pl-6">
               <li><strong>Identify the immediate need.</strong> Tell intake whether you need a place to stay, help keeping your current housing, counseling, work support or an emergency bill paid.</li>
               <li><strong>Ask about the specific program.</strong> Housing, counseling and the grant-funded financial-aid program have different processes; clarify which intake path applies.</li>
               <li><strong>Confirm service area and documents.</strong> Have discharge documents and identification available if you already possess them, but ask the provider what is actually required for your circumstances.</li>
@@ -179,18 +179,18 @@ function WarriorsRefugePage() {
             <p className="mt-4"><strong>Mental-health crisis:</strong> Call <a href="tel:988" className="font-semibold text-primary underline underline-offset-4">988 and press 1</a> for the Veterans Crisis Line, or text <a href="sms:838255" className="font-semibold text-primary underline underline-offset-4">838255</a>. <ExternalLink href="https://www.veteranscrisisline.net/">Official Veterans Crisis Line</ExternalLink>. In immediate danger, call 911.</p>
           </section>
 
-          <section aria-labelledby="sources" className="border-t border-border pt-7">
+          <section aria-labelledby="sources" className="border-t border-border">
             <h2 id="sources" className="font-display text-3xl">Sources and editorial method</h2>
             <p className="mt-3 text-sm leading-7">This independent guide prioritizes first-party program descriptions and federal assistance information. Provider hours, staff, funding, placement and admission conditions can change. We checked the following public sources on November 8, 2026; this is not a firsthand inspection of care or a guarantee of eligibility or space.</p>
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7">
+            <ul className="mt-4 list-disc space-y-2 text-sm leading-7">
               {sources.map(([label, href]) => <li key={href}><ExternalLink href={href}>{label}</ExternalLink></li>)}
             </ul>
             <p className="mt-5 text-sm">See the <Link to="/editorial-policy" className="text-primary underline underline-offset-4">editorial policy</Link>, <Link to="/sourcing-methodology" className="text-primary underline underline-offset-4">sourcing methodology</Link> and <Link to="/corrections-policy" className="text-primary underline underline-offset-4">corrections process</Link> for factual updates.</p>
           </section>
         </article>
 
-        <aside aria-labelledby="locations" className="min-w-0">
-          <div className="border-t-2 border-primary pt-5 lg:sticky lg:top-24">
+        <aside aria-labelledby="locations" className="">
+          <div className="border-t-2 border-primary pt-5">
             <h2 id="locations" className="font-display text-2xl">Contact and locations</h2>
             <div className="mt-5 space-y-6 text-sm leading-7">
               <section>
@@ -205,7 +205,7 @@ function WarriorsRefugePage() {
               </section>
               <section className="border-t border-border pt-4">
                 <h3 className="font-bold">Contact</h3>
-                <p><a href="tel:+19793453800" className="text-primary underline underline-offset-4">(979) 345-3800</a><br /><a href="mailto:info@thewarriorsrefuge.us" className="break-all text-primary underline underline-offset-4">info@thewarriorsrefuge.us</a></p>
+                <p><a href="tel:+19793453800" className="text-primary underline underline-offset-4">(979) 345-3800</a><br /><a href="mailto:info@thewarriorsrefuge.us" className="text-primary underline underline-offset-4">info@thewarriorsrefuge.us</a></p>
                 <p className="mt-2">Office: Monday–Friday, 9 a.m.–5 p.m.<br />Weekends: by appointment</p>
               </section>
               <section className="border-t border-border pt-4">
