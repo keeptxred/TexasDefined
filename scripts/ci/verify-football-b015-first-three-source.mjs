@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const read = (p) => readFileSync(p, 'utf8');
 const slugs = ['dell-city', 'denison', 'denton', 'denton-braswell', 'denton-guyer'];
+const newSlugs = ['dimmitt', 'donna', 'donna-north', 'dripping-springs', 'dublin'];
 const source = read('src/data/high-school-football/program-editorial-b015.ts');
 const match = source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
 assert.ok(match, 'Batch015 editorial map missing');
@@ -34,6 +35,17 @@ for (const slug of nextFive) {
   assert.ok(g.overview.join(' ').includes('County'), slug + ' missing county context');
 }
 assert.notEqual(guides['donna'].campus.address, guides['donna-north'].campus.address, 'distinct Donna campuses must not be conflated');
+for (const slug of newSlugs) {
+  const g = guides[slug];
+  assert.equal(g?.slug, slug, slug + ' missing distinct editorial');
+  assert.equal(registry.schoolRecords.find(row => row.slug === slug)?.status, 'NOT_REVIEWED');
+  for (const field of ['campus', 'schedule', 'notice']) {
+    assert.ok(g[field]?.sourceUrl?.startsWith('https://'), slug + ' missing official-source URL for ' + field);
+    assert.ok(g[field]?.verifiedAt, slug + ' missing source date for ' + field);
+  }
+  assert.ok(g.overview.length >= 4 && g.milestones.length >= 2 && g.faq.length >= 3);
+}
+assert.notEqual(guides.donna.campus.address, guides['donna-north'].campus.address, 'Donna campuses must remain distinct');
 const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
 for (const [slug, countySlug] of [['dell-city','hudspeth'],['denison','grayson'],['denton','denton'],['denton-braswell','denton'],['denton-guyer','denton']]) {
