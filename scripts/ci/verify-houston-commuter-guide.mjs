@@ -105,8 +105,8 @@ if (process.argv.includes("--live")) {
     "Methodology, sources and what this guide cannot claim"
   ], "live HTML");
   const canonical = origin + "/article/" + slug;
-  const canonicalTags = html.match(/<link\\b[^>]*>/gi) ?? [];
-  if (!canonicalTags.some((tag) => /\\brel=["']canonical["']/i.test(tag) && tag.includes(canonical))) {
+  const canonicalTags = html.match(/<link\b[^>]*>/gi) ?? [];
+  if (!canonicalTags.some((tag) => /\brel=["']canonical["']/i.test(tag) && tag.includes(canonical))) {
     fail("exact canonical link missing for " + canonical);
   }
   if (/<meta[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) fail("noindex tag found");
