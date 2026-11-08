@@ -43,7 +43,9 @@ export function ensureRemoteEvergreenSourceFallback(article: Article): Article {
 
   const sourceName = article.sourceName?.trim() || fallback.name;
   const sourceUrl = article.sourceUrl?.trim() || fallback.url;
-  const body = hasSourcesSection(article)
+  // Blue Bell has a reviewed multi-source bibliography in the article route; render its
+  // linked sources instead of auto-appending a plain-text single-source list.
+  const body = hasSourcesSection(article) || article.slug === "blue-bell-ice-cream-brenham-texas-history"
     ? article.body
     : [
         ...article.body,
