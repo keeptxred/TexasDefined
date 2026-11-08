@@ -34,6 +34,7 @@ import { hotelPasoDelNorteAuthorityDestination } from "./hotel-paso-del-norte-au
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
+import { medalOfHonorHostCityMuseumDestinations } from "./medal-of-honor-host-city-museum";
 import { austinMuseumDestinations } from "./museum-expansion-austin";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
@@ -275,6 +276,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   hidalgoPumphouseAuthorityDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
+  medalOfHonorHostCityMuseumDestinations,
   houstonGalvestonMuseumDestinations,
   hoggLegacyDestinations,
   dfwMuseumDestinations,
