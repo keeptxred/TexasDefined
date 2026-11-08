@@ -22,7 +22,7 @@ export const getTaxingUnitRateHistory = createServerFn({ method: 'GET' })
         exemptionSourceUrl: source.hoodIsdEvidence.exemptionSourceUrl,
         historicalComponents: history.map((item) => ({
           year: item.year,
-          components: source.getVerifiedIsdHistoricalComponents(item.slug, item.year, item.totalRate),
+          components: source.getVerifiedIsdHistoricalComponents(item.slug, item.year, item.totalRate, item.officialTaxingUnitIds),
         })).filter((item) => item.components != null),
       };
     })() : null;
