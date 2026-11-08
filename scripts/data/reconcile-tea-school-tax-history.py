@@ -38,7 +38,7 @@ def parse_number(v):
     if v is None or isinstance(v, bool) or str(v).strip() == "":
         return None
     try:
-        n = Decimal(str(v).strip().replace(",", ""))
+        n = Decimal(str(v).strip().replace(",", "")).quantize(Decimal("0.00000001"))
         if n.is_finite() and Decimal("0") <= n <= Decimal("3"):
             return n
     except InvalidOperation: pass
@@ -77,6 +77,7 @@ def fetch_rows():
 
 def main():
     raw = source_file()
+    source_digest = sha256(raw).hexdigest()
     wb = load_workbook(BytesIO(raw), read_only=True, data_only=True)
     if len(wb.worksheets) != 1:
         raise RuntimeError(f"Official TEA sheet count changed: {len(wb.worksheets)}")
@@ -101,7 +102,7 @@ def main():
         if cdn in tea: raise RuntimeError(f"Duplicate TEA CDN {cdn}")
         tea[cdn] = row
     if "111903" not in tea: raise RuntimeError("Missing known Tolar CDN 111903")
-    print(f"TEA_SOURCE_SHA256={sha256(raw).hexdigest()} DISTRICTS={len(tea)} SHEET={sheet.title!r} TAX_COLUMNS={position}")
+    print(f"TEA_SOURCE_SHA256={source_digest} DISTRICTS={len(tea)} SHEET={sheet.title!r} TAX_COLUMNS={position}")
     rows = fetch_rows()
     seen = set()
     counters = Counter()
@@ -143,14 +144,37 @@ def main():
             "mo_tea": str(mo), "debt_tea": str(debt), "comptroller_total": str(comptroller),
             "difference": str(diff), "status": category,
             "tea_school_name": str(tea[cdn][1]), "source": SOURCE,
-            "source_sha256": sha256(raw).hexdigest(),
+            "source_sha256": source_digest,
         })
     print("MATCH_RESULTS="+json.dumps(dict(counters), sort_keys=True))
     print("MATCH_SAMPLES="+json.dumps(details[:6]))
     for row in details:
         if row["slug"] == "tolar-isd":
             print("TOLAR_RECONCILIATION="+json.dumps(row))
-    output = {"source": SOURCE, "sha256": sha256(raw).hexdigest(), "source_rows": len(rows), "matched": dict(counters), "details": details}
+    # Copy only exact-ID/year/total source matches into an immutable candidate
+    # allowlist. The page still checks the original statewide total on every read.
+    accepted = [
+        {"slug": row["slug"], "year": row["year"], "cdn": row["cdn"],
+         "mo": row["mo_tea"], "debt": row["debt_tea"],
+         "total": row["comptroller_total"], "delta": row["difference"],
+         "precision": row["status"], "teaName": row["tea_school_name"]}
+        for row in details if row["status"] in ("exact", "rounded_source_difference")
+    ]
+    generated = {
+        "sourceUrl": SOURCE, "sourceSha256": source_digest,
+        "dataVersion": 1,
+        "fiscalYearRule": "TEA 2021-2022 school year corresponds to 2021 tax year",
+        "explanation": "No state record is changed. TEA components are never inferred, and lower-precision differences up to 0.0001 are separately labeled.",
+        "coverage": {"exact": counters["exact"], "lowerPrecision": counters["rounded_source_difference"],
+                     "conflictExcluded": counters["conflict_requires_adjudication"],
+                     "missingDistrictExcluded": counters["not_in_tea"]},
+        "records": accepted,
+    }
+    os.makedirs("src/data/property", exist_ok=True)
+    with open("src/data/property/tea-isd-history.generated.json", "w", encoding="utf-8") as f:
+        json.dump(generated, f, sort_keys=True, separators=(",", ":"))
+        f.write(chr(10))
+    output = {"source": SOURCE, "sha256": source_digest, "source_rows": len(rows), "matched": dict(counters), "details": details}
     os.makedirs("/tmp/texasdefined", exist_ok=True)
     with open("/tmp/texasdefined/tea-isd-matches.json", "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2)
