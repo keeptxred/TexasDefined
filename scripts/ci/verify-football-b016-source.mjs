@@ -38,7 +38,7 @@ for(const name of ['program-editorial-b016-group1.ts','program-editorial-b016-gr
  const source=read('src/data/high-school-football/'+name);
  const match=source.match(/const EDITORIAL: Record<string, FootballProgramEditorial> = (\{[\s\S]*?\});/);
  assert.ok(match,name+' editorial map missing');
- const guideMap=JSON.parse(match[1]);
+ const guideMap=JSON.parse(match[1].replace(/,\s*}$/, '}')); // TS object permits a trailing comma; JSON does not
  for(const [slug,g] of Object.entries(guideMap)){
   assert.equal(g.slug,slug);
   assert.ok(g.overview?.length>=4,slug+' thin overview');
