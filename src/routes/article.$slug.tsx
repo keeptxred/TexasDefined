@@ -12,8 +12,6 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { magnoliaPeopleSchemaForArticle } from "@/data/magnolia-people-schema";
-import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
-import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
@@ -31,6 +29,15 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
+
+// Monetization modules are visitor-only enhancements; avoid loading their
+// application code on every editorial article or in the primary JS bundle.
+const SchoolSupplyPartners = lazy(() =>
+  import("@/components/monetization/SchoolSupplyPartners").then((m) => ({ default: m.SchoolSupplyPartners })),
+);
+const FootballFanOffers = lazy(() =>
+  import("@/components/sports/FootballFanOffers").then((m) => ({ default: m.FootballFanOffers })),
+);
 
 // Magnolia-only affiliate UI stays off the shared article client bundle.
 const MagnoliaWacoAffiliateLinks = lazy(() =>
@@ -521,7 +528,7 @@ function ArticlePage() {
       && /^(?:frequently asked questions|sources and verification|sources and further reading)\b/i.test(block.text?.trim() ?? ""))
     : -1;
   const footballTravelOffer = showFootballTravelOffers
-    ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning />
+    ? <Suspense fallback={null}><FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /></Suspense>
     : null;
   const riverBasinHeadingIndex = isTexasRiversArticle
     ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
@@ -636,7 +643,7 @@ function ArticlePage() {
           <TexasWaterSearchResource active={waterTopic} />
         </Suspense>
       ) : null}
-      {hasSchoolSupplyRail ? <><style>{`@media(min-width:1536px){.school-supply-responsive{position:absolute;left:calc(100% + 2rem);top:2.5rem;width:18rem;margin-top:0}}`}</style><SchoolSupplyPartners className="school-supply-responsive mt-8 border border-border bg-surface p-5" /></> : null}
+      {hasSchoolSupplyRail ? <><style>{`@media(min-width:1536px){.school-supply-responsive{position:absolute;left:calc(100% + 2rem);top:2.5rem;width:18rem;margin-top:0}}`}</style><Suspense fallback={null}><SchoolSupplyPartners className="school-supply-responsive mt-8 border border-border bg-surface p-5" /></Suspense></> : null}
       {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {article.slug === "texas-high-school-football-playoffs-explained" ? <>
         <a href="https://commons.wikimedia.org/wiki/File:Celina_High_School,_Friday_Night_Football.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Heidi Knapp · original photograph</a>
         {" · "}
