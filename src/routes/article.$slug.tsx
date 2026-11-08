@@ -5,7 +5,6 @@ import { lazy, Suspense, useEffect } from "react";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
-import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
 import { LostMaplesFoliageStatus } from "@/components/editorial/LostMaplesFoliageStatus";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import type { Article } from "@/data/types";
@@ -40,6 +39,15 @@ const MagnoliaWacoAffiliateLinks = lazy(() =>
 
 const AuthorityVisitorTools = lazy(() =>
   import("@/components/editorial/AuthorityVisitorTools").then((module) => ({ default: module.AuthorityVisitorTools })),
+);
+
+// Keep the 14 KB interactive foliage map/gallery module out of the default
+// client bundle; these tools are used only by the East Texas fall guide.
+const EastTexasFoliageParkMap = lazy(() =>
+  import("@/components/editorial/EastTexasFoliageMedia").then((module) => ({ default: module.EastTexasFoliageParkMap })),
+);
+const EastTexasFoliagePhotoGallery = lazy(() =>
+  import("@/components/editorial/EastTexasFoliageMedia").then((module) => ({ default: module.EastTexasFoliagePhotoGallery })),
 );
 
 // This large comparison is isolated to the single Houston commuter article.
@@ -697,8 +705,8 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
-      <EastTexasFoliageParkMap />
-      <EastTexasFoliagePhotoGallery />
+      <Suspense fallback={<section className="mt-8 border border-border p-6" aria-label="Loading East Texas parks map">Loading the six-park map…</section>}><EastTexasFoliageParkMap /></Suspense>
+      <Suspense fallback={<section className="mt-8 border border-border p-6" aria-label="Loading East Texas photograph gallery">Loading the credited photo gallery…</section>}><EastTexasFoliagePhotoGallery /></Suspense>
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
