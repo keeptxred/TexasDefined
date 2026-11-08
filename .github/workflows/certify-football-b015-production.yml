@@ -1,0 +1,76 @@
+name: Propose Batch015 graduation only from signed production Chrome
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-football-b015-production.yml'
+      - 'scripts/ci/prepare-football-b015-certification.mjs'
+      - 'scripts/ci/verified-football-b015-certificate.mjs'
+permissions:
+  actions: read
+  contents: write
+  deployments: read
+  pull-requests: write
+concurrency:
+  group: football-b015-signed-graduation
+  cancel-in-progress: false
+jobs:
+  graduation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: texasdefined-publication
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require real post-identity Chrome source unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_sha=0621a3412f83ed207844af3159e96cfd7e0bd4ed
+          git cat-file -e ""$source_sha"^{commit}"
+          git diff --quiet "$source_sha" HEAD -- \
+            src/data/high-school-football/ \
+            'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx' \
+            'src/routes/$kind.$slug.lazy.tsx'
+          echo 'Football renderer, data and county-link source unchanged since signed Chrome run.'
+      - name: Verify certificate and evidence collector syntax
+        run: |
+          node --check scripts/ci/verified-football-b015-certificate.mjs
+          node --check scripts/ci/prepare-football-b015-certification.mjs
+      - name: Recheck signed production Chrome, exact Worker and immutable 76-file artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_DEPLOY_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+        run: node scripts/ci/prepare-football-b015-certification.mjs
+      - name: Open evidence-only protected Batch015 graduation PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- docs/football-authority/REGISTRY.json docs/football-authority/PROGRESS.md; then
+            echo 'No complete signed acceptance; no registry graduation.'
+            exit 0
+          fi
+          if gh pr list --repo "$GITHUB_REPOSITORY" --state open --json title \
+            --jq '.[].title' | grep -Fxq 'Certify Batch015 from one fresh 75+25 production Chrome run'; then
+            echo 'Existing protected Batch015 graduation PR; refuse duplicate.'
+            exit 0
+          fi
+          branch="automation/football-b015-fresh-signed-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add docs/football-authority/REGISTRY.json docs/football-authority/PROGRESS.md
+          git commit -m 'Certify Batch015 only after fresh signed 75+25 production Chrome'
+          git push origin "$branch"
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$branch" \
+            --title 'Certify Batch015 from one fresh 75+25 production Chrome run' \
+            --body 'Evidence-only proposed graduation: 25 schools to VERIFIED from non-skipped run 42495534916, artifact 13623152274, source 0621a341, Worker 94032994, signed ledger 7637951033 and Cloudflare deployment 6c12efe6. Exactly 355 historical+new verified, 937 not reviewed, 0 implemented; no Batch016 assignment or human/rights claims. Protected Merge Gate mandatory.'
+          gh pr merge "$branch" --repo "$GITHUB_REPOSITORY" --auto --squash
