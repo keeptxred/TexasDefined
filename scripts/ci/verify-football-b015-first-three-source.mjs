@@ -48,6 +48,10 @@ for (const slug of newSlugs) {
 assert.notEqual(guides.donna.campus.address, guides['donna-north'].campus.address, 'Donna campuses must remain distinct');
 const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
+for (const [slug, countySlug] of [['dimmitt','castro'],['donna','hidalgo'],['donna-north','hidalgo'],['dripping-springs','hays'],['dublin','erath']]) {
+  assert.ok(team.includes("'" + slug + "': '" + countySlug + "'"), slug + ' missing campus-county map');
+  assert.ok(county.includes("slug: '" + slug + "'"), slug + ' missing reciprocal county link');
+}
 for (const [slug, countySlug] of [['dell-city','hudspeth'],['denison','grayson'],['denton','denton'],['denton-braswell','denton'],['denton-guyer','denton']]) {
   assert.ok(team.includes("'" + slug + "': '" + countySlug + "'"), slug + ' missing campus county mapping');
   assert.ok(county.includes("slug: '" + slug + "'"), slug + ' missing reciprocal county listing');
