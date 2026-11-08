@@ -101,6 +101,30 @@ test('Nov 7 gateway and football recent 200-to-404 hashes remain SHA-gated and s
     assert.equal(safeCriticalAsset(path), false, path);
 });
 
+test('Nov 8 observed crawler 404 and recently healthy chunks enter exact-original safety matcher', () => {
+  const originalsObserved404 = [
+    '/assets/county.lazy-BSwOAU2N.js',
+    '/assets/fishing.lakes._slug._section-uOuaXcfl.js',
+    '/assets/TexasPointMapGraphic-CmYOdK7B.js',
+    '/assets/TopAttractionCollectionLinks-CKW6kJ9J.js',
+    '/assets/CategoryPage-C-GRoUL_.js',
+    '/assets/ExploreDestinationComparison-Du1VKlsM.js',
+    '/assets/image-library-BNHszpfn.js',
+    '/assets/SamRayburnContext-D4GZ8cpV.js',
+    '/assets/explore._category.lazy-CmWYbsra.js',
+    '/assets/texas-high-school-football-matchups-CCeAiC0n.js',
+    '/assets/FishingMerchSpotlight-BvN_4Dwt.js',
+    '/assets/sports-venue._slug-CrSmUXdO.js',
+  ];
+  for (const path of originalsObserved404) assert.equal(safeCriticalAsset(path), true, path);
+  for (const path of [
+    '/assets/county.lazy-HASH1234.js?ref=ignored',
+    '/assets/fishing.lakes._slug._section-../../secret.js',
+    '/assets/image-library-public.jpg',
+    'https://other.example/assets/CategoryPage-C-GRoUL_.js',
+  ]) assert.equal(safeCriticalAsset(path), false, path);
+});
+
 test('candidate union contains current HTML old bundle and prior generated lazy modules', () => {
   const old = { path: '/assets/main-BbzNQxMh.js', kind: 'js',
     wasAvailable: true, preSha256: hash };
