@@ -12,7 +12,7 @@ Hood Central Appraisal District published 2026 adopted-rate table: https://hoodc
 
 Six district slugs have independently verified locally adopted rates and breakdowns in `src/data/property/hood-cad-isd-adopted.json`: Tolar, Granbury, Lipan, Bluff Dale, Glen Rose, Godley. These are **not** 2026 Comptroller workbook records; pages retain original 2021–2025 state history, and statewide calculators continue using source-bounded state data.
 
-Tolar's 2021 and 2023 historical component breakdowns are conditionally added in the page only if their sum matches the original statewide yearly total. The Hood CAD 2022 summary's component cells do not reconcile with the 2022 adopted total, so both remain unfilled pending primary-document resolution. There is no silent 2022 override.
+Fifteen independently documented M&O/I&S pairs for the six Hood ISDs (2021 and 2023 across all six districts, plus 2022 for Bluff Dale, Glen Rose and Godley) are conditionally displayed only when their sum matches the unchanged Comptroller yearly adopted total. Hood CAD's 2022 source table does not reconcile for **Tolar, Granbury and Lipan**, so those six component cells remain unfilled pending primary district resolutions. There is no silent 2022 override.
 
 ## Exemptions, method and validation
 
@@ -23,7 +23,7 @@ TEA school rates/finance source: https://tea.texas.gov/about-tea/state-funding/a
 
 A year-specific tax illustration is not a statement of the complete property tax bill, nor a valuation or exemption adjudication for a particular parcel. Changes in value, boundaries or exemptions may produce an opposite actual bill trend from a nominal rate comparison.
 
-`scripts/data/validate-isd-tax-authority.mjs` enforces six locally adopted rate arithmetic and source contracts; included in normal calculator gate. `.github/workflows/verify-property-tax-production.yml` checks six SSR pages across public and direct Worker origins daily and after deployments, including Tolar 2021/2023 components, 2022 caution, canonical and noindex. `.github/workflows/verify-hood-isd-official-source.yml` rechecks original Hood CAD source weekly and fails on unexplained changes. The official rate importer already rechecks Comptroller annual files monthly and the full retained history annually.
+`scripts/data/validate-isd-tax-authority.mjs` enforces six locally adopted rate arithmetic and source contracts; included in normal calculator gate. `.github/workflows/verify-property-tax-production.yml` checks six SSR pages across public and direct Worker origins daily and after deployments, including all 15 validated 2021–2023 component pairs, three 2022 cautions, canonical and noindex. `.github/workflows/verify-hood-isd-official-source.yml` rechecks original Hood CAD source weekly and fails on unexplained changes. The official rate importer already rechecks Comptroller annual files monthly and the full retained history annually.
 
 ## Remaining source-specific work — must not be misrepresented as complete
 
