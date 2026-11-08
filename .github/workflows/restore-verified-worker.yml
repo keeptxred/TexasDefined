@@ -20,6 +20,9 @@ concurrency:
 
 jobs:
   restore:
+    # Keep the recovery push one-time; future updates to this approved workflow
+    # cannot accidentally trigger another rollback.
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[recover-worker-handoff-20261108]')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment: texasdefined-publication
