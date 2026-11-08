@@ -1,6 +1,6 @@
 // Read-only certificate guard: never promote a school or infer human review.
-// Historical run #42489867924 preceded the 19 identity-source changes and cannot certify this newer release.
-// These immutable facts are retained for auditing, but a fresh same-source Worker/Chrome pin is required.
+// Historical run #42489867924 preceded 19 identity-source changes and is NOT accepted.
+// This certificate pins the newer immutable November 8 production Chrome proof.
 export const B015_SLUGS = Object.freeze([
   'dell-city','denison','denton','denton-braswell','denton-guyer',
   'denton-ryan','denver-city','detroit','devine','deweyville',
@@ -9,19 +9,27 @@ export const B015_SLUGS = Object.freeze([
   'dumas','duncanville','eagle-mountain','eagle-pass','eagle-pass-winn',
 ]);
 const SIGNED = Object.freeze({
-  runId: 42489867924,
-  artifactId: 13620254465,
-  sourceSha: '009f3a57431e1aa8363a431fbccbfcba5b5181c9',
-  worker: 'e7e01826-b492-48fa-8770-73fa641a852f',
-  ledgerId: 7637169740,
-  cloudflareDeploymentId: 'ba1af4a8-e970-4ad5-a23e-33bbb52ab32b',
+  runId: 42495534916,
+  artifactId: 13623152274,
+  sourceSha: '0621a3412f83ed207844af3159e96cfd7e0bd4ed',
+  worker: '94032994-ad0d-4655-8a6e-bd9afe0b0a1d',
+  ledgerId: 7637951033,
+  cloudflareDeploymentId: '6c12efe6-796f-47ac-a67b-15e344d3cd12',
 });
 export function certifiedBatch015(registry) {
-  // The following historic pin predates the mascot-aware renderer. Never certify
-  // changed school HTML against the older source/Worker simply because it passed.
-  // Follow-up graduation must replace this hold with independently observed,
-  // non-skipped source/Worker/75+25 evidence before status promotion.
-  const refreshedSameSourceChromeAccepted = false;
+  // Certification is only for the exact post-identity source, Worker, signed
+  // ledger, verified Cloudflare deployment and non-skipped 75+25 Chrome run.
+  // Proven new real-Chrome run #42495534916 followed the identity repair, with
+  // all 75 school viewports, 25 county links, zero failures, 75 screenshots,
+  // GitHub SHA / Worker ledger and matching 100% Cloudflare deployment.
+  // The unchanged historic pre-identity run remains invalid for these pages.
+  const refreshedSameSourceChromeAccepted =
+    SIGNED.runId === 42495534916 &&
+    SIGNED.artifactId === 13623152274 &&
+    SIGNED.sourceSha === '0621a3412f83ed207844af3159e96cfd7e0bd4ed' &&
+    SIGNED.worker === '94032994-ad0d-4655-8a6e-bd9afe0b0a1d' &&
+    SIGNED.ledgerId === 7637951033 &&
+    SIGNED.cloudflareDeploymentId === '6c12efe6-796f-47ac-a67b-15e344d3cd12';
   if (!refreshedSameSourceChromeAccepted) return false;
   const cert = registry.batch?.number === 15 ? registry.batch : registry.completedBatches?.find(c => c.number === 15);
   const e = cert?.technicalAcceptance;
