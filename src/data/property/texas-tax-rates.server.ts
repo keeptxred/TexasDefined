@@ -59,7 +59,7 @@ export function mapTaxRateRow(row: TaxRateRow): TexasTaxRateRecord {
     levy: numeric(row.levy),
     sourceUrl: row.source_url,
     importedAt: row.imported_at ?? null,
-    sourceStatus: row.source_status as TexasTaxRateSourceStatus;
+    sourceStatus: row.source_status as TexasTaxRateSourceStatus,
     variableRate: Boolean(row.variable_rate),
     rateVariants: (row.rate_variants ?? []).map((value) => Number(value)).filter(Number.isFinite),
     officialTaxingUnitIds: row.official_taxing_unit_ids ?? [],
