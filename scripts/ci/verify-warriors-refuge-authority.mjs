@@ -40,6 +40,13 @@ assert.ok(policy.includes('"/warriors-refuge-west-columbia"'), "Guide must be on
 for (const [name, file] of [["Texas Resources", resources], ["resources SEO discovery", resourcesHead], ["Texas Life", living]]) {
   assert.ok(file.includes("/warriors-refuge-west-columbia"), `Missing ${name} internal link`);
 }
+const photoPath = "public/images/warriors-refuge-sign.avif";
+const photo = readFileSync(resolve(root, photoPath));
+assert.ok(photo.length >= 3000 && photo.length <= 100000, "Reader-supplied photo must exist and be reasonably optimized");
+assert.equal(photo.toString("ascii", 4, 12), "ftypavif", "Photo must be actual AVIF bytes, not a broken text placeholder");
+assert.ok(page.includes('src="/images/warriors-refuge-sign.avif"'), "Guide must display the photo");
+assert.ok(page.includes('Photo supplied by a reader'), "Photo attribution should be visible");
+assert.ok(page.includes('alt="The Warrior\'s Refuge sign'), "Photo must have meaningful descriptive alt text");
 console.log("PASS Warrior's Refuge guide: source attribution, service distinctions, accessibility calls-to-action, indexable registry and 3 discovery integrations.");
 
 // Network checks are a freshness research alarm, never permission to silently
