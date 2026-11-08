@@ -48,13 +48,13 @@ function BudgetFields({ label, value, onChange }: { label: string; value: Budget
     { key: "tolls", label: "Tolls per office day", suffix: "USD" },
     { key: "parking", label: "Parking per office day", suffix: "USD" },
   ];
-  return <fieldset className="rounded-lg border border-border p-4">
-    <legend className="px-1 font-semibold">{label}</legend>
-    <div className="grid gap-3 sm:grid-cols-3">
+  return <fieldset className="rounded-xl border border-border p-4">
+    <legend className="font-semibold">{label}</legend>
+    <div className="grid gap-3 sm:grid-cols-2">
       {fields.map((field) => <label key={field.key} className="block text-sm">
         <span className="block text-muted-foreground">{field.label}</span>
         <span className="mt-1 flex items-center gap-2">
-          <input className="w-full min-w-0 rounded-md border border-border bg-background px-3 py-2 text-foreground" type="number" min="0" max="1000" step={field.key === "miles" ? "1" : "0.5"} value={value[field.key]} onChange={(event) => onChange({ ...value, [field.key]: Math.max(0, Number(event.target.value) || 0) })} />
+          <input className="w-full rounded-xl border border-border bg-background px-3 py-2 text-foreground" type="number" min="0" max="1000" step={field.key === "miles" ? "1" : "0.5"} value={value[field.key]} onChange={(event) => onChange({ ...value, [field.key]: Math.max(0, Number(event.target.value) || 0) })} />
           <span className="text-xs text-muted-foreground">{field.suffix}</span>
         </span>
       </label>)}
@@ -76,43 +76,43 @@ export function HoustonCommuterPlanner() {
   };
   const aCost = monthly(a);
   const bCost = monthly(b);
-  return <section id="houston-commute-planner" className="my-10 space-y-7 rounded-xl border border-border bg-surface p-4 sm:p-6" aria-labelledby="houston-commuter-tool-title">
+  return <section id="houston-commute-planner" className="my-10 space-y-6 rounded-xl border border-border bg-surface p-4" aria-labelledby="houston-commuter-tool-title">
     <div>
-      <p className="text-xs font-semibold uppercase tracking-widest text-primary">Texas Defined original research tool</p>
-      <h2 id="houston-commuter-tool-title" className="mt-2 font-display text-2xl font-semibold sm:text-3xl">Compare Houston suburbs by your actual job corridor</h2>
+      <p className="text-xs font-semibold uppercase text-primary">Texas Defined original research tool</p>
+      <h2 id="houston-commuter-tool-title" className="mt-2 font-display text-2xl font-semibold">Compare Houston suburbs by your actual job corridor</h2>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">These are geography-based places to investigate, not rankings or measured journey times. No route listed here guarantees a fast trip. Select a work destination, then verify a specific home address at your own commute hours.</p>
     </div>
     <label className="block text-sm font-semibold" htmlFor="houston-job-center">Your primary job center</label>
-    <select id="houston-job-center" value={job} onChange={(event) => setJob(event.target.value as Job)} className="w-full rounded-md border border-border bg-background px-3 py-3 text-foreground">
+    <select id="houston-job-center" value={job} onChange={(event) => setJob(event.target.value as Job)} className="w-full rounded-xl border border-border bg-background px-3 py-3 text-foreground">
       {jobs.map(([key, label]) => <option key={key} value={key}>{label}</option>)}
     </select>
-    <div role="region" aria-live="polite" aria-label="Corridor-based suburb comparison" className="overflow-x-auto">
-      <table className="w-full min-w-[620px] border-collapse text-left text-sm">
+    <div role="region" aria-live="polite" aria-label="Corridor-based suburb comparison" style={{ overflowX: "auto" }}>
+      <table className="w-full text-sm" style={{ minWidth: 620, borderCollapse: "collapse", textAlign: "left" }}>
         <caption className="mb-3 text-left text-sm font-semibold">Initial areas to test for {jobs.find(([key]) => key === job)?.[1]}; not a measured ranking</caption>
-        <thead><tr className="border-y border-border bg-muted/30"><th scope="col" className="p-3">Area</th><th scope="col" className="p-3">Likely road corridor</th><th scope="col" className="p-3">Key trade-off</th><th scope="col" className="p-3">Transit research</th></tr></thead>
-        <tbody>{candidates.map((area) => <tr key={area.name} className="border-b border-border align-top">
+        <thead><tr className="border-y border-border bg-surface"><th scope="col" className="p-3">Area</th><th scope="col" className="p-3">Likely road corridor</th><th scope="col" className="p-3">Key trade-off</th><th scope="col" className="p-3">Transit research</th></tr></thead>
+        <tbody>{candidates.map((area) => <tr key={area.name} className="border-b border-border" style={{ verticalAlign: "top" }}>
           <th scope="row" className="p-3 font-semibold">{area.name}</th><td className="p-3">{area.roads}</td><td className="p-3">{area.tradeoff}</td><td className="p-3">{area.transit}</td>
         </tr>)}</tbody>
       </table>
     </div>
-    <div className="rounded-lg border border-border p-4">
+    <div className="rounded-xl border border-border p-4">
       <h3 className="font-display text-xl font-semibold">Regional orientation map</h3>
       <p className="mt-1 text-sm text-muted-foreground">Pan and zoom for the actual positions of candidate neighborhoods, job centers and connecting roads. This map is geographic context, not a live congestion display or plotted commute.</p>
-      <iframe title="Interactive OpenStreetMap of the greater Houston metro area" loading="lazy" referrerPolicy="no-referrer" className="mt-4 h-64 w-full rounded-md border border-border sm:h-80" src="https://www.openstreetmap.org/export/embed.html?bbox=-95.99%2C29.34%2C-94.77%2C30.23&layer=mapnik" />
+      <iframe title="Interactive OpenStreetMap of the greater Houston metro area" loading="lazy" referrerPolicy="no-referrer" className="mt-4 w-full rounded-xl border border-border" style={{ height: 320 }} src="https://www.openstreetmap.org/export/embed.html?bbox=-95.99%2C29.34%2C-94.77%2C30.23&layer=mapnik" />
       <a className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4" href="https://www.openstreetmap.org/#map=10/29.77/-95.38" target="_blank" rel="noopener noreferrer">Open the full Houston map ↗</a>
     </div>
-    <div className="space-y-4 border-t border-border pt-6">
+    <div className="space-y-3 border-t border-border pt-6">
       <h3 className="font-display text-xl font-semibold">Two-address commute cost worksheet</h3>
       <p className="text-sm text-muted-foreground">Compare two real prospective homes. Enter your own tested round-trip mileage, actual toll and parking estimates. Defaults are illustrative inputs only; $0 is not a real-world cost estimate.</p>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2">
         <label className="text-sm">Office days per week
-          <input className="mt-1 w-full rounded-md border border-border bg-background p-2" type="number" min="1" max="7" step="1" value={days} onChange={(event) => setDays(Math.min(7, Math.max(1, Number(event.target.value) || 1)))} />
+          <input className="mt-1 w-full rounded-xl border border-border bg-background p-4" type="number" min="1" max="7" step="1" value={days} onChange={(event) => setDays(Math.min(7, Math.max(1, Number(event.target.value) || 1)))} />
         </label>
         <label className="text-sm">Gas price ($/gallon)
-          <input className="mt-1 w-full rounded-md border border-border bg-background p-2" type="number" min="0" max="20" step=".1" value={fuelPrice} onChange={(event) => setFuelPrice(Math.max(0, Number(event.target.value) || 0))} />
+          <input className="mt-1 w-full rounded-xl border border-border bg-background p-4" type="number" min="0" max="20" step=".1" value={fuelPrice} onChange={(event) => setFuelPrice(Math.max(0, Number(event.target.value) || 0))} />
         </label>
         <label className="text-sm">Vehicle fuel economy (MPG)
-          <input className="mt-1 w-full rounded-md border border-border bg-background p-2" type="number" min="1" max="200" step="1" value={mpg} onChange={(event) => setMpg(Math.max(1, Number(event.target.value) || 1))} />
+          <input className="mt-1 w-full rounded-xl border border-border bg-background p-4" type="number" min="1" max="200" step="1" value={mpg} onChange={(event) => setMpg(Math.max(1, Number(event.target.value) || 1))} />
         </label>
       </div>
       <div className="grid gap-4">
@@ -120,14 +120,14 @@ export function HoustonCommuterPlanner() {
         <BudgetFields label="Candidate home B" value={b} onChange={setB} />
       </div>
       <div className="grid gap-3 sm:grid-cols-2" aria-live="polite">
-        <div className="rounded-md bg-muted/30 p-4"><p className="text-sm">Home A estimated monthly fuel, tolls and parking</p><p className="mt-1 text-2xl font-semibold">{fmt(aCost)}</p></div>
-        <div className="rounded-md bg-muted/30 p-4"><p className="text-sm">Home B estimated monthly fuel, tolls and parking</p><p className="mt-1 text-2xl font-semibold">{fmt(bCost)}</p></div>
+        <div className="rounded-xl bg-surface p-4"><p className="text-sm">Home A estimated monthly fuel, tolls and parking</p><p className="mt-1 text-2xl font-semibold">{fmt(aCost)}</p></div>
+        <div className="rounded-xl bg-surface p-4"><p className="text-sm">Home B estimated monthly fuel, tolls and parking</p><p className="mt-1 text-2xl font-semibold">{fmt(bCost)}</p></div>
       </div>
       <p className="text-xs leading-6 text-muted-foreground">Method: office days/week × 52 ÷ 12 × [(round-trip miles ÷ MPG × gasoline price) + daily tolls + daily parking]. Excludes vehicle depreciation, maintenance, insurance, transit fares, time value, deviations and non-work trips. Do not treat the result as a quote or guaranteed saving.</p>
     </div>
     <aside className="border-t border-border pt-5 text-sm leading-7">
       <h3 className="font-semibold">Verify current services and congestion</h3>
-      <ul className="mt-2 list-disc space-y-1 pl-5">
+      <ul className="mt-2 list-disc pl-5">
         <li><a href="https://www.ridemetro.org/riding-metro/transit-services/park-and-ride-bus" target="_blank" rel="noopener noreferrer" className="text-primary underline">METRO Park & Ride routes and schedules</a></li>
         <li><a href="https://www.woodlandstransit.com/Express/Schedules" target="_blank" rel="noopener noreferrer" className="text-primary underline">The Woodlands Express: routes and schedules</a></li>
         <li><a href="https://www.fortbendcountytx.gov/government/departments/public-transportation/services/commuter-park-and-ride-services" target="_blank" rel="noopener noreferrer" className="text-primary underline">Fort Bend Transit: commuter Park & Ride</a></li>
