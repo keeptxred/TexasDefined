@@ -10,18 +10,19 @@ test("exclude curated and already source-reviewed network access dossiers", () =
   { slug: "lake-needs-review", tpwdSlug: "review" },
   { slug: "lake-date-only", accessReviewedAt: "2026-10-12", tpwdSlug: "date_only", access: "summary" },
   { slug: "lake-points-only", tpwdSlug: "points_only",
-    accessPoints: [{ name: "Unconfirmed" }] },
+    accessPoints: [{ name: "Documented ramp" }] },
+  { slug: "lake-empty", tpwdSlug: "empty", accessPoints: [] },
   { slug: "lake-needs-review", tpwdSlug: "review" }`;
   const selected = selectUnreviewedFishingLakes(definitions, ["lake-known", "curated-outside-network"]);
   assert.deepEqual(selected.lakes, [
     { lakeId: "lake-needs-review", tpwd: "review" },
     { lakeId: "lake-date-only", tpwd: "date_only" },
-
+    { lakeId: "lake-empty", tpwd: "empty" },
   ]);
   assert.equal(selected.reviewedLakeGroups, 1);
   assert.equal(selected.existingAccessWithoutExplicitDate, 1);
-  assert.equal(selected.networkLakeDefinitions, 5);
-  assert.equal(selected.totalDistinctKnownLakes, 6);
+  assert.equal(selected.networkLakeDefinitions, 6);
+  assert.equal(selected.totalDistinctKnownLakes, 7);
 });
 
 test("no outstanding unreviewed lake is valid and does not justify duplicate discovery", () => {
