@@ -8,17 +8,13 @@ const latestAustinEsd3Adopted = austinEsd3Sources.rates.at(-1)!;
 // streamed through this route-scoped lazy component for a smaller shared JS.
 const TaxingUnitRatePage = lazy(() => import('@/components/property/TaxingUnitRatePage').then((m) => ({ default: m.TaxingUnitRatePage })));
 import { getTaxingUnitRateHistory } from '@/data/property/texas-tax-rates.functions';
-import { getSchoolDistrictPeerRates } from '@/data/property/school-district-peers.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
   loader: async ({ params }) => {
-    const history = await getTaxingUnitRateHistory({ data: { slug: params.unit.trim().toLowerCase() } });
+    const { history, peers } = await getTaxingUnitRateHistory({ data: { slug: params.unit.trim().toLowerCase() } });
     if (!history.length) throw notFound();
     const latest = history.at(-1)!;
-    const peers = latest.type === 'school-district' && latest.totalRate != null && !latest.rateUnavailable && latest.countySlugs.length
-      ? await getSchoolDistrictPeerRates({ data: { countySlug: latest.countySlugs[0], year: latest.year, slug: latest.slug, rate: latest.totalRate } })
-      : [];
     // Lazy-load source-specific evidence only for the school route. This keeps
     // the six-district Hood rate catalog out of the sitewide main bundle.
     const isdEvidence = latest.type === 'school-district'
