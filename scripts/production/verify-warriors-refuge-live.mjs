@@ -27,7 +27,7 @@ async function fetchVerified(url, check) {
 }
 
 await fetchVerified(`${origin}${path}?verify=${stamp}`, async (response) => {
-  const html = await response.text();
+  const html = (await response.text()).replace(/&#x27;|&#39;|&#039;|&apos;/gi, "'");
   assert.ok(html.includes("The Warrior's Refuge"), "Page heading/organization not found");
   assert.ok(html.includes("Need help or want to request services?"), "Intake-first section missing");
   assert.ok(html.includes("877-424-3838"), "Emergency homeless-veteran support number missing");
