@@ -734,3 +734,21 @@ test('72h boundary is inclusive but 72h plus one millisecond expires',()=>{
   assert.equal(retentionCandidates(history,now).length,1);
   assert.equal(retentionCandidates(history,now+1).length,0);
 });
+
+
+test('Nov8 newly observed missing Vite module families are bounded original-only candidates',()=>{
+  for (const name of [
+    'ViatorLiveProducts-Jux2flJS.js','CoastalBeachFieldGuide-BAzzF2Bu.js',
+    'ShowcaseLakeGuide-YLPt_fev.js','fishing-DoHbvkpK.js',
+    'texas-vs._state-CyW7efgg.js',
+    'ViatorLiveProducts-DoZs-ryZ.js','CoastalBeachFieldGuide-DZ5PpwCp.js',
+    'ShowcaseLakeGuide-mhR86b08.js','fishing-C5l9Sb8A.js',
+    'texas-vs._state-CnYeEt_l.js',
+  ]) assert.equal(safeCriticalAsset('/assets/'+name),true,name);
+  for (const path of [
+    '/assets/../../private.js','/assets/CoastalBeachFieldGuides-FAKEHASH.js',
+    '/assets/texas-vsX_state-FAKEHASH.js',
+    'https://evil.example/assets/fishing-FAKEHASH.js',
+    '/assets/fishing-FAKEHASH.js?no-cache=1',
+  ]) assert.equal(safeCriticalAsset(path),false,path);
+});
