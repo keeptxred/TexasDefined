@@ -10,6 +10,7 @@ const source=process.env.FOOTBALL_CHROME_SOURCE_SHA||'';
 const worker=process.env.FOOTBALL_EXPECTED_WORKER_VERSION||'';
 const report={batch:15,sourceCommit:source,workerVersion:worker,schoolSlugs:[],schoolChecks:[],countyChecks:[],failures:[],technicalOnly:true};
 mkdirSync('artifacts',{recursive:true});
+mkdirSync('artifacts/b015-chrome-screenshots',{recursive:true});
 const save=()=>writeFileSync('artifacts/b015-chrome-report.json',JSON.stringify(report,null,2)+'\n');
 const preflight=(name,fn)=>{try{fn();}catch(error){report.failures.push({slug:'preflight',width:0,error:name+': '+String(error.message||error)});save();throw error;}};
 const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
@@ -59,6 +60,7 @@ try{
     assert.deepEqual(errors,[],'browser errors '+slug);
     const county=data.links.find(l=>/^\/county\/[a-z0-9-]+\/?$/.test(l||''));
     assert.ok(county,'missing school-to-county link '+slug);
+    await page.screenshot({path:'artifacts/b015-chrome-screenshots/'+slug+'-'+width+'.png',fullPage:true,timeout:30000});
     report.schoolChecks.push({slug,width,pass:true,county});
     if(width===1366){
      // The same Dallas county SSR route can occasionally exceed the first
