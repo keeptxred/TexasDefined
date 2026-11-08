@@ -34,7 +34,7 @@ for (const [name, text] of Object.entries({
   assert.ok(page.toLowerCase().includes(text.toLowerCase()), `Missing ${name}`);
 }
 assert.ok(page.includes("Brazoria, Fort Bend, Galveston, Harris, Jefferson and Matagorda"), "Missing verified grant counties");
-assert.ok(page.includes('createFileRoute(path)'), "Dedicated route must be registered");
+assert.ok(page.includes('createFileRoute("/warriors-refuge-west-columbia")'), "Dedicated route must be registered");
 assert.ok(!/noindex|nofollow/.test(page), "Authority page must not be marked noindex");
 assert.ok(policy.includes('"/warriors-refuge-west-columbia"'), "Guide must be on the governed static indexable registry");
 for (const [name, file] of [["Texas Resources", resources], ["resources SEO discovery", resourcesHead], ["Texas Life", living]]) {
