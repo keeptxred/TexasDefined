@@ -22,7 +22,7 @@ export function TaxingUnitRatePage({ data }: { data: ReturnType<typeof TaxingUni
       verifiedHistoryComponentSource: historyComponents?.sourceUrl ?? null,
       verifiedHistoryComponentAgency: historyComponents?.sourceAgency ?? null,
       verifiedHistoryComponentPrecision: historyComponents?.precisionStatus ?? null,
-      verifiedHistoryComponentFiscalYear: 'sourceFiscalYear' in (historyComponents ?? {}) ? historyComponents?.sourceFiscalYear : null,
+      verifiedHistoryComponentFiscalYear: historyComponents && 'sourceFiscalYear' in historyComponents ? historyComponents.sourceFiscalYear : null,
       localSourceUrl: local?.sourceUrl ?? null,
       localComponentSourceUrl: local?.componentSourceUrl ?? null,
       localSourceAgency: local?.sourceAgency ?? null,
