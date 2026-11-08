@@ -27,10 +27,10 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         const source = await import('@/data/property/isd-authority');
         return {
           adoption: source.getVerifiedHoodIsdAdoption(latest.slug),
-          officialYear: source.isdEvidence!.officialYear,
-          sourceUrl: source.isdEvidence!.sourceUrl,
-          sourceDocumentsUrl: source.isdEvidence!.sourceDocumentsUrl,
-          exemptionSourceUrl: source.isdEvidence!.exemptionSourceUrl,
+          officialYear: source.hoodIsdEvidence.officialYear,
+          sourceUrl: source.hoodIsdEvidence.sourceUrl,
+          sourceDocumentsUrl: source.hoodIsdEvidence.sourceDocumentsUrl,
+          exemptionSourceUrl: source.hoodIsdEvidence.exemptionSourceUrl,
           historicalComponents: history.map((item) => ({
             year: item.year,
             components: source.getVerifiedIsdHistoricalComponents(item.slug, item.year, item.totalRate),
