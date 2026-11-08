@@ -1,11 +1,18 @@
 name: Restore verified TexasDefined Worker
 
 on:
+  # Only the change that introduces this guarded recovery invokes it on push.
+  # Ordinary code changes do not trigger rollback; the original manual path remains.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/restore-verified-worker.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
   deployments: read
+  actions: read
 
 concurrency:
   group: texasdefined-production
@@ -39,6 +46,52 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/ci/verified-worker-ledger.mjs resolve
 
+      - name: Guard one-time Nov 8 recovery from exact failed release evidence
+        id: recovery_guard
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          LEDGER_VERSION: ${{ steps.verified_target.outputs.version_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          # Read the exact previous failed production job, not an unverified
+          # version typed into this workflow or a speculative Cloudflare state.
+          gh run view 42513686420 --job 128831959670 --log > artifacts/verified-restore-failed-run.log
+          npx wrangler deployments status --json > artifacts/verified-restore-active-guard.json
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const log=fs.readFileSync('artifacts/verified-restore-failed-run.log','utf8');
+          const state=JSON.parse(fs.readFileSync('artifacts/verified-restore-active-guard.json','utf8'));
+          const id=/[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}/i;
+          function exactlyOne(label) {
+            const matches=[...log.matchAll(new RegExp(label+':\\s*('+id.source+')','gi'))];
+            if(matches.length!==1)throw Error('Missing or ambiguous signed GitHub log proof: '+label);
+            return matches[0][1];
+          }
+          const before=exactlyOne('Captured baseline Worker version');
+          const deployed=exactlyOne('Captured post-deploy Worker version');
+          const verified=process.env.LEDGER_VERSION;
+          if(!id.test(verified)||before!==verified||before===deployed)
+            throw Error('Current ledger target does not match the old successful Worker in failed run');
+          if(!log.includes('MSR Houston browser visual and accessibility acceptance failed')
+             ||!log.includes('Published texasdefined-production: failure'))
+            throw Error('Failed-run evidence does not document the expected postdeploy mobile acceptance failure');
+          if(!Array.isArray(state.versions)||state.versions.length!==1
+              ||Number(state.versions[0].percentage)!==100)
+            throw Error('Ambiguous live Worker deployment percentages');
+          const active=state.versions[0].version_id;
+          if(active!==deployed&&active!==verified)
+            throw Error('Live Worker changed independently; no automatic restore is authorized: '+active);
+          const restore=active===deployed;
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,'should_restore='+String(restore)+'\n');
+          console.log('GitHub-ledger recovery guard: previous verified='+verified+
+            ', failed deployed='+deployed+', currently serving='+active+
+            ', rollback required='+restore);
+          NODE
+
       - name: Capture current Worker runtime diagnostics
         id: restore_diagnostics
         continue-on-error: true
@@ -64,6 +117,7 @@ jobs:
           retention-days: 14
 
       - name: Restore latest fully verified Worker version
+        if: github.event_name == 'workflow_dispatch' || steps.recovery_guard.outputs.should_restore == 'true'
         shell: bash
         run: |
           npx wrangler rollback "${{ steps.verified_target.outputs.version_id }}" --message "Manual recovery: restore latest fully verified TexasDefined Worker"
