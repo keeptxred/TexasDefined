@@ -14,6 +14,13 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  // Batch016 first five: each mascot verified from the school/district's own published language.
+  // No coach, ticket, copyrighted emblem, licensed photo or current score inferred from mascot.
+  { slug: 'early', mascot: 'Longhorns', sourceUrl: 'https://www.earlyisd.net/', sourceLabel: 'Early ISD 2026 FNL football news explicitly supports Longhorns', verifiedAt: '2026-11-08' },
+  { slug: 'earth-springlake', mascot: 'Wolverines', sourceUrl: 'https://www.springlake-earth.org/athletics.html', sourceLabel: 'Springlake-Earth ISD Wolverine Sports athletics broadcast and football program', verifiedAt: '2026-11-08' },
+  { slug: 'east-bernard', mascot: 'Brahmas', sourceUrl: 'https://www.ebisd.org/page/brad-norris/', sourceLabel: 'East Bernard ISD first-party coach page says Go Brahmas', verifiedAt: '2026-11-08' },
+  { slug: 'east-chambers', mascot: 'Buccaneers', sourceUrl: 'https://www.eastchambers.net/o/high', sourceLabel: 'East Chambers High official campus says Home of the Buccaneers', verifiedAt: '2026-11-08' },
+  { slug: 'eastland', mascot: 'Mavericks', sourceUrl: 'https://www.eastlandisd.net/o/eastland-high-school/documents/athletic-schedules/mavericks-schedules/20676352', sourceLabel: 'Eastland High official 2026 Mavericks football schedule', verifiedAt: '2026-11-08' },
   // Batch015: mascot names confirmed against the attributed current official school/district sources,
   // or explicitly attributed 2026 Dave Campbell's team indexes where school pages do not publish the nickname.
   // This verifies only mascot terminology, NOT game schedules, image reuse rights or athlete identities.
