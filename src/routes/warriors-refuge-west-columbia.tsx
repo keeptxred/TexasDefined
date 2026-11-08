@@ -125,6 +125,19 @@ function WarriorsRefugePage() {
         <p className="mt-4 text-sm text-muted-foreground">The organization lists weekday office hours of 9 a.m.–5 p.m. and weekends by appointment. These are office hours, not a guarantee of walk-in housing or emergency placement. If you have nowhere safe to stay tonight, see the 24/7 VA housing line below.</p>
       </section>
 
+      <figure style={{ marginTop: "2.75rem", maxWidth: "40rem" }}>
+        <img
+          src="/images/warriors-refuge-sign.avif"
+          width={400}
+          height={238}
+          loading="lazy"
+          decoding="async"
+          alt="The Warrior's Refuge sign on a brick wall identifying veteran transitional housing and services at 212 North 14th Street in West Columbia, Texas"
+          style={{ display: "block", width: "100%", height: "auto", borderRadius: "0.5rem" }}
+        />
+        <figcaption className="mt-3 text-sm text-muted-foreground">The Warrior's Refuge sign in West Columbia. Photo supplied by a reader for this Texas Defined guide.</figcaption>
+      </figure>
+
       <div className="warriors-refuge-layout" style={{ display: "grid", marginTop: "2.75rem", gap: "2.75rem" }}>
         <article style={{ display: "grid", rowGap: "2.5rem", lineHeight: 1.8 }}>
           <section aria-labelledby="what-is">
