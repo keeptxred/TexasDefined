@@ -71,6 +71,34 @@ test("delivered /remote proxy and nested percent encoding keep verified Commons 
   }
 });
 
+test("Blue Bell factory photo uses verified 2008 photographer rights on exact Commons source only", () => {
+  const file = "Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg";
+  const src = `https://commons.wikimedia.org/wiki/Special:Redirect/file/${file}`;
+  const expected = {
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    creator: { "@type": "Person", name: "Larry D. Moore" },
+    copyrightNotice: "© 2008 Larry D. Moore",
+    acquireLicensePage: `https://commons.wikimedia.org/wiki/File:${file}`,
+  };
+  for (const candidate of [
+    src,
+    src + "?width=1600",
+    "/media/remote?url=" + encodeURIComponent(src),
+    "/remote?url=" + encodeURIComponent("/media/remote?url=" + encodeURIComponent(src)),
+  ]) assert.deepEqual(imageRightsFor(candidate), expected, candidate);
+  for (const candidate of [
+    `https://example.com/wiki/Special:Redirect/file/${file}`,
+    `https://commons.wikimedia.org/wiki/Special:Redirect/file/replaced-${file}`,
+    `https://commons.wikimedia.org/wiki/File:${file}`,
+    `/media/remote?url=${encodeURIComponent("https://example.com/" + file)}`,
+  ]) assert.equal(imageRightsFor(candidate), null, candidate);
+  const route = readFileSync("src/routes/article.$slug.tsx", "utf8");
+  assert.ok(route.includes("Modern_Blue_Bell_Creameries_factory_located_in_Brenham"));
+  assert.ok(route.includes("...(imageRights ?? {})"));
+  const ledger = readFileSync("src/data/heritage-photo-license-links.ts", "utf8");
+  assert.ok(ledger.includes("File:Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg"));
+});
+
 test("public-domain Army Corps image does not falsely claim a private copyright owner", () => {
   const path = "/images/explore/lakes-rivers/ray-roberts-lake-isle-du-bois-unit.jpg";
   for (const src of [path, `https://texasdefined.com${path}`]) {
