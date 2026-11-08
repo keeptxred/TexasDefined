@@ -48,6 +48,34 @@ export const VERIFIED_NOV8_ORIGINALS = Object.freeze([
     bytes: 12197, firstSeenAt: '2026-11-08T04:56:04.752Z' },
   { name: 'ContextualOfficialSources-CLSZ8gUV.js', sha256: '982968eac92677bd2fc173bf51e14f0d9e9b464aa540c51ed77755c3061bead2',
     bytes: 4991, firstSeenAt: '2026-11-08T04:56:04.752Z' },
+  // Authenticated 2026-11-08 15:42Z stale-browser 404 cohort:
+  // all twelve exact originals were original-byte HTTP200+SHA proved on both
+  // origins in successful run #42448585724 archived handoff #13604619152.
+  // Restore only real bytes, and preserve the FIRST observed Nov7 timestamp.
+  { name:'Header-CEsskBBZ.js',sha256:'a8c4a5af4db437ff88f42af7174e2d0d2f86c05ed09795798c111aba96f7c5a7',
+    bytes:8272,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'Container-DTDZPDA6.js',sha256:'03e18b868b6222db6568bac31dc8af11ac31a54474248894b669beb684dac8c4',
+    bytes:27829,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'Footer-BaE7Fsrd.js',sha256:'3f339a1cd02b92ce2e6ed0e24a334d8a0a4500ff56c30d042def4891d6c94a4d',
+    bytes:4494,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'x-DwgD0xWI.js',sha256:'6d0a7fe5699201d7a27ea30322fcd7a01eabaec3ee89e600213f316eef1d0b96',
+    bytes:287,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'CitationCollectionTrustRouter-wYztyhyB.js',sha256:'c82a7bd40a1998a43655652fe54f2d5c4ef6ee630a2c82c6bfea6903f7874a7c',
+    bytes:12197,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'useLocation-BJHtU2Nl.js',sha256:'4ef0916b4da0fe7e9a2cd11b036f941988e5732ac7757de034dca66ebf55716f',
+    bytes:134,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'external-link-DVOCm5xW.js',sha256:'2fc72e4d339c7fbee58c7d393940b5808ad8c5bd59d5e989028cd0fb7b7f8f4e',
+    bytes:263,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'texas-high-school-football-playoff-brackets-BYwYlI4i.js',sha256:'e4e57d39f9227202ad0b73f359db62a38dce31fd1ea410856a8c30d9475ae863',
+    bytes:17093,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'createLucideIcon-DxDqtgir.js',sha256:'58d8982bf8be8fc88ae10792f238f50e0b7b3e0c4dec79a02ca2de02ddb06caf',
+    bytes:1201,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'ContextualOfficialSources-DiIXqD0E.js',sha256:'154ef81b30069f83c53497044376f32e61f430417db8caa2759f919ff8953747',
+    bytes:4991,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'analytics-SIuFLiYD.js',sha256:'153a1bdcedaa4dfefae8fe72e2fb283f5da9d3d45ac1958d0b65d747aee199bb',
+    bytes:8163,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  { name:'CitationTrustPanel-BY5hUAGO.js',sha256:'5ad0cdb3e98b13854f86e5688c863fde6e0dafdf69e7ff6444748743f517c631',
+    bytes:2334,firstSeenAt:'2026-11-07T19:09:28.213Z' },
 ]);
 
 export function verifiedSourceUrl(version, name) {
@@ -76,14 +104,14 @@ export async function recoverVerifiedNov8Originals({
   snapshotPath = SNAPSHOT, reportPath = REPORT, assetFolder = ASSETS,
   fetchImpl = fetch, sourceVersion = SOURCE_VERSION,
 } = {}) {
-  if (!UUID.test(sourceVersion) || records.length > 11 || records.reduce((n, r) => n + r.bytes, 0) > MAX_TOTAL)
+  if (!UUID.test(sourceVersion) || records.length > 23 || records.reduce((n, r) => n + r.bytes, 0) > MAX_TOTAL)
     throw new Error('Original-byte recovery limit exceeded');
   const saved = JSON.parse(await readFile(snapshotPath, 'utf8'));
   const current = saved.snapshots?.at(-1);
   if (!current || !Array.isArray(current.pages) || !Array.isArray(current.builtAssets))
     throw new Error('Predeploy asset-handoff snapshot required');
   const report = {format: 1, checkedAt: new Date(now).toISOString(), sourceVersion, sourceRelease: SOURCE_RELEASE,
-    maxAgeHours: 72, maxFiles: 11, maxBytes: MAX_TOTAL,
+    maxAgeHours: 72, maxFiles: 23, maxBytes: MAX_TOTAL,
     recovered: [], alreadyInBuild: [], unresolved: [], expired: []};
   await mkdir(assetFolder, {recursive:true});
   for (const record of records) {
