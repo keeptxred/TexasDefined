@@ -145,6 +145,32 @@ export async function searchTaxingUnitsServer(query: string, year: number, limit
   return { records: rows.map(mapTaxRateRow), generatedAt: rows[0]?.imported_at ?? null };
 }
 
+
+/** Source-year-matched school comparisons for a single associated county.
+ * This is comparative context only: district boundaries are not inferred from
+ * county association, and a person's parcel never inherits every district.
+ */
+export async function getSchoolDistrictPeerRatesServer(countySlug: string, year: number, currentSlug: string, currentRate: number) {
+  if (!/^[a-z0-9-]+$/.test(countySlug) || !Number.isInteger(year) || year < 2021 || year > 2100
+    || !Number.isFinite(currentRate) || currentRate < 0) return [];
+  const rows = await cachedPublishedTax(`isd-peers:${countySlug}:${year}`, async () => {
+    const { data, error } = await db
+      .from('texas_property_tax_rates')
+      .select('*')
+      .eq('type', 'school-district')
+      .eq('year', year)
+      .contains('county_slugs', [countySlug])
+      .order('name', { ascending: true })
+      .limit(200);
+    if (error) throw error;
+    return ((data ?? []) as TaxRateRow[]).map(mapTaxRateRow)
+      .filter((entry) => !entry.rateUnavailable && !entry.variableRate && entry.sourceStatus === 'reported-final' && entry.totalRate != null);
+  });
+  return rows.filter((entry) => entry.slug !== currentSlug)
+    .sort((a, b) => Math.abs(a.totalRate! - currentRate) - Math.abs(b.totalRate! - currentRate) || a.name.localeCompare(b.name))
+    .slice(0, 5);
+}
+
 export async function getTaxingUnitRateHistoryServer(slug: string, type?: TexasTaxingUnitType): Promise<TexasTaxRateRecord[]> {
   return cachedPublishedTax(`unit-tax-history:${type ?? 'auto'}:${slug}`, async () => {
   let query = db
