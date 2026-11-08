@@ -62,7 +62,7 @@ const metadataContracts = [
   ['src/routes/texas-property-tax-rate-history.tsx',
     ['creator:', 'publisher:', 'isBasedOn:', 'license: absoluteUrl(texasDefinedBrand, \'/dataset-reference-license-v1.txt\')']],
   ['src/routes/things-unique-to-texas.tsx',
-    ['creator:', 'license: `\${origin}/dataset-reference-license-v1.txt`']],
+    ['creator:', 'license: `${origin}/dataset-reference-license-v1.txt`']],
   ['src/routes/citation-guide.tsx',
     ['href="/dataset-reference-license-v1.txt"']],
 ];
