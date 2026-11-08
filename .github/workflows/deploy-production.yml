@@ -537,12 +537,12 @@ jobs:
           node --test scripts/ci/recover-observed-hashes-from-old-worker.test.mjs
           node scripts/ci/recover-observed-hashes-from-old-worker.mjs --recover
 
-      # The old 2026-11-08 successful Worker genuinely served four exact
+      # The old 2026-11-08 successful Worker genuinely served eleven exact
       # immutable hashes that failed during false-predecessor releases.
       # Restore ONLY identical original bytes from its pinned Cloudflare
       # version, within original firstSeenAt+72h. Unavailable sources are
       # reported unresolved, never replaced with generated JS.
-      - name: Recover four Nov8 source-SHA-proven JS originals
+      - name: Recover eleven Nov8 source-SHA-proven JS originals
         if: success()
         run: |
           node --test scripts/ci/recover-nov8-original-hashes.test.mjs
