@@ -12,27 +12,9 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
   loader: async ({ params }) => {
-    const { history, peers } = await getTaxingUnitRateHistory({ data: { slug: params.unit.trim().toLowerCase() } });
+    const { history, peers, isdEvidence } = await getTaxingUnitRateHistory({ data: { slug: params.unit.trim().toLowerCase() } });
     if (!history.length) throw notFound();
     const latest = history.at(-1)!;
-    // Lazy-load source-specific evidence only for the school route. This keeps
-    // the six-district Hood rate catalog out of the sitewide main bundle.
-    const isdEvidence = latest.type === 'school-district'
-      ? await (async () => {
-        const source = await import('@/data/property/isd-authority');
-        return {
-          adoption: source.getVerifiedHoodIsdAdoption(latest.slug),
-          officialYear: source.hoodIsdEvidence.officialYear,
-          sourceUrl: source.hoodIsdEvidence.sourceUrl,
-          sourceDocumentsUrl: source.hoodIsdEvidence.sourceDocumentsUrl,
-          exemptionSourceUrl: source.hoodIsdEvidence.exemptionSourceUrl,
-          historicalComponents: history.map((item) => ({
-            year: item.year,
-            components: source.getVerifiedIsdHistoricalComponents(item.slug, item.year, item.totalRate),
-          })).filter((item) => item.components != null),
-        };
-      })()
-      : null;
     return { history, latest, peers, isdEvidence };
   },
   head: ({ loaderData }) => {
