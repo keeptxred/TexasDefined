@@ -4,6 +4,7 @@
  * Invoke with: node scripts/ci/verify-fishing-live-content.mjs
  */
 import assert from "node:assert/strict";
+import { assessFishingCompareHtml } from "./verify-fishing-compare-html.mjs";
 
 const origin = process.env.FISHING_BASE_URL ?? "https://texasdefined.com";
 const reports = [];
@@ -209,6 +210,23 @@ for (const cacheBust of [false, true]) {
   assert.match(mapText, /Texas Water Development Board/i, "map " + kind + ": TWDB citation missing");
   assert.match(mapText, /Every matching lake is represented/i, "map " + kind + ": complete source-backed lake coverage not disclosed");
   assert.match(mapText, /Fish-consumption advisories/i, "map " + kind + ": pre-trip advisory resources absent");
+}
+
+
+
+// Independently check SSR comparison-page authority after every successful
+// production release, for normal visitor and cache-busted URLs. The source
+// verifier alone cannot prove that a lazy route actually renders these facts.
+const comparisonSelection = ["alan-henry-reservoir", "amistad-reservoir", "aquilla-lake"];
+for (const cacheBust of [false, true]) {
+  const kind = cacheBust ? "fresh" : "ordinary";
+  const path = "/fishing/compare?lake1=alan-henry-reservoir&lake2=amistad-reservoir&lake3=aquilla-lake";
+  const html = await page(path, { cacheBust });
+  const evidence = assessFishingCompareHtml(html, comparisonSelection);
+  assert.deepEqual(evidence.failures, [],
+    "Fishing compare " + kind + ": " + evidence.failures.join(", "));
+  reports.push({ path: "/fishing/compare", mode: kind,
+    compared: evidence.comparedLakeSlugs, checks: evidence.checks });
 }
 
 console.log(JSON.stringify({ result: "PASS", coverage: { lakes: liveLakes, facilities: liveFacilities }, checks: ["ordinary-vs-fresh canonical URL parity", "hub copy", "real directory links", "canonical", "statewide lake and facility coverage", "facility-profile noindex", "verified guide businesses", "historical reports noindex", "human-readable bass seasons"], pages: reports }, null, 2));
