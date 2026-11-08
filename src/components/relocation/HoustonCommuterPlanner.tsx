@@ -95,6 +95,28 @@ export function HoustonCommuterPlanner() {
         </tr>)}</tbody>
       </table>
     </div>
+    <section aria-labelledby="houston-acs-comparison-heading" className="border-t border-border pt-6">
+      <h3 id="houston-acs-comparison-heading" className="font-display text-xl font-semibold">Measured comparison: average commutes of residents in five suburbs</h3>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">The following figures are from the U.S. Census Bureau's 2020–2024 American Community Survey five-year estimates, as presented by Census Reporter. Each measures mean one-way travel time among residents who commute to work anywhere—not travel from a listed city to Downtown, NASA, the Medical Center or your own office. Uncertainty intervals overlap. City boundaries (particularly Katy) are not equivalent to postal address labels or entire development areas.</p>
+      <div style={{ overflowX: "auto" }}>
+        <table className="w-full text-sm" style={{ borderCollapse: "collapse", minWidth: 400, textAlign: "left" }}>
+          <caption className="mb-3 text-left text-sm">ACS 2024 five-year mean journey to work, with published margins of error</caption>
+          <thead><tr className="border-y border-border"><th scope="col" className="p-3">Statistical geography</th><th scope="col" className="p-3">Mean one-way commute</th><th scope="col" className="p-3">Census-derived source</th></tr></thead>
+          <tbody>{([
+            { area: "The Woodlands CDP", average: "27.0 ± 2.6 min", url: "https://censusreporter.org/profiles/16000US4872656-the-woodlands-tx/" },
+            { area: "Sugar Land city", average: "28.9 ± 1.6 min", url: "https://censusreporter.org/profiles/16000US4870808-sugar-land-tx/" },
+            { area: "League City city", average: "29.9 ± 0.5 min", url: "https://censusreporter.org/profiles/16000US4841980-league-city-tx/" },
+            { area: "Katy city proper", average: "31.3 ± 1.6 min", url: "https://censusreporter.org/profiles/16000US4838476-katy-tx/" },
+            { area: "Pearland city", average: "32.7 ± 1.0 min", url: "https://censusreporter.org/profiles/16000US4856348-pearland-tx/" },
+          ] as const).map((datum) => <tr key={datum.area} className="border-b border-border">
+            <th scope="row" className="p-3 font-semibold">{datum.area}</th>
+            <td className="p-3">{datum.average}</td>
+            <td className="p-3"><a className="text-primary underline underline-offset-4" href={datum.url} target="_blank" rel="noopener noreferrer">2024 ACS profile ↗</a></td>
+          </tr>)}</tbody>
+        </table>
+      </div>
+      <p className="mt-2 text-xs leading-6 text-muted-foreground">These are population averages for different work destinations and work schedules, not a ranked evaluation of commutes to a single job center. The Houston metro's 2024 <strong>one-year</strong> ACS mean of 31.1 ± 0.3 minutes is a different survey period; do not compare it directly to these five-year local estimates. Data checked November 8, 2026.</p>
+    </section>
     <div className="rounded-xl border border-border p-4">
       <h3 className="font-display text-xl font-semibold">Regional orientation map</h3>
       <p className="mt-1 text-sm text-muted-foreground">Pan and zoom for the actual positions of candidate neighborhoods, job centers and connecting roads. This map is geographic context, not a live congestion display or plotted commute.</p>
