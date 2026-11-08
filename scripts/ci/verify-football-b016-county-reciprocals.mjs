@@ -12,7 +12,8 @@ for(const [county,count] of Object.entries(expected))assert.equal(edges.filter(e
 const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county=read('src/routes/$kind.$slug.lazy.tsx');
 for(const s of [school,county])assert.ok(s.includes('BATCH016_FOOTBALL_COUNTY_EDGES'),'both routes must use same source');
-assert.ok(school.includes('BATCH016_FOOTBALL_COUNTY_EDGES.find((edge) => edge.slug === slug)?.county'),'school-to-county link not wired');
+assert.ok(school.includes('...Object.fromEntries(BATCH016_FOOTBALL_COUNTY_EDGES.map(({ slug, county }) => [slug, county]))'),'school-to-county shared mapping not wired');
+assert.ok(school.includes('const researchedCountyLink = researchedCampusCounty[slug]'),'canonical school county link contract must remain intact');
 assert.ok(county.includes('BATCH016_FOOTBALL_COUNTY_EDGES.filter((edge) => edge.county === entity.slug)'),'county-to-school links not wired');
 for(const edge of edges)assert.ok(edge.context?.length>25 && edge.name && edge.county,'missing researched county context: '+edge.slug);
 console.log('PASS: 25 unique school↔county static link associations across '+Object.keys(expected).length+' counties. Production browser reciprocity remains separate.');
