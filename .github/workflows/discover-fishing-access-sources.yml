@@ -6,6 +6,8 @@ on:
       - 'scripts/ci/discover-fishing-access-sources.mjs'
       - 'scripts/ci/parse-tpwd-access-facilities.mjs'
       - 'scripts/ci/parse-tpwd-access-facilities.test.mjs'
+      - 'scripts/ci/select-unreviewed-fishing-lakes.mjs'
+      - 'scripts/ci/select-unreviewed-fishing-lakes.test.mjs'
       - '.github/workflows/discover-fishing-access-sources.yml'
   schedule:
     - cron: '17 14 * * 2,5'
@@ -35,6 +37,8 @@ jobs:
           node-version: '22'
       - name: Regress TPWD article-only facility name extraction
         run: node --test scripts/ci/parse-tpwd-access-facilities.test.mjs
+      - name: Regress already-reviewed network lake exclusion
+        run: node --test scripts/ci/select-unreviewed-fishing-lakes.test.mjs
       - name: Inspect bounded TPWD candidate batch
         id: discover
         continue-on-error: true
