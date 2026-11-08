@@ -3,7 +3,10 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const server=readFileSync('src/data/property/texas-tax-rates.server.ts','utf8');
-const route=readFileSync('src/routes/property-tax.taxing-unit.$unit.tsx','utf8');
+// The route owns loader, canonical and indexing policies; its lazy detail
+// component owns visible source disclosures, tax examples and formatting.
+const route=readFileSync('src/routes/property-tax.taxing-unit.$unit.tsx','utf8')
+  +'\n'+readFileSync('src/components/property/TaxingUnitRatePage.tsx','utf8');
 const smoke=readFileSync('scripts/ci/verify-local-financial-production.mjs','utf8');
 
 test('slug histories never combine two Comptroller source classifications',()=>{
