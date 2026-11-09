@@ -41,7 +41,8 @@ assert.deepEqual(Object.keys(evidence.historicalComponents['tolar-isd']).sort(),
 assert.equal(Object.values(evidence.historicalComponents).reduce((total, item) => total + Object.keys(item).length, 0), 16, '16 year-specific components must be independently source-qualified');
 assert.deepEqual(Object.keys(evidence.historicalComponents['granbury-isd']).sort(), ['2021', '2022', '2023']);
 assert.match(evidence.historicalComponents['granbury-isd']['2022'].sourceUrl, /^https:\/\/www\.granburyisd\.org\//, '2022 Granbury components must have independent district verification');
-assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 2022).map((item) => item.slug)), new Set(['tolar-isd', 'lipan-isd']));
+assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 2022).map((item) => item.slug)), new Set(['tolar-isd']));
+assert.ok(tea.districts['lipan-isd']?.['2022'], 'Lipan 2022 must be independently TEA verified before clearing its dispute');
 for (const { slug, year } of evidence.disputedData) {
   assert.ok(!evidence.historicalComponents[slug]?.[String(year)], `${slug}: ${year} cannot be treated as verified when the source conflicts`);
 }
