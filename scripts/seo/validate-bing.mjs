@@ -16,6 +16,7 @@ const robots = read('public/robots.txt');
 const server = read('src/server.ts');
 const indexNowScript = read('scripts/seo/submit-indexnow.mjs');
 const indexNowLibrary = read('scripts/seo/indexnow-lib.mjs');
+const sitemapIndex = read('public/sitemap-index.xml');
 const indexNowWorkflow = read('.github/workflows/bing-indexnow.yml');
 const productionWorkflow = read('.github/workflows/deploy-production.yml');
 const bingCollector = read('scripts/seo/sync-bing-webmaster.mjs');
@@ -32,7 +33,12 @@ requirePattern(server, /return await addBingVerificationMeta\(request, normalize
 if (keyFile.trim() !== indexNowKey) errors.push('The public IndexNow key file must contain exactly the configured key.');
 if (!hasQuotedAssignment(indexNowScript, 'origin', canonicalOrigin)) errors.push('IndexNow submitter must use the canonical TexasDefined origin.');
 if (!hasQuotedAssignment(indexNowScript, 'key', indexNowKey)) errors.push('IndexNow submitter must use the published ownership key.');
-for (const expected of ['/sitemap.xml','/sitemap-explore.xml','/sitemap-texas-icons.xml','INDEXNOW_URLS','INDEXNOW_FULL','INDEXNOW_FRESHNESS_HOURS',"process.env.PUBLIC_INDEXING_ENABLED === 'false'",'cosmetic deployment produced no notification','submitIndexNowSafely','verifyIndexNowKey']) requireText(indexNowScript, expected, `IndexNow submitter is missing required contract: ${expected}`);
+for (const expected of ['/sitemap.xml','/sitemap-explore.xml','/sitemap-texas-icons.xml','/sitemap-evergreen.xml','/sitemap-shop.xml','optionalSitemapUrls','INDEXNOW_URLS','INDEXNOW_FULL','INDEXNOW_FRESHNESS_HOURS',"process.env.PUBLIC_INDEXING_ENABLED === 'false'",'cosmetic deployment produced no notification','submitIndexNowSafely','verifyIndexNowKey']) requireText(indexNowScript, expected, `IndexNow submitter is missing required contract: ${expected}`);
+// Prevent new advertised sitemap families from silently bypassing IndexNow.
+for (const match of sitemapIndex.matchAll(/<loc>\\s*(https:\\/\\/texasdefined\\.com\\/[^<]+)\\s*<\\/loc>/gi)) {
+  const sitemapPath = new URL(match[1]).pathname;
+  if (!indexNowScript.includes(sitemapPath)) errors.push(`Advertised sitemap ${sitemapPath} is missing from IndexNow discovery.`);
+}
 for (const expected of ['https://api.indexnow.org/indexnow','DEFAULT_BATCH_SIZE = 1000','HARD_MAX_BATCH_SIZE = 10_000','[200, 202]','normalizeIndexNowUrl','selectMeaningfulUrls','IndexNow notification failed without blocking publication.']) requireText(indexNowLibrary, expected, `Reusable IndexNow library is missing required contract: ${expected}`);
 for (const expected of ['schedule:','cron: "23 * * * *"','workflow_dispatch:','urls:','Verify Bing Webmaster meta tag is live',webmasterToken,'node scripts/seo/verify-search-production.mjs','node scripts/seo/submit-indexnow.mjs','environment: texasdefined-publication','PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}']) requireText(indexNowWorkflow, expected, `Bing IndexNow workflow is missing required contract: ${expected}`);
 for (const expected of ['https://ssl.bing.com/webmaster/api.svc/json','GetUserSites','GetRankAndTrafficStats','GetQueryStats','GetPageStats','GetCrawlStats','GetCrawlIssues','GetFeeds','SubmitFeed','canonicalFeedUrl','canonicalFeedSubmitted','RemoveFeed','canonicalFeed?.Status === "Success"','legacyFeedAliasesRemoved','feed.Url === canonicalFeedUrl','texasdefined_bing_webmaster_snapshots','texasdefined.com,keeptxred.com','userSitesRaw.map(({ Url, IsVerified }) => ({ Url, IsVerified }))','const missingHosts = targetHosts.filter((host) => !verifiedSitesByHost.has(host));','for (const host of targetHosts) {']) requireText(bingCollector, expected, `Bing Webmaster collector is missing required contract: ${expected}`);
