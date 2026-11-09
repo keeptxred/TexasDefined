@@ -22,9 +22,9 @@ export function getVerifiedTeaIsdHistoricalComponents(
 ) {
   if (statewideTotal == null || !Number.isFinite(statewideTotal) || !Array.isArray(officialTaxingUnitIds)) return null;
   const item = districts[slug]?.[String(year)];
-  if (!item || item.year !== year || !item.name || !/^\\d{6}$/.test(item.officialDistrictId)) return null;
+  if (!item || item.year !== year || !item.name || !/^\d{6}$/.test(item.officialDistrictId)) return null;
   const matches = officialTaxingUnitIds.some((value) =>
-    value.replace(/-\\d+$/, '').replace(/-/g, '') === item.officialDistrictId);
+    value.replace(/-\d+$/, '').replace(/-/g, '') === item.officialDistrictId);
   if (!matches || Math.abs(item.totalRate - statewideTotal) > 0.000002) return null;
   if (!Number.isFinite(item.maintenanceOperationsRate) || !Number.isFinite(item.debtServiceRate)
     || Math.abs(item.maintenanceOperationsRate + item.debtServiceRate - item.totalRate) > 0.000002) return null;
