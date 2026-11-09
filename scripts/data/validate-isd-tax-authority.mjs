@@ -67,6 +67,8 @@ for (const [slug, years] of Object.entries(tea.districts)) {
   }
 }
 assert.match(teaHelper, /officialTaxingUnitIds/);
+assert.ok(teaHelper.includes(String.raw`/^\d{6}$/`), 'TEA CDN validator must recognize six real numeric district IDs');
+assert.ok(teaHelper.includes(String.raw`/-\d+$/`), 'TEA match must strip the official county/district suffix safely');
 assert.match(teaHelper, /Math\.abs\(item\.totalRate - statewideTotal\)/);
 assert.match(historyFunction, /getVerifiedTeaIsdHistoricalComponents/);
 assert.match(route, /TaxingUnitRatePage = lazy/);
