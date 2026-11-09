@@ -7,11 +7,21 @@ on:
       - '.github/workflows/verify-hood-isd-official-source.yml'
       - 'scripts/data/check-hood-isd-official-source.mjs'
       - 'src/data/property/hood-cad-isd-adopted.json'
+      - 'src/data/property/isd-exemptions.ts'
+      - 'src/components/property/IsdTaxAuthority.tsx'
+      - 'src/components/property/TaxingUnitRatePage.tsx'
+      - 'scripts/data/isd-exemptions.test.mjs'
+      - 'scripts/data/validate-isd-tax-authority.mjs'
   pull_request:
     paths:
       - '.github/workflows/verify-hood-isd-official-source.yml'
       - 'scripts/data/check-hood-isd-official-source.mjs'
       - 'src/data/property/hood-cad-isd-adopted.json'
+      - 'src/data/property/isd-exemptions.ts'
+      - 'src/components/property/IsdTaxAuthority.tsx'
+      - 'src/components/property/TaxingUnitRatePage.tsx'
+      - 'scripts/data/isd-exemptions.test.mjs'
+      - 'scripts/data/validate-isd-tax-authority.mjs'
   workflow_dispatch:
   schedule:
     - cron: '41 11 * * 3'
@@ -36,3 +46,5 @@ jobs:
         run: node scripts/data/check-hood-isd-official-source.mjs
       - name: Validate component arithmetic, provenance, and template
         run: node scripts/data/validate-isd-tax-authority.mjs
+      - name: Check tax-year-specific historical exemption calculations
+        run: node --experimental-strip-types --test scripts/data/isd-exemptions.test.mjs
