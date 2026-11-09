@@ -35,7 +35,7 @@ if (!hasQuotedAssignment(indexNowScript, 'origin', canonicalOrigin)) errors.push
 if (!hasQuotedAssignment(indexNowScript, 'key', indexNowKey)) errors.push('IndexNow submitter must use the published ownership key.');
 for (const expected of ['/sitemap.xml','/sitemap-explore.xml','/sitemap-texas-icons.xml','/sitemap-evergreen.xml','/sitemap-shop.xml','optionalSitemapUrls','INDEXNOW_URLS','INDEXNOW_FULL','INDEXNOW_FRESHNESS_HOURS',"process.env.PUBLIC_INDEXING_ENABLED === 'false'",'cosmetic deployment produced no notification','submitIndexNowSafely','verifyIndexNowKey']) requireText(indexNowScript, expected, `IndexNow submitter is missing required contract: ${expected}`);
 // Prevent new advertised sitemap families from silently bypassing IndexNow.
-for (const match of sitemapIndex.matchAll(/<loc>\\s*(https:\\/\\/texasdefined\\.com\\/[^<]+)\\s*<\\/loc>/gi)) {
+for (const match of sitemapIndex.matchAll(/<loc>\s*(https:\/\/texasdefined\.com\/[^<]+)\s*<\/loc>/gi)) {
   const sitemapPath = new URL(match[1]).pathname;
   if (!indexNowScript.includes(sitemapPath)) errors.push(`Advertised sitemap ${sitemapPath} is missing from IndexNow discovery.`);
 }
