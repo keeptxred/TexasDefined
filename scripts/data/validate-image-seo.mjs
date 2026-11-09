@@ -24,8 +24,8 @@ for (const file of allTsxFiles('src')) {
       const attribute = node.attributes.properties.find((prop) =>
         ts.isJsxAttribute(prop) && prop.name.text === 'alt');
       if (!attribute) {
-        errors.push('Missing JSX image alt attribute: ' + file + ':' + source.getLineAndCharacterOfPosition(node.pos).line);
-      } else if (ts.isJsxExpression(attribute.initializer) &&
+        errors.push('Missing JSX image alt attribute: ' + file + ':' + (source.getLineAndCharacterOfPosition(node.pos).line + 1));
+      } else if (attribute.initializer && ts.isJsxExpression(attribute.initializer) &&
         (!attribute.initializer.expression || /^(?:null|undefined)$/.test(attribute.initializer.expression.getText(source)))) {
         errors.push('JSX image alt must not resolve to a literal missing value: ' + file);
       }
