@@ -814,7 +814,9 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
     : { title: rawTitle, description: rawDescription };
   const pageTitle = cleanMetaText(governedSnippet.title);
   const description = cleanMetaDescription(governedSnippet.description, META_DESCRIPTION_MAX_LENGTH);
-  const titleTemplateOverhead = cleanMetaText(brand.seo.titleTemplate.replace("%s", "")).length;
+  // Count the literal template separator, including its leading space.
+  // cleanMetaText() trims that space and can silently create 69-character titles.
+  const titleTemplateOverhead = brand.seo.titleTemplate.replace("%s", "").length;
   // Bing's title-length audit found long snippets. Keep the primary subject first
   // and reserve space for the publisher suffix without changing the page H1.
   const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 68 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
@@ -824,6 +826,8 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
       // Never ship an automatically shortened search title ending in dangling glue.
       .replace(/(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&)$/i, "")
       .trim()
+      // No-space titles must not exceed the budget even without a word break.
+      .slice(0, maxPageTitleLength)
     : pageTitle; // A short complete title like "Worth Pulling Over For" is preserved.
   // Prefer a complete, concise subject over a redundant publisher suffix.
   // A title such as "District 6-6A Football: 2026 Teams, Schedule & Tickets"
