@@ -29,12 +29,8 @@ permissions:
   actions: read
   deployments: read
 
-# No cron. A 12-page audit runs only for a relevant protected release
-# or a manually dispatched production acceptance.
-concurrency:
-  group: mardi-gras-visual-${{ github.event.workflow_run.head_sha || github.sha }}
-  cancel-in-progress: true
-
+# No cron. Only eligible production-Chrome jobs enter the bounded queue.
+# Unrelated issue comments must never cancel a valid 24-viewport acceptance.
 jobs:
   browser-contract:
     if: github.event_name == 'pull_request'
@@ -58,6 +54,9 @@ jobs:
   production-chrome:
     if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'issue_comment' && github.event.issue.number == 5794 && github.actor == 'keeptxred' && github.event.comment.body == '/run-mardi-gras-chrome') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
     name: Twelve Mardi Gras guides/hub at two real Chrome viewports
+    concurrency:
+      group: mardi-gras-visual-${{ github.event.workflow_run.head_sha || github.sha }}
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
