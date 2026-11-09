@@ -774,3 +774,32 @@ test('real Nov8 Vite route stylesheets are eligible only as bounded local origin
   assert.equal(expectedAssetResponse('css',200,'text/html',10),false,
     'an HTML challenge can never be preserved as CSS');
 });
+
+
+test('Nov9 real crawler-missing module families permit only safe original SHA-backed JS retention', () => {
+  const originals=[
+    'TaxingUnitRatePage-BVZvxcvB.js',
+    'find-my-county.lazy-DxrwGteb.js',
+    'fishing.species-m8WWQKAw.js',
+    'fishing.species._slug-CWBOwni0.js',
+    'fishing.species._slug.lazy-B0XQAFdV.js',
+    'EventTicketCta-COIFbhQl.js',
+    'sports.lazy-D90zCdrw.js',
+    'texas-data._datasetSlug.lazy-BX2ZT5W_.js',
+    'SportsVenueLandingIndex-Bz-SYapK.js',
+    'DestinationAuthorityGuide-Dj8ogOFc.js',
+    'DepartmentHero-DzKzXHIb.js',
+    'SportsVenueGuidePilotContent-Dha9IzA5.js',
+  ];
+  for (const file of originals)
+    assert.equal(safeCriticalAsset('/assets/'+file),true,file);
+  for (const path of [
+    '/assets/../../secret.js',
+    '/assets/TaxingUnitRatePages-BVZvxcvB.js',
+    '/assets/find-my-counties.lazy-DxrwGteb.js',
+    '/assets/fishingXspecies-m8WWQKAw.js',
+    '/assets/texas-dataX_datasetSlug.lazy-BX2ZT5W_.js',
+    '/assets/EventTicketCta-COIFbhQl.js?cachebust=1',
+    'https://bad.example/assets/DepartmentHero-DzKzXHIb.js',
+  ]) assert.equal(safeCriticalAsset(path),false,path);
+});
