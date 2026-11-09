@@ -39,6 +39,12 @@ const sharedSeo = fs.readFileSync('src/lib/seo.ts', 'utf8');
 if (!sharedSeo.includes('Math.max(24, 68 - titleTemplateOverhead)')) {
   failures.push('Bing title-length remediation must preserve the shared 68-character publisher-aware search title budget.');
 }
+if (!sharedSeo.includes('brand.seo.titleTemplate.replace("%s", "").length')) {
+  failures.push('Bing publisher suffix budget must count the literal leading separator space.');
+}
+if (!sharedSeo.includes('.slice(0, maxPageTitleLength)')) {
+  failures.push('Bing no-space search titles must not exceed the shared published title budget.');
+}
 
 
 /**
