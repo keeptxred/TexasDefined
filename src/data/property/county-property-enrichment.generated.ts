@@ -34,7 +34,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/angelina.php', 'https://www.angelinacad.org/', 'https://www.angelinacounty.net/']
   },
   bee: {
@@ -88,7 +88,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-08-20',
       taxOffice: '2025-03-03'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bell.php', 'https://bellcad.org/', 'https://www.bellcountytx.com/', 'https://esearch.bellcad.org/', 'https://bellcad.org/pay-property-taxes/']
   },
   bexar: {
@@ -140,7 +140,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-05',
       taxOffice: '2025-03-13'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/collingsworth.php', 'https://www.collingsworthcad.org/', 'https://www.co.collingsworth.tx.us/']
   },
   comal: {
@@ -166,7 +166,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-09-25',
       taxOffice: '2025-03-13'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/comal.php', 'https://comalad.org/', 'https://www.comalcounty.gov/']
   },
   denton: {
@@ -192,7 +192,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-09-25',
       taxOffice: '2025-02-14'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/denton.php', 'https://www.dentoncad.com/', 'https://www.dentoncounty.gov/778/Tax-Assessor-Collector']
   },
   fisher: {
@@ -218,7 +218,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-04-09',
       taxOffice: '2025-03-25'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/fisher.php', 'https://www.fishercad.org/', 'https://www.fishercounty.org/']
   },
   hays: {
@@ -244,7 +244,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-07-02',
       taxOffice: '2025-12-04'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hays.php', 'https://hayscad.com/', 'https://www.hayscountytx.gov/']
   },
   hidalgo: {
@@ -270,7 +270,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-06-11',
       taxOffice: '2025-03-26'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hidalgo.php', 'https://www.hidalgoad.org/', 'https://www.hidalgocounty.us/']
   },
   leon: {
@@ -296,7 +296,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-08-13',
       taxOffice: '2025-04-16'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/leon.php', 'https://www.leoncad.org/', 'https://www.co.leon.tx.us/']
   },
   lubbock: {
@@ -322,7 +322,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-02-25',
       taxOffice: '2025-04-22'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/lubbock.php', 'https://www.lubbockcad.org/', 'https://www.lubbockcounty.gov/']
   },
   sabine: {
@@ -348,7 +348,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-05-06',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sabine.php', 'https://www.southwestdatasolution.com/webindex.aspx?dbkey=SABINECAD', 'https://www.co.sabine.tx.us/']
   },
   smith: {
@@ -374,7 +374,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-29',
       taxOffice: '2025-04-25'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/smith.php', 'https://www.smithcad.org/', 'https://www.smith-county.com/']
   },
   terrell: {
@@ -400,7 +400,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-01-30',
       taxOffice: '2025-04-28'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/terrell.php', 'https://terrellcad.org/', 'https://www.co.terrell.tx.us/']
   },
   travis: {
@@ -426,7 +426,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2026-08-19',
       taxOffice: '2025-04-29'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/travis.php', 'https://traviscad.org/', 'https://tax-office.traviscountytx.gov/']
   },
   washington: {
@@ -452,7 +452,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
       appraisalDistrict: '2025-02-19',
       taxOffice: '2025-02-19'
     },
-    lastVerifiedAt: '2026-11-02',
+    lastVerifiedAt: '2026-11-09',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/washington.php', 'https://washingtoncad.org/', 'https://www.co.washington.tx.us/']
   },
 };
