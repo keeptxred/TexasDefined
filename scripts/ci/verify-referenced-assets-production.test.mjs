@@ -666,3 +666,20 @@ test('Nov9 Googlebot/Bingbot old-hash module families enter bounded handoff only
       'SportsVenueLandingIndex-'+String(i).padStart(8,'0')+'.js')]),
     /at most eight distinct/);
 });
+
+
+test('postbuild supersession gate rejects stale main before asset work, preserving final deploy refusal', () => {
+  const workflow=readFileSync('.github/workflows/deploy-production.yml','utf8');
+  const build=workflow.indexOf('      - name: Build production bundle');
+  const early=workflow.indexOf('      - name: Refuse superseded source immediately after build');
+  const budget=workflow.indexOf('      - name: Publish bundle budget pending');
+  const archive=workflow.indexOf("      - name: Restore active Worker's verified successful asset handoff");
+  const final=workflow.indexOf('      - name: Refuse superseded Worker revision');
+  assert.ok(build>=0 && build<early && early<budget && budget<archive && archive<final,
+    'refuse stale after build but before all costly verification, retaining late pre-Wrangler refusal');
+  const step=workflow.slice(early,budget);
+  assert.match(step,/if: success\(\)/);
+  assert.match(step,/git ls-remote --exit-code origin refs\/heads\/main/);
+  assert.match(step,/latest_main.*GITHUB_SHA/);
+  assert.match(step,/exit 1/);
+});
