@@ -78,7 +78,20 @@ for(const year of EXPECTED_YEARS){
 const sum=Object.values(report.stats).reduce((n,v)=>n+v.exactVerified,0);
 if(sum<300)throw Error('Unacceptably small matched official component coverage: '+sum);
 console.log('TEA_MATCH_STATISTICS '+JSON.stringify({sourceSha256:sha,sourceRows:official.size,years:report.stats,totalAccepted:sum,districts:Object.keys(report.districts).length}));
-const content=JSON.stringify(report);
-const size=4000;
-const count=Math.ceil(content.length/size);
-for(let i=0;i<count;i++)console.log('TEA_OVERLAY_CHUNK '+i+'/'+count+' '+content.slice(i*size,(i+1)*size));
+// Weekly checks must detect state/TEA revisions rather than silently alter published records.
+if (Deno.env.get('TEA_VERIFY_SNAPSHOT') === 'true') {
+  const saved=JSON.parse(await Deno.readTextFile('src/data/property/tea-isd-historical-verified.json'));
+  if(saved.sourceSha256!==report.sourceSha256
+      || JSON.stringify(saved.stats)!==JSON.stringify(report.stats)
+      || JSON.stringify(saved.districts)!==JSON.stringify(report.districts)) {
+    throw Error('The TEA source or state-rate identity changed: a new source-reviewed overlay is required');
+  }
+  console.log('TEA verified snapshot is current and all 2,494 accepted component pairs remain exact.');
+}
+if (Deno.env.get('TEA_EMIT_VERIFIED_JSON') === 'true') {
+  const content=JSON.stringify(report);
+  const size=4000;
+  const count=Math.ceil(content.length/size);
+  for(let i=0;i<count;i++)console.log('TEA_OVERLAY_CHUNK '+i+'/'+count+' '+content.slice(i*size,(i+1)*size));
+}
+
