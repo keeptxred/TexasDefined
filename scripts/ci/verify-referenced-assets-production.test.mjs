@@ -620,3 +620,66 @@ test('all 4 actual Nov8 Vite CSS entries remain subject to the old/new SHA hando
     'network-'+String(i).padStart(8,'0')+'.css')]),/at most eight distinct/,
     'route CSS must never bypass the per-family finite cap');
 });
+
+
+test('Nov9 Googlebot/Bingbot old-hash module families enter bounded handoff only when Vite emitted', () => {
+  const required=[
+    'texas-high-school-football-teams_._slug.lazy-ONE.js',
+    'property-tax.taxing-unit._unit-TWO.js',
+  ];
+  // These 12 were genuinely emitted as dist/client assets in successful
+  // protected production build #42665261387; filenames are not invented.
+  const current=[
+    'TaxingUnitRatePage-BuhcrGFx.js',
+    'find-my-county.lazy-CEBzOrcB.js',
+    'fishing.species-DjbEViUn.js',
+    'fishing.species._slug-CwKLsxhL.js',
+    'fishing.species._slug.lazy-DD4Krxif.js',
+    'EventTicketCta-BAV5sfwY.js',
+    'sports.lazy-CUvgqouJ.js',
+    'texas-data._datasetSlug.lazy-C69uIPp5.js',
+    'SportsVenueLandingIndex-BkGuYYZk.js',
+    'DestinationAuthorityGuide-B9bEY5jn.js',
+    'DepartmentHero-DySnRUWZ.js',
+    'SportsVenueGuidePilotContent-BQ2VvE9M.js',
+  ];
+  const selected=selectBuiltRouteAssets([...required,...current]);
+  assert.equal(selected.length,current.length+2);
+  for (const file of current) {
+    assert.deepEqual(selected.find(a=>a.path==='/assets/'+file),
+      {path:'/assets/'+file,kind:'js',source:'built-client-chunk'},file);
+  }
+  // A past crawler 404 does not justify manufacturing bytes or hashes.
+  const stale=[
+    'TaxingUnitRatePage-BVZvxcvB.js',
+    'find-my-county.lazy-DxrwGteb.js',
+    'fishing.species-m8WWQKAw.js',
+    'sports.lazy-D90zCdrw.js',
+    'texas-data._datasetSlug.lazy-BX2ZT5W_.js',
+  ];
+  const without=selectBuiltRouteAssets(required).map(a=>a.path);
+  for (const file of stale)
+    assert.equal(without.includes('/assets/'+file),false,file);
+  // Per-family ceiling is still enforced instead of truncating silently.
+  assert.throws(()=>selectBuiltRouteAssets([...required,
+    ...Array.from({length:9},(_,i)=>
+      'SportsVenueLandingIndex-'+String(i).padStart(8,'0')+'.js')]),
+    /at most eight distinct/);
+});
+
+
+test('postbuild supersession gate rejects stale main before asset work, preserving final deploy refusal', () => {
+  const workflow=readFileSync('.github/workflows/deploy-production.yml','utf8');
+  const build=workflow.indexOf('      - name: Build production bundle');
+  const early=workflow.indexOf('      - name: Refuse superseded source immediately after build');
+  const budget=workflow.indexOf('      - name: Publish bundle budget pending');
+  const archive=workflow.indexOf("      - name: Restore active Worker's verified successful asset handoff");
+  const final=workflow.indexOf('      - name: Refuse superseded Worker revision');
+  assert.ok(build>=0 && build<early && early<budget && budget<archive && archive<final,
+    'refuse stale after build but before all costly verification, retaining late pre-Wrangler refusal');
+  const step=workflow.slice(early,budget);
+  assert.match(step,/if: success\(\)/);
+  assert.match(step,/git ls-remote --exit-code origin refs\/heads\/main/);
+  assert.match(step,/latest_main.*GITHUB_SHA/);
+  assert.match(step,/exit 1/);
+});

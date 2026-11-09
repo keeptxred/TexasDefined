@@ -185,6 +185,22 @@ const OPTIONAL_BUILT_CHUNK_PATTERNS = [
   // Authenticated 2026-11-08 Bing/OAI crawler 404s: each family is a real
   // dist/client Vite module in protected production run #42490767790.
   // Only carry emitted files; original HTTP200/SHA and per-family 8 cap still apply.
+  // Verified Googlebot/Bingbot plus stale mobile 404s on Nov 9. These 12
+  // narrow patterns all map to real Vite dist/client chunks in protected
+  // production run #42665261387. Do not synthesize historic filenames;
+  // only capture actual emitted chunks, max 8 per family, true prior SHA.
+  /^TaxingUnitRatePage-[A-Za-z0-9_-]+\.js$/,
+  /^find-my-county\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^fishing\.species-[A-Za-z0-9_-]+\.js$/,
+  /^fishing\.species\._slug-[A-Za-z0-9_-]+\.js$/,
+  /^fishing\.species\._slug\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^EventTicketCta-[A-Za-z0-9_-]+\.js$/,
+  /^sports\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^texas-data\._datasetSlug\.lazy-[A-Za-z0-9_-]+\.js$/,
+  /^SportsVenueLandingIndex-[A-Za-z0-9_-]+\.js$/,
+  /^DestinationAuthorityGuide-[A-Za-z0-9_-]+\.js$/,
+  /^DepartmentHero-[A-Za-z0-9_-]+\.js$/,
+  /^SportsVenueGuidePilotContent-[A-Za-z0-9_-]+\.js$/,
   /^ViatorLiveProducts-[A-Za-z0-9_-]+\.js$/,
   /^CoastalBeachFieldGuide-[A-Za-z0-9_-]+\.js$/,
   /^ShowcaseLakeGuide-[A-Za-z0-9_-]+\.js$/,

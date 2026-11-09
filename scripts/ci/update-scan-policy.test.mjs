@@ -1148,13 +1148,15 @@ test('protected Worker release rejects stale main before costly work and again b
   const finalGuard = workflow.indexOf('name: Refuse superseded Worker revision');
   const install = workflow.indexOf('name: Install dependencies');
   const build = workflow.indexOf('name: Build production bundle');
+  const postbuild = workflow.indexOf('name: Refuse superseded source immediately after build');
   const retain = workflow.indexOf('name: Retain bounded old hashed client assets');
   const deploy = workflow.indexOf('name: Deploy TexasDefined Worker');
   assert.ok(early > 0 && early < install, 'Stale source must be rejected before costly npm/build preparation');
   assert.ok(prebuild > install && prebuild < build, 'A newer main merged during validation must prevent obsolete production build');
+  assert.ok(postbuild > build && postbuild < retain, 'New postbuild source check must reject obsolete source before old-hash retention and CDN probes');
   assert.ok(finalGuard > retain && finalGuard < deploy, 'Preserve exact latest-main guard immediately before Worker replacement');
-  assert.equal((workflow.match(/git ls-remote --exit-code origin refs\/heads\/main/g) ?? []).length, 3,
-    'All three freshness gates must verify the actual remote main SHA');
+  assert.equal((workflow.match(/git ls-remote --exit-code origin refs\/heads\/main/g) ?? []).length, 4,
+    'All four ordered freshness gates must verify the actual remote main SHA');
   assert.match(workflow, /group: texasdefined-production[\s\S]*?cancel-in-progress: false/,
     'Do not cancel in-flight Worker replacement or rollback verification to win races');
   assert.match(workflow, /name: Verify current and previous release JS\/CSS on both public origins/,
