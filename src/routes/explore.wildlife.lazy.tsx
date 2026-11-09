@@ -46,6 +46,22 @@ function WildlifeHubPage() {
 
     <Section>
       <Container>
+        <div className="border-y border-border py-9 sm:py-12">
+          <p className="eyebrow text-primary">Research brief · November 2026</p>
+          <h2 className="mt-3 max-w-4xl font-display text-3xl leading-tight sm:text-4xl">UTEP researchers trace a century of captive-bred mallard ancestry</h2>
+          <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">
+            A November 4, 2026 University of Texas at El Paso study examined genetic data from more than 400 historical museum mallards and over 600 contemporary birds. It linked game-farm releases to lower genetic diversity and higher inbreeding in some wild mallard populations. The effect varied sharply by flyway: the Atlantic and parts of the Mississippi flyways had much more domestic ancestry, while Central and Pacific flyway samples stayed largely wild. The research is about population genetics and conservation decisions, not a Texas hunting closure or a finding that all Texas mallards are equally affected.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold">
+            <a className="text-primary underline underline-offset-4" href="https://www.utep.edu/newsfeed/2026/november/utep-researcher-leads-first-of-its-kind-study-on-genetic-changes-in-wild-ducks.html" target="_blank" rel="noopener noreferrer">Read the original UTEP study announcement</a>
+            <Link className="text-primary underline underline-offset-4" to="/texas-birds-guide">Texas birding field guide</Link>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
         <SectionHeader eyebrow="Federal public lands" title={`${refuges.length} Texas national wildlife refuge guides`} description="The refuge guides include current federal names, managing-agency links, county and region context, access notes and wildlife highlights. Check each refuge's official U.S. Fish and Wildlife Service page for current closures, seasonal restrictions and visitor operations." />
         <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
           {refuges.map((destination, index) => isDestinationPhotoPlaceholder(destination.hero.src)
