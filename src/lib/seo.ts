@@ -815,7 +815,9 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const pageTitle = cleanMetaText(governedSnippet.title);
   const description = cleanMetaDescription(governedSnippet.description, META_DESCRIPTION_MAX_LENGTH);
   const titleTemplateOverhead = cleanMetaText(brand.seo.titleTemplate.replace("%s", "")).length;
-  const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 90 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
+  // Bing's title-length audit found long snippets. Keep the primary subject first
+  // and reserve space for the publisher suffix without changing the page H1.
+  const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 68 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
   const budgetedPageTitle = pageTitle.length > maxPageTitleLength
     ? pageTitle.slice(0, maxPageTitleLength + 1)
       .replace(/\s+\S*$/, "")
