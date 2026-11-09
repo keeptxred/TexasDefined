@@ -17,10 +17,10 @@ const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'
 report.schoolSlugs=["early","earth-springlake","east-bernard","east-chambers","eastland","edcouch-elsa","eden","edgewood","edinburg","edinburg-economedes","edinburg-north","edinburg-vela","edna","el-campo","el-maton-tidehaven","el-paso","el-paso-americas","el-paso-andress","el-paso-austin","el-paso-bel-air","el-paso-bowie","el-paso-burges","el-paso-chapin","el-paso-coronado","el-paso-del-valle"];
 preflight('registry and source boundary',()=>{
  assert.equal(new Set(report.schoolSlugs).size,25,'exact 25 distinct canonical slugs');
- assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,355,'preserve 330 historic certifications');
+ assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,355,'preserve 355 historic certifications');
  for(const slug of report.schoolSlugs)assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'NOT_REVIEWED','no source-only production graduation: '+slug);
- const authored=readFileSync('src/data/high-school-football/program-editorial-b016-loader.server.ts','utf8');
- for(const slug of report.schoolSlugs)assert.ok(authored.includes("'"+slug+"'"),'missing authored loader slug '+slug);
+ const authored=readFileSync('src/data/high-school-football/football-program-profile.server.ts','utf8');
+ for(const method of ['getBatch016EarlyEditorial','getBatch016EarthEditorial','getBatch016GroupOneEditorial','getBatch016SecondFiveEditorial','getBatch016ThirdFiveEditorial','getBatch016FourthFiveEditorial','getBatch016FifthFiveEditorial'])assert.ok(authored.includes(method+'(canonicalSlug)'),'missing authored SSR loader '+method);
 });
 preflight('release identity',()=>{
  assert.match(source,/^[a-f0-9]{40}$/);
