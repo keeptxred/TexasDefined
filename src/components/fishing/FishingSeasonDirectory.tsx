@@ -1,6 +1,8 @@
 import { Container } from "@/components/layout/Container";
+import consumptionAdvisories from "@/data/fishing/consumption-advisories.json";
+import { MONTHLY_FISHING_GUIDANCE } from "@/data/fishing/monthly-editorial";
 import type { FishingSeasonData } from "@/data/fishing/season-data.server";
-import { FISHING_SEASON_FILTERS, FISHING_SEASONS_PATH, type FishingSeasonFilter } from "@/data/fishing/season-routing";
+import { FISHING_SEASON_FILTERS, FISHING_SEASONS_PATH, FISHING_SEASONS_PAGE_REVIEWED_AT, type FishingSeasonFilter } from "@/data/fishing/season-routing";
 
 type SeasonSearch = { season?: FishingSeasonFilter; species?: string; month?: string; region?: string };
 
@@ -23,6 +25,7 @@ const SEASON_INTROS: Record<FishingSeasonFilter, string> = {
 export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonData; search: SeasonSearch }) {
   const selectedSpecies = data.species.find((fish) => fish.slug === search.species);
   const selectedMonth = MONTHS.find(([slug]) => slug === search.month);
+  const activeMonthGuide = MONTHLY_FISHING_GUIDANCE.find((month) => month.slug === search.month);
   const effectiveSeason = search.season ?? selectedMonth?.[2];
   const regionOptions = [...new Set(data.entries.map((entry) => entry.lake.region))].sort();
   const selectedRegion = regionOptions.find((region) => slugify(region) === search.region);
@@ -39,6 +42,13 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
     entries: entries.filter((candidate) => candidate.lake.id === entry.lake.id),
   }])).values()];
 
+  // Source-backed examples, chosen for regional variety rather than invented catch rankings.
+  const representativeEntries = [...new Map(data.entries
+    .filter((entry) => Boolean(entry.relation.verifiedAt) && entry.relation.sources.some((source) => source.url.startsWith("https://")))
+    .map((entry) => [entry.lake.id, entry])).values()]
+    .filter((entry, index, all) => all.findIndex((candidate) => candidate.lake.region === entry.lake.region) === index)
+    .slice(0, 6);
+
   const activeLabel = selectedMonth?.[1]
     ?? (effectiveSeason ? titleCase(effectiveSeason) : selectedSpecies?.commonName)
     ?? (selectedRegion ? displayRegion(selectedRegion) : "Texas lake");
@@ -53,6 +63,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Choose a month, season, fish or Texas region to explore source-backed freshwater lake patterns—then check fresh fishing reports for current conditions before you go.</p>
         <div className="mt-8 flex flex-wrap gap-5 text-sm">
           <a href="#choose-month" className="border-b border-ink-foreground pb-1 font-semibold">Choose a month ↓</a>
+          <a href="#month-checklist" className="border-b border-ink-foreground/50 pb-1">Monthly field checklist ↓</a>
           <a href="#right-now" className="border-b border-ink-foreground/50 pb-1">Fishing right now ↓</a>
           <a href="/fishing/plan" className="border-b border-ink-foreground/50 pb-1">Trip planner →</a>
           <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Regulations →</a>
@@ -71,7 +82,28 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
           {hasFilters ? <a href={FISHING_SEASONS_PATH} className="border-b border-primary pb-1 text-sm font-semibold text-primary">Clear filters</a> : null}
         </div>
         <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-          {MONTHS.map(([slug, label, season]) => <a key={slug} href={buildHref({ month: slug, species: search.species, region: search.region })} aria-label={`${label} — ${titleCase(season)} fishing`} aria-current={search.month === slug ? "page" : undefined} className={`border px-3 py-3 text-center text-sm font-semibold ${search.month === slug ? "border-primary text-primary" : "border-border hover:border-primary/50"}`}><span className="block">{label}</span><span className="mt-1 block text-xs font-normal uppercase tracking-wider text-muted-foreground">{titleCase(season)}</span></a>)}
+          {MONTHS.map(([slug, label, season]) => <a key={slug} href={buildHref({ month: slug, species: search.species, region: search.region })} rel="nofollow" aria-label={`${label} — ${titleCase(season)} fishing`} aria-current={search.month === slug ? "page" : undefined} className={`border px-3 py-3 text-center text-sm font-semibold ${search.month === slug ? "border-primary text-primary" : "border-border hover:border-primary/50"}`}><span className="block">{label}</span><span className="mt-1 block text-xs font-normal uppercase tracking-wider text-muted-foreground">{titleCase(season)}</span></a>)}
+        </div>
+      </section>
+
+      <section id="month-checklist" className="mt-12 border-t border-border pt-10" aria-labelledby="month-checklist-heading">
+        <p className="eyebrow text-primary">Independent planning notes</p>
+        <h2 id="month-checklist-heading" className="mt-2 font-display text-3xl">What to check in each Texas fishing month</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Each month has different trip-planning questions, but these are not twelve separate verified catch forecasts. Our lake-and-species evidence is classified by season or year-round; local weather, water level and reports determine whether a particular monthly plan makes sense. A named month never means fishing is guaranteed.</p>
+        {activeMonthGuide ? <div className="mt-6 border-l-2 border-primary pl-5" role="note">
+          <p className="eyebrow text-primary">{activeMonthGuide.label} planning focus</p>
+          <h3 className="mt-2 font-display text-2xl">{activeMonthGuide.focus}</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">{activeMonthGuide.detail}</p>
+          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-7">{activeMonthGuide.checklist.map((item) => <li key={item}>{item}</li>)}</ul>
+        </div> : null}
+        <div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {MONTHLY_FISHING_GUIDANCE.map((month) => <article key={month.slug} className="border-t-2 border-foreground pt-4">
+            <p className="eyebrow text-primary">{month.label} · {titleCase(month.season)}</p>
+            <h3 className="mt-2 font-display text-2xl">{month.focus}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{month.detail}</p>
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-xs leading-6 text-muted-foreground">{month.checklist.map((item) => <li key={item}>{item}</li>)}</ul>
+            <a href={buildHref({ month: month.slug })} rel="nofollow" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">View documented {month.season} lake patterns →</a>
+          </article>)}
         </div>
       </section>
 
@@ -82,7 +114,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
           {FISHING_SEASON_FILTERS.map((season) => {
             const seasonalEntries = data.entries.filter((entry) => matchesSeason(entry.relation.seasonalPatterns, season));
             const lakeCount = new Set(seasonalEntries.map((entry) => entry.lake.id)).size;
-            return <a key={season} href={buildHref({ season, species: search.species, region: search.region })} className={`border p-5 ${!search.month && search.season === season ? "border-primary" : "border-border"}`}>
+            return <a key={season} href={buildHref({ season, species: search.species, region: search.region })} rel="nofollow" className={`border p-5 ${!search.month && search.season === season ? "border-primary" : "border-border"}`}>
               <p className="eyebrow text-primary">{titleCase(season)}</p>
               <p className="mt-2 font-display text-3xl">{lakeCount} lakes</p>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">with documented {season} or year-round fishing patterns</p>
@@ -116,15 +148,15 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
         <div>
           <p className="eyebrow text-muted-foreground">Choose a fish</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            <a href={buildHref({ month: search.month, season: search.month ? undefined : search.season, region: search.region })} className={chip(!search.species)}>All fish</a>
-            {data.species.map((fish) => <a key={fish.id} href={buildHref({ month: search.month, season: search.month ? undefined : search.season, species: fish.slug, region: search.region })} className={chip(search.species === fish.slug)}>{fish.commonName}</a>)}
+            <a href={buildHref({ month: search.month, season: search.month ? undefined : search.season, region: search.region })} rel="nofollow" className={chip(!search.species)}>All fish</a>
+            {data.species.map((fish) => <a key={fish.id} href={buildHref({ month: search.month, season: search.month ? undefined : search.season, species: fish.slug, region: search.region })} rel="nofollow" className={chip(search.species === fish.slug)}>{fish.commonName}</a>)}
           </div>
         </div>
         <div>
           <p className="eyebrow text-muted-foreground">Choose a Texas region</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            <a href={buildHref({ month: search.month, season: search.month ? undefined : search.season, species: search.species })} className={chip(!search.region)}>All regions</a>
-            {regionOptions.map((region) => <a key={region} href={buildHref({ month: search.month, season: search.month ? undefined : search.season, species: search.species, region: slugify(region) })} className={chip(search.region === slugify(region))}>{displayRegion(region)}</a>)}
+            <a href={buildHref({ month: search.month, season: search.month ? undefined : search.season, species: search.species })} rel="nofollow" className={chip(!search.region)}>All regions</a>
+            {regionOptions.map((region) => <a key={region} href={buildHref({ month: search.month, season: search.month ? undefined : search.season, species: search.species, region: slugify(region) })} rel="nofollow" className={chip(search.region === slugify(region))}>{displayRegion(region)}</a>)}
           </div>
         </div>
       </section>
@@ -147,7 +179,20 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
           <div>
             <p className="eyebrow text-primary">Choose before you browse</p>
             <h2 id="season-results" className="mt-2 max-w-3xl font-display text-4xl">Start with a month, season, fish or region.</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The full lake catalog contains {new Set(data.entries.map((entry) => entry.lake.id)).size} complete lake guides and {data.entries.length} documented lake-and-fish relationships. Rather than dumping the entire database onto this page, choose what matters to your trip and the matching lake cards will appear here.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The full lake catalog contains {new Set(data.entries.map((entry) => entry.lake.id)).size} complete lake guides and {data.entries.length} documented lake-and-fish relationships. Rather than dumping the entire database onto this page, choose what matters to your trip and the matching lake cards will appear here. The examples below come from separately verified lake-and-species records; they are regional starting points, not a fishing quality ranking.</p>
+            <h3 className="mt-7 font-display text-2xl">Start with verified lake examples across Texas</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">These examples include source-specific seasonal summaries and individual lake guides. The same state-level season can behave differently in the Panhandle, Hill Country and Piney Woods.</p>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              {representativeEntries.map((entry) => <article key={entry.lake.id} className="border-t-2 border-foreground pt-4">
+                <p className="eyebrow text-primary">{displayRegion(entry.lake.region)}</p>
+                <h4 className="mt-2 font-display text-2xl">{entry.lake.name}</h4>
+                <p className="mt-2 text-sm leading-7"><strong>{entry.species.commonName}:</strong> <span className="text-muted-foreground">{entry.relation.seasonalPatterns[0]?.summary}</span></p>
+                <p className="mt-2 text-xs text-muted-foreground">Seasonal relationship verified {formatDate(entry.relation.verifiedAt ?? data.verifiedAt)}</p>
+                <SourceLinks sources={entry.relation.sources} />
+                <AdvisoryNotice lakeSlug={entry.lake.slug} />
+                <a href={entry.href} className="mt-3 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Explore the lake guide →</a>
+              </article>)}
+            </div>
           </div>
           <div className="border-l-2 border-primary pl-5 text-sm leading-7">
             <a href="#choose-month" className="font-semibold text-primary">Choose a month ↑</a><br />
@@ -171,6 +216,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
               <div><p className="eyebrow text-primary">{displayRegion(group.lake.region)}</p><h3 className="mt-2 font-display text-3xl">{group.lake.name}</h3></div>
               <span className="border border-border px-3 py-1 text-xs text-muted-foreground">{group.entries.length} matching fish</span>
             </div>
+            <AdvisoryNotice lakeSlug={group.lake.slug} />
             <div className="mt-5 divide-y divide-border">{group.entries.map((entry) => {
               const patterns = entry.relation.seasonalPatterns.filter((pattern) => !effectiveSeason || pattern.season === effectiveSeason || pattern.season === "year-round");
               const techniques = entry.techniques.filter((row) => !effectiveSeason || row.profile.seasons.includes(effectiveSeason) || row.profile.seasons.includes("year-round"));
@@ -178,6 +224,8 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
               return <section key={entry.id} className="py-5 first:pt-0">
                 <div className="flex flex-wrap items-baseline justify-between gap-3"><h4 className="font-display text-2xl">{entry.species.commonName}</h4>{yearRound ? <span className="text-[0.68rem] uppercase tracking-wider text-muted-foreground">Available year-round</span> : null}</div>
                 <div className="mt-3 space-y-3">{patterns.map((pattern, index) => <div key={`${pattern.season}-${index}`}><p className="text-sm leading-7"><strong>{pattern.season === "year-round" ? "Year-round context" : `${titleCase(pattern.season)} pattern`}:</strong> <span className="text-muted-foreground">{pattern.summary}</span></p>{pattern.habitats?.length ? <p className="mt-1 text-xs text-muted-foreground"><strong className="text-foreground">Where:</strong> {pattern.habitats.join(", ")}</p> : null}{pattern.depthGuidance ? <p className="mt-1 text-xs text-muted-foreground"><strong className="text-foreground">Depth:</strong> {pattern.depthGuidance}</p> : null}</div>)}</div>
+                <p className="mt-2 text-xs text-muted-foreground">Lake–species relationship verified: {formatDate(entry.relation.verifiedAt ?? data.verifiedAt)}</p>
+                <SourceLinks sources={entry.relation.sources} />
                 {techniques.length ? <div className="mt-4"><p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Techniques connected to this fish and lake</p><div className="mt-2 flex flex-wrap gap-2">{techniques.map((row) => <span key={row.profile.id} className="border border-border px-2.5 py-1 text-xs" title={row.profile.summary}>{row.technique?.name}</span>)}</div></div> : null}
               </section>;
             })}</div>
@@ -193,7 +241,8 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
           <p>{data.policy.conditions}</p><p>{data.policy.yearRound}</p>
           <p>Before traveling, check <a href="/fishing/reports" className="border-b border-primary text-primary">fresh fishing reports</a>, <a href="/fishing/regulations" className="border-b border-primary text-primary">current regulations</a>, weather, lake levels, access and closures.</p>
-          <p className="text-xs">Last reviewed: {formatDate(data.verifiedAt)}</p>
+          <p className="text-xs">Lake-and-species source dataset last reviewed: {formatDate(data.verifiedAt)}. Page editorial and safety presentation reviewed: {formatDate(FISHING_SEASONS_PAGE_REVIEWED_AT)}. New page updates do not automatically re-verify every lake record.</p>
+          <p>Before eating a catch, check <a href="https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/fish-consumption-bans-and-advisories" className="border-b border-primary text-primary">TPWD's fish-consumption advisories</a>. An absent warning here is not confirmation that a fish or lake is safe for consumption. For legal bag limits and exceptions, confirm the <a href="https://tpwd.texas.gov/regulations/outdoor-annual/fishing/freshwater-fishing/freshwater-fishing-laws-and-exceptions" className="border-b border-primary text-primary">official freshwater regulations</a>.</p>
         </div>
       </section>
 
@@ -220,3 +269,14 @@ function slugify(value: string) { return value.toLowerCase().replace(/[^a-z0-9]+
 function chip(active: boolean) { return `border px-3 py-2 text-xs font-semibold ${active ? "border-primary text-primary" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`; }
 function buildHref(filters: { month?: string; season?: string; species?: string; region?: string }) { const params = new URLSearchParams(); if (filters.month) params.set("month", filters.month); if (filters.season) params.set("season", filters.season); if (filters.species) params.set("species", filters.species); if (filters.region) params.set("region", filters.region); const query = params.toString(); return query ? `${FISHING_SEASONS_PATH}?${query}` : FISHING_SEASONS_PATH; }
 function formatDate(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(date); }
+function SourceLinks({ sources }: { sources: Array<{ id: string; name: string; url: string; checkedAt: string }> }) {
+  const links = sources.filter((source) => /^https:\/\//.test(source.url)).slice(0, 2);
+  return links.length ? <p className="mt-2 text-xs leading-6 text-muted-foreground">Primary evidence: {links.map((source, index) => <span key={source.id}>{index ? " · " : ""}<a className="border-b border-primary text-primary" href={source.url} rel="noopener noreferrer">{source.name}</a> <span>(source checked {formatDate(source.checkedAt)})</span></span>)}</p>
+    : <p className="mt-2 text-xs text-muted-foreground">Review the linked lake guide's source notes before relying on this pattern.</p>;
+}
+function AdvisoryNotice({ lakeSlug }: { lakeSlug: string }) {
+  const advisory = consumptionAdvisories[lakeSlug as keyof typeof consumptionAdvisories];
+  return advisory ? <aside className="mt-4 border-l-2 border-amber-600 pl-3 text-xs leading-6" aria-label="Official fish consumption advisory">
+    <strong>Fish-consumption advisory:</strong> {advisory.summary} <a href={advisory.sourceUrl} rel="noopener noreferrer" className="border-b border-primary font-semibold text-primary">Read TPWD's species-specific restrictions</a>. Source reviewed {formatDate(advisory.reviewedAt)}.
+  </aside> : null;
+}
