@@ -12,6 +12,8 @@ on:
       - 'src/components/property/TaxingUnitRatePage.tsx'
       - 'scripts/data/isd-exemptions.test.mjs'
       - 'scripts/data/validate-isd-tax-authority.mjs'
+      - 'src/data/property/tea-isd-historical-verified.json'
+      - 'src/data/property/tea-isd-components.server.ts'
   pull_request:
     paths:
       - '.github/workflows/verify-hood-isd-official-source.yml'
@@ -22,6 +24,8 @@ on:
       - 'src/components/property/TaxingUnitRatePage.tsx'
       - 'scripts/data/isd-exemptions.test.mjs'
       - 'scripts/data/validate-isd-tax-authority.mjs'
+      - 'src/data/property/tea-isd-historical-verified.json'
+      - 'src/data/property/tea-isd-components.server.ts'
   workflow_dispatch:
   schedule:
     - cron: '41 11 * * 3'
