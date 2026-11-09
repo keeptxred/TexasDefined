@@ -55,6 +55,7 @@ const prebuildChecks = [
   ['HOMEPAGE/FIELD', 'Keep URL field, origin-only and lab performance evidence distinct', 'node', ['--test', 'scripts/ci/audit-homepage-vitals.test.mjs']],
   ['HOMEPAGE/SEO', 'Keep evergreen entry navigation, canonical schema and homepage event selection', 'node', ['scripts/data/validate-homepage-seo.mjs']],
   ['SEO/BING/RENDERED', 'Validate crawler-visible title budgets and image ALT semantics without sitewide requests', 'node', ['--test', 'scripts/seo/rendered-bing-seo.test.mjs']],
+  ['SEO/BING/SHOP', 'Keep product title search snippets concise and preserve complete product names elsewhere', 'node', ['--experimental-strip-types', '--test', 'scripts/seo/shop-product-search-title.test.mjs']],
   ['SEO/BING/FOOTBALL', 'Keep Bing staged-school discovery separate from Google indexability', 'node', ['scripts/ci/validate-bing-football-sitemap-policy.mjs']],
   ['SEO/BING/FOOTBALL', 'Syntax-check bounded production Bing supplemental sitemap acceptance', 'node', ['--check', 'scripts/ci/verify-bing-football-sitemap-production.mjs']],
   ['FOOTBALL/DIRECTORY', 'Validate UIL directory URLs, reciprocal links and canonical/indexing guards', 'python3', ['scripts/ci/validate_football_directory_navigation.py']],

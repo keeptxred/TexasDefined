@@ -1,6 +1,9 @@
 import { lazy, Suspense } from "react";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { buildMeta } from "@/lib/seo";
+import { shopProductSearchName } from "@/lib/shop-product-search-title";
 
 const ProductDetailPage = lazy(() => import("@/components/commerce/ProductDetailPage").then((module) => ({ default: module.ProductDetailPage })));
 
@@ -26,10 +29,15 @@ export const Route = createFileRoute("/shop/product/$productId")({
     const canonicalUrl = product ? `https://texasdefined.com/shop/product/${encodeURIComponent(product.id)}` : undefined;
     const enabled = product?.variants?.filter((variant) => variant.is_enabled !== false) ?? [];
     return {
-      meta: [
-        { title: product ? `${product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" },
-        { name: "description", content: product?.blurb || "Shop Texas-inspired products from Texas Defined." },
-      ],
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath: product ? `/shop/product/${encodeURIComponent(product.id)}` : undefined,
+        // Long POD titles contain comma-separated keyword lists. Keep those
+        // in the visible product name and schema, but not the search snippet.
+        title: product ? shopProductSearchName(product.name) : "Texas Shop Product",
+        description: product?.blurb || "Shop Texas-inspired products from Texas Defined.",
+        image: product?.image.src,
+        imageAlt: product?.image.alt || product?.name,
+      }),
       links: canonicalUrl ? [{ rel: "canonical", href: canonicalUrl }] : [],
       scripts: product && canonicalUrl ? [{ type: "application/ld+json", children: JSON.stringify({
         "@context": "https://schema.org",
