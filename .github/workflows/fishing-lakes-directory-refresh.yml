@@ -166,6 +166,10 @@ jobs:
         run: exit 1
 
   coordinate-research:
+    # Official TWDB map monitoring runs on scheduled/manual checks, never on
+    # unrelated PRs. Transient TWDB network outages must not fail page-content
+    # pull requests; scheduled drift failures still raise review issues.
+    if: github.event_name != 'pull_request'
     # Reuse this established lake-source schedule; discovery never edits lake
     # catalog records or silently upgrades unreviewed TWDB map coordinates.
     runs-on: ubuntu-latest
