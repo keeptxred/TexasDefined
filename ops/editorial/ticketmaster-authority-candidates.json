@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-08T17:06:26.045Z",
+  "fetchedAt": "2026-11-09T21:28:20.791Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -24,30 +24,6 @@
         "https://www.ticketmaster.com/austin-championship-saturday-austin-texas-11-14-2026/event/3A00646BC06BCBA3",
         "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC",
         "https://www.ticketmaster.com/austin-championship-thursday-austin-texas-11-12-2026/event/3A00646BC061CB90"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Austin Food + Wine Festival",
-      "city": "Austin",
-      "dates": [
-        "2026-11-08"
-      ],
-      "venues": [
-        "Auditorium Shores"
-      ],
-      "ticketmasterIds": [
-        "Z7r9jZ1AAv6Gd"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Gd"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -247,6 +223,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/fwssr-college-rodeo-finals-fort-worth-texas-01-23-2027/event/0C006522BEAF95AB"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "FWSSR: PRORODEO Tournament - Championship Finals",
+      "city": "Fort Worth",
+      "dates": [
+        "2027-02-06"
+      ],
+      "venues": [
+        "Ariat Arena"
+      ],
+      "ticketmasterIds": [
+        "vvG1YZ_o3QLplw"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/fwssr-prorodeo-tournament-championship-finals-fort-worth-texas-02-06-2027/event/0C0065149A7D6AF2"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -650,18 +650,21 @@
       "name": "Spirit of Mexico Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-15"
+        "2026-11-15",
+        "2027-02-07"
       ],
       "venues": [
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
         "Z7r9jZ1A7OZ_A",
-        "Z7r9jZ1A7OZ_k"
+        "Z7r9jZ1A7OZ_k",
+        "Z7r9jZ1AA7-1e"
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OZ_A",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OZ_k"
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OZ_k",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-1e"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -706,7 +709,8 @@
         "2027-01-29",
         "2027-01-30",
         "2027-01-31",
-        "2027-02-05"
+        "2027-02-05",
+        "2027-02-06"
       ],
       "venues": [
         "Cowtown Coliseum"
@@ -738,6 +742,8 @@
         "Z7r9jZ1AA7-F9",
         "Z7r9jZ1AA7-FF",
         "Z7r9jZ1AA7-FK",
+        "Z7r9jZ1AA7-FO",
+        "Z7r9jZ1AA7-F_",
         "Z7r9jZ1AA7-Fa",
         "Z7r9jZ1AA7-Fb",
         "Z7r9jZ1AA7-Fo",
@@ -781,6 +787,8 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F9",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FK",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FO",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F_",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fa",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fb",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fo",
@@ -807,19 +815,19 @@
       "publicationAllowed": false
     },
     {
-      "name": "Texas Mariachi Festival",
-      "city": "Arlington",
+      "name": "What's It? Winter Fest",
+      "city": "Houston",
       "dates": [
-        "2026-11-08"
+        "2027-02-06"
       ],
       "venues": [
-        "Arlington Music Hall"
+        "The Bronze Peacock at House of Blues Houston"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A7J607"
+        "G5dIZ_4O9EKSM"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7J607"
+        "https://www.ticketmaster.com/whats-it-winter-fest-houston-texas-02-06-2027/event/3A006558179D3CF7"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
