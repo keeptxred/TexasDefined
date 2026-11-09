@@ -7,7 +7,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 const path = "/warriors-refuge-west-columbia";
 const pageUrl = absoluteUrl(texasDefinedBrand, path);
 const description = "How to contact The Warrior's Refuge in West Columbia, Texas, for veteran housing, counseling, employment support and limited emergency financial assistance.";
-const sourceChecked = "2026-11-08";
+const sourceChecked = "2026-11-09";
 
 const services = [
   {
@@ -113,7 +113,7 @@ function WarriorsRefugePage() {
         <p className="text-primary">Veteran services · Brazoria County, Texas</p>
         <h1 className="mt-3 font-display" style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", lineHeight: 1.12 }}>The Warrior's Refuge: how veterans can get help in West Columbia</h1>
         <p className="mt-5 max-w-3xl text-muted-foreground">A practical, independently written guide to the organization's housing, counseling, work support and financial-assistance programs—with direct contacts and important eligibility distinctions.</p>
-        <p className="mt-4 text-sm text-muted-foreground">Texas Defined editorial desk · Primary sources checked November 8, 2026 · Independent resource; not an official Warrior's Refuge page.</p>
+        <p className="mt-4 text-sm text-muted-foreground">Texas Defined editorial desk · Primary sources checked November 9, 2026 · Independent resource; not an official Warrior's Refuge page.</p>
       </header>
 
       <section aria-labelledby="get-help" style={{ marginTop: "2.5rem", padding: "1.5rem 0", borderBlock: "2px solid currentColor" }}>
@@ -201,7 +201,7 @@ function WarriorsRefugePage() {
 
           <section aria-labelledby="sources" className="border-t border-border">
             <h2 id="sources" className="font-display text-3xl">Sources and editorial method</h2>
-            <p className="mt-3 text-sm leading-7">This independent guide prioritizes first-party program descriptions and federal assistance information. Provider hours, staff, funding, placement and admission conditions can change. We checked the following public sources on November 8, 2026; this is not a firsthand inspection of care or a guarantee of eligibility or space.</p>
+            <p className="mt-3 text-sm leading-7">This independent guide prioritizes first-party program descriptions and federal assistance information. Provider hours, staff, funding, placement and admission conditions can change. We checked the following public sources on November 9, 2026; this is not a firsthand inspection of care or a guarantee of eligibility or space.</p>
             <ul className="mt-4 text-sm leading-7" style={{ listStyleType: "disc", paddingLeft: "1.4rem" }}>
               {sources.map(([label, href]) => <li key={href}><ExternalLink href={href}>{label}</ExternalLink></li>)}
             </ul>

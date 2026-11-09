@@ -14,7 +14,7 @@ const resourcesHead = read("src/routes/texas-resources.tsx");
 const living = read("src/routes/texas-living.tsx");
 
 for (const [name, text] of Object.entries({
-  "source-checked date": "2026-11-08",
+  "source-checked date": "2026-11-09",
   "correct street address": "212 N. 14th St",
   "public phone": "345-3800",
   "VA homeless hotline": "877-424-3838",
@@ -23,6 +23,10 @@ for (const [name, text] of Object.entries({
   "financial assistance funding caveat": "not guaranteed",
   "financial assistance source": "https://thewarriorsrefuge.us/twr-financial-assistance/",
   "primary provider": "https://thewarriorsrefuge.us/contacts/",
+  "verified direct intake email": "rickie@thewarriorsrefuge.us",
+  "family counseling off-campus distinction": "families who do not live on campus",
+  "employment eligibility": "at risk of homelessness",
+  "eligible-service no-cost statement": "free to eligible veterans and families",
   "official VA": "https://department.va.gov/homeless/nationalcallcenter/",
   "provider distinction": "different eligibility rules",
   "official intake email": "rickie@thewarriorsrefuge.us",
@@ -63,11 +67,11 @@ console.log("PASS Warrior's Refuge guide: source attribution, service distinctio
 // change a verified source date or claim that current eligibility is guaranteed.
 if (process.argv.includes("--remote")) {
   const refs = [
-    ["contacts", "https://thewarriorsrefuge.us/contacts/", /West Columbia/i],
+    ["contacts", "https://thewarriorsrefuge.us/contacts/", [/West Columbia/i, /rickie@thewarriorsrefuge\.us/i]],
     ["published intake contact", "https://thewarriorsrefuge.us/contacts/", /rickie@thewarriorsrefuge\.us/i],
     ["family counseling program", "https://thewarriorsrefuge.us/how-we-help/", /Texas Veterans Family Alliance Grant/i],
     ["employment eligibility", "https://thewarriorsrefuge.us/how-we-help/", /recently released from incarceration/i],
-    ["programs", "https://thewarriorsrefuge.us/how-we-help/", /Transitional Housing/i],
+    ["programs", "https://thewarriorsrefuge.us/how-we-help/", [/Transitional Housing/i, /Texas Veterans Family Alliance Grant/i, /Warrior Empowerment Project/i]],
     ["grant", "https://thewarriorsrefuge.us/twr-financial-assistance/", /Brazoria County/i],
     ["volunteer", "https://thewarriorsrefuge.us/getinvolved/", /VOLUNTEER/i],
     ["federal housing support", "https://department.va.gov/homeless/nationalcallcenter/", /877-424-3838/i],
@@ -78,7 +82,11 @@ if (process.argv.includes("--remote")) {
       const resp = await fetch(url, { headers: { "user-agent": "TexasDefined-source-verifier/1.0 (public service information)" }, signal: AbortSignal.timeout(15000) });
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const html = await resp.text();
-      if (!expected.test(html.replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " "))) throw new Error(`Expected source marker ${expected} not found`);
+      const plain = html.replace(/<[^>]*>/g, " ").replace(/&nbsp;/g, " ");
+      const markers = Array.isArray(expected) ? expected : [expected];
+      for (const marker of markers) {
+        if (!marker.test(plain)) throw new Error(`Expected source marker ${marker} not found`);
+      }
       console.log(`OK ${name}`);
     } catch (error) {
       problems.push(`${name} ${url}: ${error?.message ?? String(error)}`);
