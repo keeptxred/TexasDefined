@@ -1,7 +1,40 @@
 import fs from 'node:fs';
+import ts from 'typescript';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
 const errors = [];
+
+// Bing's November 9 report found 117 image elements without ALT attributes.
+// Cover every authored TSX <img>, not just the handpicked editorial components.
+// Empty alt="" is valid for decorative images; absent/undefined alt is not.
+function allTsxFiles(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const file = dir + '/' + entry.name;
+    if (entry.isDirectory()) return allTsxFiles(file);
+    return entry.isFile() && /\.tsx$/.test(entry.name) ? [file] : [];
+  });
+}
+let checkedImageTags = 0;
+for (const file of allTsxFiles('src')) {
+  const source = ts.createSourceFile(file, fs.readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  function visit(node) {
+    if ((ts.isJsxSelfClosingElement(node) || ts.isJsxOpeningElement(node))
+      && node.tagName.getText(source) === 'img') {
+      checkedImageTags += 1;
+      const attribute = node.attributes.properties.find((prop) =>
+        ts.isJsxAttribute(prop) && prop.name.text === 'alt');
+      if (!attribute) {
+        errors.push('Missing JSX image alt attribute: ' + file + ':' + (source.getLineAndCharacterOfPosition(node.pos).line + 1));
+      } else if (attribute.initializer && ts.isJsxExpression(attribute.initializer) &&
+        (!attribute.initializer.expression || /^(?:null|undefined)$/.test(attribute.initializer.expression.getText(source)))) {
+        errors.push('JSX image alt must not resolve to a literal missing value: ' + file);
+      }
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(source);
+}
+
 const types = read('src/data/types.ts');
 const articleCard = read('src/components/editorial/ArticleCard.tsx');
 const destinationCard = read('src/components/editorial/DestinationCard.tsx');
