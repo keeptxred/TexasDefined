@@ -34,6 +34,7 @@ jobs:
     timeout-minutes: 15
     env:
       PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}
+      INDEXNOW_STRICT: 'true'
       INDEXNOW_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full && 'true' || 'false' }}
       INDEXNOW_URLS: ${{ github.event_name == 'workflow_dispatch' && inputs.urls || '' }}
       INDEXNOW_FRESHNESS_HOURS: ${{ github.event_name == 'schedule' && '3' || '2' }}
