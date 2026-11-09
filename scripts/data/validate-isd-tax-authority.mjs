@@ -6,6 +6,7 @@ const route = readFileSync(new URL('../../src/routes/property-tax.taxing-unit.$u
 const historyFunction = readFileSync(new URL('../../src/data/property/texas-tax-rates.functions.ts', import.meta.url), 'utf8');
 const detail = readFileSync(new URL('../../src/components/property/TaxingUnitRatePage.tsx', import.meta.url), 'utf8');
 const component = readFileSync(new URL('../../src/components/property/IsdTaxAuthority.tsx', import.meta.url), 'utf8');
+const schoolExemptions = readFileSync(new URL('../../src/data/property/isd-exemptions.ts', import.meta.url), 'utf8');
 
 const tolerance = 0.000002;
 assert.equal(evidence.officialYear, 2026);
@@ -35,8 +36,10 @@ for (const [slug, records] of Object.entries(evidence.historicalComponents)) {
   }
 }
 assert.deepEqual(Object.keys(evidence.historicalComponents['tolar-isd']).sort(), ['2021', '2023'], 'Never backfill disputed Tolar 2022 components');
-assert.equal(Object.values(evidence.historicalComponents).reduce((total, item) => total + Object.keys(item).length, 0), 15, '15 year-specific components must be independently source-qualified');
-assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 2022).map((item) => item.slug)), new Set(['tolar-isd', 'granbury-isd', 'lipan-isd']));
+assert.equal(Object.values(evidence.historicalComponents).reduce((total, item) => total + Object.keys(item).length, 0), 16, '16 year-specific components must be independently source-qualified');
+assert.deepEqual(Object.keys(evidence.historicalComponents['granbury-isd']).sort(), ['2021', '2022', '2023']);
+assert.match(evidence.historicalComponents['granbury-isd']['2022'].sourceUrl, /^https:\/\/www\.granburyisd\.org\//, '2022 Granbury components must have independent district verification');
+assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 2022).map((item) => item.slug)), new Set(['tolar-isd', 'lipan-isd']));
 for (const { slug, year } of evidence.disputedData) {
   assert.ok(!evidence.historicalComponents[slug]?.[String(year)], `${slug}: ${year} cannot be treated as verified when the source conflicts`);
 }
@@ -53,4 +56,12 @@ assert.match(component, /\$140,000 general residence-homestead exemption/);
 assert.match(component, /additional \$60,000 school exemption/);
 assert.match(component, /not\s*<\/strong> a/);
 assert.match(component, /school-taxable value/);
-console.log(`Verified ${districts.length} locally adopted Hood CAD ISD rates, Tolar historical evidence, and shared school page guardrails.`);
+assert.match(component, /schoolHomesteadForTaxYear/);
+assert.match(component, /homesteadTaxableValue \* sample \/ 100/);
+assert.match(detail, /showLocallyAdoptedSchoolHistoryRow/);
+assert.match(detail, /Not a Comptroller workbook row/);
+for (const year of [2021, 2022, 2023, 2024, 2025, 2026]) {
+  assert.match(schoolExemptions, new RegExp(String(year) + ': \\{ general: [0-9]+'));
+}
+assert.match(schoolExemptions, /return HISTORICAL_SCHOOL_EXEMPTIONS\[year\] \?\? null/);
+console.log(`Verified ${districts.length} locally adopted Hood CAD ISD rates, Tolar/Granbury historical evidence, historical school exemptions, and shared school page guardrails.`);
