@@ -17,4 +17,4 @@ jobs:
         with:
           deno-version: v2.x
       - name: Inspect official state spreadsheet structure for exact school-district/year matching
-        run: deno run --allow-net scripts/data/inspect-tea-isd-source.mjs
+        run: deno run --node-modules-dir=auto --allow-net scripts/data/inspect-tea-isd-source.mjs
