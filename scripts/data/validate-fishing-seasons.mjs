@@ -74,7 +74,7 @@ for (const token of [
   "Available year-round",
   "fresh fishing reports",
   "current regulations",
-  "Last reviewed:",
+  "Lake-and-species source dataset last reviewed:",
   "No lake guides match these filters",
   "Prairies & Lakes",
 ]) requireText(component, token, `season UI contract missing ${token}`);
