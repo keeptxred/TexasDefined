@@ -36,12 +36,26 @@ const officialNameOverrides = {
   "e-v-spence-reservoir": "E V Spence Reservoir",
 };
 
-const response = await fetch(URL, {
-  headers: { "User-Agent": "TexasDefinedFishingMapSourceReview/1.0 (+https://texasdefined.com/fishing/plan)" },
-  signal: AbortSignal.timeout(25_000),
-});
-if (!response.ok) throw new Error("TWDB source returned HTTP " + response.status);
-const source = await response.json();
+async function loadTwdbSource() {
+  let lastError;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const response = await fetch(URL, {
+        headers: { "User-Agent": "TexasDefinedFishingMapSourceReview/1.0 (+https://texasdefined.com/fishing/plan)" },
+        signal: AbortSignal.timeout(20_000),
+      });
+      if (!response.ok) throw new Error("TWDB source returned HTTP " + response.status);
+      return await response.json();
+    } catch (error) {
+      lastError = error;
+      console.error("TWDB source attempt " + attempt + " unavailable: " + String(error?.message ?? error));
+      if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt * 1500));
+    }
+  }
+  // Source connectivity is unknown, not evidence that published coordinates changed.
+  throw new Error("TWDB source unavailable after 3 attempts; published locations retained. " + String(lastError?.message ?? lastError));
+}
+const source = await loadTwdbSource();
 if (!Array.isArray(source.features) || source.features.length < 90) {
   throw new Error("TWDB reservoir GeoJSON is missing substantial expected coverage");
 }

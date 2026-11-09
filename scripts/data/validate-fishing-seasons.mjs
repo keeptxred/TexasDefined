@@ -4,6 +4,10 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const required = [
   "src/data/fishing/season-routing.ts",
   "src/data/fishing/season-data.server.ts",
+  "src/data/fishing/monthly-editorial.ts",
+  "src/data/fishing/consumption-advisories.json",
+  "public/robots.txt",
+  ".github/workflows/fishing-lakes-directory-refresh.yml",
   "src/data/fishing/season-data.functions.ts",
   "src/routes/fishing.seasons.tsx",
   "src/components/fishing/FishingSeasonDirectory.tsx",
@@ -17,18 +21,22 @@ const required = [
 ];
 for (const path of required) if (!fs.existsSync(path)) throw new Error(`Fishing Batch 12 missing required file: ${path}`);
 
-const routing = read(required[0]);
-const server = read(required[1]);
-const functions = read(required[2]);
-const route = read(required[3]);
-const component = read(required[4]);
-const hubRoute = read(required[5]);
-const hubComponent = read(required[6]);
-const sitemap = read(required[7]);
-const search = read(required[8]);
-const links = read(required[9]);
-const publicRoutes = read(required[10]);
-const pkg = JSON.parse(read(required[11]));
+const monthlyEditorial = read("src/data/fishing/monthly-editorial.ts");
+const advisories = JSON.parse(read("src/data/fishing/consumption-advisories.json"));
+const robots = read("public/robots.txt");
+const refreshWorkflow = read(".github/workflows/fishing-lakes-directory-refresh.yml");
+const routing = read("src/data/fishing/season-routing.ts");
+const server = read("src/data/fishing/season-data.server.ts");
+const functions = read("src/data/fishing/season-data.functions.ts");
+const route = read("src/routes/fishing.seasons.tsx");
+const component = read("src/components/fishing/FishingSeasonDirectory.tsx");
+const hubRoute = read("src/routes/fishing.tsx");
+const hubComponent = read("src/components/fishing/FishingHub.tsx");
+const sitemap = read("src/data/fishing/sitemap.ts");
+const search = read("src/data/fishing/search.ts");
+const links = read("src/data/fishing/internal-links.ts");
+const publicRoutes = read("src/lib/public-routes.ts");
+const pkg = JSON.parse(read("package.json"));
 const requireText = (text, token, label) => { if (!text.includes(token)) throw new Error(`Fishing Batch 12 validation failed: ${label}`); };
 
 requireText(routing, 'FISHING_SEASONS_PATH = "/fishing/seasons"', "canonical seasons path missing");
@@ -66,10 +74,17 @@ for (const token of [
   "Available year-round",
   "fresh fishing reports",
   "current regulations",
-  "Last reviewed:",
+  "Lake-and-species source dataset last reviewed:",
   "No lake guides match these filters",
   "Prairies & Lakes",
 ]) requireText(component, token, `season UI contract missing ${token}`);
+for (const month of ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]) requireText(monthlyEditorial, 'slug: "' + month + '"', 'missing distinct monthly editorial note ' + month);
+for (const token of ["MONTHLY_FISHING_GUIDANCE.map", "activeMonthGuide.checklist", "representativeEntries.map", "SourceLinks sources={entry.relation.sources}", "<AdvisoryNotice lakeSlug={group.lake.slug} />", "Lake-and-species source dataset last reviewed:", "FISHING_SEASONS_PAGE_REVIEWED_AT"]) requireText(component, token, 'seasons authority evidence missing: ' + token);
+requireText(component, "consumptionAdvisories", "shared TPWD advisory registry must be used");
+requireText(advisories["alan-henry-reservoir"].summary, "mercury", "Alan Henry consumption hazard missing");
+requireText(routing, 'FISHING_SEASONS_PAGE_REVIEWED_AT = "2026-11-09"', "page and evidence dates must stay independent");
+requireText(robots, "Disallow: /fishing/seasons?", "filter URLs must not inflate crawler faceted URLs");
+requireText(refreshWorkflow, "node scripts/data/validate-fishing-seasons.mjs", "scheduled fishing source workflow must check season authority");
 requireText(component, "const hasFilters = Boolean", "unfiltered landing page must not render the full lake database by default");
 requireText(component, '!hasFilters ? <div', "planning-first empty state missing");
 requireText(route, "monthSlug(search.month)", "month filter validation missing");
