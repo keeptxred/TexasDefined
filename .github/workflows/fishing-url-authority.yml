@@ -3,6 +3,19 @@ on:
   workflow_run:
     workflows: ["Deploy TexasDefined production"]
     types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - "scripts/seo/verify-fishing-authority-live.mjs"
+      - "scripts/seo/fishing-canonical-policy.mjs"
+      - "scripts/seo/fishing-canonical-policy.test.mjs"
+      - ".github/workflows/fishing-url-authority.yml"
+  pull_request:
+    paths:
+      - "scripts/seo/verify-fishing-authority-live.mjs"
+      - "scripts/seo/fishing-canonical-policy.mjs"
+      - "scripts/seo/fishing-canonical-policy.test.mjs"
+      - ".github/workflows/fishing-url-authority.yml"
   schedule:
     - cron: "19 8 * * *"
   workflow_dispatch:
@@ -18,8 +31,19 @@ concurrency:
   group: fishing-authority-${{ github.event_name }}
   cancel-in-progress: true
 jobs:
+  canonical-policy:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test scripts/seo/fishing-canonical-policy.test.mjs
+
   audit:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -36,12 +60,15 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" != "workflow_run" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
-          elif git diff-tree --no-commit-id --name-only -r HEAD | grep -Eq '^(src/data/fishing/|src/components/fishing/|src/routes/fishing[.]|scripts/seo/fishing-|docs/fishing/)'; then
+          elif git diff-tree --no-commit-id --name-only -r HEAD | grep -Eq '^(src/data/fishing/|src/components/fishing/|src/routes/fishing[.]|scripts/seo/fishing-|scripts/seo/verify-fishing-authority-live[.]mjs|docs/fishing/)'; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
             echo "Unrelated production release: fishing URL scan skipped" >> "$GITHUB_STEP_SUMMARY"
           fi
+      - name: Regress canonical policy before a live URL scan
+        if: ${{ steps.scope.outputs.run == 'true' }}
+        run: node --test scripts/seo/fishing-canonical-policy.test.mjs
       - name: Generate full canonical fishing URL registry
         if: ${{ steps.scope.outputs.run == 'true' }}
         run: |
