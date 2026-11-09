@@ -337,6 +337,26 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+      # A newer main can merge while the expensive Vite build runs. Do not
+      # spend minutes doing SSR, historical Worker fetch, retention and old
+      # original-byte probes for an obsolete SHA. The final pre-Wrangler
+      # revision refusal remains mandatory; this is an additional early gate.
+      - name: Refuse superseded source immediately after build
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
+          if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo '::error title=Cannot verify latest main::Fail closed before historical asset work.'
+            exit 1
+          fi
+          if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo "::error title=Superseded Worker source::Current build is ${GITHUB_SHA}, latest main is ${latest_main}; refusing costly stale postbuild verification."
+            exit 1
+          fi
+          echo "Latest main confirmed after build: ${latest_main}"
+
       - name: Publish bundle budget pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget pending "Checking client bundle size budget"
