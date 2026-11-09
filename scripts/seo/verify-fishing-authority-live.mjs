@@ -6,6 +6,7 @@
  */
 import fs from "node:fs";
 import { getFishingAuthorityInventory } from "./fishing-authority-inventory.mjs";
+import { assessFishingCanonical } from "./fishing-canonical-policy.mjs";
 
 const inventory = getFishingAuthorityInventory();
 const base = (process.env.FISHING_AUDIT_ORIGIN || inventory.origin).replace(/\/$/, "");
@@ -73,7 +74,9 @@ function auditHtml(row, fetched) {
   if (!title) critical.push("missing_title");
   if (!h1) critical.push("missing_H1_in_server_HTML");
   if (!description) critical.push("missing_meta_description");
-  if (canon !== base + row.path) critical.push("self_canonical_mismatch");
+  const canonicalPolicy = assessFishingCanonical({ canonical: canon, expectedUrl: base + row.path, noindex });
+  critical.push(...canonicalPolicy.critical);
+  warnings.push(...canonicalPolicy.warnings);
   if (expectedIndex && noindex && row.family !== "lake-section") critical.push("unexpected_noindex");
   if (row.family.startsWith("lake-") && !/tpwd\.texas\.gov/.test(html)) critical.push("missing_TPWD_citation");
   if (row.family.startsWith("lake-") && !html.includes("Connected Texas fishing and travel guides")) critical.push("missing_semantic_lake_crosslinks");
