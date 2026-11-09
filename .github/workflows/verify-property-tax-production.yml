@@ -12,6 +12,10 @@ on:
       - 'scripts/ci/tax-history-row-contract.mjs'
       - 'scripts/data/validate-isd-tax-authority.mjs'
       - 'scripts/ci/verify-isd-tax-production.mjs'
+      - 'src/components/property/IsdTaxAuthority.tsx'
+      - 'src/components/property/TaxingUnitRatePage.tsx'
+      - 'src/data/property/isd-exemptions.ts'
+      - 'src/data/property/hood-cad-isd-adopted.json'
   # Run tax-only live verification after successful and failed main-branch
   # deployments: the general deploy gate may skip local-financial smoke,
   # and an unrelated editorial/event failure can obscure a healthy Worker.
