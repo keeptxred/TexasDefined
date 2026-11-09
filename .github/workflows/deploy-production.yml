@@ -465,12 +465,15 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p .artifacts/prior-asset-extraction
-          # A completed successful deploy may precede the unrelated GSC job.
-          # Require the DEPLOY job success plus exact active Worker bytes,
-          # not overall workflow success; never accept an unshipped build.
+          # A real Worker publish can be followed by a failed independent browser check.
+          # Accept its old client assets only when BOTH guards pass: exact active
+          # Worker version / source SHA / dual-origin hashes, and a GitHub job
+          # proving deploy + runtime + asset delivery succeeded with only the
+          # documented non-asset responsive screenshot failure. Never accept
+          # a failed publish, failed health check, or unshipped build.
           previous_runs="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=100" --jq '.workflow_runs[] | [.id, .head_sha] | @tsv')"
           if [[ -z "$previous_runs" ]]; then
-            echo "::error title=No successful predecessor::Refusing Worker replacement without a verified previous asset handoff."
+            echo "::error title=No eligible predecessor::Refusing Worker replacement without a verified published asset handoff."
             exit 1
           fi
           restored=0
@@ -485,19 +488,19 @@ jobs:
             if node scripts/ci/verify-prior-asset-handoff.mjs \
               "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
               "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"; then
-              deploy_conclusion="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100" --jq '.jobs[] | select(.name=="deploy") | .conclusion' | head -n 1)"
-              if [[ "$deploy_conclusion" != "success" ]]; then
-                echo "Reject candidate $prior_run: deploy job did not complete successfully."
+              jobs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100")"
+              if ! printf '%s\n' "$jobs_json" | node scripts/ci/verify-prior-deploy-job-eligibility.mjs; then
+                echo "Reject candidate $prior_run: published Worker provenance or postdeploy failure evidence is unsafe."
                 continue
               fi
               cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
-              echo "Restored SHA-backed handoff from successful run $prior_run matching active Worker $EXPECTED_ACTIVE_WORKER_VERSION."
+              echo "Restored exact-active-Worker SHA-backed handoff from run $prior_run matching $EXPECTED_ACTIVE_WORKER_VERSION."
               restored=1
               break
             fi
           done <<< "$previous_runs"
           if [[ "$restored" != 1 ]]; then
-            echo "::error title=Wrong prior asset handoff::No successful release matches the current 100%-traffic Worker $EXPECTED_ACTIVE_WORKER_VERSION. Fail before replacement."
+            echo "::error title=Wrong prior asset handoff::No source-verified published asset handoff matches the current 100%-traffic Worker $EXPECTED_ACTIVE_WORKER_VERSION. Fail before replacement."
             exit 1
           fi
 
