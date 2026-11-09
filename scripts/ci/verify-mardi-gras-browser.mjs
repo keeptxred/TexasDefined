@@ -97,7 +97,11 @@ try {
         const url = ORIGIN + path + "?mardi_gras_qa=" + encodeURIComponent(report.targetSha.slice(0, 12) || "current");
         const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60_000 });
         result.httpStatus = response?.status() ?? null;
+        result.workerVersion = response?.headers()["x-texasdefined-worker-version"] || null;
         check("HTTP 200", result.httpStatus === 200, result.httpStatus);
+        if (process.env.TARGET_WORKER_VERSION) {
+          check("signed published Worker version", result.workerVersion === process.env.TARGET_WORKER_VERSION, result.workerVersion || "missing");
+        }
         await page.locator("h1").first().waitFor({ state: "visible", timeout: 25_000 });
         await page.evaluate(() => document.fonts?.ready);
         if (guide?.licensed) {
