@@ -187,7 +187,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
                 <p className="eyebrow text-primary">{displayRegion(entry.lake.region)}</p>
                 <h4 className="mt-2 font-display text-2xl">{entry.lake.name}</h4>
                 <p className="mt-2 text-sm leading-7"><strong>{entry.species.commonName}:</strong> <span className="text-muted-foreground">{entry.relation.seasonalPatterns[0]?.summary}</span></p>
-                <p className="mt-2 text-xs text-muted-foreground">Seasonal relationship verified {formatDate(entry.relation.verifiedAt ?? data.verifiedAt)}</p>
+                <p className="mt-2 text-xs text-muted-foreground">Seasonal relationship verified {formatDate(entry.relation.verifiedAt!)}</p>
                 <SourceLinks sources={entry.relation.sources} />
                 <AdvisoryNotice lakeSlug={entry.lake.slug} />
                 <a href={entry.href} className="mt-3 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Explore the lake guide →</a>
@@ -224,7 +224,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
               return <section key={entry.id} className="py-5 first:pt-0">
                 <div className="flex flex-wrap items-baseline justify-between gap-3"><h4 className="font-display text-2xl">{entry.species.commonName}</h4>{yearRound ? <span className="text-[0.68rem] uppercase tracking-wider text-muted-foreground">Available year-round</span> : null}</div>
                 <div className="mt-3 space-y-3">{patterns.map((pattern, index) => <div key={`${pattern.season}-${index}`}><p className="text-sm leading-7"><strong>{pattern.season === "year-round" ? "Year-round context" : `${titleCase(pattern.season)} pattern`}:</strong> <span className="text-muted-foreground">{pattern.summary}</span></p>{pattern.habitats?.length ? <p className="mt-1 text-xs text-muted-foreground"><strong className="text-foreground">Where:</strong> {pattern.habitats.join(", ")}</p> : null}{pattern.depthGuidance ? <p className="mt-1 text-xs text-muted-foreground"><strong className="text-foreground">Depth:</strong> {pattern.depthGuidance}</p> : null}</div>)}</div>
-                <p className="mt-2 text-xs text-muted-foreground">Lake–species relationship verified: {formatDate(entry.relation.verifiedAt ?? data.verifiedAt)}</p>
+                <p className="mt-2 text-xs text-muted-foreground">Lake–species evidence review: {entry.relation.verifiedAt ? formatDate(entry.relation.verifiedAt) : "Date not recorded in this relationship; check the linked source"}</p>
                 <SourceLinks sources={entry.relation.sources} />
                 {techniques.length ? <div className="mt-4"><p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Techniques connected to this fish and lake</p><div className="mt-2 flex flex-wrap gap-2">{techniques.map((row) => <span key={row.profile.id} className="border border-border px-2.5 py-1 text-xs" title={row.profile.summary}>{row.technique?.name}</span>)}</div></div> : null}
               </section>;
@@ -271,7 +271,7 @@ function buildHref(filters: { month?: string; season?: string; species?: string;
 function formatDate(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(date); }
 function SourceLinks({ sources }: { sources: Array<{ id: string; name: string; url: string; checkedAt: string }> }) {
   const links = sources.filter((source) => /^https:\/\//.test(source.url)).slice(0, 2);
-  return links.length ? <p className="mt-2 text-xs leading-6 text-muted-foreground">Primary evidence: {links.map((source, index) => <span key={source.id}>{index ? " · " : ""}<a className="border-b border-primary text-primary" href={source.url} rel="noopener noreferrer">{source.name}</a> <span>(source checked {formatDate(source.checkedAt)})</span></span>)}</p>
+  return links.length ? <p className="mt-2 text-xs leading-6 text-muted-foreground">Recorded sources: {links.map((source, index) => <span key={source.id}>{index ? " · " : ""}<a className="border-b border-primary text-primary" href={source.url} rel="noopener noreferrer">{source.name}</a> <span>(source checked {formatDate(source.checkedAt)})</span></span>)}</p>
     : <p className="mt-2 text-xs text-muted-foreground">Review the linked lake guide's source notes before relying on this pattern.</p>;
 }
 function AdvisoryNotice({ lakeSlug }: { lakeSlug: string }) {
