@@ -32,7 +32,7 @@ for (const [slug, records] of Object.entries(evidence.historicalComponents)) {
   for (const [year, item] of Object.entries(records)) {
     assert.match(year, /^20\d{2}$/);
     assert.ok(Math.abs(item.maintenanceOperationsRate + item.debtServiceRate - item.totalRate) < tolerance);
-    assert.ok(item.sourceUrl.startsWith('https://hoodcad.net/'));
+    assert.ok(item.sourceUrl.startsWith('https://hoodcad.net/') || (slug === 'granbury-isd' && year === '2022' && item.sourceUrl.startsWith('https://www.granburyisd.org/')), 'Each historical rate must cite its verified district or Hood CAD source');
   }
 }
 assert.deepEqual(Object.keys(evidence.historicalComponents['tolar-isd']).sort(), ['2021', '2023'], 'Never backfill disputed Tolar 2022 components');
