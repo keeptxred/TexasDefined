@@ -29,9 +29,9 @@ const EARLY: FootballProgramEditorial = {
     verifiedAt: '2026-11-08'
   },
   overview: [
-    'Early High School identifies its campus at 115 Sudderth Drive in Early, Brown County. That is a useful school contact location, but it should not be substituted for a game-specific stadium gate or visitor parking entrance.',
+    'Early High School identifies its campus at 115 Sudderth Drive in Early, Brown County. The district office is separately listed at 101 Turtlecreek, Early, TX 76802; neither address establishes a game-specific stadium gate or visitor parking entrance.',
     'UIL’s 2026–28 Conference 3A Division I football alignment lists Early in District 3 alongside Ingram Moore, Llano, San Angelo Texas Leadership and Wall. This is an alignment, not a claim that any particular fixture has been played.',
-    'Early ISD operates an athletics page linking to its football schedule and ticketing information. Check the date, host, kickoff and venue there before making plans; an opponent’s campus is not necessarily the event venue.',
+    'Early ISD operates an athletics page linking separately to its football schedule, event ticketing and NFHS Network subscription streaming. Streaming subscriptions are not a promise that a specific away game will be broadcast, and a ticketing link is not a standing price or admission policy. Check the date, host, kickoff and venue there before making plans; an opponent’s campus is not necessarily the event venue.',
     'Early ISD’s athletics contact lists Marvin Wilson as athletic director. That administrative role is not evidence of a current head-football-coach appointment.',
     'This guide does not infer 2026 wins, losses, standings, admission prices, parking or accessibility policies, or image rights from incomplete sources.'
   ],
