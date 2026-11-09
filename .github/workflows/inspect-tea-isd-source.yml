@@ -1,0 +1,20 @@
+name: Inspect official TEA adopted school tax components
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/inspect-tea-isd-source.yml'
+      - 'scripts/data/inspect-tea-isd-source.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Inspect official state spreadsheet structure for exact school-district/year matching
+        run: deno run --allow-net scripts/data/inspect-tea-isd-source.mjs
