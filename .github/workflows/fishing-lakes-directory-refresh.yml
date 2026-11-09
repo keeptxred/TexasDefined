@@ -12,6 +12,12 @@ on:
   pull_request:
     paths:
       - 'src/components/fishing/FishingLakesDirectory.tsx'
+      - 'src/components/fishing/FishingSeasonDirectory.tsx'
+      - 'src/routes/fishing.seasons.tsx'
+      - 'src/data/fishing/monthly-editorial.ts'
+      - 'src/data/fishing/season-routing.ts'
+      - 'src/data/fishing/season-data.server.ts'
+      - 'scripts/data/validate-fishing-seasons.mjs'
       - 'src/components/fishing/FishingResultsMap.tsx'
       - 'src/lazy/fishing-plan.tsx'
       - 'src/data/fishing/consumption-advisories.json'
@@ -66,6 +72,7 @@ jobs:
       - name: Validate lake directory, source registry and scheduled workflow
         run: |
           node scripts/data/validate-fishing-lakes-directory.mjs
+          node scripts/data/validate-fishing-seasons.mjs
           node --check scripts/ci/verify-fishing-lakes-fresh-production.mjs
           node --test scripts/ci/verify-fishing-lakes-fresh-production.test.mjs
           node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
