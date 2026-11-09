@@ -18,6 +18,11 @@ assert.match(shop, /\/shop\/product\/\$\{encodeURIComponent\(product\.id\)\}/);
 assert.match(shop, /status:\s*503/); // Never silently erase product inventory on outage.
 assert.match(product, /rel:\s*"canonical"/);
 assert.match(product, /fetchAssignedShopProducts\(\{ id: params\.productId \}\)/);
+// Product names can contain dozens of POD keywords, so bypassing the shared
+// title governor creates a live Bing long-title regression.
+assert.match(product, /buildMeta\(texasDefinedBrand,/);
+assert.match(product, /shopProductSearchName\(product\.name\)/);
+assert.doesNotMatch(product, /\$\{product\.name\}\s*\|\s*Texas Defined Shop/);
 assert.match(index, /<loc>https:\/\/texasdefined\.com\/sitemap-shop\.xml<\/loc>/);
 assert.match(robots, /Sitemap: https:\/\/texasdefined\.com\/sitemap-shop\.xml/);
 assert.match(catalog, /url\.searchParams\.set\("limit", String\(pageSize\)\)/);
