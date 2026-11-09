@@ -825,7 +825,15 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
       .replace(/(?:\s+(?:and|or|of|for|to|with|in|at|the)|\s+&)$/i, "")
       .trim()
     : pageTitle; // A short complete title like "Worth Pulling Over For" is preserved.
-  const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", budgetedPageTitle));
+  // Prefer a complete, concise subject over a redundant publisher suffix.
+  // A title such as "District 6-6A Football: 2026 Teams, Schedule & Tickets"
+  // fits Bing's length guidance on its own, but loses "Tickets" if we reserve
+  // space for "| Texas Defined". Preserve the complete subject in that case.
+  const preserveCompleteTitle = brand.identity.id === "texasdefined"
+    && pageTitle.length > maxPageTitleLength && pageTitle.length <= 68;
+  const fullTitle = preserveCompleteTitle
+    ? pageTitle
+    : cleanMetaText(brand.seo.titleTemplate.replace("%s", budgetedPageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
   const discoverImage = brand.identity.id === "texasdefined"
