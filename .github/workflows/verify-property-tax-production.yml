@@ -16,6 +16,9 @@ on:
       - 'src/components/property/TaxingUnitRatePage.tsx'
       - 'src/data/property/isd-exemptions.ts'
       - 'src/data/property/hood-cad-isd-adopted.json'
+      - 'src/data/property/tea-isd-historical-verified.json'
+      - 'src/data/property/tea-isd-components.server.ts'
+      - 'scripts/ci/verify-tea-isd-production.mjs'
   # Run tax-only live verification after successful and failed main-branch
   # deployments: the general deploy gate may skip local-financial smoke,
   # and an unrelated editorial/event failure can obscure a healthy Worker.
@@ -56,6 +59,9 @@ jobs:
 
       - name: Verify locally adopted ISD rates on both public origins
         run: node scripts/ci/verify-isd-tax-production.mjs
+
+      - name: Verify independently sourced TEA history rows on both public origins
+        run: node scripts/ci/verify-tea-isd-production.mjs
 
       - name: Verify verified local-rate histories and Woodlands on both origins
         env:
