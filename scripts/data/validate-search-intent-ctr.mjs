@@ -35,6 +35,12 @@ const texasWaterResource = fs.readFileSync('src/components/content/TexasWaterSea
 const texasRiverBasinReference = fs.readFileSync('src/components/content/TexasRiverBasinReference.tsx', 'utf8');
 const failures = [];
 
+const sharedSeo = fs.readFileSync('src/lib/seo.ts', 'utf8');
+if (!sharedSeo.includes('Math.max(24, 68 - titleTemplateOverhead)')) {
+  failures.push('Bing title-length remediation must preserve the shared 68-character publisher-aware search title budget.');
+}
+
+
 /**
  * Shared buildMeta() appends the publisher title template itself.
  * Examine every route's TypeScript AST, rather than pinning another list of
