@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 
 const evidence = JSON.parse(readFileSync(new URL('../../src/data/property/hood-cad-isd-adopted.json', import.meta.url), 'utf8'));
+const tea = JSON.parse(readFileSync(new URL('../../src/data/property/tea-isd-historical-verified.json', import.meta.url), 'utf8'));
+const teaHelper = readFileSync(new URL('../../src/data/property/tea-isd-components.server.ts', import.meta.url), 'utf8');
 const route = readFileSync(new URL('../../src/routes/property-tax.taxing-unit.$unit.tsx', import.meta.url), 'utf8');
 const historyFunction = readFileSync(new URL('../../src/data/property/texas-tax-rates.functions.ts', import.meta.url), 'utf8');
 const detail = readFileSync(new URL('../../src/components/property/TaxingUnitRatePage.tsx', import.meta.url), 'utf8');
@@ -43,6 +45,29 @@ assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 20
 for (const { slug, year } of evidence.disputedData) {
   assert.ok(!evidence.historicalComponents[slug]?.[String(year)], `${slug}: ${year} cannot be treated as verified when the source conflicts`);
 }
+assert.equal(tea.sourceAgency, 'Texas Education Agency');
+assert.match(tea.sourceUrl, /^https:\/\/tea\.texas\.gov\//);
+assert.match(tea.sourceSha256, /^[0-9a-f]{64}$/);
+const teaMatches = Object.values(tea.districts).flatMap((years) => Object.values(years));
+assert.equal(teaMatches.length, 2494, 'The verified TEA snapshot must not silently lose source-matched observations');
+assert.equal(Object.keys(tea.districts).length, 940);
+assert.equal(teaMatches.filter((item) => item.year === 2021).length, 850);
+assert.equal(teaMatches.filter((item) => item.year === 2022).length, 804);
+assert.equal(teaMatches.filter((item) => item.year === 2023).length, 840);
+for (const [slug, years] of Object.entries(tea.districts)) {
+  assert.match(slug, /^[a-z0-9-]+$/);
+  for (const [year, item] of Object.entries(years)) {
+    assert.equal(item.year, Number(year));
+    assert.match(item.officialDistrictId, /^\d{6}$/);
+    assert.ok(item.name && item.name.toUpperCase().includes('ISD'), 'Source must name the school district');
+    assert.equal(item.sourceUrl, tea.sourceUrl);
+    assert.ok(Math.abs(item.maintenanceOperationsRate + item.debtServiceRate - item.totalRate) < 0.000002,
+      slug + '/' + year + ': TEA components must reconcile exactly with the existing published total');
+  }
+}
+assert.match(teaHelper, /officialTaxingUnitIds/);
+assert.match(teaHelper, /Math\.abs\(item\.totalRate - statewideTotal\)/);
+assert.match(historyFunction, /getVerifiedTeaIsdHistoricalComponents/);
 assert.match(route, /TaxingUnitRatePage = lazy/);
 assert.match(detail, /latest\.type === 'school-district' \? <Suspense/);
 assert.match(historyFunction, /getVerifiedIsdHistoricalComponents/);
@@ -64,4 +89,4 @@ for (const year of [2021, 2022, 2023, 2024, 2025, 2026]) {
   assert.match(schoolExemptions, new RegExp(String(year) + ': \\{ general: [0-9]+'));
 }
 assert.match(schoolExemptions, /return HISTORICAL_SCHOOL_EXEMPTIONS\[year\] \?\? null/);
-console.log(`Verified ${districts.length} locally adopted Hood CAD ISD rates, Tolar/Granbury historical evidence, historical school exemptions, and shared school page guardrails.`);
+console.log(`Verified ${districts.length} locally adopted Hood CAD ISD rates, Tolar/Granbury historical evidence, historical school exemptions, and shared school page guardrails and ${teaMatches.length} source-qualified TEA historical components.`);
