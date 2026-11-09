@@ -873,6 +873,22 @@ export const guides: Guide[] = [
 
 export const events: TexasEvent[] = [
   {
+    id: "e-arlington-veterans-parade",
+    brandId: BRAND,
+    slug: "texas-veterans-day-parade-arlington",
+    name: "Texas Veterans Day Parade",
+    blurb: "Free third annual parade Wednesday, November 11, 2026, at 5:30 p.m. in Arlington's Entertainment District, with military units, a flyover, veterans resources, and an evening drone show. Bring a new, unwrapped toy if you wish to donate to Toys for Tots.",
+    city: "Arlington",
+    region: "prairies-lakes",
+    startDate: "2026-11-11",
+    endDate: "2026-11-11",
+    category: "culture",
+    venue: "Arlington Entertainment District",
+    officialUrl: "https://www.arlingtontx.gov/News-Articles/2026/October/Texas-Veterans-Day-Parade-Set-for-Nov.-11-2026-in-Arlington",
+    sourceName: "City of Arlington — Official Parade Announcement",
+    sourceCheckedAt: "2026-11-09",
+  },
+  {
     id: "e-1",
     brandId: BRAND,
     slug: "bluebonnet-trail-ennis",
