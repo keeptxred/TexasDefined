@@ -60,7 +60,7 @@ for (const [slug, years] of Object.entries(tea.districts)) {
   for (const [year, item] of Object.entries(years)) {
     assert.equal(item.year, Number(year));
     assert.match(item.officialDistrictId, /^\d{6}$/);
-    assert.ok(item.name && /\b(?:ISD|CSD|MSD)\b/i.test(item.name), 'Source must name the school district');
+    assert.ok(item.name && /\b(?:ISD|CISD|CSD|MSD)\b/i.test(item.name), 'Source must name the school district');
     assert.equal(item.sourceUrl, tea.sourceUrl);
     assert.ok(Math.abs(item.maintenanceOperationsRate + item.debtServiceRate - item.totalRate) < 0.000002,
       slug + '/' + year + ': TEA components must reconcile exactly with the existing published total');
