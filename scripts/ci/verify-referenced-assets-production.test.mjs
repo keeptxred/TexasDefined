@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { verifyPriorAssetHandoff } from './verify-prior-asset-handoff.mjs';
+import { qualifyPriorDeployJob } from './verify-prior-deploy-job-eligibility.mjs';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { MAX_ASSET_AUDIT_CONCURRENCY, ASSET_REQUEST_START_GAP_MS, createAssetRequestPacer, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
@@ -26,15 +27,48 @@ test('only a successful active Worker predecessor with both-origin original SHA 
     {expectedWorkerVersion:version,expectedSourceSha:sha}),/source SHA/);
 });
 
-test('GitHub production restores success-only artifacts for exact active Worker, never failed runs', () => {
+test('GitHub production restores only current active Worker dual-origin SHA-verified artifacts with explicit deploy evidence', () => {
   const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
   assert.match(wf,/runs\?per_page=100/);
   assert.match(wf,/actions\/runs\/\$prior_run\/jobs\?per_page=100/);
-  assert.match(wf,/deploy_conclusion.*success/);
+  assert.match(wf,/verify-prior-deploy-job-eligibility\.mjs/);
   assert.match(wf,/steps\.rollback_target\.outputs\.version_id/);
   assert.match(wf,/verify-prior-asset-handoff\.mjs/);
   assert.match(wf,/Wrong prior asset handoff/);
   assert.doesNotMatch(wf,/runs\?per_page=8/);
+  assert.doesNotMatch(wf,/if \[\[ "\$deploy_conclusion" != "success" \]\]/);
+});
+
+test('only one known post-deploy browser failure can qualify an otherwise fully verified active Worker for asset reuse', () => {
+  const mandatory=[
+    'Deploy TexasDefined Worker',
+    'Capture deployed Worker version',
+    'Verify direct Worker health',
+    'Verify canonical production health',
+    'Verify current and previous release JS/CSS on both public origins',
+  ];
+  const make = (conclusion, failing=[]) => ({
+    jobs:[{
+      name:'deploy', conclusion,
+      steps:[
+        ...mandatory.map(name=>({name,conclusion:'success'})),
+        ...failing.map(name=>({name,conclusion:'failure'})),
+      ],
+    }],
+  });
+  assert.equal(qualifyPriorDeployJob(make('success')).mode,'successful-deploy-job');
+  const visualFailure='Verify MSR Houston responsive visitor page and licensed photo';
+  assert.equal(qualifyPriorDeployJob(make('failure',[visualFailure])).mode,
+    'postdeploy-visual-check-failed-only');
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',['Deploy TexasDefined Worker'])),/unapproved|Required published/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify canonical production health'])),/unapproved|Required published/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',[visualFailure,'Verify current and previous release JS/CSS on both public origins'])),/unapproved|Required published/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify MSR Houston desktop metadata'])),/unapproved/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',[])),/unapproved|missing failure evidence/);
+  const withoutHealth=make('success');
+  withoutHealth.jobs[0].steps=withoutHealth.jobs[0].steps.filter(x=>x.name!=='Verify direct Worker health');
+  assert.throws(()=>qualifyPriorDeployJob(withoutHealth),/Required published-Worker safety gate/);
+  assert.throws(()=>qualifyPriorDeployJob({jobs:[]}),/exactly one deploy/);
 });
 
 test('three observed Bingbot 404 module families enter source-matched built handoff only when Vite emits them', () => {
