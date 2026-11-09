@@ -76,6 +76,16 @@ export const VERIFIED_NOV8_ORIGINALS = Object.freeze([
     bytes:8163,firstSeenAt:'2026-11-07T19:09:28.213Z' },
   { name:'CitationTrustPanel-BY5hUAGO.js',sha256:'5ad0cdb3e98b13854f86e5688c863fde6e0dafdf69e7ff6444748743f517c631',
     bytes:2334,firstSeenAt:'2026-11-07T19:09:28.213Z' },
+  // Nov 9 real mobile 404 originals with dual-origin SHA-verified 05:03Z
+  // archival proof in protected run #42448585724, artifact #13604619152.
+  // Their earliest archived firstSeenAt is 2026-11-08T04:56:04.752Z;
+  // never reset the original 72-hour clock.
+  { name:'CitationTrustPanel-WgY30je2.js',
+    sha256:'383815e9c182b33d7122a9cedc3b24dc7a6199ea97e2c826e9db00cac45bdde7',
+    bytes:2334,firstSeenAt:'2026-11-08T04:56:04.752Z' },
+  { name:'analytics-BlwY3Vv7.js',
+    sha256:'c87245ed44acce24ba3f8062b60f09e555669fa3b854fa38533eaa558c6fe1dc',
+    bytes:8163,firstSeenAt:'2026-11-08T04:56:04.752Z' },
 ]);
 
 export function verifiedSourceUrl(version, name) {
@@ -104,14 +114,14 @@ export async function recoverVerifiedNov8Originals({
   snapshotPath = SNAPSHOT, reportPath = REPORT, assetFolder = ASSETS,
   fetchImpl = fetch, sourceVersion = SOURCE_VERSION,
 } = {}) {
-  if (!UUID.test(sourceVersion) || records.length > 23 || records.reduce((n, r) => n + r.bytes, 0) > MAX_TOTAL)
+  if (!UUID.test(sourceVersion) || records.length > 25 || records.reduce((n, r) => n + r.bytes, 0) > MAX_TOTAL)
     throw new Error('Original-byte recovery limit exceeded');
   const saved = JSON.parse(await readFile(snapshotPath, 'utf8'));
   const current = saved.snapshots?.at(-1);
   if (!current || !Array.isArray(current.pages) || !Array.isArray(current.builtAssets))
     throw new Error('Predeploy asset-handoff snapshot required');
   const report = {format: 1, checkedAt: new Date(now).toISOString(), sourceVersion, sourceRelease: SOURCE_RELEASE,
-    maxAgeHours: 72, maxFiles: 23, maxBytes: MAX_TOTAL,
+    maxAgeHours: 72, maxFiles: 25, maxBytes: MAX_TOTAL,
     recovered: [], alreadyInBuild: [], unresolved: [], expired: []};
   await mkdir(assetFolder, {recursive:true});
   for (const record of records) {
