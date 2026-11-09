@@ -584,19 +584,23 @@ jobs:
       # release. GitHub concurrency serializes jobs but does not guarantee
       # that a manual rerun is newer than the currently published commit.
       - name: Refuse superseded Worker revision
+        id: current_main_guard
         if: success()
         shell: bash
         run: |
           set -euo pipefail
           latest_main="$(git ls-remote --exit-code origin refs/heads/main | awk '{print $1}')"
           if [[ ! "$latest_main" =~ ^[0-9a-f]{40}$ ]]; then
+            echo 'guard_state=invalid-main' >> "$GITHUB_OUTPUT"
             echo '::error title=Cannot determine current main::Refusing Worker replacement without a verified main SHA.'
             exit 1
           fi
           if [[ "$latest_main" != "$GITHUB_SHA" ]]; then
+            echo 'guard_state=superseded' >> "$GITHUB_OUTPUT"
             echo "::error title=Superseded Worker release::This run is ${GITHUB_SHA}; latest main is ${latest_main}. Refusing to replace the current Worker with an older revision."
             exit 1
           fi
+          echo 'guard_state=current' >> "$GITHUB_OUTPUT"
           echo "Current main SHA verified: ${latest_main}. Worker replacement may proceed."
 
       - name: Publish Cloudflare deploy pending
@@ -1482,6 +1486,7 @@ jobs:
           RUNTIME_SMOKE_OUTCOME: ${{ steps.runtime_smoke.outcome }}
           PREDEPLOY_HEALTH_OUTCOME: ${{ steps.predeploy_health.outcome }}
           CLOUDFLARE_GIT_BUILD_OUTCOME: ${{ steps.cloudflare_git_build.outcome }}
+          MAIN_GUARD_RESULT: ${{ steps.current_main_guard.outputs.guard_state }}
           CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
           LIVE_OUTCOME: ${{ steps.live.outcome }}
           INDEXNOW_OUTCOME: ${{ steps.indexnow.outcome }}
@@ -1499,6 +1504,7 @@ jobs:
             echo "| Built Worker SSR smoke | RUNTIME / SSR | ${RUNTIME_SMOKE_OUTCOME:-not-run} |"
             echo "| Current production health | PREDEPLOY / RECOVERY | ${PREDEPLOY_HEALTH_OUTCOME:-not-run} |"
             echo "| Cloudflare Git-build serialization | DEPLOYMENT / CONCURRENCY | ${CLOUDFLARE_GIT_BUILD_OUTCOME:-not-run} |"
+            echo "| Current-main Worker guard | DEPLOYMENT / SUPERSEDED | ${MAIN_GUARD_RESULT:-not-run} |"
             echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
             echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
             echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
@@ -1519,6 +1525,10 @@ jobs:
             echo '::error title=Pipeline failure class: PREDEPLOY / RECOVERY::Current production was unhealthy, so the workflow failed closed before replacing the Worker.'
           elif [[ "$CLOUDFLARE_GIT_BUILD_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: DEPLOYMENT / CONCURRENCY::The Cloudflare Git integration did not settle before the protected deployment deadline; no verified replacement was attempted.'
+          elif [[ "$MAIN_GUARD_RESULT" == 'superseded' ]]; then
+            echo '::error title=Pipeline failure class: SUPERSEDED REVISION::Main advanced while this run was validating; the Worker guard correctly refused an older release. No Cloudflare deployment was attempted by this run. Review newer main and deploy.'
+          elif [[ "$MAIN_GUARD_RESULT" == 'invalid-main' ]]; then
+            echo '::error title=Pipeline failure class: MAIN SHA LOOKUP::GitHub main could not be verified; the Worker guard failed closed before deploy.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" != 'success' ]]; then
