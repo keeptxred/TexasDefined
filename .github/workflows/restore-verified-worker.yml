@@ -139,3 +139,23 @@ jobs:
 
       - name: Verify restored production surfaces
         run: node scripts/ci/verify-production-surfaces.mjs
+
+      - name: Confirm 100-percent active Worker equals verified recovery target
+        if: success()
+        shell: bash
+        env:
+          VERIFIED_TARGET_VERSION: ${{ steps.verified_target.outputs.version_id }}
+        run: |
+          set -euo pipefail
+          npx wrangler deployments status --json > artifacts/verified-restore-final-deployment.json
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const state=JSON.parse(fs.readFileSync('artifacts/verified-restore-final-deployment.json','utf8'));
+          const versions=state.versions;
+          if (!Array.isArray(versions) || versions.length !== 1 ||
+              Number(versions[0].percentage) !== 100 ||
+              versions[0].version_id !== process.env.VERIFIED_TARGET_VERSION) {
+            throw Error('Rollback did not restore the exact verified Worker at 100% traffic');
+          }
+          console.log('Verified Worker restored at 100%:', process.env.VERIFIED_TARGET_VERSION);
+          NODE
