@@ -3,6 +3,13 @@ on:
   workflow_run:
     workflows: ["Deploy TexasDefined production"]
     types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - "scripts/seo/verify-fishing-authority-live.mjs"
+      - "scripts/seo/fishing-canonical-policy.mjs"
+      - "scripts/seo/fishing-canonical-policy.test.mjs"
+      - ".github/workflows/fishing-url-authority.yml"
   pull_request:
     paths:
       - "scripts/seo/verify-fishing-authority-live.mjs"
