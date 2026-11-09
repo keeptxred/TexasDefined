@@ -11,7 +11,7 @@ test('rendered title, semantic ALT and explicit empty decorative ALT pass', () =
   assert.equal(audit.title, 'Texas Lakes & Rivers | Texas Defined');
   assert.equal(audit.imageCount, 2);
   assert.equal(audit.missingAltCount, 0);
-  assert.equal(audit.titleLength, 41);
+  assert.equal(audit.titleLength, 36);
 });
 
 test('actual rendered missing ALT fails, even when data-alt exists', () => {
@@ -46,8 +46,8 @@ test('scripts, styles and comments with image-looking text are not counted', () 
 test('titles longer than governed 68 rendered characters fail and count HTML entities as characters', () => {
   const html = doc('<title>' + 'Texas '.repeat(12) + '&amp; Guides</title>', '<main></main>');
   const result = inspectRenderedBingSeo(html);
-  assert.equal(result.titleLength, 81);
-  assert.match(result.findings.join(' '), /rendered title has 81 characters/);
+  assert.equal(result.titleLength, 80);
+  assert.match(result.findings.join(' '), /rendered title has 80 characters/);
 });
 
 test('empty and duplicate rendered title tags fail closed', () => {
