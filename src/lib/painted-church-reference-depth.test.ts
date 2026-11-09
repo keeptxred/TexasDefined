@@ -38,12 +38,13 @@ describe("Painted Churches reference-page depth", () => {
     expect(people).toContain("deathDate: isFlury ?");
     expect(people).toContain('sameAs: isFlury ? ["https://www.tshaonline.org/handbook/entries/flury-godfrey"] : undefined');
     expect(peopleData).toContain("Gottfried (Godfrey) Flury (1864–1936)");
-    for (const required of ["Documented versus uncertain work", "1972", "National Register", "How Flury’s career unfolded", "Gottfried (Godfrey) Flury", "paintedChurchGalleryBySlug", "photo.license", "We link to that archive rather than reproduce the photograph without permission.", "https://www.tshaonline.org/handbook/entries/flury-godfrey", "https://austinpbs.org/paintedchurches/praha"]) {
+    for (const required of ["Documented versus uncertain work", "1972", "National Register", "Key dates in Flury’s life and legacy", "March 24, 2018", "moravia-ascension-of-our-lord", "The shared decorative vocabulary", "Gottfried (Godfrey) Flury", "paintedChurchGalleryBySlug", "photo.license", "We link to that archive rather than reproduce the photograph without permission.", "https://www.tshaonline.org/handbook/entries/flury-godfrey", "https://austinpbs.org/paintedchurches/praha"]) {
       expect(flury).toContain(required);
     }
     expect(flury).not.toContain("Artistic interpretation");
     expect(flury).not.toContain("Verified location photography");
     expect(flury).not.toContain("The chronology intentionally");
+    expect(flury).not.toContain("as it appears today");
     expect(flury).not.toContain("license</a> · source and attribution</a>");
   });
 
