@@ -1,5 +1,6 @@
 import type { TexasTaxRateRecord } from '@/data/property/texas-tax-rates.generated';
 import { getVerifiedHoodIsdAdoption, hoodIsdEvidence } from '@/data/property/isd-authority';
+import { schoolHomesteadForTaxYear } from '@/data/property/isd-exemptions';
 
 const SCHOOL_EXEMPTION_SOURCE = 'https://comptroller.texas.gov/taxes/property-tax/exemptions/';
 const TEA_RATE_SOURCE = 'https://tea.texas.gov/about-tea/state-funding/additional-finance-resources/school-district-property-values-and-tax-rates';
@@ -15,17 +16,20 @@ export function IsdTaxAuthority({ history, peers = [] }: { history: TexasTaxRate
   const adopted = getVerifiedHoodIsdAdoption(latest.slug);
   const localYear = hoodIsdEvidence.officialYear;
   const showAdopted = !!adopted && localYear >= latest.year;
-  const sample = showAdopted ? adopted!.totalRate : latest.totalRate;
   const sampleYear = showAdopted ? localYear : latest.year;
-  const prior = history.find((item) => item.year === sampleYear - 1 && !item.rateUnavailable && item.totalRate != null);
   const sameYear = history.find((item) => item.year === localYear && !item.rateUnavailable && item.totalRate != null);
   const conflicting = showAdopted && sameYear?.totalRate != null && Math.abs(sameYear.totalRate - adopted!.totalRate) > 0.000002;
+  // A local-vs-state disagreement must not feed homeowner calculations.
+  const sample = conflicting ? null : showAdopted ? adopted!.totalRate : latest.rateUnavailable ? null : latest.totalRate;
+  const exemption = schoolHomesteadForTaxYear(sampleYear);
+  const homesteadTaxableValue = exemption ? Math.max(0, 300000 - exemption.general) : null;
+  const prior = history.find((item) => item.year === sampleYear - 1 && !item.rateUnavailable && item.totalRate != null);
   const annualChange = sample != null && prior?.totalRate != null ? sample - prior.totalRate : null;
   const annualPercent = annualChange != null && prior?.totalRate ? 100 * annualChange / prior.totalRate : null;
   const associatedCounties = latest.countySlugs.map((slug) => slug.replaceAll('-', ' ').replace(/\b\w/g, (c) => c.toUpperCase()));
   const unresolved2022 = hoodIsdEvidence.disputedData.find((item) => item.slug === latest.slug && item.year === 2022);
   const comparable = showAdopted
-    ? Object.values(hoodIsdEvidence.districts).sort((a, b) => a.totalRate - b.totalRate)
+    ? Object.entries(hoodIsdEvidence.districts).map(([slug, evidence]) => ({ slug, ...evidence })).sort((a, b) => a.totalRate - b.totalRate)
     : [];
   return <section className="border-b border-border py-10" aria-labelledby="isd-authority-heading">
     <p className="eyebrow text-primary">School district homeowner guide</p>
@@ -49,15 +53,16 @@ export function IsdTaxAuthority({ history, peers = [] }: { history: TexasTaxRate
     <div className="mt-9 grid gap-8 md:grid-cols-2">
       <div>
         <h3 className="font-display text-2xl">School-only homeowner examples</h3>
-        {sample == null ? <p className="mt-3 text-sm leading-7 text-muted-foreground">No numeric rate is verified for an illustrative calculation. Do not treat an unreported rate as zero.</p> : <>
+        {sample == null ? <p className="mt-3 text-sm leading-7 text-muted-foreground">No single unambiguous rate is verified for an illustrative calculation. Do not treat an unreported or disputed rate as zero.</p> : <>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">At the {sampleYear} {showAdopted ? 'locally adopted' : 'Comptroller-reported'} rate of {rate(sample)}, a property with <strong className="text-foreground">$300,000 of school-taxable value</strong> would have an illustrative school-only levy of <strong className="text-foreground">{dollars(3000 * sample)}</strong> before any individual tax ceiling or other adjustments.</p>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">For a separately assumed $300,000 appraised residence homestead eligible for the $140,000 general school exemption, school-taxable value could be $160,000 and this district-only illustration would be <strong className="text-foreground">{dollars(1600 * sample)}</strong>. This is a simplified example, <em>not</em> a parcel appraisal or bill estimate. Appraised, assessed, market and taxable values may differ; other exemptions and limitations may apply.</p>
+          {exemption && homesteadTaxableValue != null ? <p className="mt-3 text-sm leading-7 text-muted-foreground">For a separately assumed $300,000 appraised residence homestead eligible for the <strong className="text-foreground">{dollars(exemption.general)} general school exemption applicable to tax year {sampleYear}</strong>, school-taxable value could be {dollars(homesteadTaxableValue)} and the district-only illustration would be <strong className="text-foreground">{dollars(homesteadTaxableValue * sample / 100)}</strong>. This is a simplified example, <em>not</em> a parcel appraisal or bill estimate. Appraised, assessed, market and taxable values may differ; local optional exemptions and tax ceilings can change the result.</p> : <p className="mt-3 text-sm leading-7 text-muted-foreground">No year-specific general homestead exemption has been verified for {sampleYear}; an exemption-adjusted illustration is withheld rather than applying a newer exemption retroactively.</p>}
           {annualChange != null && annualPercent != null ? <p className="mt-3 text-sm leading-7 text-muted-foreground">Compared with the {prior!.year} statewide rate of {rate(prior!.totalRate!)}, the nominal rate {annualChange < 0 ? 'fell' : annualChange > 0 ? 'rose' : 'was unchanged'} {Math.abs(annualPercent).toFixed(2)}%. For an identical $300,000 school-taxable value in both years, the illustrative district-only difference is {dollars(3000 * annualChange)}. Actual bills may rise even when nominal rates fall if taxable values change.</p> : null}
         </>}
       </div>
       <div>
         <h3 className="font-display text-2xl">Homestead exemptions and the tax ceiling</h3>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground">Texas law provides a <strong className="text-foreground">$140,000 general residence-homestead exemption for school district taxes</strong>. Qualifying homeowners age 65 or older or with a qualifying disability may receive an <strong className="text-foreground">additional $60,000 school exemption</strong> and a school-tax ceiling. The two additional age/disability exemptions are not stacked against the same school levy. Eligibility, any local options, school-tax ceiling, and your actual taxable value must be confirmed for the parcel and year.</p>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">For <strong className="text-foreground">tax year 2026</strong>, Texas law provides a <strong className="text-foreground">$140,000 general residence-homestead exemption for school district taxes</strong>. Qualifying homeowners age 65 or older or with a qualifying disability may receive an <strong className="text-foreground">additional $60,000 school exemption</strong> and a school-tax ceiling. The two additional age/disability exemptions are not stacked against the same school levy.</p>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">{exemption ? <>For the <strong className="text-foreground">{sampleYear} rate used in the example</strong>, the general school exemption was {dollars(exemption.general)} and the additional age/disability exemption was {dollars(exemption.ageOrDisabilityAdditional)} for eligible owners.</> : <>For the {sampleYear} rate used in the example, historical exemptions must be checked separately before estimating a homestead bill.</>} Eligibility, local options, tax ceilings, and the property's actual taxable value must be verified for the applicable year.</p>
         <p className="mt-3 text-sm leading-7 text-muted-foreground">These are <strong className="text-foreground">school-district</strong> taxes, not a complete property tax bill. Check your account's school district, city, county and any special districts separately; an associated {associatedCounties.length === 1 ? 'county' : 'set of counties'} ({associatedCounties.join(', ') || 'the county list above'}) does not establish parcel jurisdiction.</p>
         <a href={SCHOOL_EXEMPTION_SOURCE} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-2">Official Texas Comptroller homestead and exemption guidance ↗</a>
       </div>
@@ -65,7 +70,7 @@ export function IsdTaxAuthority({ history, peers = [] }: { history: TexasTaxRate
     {comparable.length ? <div className="mt-9">
       <h3 className="font-display text-2xl">Compare other school districts in the same Hood CAD rate table</h3>
       <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Each district below has its own boundaries. These {localYear} adopted rates are comparable per $100 of taxable value but are <strong className="text-foreground">alternatives, not taxes to add together</strong>. Individual properties generally belong to one principal school district; verify your parcel.</p>
-      <div className="mt-5 overflow-x-auto"><table className="w-full w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">District</th><th>Adopted {localYear} rate</th><th>M&amp;O</th><th>I&amp;S</th></tr></thead><tbody>{comparable.map((item) => <tr key={item.name} className="border-b border-border"><td className="py-3 font-medium">{item.name}{item.name === latest.name ? ' (this page)' : ''}</td><td className="tabular-nums">{rate(item.totalRate)}</td><td className="tabular-nums">{rate(item.maintenanceOperationsRate)}</td><td className="tabular-nums">{rate(item.debtServiceRate)}</td></tr>)}</tbody></table></div>
+      <div className="mt-5 overflow-x-auto"><table className="w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">District</th><th>Adopted {localYear} rate</th><th>M&amp;O</th><th>I&amp;S</th></tr></thead><tbody>{comparable.map((item) => <tr key={item.name} className="border-b border-border"><td className="py-3 font-medium"><a href={`/property-tax/taxing-unit/${item.slug}`} className="text-primary underline underline-offset-2">{item.name}</a>{item.slug === latest.slug ? ' (this page)' : ''}</td><td className="tabular-nums">{rate(item.totalRate)}</td><td className="tabular-nums">{rate(item.maintenanceOperationsRate)}</td><td className="tabular-nums">{rate(item.debtServiceRate)}</td></tr>)}</tbody></table></div>
     </div> : null}
     {!showAdopted && peers.length ? <div className="mt-9">
       <h3 className="font-display text-2xl">Related school districts: same-year statewide comparison</h3>
