@@ -159,12 +159,6 @@
       "year": 2022,
       "explanation": "The Hood CAD 2022 summary does not reconcile the displayed adopted total with its M&O and debt entries. Do not backfill the 2022 components until the source discrepancy is resolved.",
       "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
-    },
-    {
-      "slug": "lipan-isd",
-      "year": 2022,
-      "explanation": "The Hood CAD 2022 Lipan ISD M&O and debt cells do not reconcile with its adopted total; keep both unverified components blank until official independent confirmation.",
-      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
     }
   ]
 }
