@@ -26,7 +26,7 @@ function testRecord() {
 }
 
 test('only exact source version and safe hashed asset paths accepted',()=>{
-  assert.equal(VERIFIED_NOV8_ORIGINALS.length,23);
+  assert.equal(VERIFIED_NOV8_ORIGINALS.length,25);
   assert.equal(verifiedSourceUrl(VERSION,'Header-BPIUxtUq.js'),
     'https://953ec55d-texasdefined-site.freddy-coppola.workers.dev/assets/Header-BPIUxtUq.js');
   assert.throws(()=>verifiedSourceUrl('invalid','Header-BPIUxtUq.js'));
@@ -63,7 +63,7 @@ test('real original hash budget is fixed and unavailable source never fabricates
     const report=await recoverVerifiedNov8Originals({...opts,now:NOW,
       fetchImpl:async()=>new Response('404',{status:404,headers:{'content-type':'text/html'}})});
     assert.equal(report.recovered.length,0);
-    assert.equal(report.unresolved.length,23);
+    assert.equal(report.unresolved.length,25);
     assert.equal((await readFile(opts.snapshotPath,'utf8')).includes('sourceVersionId'),false);
     assert.equal(existsSync(join(opts.assetFolder,VERIFIED_NOV8_ORIGINALS[0].name)),false);
   }finally {await rm(root,{recursive:true,force:true});}
@@ -90,7 +90,7 @@ test('never reset first-seen expiry or fetch expired originals',async()=>{
     const report=await recoverVerifiedNov8Originals({...opts,
       now:Date.parse('2026-11-12T06:00:00Z'),
       fetchImpl:async()=>{throw new Error('expired probe must never execute');}});
-    assert.equal(report.expired.length,23);
+    assert.equal(report.expired.length,25);
     assert.equal(report.recovered.length,0);
     assert.equal(report.unresolved.length,0);
   }finally {await rm(root,{recursive:true,force:true});}
@@ -126,13 +126,13 @@ test('seven additional originals are distinct source-digested exact 200-to-404 n
     assert.ok(verifiedSourceUrl(VERSION,original.name).endsWith('/assets/'+name));
   }
   const allBytes=VERIFIED_NOV8_ORIGINALS.reduce((sum,x)=>sum+x.bytes,0);
-  assert.equal(allBytes,3813416,'original bytes must fit UNCHANGED 4MiB strict cap');
+  assert.equal(allBytes,3823913,'original bytes must fit UNCHANGED 4MiB strict cap');
   assert.ok(allBytes<=4*1024*1024);
   assert.equal(names.includes('main-DWbuJJ04.js'),false,
     'unverified crawler-missing main chunk cannot be reconstructed');
 });
 
-test('no 24th historical old hash can silently expand the bounded source-backed cohort',async()=>{
+test('no 26th historical old hash can silently expand the bounded source-backed cohort',async()=>{
   const {root,opts}=await setup();
   try {
     const extra={...testRecord(),name:'main-EXTRA123.js'};
@@ -164,6 +164,26 @@ test('12 real 15:42Z stale-client missing originals are SHA-proven, capped and n
       'https://953ec55d-texasdefined-site.freddy-coppola.workers.dev/assets/'+name);
   }
   assert.equal(twelve.reduce((n,name)=>n+VERIFIED_NOV8_ORIGINALS.find(x=>x.name===name).bytes,0),87258);
-  assert.equal(VERIFIED_NOV8_ORIGINALS.reduce((n,x)=>n+x.bytes,0),3813416);
-  assert.ok(3813416<=4*1024*1024,'strict total byte limit remains unchanged');
+  assert.equal(VERIFIED_NOV8_ORIGINALS.reduce((n,x)=>n+x.bytes,0),3823913);
+  assert.ok(3823913<=4*1024*1024,'strict total byte limit remains unchanged');
+});
+
+
+test('Nov9 two actual 404 originals remain recoverable only before immutable Nov11 expiry',()=>{
+  const proved=[
+    ['CitationTrustPanel-WgY30je2.js','383815e9c182b33d7122a9cedc3b24dc7a6199ea97e2c826e9db00cac45bdde7',2334],
+    ['analytics-BlwY3Vv7.js','c87245ed44acce24ba3f8062b60f09e555669fa3b854fa38533eaa558c6fe1dc',8163]
+  ];
+  for(const [name,sha,bytes] of proved){
+    const r=VERIFIED_NOV8_ORIGINALS.find(x=>x.name===name);
+    assert.ok(r,name);
+    assert.equal(r.sha256,sha,name);
+    assert.equal(r.bytes,bytes,name);
+    assert.equal(r.firstSeenAt,'2026-11-08T04:56:04.752Z',name);
+    assert.ok(verifiedSourceUrl(VERSION,name).endsWith('/assets/'+name));
+    const age=Date.parse('2026-11-09T23:00:00Z')-Date.parse(r.firstSeenAt);
+    assert.ok(age>0 && age<72*3600000,'no 72h re-aging');
+  }
+  assert.equal(VERIFIED_NOV8_ORIGINALS.reduce((n,x)=>n+x.bytes,0),3823913);
+  assert.ok(3823913<=4*1024*1024,'source originals remain within original immutable 4MiB cap');
 });
