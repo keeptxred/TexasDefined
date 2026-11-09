@@ -49,15 +49,30 @@ function similarity(a, b) {
   if (!left.size || !right.size) return null;
   return Math.round(100 * [...left].filter((word) => right.has(word)).length / Math.min(left.size, right.size));
 }
+// Retry exactly once on a transport timeout. Persistent slowness, 4xx/5xx,
+// invalid canonicals, duplicate headings and copy overlap still fail closed.
+async function fetchLiveHtml(url) {
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const response = await fetch(url, {
+        headers: { Accept: "text/html", "User-Agent": "TexasDefined-Quality-Watchdog/1.0" },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      return { html: await response.text(), status: response.status, retries: attempt - 1 };
+    } catch (error) {
+      const timeout = error?.name === "TimeoutError"
+        || (error?.name === "AbortError" && /abort|time/i.test(String(error?.message ?? "")));
+      if (attempt === 2 || !timeout) throw error;
+      console.warn("RETRY " + url + " — bounded retry after transport timeout");
+    }
+  }
+  throw new Error("Unreachable fetch retry state");
+}
 async function check(path) {
   const url = origin + path;
   try {
-    const response = await fetch(url, {
-      headers: { Accept: "text/html", "User-Agent": "TexasDefined-Quality-Watchdog/1.0" },
-      signal: AbortSignal.timeout(20000),
-    });
-    if (!response.ok) throw new Error("HTTP " + response.status);
-    const html = await response.text();
+    const { html, status, retries } = await fetchLiveHtml(url);
     const canonicals = [...html.matchAll(/<link\b[^>]*>/gi)]
       .map((match) => match[0])
       .filter((tag) => /\brel\s*=\s*["']canonical["']/i.test(tag))
@@ -84,7 +99,7 @@ async function check(path) {
       if (/is included in TPWD-backed fishing guidance|is documented in the verified/i.test(text))
         failures.push(path + ": generic TPWD relationship prose still rendered");
     }
-    records.push({ path, status: response.status, canonical: canonicals, h1: heading, sourceCards: sources,
+    records.push({ path, status, retries, canonical: canonicals, h1: heading, sourceCards: sources,
       visibleWords: text.split(/\s+/).length, visibleText: text });
     console.log("PASS " + path + " — " + heading + ", " + sources + " source references");
   } catch (error) {
