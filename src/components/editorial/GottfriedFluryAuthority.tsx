@@ -35,7 +35,7 @@ export function GottfriedFluryAuthority() {
 
       <section aria-labelledby="flury-chronology" className="border-t border-border pt-8">
         <p className="eyebrow text-primary">Chronology</p>
-        <h2 id="flury-chronology" className="mt-3 font-display text-3xl">How Flury’s career unfolded</h2>
+        <h2 id="flury-chronology" className="mt-3 font-display text-3xl">Key dates in Flury’s life and legacy</h2>
         <ol className="mt-6 grid gap-4 md:grid-cols-2">
           {chronology.map((item) => <li key={item.year} className="border-l-2 border-primary pl-5"><span className="font-semibold text-foreground">{item.year}</span><p className="mt-1 text-sm leading-7 text-muted-foreground">{item.detail}</p></li>)}
         </ol>
@@ -50,12 +50,13 @@ export function GottfriedFluryAuthority() {
           <article><h3 className="font-display text-2xl">Flowers and gilded scrolls</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Vines wind across the panels alongside flowers and curling gold ornament. Flury also painted Gothic-style capitals on the wooden columns. See how <Link to="/explore/painted-churches/techniques/$slug" params={{ slug: "freehand" }} className="border-b border-primary text-primary">freehand painting</Link> and <Link to="/explore/painted-churches/techniques/$slug" params={{ slug: "stenciling" }} className="border-b border-primary text-primary">stenciling</Link> create different effects in a painted church.</p></article>
           <article><h3 className="font-display text-2xl">Images of faith and home</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Above the altar Flury pictured a cathedral in Prague and a nearby convent. Angels, a cross and symbols such as a chalice and a radiant eye complete the scene. The Prague buildings recall the congregation’s <Link to="/explore/painted-churches/heritage/$slug" params={{ slug: "czech-moravian" }} className="border-b border-primary text-primary">Czech roots</Link>.</p></article>
         </div>
+        <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">The <a href={NATIONAL_REGISTER} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">1983 National Register study</a> notes similar painted palm and leaf garlands at Praha and <Link to="/explore/painted-churches/$slug" params={{ slug: "moravia-ascension-of-our-lord" }} className="border-b border-primary text-primary">Ascension of Our Lord in Moravia</Link>, while identifying different painters for the two churches. The shared decorative vocabulary reflects a broader tradition; similar motifs alone are not proof that Flury painted another church.</p>
       </section>
 
       {images.length > 0 && <section aria-labelledby="flury-gallery" className="border-t border-border pt-8">
         <p className="eyebrow text-primary">Photographs</p>
         <h2 id="flury-gallery" className="mt-3 font-display text-3xl">The painted interior at Praha</h2>
-        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These photographs show St. Mary’s as it appears today, after a century of care, repainting and additions by other artists. They are not photographs of the interior as Flury left it in 1895.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These photographs were taken on March 24, 2018, and show St. Mary’s after later care, repainting and additions by other artists. They do not document exactly how the interior looked when Flury completed his work.</p>
         <div className="mt-6 grid gap-7 md:grid-cols-2">
           {images.map((photo) => <figure key={photo.sourceUrl} className="min-w-0">
             <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="block overflow-hidden border border-border">
