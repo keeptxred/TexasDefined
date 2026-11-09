@@ -64,6 +64,33 @@ test('only one known post-deploy browser failure can qualify an otherwise fully 
   assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify canonical production health'])),/unapproved|Required published/);
   assert.throws(()=>qualifyPriorDeployJob(make('failure',[visualFailure,'Verify current and previous release JS/CSS on both public origins'])),/unapproved|Required published/);
   assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify MSR Houston desktop metadata'])),/unapproved/);
+  // The exact 2026-11-09 published Worker passed all five asset/health
+  // checkpoints but failed two subsequent title-verification steps. Reuse its
+  // verified original bytes only, never classify the failed release as healthy.
+  const bingTitleFailures=[
+    'Verify District 6 complete 28-game archive, analysis and attribution on both production origins',
+    'Verify base production surfaces',
+  ];
+  const knownPublished=make('failure',bingTitleFailures);
+  knownPublished.jobs[0].run_id=42640439772;
+  knownPublished.jobs[0].id=129239799336;
+  assert.equal(qualifyPriorDeployJob(knownPublished).mode,
+    'historical-published-title-regression-assets-only');
+  const wrongRun=structuredClone(knownPublished);
+  wrongRun.jobs[0].run_id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(wrongRun),/unapproved/);
+  const wrongJob=structuredClone(knownPublished);
+  wrongJob.jobs[0].id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(wrongJob),/unapproved/);
+  const changedFailures=structuredClone(knownPublished);
+  changedFailures.jobs[0].steps.push({name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(changedFailures),/Required published|unapproved/);
+  const extraFailure=structuredClone(knownPublished);
+  extraFailure.jobs[0].steps.push({name:'Other postdeploy check',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(extraFailure),/unapproved/);
+  const missingFailure=structuredClone(knownPublished);
+  missingFailure.jobs[0].steps=missingFailure.jobs[0].steps.filter(x=>x.name!==bingTitleFailures[1]);
+  assert.throws(()=>qualifyPriorDeployJob(missingFailure),/unapproved/);
   assert.throws(()=>qualifyPriorDeployJob(make('failure',[])),/unapproved|missing failure evidence/);
   const withoutHealth=make('success');
   withoutHealth.jobs[0].steps=withoutHealth.jobs[0].steps.filter(x=>x.name!=='Verify direct Worker health');
