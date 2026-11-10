@@ -40,12 +40,37 @@ async function worker(){
    const response=await fetch(origin+row.path,{redirect:"follow",headers:{"user-agent":"TexasDefined-River-Authority-Production/1.0","cache-control":"no-cache"},signal:AbortSignal.timeout(20000)});
    if(response.status!==200){failed.push({...row,status:response.status,issue:"non-200"});continue;}
    const html=await response.text(),missing=row.required.filter(s=>!html.includes(s));
+   // If a required backlink is absent, distinguish a stale edge cache from
+   // missing server-rendered content. A cache-busted success is still a
+   // production failure: we must not silently pass a stale canonical URL.
+   let cacheProbe;
+   if (missing.length && row.kind === "destination") {
+     try {
+       const probeUrl = new URL(origin + row.path);
+       probeUrl.searchParams.set("river_acceptance_probe", String(Date.now()) + "-" + i);
+       const fresh = await fetch(probeUrl, {
+         redirect: "follow",
+         headers: { "user-agent": "TexasDefined-River-Authority-Production/1.0", "cache-control": "no-cache" },
+         signal: AbortSignal.timeout(20000),
+       });
+       const freshHtml = await fresh.text();
+       cacheProbe = {
+         status: fresh.status,
+         missing: row.required.filter(needle => !freshHtml.includes(needle)),
+         cacheControl: fresh.headers.get("cache-control"),
+         cfCacheStatus: fresh.headers.get("cf-cache-status"),
+         originalCfCacheStatus: response.headers.get("cf-cache-status"),
+       };
+     } catch (error) {
+       cacheProbe = { error: String(error).slice(0, 160) };
+     }
+   }
    if(row.kind==="river"){
     if(!/rel=["']canonical["']/.test(html))missing.push("canonical SEO link");
     if(/<meta[^>]+robots[^>]+noindex/i.test(html))missing.push("indexability");
     if(!html.includes("Frequently asked questions")&&!html.includes("Visitor questions"))missing.push("river FAQ");
    }
-   if(missing.length)failed.push({...row,status:200,issue:"missing published content or backlinks",missing});
+   if(missing.length)failed.push({...row,status:200,issue:"missing published content or backlinks",missing,...(cacheProbe ? { cacheProbe } : {})});
    else passed.push({path:row.path,kind:row.kind,status:200});
   }catch(e){failed.push({...row,issue:"network",error:String(e).slice(0,160)});}
  }
