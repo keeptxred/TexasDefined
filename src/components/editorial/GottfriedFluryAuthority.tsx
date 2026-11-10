@@ -7,6 +7,10 @@ const PBS = "https://austinpbs.org/paintedchurches/praha";
 const NATIONAL_REGISTER = "https://atlas.thc.texas.gov/NR/pdfs/83003138/83003138.pdf";
 const ARCHIVE = "https://texashistory.unt.edu/ark:/67531/metapth677874/";
 const THC_ATLAS = "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138";
+// Finding aids and catalog records are research leads, not evidence that we examined archival materials.
+const BRISCOE_FINDING_AID = "https://txarchives.org/utcah/finding_aids/00092.xml";
+const SMITHSONIAN_ARTIST_FILE = "https://sova.si.edu/record/aaa.braddewe/ref14?i=150919&n=10&q=Paper&s=150910&t=A";
+const AUSTIN_ARCHIVE_GUIDE = "https://library.austintexas.gov/library/2022-04/Art-Resources-Guide.pdf";
 
 const chronology = [
   { year: "1864", detail: "Born July 6 in Oensingen, Switzerland. Priests in Solothurn oversaw his education." },
@@ -14,6 +18,8 @@ const chronology = [
   { year: "1891–1892", detail: "Moved to San Antonio in 1891 and Moulton the following year, taking jobs decorating houses and churches." },
   { year: "1895", detail: "Painted the interior of St. Mary's at Praha. On April 16 he married Agnes Valchar in the same church." },
   { year: "1902–1911", detail: "Returned to San Antonio in 1902. In 1911, he opened a sign-painting business at 502 Colorado Street in Austin." },
+  { year: "1918", detail: "Became a naturalized United States citizen, after decades working as a painter in the country." },
+  { year: "1929–1934", detail: "Sold his advertising company in 1929. In 1934 he enrolled as a freshman at the University of Texas to study mechanical engineering." },
   { year: "1936", detail: "Died October 28 at his Austin home. Friends later arranged a memorial exhibition at the Elisabet Ney Museum." },
   { year: "1972", detail: "His preliminary sketches and notes were matched to the painted interior at Praha, confirming his connection to the work." },
 ] as const;
@@ -30,7 +36,8 @@ export function GottfriedFluryAuthority() {
           <p>At <Link to="/explore/painted-churches/$slug" params={{ slug: "praha-st-marys-assumption" }} className="border-b border-primary text-primary">St. Mary’s Church of the Assumption in Praha</Link>, blue-painted timber arches rise above flowers, gold scrollwork and columns made to look like carved stone. Much of that decoration was the work of <strong className="text-foreground">Gottfried Flury</strong>, also known as <strong className="text-foreground">Godfrey Flury</strong>, a Swiss-born painter commissioned to decorate the church in 1895. Flury (July 6, 1864 – October 28, 1936) also earned his living painting signs, courthouse ceilings and Texas landscapes.</p>
           <p>Flury was born in Oensingen, Switzerland, and educated by priests in Solothurn. At sixteen he immigrated with his family, but stayed in America when they returned home in 1886. Painting took him from New York City to Buffalo and Kansas City. He reached San Antonio in 1891 and moved to Moulton the following year, where he decorated houses and churches. The <a href={HANDBOOK} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">Handbook of Texas</a> records those moves and his later work.</p>
           <p>Praha became the commission for which he is best remembered. The Czech Catholic congregation completed its Gothic Revival church in 1895, and Flury painted its tongue-and-groove ceiling sky blue. He traced false ribs across the vault to suggest stonework and added Gothic-style capitals to the columns. Flowers, vines and religious images filled the spaces between. The <a href={NATIONAL_REGISTER} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">1983 National Register nomination</a> also records the church’s architecture and decoration.</p>
-          <p>On April 16, 1895, Flury married Agnes Valchar at St. Mary’s. Other work followed, including the pressed-steel ceilings of the Lavaca County Courthouse, which have since been repainted. He returned to San Antonio in 1902, then settled in Austin in 1911 and opened a sign shop at 502 Colorado Street. In Austin he designed parade floats and painted familiar scenes such as Barton Springs, Hill Country wildflowers and local landmarks. He died at home in 1936.</p>
+          <p>On April 16, 1895, Flury married Agnes Valchar at St. Mary’s; the <a href={HANDBOOK} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">Handbook of Texas</a> identifies this as his second marriage. Other work followed, including the pressed-steel ceilings of the Lavaca County Courthouse, which have since been repainted. He returned to San Antonio in 1902, then settled in Austin in 1911 and opened a sign shop at 502 Colorado Street.</p>
+          <p>His Austin career took him beyond churches. He designed parade floats, worked in advertising and painted scenes of Barton Springs, Hill Country wildflowers and local landmarks. He became a naturalized United States citizen in 1918 and sold his advertising company in 1929. In 1934 he entered the University of Texas as a freshman to study mechanical engineering. He died at home in 1936. Those later chapters help explain why records of Flury’s work extend far beyond the painted churches.</p>
         </div>
       </section>
 
@@ -145,13 +152,16 @@ export function GottfriedFluryAuthority() {
           </li>
           <li><a href={PBS} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Austin PBS — Painted Churches: Praha</a>. Identifies Flury's principal contribution and distinguishes the later work of Rev. Louis Netardus and Gene Mikulik.</li>
           <li><a href={ARCHIVE} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">The Portal to Texas History — 1977 interior photograph</a>. Archival visual record; linked for study with item-level reuse restrictions.</li>
+          <li><a href={BRISCOE_FINDING_AID} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Dolph Briscoe Center for American History — Godfrey Flury Collection, 1887–1981</a>. The University of Texas at Austin indexes this manuscript collection; the finding aid is a starting point for arranging archival research, not proof that we inspected its contents.</li>
+          <li><a href={SMITHSONIAN_ARTIST_FILE} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Smithsonian Archives of American Art — Godfrey Flury artist file</a>. The Dewey C. Bradford papers catalog lists a Flury file on microfilm reel 2335, frames 757–764. The catalog’s reuse conditions apply to any underlying archival images.</li>
+          <li><a href={AUSTIN_ARCHIVE_GUIDE} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Austin History Center — Godfrey Flury Scrapbook (library arts inventory, PDF)</a>. The city library indexes a scrapbook of clippings about Flury’s career. This is a collection description, not a review of the scrapbook itself.</li>
         </ul>
 
         <div className="mt-8 max-w-4xl border-t border-border pt-5 text-sm leading-7 text-muted-foreground">
           <p><strong className="text-foreground">Research and responsibility:</strong> Texas Defined History &amp; Heritage Desk.
-            Published-source cross-check completed November 9, 2026, against the Handbook of Texas, Austin PBS
-            and the Texas Historical Commission’s National Register record. This is documentary research,
-            not a claim of first-hand inspection of Flury’s sketches or of the sanctuary.</p>
+            Published-source and archival-catalog cross-check completed November 10, 2026, against the Handbook of Texas, Austin PBS,
+            the Texas Historical Commission’s National Register record and the three catalog listings above. This is documentary research;
+            we have not inspected the original Flury papers, sketches or the sanctuary in person.</p>
           <p className="mt-2">
             <Link to="/about" className="underline underline-offset-2">About Texas Defined</Link>
             {" · "}<Link to="/editorial-policy" className="underline underline-offset-2">Editorial Policy</Link>
