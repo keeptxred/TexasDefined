@@ -95,6 +95,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
           <h3 className="mt-2 font-display text-2xl">{activeMonthGuide.focus}</h3>
           <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">{activeMonthGuide.detail}</p>
           <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-7">{activeMonthGuide.checklist.map((item) => <li key={item}>{item}</li>)}</ul>
+          <p className="mt-4 max-w-4xl text-sm leading-7"><strong>TPWD-documented example:</strong> <span className="text-muted-foreground">{activeMonthGuide.example}</span> <a href={activeMonthGuide.sourceUrl} rel="noopener noreferrer" className="border-b border-primary font-semibold text-primary">{activeMonthGuide.sourceLabel}</a></p>
         </div> : null}
         <div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {MONTHLY_FISHING_GUIDANCE.map((month) => <article key={month.slug} className="border-t-2 border-foreground pt-4">
@@ -102,6 +103,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
             <h3 className="mt-2 font-display text-2xl">{month.focus}</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{month.detail}</p>
             <ul className="mt-3 list-disc space-y-1 pl-5 text-xs leading-6 text-muted-foreground">{month.checklist.map((item) => <li key={item}>{item}</li>)}</ul>
+            <p className="mt-4 text-sm leading-7"><strong>TPWD-documented example:</strong> <span className="text-muted-foreground">{month.example}</span> <a href={month.sourceUrl} rel="noopener noreferrer" className="border-b border-primary font-semibold text-primary">{month.sourceLabel}</a></p>
             <a href={buildHref({ month: month.slug })} rel="nofollow" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">View documented {month.season} lake patterns →</a>
           </article>)}
         </div>
