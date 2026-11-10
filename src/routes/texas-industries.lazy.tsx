@@ -39,6 +39,7 @@ function TexasIndustriesPage() {
                 <a href="/article/texas-jobs-economy-industries" className="block text-primary">Read the Texas jobs & economy overview →</a>
                 <a href="/texas-jobs-without-four-year-degree" className="block text-primary">Compare Texas non-degree careers and wages →</a>
                 <a href="/texas-career-training-options" className="block text-primary">Find Texas career training options →</a>
+                <a href="/texas-government-jobs" className="block text-primary">How to apply for state and local government work →</a>
                 <a href="/made-in-texas" className="block text-primary">Browse Made in Texas companies →</a>
                 <a href="/browse/counties" className="block text-primary">Browse all 254 counties →</a>
                 <a href="/compare-texas-cities" className="block text-primary">Compare Texas cities →</a>
