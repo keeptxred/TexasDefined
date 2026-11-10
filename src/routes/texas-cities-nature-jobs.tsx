@@ -6,7 +6,7 @@ const path = "/texas-cities-nature-jobs";
 const title = "Texas Cities for Nature Lovers Who Need Good Jobs";
 const description = "Compare Austin, Dallas–Fort Worth, Houston and San Antonio using published metro wage estimates and official nearby-state-park lists; no made-up overall rankings.";
 const pageUrl = absoluteUrl(texasDefinedBrand, path);
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute("/texas-cities-nature-jobs")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
     links: [canonicalLink(texasDefinedBrand, path)],
