@@ -186,7 +186,7 @@ async function hydrateTopCurrentCandidates() {
   // six blocked publisher pages can consume all eight slots indefinitely.
   const candidateIds = candidates.map((row) => Number(row.id)).filter(Number.isSafeInteger);
   const stateUrl = new URLSearchParams({
-    select: 'feed_item_id,last_attempt_at,last_result',
+    select: 'feed_item_id,last_attempt_at,last_result,chars',
     limit: String(candidateIds.length),
   });
   if (candidateIds.length) stateUrl.set('feed_item_id', 'in.(' + candidateIds.join(',') + ')');
