@@ -1,0 +1,86 @@
+name: Live acceptance - three researched Texas question guides
+on:
+  push:
+    branches: [qa/live-texas-question-guides-20261110]
+    paths:
+      - .github/workflows/live-texas-question-guides-acceptance.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-acceptance:
+    if: github.ref == 'refs/heads/qa/live-texas-question-guides-20261110'
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - name: Check public domain and direct Worker for HTTP 200, original content, canonical and indexing
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const hosts = [
+            'https://texasdefined.com',
+            'https://texasdefined-site.freddy-coppola.workers.dev',
+          ];
+          const pages = [
+            {slug:'texas-jobs-without-four-year-degree', phrases:['A good Texas career', 'Houston', '30.38', 'training and funding guide']},
+            {slug:'texas-career-training-options', phrases:['How to find job training', 'Workforce Solutions', 'WIOA', 'apprenticeship']},
+            {slug:'texas-cities-nature-jobs', phrases:['Where can you work in Texas', 'McKinney Falls', 'Dallas', 'San Antonio']},
+          ];
+          async function retrieve(url) {
+            let lastError;
+            for(let attempt=1;attempt<=3;attempt++){
+              try {
+                const response=await fetch(url,{
+                  headers:{'User-Agent':'TexasDefined-GitHub-Live-Editorial-Acceptance/1.0','Cache-Control':'no-cache'},
+                  redirect:'manual', signal:AbortSignal.timeout(24000),
+                });
+                if ([429,502,503,504].includes(response.status) && attempt<3) {
+                  await new Promise(resolve=>setTimeout(resolve,attempt*800));
+                  continue;
+                }
+                return {response,body:await response.text()};
+              } catch(e) {
+                lastError=e;
+                if(attempt<3) await new Promise(resolve=>setTimeout(resolve,attempt*800));
+              }
+            }
+            throw lastError;
+          }
+          const report=[];
+          for (const host of hosts) for(const page of pages) {
+            const route='/'+page.slug;
+            const {response,body}=await retrieve(host+route);
+            assert.equal(response.status,200,host+route+' must render HTTP 200');
+            assert.match(response.headers.get('content-type')||'',/text\/html/,host+route+' must be HTML');
+            const canonical='https://texasdefined.com'+route;
+            const canonicalTags=[...body.matchAll(/<link\b[^>]*>/gi)]
+              .map(match=>match[0])
+              .filter(tag=>/\brel=["']canonical["']/i.test(tag));
+            assert.equal(canonicalTags.length,1,host+route+' should have exactly one canonical');
+            assert(canonicalTags[0].includes('href="'+canonical+'"') || canonicalTags[0].includes("href='"+canonical+"'"),host+route+' canonical mismatch');
+            assert(!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(body),
+              host+route+' robots noindex');
+            const visibleText=body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ')
+              .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ')
+              .replace(/<[^>]*>/g,' ').replace(/&(?:nbsp|amp);/g,' ').replace(/\s+/g,' ');
+            for(const phrase of page.phrases) assert(visibleText.includes(phrase),host+route+' missing researched copy: '+phrase);
+            assert(/<h1\b/i.test(body),host+route+' missing SSR H1');
+            report.push('PASS '+host+route+' HTTP 200 / canonical / source-backed visible copy / H1');
+          }
+          const {response:siteResp,body:sitemap}=await retrieve('https://texasdefined.com/sitemap.xml');
+          assert.equal(siteResp.status,200,'Primary XML sitemap must render 200');
+          assert.match(sitemap,/<urlset\b/,'Sitemap must be a URL set');
+          for(const page of pages) assert(sitemap.includes('<loc>https://texasdefined.com/'+page.slug+'</loc>'), 'Sitemap omits '+page.slug);
+          report.push('PASS canonical sitemap lists all three authority URLs');
+          const {response:robotsResp,body:robots}=await retrieve('https://texasdefined.com/robots.txt');
+          assert.equal(robotsResp.status,200,'Robots.txt HTTP 200');
+          for(const page of pages) assert(!robots.includes('Disallow: /'+page.slug),'Robots.txt excludes '+page.slug);
+          report.push('PASS robots.txt does not explicitly disallow any of three guides');
+          const output='### Three Texas question-led guides — direct live HTTP verification\n'
+            +report.map(line=>'- '+line).join('\n')+'\n';
+          console.log(output);
+          const fs=await import('node:fs'); if(process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,output);
+          JS
