@@ -2,7 +2,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import assert from 'node:assert/strict';
 
 const read = (path) => readFileSync(path, 'utf8');
-const slugs = ['texas-jobs-without-four-year-degree','texas-career-training-options','texas-cities-nature-jobs'];
+const slugs = ['texas-jobs-without-four-year-degree','texas-career-training-options','texas-cities-nature-jobs','texas-government-jobs'];
 const routes = new Map(slugs.map(slug => [slug, {
   source: read('src/routes/' + slug + '.tsx'),
   body: read('src/routes/' + slug + '.lazy.tsx'),
@@ -50,6 +50,7 @@ for (const [slug,{source,body}] of routes) {
 }
 assert(industries.includes('/texas-jobs-without-four-year-degree'), 'Industry hub missing non-degree career link');
 assert(industries.includes('/texas-career-training-options'), 'Industry hub missing career training link');
+assert(industries.includes('/texas-government-jobs'), 'Industry hub missing public employment link');
 
 const jobs = routes.get('texas-jobs-without-four-year-degree').body;
 const nature = routes.get('texas-cities-nature-jobs').body;
@@ -68,3 +69,30 @@ for (const agency of ['twc.texas.gov','apprenticeship.gov','tdlr.texas.gov','tsb
 assert(/not universally free|not a blanket tuition waiver/.test(training), 'Training must not promise funding to all applicants');
 assert(/not a measure of walkability|not a geospatial travel-time study|not a drive-time measure/.test(nature), 'Nature must not invent travel times');
 console.log('PASS facts — BLS source datum regression checks, official TPWD/TWC/Apprenticeship/licensing citations and limitations');
+
+const government = routes.get('texas-government-jobs').body;
+assert(government.length > 18000, 'Government jobs guide needs the full detailed agency-specific evidence and application steps');
+for (const term of [
+  'March 10, 2026',
+  'WorkInTexas',
+  'CAPPS',
+  'State of Texas Application',
+  'Texas Department of Insurance',
+  'Texas Water Development Board',
+  'Texas Municipal League',
+  'USAJOBS',
+  'Schedule A',
+  'Schedule B',
+  'Schedule C',
+  '60th day',
+  'military employment preference',
+]) assert(government.includes(term), 'Government guide lost unique verified application detail: ' + term);
+for (const domain of [
+  'gov.texas.gov', 'twc.texas.gov', 'tdi.texas.gov', 'twdb.texas.gov',
+  'hr.sao.texas.gov', 'ers.texas.gov', 'www.tml.org', 'www.usajobs.gov',
+]) assert(government.includes('https://' + domain) || government.includes('https://www.' + domain), 'Government guide lost an original official source: ' + domain);
+assert(!government.includes('"@type": "JobPosting"'), 'A durable application guide cannot publish fabricated current JobPosting structured data');
+assert(!/we have live listings|guaranteed hiring|guarantee an offer/i.test(government), 'Do not claim current vacancies or guaranteed offers');
+assert(government.includes('not affiliated with or endorsed'), 'Required transparency about independent editorial role missing');
+assert(government.includes('actual employer') && government.includes('agency'), 'Applicant must be directed to the actual employer process');
+console.log('PASS Texas government jobs — 2026 WIT rule change, CAPPS exceptions, pay, benefits, pathways, original source evidence');
