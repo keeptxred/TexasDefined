@@ -25,6 +25,26 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
       scope: "Current parking, accessibility, ticketing and visitor-policy guidance.",
     },
     {
+      label: "Moody Gardens — Discovery Pyramid and Galveston Children's Museum",
+      url: "https://www.moodygardens.com/attractions/discovery-pyramid",
+      scope: "Operator-confirmed open children's museum, upstairs location, included ticket admission and Audience Recognition Theater.",
+    },
+    {
+      label: "Moody Gardens — accessibility",
+      url: "https://www.moodygardens.com/visitor-info/accessibility",
+      scope: "Wheelchairs, accessible seating, captioning and Rainforest Pyramid service-animal policy.",
+    },
+    {
+      label: "Moody Gardens — maps, directions and parking",
+      url: "https://www.moodygardens.com/visitor-info/map-directions",
+      scope: "Official driving directions, complimentary self-parking and paid parking upgrade options.",
+    },
+    {
+      label: "Moody Gardens — official ticket checkout",
+      url: "https://tickets.moodygardens.com/",
+      scope: "Current ticket prices, age categories and Value Pass options; variable amounts must not be hardcoded.",
+    },
+    {
       label: "Moody Gardens — events calendar",
       url: "https://www.moodygardens.com/events",
       scope: "Current seasonal-event dates and Holiday in the Gardens programming.",
@@ -40,9 +60,9 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
  */
 export function resolveTopAttractionAuthority(destination: Destination): Destination {
   const authority = applyTopAttractionAuthority(destination);
-  const base = authority.slug === "moody-gardens" && authority.sourceCheckedAt !== "2026-10-05"
-    ? { ...authority, sourceCheckedAt: "2026-10-05" }
-    : authority;
+  // Preserve the destination's genuine last verified date. Never backdate a
+  // fresh operator check to an older editorial snapshot.
+  const base = authority;
   if (!base.authorityGuide) return base;
   const currentSources = base.slug === "moody-gardens" ? moodyGardensSources() : [];
   return {
