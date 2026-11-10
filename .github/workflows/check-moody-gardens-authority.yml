@@ -1,0 +1,50 @@
+name: Check Moody Gardens visitor-fact freshness
+
+# One operator / one destination; never run the owner-held full-site crawler.
+on:
+  workflow_dispatch:
+  schedule:
+    # Moody Gardens publishes the coming week's schedule on Fridays.
+    - cron: "35 17 * * 5"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: check-moody-gardens-authority
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify operator facts and editorial review date
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run bounded official-source monitor
+        id: check
+        continue-on-error: true
+        run: node scripts/data/check-moody-gardens-official.mjs
+      - name: Create a single review issue if monitoring finds drift
+        if: steps.check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="Moody Gardens official visitor facts require review"
+          count="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "in:title $title" --json number --jq 'length')"
+          if [ "$count" = "0" ]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "$title" \
+              --body "The weekly targeted Moody Gardens official-source check failed or the editorial review age exceeded 30 days. Review the workflow logs and operator pages, research the changed facts, update the source-backed destination content, add regression coverage, and verify production. Never auto-update sourceCheckedAt without actual source verification. Page: https://texasdefined.com/destination/moody-gardens"
+          fi
+      - name: Report validation failure
+        if: steps.check.outcome == 'failure'
+        run: |
+          echo "Moody Gardens authority facts require review; see the dedicated issue and logs." >&2
+          exit 1
