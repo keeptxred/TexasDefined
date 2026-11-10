@@ -8,7 +8,7 @@ const description = "Compare Austin, Dallas–Fort Worth, Houston and San Antoni
 const pageUrl = absoluteUrl(texasDefinedBrand, path);
 export const Route = createFileRoute("/texas-cities-nature-jobs")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
+    meta: buildMeta(texasDefinedBrand, { title: title, description: description, canonicalPath: path }),
     links: [canonicalLink(texasDefinedBrand, path)],
     scripts: [jsonLd({
       "@context": "https://schema.org",
