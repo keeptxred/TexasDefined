@@ -590,11 +590,10 @@ function DestinationPage() {
         {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
         {destination.slug === "dallas-arboretum-and-botanical-garden" ? <section className="mt-10 border-t border-border pt-8"><p className="eyebrow text-primary">Explore the lake next door</p><h2 className="mt-3 font-display text-3xl">White Rock Lake — fishing, paths and boating</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The Arboretum overlooks White Rock Lake. The wider lake is a City of Dallas recreation area with fishing piers and boating restrictions; garden admission does not grant lake boat access or overnight camping. For launch locations, public park rules and lake history, use the dedicated lake guide.</p><a className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" href="/fishing/lakes/white-rock-lake">Read the White Rock Lake visitor guide →</a></section> : null}
         {!isChokeCanyon && destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><Suspense fallback={null}><DestinationVisitPlanner destination={destination} /></Suspense></div>}
-        {/* Curated historical/non-primary records and the special Choke Canyon
-            page do not mount the ordinary Trip Planner. Preserve their verified
-            river associations as visible, crawlable links without surfacing a
-            closed site as a normal recommended stop. */}
-        {(isChokeCanyon || destination.slug === "magoffin-home" || !isPrimaryTripPlannerDestination(destination)) && relatedRiverGuides.length > 0 && (
+        {/* Keep curated river relationships in initial HTML for every mapped
+            destination, including primary trip-planner records. A lazy planner
+            is not a crawlable substitute for an actual editorial backlink. */}
+        {relatedRiverGuides.length > 0 && (
           <nav aria-label={`Related river guides for ${destination.name}`} className="mt-10 border-t border-border pt-8">
             <h2 className="font-display text-2xl">Related Texas river guides</h2>
             <div className="mt-5 grid gap-5 sm:grid-cols-2">
