@@ -45,22 +45,31 @@ const pages = [
   },
 ];
 
+// Check both the exact user-facing URL and an uncached origin response.
+// A cache-busted pass must not conceal a stale public page seen by readers or crawlers.
+const variants = [
+  { name: "clean URL", bust: false },
+  { name: "cache-busted URL", bust: true },
+];
 const failures = [];
 for (const origin of origins) {
   for (const page of pages) {
+    for (const variant of variants) {
     const url = new URL(page.path, origin);
-    url.searchParams.set("td_verify", unique);
-    let report = { origin, path: page.path, status: null, cache: null, passed: false };
+    if (variant.bust) url.searchParams.set("td_verify", unique);
+    let report = { origin, path: page.path, variant: variant.name, status: null, cache: null, passed: false };
     try {
       const response = await fetch(url, {
         redirect: "follow",
-        cache: "no-store",
+        ...(variant.bust ? { cache: "no-store" } : {}),
         signal: AbortSignal.timeout(25_000),
-        headers: {
-          "user-agent": "TexasDefined-Flury-Live-Acceptance/1.0",
-          "cache-control": "no-cache, no-store, max-age=0",
-          pragma: "no-cache",
-        },
+        headers: variant.bust
+          ? {
+              "user-agent": "TexasDefined-Flury-Live-Acceptance/1.0",
+              "cache-control": "no-cache, no-store, max-age=0",
+              pragma: "no-cache",
+            }
+          : { accept: "text/html" },
       });
       const body = await response.text();
       const missing = page.mustInclude.filter((marker) => !body.includes(marker));
@@ -89,18 +98,22 @@ for (const origin of origins) {
       failures.push(report);
     }
     console.log(JSON.stringify(report));
+    }
   }
 }
 
 const fluryLoc = "<loc>https://texasdefined.com/explore/painted-churches/people/gottfried-flury</loc>";
 for (const origin of origins) {
+  for (const variant of variants) {
   const url = new URL("/sitemap-explore.xml", origin);
-  url.searchParams.set("td_verify", unique);
+  if (variant.bust) url.searchParams.set("td_verify", unique);
   try {
     const response = await fetch(url, {
-      cache: "no-store",
+      ...(variant.bust ? { cache: "no-store" } : {}),
       signal: AbortSignal.timeout(25_000),
-      headers: { "user-agent": "TexasDefined-Flury-Live-Acceptance/1.0", "cache-control": "no-cache" },
+      headers: variant.bust
+        ? { "user-agent": "TexasDefined-Flury-Live-Acceptance/1.0", "cache-control": "no-cache" }
+        : { accept: "application/xml" },
     });
     const xml = await response.text();
     const start = xml.indexOf(fluryLoc);
@@ -110,6 +123,7 @@ for (const origin of origins) {
     const report = {
       origin,
       path: "/sitemap-explore.xml",
+      variant: variant.name,
       status: response.status,
       fluryListed: start >= 0,
       accurateLastmod,
@@ -122,17 +136,19 @@ for (const origin of origins) {
     const report = {
       origin,
       path: "/sitemap-explore.xml",
+      variant: variant.name,
       error: error instanceof Error ? error.message : String(error),
       passed: false,
     };
     failures.push(report);
     console.log(JSON.stringify(report));
   }
+  }
 }
 
-const summary = `## Gottfried Flury live authority acceptance\n\nValidated ${pages.length} pages and the Flury sitemap entry on ${origins.length} origins. ${failures.length ? `**FAIL (${failures.length})**` : "**PASS**"}\n\nNo cache purge, browser-rendering session, or Cloudflare authorization calls were made.\n`;
+const summary = `## Gottfried Flury live authority acceptance\n\nValidated ${pages.length} pages and the Flury sitemap entry on ${origins.length} origins in ${variants.length} cache modes (${(pages.length + 1) * origins.length * variants.length} HTTP checks). ${failures.length ? `**FAIL (${failures.length})**` : "**PASS**"}\n\nNo cache purge, browser-rendering session, or Cloudflare authorization calls were made.\n`;
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
 if (failures.length) {
-  console.error(`::error title=Flury authority production mismatch::${failures.length} of ${(pages.length + 1) * origins.length} HTTP checks failed. See JSON checks above for exact missing/obsolete markers.`);
+  console.error(`::error title=Flury authority production mismatch::${failures.length} of ${(pages.length + 1) * origins.length * variants.length} HTTP checks failed. See JSON checks above for exact missing/obsolete markers.`);
   process.exitCode = 1;
 }
