@@ -88,6 +88,9 @@ for (const fact of ['lakefront electric', '50-amp electric', 'dump station', 'be
 requireText(monitorWorkflow, 'schedule:', 'Martin Creek RV source check must run on GitHub Actions.');
 requireText(monitorWorkflow, 'check-martin-creek-rv-source-drift.mjs', 'Scheduled Martin Creek RV source guard must be wired.');
 requireText(sourceGuard, 'reverify', 'Martin Creek operator drift guard must keep actionable failure reasons.');
+if (wave.includes('wood and charcoal fires are prohibited under an August 5 burn ban')) errors.push('Removed Martin Creek burn ban must not be presented as currently active.');
+if (martinCreekGuide.includes('<strong>Burn ban (issued August 5, 2026)')) errors.push('Martin Creek guide must not retain the obsolete active fire-ban statement.');
+requireText(sourceGuard, 'forbidden:', 'Fire restrictions returning to TPWD alerts must trigger manual source recheck.');
 
 if (wave.includes('"caddo-lake-state-park-rv-area": {')) errors.push('Caddo Lake must remain outside Wave 4 as the explicit noindex negative control.');
 requireText(productionSmoke, "const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area'", 'Caddo Lake must remain the explicit noindex production control.');
