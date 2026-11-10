@@ -10,7 +10,10 @@ test('source-only scheduled workflow cannot accidentally publish or generate AI'
   assert.match(workflow, /schedule:\s*\n\s*- cron:/);
   assert.match(workflow, /--hydrate-top=8/);
   assert.doesNotMatch(workflow, /--publish|PUBLISH_TEXASDEFINED|TEXASDEFINED_AUTO_PUBLISH_ENABLED|CLOUDFLARE_API_TOKEN|CLOUDFLARE_ACCOUNT_ID/);
-  assert.doesNotMatch(workflow, /--feed-id|--limit=3|create issue|gh api|p_publish_/);
+  assert.match(workflow, /--limit=3/);
+  assert.doesNotMatch(workflow, /--feed-id|create issue|gh api|p_publish_/);
+  assert.match(workflow, /q\.published!==0/);
+  assert.match(workflow, /q\.rawEligible!==q\.eligible\+q\.held/);
   assert.match(workflow, /aiCalls!==0/);
   assert.match(workflow, /summary\.requested>8/);
   assert.match(workflow, /summary\.updated>summary\.requested/);
