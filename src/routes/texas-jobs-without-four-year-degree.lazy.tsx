@@ -30,7 +30,7 @@ function Page() {
         <p className="eyebrow mt-9 text-primary">Work &amp; living in Texas · Research updated November 10, 2026</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-tight sm:text-6xl">A good Texas career doesn't always start with a four-year degree</h1>
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">The useful question isn't whether a career is “degree-free.” It's how much supervised experience, licensing, training time and risk the work actually requires—and what employers in your part of Texas pay. Here's a way to make that comparison without confusing national occupation wages with local pay.</p>
-        <p className="mt-5 text-sm leading-7">Start with the <Link to="/texas-career-training-options" className="text-primary underline">training and funding guide</Link> if paying for a credential is your biggest concern, or the <Link to="/texas-salary-comparison-by-city" className="text-primary underline">city salary comparison</Link> if you're weighing a move.</p>
+        <p className="mt-5 text-sm leading-7">Start with the <Link to="/texas-career-training-options" className="text-primary underline">training and funding guide</Link> if paying for a credential is your biggest concern, or the <Link to="/texas-salary-comparison-by-city" className="text-primary underline">city salary comparison</Link> if you're weighing a move. For public employment, our <Link to="/texas-government-jobs" className="text-primary underline">Texas government jobs guide</Link> explains agency application requirements.</p>
       </Container>
     </section>
     <section className="border-b border-border py-12 sm:py-16">
