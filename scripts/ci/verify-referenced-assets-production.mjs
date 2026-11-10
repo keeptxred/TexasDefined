@@ -65,16 +65,20 @@ export async function mapBounded(items, concurrency, visit) {
   return result;
 }
 
-// One more attempt is permitted ONLY for a transport timeout or connection
-// reset; never retry or reinterpret HTTP 404/500, wrong Worker version, wrong
-// MIME, missing bytes, SHA mismatch or a Cloudflare challenge as successful.
+// One additional attempt is permitted ONLY for a transport-level failure.
+// Node fetch commonly wraps Undici socket/connect timeouts in TypeError with a
+// cause code. A real HTTP response (including 404/500 or a challenge) is NEVER
+// retried or reinterpreted; every response still needs original SHA/MIME proof.
 export async function retryOneTransportTimeout(action, pause=ms=>new Promise(done=>setTimeout(done,ms))) {
   try { return await action(); }
   catch (error) {
     const name=String(error?.name || '');
     const code=String(error?.cause?.code || '');
+    const transientCodes=['ETIMEDOUT','ECONNRESET','EAI_AGAIN','UND_ERR_CONNECT_TIMEOUT',
+      'UND_ERR_HEADERS_TIMEOUT','UND_ERR_BODY_TIMEOUT','UND_ERR_SOCKET'];
     if (!['TimeoutError','AbortError'].includes(name) &&
-        !['ETIMEDOUT','ECONNRESET','EAI_AGAIN'].includes(code)) throw error;
+        !(name==='TypeError' && transientCodes.includes(code)) &&
+        !transientCodes.slice(0,3).includes(code)) throw error;
     await pause(250);
     return await action();
   }
@@ -379,7 +383,7 @@ async function auditAssets(origin, assets) {
     // Pacing is shared across all source capture and verification requests.
     // Each exact asset still requires HTTP 200, valid MIME, original SHA256.
     await paceAssetRequest();
-    try {return await retrieveAsset(origin,path,kind);}
+    try {return await retryOneTransportTimeout(() => retrieveAsset(origin,path,kind));}
     catch(error){return {path,kind,origin:label(origin),status:'network-error',ok:false,error:String(error)};}
   });
 }
