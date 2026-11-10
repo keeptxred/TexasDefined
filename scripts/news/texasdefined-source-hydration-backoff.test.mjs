@@ -34,3 +34,15 @@ test('non-failure rows, missing IDs and null state are not treated as publisher 
   assert.equal(cooldownFeedIds(null, now).size, 0);
   assert.equal(cooldownFeedIds([row(0,'no_readable_body','2026-11-10T03:55:00Z'),row(7,'success','2026-11-10T03:55:00Z')],now).size,0);
 });
+
+
+test('short successful extractions cannot monopolize the next hydration batch',()=>{
+  const rows = [
+    {...row(81001,'success','2026-11-10T03:55:00Z'), chars:573},
+    {...row(81002,'success','2026-11-10T03:55:00Z'), chars:1199},
+    {...row(81003,'success','2026-11-10T03:55:00Z'), chars:1200},
+    {...row(81004,'success','2026-11-10T03:55:00Z'), chars:6000},
+    {...row(81005,'success','2026-11-09T03:59:00Z'), chars:573},
+  ];
+  assert.deepEqual([...cooldownFeedIds(rows,now)],[81001,81002]);
+});
