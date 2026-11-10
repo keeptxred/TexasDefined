@@ -37,7 +37,7 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // platform file limit, was the observed failure. Nov 6 02:20Z successful
 // production run 42149204797 retained 1,431 old-only files / 80,757,434 bytes,
 // leaving only 105 file slots below 1,536. Until independent KV is fully
-// published and verified, use a finite 3,072-file / 256 MiB bridge, well
+// published and verified, use a finite, measured 4,096-file / 384 MiB bridge, well
 // below the documented Workers Free static-assets file-count limit.
 // This is NOT a permanent archive or a change to original-byte obligations.
 // Preserve strict 2 MiB/file, firstSeenAt, 72-hour expiry, same-origin HTTP
@@ -47,15 +47,24 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // Nov 9 release measured 197,061,812 retained bytes, leaving only 4,264,780
 // under the historical 192 MiB ceiling. This is a *local safety budget*, not
 // a Cloudflare asset-total limit: free static assets allow 20,000 files and
-// 25 MiB per individual asset. Use 256 MiB finite headroom while continuing
+// 25 MiB per individual asset. Use 384 MiB finite headroom while continuing
 // original SHA, 72h expiry and exact availability enforcement.
-const LIMIT_FILES = 3072;
-const LIMIT_BYTES = 256 * 1024 * 1024;
+// 2026-11-10 production run 42771750816 stopped BEFORE Worker replacement:
+ // 3,072 verified original-byte hashes (229,046,997 bytes) fit, but 27 further
+ // previously healthy in-window hashes were omitted ONLY by the local file cap.
+ // Cloudflare Workers Free permits 20,000 static assets/version; Wrangler 4.120+
+ // is installed. Keep finite 4,096 old-hash files/384 MiB capacity, still well
+ // below Cloudflare's file limit even alongside the current generated assets.
+ // No asset is eligible without prior 200/MIME/original SHA-256 proof, exact bytes,
+ // its firstSeenAt inside 72h, and strict 4 MiB/asset size. If ANY candidate
+ // exceeds either finite cap or cannot be retrieved, fail BEFORE Worker replace.
+const LIMIT_FILES = 4096;
+const LIMIT_BYTES = 384 * 1024 * 1024;
 // 2026-11-08 incident: run 42450404917 preserved each original SHA but
 // refused /assets/state-park-heroes-BZc-RXc8.js (3,004,913 bytes) under the
 // arbitrary 2 MiB legacy cap. Cloudflare's documented static-asset ceiling is
 // higher; use a measured, finite 4 MiB original-file cap. Keep 192 MiB total,
-// 3,072 old-only files, 72h expiry, verified original SHA/MIME and fail closed.
+// 4,096 old-only files, 72h expiry, verified original SHA/MIME and fail closed.
 const LIMIT_ONE_FILE = 4 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 20000;
@@ -159,7 +168,7 @@ export async function retain({
         firstSeenAt: asset.firstSeenAt });
       continue;
     }
-    // Enforce a bounded ceiling of 3,072 attempted old-only
+    // Enforce a bounded ceiling of 4,096 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
