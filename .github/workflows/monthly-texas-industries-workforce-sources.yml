@@ -1,0 +1,47 @@
+name: Monthly Texas industries workforce source audit
+
+on:
+  schedule:
+    - cron: '41 13 25 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: texas-industries-workforce-evidence
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check official Texas workforce and BLS business-flow publication
+        id: review
+        continue-on-error: true
+        run: node scripts/data/audit-texas-industries-employment-sources.mjs
+      - name: Create one corrective editorial research issue on source drift or access failure
+        if: steps.review.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='[source-review] Texas industries job market statistics need verification'
+          if gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            echo 'Existing editorial review issue remains open; no duplicate created.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          gh issue create \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$title" \
+            --body "Review /texas-industries statewide labor-market source comparison using TWC and BLS primary publications. GitHub source audit: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID. Verify whether Sept 2026 headline or Q1 2026 job flow data is superseded or only bot-blocked; fix page figures and page review date only after reading the actual newer period and running protected validation. No silent data restamping, unsupported growth rankings or automatic mass pages."
+      - name: Preserve failed check status until source reviewed
+        if: steps.review.outcome == 'failure'
+        run: exit 1
