@@ -6,7 +6,7 @@ const path = "/texas-career-training-options";
 const title = "Texas Job Training: Free, Funded and Lower-Cost Options";
 const description = "Find legitimate Texas training pathways, learn what WIOA eligibility means, compare apprenticeships and schools, and verify cost before enrolling.";
 const pageUrl = absoluteUrl(texasDefinedBrand, path);
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute("/texas-career-training-options")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
     links: [canonicalLink(texasDefinedBrand, path)],
