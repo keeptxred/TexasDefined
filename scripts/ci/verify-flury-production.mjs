@@ -91,9 +91,48 @@ for (const origin of origins) {
     console.log(JSON.stringify(report));
   }
 }
-const summary = `## Gottfried Flury live authority acceptance\n\nValidated ${pages.length} pages on ${origins.length} origins. ${failures.length ? `**FAIL (${failures.length})**` : "**PASS**"}\n\nNo cache purge, browser-rendering session, or Cloudflare authorization calls were made.\n`;
+
+const fluryLoc = "<loc>https://texasdefined.com/explore/painted-churches/people/gottfried-flury</loc>";
+for (const origin of origins) {
+  const url = new URL("/sitemap-explore.xml", origin);
+  url.searchParams.set("td_verify", unique);
+  try {
+    const response = await fetch(url, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(25_000),
+      headers: { "user-agent": "TexasDefined-Flury-Live-Acceptance/1.0", "cache-control": "no-cache" },
+    });
+    const xml = await response.text();
+    const start = xml.indexOf(fluryLoc);
+    const ending = start >= 0 ? xml.indexOf("</url>", start) : -1;
+    const entryXml = start >= 0 && ending > start ? xml.slice(start, ending) : "";
+    const accurateLastmod = entryXml.includes("<lastmod>2026-11-09</lastmod>");
+    const report = {
+      origin,
+      path: "/sitemap-explore.xml",
+      status: response.status,
+      fluryListed: start >= 0,
+      accurateLastmod,
+      passed: response.ok && start >= 0 && accurateLastmod
+        && response.headers.get("cf-mitigated") !== "challenge",
+    };
+    console.log(JSON.stringify(report));
+    if (!report.passed) failures.push(report);
+  } catch (error) {
+    const report = {
+      origin,
+      path: "/sitemap-explore.xml",
+      error: error instanceof Error ? error.message : String(error),
+      passed: false,
+    };
+    failures.push(report);
+    console.log(JSON.stringify(report));
+  }
+}
+
+const summary = `## Gottfried Flury live authority acceptance\n\nValidated ${pages.length} pages and the Flury sitemap entry on ${origins.length} origins. ${failures.length ? `**FAIL (${failures.length})**` : "**PASS**"}\n\nNo cache purge, browser-rendering session, or Cloudflare authorization calls were made.\n`;
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
 if (failures.length) {
-  console.error(`::error title=Flury authority production mismatch::${failures.length} of ${pages.length * origins.length} HTTP checks failed. See JSON checks above for exact missing/obsolete markers.`);
+  console.error(`::error title=Flury authority production mismatch::${failures.length} of ${(pages.length + 1) * origins.length} HTTP checks failed. See JSON checks above for exact missing/obsolete markers.`);
   process.exitCode = 1;
 }
