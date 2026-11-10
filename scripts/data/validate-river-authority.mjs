@@ -93,6 +93,13 @@ for(const required of [
  'riverAuthorityLinksForCounty', 'riverAuthorityLinksForDestination',
  'allRiverAuthorityNavigationLinks'
 ]) if(!relations.includes(required)) errors.push('River relationship engine lacks '+required);
+// The destination route must SSR river links for primary trip-planner records;
+// relying on a lazily loaded planner leaves the actual page without a link.
+const destinationRoute = read('src/routes/destination.$slug.tsx');
+if (!destinationRoute.includes('{relatedRiverGuides.length > 0 && (') ||
+    !destinationRoute.includes('relatedRiverGuides.map((guide) => ('))
+  errors.push('River backlinks must be crawlable on all relevant destinations');
+
 if(!hub.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('Statewide hub must generate future river entries from canonical registry');
 if(!lazy.includes('allRiverAuthorityNavigationLinks()')) errors.push('River pillar must automatically include future authority guides');
 if(!landscape.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('River valleys guide must automatically include future river authority guides');

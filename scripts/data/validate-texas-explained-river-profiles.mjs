@@ -192,6 +192,15 @@ for (const [name, slug, twdbPath] of additionalBasins) {
   const next = begin < 0 ? -1 : additionalGuides.indexOf('\nexport const ', begin);
   const body = begin < 0 ? '' : additionalGuides.slice(begin, next > begin ? next : additionalGuides.length);
   const wordCount = body.slice(body.indexOf('body: [')).split(/\s+/).length;
+
+  // Article summaries must satisfy the existing 80-character index-readiness
+  // threshold and match their lazy/discovery metadata; this protects Nueces.
+  const description = body.match(/\bdek:\s*"([^"]+)"/)?.[1] ?? '';
+  const stubIndex = additionalStubs.indexOf(`slug: "${slug}"`);
+  const stubDescription = stubIndex < 0 ? '' : additionalStubs.slice(stubIndex).match(/\bdek:\s*"([^"]+)"/)?.[1] ?? '';
+  if (description.length < 80 || stubDescription !== description)
+    errors.push(`River description index readiness or stub mismatch: ${slug} (length=${description.length})`);
+
   if (wordCount < 600) errors.push(`New river guide below 600-word floor: ${name}, ${wordCount}`);
   if (!body.includes(`/river_basins/${twdbPath}`)) errors.push(`Missing official TWDB source: ${name}`);
   if (!body.includes('/article/texas-rivers-explained') || !body.includes('/article/texas-river-basins-guide') || !body.includes('/texas-explained')) errors.push(`Missing profile backlinks: ${slug}`);
