@@ -36,6 +36,7 @@ for (const [slug,{source,body}] of routes) {
       existsSync('src/routes/' + suffix + '.tsx'),
       existsSync('src/routes/' + suffix + '.lazy.tsx'),
       slugs.includes(pathName),
+      href === '/explore/state-parks' && existsSync('src/routes/explore.$category.tsx'),
     ].some(Boolean);
     assert(known, slug + ': unknown linked route ' + href);
   }
