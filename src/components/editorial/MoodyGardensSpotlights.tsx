@@ -135,7 +135,7 @@ export function MoodyGardensSpotlights() {
                 use the official checkout for the actual amounts.
               </p>
               <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
-                <a href="https://tickets.moodygardens.com/webstore/shop/viewitems.aspx?c=admission&amp;cg=ti" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">Compare official ticket prices and Value Pass</a>
+                <a href="https://tickets.moodygardens.com/webstore/shop/viewitems.aspx?c=admission&cg=ti" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">Compare official ticket prices and Value Pass</a>
                 <a href="https://www.moodygardens.com/visitor-info/faq" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">Review age categories and ticket terms</a>
               </div>
             </div>
