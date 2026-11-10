@@ -232,6 +232,35 @@ for (const slug of historicalMuseumReferences) {
   if (!fs.readFileSync(path.join(root, 'src/data/destination-availability.ts'), 'utf8').includes('"' + slug + '"')) errors.push('Closed museum missing from unavailable trip-planner set: ' + slug);
 }
 
+// Moody Gardens uses an independently maintained visitor guide. Keep the
+// operator's current status, evidence links and source review date coherent
+// across all rendering layers without re-enabling duplicated authority blocks.
+const moodyCuration = fs.readFileSync(path.join(root, 'src/data/destination-curation-moody-gardens.ts'), 'utf8');
+const moodyResolver = fs.readFileSync(path.join(root, 'src/data/top-attraction-authority-resolver.ts'), 'utf8');
+const moodySpotlights = fs.readFileSync(path.join(root, 'src/components/editorial/MoodyGardensSpotlights.tsx'), 'utf8');
+const moodyProduction = fs.readFileSync(path.join(root, 'scripts/production/verify-moody-gardens-production.mjs'), 'utf8');
+const moodyDate = moodyCuration.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+if (!moodyDate || moodyDate < '2026-11-09') errors.push('Moody Gardens visitor source check must not revert to the prior closure-era date.');
+if (moodyResolver.includes('sourceCheckedAt: "2026-10-05"')) errors.push('Moody Gardens resolver still rewrites the genuine source check date to October 5.');
+for (const [name, source] of [['destination curation', moodyCuration], ['spotlights', moodySpotlights]]) {
+  for (const stale of ['temporarily closed', 'scheduled to reopen in November', 'Closed now; scheduled to reopen']) {
+    if (source.toLowerCase().includes(stale.toLowerCase())) errors.push('Moody Gardens ' + name + ' still publishes obsolete closure: ' + stale);
+  }
+}
+for (const marker of ["Galveston Children", "Audience Recognition Theater", "Value Pass", "November 9, 2026"]) {
+  if (!(moodyCuration + '\n' + moodySpotlights).includes(marker)) errors.push('Moody Gardens lacks new visitor evidence: ' + marker);
+}
+for (const link of [
+  'https://www.moodygardens.com/attractions/discovery-pyramid',
+  'https://www.moodygardens.com/visitor-info/accessibility',
+  'https://www.moodygardens.com/visitor-info/map-directions',
+  'https://tickets.moodygardens.com/',
+]) {
+  if (!(moodyResolver + moodySpotlights).includes(link)) errors.push('Moody Gardens lacks official visitor link: ' + link);
+}
+if (!moodySpotlights.includes('strand-historic-district')) errors.push('Moody Gardens Strand pairing must use the dedicated destination route.');
+if (!moodyProduction.includes('staleClosureMarkers') || !moodyProduction.includes('dateModified')) errors.push('Moody Gardens live acceptance must reject old closures and stale structured dates.');
+
 if (errors.length) {
   console.error('Editorial content integrity validation failed:');
   for (const error of errors) console.error(`- ${error}`);
