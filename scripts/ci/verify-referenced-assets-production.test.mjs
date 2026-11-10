@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { verifyPriorAssetHandoff } from './verify-prior-asset-handoff.mjs';
+import { INCIDENT, qualifyKnownPublishedNetworkFailure, verifyOriginalIncident, repairReportWithIndependentProbes } from './recertify-transient-asset-handoff.mjs';
 import { qualifyPriorDeployJob } from './verify-prior-deploy-job-eligibility.mjs';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
@@ -718,4 +719,81 @@ test('postbuild supersession gate rejects stale main before asset work, preservi
   assert.match(step,/git ls-remote --exit-code origin refs\/heads\/main/);
   assert.match(step,/latest_main.*GITHUB_SHA/);
   assert.match(step,/exit 1/);
+});
+
+
+test('exact Nov10 already-published Worker can be recertified only by fresh both-origin matching original bytes', () => {
+  const paths=Object.keys(INCIDENT.failedPaths);
+  const ordinary=Array.from({length: INCIDENT.assetCount/2-paths.length},
+    (_,i)=>'/assets/proven-'+String(i).padStart(4,'0')+'.js');
+  const assets=[...ordinary,...paths].flatMap(path => ['direct','canonical'].map(origin=>{
+    const failed=origin==='canonical' && paths.includes(path);
+    return {path,origin,kind:'js',sources:['old'],oldHashMatches:true,
+      status: failed ? 'network-error' : 200, ok:!failed,
+      sha256:failed?undefined:(INCIDENT.failedPaths[path] || 'c'.repeat(64))};
+  }));
+  const original={
+    checkedAt:INCIDENT.checkedAt, expected:INCIDENT.workerVersion,
+    assets, failures: paths.map(path=>({path,origin:'canonical',status:'network-error',
+      sources:['old'],hashMismatch:false})),
+  };
+  const snapshot={snapshots:[{sourceCommit:INCIDENT.sourceSha,
+    builtAssets:ordinary.slice(0,139).map(path=>({path}))}]};
+  const args={workerVersion:INCIDENT.workerVersion,sourceSha:INCIDENT.sourceSha,
+    now:Date.parse(INCIDENT.checkedAt)+5000};
+  assert.equal(verifyOriginalIncident(snapshot,original,args).checked,INCIDENT.assetCount);
+  const probes=paths.flatMap(path=>['direct','canonical'].map(origin=>({
+    path,origin,url:'https://'+origin+'.example'+path,status:200,contentType:'text/javascript',
+    sha256:INCIDENT.failedPaths[path],bytes:1234,challenge:false,checkedAt:INCIDENT.checkedAt,
+  })));
+  const fixed=repairReportWithIndependentProbes(snapshot,original,probes,args);
+  assert.equal(fixed.failures.length,0);
+  assert.equal(fixed.assets.filter(item=>item.recoveryProof).length,2);
+  assert.equal(fixed.recertification.originalJobStillFailed,true);
+  assert.equal(verifyPriorAssetHandoff(snapshot,fixed,{
+    expectedWorkerVersion:INCIDENT.workerVersion,expectedSourceSha:INCIDENT.sourceSha,
+  }).checked,INCIDENT.assetCount);
+  assert.throws(()=>verifyOriginalIncident(snapshot,{...original,
+    failures:[...original.failures,{path:'/assets/third.js',origin:'direct',status:'network-error'}]},args),/only the two|known/i);
+  assert.throws(()=>verifyOriginalIncident(snapshot,{...original,
+    assets:original.assets.map((a,i)=>i===0?{...a,status:404,ok:false}:a)},args),
+    /original direct|unverified|status/i);
+  assert.throws(()=>verifyOriginalIncident(snapshot,original,{...args,workerVersion:'48cbc260-6582-4262-ae84-dd17d5a49d79'}),/pinned/i);
+  assert.throws(()=>verifyOriginalIncident(snapshot,original,{
+    ...args,now:Date.parse(INCIDENT.checkedAt)+73*3600000}),/72-hour/i);
+  assert.throws(()=>repairReportWithIndependentProbes(snapshot,original,
+    probes.map((p,i)=>i===1?{...p,sha256:'0'.repeat(64)}:p),args),
+    /fresh origin|SHA/i);
+  assert.throws(()=>repairReportWithIndependentProbes(snapshot,original,
+    probes.map((p,i)=>i===1?{...p,status:404}:p),args),/fresh origin|SHA/i);
+  assert.throws(()=>repairReportWithIndependentProbes(snapshot,original,
+    probes.filter(p=>p.origin==='direct'),args),/both fresh origins/i);
+});
+
+test('known published network-error incident requires exact GitHub failure, health and artifact steps', () => {
+  const mandatory=[
+    "Restore active Worker's verified successful asset handoff",
+    'Capture old HTML JS/CSS hashes before Worker replacement',
+    'Retain bounded old hashed client assets',
+    'Refuse superseded Worker revision',
+    'Deploy TexasDefined Worker',
+    'Capture deployed Worker version',
+    'Verify direct Worker health',
+    'Verify canonical production health',
+    'Measure postdeploy hashed-asset continuity',
+    'Preserve old/new asset delivery evidence and next-release handoff',
+  ];
+  const job={id:INCIDENT.jobId,run_id:INCIDENT.runId,name:'deploy',conclusion:'failure',
+    steps:[...mandatory.map(name=>({name,conclusion:'success'})),
+    {name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'}]};
+  assert.equal(qualifyKnownPublishedNetworkFailure({jobs:[job]}).verified,true);
+  assert.throws(()=>qualifyKnownPublishedNetworkFailure({jobs:[{...job,id:job.id+1}]}),/another/i);
+  assert.throws(()=>qualifyKnownPublishedNetworkFailure({jobs:[{...job,
+    steps:[...job.steps,{name:'Deploy another Worker',conclusion:'failure'}]}]}),/Unrelated|additional/i);
+  assert.throws(()=>qualifyKnownPublishedNetworkFailure({jobs:[{...job,
+    steps:job.steps.map(x=>x.name==='Verify direct Worker health'?{...x,conclusion:'skipped'}:x)}]}),
+    /safety step/i);
+  const wf=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
+  assert.match(wf,/recertify-transient-asset-handoff\.mjs --verify-job/);
+  assert.match(wf,/recertify-transient-asset-handoff\.mjs --repair/);
 });
