@@ -177,6 +177,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-industries",
   "/texas-jobs-without-four-year-degree",
   "/texas-career-training-options",
+  "/texas-government-jobs",
   "/texas-cities-nature-jobs",
   "/texas-industries/energy-power",
   "/texas-industries/technology-semiconductors",
