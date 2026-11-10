@@ -27,9 +27,9 @@ const cards = [
   },
   {
     eyebrow: "Best for younger kids",
-    title: "Discovery Pyramid & Children\'s Museum",
-    description: "The Galveston Children\'s Museum is now open upstairs with hands-on STEM, maker and imaginative-play activities. The interactive Audience Recognition Theater is downstairs.",
-    detail: "Operator-confirmed on Nov. 9, 2026 · Check the day\'s hours and ticket terms",
+    title: "Discovery Pyramid & Children's Museum",
+    description: "The Galveston Children's Museum is now open upstairs with hands-on STEM, maker and imaginative-play activities. The interactive Audience Recognition Theater is downstairs.",
+    detail: "Operator-confirmed on Nov. 9, 2026 · Check the day's hours and ticket terms",
     href: "https://www.moodygardens.com/attractions/discovery-pyramid",
     image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Discovery_Pyramid_Moody_Gardens.jpg?width=1200",
     alt: "The Discovery Pyramid at Moody Gardens in Galveston",
@@ -48,7 +48,7 @@ const cards = [
 ] as const;
 
 const currentNotes = [
-  { label: "Discovery Pyramid", value: "Galveston Children\'s Museum open during attraction hours; check daily schedule." },
+  { label: "Discovery Pyramid", value: "Galveston Children's Museum open during attraction hours; check daily schedule." },
   { label: "Parking", value: "Standard self-parking is free; upgraded parking options cost extra." },
   { label: "Holiday season", value: "Holiday in the Gardens runs Nov. 21, 2026 through Jan. 2, 2027." },
   { label: "Before you buy", value: "Check the official daily schedule and price by age; Palm Beach is seasonal." },
@@ -120,7 +120,7 @@ export function MoodyGardensSpotlights() {
             </p>
             <div className="mt-5 border-t-2 border-primary py-5">
               <strong className="font-display text-2xl">Best first-time default</strong>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan the Aquarium and Rainforest first for a wildlife-focused visit. Families with younger kids may prefer the Galveston Children\'s Museum in the Discovery Pyramid instead of a second wildlife stop.</p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan the Aquarium and Rainforest first for a wildlife-focused visit. Families with younger kids may prefer the Galveston Children's Museum in the Discovery Pyramid instead of a second wildlife stop.</p>
             </div>
             <div className="mt-6 border-t border-border pt-5">
               <h3 className="font-display text-xl">What a family of four should compare</h3>
