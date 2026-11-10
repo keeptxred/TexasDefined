@@ -1,7 +1,7 @@
 name: TexasDefined source-only newsroom evidence hydration
 
 # Reviews original publication evidence only; never generates or publishes.
-# Works even while TEXASDEFINED_AUTO_PUBLISH_ENABLED is deliberately off.
+# Continues collecting qualified original evidence while article publication is inactive.
 on:
   schedule:
     - cron: '26 0,6,12,18 * * *'
