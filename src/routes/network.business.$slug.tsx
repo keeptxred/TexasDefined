@@ -1,5 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { buildMeta, canonicalLink } from "@/lib/seo";
 
 // The initial SSR HTML is strictly limited to independently published listings.
 // Private applications and unpublished profiles never reach the browser loader.
@@ -25,10 +27,25 @@ export const Route = createFileRoute("/network/business/$slug")({
     if (!listing) throw notFound();
     return listing;
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${typeof (loaderData?.profile as Record<string,unknown> | undefined)?.business_name === "string" ? (loaderData?.profile as Record<string,unknown>).business_name : "Texas Business"} | Texas Defined Network` },
-      { name: "robots", content: loaderData?.indexable ? "index,follow" : "noindex,nofollow,noarchive" },
-    ],
-  }),
+  head: ({ loaderData, params }) => {
+    const profile = loaderData?.profile as Record<string, unknown> | undefined;
+    const businessName = typeof profile?.business_name === "string" && profile.business_name.trim()
+      ? profile.business_name.trim()
+      : "Texas Business";
+    const description = typeof profile?.description === "string" && profile.description.trim()
+      ? profile.description.trim()
+      : `Published Texas business listing for ${businessName}, with visitor and business information.`;
+    const canonicalPath = `/network/business/${params.slug}`;
+    return {
+      // The publisher-aware title governor is required even for future long
+      // business names. Preserve the complete business name in the page body.
+      meta: buildMeta(texasDefinedBrand, {
+        title: businessName,
+        description,
+        canonicalPath,
+        robots: loaderData?.indexable ? "index,follow" : "noindex,nofollow,noarchive",
+      }),
+      links: loaderData?.indexable ? [canonicalLink(texasDefinedBrand, canonicalPath)] : [],
+    };
+  },
 });
