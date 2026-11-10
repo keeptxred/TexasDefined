@@ -525,7 +525,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           .filter((item): item is string => Boolean(item));
         const techniqueEntries = paintedChurchTechniques.map((item) => entry(`/explore/painted-churches/techniques/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const symbolEntries = paintedChurchSymbols.map((item) => entry(`/explore/painted-churches/symbols/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const peopleEntries = paintedChurchPeople.map((item) => entry(`/explore/painted-churches/people/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
+        const peopleEntries = paintedChurchPeople.map((item) => entry(`/explore/painted-churches/people/${item.slug}`, item.slug === "gottfried-flury" ? "2026-11-09" : "2026-08-18")).filter((item): item is string => Boolean(item));
         const heritageEntries = paintedChurchHeritage.map((item) => entry(`/explore/painted-churches/heritage/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const preservationEntries = paintedChurchPreservationTopics.map((item) => entry(`/explore/painted-churches/preservation/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const glossaryEntries = paintedChurchGlossary.map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
