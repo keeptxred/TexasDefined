@@ -48,6 +48,27 @@ describe("Painted Churches reference-page depth", () => {
     expect(flury).not.toContain("license</a> · source and attribution</a>");
   });
 
+
+  it("makes the Flury research independently useful, attributed, and linked to the official property record", () => {
+    for (const fact of [
+      "A church made by more than one pair of hands",
+      "After 1901 · Father Louis Netardus",
+      "Later 20th century · Gene A. Mikulik",
+      "1972 and 1983 · Documentary record",
+      "June 21, 1983",
+      "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138",
+      "Texas Defined History &amp; Heritage Desk",
+      "Published-source cross-check completed November 9, 2026",
+      "to=\"/corrections-policy\"",
+    ]) {
+      expect(flury).toContain(fact);
+    }
+    expect(people).toContain("Published sources cross-checked November 9, 2026");
+    expect(people).toContain('dateModified: "2026-11-09"');
+    expect(people).toContain('author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk"');
+    expect(flury).not.toContain("How Texas Defined handles attribution");
+  });
+
   it("distinguishes original fabric, repainting, reconstruction and conservation", () => {
     expect(preservation).toContain("How to read preservation evidence");
     expect(preservation).toContain("Original painted fabric, later repainting, reconstruction from surviving evidence and a modern conservation campaign");
