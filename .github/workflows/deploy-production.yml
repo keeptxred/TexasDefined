@@ -342,6 +342,7 @@ jobs:
       # original-byte probes for an obsolete SHA. The final pre-Wrangler
       # revision refusal remains mandatory; this is an additional early gate.
       - name: Refuse superseded source immediately after build
+        id: postbuild_supersession
         if: success()
         shell: bash
         run: |
@@ -1524,6 +1525,8 @@ jobs:
             echo '::error title=Pipeline failure class: DEPLOYMENT / CONCURRENCY::The Cloudflare Git integration did not settle before the protected deployment deadline; no verified replacement was attempted.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
+          elif [[ '${{ steps.postbuild_supersession.outcome }}' == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: STALE SOURCE::Postbuild revision guard refused a superseded main SHA; no Worker deploy or live verifier ran.'
           elif [[ "$LIVE_OUTCOME" != 'success' ]]; then
             echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a raw production verifier failed. The exact child outcome is listed above.'
           elif [[ "$RECOVERY_LEDGER_OUTCOME" == 'failure' ]]; then
