@@ -38,7 +38,7 @@ jobs:
       - name: Verify publication activation remains independent
         run: node scripts/data/validate-texasdefined-auto-publication.mjs
       - name: Verify source-only workflow cannot publish or call AI
-        run: node --test scripts/news/texasdefined-source-hydration-contract.test.mjs
+        run: node --test scripts/news/texasdefined-source-hydration-contract.test.mjs scripts/news/texasdefined-source-hydration-backoff.test.mjs
       - name: Fetch up to eight eligible original source pages, zero AI
         shell: bash
         run: |
