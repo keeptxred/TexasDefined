@@ -58,6 +58,9 @@ const localSalaryNeededTools = [
 const industryResearchLinks = [
   ["Texas industries", "/texas-industries", "Start with the statewide authority hub, then follow the sector that matches your field into its major Texas regions and cities."],
   ["Texas jobs & economy", "/article/texas-jobs-economy-industries", "Use the practical statewide overview to understand where major job systems concentrate before comparing a move."],
+  ["Careers without a four-year degree", "/texas-jobs-without-four-year-degree", "Compare real wages, supervised training and licensing demands across Texas metros."],
+  ["Career training options", "/texas-career-training-options", "Find potentially funded training, apprenticeships, school verification and questions to ask before paying."],
+  ["Where nature and jobs fit together", "/texas-cities-nature-jobs", "Compare four metro job markets alongside official regional parks without false city rankings."],
   ["Made in Texas", "/made-in-texas", "See companies, products and operating relationships tied to Texas communities without treating a headquarters as proof of local manufacturing."],
   ["Salary comparison by city", "/texas-salary-comparison-by-city", "Compare salary-planning tools after you identify the cities where your industry is strongest."],
 ] as const;
