@@ -28,7 +28,7 @@ const EXTRA_CONTEXT: Record<string, string[]> = {
     "A strong first visit prioritizes one carefully chosen tram experience, Independence Plaza and the spacecraft galleries. Pairing a full space-center day with major downtown Houston museums often creates unnecessary driving; Clear Lake or Kemah make more realistic nearby additions."
   ],
   "moody-gardens": [
-    "Ticket choice should follow the actual attractions operating that date. The Aquarium and Rainforest Pyramids offer different environments, and seasonal activities, theaters, Discovery Museum programming and special exhibitions may be separately ticketed or unavailable. Verify the daily schedule and any renovation notice before purchasing a combination package.",
+    "Ticket choice should follow the attractions operating that date. The Aquarium and Rainforest Pyramids offer different environments, while the Discovery Pyramid now houses the open Galveston Children's Museum upstairs and the Audience Recognition Theater downstairs. Individual attractions and Value Pass inclusions differ; use the official daily hours and ticket checkout before buying a combination package.",
     "For families with limited time, two pyramids and lunch are usually a more satisfying core than trying to complete every ticketed offering. Moody Gardens sits on the western side of Galveston, so reserve a separate block for the Strand, seawall or beach rather than assuming those stops are walkable from the pyramids."
   ],
   "enchanted-rock-state-natural-area": [
