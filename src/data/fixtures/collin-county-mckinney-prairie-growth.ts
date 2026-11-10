@@ -29,7 +29,6 @@ export const collinCountyMcKinneyPrairieGrowthArticle: Article = {
     { href: "/county/dallas", label: "Explore Dallas County", description: "Continue south into the historic and urban core of the Metroplex." },
     { href: "/county/denton", label: "Explore Denton County", description: "Cross the western county line into another fast-growing North Texas county." },
     { href: "/county/grayson", label: "Explore Grayson County", description: "Head north toward Sherman, Denison and the Red River country." },
-    { href: "/county/collin", label: "Collin County reference", description: "Use the county directory for services, maps and neighboring community information." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement and travel distance helped shape Texas county boundaries." },
   ],
   sources: [
