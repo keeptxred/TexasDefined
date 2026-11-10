@@ -1,4 +1,5 @@
 name: Preflight Texas question guides before review
+# Rerun after literal route-source and CSS byte-budget repairs (no gate changes).
 
 on:
   push:
