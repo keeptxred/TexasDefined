@@ -29,7 +29,7 @@ jobs:
     env:
       KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
       KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
-      NEWSROOM_HYDRATION_URL: https://keeptxred.com/api/public/hooks/hydrate-newsroom-source-pages
+      NEWSROOM_HYDRATION_URL: https://keeptxred-site.freddy-coppola.workers.dev/api/public/hooks/hydrate-newsroom-source-pages
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -37,6 +37,8 @@ jobs:
           node-version: 24
       - name: Verify publication activation remains independent
         run: node scripts/data/validate-texasdefined-auto-publication.mjs
+      - name: Verify source-only workflow cannot publish or call AI
+        run: node --test scripts/news/texasdefined-source-hydration-contract.test.mjs
       - name: Fetch up to eight eligible original source pages, zero AI
         shell: bash
         run: |
