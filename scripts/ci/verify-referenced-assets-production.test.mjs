@@ -3,7 +3,7 @@ import { verifyPriorAssetHandoff } from './verify-prior-asset-handoff.mjs';
 import { qualifyPriorDeployJob } from './verify-prior-deploy-job-eligibility.mjs';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { MAX_ASSET_AUDIT_CONCURRENCY, ASSET_REQUEST_START_GAP_MS, createAssetRequestPacer, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
+import { MAX_ASSET_AUDIT_CONCURRENCY, ASSET_REQUEST_START_GAP_MS, createAssetRequestPacer, MAX_CROSS_RELEASE_ASSETS_PER_ORIGIN, assertBoundedCrossReleaseSet, mapBounded, retryOneTransportTimeout, isTransientAssetTransportError, retryTransientAssetTransport, nextSnapshotHistory, referencesFromHtml, selectBuiltRouteAssets, validAssetResponse } from './verify-referenced-assets-production.mjs';
 
 test('only a successful active Worker predecessor with both-origin original SHA proof is accepted', () => {
   const version='953ec55d-c98c-41e8-b59e-613878d2a7c3', sha='a'.repeat(40);
@@ -682,4 +682,69 @@ test('postbuild supersession gate rejects stale main before asset work, preservi
   assert.match(step,/git ls-remote --exit-code origin refs\/heads\/main/);
   assert.match(step,/latest_main.*GITHUB_SHA/);
   assert.match(step,/exit 1/);
+});
+
+
+test('asset audit retries only transient transport failures at the original immutable URL', async () => {
+  let calls = 0;
+  const pauses = [];
+  const url = 'https://texasdefined.com/assets/external-link-C89WsLHQ.js';
+  const seen = [];
+  const returned = await retryTransientAssetTransport(async () => {
+    calls++;
+    seen.push(url);
+    if(calls===1) throw Object.assign(new TypeError('fetch failed'), { cause: { code: 'UND_ERR_SOCKET' } });
+    if(calls===2) throw Object.assign(new TypeError('fetch failed'), { cause: { code: 'ECONNRESET' } });
+    return {path:'/assets/external-link-C89WsLHQ.js',status:200,mime:'application/javascript',
+      sha256:'e'.repeat(64),ok:true};
+  },async ms => { pauses.push(ms); });
+  assert.equal(calls,3, 'two failed transport attempts plus one full successful byte retrieval');
+  assert.deepEqual(pauses,[500,1000], 'finite backoff with no unbounded traffic');
+  assert.deepEqual(seen,[url,url,url], 'never change the path, origin or expected asset');
+  assert.equal(returned.status,200);
+  assert.equal(returned.sha256,'e'.repeat(64));
+  assert.equal(returned.ok,true);
+});
+
+test('asset audit still fails after third transport error and never retries substantive HTTP or hash failures', async () => {
+  let calls = 0;
+  await assert.rejects(retryTransientAssetTransport(async () => {
+    calls++;
+    throw Object.assign(new Error('transport cannot recover'), { name:'TimeoutError' });
+  },async()=>{}), /transport cannot recover/);
+  assert.equal(calls,3, 'all transient attempts exhausted and still fail closed');
+  for(const status of [404,500,503]) {
+    calls=0;
+    const record=await retryTransientAssetTransport(async () => {
+      calls++;
+      return {status,ok:false};
+    },async () => { throw new Error('never retry HTTP failure'); });
+    assert.equal(calls,1, 'never retry HTTP '+status);
+    assert.equal(record.ok,false, 'HTTP '+status+' must remain failed');
+  }
+  calls=0;
+  const mismatch=await retryTransientAssetTransport(async () => {
+    calls++;
+    return {status:200,mime:'application/javascript',sha256:'wrong',ok:false};
+  },async () => { throw new Error('never retry SHA mismatch'); });
+  assert.equal(calls,1);
+  assert.equal(mismatch.ok,false, 'hash mismatch must still fail verification');
+  calls=0;
+  await assert.rejects(retryTransientAssetTransport(async()=>{
+    calls++;
+    throw Object.assign(new TypeError('TLS certificate mismatch'),{cause:{code:'ERR_TLS_CERT_ALTNAME_INVALID'}});
+  },async()=>{throw new Error('wrongly retried TLS integrity failure');}),/TLS certificate mismatch/);
+  assert.equal(calls,1);
+  assert.equal(isTransientAssetTransportError(Object.assign(new TypeError('fetch failed'),{cause:{code:'UND_ERR_CONNECT_TIMEOUT'}})),true);
+  assert.equal(isTransientAssetTransportError(new Error('invalid Worker SHA')),false);
+  assert.equal(isTransientAssetTransportError(Object.assign(new Error('DNS does not exist'),{code:'ENOTFOUND'})),false);
+});
+
+test('asset verifier integrates bounded retry into every original-URL audit request', () => {
+  const source=readFileSync('scripts/ci/verify-referenced-assets-production.mjs','utf8');
+  assert.match(source,/return await retryTransientAssetTransport\(async\(\)=>\{/);
+  assert.match(source,/return retrieveAsset\(origin,path,kind\)/);
+  assert.match(source,/await paceAssetRequest\(\)/);
+  assert.match(source,/status:'network-error',ok:false/);
+  assert.match(source,/if \(!isTransientAssetTransportError\(error\) \|\| attempt === 3\) throw error/);
 });
