@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 /**
  * Operator-sourced campground decision guide for one specific RV destination.
  * Keep changing alerts, campsite prices and individual pad fit tied to TPWD.
- * Snapshot checked October 31, 2026; the source links are the live authority.
+ * Campground snapshot checked October 31; park alerts rechecked November 10, 2026.
  */
 const CAMPSITES = [
   { name: "Lakefront electric", loop: "Bee Tree", power: "30 amp + water", sites: 13, nightly: "$20", href: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/campsites/premium-lake-front-access-campsites" },
@@ -20,7 +20,7 @@ export default function MartinCreekRvAuthority() {
   return (
     <section id="martin-creek-rv-guide" aria-labelledby="martin-creek-rv-title" className="border-b border-border bg-surface py-12">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-        <p className="eyebrow text-primary">Researched RV campground guide · TPWD checked October 31, 2026</p>
+        <p className="eyebrow text-primary">Researched RV campground guide · TPWD campsites checked October 31, 2026 · alerts checked November 10, 2026</p>
         <h2 id="martin-creek-rv-title" className="mt-3 font-display text-3xl sm:text-4xl">Choose the right campsite at Martin Creek Lake</h2>
         <p className="mt-5 max-w-4xl leading-7">
           The RV campground is <strong>inside Martin Creek Lake State Park</strong>, not a separate resort.
@@ -88,16 +88,21 @@ export default function MartinCreekRvAuthority() {
         </div>
 
         <div className="mt-8 border-y border-border py-6" aria-labelledby="martin-creek-alerts">
-          <h3 id="martin-creek-alerts" className="font-display text-2xl">Important active park alerts</h3>
+          <h3 id="martin-creek-alerts" className="font-display text-2xl">Check current park alerts and fire rules</h3>
           <p className="mt-3 text-sm leading-7">
-            <strong>Burn ban (issued August 5, 2026):</strong> TPWD prohibits wood and charcoal fires;
-            containerized fuel stoves such as propane are allowed for cooking only.
-            A campsite having a fire ring does not mean campfires are currently permitted.
+            <strong>Argentine ants (TPWD alert checked November 10, 2026):</strong> The park reports
+            invasive ants in some campsites. Inspect your RV, tow vehicle and camping gear before
+            departing; notify park staff if you find any ants.
           </p>
           <p className="mt-3 text-sm leading-7">
-            <strong>Argentine ants:</strong> The park reports invasive ants in some campsites. Inspect the RV,
-            tow vehicle and camping gear carefully before departing; report any ants to park staff.
-            Rusk County also has an emerald ash borer quarantine that restricts movement of firewood.
+            <strong>Campfires and charcoal:</strong> An August 2026 burn-ban notice appeared in an earlier
+            source review, but was <strong>not listed on TPWD's park alert page on November 10</strong>.
+            This does not establish that fires are permitted during your visit. Always check the
+            latest official alerts and posted fire restrictions, and ask park staff if uncertain.
+          </p>
+          <p className="mt-3 text-sm leading-7">
+            Rusk County's emerald ash borer quarantine restricts moving firewood.
+            Buy firewood where you burn it and follow current park rules.
           </p>
           <p className="mt-3 text-sm leading-6">
             These are a <strong>dated snapshot, not a live alert feed</strong>.
