@@ -65,7 +65,7 @@ describe("Painted Churches reference-page depth", () => {
       expect(flury).toContain(fact);
     }
     expect(people).toContain("Published sources and archive catalogs cross-checked November 10, 2026");
-    expect(people).toContain('dateModified: "2026-11-09"');
+    expect(people).toContain('dateModified: "2026-11-10"');
     expect(people).toContain('author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk"');
     expect(flury).not.toContain("How Texas Defined handles attribution");
     expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-10" : "2026-08-18"');
