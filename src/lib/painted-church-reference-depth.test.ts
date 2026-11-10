@@ -39,7 +39,7 @@ describe("Painted Churches reference-page depth", () => {
     expect(people).toContain("deathDate: isFlury ?");
     expect(people).toContain('sameAs: isFlury ? ["https://www.tshaonline.org/handbook/entries/flury-godfrey"] : undefined');
     expect(peopleData).toContain("Gottfried (Godfrey) Flury (1864–1936)");
-    for (const required of ["Documented versus uncertain work", "1972", "National Register", "Key dates in Flury’s life and legacy", "March 24, 2018", "moravia-ascension-of-our-lord", "The shared decorative vocabulary", "Gottfried (Godfrey) Flury", "paintedChurchGalleryBySlug", "photo.license", "We link to that archive rather than reproduce the photograph without permission.", "https://www.tshaonline.org/handbook/entries/flury-godfrey", "https://austinpbs.org/paintedchurches/praha"]) {
+    for (const required of ["Documented versus uncertain work", "1972", "National Register", "Key dates in Flury’s life and legacy", "March 24, 2018", "moravia-ascension-of-our-lord", "The shared decorative vocabulary", "Became a naturalized United States citizen", "1929–1934", "mechanical engineering", "Godfrey Flury Collection, 1887–1981", "Smithsonian Archives of American Art", "Godfrey Flury Scrapbook", "we have not inspected the original Flury papers", "Gottfried (Godfrey) Flury", "paintedChurchGalleryBySlug", "photo.license", "We link to that archive rather than reproduce the photograph without permission.", "https://www.tshaonline.org/handbook/entries/flury-godfrey", "https://austinpbs.org/paintedchurches/praha"]) {
       expect(flury).toContain(required);
     }
     expect(flury).not.toContain("Artistic interpretation");
@@ -59,16 +59,16 @@ describe("Painted Churches reference-page depth", () => {
       "June 21, 1983",
       "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138",
       "Texas Defined History &amp; Heritage Desk",
-      "Published-source cross-check completed November 9, 2026",
+      "Published-source and archival-catalog cross-check completed November 10, 2026",
       "to=\"/corrections-policy\"",
     ]) {
       expect(flury).toContain(fact);
     }
-    expect(people).toContain("Published sources cross-checked November 9, 2026");
-    expect(people).toContain('dateModified: "2026-11-09"');
+    expect(people).toContain("Published sources and archive catalogs cross-checked November 10, 2026");
+    expect(people).toContain('dateModified: "2026-11-10"');
     expect(people).toContain('author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk"');
     expect(flury).not.toContain("How Texas Defined handles attribution");
-    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-09" : "2026-08-18"');
+    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-10" : "2026-08-18"');
   });
 
   it("distinguishes original fabric, repainting, reconstruction and conservation", () => {
