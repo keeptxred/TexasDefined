@@ -127,12 +127,13 @@ test('Woodlands production H1 verification tolerates SSR text nodes without drop
   assert.doesNotMatch(woodlands,/body\.includes\('The Woodlands Township property tax rate'\)/);
 });
 
-test('isolated tax authority smoke can verify a failed production release independently',()=>{
+test('independent tax authority smoke checks the deployed revision after successful production release',()=>{
   const workflow=readFileSync('.github/workflows/verify-property-tax-production.yml','utf8');
   assert.match(workflow,/workflow_run:/);
   assert.match(workflow,/Deploy TexasDefined production/);
   assert.match(workflow,/workflow_run.conclusion == 'success'/);
-  assert.match(workflow,/workflow_run.conclusion == 'failure'/);
+  assert.doesNotMatch(workflow,/workflow_run.conclusion == 'failure'/);
+  assert.match(workflow,/workflow_run\.head_sha/);
   assert.match(workflow,/workflow_dispatch:/);
   assert.match(workflow,/TEXAS_TAX_VERIFY_ONLY: '1'/);
   assert.match(workflow,/verify-local-financial-production.mjs/);
@@ -146,15 +147,15 @@ test('isolated tax authority smoke can verify a failed production release indepe
 test('independent tax production smoke checks run daily, even after unrelated deploy success',()=>{
   const standalone=readFileSync('.github/workflows/verify-property-tax-production.yml','utf8');
   assert.match(standalone,/schedule:\s*\n\s*- cron: '17 10 \* \* \*'/);
-  assert.match(standalone,/github\.event_name == 'push'/);
-  assert.match(standalone,/\.github\/workflows\/verify-property-tax-production\.yml/);
+  assert.doesNotMatch(standalone,/github\.event_name == 'push'/);
+  assert.match(standalone,/workflow_run\.head_sha/);
   assert.match(standalone,/github\.event_name == 'schedule'/);
   assert.match(standalone,/workflow_run\.conclusion == 'success'/);
-  assert.match(standalone,/workflow_run\.conclusion == 'failure'/);
+  assert.doesNotMatch(standalone,/workflow_run\.conclusion == 'failure'/);
   assert.ok(standalone.includes('group: texasdefined-tax-live-independent-${{ github.event_name }}'));
   assert.match(standalone,/TEXAS_TAX_VERIFY_ONLY: '1'/);
-  assert.ok(standalone.includes("'scripts/ci/verify-local-financial-production.mjs'"));
-  assert.ok(standalone.includes("'scripts/ci/tax-history-row-contract.mjs'"));
+  assert.ok(!standalone.includes("    branches: [main]"),'never trigger predeploy live checks on a main push');
+  assert.match(standalone,/workflow_dispatch:/);
   assert.ok(!standalone.includes("'src/routes/property-tax.taxing-unit.$unit.tsx'"),'avoid running verifier before site route deploy');
   assert.match(standalone,/node scripts\/ci\/verify-local-financial-production\.mjs/);
   assert.match(smoke,/const taxHistoryOrigins = \[/);
