@@ -6,7 +6,7 @@ const path = "/texas-jobs-without-four-year-degree";
 const title = "Texas Careers Without a Four-Year Degree: Pay and Paths";
 const description = "Compare work that does not normally require a bachelor's degree, what Texas licenses demand, and four metro area wage categories using BLS and TWC primary sources.";
 const pageUrl = absoluteUrl(texasDefinedBrand, path);
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute("/texas-jobs-without-four-year-degree")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
     links: [canonicalLink(texasDefinedBrand, path)],
