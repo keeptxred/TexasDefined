@@ -180,7 +180,6 @@ for (const profileSpec of curatedProfiles) {
       '50-amp electric',
       'Standard electric',
       'Argentine ants',
-      'burn ban',
       'before 5 p.m.',
       'dump station',
     ], 'Martin Creek RV campground authority content');

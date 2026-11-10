@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 
-// Narrow source-drift guard: never auto-publish price changes or a lifted fire ban
-// based solely on markup. Open one actionable GitHub issue for owner review.
+// Narrow source-drift guard: do not auto-publish changing fees or fire restrictions
+// from scraped markup. Raise actionable drift for human source verification.
 const ROOT = "https://tpwd.texas.gov/state-parks/martin-creek-lake";
 const BOOK = "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121";
 const sources = [
@@ -17,8 +17,9 @@ const sources = [
     ["under-13 free entrance", /Free/i],
   ] },
   { label: "TPWD active alerts", url: ROOT + "/alert", required: [
-    ["August 5 wood/charcoal burn ban", /Aug\.?\s*5,?\s*2026[\s\S]{0,420}wood or charcoal/i],
     ["Argentine ant alert", /Argentine ants/i],
+  ], forbidden: [
+    ["new or restored fire restriction notice", /(?:burn ban|fires? (?:are )?(?:prohibited|banned)|no (?:wood|charcoal) fires)/i],
   ] },
   { label: "TPWD reservations", url: BOOK, required: [
     ["dump station", /Dump Station/i],
@@ -55,10 +56,13 @@ for (const source of sources) {
   for (const [name, pattern] of source.required) {
     if (!pattern.test(readable)) drifts.push(source.label + ": reverify " + name + " — " + source.url);
   }
+  for (const [name, pattern] of source.forbidden ?? []) {
+    if (pattern.test(readable)) drifts.push(source.label + ": reverify " + name + " — " + source.url);
+  }
 }
 if (drifts.length) {
   const message = [
-    "TPWD or the reservation service no longer matches the October 31, 2026 Martin Creek RV reference facts.",
+    "TPWD or the reservation service no longer matches the source-checked Martin Creek RV reference facts.",
     "This is source drift, not proof of a changed policy. Verify source content before editing.",
     "",
     ...drifts.map((line) => "- " + line),
