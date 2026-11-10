@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 
@@ -17,7 +18,7 @@ const routes = [
 ] as const;
 
 function Money({ value }: { value: number }) { return <span className="tabular-nums">{value.toFixed(2)}</span>; }
-function Source({ href, children }: { href: string; children: React.ReactNode }) {
+function Source({ href, children }: { href: string; children: ReactNode }) {
   return <a className="font-semibold text-primary underline underline-offset-4" href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
 }
 
