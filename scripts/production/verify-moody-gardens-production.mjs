@@ -11,7 +11,24 @@ const imageMarkers = [
   "Discovery_Pyramid_Moody_Gardens.jpg",
   "The_Moody_Gardens_Hotel_pool_at_night_6-10.jpg",
 ];
+const requiredFreshnessMarkers = [
+  "Galveston Children",
+  "November 9, 2026",
+  "price the exact attractions you will visit",
+  "wheelchairs",
+  "accessibility",
+  "combined Aquarium + Rainforest ticket",
+];
+const staleClosureMarkers = [
+  "Discovery Museum is temporarily closed",
+  "Discovery Museum scheduled to reopen",
+  "Discovery Museum programming and special exhibitions may be separately ticketed or unavailable",
+  "Closed now; scheduled to reopen",
+  "Temporarily closed as of October 25",
+  "scheduled to reopen in November 2026",
+];
 const forbiddenMarkers = [
+  ...staleClosureMarkers,
   "Independent Texas Defined research",
   "Why this place matters",
   "Our trip-planning assessment",
@@ -39,9 +56,14 @@ for (const [label, rawUrl] of targets) {
   for (const imageMarker of imageMarkers) {
     if (!html.includes(imageMarker)) failures.push(`${label}: Moody Gardens image card missing asset ${imageMarker}`);
   }
-  for (const marker of forbiddenMarkers) {
-    if (html.includes(marker)) failures.push(`${label}: stale/duplicate generic authority marker present: ${marker}`);
+  for (const marker of requiredFreshnessMarkers) {
+    if (!html.includes(marker)) failures.push(`${label}: missing current visitor-fact marker: ${marker}`);
   }
+  for (const marker of forbiddenMarkers) {
+    if (html.includes(marker)) failures.push(`${label}: stale/duplicate authority claim: ${marker}`);
+  }
+  const currentSchemaDate = /"dateModified":"(\d{4}-\d{2}-\d{2})"/.exec(html)?.[1];
+  if (!currentSchemaDate || currentSchemaDate < "2026-11-09") failures.push(`${label}: wrong or stale schema dateModified: ${currentSchemaDate ?? "missing"}`);
   console.log(`Moody Gardens production acceptance: ${label} HTTP ${response.status}; bytes=${html.length}`);
 }
 
