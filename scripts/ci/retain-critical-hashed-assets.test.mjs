@@ -208,6 +208,59 @@ test('actual retention copies byte-identical prior Worker JS to next client asse
   } finally { rmSync(temp, { recursive: true, force: true }); }
 });
 
+test('transient edge failure retries the exact original and still verifies its SHA', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-asset-retry-'));
+  try {
+    const path = '/assets/main-NetworkRetry123.js';
+    const bytes = 'export const verifiedRetry = true';
+    const preSha256 = createHash('sha256').update(bytes).digest('hex');
+    const snapshotPath = join(temp, 'snapshot.json');
+    const reportPath = join(temp, 'report.json');
+    const at = new Date().toISOString();
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      capturedAt: at, pages: [{ assets: [{ path, wasAvailable: true, firstSeenAt: at, preSha256 }] }],
+    }] }));
+    let attempts = 0;
+    const result = await retain({ snapshotPath, reportPath, historicalProof: [],
+      assetFolder: join(temp, 'assets'), fetchImpl: async url => {
+        assert.equal(url, 'https://texasdefined.com' + path);
+        attempts += 1;
+        if (attempts === 1) throw new Error('transient edge timeout');
+        return new Response(bytes, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
+      } });
+    assert.equal(attempts, 2);
+    assert.equal(result.unavailable.length, 0);
+    assert.equal(result.retainedCount, 1);
+    assert.equal(readFileSync(join(temp, 'assets', 'main-NetworkRetry123.js'), 'utf8'), bytes);
+  } finally { rmSync(temp, { recursive: true, force: true }); }
+});
+
+test('persistent edge network failure exhausts bounded retries and fails closed', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-asset-retry-exhaust-'));
+  try {
+    const path = '/assets/main-NetworkFailure123.js';
+    const at = new Date().toISOString();
+    const snapshotPath = join(temp, 'snapshot.json');
+    const reportPath = join(temp, 'report.json');
+    const preSha256 = createHash('sha256').update('original').digest('hex');
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      capturedAt: at, pages: [{ assets: [{ path, wasAvailable: true, firstSeenAt: at, preSha256 }] }],
+    }] }));
+    let attempts = 0;
+    await assert.rejects(() => retain({ snapshotPath, reportPath, historicalProof: [],
+      assetFolder: join(temp, 'assets'), fetchImpl: async () => {
+        attempts += 1;
+        throw new Error('unreachable');
+      } }), /Previously healthy in-window old assets are now unavailable/);
+    assert.equal(attempts, 3);
+    const report = JSON.parse(readFileSync(reportPath, 'utf8'));
+    assert.equal(report.unavailable.length, 1);
+    assert.equal(report.unavailable[0].path, path);
+    assert.equal(report.unavailable[0].status, 'network-error');
+    assert.equal(report.failure.reason, 'previously-healthy-asset-unavailable');
+  } finally { rmSync(temp, { recursive: true, force: true }); }
+});
+
 test('previously verified SHA never silently accepts different old code', async () => {
   const temp = mkdtempSync(join(tmpdir(), 'td-hashed-assets-'));
   try {
