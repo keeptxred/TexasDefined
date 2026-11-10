@@ -15,7 +15,7 @@ const resources = read('src/routes/texas-resources.lazy.tsx');
 
 for (const [slug,{source,body}] of routes) {
   const path = '/' + slug;
-  assert(source.includes('createFileRoute(path)'), slug + ': metadata route missing');
+  assert(source.includes('createFileRoute("' + path + '")'), slug + ': literal metadata route missing');
   assert(source.includes('canonicalLink(texasDefinedBrand, path)'), slug + ': canonical missing');
   assert(source.includes('"@type": "BreadcrumbList"'), slug + ': breadcrumb LD missing');
   assert(source.includes('"@type": "Article"'), slug + ': article LD missing');
