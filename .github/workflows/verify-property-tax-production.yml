@@ -1,27 +1,10 @@
 name: Verify Texas tax pages independently
 
 on:
-  # Verify the currently served Worker when this independent verification
-  # workflow or its live validator changes; avoids waiting for the daily run.
-  # App routes are intentionally excluded to avoid racing deployments.
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/verify-property-tax-production.yml'
-      - 'scripts/ci/verify-local-financial-production.mjs'
-      - 'scripts/ci/tax-history-row-contract.mjs'
-      - 'scripts/data/validate-isd-tax-authority.mjs'
-      - 'scripts/ci/verify-isd-tax-production.mjs'
-      - 'src/components/property/IsdTaxAuthority.tsx'
-      - 'src/components/property/TaxingUnitRatePage.tsx'
-      - 'src/data/property/isd-exemptions.ts'
-      - 'src/data/property/hood-cad-isd-adopted.json'
-      - 'src/data/property/tea-isd-historical-verified.json'
-      - 'src/data/property/tea-isd-components.server.ts'
-      - 'scripts/ci/verify-tea-isd-production.mjs'
-  # Run tax-only live verification after successful and failed main-branch
-  # deployments: the general deploy gate may skip local-financial smoke,
-  # and an unrelated editorial/event failure can obscure a healthy Worker.
+  # Run live verification only after a successful main-branch deployment.
+  # Per-commit source validators run on pull requests; a push-time live check
+  # races the Worker deployment and falsely flags newly published source rows.
+  # A failed deployment is independently reported by the deploy workflow.
   workflow_run:
     workflows: ['Deploy TexasDefined production']
     types: [completed]
@@ -41,19 +24,22 @@ concurrency:
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event_name == 'schedule' || (github.event.workflow_run.head_branch == 'main' && (github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure')) }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Verify the exact source revision that triggered the completed deploy.
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || 'main' }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Explain scope and deployment dependency
         run: |
           echo "## Independent Texas property-tax live verification" >> "$GITHUB_STEP_SUMMARY"
-          echo "This checks the **currently served** canonical and direct-Worker pages, not whether the triggering commit was published." >> "$GITHUB_STEP_SUMMARY"
-          echo "Success or failure of a site deployment triggers this separate read-only tax-history check. The daily schedule also tests currently served pages independently of any deployment." >> "$GITHUB_STEP_SUMMARY"
+          echo "This checks the **currently served** canonical and direct-Worker pages after a successful deployment, or at a scheduled/manual checkpoint." >> "$GITHUB_STEP_SUMMARY"
+          echo "Successful main-branch deployments trigger this read-only tax-history check. Failed deployments are tracked in the deployment workflow. The daily schedule independently tests currently served pages." >> "$GITHUB_STEP_SUMMARY"
       - name: Check ISD source integrity and shared template
         run: node scripts/data/validate-isd-tax-authority.mjs
 
