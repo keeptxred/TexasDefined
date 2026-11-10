@@ -7018,6 +7018,15 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
   ],
   "medal-of-honor-host-city-museum-gainesville": [
     {
+      "question": "Which NCTC campus building houses the museum, and is it the same as the older library memorial?",
+      "answer": "NCTC's official Gainesville campus map identifies the Medal of Honor Host City Museum as Building 2700 at 1525 West California Street. A separate Commemorative Air Force page describes an older Texas Medal of Honor Memorial at the NCTC library; its directions and wheelchair-access statement should not be applied to the 2025 museum building. Confirm special mobility arrangements directly with the museum.",
+      "verificationUrl": "https://www.nctc.edu/media/nctc/documents/pdf/NCTC%20Gainesville%20Campus%20Map.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://cafgroundforces.wixsite.com/main/museum",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-11-09"
+    },
+    {
       "question": "Where is the Medal of Honor Host City Museum in Gainesville?",
       "answer": "The museum is on the North Central Texas College Gainesville campus at 1525 West California Street, Gainesville, Texas 76240. Do not follow a route to the separately operated National Medal of Honor Museum in Arlington; these are different destinations.",
       "verificationUrl": "https://medalofhonorhostcity.com/museum/",
