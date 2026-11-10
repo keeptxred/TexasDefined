@@ -8,7 +8,7 @@ const description = "Compare work that does not normally require a bachelor's de
 const pageUrl = absoluteUrl(texasDefinedBrand, path);
 export const Route = createFileRoute("/texas-jobs-without-four-year-degree")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
+    meta: buildMeta(texasDefinedBrand, { title: title, description: description, canonicalPath: path }),
     links: [canonicalLink(texasDefinedBrand, path)],
     scripts: [jsonLd({
       "@context": "https://schema.org",
