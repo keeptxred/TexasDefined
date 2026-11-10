@@ -167,18 +167,36 @@ export async function retain({
     }
     attemptedOld += 1;
     report.inspected += 1;
+    // A one-off edge/network timeout must not strand an otherwise safe
+    // release after thousands of SHA-verified original assets were fetched.
+    // Retry only transient request/stream errors and retryable HTTP responses;
+    // never substitute synthetic bytes or skip SHA/MIME/budget verification.
     let response;
-    try {
-      response = await fetchImpl(sourceOrigin + asset.path, {
-        redirect: 'manual', cache: 'no-store',
-        headers: { 'User-Agent': 'TexasDefined-Predeploy-Chunk-Retention/1.0' },
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      });
-    } catch (error) {
-      markUnavailable(asset,{ status:'network-error', detail:String(error) });
+    let body;
+    let networkError;
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      try {
+        response = await fetchImpl(sourceOrigin + asset.path, {
+          redirect: 'manual', cache: 'no-store',
+          headers: { 'User-Agent': 'TexasDefined-Predeploy-Chunk-Retention/1.0' },
+          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        });
+        if ([408, 429, 500, 502, 503, 504].includes(response.status) && attempt < 3) {
+          await new Promise((resolve) => setTimeout(resolve, attempt * 250));
+          continue;
+        }
+        body = Buffer.from(await response.arrayBuffer());
+        networkError = null;
+        break;
+      } catch (error) {
+        networkError = String(error);
+        if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt * 250));
+      }
+    }
+    if (!response || !body) {
+      markUnavailable(asset,{ status:'network-error', detail:networkError || 'Exhausted bounded retries' });
       continue;
     }
-    const body = Buffer.from(await response.arrayBuffer());
     const contentType = response.headers.get('content-type') || '';
     if (response.headers.get('cf-mitigated') === 'challenge' ||
         !expectedAssetResponse(asset.kind, response.status, contentType, body.byteLength)) {
