@@ -40,7 +40,6 @@ try {
       await page.waitForFunction(() => document.documentElement.dataset.tdRootHydrated === "1", null, { timeout: 30000 });
       // Force the two historical gallery assets to load even when lazy-loaded.
       for (const alt of [museumAltA, museumAltB]) {
-        const image = page.locator("main img").filter({ hasNot: page.locator("not-a-real-element") });
         const target = page.locator('main img[alt*="' + alt + '"]');
         if (await target.count() === 1) await target.scrollIntoViewIfNeeded({ timeout: 25000 });
       }
