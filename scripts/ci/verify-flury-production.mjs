@@ -15,6 +15,14 @@ const pages = [
       "Key dates in Flury’s life and legacy",
       "March 24, 2018",
       "The shared decorative vocabulary",
+      "A church made by more than one pair of hands",
+      "After 1901 · Father Louis Netardus",
+      "Later 20th century · Gene A. Mikulik",
+      "June 21, 1983",
+      "Texas Defined History",
+      "Published sources cross-checked November 9, 2026",
+      "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138",
+      "/corrections-policy",
       "https://www.tshaonline.org/handbook/entries/flury-godfrey",
       "1864-07-06",
       "1936-10-28",
@@ -59,6 +67,8 @@ for (const origin of origins) {
       const stale = page.mustExclude.filter((marker) => body.includes(marker));
       const canonical = `https://texasdefined.com${page.path}`;
       const hasCanonical = body.includes(canonical);
+      const robotsBlocked = /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body)
+        || /noindex/i.test(response.headers.get("x-robots-tag") || "");
       const challenged = response.headers.get("cf-mitigated") === "challenge";
       report = {
         ...report,
@@ -70,7 +80,8 @@ for (const origin of origins) {
         missing,
         stale,
         challenged,
-        passed: response.ok && !challenged && hasCanonical && !missing.length && !stale.length,
+        robotsBlocked,
+        passed: response.ok && !challenged && !robotsBlocked && hasCanonical && !missing.length && !stale.length,
       };
       if (!report.passed) failures.push(report);
     } catch (error) {
