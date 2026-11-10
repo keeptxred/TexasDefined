@@ -51,6 +51,12 @@
         "debtServiceRate": 0.281682,
         "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
       },
+      "2022": {
+        "totalRate": 1.228782,
+        "maintenanceOperationsRate": 0.9471,
+        "debtServiceRate": 0.281682,
+        "sourceUrl": "https://iswdataclient.azurewebsites.net/pubs/HOODCAD/TAX%20RATE-POSTING%20PER%20SEC.%2026.16/Copy_of_26.16_POSTING_OF_TAX_RATES.pdf"
+      },
       "2023": {
         "totalRate": 0.950882,
         "maintenanceOperationsRate": 0.6692,
@@ -153,12 +159,5 @@
       }
     }
   },
-  "disputedData": [
-    {
-      "slug": "tolar-isd",
-      "year": 2022,
-      "explanation": "The Hood CAD 2022 summary does not reconcile the displayed adopted total with its M&O and debt entries. Do not backfill the 2022 components until the source discrepancy is resolved.",
-      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
-    }
-  ]
+  "disputedData": []
 }
