@@ -567,6 +567,42 @@ test('HTML probe retry permits exactly one transient transport timeout, never fa
 });
 
 
+
+test('bulk old/current JS audit retries a transient Undici transport error once but never an HTTP failure', async () => {
+  const code = readFileSync('scripts/ci/verify-referenced-assets-production.mjs','utf8');
+  assert.match(code, /retryOneTransportTimeout\(\(\) => retrieveAsset\(origin,path,kind\)\)/,
+    'the real 7,000+ request audit must use the bounded transport retry helper');
+  let calls=0;
+  const successful = await retryOneTransportTimeout(async () => {
+    calls++;
+    if (calls === 1) throw Object.assign(new TypeError('fetch failed'),
+      {cause:{code:'UND_ERR_CONNECT_TIMEOUT'}});
+    return {status:200,mime:'text/javascript',bytes:75,sha256:'original'};
+  },async()=>{});
+  assert.equal(calls,2);
+  assert.equal(successful.sha256,'original');
+
+  calls=0;
+  await assert.rejects(retryOneTransportTimeout(async()=>{
+    calls++;throw Object.assign(new TypeError('fetch failed'),{cause:{code:'UND_ERR_SOCKET'}});
+  },async()=>{}),/fetch failed/);
+  assert.equal(calls,2,'exhausted transport errors still fail closed');
+
+  calls=0;
+  const real404=await retryOneTransportTimeout(async()=>{
+    calls++;return {status:404,mime:'text/html',bytes:0};
+  },async()=>{throw new Error('HTTP response must not be retried');});
+  assert.equal(real404.status,404);
+  assert.equal(calls,1,'HTTP 404 is not converted into success');
+
+  calls=0;
+  await assert.rejects(retryOneTransportTimeout(async()=>{
+    calls++;throw new Error('immutable original SHA mismatch');
+  },async()=>{throw new Error('forbidden retry');}),/SHA mismatch/);
+  assert.equal(calls,1,'substantive integrity failures remain fatal');
+});
+
+
 test('Nov8 Bing and OAI missing JS families are selected only when actually emitted', () => {
   const required = [
     'texas-high-school-football-teams_._slug.lazy-ONE.js',
