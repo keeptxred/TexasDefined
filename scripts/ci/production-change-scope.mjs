@@ -321,6 +321,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   if (changedFiles.some(path => [
     'src/data/destination-curation-top-attractions-batch3.ts',
     'src/data/destination-curation-moody-gardens.ts',
+    'src/data/attraction-visitor-depth-20261020.ts',
     'src/data/top-attraction-authority-resolver.ts',
     'src/components/editorial/MoodyGardensSpotlights.tsx',
     'src/components/editorial/DestinationViatorBooking.tsx',
