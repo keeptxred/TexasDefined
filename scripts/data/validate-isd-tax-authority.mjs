@@ -34,14 +34,15 @@ for (const [slug, records] of Object.entries(evidence.historicalComponents)) {
   for (const [year, item] of Object.entries(records)) {
     assert.match(year, /^20\d{2}$/);
     assert.ok(Math.abs(item.maintenanceOperationsRate + item.debtServiceRate - item.totalRate) < tolerance);
-    assert.ok(item.sourceUrl.startsWith('https://hoodcad.net/') || (slug === 'granbury-isd' && year === '2022' && item.sourceUrl.startsWith('https://www.granburyisd.org/')), 'Each historical rate must cite its verified district or Hood CAD source');
+    assert.ok(item.sourceUrl.startsWith('https://hoodcad.net/') || (slug === 'granbury-isd' && year === '2022' && item.sourceUrl.startsWith('https://www.granburyisd.org/')) || (slug === 'tolar-isd' && year === '2022' && item.sourceUrl === 'https://iswdataclient.azurewebsites.net/pubs/HOODCAD/TAX%20RATE-POSTING%20PER%20SEC.%2026.16/Copy_of_26.16_POSTING_OF_TAX_RATES.pdf'), 'Each historical rate must cite its verified district or Hood CAD source');
   }
 }
-assert.deepEqual(Object.keys(evidence.historicalComponents['tolar-isd']).sort(), ['2021', '2023'], 'Never backfill disputed Tolar 2022 components');
-assert.equal(Object.values(evidence.historicalComponents).reduce((total, item) => total + Object.keys(item).length, 0), 16, '16 year-specific components must be independently source-qualified');
+assert.deepEqual(Object.keys(evidence.historicalComponents['tolar-isd']).sort(), ['2021', '2022', '2023'], 'The primary Hood CAD 2022 posting resolves Tolar components');
+assert.deepEqual(evidence.historicalComponents['tolar-isd']['2022'], { totalRate: 1.228782, maintenanceOperationsRate: 0.9471, debtServiceRate: 0.281682, sourceUrl: 'https://iswdataclient.azurewebsites.net/pubs/HOODCAD/TAX%20RATE-POSTING%20PER%20SEC.%2026.16/Copy_of_26.16_POSTING_OF_TAX_RATES.pdf' });
+assert.equal(Object.values(evidence.historicalComponents).reduce((total, item) => total + Object.keys(item).length, 0), 17, '17 year-specific components must be independently source-qualified');
 assert.deepEqual(Object.keys(evidence.historicalComponents['granbury-isd']).sort(), ['2021', '2022', '2023']);
 assert.match(evidence.historicalComponents['granbury-isd']['2022'].sourceUrl, /^https:\/\/www\.granburyisd\.org\//, '2022 Granbury components must have independent district verification');
-assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 2022).map((item) => item.slug)), new Set(['tolar-isd']));
+assert.deepEqual(new Set(evidence.disputedData.filter((item) => item.year === 2022).map((item) => item.slug)), new Set(), 'No Hood CAD 2022 dispute remains unresolved after original adopted-rate posting');
 assert.ok(tea.districts['lipan-isd']?.['2022'], 'Lipan 2022 must be independently TEA verified before clearing its dispute');
 for (const { slug, year } of evidence.disputedData) {
   assert.ok(!evidence.historicalComponents[slug]?.[String(year)], `${slug}: ${year} cannot be treated as verified when the source conflicts`);
