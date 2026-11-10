@@ -1,15 +1,7 @@
 name: Verify Flury authority on production
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - scripts/ci/verify-flury-production.mjs
-      - .github/workflows/verify-flury-production.yml
-      - src/components/editorial/GottfriedFluryAuthority.tsx
-      - src/routes/explore.painted-churches.people.$slug.tsx
-      - src/routes/editorial-policy.tsx
-      - src/data/painted-church-people.ts
+  # Verification must run AFTER deployment, not on a pre-release main push.
   workflow_dispatch:
   workflow_run:
     workflows: [Deploy TexasDefined production]
