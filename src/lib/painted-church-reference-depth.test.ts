@@ -10,6 +10,7 @@ const preservation = routeSource("explore.painted-churches.preservation.$slug.ts
 const editorial = routeSource("editorial-policy.tsx");
 const flury = readFileSync(new URL("../components/editorial/GottfriedFluryAuthority.tsx", import.meta.url), "utf8");
 const peopleData = readFileSync(new URL("../data/painted-church-people.ts", import.meta.url), "utf8");
+const exploreSitemap = routeSource("sitemap-explore[.]xml.ts");
 
 describe("Painted Churches reference-page depth", () => {
   it("keeps glossary interpretation tied to church-specific evidence", () => {
@@ -67,6 +68,7 @@ describe("Painted Churches reference-page depth", () => {
     expect(people).toContain('dateModified: "2026-11-09"');
     expect(people).toContain('author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk"');
     expect(flury).not.toContain("How Texas Defined handles attribution");
+    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-09" : "2026-08-18"');
   });
 
   it("distinguishes original fabric, repainting, reconstruction and conservation", () => {
