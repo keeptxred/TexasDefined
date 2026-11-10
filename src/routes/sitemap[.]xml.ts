@@ -39,6 +39,7 @@ const AUTHORITY_STATIC_PATHS = [
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-jobs-without-four-year-degree": "2026-11-10",
   "/texas-career-training-options": "2026-11-10",
+  "/texas-government-jobs": "2026-11-10",
   "/texas-cities-nature-jobs": "2026-11-10",
   "/best-places-to-go-camping-in-texas": CAMPING_GUIDE_LASTMOD,
   "/texas-state-fair": PRIORITY_SEO_LASTMOD,
