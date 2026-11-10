@@ -8,7 +8,7 @@ const description = "Find legitimate Texas training pathways, learn what WIOA el
 const pageUrl = absoluteUrl(texasDefinedBrand, path);
 export const Route = createFileRoute("/texas-career-training-options")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
+    meta: buildMeta(texasDefinedBrand, { title: title, description: description, canonicalPath: path }),
     links: [canonicalLink(texasDefinedBrand, path)],
     scripts: [jsonLd({
       "@context": "https://schema.org",
