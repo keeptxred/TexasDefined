@@ -492,7 +492,7 @@ test('Nov 5 observed old-only main-chunk bytes above 48 MiB are fully preserved 
   } finally { rmSync(tmp, { recursive: true, force: true }); }
 });
 
-test('verified 72-hour assets exceeding capacity still fail closed at the 256 MiB hard ceiling', async () => {
+test('verified 72-hour assets exceeding capacity still fail closed at the 384 MiB hard ceiling', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-capacity-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -506,7 +506,7 @@ test('verified 72-hour assets exceeding capacity still fail closed at the 256 Mi
       bytes.writeUInt32BE(index, 0);
       return bytes;
     };
-    const assets = Array.from({ length: 150 }, (_, index) => ({
+    const assets = Array.from({ length: 221 }, (_, index) => ({
       path: '/assets/main-Verified' + String(index).padStart(3, '0') + '.js',
       wasAvailable: true,
       preSha256: createHash('sha256').update(makePayload(index)).digest('hex'),
@@ -532,13 +532,13 @@ test('verified 72-hour assets exceeding capacity still fail closed at the 256 Mi
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
     assert.equal(report.budget.maxFiles, 4096);
     assert.equal(report.budget.maxBytes, 384 * 1024 * 1024);
-    assert.equal(report.retainedCount, 147);
-    assert.equal(requests, 148);
-    assert.equal(report.bytes, 147 * bytesPerMain);
+    assert.equal(report.retainedCount, 220);
+    assert.equal(requests, 221);
+    assert.equal(report.bytes, 220 * bytesPerMain);
     assert.ok(report.bytes > 24 * 1024 * 1024);
     assert.ok(report.bytes <= report.budget.maxBytes);
     assert.equal(report.failure.reason, 'retained-client-asset-size-budget-exceeded');
-    assert.equal(report.failure.path, '/assets/main-Verified147.js');
+    assert.equal(report.failure.path, '/assets/main-Verified220.js');
     assert.ok(report.failure.attemptedTotalBytes > report.budget.maxBytes);
     assert.equal(JSON.parse(readFileSync(snapshotPath, 'utf8')).snapshots[0].omittedAssets.length, 1);
   } finally {
