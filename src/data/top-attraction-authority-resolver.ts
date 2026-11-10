@@ -41,7 +41,7 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
     },
     {
       label: "Moody Gardens — official ticket checkout",
-      url: "https://tickets.moodygardens.com/",
+      url: "https://tickets.moodygardens.com/webstore/shop/viewitems.aspx?c=admission&cg=ti",
       scope: "Current ticket prices, age categories and Value Pass options; variable amounts must not be hardcoded.",
     },
     {
