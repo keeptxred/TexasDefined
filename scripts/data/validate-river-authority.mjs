@@ -99,6 +99,10 @@ const destinationRoute = read('src/routes/destination.$slug.tsx');
 if (!destinationRoute.includes('{relatedRiverGuides.length > 0 && (') ||
     !destinationRoute.includes('relatedRiverGuides.map((guide) => ('))
   errors.push('River backlinks must be crawlable on all relevant destinations');
+const riverNavPosition = destinationRoute.indexOf('{relatedRiverGuides.length > 0 && (');
+const lazyPlannerPosition = destinationRoute.indexOf('<DestinationVisitPlanner destination={destination} />');
+if (riverNavPosition < 0 || lazyPlannerPosition < 0 || riverNavPosition > lazyPlannerPosition)
+  errors.push('Destination river backlinks must render before the deferred trip planner');
 
 if(!hub.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('Statewide hub must generate future river entries from canonical registry');
 if(!lazy.includes('allRiverAuthorityNavigationLinks()')) errors.push('River pillar must automatically include future authority guides');
