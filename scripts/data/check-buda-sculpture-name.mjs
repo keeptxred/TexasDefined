@@ -33,7 +33,7 @@ const body=[
   'The official Buda EDC naming source no longer contains its prior November 10, 2026 wording indicating voting is closed and the name reveal is pending.',
   '',
   'Original: '+url,
-  'Current canonical TexasDefined city guide: https://texasdefined.com/city/buda',
+  'Current canonical TexasDefined city guide: https://texasdefined.com/county/hays',
   'Original installation evidence: https://www.budaedc.com/news/the-buda-edc-celebrates-25th-anniversary-with-larger-than-life-sculpture/',
   '',
   '**Research and verify the actual newly announced name directly with Buda EDC before editing public copy.**',
