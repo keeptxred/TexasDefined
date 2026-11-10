@@ -71,6 +71,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Texas jobs and economy', '/article/texas-jobs-economy-industries', 'Read the broader employment and economic context.'],
       ['Texas careers without a four-year degree', '/texas-jobs-without-four-year-degree', 'Compare jobs, local wages and licensing pathways.'],
       ['Texas career training', '/texas-career-training-options', 'Check funded programs, apprenticeships and training providers before enrolling.'],
+      ['Texas government jobs', '/texas-government-jobs', 'Compare WorkInTexas, agency CAPPS hiring systems, municipal careers and federal applications.'],
       ['Cities for nature and jobs', '/texas-cities-nature-jobs', 'Compare major metro job markets and state park access.'],
       ['Texas Workforce Commission', '/agency/texas-workforce-commission', 'Start here for workforce, unemployment and employer services.'],
       ['Texas Comptroller', '/agency/texas-comptroller', 'Use the Comptroller path for state tax and business-account questions.'],
