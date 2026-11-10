@@ -29,3 +29,11 @@ test('does not block valid travel, arts, regional competition or science indepen
     'A historic Texas neighborhood prepares for annual festival',
   ]) assert.equal(isSubstantiveTexasDefinedDraftSource(story(title)),true,title);
 });
+
+
+test('one source sports promotional report is not sufficient original research for a long-form automatically generated story',()=>{
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('The Texans Team Identity DeMeco Ryans Has Been Waiting For'),target_section:'Sports',source_count:1}), false);
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Texas high school championship story with independent confirmation'),target_section:'Sports',source_count:2}), true);
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Houston museum opens rare meteorite exhibit'),target_section:'Explore',source_count:1}), true);
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Texas football program launches another single-source opinion'),target_section:'Sports'}), false);
+});
