@@ -14,7 +14,7 @@ const imageMarkers = [
 const requiredFreshnessMarkers = [
   "Galveston Children",
   "November 9, 2026",
-  "Price the exact attractions you will visit",
+  "price the exact attractions you will visit",
   "wheelchairs",
   "accessibility",
   "single-attraction",
