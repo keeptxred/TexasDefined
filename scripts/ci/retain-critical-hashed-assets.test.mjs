@@ -442,7 +442,7 @@ test('1091 observed old-only hashes fit the measured finite 256 MiB budget with 
     assert.equal(report.ignoredOld, 0);
     assert.equal(report.unavailable.length, 0);
     assert.equal(report.budget.maxFiles, 3072);
-    assert.equal(report.budget.maxBytes, 192 * 1024 * 1024);
+    assert.equal(report.budget.maxBytes, 256 * 1024 * 1024);
     assert.equal(report.bytes, count * 56_400);
     assert.ok(report.bytes < report.budget.maxBytes);
     assert.equal(JSON.parse(readFileSync(snapshotPath, 'utf8')).snapshots[0].omittedAssets.length, 0);
@@ -531,7 +531,7 @@ test('verified 72-hour assets exceeding capacity still fail closed at the 256 Mi
     // never silently skip a 72-hour URL or disable the over-budget failure.
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
     assert.equal(report.budget.maxFiles, 3072);
-    assert.equal(report.budget.maxBytes, 192 * 1024 * 1024);
+    assert.equal(report.budget.maxBytes, 256 * 1024 * 1024);
     assert.equal(report.retainedCount, 147);
     assert.equal(requests, 148);
     assert.equal(report.bytes, 147 * bytesPerMain);
@@ -648,7 +648,7 @@ test('verified original 3 MB state-park chunk survives finite 4 MiB per-file bri
     assert.equal(report.retainedCount, 1);
     assert.equal(report.bytes, body.byteLength);
     assert.equal(report.omittedDetails.length, 0);
-    assert.equal(report.budget.maxBytes, 192 * 1024 * 1024);
+    assert.equal(report.budget.maxBytes, 256 * 1024 * 1024);
     assert.equal(report.budget.maxFiles, 3072);
     assert.deepEqual(readFileSync(join(temp, 'assets', 'state-park-heroes-BZc-RXc8.js')), body);
   } finally {
