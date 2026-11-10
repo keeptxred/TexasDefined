@@ -31,7 +31,7 @@ function Page() {
       <h2 className="font-display text-4xl">Four metros, four different trade-offs</h2>
       <p className="mt-5 max-w-4xl text-base leading-8">Wage figures are <strong>mean hourly wages across all occupations</strong> from the Bureau of Labor Statistics' May 2025 OEWS survey, published August 13, 2026. Occupation shares show the regional employment mix. Park examples are taken from Texas Parks and Wildlife's “Parks Near” directories, not a geospatial travel-time study.</p>
       <div className="mt-9 space-y-8">
-        {metro.map(entry => <article key={entry.city} className="grid gap-5 border-t border-border pt-7 lg:grid-cols-[0.36fr_0.64fr]">
+        {metro.map(entry => <article key={entry.city} className="grid gap-5 border-t border-border pt-7 lg:grid-cols-2">
           <div><h3 className="font-display text-3xl">{entry.city}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">BLS area: {entry.formal}</p><p className="mt-3 text-xl font-semibold tabular-nums"><span aria-hidden="true">$</span>{entry.wage.toFixed(2)} <span className="text-sm font-normal">mean hourly, all occupations</span></p><p className="mt-3 text-sm"><Official href={entry.wageSource}>BLS metro wage source</Official></p></div>
           <div><p className="text-sm leading-7"><strong>Employment mix:</strong> {entry.jobs}</p><p className="mt-4 text-sm leading-7"><strong>State park examples:</strong> {entry.parks}. <Official href={entry.parkSource}>Official regional park list</Official>.</p><p className="mt-4 text-sm leading-7 text-muted-foreground"><strong>Practical concern:</strong> {entry.decision}</p></div>
         </article>)}
@@ -40,7 +40,7 @@ function Page() {
     </Container></section>
     <section className="border-b border-border bg-surface py-12 sm:py-16"><Container className="max-w-5xl">
       <p className="eyebrow text-primary">Build a shortlist</p><h2 className="mt-3 font-display text-4xl">How to compare life instead of a travel brochure</h2>
-      <ol className="mt-7 space-y-5">{steps.map(([title, body], index) => <li key={title} className="grid gap-4 border-t border-border pt-5 sm:grid-cols-[3rem_1fr]"><span aria-hidden="true" className="font-display text-3xl text-primary">{index + 1}</span><div><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-base leading-8">{body}</p></div></li>)}</ol>
+      <ol className="mt-7 space-y-5">{steps.map(([title, body], index) => <li key={title} className="flex gap-4 border-t border-border pt-5"><span aria-hidden="true" className="font-display text-3xl text-primary shrink-0 w-12">{index + 1}</span><div><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-base leading-8">{body}</p></div></li>)}</ol>
       <p className="mt-8 text-base leading-8">Use <Link to="/texas-jobs-without-four-year-degree" className="text-primary underline">Texas career pathways and wages</Link> to identify the occupation; <Link to="/texas-career-training-options" className="text-primary underline">training options</Link> if you're switching careers; the <Link to="/texas-salary-comparison-by-city" className="text-primary underline">salary comparison</Link> and <Link to="/texas-cost-of-living-calculator" className="text-primary underline">living-cost tool</Link> to evaluate a move.</p>
     </Container></section>
     <section className="border-b border-border py-12 sm:py-16"><Container className="max-w-5xl">
