@@ -72,7 +72,7 @@ function Page() {
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {questions.map(([title, body], index) => <article key={title} className="border-t-2 border-primary pt-5"><p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Question {index + 1}</p><h3 className="mt-2 font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7">{body}</p></article>)}
         </div>
-        <p className="mt-8 max-w-4xl text-base leading-8">A practical comparison: if one school charges less tuition but requires several months without wages, a paid apprenticeship could still be a better financial fit. Conversely, a course with a recognized employer placement and strong outcomes may justify more than a cheaper course with little hands-on experience. Do the full calculation, not just the sticker price.</p>
+        <p className="mt-8 max-w-4xl text-base leading-8">A practical comparison: if one school charges less tuition but requires several months without wages, a paid apprenticeship could still be a better financial fit. Conversely, a course with a recognized employer placement and strong outcomes may justify more than a cheaper course with little hands-on experience. Do the full calculation, not just the sticker price. Use the <Link to="/texas-salary-comparison-by-city" className="text-primary underline">city salary comparison</Link> when your training choice could mean relocating to a different Texas job market.</p>
       </Container>
     </section>
     <section className="border-b border-border bg-surface py-12 sm:py-16">
