@@ -50,7 +50,7 @@ export function BudaWienerDogSpotlight() {
             <a className="text-primary underline underline-offset-4" href="https://www.budaedc.com/news/the-buda-edc-celebrates-25th-anniversary-with-larger-than-life-sculpture/" target="_blank" rel="noopener noreferrer">Buda EDC announcement</a>
             <a className="text-primary underline underline-offset-4" href="https://www.budatx.gov/285/City-Park" target="_blank" rel="noopener noreferrer">City Park hours and address</a>
             <a className="text-primary underline underline-offset-4" href="https://www.budaedc.com/wiener-dog-statue/" target="_blank" rel="noopener noreferrer">Official name announcement status</a>
-            <a className="text-primary underline underline-offset-4" href="/county/hays">Explore Hays County</a>
+            <a className="text-primary underline underline-offset-4" href="/explore">Explore more Texas destinations</a>
           </nav>
         </div>
       </div>
