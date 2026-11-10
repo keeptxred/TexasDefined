@@ -11,6 +11,12 @@ export function isSubstantiveTexasDefinedDraftSource(item) {
   if (body.length < MIN_ORIGINAL_SOURCE_CHARS) return false;
   if (body.split(/\s+/).filter(Boolean).length < MIN_ORIGINAL_SOURCE_WORDS) return false;
 
+  // A single team press statement or one reporter's routine game report cannot
+  // independently substantiate a new 750-word sports news article. Preserve
+  // it for human research, not automatic long-form generation.
+  if (String(item?.target_section ?? '').toLowerCase() === 'sports'
+      && (!Number.isInteger(Number(item?.source_count)) || Number(item.source_count) < 2)) return false;
+
   const title = String(item?.title ?? '').toLowerCase().trim();
   // Routine game summaries, fixtures and broad national explainers belong in
   // sports/event guides or curated roundups, not individual 750-word pages.
