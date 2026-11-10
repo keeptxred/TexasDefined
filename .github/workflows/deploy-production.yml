@@ -1404,7 +1404,9 @@ jobs:
         run: node scripts/ci/verify-cj-account-production.mjs
 
       - name: Preserve CJ account verification evidence
-        if: ${{ always() && steps.change_scope.outputs.cj_affiliate == 'true' }}
+        # If a predeploy asset gate fails, the CJ live checker never runs and
+        # no CJ file can exist; do not manufacture a second unrelated failure.
+        if: ${{ always() && steps.change_scope.outputs.cj_affiliate == 'true' && steps.live_cj_account.outcome != 'skipped' }}
         uses: actions/upload-artifact@v4
         with:
           name: cj-account-production-${{ github.run_id }}

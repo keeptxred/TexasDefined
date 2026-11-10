@@ -37,15 +37,20 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // platform file limit, was the observed failure. Nov 6 02:20Z successful
 // production run 42149204797 retained 1,431 old-only files / 80,757,434 bytes,
 // leaving only 105 file slots below 1,536. Until independent KV is fully
-// published and verified, use a finite 3,072-file / 192 MiB bridge, well
+// published and verified, use a finite 3,072-file / 256 MiB bridge, well
 // below the documented Workers Free static-assets file-count limit.
 // This is NOT a permanent archive or a change to original-byte obligations.
 // Preserve strict 2 MiB/file, firstSeenAt, 72-hour expiry, same-origin HTTP
 // 200, MIME, and SHA-256 checks and fail closed rather than omit healthy paths.
 // Fail closed again if even the higher measured headroom is exceeded;
 // never drop a healthy in-window URL to make a release succeed.
+// Nov 9 release measured 197,061,812 retained bytes, leaving only 4,264,780
+// under the historical 192 MiB ceiling. This is a *local safety budget*, not
+// a Cloudflare asset-total limit: free static assets allow 20,000 files and
+// 25 MiB per individual asset. Use 256 MiB finite headroom while continuing
+// original SHA, 72h expiry and exact availability enforcement.
 const LIMIT_FILES = 3072;
-const LIMIT_BYTES = 192 * 1024 * 1024;
+const LIMIT_BYTES = 256 * 1024 * 1024;
 // 2026-11-08 incident: run 42450404917 preserved each original SHA but
 // refused /assets/state-park-heroes-BZc-RXc8.js (3,004,913 bytes) under the
 // arbitrary 2 MiB legacy cap. Cloudflare's documented static-asset ceiling is
@@ -167,18 +172,36 @@ export async function retain({
     }
     attemptedOld += 1;
     report.inspected += 1;
+    // A one-off edge/network timeout must not strand an otherwise safe
+    // release after thousands of SHA-verified original assets were fetched.
+    // Retry only transient request/stream errors and retryable HTTP responses;
+    // never substitute synthetic bytes or skip SHA/MIME/budget verification.
     let response;
-    try {
-      response = await fetchImpl(sourceOrigin + asset.path, {
-        redirect: 'manual', cache: 'no-store',
-        headers: { 'User-Agent': 'TexasDefined-Predeploy-Chunk-Retention/1.0' },
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      });
-    } catch (error) {
-      markUnavailable(asset,{ status:'network-error', detail:String(error) });
+    let body;
+    let networkError;
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      try {
+        response = await fetchImpl(sourceOrigin + asset.path, {
+          redirect: 'manual', cache: 'no-store',
+          headers: { 'User-Agent': 'TexasDefined-Predeploy-Chunk-Retention/1.0' },
+          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        });
+        if ([408, 429, 500, 502, 503, 504].includes(response.status) && attempt < 3) {
+          await new Promise((resolve) => setTimeout(resolve, attempt * 250));
+          continue;
+        }
+        body = Buffer.from(await response.arrayBuffer());
+        networkError = null;
+        break;
+      } catch (error) {
+        networkError = String(error);
+        if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt * 250));
+      }
+    }
+    if (!response || !body) {
+      markUnavailable(asset,{ status:'network-error', detail:networkError || 'Exhausted bounded retries' });
       continue;
     }
-    const body = Buffer.from(await response.arrayBuffer());
     const contentType = response.headers.get('content-type') || '';
     if (response.headers.get('cf-mitigated') === 'challenge' ||
         !expectedAssetResponse(asset.kind, response.status, contentType, body.byteLength)) {
