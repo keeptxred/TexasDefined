@@ -242,7 +242,7 @@ async function readyQueueCount() {
 
 async function readyQueuePage(offset, pageSize) {
   const params = new URLSearchParams({
-    select: 'id,title,source,link,description,pub_date,extracted_body,target_section,classification_confidence,texas_relevance_score,source_reputation_score,viral_signals,pillar_slug',
+    select: 'id,title,source,link,description,pub_date,extracted_body,target_section,source_count,classification_confidence,texas_relevance_score,source_reputation_score,viral_signals,pillar_slug',
     order: 'pub_date.asc',
     limit: String(pageSize),
     offset: String(offset),
