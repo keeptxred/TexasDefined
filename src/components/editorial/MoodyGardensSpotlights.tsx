@@ -116,7 +116,7 @@ export function MoodyGardensSpotlights() {
             <p className="eyebrow text-primary">Ticket decision</p>
             <h2 className="mt-3 font-display text-2xl leading-tight">Single attraction or combination pass?</h2>
             <p className="mt-5 text-sm leading-6 text-muted-foreground">
-              Buy for the itinerary you can actually complete. General Admission covers one chosen attraction; compare individual-admission prices with the Value Pass only for experiences open during your visit. A Value Pass is not automatically the cheapest choice for a short stop.
+              Buy for the itinerary you can actually complete. Moody Gardens offers individual-attraction admission, a combined Aquarium + Rainforest ticket and a broader Value Pass. Compare the eligible attractions and date-specific checkout totals before you pay: a Value Pass is not automatically the best deal for a shorter stop.
             </p>
             <div className="mt-5 border-t-2 border-primary py-5">
               <strong className="font-display text-2xl">Best first-time default</strong>
@@ -126,15 +126,16 @@ export function MoodyGardensSpotlights() {
               <h3 className="font-display text-xl">What a family of four should compare</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 For two adults and two children ages 4–12, price the exact attractions you will visit:
-                two adult single-attraction tickets plus two child tickets for each attraction,
-                versus two adult Value Passes plus two child Value Passes. Select the lower
-                total that actually covers your itinerary. Children 3 and under are admitted
+                two adult tickets and two child tickets for each separate attraction, or
+                the four-person Aquarium + Rainforest combination when those are your two
+                stops, versus two adult Value Passes plus two child Value Passes.
+                Select the lower total that actually covers your itinerary. Children 3 and under are admitted
                 free with a regularly priced ticket, and senior (65+) and other discounts
                 may change the comparison. Taxes, promotions and pass inclusions can change;
                 use the official checkout for the actual amounts.
               </p>
               <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
-                <a href="https://tickets.moodygardens.com/" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">Compare official ticket prices and Value Pass</a>
+                <a href="https://tickets.moodygardens.com/webstore/shop/viewitems.aspx?c=admission&amp;cg=ti" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">Compare official ticket prices and Value Pass</a>
                 <a href="https://www.moodygardens.com/visitor-info/faq" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">Review age categories and ticket terms</a>
               </div>
             </div>
