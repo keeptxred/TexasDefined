@@ -11,12 +11,12 @@ const required = [
   'https://www.budaedc.com/news/the-buda-edc-celebrates-25th-anniversary-with-larger-than-life-sculpture/',
   'https://www.budaedc.com/wiener-dog-statue/',
   'https://www.budatx.gov/285/City-Park',
-  '/county/hays'
+  '/explore'
 ];
 for (const snippet of required) {
   assert.ok(component.includes(snippet),'Missing first-party source/visitor detail: '+snippet);
 }
-assert.match(route,/entity\.kind === 'city' && entity\.slug === 'buda' \? <BudaWienerDogSpotlight \/>/);
+assert.match(route,/entity\.kind === 'county' && entity\.slug === 'hays' \? <BudaWienerDogSpotlight \/>/);
 assert.match(route,/import \{ BudaWienerDogSpotlight \}/);
 assert.ok(!/https?:\/\/texasdefined\.com\/(?:news|article)\/\S*buda/i.test(component),'Do not manufacture a second news URL');
 assert.ok(!/winner is|has been officially named/i.test(component),'Naming contest still awaiting official announcement');
