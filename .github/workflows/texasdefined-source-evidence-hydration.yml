@@ -66,3 +66,23 @@ jobs:
           console.log(report);
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, report+'\n');
           NODE
+      - name: Inspect currently qualified publication queue without changing approvals or generating AI
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --limit=3 | tee /tmp/td-dry-run.jsonl
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const rows=fs.readFileSync('/tmp/td-dry-run.jsonl','utf8').split(/\r?\n/).filter(Boolean).map(x=>JSON.parse(x));
+          const q=rows.find(x=>x.mode==='dry-run');
+          if (!q || q.published!==0 || q.skipped!==0 || q.failed!==0 || q.rawEligible!==q.eligible+q.held
+            || q.eligible!==q.selected+q.deferred) {
+            throw new Error('TexasDefined dry-run failed closed: inconsistent read-only queue accounting');
+          }
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+            '\n## Current quality-gated TexasDefined publication readiness (read-only)\n'+
+            'Ready-view records: '+q.rawEligible+'; safe and current: '+q.eligible+
+            '; held or stale: '+q.held+'; selected: '+q.selected+
+            '; published in this workflow: '+q.published+'\n');
+          console.log(JSON.stringify(q));
+          NODE
