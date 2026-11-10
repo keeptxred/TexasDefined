@@ -371,6 +371,7 @@ const curated: Record<string, TopAttractionExpansion> = {
       "Burke Baker Planetarium",
       "Cockrell Butterfly Center",
       "Hermann Park location beside the Houston Zoo and Museum District",
+      "Fall to Earth: a free special display of the Spring-area meteorite that landed in March 2026 (verify current display dates)",
     ],
     body: [
       "The Houston Museum of Natural Science is large enough that a first-time visitor should choose priorities rather than try to see every gallery at equal depth. Four floors of permanent exhibits span paleontology, gems, wildlife, chemistry, energy and human cultures, and the museum estimates that even an average visit takes more than a couple of hours before adding any ticketed theaters or special attractions.",
@@ -378,11 +379,12 @@ const curated: Record<string, TopAttractionExpansion> = {
       "The planetarium, Cockrell Butterfly Center and Wortham Giant Screen Theatre function almost like separate attractions. They are not automatically included in one universal museum ticket, and planetarium or theater experiences run on schedules. Checking show times before arrival prevents a common planning mistake: buying general admission first and then discovering that the desired add-on cannot fit into the remaining day.",
       "The Hermann Park location substantially increases the museum's value. Houston Zoo is across the park, METRORail serves the district and the Museum of Fine Arts, Children's Museum Houston and other institutions sit nearby. That density means families can stay in one part of the city for an entire day rather than losing time to Houston traffic between attractions.",
       "Accessibility resources are extensive. HMNS offers manual wheelchairs, accessible parking, elevators throughout the building, sensory backpacks and planning guides, and can arrange certain accommodations such as ASL interpretation with advance notice. Adult changing tables and other detailed supports are also documented on the museum's current accessibility page.",
+      "The museum's Fall to Earth special display opened on November 6, 2026. It features a real fragment of the 4.5-billion-year-old meteorite that struck a home in the Spring area on March 21, 2026, with interpretation of its passage through the atmosphere and the science behind the impact. The museum lists the exhibit near its Museum Store and says it is free and open to the public, even though other HMNS galleries and experiences may require paid admission. Because special exhibits can close or relocate, check the museum's official Fall to Earth page before making a trip specifically to see the meteorite. This is a physical display at HMNS, not permission to visit the private home where it landed.",
       "A realistic Houston science itinerary can connect HMNS with Space Center Houston, but those attractions are not close enough to treat as a casual same-neighborhood pairing. Spend one day in Hermann Park and the Museum District, then use a separate half day or full day for NASA in Clear Lake. That structure produces a better trip than attempting to cross the metro area between timed attractions.",
     ],
     managingAuthority: "Houston Museum of Natural Science",
     officialUrl: "https://www.hmns.org/visit/",
-    sourceCheckedAt: "2026-08-17",
+    sourceCheckedAt: "2026-11-09",
     county: "Harris",
     address: "5555 Hermann Park Drive, Houston, TX 77030",
     directions:
