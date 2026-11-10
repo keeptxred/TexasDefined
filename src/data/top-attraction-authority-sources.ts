@@ -66,6 +66,7 @@ const SUPPLEMENTAL_SOURCES: Record<TopTexasAttractionSlug, DestinationAuthorityS
   "houston-museum-of-natural-science": [
     { label: "Houston Museum of Natural Science — about", url: "https://www.hmns.org/about/", scope: "Museum history, collections, permanent exhibitions and institutional mission." },
     { label: "Houston Museum of Natural Science — visit", url: "https://www.hmns.org/visit/", scope: "Official visitor-planning, location and museum-experience guidance." },
+    { label: "Houston Museum of Natural Science — Fall to Earth exhibit", url: "https://www.hmns.org/exhibits/fall-to-earth/", scope: "Official source for November 2026 opening, Spring meteorite description, Museum Store area location and free special-exhibit admission; check current availability before visiting." },
   ],
   "cadillac-ranch": [
     { label: "Visit Amarillo — Cadillac Ranch", url: "https://www.visitamarillo.com/listing/cadillac-ranch/625/", scope: "Official destination-organization location, access and visitor context for Cadillac Ranch." },
