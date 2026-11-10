@@ -6,6 +6,7 @@ const HANDBOOK = "https://www.tshaonline.org/handbook/entries/flury-godfrey";
 const PBS = "https://austinpbs.org/paintedchurches/praha";
 const NATIONAL_REGISTER = "https://atlas.thc.texas.gov/NR/pdfs/83003138/83003138.pdf";
 const ARCHIVE = "https://texashistory.unt.edu/ark:/67531/metapth677874/";
+const THC_ATLAS = "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138";
 
 const chronology = [
   { year: "1864", detail: "Born July 6 in Oensingen, Switzerland. Priests in Solothurn oversaw his education." },
@@ -53,6 +54,60 @@ export function GottfriedFluryAuthority() {
         <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">The <a href={NATIONAL_REGISTER} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">1983 National Register study</a> notes similar painted palm and leaf garlands at Praha and <Link to="/explore/painted-churches/$slug" params={{ slug: "moravia-ascension-of-our-lord" }} className="border-b border-primary text-primary">Ascension of Our Lord in Moravia</Link>, while identifying different painters for the two churches. The shared decorative vocabulary reflects a broader tradition; similar motifs alone are not proof that Flury painted another church.</p>
       </section>
 
+
+      <section aria-labelledby="flury-layers" className="border-t border-border pt-8">
+        <p className="eyebrow text-primary">Who painted what — and when</p>
+        <h2 id="flury-layers" className="mt-3 font-display text-3xl sm:text-4xl">A church made by more than one pair of hands</h2>
+        <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">
+          Look up at Praha’s blue ceiling, then toward the altars and statues: the decorations share a room,
+          but not all of them were made in the same decade. The records distinguish Flury’s original ceiling
+          from later paintings and restoration.
+        </p>
+        <div className="mt-7 grid gap-4 md:grid-cols-2">
+          <article className="border border-border p-5">
+            <p className="text-sm font-semibold text-primary">1895 · Gottfried Flury</p>
+            <h3 className="mt-2 font-display text-xl">The painted vault</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Flury’s documented commission includes the sky-blue plank ceiling, simulated stone ribs,
+              floral panels and painted column capitals. Both the Handbook of Texas and the National
+              Register nomination connect him to this early work.
+            </p>
+          </article>
+          <article className="border border-border p-5">
+            <p className="text-sm font-semibold text-primary">After 1901 · Father Louis Netardus</p>
+            <h3 className="mt-2 font-display text-xl">New religious paintings</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Netardus became pastor in 1901 and added paintings of his own. Austin PBS describes an
+              archival photograph of him holding a brush beside his depiction of Saints Cyril and Methodius.
+              It is evidence for his work, not for Flury’s.
+            </p>
+          </article>
+          <article className="border border-border p-5">
+            <p className="text-sm font-semibold text-primary">Later 20th century · Gene A. Mikulik</p>
+            <h3 className="mt-2 font-display text-xl">Restoration and new devotional art</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Mikulik restored statues, painted and gilded altars, and made <em>Our Lady of Victory</em>,
+              commemorating parish soldiers who died in World War II. These additions belong to the
+              church’s later history, not its 1895 painted-ceiling commission.
+            </p>
+          </article>
+          <article className="border border-border p-5">
+            <p className="text-sm font-semibold text-primary">1972 and 1983 · Documentary record</p>
+            <h3 className="mt-2 font-display text-xl">How the attribution was established</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              In 1972 researchers matched Flury’s sketches and notes with the church interior. The
+              church was listed on the National Register on June 21, 1983, for its art, architecture and
+              religious history. The listing recognizes the building; it does not make Flury the author
+              of every piece visible inside.
+            </p>
+          </article>
+        </div>
+        <p className="mt-5 text-sm leading-7 text-muted-foreground">
+          Sources: <a href={HANDBOOK} target="_blank" rel="noreferrer" className="underline underline-offset-2">Handbook of Texas</a>,
+          {" "}<a href={PBS} target="_blank" rel="noreferrer" className="underline underline-offset-2">Austin PBS’s Praha history</a>,
+          {" "}and the <a href={THC_ATLAS} target="_blank" rel="noreferrer" className="underline underline-offset-2">Texas Historical Commission listing</a>.
+        </p>
+      </section>
       {images.length > 0 && <section aria-labelledby="flury-gallery" className="border-t border-border pt-8">
         <p className="eyebrow text-primary">Photographs</p>
         <h2 id="flury-gallery" className="mt-3 font-display text-3xl">The painted interior at Praha</h2>
@@ -83,10 +138,26 @@ export function GottfriedFluryAuthority() {
         <h2 id="flury-sources" className="mt-3 font-display text-3xl">Sources for Flury’s life and paintings</h2>
         <ul className="mt-5 space-y-5 text-sm leading-7 text-muted-foreground">
           <li><a href={HANDBOOK} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Kendall Curlee, “Flury, Godfrey” — Handbook of Texas</a>. Birth and death dates, biographical chronology, commissions, and the 1972 sketch-based identification.</li>
-          <li><a href={NATIONAL_REGISTER} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Texas Historical Commission / National Register — St. Mary's Church of the Assumption (1983)</a>. Pages 21–22 document interior craftsmanship, building details, decorative methods and historical significance.</li>
+          <li>
+            <a href={THC_ATLAS} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Texas Historical Commission — St. Mary’s at Praha, National Register record 83003138</a>.
+            The official property listing gives the June 21, 1983 designation date, architect O. Kramer, Gothic Revival classification and significance in art, architecture and religion.
+            {" "}The <a href={NATIONAL_REGISTER} target="_blank" rel="noreferrer" className="underline underline-offset-2">1983 nomination PDF</a> provides a more detailed account of the interior; if the PDF is unavailable, use the record page and open its Files tab.
+          </li>
           <li><a href={PBS} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Austin PBS — Painted Churches: Praha</a>. Identifies Flury's principal contribution and distinguishes the later work of Rev. Louis Netardus and Gene Mikulik.</li>
           <li><a href={ARCHIVE} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">The Portal to Texas History — 1977 interior photograph</a>. Archival visual record; linked for study with item-level reuse restrictions.</li>
         </ul>
+
+        <div className="mt-8 max-w-4xl border-t border-border pt-5 text-sm leading-7 text-muted-foreground">
+          <p><strong className="text-foreground">Research and responsibility:</strong> Texas Defined History &amp; Heritage Desk.
+            Published-source cross-check completed November 9, 2026, against the Handbook of Texas, Austin PBS
+            and the Texas Historical Commission’s National Register record. This is documentary research,
+            not a claim of first-hand inspection of Flury’s sketches or of the sanctuary.</p>
+          <p className="mt-2">
+            <Link to="/about" className="underline underline-offset-2">About Texas Defined</Link>
+            {" · "}<Link to="/editorial-policy" className="underline underline-offset-2">Editorial Policy</Link>
+            {" · "}<Link to="/corrections-policy" className="underline underline-offset-2">Request a correction</Link>
+          </p>
+        </div>
         <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">Visiting Praha? The <Link to="/explore/painted-churches/$slug" params={{ slug: "praha-st-marys-assumption" }} className="border-b border-primary text-primary">St. Mary’s church guide</Link> covers the building, visitor access and nearby stops.</p>
       </section>
     </div>

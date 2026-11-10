@@ -10,6 +10,7 @@ const preservation = routeSource("explore.painted-churches.preservation.$slug.ts
 const editorial = routeSource("editorial-policy.tsx");
 const flury = readFileSync(new URL("../components/editorial/GottfriedFluryAuthority.tsx", import.meta.url), "utf8");
 const peopleData = readFileSync(new URL("../data/painted-church-people.ts", import.meta.url), "utf8");
+const exploreSitemap = routeSource("sitemap-explore[.]xml.ts");
 
 describe("Painted Churches reference-page depth", () => {
   it("keeps glossary interpretation tied to church-specific evidence", () => {
@@ -46,6 +47,28 @@ describe("Painted Churches reference-page depth", () => {
     expect(flury).not.toContain("The chronology intentionally");
     expect(flury).not.toContain("as it appears today");
     expect(flury).not.toContain("license</a> · source and attribution</a>");
+  });
+
+
+  it("makes the Flury research independently useful, attributed, and linked to the official property record", () => {
+    for (const fact of [
+      "A church made by more than one pair of hands",
+      "After 1901 · Father Louis Netardus",
+      "Later 20th century · Gene A. Mikulik",
+      "1972 and 1983 · Documentary record",
+      "June 21, 1983",
+      "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138",
+      "Texas Defined History &amp; Heritage Desk",
+      "Published-source cross-check completed November 9, 2026",
+      "to=\"/corrections-policy\"",
+    ]) {
+      expect(flury).toContain(fact);
+    }
+    expect(people).toContain("Published sources cross-checked November 9, 2026");
+    expect(people).toContain('dateModified: "2026-11-09"');
+    expect(people).toContain('author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk"');
+    expect(flury).not.toContain("How Texas Defined handles attribution");
+    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-09" : "2026-08-18"');
   });
 
   it("distinguishes original fabric, repainting, reconstruction and conservation", () => {

@@ -15,6 +15,14 @@ const pages = [
       "Key dates in Flury’s life and legacy",
       "March 24, 2018",
       "The shared decorative vocabulary",
+      "A church made by more than one pair of hands",
+      "After 1901 · Father Louis Netardus",
+      "Later 20th century · Gene A. Mikulik",
+      "June 21, 1983",
+      "Texas Defined History",
+      "Published sources cross-checked November 9, 2026",
+      "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138",
+      "/corrections-policy",
       "https://www.tshaonline.org/handbook/entries/flury-godfrey",
       "1864-07-06",
       "1936-10-28",
@@ -59,6 +67,8 @@ for (const origin of origins) {
       const stale = page.mustExclude.filter((marker) => body.includes(marker));
       const canonical = `https://texasdefined.com${page.path}`;
       const hasCanonical = body.includes(canonical);
+      const robotsBlocked = /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body)
+        || /noindex/i.test(response.headers.get("x-robots-tag") || "");
       const challenged = response.headers.get("cf-mitigated") === "challenge";
       report = {
         ...report,
@@ -70,7 +80,8 @@ for (const origin of origins) {
         missing,
         stale,
         challenged,
-        passed: response.ok && !challenged && hasCanonical && !missing.length && !stale.length,
+        robotsBlocked,
+        passed: response.ok && !challenged && !robotsBlocked && hasCanonical && !missing.length && !stale.length,
       };
       if (!report.passed) failures.push(report);
     } catch (error) {
@@ -80,9 +91,48 @@ for (const origin of origins) {
     console.log(JSON.stringify(report));
   }
 }
-const summary = `## Gottfried Flury live authority acceptance\n\nValidated ${pages.length} pages on ${origins.length} origins. ${failures.length ? `**FAIL (${failures.length})**` : "**PASS**"}\n\nNo cache purge, browser-rendering session, or Cloudflare authorization calls were made.\n`;
+
+const fluryLoc = "<loc>https://texasdefined.com/explore/painted-churches/people/gottfried-flury</loc>";
+for (const origin of origins) {
+  const url = new URL("/sitemap-explore.xml", origin);
+  url.searchParams.set("td_verify", unique);
+  try {
+    const response = await fetch(url, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(25_000),
+      headers: { "user-agent": "TexasDefined-Flury-Live-Acceptance/1.0", "cache-control": "no-cache" },
+    });
+    const xml = await response.text();
+    const start = xml.indexOf(fluryLoc);
+    const ending = start >= 0 ? xml.indexOf("</url>", start) : -1;
+    const entryXml = start >= 0 && ending > start ? xml.slice(start, ending) : "";
+    const accurateLastmod = entryXml.includes("<lastmod>2026-11-09</lastmod>");
+    const report = {
+      origin,
+      path: "/sitemap-explore.xml",
+      status: response.status,
+      fluryListed: start >= 0,
+      accurateLastmod,
+      passed: response.ok && start >= 0 && accurateLastmod
+        && response.headers.get("cf-mitigated") !== "challenge",
+    };
+    console.log(JSON.stringify(report));
+    if (!report.passed) failures.push(report);
+  } catch (error) {
+    const report = {
+      origin,
+      path: "/sitemap-explore.xml",
+      error: error instanceof Error ? error.message : String(error),
+      passed: false,
+    };
+    failures.push(report);
+    console.log(JSON.stringify(report));
+  }
+}
+
+const summary = `## Gottfried Flury live authority acceptance\n\nValidated ${pages.length} pages and the Flury sitemap entry on ${origins.length} origins. ${failures.length ? `**FAIL (${failures.length})**` : "**PASS**"}\n\nNo cache purge, browser-rendering session, or Cloudflare authorization calls were made.\n`;
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
 if (failures.length) {
-  console.error(`::error title=Flury authority production mismatch::${failures.length} of ${pages.length * origins.length} HTTP checks failed. See JSON checks above for exact missing/obsolete markers.`);
+  console.error(`::error title=Flury authority production mismatch::${failures.length} of ${(pages.length + 1) * origins.length} HTTP checks failed. See JSON checks above for exact missing/obsolete markers.`);
   process.exitCode = 1;
 }
