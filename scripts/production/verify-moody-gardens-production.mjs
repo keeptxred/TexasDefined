@@ -22,6 +22,7 @@ const requiredFreshnessMarkers = [
 const staleClosureMarkers = [
   "Discovery Museum is temporarily closed",
   "Discovery Museum scheduled to reopen",
+  "Discovery Museum programming and special exhibitions may be separately ticketed or unavailable",
   "Closed now; scheduled to reopen",
   "Temporarily closed as of October 25",
   "scheduled to reopen in November 2026",
