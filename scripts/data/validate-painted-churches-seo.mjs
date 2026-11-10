@@ -142,9 +142,46 @@ for (const required of [
 ]) requireText(llms, required, 'llms.txt intent routing');
 requireText(manifest, '28-verified-churches', 'Citation manifest');
 
+// Keep the manually researched Flury biography in the quarterly Painted
+// Churches authority contract without requiring additional dependencies or a
+// site-wide production scan. These are evidence/metadata guardrails, not
+// automated claims that original archival collections were read.
+const fluryAuthority = read('src/components/editorial/GottfriedFluryAuthority.tsx');
+const fluryRoute = read('src/routes/explore.painted-churches.people.$slug.tsx');
+const fluryLiveAcceptance = read('scripts/ci/verify-flury-production.mjs');
+for (const token of [
+  'Godfrey Flury Collection, 1887–1981',
+  'https://txarchives.org/utcah/finding_aids/00092.xml',
+  'Smithsonian Archives of American Art',
+  'https://sova.si.edu/record/aaa.braddewe/ref14',
+  'Godfrey Flury Scrapbook',
+  'https://library.austintexas.gov/library/2022-04/Art-Resources-Guide.pdf',
+  'Became a naturalized United States citizen',
+  '1929–1934',
+  'mechanical engineering',
+  'we have not inspected the original Flury papers',
+]) requireText(fluryAuthority, token, 'Flury historical profile');
+requireText(fluryRoute, '<GottfriedFluryAuthority />', 'Flury route inclusion');
+requireText(fluryLiveAcceptance, 'name: "clean URL", bust: false', 'Flury live acceptance');
+requireText(fluryLiveAcceptance, 'name: "cache-busted URL", bust: true', 'Flury live acceptance');
+
+const fluryLastModified = fluryRoute.match(/dateModified: "([0-9]{4}-[0-9]{2}-[0-9]{2})"/)?.[1];
+if (!fluryLastModified || Number.isNaN(Date.parse(fluryLastModified + 'T00:00:00Z'))) {
+  failures.push('Flury WebPage dateModified is missing or invalid');
+} else {
+  const reviewedDate = new Intl.DateTimeFormat('en-US', {
+    month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+  }).format(new Date(fluryLastModified + 'T00:00:00Z'));
+  requireText(fluryRoute, 'cross-checked ' + reviewedDate, 'Flury visible byline');
+  requireText(fluryAuthority, 'cross-check completed ' + reviewedDate, 'Flury visible research date');
+  requireText(sitemap, 'item.slug === "gottfried-flury" ? "' + fluryLastModified + '"', 'Flury sitemap date');
+  requireText(fluryLiveAcceptance, '<lastmod>' + fluryLastModified + '</lastmod>', 'Flury live sitemap check');
+  requireText(fluryLiveAcceptance, 'cross-checked ' + reviewedDate, 'Flury live byline check');
+}
+
 if (failures.length) {
   console.error('Painted Churches authority validation failed:');
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches authority protected: 28 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, self-canonical sitemap coverage and citation surfaces.');
+console.log('Painted Churches authority protected: 28 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, self-canonical sitemap coverage and citation surfaces, including Flury source evidence and metadata parity.');
