@@ -7,7 +7,7 @@ const workflow = read(".github/workflows/monthly-texas-industries-workforce-sour
 const audit = read("scripts/data/audit-texas-industries-employment-sources.mjs");
 const guideValidator = read("scripts/data/validate-texas-question-guides.mjs");
 
-assert(meta.includes('createFileRoute("/texas-industries")'), "Preserve existing canonical industry URL");
+assert(meta.includes('const canonicalPath = "/texas-industries"') && meta.includes('createFileRoute(canonicalPath)') && meta.includes('canonicalLink(texasDefinedBrand, canonicalPath)'), "Preserve existing canonical industry route and link");
 assert(page.includes('createLazyFileRoute("/texas-industries")'), "Preserve existing industry SSR route");
 assert(page.includes("TEXAS_INDUSTRIES.map"), "Sector directory and its internal links must be retained");
 assert(page.includes("November 10, 2026"), "Original editorial review date required");
