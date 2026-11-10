@@ -20,8 +20,19 @@ export function isTexasDefinedDirectEditorialSource(item) {
     && (parsed.pathname.toLowerCase() === '/cl.cfm'
       || parsed.pathname.toLowerCase().startsWith('/currentissues/clips/'))) return false;
   const normalizedTitle = title.toLowerCase();
+  // A routing fault in the shared KTR/TD feed must never become a live
+  // TexasDefined article merely because its source was scored AUTO_PUBLISH.
+  // This last-mile guard intentionally checks the HEADLINE, not publisher
+  // branding or broad descriptions that mention government in passing.
+  const publicAffairsTitle =
+    /\b(?:district attorney|county attorney|attorney general|prosecutor|\bda\b)\b.{0,110}\b(?:recus|criminal case|indict|charg|fraud|investigat|lawsuit|corrupt)/i.test(normalizedTitle)
+    || /\b(?:sentenced|indicted|charged|pleads? guilty|arrested|fbi raid|fbi searches|wire fraud|ponzi scheme|investor fraud)\b/i.test(normalizedTitle)
+    || /\b(?:city council|county commissioners?|texas legislature|school board|\bmetro\b)\s+(?:approv|vote|adopt|propos|reject|pass|authoriz|consider)/i.test(normalizedTitle)
+    || /\b(?:houston|dallas|austin|san antonio|el paso|fort worth|arlington|lubbock)\s+(?:considers?|approves?|adopts?|passes?|proposes?)\s+(?:new\s+)?(?:restrictions?|ordinance|zoning|ban|budget|tax|regulation)/i.test(normalizedTitle);
+  if (publicAffairsTitle) return false;
   // Such items should not be expanded into 750-word "original reporting".
   if (/\b(?:privacy policy|cookie policy|terms of (?:use|service)|accessibility statement|user agreement)\b/.test(normalizedTitle)) return false;
   if (/\b(?:live (?:updates?|scores?|blog)|scores? and schedule|scoreboard|up[- ]to[- ]the[- ]minute scores?|week\s*\d+ live scores?)\b/.test(normalizedTitle)) return false;
+  if (/\b(?:hsfb playoff pairings|playoff pairings|day trips? & beyond:.*events roundup|events roundup|score roundup)\b/.test(normalizedTitle)) return false;
   return true;
 }
