@@ -78,6 +78,7 @@ import { Route as TexasMountainBikingGuideRouteImport } from './routes/texas-mou
 import { Route as TexasMortgagePayoffCalculatorRouteImport } from './routes/texas-mortgage-payoff-calculator'
 import { Route as TexasMortgageCalculatorRouteImport } from './routes/texas-mortgage-calculator'
 import { Route as TexasLivingRouteImport } from './routes/texas-living'
+import { Route as TexasJobsWithoutFourYearDegreeRouteImport } from './routes/texas-jobs-without-four-year-degree'
 import { Route as TexasJazzRouteImport } from './routes/texas-jazz'
 import { Route as TexasIndustriesRouteImport } from './routes/texas-industries'
 import { Route as TexasIconsRouteImport } from './routes/texas-icons'
@@ -121,8 +122,10 @@ import { Route as TexasConjuntoTejanoRouteImport } from './routes/texas-conjunto
 import { Route as TexasComptrollerRouteImport } from './routes/texas-comptroller'
 import { Route as TexasCollegeTownsRouteImport } from './routes/texas-college-towns'
 import { Route as TexasClosingCostCalculatorRouteImport } from './routes/texas-closing-cost-calculator'
+import { Route as TexasCitiesNatureJobsRouteImport } from './routes/texas-cities-nature-jobs'
 import { Route as TexasChiliConCarneHistoryRouteImport } from './routes/texas-chili-con-carne-history'
 import { Route as TexasChickenFriedSteakGuideRouteImport } from './routes/texas-chicken-fried-steak-guide'
+import { Route as TexasCareerTrainingOptionsRouteImport } from './routes/texas-career-training-options'
 import { Route as TexasCapitalDesignationsRouteImport } from './routes/texas-capital-designations'
 import { Route as TexasByTexasTxtRouteImport } from './routes/texas-by-texas-txt'
 import { Route as TexasBudgetPlannerRouteImport } from './routes/texas-budget-planner'
@@ -1027,6 +1030,16 @@ const TexasLivingRoute = TexasLivingRouteImport.update({
   path: '/texas-living',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TexasJobsWithoutFourYearDegreeRoute =
+  TexasJobsWithoutFourYearDegreeRouteImport.update({
+    id: '/texas-jobs-without-four-year-degree',
+    path: '/texas-jobs-without-four-year-degree',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-jobs-without-four-year-degree.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const TexasJazzRoute = TexasJazzRouteImport.update({
   id: '/texas-jazz',
   path: '/texas-jazz',
@@ -1334,6 +1347,13 @@ const TexasClosingCostCalculatorRoute =
   } as any).lazy(() =>
     import('./routes/texas-closing-cost-calculator.lazy').then((d) => d.Route),
   )
+const TexasCitiesNatureJobsRoute = TexasCitiesNatureJobsRouteImport.update({
+  id: '/texas-cities-nature-jobs',
+  path: '/texas-cities-nature-jobs',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/texas-cities-nature-jobs.lazy').then((d) => d.Route),
+)
 const TexasChiliConCarneHistoryRoute =
   TexasChiliConCarneHistoryRouteImport.update({
     id: '/texas-chili-con-carne-history',
@@ -1351,6 +1371,14 @@ const TexasChickenFriedSteakGuideRoute =
     import('./routes/texas-chicken-fried-steak-guide.lazy').then(
       (d) => d.Route,
     ),
+  )
+const TexasCareerTrainingOptionsRoute =
+  TexasCareerTrainingOptionsRouteImport.update({
+    id: '/texas-career-training-options',
+    path: '/texas-career-training-options',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-career-training-options.lazy').then((d) => d.Route),
   )
 const TexasCapitalDesignationsRoute =
   TexasCapitalDesignationsRouteImport.update({
@@ -4032,8 +4060,10 @@ export interface FileRoutesByFullPath {
   '/texas-budget-planner': typeof TexasBudgetPlannerRoute
   '/texas-by-texas-txt': typeof TexasByTexasTxtRoute
   '/texas-capital-designations': typeof TexasCapitalDesignationsRoute
+  '/texas-career-training-options': typeof TexasCareerTrainingOptionsRoute
   '/texas-chicken-fried-steak-guide': typeof TexasChickenFriedSteakGuideRoute
   '/texas-chili-con-carne-history': typeof TexasChiliConCarneHistoryRoute
+  '/texas-cities-nature-jobs': typeof TexasCitiesNatureJobsRoute
   '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
   '/texas-college-towns': typeof TexasCollegeTownsRoute
   '/texas-comptroller': typeof TexasComptrollerRoute
@@ -4077,6 +4107,7 @@ export interface FileRoutesByFullPath {
   '/texas-icons': typeof TexasIconsRoute
   '/texas-industries': typeof TexasIndustriesRoute
   '/texas-jazz': typeof TexasJazzRoute
+  '/texas-jobs-without-four-year-degree': typeof TexasJobsWithoutFourYearDegreeRoute
   '/texas-living': typeof TexasLivingRoute
   '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
   '/texas-mortgage-payoff-calculator': typeof TexasMortgagePayoffCalculatorRoute
@@ -4570,8 +4601,10 @@ export interface FileRoutesByTo {
   '/texas-budget-planner': typeof TexasBudgetPlannerRoute
   '/texas-by-texas-txt': typeof TexasByTexasTxtRoute
   '/texas-capital-designations': typeof TexasCapitalDesignationsRoute
+  '/texas-career-training-options': typeof TexasCareerTrainingOptionsRoute
   '/texas-chicken-fried-steak-guide': typeof TexasChickenFriedSteakGuideRoute
   '/texas-chili-con-carne-history': typeof TexasChiliConCarneHistoryRoute
+  '/texas-cities-nature-jobs': typeof TexasCitiesNatureJobsRoute
   '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
   '/texas-college-towns': typeof TexasCollegeTownsRoute
   '/texas-comptroller': typeof TexasComptrollerRoute
@@ -4615,6 +4648,7 @@ export interface FileRoutesByTo {
   '/texas-icons': typeof TexasIconsRoute
   '/texas-industries': typeof TexasIndustriesRoute
   '/texas-jazz': typeof TexasJazzRoute
+  '/texas-jobs-without-four-year-degree': typeof TexasJobsWithoutFourYearDegreeRoute
   '/texas-living': typeof TexasLivingRoute
   '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
   '/texas-mortgage-payoff-calculator': typeof TexasMortgagePayoffCalculatorRoute
@@ -5110,8 +5144,10 @@ export interface FileRoutesById {
   '/texas-budget-planner': typeof TexasBudgetPlannerRoute
   '/texas-by-texas-txt': typeof TexasByTexasTxtRoute
   '/texas-capital-designations': typeof TexasCapitalDesignationsRoute
+  '/texas-career-training-options': typeof TexasCareerTrainingOptionsRoute
   '/texas-chicken-fried-steak-guide': typeof TexasChickenFriedSteakGuideRoute
   '/texas-chili-con-carne-history': typeof TexasChiliConCarneHistoryRoute
+  '/texas-cities-nature-jobs': typeof TexasCitiesNatureJobsRoute
   '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
   '/texas-college-towns': typeof TexasCollegeTownsRoute
   '/texas-comptroller': typeof TexasComptrollerRoute
@@ -5155,6 +5191,7 @@ export interface FileRoutesById {
   '/texas-icons': typeof TexasIconsRoute
   '/texas-industries': typeof TexasIndustriesRoute
   '/texas-jazz': typeof TexasJazzRoute
+  '/texas-jobs-without-four-year-degree': typeof TexasJobsWithoutFourYearDegreeRoute
   '/texas-living': typeof TexasLivingRoute
   '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
   '/texas-mortgage-payoff-calculator': typeof TexasMortgagePayoffCalculatorRoute
@@ -5653,8 +5690,10 @@ export interface FileRouteTypes {
     | '/texas-budget-planner'
     | '/texas-by-texas-txt'
     | '/texas-capital-designations'
+    | '/texas-career-training-options'
     | '/texas-chicken-fried-steak-guide'
     | '/texas-chili-con-carne-history'
+    | '/texas-cities-nature-jobs'
     | '/texas-closing-cost-calculator'
     | '/texas-college-towns'
     | '/texas-comptroller'
@@ -5698,6 +5737,7 @@ export interface FileRouteTypes {
     | '/texas-icons'
     | '/texas-industries'
     | '/texas-jazz'
+    | '/texas-jobs-without-four-year-degree'
     | '/texas-living'
     | '/texas-mortgage-calculator'
     | '/texas-mortgage-payoff-calculator'
@@ -6191,8 +6231,10 @@ export interface FileRouteTypes {
     | '/texas-budget-planner'
     | '/texas-by-texas-txt'
     | '/texas-capital-designations'
+    | '/texas-career-training-options'
     | '/texas-chicken-fried-steak-guide'
     | '/texas-chili-con-carne-history'
+    | '/texas-cities-nature-jobs'
     | '/texas-closing-cost-calculator'
     | '/texas-college-towns'
     | '/texas-comptroller'
@@ -6236,6 +6278,7 @@ export interface FileRouteTypes {
     | '/texas-icons'
     | '/texas-industries'
     | '/texas-jazz'
+    | '/texas-jobs-without-four-year-degree'
     | '/texas-living'
     | '/texas-mortgage-calculator'
     | '/texas-mortgage-payoff-calculator'
@@ -6730,8 +6773,10 @@ export interface FileRouteTypes {
     | '/texas-budget-planner'
     | '/texas-by-texas-txt'
     | '/texas-capital-designations'
+    | '/texas-career-training-options'
     | '/texas-chicken-fried-steak-guide'
     | '/texas-chili-con-carne-history'
+    | '/texas-cities-nature-jobs'
     | '/texas-closing-cost-calculator'
     | '/texas-college-towns'
     | '/texas-comptroller'
@@ -6775,6 +6820,7 @@ export interface FileRouteTypes {
     | '/texas-icons'
     | '/texas-industries'
     | '/texas-jazz'
+    | '/texas-jobs-without-four-year-degree'
     | '/texas-living'
     | '/texas-mortgage-calculator'
     | '/texas-mortgage-payoff-calculator'
@@ -7272,8 +7318,10 @@ export interface RootRouteChildren {
   TexasBudgetPlannerRoute: typeof TexasBudgetPlannerRoute
   TexasByTexasTxtRoute: typeof TexasByTexasTxtRoute
   TexasCapitalDesignationsRoute: typeof TexasCapitalDesignationsRoute
+  TexasCareerTrainingOptionsRoute: typeof TexasCareerTrainingOptionsRoute
   TexasChickenFriedSteakGuideRoute: typeof TexasChickenFriedSteakGuideRoute
   TexasChiliConCarneHistoryRoute: typeof TexasChiliConCarneHistoryRoute
+  TexasCitiesNatureJobsRoute: typeof TexasCitiesNatureJobsRoute
   TexasClosingCostCalculatorRoute: typeof TexasClosingCostCalculatorRoute
   TexasCollegeTownsRoute: typeof TexasCollegeTownsRoute
   TexasComptrollerRoute: typeof TexasComptrollerRoute
@@ -7317,6 +7365,7 @@ export interface RootRouteChildren {
   TexasIconsRoute: typeof TexasIconsRoute
   TexasIndustriesRoute: typeof TexasIndustriesRoute
   TexasJazzRoute: typeof TexasJazzRoute
+  TexasJobsWithoutFourYearDegreeRoute: typeof TexasJobsWithoutFourYearDegreeRoute
   TexasLivingRoute: typeof TexasLivingRoute
   TexasMortgageCalculatorRoute: typeof TexasMortgageCalculatorRoute
   TexasMortgagePayoffCalculatorRoute: typeof TexasMortgagePayoffCalculatorRoute
@@ -8093,6 +8142,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasLivingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-jobs-without-four-year-degree': {
+      id: '/texas-jobs-without-four-year-degree'
+      path: '/texas-jobs-without-four-year-degree'
+      fullPath: '/texas-jobs-without-four-year-degree'
+      preLoaderRoute: typeof TexasJobsWithoutFourYearDegreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-jazz': {
       id: '/texas-jazz'
       path: '/texas-jazz'
@@ -8394,6 +8450,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasClosingCostCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-cities-nature-jobs': {
+      id: '/texas-cities-nature-jobs'
+      path: '/texas-cities-nature-jobs'
+      fullPath: '/texas-cities-nature-jobs'
+      preLoaderRoute: typeof TexasCitiesNatureJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-chili-con-carne-history': {
       id: '/texas-chili-con-carne-history'
       path: '/texas-chili-con-carne-history'
@@ -8406,6 +8469,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-chicken-fried-steak-guide'
       fullPath: '/texas-chicken-fried-steak-guide'
       preLoaderRoute: typeof TexasChickenFriedSteakGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-career-training-options': {
+      id: '/texas-career-training-options'
+      path: '/texas-career-training-options'
+      fullPath: '/texas-career-training-options'
+      preLoaderRoute: typeof TexasCareerTrainingOptionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-capital-designations': {
@@ -12113,8 +12183,10 @@ const rootRouteChildren: RootRouteChildren = {
   TexasBudgetPlannerRoute: TexasBudgetPlannerRoute,
   TexasByTexasTxtRoute: TexasByTexasTxtRoute,
   TexasCapitalDesignationsRoute: TexasCapitalDesignationsRoute,
+  TexasCareerTrainingOptionsRoute: TexasCareerTrainingOptionsRoute,
   TexasChickenFriedSteakGuideRoute: TexasChickenFriedSteakGuideRoute,
   TexasChiliConCarneHistoryRoute: TexasChiliConCarneHistoryRoute,
+  TexasCitiesNatureJobsRoute: TexasCitiesNatureJobsRoute,
   TexasClosingCostCalculatorRoute: TexasClosingCostCalculatorRoute,
   TexasCollegeTownsRoute: TexasCollegeTownsRoute,
   TexasComptrollerRoute: TexasComptrollerRoute,
@@ -12162,6 +12234,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasIconsRoute: TexasIconsRoute,
   TexasIndustriesRoute: TexasIndustriesRoute,
   TexasJazzRoute: TexasJazzRoute,
+  TexasJobsWithoutFourYearDegreeRoute: TexasJobsWithoutFourYearDegreeRoute,
   TexasLivingRoute: TexasLivingRoute,
   TexasMortgageCalculatorRoute: TexasMortgageCalculatorRoute,
   TexasMortgagePayoffCalculatorRoute: TexasMortgagePayoffCalculatorRoute,
