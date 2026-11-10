@@ -1,0 +1,56 @@
+name: Generate Texas question guide routes
+
+on:
+  push:
+    branches:
+      - content/texas-careers-outdoors-authority-20261110
+    paths:
+      - '.github/workflows/generate-texas-question-guides-routes.yml'
+      - 'src/routes/texas-jobs-without-four-year-degree.tsx'
+      - 'src/routes/texas-career-training-options.tsx'
+      - 'src/routes/texas-cities-nature-jobs.tsx'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: question-guide-router-branch
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    if: github.ref == 'refs/heads/content/texas-careers-outdoors-authority-20261110'
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: content/texas-careers-outdoors-authority-20261110
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Generate the canonical TanStack route tree through the production build
+        run: npm run build
+      - name: Assert exactly three additional guide routes were registered
+        run: |
+          node -e "const fs=require('node:fs');const s=fs.readFileSync('src/routeTree.gen.ts','utf8');for(const r of ['texas-jobs-without-four-year-degree','texas-career-training-options','texas-cities-nature-jobs'])if(!s.includes('src/routes/'+r))throw Error('Missing generated route '+r)"
+      - name: Commit generated route tree to feature branch only
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/routeTree.gen.ts; then
+            echo 'Generated route tree already up to date' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/routeTree.gen.ts
+          git commit -m 'build: register researched Texas question authority routes'
+          git push origin HEAD:content/texas-careers-outdoors-authority-20261110
+          echo 'Generated route tree committed to feature branch' >> "$GITHUB_STEP_SUMMARY"
