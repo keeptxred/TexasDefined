@@ -2,6 +2,7 @@
 
 import { isCurrentTexasDefinedAutoNewsSource } from './texasdefined-queue-freshness.mjs';
 import { isTexasDefinedDirectEditorialSource } from './texasdefined-editorial-source-eligibility.mjs';
+import { isSubstantiveTexasDefinedDraftSource } from './texasdefined-draft-evidence-gate.mjs';
 import { cooldownFeedIds } from './texasdefined-source-hydration-backoff.mjs';
 
 const SUPABASE_URL = String(process.env.KEEP_TX_RED_SUPABASE_URL || '').replace(/\/$/, '');
@@ -367,7 +368,7 @@ if (hydrateTop) {
 if (exactFeedId) await hydrateExactFeed();
 const rawEligible = await readyQueueCount();
 const rawQueue = await readyQueueAll(rawEligible);
-const automationEligibleQueue = dedupeAutomationQueue(rawQueue.filter(isAutomationSafeQueueItem));
+const automationEligibleQueue = dedupeAutomationQueue(rawQueue.filter((item) => isAutomationSafeQueueItem(item) && isSubstantiveTexasDefinedDraftSource(item)));
 const queue = exactFeedId ? automationEligibleQueue : automationEligibleQueue.slice(0, limit);
 if (exactFeedId && rawQueue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
