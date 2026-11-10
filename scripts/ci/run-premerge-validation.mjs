@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['CONTENT/TEXAS-INDUSTRIES-LABOR', 'Validate dated source-backed Texas industry labor trend comparison and monthly drift gate', 'node', ['scripts/data/validate-texas-industries-job-market.mjs']],
   ['CONTENT/QUESTION-GUIDES', 'Verify researched Texas career and nature guides, site URLs and sourcing', 'node', ['scripts/data/validate-texas-question-guides.mjs']],
   ['SEO/DISTINCTNESS', 'Syntax-check bounded live 42-pair SSR validator', 'node', ['--check', 'scripts/ci/verify-42-page-pairs-production.mjs']],
   ['SEO/DISTINCTNESS', 'Verify all 42 sports and fishing page pairs keep distinct editorial content and canonicals', 'node', ['scripts/data/validate-page-pair-distinctness.mjs']],
