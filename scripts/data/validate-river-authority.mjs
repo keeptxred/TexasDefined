@@ -95,6 +95,26 @@ for(const required of [
 ]) if(!relations.includes(required)) errors.push('River relationship engine lacks '+required);
 // The destination route must SSR river links for primary trip-planner records;
 // relying on a lazily loaded planner leaves the actual page without a link.
+// River destination links must target real canonical destination slugs, not
+// legacy aliases that redirect before the destination relationship is resolved.
+// Validate the identity mapping rather than silently accepting a 200 response
+// after redirect in the public river acceptance runner.
+const canonicalRiverDestinations = [
+  ['texas-brazos-river-guide', 'washington-on-the-brazos'],
+  ['texas-san-antonio-river-guide', 'goliad-state-park'],
+  ['texas-san-antonio-river-guide', 'san-antonio-river-walk'],
+  ['texas-san-jacinto-river-guide', 'san-jacinto-battleground'],
+];
+for (const [slug, dest] of canonicalRiverDestinations) {
+  const relationStart = relations.indexOf('slug: "' + slug + '"');
+  const next = relationStart < 0 ? -1 : relations.indexOf('slug:', relationStart + 8);
+  const record = relationStart < 0 ? '' : relations.slice(relationStart, next < 0 ? undefined : next);
+  if (!record.includes('"' + dest + '"')) errors.push('Canonical river destination relationship missing: ' + slug + ' → ' + dest);
+}
+for (const legacy of ['washington-on-the-brazos-state-historic-site','goliad-state-park-and-historic-site',
+  'san-jacinto-battleground-state-historic-site']) {
+  if (relations.includes('"' + legacy + '"')) errors.push('River destination registry still uses redirecting legacy slug: ' + legacy);
+}
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 if (!destinationRoute.includes('{relatedRiverGuides.length > 0 && (') ||
     !destinationRoute.includes('relatedRiverGuides.map((guide) => ('))
