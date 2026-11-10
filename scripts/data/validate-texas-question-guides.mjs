@@ -44,7 +44,7 @@ for (const [slug,{source,body}] of routes) {
   assert(sitemap.includes('"' + path + '": "2026-11-10"'), slug + ': sitemap lastmod not aligned to actual content');
   assert(moving.includes('"' + path + '"'), slug + ': no reciprocal moving-to-texas hub link');
   assert(resources.includes("'" + path + "'"), slug + ': no reciprocal Texas resources hub link');
-  assert(body.includes('href="https://') || body.includes('source: "https://') || body.includes('bls: "https://'), slug + ': official sources not represented');
+  assert(/https:\/\/(?:www\.)?(?:bls\.gov|twc\.texas\.gov|tdlr\.texas\.gov|tpwd\.texas\.gov|apprenticeship\.gov|tsbpe\.texas\.gov|lmi\.twc\.texas\.gov)/.test(body), slug + ': official sources not represented');
   assert(!/guaranteed rank|guaranteed (job|funding)|#1 ranked city/i.test(body), slug + ': unsupported promises');
   console.log('PASS ' + path + ' — substantial original source-led content, canonical, dated sources, cross-links');
 }
