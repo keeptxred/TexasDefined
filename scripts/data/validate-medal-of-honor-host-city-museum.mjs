@@ -53,7 +53,7 @@ requireAll(historicVisitorPlans, [
   'Find the museum and read the recipients',
   'A deeper recipient-history visit',
   'Museum plus Gainesville civic history',
-  'as Building 2700',
+  'at Building 2700',
   'Primarily indoor gallery walking',
   'NCTC does not publish a standard visit duration',
 ], "custom museum visit plans, not generic preserved-site itineraries");
