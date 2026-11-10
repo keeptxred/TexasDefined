@@ -1,0 +1,36 @@
+name: Preflight Texas question guides before review
+
+on:
+  push:
+    branches: [content/texas-careers-outdoors-authority-20261110]
+    paths:
+      - '.github/workflows/preflight-texas-question-guides.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: question-authority-preflight
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.ref == 'refs/heads/content/texas-careers-outdoors-authority-20261110'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: content/texas-careers-outdoors-authority-20261110
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Validate three guides and official-source comparison guards
+        run: node scripts/data/validate-texas-question-guides.mjs
+      - name: Run canonical premerge suite without bypass
+        run: node scripts/ci/run-premerge-validation.mjs
