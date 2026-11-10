@@ -229,4 +229,60 @@ for (const cacheBust of [false, true]) {
     compared: evidence.comparedLakeSlugs, checks: evidence.checks });
 }
 
+// Fishing seasons must be a useful, source-backed article in the SSR HTML,
+// not merely month-filter buttons or a stale pre-PR version. Check ordinary and
+// cache-busted visitor URLs, plus a filtered lake containing a TPWD advisory.
+const seasonsCanonical = "https://texasdefined.com/fishing/seasons";
+const seasonFocuses = [
+  "Cold-front planning", "Late-winter variability", "Spring transition checks",
+  "Rainfall and access", "Late-spring travel planning", "Early-summer heat",
+  "Heat and recreation traffic", "Low-water and launch checks",
+  "Early-fall transitions", "Autumn lake changes", "Late-fall fronts",
+  "Winter safety and access",
+];
+function assertSeasonsCanonical(html, label) {
+  const link = (html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/i)
+    ?? html.match(/<link\b[^>]*href=["']https:\/\/texasdefined\.com\/fishing\/seasons["'][^>]*rel=["']canonical["'][^>]*>/i))?.[0] ?? "";
+  assert.ok(link.includes(seasonsCanonical), label + ": canonical root URL missing");
+  assert.ok(!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html),
+    label + ": season guide must remain indexable on canonical root");
+}
+for (const cacheBust of [false, true]) {
+  const kind = cacheBust ? "fresh" : "ordinary";
+  const landing = await page("/fishing/seasons", { cacheBust });
+  const visible = directoryVisibleText(landing);
+  assertSeasonsCanonical(landing, "season landing " + kind);
+  for (const phrase of [
+    "What to check in each Texas fishing month",
+    "Start with verified lake examples across Texas",
+    "Lake-and-species source dataset last reviewed:",
+    "Page editorial and safety presentation reviewed:",
+    "November 9, 2026",
+    "August 14, 2026",
+    "An absent warning here is not confirmation",
+    "TPWD",
+  ]) assert.ok(visible.includes(phrase), "season landing " + kind + ": missing " + phrase);
+  for (const focus of seasonFocuses) {
+    assert.ok(visible.includes(focus), "season landing " + kind + ": no substantive " + focus);
+  }
+  assert.ok(/tpwd\.texas\.gov/.test(landing), "season landing " + kind + ": no official TPWD source");
+  assert.ok(!visible.includes("Last reviewed: August 14, 2026"), "season landing " + kind + ": stale single-review label");
+  const filtered = await page("/fishing/seasons?month=nov&species=catfish&region=panhandle", { cacheBust });
+  const filteredText = directoryVisibleText(filtered);
+  assertSeasonsCanonical(filtered, "season November filter " + kind);
+  for (const phrase of [
+    "November planning focus", "Late-fall fronts",
+    "Alan Henry Reservoir", "Fish-consumption advisory:",
+    "mercury-related fish-consumption restrictions",
+    "Read TPWD",
+  ]) {
+    assert.ok(filteredText.includes(phrase),
+      "season November filter " + kind + ": missing " + phrase);
+  }
+  assert.ok(/https:\/\/tpwd\.texas\.gov\/regulations\/outdoor-annual\/fishing\//.test(filtered),
+    "season November filter " + kind + ": TPWD advisory direct link missing");
+  reports.push({ path: "/fishing/seasons", mode: kind, monthGuides: seasonFocuses.length,
+    advisoryLake: "alan-henry-reservoir", filteredCanonical: seasonsCanonical });
+}
+
 console.log(JSON.stringify({ result: "PASS", coverage: { lakes: liveLakes, facilities: liveFacilities }, checks: ["ordinary-vs-fresh canonical URL parity", "hub copy", "real directory links", "canonical", "statewide lake and facility coverage", "facility-profile noindex", "verified guide businesses", "historical reports noindex", "human-readable bass seasons"], pages: reports }, null, 2));
