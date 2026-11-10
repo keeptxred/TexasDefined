@@ -46,6 +46,9 @@ async function fetchSource(year,offset){
   return data;
 }
 const report={sourceAgency:OFFICIAL_NAME,sourceUrl:TEA_URL,sourceSha256:sha,sourceYearRange:[2021,2023],verifiedOn:new Date().toISOString().slice(0,10),districts:{},stats:{}};
+// Every rejected historical row needs an identity-specific, actionable primary-source queue.
+// Never auto-publish these unverified candidate values to a public tax page.
+const unmatched=[];
 for(const year of EXPECTED_YEARS){
   const state=[...await fetchSource(year,0),...await fetchSource(year,1000)];
   if(state.length<900||state.length>1100)throw Error('School year '+year+' query returned incomplete size '+state.length);
@@ -56,17 +59,20 @@ for(const year of EXPECTED_YEARS){
     if(seen.has(identity))throw Error('Duplicate state district identity '+identity);
     seen.add(identity);
     if(record.maintenance_operations_rate!=null&&record.debt_service_rate!=null){stats.alreadyComplete++;continue}
-    if(record.rate_unavailable||record.source_status!=='reported-final'||record.total_rate==null){stats.invalid++;continue}
+    const unresolved=(reason,detail={})=>unmatched.push({year,slug:record.slug,districtName:record.name,
+      officialTaxingUnitIds:record.official_taxing_unit_ids??[],reportedTotalRate:record.total_rate,
+      reason,...detail});
+    if(record.rate_unavailable||record.source_status!=='reported-final'||record.total_rate==null){stats.invalid++;unresolved('source-status-or-total-not-final',{sourceStatus:record.source_status,rateUnavailable:record.rate_unavailable});continue}
     const stateIds=(record.official_taxing_unit_ids??[]).map(x=>String(x).replace(/-\d+$/,'').replace(/-/g,''));
     const matches=[...new Set(stateIds)].filter(id=>official.has(id));
-    if(matches.length!==1){stats.unmatchedCDN++;continue}
+    if(matches.length!==1){stats.unmatchedCDN++;unresolved('missing-or-ambiguous-TEA-CDN',{matchingDistrictIds:matches});continue}
     const school=official.get(matches[0]);
-    if(normalize(school[1])!==normalize(record.name)){stats.nameMismatch++;continue}
+    if(normalize(school[1])!==normalize(record.name)){stats.nameMismatch++;unresolved('official-district-name-disagreement',{teaDistrictId:matches[0],teaDistrictName:school[1]});continue}
     const i=indices.get(year);
     const mo=Number(school[i.mo]), debt=Number(school[i.debt]);
     const total=Number(record.total_rate);
-    if(!Number.isFinite(mo)||!Number.isFinite(debt)||mo<0||debt<0||mo>3||debt>3){stats.invalid++;continue}
-    if(Math.abs(mo+debt-total)>0.000002){stats.nonReconciling++;continue}
+    if(!Number.isFinite(mo)||!Number.isFinite(debt)||mo<0||debt<0||mo>3||debt>3){stats.invalid++;unresolved('missing-or-invalid-TEA-components',{teaDistrictId:matches[0],teaMaintenanceOperationsRate:school[i.mo],teaDebtServiceRate:school[i.debt]});continue}
+    if(Math.abs(mo+debt-total)>0.000002){stats.nonReconciling++;unresolved('TEA-components-do-not-match-Comptroller-total',{teaDistrictId:matches[0],teaMaintenanceOperationsRate:mo,teaDebtServiceRate:debt,teaComponentSum:mo+debt,totalDiscrepancy:(mo+debt-total)});continue}
     const prior=report.districts[record.slug]??{};
     if(prior[String(year)])throw Error('Duplicate approved component');
     prior[String(year)]={year,officialDistrictId:matches[0],name:record.name,totalRate:total,maintenanceOperationsRate:mo,debtServiceRate:debt,sourceUrl:TEA_URL};
@@ -88,6 +94,30 @@ if (Deno.env.get('TEA_VERIFY_SNAPSHOT') === 'true') {
   }
   console.log('TEA verified snapshot is current and all 2,494 accepted component pairs remain exact.');
 }
+// Explicit, repeatable queue for *every* remaining source-specific ISD gap.
+if (Deno.env.get('TEA_WRITE_GAP_REPORT') === 'true') {
+  const local=JSON.parse(await Deno.readTextFile('src/data/property/hood-cad-isd-adopted.json'));
+  const covered=[];
+  const unresolved=[];
+  for(const item of unmatched) {
+    const source=local.historicalComponents?.[item.slug]?.[String(item.year)];
+    if(source && Number.isFinite(item.reportedTotalRate)
+        && Math.abs(source.totalRate-item.reportedTotalRate)<=0.000002
+        && Math.abs(source.maintenanceOperationsRate+source.debtServiceRate-source.totalRate)<=0.000002) {
+      covered.push({...item,verifiedBy:'Hood CAD independent adopted-rate posting',sourceUrl:source.sourceUrl});
+    } else unresolved.push(item);
+  }
+  const expectedMissing=Object.values(report.stats).reduce((n,v)=>n+v.unmatchedCDN+v.nameMismatch+v.nonReconciling+v.invalid,0);
+  if(unmatched.length!==expectedMissing)throw Error('Unresolved reason ledger does not cover all rejected government rows');
+  const ledger={sourceAgency:OFFICIAL_NAME,sourceUrl:TEA_URL,sourceSha256:sha,
+    checkedOn:new Date().toISOString().slice(0,10),unmatchedByTEA:unmatched.length,
+    independentlyLocallyVerified:covered.length,needsPrimarySource:unresolved.length,
+    coveredByLocalSources:covered,remainingUnverified:unresolved};
+  await Deno.mkdir('.artifacts',{recursive:true});
+  await Deno.writeTextFile('.artifacts/isd-historical-source-gaps.json',JSON.stringify(ledger,null,2)+'\n');
+  console.log('ISD_GAP_LEDGER '+JSON.stringify({unmatchedByTEA:unmatched.length,independentLocal:covered.length,remaining:unresolved.length}));
+}
+
 if (Deno.env.get('TEA_EMIT_VERIFIED_JSON') === 'true') {
   const content=JSON.stringify(report);
   const size=4000;
