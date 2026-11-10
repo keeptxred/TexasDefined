@@ -37,6 +37,8 @@ function TexasIndustriesPage() {
               <p className="mt-4 text-sm leading-7 text-muted-foreground">Source review: {TEXAS_INDUSTRIES_VERIFIED_AT}. Statistics are labeled with their period because industry rankings, employment, production and investment totals change over time.</p>
               <div className="mt-7 space-y-3 text-sm font-semibold">
                 <a href="/article/texas-jobs-economy-industries" className="block text-primary">Read the Texas jobs & economy overview →</a>
+                <a href="/texas-jobs-without-four-year-degree" className="block text-primary">Compare Texas non-degree careers and wages →</a>
+                <a href="/texas-career-training-options" className="block text-primary">Find Texas career training options →</a>
                 <a href="/made-in-texas" className="block text-primary">Browse Made in Texas companies →</a>
                 <a href="/browse/counties" className="block text-primary">Browse all 254 counties →</a>
                 <a href="/compare-texas-cities" className="block text-primary">Compare Texas cities →</a>
