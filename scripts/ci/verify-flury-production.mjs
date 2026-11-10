@@ -20,7 +20,13 @@ const pages = [
       "Later 20th century · Gene A. Mikulik",
       "June 21, 1983",
       "Texas Defined History",
-      "Published sources cross-checked November 9, 2026",
+      "Published sources and archive catalogs cross-checked November 10, 2026",
+      "Godfrey Flury Collection, 1887–1981",
+      "Smithsonian Archives of American Art",
+      "Godfrey Flury Scrapbook",
+      "Became a naturalized United States citizen",
+      "1929–1934",
+      "mechanical engineering",
       "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138",
       "/corrections-policy",
       "https://www.tshaonline.org/handbook/entries/flury-godfrey",
@@ -119,7 +125,7 @@ for (const origin of origins) {
     const start = xml.indexOf(fluryLoc);
     const ending = start >= 0 ? xml.indexOf("</url>", start) : -1;
     const entryXml = start >= 0 && ending > start ? xml.slice(start, ending) : "";
-    const accurateLastmod = entryXml.includes("<lastmod>2026-11-09</lastmod>");
+    const accurateLastmod = entryXml.includes("<lastmod>2026-11-10</lastmod>");
     const report = {
       origin,
       path: "/sitemap-explore.xml",
