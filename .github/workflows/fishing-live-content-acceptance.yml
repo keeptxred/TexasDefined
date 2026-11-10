@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-fishing-live-content.mjs'
+      - 'scripts/ci/verify-fishing-seasons-live.mjs'
       - 'scripts/ci/verify-fishing-compare-html.mjs'
       - 'scripts/ci/verify-fishing-compare-html.test.mjs'
       - 'scripts/ci/verify-fishing-access-browser.mjs'
@@ -34,7 +35,14 @@ jobs:
       - name: Check access browser verifier syntax in PR
         if: github.event_name == 'pull_request'
         run: node --check scripts/ci/verify-fishing-access-browser.mjs
+      - name: Verify fishing seasons against live canonical and direct Worker in PR
+        if: github.event_name == 'pull_request'
+        run: |
+          node --check scripts/ci/verify-fishing-seasons-live.mjs
+          node scripts/ci/verify-fishing-seasons-live.mjs
       - name: Verify independently rendered live fishing pages after deploy
         if: github.event_name != 'pull_request'
-        run: node scripts/ci/verify-fishing-live-content.mjs
+        run: |
+          node scripts/ci/verify-fishing-live-content.mjs
+          node scripts/ci/verify-fishing-seasons-live.mjs
 
