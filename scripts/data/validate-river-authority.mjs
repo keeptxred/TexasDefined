@@ -106,9 +106,10 @@ const canonicalRiverDestinations = [
   ['texas-san-jacinto-river-guide', 'san-jacinto-battleground'],
 ];
 for (const [slug, dest] of canonicalRiverDestinations) {
-  const relationStart = relations.indexOf('slug: "' + slug + '"');
-  const next = relationStart < 0 ? -1 : relations.indexOf('slug:', relationStart + 8);
-  const record = relationStart < 0 ? '' : relations.slice(relationStart, next < 0 ? undefined : next);
+  // Registry has both readable multiline records and compact {slug:"..."} rows.
+  // Match the entire containing record regardless of whitespace and quoting.
+  const match = relations.match(new RegExp('slug:\\s*"' + slug + '"[^}]*}', 'm'));
+  const record = match ? match[0] : '';
   if (!record.includes('"' + dest + '"')) errors.push('Canonical river destination relationship missing: ' + slug + ' → ' + dest);
 }
 for (const legacy of ['washington-on-the-brazos-state-historic-site','goliad-state-park-and-historic-site',
