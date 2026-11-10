@@ -14,16 +14,20 @@ export const getTaxingUnitRateHistory = createServerFn({ method: 'GET' })
     // Client route receives a small attributed result, not source catalogs.
     const isdEvidence = latest?.type === 'school-district' ? await (async () => {
       const source = await import('@/data/property/isd-authority');
+      const tea = await import('@/data/property/tea-isd-components.server');
       return {
         adoption: source.getVerifiedHoodIsdAdoption(latest.slug),
         officialYear: source.hoodIsdEvidence.officialYear,
         sourceUrl: source.hoodIsdEvidence.sourceUrl,
         sourceDocumentsUrl: source.hoodIsdEvidence.sourceDocumentsUrl,
         exemptionSourceUrl: source.hoodIsdEvidence.exemptionSourceUrl,
-        historicalComponents: history.map((item) => ({
-          year: item.year,
-          components: source.getVerifiedIsdHistoricalComponents(item.slug, item.year, item.totalRate),
-        })).filter((item) => item.components != null),
+        historicalComponents: history.map((item) => {
+          const hood = source.getVerifiedIsdHistoricalComponents(item.slug, item.year, item.totalRate);
+          const verified = hood
+            ? { ...hood, sourceAgency: source.hoodIsdEvidence.sourceAgency }
+            : tea.getVerifiedTeaIsdHistoricalComponents(item.slug, item.year, item.totalRate, item.officialTaxingUnitIds);
+          return { year: item.year, components: verified };
+        }).filter((item) => item.components != null),
       };
     })() : null;
     return { history, peers, isdEvidence };

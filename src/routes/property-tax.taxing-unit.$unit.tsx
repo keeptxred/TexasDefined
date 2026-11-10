@@ -65,6 +65,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
             : []),
         ])), ...(hasEsd3Adoption ? [austinEsd3Sources.sourceRateTable, latestAustinEsd3Adopted.resolutionUrl] : []),
         ...(showSchoolAdoption ? [isdEvidence!.sourceUrl, isdEvidence!.sourceDocumentsUrl, isdEvidence!.exemptionSourceUrl] : []),
+        ...(isdEvidence?.historicalComponents.flatMap((entry) => entry.components ? [entry.components.sourceUrl] : []) ?? []),
         ...(latest.slug === 'tolar-isd' ? [isdEvidence!.sourceUrl] : [])],
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],

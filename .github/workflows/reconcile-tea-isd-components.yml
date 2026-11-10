@@ -1,0 +1,31 @@
+name: Reconcile official TEA ISD historical components
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/reconcile-tea-isd-components.yml'
+      - 'scripts/data/reconcile-tea-isd-components.mjs'
+      - 'src/data/property/tea-isd-historical-verified.json'
+      - 'src/data/property/tea-isd-components.server.ts'
+      - 'scripts/data/validate-isd-tax-authority.mjs'
+  workflow_dispatch:
+  schedule:
+    - cron: '13 12 * * 4'
+permissions:
+  contents: read
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      TEA_VERIFY_SNAPSHOT: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Reject missing existing service-role read credentials
+        run: test -n "$SUPABASE_SERVICE_ROLE_KEY"
+      - name: Source-qualified school-district component reconciliation
+        run: deno run --node-modules-dir=auto --allow-env --allow-net --allow-read scripts/data/reconcile-tea-isd-components.mjs
