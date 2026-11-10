@@ -372,15 +372,45 @@ async function retrieveAsset(origin, path, kind) {
   record.ok = validAssetResponse(kind, record);
   return record;
 }
+// Cloudflare/Undici can drop an isolated request during a 7,000+ response audit.
+// Retry transport errors only, at the exact original immutable asset URL.
+// HTTP 404/5xx, challenges, incorrect MIME and SHA mismatches remain HARD FAILURES
+// and do not become retriable or successful merely because another check passed.
+export function isTransientAssetTransportError(error) {
+  const name = String(error?.name || '');
+  const code = String(error?.cause?.code || error?.code || '');
+  return ['TimeoutError', 'AbortError'].includes(name) ||
+    ['ETIMEDOUT', 'ECONNRESET', 'EAI_AGAIN', 'EPIPE',
+      'UND_ERR_SOCKET', 'UND_ERR_CONNECT_TIMEOUT',
+      'UND_ERR_HEADERS_TIMEOUT', 'UND_ERR_BODY_TIMEOUT'].includes(code);
+}
+export async function retryTransientAssetTransport(action,
+  pause = ms => new Promise(done => setTimeout(done, ms))) {
+  if (typeof action !== 'function') throw new TypeError('Asset audit action required');
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try { return await action(); }
+    catch (error) {
+      if (!isTransientAssetTransportError(error) || attempt === 3) throw error;
+      await pause(attempt * 500);
+    }
+  }
+  throw new Error('Unreachable transport retry state');
+}
 async function auditAssets(origin, assets) {
-  // Stable indexed results, no sampling and no skipped candidates. Individual
-  // timeouts become explicit failed records, not a silently shortened list.
+  // Stable indexed results: no sampling, no skipped candidates, no invented
+  // hashes. Retry only failed network transports and still check every
+  // response's HTTP status, MIME and original SHA as before.
   return mapBounded(assets,MAX_ASSET_AUDIT_CONCURRENCY,async ({path,kind})=>{
-    // Pacing is shared across all source capture and verification requests.
-    // Each exact asset still requires HTTP 200, valid MIME, original SHA256.
-    await paceAssetRequest();
-    try {return await retrieveAsset(origin,path,kind);}
-    catch(error){return {path,kind,origin:label(origin),status:'network-error',ok:false,error:String(error)};}
+    try {
+      return await retryTransientAssetTransport(async()=>{
+        // Keep request pacing for INITIAL attempts AND exact-URL retries.
+        await paceAssetRequest();
+        return retrieveAsset(origin,path,kind);
+      });
+    } catch(error) {
+      return {path,kind,origin:label(origin),status:'network-error',ok:false,
+        error:String(error),cause:String(error?.cause?.code || error?.code || '')};
+    }
   });
 }
 function uniqueAssets(pages) {
