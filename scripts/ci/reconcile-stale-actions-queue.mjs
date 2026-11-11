@@ -10,6 +10,21 @@ import { resolve } from "node:path";
 
 export const MIN_STALE_MS = 45 * 60 * 1000;
 export const SCHEDULE_EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
+
+export const ORPHANED_IN_PROGRESS_MS = 7 * 24 * 60 * 60 * 1000;
+export function classifyOrphanedInProgressRun(run, context) {
+  if (!run || run.status !== "in_progress") return "not-in-progress";
+  if (!Number.isSafeInteger(run.id) || run.id === context.selfId) return "invalid-or-self";
+  const created = Date.parse(run.created_at || "");
+  if (!Number.isFinite(created)) return "unknown-created-at";
+  if (context.now - created < ORPHANED_IN_PROGRESS_MS) return "too-new";
+  if (run.head_sha === context.mainSha) return "current-main";
+  if (!context.deployedSha || !Number.isFinite(context.deployedAt)) return "no-verified-successful-deployment";
+  if (created >= context.deployedAt) return "newer-than-verified-deployment";
+  if (run.event === "workflow_run") return "cancel:abandoned-completed-job";
+  return "non-workflow-run-protect";
+}
+
 const MAX_RUNS = 1000;
 const OUT = "artifacts/actions-queue-recovery/report.json";
 
@@ -117,11 +132,15 @@ async function main() {
   // Read the complete original queue before mutations. Pagination while
   // cancelling would skip entries as GitHub shifts its result pages.
   const queue = await listQueued(api);
+  const active = await api("/actions/runs?status=in_progress&per_page=100");
+  if (!Number.isInteger(active.total_count) || !Array.isArray(active.workflow_runs) ||
+      active.total_count > 100 || active.total_count !== active.workflow_runs.length)
+    throw new Error("Cannot establish complete bounded in-progress queue; no cancellation attempted");
   const prCache = new Map();
   const report = {
     runId: context.selfId, checkedAt: new Date(context.now).toISOString(),
     dryRun, mainSha, successfulDeployment: { id: deployed.id, sha: deployed.head_sha,
-      completed: deployed.updated_at }, originalQueued: queue.length,
+      completed: deployed.updated_at }, originalQueued: queue.length, orphanedInProgressScanned: active.workflow_runs.length,
     cancelled: [], selectedDryRun: [], protected: [], errors: [],
   };
 
@@ -166,10 +185,44 @@ async function main() {
     }
   }
 
+  // The October 22 zombie is a workflow marked in progress despite every job
+  // having finished successfully. Never cancel an actually running job.
+  for (const run of active.workflow_runs) {
+    const reason = classifyOrphanedInProgressRun(run, context);
+    if (!reason.startsWith("cancel:")) {
+      report.protected.push({ id: run.id, reason, event: run.event });
+      continue;
+    }
+    try {
+      const jobs = await api("/actions/runs/" + run.id + "/jobs?per_page=100");
+      const everyJobFinished = Number.isInteger(jobs.total_count) &&
+        jobs.total_count > 0 && jobs.total_count === jobs.jobs?.length &&
+        jobs.jobs.every(job => job.status === "completed");
+      if (!everyJobFinished) {
+        report.protected.push({ id: run.id, reason: "active-or-unverifiable-job", event: run.event });
+        continue;
+      }
+      const latest = await api("/actions/runs/" + run.id);
+      if (latest.status !== "in_progress" || latest.head_sha !== run.head_sha) {
+        report.protected.push({ id: run.id, reason: "state-changed-before-cancel", event: run.event });
+        continue;
+      }
+      if (dryRun) {
+        report.selectedDryRun.push({ id: run.id, reason, name: run.name });
+        continue;
+      }
+      await api("/actions/runs/" + run.id + "/cancel", { method: "POST" });
+      report.cancelled.push({ id: run.id, reason, name: run.name });
+      console.log("Cancellation requested for orphaned fully-finished old workflow " + run.id);
+    } catch (err) {
+      report.errors.push({ id: run.id, stage: "cancel-finished-orphan", error: String(err) });
+    }
+  }
+
   await mkdir("artifacts/actions-queue-recovery", { recursive: true });
   await writeFile(OUT, JSON.stringify(report, null, 2) + "\n");
   console.log(JSON.stringify({
-    total: queue.length, cancellationRequests: report.cancelled.length,
+    total: queue.length, orphanedInProgressScanned: active.workflow_runs.length, cancellationRequests: report.cancelled.length,
     dryRunSelections: report.selectedDryRun.length, protected: report.protected.length,
     errors: report.errors.length, report: OUT,
   }));
