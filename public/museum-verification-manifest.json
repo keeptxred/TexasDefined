@@ -1649,14 +1649,19 @@
       "faqCount": 10,
       "sources": [
         {
-          "sourceUrl": "https://www.nctc.edu/media/nctc/documents/pdf/NCTC%20Gainesville%20Campus%20Map.pdf",
-          "fetchUrl": "https://www.nctc.edu/media/nctc/documents/pdf/NCTC%20Gainesville%20Campus%20Map.pdf",
-          "label": "NCTC official Gainesville campus map identifying museum Building 2700"
-        },
-        {
           "sourceUrl": "https://cafgroundforces.wixsite.com/main/museum",
           "fetchUrl": "https://cafgroundforces.wixsite.com/main/museum",
           "label": "Older separately operated Texas Medal of Honor Memorial at NCTC library; not current museum visitor directions"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gainesville_June_2017_24_(Medal_of_Honor_Park).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Gainesville_June_2017_24_(Medal_of_Honor_Park).jpg",
+          "label": "Michael Barera 2017 Gainesville Medal of Honor Park front plaza — CC BY-SA 4.0 licensing and provenance; not NCTC museum"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gainesville_June_2017_25_(Medal_of_Honor_Park).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Gainesville_June_2017_25_(Medal_of_Honor_Park).jpg",
+          "label": "Michael Barera 2017 Gainesville Medal of Honor Park second park view — CC BY-SA 4.0 licensing and provenance; not NCTC museum"
         },
         {
           "sourceUrl": "https://medalofhonorhostcity.com/museum/",
@@ -1664,19 +1669,24 @@
           "label": "Gainesville Host City Program official museum visitor summary"
         },
         {
+          "sourceUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
+          "fetchUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
+          "label": "Separate National Medal of Honor Museum official Arlington visitor map"
+        },
+        {
           "sourceUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
           "fetchUrl": "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf",
           "label": "Current field-trip handbook: admission, summer hours, parking and group policies"
         },
         {
+          "sourceUrl": "https://www.nctc.edu/media/nctc/documents/pdf/NCTC%20Gainesville%20Campus%20Map.pdf",
+          "fetchUrl": "https://www.nctc.edu/media/nctc/documents/pdf/NCTC%20Gainesville%20Campus%20Map.pdf",
+          "label": "NCTC official Gainesville campus map identifying museum Building 2700"
+        },
+        {
           "sourceUrl": "https://www.nctc.edu/museum/",
           "fetchUrl": "https://www.nctc.edu/museum/",
           "label": "Current NCTC official museum visitor information"
-        },
-        {
-          "sourceUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
-          "fetchUrl": "https://www.mohmuseum.org/plan-your-visit/museum-map",
-          "label": "Separate National Medal of Honor Museum official Arlington visitor map"
         }
       ]
     },

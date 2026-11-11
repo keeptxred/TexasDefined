@@ -100,8 +100,13 @@ jobs:
         if: failure()
         run: node scripts/ci/run-validation-suite.mjs full --collect-all > full-validation-report.txt 2>&1 || true
 
+      # Artifact storage is diagnostic only. GitHub's artifact API can return
+      # HTML instead of JSON during service degradation; this must not overturn
+      # a successful canonical validation and protected-branch status.
       - name: Upload canonical pre-merge report
         if: always()
+        continue-on-error: true
+        timeout-minutes: 2
         uses: actions/upload-artifact@v4
         with:
           name: premerge-validation-report

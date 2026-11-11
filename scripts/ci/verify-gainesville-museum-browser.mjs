@@ -10,8 +10,8 @@ const output = "artifacts/gainesville-museum-browser";
 await mkdir(output, { recursive: true });
 const results = [];
 const failures = [];
-const museumAltA = "U.S. military service members at Gainesville";
-const museumAltB = "Hershel Woody Williams";
+const museumAltA = "The separate Medal of Honor Park in Gainesville";
+const museumAltB = "A second June 2017 view of Gainesville Medal of Honor Park";
 
 const browser = await chromium.launch({
   headless: true,
@@ -32,7 +32,14 @@ try {
     });
     const page = await context.newPage();
     const jsErrors = [];
+    const failedMediaRequests = [];
     page.on("pageerror", e => jsErrors.push(e.message));
+    page.on("requestfailed", request => {
+      if (/wikimedia|media\.defense\.gov/i.test(request.url())) failedMediaRequests.push({ url: request.url(), error: request.failure()?.errorText ?? "request failed" });
+    });
+    page.on("response", response => {
+      if (/wikimedia|media\.defense\.gov/i.test(response.url()) && response.status() >= 400) failedMediaRequests.push({ url: response.url(), status: response.status() });
+    });
     try {
       const address = origin + path + "?gainesville-browser-qa=" + Date.now();
       const response = await page.goto(address, { waitUntil: "domcontentloaded", timeout: 60000 });
@@ -41,9 +48,19 @@ try {
       // Force the two historical gallery assets to load even when lazy-loaded.
       for (const alt of [museumAltA, museumAltB]) {
         const target = page.locator('main img[alt*="' + alt + '"]');
-        if (await target.count() === 1) await target.scrollIntoViewIfNeeded({ timeout: 25000 });
+        if (await target.count() === 1) {
+          await target.scrollIntoViewIfNeeded({ timeout: 25000 });
+          // Avoid a false image failure on slow network; never turn a real 403 into a pass.
+          await target.evaluate(img => new Promise(resolve => {
+            if (img.complete) return resolve();
+            const finish = () => resolve();
+            img.addEventListener("load", finish, { once: true });
+            img.addEventListener("error", finish, { once: true });
+            setTimeout(finish, 12000);
+          }));
+        }
       }
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(150);
       const data = await page.evaluate(({ a, b }) => {
         const root = document.querySelector("main");
         const images = [...root.querySelectorAll("img")];
@@ -60,7 +77,7 @@ try {
           viewportWidth: innerWidth,
           links: [...root.querySelectorAll("a[href]")].map(el => ({
             href: el.href,
-            label: (el.getAttribute("aria-label") || el.innerText || el.getAttribute("title") || "").trim()
+            label: (el.getAttribute("aria-label") || (el.getAttribute("aria-labelledby") || "").split(/\s+/).map(id => document.getElementById(id)?.textContent || "").join(" ") || el.innerText || el.textContent || [...el.querySelectorAll("img[alt]")].map(img => img.getAttribute("alt")).join(" ") || el.getAttribute("title") || "").trim()
           })),
           imagesWithoutAlt: images.filter(img => !img.hasAttribute("alt")).map(img => img.src),
           criticalImages: criticalImages.map(img => ({
@@ -91,10 +108,10 @@ try {
         [data.documentWidth <= data.viewportWidth + 12, "no horizontal overflow"],
         [data.imagesWithoutAlt.length === 0, "all main images have alt attributes"],
         [data.links.filter(item => !item.label).length === 0, "all main links have discernible names"],
-        [data.criticalImages.length === 2 && data.criticalImages.every(img => img.loaded), "both documented public-domain archival gallery images load"],
+        [data.criticalImages.length === 2 && data.criticalImages.every(img => img.loaded), "both rights-cleared 2017 Gainesville park gallery images load"],
         [jsErrors.length === 0, "no first-party page runtime errors"],
       ].map(([ok, label]) => ({ ok, label }));
-      const result = { viewport: viewport.name, http: response?.status(), checks, jsErrors, data: {
+      const result = { viewport: viewport.name, http: response?.status(), checks, jsErrors, failedMediaRequests, data: {
         ...data, text: data.text.slice(0, 9000),
       }};
       results.push(result);
