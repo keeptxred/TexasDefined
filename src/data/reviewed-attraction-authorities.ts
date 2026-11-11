@@ -20,7 +20,7 @@ export const reviewedAttractionDestinations: Destination[] = [
       "alt": "Stone paths, ponds and garden landscape at the San Antonio Japanese Tea Garden",
       "width": 1600,
       "height": 1200,
-      "credit": "Jouaienttoi · Wikimedia Commons · CC BY-SA 4.0 · https://creativecommons.org/licenses/by-sa/4.0/"
+      "credit": "Jouaienttoi · Wikimedia Commons · CC BY-SA 4.0 · https://creativecommons.org/licenses/by-sa/4.0/ · thumbnail resized for web display"
     },
     "bestSeason": "Spring and fall offer milder temperatures for the outdoor paths; summer visits are more comfortable early in the day.",
     "entryNote": "Free public admission; operator lists 7 a.m.–5 p.m. daily. Upper pavilion/Jingu House accessible by ramp; lower garden requires stairs.",
@@ -139,7 +139,7 @@ export const reviewedAttractionDestinations: Destination[] = [
       "alt": "Concrete water features and pools at Fort Worth Water Gardens",
       "width": 1600,
       "height": 1200,
-      "credit": "Farragutful · Wikimedia Commons · CC BY-SA 4.0 · https://creativecommons.org/licenses/by-sa/4.0/"
+      "credit": "Farragutful · Wikimedia Commons · CC BY-SA 4.0 · https://creativecommons.org/licenses/by-sa/4.0/ · thumbnail resized for web display"
     },
     "bestSeason": "Spring and fall are comfortable for walking among the exposed concrete terraces; bring water during summer.",
     "entryNote": "Free public park; city lists 6 a.m.–10 p.m. daily. Swimming and wading are prohibited. Check construction advisories.",
@@ -257,6 +257,7 @@ export const reviewedAttractionDestinations: Destination[] = [
       "lat": 29.681,
       "lng": -95.263
     },
+    "address": "One Botanic Lane, Houston, TX 77017",
     "hero": {
       "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Houston_Botanic_Garden.jpg?width=1600",
       "alt": "Plantings and paths at Houston Botanic Garden",
