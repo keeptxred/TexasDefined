@@ -241,7 +241,7 @@ export function GottfriedFluryAuthority() {
           <p><strong className="text-foreground">Research and responsibility:</strong> Texas Defined History &amp; Heritage Desk.
             Published-source and archival-catalog cross-check completed November 10, 2026, against the Handbook of Texas, Austin PBS,
             the Texas Historical Commission’s National Register record and the three catalog listings above. This is documentary research;
-            we have not inspected the original Flury papers, sketches or the sanctuary in person. A separate comparison of the Texas Historical Commission thematic nomination, Austin PBS church records and Bob Harms’s University of Texas palm study was completed November 11, 2026.</p>
+            we have not inspected the original Flury papers, sketches or the sanctuary in person. A botanical and inter-church source cross-check completed November 11, 2026 covered the Texas Historical Commission thematic nomination, Austin PBS church histories and Bob Harms’s University of Texas palm study.</p>
           <p className="mt-2">
             <Link to="/about" className="underline underline-offset-2">About Texas Defined</Link>
             {" · "}<Link to="/editorial-policy" className="underline underline-offset-2">Editorial Policy</Link>
