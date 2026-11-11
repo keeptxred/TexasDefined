@@ -11,6 +11,16 @@ export function isSubstantiveTexasDefinedDraftSource(item) {
   if (body.length < MIN_ORIGINAL_SOURCE_CHARS) return false;
   if (body.split(/\s+/).filter(Boolean).length < MIN_ORIGINAL_SOURCE_WORDS) return false;
 
+  // A third-party article alone is not original independent magazine research.
+  // Unless the source is an institutional .gov/.edu original, require at least
+  // two recorded sources. A count is only a first-pass signal, not a certificate
+  // of independence; final draft provenance checks still apply.
+  let host = '';
+  try { host = new URL(String(item?.link ?? '')).hostname.toLowerCase(); } catch { /* held */ }
+  const institutionalOriginal = /(?:^|\\.)(?:gov|edu)$/.test(host);
+  const sourceCount = Number(item?.source_count);
+  if (!institutionalOriginal && (!Number.isInteger(sourceCount) || sourceCount < 2)) return false;
+
   // A single team press statement or one reporter's routine game report cannot
   // independently substantiate a new 750-word sports news article. Preserve
   // it for human research, not automatic long-form generation.
