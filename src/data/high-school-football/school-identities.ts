@@ -14,6 +14,32 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+// Batch016 identities: school-/district-controlled sources preferred, DCTF 2026 team pages
+// where original campus pages lack a text-rendered mascot. Identity only: not scores,
+// photography permissions, individual schedules or human editorial acceptance.
+  { slug: "early", mascot: "Longhorns", sourceUrl: "https://www.texasfootball.com/team/early-longhorns", sourceLabel: "DCTF 2026 Early Longhorns named football program; school athletics source separately in Batch016 editorial", verifiedAt: '2026-11-11' },
+  { slug: "earth-springlake", mascot: "Wolverines", sourceUrl: "https://www.springlake-earth.org/athletics.html", sourceLabel: "Springlake-Earth ISD athletics refers to Wolverine Sports; 2026 six-man school", verifiedAt: '2026-11-11' },
+  { slug: "east-bernard", mascot: "Brahmas", sourceUrl: "https://www.ebisd.org/live-feed/", sourceLabel: "East Bernard ISD fall 2026 first-party Homecoming football and GO BRAHMAS", verifiedAt: '2026-11-11' },
+  { slug: "east-chambers", mascot: "Buccaneers", sourceUrl: "https://www.eastchambers.net/live-feed/", sourceLabel: "East Chambers ISD November 2026 Buccaneers and varsity Bucs football posts", verifiedAt: '2026-11-11' },
+  { slug: "eastland", mascot: "Mavericks", sourceUrl: "https://www.texasfootball.com/team/eastland-mavericks", sourceLabel: "DCTF 2026 Eastland Mavericks named varsity program; Eastland campus source in Batch016 editorial", verifiedAt: '2026-11-11' },
+  { slug: "edcouch-elsa", mascot: "Yellow Jackets", sourceUrl: "https://www.eeisd.org/live-feed/", sourceLabel: "Edcouch-Elsa ISD fall 2026 Yellow Jacket Nation varsity football announcement", verifiedAt: '2026-11-11' },
+  { slug: "eden", mascot: "Bulldogs", sourceUrl: "https://www.edencisd.net/", sourceLabel: "Eden CISD official district homepage says Home of the Bulldogs", verifiedAt: '2026-11-11' },
+  { slug: "edgewood", mascot: "Bulldogs", sourceUrl: "https://www.edgewood-isd.net/o/athletics/page/hs-football", sourceLabel: "Edgewood ISD official 2026 Bulldogs varsity football schedule", verifiedAt: '2026-11-11' },
+  { slug: "edinburg", mascot: "Bobcats", sourceUrl: "https://www.ecisd.us/apps/pages/athletics/football", sourceLabel: "Edinburg CISD official 2026 football schedule names Edinburg High Bobcats", verifiedAt: '2026-11-11' },
+  { slug: "edinburg-economedes", mascot: "Jaguars", sourceUrl: "https://www.ecisd.us/apps/pages/athletics/football", sourceLabel: "Edinburg CISD official 2026 football schedule names J. Economedes Jaguars", verifiedAt: '2026-11-11' },
+  { slug: "edinburg-north", mascot: "Cougars", sourceUrl: "https://www.ecisd.us/apps/pages/athletics/football", sourceLabel: "Edinburg CISD official 2026 football schedule names Edinburg North Cougars", verifiedAt: '2026-11-11' },
+  { slug: "edinburg-vela", mascot: "Sabercats", sourceUrl: "https://www.ecisd.us/apps/pages/athletics/football", sourceLabel: "Edinburg CISD official 2026 football schedule names Robert Vela Sabercats", verifiedAt: '2026-11-11' },
+  { slug: "edna", mascot: "Cowboys", sourceUrl: "https://www.ednaisd.org/page/football", sourceLabel: "Edna ISD official 2026 Cowboy varsity football roster and schedule", verifiedAt: '2026-11-11' },
+  { slug: "el-campo", mascot: "Ricebirds", sourceUrl: "https://www.ecisd.org/page/welcome-to-el-campo-isd/", sourceLabel: "El Campo ISD official district identity and history of Fighting Ricebirds", verifiedAt: '2026-11-11' },
+  { slug: "el-maton-tidehaven", mascot: "Tigers", sourceUrl: "https://ths.tidehavenisd.com/athletics/athletics-schedule", sourceLabel: "Tidehaven High School official November 2026 Tigers varsity football athletics calendar", verifiedAt: '2026-11-11' },
+  { slug: "el-paso", mascot: "Tigers", sourceUrl: "https://www.episd.org/live-feed", sourceLabel: "El Paso ISD first-party 2026 Battle of the Claw announcement names El Paso High Tigers", verifiedAt: '2026-11-11' },
+  { slug: "el-paso-andress", mascot: "Eagles", sourceUrl: "https://www.episd.org/o/ahs/article/3030776", sourceLabel: "Andress High first-party 2026 school announcement calls students Eagles; Golden Eagles also used in district news", verifiedAt: '2026-11-11' },
+  { slug: "el-paso-austin", mascot: "Panthers", sourceUrl: "https://www.episd.org/o/auhs/live_feeds/12909188", sourceLabel: "El Paso ISD first-party 2026 Battle of the Claw names Austin Panthers", verifiedAt: '2026-11-11' },
+  { slug: "el-paso-bowie", mascot: "Bears", sourceUrl: "https://www.episd.org/o/jhs/live_feeds/12909150", sourceLabel: "El Paso ISD first-party 2026 Southside Bowl announcement names Bowie Bears", verifiedAt: '2026-11-11' },
+  { slug: "el-paso-burges", mascot: "Mustangs", sourceUrl: "https://www.episd.org/o/buhs/page/school-information", sourceLabel: "Burges High official school-information page explicitly lists mascot Mustangs", verifiedAt: '2026-11-11' },
+  { slug: "el-paso-chapin", mascot: "Huskies", sourceUrl: "https://www.episd.org/o/chs/page/principals-welcome-administrative-team", sourceLabel: "Chapin High official 2026 principal welcome repeatedly identifies Huskies", verifiedAt: '2026-11-11' },
+  { slug: "el-paso-del-valle", mascot: "Conquistadores", sourceUrl: "https://www.yisd.net/o/delvallehigh/article/3077414", sourceLabel: "Ysleta ISD Del Valle High 2026 football school article identifies Conquistadores", verifiedAt: '2026-11-11' },
+
   // Batch015: mascot names confirmed against the attributed current official school/district sources,
   // or explicitly attributed 2026 Dave Campbell's team indexes where school pages do not publish the nickname.
   // This verifies only mascot terminology, NOT game schedules, image reuse rights or athlete identities.
