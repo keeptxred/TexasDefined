@@ -16,8 +16,11 @@ permissions:
 jobs:
   chrome:
     if: ${{ (github.event_name == 'issue_comment' && github.event.issue.number == 5794 && github.actor == 'keeptxred' && github.event.comment.body == '/run-b016-chrome') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'workflow_dispatch' }}
+    # Share deploy-production's actual publish lock. A new Worker release
+    # cannot replace the pinned UUID halfway through 75 real browser checks.
+    # Still require exact signed source/Worker equality in the browser.
     concurrency:
-      group: football-b016-25-school-chrome
+      group: texasdefined-production
       cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 150
