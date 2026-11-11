@@ -44,7 +44,7 @@ function TexasTailgatingGuide() {
       </div>
     </Container></section>
 
-    <section className="border-b border-border bg-background"><Container className="py-12 sm:py-16" aria-labelledby="tailgate-policy-table">
+    <section className="border-b border-border bg-background"><Container className="py-12 sm:py-16">
       <p className="eyebrow text-primary">Source-backed venue differences</p><h2 id="tailgate-policy-table" className="mt-3 font-display text-4xl">A comparison that changes your packing list</h2><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">These examples are planning constraints, not permission for a specific event. Always open the current host policy and the parking-pass terms before departure; lot assignments, kickoff times and event restrictions can change.</p>
       <div className="mt-7 overflow-x-auto border border-border"><table className="w-full min-w-[42rem] text-left text-sm"><caption className="sr-only">Texas tailgating venue policy comparison and official links</caption><thead className="bg-surface"><tr><th scope="col" className="p-4">Venue</th><th scope="col" className="p-4">Key decision</th><th scope="col" className="p-4">Check before travel</th></tr></thead><tbody className="divide-y divide-border">
       <tr><th scope="row" className="p-4">AT&amp;T Stadium · Arlington</th><td className="p-4">Tailgating is restricted to designated perimeter grass spaces; ordinary parking spots are for vehicles. RVs require special arrangements.</td><td className="p-4"><a className="font-semibold text-primary underline" target="_blank" rel="noopener noreferrer" href="https://attstadium.com/stadium-info/parking/">Official lot and tailgate restrictions ↗</a></td></tr>
