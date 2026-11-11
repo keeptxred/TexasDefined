@@ -45,6 +45,7 @@ export const reviewedAttractionDestinations: Destination[] = [
     "managingAuthority": "San Antonio Parks Foundation",
     "officialUrl": "https://saparks.org/japanese-tea-garden/",
     "sourceCheckedAt": "2026-11-03",
+    "updatedAt": "2026-11-11",
     "address": "3853 N St Mary's St, San Antonio, TX 78212",
     "visitorFaqs": [
       {
@@ -168,6 +169,7 @@ export const reviewedAttractionDestinations: Destination[] = [
     "managingAuthority": "City of Fort Worth",
     "officialUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
     "sourceCheckedAt": "2026-10-29",
+    "updatedAt": "2026-11-11",
     "address": "1502 Commerce St, Fort Worth, TX 76102",
     "visitorFaqs": [
       {
@@ -295,6 +297,7 @@ export const reviewedAttractionDestinations: Destination[] = [
     "managingAuthority": "Houston Botanic Garden",
     "officialUrl": "https://hbg.org/visit/",
     "sourceCheckedAt": "2026-10-29",
+    "updatedAt": "2026-11-11",
     "address": "One Botanic Lane, Houston, TX 77017",
     "visitorFaqs": [
       {
