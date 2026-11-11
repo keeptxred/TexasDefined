@@ -60,6 +60,17 @@ export const imageRightsFor = (src: string) => {
       // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
       // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
       // Never attach these rights to other photos, even from the same creator.
+      // Original 1836 map by Edmund Francis Lee, preserved by UTA Libraries.
+      // Its individual Commons record marks the historical work public domain;
+      // the archival institution is a source, not a private copyright holder.
+      if (decodeURIComponent(parsed.pathname) === "/wiki/Special:Redirect/file/Lee_Map_of_Texas_1836_UTA.jpg") {
+        return {
+          license: "https://creativecommons.org/publicdomain/mark/1.0/",
+          creator: { "@type": "Person", name: "Edmund Francis Lee" },
+          copyrightNotice: "Public domain — 1836 map by Edmund Francis Lee; no copyright claim",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Lee_Map_of_Texas_1836_UTA.jpg",
+        } as const;
+      }
       // Each of these files has its own Wikimedia Commons file page confirming
       // photographer and license; matching is by exact decoded Commons path.
       // No other Michael Barera or Larry D. Moore image inherits these rights.
