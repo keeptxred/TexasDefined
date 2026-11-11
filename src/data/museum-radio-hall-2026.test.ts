@@ -10,8 +10,9 @@ describe("Texas Broadcast Museum original 2026 radio heritage", () => {
     expect(story).toContain("November 7, 2026");
     expect(story).toContain("20 broadcasters");
     expect(story).toContain("not an ongoing daily show or guaranteed permanent Diane Day exhibit");
-    expect(story).toContain("https://www.trhof.net/texas-radio-hall-of-fame-announces-2026-inductees/");
-    expect(story).toContain("https://www.kltv.com/2026/11/05/east-texas-dj-be-inducted-into-texas-radio-hall-fame/");
+    expect(museum?.visitorFaqs?.[0]?.sourceUrl).toBe("https://www.trhof.net/texas-radio-hall-of-fame-announces-2026-inductees/");
+    expect(museum?.visitorFaqs?.[0]?.answer).toContain("not a promise of regular ceremonies");
+    expect(story).not.toContain("https://");
     expect(museum?.officialUrl).toBe("https://texasbroadcastmuseum.com/");
   });
 });
