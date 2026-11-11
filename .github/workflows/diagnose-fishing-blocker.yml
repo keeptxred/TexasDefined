@@ -16,5 +16,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Prevent original image-rights regression and unsafe artifact restoration
+        run: |
+          node --test src/data/image-rights.test.ts
+          node --test scripts/ci/verify-referenced-assets-production.test.mjs
       - name: Inspect exact ImageObject production provenance across two origins
         run: node scripts/ci/diagnose-published-image-rights.mjs

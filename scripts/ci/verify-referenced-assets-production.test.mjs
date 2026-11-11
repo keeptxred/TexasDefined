@@ -65,6 +65,18 @@ test('only one known post-deploy browser failure can qualify an otherwise fully 
   assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify canonical production health'])),/unapproved|Required published/);
   assert.throws(()=>qualifyPriorDeployJob(make('failure',[visualFailure,'Verify current and previous release JS/CSS on both public origins'])),/unapproved|Required published/);
   assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify MSR Houston desktop metadata'])),/unapproved/);
+  // Exact failed source-verified 11/11 release is allowed to contribute only
+  // SHA-checked old Worker assets; an unrelated failure still blocks deployment.
+  const failedImageIncident=make('failure',['Verify base production surfaces']);
+  failedImageIncident.jobs[0].id=130834293835;
+  failedImageIncident.jobs[0].run_id=43113183643;
+  assert.equal(qualifyPriorDeployJob(failedImageIncident).mode, 'exact-image-rights-incident-assets-only');
+  assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],id:130834293836}]}),/unapproved/);
+  assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],run_id:43113183644}]}),/unapproved/);
+  assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify base production surfaces'])),/unapproved/);
+  const twoFailures=make('failure',['Verify base production surfaces','Verify current and previous release JS/CSS on both public origins']);
+  twoFailures.jobs[0].id=130834293835;twoFailures.jobs[0].run_id=43113183643;
+  assert.throws(()=>qualifyPriorDeployJob(twoFailures),/Required published|unapproved/);
   // The exact 2026-11-09 published Worker passed all five asset/health
   // checkpoints but failed two subsequent title-verification steps. Reuse its
   // verified original bytes only, never classify the failed release as healthy.
