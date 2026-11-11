@@ -75,6 +75,17 @@ jobs:
           else
             node scripts/ci/reconcile-stale-actions-queue.mjs --cancel
           fi
+      - name: Independently recover the McAllen two-viewport Chrome QA
+        # The legacy run may be stuck before queue creation, so its recovery
+        # must not depend on GitHub accepting cancellation or deletion.
+        if: always() && github.event_name == 'push'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/mcallen-day-trips-visual-qa.yml/dispatches" -f ref=main
+          echo "Fresh McAllen production Chrome acceptance dispatched."
       - name: Preserve machine-readable reconciliation results
         if: always()
         continue-on-error: true
