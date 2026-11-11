@@ -187,6 +187,19 @@ test("historically verified fall photos keep their existing rights", () => {
   assert.equal(rights.license, "https://creativecommons.org/licenses/by/4.0/");
 });
 
+test("article loader cannot suppress verified image rights behind a brittle filename prefilter", () => {
+  const route = readFileSync("src/routes/article.$slug.tsx", "utf8");
+  assert.ok(route.includes('const imageRights = (await import("@/data/image-rights")).imageRightsFor(article.hero.src);'));
+  assert.ok(!route.includes('Britten(?:%20| )USA'), "encoded Commons filenames must not bypass source verification");
+  const original = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Britten%20USA.jpg?width=1600";
+  const proxied = "/remote?url=" + encodeURIComponent(original);
+  const nested = "/remote?url=" + encodeURIComponent(proxied);
+  for (const src of [original, proxied, nested]) {
+    assert.equal(imageRightsFor(src)?.creator.name, "Dustin Moore");
+  }
+  assert.equal(imageRightsFor("https://example.com/wiki/Special:Redirect/file/Britten%20USA.jpg"), null);
+});
+
 test("both SEO head routes attach the verified data to the published ImageObject", () => {
   const article = readFileSync("src/routes/article.$slug.tsx", "utf8");
   const destination = readFileSync("src/routes/destination.$slug.tsx", "utf8");
