@@ -68,7 +68,7 @@ jobs:
         run: |
           set -euo pipefail
           title="TPWD deer county rules verification failed (batch $BATCH)"
-          existing="$(gh issue list --state open --search "$title in:title" --json title,number --jq --arg t "$title" '.[] | select(.title == $t) | .number' | head -1)"
+          existing="$(gh issue list --state open --search "$title in:title" --json title,number | jq -r --arg t "$title" '.[] | select(.title == $t) | .number' | head -1)"
           if [[ -z "$existing" ]]; then
             gh issue create --title "$title" --body "Official TPWD county rules did not pass the bounded live-source integrity check. Do not fabricate or carry over obsolete legal guidance. Batch $BATCH run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           fi
@@ -81,7 +81,7 @@ jobs:
         run: |
           set -euo pipefail
           title="TPWD deer county rules verification failed (batch $BATCH)"
-          gh issue list --state open --search "$title in:title" --json title,number --jq --arg t "$title" '.[] | select(.title == $t) | .number' |
+          gh issue list --state open --search "$title in:title" --json title,number | jq -r --arg t "$title" '.[] | select(.title == $t) | .number' |
             while read -r number; do
               gh issue close "$number" --comment "Official TPWD county sources for batch $BATCH now pass. https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             done
