@@ -22,6 +22,8 @@ on:
       - 'src/routes/holiday.*.tsx'
       - 'src/routes/texas-state-fair*.tsx'
       - 'src/routes/horse-racing*.tsx'
+      - 'src/routes/corporate-events*.tsx'
+      - '.github/workflows/corporate-event-source-monitor.yml'
       - 'src/data/tournaments/verified-profiles*.ts'
   push:
     branches: [main]
@@ -43,6 +45,8 @@ on:
       - 'src/routes/holiday.*.tsx'
       - 'src/routes/texas-state-fair*.tsx'
       - 'src/routes/horse-racing*.tsx'
+      - 'src/routes/corporate-events*.tsx'
+      - '.github/workflows/corporate-event-source-monitor.yml'
 
 permissions:
   contents: read
