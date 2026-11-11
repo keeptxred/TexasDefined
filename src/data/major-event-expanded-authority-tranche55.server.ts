@@ -180,7 +180,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2026-12-06",
     venue: "Heritage Square, Downtown Waco",
     officialUrl: "https://www.wacowonderland.com/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "Waco Wonderland transforms Heritage Square into a downtown holiday gathering with the parade, tree lighting, Santa visits, a market and family rides. Visitors should distinguish free festival access from paid attraction wristbands.",
     quickFacts: [
       {
@@ -197,17 +197,17 @@ const records: FestivalEventRecord[] = [
       },
       {
         label: "Rides",
-        value: "Separate wristband purchase"
+        value: "Ages 1+ need ride wristbands; advance price $10/day through Dec. 2"
       }
     ],
     planningSections: [
       {
         title: "Know what requires a wristband",
-        body: "The organizers describe free entrance, Santa photos and the overall downtown celebration, while the Ferris wheel, snow tube hills and trackless train require ride wristbands for guests aged one and above. Recheck this year's online terms before purchasing."
+        body: "The organizer confirms free general admission December 4–6, 2026 at Heritage Square. The Ferris wheel, trackless train and snow tubing require a separate wristband for each rider aged one or older. As published November 10, the official site advertises $10 one-day unlimited-ride wristbands bought online by December 2; afterward Friday remains $10 and Saturday/Sunday rise to $15. Recheck the dated purchase page for current availability, fees, and changes."
       },
       {
         title: "Plan around parade and fireworks notices",
-        body: "The festival lists a downtown holiday parade, lighting activities and fireworks; precise street closures and the final 2026 fireworks timetable were still being finalized when checked October 21. Verify published day-by-day times rather than quoting old schedules."
+        body: "The 14th annual downtown festival includes a tree lighting, holiday parade, markets and family attractions. Times, road closures and fireworks can change independently of the confirmed December 4–6 season. Choose an actual day from the organizer's updated 2026 event schedule instead of relying on a prior-year parade route or fireworks time."
       },
       {
         title: "Allow a walkable downtown itinerary",
