@@ -581,8 +581,11 @@ export function loadMajorEventPageServer(slug: string) {
   const lifecycleMarkup = lifecycleRows.length
     ? `<div data-event-lifecycle-status="true"><h3 class="font-display text-xl">Schedule status</h3><ul class="mt-2 space-y-2">${lifecycleRows.join("")}</ul></div>`
     : "";
+  const enrichmentReviewMarkup = isPalestinePolarExpress || !schemaEnrichment
+    ? ""
+    : `<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p>`;
   const enrichmentMarkup = schemaEnrichment
-    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${lifecycleMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p></div></section>`
+    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${lifecycleMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}${enrichmentReviewMarkup}</div></section>`
     : "";
   const mergedSources = [...event.sources, ...(schemaEnrichment?.sources ?? [])]
     .filter((source, index, sources) => sources.findIndex((candidate) => candidate.url === source.url) === index);
