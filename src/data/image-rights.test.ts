@@ -147,7 +147,13 @@ test("Britten USA hero photo uses exact Commons-verified Dustin Moore CC BY 2.0 
     "/remote?url=" + encodeURIComponent("https://example.com/Britten%20USA.jpg"),
   ]) assert.equal(imageRightsFor(candidate), null, candidate);
   const route = readFileSync("src/routes/article.$slug.tsx", "utf8");
-  assert.ok(route.includes("Britten(?:%20| )USA"));
+  assert.ok(route.includes("Britten(?:%2520|%20| )USA"),
+    "The loader must recognize double-encoded Commons filenames in /media/remote");
+  const doubleEncoded = "https://texasdefined.com/media/remote?url=" + encodeURIComponent(source);
+  const loaderGate = /Britten(?:%2520|%20| )USA/;
+  assert.ok(loaderGate.test(doubleEncoded), "The previously missed live source must load the exact-rights module");
+  assert.deepEqual(imageRightsFor(doubleEncoded), expected);
+  assert.ok(!loaderGate.test("https://commons.wikimedia.org/wiki/Special:Redirect/file/Unrelated.jpg"));
   assert.ok(route.includes("...(imageRights ?? {})"));
 });
 

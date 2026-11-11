@@ -291,7 +291,10 @@ export const Route = createFileRoute("/article/$slug")({
       loadTexasKnowledgeGraph(),
     ]);
     const graph = articleAutoLinkGraph(article, completeGraph);
-    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg|Celina_High_School|Bart_Coan_Field_from_west|Panna_Maria_|Houston_texas_usa_skyline|ray-roberts-lake-isle-du-bois-unit|Modern_Blue_Bell_Creameries_factory_located_in_Brenham|Britten(?:%20| )USA|Cafe_Table_at_Ocho_Restaurant/.test(article.hero.src)
+    // A Wikimedia photo inside /media/remote?url= carries double encoding:
+    // Britten%2520USA. Keep the lazy gate source-specific, but accept that
+    // exact delivery form; imageRightsFor independently verifies Commons origin.
+    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg|Celina_High_School|Bart_Coan_Field_from_west|Panna_Maria_|Houston_texas_usa_skyline|ray-roberts-lake-isle-du-bois-unit|Modern_Blue_Bell_Creameries_factory_located_in_Brenham|Britten(?:%2520|%20| )USA|Cafe_Table_at_Ocho_Restaurant/.test(article.hero.src)
       ? (await import("@/data/image-rights")).imageRightsFor(article.hero.src) : null;
     return { article, authors, categories, related, destinations, graph, imageRights };
   },
