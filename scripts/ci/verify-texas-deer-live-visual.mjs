@@ -101,16 +101,84 @@ try {
       // select events before React has attached the handler if we only wait for
       // DOMContentLoaded. Require the completed page load before testing changes.
       await page.waitForLoadState('load', { timeout: 30000 });
-      await countySelect.selectOption('la-salle');
-      const laSalleLink = page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/lasalle/"]');
-      const laSalleShown = await laSalleLink.waitFor({ state: 'attached', timeout: 8000 })
-        .then(() => true, () => false);
-      verify('TPWD exceptional La Salle route links correctly', laSalleShown);
-      await countySelect.selectOption('tarrant');
-      const tarrantLink = page.locator('a[href="https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/tarrant/"]');
-      const tarrantShown = await tarrantLink.waitFor({ state: 'attached', timeout: 8000 })
-        .then(() => true, () => false);
-      verify('TPWD county rules link responds to selection', tarrantShown);
+      // SSR may render the select before React attaches its delegated events.
+      // Wait for hydration explicitly so an early mobile selection is not dropped.
+      await page.waitForFunction(() => {
+        const select = document.querySelector('#deer-tpwd-county');
+        return !!select && Object.keys(select).some(key => key.startsWith('__reactProps
+      const photo = page.locator('img[alt^="Close view of a white-tailed buck"]').first();
+      verify('exact licensed deer image is present', await photo.count() === 1);
+      if (await photo.count()) {
+        await photo.scrollIntoViewIfNeeded();
+        await photo.evaluate(async img => {
+          if (img.complete) return;
+          await Promise.race([
+            new Promise(resolve => { img.addEventListener('load', resolve, { once: true }); img.addEventListener('error', resolve, { once: true }); }),
+            new Promise(resolve => setTimeout(resolve, 15000)),
+          ]);
+        });
+        const measurements = await photo.evaluate(img => {
+          const r = img.getBoundingClientRect();
+          return { src: img.src, width: img.naturalWidth, height: img.naturalHeight,
+            visibleWidth: r.width, visibleHeight: r.height, complete: img.complete };
+        });
+        verify('actual USFWS image rendered', measurements.src === photoSource &&
+          measurements.complete && measurements.width > 400 && measurements.height > 200,
+          JSON.stringify(measurements));
+        verify('image visible at viewport width',
+          measurements.visibleWidth > 250 && measurements.visibleWidth <= viewport.width + 3,
+          JSON.stringify(measurements));
+        const imageShot = dir + '/deer-' + viewport.name + '-photo.png';
+        await page.screenshot({ path: imageShot, fullPage: false, animations: 'disabled' });
+        record.screenshots.push(imageShot);
+      }
+      const attribution = await page.locator('figure').filter({ has: photo }).locator('figcaption').first().textContent().catch(() => '');
+      verify('USFWS attribution visible', attribution.includes('Tom Koerner'), attribution.slice(0, 180));
+      verify('public domain image source linked',
+        await page.locator('a[href="https://www.fws.gov/media/white-tailed-deer-buck-0"]').count() > 0);
+      const bounds = await page.evaluate(() => ({
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+      }));
+      verify('no document horizontal overflow',
+        bounds.scrollWidth <= bounds.clientWidth + 3, JSON.stringify(bounds));
+      await page.locator('#deer-season-dates').scrollIntoViewIfNeeded();
+      const datesShot = dir + '/deer-' + viewport.name + '-season-table.png';
+      await page.screenshot({ path: datesShot, fullPage: false, animations: 'disabled' });
+      record.screenshots.push(datesShot);
+      verify('no uncaught browser errors', errors.length === 0, errors.join(' | '));
+    } catch (error) {
+      result.failures.push({ viewport: viewport.name, name: 'browser execution',
+        detail: String(error).slice(0, 300) });
+    } finally {
+      result.viewports.push(record);
+      await context.close();
+    }
+  }
+} finally {
+  await browser.close();
+}
+await writeFile(dir + '/report.json', JSON.stringify(result, null, 2) + '\n');
+console.log(JSON.stringify({ checked: result.viewports.length,
+  checks: result.viewports.reduce((n, x) => n + x.checks.length, 0),
+  failures: result.failures.slice(0, 16) }));
+if (result.failures.length) process.exitCode = 1;
+));
+      }, { timeout: 20000 });
+      async function confirmCountyRoute(slug, url) {
+        const target=page.locator('a[href="' + url + '"]');
+        for(let attempt=0;attempt<2;attempt++){
+          await countySelect.selectOption(slug);
+          if(await target.waitFor({ state:'attached', timeout:6000 }).then(()=>true,()=>false))return true;
+        }
+        return false;
+      }
+      const laSalleShown=await confirmCountyRoute('la-salle',
+        'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/lasalle/');
+      verify('TPWD exceptional La Salle route links correctly',laSalleShown);
+      const tarrantShown=await confirmCountyRoute('tarrant',
+        'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/tarrant/');
+      verify('TPWD county rules link responds to selection',tarrantShown);
       const photo = page.locator('img[alt^="Close view of a white-tailed buck"]').first();
       verify('exact licensed deer image is present', await photo.count() === 1);
       if (await photo.count()) {
