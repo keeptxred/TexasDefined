@@ -22,9 +22,9 @@ export default function DogBreedPage() {
       </header>
 
       <Container className="py-12 sm:py-16">
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div className="mx-auto max-w-4xl">
           <div className="space-y-12">
-            <section><p className="eyebrow text-primary">The short version</p><h2 className="mt-3 font-display text-4xl leading-tight">Why {breed.shortName} people recognize the joke immediately</h2><p className="mt-5 text-lg leading-8 text-muted-foreground">{breed.personality}</p></section>
+            <section><p className="eyebrow text-primary">The short version</p><h2 className="mt-3 font-display text-4xl leading-tight">What a {breed.shortName} is known for</h2><p className="mt-5 text-lg leading-8 text-muted-foreground">{breed.personality}</p></section>
             {breed.care ? <section className="border-y border-border py-10" aria-labelledby="breed-care-decisions">
               <p className="eyebrow text-primary">Owner planning · evidence-linked</p><h2 id="breed-care-decisions" className="mt-3 font-display text-4xl leading-tight">Three decisions before bringing a {breed.shortName} into your Texas routine</h2>
               <div className="mt-7 grid gap-6">
@@ -38,12 +38,11 @@ export default function DogBreedPage() {
             <section className="border-y border-border py-10"><p className="eyebrow text-primary">Texas fit</p><h2 className="mt-3 font-display text-4xl leading-tight">Where the breed meets Texas life</h2><p className="mt-5 text-lg leading-8 text-muted-foreground">{breed.texasFit}</p>
               <div className="mt-7 flex flex-wrap gap-3 text-sm font-semibold"><Link to="/explore/road-trips" className="border border-border px-4 py-2 hover:border-primary hover:text-primary">Texas road trips</Link><Link to="/explore/outdoors" className="border border-border px-4 py-2 hover:border-primary hover:text-primary">Outdoors & wildlife</Link><Link to="/texas-living" className="border border-border px-4 py-2 hover:border-primary hover:text-primary">Texas Life</Link></div>
             </section>
-            <section><p className="eyebrow text-primary">Creative culture, not care advice</p><h2 className="mt-3 font-display text-4xl leading-tight">The shirt ideas that feel native to the breed</h2>
+            <section><p className="eyebrow text-primary">Creative culture, not care advice</p><h2 className="mt-3 font-display text-4xl leading-tight">A lighthearted look at the breed’s personality</h2>
               <div className="mt-7 grid gap-4 sm:grid-cols-2">{breed.designHooks.map((hook, index) => <div key={hook} className="border border-border p-5"><span className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, "0")}</span><h3 className="mt-3 font-display text-2xl capitalize">{hook}</h3></div>)}</div>
             </section>
             <section className="border-t border-border pt-10"><p className="eyebrow text-primary">Further reading</p><h2 className="mt-3 font-display text-3xl">Turn general breed advice into a local plan</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Before choosing a Texas park or lake, check local pet access and your dog's individual health and fitness. Veterinary advice and official destination rules outrank general breed averages.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/article/$slug" params={{slug:"taking-your-dog-to-texas-state-parks"}} className="text-primary underline">State park pet rules →</Link><Link to="/article/$slug" params={{slug:"texas-dog-lake-river-safety"}} className="text-primary underline">Water safety →</Link><Link to="/article/$slug" params={{slug:"camping-in-texas-with-your-dog"}} className="text-primary underline">Camping with dogs →</Link></div><p className="mt-5 text-sm leading-7 text-muted-foreground">For playful breed design collections, <Link to="/dogs/{-$breed}" params={{ breed: undefined }} className="font-semibold text-primary underline">return to the Texas Dogs hub</Link>; this breed guide prioritizes actual owner decisions.</p></section>
           </div>
-          <aside><div className="sticky top-24 border border-border p-6"><p className="eyebrow text-primary">Creative brief</p><h2 className="mt-3 font-display text-3xl">{breed.shortName} shirt signals</h2><ul className="mt-5 space-y-3 text-sm leading-6 text-muted-foreground">{breed.designHooks.map((hook) => <li key={hook}>— {hook}</li>)}</ul></div></aside>
         </div>
       </Container>
     </article>
