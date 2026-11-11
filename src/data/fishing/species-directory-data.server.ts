@@ -1,4 +1,5 @@
 import { fishingPlatform, fishingScope } from "./index";
+import { isFishingCurrentlyClosed } from "./operational-closures";
 import { FISH_SPECIES_CATALOG_VERIFIED_AT, fishSpeciesFamilies } from "./species-catalog";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug, isCompleteFishingSpeciesSlug } from "./slugs";
 
@@ -9,7 +10,7 @@ export async function loadFishSpeciesDirectoryDataServer() {
     fishingPlatform.lakeSpecies.list(fishingScope),
   ]);
   const completeLakes = lakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
-  const completeLakeById = new Map(completeLakes.map((lake) => [lake.id, lake]));
+  const completeLakeById = new Map(completeLakes.filter((lake) => !isFishingCurrentlyClosed(lake.slug)).map((lake) => [lake.id, lake]));
   const completeLakesBySpeciesId = new Map<string, { name: string; slug: string; href: string; quality: string; prominence: string }[]>();
 
   for (const relation of lakeSpecies) {

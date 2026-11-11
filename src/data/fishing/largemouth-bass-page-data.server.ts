@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { isFishingCurrentlyClosed } from "./operational-closures";
 import { fishingFoundationAnchor } from "./slugs";
 import { largemouthBassEditorialProfile } from "./species-profiles";
 import { fishingSpeciesCanonicalPath } from "./species-routing";
@@ -10,11 +11,13 @@ const qualityScore = { excellent: 40, good: 30, fair: 20, poor: 10, unknown: 0 }
 const prominenceScore = { primary: 6, secondary: 3, present: 1 } as const;
 const canonicalPath = fishingSpeciesCanonicalPath("largemouth-bass");
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+// Actual bass editorial/operating-closure revision, not underlying source verification.
+const BASS_GUIDE_EDITORIAL_UPDATED_AT = "2026-11-11";
 
 function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargemouthBassPageData>>) {
   const url = `${siteUrl}${canonicalPath}`;
   const { species, profile } = pageData;
-  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: profile.verifiedAt, citation: profile.sources.map((source) => source.url) };
+  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: BASS_GUIDE_EDITORIAL_UPDATED_AT, citation: profile.sources.map((source) => source.url) };
   const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species.commonName, alternateName: species.aliases, description: species.summary, sameAs: profile.sources[0]?.url };
   const breadcrumb = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
@@ -23,7 +26,7 @@ function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargem
     { "@type": "ListItem", position: 4, name: "Largemouth bass", item: url },
   ] };
   return {
-    meta: buildMeta(texasDefinedBrand, { title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes", description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, ranked lakes, regulations and verified guide listings.", canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, { title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes", description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, documented lake quality tiers, regulations and verified guide listings.", canonicalPath }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPage, speciesEntity, breadcrumb] }) }],
   };
@@ -45,13 +48,14 @@ async function buildLargemouthBassPageData() {
 
   const lakeById = new Map(lakes.map((lake) => [lake.id, lake]));
   const rankedLakes = relations
+    .filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0)
     .map((relation) => {
       const lake = lakeById.get(relation.lakeId);
       if (!lake) return null;
-      const score = qualityScore[relation.quality] + prominenceScore[relation.prominence] + (lake.featured ? 1 : 0);
+      const score = qualityScore[relation.quality] + prominenceScore[relation.prominence];
       return { lake, relation, score, href: fishingFoundationAnchor("lake", lake.slug) };
     })
-    .filter((row): row is NonNullable<typeof row> => Boolean(row))
+    .filter((row): row is NonNullable<typeof row> => Boolean(row) && !isFishingCurrentlyClosed(row.lake.slug))
     .sort((left, right) => right.score - left.score || left.lake.name.localeCompare(right.lake.name));
 
   const techniqueById = new Map(techniques.map((row) => [row.id, row]));
