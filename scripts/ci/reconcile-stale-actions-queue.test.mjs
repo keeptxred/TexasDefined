@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { classifyQueuedRun, shouldCancel, MIN_STALE_MS, SCHEDULE_EXPIRY_MS } from "./reconcile-stale-actions-queue.mjs";
+import { classifyQueuedRun, classifyOrphanedInProgressRun, shouldCancel, MIN_STALE_MS, SCHEDULE_EXPIRY_MS, ORPHANED_IN_PROGRESS_MS } from "./reconcile-stale-actions-queue.mjs";
 
 const now = Date.UTC(2026, 10, 11, 22);
 const current = "a".repeat(40);
@@ -47,4 +47,14 @@ test("issue-comment verification and recent schedules remain pending, not discar
 test("unconfirmed deployment or malformed timing protects all runs", () => {
   assert.equal(classifyQueuedRun(run("workflow_run", MIN_STALE_MS + 60000), { ...ctx, deployedSha: null }), "no-verified-successful-deployment");
   assert.equal(classifyQueuedRun(run("push", MIN_STALE_MS + 60000, { created_at: "unknown" }), ctx), "unknown-created-at");
+});
+
+test("only orphaned in-progress run with all job steps finished qualifies for separate cleanup", () => {
+  const orphan = run("workflow_run", ORPHANED_IN_PROGRESS_MS + 60000, { status: "in_progress" });
+  assert.equal(classifyOrphanedInProgressRun(orphan, ctx), "cancel:abandoned-completed-job");
+  assert.equal(classifyOrphanedInProgressRun(
+    run("workflow_run", MIN_STALE_MS + 60000, { status: "in_progress" }), ctx), "too-new");
+  assert.equal(classifyOrphanedInProgressRun({ ...orphan, head_sha: current }, ctx), "current-main");
+  assert.equal(classifyOrphanedInProgressRun({ ...orphan, event: "push" }, ctx), "non-workflow-run-protect");
+  assert.equal(classifyOrphanedInProgressRun({ ...orphan, status: "completed" }, ctx), "not-in-progress");
 });
