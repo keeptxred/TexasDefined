@@ -57,6 +57,83 @@ for (let i = 0; i < allPaths.length; i += 3) {
   }));
   failures.push(...batch.filter(Boolean));
 }
+
+// These three previously approved attractions also require independently checked
+// production JSON-LD, licensed image delivery, and relevant city/county discovery.
+const attractionCertification = [
+  { path: "/destination/san-antonio-japanese-tea-garden", name: "San Antonio Japanese Tea Garden",
+    creator: "Jouaienttoi", license: "https://creativecommons.org/licenses/by-sa/4.0/",
+    file: "San_Antonio_Japanese_Tea_Garden_2022.jpg", city: "/city/san-antonio", county: "/county/bexar" },
+  { path: "/destination/fort-worth-water-gardens", name: "Fort Worth Water Gardens",
+    creator: "Farragutful", license: "https://creativecommons.org/licenses/by-sa/4.0/",
+    file: "Fort_Worth_Water_Gardens_01.jpg", city: "/city/fort-worth", county: "/county/tarrant" },
+  { path: "/destination/houston-botanic-garden", name: "Houston Botanic Garden",
+    creator: "WhisperToMe", license: "https://creativecommons.org/publicdomain/zero/1.0/",
+    file: "Houston_Botanic_Garden.jpg", city: "/city/houston", county: "/county/harris" },
+];
+function structuredGraph(html) {
+  const nodes = [];
+  for (const match of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    const json = JSON.parse(match[1].replace(/&quot;/g, '"').replace(/&amp;/g, "&"));
+    nodes.push(...(Array.isArray(json["@graph"]) ? json["@graph"] : [json]));
+  }
+  return nodes;
+}
+for (const guide of attractionCertification) {
+  try {
+    const { body } = await fetchLive(guide.path);
+    if (!body.includes("<title>") || !body.includes(guide.name)) throw Error("missing named title");
+    if (!/<meta\b[^>]*name=["']description["'][^>]*content=["'][^"']{50,}["']/i.test(body)) {
+      throw Error("missing substantial SSR meta description");
+    }
+    if (!new RegExp("<h1\\b[^>]*>\\s*" + guide.name + "\\s*</h1>", "i").test(body)) {
+      throw Error("missing original named SSR H1");
+    }
+    if (!body.includes("Research sources") || !body.includes("Planning your visit")) {
+      throw Error("visitor guidance or official research missing in server HTML");
+    }
+    const graph = structuredGraph(body);
+    const canonical = origin + guide.path;
+    const entity = graph.find((node) => node["@id"] === canonical + "#attraction");
+    const breadcrumb = graph.find((node) => node["@type"] === "BreadcrumbList" && node["@id"] === canonical + "#breadcrumbs");
+    if (!entity || !breadcrumb || !Array.isArray(breadcrumb.itemListElement)) {
+      throw Error("missing attraction or consistent BreadcrumbList schema");
+    }
+    if (entity.url !== canonical || !Array.isArray(entity.image)) throw Error("attraction URL or ImageObject missing");
+    const image = entity.image.find((node) => node["@type"] === "ImageObject");
+    if (!image || image.creator?.name !== guide.creator || image.license !== guide.license ||
+      image.acquireLicensePage !== "https://commons.wikimedia.org/wiki/File:" + guide.file ||
+      image["@id"] !== canonical + "#primaryimage" ||
+      !image.contentUrl?.includes(guide.file) || image.width !== 1600 || image.height !== 1200 ||
+      !image.copyrightNotice) {
+      throw Error("licensed image provenance, identity or declared dimensions mismatched");
+    }
+    const picture = await fetch(image.contentUrl, {
+      headers: { "user-agent": "TexasDefined-AttractionImageHealth/1.0", Accept: "image/jpeg,image/webp,image/png" },
+      redirect: "follow", signal: AbortSignal.timeout(15000),
+    });
+    const mediaType = picture.headers.get("content-type") ?? "";
+    if (!picture.ok || !/^image\/(?:jpeg|png|webp)/i.test(mediaType)) {
+      throw Error("hero delivery failed: HTTP " + picture.status + " content type " + mediaType);
+    }
+    await picture.body?.cancel();
+  } catch (error) {
+    failures.push({ path: guide.path, error: "attraction certification: " + String(error) });
+  }
+}
+for (const guide of attractionCertification) {
+  for (const context of [guide.city, guide.county]) {
+    try {
+      const page = await fetchLive(context);
+      if (!page.body.includes('href="' + guide.path + '"')) {
+        throw Error("canonical contextual link missing");
+      }
+    } catch (error) {
+      failures.push({ path: context, error: "inbound to " + guide.path + ": " + String(error) });
+    }
+  }
+}
+
 console.log(JSON.stringify({
   date: new Date().toISOString(),
   editorialPages: explore.length, legalPages: main.length, inspected: allPaths.length,
