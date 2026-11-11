@@ -1,5 +1,5 @@
-import { certifiedNewsArticleSchema } from '../news/texasdefined-published-article-proof.mjs';
 #!/usr/bin/env node
+import { certifiedNewsArticleSchema } from '../news/texasdefined-published-article-proof.mjs';
 /**
  * Exact-URL live acceptance after a successful protected newsroom publication.
  * This checks actual public HTML and sitemap output, not merely the RPC result.
