@@ -10,6 +10,7 @@ import { fishingTechniqueImages, isFishingTechniqueHeroReady } from "./technique
 import {
   FISHING_TECHNIQUES_DIRECTORY_PATH,
   FISHING_TECHNIQUES_VERIFIED_AT,
+  FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT,
   PUBLISHED_FISHING_TECHNIQUE_SLUGS,
   fishingTechniqueCanonicalPath,
 } from "./technique-routing";
@@ -65,7 +66,7 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   const imageReady = isFishingTechniqueHeroReady(technique.slug);
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const faq = authority?.faq ?? [];
-  const dateModified = newestDate([technique.verifiedAt, ...featuredSources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
+  const dateModified = newestDate([FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT, technique.verifiedAt, ...featuredSources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [

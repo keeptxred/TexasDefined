@@ -11,11 +11,13 @@ const qualityScore = { excellent: 40, good: 30, fair: 20, poor: 10, unknown: 0 }
 const prominenceScore = { primary: 6, secondary: 3, present: 1 } as const;
 const canonicalPath = fishingSpeciesCanonicalPath("largemouth-bass");
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+// Actual bass editorial/operating-closure revision, not underlying source verification.
+const BASS_GUIDE_EDITORIAL_UPDATED_AT = "2026-11-11";
 
 function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargemouthBassPageData>>) {
   const url = `${siteUrl}${canonicalPath}`;
   const { species, profile } = pageData;
-  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: profile.verifiedAt, citation: profile.sources.map((source) => source.url) };
+  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: BASS_GUIDE_EDITORIAL_UPDATED_AT, citation: profile.sources.map((source) => source.url) };
   const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species.commonName, alternateName: species.aliases, description: species.summary, sameAs: profile.sources[0]?.url };
   const breadcrumb = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
