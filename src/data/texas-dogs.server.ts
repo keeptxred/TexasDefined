@@ -1,9 +1,10 @@
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 import type { DogBreedProfile, DogBreedSummary, DogDesignCollection } from "./texas-dogs";
+import { DOG_BREED_CARE } from "./texas-dogs-breed-care";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const hubDescription = "Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.";
+const hubDescription = "Practical Texas dog life: heat and trail safety, pet rules, state parks, coastal trips, adoption and breed-specific ownership decisions.";
 
 const dogDesignCollections: DogDesignCollection[] = [
   { slug: "retro-dogs", name: "Retro Dogs", tagline: "Old-school color, new-school dog obsession", description: "Vintage travel-poster shapes, seventies sunsets, varsity lettering and throwback graphics built around recognizable breed personalities.", examples: ["Lake Day Labrador", "Golden Hour Golden", "Low Rider Dachshund", "Weekend Beagle"] },
@@ -37,7 +38,7 @@ function buildHubHead() {
   return {
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Dogs Defined — Breeds, Dog Life & Funny Shirt Ideas",
+      title: "Texas Dogs Guide: Heat Safety, Parks, Travel & Breeds",
       description: hubDescription,
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -60,9 +61,9 @@ function buildHubScripts(breeds: DogBreedSummary[]) {
 function buildBreedHead(breed: DogBreedProfile) {
   const canonicalPath = `/dogs/${breed.slug}`;
   const pageUrl = `${siteUrl}${canonicalPath}`;
-  const description = `${breed.name} Defined: breed personality, the Texas-life angle and funny shirt directions that fit ${breed.shortName} people without turning the page into a generic product listing.`;
+  const description = `${breed.name} ownership in Texas: activity, grooming, outdoor heat planning, practical owner decisions and a clearly sourced breed profile.`;
   return {
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: `${breed.name} Defined — Personality & Funny Shirt Ideas`, description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: `${breed.name} in Texas: Care, Activity & Outdoor Planning`, description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [
       { "@type": "WebPage", "@id": `${pageUrl}#page`, url: pageUrl, name: `${breed.name} Defined`, description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@type": "Thing", name: breed.name }, breadcrumb: { "@id": `${pageUrl}#breadcrumbs` } },
@@ -85,5 +86,5 @@ export function loadDogBreedPageServer(slug: string) {
   if (!breed) return null;
   const index = dogBreeds.findIndex((candidate) => candidate.slug === slug);
   const related = [...dogBreeds.slice(index + 1), ...dogBreeds.slice(0, index)].slice(0, 4).map(toSummary);
-  return { breed, related, collections: dogDesignCollections.slice(0, 6), head: buildBreedHead(breed) };
+  return { breed: { ...breed, care: DOG_BREED_CARE[breed.slug] }, related, collections: dogDesignCollections.slice(0, 6), head: buildBreedHead(breed) };
 }
