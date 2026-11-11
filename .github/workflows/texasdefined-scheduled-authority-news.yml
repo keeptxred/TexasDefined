@@ -23,6 +23,7 @@ jobs:
     env:
       KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
       KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      NEWSROOM_HYDRATION_URL: https://keeptxred-site.freddy-coppola.workers.dev/api/public/hooks/hydrate-newsroom-source-pages
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
