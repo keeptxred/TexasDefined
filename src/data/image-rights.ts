@@ -60,6 +60,39 @@ export const imageRightsFor = (src: string) => {
       // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
       // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
       // Never attach these rights to other photos, even from the same creator.
+      // Each of these files has its own Wikimedia Commons file page confirming
+      // photographer and license; matching is by exact decoded Commons path.
+      // No other Michael Barera or Larry D. Moore image inherits these rights.
+      const verified = [
+        {
+          file: "State_Fair_of_Texas_September_2019_13_(Big_Tex).jpg",
+          creator: "Michael Barera",
+          license: "https://creativecommons.org/licenses/by-sa/4.0/",
+          copyright: "© Michael Barera",
+        },
+        {
+          file: "Magoffin_home_2009.jpg",
+          creator: "Larry D. Moore",
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          copyright: "© 2009 Larry D. Moore",
+        },
+        {
+          file: "Fredericksburg July 2017 5 (Marktplatz).jpg",
+          creator: "Michael Barera",
+          license: "https://creativecommons.org/licenses/by-sa/4.0/",
+          copyright: "© Michael Barera",
+        },
+      ] as const;
+      const matched = verified.find(({ file }) =>
+        decodeURIComponent(parsed.pathname) === `/wiki/Special:Redirect/file/${file}`);
+      if (matched) {
+        return {
+          license: matched.license,
+          creator: { "@type": "Person", name: matched.creator },
+          copyrightNotice: matched.copyright,
+          acquireLicensePage: `https://commons.wikimedia.org/wiki/File:${matched.file.replaceAll(" ", "_")}`,
+        } as const;
+      }
       // The Ocho Restaurant cafe-table photograph is individually attributed
       // to Nan Palmero with CC BY 2.0 at its original Flickr record.
       // Independent 2024 reuse identifies the exact photo, source Flickr ID
