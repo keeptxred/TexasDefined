@@ -8,6 +8,7 @@ const NATIONAL_REGISTER = "https://atlas.thc.texas.gov/NR/pdfs/83003138/83003138
 const ARCHIVE = "https://texashistory.unt.edu/ark:/67531/metapth677874/";
 const THC_ATLAS = "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138";
 const NPS_REGISTER = "https://npgallery.nps.gov/AssetDetail/NRIS/83003138";
+const THC_THEMATIC = "https://atlas.thc.texas.gov/NR/pdfs/64000835/64000835.pdf";
 const PALM_STUDY = "https://w3.biosci.utexas.edu/prc/Sabal/Praha-hist.html";
 const HIGH_HILL_PBS = "https://austinpbs.org/paintedchurches/highhill";
 const MORAVIA_PBS = "https://austinpbs.org/paintedchurches/filmupdates";
@@ -128,7 +129,7 @@ export function GottfriedFluryAuthority() {
           </article>
         </div>
         <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">
-          The 1983 National Register thematic study separately notes botanical similarities
+          The <a href={THC_THEMATIC} target="_blank" rel="noreferrer" className="underline underline-offset-2">1983 National Register thematic study</a> separately notes botanical similarities
           between Praha and Moravia and painted vault illusions at both Praha and High Hill.
           Similar methods are useful for comparing these buildings; documentary records are
           needed before giving any painter credit for work elsewhere.
@@ -226,6 +227,7 @@ export function GottfriedFluryAuthority() {
           </li>
           <li><a href={PBS} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Austin PBS — Painted Churches: Praha</a>. Identifies Flury's principal contribution and distinguishes the later work of Rev. Louis Netardus and Gene Mikulik.</li>
           <li><a href={NPS_REGISTER} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">National Park Service — official National Register record 83003138</a>. A second official catalog route to St. Mary’s 1983 designation and its nomination materials.</li>
+          <li><a href={THC_THEMATIC} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Texas Historical Commission — 1983 statewide decorative-interior thematic nomination</a>. Describes the five painting techniques used in the nominated churches, the repeated palm and leaf forms at Praha and Moravia, and the painted vault illusions at Praha and High Hill; accessible separately from the individual Praha record.</li>
           <li><a href={PALM_STUDY} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Bob Harms, University of Texas at Austin — Recent History of the Praha Palmettos</a>. Observes fan-shaped palm motifs on Flury’s ceiling and records a possible local botanical influence. The identification is a visual interpretation, not documented proof of the original model.</li>
           <li><a href={HIGH_HILL_PBS} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Austin PBS — High Hill</a>. Dated 1912 Stockert and Kern interior, including accounts of canvas-applied painting.</li>
           <li><a href={MORAVIA_PBS} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-2">Austin PBS — Moravia research update</a>. Identifies the 1923 Donecker-family work and distinguishes its later painting campaign from Praha’s.</li>
