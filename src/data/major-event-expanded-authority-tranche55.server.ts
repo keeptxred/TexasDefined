@@ -94,7 +94,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2026-11-29",
     venue: "Homestead Heritage, 747 Dry Creek Road",
     officialUrl: "https://www.homesteadfair.com/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "At Homestead Fair, a working-farm setting becomes a three-day Thanksgiving-weekend introduction to handmade crafts, farm animals, draft-horse demonstrations, cooking and music. A free admission policy does not mean that parking and optional experiences are free.",
     quickFacts: [
       {
@@ -111,7 +111,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         label: "Sunday",
-        value: "10 a.m.–5 p.m."
+        value: "Public Fair noon–5 p.m.; Sunday worship 10 a.m. (organizer schedule has a conflicting 10 a.m. listing)"
       }
     ],
     planningSections: [
@@ -125,7 +125,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Use the posted opening hours rather than a generic festival timetable",
-        body: "Friday and Saturday grounds are scheduled 9 a.m. to 9 p.m.; Sunday is shorter, ending at 5 p.m. Organizers describe concerts and craft schedules separately, and the online activity list remains preliminary."
+        body: "The current organizer home page and Thanksgiving-weekend guide identify Friday and Saturday public Fair hours as 9 a.m.–9 p.m. and Sunday public Fair hours as noon–5 p.m., with worship beginning at 10 a.m. Sunday. Its preliminary schedule page also shows a 10 a.m. Sunday opening, so these sources are inconsistent: visitors planning Sunday morning should confirm directly with Homestead Heritage rather than assume all activities open at 10. Time-specific demonstrations remain subject to change."
       },
       {
         title: "Plan for a rural-property visit",
@@ -161,6 +161,10 @@ const records: FestivalEventRecord[] = [
       {
         label: "Official parking and ticket details",
         url: "https://www.homesteadfair.com/tickets/"
+      },
+      {
+        label: "Homestead Fair Thanksgiving weekend: public Sunday hours and worship",
+        url: "https://www.homesteadfair.com/thanksgiving-weekend-in-waco/"
       }
     ]
   },
