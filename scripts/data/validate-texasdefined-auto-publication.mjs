@@ -11,6 +11,8 @@ const workflow = read('.github/workflows/texasdefined-auto-publication.yml');
 const productionSmokeWorkflow = read('.github/workflows/texasdefined-publication-production-smoke.yml');
 const productionSmoke = read('scripts/ci/verify-texasdefined-publication-production.mjs');
 const publisher = read('scripts/news/texasdefined-auto-publisher.mjs');
+const authority = read('scripts/news/texasdefined-authority-review.mjs');
+const scheduled = read('.github/workflows/texasdefined-scheduled-authority-news.yml');
 const flyoverBridge = read('.github/workflows/flyover-scheduled-publish-bridge.yml');
 const migration = read('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql');
 const env = read('.env');
@@ -27,8 +29,14 @@ for (const token of ['workflow_dispatch:', 'mode:', 'dry-run', 'hydrate', 'publi
 for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false', "mode: 'dry-run-summary'", 'rawEligible: queue.rawEligible', 'eligible: queue.eligible', 'held: queue.held', 'selected: queue.selected', 'deferred: queue.deferred', 'published: queue.published', 'skipped: queue.skipped', 'failed: queue.failed', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
 }
-if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
-for (const token of ['workflow_dispatch:', 'workflow_run:', '- Deploy TexasDefined production', 'types: [completed]', 'branches: [main]', "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
+if (/^\s*schedule:/m.test(workflow)) errors.push('Manual publication workflow must remain unscheduled; use the guarded unattended workflow.');
+for (const token of ['schedule:', 'workflow_dispatch:', 'concurrency:', 'texasdefined-article-publication', 'environment: texasdefined-publication', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_PUBLISH_CONFIRMATION: PUBLISH_TEXASDEFINED', '--limit=1', '--feed-id=', 'texasdefined-authority-review.test.mjs', 'verify-texasdefined-newly-published-news.mjs']) {
+  if (!scheduled.includes(token)) errors.push(`Scheduled authority newsroom missing safe activation contract: ${token}`);
+}
+if (!scheduled.includes("env.TEXASDEFINED_AUTO_PUBLISH_ENABLED == 'true'")) errors.push('Unattended publishing must require explicit owner activation.');
+for (const token of ['TEXASDEFINED_AUTOMATED_AUTHORITY_FLOOR = 95', 'sharedWordRun', 'relatedDestinations', 'sourceName', 'heroAlt']) if (!authority.includes(token)) errors.push(`Authority reviewer missing ${token}`);
+if (!publisher.includes('reviewTexasDefinedAuthorityDraft(draft, source, allowedDestinationSlugs)')) errors.push('Publisher must enforce independent authority reviewer before generating imagery.');
+for (const token of ['workflow_dispatch:', 'workflow_run:', '- Deploy TexasDefined production', 'types: [completed]', 'branches: [main]', "github.event.workflow_run.conclusion == 'success'", 'Verify explicit auto-publication activation state', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
 }
 for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitemap.xml')", "firstPublishedNewsPath(news.body)", "story.body.includes(expectedCanonical)", "sitemap.body.includes(\`<loc>\${expectedCanonical}</loc>\`)", "const historicalCanyonPath = '/news/2026-08-10-canyon-lake-full-capacity-recovery'", "Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill", "historicalCanyon.body.includes(historicalCanyonCanonical)", "sitemap.body.includes(\`<loc>\${historicalCanyonCanonical}</loc>\`)", "sitemap.body", "<(?:sitemapindex|urlset)"]) {
