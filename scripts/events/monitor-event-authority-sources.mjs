@@ -28,7 +28,7 @@ const dayMs = 86400000;
 const dayNumber = date => Math.floor(Date.parse(date.slice(0, 10) + 'T00:00:00Z') / dayMs);
 const asIso = date => date.toISOString().slice(0, 10);
 const reviewedAgeDays = (value, asOf) => {
-  if (!value || !/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) return null;
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
   const parsed = Date.parse(value + 'T00:00:00Z');
   if (!Number.isFinite(parsed) || new Date(parsed).toISOString().slice(0, 10) !== value) return null;
   return dayNumber(asIso(asOf)) - dayNumber(value);
