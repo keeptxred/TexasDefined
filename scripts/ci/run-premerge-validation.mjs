@@ -77,6 +77,7 @@ const prebuildChecks = [
   ['DATA/TDI', 'Validate official TDI homeowners premium and coverage source parser and guarded publication', 'node', ['--test', 'scripts/data/refresh-tdi-homeowners-current.test.mjs']],
   ['CONTENT/VISITOR-FACTS', 'Scan curated visitor answers for malformed provenance, duplicate labels and expiration', 'node', ['scripts/data/validate-destination-visitor-fact-catalog.mjs']],
   ['CONTENT/VISITOR-FACTS', 'Verify source-dated practical visitor facts, conditional rendering and stale-claim suppression', 'node', ['--experimental-strip-types', '--test', 'src/data/destination-visitor-facts.test.ts']],
+  ['CONTENT/VISITOR-FACTS', 'Verify operator source-monitor coverage for all three reviewed attraction guides', 'node', ['--test', 'scripts/data/authority/monitor-operator-sources.test.mjs']],
   ['HISTORY/CAMINO-REAL', 'Verify factual accuracy, primary sources, indexability and SSR map for El Camino Real', 'node', ['--test', 'scripts/ci/camino-real-factcheck.test.mjs']],
   ['WATERPARK/AUTHORITY', 'Validate source-linked Texas water parks and statewide routing coverage', 'node', ['scripts/data/validate-water-parks-authority.mjs']],
   ['FOOTBALL/BROWSER', 'Syntax-check playoff mobile production acceptance', 'node', ['--check', 'scripts/ci/verify-football-playoffs-browser.mjs']],
