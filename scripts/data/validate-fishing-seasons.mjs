@@ -79,6 +79,12 @@ for (const token of [
   "Prairies & Lakes",
 ]) requireText(component, token, `season UI contract missing ${token}`);
 for (const month of ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]) requireText(monthlyEditorial, 'slug: "' + month + '"', 'missing distinct monthly editorial note ' + month);
+const monthlyExamples = [...monthlyEditorial.matchAll(/sourceUrl: "([^"]+)"/g)].map((match) => match[1]);
+if (monthlyExamples.length !== 12 || monthlyExamples.some((url) => !url.startsWith("https://tpwd.texas.gov/"))) throw new Error("Fishing seasons monthly research must provide 12 named official TPWD source URLs");
+requireText(component, "activeMonthGuide.example", "selected monthly TPWD evidence should be visible");
+requireText(component, "month.example", "each monthly card should expose a concrete TPWD source example");
+requireText(component, "month.sourceUrl", "monthly source links missing");
+requireText(component, "activeMonthGuide.sourceUrl", "selected month TPWD link missing");
 for (const token of ["MONTHLY_FISHING_GUIDANCE.map", "activeMonthGuide.checklist", "representativeEntries.map", "SourceLinks sources={entry.relation.sources}", "<AdvisoryNotice lakeSlug={group.lake.slug} />", "Lake-and-species source dataset last reviewed:", "FISHING_SEASONS_PAGE_REVIEWED_AT"]) requireText(component, token, 'seasons authority evidence missing: ' + token);
 requireText(component, "consumptionAdvisories", "shared TPWD advisory registry must be used");
 requireText(advisories["alan-henry-reservoir"].summary, "mercury", "Alan Henry consumption hazard missing");

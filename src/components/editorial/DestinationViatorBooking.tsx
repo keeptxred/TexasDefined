@@ -65,7 +65,7 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
       <p className="eyebrow text-primary">Tours & bookable experiences</p>
       <h3 id={`viator-${destination.slug}`} className="mt-2 font-display text-3xl leading-tight">Tours and experiences near {destination.name}</h3>
       <p className="mt-3 text-sm leading-6 text-muted-foreground">TexasDefined handles the destination planning. Viator can be useful for guided tours, tickets and organized activities near {destination.nearestTown}. Availability changes, so the booking link checks current inventory rather than promising a specific product.</p>
-      {runtimeMarket?.signalLanes?.length ? <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Recent {runtimeMarket.name} inventory signals:</strong> {runtimeMarket.signalLanes.join(" · ")}. Reviewed <time dateTime={VIATOR_RUNTIME_SIGNAL_REVIEWED_AT}>September 8, 2026</time>; exact products and availability can change.</p> : null}
+      {runtimeMarket?.signalLanes?.length ? <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Previously observed {runtimeMarket.name} inventory categories:</strong> {runtimeMarket.signalLanes.join(" · ")}. Snapshot reviewed <time dateTime={VIATOR_RUNTIME_SIGNAL_REVIEWED_AT}>September 8, 2026</time>; this is historical context, not confirmation of currently bookable products. Check current listings before choosing an experience.</p> : null}
       <div className="mt-5 flex flex-wrap items-center gap-4">
         <a
           href={href}

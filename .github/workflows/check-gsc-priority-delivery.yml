@@ -1,0 +1,41 @@
+name: Check Google Search priority page delivery
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - scripts/seo/verify-gsc-priority-indexability.mjs
+      - .github/workflows/check-gsc-priority-delivery.yml
+  schedule:
+    # Weekly bounded six-page audit. This is not a sitewide crawler.
+    - cron: "19 15 * * 3"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gsc-priority-delivery
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Check canonical and index directives on six priority URLs
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Syntax validation
+        run: node --check scripts/seo/verify-gsc-priority-indexability.mjs
+      - name: Read-only production delivery check
+        run: node scripts/seo/verify-gsc-priority-indexability.mjs
+      - name: Preserve the page-level evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gsc-priority-delivery
+          path: .artifacts/seo/gsc-priority-pages/
+          if-no-files-found: warn
+          retention-days: 14

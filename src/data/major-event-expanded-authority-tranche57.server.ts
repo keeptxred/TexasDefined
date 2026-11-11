@@ -18,7 +18,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2027-01-01",
     venue: "Historic Main Street, Grapevine",
     officialUrl: "https://www.grapevinetexasusa.com/christmas-capital-of-texas/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "Grapevine organizes an entire holiday destination rather than a single light show: the 2026 season brings more than 1,400 listed happenings across roughly 40 days, with illuminated Historic Main Street, a parade, the North Pole Express, drone performances, markets, skating and theatrical events. A smart visit starts with choosing the specific experience before locking in a date.",
     quickFacts: [
       {
@@ -53,11 +53,11 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Book North Pole Express separately",
-        body: "The seasonal train runs November 27 through December 30, but December 3 departures are special excursions from Historic Stockyards Station in Fort Worth rather than Grapevine. No trains operate December 24 or 25. Select the correct station and dated departure before arranging travel; arriving downtown does not confer a train seat."
+        body: "The city publishes train trips November 27–December 30; on December 3 the date-by-date schedule directs riders to Historic Stockyards Station in Fort Worth, not Grapevine. The city also publishes no departures on December 24–25. Ticket-hub and detailed schedule wording may not list identical session counts, so the official ticket checkout and boarding station on the purchased ticket govern. A free visit to Main Street does not include a train seat."
       },
       {
-        title: "Use free parking and avoid closure traps",
-        body: "The city lists free downtown parking at Grapevine Convention Center with a shuttle and at several Dallas Road/Main Street locations. Some historic Main Street blocks close to cars on designated dates, so follow current city guidance rather than relying on an ordinary weekday navigation route."
+        title: "Use free parking and check announced Main Street closures",
+        body: "The organizer lists free parking and a free shuttle from the Grapevine Convention Center (1201 Municipal Way), plus free parking at 307 and 410 W. Dallas Road and 636 S. Main Street. Its October 2026 planning reference lists Main Street traffic closures starting November 22, December 3, December 7, December 11 and December 18, with varying reopening times. Check the current city street-closure map before selecting parking, especially for the December 3 parade and December 7 drone show."
       },
       {
         title: "Build a DFW holiday weekend",
@@ -88,7 +88,7 @@ const records: ChristmasAuthorityRecord[] = [
     sources: [
       {
         label: "Grapevine CVB 2026 Christmas reference",
-        url: "https://www.grapevinetexasusa.com/articles/post/2026-writers-reference-guide-to-the-christmas-capital-of-texas//"
+        url: "https://www.grapevinetexasusa.com/articles/post/2026-writers-reference-guide-to-the-christmas-capital-of-texas/"
       },
       {
         label: "Grapevine CVB holiday hub",
@@ -113,7 +113,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2026-12-23",
     venue: "Zilker Metropolitan Park",
     officialUrl: "https://austintrailoflights.org/event-faqs",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "Austin's Trail of Lights fills Zilker Park with illuminated displays, family-friendly traditions and a citywide holiday atmosphere. The most important decision is not which decorations to see, but how the selected night changes admission and how visitors reach the car-restricted park.",
     quickFacts: [
       {
@@ -140,7 +140,7 @@ const records: ChristmasAuthorityRecord[] = [
     planningSections: [
       {
         title: "Pick a free or paid evening before buying",
-        body: "The official 2026 FAQ makes general admission free for all ages on December 10, 11 and 13–17. On December 12 and 18–23, regular general admission costs $8 for guests ages 12 and older, plus taxes and fees. Free general admission does not automatically include upgrades."
+        body: "The operator's current 2026 FAQ confirms public admission December 10–23 from 7–10 p.m. General admission is free for all ages December 10, 11 and 13–17. On December 12 and 18–23, regular admission is $8 for guests ages 12 and up, plus applicable taxes and fees. ZIP and Platinum products can enter from 6 p.m.; free general admission never includes those upgrades. The broader City of Austin event permit range begins December 4 but does not mean the public Trail is open then."
       },
       {
         title: "Compare GA, shuttle, ZIP and Platinum",
@@ -188,10 +188,10 @@ const records: ChristmasAuthorityRecord[] = [
     sources: [
       {
         label: "Austin Trail of Lights 2026 official FAQ",
-        url: "https://austintrailoflights.org/event-faqs"
+        url: "https://austintrailoflights.org/event-faqs/-2026-dates-time-gate-ticket-information-and-location"
       },
       {
-        label: "City of Austin event and access information",
+        label: "City of Austin event permit information (permit period differs from public admissions)",
         url: "https://www.austintexas.gov/ace/events/trail-lights"
       }
     ]

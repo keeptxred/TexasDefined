@@ -129,7 +129,13 @@ test("Shiner 2026 race guide includes new full marathon and exact source", () =>
   const tranche = read("../../src/data/major-event-expanded-authority-tranche44.server.ts");
   const schema = read("../../src/data/major-event-schema-enrichment-batch21.server.ts");
   const guide = tranche.slice(tranche.indexOf('slug: "shiner-beer-run"'));
-  for (const token of ["full marathon", "2026-11-21", "runsignup.com/Race/TX/Shiner/ShinerBeerRun", "sourceCheckedAt: \"2026-10-29\""]) assert(guide.includes(token), `Shiner missing ${token}`);
+  for (const token of ["full marathon", "2026-11-21", "runsignup.com/Race/TX/Shiner/ShinerBeerRun"]) {
+    assert(guide.includes(token), `Shiner missing ${token}`);
+  }
+  const recordedCheck = guide.match(/sourceCheckedAt:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
+  assert(recordedCheck && recordedCheck >= "2026-10-29" &&
+    recordedCheck <= new Date().toISOString().slice(0, 10),
+    "Shiner requires a real, non-future editorial source review at least as recent as its verified October 2026 baseline");
   assert(index.includes("full marathon alongside the 5K"));
   assert(schema.includes("RunSignUp — 2026 race schedule and distances"));
 });
@@ -155,9 +161,13 @@ test("Rockport and Shiner guide tickets and date semantics remain visitor-safe",
   }
   const shiner = read("../../src/data/major-event-expanded-authority-tranche44.server.ts");
   const s = shiner.slice(shiner.indexOf('slug: "shiner-beer-run"'));
-  for (const term of ["October 29, 2026", "all four running distances were marked full", "waiting-list option", "runsignup.com/Race/TX/Shiner/ShinerBeerRun"]) {
+  for (const term of ["waiting-list option", "runsignup.com/Race/TX/Shiner/ShinerBeerRun",
+    "7:30 a.m.", "8 a.m.", "8:30 a.m.", "8:45 a.m.", "full",
+    "check the linked race-specific checkout"]) {
     assert(s.includes(term), `Shiner missing ${term}`);
   }
+  assert(/(?:checked|page lists|reviewed)[^\n]{0,160}2026/i.test(s),
+    "Shiner registration snapshot needs an explicitly dated, source-qualified observation");
 });
 
 

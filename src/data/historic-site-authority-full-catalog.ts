@@ -11,6 +11,35 @@ const seeds = new Map(historicSiteSeeds.map((seed) => [seed.slug, seed]));
 // Exact-operator, site-specific research replaces three generic itineraries for these
 // four historic houses/plantations. Hours and admissions remain controlled by THC.
 const OPERATOR_RESEARCH_ITINERARIES: Record<string, DestinationAuthorityGuide["itineraries"]> = {
+  "medal-of-honor-host-city-museum-gainesville": [
+    {
+      label: "Find the museum and read the recipients",
+      duration: "Focused weekday visit; exact duration not published",
+      steps: [
+        "Use NCTC's Gainesville campus map to locate the Medal of Honor Host City Museum at Building 2700, not the NCTC library or the separate Host City Park. Confirm regular or summer hours and any campus holiday closure.",
+        "Start with the museum's current recipient panels and ask staff which exhibits are on view. The 2025 photograph of Duane E. Dewey, Roger H. C. Donlon and Michael J. Fitzmaurice is dated evidence, not a guaranteed current gallery layout.",
+        "Compare what you learned from the recipient stories with the museum's explanation of Gainesville's Medal of Honor Host City Program, then follow any posted gallery photography rules."
+      ]
+    },
+    {
+      label: "A deeper recipient-history visit",
+      duration: "Unhurried visit; allow time for reading",
+      steps: [
+        "Read the official citations for Duane E. Dewey, Roger H. C. Donlon and Michael J. Fitzmaurice before or after the visit; distinguish the different conflicts, services, and actions rather than treating the stories as interchangeable.",
+        "Ask which personal artifacts, oral histories or temporary installations are actually on display; NCTC's collecting priorities do not establish a fixed exhibit inventory.",
+        "Use the museum's educational materials to discuss what the individual citations do and do not tell you about the recipients' lives. No standard self-guided visit length is published."
+      ]
+    },
+    {
+      label: "Museum plus Gainesville civic history",
+      duration: "Flexible half-day with separately confirmed opening hours",
+      steps: [
+        "Begin at the NCTC museum during its current weekday schedule; orient using campus Building 2700 and the parking guidance in the field-trip handbook.",
+        "Visit Gainesville's separate outdoor Medal of Honor Host City Park to understand the local program's civic roots; confirm current park access independently.",
+        "Continue downtown to the Morton Museum of Cooke County and courthouse square if its individual opening hours permit. Do not assume the museum, park and downtown collection share admission or operating times."
+      ]
+    }
+  ],
   "levi-jordan-plantation": [
     {
       "label": "Read the plantation through archaeology",
@@ -149,6 +178,12 @@ const OPERATOR_RESEARCH_VISIT_NOTES: Record<string, Pick<Destination, "entryNote
 };
 
 const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "physicalEffort" | "weatherExposure" | "planningLevel" | "recommendedVisit">> = {
+  "medal-of-honor-host-city-museum-gainesville": {
+    "physicalEffort": "Primarily indoor gallery walking; distance from parking depends on the campus route",
+    "weatherExposure": "Museum visit is indoors; parking-to-entrance travel is outdoors",
+    "planningLevel": "Moderate: verify weekday/summer hours, campus closures and any group reservation",
+    "recommendedVisit": "NCTC does not publish a standard visit duration. Plan a flexible weekday museum stop, using the official campus map's Building 2700 label and confirming current exhibits, accessibility and closures with staff."
+  },
   "battleship-texas": {
     "physicalEffort": "Not applicable — ship closed",
     "weatherExposure": "Not applicable — ship closed",

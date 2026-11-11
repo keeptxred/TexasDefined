@@ -51,6 +51,12 @@
         "debtServiceRate": 0.281682,
         "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
       },
+      "2022": {
+        "totalRate": 1.228782,
+        "maintenanceOperationsRate": 0.9471,
+        "debtServiceRate": 0.281682,
+        "sourceUrl": "https://iswdataclient.azurewebsites.net/pubs/HOODCAD/TAX%20RATE-POSTING%20PER%20SEC.%2026.16/Copy_of_26.16_POSTING_OF_TAX_RATES.pdf"
+      },
       "2023": {
         "totalRate": 0.950882,
         "maintenanceOperationsRate": 0.6692,
@@ -64,6 +70,12 @@
         "maintenanceOperationsRate": 0.9438,
         "debtServiceRate": 0.145,
         "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
+      },
+      "2022": {
+        "totalRate": 0.9996,
+        "maintenanceOperationsRate": 0.8546,
+        "debtServiceRate": 0.145,
+        "sourceUrl": "https://www.granburyisd.org/apps/pages/index.jsp?pREC_ID=2449815&type=d&uREC_ID=3783265"
       },
       "2023": {
         "totalRate": 0.9342,
@@ -147,24 +159,5 @@
       }
     }
   },
-  "disputedData": [
-    {
-      "slug": "tolar-isd",
-      "year": 2022,
-      "explanation": "The Hood CAD 2022 summary does not reconcile the displayed adopted total with its M&O and debt entries. Do not backfill the 2022 components until the source discrepancy is resolved.",
-      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
-    },
-    {
-      "slug": "granbury-isd",
-      "year": 2022,
-      "explanation": "The Hood CAD 2022 Granbury ISD M&O and debt cells sum to a different district's adopted total; keep both unverified components blank until a primary resolution verifies the proper values.",
-      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
-    },
-    {
-      "slug": "lipan-isd",
-      "year": 2022,
-      "explanation": "The Hood CAD 2022 Lipan ISD M&O and debt cells do not reconcile with its adopted total; keep both unverified components blank until official independent confirmation.",
-      "sourceUrl": "https://hoodcad.net/truth-in-taxation-summary/"
-    }
-  ]
+  "disputedData": []
 }

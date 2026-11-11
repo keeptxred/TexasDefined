@@ -342,6 +342,7 @@ jobs:
       # original-byte probes for an obsolete SHA. The final pre-Wrangler
       # revision refusal remains mandatory; this is an additional early gate.
       - name: Refuse superseded source immediately after build
+        id: postbuild_supersession
         if: success()
         shell: bash
         run: |
@@ -497,6 +498,34 @@ jobs:
             exit 1
           fi
           restored=0
+          # A single published Nov 10 Worker (7ed30068) passed deployment and
+          # health but the 7,280 original-byte audit saw TWO network transport
+          # errors on canonical, so the release correctly remained FAILED.
+          # Recover only from its immutable GitHub artifact after fresh exact-SHA
+          # 200/MIME verification on BOTH origins, with the same 100%-traffic
+          # Worker, original source SHA and exact GitHub job-step evidence.
+          # Wrong hashes, 404, stale Worker, extra failure, expired 72h: FAIL.
+          if [[ "$EXPECTED_ACTIVE_WORKER_VERSION" == '7ed30068-bd0d-4ddb-b4f2-ddfe3909dadf' ]]; then
+            prior_run=42842196279
+            prior_sha=a651c58e630b303a2b82bc31c936a3ad9f335a03
+            candidate=".artifacts/prior-asset-extraction/$prior_run"
+            mkdir -p "$candidate"
+            gh run download "$prior_run" -n "asset-handoff-$prior_run" -D "$candidate"
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100" \
+              | node scripts/ci/recertify-transient-asset-handoff.mjs --verify-job
+            node scripts/ci/recertify-transient-asset-handoff.mjs --repair \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
+              "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha" \
+              "$candidate/asset-delivery-report.recertified.json"
+            node scripts/ci/verify-prior-asset-handoff.mjs \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.recertified.json" \
+              "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"
+            cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+            cp "$candidate/asset-delivery-report.recertified.json" .artifacts/prior-asset-recertified-evidence.json
+            echo "Recertified the exact active Worker with two fresh original-byte proofs; prior job remains FAILED."
+            restored=1
+          fi
+          if [[ "$restored" != 1 ]]; then
           while IFS=$'\t' read -r prior_run prior_sha; do
             [[ "$prior_run" =~ ^[0-9]+$ && "$prior_sha" =~ ^[0-9a-f]{40}$ ]] || continue
             [[ "$prior_run" != "$GITHUB_RUN_ID" ]] || continue
@@ -519,6 +548,7 @@ jobs:
               break
             fi
           done <<< "$previous_runs"
+          fi
           if [[ "$restored" != 1 ]]; then
             echo "::error title=Wrong prior asset handoff::No source-verified published asset handoff matches the current 100%-traffic Worker $EXPECTED_ACTIVE_WORKER_VERSION. Fail before replacement."
             exit 1
@@ -671,6 +701,7 @@ jobs:
             https://texasdefined.com/county/ellis
             https://texasdefined.com/article/ellis-county-waxahachie-ennis-blackland-prairie-texas
             https://texasdefined.com/explore/painted-churches
+            https://texasdefined.com/explore/painted-churches/people/gottfried-flury
             https://texasdefined.com/destination/young-county-museum-of-history-and-culture
             https://texasdefined.com/destination/old-post-office-museum-art-center-graham
             https://texasdefined.com/explore/museums
@@ -1403,7 +1434,9 @@ jobs:
         run: node scripts/ci/verify-cj-account-production.mjs
 
       - name: Preserve CJ account verification evidence
-        if: ${{ always() && steps.change_scope.outputs.cj_affiliate == 'true' }}
+        # If a predeploy asset gate fails, the CJ live checker never runs and
+        # no CJ file can exist; do not manufacture a second unrelated failure.
+        if: ${{ always() && steps.change_scope.outputs.cj_affiliate == 'true' && steps.live_cj_account.outcome != 'skipped' }}
         uses: actions/upload-artifact@v4
         with:
           name: cj-account-production-${{ github.run_id }}
@@ -1521,6 +1554,8 @@ jobs:
             echo '::error title=Pipeline failure class: DEPLOYMENT / CONCURRENCY::The Cloudflare Git integration did not settle before the protected deployment deadline; no verified replacement was attempted.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
+          elif [[ '${{ steps.postbuild_supersession.outcome }}' == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: STALE SOURCE::Postbuild revision guard refused a superseded main SHA; no Worker deploy or live verifier ran.'
           elif [[ "$LIVE_OUTCOME" != 'success' ]]; then
             echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a raw production verifier failed. The exact child outcome is listed above.'
           elif [[ "$RECOVERY_LEDGER_OUTCOME" == 'failure' ]]; then

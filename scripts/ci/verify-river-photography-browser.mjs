@@ -143,7 +143,22 @@ try {
         verify(originalImageIdentity(result.src).includes(originalImageIdentity(river.image)),
           label + ': hero uses an unrelated photo: ' + river.slug + ' ' + result.src);
         verify(river.alt.test(result.alt), label + ': hero alt misidentifies ' + river.slug);
-        record.images.push(result);
+        // Card photos have been checked through the image cache for some time.
+        // Hero photos must use that same first-party delivery contract rather
+        // than hotlinking directly to Wikimedia and silently regressing later.
+        const heroUrl = new URL(result.src);
+        verify(heroUrl.origin === origin && heroUrl.pathname === '/media/remote',
+          label + ': river hero bypasses first-party /media/remote delivery: ' + river.slug + ' ' + result.src);
+        const photo = catalog['/article/' + river.slug];
+        verify(photo, label + ': no source-and-license record for river hero ' + river.slug);
+        const heroCreditBlock = page.locator('p').filter({ hasText: /^Image credit:/ }).first();
+        verify(await heroCreditBlock.count() === 1, label + ': visible hero credit missing for ' + river.slug);
+        const heroCredit = await heroCreditBlock.innerText();
+        verify(heroCredit.includes(photo.photographer), label + ': hero photographer missing for ' + river.slug);
+        verify(heroCredit.includes(photo.license), label + ': hero license missing for ' + river.slug);
+        verify(heroCredit.includes(photo.sourceUrl), label + ': hero original Commons permalink missing for ' + river.slug);
+        verify(heroCredit.includes(photo.licenseUrl), label + ': hero CC license permalink missing for ' + river.slug);
+        record.images.push({ ...result, firstParty: true, credited: true });
         await page.screenshot({ path: artifactDir + '/' + label + '-' + river.slug + '.png',
           fullPage: false, animations: 'disabled', timeout: 25_000 });
       }
@@ -206,4 +221,4 @@ try {
   }, null, 2));
   await browser?.close();
 }
-console.log('River photo acceptance passed: nine live guide heroes, seven basin-atlas cards and nine River Valleys cards at mobile and desktop widths.');
+console.log('River photo acceptance passed: 20 guide heroes, 15 major-basin atlas cards, and 20 River Valleys cards per viewport; mobile and desktop; first-party image delivery and linked rights metadata.');

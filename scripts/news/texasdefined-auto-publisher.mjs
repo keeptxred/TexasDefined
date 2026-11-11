@@ -2,6 +2,8 @@
 
 import { isCurrentTexasDefinedAutoNewsSource } from './texasdefined-queue-freshness.mjs';
 import { isTexasDefinedDirectEditorialSource } from './texasdefined-editorial-source-eligibility.mjs';
+import { isSubstantiveTexasDefinedDraftSource } from './texasdefined-draft-evidence-gate.mjs';
+import { cooldownFeedIds } from './texasdefined-source-hydration-backoff.mjs';
 
 const SUPABASE_URL = String(process.env.KEEP_TX_RED_SUPABASE_URL || '').replace(/\/$/, '');
 const SUPABASE_KEY = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
@@ -179,13 +181,28 @@ async function hydrateTopCurrentCandidates() {
   if (!Array.isArray(candidates) || candidates.length >= 150) {
     throw new Error('Bounded source-candidate read was incomplete; no automatic scanning or hydration.');
   }
+  // The KTR source-only endpoint already writes fetch-state telemetry for every
+  // requested feed ID. Respect a 24-hour failure cooldown, otherwise the same
+  // six blocked publisher pages can consume all eight slots indefinitely.
+  const candidateIds = candidates.map((row) => Number(row.id)).filter(Number.isSafeInteger);
+  const stateUrl = new URLSearchParams({
+    select: 'feed_item_id,last_attempt_at,last_result,chars',
+    limit: String(candidateIds.length),
+  });
+  if (candidateIds.length) stateUrl.set('feed_item_id', 'in.(' + candidateIds.join(',') + ')');
+  const stateRows = candidateIds.length
+    ? await supabase('/rest/v1/newsroom_source_page_fetch_state?' + stateUrl).then(response => response.json())
+    : [];
+  if (!Array.isArray(stateRows)) throw new Error('Source fetch-state ledger returned an invalid response; refuse to hide repeated failures.');
+  const failedRecently = cooldownFeedIds(stateRows);
   const targets = dedupeAutomationQueue(candidates.filter((item) =>
     isAutomationSafeQueueItem(item)
     && item.ready_for_rewrite === true
     && String(item.extracted_body ?? '').trim().length < 1200
+    && !failedRecently.has(Number(item.id))
   )).slice(0, hydrateTop);
   if (!targets.length) {
-    console.log(JSON.stringify({ mode: 'hydrate', scanned: candidates.length, requested: 0, updated: 0, charsWritten: 0, aiCalls: 0 }));
+    console.log(JSON.stringify({ mode: 'hydrate', scanned: candidates.length, requested: 0, updated: 0, charsWritten: 0, aiCalls: 0, cooldownSkipped: failedRecently.size }));
     return;
   }
   const hydrationResponse = await fetch(NEWSROOM_HYDRATION_URL, {
@@ -205,6 +222,7 @@ async function hydrateTopCurrentCandidates() {
     updated: payload.updated, charsWritten: payload.charsWritten, aiCalls: 0,
     ids: targets.map((item) => item.id),
     noReadableSource: payload.results.filter((result) => result.reason === 'no_readable_body').length,
+    cooldownSkipped: failedRecently.size,
   }));
 }
 
@@ -224,7 +242,7 @@ async function readyQueueCount() {
 
 async function readyQueuePage(offset, pageSize) {
   const params = new URLSearchParams({
-    select: 'id,title,source,link,description,pub_date,extracted_body,target_section,classification_confidence,texas_relevance_score,source_reputation_score,viral_signals,pillar_slug',
+    select: 'id,title,source,link,description,pub_date,extracted_body,target_section,source_count,classification_confidence,texas_relevance_score,source_reputation_score,viral_signals,pillar_slug',
     order: 'pub_date.asc',
     limit: String(pageSize),
     offset: String(offset),
@@ -350,7 +368,7 @@ if (hydrateTop) {
 if (exactFeedId) await hydrateExactFeed();
 const rawEligible = await readyQueueCount();
 const rawQueue = await readyQueueAll(rawEligible);
-const automationEligibleQueue = dedupeAutomationQueue(rawQueue.filter(isAutomationSafeQueueItem));
+const automationEligibleQueue = dedupeAutomationQueue(rawQueue.filter((item) => isAutomationSafeQueueItem(item) && isSubstantiveTexasDefinedDraftSource(item)));
 const queue = exactFeedId ? automationEligibleQueue : automationEligibleQueue.slice(0, limit);
 if (exactFeedId && rawQueue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);

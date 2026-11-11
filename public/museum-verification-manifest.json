@@ -1646,8 +1646,18 @@
       "path": "/destination/medal-of-honor-host-city-museum-gainesville",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
-      "faqCount": 9,
+      "faqCount": 10,
       "sources": [
+        {
+          "sourceUrl": "https://www.nctc.edu/media/nctc/documents/pdf/NCTC%20Gainesville%20Campus%20Map.pdf",
+          "fetchUrl": "https://www.nctc.edu/media/nctc/documents/pdf/NCTC%20Gainesville%20Campus%20Map.pdf",
+          "label": "NCTC official Gainesville campus map identifying museum Building 2700"
+        },
+        {
+          "sourceUrl": "https://cafgroundforces.wixsite.com/main/museum",
+          "fetchUrl": "https://cafgroundforces.wixsite.com/main/museum",
+          "label": "Older separately operated Texas Medal of Honor Memorial at NCTC library; not current museum visitor directions"
+        },
         {
           "sourceUrl": "https://medalofhonorhostcity.com/museum/",
           "fetchUrl": "https://medalofhonorhostcity.com/museum/",

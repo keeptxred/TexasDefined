@@ -94,7 +94,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2026-11-29",
     venue: "Homestead Heritage, 747 Dry Creek Road",
     officialUrl: "https://www.homesteadfair.com/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "At Homestead Fair, a working-farm setting becomes a three-day Thanksgiving-weekend introduction to handmade crafts, farm animals, draft-horse demonstrations, cooking and music. A free admission policy does not mean that parking and optional experiences are free.",
     quickFacts: [
       {
@@ -111,7 +111,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         label: "Sunday",
-        value: "10 a.m.–5 p.m."
+        value: "Public Fair noon–5 p.m.; Sunday worship 10 a.m. (organizer schedule has a conflicting 10 a.m. listing)"
       }
     ],
     planningSections: [
@@ -125,7 +125,7 @@ const records: FestivalEventRecord[] = [
       },
       {
         title: "Use the posted opening hours rather than a generic festival timetable",
-        body: "Friday and Saturday grounds are scheduled 9 a.m. to 9 p.m.; Sunday is shorter, ending at 5 p.m. Organizers describe concerts and craft schedules separately, and the online activity list remains preliminary."
+        body: "The current organizer home page and Thanksgiving-weekend guide identify Friday and Saturday public Fair hours as 9 a.m.–9 p.m. and Sunday public Fair hours as noon–5 p.m., with worship beginning at 10 a.m. Sunday. Its preliminary schedule page also shows a 10 a.m. Sunday opening, so these sources are inconsistent: visitors planning Sunday morning should confirm directly with Homestead Heritage rather than assume all activities open at 10. Time-specific demonstrations remain subject to change."
       },
       {
         title: "Plan for a rural-property visit",
@@ -161,6 +161,10 @@ const records: FestivalEventRecord[] = [
       {
         label: "Official parking and ticket details",
         url: "https://www.homesteadfair.com/tickets/"
+      },
+      {
+        label: "Homestead Fair Thanksgiving weekend: public Sunday hours and worship",
+        url: "https://www.homesteadfair.com/thanksgiving-weekend-in-waco/"
       }
     ]
   },
@@ -176,7 +180,7 @@ const records: FestivalEventRecord[] = [
     endDate: "2026-12-06",
     venue: "Heritage Square, Downtown Waco",
     officialUrl: "https://www.wacowonderland.com/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "Waco Wonderland transforms Heritage Square into a downtown holiday gathering with the parade, tree lighting, Santa visits, a market and family rides. Visitors should distinguish free festival access from paid attraction wristbands.",
     quickFacts: [
       {
@@ -193,17 +197,17 @@ const records: FestivalEventRecord[] = [
       },
       {
         label: "Rides",
-        value: "Separate wristband purchase"
+        value: "Ages 1+ need ride wristbands; advance price $10/day through Dec. 2"
       }
     ],
     planningSections: [
       {
         title: "Know what requires a wristband",
-        body: "The organizers describe free entrance, Santa photos and the overall downtown celebration, while the Ferris wheel, snow tube hills and trackless train require ride wristbands for guests aged one and above. Recheck this year's online terms before purchasing."
+        body: "The organizer confirms free general admission December 4–6, 2026 at Heritage Square. The Ferris wheel, trackless train and snow tubing require a separate wristband for each rider aged one or older. As published November 10, the official site advertises $10 one-day unlimited-ride wristbands bought online by December 2; afterward Friday remains $10 and Saturday/Sunday rise to $15. Recheck the dated purchase page for current availability, fees, and changes."
       },
       {
         title: "Plan around parade and fireworks notices",
-        body: "The festival lists a downtown holiday parade, lighting activities and fireworks; precise street closures and the final 2026 fireworks timetable were still being finalized when checked October 21. Verify published day-by-day times rather than quoting old schedules."
+        body: "The 14th annual downtown festival includes a tree lighting, holiday parade, markets and family attractions. Times, road closures and fireworks can change independently of the confirmed December 4–6 season. Choose an actual day from the organizer's updated 2026 event schedule instead of relying on a prior-year parade route or fireworks time."
       },
       {
         title: "Allow a walkable downtown itinerary",

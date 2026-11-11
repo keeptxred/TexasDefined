@@ -37,6 +37,9 @@ function TexasIndustriesPage() {
               <p className="mt-4 text-sm leading-7 text-muted-foreground">Source review: {TEXAS_INDUSTRIES_VERIFIED_AT}. Statistics are labeled with their period because industry rankings, employment, production and investment totals change over time.</p>
               <div className="mt-7 space-y-3 text-sm font-semibold">
                 <a href="/article/texas-jobs-economy-industries" className="block text-primary">Read the Texas jobs & economy overview →</a>
+                <a href="/texas-jobs-without-four-year-degree" className="block text-primary">Compare Texas non-degree careers and wages →</a>
+                <a href="/texas-career-training-options" className="block text-primary">Find Texas career training options →</a>
+                <a href="/texas-government-jobs" className="block text-primary">How to apply for state and local government work →</a>
                 <a href="/made-in-texas" className="block text-primary">Browse Made in Texas companies →</a>
                 <a href="/browse/counties" className="block text-primary">Browse all 254 counties →</a>
                 <a href="/compare-texas-cities" className="block text-primary">Compare Texas cities →</a>
@@ -57,6 +60,57 @@ function TexasIndustriesPage() {
                 </a>
               ))}
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-b border-border bg-surface py-14 sm:py-20">
+        <Container>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Labor market evidence · November 10, 2026 review</p>
+          <h2 className="mt-3 max-w-4xl font-display text-4xl">Is the Texas job market growing? The answer depends on what you measure.</h2>
+          <p className="mt-5 max-w-4xl text-base leading-8">Texas added wage-and-salary jobs over the year through September 2026, yet the latest first-quarter business-flow report shows almost as many private-sector jobs disappeared at closing or shrinking establishments as were created at new or expanding ones. Both can be true. They count different things, in different periods, and neither tells you whether a specific employer is hiring today.</p>
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            <article className="border border-border bg-background p-6">
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary">September 2026</p>
+              <p className="mt-3 font-display text-4xl tabular-nums">14,461,300</p>
+              <h3 className="mt-3 font-semibold">Texas nonfarm payroll jobs</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Seasonally adjusted employment level in the Texas Workforce Commission's labor-market snapshot. It counts jobs, not unique workers or job advertisements.</p>
+            </article>
+            <article className="border border-border bg-background p-6">
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary">September 2025 → September 2026</p>
+              <p className="mt-3 font-display text-4xl tabular-nums">+154,300</p>
+              <h3 className="mt-3 font-semibold">Additional payroll jobs over the year</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">TWC reports a 1.1% year-over-year increase in statewide nonfarm employment. This is a net change across the economy, not a count of openings.</p>
+            </article>
+            <article className="border border-border bg-background p-6">
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary">December 2025 → March 2026</p>
+              <p className="mt-3 font-display text-4xl tabular-nums">+1,242</p>
+              <h3 className="mt-3 font-semibold">Net private-establishment job change</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">BLS Business Employment Dynamics records 654,260 gross job gains and 653,018 gross losses at private establishments during the first quarter of 2026.</p>
+            </article>
+          </div>
+          <div className="mt-7 max-w-4xl space-y-4 text-sm leading-7">
+            <p><strong>Sources:</strong> <a href="https://lmi.twc.texas.gov/explore/LMI/LMI_emp.asp" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Texas Workforce Commission labor-market statistics</a> (September 2026, seasonally adjusted); <a href="https://www.bls.gov/regions/southwest/news-release/2026/businessemploymentdynamics_texas_20261030.htm" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">U.S. Bureau of Labor Statistics, Texas Business Employment Dynamics</a> (first quarter 2026, published October 30, 2026).</p>
+            <p><strong>Why the totals differ:</strong> The TWC year-over-year payroll comparison measures statewide nonfarm employment at two September endpoints. BLS Business Employment Dynamics tracks gross job creation and destruction at <em>private establishments</em> from the third month of one quarter to the next. The survey scope, time windows and measurement concepts differ; the +1,242 figure does not contradict the +154,300 figure. A gross job gain is not an available vacancy or necessarily a new worker hired.</p>
+          </div>
+          <div className="mt-10 max-w-5xl">
+            <h3 className="font-display text-3xl">What changed by sector in the first quarter?</h3>
+            <p className="mt-4 text-base leading-8 text-muted-foreground">In the BLS establishment-flow report, education and health services had the largest reported net gain among the published sectors. These are quarterly <strong>net establishment job changes</strong>, not annual forecasts, live openings or salaries.</p>
+            <div className="mt-6 overflow-x-auto border border-border">
+              <table className="w-full border-collapse text-left text-sm">
+                <caption className="p-4 text-left text-xs text-muted-foreground">Texas private-sector establishment job change, Q1 2026; BLS BED release October 30, 2026. Selected—not all—published industries.</caption>
+                <thead className="border-b border-border bg-background">
+                  <tr><th scope="col" className="p-4">Industry</th><th scope="col" className="p-4">Net change, quarter</th><th scope="col" className="p-4">What to check next</th></tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-border"><th scope="row" className="p-4 font-semibold">Education and health services</th><td className="p-4 tabular-nums">+6,880 jobs</td><td className="p-4">Compare hospitals, care providers and education occupations; qualification requirements vary.</td></tr>
+                  <tr className="border-b border-border"><th scope="row" className="p-4 font-semibold">Construction</th><td className="p-4 tabular-nums">+6,459 jobs</td><td className="p-4">Check the region, trade license and whether paid apprenticeship hours count.</td></tr>
+                  <tr><th scope="row" className="p-4 font-semibold">Transportation and warehousing</th><td className="p-4 tabular-nums">−14,366 jobs</td><td className="p-4">A quarterly net decline does not rule out vacancies, replacement hiring or growth in a particular metro.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-5 text-sm leading-7 text-muted-foreground">Our comparison links the two official statistical releases to the jobseeker decision. It does not label any of these sectors the “best industry” or equate aggregate job change with an individual candidate's prospects. To choose an occupation, check local wages, qualifications, positions and household costs using the <a href="https://lmi.twc.texas.gov/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">TWC labor-market tools</a> and our <Link to="/texas-jobs-without-four-year-degree" className="text-primary underline underline-offset-4">Texas career-path comparison</Link>. For public employment, the <Link to="/texas-government-jobs" className="text-primary underline underline-offset-4">government application guide</Link> explains where to apply.</p>
+            <p className="mt-5 text-sm leading-7 text-muted-foreground">Data reviewed November 10, 2026. The next TWC monthly release or a new BLS quarterly flow report may supersede these figures; check the linked original datasets for the latest publication. The original figures and period remain visible here until verified and substantively updated, rather than having the review date automatically advanced.</p>
           </div>
         </Container>
       </section>

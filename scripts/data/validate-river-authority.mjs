@@ -93,6 +93,38 @@ for(const required of [
  'riverAuthorityLinksForCounty', 'riverAuthorityLinksForDestination',
  'allRiverAuthorityNavigationLinks'
 ]) if(!relations.includes(required)) errors.push('River relationship engine lacks '+required);
+// The destination route must SSR river links for primary trip-planner records;
+// relying on a lazily loaded planner leaves the actual page without a link.
+// River destination links must target real canonical destination slugs, not
+// legacy aliases that redirect before the destination relationship is resolved.
+// Validate the identity mapping rather than silently accepting a 200 response
+// after redirect in the public river acceptance runner.
+const canonicalRiverDestinations = [
+  ['texas-brazos-river-guide', 'washington-on-the-brazos'],
+  ['texas-san-antonio-river-guide', 'goliad-state-park'],
+  ['texas-san-antonio-river-guide', 'san-antonio-river-walk'],
+  ['texas-san-jacinto-river-guide', 'san-jacinto-battleground'],
+];
+for (const [slug, dest] of canonicalRiverDestinations) {
+  // Registry has both readable multiline records and compact {slug:"..."} rows.
+  // Match the entire containing record regardless of whitespace and quoting.
+  const match = relations.match(new RegExp('slug:\\s*"' + slug + '"[^}]*}', 'm'));
+  const record = match ? match[0] : '';
+  if (!record.includes('"' + dest + '"')) errors.push('Canonical river destination relationship missing: ' + slug + ' → ' + dest);
+}
+for (const legacy of ['washington-on-the-brazos-state-historic-site','goliad-state-park-and-historic-site',
+  'san-jacinto-battleground-state-historic-site']) {
+  if (relations.includes('"' + legacy + '"')) errors.push('River destination registry still uses redirecting legacy slug: ' + legacy);
+}
+const destinationRoute = read('src/routes/destination.$slug.tsx');
+if (!destinationRoute.includes('{relatedRiverGuides.length > 0 && (') ||
+    !destinationRoute.includes('relatedRiverGuides.map((guide) => ('))
+  errors.push('River backlinks must be crawlable on all relevant destinations');
+const riverNavPosition = destinationRoute.indexOf('{relatedRiverGuides.length > 0 && (');
+const lazyPlannerPosition = destinationRoute.indexOf('<DestinationVisitPlanner destination={destination} />');
+if (riverNavPosition < 0 || lazyPlannerPosition < 0 || riverNavPosition > lazyPlannerPosition)
+  errors.push('Destination river backlinks must render before the deferred trip planner');
+
 if(!hub.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('Statewide hub must generate future river entries from canonical registry');
 if(!lazy.includes('allRiverAuthorityNavigationLinks()')) errors.push('River pillar must automatically include future authority guides');
 if(!landscape.includes('RIVER_AUTHORITY_RELATIONS')) errors.push('River valleys guide must automatically include future river authority guides');

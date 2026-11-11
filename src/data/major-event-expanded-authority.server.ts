@@ -24,14 +24,14 @@ const expandedDetails: ExpandedDetails[] = [
   },
   {
     slug: "dickens-on-the-strand",
-    whyItMatters: "Dickens on The Strand turns Galveston's historic downtown into a concentrated holiday destination, so parking, admission windows and time on foot all matter to the visit.",
+    whyItMatters: "Dickens on The Strand is Galveston Historical Foundation's Victorian street festival in the historic downtown district. Its three-day schedule has a genuinely free Friday opening and paid Saturday/Sunday hours, so choosing the right day can substantially change a family's cost.",
     planningSections: [
-      { title: "Pick the festival day", body: "Friday, Saturday and Sunday have different operating patterns and admission details, so choose the day before arranging the rest of the island weekend." },
-      { title: "Use the historic district as the venue", body: "Expect to spend much of the visit on foot around The Strand and nearby historic blocks; use current festival access and parking guidance." },
-      { title: "Pair history with the festival", body: "Leave room for Galveston's historic sites and waterfront attractions instead of treating the festival as an isolated stop." },
+      { title: "Pick the festival day and understand admission", body: "The Galveston Historical Foundation confirms the 2026 festival for December 4–6. Fezziwig Friday, December 4, is free from 5–9 p.m.; Saturday runs 10 a.m.–9 p.m. and Sunday noon–6 p.m. with paid admission. Published advance general admission is $20 for adults and $13 for ages 7–12; children age 6 and under enter free. Prices increase by $5 on November 20. Verify the final price at official checkout; special activities can cost extra." },
+      { title: "Use the historic district and plan access", body: "The festival fills the Strand historic district and includes multiple stages, street performers and vendors. Plan substantial walking and use the organizer's current access and parking information; guests seeking accessibility assistance should contact Galveston Historical Foundation at 409-765-7834 in advance. Pets and ice chests are not permitted." },
+      { title: "Separate festival tickets from special experiences", body: "The organizer also lists individually ticketed walking tours, breakfasts, concerts and evening events at historic properties. A standard festival entry does not automatically include those experiences. The organizer states that admission is rain or shine and tickets are non-refundable; compare the official event descriptions before buying." },
     ],
     relatedLinks: [{ href: "/browse/counties#county-galveston", label: "Explore Galveston County", description: "Build a larger island itinerary." }, { href: "/events", label: "Texas events calendar", description: "Compare other holiday events." }],
-    sources: [{ label: "Galveston Historical Foundation Dickens on The Strand", url: "https://www.galvestonhistory.org/events/dickens-on-the-strand" }],
+    sources: [{ label: "Galveston Historical Foundation Dickens on The Strand", url: "https://www.galvestonhistory.org/events/dickens-on-the-strand" }, { label: "2026 Dickens official ticket prices, free Friday and daily hours", url: "https://www.galvestonhistory.org/events/dickens-on-the-strand/tickets" }],
   },
   {
     slug: "houston-livestock-show-rodeo",

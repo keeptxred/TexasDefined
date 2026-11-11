@@ -1,0 +1,41 @@
+name: Verify Buda giant dachshund authority source
+
+# Low-cost primary-source status check; never updates the public page from
+# unstructured HTML and never runs a sitewide seasonal audit.
+on:
+  schedule:
+    - cron: '24 15 * * 2'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/content/BudaWienerDogSpotlight.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'scripts/data/validate-buda-wiener-dog-spotlight.mjs'
+      - 'scripts/data/check-buda-sculpture-name.mjs'
+      - '.github/workflows/buda-sculpture-official-source-watch.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: buda-sculpture-original-source-watch
+  cancel-in-progress: true
+
+jobs:
+  watch:
+    if: github.repository == 'keeptxred/TexasDefined'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Check visitor facts and primary source links
+        run: node scripts/data/validate-buda-wiener-dog-spotlight.mjs
+      - name: Watch Buda EDC official naming announcement
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/data/check-buda-sculpture-name.mjs

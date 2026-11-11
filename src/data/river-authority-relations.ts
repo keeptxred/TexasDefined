@@ -54,7 +54,7 @@ export const RIVER_AUTHORITY_RELATIONS = [
     slug: "texas-brazos-river-guide",
     name: "Brazos River",
     counties: ["brazos", "mclennan", "washington", "fort-bend"],
-    destinations: ["washington-on-the-brazos-state-historic-site"],
+    destinations: ["washington-on-the-brazos"],
   },
   {
     slug: "texas-neches-river-guide",
@@ -81,8 +81,8 @@ export const RIVER_AUTHORITY_RELATIONS = [
   {slug:"texas-lavaca-river-guide","name":"Lavaca River","counties":["lavaca","jackson","calhoun"],"destinations":[]},
   {slug:"texas-nueces-river-guide","name":"Nueces River","counties":["uvalde","real","live-oak","nueces"],"destinations":["choke-canyon-state-park"]},
   {slug:"texas-red-river-guide","name":"Red River","counties":["wichita","grayson","lamar","red-river","bowie"],"destinations":["eisenhower-state-park"]},
-  {slug:"texas-san-antonio-river-guide","name":"San Antonio River","counties":["bexar","wilson","goliad","victoria"],"destinations":["san-antonio-missions-national-historical-park","goliad-state-park-and-historic-site","san-antonio"]},
-  {slug:"texas-san-jacinto-river-guide","name":"San Jacinto River","counties":["montgomery","harris","liberty","chambers"],"destinations":["san-jacinto-battleground-state-historic-site"]},
+  {slug:"texas-san-antonio-river-guide","name":"San Antonio River","counties":["bexar","wilson","goliad","victoria"],"destinations":["san-antonio-missions-national-historical-park","goliad-state-park","san-antonio-river-walk"]},
+  {slug:"texas-san-jacinto-river-guide","name":"San Jacinto River","counties":["montgomery","harris","liberty","chambers"],"destinations":["san-jacinto-battleground"]},
   {slug:"texas-sulphur-river-guide","name":"Sulphur River","counties":["hopkins","delta","franklin","bowie"],"destinations":["cooper-lake-state-park"]},
 ] as const;
 

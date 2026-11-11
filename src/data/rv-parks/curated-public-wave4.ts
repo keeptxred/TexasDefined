@@ -84,7 +84,7 @@ const WAVE4: Record<(typeof RV_PARK_CURATED_PUBLIC_WAVE4_SLUGS)[number], Curated
   },
   "martin-creek-lake-state-park-rv-area": {
     summary: "Martin Creek Lake State Park RV camping near Tatum: compare 56 reservable water-and-electric campsites in Bee Tree and Broken Bowl, including 13 lakefront 30-amp sites, six 50-amp sites and 37 standard 30-amp sites. Rates range from $17–$20 nightly plus entrance fees.",
-    bestSeason: "Spring and summer are busiest for camping and lake recreation, according to TPWD; cooler fall and winter trips suit lakeside walks and year-round fishing. Check the burn ban and campsite alerts in any season.",
+    bestSeason: "Spring and summer are busiest for camping and lake recreation, according to TPWD; cooler fall and winter trips suit lakeside walks and year-round fishing. Check TPWD's current park alerts and locally posted fire restrictions before each visit.",
     entryNote: "Reserve the exact Bee Tree or Broken Bowl site and power class through TPWD. Current listed nightly rates are $17–$20 plus $4 per adult daily entrance fee; gate hours are 6 a.m.–10 p.m. For late check-in, call (903) 836-4336 before 5 p.m. on arrival day to obtain gate instructions.",
     highlights: ["56 reservable water-and-electric campsites in two named areas", "13 lakefront 30-amp Bee Tree sites at $20 nightly", "Six Bee Tree 50-amp sites at $20 nightly", "37 standard 30-amp sites at $17 nightly", "Shared RV dump station and nearby shower restrooms", "Official late-arrival gate instructions and current alerts"],
     body: [
@@ -94,7 +94,7 @@ const WAVE4: Record<(typeof RV_PARK_CURATED_PUBLIC_WAVE4_SLUGS)[number], Curated
     ],
     officialUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake",
     reservationUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121",
-    sourceCheckedAt: "2026-10-31",
+    sourceCheckedAt: "2026-11-10",
     address: "9515 County Road 2181D, Tatum, TX 75691-3425",
     directions: "From Tatum, travel southwest on State Highway 43, then turn south on County Road 2183 toward the state park. Use the reserved loop and campsite number for the final approach.",
     managingAuthority: TPWD,
@@ -104,7 +104,7 @@ const WAVE4: Record<(typeof RV_PARK_CURATED_PUBLIC_WAVE4_SLUGS)[number], Curated
       { topic: "admission", label: "Separate daily park entrance fee", detail: "Adult visitors age 13 and older pay $4 per day; children 12 and under enter free. TPWD warns fees can change.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/fees-facilities/entrance-fees", checkedAt: "2026-10-31" },
       { topic: "reservations", label: "After-hours camping arrival", detail: "Gate operates 6 a.m.–10 p.m. Late arrivals must call (903) 836-4336 before 5 p.m. on arrival day for a gate code and check in by 9 a.m. next morning.", sourceUrl: "https://texasstateparks.reserveamerica.com/martin-creek-lake-state-park/r/facilityDetails.do?contractCode=TX&parkId=1200121", checkedAt: "2026-10-31" },
       { topic: "camping", label: "RV dump station and campsite map", detail: "Official park facility map marks a shared dump station, two electric campsite areas and showers; water and power hookups do not imply sewer connections at each campsite.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/map", checkedAt: "2026-10-31" },
-      { topic: "access", label: "Active camping safety alerts", detail: "As of October 31, 2026, wood and charcoal fires are prohibited under an August 5 burn ban, and invasive Argentine ants have been reported in some campsites. Verify live alerts before travel.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/alert", checkedAt: "2026-10-31" },
+      { topic: "access", label: "Current park alerts and fire rules", detail: "On November 10, 2026, TPWD listed invasive Argentine ants in some campsites on its park-alert page. Fire restrictions can change: check live TPWD notices and follow posted park rules before lighting any fire.", sourceUrl: "https://tpwd.texas.gov/state-parks/martin-creek-lake/alert", checkedAt: "2026-11-10" },
     ],
   },
   "atlanta-state-park-rv-loop": {
