@@ -7,8 +7,8 @@ export const Route = createLazyFileRoute("/sports/friday-night-lights")({ compon
 
 const startHere = [
   {
-    title: "Friday night football matchups & verified scores",
-    description: "Explore source-backed individual games, schedules, results and both school pages. Each result shows when its source was checked.",
+    title: "Curated matchups & documented scores (not a live statewide scoreboard)",
+    description: "Browse individual source-backed game records, not a full-season scoreboard. Check the record’s source date; for current scores, use the school, district or UIL-linked sources.",
     href: "/texas-high-school-football-matchups",
     label: "Browse matchups",
   },
@@ -150,6 +150,17 @@ function FridayNightLightsPage() {
         </div>
       </Container>
     </section>
+
+    <section className="border-b border-border bg-surface"><Container className="py-12 sm:py-16" aria-labelledby="football-postseason-verify">
+      <p className="eyebrow text-primary">2026 postseason · verified planning</p><h2 id="football-postseason-verify" className="mt-3 max-w-4xl font-display text-4xl">Don't mistake a curated matchup archive for this week's scores</h2>
+      <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The local matchup directory documents only games for which individual evidence was saved; it is not a complete or real-time scoreboard. With the 2026 district certification deadline on November 7 and the first playoff round scheduled November 12–14, bracket updates, opponents and game sites should be rechecked against the UIL and the participating schools. The official UIL site remains the rule and postseason source.</p>
+      <div className="mt-7 grid gap-5 md:grid-cols-3">
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">1 · Identify the bracket</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Use classification and division from the current 2026–28 UIL alignment, not an old rivalry label or last season's district.</p><a href="https://www.uiltexas.org/football/playoff-brackets" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline">Official UIL brackets ↗</a></article>
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">2 · Confirm the matchup</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Check both school athletic announcements for opponent, kickoff, venue, ticket allocation and weather changes; bracket listings may precede final site arrangements.</p><Link to="/texas-high-school-football-teams" className="mt-3 inline-block text-sm font-semibold text-primary underline">Find the school guide →</Link></article>
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">3 · Verify the trip</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">A neutral-site game may shift parking, admission and travel. Confirm stadium address, accessibility, bag restrictions, and any updates directly with the host.</p><Link to="/sports-venues/high-school-football" className="mt-3 inline-block text-sm font-semibold text-primary underline">Stadium planning →</Link></article>
+      </div>
+      <p className="mt-6 text-xs leading-6 text-muted-foreground">Sources: <a href="https://www.uiltexas.org/football" target="_blank" rel="noopener noreferrer" className="underline">UIL 2026–27 football dates</a> and <a href="https://www.uiltexas.org/football/playoff-brackets" target="_blank" rel="noopener noreferrer" className="underline">UIL playoff brackets</a>. School and host information must be checked for each game.</p>
+    </Container></section>
 
     <section className="border-b border-border bg-background">
       <Container className="py-12 sm:py-16">
