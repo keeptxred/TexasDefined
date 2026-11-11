@@ -475,8 +475,8 @@ export function loadMajorEventPageServer(slug: string) {
   // Keep its extensive fares/accessibility detail in the booking + planning copy.
   // Other event guides retain their existing structured fact-grid presentation.
   const quickFactsMarkup = isPalestinePolarExpress
-    ? `<section data-major-event-quick-facts="true" data-polar-express-editorial-essentials="true" aria-label="Plan your visit" class="mt-8 border-y border-border py-6">
-        <h2 class="font-display text-2xl">Plan your visit</h2>
+    ? `<section data-major-event-quick-facts="true" data-polar-express-editorial-essentials="true" aria-label="Trip essentials" class="mt-8 border-y border-border py-6">
+        <h2 class="font-display text-2xl">Trip essentials</h2>
         <div class="mt-4 grid gap-x-10 gap-y-5 md:grid-cols-3">
           <p class="text-sm leading-6"><strong class="block text-foreground">Where to board</strong><span class="text-muted-foreground">Texas State Railroad, Palestine Depot<br />789 Park Road 70</span></p>
           <p class="text-sm leading-6"><strong class="block text-foreground">Allow enough time</strong><span class="text-muted-foreground">Approximately one-hour train ride. Arrive 45 minutes before departure.</span></p>
