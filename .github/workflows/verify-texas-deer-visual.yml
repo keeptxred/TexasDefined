@@ -10,6 +10,8 @@ on:
     workflows: ['Deploy TexasDefined production', 'Verify Texas deer regulations']
     branches: [main]
     types: [completed]
+  schedule:
+    - cron: '53 14 * * 2'
   workflow_dispatch:
 
 permissions:
@@ -70,7 +72,7 @@ jobs:
           retention-days: 14
 
   live:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && (github.event.workflow_run.name == 'Deploy TexasDefined production' || (github.event.workflow_run.name == 'Verify Texas deer regulations' && (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch'))))
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && (github.event.workflow_run.name == 'Deploy TexasDefined production' || (github.event.workflow_run.name == 'Verify Texas deer regulations' && (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch'))))
     name: Check real deer photo and document in desktop/mobile Chrome
     runs-on: ubuntu-latest
     timeout-minutes: 14
@@ -87,7 +89,7 @@ jobs:
           SOURCE_WORKFLOW: ${{ github.event.workflow_run.name }}
         run: |
           set -euo pipefail
-          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' || "$SOURCE_WORKFLOW" == 'Verify Texas deer regulations' ]] ||
+          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' || "$GITHUB_EVENT_NAME" == 'schedule' || "$SOURCE_WORKFLOW" == 'Verify Texas deer regulations' ]] ||
              git diff --name-only HEAD~10 HEAD -- \
                 src/data/hunting/authority-deer.ts src/data/hunting/deer-season-dates.json \
                 src/components/hunting/HuntingAuthority.tsx \

@@ -50,7 +50,10 @@ function DeerSeasonTable() {
         <p className="eyebrow text-primary">{deerSeasonYear} season at a glance</p>
         <h2 id="deer-season-dates" className="mt-2 font-display text-3xl md:text-4xl">Texas white-tailed deer hunting dates</h2>
         <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">This table summarizes TPWD's zone calendar. Dates do not override county-specific legal deer, antler restrictions, land access or special permit requirements.</p>
-        <div className="mt-6 overflow-x-auto rounded-sm border border-border">
+        <div className="mt-6 grid gap-3 md:hidden">
+          {rows.map(([season, area, dates], index) => <div key={index} data-deer-mobile-date={index} className="border border-border p-4"><p className="font-semibold">{season}</p><p className="text-sm text-muted-foreground">{area}</p><p className="mt-2 font-semibold">{dates}</p></div>)}
+        </div>
+        <div className="mt-6 hidden overflow-x-auto rounded-sm border border-border md:block">
           <table className="w-full min-w-[36rem] text-left text-sm">
             <caption className="sr-only">{deerSeasonYear} Texas white-tailed deer season dates by season and zone</caption>
             <thead className="bg-muted/50 text-foreground"><tr><th scope="col" className="px-4 py-3 font-semibold">Season</th><th scope="col" className="px-4 py-3 font-semibold">Area</th><th scope="col" className="px-4 py-3 font-semibold">Dates</th></tr></thead>
