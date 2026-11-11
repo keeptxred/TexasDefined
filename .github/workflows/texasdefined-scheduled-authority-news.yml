@@ -74,10 +74,12 @@ jobs:
           import fs from 'node:fs';
           const rows=fs.readFileSync('/tmp/td-scheduled-published.jsonl','utf8').split(/\r?\n/).filter(Boolean).map(JSON.parse);
           const published=rows.filter(x=>x.published===true);
-          if (published.length!==1 || !/^https:\/\/texasdefined\.com\/news\/[a-z0-9-]+$/.test(published[0].liveUrl)) {
+          if (published.length!==1 || !/^https:\/\/texasdefined\.com\/news\/[a-z0-9-]+$/.test(published[0].liveUrl)
+              || !/^https:\/\/[^\s]+$/.test(published[0].sourceUrl || '')) {
             throw new Error('Exactly one public TexasDefined news article must be recorded and verified.');
           }
           fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'\nPublished exact article: '+published[0].liveUrl+'\n');
           fs.writeFileSync('/tmp/td-scheduled-url',published[0].liveUrl);
+          fs.writeFileSync('/tmp/td-scheduled-source',published[0].sourceUrl);
           NODE
-          node scripts/ci/verify-texasdefined-newly-published-news.mjs "$(cat /tmp/td-scheduled-url)"
+          node scripts/ci/verify-texasdefined-newly-published-news.mjs "$(cat /tmp/td-scheduled-url)" "$(cat /tmp/td-scheduled-source)"
