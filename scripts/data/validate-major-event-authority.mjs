@@ -393,6 +393,8 @@ for (const marker of [
   'PALESTINE_HOTELS_SID',
   'hotelsComPageSid',
   'event.slug === "polar-express-palestine"',
+  'const enrichmentReviewMarkup = isPalestinePolarExpress || !schemaEnrichment',
+  '${performersMarkup}${enrichmentReviewMarkup}',
 ]) if (!loader.includes(marker)) fail("Palestine Polar Express SSR booking UI missing " + marker);
 for (const marker of [
   'PALESTINE_HOTELS_DESTINATION',
@@ -436,6 +438,9 @@ for (const marker of [
 ]) if (!palestineImageEnrichment.includes(marker)) fail("Palestine Polar Express licensed historical image missing " + marker);
 
 const palestineLiveVerifier = read(path.join(root, "scripts/ci/verify-palestine-polar-express-production.mjs"));
+if (!palestineLiveVerifier.includes('Duplicate misleading event-review timestamp remains on Palestine guide')) {
+  fail("Palestine production verifier must reject contradictory review timestamps");
+}
 const protectedDeployWorkflow = read(path.join(root, ".github/workflows/deploy-production.yml"));
 for (const marker of [
   'data-polar-express-2026-schedule="true"',
