@@ -12,7 +12,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   collectEventPageRefreshInventory, validateEventRefreshCoverage,
-  dueForReview, refreshCadenceDays,
+  dueForReview, refreshCadenceDays, nextSourceReviewAt,
 } from './event-page-refresh-governance.mjs';
 
 export const DEFAULT_REPORT = '.artifacts/event-authority-source-refresh.json';
@@ -27,14 +27,19 @@ export const OFFICIAL_EVENT_SOURCE_FALLBACKS = Object.freeze({
 const dayMs = 86400000;
 const dayNumber = date => Math.floor(Date.parse(date.slice(0, 10) + 'T00:00:00Z') / dayMs);
 const asIso = date => date.toISOString().slice(0, 10);
+const reviewedAgeDays = (value, asOf) => {
+  if (!value || !/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) return null;
+  const parsed = Date.parse(value + 'T00:00:00Z');
+  if (!Number.isFinite(parsed) || new Date(parsed).toISOString().slice(0, 10) !== value) return null;
+  return dayNumber(asIso(asOf)) - dayNumber(value);
+};
 
 export function allEventReviewTargets(inventory, asOf = new Date()) {
   return [...inventory.permanent, ...inventory.specials]
     .map(event => ({
       ...event, cadenceDays: refreshCadenceDays(event, asOf),
-      sourceAgeDays: event.sourceCheckedAt && /^\d{4}-\d{2}-\d{2}$/.test(event.sourceCheckedAt)
-        ? dayNumber(asIso(asOf)) - dayNumber(event.sourceCheckedAt)
-        : null,
+      sourceAgeDays: reviewedAgeDays(event.sourceCheckedAt, asOf),
+      nextSourceReviewAt: nextSourceReviewAt(event, asOf),
     })).sort((a, b) => a.path.localeCompare(b.path));
 }
 
@@ -47,16 +52,19 @@ export function selectSourceReviewTargets(inventory, asOf = new Date()) {
 // can prematurely close an issue while other published pages are still overdue.
 export function fullEditorialFreshnessBacklog(inventory, asOf = new Date()) {
   return allEventReviewTargets(inventory, asOf)
-    .filter(event => event.sourceAgeDays == null ||
+    .filter(event => event.sourceAgeDays == null || event.sourceAgeDays < 0 ||
       event.sourceAgeDays > Math.max(7, event.cadenceDays * 3))
     .map(event => ({
       path: event.path, source: event.sourceUrl,
       editorialSourceCheckedAt: event.sourceCheckedAt,
       editorialSourceAgeDays: event.sourceAgeDays,
-      cadenceDays: event.cadenceDays, startDate: event.startDate,
+      cadenceDays: event.cadenceDays, nextSourceReviewAt: event.nextSourceReviewAt,
+      startDate: event.startDate,
       concerns: event.sourceAgeDays == null
-        ? ['missing-editorial-source-check-date']
-        : ['editorial-source-check-overdue'],
+        ? ['missing-or-invalid-editorial-source-check-date']
+        : event.sourceAgeDays < 0
+          ? ['future-editorial-source-check-date']
+          : ['editorial-source-check-overdue'],
     }))
     .sort((a, b) => a.cadenceDays - b.cadenceDays ||
       (b.editorialSourceAgeDays ?? 0) - (a.editorialSourceAgeDays ?? 0) ||
@@ -69,7 +77,9 @@ export function evaluateSourceObservation(target, outcome, asOf = new Date()) {
   // A page GET is only a source observation. It does not confirm a new
   // occurrence, ticket availability, cancellation status or a date change.
   if (target.sourceAgeDays == null) {
-    errors.push('missing-editorial-source-check-date');
+    errors.push('missing-or-invalid-editorial-source-check-date');
+  } else if (target.sourceAgeDays < 0) {
+    errors.push('future-editorial-source-check-date');
   } else if (target.sourceAgeDays > Math.max(7, target.cadenceDays * 3)) {
     errors.push('editorial-source-check-overdue');
   }
@@ -81,6 +91,7 @@ export function evaluateSourceObservation(target, outcome, asOf = new Date()) {
   }
   return {
     path: target.path, kind: target.kind, source: target.sourceUrl, cadenceDays: target.cadenceDays,
+    nextSourceReviewAt: target.nextSourceReviewAt,
     editorialSourceCheckedAt: target.sourceCheckedAt, editorialSourceAgeDays: target.sourceAgeDays,
     fetchedAt: outcome.fetchedAt ?? null, http: outcome.status ?? null,
     sourceState: !outcome.ok ? 'unavailable' :
@@ -134,6 +145,26 @@ export async function reviewEventSources({
   const coverageErrors = validateEventRefreshCoverage(inventory);
   const due = selectSourceReviewTargets(inventory, now);
   const editorialBacklog = fullEditorialFreshnessBacklog(inventory, now);
+  // Every public event route receives a persistent, queryable GitHub schedule,
+  // including permanent guides, stand-alone seasonal pages, collection pages
+  // and special pages already governed by their own verified workflow.
+  const schedule = [
+    ...allEventReviewTargets(inventory, now).map(event => ({
+      path: event.path, kind: event.kind, workflow: 'event-authority-source-refresh.yml',
+      cadenceDays: event.cadenceDays, nextSourceReviewAt: event.nextSourceReviewAt,
+      officialSource: event.sourceUrl, lastEditorialSourceCheck: event.sourceCheckedAt,
+      annualSeasonEstimateIsNotVerifiedDate: Boolean(event.startDate &&
+        (event.endDate ?? event.startDate) < asIso(now)),
+    })),
+    ...inventory.collections.map(event => ({
+      path: event.path, kind: event.kind, workflow: event.workflow,
+      cadenceDays: event.cadenceDays, nextSourceReviewAt: asIso(now),
+    })),
+    ...inventory.dedicated.map(event => ({
+      path: event.path, kind: 'dedicated', workflow: event.workflow,
+      cadenceDays: event.cadenceDays, nextSourceReviewAt: asIso(now),
+    })),
+  ].sort((a, b) => a.path.localeCompare(b.path));
   if (due.length > maxTargets) coverageErrors.push(
     `Due source checks exceed budget ${maxTargets}; expand the governed capacity, never silently skip pages (${due.length} due)`);
   const targets = due.length <= maxTargets ? due : [];
@@ -165,11 +196,12 @@ export async function reviewEventSources({
   await Promise.all(Array.from({ length: Math.min(concurrency, targets.length) }, worker));
   const findings = observations.filter(row => row.concerns.length);
   const report = {
-    version: 1, checkedAt: now.toISOString(), runId: process.env.GITHUB_RUN_ID ?? null,
+    version: 2, checkedAt: now.toISOString(), runId: process.env.GITHUB_RUN_ID ?? null,
     sourceCommit: process.env.GITHUB_SHA ?? null,
     policy: {
       activeOrWithin14Days: 'daily', within90Days: 'every 3 days',
       within365Days: 'weekly', completedOrDistant: 'every 30 days',
+      unconfirmedAnnualSeason: 'escalate source checks at 365/90/14 days ahead without publishing projected dates',
       unannouncedSpecialPages: 'weekly',
       dynamicTicketAndTpwdEvents: 'existing daily sync-texas-events.yml',
       rollingCollections: 'existing daily verify-event-temporal-production.yml',
@@ -182,6 +214,7 @@ export async function reviewEventSources({
       missingSources: inventory.missingSources.length, uncoveredRoutes: inventory.uncoveredRoutes,
     },
     due: due.length, attempted: observations.length, uniqueSources: cache.size,
+    scheduledPages: schedule.length, schedule,
     editorialBacklogCount: editorialBacklog.length,
     editorialBacklog, coverageErrors, findings, observations,
     needsReview: coverageErrors.length > 0 || findings.length > 0 || editorialBacklog.length > 0,
@@ -203,6 +236,8 @@ export async function reviewEventSources({
       `- Daily/rolling collections: **${report.coverage.collectionRoutes}**`,
       `- Due official-source checks: **${due.length}**; attempted **${observations.length}**`,
       `- Source concerns in due cohort: **${findings.length}**; full-inventory editorial backlog: **${editorialBacklog.length}**; coverage errors: **${coverageErrors.length}**`,
+      `- Individually scheduled public event routes: **${schedule.length}**`,
+      '- Unconfirmed annual-season windows affect monitoring only, never public occurrence dates.',
       '- Existing event dates and public pages were not silently altered.', '',
     ].join('\n'));
   }
