@@ -1,0 +1,83 @@
+name: Reconcile stale Actions queue
+
+on:
+  pull_request:
+    paths:
+      - "scripts/ci/reconcile-stale-actions-queue.mjs"
+      - "scripts/ci/reconcile-stale-actions-queue.test.mjs"
+      - ".github/workflows/reconcile-stale-actions-queue.yml"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/ci/reconcile-stale-actions-queue.mjs"
+      - "scripts/ci/reconcile-stale-actions-queue.test.mjs"
+      - ".github/workflows/reconcile-stale-actions-queue.yml"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        type: boolean
+        default: false
+        description: "Inspect only; do not cancel obsolete runs"
+  schedule:
+    - cron: "13 */6 * * *"
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: texasdefined-stale-actions-reconciliation
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify protected queue-selection contract
+        run: |
+          node --check scripts/ci/reconcile-stale-actions-queue.mjs
+          node --test scripts/ci/reconcile-stale-actions-queue.test.mjs
+
+  reconcile:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify safety invariants before performing any cancellation
+        run: node --test scripts/ci/reconcile-stale-actions-queue.test.mjs
+      - name: Cancel only verified jobless superseded Actions runs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }
+        run: |
+          set -euo pipefail
+          if [[ "$DRY_RUN" == "true" ]]; then
+            node scripts/ci/reconcile-stale-actions-queue.mjs --dry-run
+          else
+            node scripts/ci/reconcile-stale-actions-queue.mjs --cancel
+          fi
+      - name: Preserve machine-readable reconciliation results
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 2
+        uses: actions/upload-artifact@v4
+        with:
+          name: actions-queue-recovery-${{ github.run_id }
+          path: artifacts/actions-queue-recovery/
+          if-no-files-found: warn
+          retention-days: 7
