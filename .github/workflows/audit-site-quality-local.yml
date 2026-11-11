@@ -41,16 +41,8 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - name: Test local-only crawl transport and workflow cost contract
         run: node --test scripts/ci/local-audit-fetch.test.mjs
-      - name: Install governed image build tools
-        shell: bash
-        run: |
-          set -euo pipefail
-          if (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1) && command -v rsvg-convert >/dev/null 2>&1; then
-            exit 0
-          fi
-          test -f /etc/apt/sources.list.d/ubuntu.sources
-          timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
-          timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+      - name: Validate governed SVG and raster image renderer
+        run: node scripts/assets/check-governed-discover-image-runtime.mjs
       - name: Fingerprint governed Discover registry
         id: discover_fingerprint
         run: echo "sha=$(node scripts/assets/materialize-discover-overrides.mjs --fingerprint)" >> "$GITHUB_OUTPUT"

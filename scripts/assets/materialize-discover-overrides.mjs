@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
+
 import { createHash } from "node:crypto";
 
 const entries = [
@@ -212,11 +212,14 @@ if (process.argv.includes("--fingerprint")) {
   process.exit(0);
 }
 
+// Registry-only commands are intentionally dependency-free so cache keys and
+// purge scopes remain queryable without local native modules or network access.
+const { default: sharp } = await import("sharp");
 const outDir = path.resolve("public/images/discover");
 await fs.mkdir(outDir, { recursive: true });
 const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "td-discover-"));
-const command = ["magick", "convert"].find((candidate) => spawnSync(candidate, ["-version"], { stdio: "ignore" }).status === 0);
-if (!command) throw new Error("ImageMagick is required to materialize governed Discover derivatives.");
+// Sharp bundles a tested SVG-capable libvips renderer. No apt mirror or privileged
+// OS-package installation is needed; generated derivatives stay fail-closed.
 
 const REMOTE_SOURCE_ATTEMPTS = 5;
 const RETRYABLE_SOURCE_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
@@ -352,7 +355,7 @@ async function restorePriorProductionDerivative(slug, output) {
 
   await fs.writeFile(output, Buffer.from(await response.arrayBuffer()));
   try {
-    verifyDerivative(slug, output);
+    await verifyDerivative(slug, output);
     console.warn(`Reused verified prior production derivative for ${slug} after governed upstream source failure.`);
     return true;
   } catch (error) {
@@ -362,11 +365,9 @@ async function restorePriorProductionDerivative(slug, output) {
   }
 }
 
-function verifyDerivative(slug, output) {
-  const identify = spawnSync(command === "magick" ? "magick" : "identify",
-    command === "magick" ? ["identify", "-format", "%wx%h", output] : ["-format", "%wx%h", output],
-    { encoding: "utf8" });
-  // Size alone does not establish that a cached derivative is really WebP.
+async function verifyDerivative(slug, output) {
+  // Validate both raw WebP magic and the actual decoder dimensions. A cached
+  // JPEG renamed to .webp, truncated asset, or wrong-size derivative must fail.
   const header = Buffer.alloc(12);
   const fd = fsSync.openSync(output, "r");
   try { fsSync.readSync(fd, header, 0, header.length, 0); }
@@ -374,8 +375,9 @@ function verifyDerivative(slug, output) {
   if (header.toString("ascii", 0, 4) !== "RIFF" || header.toString("ascii", 8, 12) !== "WEBP") {
     throw new Error(`Discover derivative is not real WebP for ${slug}`);
   }
-  if (identify.status !== 0 || identify.stdout.trim() !== "1600x900") {
-    throw new Error(`Discover derivative dimensions invalid for ${slug}: ${identify.stdout.trim() || identify.stderr}`);
+  const image = await sharp(output, { failOn: "error" }).metadata();
+  if (image.format !== "webp" || image.width !== 1600 || image.height !== 900) {
+    throw new Error(`Discover derivative dimensions invalid for ${slug}: ${image.format} ${image.width}x${image.height}`);
   }
 }
 
@@ -389,7 +391,7 @@ for (const [slug, source] of entries) {
   if (fsSync.existsSync(output)) {
     const localSource = source.startsWith("/") ? path.resolve("public", source.slice(1)) : null;
     if (!localSource || !fsSync.existsSync(localSource)) {
-      verifyDerivative(slug, output);
+      await verifyDerivative(slug, output);
       if (localSource) console.log(`Retained validated ${slug} derivative; local source is generated later in the build.`);
       continue;
     }
@@ -401,18 +403,18 @@ for (const [slug, source] of entries) {
     if (!source.startsWith("/") && await restorePriorProductionDerivative(slug, output)) continue;
     throw error;
   }
-  const result = spawnSync(command, [
-    input,
-    "-auto-orient",
-    "-resize", "1600x900^",
-    "-gravity", "center",
-    "-extent", "1600x900",
-    "-strip",
-    "-quality", "82",
-    output,
-  ], { encoding: "utf8" });
-  if (result.status !== 0) throw new Error(`ImageMagick failed for ${slug}: ${result.stderr || result.stdout}`);
-  verifyDerivative(slug, output);
+  // Preserve the governed 1600×900 centre-crop, EXIF auto-orient, metadata
+  // stripping and quality-82 WebP contract; fail instead of reusing bad bytes.
+  try {
+    await sharp(input, { failOn: "error" })
+      .rotate()
+      .resize(1600, 900, { fit: "cover", position: "centre" })
+      .webp({ quality: 82 })
+      .toFile(output);
+  } catch (error) {
+    throw new Error(`Governed Discover image rendering failed for ${slug}: ${error instanceof Error ? error.message : String(error)}`);
+  }
+  await verifyDerivative(slug, output);
   console.log(`Materialized ${slug} from governed source.`);
 }
 await fs.rm(tmpDir, { recursive: true, force: true });

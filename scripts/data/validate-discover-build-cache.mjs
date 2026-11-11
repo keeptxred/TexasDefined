@@ -36,7 +36,12 @@ const deferredSourceGuard = materializer.indexOf("if (!localSource || !fsSync.ex
 assert.ok(deferredSourceGuard > 0, "deferred local sources need an explicit guard");
 assert.ok(materializer.indexOf("verifyDerivative(slug, output);", deferredSourceGuard) > deferredSourceGuard,
   "existing derivative must be dimension-verified before the build may reuse it");
-assert.match(materializer, /if \(identify\.status !== 0 \|\| identify\.stdout\.trim\(\) !== "1600x900"\)/);
+assert.match(materializer, /await sharp\(output, \{ failOn: "error" \}\)\.metadata\(\)/, "verify via actual Sharp decoder");
+assert.match(materializer, /image\.format !== "webp" \|\| image\.width !== 1600 \|\| image\.height !== 900/, "strict decoded WebP dimensions");
+assert.match(materializer, /sharp\(input, \{ failOn: "error" \}\)/, "actual source decode");
+assert.match(materializer, /\.rotate\(\)/, "honor image orientation");
+assert.match(materializer, /\.resize\(1600, 900, \{ fit: "cover", position: "centre" \}\)/, "preserve governed crop");
+assert.match(materializer, /\.webp\(\{ quality: 82 \}\)/, "preserve governed WebP quality");
 assert.match(materializer, /header\.toString\("ascii", 0, 4\) !== "RIFF"/);
 assert.match(materializer, /header\.toString\("ascii", 8, 12\) !== "WEBP"/);
 assert.match(materializer, /if \(!type\.toLowerCase\(\)\.startsWith\("image\/"\)\)/);
