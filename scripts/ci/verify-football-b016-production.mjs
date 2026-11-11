@@ -72,38 +72,35 @@ try{
     report.screenshots.push({slug,width,path:screenshotPath});
     report.schoolChecks.push({slug,width,pass:true,county});
     if(width===1366){
-     // The same Dallas county SSR route can occasionally exceed the first
-     // navigation deadline under load (run 42283746613: dallas-samuell).
-     // Retry only that transport timeout once. Every HTTP, Worker, hydration,
-     // and reciprocal-link assertion below remains mandatory and fail-closed.
-     let countyResponse;
-     for(let attempt=1;attempt<=2;attempt++){
+     // Do not navigate the already-hydrated school page into a county route:
+     // the school can have pending XHR, timers, image loads, and unload work.
+     // An isolated browser page verifies the real county route, hydration,
+     // matching Worker UUID, and actual reciprocal anchor. On a transport
+     // timeout try ONE fresh page, never reusing a stuck navigation state.
+     let countyAccepted=false;
+     for(let attempt=1;attempt<=2&&!countyAccepted;attempt++){
+      const countyPage=await context.newPage();
       try{
-       countyResponse=await page.goto(origin+county,{waitUntil:'domcontentloaded',timeout:45000});
-       break;
+       const countyResponse=await countyPage.goto(origin+county,{waitUntil:'domcontentloaded',timeout:45000});
+       assert.equal(countyResponse?.status(),200,'county HTTP '+county);
+       assert.equal(await countyResponse.headerValue('x-texasdefined-worker-version'),worker,'mixed county Worker '+county);
+       await countyPage.waitForFunction(
+         () => document.documentElement.dataset.tdFootballCountyHydrated === '1',
+         null, {timeout:40000}
+       );
+       const reciprocalLink=countyPage.locator('main a[href="'+path+'"]');
+       await reciprocalLink.first().waitFor({state:'visible',timeout:20000});
+       assert.ok(await reciprocalLink.count()>0,'county reciprocal missing '+slug+' '+county);
+       report.countyChecks.push({slug,county,pass:true});
+       countyAccepted=true;
       }catch(error){
        if(attempt===2 || error?.name!=='TimeoutError')throw error;
-       console.warn('Retry county navigation timeout',slug,county,'attempt',attempt);
+       console.warn('Retry isolated county navigation timeout',slug,county,'attempt',attempt);
+      }finally{
+       await countyPage.close();
       }
      }
-     assert.equal(countyResponse?.status(),200,'county HTTP '+county);
-     assert.equal(await countyResponse.headerValue('x-texasdefined-worker-version'),worker,'mixed county Worker '+county);
-     // County football links are populated asynchronously after the AskTED/UIL
-     // directory request. DOMContentLoaded alone is not evidence that the
-     // county lookup has finished. Wait for the actual reciprocal anchor;
-     // still fail closed on missing links, API failures, or timeout.
-     // React's county authority route sets this marker only after hydration.
-     // Waiting for an anchor alone cannot distinguish a slow render from a
-     // missing school; require the same hydration contract as other cohorts.
-     await page.waitForFunction(
-       () => document.documentElement.dataset.tdFootballCountyHydrated === '1',
-       null, {timeout:40000}
-     );
-     const reciprocalLink=page.locator('main a[href="'+path+'"]');
-     await reciprocalLink.first().waitFor({state:'visible',timeout:20000});
-     const reciprocal=await reciprocalLink.count();
-     assert.ok(reciprocal>0,'county reciprocal missing '+slug+' '+county);
-     report.countyChecks.push({slug,county,pass:true});
+     assert.ok(countyAccepted,'county verification not accepted '+slug);
     }
    }catch(e){report.failures.push({slug,width,error:String(e.message||e).slice(0,400)});}
    finally{await context.close();}
