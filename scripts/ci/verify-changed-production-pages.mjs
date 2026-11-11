@@ -471,7 +471,18 @@ export function assertGscImageRights(html, path, surface = 'production') {
     || image.license !== expected.license
     || image.acquireLicensePage !== expected.source
     || !image.creditText?.includes(expected.creator)) {
-    throw new Error('Missing or incorrect ImageObject source rights on ' + path + ' (' + surface + ')');
+    // The existing test must stay fail-closed. Surface only public image-rights
+    // fields to make a real production regression diagnosable without guessing.
+    const observed = image ? {
+      id: image['@id'], url: image.url, contentUrl: image.contentUrl,
+      creator: image.creator, copyrightNotice: image.copyrightNotice,
+      license: image.license, acquireLicensePage: image.acquireLicensePage,
+    } : {
+      imageObjects: objects.filter(node => node?.['@type'] === 'ImageObject')
+        .slice(0, 3).map(node => ({ id: node['@id'], url: node.url, creator: node.creator })),
+    };
+    throw new Error('Missing or incorrect ImageObject source rights on ' + path + ' (' + surface + '); expected='
+      + JSON.stringify(expected) + '; observed=' + JSON.stringify(observed));
   }
   // Rights must be visible to readers, not only in structured data.
   const visible = html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
