@@ -11,6 +11,23 @@ if (!/^https:\/\/[^\s]+$/.test(expectedSource)) throw new Error('Expected exact 
 if (candidate.origin !== root || !/^\/news\/[a-z0-9-]+$/.test(candidate.pathname)) {
   throw new Error('Expected exact TexasDefined public /news/{slug} URL');
 }
+function publishedArticleSchema(html, expectedUrl, expectedSource) {
+  const scriptBlocks = [...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  for (const [, raw] of scriptBlocks) {
+    let record;
+    try { record = JSON.parse(raw.trim()); } catch { continue; }
+    const nodes = [...(Array.isArray(record) ? record : [record]), ...(Array.isArray(record?.['@graph']) ? record['@graph'] : [])];
+    const article = nodes.find(node => node?.['@type'] === 'NewsArticle'
+      && node?.url === expectedUrl && node?.citation === expectedSource);
+    if (article && typeof article.headline === 'string' && article.headline.length >= 20
+        && typeof article.datePublished === 'string'
+        && typeof article.author?.url === 'string'
+        && typeof article.image?.url === 'string'
+        && /illustration/i.test(String(article.image?.caption || ''))
+        && /AI-generated editorial illustration/i.test(String(article.image?.creditText || ''))) return article;
+  }
+  return null;
+}
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const request = async (path, attempt) => {
   const url = new URL(path, root);
@@ -29,9 +46,9 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
       storyHttp200: story.ok && story.status === 200,
       storyCanonical: story.text.includes(canonical),
       sourceAttribution: story.text.includes(expectedSource) || story.text.includes(expectedSource.replace(/&/g, '&amp;')),
-      byline: /(?:byline|author)/i.test(story.text),
-      articleSchema: /\\"@type\\"\s*:\s*\\"NewsArticle\\"/i.test(story.text) || /NewsArticle/i.test(story.text),
-      noNoindex: !/<meta[^>]*name=[\\"']robots[\\"'][^>]*noindex/i.test(story.text),
+      byline: story.text.includes('/authors/'),
+      articleSchema: Boolean(publishedArticleSchema(story.text, canonical, expectedSource)),
+      noNoindex: !/<meta[^>]*name=[\"']robots[\"'][^>]*noindex/i.test(story.text),
       newsListing: index.ok && index.text.includes(candidate.pathname),
       sitemap: sitemap.ok && sitemap.text.includes('<loc>' + canonical + '</loc>'),
     };
