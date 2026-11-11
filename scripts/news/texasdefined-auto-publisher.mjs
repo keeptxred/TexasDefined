@@ -5,6 +5,7 @@ import { isTexasDefinedDirectEditorialSource } from './texasdefined-editorial-so
 import { isSubstantiveTexasDefinedDraftSource } from './texasdefined-draft-evidence-gate.mjs';
 import { cooldownFeedIds } from './texasdefined-source-hydration-backoff.mjs';
 import { reviewTexasDefinedAuthorityDraft } from './texasdefined-authority-review.mjs';
+import { liveDestinationSlugs, relevantDestinationRows } from './texasdefined-live-destination-catalog.mjs';
 
 const SUPABASE_URL = String(process.env.KEEP_TX_RED_SUPABASE_URL || '').replace(/\/$/, '');
 const SUPABASE_KEY = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
@@ -267,17 +268,6 @@ async function readyQueueAll(total) {
   return rows;
 }
 
-async function destinations() {
-  const params = new URLSearchParams({
-    select: 'slug,name,summary,region',
-    visibility: 'eq.public',
-    status: 'in.(published,verified)',
-    order: 'featured.desc,popularity_score.desc,name.asc',
-    limit: '30',
-  });
-  return supabase(`/rest/v1/explore_entities?${params}`).then((response) => response.json());
-}
-
 async function generateDraft(item, destinationRows) {
   const destinationContext = destinationRows.map((row) => ({ slug: row.slug, name: row.name, summary: row.summary, region: row.region }));
   const prompt = `Create one original TexasDefined lifestyle/editorial article using only the verified source material below. Do not invent facts, quotations, dates, prices, access conditions or attribution. The site is not political breaking news. Return JSON only with: title, dek, category, region, tags (3-8), body (8-14 blocks using {type:"heading"|"paragraph"|"list", text or items}), relatedDestinations (2-5 exact slugs from the supplied catalog), relatedCollections (array), heroPrompt, heroAlt, qualityScore (95-100 only when all evidence, originality, attribution, practical detail, structure and image honesty requirements pass). Body must contain at least 750 genuinely useful, distinct, source-grounded words with at least three informative headings and four paragraphs each 55+ words. Explicitly name and attribute the original publisher within the body. Never copy source prose, fabricate interviews, claim to have visited, invent facts, add generic filler, or use uncited assertions. If the evidence cannot support 750 original words, return an error JSON rather than manufacture an article. The heroPrompt must describe a NONPHOTOGRAPHIC editorial illustration, clearly distinct from an actual venue photograph, and heroAlt must explicitly say illustration. Explain Texas relevance and changing conditions.\n\nSOURCE:\n${JSON.stringify({ title: item.title, source: item.source, url: item.link, description: item.description, extractedBody: item.extracted_body }, null, 2)}\n\nVERIFIED INTERNAL DESTINATIONS:\n${JSON.stringify(destinationContext)}`;
@@ -382,7 +372,10 @@ if (hydrateTop) {
 if (exactFeedId) await hydrateExactFeed();
 const rawEligible = await readyQueueCount();
 const rawQueue = await readyQueueAll(rawEligible);
-const automationEligibleQueue = dedupeAutomationQueue(rawQueue.filter((item) => isAutomationSafeQueueItem(item) && isSubstantiveTexasDefinedDraftSource(item)));
+const sourceEligibleQueue = dedupeAutomationQueue(rawQueue.filter((item) => isAutomationSafeQueueItem(item) && isSubstantiveTexasDefinedDraftSource(item)));
+// Single canonical XML GET, not a site crawl. A missing/invalid sitemap fails closed.
+const indexableDestinationSlugs = sourceEligibleQueue.length ? await liveDestinationSlugs(SITE_URL) : [];
+const automationEligibleQueue = sourceEligibleQueue.filter((item) => relevantDestinationRows(item, indexableDestinationSlugs).length >= 2);
 const queue = exactFeedId ? automationEligibleQueue : automationEligibleQueue.slice(0, limit);
 if (exactFeedId && rawQueue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
@@ -403,9 +396,9 @@ const queueSummary = {
 if (!publishRequested) Object.assign(queueSummary, { published: 0, skipped: 0, failed: 0 });
 console.log(JSON.stringify(queueSummary));
 if (publishRequested && queue.length > 0) {
-  const destinationRows = await destinations();
-  if (destinationRows.length < 2) throw new Error('Fewer than two verified TexasDefined destinations are available; publication stopped.');
   for (const item of queue) {
+    const destinationRows = relevantDestinationRows(item, indexableDestinationSlugs);
+    if (destinationRows.length < 2) throw new Error('Fewer than two source-relevant indexable TexasDefined destinations exist; publication stopped.');
     const draft = await generateDraft(item, destinationRows);
     const heroUrl = await generateAndStoreImage(draft);
     const liveUrl = await publish(item, draft, heroUrl);
