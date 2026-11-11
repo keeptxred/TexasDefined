@@ -4,6 +4,7 @@ import { texasDefinedGovernmentAiResponse } from "./lib/texas-defined-government
 import { texasDefinedAiResponse } from "./lib/texas-defined-ai.server";
 import { texasDefinedNewsletterApiResponse } from "./lib/texas-defined-newsletter-api.server";
 import { texasDefinedOutcomeAnalyticsResponse } from "./lib/texas-defined-outcome-analytics.server";
+import { cjAccountSyncResponse } from "./lib/cj-account-sync.server";
 
 const LEGACY_PITMASTERS_SLUG = "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp";
 const PITMASTERS_CANONICAL_PATH = "/article/texas-pitmasters-food-network-competition";
@@ -99,6 +100,8 @@ function withWorkerVersionHeader(response: Response, env: unknown) {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const cjSync = await cjAccountSyncResponse(request, env);
+    if (cjSync) return cjSync;
     if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
       const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
       if (!limiter || typeof limiter !== "object") return new Response("Service temporarily unavailable", { status: 503 });
