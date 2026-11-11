@@ -12,6 +12,7 @@ const productionSmokeWorkflow = read('.github/workflows/texasdefined-publication
 const productionSmoke = read('scripts/ci/verify-texasdefined-publication-production.mjs');
 const publisher = read('scripts/news/texasdefined-auto-publisher.mjs');
 const authority = read('scripts/news/texasdefined-authority-review.mjs');
+const indexedDestinations = read('scripts/news/texasdefined-live-destination-catalog.mjs');
 const scheduled = read('.github/workflows/texasdefined-scheduled-authority-news.yml');
 const flyoverBridge = read('.github/workflows/flyover-scheduled-publish-bridge.yml');
 const migration = read('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql');
@@ -35,6 +36,8 @@ for (const token of ['schedule:', 'workflow_dispatch:', 'concurrency:', 'texasde
 }
 if (!scheduled.includes("env.TEXASDEFINED_AUTO_PUBLISH_ENABLED == 'true'")) errors.push('Unattended publishing must require explicit owner activation.');
 for (const token of ['TEXASDEFINED_AUTOMATED_AUTHORITY_FLOOR = 95', 'sharedWordRun', 'relatedDestinations', 'sourceName', 'heroAlt']) if (!authority.includes(token)) errors.push(`Authority reviewer missing ${token}`);
+if (!publisher.includes('liveDestinationSlugs(SITE_URL)') || !publisher.includes('relevantDestinationRows(item, indexableDestinationSlugs)')) errors.push('Publisher must verify real indexable and topic-relevant destination links; empty legacy explore_entities is not a valid publication source.');
+for (const token of ['publishedDestinationSlugs', 'relevantDestinationRows', 'liveDestinationSlugs', '/sitemap.xml', '/destination/']) if (!indexedDestinations.includes(token)) errors.push(`Sitemap-backed destination source missing ${token}`);
 if (!publisher.includes('reviewTexasDefinedAuthorityDraft(draft, source, allowedDestinationSlugs)')) errors.push('Publisher must enforce independent authority reviewer before generating imagery.');
 for (const token of ['workflow_dispatch:', 'workflow_run:', '- Deploy TexasDefined production', 'types: [completed]', 'branches: [main]', "github.event.workflow_run.conclusion == 'success'", 'Verify explicit auto-publication activation state', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
