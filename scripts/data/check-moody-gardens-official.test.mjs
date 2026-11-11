@@ -39,4 +39,5 @@ test("age, future-dated review and expired holiday copy are independently gated"
   assert.ok(validateEditorialReview(curation, Date.parse("2027-01-04T12:00:00Z")).some((e) => e.includes("seasonal copy")));
   assert.ok(validateEditorialReview(curation, Date.parse("2026-12-15T12:00:00Z")).some((e) => e.includes("days old")));
   assert.ok(validateEditorialReview(curation, Date.parse("2026-11-06T00:00:00Z")).some((e) => e.includes("days old")));
+  assert.ok(validateEditorialReview('sourceCheckedAt: "2026-99-99"', Date.parse("2026-11-11T12:00:00Z")).some((e) => e.includes("invalid")));
 });
