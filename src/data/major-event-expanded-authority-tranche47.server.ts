@@ -45,15 +45,15 @@ const records: MajorEventAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-12-05",
     endDate: "2026-12-05",
-    dateNote: "Ticketmaster currently lists the 2026 McAllen Holiday Parade for Saturday, December 5 at 6 p.m. at McAllen Veterans Memorial Stadium. The organizer's detailed operating FAQ still reflects the 2025 edition, so recheck 2026 route, parking and festival logistics when the organizer publishes them.",
+    dateNote: "The organizer's updated 2026 FAQ confirms Saturday, December 5, 2026: stadium gates open 3:30 p.m., reserved-seat programming begins 5:30 p.m., and the parade starts at 6 p.m. on Bicentennial Boulevard. Free South Texas College park-and-ride shuttles are listed noon–midnight; confirm current road access and your ticket section.",
     venue: "McAllen Veterans Memorial Stadium and Bicentennial Boulevard",
     officialUrl: "https://mcallenholidayparade.com/",
-    sourceCheckedAt: "2026-09-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "The McAllen Holiday Parade is a city-scale South Texas holiday tradition built around giant helium balloons, illuminated floats, marching bands, stadium programming and the surrounding Christmas in the Park celebration.",
     planningSections: [
-      { title: "Treat the 2026 date as confirmed but logistics as still updating", body: "Ticketmaster lists Saturday, December 5, 2026 at 6 p.m. for the stadium event. The organizer site remains useful for the permanent parade format, but its detailed FAQ still shows 2025 operating information; do not assume last year's parking or street-closure plan is unchanged." },
-      { title: "Choose stadium or route viewing", body: "The parade traditionally uses both stadium seating and street-route viewing products. Decide whether the opening production and assigned stadium seat or a route-level view better fits your group before buying." },
-      { title: "Expect a larger holiday-event footprint", body: "The parade is normally paired with Christmas in the Park and other South Pole programming. Allow time for crowds, road closures and walking rather than planning around the parade start alone." },
+      { title: "Follow the 2026 stadium opening and parade schedule", body: "The updated McAllen Holiday Parade FAQ identifies December 5, 2026 as the event date, McAllen Veterans Memorial Stadium gates at 3:30 p.m., reserved stadium/Vuelta seat programming from 5:30 p.m., and the parade itself beginning at 6 p.m. The 1.5-mile route follows Bicentennial Boulevard. Confirm your entry location and any revised street restrictions on the organizer's current map." },
+      { title: "Choose stadium seats or the Vuelta Zone", body: "Official 2026 stadium reserved seats include an opening extravaganza and fireworks, while Vuelta Zone and Sky Box reserved street seats offer balloon turnarounds and other ticket-specific extras. Compare the official seating products and ticket inventory before purchasing; the Christmas in the Park festival is a distinct free event." },
+      { title: "Plan free park-and-ride and Christmas in the Park separately", body: "The organizer lists free parking and Metro McAllen Polar Express shuttles from South Texas College's Cooper Center at 3201 W. Pecan Boulevard, operating December 5 from noon until midnight. Its 2026 FAQ also lists free Christmas in the Park activities at McAllen Municipal Park on December 4 (5–11 p.m.) and December 5 (noon–11 p.m.). Check the latest shuttle stop and accessibility instructions before leaving." },
       { title: "Use the current organizer page again close to travel", body: "Balloon zones, shuttles, parking, accessible seating, guest appearances and concert programming are operational details that change by year. Recheck the official page before departure." },
     ],
     relatedLinks: [
@@ -63,6 +63,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "McAllen Holiday Parade — official site", url: "https://mcallenholidayparade.com/" },
+      { label: "McAllen Holiday Parade — 2026 FAQ, route, seating and free shuttle", url: "https://mcallenholidayparade.com/faqs/" },
       { label: "McAllen Holiday Parade — official ticket page", url: "https://mcallenholidayparade.com/tickets/" },
       { label: "City of McAllen — ongoing Christmas Parade program", url: "https://www.mcallen.net/docs/default-source/default-document-library/city-of-mcallen---approved-annual-budget-book-fy-25-26.pdf?sfvrsn=2" },
       { label: "Ticketmaster — 2026 McAllen Holiday Parade listing", url: "https://www.ticketmaster.com/search?q=Mcallen%20Holiday%20Parade" },

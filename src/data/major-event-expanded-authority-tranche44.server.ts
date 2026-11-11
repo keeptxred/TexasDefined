@@ -89,11 +89,11 @@ const records: EventRecordWithWindows[] = [
     dateNote: "Shiner confirms November 21, 2026, from 7 a.m.–3 p.m.; its official registration partner also lists a full marathon alongside the 5K, 10K and half marathon. Check each distance for current openings, start times and packet pickup.",
     venue: "K. Spoetzl Brewery & Distillery",
     officialUrl: "https://shiner.com/event/15th-annual-beer-run/",
-    sourceCheckedAt: "2026-10-29",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "The annual Shiner Beer Run turns the brewery into a destination race venue, with full-marathon, half-marathon, 10K and 5K options that draw runners to Shiner for a fall event built around the town's best-known landmark.",
     planningSections: [
       { title: "Use November 21 as the confirmed 2026 race date", body: "Shiner's official event page lists the 15th annual Beer Run for Saturday, November 21, 2026, with event hours from 7 a.m. to 3 p.m. Its registration partner lists a new full marathon plus half marathon, 10K and 5K distances." },
-      { title: "Check sold-out race distances and the registration waitlist", body: "RunSignUp lists a 7:30 a.m. marathon, 8 a.m. half marathon, 8:30 a.m. 10K and 8:45 a.m. 5K. As checked October 29, 2026, all four running distances were marked full with a waiting-list option. Openings can change; join the appropriate waitlist or verify the current status directly rather than assuming an entry is still available before paying for travel." },
+      { title: "Check the official registration vendor's current race caps", body: "RunSignUp's November 10, 2026 page lists the 7:30 a.m. marathon, 8 a.m. half marathon, 8:30 a.m. 10K and 8:45 a.m. 5K as full, with a waiting-list option. The marathon registration cutoff is November 20 at 6 p.m. CST; other distance windows and waitlist movement differ. This is a point-in-time observation, not a guarantee of registration availability: check the linked race-specific checkout before making travel plans." },
       { title: "Plan the brewery and town around the race, not through it", body: "Race-day operations can change normal traffic, parking and campus flow. Keep brewery tours or a longer Shiner itinerary after the race only when the current schedule leaves enough recovery and travel time." },
     ],
     relatedLinks: [
