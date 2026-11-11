@@ -35,6 +35,9 @@ for (const token of ['schedule:', 'workflow_dispatch:', 'concurrency:', 'texasde
   if (!scheduled.includes(token)) errors.push(`Scheduled authority newsroom missing safe activation contract: ${token}`);
 }
 if (!scheduled.includes("env.TEXASDEFINED_AUTO_PUBLISH_ENABLED == 'true'")) errors.push('Unattended publishing must require explicit owner activation.');
+for (const token of ["push:", "branches: [main]", "scripts/news/texasdefined-auto-publisher.mjs", "github.event_name != 'push'"]) {
+  if (!scheduled.includes(token)) errors.push('Protected-main acceptance must remain a strictly nonpublishing live queue dry-run: ' + token);
+}
 for (const token of ['TEXASDEFINED_AUTOMATED_AUTHORITY_FLOOR = 95', 'sharedWordRun', 'relatedDestinations', 'sourceName', 'heroAlt']) if (!authority.includes(token)) errors.push(`Authority reviewer missing ${token}`);
 if (!publisher.includes('liveDestinationSlugs(SITE_URL)') || !publisher.includes('relevantDestinationRows(item, indexableDestinationSlugs)')) errors.push('Publisher must verify real indexable and topic-relevant destination links; empty legacy explore_entities is not a valid publication source.');
 for (const token of ['publishedDestinationSlugs', 'relevantDestinationRows', 'liveDestinationSlugs', '/sitemap.xml', 'pathFromLoc']) if (!indexedDestinations.includes(token)) errors.push(`Sitemap-backed destination source missing ${token}`);
