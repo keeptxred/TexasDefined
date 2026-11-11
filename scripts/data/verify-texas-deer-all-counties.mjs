@@ -62,9 +62,16 @@ async function validateCounty(county){
   throw new Error(county.name+': '+String(error).slice(0,200));
 }
 const failures=[];
-for(const county of selected){
-  try{await validateCounty(county);console.log('TPWD county verified: '+county.name);}
-  catch(error){failures.push(String(error));console.error(String(error));}
+let cursor=0;
+async function boundedWorker(){
+  for(;;){
+    const index=cursor++;
+    if(index>=selected.length)return;
+    const county=selected[index];
+    try{await validateCounty(county);console.log('TPWD county verified: '+county.name);}
+    catch(error){failures.push(String(error));console.error(String(error));}
+  }
 }
+await Promise.all(Array.from({length:Math.min(3,selected.length)},()=>boundedWorker()));
 console.log(JSON.stringify({verified:selected.length-failures.length,total:selected.length,batch:batch===-1?'all':batch,allCountyCount:counties.length,failures:failures.slice(0,254)}));
 if(failures.length)process.exitCode=1;
