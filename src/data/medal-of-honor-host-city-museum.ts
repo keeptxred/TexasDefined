@@ -8,8 +8,8 @@ import type { Destination } from "./types";
  * the Host City Program site and OpenStreetMap on 2026-11-08.
  */
 // Time-limited visitor warning from NCTC's November 2026 events calendar.
-// It expires without requiring another content deployment or a manual seasonal audit.
-const veteransDayCampusClosure = Date.now() < Date.UTC(2026, 10, 12)
+// It expires at local midnight in Gainesville (CST UTC−6), without another content deployment or manual seasonal audit.
+const veteransDayCampusClosure = Date.now() < Date.UTC(2026, 10, 12, 6)
   ? "IMPORTANT: NCTC lists all campuses CLOSED Wednesday, November 11, 2026 (Veterans Day). Do not assume museum admission that day; verify any special access with museum staff. "
   : "";
 
@@ -80,7 +80,7 @@ export const medalOfHonorHostCityMuseumDestinations: Destination[] = [{
     { topic: "hours", label: "Regular museum hours", detail: "Monday–Thursday 8 a.m.–5 p.m.; Friday 8 a.m.–noon. Check the official calendar for holidays and closures.", sourceUrl: "https://www.nctc.edu/museum/", checkedAt: "2026-11-08" },
     { topic: "hours", label: "Summer hours", detail: "NCTC's school-trip handbook lists Monday–Thursday 7:30 a.m.–5:30 p.m.; Friday closed during the summer schedule. Confirm which calendar currently applies.", sourceUrl: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf", checkedAt: "2026-11-08" },
     { topic: "reservations", label: "School group scheduling", detail: "School groups must book at least two weeks ahead; groups are capped at 100 including teachers and chaperones, with larger groups split across sessions.", sourceUrl: "https://www.nctc.edu/media/nctc/documents/pdf/Field%20Trip%20Handbook.pdf", checkedAt: "2026-11-08" },
-    ...(Date.now() < Date.UTC(2026, 10, 12) ? [{
+    ...(Date.now() < Date.UTC(2026, 10, 12, 6) ? [{
       topic: "hours" as const, label: "NCTC campus closure calendar",
       detail: "The NCTC calendar lists all campuses closed on November 11, 2026 (Veterans Day). Special museum access is not assumed.",
       sourceUrl: "https://www.nctc.edu/events-calendar/?day=11&month=11&search=day&year=2026",
