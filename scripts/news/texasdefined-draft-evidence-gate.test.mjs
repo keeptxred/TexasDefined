@@ -38,4 +38,7 @@ test('one source sports promotional report is not sufficient original research f
   assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Houston museum opens rare meteorite exhibit'),target_section:'Explore',source_count:1,link:'https://museum.utexas.edu/news/exhibit'}), true);
   assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Houston museum opens rare meteorite exhibit'),target_section:'Explore',source_count:1,link:'https://example.com/local-report'}), false);
   assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Texas football program launches another single-source opinion'),target_section:'Sports'}), false);
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('College football opinion: Why the coaching move must happen'),target_section:'Sports',source_count:2}), false);
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Sponsored content: football campus expansion'),target_section:'Sports',source_count:2}), false);
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Austin college announces new sports program with verified local context'),target_section:'Sports',source_count:2}), true);
 });

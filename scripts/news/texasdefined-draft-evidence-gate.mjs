@@ -28,6 +28,10 @@ export function isSubstantiveTexasDefinedDraftSource(item) {
       && (!Number.isInteger(Number(item?.source_count)) || Number(item.source_count) < 2)) return false;
 
   const title = String(item?.title ?? '').toLowerCase().trim();
+  // An opinion column, fan reaction, advertorial or promotional hot take is
+  // never independently reportable news merely because a feed claims two
+  // source references. Preserve these as research leads, not 750-word articles.
+  if (/\b(?:opinion|editorial|commentary|fan reaction|hot take|advertorial|sponsored content|single.source opinion)\b/.test(title)) return false;
   // Routine game summaries, fixtures and broad national explainers belong in
   // sports/event guides or curated roundups, not individual 750-word pages.
   if (/\b(?:playoff (?:schedule|pairings)|bi-district playoff schedule|scores? and schedule|game preview|non-conference action|host(?:s|ing)? .{3,80} in (?:non-conference|conference) action)\b/.test(title)) return false;
