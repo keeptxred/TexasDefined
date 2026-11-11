@@ -10,8 +10,8 @@ const output = "artifacts/gainesville-museum-browser";
 await mkdir(output, { recursive: true });
 const results = [];
 const failures = [];
-const museumAltA = "U.S. military service members at Gainesville";
-const museumAltB = "Hershel Woody Williams";
+const museumAltA = "The separate Medal of Honor Park in Gainesville";
+const museumAltB = "A second June 2017 view of Gainesville Medal of Honor Park";
 
 const browser = await chromium.launch({
   headless: true,
@@ -60,7 +60,7 @@ try {
           viewportWidth: innerWidth,
           links: [...root.querySelectorAll("a[href]")].map(el => ({
             href: el.href,
-            label: (el.getAttribute("aria-label") || el.innerText || el.getAttribute("title") || "").trim()
+            label: (el.getAttribute("aria-label") || (el.getAttribute("aria-labelledby") || "").split(/\s+/).map(id => document.getElementById(id)?.textContent || "").join(" ") || el.innerText || el.textContent || [...el.querySelectorAll("img[alt]")].map(img => img.getAttribute("alt")).join(" ") || el.getAttribute("title") || "").trim()
           })),
           imagesWithoutAlt: images.filter(img => !img.hasAttribute("alt")).map(img => img.src),
           criticalImages: criticalImages.map(img => ({
@@ -91,7 +91,7 @@ try {
         [data.documentWidth <= data.viewportWidth + 12, "no horizontal overflow"],
         [data.imagesWithoutAlt.length === 0, "all main images have alt attributes"],
         [data.links.filter(item => !item.label).length === 0, "all main links have discernible names"],
-        [data.criticalImages.length === 2 && data.criticalImages.every(img => img.loaded), "both documented public-domain archival gallery images load"],
+        [data.criticalImages.length === 2 && data.criticalImages.every(img => img.loaded), "both rights-cleared 2017 Gainesville park gallery images load"],
         [jsErrors.length === 0, "no first-party page runtime errors"],
       ].map(([ok, label]) => ({ ok, label }));
       const result = { viewport: viewport.name, http: response?.status(), checks, jsErrors, data: {
