@@ -44,12 +44,15 @@ export function relevantDestinationRows(source, slugs, cap=24) {
   }).filter(Boolean).sort((a,b)=>b.score-a.score||a.slug.localeCompare(b.slug)).slice(0,cap)
     .map(({score,...row})=>row);
 }
-export async function liveRelevantDestinations(source, siteUrl='https://texasdefined.com', requester=fetch) {
+export async function liveDestinationSlugs(siteUrl='https://texasdefined.com', requester=fetch) {
   const response = await requester(siteUrl + '/sitemap.xml', { signal: AbortSignal.timeout(20_000), headers: { Accept: 'application/xml, text/xml;q=0.9' } });
   if (!response.ok) throw new Error('Published sitemap unavailable; refuse to invent internal links');
   const sitemap = await response.text();
   if (sitemap.length > 12_000_000) throw new Error('Published sitemap too large for bounded discovery.');
   const live = publishedDestinationSlugs(sitemap,new URL(siteUrl).origin);
   if (live.length < 2) throw new Error('Published sitemap contains too few vetted destination pages.');
-  return relevantDestinationRows(source,live);
+  return live;
+}
+export async function liveRelevantDestinations(source, siteUrl='https://texasdefined.com', requester=fetch) {
+  return relevantDestinationRows(source,await liveDestinationSlugs(siteUrl,requester));
 }
