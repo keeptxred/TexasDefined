@@ -6,6 +6,23 @@ on:
     # This additional bounded source monitor covers every permanent event guide.
     - cron: '07 13 * * *'
   workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/event-authority-source-refresh.yml'
+      - 'scripts/events/event-page-refresh-governance.mjs'
+      - 'scripts/events/monitor-event-authority-sources.mjs'
+      - 'scripts/events/event-page-refresh-governance.test.mjs'
+      - 'src/data/major-event-index.ts'
+      - 'src/data/major-event-expanded-authority-tranche*.server.ts'
+      - 'src/data/major-event-supplemental-registry.server.ts'
+      - 'src/data/event-collections.ts'
+      - 'src/data/event-temporal-collections.server.ts'
+      - 'src/routes/event*.tsx'
+      - 'src/routes/events*.tsx'
+      - 'src/routes/holiday.*.tsx'
+      - 'src/routes/texas-state-fair*.tsx'
+      - 'src/routes/horse-racing*.tsx'
+      - 'src/data/tournaments/verified-profiles*.ts'
   push:
     branches: [main]
     paths:
@@ -19,6 +36,13 @@ on:
       - 'src/data/major-event-expanded-authority-tranche*.server.ts'
       - 'src/data/tournaments/verified-profiles*.ts'
       - 'src/data/major-event-supplemental-registry.server.ts'
+      - 'src/data/event-collections.ts'
+      - 'src/data/event-temporal-collections.server.ts'
+      - 'src/routes/event*.tsx'
+      - 'src/routes/events*.tsx'
+      - 'src/routes/holiday.*.tsx'
+      - 'src/routes/texas-state-fair*.tsx'
+      - 'src/routes/horse-racing*.tsx'
 
 permissions:
   contents: read
@@ -53,12 +77,13 @@ jobs:
         run: node scripts/events/event-page-refresh-governance.mjs
 
       - name: Review due permanent event organizer sources
+        if: github.event_name != 'pull_request'
         id: source_review
         continue-on-error: true
         run: node scripts/events/monitor-event-authority-sources.mjs
 
       - name: Preserve per-page source and editorial freshness evidence
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: event-authority-source-refresh-${{ github.run_id }}
@@ -67,7 +92,7 @@ jobs:
           retention-days: 30
 
       - name: Maintain one actionable event source freshness issue
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
@@ -125,7 +150,7 @@ jobs:
             }
 
       - name: Fail if route coverage or source monitor execution broke
-        if: steps.source_review.outcome == 'failure'
+        if: github.event_name != 'pull_request' && steps.source_review.outcome == 'failure'
         run: |
           echo '::error title=Event authority source monitoring failed::Do not treat missing or partial coverage as a successful automatic refresh.'
           exit 1

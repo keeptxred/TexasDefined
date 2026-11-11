@@ -104,19 +104,69 @@ function supplementarySlugs(root) {
   return [...new Set([...match[1].matchAll(/"([a-z0-9-]+)"/g)].map(x => x[1]))];
 }
 
+const DAY_MS = 86400000;
+
+function utcDay(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return NaN;
+  const time = Date.parse(value + 'T00:00:00Z');
+  if (!Number.isFinite(time) || new Date(time).toISOString().slice(0, 10) !== value) return NaN;
+  return Math.floor(time / DAY_MS);
+}
+
+// Annual guide dates are never rolled over in public records. A previous
+// edition's month/day is used only to INCREASE organizer-source review cadence
+// as the following season approaches; a current-year date still requires proof.
+function daysToUnconfirmedAnnualSeason(event, asOf) {
+  const start = utcDay(event.startDate);
+  const end = utcDay(event.endDate ?? event.startDate);
+  const today = utcDay(asOf.toISOString().slice(0, 10));
+  if (![start, end, today].every(Number.isFinite) || end < start || end - start > 366 || end >= today) {
+    return Infinity;
+  }
+  const original = new Date(start * DAY_MS);
+  const thisYear = asOf.getUTCFullYear();
+  let nearest = Infinity;
+  for (const year of [thisYear - 1, thisYear, thisYear + 1, thisYear + 2]) {
+    const month = original.getUTCMonth();
+    const date = Math.min(original.getUTCDate(), new Date(Date.UTC(year, month + 1, 0)).getUTCDate());
+    const projectedStart = Math.floor(Date.UTC(year, month, date) / DAY_MS);
+    const projectedEnd = projectedStart + (end - start);
+    if (today >= projectedStart && today <= projectedEnd) return 0;
+    if (projectedStart > today) nearest = Math.min(nearest, projectedStart - today);
+  }
+  return nearest;
+}
+
 export function refreshCadenceDays(event, asOf = new Date()) {
   if (event.kind === 'announcement-pending') return 7;
-  const utcDay = Math.floor(Date.parse(asOf.toISOString().slice(0, 10) + 'T00:00:00Z') / 86400000);
-  const start = event.startDate ? Math.floor(Date.parse(event.startDate + 'T00:00:00Z') / 86400000) : NaN;
-  const end = event.endDate ? Math.floor(Date.parse(event.endDate + 'T00:00:00Z') / 86400000) : start;
+  const today = utcDay(asOf.toISOString().slice(0, 10));
+  const start = utcDay(event.startDate);
+  const end = utcDay(event.endDate ?? event.startDate);
   if (!Number.isFinite(start)) return 30;
-  if (start <= utcDay && end >= utcDay) return 1; // Event in progress
-  const daysUntil = start - utcDay;
+  if (!Number.isFinite(end) || end < start) return 1; // Invalid dates need prompt editorial review
+  if (start <= today && end >= today) return 1;
+  const daysUntil = start - today;
   if (daysUntil > 0 && daysUntil <= 14) return 1;
   if (daysUntil > 14 && daysUntil <= 90) return 3;
   if (daysUntil > 90 && daysUntil <= 365) return 7;
-  if (end < utcDay && utcDay - end <= 30) return 7; // Post-event correction window
-  return 30; // Long-range and old editions need announcement recheck, not date guesses
+  if (end < today && today - end <= 30) return 7;
+  const annualSeasonDays = daysToUnconfirmedAnnualSeason(event, asOf);
+  if (annualSeasonDays <= 14) return 1;
+  if (annualSeasonDays <= 90) return 3;
+  if (annualSeasonDays <= 365) return 7;
+  return 30;
+}
+
+export function nextSourceReviewAt(event, asOf = new Date()) {
+  // Date distribution is stable across runs and includes today's due cohort.
+  // Iterate rather than just adding N days because priority can increase when
+  // an approaching event crosses a 90/14-day escalation threshold.
+  for (let offset = 0; offset <= 30; offset++) {
+    const reviewDay = new Date(Date.UTC(asOf.getUTCFullYear(), asOf.getUTCMonth(),
+      asOf.getUTCDate() + offset));
+    if (dueForReview(event, reviewDay)) return reviewDay.toISOString().slice(0, 10);
+  }
+  throw new Error('Unable to schedule event source review for ' + event.path);
 }
 
 export function dueForReview(event, asOf = new Date()) {
