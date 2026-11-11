@@ -207,12 +207,12 @@ const records: EventRecordWithWindows[] = [
     endDate: "2026-11-14",
     venue: "Levy Park",
     officialUrl: "https://www.houstondiwali.com/",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "Houston Diwali Festival of Lights brings Indian food, fashion, dance, music, rangoli, henna, cultural programming and a fireworks finale to Levy Park in a free public celebration aimed at Houston's broad and diverse community.",
     planningSections: [
-      { title: "Use November 14 as the confirmed 2026 date", body: "The official Houston Diwali site lists the free 2026 event at Levy Park for Saturday, November 14, from 5 to 10 p.m." },
+      { title: "Use the exact 2026 date and rain contingency", body: "The organizer confirms Saturday, November 14, 2026 from 5–10 p.m. at Levy Park, 3801 Eastside Street, Houston TX 77098. If the organizer invokes the rain date, the event moves to Sunday, November 15 from 4–9 p.m.; the rain date is a contingency, not an additional festival day. Admission is free and family-friendly." },
       { title: "Plan for an evening festival", body: "The published format centers on an evening of bazaar stalls, street food, cultural and Bollywood performances, live entertainment and fireworks. Arrive with enough time to explore before the late-evening finale." },
-      { title: "Expect a busy Upper Kirby setting", body: "Levy Park sits in Houston's Upper Kirby area. Review the organizer and park guidance close to the event for transportation, parking and any final program changes." },
+      { title: "Plan arrival and parking at Levy Park", body: "Levy Park is in Houston’s Upper Kirby neighborhood at 3801 Eastside Street. The organizer lists nearby free street parking and paid garage parking; availability is not guaranteed and costs can change. Check the official event site and park instructions before leaving, especially if the rain contingency is announced." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Build more Houston-area stops around Diwali." },
@@ -220,6 +220,7 @@ const records: EventRecordWithWindows[] = [
     ],
     sources: [
       { label: "Houston Diwali official site", url: "https://www.houstondiwali.com/" },
+      { label: "Houston Diwali organizer FAQ: 2026 event date, rain policy, free admission and address", url: "https://www.houstondiwali.com/faq-2/" },
     ],
   },
 ];
