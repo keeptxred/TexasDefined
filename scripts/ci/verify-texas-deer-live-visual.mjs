@@ -101,11 +101,24 @@ try {
       // select events before React has attached the handler if we only wait for
       // DOMContentLoaded. Require the completed page load before testing changes.
       await page.waitForLoadState('load', { timeout: 30000 });
-      // SSR may render the select before React attaches its delegated events.
-      // Wait for hydration explicitly so an early mobile selection is not dropped.
       await page.waitForFunction(() => {
         const select = document.querySelector('#deer-tpwd-county');
-        return !!select && Object.keys(select).some(key => key.startsWith('__reactProps
+        return !!select && Object.keys(select).some(key => key.startsWith('__reactProps'));
+      }, { timeout: 20000 });
+      async function confirmCountyRoute(slug, url) {
+        const target = page.locator('a[href="' + url + '"]');
+        for (let attempt = 0; attempt < 2; attempt++) {
+          await countySelect.selectOption(slug);
+          if (await target.waitFor({ state: 'attached', timeout: 6000 }).then(() => true, () => false)) return true;
+        }
+        return false;
+      }
+      const laSalleShown = await confirmCountyRoute('la-salle',
+        'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/lasalle/');
+      verify('TPWD exceptional La Salle route links correctly', laSalleShown);
+      const tarrantShown = await confirmCountyRoute('tarrant',
+        'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/tarrant/');
+      verify('TPWD county rules link responds to selection', tarrantShown);
       const photo = page.locator('img[alt^="Close view of a white-tailed buck"]').first();
       verify('exact licensed deer image is present', await photo.count() === 1);
       if (await photo.count()) {
