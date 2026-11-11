@@ -44,7 +44,9 @@ for (let i = 0; i < allPaths.length; i += 3) {
     try {
       const page = await fetchLive(path);
       const tags = page.body.match(/<link\b[^>]*>/gi) ?? [];
-      const canonical = tags.find(tag => /\brel\s*=\s*["']canonical["']/i.test(tag));
+      const canonicals = tags.filter(tag => /\brel\s*=\s*["']canonical["']/i.test(tag));
+      if (canonicals.length !== 1) throw Error("expected one canonical tag, found " + canonicals.length);
+      const canonical = canonicals[0];
       const href = canonical?.match(/\bhref\s*=\s*(["'])(.*?)\1/i)?.[2];
       if (href !== origin + path) throw Error("self canonical missing or incorrect");
       const robotsMeta = (page.body.match(/<meta\b[^>]*>/gi) ?? [])
@@ -82,6 +84,16 @@ function structuredGraph(html) {
 for (const guide of attractionCertification) {
   try {
     const { body } = await fetchLive(guide.path);
+    // A Googlebot user-agent probe is useful evidence but does not prove Google IP access.
+    const crawler = await fetch(origin + guide.path, {
+      headers: { "user-agent": "Googlebot/2.1 (+http://www.google.com/bot.html)", "cache-control": "no-cache" },
+      redirect: "manual", signal: AbortSignal.timeout(15000),
+    });
+    const crawlerHtml = await crawler.text();
+    if (crawler.status !== 200 || !crawlerHtml.includes(guide.name) ||
+      /\bnoindex\b/i.test(crawler.headers.get("x-robots-tag") ?? "")) {
+      throw Error("Googlebot user-agent lacks indexable, named SSR document (HTTP " + crawler.status + ")");
+    }
     if (!body.includes("<title>") || !body.includes(guide.name)) throw Error("missing named title");
     if (!/<meta\b[^>]*name=["']description["'][^>]*content=["'][^"']{50,}["']/i.test(body)) {
       throw Error("missing substantial SSR meta description");
