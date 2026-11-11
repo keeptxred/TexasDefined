@@ -188,9 +188,15 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
       "Working and reconstructed studio spaces make the collection more understandable than a display of disconnected electronics. Visitors can see the physical environment of radio and television production and encounter unusual artifacts tied to major moments in American media history.",
       "Paired with the East Texas Oil Museum, this museum gives Kilgore two very different specialized attractions. They fit naturally into a day built around the city's oil-boom growth, downtown history and an East Texas road trip.",
       "The museum also serves as a setting for the statewide radio profession's living history rather than merely displaying obsolete equipment. The Texas Radio Hall of Fame selected 20 broadcasters for its 2026 induction class and scheduled the ceremony here on November 7, 2026. Among them was East Texas personality Diane Day, who built a four-decade career on KYKX and KKUS; the Hall's announcement independently confirms her selection, and KLTV's November 5 interview describes her ongoing broadcasting work. The event is historical, not an ongoing daily show or guaranteed permanent Diane Day exhibit; consult the Hall's official class list and the museum calendar for any future induction program.",
-      "Official 2026 Texas Radio Hall of Fame inductees and original announcement: https://www.trhof.net/texas-radio-hall-of-fame-announces-2026-inductees/ . Independently reported Diane Day career context: https://www.kltv.com/2026/11/05/east-texas-dj-be-inducted-into-texas-radio-hall-fame/ . Visitor hours and exhibit availability are governed separately by the museum operator at https://texasbroadcastmuseum.com/ ."
     ],
     officialUrl: "https://texasbroadcastmuseum.com/",
+    visitorFaqs: [
+      {
+        question: "Does the Texas Broadcast Museum host Texas Radio Hall of Fame ceremonies?",
+        answer: "The Hall scheduled its November 7, 2026 induction at the Kilgore museum; East Texas radio personality Diane Day was among its 20 new honorees. The event is historical, not a promise of regular ceremonies or a permanent Diane Day exhibit. Verify future programs directly with the Hall and museum.",
+        sourceUrl: "https://www.trhof.net/texas-radio-hall-of-fame-announces-2026-inductees/",
+      },
+    ],
     managingAuthority: "Texas Museum of Broadcasting & Communications / Chalk Hill Educational Media",
     address: "416 E Main St, Kilgore, TX 75662",
     sourceCheckedAt: SOURCE_CHECKED_AT,
