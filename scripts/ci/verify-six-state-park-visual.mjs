@@ -96,6 +96,21 @@ try{
      const faq=page.locator('section[aria-labelledby="destination-visitor-faqs"]');
      await faq.waitFor({state:"visible",timeout:15000});
      await faq.screenshot({path:output+"/mobile-"+slug+"-faq.png",animations:"disabled",timeout:30000});
+     // Capture must represent the same source-backed section that passed DOM
+     // acceptance. A hydration remount after the first check is not a pass.
+     const afterCapture=await page.evaluate(()=>{
+      const heading=document.querySelector("#destination-visitor-faqs");
+      const section=heading?.closest('section[aria-labelledby="destination-visitor-faqs"]');
+      const rows=[...(section?.querySelectorAll("dl > div")||[])];
+      const sourced=rows.filter(row=>{
+       const q=row.querySelector("dt")?.textContent?.trim()||"";
+       const a=row.querySelector("dd")?.textContent?.trim()||"";
+       return q.length>=12 && a.length>=25 && !!row.querySelector('dd a[href^="https://tpwd.texas.gov/"]');
+      }).length;
+      const box=section?.getBoundingClientRect();
+      return {visible:!!box&&box.width>0&&box.height>0,sourced};
+     });
+     if(!afterCapture.visible||afterCapture.sourced<3)throw new Error("FAQ disappeared or lost TPWD-sourced answers after mobile screenshot");
     }
     results.push({slug,viewport:viewport.label,status:"passed",...facts});
     console.log("PASS "+viewport.label+" "+slug+" image="+facts.heroNaturalWidth+" overflow="+(facts.documentWidth-facts.viewport));
