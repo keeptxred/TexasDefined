@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { isFishingCurrentlyClosed } from "./operational-closures";
 import { fishingTechniqueAuthorityContent } from "./technique-authority-content";
 import { selectFeaturedLakeApplications } from "./technique-content-quality";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
@@ -108,7 +109,7 @@ export async function loadFishingTechniqueDirectoryServer() {
     fishingPlatform.lakeTechniques.list(fishingScope),
   ]);
 
-  const lakes = allLakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
+  const lakes = allLakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug) && !isFishingCurrentlyClosed(lake.slug));
   const lakeById = new Map(lakes.map((lake) => [lake.id, lake]));
   const speciesById = new Map(species.map((fish) => [fish.id, fish]));
   const allowedSlugs = new Set<string>(PUBLISHED_FISHING_TECHNIQUE_SLUGS);

@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { isFishingCurrentlyClosed } from "./operational-closures";
 import { getFishingFishImage } from "./image-library";
 import { fishSpeciesFamilies } from "./species-catalog";
 import {
@@ -116,7 +117,7 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
 
   const allSpecies = await fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 });
 
-  const lakeById = new Map(allLakes.map((lake) => [lake.id, lake]));
+  const lakeById = new Map(allLakes.filter((lake) => !isFishingCurrentlyClosed(lake.slug)).map((lake) => [lake.id, lake]));
   const speciesRelations = lakeSpecies.filter((relation) => relation.speciesId === species.id);
   const lakes = speciesRelations
     .filter((relation) => lakeById.has(relation.lakeId))

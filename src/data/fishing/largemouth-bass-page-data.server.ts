@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { isFishingCurrentlyClosed } from "./operational-closures";
 import { fishingFoundationAnchor } from "./slugs";
 import { largemouthBassEditorialProfile } from "./species-profiles";
 import { fishingSpeciesCanonicalPath } from "./species-routing";
@@ -52,7 +53,7 @@ async function buildLargemouthBassPageData() {
       const score = qualityScore[relation.quality] + prominenceScore[relation.prominence] + (lake.featured ? 1 : 0);
       return { lake, relation, score, href: fishingFoundationAnchor("lake", lake.slug) };
     })
-    .filter((row): row is NonNullable<typeof row> => Boolean(row) && row.lake.slug !== "lake-abilene")
+    .filter((row): row is NonNullable<typeof row> => Boolean(row) && !isFishingCurrentlyClosed(row.lake.slug))
     .sort((left, right) => right.score - left.score || left.lake.name.localeCompare(right.lake.name));
 
   const techniqueById = new Map(techniques.map((row) => [row.id, row]));
