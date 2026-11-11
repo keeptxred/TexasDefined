@@ -102,6 +102,8 @@ jobs:
 
       - name: Upload canonical pre-merge report
         if: always()
+        timeout-minutes: 2
+        continue-on-error: true # Diagnostic artifact transport must never mask completed required source/quality checks
         uses: actions/upload-artifact@v4
         with:
           name: premerge-validation-report
