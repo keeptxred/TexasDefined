@@ -71,6 +71,10 @@ for (const marker of [
   'https://attstadium.com/stadium-info/parking/',
   'https://www.houstontexans.com/stadium/parking-tailgating/tailgate-guidelines',
   'https://ask.fsis.usda.gov/article/What-is-the-Danger-Zone',
+  'https://baylorbears.com/sports/2019/8/23/football-directions-parking',
+  'https://tcufrogclub.com/sports/2021/11/15/football-game-day-parking.aspx',
+  'https://uhcougars.com/sports/2025/11/6/football-gameday-guide',
+  'https://smumustangs.com/sports/2026/10/29/boulevard-policies',
 ]) {
   assert(tailgatingLazy.includes(marker), `Texas tailgating visitor/source authority missing marker: ${marker}`);
 }
