@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { isSubstantiveTexasDefinedDraftSource, MIN_ORIGINAL_SOURCE_WORDS, MIN_ORIGINAL_SOURCE_CHARS } from './texasdefined-draft-evidence-gate.mjs';
 const body = Array.from({length:420},(_,i)=>'Verified original visitor source fact number '+i+' provides location-specific information.').join(' ');
-const story=(title,extracted_body=body)=>({title,extracted_body});
+const story=(title,extracted_body=body)=>({title,extracted_body,source_count:2,link:'https://example.org/report'});
 test('requires substantive independently extracted source content before 750-word generation',()=>{
   assert.equal(MIN_ORIGINAL_SOURCE_WORDS,320);
   assert.equal(MIN_ORIGINAL_SOURCE_CHARS,2200);
@@ -18,6 +18,7 @@ test('routine results, game previews, thin schedules and national explainers can
     'Cooper Flagg has 25 points, career-best 12 assists as Dallas Mavericks beat Nets',
     'Dallas Cowboys triumph over Indianapolis Colts in Sunday afternoon showdown',
     'What is Diwali, the Festival of Lights, and how is it celebrated?',
+    'Where to take out-of-town guests in Dallas: The ultimate local dining and drinking guide',
   ]) assert.equal(isSubstantiveTexasDefinedDraftSource(story(title)),false,title);
 });
 test('does not block valid travel, arts, regional competition or science independently documented stories',()=>{
@@ -34,6 +35,7 @@ test('does not block valid travel, arts, regional competition or science indepen
 test('one source sports promotional report is not sufficient original research for a long-form automatically generated story',()=>{
   assert.equal(isSubstantiveTexasDefinedDraftSource({...story('The Texans Team Identity DeMeco Ryans Has Been Waiting For'),target_section:'Sports',source_count:1}), false);
   assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Texas high school championship story with independent confirmation'),target_section:'Sports',source_count:2}), true);
-  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Houston museum opens rare meteorite exhibit'),target_section:'Explore',source_count:1}), true);
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Houston museum opens rare meteorite exhibit'),target_section:'Explore',source_count:1,link:'https://museum.utexas.edu/news/exhibit'}), true);
+  assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Houston museum opens rare meteorite exhibit'),target_section:'Explore',source_count:1,link:'https://example.com/local-report'}), false);
   assert.equal(isSubstantiveTexasDefinedDraftSource({...story('Texas football program launches another single-source opinion'),target_section:'Sports'}), false);
 });
