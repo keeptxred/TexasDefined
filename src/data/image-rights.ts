@@ -56,6 +56,18 @@ export const imageRightsFor = (src: string) => {
     try { parsed = new URL(original, "https://texasdefined.com"); }
     catch { break; }
     if (parsed.hostname === "commons.wikimedia.org") {
+      // The precise Britten USA photograph used on the unusual-businesses guide.
+      // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
+      // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
+      // Never attach these rights to other photos, even from the same creator.
+      if (decodeURIComponent(parsed.pathname) === "/wiki/Special:Redirect/file/Britten USA.jpg") {
+        return {
+          license: "https://creativecommons.org/licenses/by/2.0/",
+          creator: { "@type": "Person", name: "Dustin Moore" },
+          copyrightNotice: "© Dustin Moore",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Britten_USA.jpg",
+        } as const;
+      }
       if (parsed.pathname === `/wiki/Special:Redirect/file/${blueBellFile}`) {
         return {
           license: "https://creativecommons.org/licenses/by/4.0/",
