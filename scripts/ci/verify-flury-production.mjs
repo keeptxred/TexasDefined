@@ -18,7 +18,7 @@ const pages = [
       "Did Praha’s palm trees find their way into Flury’s paintings?",
       "Praha, High Hill and Moravia: three different painting campaigns",
       "the proposed local inspiration remains a hypothesis",
-      "comparative research added November 11, 2026",
+      "botanical and inter-church research sources cross-checked November 11, 2026",
       "https://w3.biosci.utexas.edu/prc/Sabal/Praha-hist.html",
       "https://npgallery.nps.gov/AssetDetail/NRIS/83003138",
       "A church made by more than one pair of hands",
