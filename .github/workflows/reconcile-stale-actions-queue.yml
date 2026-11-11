@@ -72,6 +72,20 @@ jobs:
           else
             node scripts/ci/reconcile-stale-actions-queue.mjs --cancel
           fi
+      - name: Restore McAllen visual evidence when its abandoned run is cancelled
+        if: success()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          report=artifacts/actions-queue-recovery/report.json
+          if jq -e '.cancelled[] | select(.id == 43095110357)' "$report" >/dev/null; then
+            echo "Old McAllen run was superseded. Dispatch one fresh two-viewport Chrome QA against current main."
+            gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/mcallen-day-trips-visual-qa.yml/dispatches" -f ref=main
+          else
+            echo "Old McAllen run not cancelled in this pass; preserving current workflow state."
+          fi
       - name: Preserve machine-readable reconciliation results
         if: always()
         continue-on-error: true
