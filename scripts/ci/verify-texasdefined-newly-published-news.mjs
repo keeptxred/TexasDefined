@@ -6,6 +6,8 @@
 const root = 'https://texasdefined.com';
 const input = process.argv[2] || '';
 const candidate = new URL(input, root);
+const expectedSource = process.argv[3] || '';
+if (!/^https:\/\/[^\s]+$/.test(expectedSource)) throw new Error('Expected exact HTTPS original publisher URL');
 if (candidate.origin !== root || !/^\/news\/[a-z0-9-]+$/.test(candidate.pathname)) {
   throw new Error('Expected exact TexasDefined public /news/{slug} URL');
 }
@@ -26,7 +28,7 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
     const checks = {
       storyHttp200: story.ok && story.status === 200,
       storyCanonical: story.text.includes(canonical),
-      sourceAttribution: /(?:source|original report|read original)/i.test(story.text),
+      sourceAttribution: story.text.includes(expectedSource) || story.text.includes(expectedSource.replace(/&/g, '&amp;')),
       byline: /(?:byline|author)/i.test(story.text),
       articleSchema: /\\"@type\\"\s*:\s*\\"NewsArticle\\"/i.test(story.text) || /NewsArticle/i.test(story.text),
       noNoindex: !/<meta[^>]*name=[\\"']robots[\\"'][^>]*noindex/i.test(story.text),
