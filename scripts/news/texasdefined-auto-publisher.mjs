@@ -312,13 +312,24 @@ async function generateAndStoreImage(draft) {
     bytes = new Uint8Array(await response.arrayBuffer());
   }
   if (bytes.length < 10_000) throw new Error(`Generated hero is unexpectedly small (${bytes.length} bytes).`);
+  const pngMagic = [137,80,78,71,13,10,26,10];
+  if (!pngMagic.every((byte,i) => bytes[i] === byte)) {
+    throw new Error('Workers AI returned non-PNG bytes for a PNG article hero; publication blocked.');
+  }
   const path = `${draft.slug}.png`;
   await supabase(`/storage/v1/object/texasdefined-article-images/${encodeURIComponent(path)}`, {
     method: 'POST',
     headers: { 'Content-Type': 'image/png', 'x-upsert': 'false' },
     body: bytes,
   });
-  return `${SUPABASE_URL}/storage/v1/object/public/texasdefined-article-images/${encodeURIComponent(path)}`;
+  const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/texasdefined-article-images/${encodeURIComponent(path)}`;
+  const proof = await fetch(publicUrl, { signal: AbortSignal.timeout(20_000) });
+  const verifiedType = String(proof.headers.get('content-type') || '').toLowerCase();
+  const verifiedBytes = new Uint8Array(await proof.arrayBuffer());
+  if (!proof.ok || !verifiedType.includes('image/png') || !pngMagic.every((byte,i) => verifiedBytes[i] === byte)) {
+    throw new Error('Uploaded editorial illustration was not retrievable as a valid PNG; publication blocked.');
+  }
+  return publicUrl;
 }
 
 async function publish(item, draft, heroUrl) {
@@ -398,7 +409,7 @@ if (publishRequested && queue.length > 0) {
     const draft = await generateDraft(item, destinationRows);
     const heroUrl = await generateAndStoreImage(draft);
     const liveUrl = await publish(item, draft, heroUrl);
-    console.log(JSON.stringify({ published: true, feedId: item.id, slug: draft.slug, liveUrl }));
+    console.log(JSON.stringify({ published: true, feedId: item.id, slug: draft.slug, liveUrl, sourceUrl: item.link }));
   }
 }
 
