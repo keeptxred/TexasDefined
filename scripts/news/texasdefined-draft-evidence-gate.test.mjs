@@ -18,6 +18,7 @@ test('routine results, game previews, thin schedules and national explainers can
     'Cooper Flagg has 25 points, career-best 12 assists as Dallas Mavericks beat Nets',
     'Dallas Cowboys triumph over Indianapolis Colts in Sunday afternoon showdown',
     'What is Diwali, the Festival of Lights, and how is it celebrated?',
+    'Where to take out-of-town guests in Dallas: The ultimate local dining and drinking guide',
   ]) assert.equal(isSubstantiveTexasDefinedDraftSource(story(title)),false,title);
 });
 test('does not block valid travel, arts, regional competition or science independently documented stories',()=>{
