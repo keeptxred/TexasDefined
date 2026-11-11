@@ -29,6 +29,7 @@ export const DEDICATED_EVENT_REFRESHES = [
   { path: '/events', workflow: 'sync-texas-events.yml', cadenceDays: 1 },
   { path: '/events/air-shows', workflow: 'event-authority-source-refresh.yml', cadenceDays: 1, permanentSources: true },
   { path: '/events/mardi-gras', workflow: 'sync-texas-events.yml', cadenceDays: 1 },
+  { path: '/corporate-events', workflow: 'corporate-event-source-monitor.yml', cadenceDays: 7 },
   { path: '/horse-racing', workflow: 'horse-racing-calendar-freshness.yml', cadenceDays: 7 },
   { path: '/horse-racing/:slug', workflow: 'horse-racing-calendar-freshness.yml', cadenceDays: 7 },
 ];
@@ -217,13 +218,13 @@ export function collectEventPageRefreshInventory(root = ROOT) {
   }));
   const specials = STATIC_EVENT_PAGES.map(event => ({ ...event, kind: event.kind }));
   const routes = fs.readdirSync(path.join(root, 'src/routes'))
-    .filter(file => /^(?:events?|holiday)\.|^texas-state-fair(?:\.|$)|^horse-racing(?:_|\.)/.test(file))
+    .filter(file => /^(?:events?|holiday)\.|^texas-state-fair(?:\.|$)|^horse-racing(?:_|\.)|^corporate-events\./.test(file))
     .filter(file => /\.tsx$/.test(file) && !/\.lazy\.tsx$/.test(file));
   const covered = new Set([
     'events.tsx', 'events.index.tsx', 'events.$collection.tsx',
     'events.air-shows.tsx', 'events.mardi-gras.tsx', 'event.$slug.tsx',
     'holiday.enchant-christmas-arlington.tsx', 'holiday.magical-winter-lights.tsx',
-    'texas-state-fair.tsx', 'horse-racing.tsx', 'horse-racing_.$slug.tsx',
+    'texas-state-fair.tsx', 'horse-racing.tsx', 'horse-racing_.$slug.tsx', 'corporate-events.tsx',
   ]);
   const uncoveredRoutes = routes.filter(file => !covered.has(file));
   return { permanent, collections, specials, dedicated: DEDICATED_EVENT_REFRESHES,
@@ -243,7 +244,7 @@ export function validateEventRefreshCoverage(inventory) {
     covered.add(e.path);
   }
   for (const p of ['/events', '/events/air-shows', '/events/mardi-gras', '/texas-state-fair',
-    '/holiday/enchant-christmas-arlington', '/holiday/magical-winter-lights']) {
+    '/holiday/enchant-christmas-arlington', '/holiday/magical-winter-lights', '/corporate-events']) {
     if (!covered.has(p)) errors.push('Missing explicit event coverage: ' + p);
   }
   return errors;
