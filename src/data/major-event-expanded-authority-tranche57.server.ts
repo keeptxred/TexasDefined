@@ -113,7 +113,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2026-12-23",
     venue: "Zilker Metropolitan Park",
     officialUrl: "https://austintrailoflights.org/event-faqs",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "Austin's Trail of Lights fills Zilker Park with illuminated displays, family-friendly traditions and a citywide holiday atmosphere. The most important decision is not which decorations to see, but how the selected night changes admission and how visitors reach the car-restricted park.",
     quickFacts: [
       {
@@ -140,7 +140,7 @@ const records: ChristmasAuthorityRecord[] = [
     planningSections: [
       {
         title: "Pick a free or paid evening before buying",
-        body: "The official 2026 FAQ makes general admission free for all ages on December 10, 11 and 13–17. On December 12 and 18–23, regular general admission costs $8 for guests ages 12 and older, plus taxes and fees. Free general admission does not automatically include upgrades."
+        body: "The operator's current 2026 FAQ confirms public admission December 10–23 from 7–10 p.m. General admission is free for all ages December 10, 11 and 13–17. On December 12 and 18–23, regular admission is $8 for guests ages 12 and up, plus applicable taxes and fees. ZIP and Platinum products can enter from 6 p.m.; free general admission never includes those upgrades. The broader City of Austin event permit range begins December 4 but does not mean the public Trail is open then."
       },
       {
         title: "Compare GA, shuttle, ZIP and Platinum",
@@ -188,10 +188,10 @@ const records: ChristmasAuthorityRecord[] = [
     sources: [
       {
         label: "Austin Trail of Lights 2026 official FAQ",
-        url: "https://austintrailoflights.org/event-faqs"
+        url: "https://austintrailoflights.org/event-faqs/-2026-dates-time-gate-ticket-information-and-location"
       },
       {
-        label: "City of Austin event and access information",
+        label: "City of Austin event permit information (permit period differs from public admissions)",
         url: "https://www.austintexas.gov/ace/events/trail-lights"
       }
     ]
