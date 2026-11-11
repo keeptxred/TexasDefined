@@ -88,7 +88,7 @@ const prebuildChecks = [
   ['FOOTBALL/REVENUE', 'Verify sourced game-night action layer, sponsor hold and approved fan affiliate', 'node', ['--test', 'scripts/data/validate-football-game-night.test.mjs', 'scripts/data/validate-football-fan-affiliate.test.mjs']],
   ['CONTENT/AUTHORITY', 'Verify source-backed Harmony Eagles Batch006 and historic Batch005 evidence', 'node', ['scripts/data/validate-football-batch006-harmony.mjs']],
   ['CI/DEPLOYMENT', 'Syntax-check Harmony desktop/mobile production verifier', 'node', ['--check', 'scripts/ci/verify-football-batch006-harmony-production.mjs']],
-  ['NEWS/PUBLICATION', 'Reject stale and non-authority sources in guarded TexasDefined auto-news pipeline', 'node', ['--test', 'scripts/news/texasdefined-queue-freshness.test.mjs', 'scripts/news/texasdefined-authority-review.test.mjs']],
+  ['NEWS/PUBLICATION', 'Reject stale and non-authority sources in guarded TexasDefined auto-news pipeline', 'node', ['--test', 'scripts/news/texasdefined-queue-freshness.test.mjs', 'scripts/news/texasdefined-authority-review.test.mjs', 'scripts/news/texasdefined-published-article-proof.test.mjs']],
   ['CI/COST', 'Verify update scan scope, retired triggers and shared page fetches', 'node', ['--test', 'scripts/ci/update-scan-policy.test.mjs']],
   ['CI/COST', 'Scope Batch004 live GIS/Chrome audit to true Batch004 changes; fail closed', 'node', ['scripts/ci/should-run-football-b004.test.mjs']],
   ['CI/COST', 'Protect all six remaining local audit migrations and authority reporting', 'node', ['--test', 'scripts/ci/local-audit-migrations.test.mjs', 'scripts/ci/authority-master-issue.test.mjs']],
