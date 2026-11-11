@@ -85,3 +85,32 @@ jobs:
           if-no-files-found: warn
           retention-days: 7
 
+  prune-ancient:
+    # This is deliberately a single protected-release cleanup. Do not make
+    # future pushes or the six-hour schedule delete historical evidence.
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'Prune ancient jobless GitHub Actions runs')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify deletion safeguards and current-source conditions
+        run: node --test scripts/ci/reconcile-stale-actions-queue.test.mjs
+      - name: Remove only GitHub jobless runs older than 15 days with superseded sources
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/ci/reconcile-stale-actions-queue.mjs --ancient-only
+      - name: Preserve exact allowed deletions and protected noncandidates
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 2
+        uses: actions/upload-artifact@v4
+        with:
+          name: ancient-jobless-actions-prune-${{ github.run_id }}
+          path: artifacts/actions-queue-recovery/
+          if-no-files-found: warn
+          retention-days: 14

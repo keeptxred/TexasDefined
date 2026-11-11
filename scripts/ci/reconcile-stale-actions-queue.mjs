@@ -10,6 +10,12 @@ import { resolve } from "node:path";
 
 export const MIN_STALE_MS = 45 * 60 * 1000;
 export const SCHEDULE_EXPIRY_MS = 30 * 24 * 60 * 60 * 1000;
+export const ANCIENT_PRUNE_MIN_AGE_MS = 15 * 24 * 60 * 60 * 1000;
+export function isAncientQueuedRun(run, now) {
+  const created = Date.parse(run?.created_at ?? "");
+  return run?.status === "queued" && Number.isFinite(created) &&
+    now - created >= ANCIENT_PRUNE_MIN_AGE_MS;
+}
 
 export const ORPHANED_IN_PROGRESS_MS = 7 * 24 * 60 * 60 * 1000;
 export function classifyOrphanedInProgressRun(run, context) {
@@ -152,6 +158,7 @@ async function main() {
   const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
   const repo = process.env.GITHUB_REPOSITORY;
   const dryRun = process.argv.includes("--dry-run");
+  const ancientOnly = process.argv.includes("--ancient-only");
   if (!token || !/^[\w.-]+\/[\w.-]+$/.test(repo || ""))
     throw new Error("Missing scoped GITHUB_TOKEN or repository name");
   const api = apiFactory(repo, token);
@@ -230,14 +237,15 @@ async function main() {
   // Read the complete original queue before mutations. Pagination while
   // cancelling would skip entries as GitHub shifts its result pages.
   const queue = await listQueued(api);
-  const active = await api("/actions/runs?status=in_progress&per_page=100");
+  const active = ancientOnly ? { total_count: 0, workflow_runs: [] }
+    : await api("/actions/runs?status=in_progress&per_page=100");
   if (!Number.isInteger(active.total_count) || !Array.isArray(active.workflow_runs) ||
       active.total_count > 100 || active.total_count !== active.workflow_runs.length)
     throw new Error("Cannot establish complete bounded in-progress queue; no cancellation attempted");
   const prCache = new Map();
   const report = {
     runId: context.selfId, checkedAt: new Date(context.now).toISOString(),
-    dryRun, mainSha, successfulDeployment: { id: deployed.id, sha: deployed.head_sha,
+    dryRun, ancientOnly, mainSha, successfulDeployment: { id: deployed.id, sha: deployed.head_sha,
       completed: deployed.updated_at }, originalQueued: queue.length, orphanedInProgressScanned: active.workflow_runs.length,
     cancelled: [], deleted: [], selectedDryRun: [], protected: [], errors: [],
     platformBlocked: null,
@@ -245,8 +253,14 @@ async function main() {
 
   // Probe the user's concrete stuck McAllen run first. If the backend rejects
   // BOTH cancellation and deletion, stop rather than repeat 125 identical 409s.
-  queue.sort((a, b) => (a.id === 43095110357 ? -1 : b.id === 43095110357 ? 1 : 0));
+  queue.sort((a, b) => ancientOnly
+    ? Date.parse(a.created_at) - Date.parse(b.created_at)
+    : (a.id === 43095110357 ? -1 : b.id === 43095110357 ? 1 : 0));
   for (const run of queue) {
+    if (ancientOnly && !isAncientQueuedRun(run, context.now)) {
+      report.protected.push({ id: run.id, reason: "under-15-days-or-not-queued", event: run.event });
+      continue;
+    }
     let pr = null;
     if (run.event === "pull_request" && Array.isArray(run.pull_requests) &&
         run.pull_requests.length === 1 && Number.isInteger(run.pull_requests[0].number)) {

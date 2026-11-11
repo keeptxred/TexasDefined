@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/Container";
 import { fishingTechniqueAuthorityContent, type FishingTechniqueAuthorityContent } from "@/data/fishing/technique-authority-content";
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
+import { fishingTechniqueFieldGuide } from "@/data/fishing/technique-field-guide";
 import { isGenericLakeTechniqueSummary } from "@/data/fishing/technique-content-quality";
 import { fishingTechniqueImages } from "@/data/fishing/technique-images";
 import { FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "@/data/fishing/habitat-guides";
@@ -12,6 +13,7 @@ import { FISHING_TECHNIQUES_DIRECTORY_PATH } from "@/data/fishing/technique-rout
 export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfileData }) {
   const { technique } = data;
   const guide = fishingTechniqueGuideContent[technique.slug];
+  const fieldGuide = fishingTechniqueFieldGuide[technique.slug];
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const images = fishingTechniqueImages[technique.slug];
   const relatedTechniques = technique.slug in relatedFishingTechniques ? relatedFishingTechniques[technique.slug as keyof typeof relatedFishingTechniques] : [];
@@ -61,7 +63,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-3" aria-label="Technique coverage">
         <div><p className="eyebrow text-muted-foreground">Lake guides</p><p className="mt-2 font-display text-4xl">{data.lakeCount}</p></div>
         <div><p className="eyebrow text-muted-foreground">Verified species</p><p className="mt-2 font-display text-4xl">{data.species.length}</p></div>
-        <div><p className="eyebrow text-muted-foreground">Documented seasons</p><p className="mt-2 font-display text-4xl">{data.seasons.length}</p></div>
+        <div><p className="eyebrow text-muted-foreground">Documented seasons</p><p className="mt-2 font-display text-4xl">{data.seasons.includes("year-round") ? 4 : data.seasons.filter((season) => season !== "year-round").length}</p><p className="mt-1 text-xs text-muted-foreground">{data.seasons.includes("year-round") ? "Year-round coverage spans four seasons, not five" : "Season-specific records"}</p></div>
       </section>
 
       {guide ? <>
@@ -124,6 +126,20 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
         {technique.slug === "soft-plastics" ? <SoftPlasticsRiggingVisual /> : null}
         {authority?.diagram ? <TechniqueDiagram diagram={authority.diagram} /> : null}
+
+        {fieldGuide ? <section className="border-y border-border py-12" aria-labelledby="field-decisions">
+          <p className="eyebrow text-primary">Field decisions</p>
+          <h2 id="field-decisions" className="mt-3 font-display text-4xl sm:text-5xl">{fieldGuide.title}</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{fieldGuide.intro} These are editorial starting points, not field-test results or live bite forecasts.</p>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {fieldGuide.decisions.map((row) => <article key={row.situation} className="border-t border-border py-5">
+              <h3 className="font-display text-2xl">{row.situation}</h3>
+              <p className="mt-3 text-sm leading-7"><strong>Start:</strong> {row.start}</p>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong>Adjust:</strong> {row.adjust}</p>
+              <p className="mt-2 text-xs leading-6 text-muted-foreground"><strong>Watch for:</strong> {row.caution}</p>
+            </article>)}
+          </div>
+        </section> : null}
 
         <section id="how-to-fish-it" className="py-12" aria-labelledby="how-to-fish-heading">
           <div className="grid gap-10 lg:grid-cols-2">
@@ -209,6 +225,16 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             <a href={fishingFoundationAnchor("lake", row.lake.slug)} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {row.lake.name} fishing guide →</a>
           </article>)}
         </div>
+        <details className="mt-8 border-y border-border py-6">
+          <summary className="cursor-pointer font-semibold text-primary">Explore all {data.profileCount} source-backed lake relationships (alphabetical)</summary>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">The full registry is separate from the distinct editorial examples above. A documented method is not a real-time bite report. Confirm access and local rules at the lake.</p>
+          <ul className="mt-6 grid gap-x-8 md:grid-cols-2">
+            {data.allProfiles.map((row) => <li key={row.profile.id} className="flex flex-wrap items-center justify-between gap-3 border-t border-border py-3 text-sm">
+              <a href={fishingFoundationAnchor("lake", row.lake.slug)} className="font-semibold underline decoration-primary/40 underline-offset-4">{row.lake.name}</a>
+              <span className="text-xs text-muted-foreground">{row.profile.seasons.map(titleCase).join(" · ")}</span>
+            </li>)}
+          </ul>
+        </details>
       </section>
 
       <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]">

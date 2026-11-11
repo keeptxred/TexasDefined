@@ -81,8 +81,8 @@ if (files.profileRoute.includes('from "@/data/fishing/species-guide-data.server"
 for (const eagerHeadToken of ["buildMeta", "canonicalLink", "texasDefinedBrand", '"@type":']) if (files.profileRoute.includes(eagerHeadToken)) throw new Error(`Fishing Batch 14 validation failed: eager SEO/schema payload leaked into dynamic species route (${eagerHeadToken}).`);
 
 requireText(files.directoryServer, "isCompleteFishingSpeciesSlug(row.slug)", "directory full-guide badges must use shared completion gate");
-requireText(files.directoryComponent, "Every published fish has a guide", "directory all-species guide promise missing");
-requireText(files.directoryComponent, "Every published fish record has a sourced species page", "directory source-backed growth policy missing");
+requireText(files.directoryComponent, "Directory records versus standalone guides", "directory all-species guide promise missing");
+requireText(files.directoryComponent, "Every published fish has a sourced directory entry", "directory source-backed growth policy missing");
 
 for (const token of ["buildLargemouthBassHead", '"@type": "WebPage"', '"@type": "BreadcrumbList"', "canonicalPath"]) requireText(files.bassServer, token, `flagship server-head optimization missing ${token}`);
 for (const token of ['createFileRoute("/fishing/species/largemouth-bass")', "head: ({ loaderData }) => loaderData?.head"]) requireText(files.bassRoute, token, `flagship critical route contract missing ${token}`);

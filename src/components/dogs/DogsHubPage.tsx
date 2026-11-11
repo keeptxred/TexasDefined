@@ -3,7 +3,7 @@ import { Container } from "@/components/layout/Container";
 import type { DogBreedSummary, DogDesignCollection } from "@/data/texas-dogs";
 
 const routeApi = getRouteApi("/dogs/{-$breed}");
-const description = "Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.";
+const description = "Practical Texas dog life starts with safety and access: plan heat-aware walks, state-park trips, Gulf Coast outings, adoption and responsible breed choices. Breed humor and creative ideas are a separate, optional part of the magazine.";
 const dogDeskStories = [
   {
     slug: "texas-dog-heat-safety",
@@ -96,30 +96,13 @@ export default function DogsHubPage() {
           <span aria-current="page" className="text-foreground">Dogs</span>
         </nav>
         <p className="eyebrow mt-10 text-primary">Texas Dogs Defined</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Big personalities. Bigger attitudes. Dogs, Texas style.</h1>
+        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas dog life: parks, heat, travel and breeds</h1>
         <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
-        <p className="mt-5 max-w-3xl font-display text-2xl leading-8">Every Dog Has a Story. We Define the Fun Ones.</p>
+        <p className="mt-5 max-w-3xl font-display text-2xl leading-8">Better Texas days for dogs and their people.</p>
       </Container>
     </section>
 
-    <section className="border-b border-border">
-      <Container className="py-12 sm:py-16">
-        <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Start with the breed</p>
-          <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">The personality comes first</h2>
-          <p className="mt-4 text-base leading-7 text-muted-foreground">Each breed page is a permanent home for recognizable behavior, Texas dog life, stories and future design ideas. The editorial subject comes first, so the page remains useful even before a single product exists.</p>
-        </div>
-        <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {breeds.map((breed) => <Link key={breed.slug} to="/dogs/{-$breed}" params={{ breed: breed.slug }} className="group bg-background p-6 sm:p-7">
-            <p className="eyebrow text-muted-foreground">{breed.shortName} Defined</p>
-            <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{breed.name}</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{breed.deck}</p>
-            <span className="eyebrow mt-6 inline-block text-primary">Meet the breed →</span>
-          </Link>)}
-        </div>
-      </Container>
-    </section>
-
+    <section className="border-b border-border bg-background"><Container className="py-10 sm:py-14"><h2 className="font-display text-3xl">Plan a safe Texas dog outing in four checks</h2><ol className="mt-6 grid gap-5 md:grid-cols-2"><li className="border-t border-border pt-4"><strong>1. Heat and pavement.</strong><p className="mt-2 text-sm leading-7 text-muted-foreground">Move walks earlier or later, test pavement, carry water and choose a shorter outing or indoor option when conditions are unsafe.</p></li><li className="border-t border-border pt-4"><strong>2. Actual pet access.</strong><p className="mt-2 text-sm leading-7 text-muted-foreground">Check the specific park, trail, beach or campground; a destination called dog-friendly may still restrict swimming, buildings or particular trails.</p></li><li className="border-t border-border pt-4"><strong>3. Wildlife and water.</strong><p className="mt-2 text-sm leading-7 text-muted-foreground">Check algae alerts, current, wildlife, leash requirements and whether drinking water is available before visiting a lake or coast.</p></li><li className="border-t border-border pt-4"><strong>4. Backup plan.</strong><p className="mt-2 text-sm leading-7 text-muted-foreground">Know where to cool down, keep a leash and waste bags handy, and plan veterinary help for emergencies instead of leaving pets in vehicles.</p></li></ol><p className="mt-6 text-sm leading-7 text-muted-foreground">Our guides distinguish official statewide rules from local restrictions. Use the source links within each article before travel; these editorial checklists are not individualized veterinary advice.</p></Container></section>
     <section className="border-b border-border bg-surface/40">
       <Container className="py-12 sm:py-16">
         <div className="max-w-3xl">
@@ -141,7 +124,25 @@ export default function DogsHubPage() {
     <section className="border-b border-border">
       <Container className="py-12 sm:py-16">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">The shirt universe</p>
+          <p className="eyebrow text-primary">Choosing a breed</p>
+          <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">The personality comes first</h2>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">Every breed has different activity, grooming and climate considerations. Compare practical ownership guidance and linked American Kennel Club breed profiles alongside the lighter dog-culture stories; each individual dog still needs its own veterinary advice.</p>
+        </div>
+        <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {breeds.map((breed) => <Link key={breed.slug} to="/dogs/{-$breed}" params={{ breed: breed.slug }} className="group bg-background p-6 sm:p-7">
+            <p className="eyebrow text-muted-foreground">{breed.shortName} Defined</p>
+            <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{breed.name}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{breed.deck}</p>
+            <span className="eyebrow mt-6 inline-block text-primary">Meet the breed →</span>
+          </Link>)}
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border">
+      <Container className="py-12 sm:py-16">
+        <div className="max-w-3xl">
+          <p className="eyebrow text-primary">Creative ideas · separate from care guidance</p>
           <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">One breed can support a whole shelf of ideas</h2>
           <p className="mt-4 text-base leading-7 text-muted-foreground">The collection structure is intentionally varied. A Labrador can have a lake concept, an office-title joke and a Texas-life design without repeating one template or relying on a generic dog-plus-state-flag formula.</p>
         </div>
@@ -158,7 +159,7 @@ export default function DogsHubPage() {
     <section>
       <Container className="py-12 sm:py-16">
         <div className="grid gap-8 lg:grid-cols-[1fr_1fr]">
-          <div><p className="eyebrow text-primary">Texas dog life</p><h2 className="mt-3 font-display text-4xl leading-tight">More than shirts</h2>
+          <div><p className="eyebrow text-primary">Texas dog life</p><h2 className="mt-3 font-display text-4xl leading-tight">Useful guidance, not just merchandise</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">Texas Dogs Defined is built to grow into porch dogs, road trips, lake weekends, parks, events, adoption resources and practical Texas dog-life coverage. Merchandise can eventually live inside that useful editorial world, never the other way around.</p>
           </div>
           <div className="border border-border p-6 sm:p-8">

@@ -32,7 +32,7 @@ export const Route = createFileRoute(canonicalPath)({
               headline: title,
               description,
               url: pageUrl,
-              dateModified: "2026-08-30",
+              dateModified: "2026-11-11",
               articleSection: "Texas Sports & Game Day",
               isPartOf: { "@id": `${origin}/#website` },
               mainEntity: { "@id": `${pageUrl}#venues` },

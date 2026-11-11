@@ -1,5 +1,8 @@
 export const FISHING_REGULATIONS_PATH = "/fishing/regulations";
-export const FISHING_REGULATIONS_VERIFIED_AT = "2026-08-14";
+export const FISHING_REGULATIONS_VERIFIED_AT = "2026-11-11";
+export const FISHING_REGULATORY_YEAR = "September 1, 2026 – August 31, 2027";
+export const FISHING_REGULATORY_YEAR_END = "2027-08-31";
+export const TPWD_GENERAL_FISHING_RULES_URL = "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/general-fishing-regulations";
 
 export const TPWD_FISHING_REGULATIONS_URL = "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/";
 export const TPWD_FISHING_LICENSES_URL = "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/fishing-licenses-stamps-tags-packages";

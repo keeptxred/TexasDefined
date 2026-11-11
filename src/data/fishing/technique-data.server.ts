@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { isFishingCurrentlyClosed } from "./operational-closures";
 import { fishingTechniqueAuthorityContent } from "./technique-authority-content";
 import { selectFeaturedLakeApplications } from "./technique-content-quality";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
@@ -9,6 +10,7 @@ import { fishingTechniqueImages, isFishingTechniqueHeroReady } from "./technique
 import {
   FISHING_TECHNIQUES_DIRECTORY_PATH,
   FISHING_TECHNIQUES_VERIFIED_AT,
+  FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT,
   PUBLISHED_FISHING_TECHNIQUE_SLUGS,
   fishingTechniqueCanonicalPath,
 } from "./technique-routing";
@@ -64,7 +66,7 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   const imageReady = isFishingTechniqueHeroReady(technique.slug);
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const faq = authority?.faq ?? [];
-  const dateModified = newestDate([technique.verifiedAt, ...featuredSources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
+  const dateModified = newestDate([FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT, technique.verifiedAt, ...featuredSources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -108,7 +110,7 @@ export async function loadFishingTechniqueDirectoryServer() {
     fishingPlatform.lakeTechniques.list(fishingScope),
   ]);
 
-  const lakes = allLakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
+  const lakes = allLakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug) && !isFishingCurrentlyClosed(lake.slug));
   const lakeById = new Map(lakes.map((lake) => [lake.id, lake]));
   const speciesById = new Map(species.map((fish) => [fish.id, fish]));
   const allowedSlugs = new Set<string>(PUBLISHED_FISHING_TECHNIQUE_SLUGS);
@@ -149,6 +151,10 @@ export async function loadFishingTechniqueDirectoryServer() {
         technique,
         canonicalPath: fishingTechniqueCanonicalPath(technique.slug),
         profileCount: profiles.length,
+        allProfiles: profiles.map(({ profile, lake }) => ({
+          profile: { id: profile.id, seasons: profile.seasons },
+          lake: { name: lake.name, slug: lake.slug },
+        })),
         featuredProfiles,
         featuredSources,
         species: relatedSpecies,
