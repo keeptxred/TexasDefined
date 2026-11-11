@@ -4,6 +4,7 @@ import { isCurrentTexasDefinedAutoNewsSource } from './texasdefined-queue-freshn
 import { isTexasDefinedDirectEditorialSource } from './texasdefined-editorial-source-eligibility.mjs';
 import { isSubstantiveTexasDefinedDraftSource } from './texasdefined-draft-evidence-gate.mjs';
 import { cooldownFeedIds } from './texasdefined-source-hydration-backoff.mjs';
+import { reviewTexasDefinedAuthorityDraft } from './texasdefined-authority-review.mjs';
 
 const SUPABASE_URL = String(process.env.KEEP_TX_RED_SUPABASE_URL || '').replace(/\/$/, '');
 const SUPABASE_KEY = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
@@ -73,7 +74,7 @@ function words(value) {
   return String(value).trim().split(/\s+/).filter(Boolean).length;
 }
 
-function validateDraft(draft, allowedDestinationSlugs) {
+function validateDraft(draft, allowedDestinationSlugs, source) {
   const errors = [];
   if (String(draft.title || '').trim().length < 20) errors.push('title is too short');
   if (String(draft.dek || '').trim().length < 80) errors.push('dek is too short');
@@ -86,9 +87,11 @@ function validateDraft(draft, allowedDestinationSlugs) {
   if ((draft.body || []).some((block) => !block || !validTypes.has(block.type) || (block.type === 'list' ? !Array.isArray(block.items) : typeof block.text !== 'string'))) errors.push('body contains an invalid block');
   const validCategories = new Set(['lakes-rivers','major-springs','state-parks','national-parks','caverns','beaches-coast','historic-sites','road-trips','small-towns','food-bbq','outdoors','sports','events','texas-history','moving-to-texas','home-garden','real-estate','guides']);
   if (!validCategories.has(draft.category)) errors.push('category is invalid');
-  if (!Number.isInteger(draft.qualityScore) || draft.qualityScore < 85 || draft.qualityScore > 100) errors.push('qualityScore must be 85-100');
+  if (!Number.isInteger(draft.qualityScore) || draft.qualityScore < 95 || draft.qualityScore > 100) errors.push('qualityScore must be 95-100');
   if (String(draft.heroAlt || '').trim().length < 20) errors.push('heroAlt is too short');
-  if (errors.length) throw new Error(`Generated draft rejected: ${errors.join('; ')}`);
+  const authority = reviewTexasDefinedAuthorityDraft(draft, source, allowedDestinationSlugs);
+  errors.push(...authority.errors);
+  if (errors.length) throw new Error(`Generated draft rejected: ${[...new Set(errors)].join('; ')}`);
 }
 
 async function hydrateExactFeed() {
@@ -277,7 +280,7 @@ async function destinations() {
 
 async function generateDraft(item, destinationRows) {
   const destinationContext = destinationRows.map((row) => ({ slug: row.slug, name: row.name, summary: row.summary, region: row.region }));
-  const prompt = `Create one original TexasDefined lifestyle/editorial article using only the verified source material below. Do not invent facts, quotations, dates, prices, access conditions or attribution. The site is not political breaking news. Return JSON only with: title, dek, category, region, tags (3-8), body (8-14 blocks using {type:"heading"|"paragraph"|"list", text or items}), relatedDestinations (2-5 exact slugs from the supplied catalog), relatedCollections (array), heroPrompt, heroAlt, qualityScore (85-100 only if every requirement is satisfied). Body must contain at least 750 useful words, identify the source, explain Texas relevance, and tell readers to verify changing conditions with the official source.\n\nSOURCE:\n${JSON.stringify({ title: item.title, source: item.source, url: item.link, description: item.description, extractedBody: item.extracted_body }, null, 2)}\n\nVERIFIED INTERNAL DESTINATIONS:\n${JSON.stringify(destinationContext)}`;
+  const prompt = `Create one original TexasDefined lifestyle/editorial article using only the verified source material below. Do not invent facts, quotations, dates, prices, access conditions or attribution. The site is not political breaking news. Return JSON only with: title, dek, category, region, tags (3-8), body (8-14 blocks using {type:"heading"|"paragraph"|"list", text or items}), relatedDestinations (2-5 exact slugs from the supplied catalog), relatedCollections (array), heroPrompt, heroAlt, qualityScore (95-100 only when all evidence, originality, attribution, practical detail, structure and image honesty requirements pass). Body must contain at least 750 genuinely useful, distinct, source-grounded words with at least three informative headings and four paragraphs each 55+ words. Explicitly name and attribute the original publisher within the body. Never copy source prose, fabricate interviews, claim to have visited, invent facts, add generic filler, or use uncited assertions. If the evidence cannot support 750 original words, return an error JSON rather than manufacture an article. The heroPrompt must describe a NONPHOTOGRAPHIC editorial illustration, clearly distinct from an actual venue photograph, and heroAlt must explicitly say illustration. Explain Texas relevance and changing conditions.\n\nSOURCE:\n${JSON.stringify({ title: item.title, source: item.source, url: item.link, description: item.description, extractedBody: item.extracted_body }, null, 2)}\n\nVERIFIED INTERNAL DESTINATIONS:\n${JSON.stringify(destinationContext)}`;
   const response = await workersAi(TEXT_MODEL, {
     messages: [
       { role: 'system', content: 'You are the Texas Defined Editorial Desk. Follow the supplied facts and JSON contract exactly.' },
@@ -288,14 +291,14 @@ async function generateDraft(item, destinationRows) {
   });
   const envelope = await response.json();
   const draft = parseJson(envelope?.result?.response || '');
-  validateDraft(draft, new Set(destinationRows.map((row) => row.slug)));
+  validateDraft(draft, new Set(destinationRows.map((row) => row.slug)), item);
   draft.slug = `${new Date(item.pub_date || Date.now()).toISOString().slice(0, 10)}-${slugify(draft.title)}`;
   return draft;
 }
 
 async function generateAndStoreImage(draft) {
   const response = await workersAi(IMAGE_MODEL, {
-    prompt: `${draft.heroPrompt}. Photorealistic natural Texas editorial image, wide 16:9 composition, no text, no logo, no watermark, no recognizable private person.`,
+    prompt: `${draft.heroPrompt}. Clearly illustrated, non-photographic editorial artwork, wide 16:9 composition. Never depict a purported real event, identifiable venue entrance, specific individual, official map, logo, or real photograph. No text or watermark.`,
     steps: 4,
   });
   const type = response.headers.get('content-type') || '';
@@ -328,7 +331,7 @@ async function publish(item, draft, heroUrl) {
     p_region: draft.region || '',
     p_hero_url: heroUrl,
     p_hero_alt: draft.heroAlt,
-    p_hero_credit: 'Generated editorial image · Cloudflare Workers AI',
+    p_hero_credit: 'AI-generated editorial illustration · Not a documentary photograph · Cloudflare Workers AI',
     p_author_id: 'a-hollis',
     p_tags: draft.tags,
     p_body_json: draft.body,
