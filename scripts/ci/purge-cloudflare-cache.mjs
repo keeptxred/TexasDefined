@@ -50,6 +50,21 @@ async function discoverImagePurgeUrls() {
 const generatedDiscoverImageUrls = await discoverImagePurgeUrls();
 
 const alwaysPurgeUrls = [
+  // Protected attraction PR #7014 changes shared route metadata, city discovery,
+  // county visitor links and image rights. Invalidate exactly these canonical
+  // pages after successful Worker replacement, never the whole zone.
+  ...[
+    "/destination/san-antonio-japanese-tea-garden",
+    "/destination/fort-worth-water-gardens",
+    "/destination/houston-botanic-garden",
+    "/city/san-antonio",
+    "/city/fort-worth",
+    "/city/houston",
+    "/county/bexar",
+    "/county/tarrant",
+    "/county/harris",
+    "/sitemap-explore.xml",
+  ].map((path) => `https://${zoneName}${path}`),
   // Google-specific indexing changes must not leave a stale primary XML sitemap
   // in Cloudflare's edge cache after the Worker deploys the new policy.
   `https://${zoneName}/sitemap.xml`,
