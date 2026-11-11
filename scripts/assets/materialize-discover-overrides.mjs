@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import sharp from "sharp";
+
 import { createHash } from "node:crypto";
 
 const entries = [
@@ -212,6 +212,9 @@ if (process.argv.includes("--fingerprint")) {
   process.exit(0);
 }
 
+// Registry-only commands are intentionally dependency-free so cache keys and
+// purge scopes remain queryable without local native modules or network access.
+const { default: sharp } = await import("sharp");
 const outDir = path.resolve("public/images/discover");
 await fs.mkdir(outDir, { recursive: true });
 const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "td-discover-"));
