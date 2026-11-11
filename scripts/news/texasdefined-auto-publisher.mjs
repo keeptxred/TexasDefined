@@ -6,6 +6,7 @@ import { isSubstantiveTexasDefinedDraftSource } from './texasdefined-draft-evide
 import { cooldownFeedIds } from './texasdefined-source-hydration-backoff.mjs';
 import { reviewTexasDefinedAuthorityDraft } from './texasdefined-authority-review.mjs';
 import { liveDestinationSlugs, relevantDestinationRows } from './texasdefined-live-destination-catalog.mjs';
+import { normalizeAiIllustrationToPng, certifiedPngHero } from './texasdefined-newsroom-image-codec.mjs';
 
 const SUPABASE_URL = String(process.env.KEEP_TX_RED_SUPABASE_URL || '').replace(/\/$/, '');
 const SUPABASE_KEY = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
@@ -301,11 +302,10 @@ async function generateAndStoreImage(draft) {
   } else {
     bytes = new Uint8Array(await response.arrayBuffer());
   }
-  if (bytes.length < 10_000) throw new Error(`Generated hero is unexpectedly small (${bytes.length} bytes).`);
-  const pngMagic = [137,80,78,71,13,10,26,10];
-  if (!pngMagic.every((byte,i) => bytes[i] === byte)) {
-    throw new Error('Workers AI returned non-PNG bytes for a PNG article hero; publication blocked.');
-  }
+  // FLUX.1-schnell returns JPEG on the documented API. Transcode the REAL
+  // model image to an actual, dimension-verified 1600x900 PNG before upload.
+  // This does not create, invent or supply editorial evidence for a story.
+  bytes = await normalizeAiIllustrationToPng(bytes);
   const path = `${draft.slug}.png`;
   await supabase(`/storage/v1/object/texasdefined-article-images/${encodeURIComponent(path)}`, {
     method: 'POST',
@@ -316,8 +316,12 @@ async function generateAndStoreImage(draft) {
   const proof = await fetch(publicUrl, { signal: AbortSignal.timeout(20_000) });
   const verifiedType = String(proof.headers.get('content-type') || '').toLowerCase();
   const verifiedBytes = new Uint8Array(await proof.arrayBuffer());
-  if (!proof.ok || !verifiedType.includes('image/png') || !pngMagic.every((byte,i) => verifiedBytes[i] === byte)) {
-    throw new Error('Uploaded editorial illustration was not retrievable as a valid PNG; publication blocked.');
+  const { createHash } = await import('node:crypto');
+  const uploadDigest = createHash('sha256').update(bytes).digest('hex');
+  const servedDigest = createHash('sha256').update(verifiedBytes).digest('hex');
+  if (!proof.ok || !verifiedType.includes('image/png') || !certifiedPngHero(verifiedBytes)
+      || uploadDigest !== servedDigest) {
+    throw new Error('Uploaded editorial illustration was not retrievable as the exact 1600x900 PNG; publication blocked.');
   }
   return publicUrl;
 }
