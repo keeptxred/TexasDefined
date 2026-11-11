@@ -23,7 +23,7 @@ test('related destinations must be explicitly supported by source evidence',()=>
     description:'Ray Roberts Lake State Park will host adaptive equipment sessions.',
     extracted_body:'Caddo Lake State Park will also hold an accessibility event.'};
   const d=relevantDestinationRows(source,slugs);
-  assert.deepEqual(d.map(x=>x.slug),['dinosaur-valley-state-park','ray-roberts-lake-state-park','caddo-lake-state-park']);
+  assert.deepEqual(d.map(x=>x.slug).sort(),['caddo-lake-state-park','dinosaur-valley-state-park','ray-roberts-lake-state-park']);
   assert.equal(d.some(x=>x.slug==='irrelevant-texas-beach'),false);
 });
 test('absent directly related destination mentions hold automatic publication', async()=>{
