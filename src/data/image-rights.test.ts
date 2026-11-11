@@ -99,6 +99,23 @@ test("Blue Bell factory photo uses verified 2008 photographer rights on exact Co
   assert.ok(ledger.includes("File:Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg"));
 });
 
+test("1836 Edmund Francis Lee map uses public-domain mark, not private copyright", () => {
+  const file = "Lee_Map_of_Texas_1836_UTA.jpg";
+  const src = "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + file + "?width=1600";
+  const expected = {
+    license: "https://creativecommons.org/publicdomain/mark/1.0/",
+    creator: { "@type": "Person", name: "Edmund Francis Lee" },
+    copyrightNotice: "Public domain — 1836 map by Edmund Francis Lee; no copyright claim",
+    acquireLicensePage: "https://commons.wikimedia.org/wiki/File:" + file,
+  };
+  for (const candidate of [src, "/remote?url=" + encodeURIComponent(src)]) {
+    assert.deepEqual(imageRightsFor(candidate), expected, candidate);
+  }
+  assert.equal(imageRightsFor("https://example.com/wiki/Special:Redirect/file/" + file), null);
+  assert.equal(imageRightsFor("https://commons.wikimedia.org/wiki/Special:Redirect/file/replaced-" + file), null);
+  assert.ok(readFileSync("src/routes/article.$slug.tsx", "utf8").includes("Lee_Map_of_Texas_1836_UTA"));
+});
+
 test("Big Tex, Magoffin Home and Fredericksburg Marktplatz use exact source-verified rights", () => {
   const cases = [
     ["State_Fair_of_Texas_September_2019_13_(Big_Tex).jpg", "Michael Barera",
