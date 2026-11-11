@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {
   collectEventPageRefreshInventory, validateEventRefreshCoverage,
-  refreshCadenceDays, dueForReview, STATIC_EVENT_PAGES,
+  refreshCadenceDays, dueForReview, nextSourceReviewAt, STATIC_EVENT_PAGES,
 } from './event-page-refresh-governance.mjs';
 import {
   evaluateSourceObservation, reviewEventSources, selectSourceReviewTargets,
@@ -92,13 +92,49 @@ test('event-sensitive cadence is daily, 3-day, weekly or monthly without guessed
   assert.equal(refreshCadenceDays(event('2027-01-01'), now), 3);
   assert.equal(refreshCadenceDays(event('2027-04-01'), now), 7);
   assert.equal(refreshCadenceDays(event('2027-12-01'), now), 30);
-  assert.equal(refreshCadenceDays(event('2026-07-01'), now), 30);
+  assert.equal(refreshCadenceDays(event('2026-07-01'), now), 7); // Prior confirmed edition, next annual source watch
   assert.equal(refreshCadenceDays({ path:'/holiday/pending', kind:'announcement-pending' }, now), 7);
   assert.equal(dueForReview(event('2026-11-08'), now), true);
   // A stable 3-day slot occurs precisely once per successive 3 days.
   const windows = Array.from({ length: 3 }, (_, i) =>
     dueForReview(event('2027-01-01'), new Date(Date.parse('2026-11-07T13:00:00Z') + i * 86400000)));
   assert.equal(windows.filter(Boolean).length, 1);
+});
+
+test('unannounced recurring seasons get earlier source checks without fabricating public dates', () => {
+  const asOf = new Date('2026-11-07T13:00:00Z');
+  const oldEdition = (startDate, endDate) => ({ path: '/event/repeating', startDate, endDate });
+  assert.equal(refreshCadenceDays(oldEdition('2025-11-01', '2025-11-15'), asOf), 1,
+    'prior-year seasonal run is in its expected annual window');
+  assert.equal(refreshCadenceDays(oldEdition('2025-11-18', '2025-11-19'), asOf), 1,
+    'unannounced next season is within 14 days');
+  assert.equal(refreshCadenceDays(oldEdition('2025-12-01', '2025-12-03'), asOf), 3,
+    'unannounced season within 90 days');
+  assert.equal(refreshCadenceDays(oldEdition('2025-07-01', '2025-07-03'), asOf), 7,
+    'long-range annual source check remains weekly');
+  assert.equal(refreshCadenceDays(oldEdition('2026-11-03', '2026-11-04'), asOf), 7,
+    'post-event correction window is preserved');
+  assert.equal(refreshCadenceDays(oldEdition('2026-11-15', '2026-11-14'), asOf), 1,
+    'invalid source dates need immediate review');
+  assert.equal(refreshCadenceDays(oldEdition('not-a-date', 'not-a-date'), asOf), 30,
+    'missing date metadata must not create synthetic occurrence dates');
+  const event = oldEdition('2025-12-01', '2025-12-03');
+  const next = nextSourceReviewAt(event, asOf);
+  assert.ok(next >= '2026-11-07' && next <= '2026-11-09');
+  assert.equal(dueForReview(event, new Date(next + 'T13:00:00Z')), true);
+});
+
+test('unverified or future editorial source-check timestamps stay in the backlog', () => {
+  const f = fixture();
+  try {
+    const p = 'src/data/major-event-index.ts';
+    const source = fs.readFileSync(path.join(f.root, p), 'utf8');
+    f.put(p, source.replace('sourceCheckedAt: "2026-11-01"', 'sourceCheckedAt: "2099-12-31"'));
+    const backlog = fullEditorialFreshnessBacklog(collectEventPageRefreshInventory(f.root),
+      new Date('2026-11-07T13:00:00Z'));
+    assert.ok(backlog.find(item => item.path === '/event/autumn-market')
+      ?.concerns.includes('future-editorial-source-check-date'));
+  } finally { f.dispose(); }
 });
 
 test('organizer HTTP 200 alone never rewrites verified dates or hides stale editor review', () => {
@@ -208,6 +244,12 @@ test('scheduled source monitor enumerates all URLs with bounded calls and writes
     assert.equal(result.coverage.permanent, 4);
     assert.ok(result.due >= 1);
     assert.equal(result.attempted, result.due);
+    assert.equal(result.scheduledPages, 4 + 2 + 3 + 5);
+    assert.equal(result.schedule.length, result.scheduledPages);
+    assert.ok(result.schedule.every(row => row.workflow && row.nextSourceReviewAt));
+    assert.ok(result.schedule.some(row => row.path === '/events' && row.workflow === 'sync-texas-events.yml'));
+    assert.ok(result.schedule.some(row => row.path === '/event/river-festival' && row.officialSource));
+    assert.ok(result.schedule.some(row => row.path === '/holiday/magical-winter-lights'));
     assert.equal(result.state, 'observed');
     assert.equal(calls, result.uniqueSources);
     assert.deepEqual(result.coverageErrors, []);
