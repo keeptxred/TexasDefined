@@ -37,7 +37,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
             <Stat label="Published records" value={pageData.totalSpecies} />
             <Stat label="Standalone guides" value={pageData.completeSpeciesGuides} />
             <Stat label="Complete lake guides" value={pageData.completeLakeGuides} />
-            <Stat label="Species families" value={pageData.groups.length} />
+            <Stat label="Directory categories" value={pageData.groups.length} />
           </dl>
         </Container>
       </section>
@@ -52,6 +52,8 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
             <Answer question="Are these links live fishing reports?" answer="No. Lake-to-species relationships describe durable fishery context. Current bite, regulations, stocking, levels and access can change and should be confirmed with current official sources." />
           </div>
         </section>
+
+        <p className="mt-7 max-w-4xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Scope note: This is a curated freshwater fishing directory, not a complete biological inventory or a complete list of Texas-regulated game fish. For example, TPWD lists Alabama bass among game fish, but TexasDefined has not yet certified a standalone Alabama bass guide. <a href="https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/general-fishing-regulations" target="_blank" rel="noreferrer noopener" className="border-b border-primary text-primary">Consult TPWD's complete current game-fish list</a>.</p>
 
         <div className="mt-12 space-y-14">
           {pageData.groups.map((group) => (
