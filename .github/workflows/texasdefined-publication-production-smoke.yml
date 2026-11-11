@@ -31,18 +31,21 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-      - name: Verify auto-publication activation remains unset
+      - name: Verify explicit auto-publication activation state
         env:
           TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
         shell: bash
         run: |
           set -euo pipefail
-          if [ -n "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+          if [ -z "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
+          elif [ "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" = "true" ]; then
             echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=true"
-            echo "::error::TexasDefined automatic publication must remain unset until explicit activation is approved."
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=true"
+          else
+            echo "::error::Invalid activation value; must be absent or exactly true"
             exit 1
           fi
-          echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
       - name: Verify live news, published article canonicals and sitemap XML
         if: github.event_name != 'schedule'
         run: |
