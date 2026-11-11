@@ -11,12 +11,14 @@ permissions:
   contents: read
   deployments: read
   actions: read
-concurrency:
-  group: football-b016-25-school-chrome
-  cancel-in-progress: false
+# Only eligible Chrome jobs join this queue. Unrelated issue comments must
+# not consume a pending slot or displace an authorized 25-school acceptance.
 jobs:
   chrome:
     if: ${{ (github.event_name == 'issue_comment' && github.event.issue.number == 5794 && github.actor == 'keeptxred' && github.event.comment.body == '/run-b016-chrome') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'workflow_dispatch' }}
+    concurrency:
+      group: football-b016-25-school-chrome
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:
