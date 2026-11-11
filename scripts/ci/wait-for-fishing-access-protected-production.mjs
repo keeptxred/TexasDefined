@@ -27,7 +27,7 @@ async function github(path) {
 let last = "missing";
 let previousMain = "";
 let ancestry = false;
-const maxAttempts = 144; // 24 minutes of bounded serial deployment queue time.
+const maxAttempts = 300; // Up to 50 minutes for the full protected production asset-continuity gate.
 for (let attempt = 1; attempt <= maxAttempts; attempt++) {
   const main = (await github("/branches/main")).commit?.sha;
   if (!/^[a-f0-9]{40}$/i.test(main || "")) throw new Error("Could not resolve protected main SHA");
