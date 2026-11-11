@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import assert from "node:assert/strict";
-import { classifyQueuedRun, classifyOrphanedInProgressRun, shouldCancel, mayDeleteAfterBackend409, MIN_STALE_MS, SCHEDULE_EXPIRY_MS, ORPHANED_IN_PROGRESS_MS } from "./reconcile-stale-actions-queue.mjs";
+import { classifyQueuedRun, classifyOrphanedInProgressRun, shouldCancel, mayDeleteAfterBackend409, isAncientQueuedRun, ANCIENT_PRUNE_MIN_AGE_MS, MIN_STALE_MS, SCHEDULE_EXPIRY_MS, ORPHANED_IN_PROGRESS_MS } from "./reconcile-stale-actions-queue.mjs";
 
 const now = Date.UTC(2026, 10, 11, 22);
 const current = "a".repeat(40);
@@ -90,4 +90,11 @@ test("read-only census returns before GitHub's inconsistent pagination and mutat
   assert.match(census, /return;/);
   assert.doesNotMatch(census, /method:\s*["'](?:DELETE|POST)["']/);
   assert.doesNotMatch(census, /cancelOrRemoveProvablyDeadRun/);
+});
+
+test("ancient-only cleanup cannot touch runs within GitHub's two-week deletion threshold", () => {
+  assert.equal(isAncientQueuedRun(run("workflow_run", 16 * 24 * 60 * 60 * 1000), now), true);
+  assert.equal(isAncientQueuedRun(run("workflow_run", ANCIENT_PRUNE_MIN_AGE_MS - 1000), now), false);
+  assert.equal(isAncientQueuedRun(run("workflow_run", ANCIENT_PRUNE_MIN_AGE_MS + 1000, { status: "in_progress" }), now), false);
+  assert.equal(isAncientQueuedRun(run("workflow_run", 0, { created_at: "nonsense" }), now), false);
 });
