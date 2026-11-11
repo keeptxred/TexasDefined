@@ -149,6 +149,7 @@ export async function loadFishingTechniqueDirectoryServer() {
         technique,
         canonicalPath: fishingTechniqueCanonicalPath(technique.slug),
         profileCount: profiles.length,
+        allProfiles: profiles,
         featuredProfiles,
         featuredSources,
         species: relatedSpecies,
