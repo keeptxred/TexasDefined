@@ -1,0 +1,82 @@
+name: TexasDefined guarded scheduled authority newsroom
+
+# Existing source-only evidence hydration remains independently scheduled.
+# This worker never publishes unless the owner's exact repository variable is true.
+on:
+  schedule:
+    - cron: '13 3,9,15,21 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-article-publication
+  cancel-in-progress: false
+
+jobs:
+  publish-certified-news:
+    if: github.repository == 'keeptxred/TexasDefined'
+    runs-on: ubuntu-latest
+    environment: texasdefined-publication
+    timeout-minutes: 19
+    env:
+      KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
+      KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+      TEXASDEFINED_PUBLISH_CONFIRMATION: PUBLISH_TEXASDEFINED
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Validate guardrails and authority tests before any publication
+        run: |
+          set -euo pipefail
+          node scripts/data/validate-texasdefined-auto-publication.mjs
+          node --test scripts/news/texasdefined-authority-review.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs scripts/news/texasdefined-queue-freshness.test.mjs
+      - name: Inspect full queue with no AI and no writes
+        id: queue
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --limit=1 | tee /tmp/td-scheduled-inspect.jsonl
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const records = fs.readFileSync('/tmp/td-scheduled-inspect.jsonl','utf8').split(/\r?\n/).filter(Boolean).map(JSON.parse);
+          const q=records.find(x=>x.mode==='dry-run');
+          if (!q || q.rawEligible!==q.eligible+q.held || q.eligible!==q.selected+q.deferred
+             || q.published!==0 || q.skipped!==0 || q.failed!==0 || q.selected>1) {
+            throw new Error('TexasDefined scheduled queue accounting inconsistent; refuse publication.');
+          }
+          const target = q.selected===1 ? String(q.ids?.[0] || '') : '';
+          if (q.selected===1 && !/^\d+$/.test(target)) throw new Error('Invalid exact selected feed ID');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,'selected_id='+target+'\n');
+          const summary=['## TexasDefined automatic magazine publishing',
+            'Ready queue: '+q.rawEligible, 'Eligible after strict current editorial and evidence gates: '+q.eligible,
+            'Held: '+q.held, 'Deferred: '+q.deferred, 'Selected exact ID: '+(target || 'none'),
+            'Owner activation: '+(process.env.TEXASDEFINED_AUTO_PUBLISH_ENABLED==='true'?'enabled':'disabled'),
+            'Unattended publications allowed this run: '+(target && process.env.TEXASDEFINED_AUTO_PUBLISH_ENABLED==='true'?'1':'0')].join('\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
+          if (q.rawEligible>0 && q.eligible===0) console.log('::warning::Sources are being discovered but none meet the automatic authority evidence gates; research repairs required.');
+          if (process.env.TEXASDEFINED_AUTO_PUBLISH_ENABLED!=='true') console.log('::warning::Owner activation is not enabled. No automated publishing will occur.');
+          NODE
+      - name: Publish exactly one current authority-qualified source
+        if: ${{ env.TEXASDEFINED_AUTO_PUBLISH_ENABLED == 'true' && steps.queue.outputs.selected_id != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1 --feed-id="${{ steps.queue.outputs.selected_id }}" | tee /tmp/td-scheduled-published.jsonl
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const rows=fs.readFileSync('/tmp/td-scheduled-published.jsonl','utf8').split(/\r?\n/).filter(Boolean).map(JSON.parse);
+          const published=rows.filter(x=>x.published===true);
+          if (published.length!==1 || !/^https:\/\/texasdefined\.com\/news\/[a-z0-9-]+$/.test(published[0].liveUrl)) {
+            throw new Error('Exactly one public TexasDefined news article must be recorded and verified.');
+          }
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'\nPublished exact article: '+published[0].liveUrl+'\n');
+          fs.writeFileSync('/tmp/td-scheduled-url',published[0].liveUrl);
+          NODE
+          node scripts/ci/verify-texasdefined-newly-published-news.mjs "$(cat /tmp/td-scheduled-url)"
