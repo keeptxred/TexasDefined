@@ -36,15 +36,29 @@ const reviewedAgeDays = (value, asOf) => {
 
 export function allEventReviewTargets(inventory, asOf = new Date()) {
   return [...inventory.permanent, ...inventory.specials]
-    .map(event => ({
-      ...event, cadenceDays: refreshCadenceDays(event, asOf),
-      sourceAgeDays: reviewedAgeDays(event.sourceCheckedAt, asOf),
-      nextSourceReviewAt: nextSourceReviewAt(event, asOf),
-    })).sort((a, b) => a.path.localeCompare(b.path));
+    .map(event => {
+      const editorialCadenceDays = refreshCadenceDays(event, asOf);
+      const sourceAgeDays = reviewedAgeDays(event.sourceCheckedAt, asOf);
+      // Overdue or invalid editorial checks cannot linger on a monthly
+      // official-source observation slot. Escalate them to at least weekly
+      // until a protected, evidence-backed editorial verification is merged.
+      const editorialReviewOverdue = sourceAgeDays == null || sourceAgeDays < 0 ||
+        sourceAgeDays > Math.max(7, editorialCadenceDays * 3);
+      const cadenceDays = editorialReviewOverdue
+        ? Math.min(editorialCadenceDays, 7) : editorialCadenceDays;
+      return {
+        ...event, cadenceDays, editorialCadenceDays, editorialReviewOverdue,
+        expeditedOverdueReview: editorialReviewOverdue && cadenceDays < editorialCadenceDays,
+        sourceAgeDays,
+        nextSourceReviewAt: nextSourceReviewAt(event, asOf,
+          editorialReviewOverdue ? 7 : null),
+      };
+    }).sort((a, b) => a.path.localeCompare(b.path));
 }
 
 export function selectSourceReviewTargets(inventory, asOf = new Date()) {
-  return allEventReviewTargets(inventory, asOf).filter(event => dueForReview(event, asOf));
+  return allEventReviewTargets(inventory, asOf)
+    .filter(event => dueForReview(event, asOf, event.cadenceDays));
 }
 
 // Freshness debt must be computed from the ENTIRE source inventory, not only
@@ -53,12 +67,14 @@ export function selectSourceReviewTargets(inventory, asOf = new Date()) {
 export function fullEditorialFreshnessBacklog(inventory, asOf = new Date()) {
   return allEventReviewTargets(inventory, asOf)
     .filter(event => event.sourceAgeDays == null || event.sourceAgeDays < 0 ||
-      event.sourceAgeDays > Math.max(7, event.cadenceDays * 3))
+      event.sourceAgeDays > Math.max(7, event.editorialCadenceDays * 3))
     .map(event => ({
       path: event.path, source: event.sourceUrl,
       editorialSourceCheckedAt: event.sourceCheckedAt,
       editorialSourceAgeDays: event.sourceAgeDays,
-      cadenceDays: event.cadenceDays, nextSourceReviewAt: event.nextSourceReviewAt,
+      cadenceDays: event.cadenceDays, editorialCadenceDays: event.editorialCadenceDays,
+      expeditedOverdueReview: event.expeditedOverdueReview,
+      nextSourceReviewAt: event.nextSourceReviewAt,
       startDate: event.startDate,
       concerns: event.sourceAgeDays == null
         ? ['missing-or-invalid-editorial-source-check-date']
@@ -80,7 +96,7 @@ export function evaluateSourceObservation(target, outcome, asOf = new Date()) {
     errors.push('missing-or-invalid-editorial-source-check-date');
   } else if (target.sourceAgeDays < 0) {
     errors.push('future-editorial-source-check-date');
-  } else if (target.sourceAgeDays > Math.max(7, target.cadenceDays * 3)) {
+  } else if (target.sourceAgeDays > Math.max(7, (target.editorialCadenceDays ?? target.cadenceDays) * 3)) {
     errors.push('editorial-source-check-overdue');
   }
   if (target.startDate && Number.isFinite(Date.parse(target.startDate)) &&
@@ -91,6 +107,7 @@ export function evaluateSourceObservation(target, outcome, asOf = new Date()) {
   }
   return {
     path: target.path, kind: target.kind, source: target.sourceUrl, cadenceDays: target.cadenceDays,
+    expeditedOverdueReview: Boolean(target.expeditedOverdueReview),
     nextSourceReviewAt: target.nextSourceReviewAt,
     editorialSourceCheckedAt: target.sourceCheckedAt, editorialSourceAgeDays: target.sourceAgeDays,
     fetchedAt: outcome.fetchedAt ?? null, http: outcome.status ?? null,
@@ -151,7 +168,9 @@ export async function reviewEventSources({
   const schedule = [
     ...allEventReviewTargets(inventory, now).map(event => ({
       path: event.path, kind: event.kind, workflow: 'event-authority-source-refresh.yml',
-      cadenceDays: event.cadenceDays, nextSourceReviewAt: event.nextSourceReviewAt,
+      cadenceDays: event.cadenceDays, editorialCadenceDays: event.editorialCadenceDays,
+      expeditedOverdueReview: event.expeditedOverdueReview,
+      nextSourceReviewAt: event.nextSourceReviewAt,
       officialSource: event.sourceUrl, lastEditorialSourceCheck: event.sourceCheckedAt,
       annualSeasonEstimateIsNotVerifiedDate: Boolean(event.startDate &&
         (event.endDate ?? event.startDate) < asIso(now)),
@@ -203,6 +222,7 @@ export async function reviewEventSources({
       within365Days: 'weekly', completedOrDistant: 'every 30 days',
       unconfirmedAnnualSeason: 'escalate source checks at 365/90/14 days ahead without publishing projected dates',
       unannouncedSpecialPages: 'weekly',
+      overdueEditorialGuides: 'expedited to at least weekly source observation until evidence-backed editorial verification',
       dynamicTicketAndTpwdEvents: 'existing daily sync-texas-events.yml',
       rollingCollections: 'existing daily verify-event-temporal-production.yml',
       horseRacing: 'existing weekly horse-racing-calendar-freshness.yml',
