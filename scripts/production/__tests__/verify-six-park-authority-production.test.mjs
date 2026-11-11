@@ -61,3 +61,10 @@ test("park screenshot must show the full three-answer TPWD FAQ rather than just 
  assert.ok(script.includes('if(facts.faqSourcedAnswers<3)throw new Error("Three TPWD-sourced park FAQ answers not rendered")'),"fewer than three linked question/answer pairs fails");
  assert.ok(script.includes("page.locator('section[aria-labelledby=\"destination-visitor-faqs\"]')"),"screenshot must capture full FAQ section, not just h2");
 });
+
+test("desktop and mobile both fail closed when the sourced FAQ disappears after capture",()=>{
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ assert.match(script,/if\(!finalFaq\.visible\|\|finalFaq\.sourced<3\)/,"final FAQ source guard must reject missing answers");
+ assert.match(script,/after "\+viewport\.label\+" capture"/,"guard must identify either viewport");
+ assert.ok(script.indexOf('if(!finalFaq.visible||finalFaq.sourced<3)')>script.indexOf('await page.screenshot('),"guard must run after capture");
+});
