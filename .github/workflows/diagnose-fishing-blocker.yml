@@ -1,0 +1,20 @@
+name: Diagnose published image-rights deployment blocker
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/diagnose-published-image-rights.mjs'
+      - '.github/workflows/diagnose-fishing-blocker.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  read-only-inspection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect exact ImageObject production provenance across two origins
+        run: node scripts/ci/diagnose-published-image-rights.mjs
