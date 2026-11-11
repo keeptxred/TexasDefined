@@ -99,6 +99,33 @@ test("Blue Bell factory photo uses verified 2008 photographer rights on exact Co
   assert.ok(ledger.includes("File:Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg"));
 });
 
+test("Ocho Restaurant cafe-table photo uses independently sourced Nan Palmero CC BY 2.0 rights", () => {
+  const file = "Cafe_Table_at_Ocho_Restaurant,_San_Antonio,_Texas_(2014-12-10_16.51.3_by_Nan_Palmero).jpg";
+  const source = "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + file;
+  const expected = {
+    license: "https://creativecommons.org/licenses/by/2.0/",
+    creator: { "@type": "Person", name: "Nan Palmero" },
+    copyrightNotice: "© Nan Palmero",
+    acquireLicensePage: "https://commons.wikimedia.org/wiki/File:" + file,
+  };
+  for (const candidate of [
+    source,
+    source + "?width=1600",
+    "/remote?url=" + encodeURIComponent(source),
+    "/media/remote?url=" + encodeURIComponent(source),
+    "/remote?url=" + encodeURIComponent("/media/remote?url=" + encodeURIComponent(source)),
+  ]) assert.deepEqual(imageRightsFor(candidate), expected, candidate);
+  for (const candidate of [
+    "https://example.com/wiki/Special:Redirect/file/" + file,
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/replaced-" + file,
+    "https://commons.wikimedia.org/wiki/File:" + file,
+    "/remote?url=" + encodeURIComponent("https://example.com/" + file),
+  ]) assert.equal(imageRightsFor(candidate), null, candidate);
+  const route = readFileSync("src/routes/article.$slug.tsx", "utf8");
+  assert.ok(route.includes("Cafe_Table_at_Ocho_Restaurant"));
+  assert.ok(route.includes("...(imageRights ?? {})"));
+});
+
 test("Britten USA hero photo uses exact Commons-verified Dustin Moore CC BY 2.0 provenance", () => {
   const source = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Britten%20USA.jpg?width=1600";
   const expected = {
