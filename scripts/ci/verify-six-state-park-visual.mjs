@@ -27,12 +27,12 @@ try{
   for(const [slug,title] of parks){
    const page=await context.newPage();
    page.on("dialog",dialog=>dialog.dismiss());
+   const faqTimeline=[];
    try{
     const response=await page.goto(origin+"/destination/"+slug+"?visual_qa="+(process.env.GITHUB_SHA||"manual").slice(0,10),{waitUntil:"domcontentloaded",timeout:40000});
     if(response?.status()!==200)throw new Error("HTTP "+response?.status());
     // Capture both sides of hydration to distinguish a missing source FAQ from
     // a client remount. Diagnostic snapshots do not relax the acceptance gate.
-    const faqTimeline=[];
     const sampleFaq=async phase=>{
      const state=await page.evaluate(()=>{
       const faq=document.querySelector("#destination-visitor-faqs");
@@ -135,6 +135,7 @@ try{
    }catch(err){
     const message=viewport.label+" "+slug+": "+String(err?.message||err);
     failures.push(message);
+    results.push({slug,viewport:viewport.label,status:"failed",error:message,faqTimeline});
     console.error("::error title=TPWD park mobile visual QA::"+message);
     // Diagnostic only; keep the same strict failure result. This distinguishes
     // genuinely missing FAQs from changes during client hydration/screenshot.
