@@ -94,6 +94,12 @@ for (const guide of attractionCertification) {
       /\bnoindex\b/i.test(crawler.headers.get("x-robots-tag") ?? "")) {
       throw Error("Googlebot user-agent lacks indexable, named SSR document (HTTP " + crawler.status + ")");
     }
+    // Reject the previously observed unrelated Grapevine recommendation on the
+    // Fort Worth guide; keep genuinely local museum guides instead.
+    if (guide.path === "/destination/fort-worth-water-gardens" &&
+        /href=["']\/destination\/grapevine(?:["'?#/])/i.test(body)) {
+      throw Error("unrelated Grapevine recommendation remains in Fort Worth destination links");
+    }
     if (!body.includes("<title>") || !body.includes(guide.name)) throw Error("missing named title");
     if (!/<meta\b[^>]*name=["']description["'][^>]*content=["'][^"']{50,}["']/i.test(body)) {
       throw Error("missing substantial SSR meta description");
