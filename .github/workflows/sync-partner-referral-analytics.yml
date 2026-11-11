@@ -5,6 +5,7 @@ on:
   schedule:
     - cron: '17 * * * *'
     - cron: '47 * * * *'
+    - cron: '23 18 * * *' # Once-daily CJ reconciliation, same protected workflow
   push:
     branches: [main]
     paths:
@@ -14,6 +15,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write # No stored shared signing secret; short-lived GitHub OIDC JWT
 
 concurrency:
   group: partner-referral-analytics-sync
@@ -58,3 +60,30 @@ jobs:
             echo "Transient analytics sync failure; retrying in ${delay}s (attempt $((attempt + 1))/4)." >&2
             sleep "$delay"
           done
+
+      - name: Reconcile private CJ transactions and program terms once daily
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule == '23 18 * * *' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${ACTIONS_ID_TOKEN_REQUEST_URL:?GitHub OIDC URL missing}"
+          : "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:?GitHub OIDC request token missing}"
+          # GitHub issues this token only to the job on protected main;
+          # the Worker independently verifies JWT signature, audience,
+          # exact workflow/ref, and short lifetime before contacting CJ.
+          token_json="$(curl --fail --silent --show-error --retry 2 --max-time 15 \
+            -H "Authorization: Bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=texasdefined-cj-reconciliation-v1")"
+          oidc="$(TOKEN_JSON="$token_json" node -e \
+            'const t=JSON.parse(process.env.TOKEN_JSON || "{}"); if(!t.value || t.value.length>12000) process.exit(1); process.stdout.write(t.value)')"
+          unset token_json
+          report_json="$(curl --fail --silent --show-error --max-time 55 \
+            -X POST \
+            -H "Authorization: Bearer $oidc" \
+            -H "Content-Type: application/json" \
+            https://texasdefined.com/api/internal/cj-account-sync)"
+          unset oidc
+          REPORT_JSON="$report_json" node -e \
+            'const r=JSON.parse(process.env.REPORT_JSON || "{}"); if(r.status!=="ok" || r.source!=="cj-provider") process.exit(1); console.log("PASS private CJ API synchronization: "+(r.updated?"fresh":"no-op")+"; provider totals remain private.")'
+          # Do not print the JSON itself: financial amounts stay in Supabase
+          # service-role-only table, never GitHub logs/artifacts.
