@@ -26,6 +26,24 @@ for(const river of rivers){
  for(const county of river.counties)add("/county/"+county,"county",["/article/"+river.slug]);
  for(const destination of river.destinations)add("/destination/"+destination,"destination",["/article/"+river.slug]);
 }
+// These four destinations previously existed as legacy 301 aliases or were
+// represented by a generic destination. A redirect-following HTTP 200 is not
+// proof that the canonical destination itself exposes the river backlink.
+// Fail closed on redirects as well as missing HTML at the repaired canonical URL.
+const repairedCanonicalDestinations = [
+  ['texas-brazos-river-guide','washington-on-the-brazos'],
+  ['texas-san-antonio-river-guide','goliad-state-park'],
+  ['texas-san-antonio-river-guide','san-antonio-river-walk'],
+  ['texas-san-jacinto-river-guide','san-jacinto-battleground'],
+];
+const canonicalDestinations = new Set(repairedCanonicalDestinations.map(([,slug])=>'/destination/'+slug));
+for(const [riverSlug,destination] of repairedCanonicalDestinations) {
+  const river = rivers.find(r=>r.slug===riverSlug);
+  if(!river?.destinations.includes(destination))
+    throw Error('Repaired canonical river destination relation missing: '+riverSlug+' -> '+destination);
+}
+if(canonicalDestinations.size!==4) throw Error('Duplicate canonical river destination acceptance target');
+
 for(const path of ["/article/texas-rivers-explained","/explore/landscapes/rivers-and-river-valleys","/fishing"])
  add(path,"directory",rivers.map(r=>"/article/"+r.slug));
 add("/best-places-to-go-camping-in-texas","camping",["/article/texas-frio-river-guide"]);
@@ -37,8 +55,13 @@ async function worker(){
   const i=next++;if(i>=checks.length)return;
   const row=checks[i];
   try{
-   const response=await fetch(origin+row.path,{redirect:"follow",headers:{"user-agent":"TexasDefined-River-Authority-Production/1.0","cache-control":"no-cache"},signal:AbortSignal.timeout(20000)});
-   if(response.status!==200){failed.push({...row,status:response.status,issue:"non-200"});continue;}
+   const strictlyCanonical = canonicalDestinations.has(row.path);
+   const requestedUrl = origin+row.path;
+   const response=await fetch(requestedUrl,{redirect:strictlyCanonical?"manual":"follow",headers:{"user-agent":"TexasDefined-River-Authority-Production/1.0","cache-control":"no-cache"},signal:AbortSignal.timeout(20000)});
+   if(response.status!==200){failed.push({...row,status:response.status,issue:strictlyCanonical?"canonical destination redirected or returned non-200":"non-200",finalUrl:response.url});continue;}
+   if(strictlyCanonical&&(response.redirected||response.url!==requestedUrl)){
+     failed.push({...row,status:200,issue:"canonical destination is not the exact requested URL",finalUrl:response.url});continue;
+   }
    const html=await response.text(),missing=row.required.filter(s=>!html.includes(s));
    // If a required backlink is absent, distinguish a stale edge cache from
    // missing server-rendered content. A cache-busted success is still a
