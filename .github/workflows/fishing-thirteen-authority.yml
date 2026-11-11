@@ -34,6 +34,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check all new machine-verifier syntax
+        run: |
+          node --check scripts/ci/validate-fishing-thirteen-authority.mjs
+          node --check scripts/ci/check-fishing-13-source-state.mjs
+          node --check scripts/ci/verify-fishing-thirteen-production.mjs
       - name: Validate the thirteen fishing authority pages
         run: node scripts/ci/validate-fishing-thirteen-authority.mjs
       - name: Existing fishing techniques validation
