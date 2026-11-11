@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/data/validate-texasdefined-auto-publication.mjs
-          node --test scripts/news/texasdefined-authority-review.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs scripts/news/texasdefined-queue-freshness.test.mjs
+          node --test scripts/news/texasdefined-authority-review.test.mjs scripts/news/texasdefined-draft-evidence-gate.test.mjs scripts/news/texasdefined-queue-freshness.test.mjs scripts/news/texasdefined-published-article-proof.test.mjs scripts/news/texasdefined-live-destination-catalog.test.mjs
       - name: Inspect full queue with no AI and no writes
         id: queue
         shell: bash
