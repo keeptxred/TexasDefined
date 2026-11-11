@@ -86,5 +86,5 @@ export function loadDogBreedPageServer(slug: string) {
   if (!breed) return null;
   const index = dogBreeds.findIndex((candidate) => candidate.slug === slug);
   const related = [...dogBreeds.slice(index + 1), ...dogBreeds.slice(0, index)].slice(0, 4).map(toSummary);
-  return { breed: { ...breed, care: DOG_BREED_CARE[breed.slug] }, related, collections: dogDesignCollections.slice(0, 6), head: buildBreedHead(breed) };
+  return { breed: { ...breed, care: DOG_BREED_CARE[breed.slug] }, related, head: buildBreedHead(breed) };
 }
