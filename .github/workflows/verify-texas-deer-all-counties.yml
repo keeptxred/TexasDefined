@@ -1,0 +1,87 @@
+name: Verify all 254 TPWD deer county rule links
+
+on:
+  schedule:
+    - cron: '13 11 * * *'
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: 'County batch 0-10, or all for complete diagnostic (blank = today)'
+        required: false
+        type: string
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/data/verify-texas-deer-all-counties.mjs'
+      - '.github/workflows/verify-texas-deer-all-counties.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/data/verify-texas-deer-all-counties.mjs'
+      - '.github/workflows/verify-texas-deer-all-counties.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: texas-deer-county-health-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  county-rules:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prove all 254 county entries are assigned to 11 batches
+        run: node scripts/data/verify-texas-deer-all-counties.mjs --self-test
+      - name: Set bounded production batch identity
+        if: github.event_name != 'pull_request'
+        id: batch
+        env:
+          REQUESTED: ${{ inputs.batch }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          selected="$REQUESTED"
+          if [[ -z "$selected" ]]; then
+            selected="$(( $(date -u +%s) / 86400 % 11 ))"
+          fi
+          [[ "$selected" == 'all' || "$selected" =~ ^([0-9]|10)$ ]] || { echo 'Invalid batch'; exit 1; }
+          echo "batch=$selected" >> "$GITHUB_OUTPUT"
+      - name: Verify this day's official TPWD county pages
+        id: official
+        if: github.event_name != 'pull_request'
+        env:
+          TPWD_COUNTY_BATCH: ${{ steps.batch.outputs.batch }}
+        run: node scripts/data/verify-texas-deer-all-counties.mjs
+      - name: Open one issue per failing batch
+        if: failure() && steps.official.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BATCH: ${{ steps.batch.outputs.batch }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="TPWD deer county rules verification failed (batch $BATCH)"
+          existing="$(gh issue list --state open --search "$title in:title" --json title,number --jq --arg t "$title" '.[] | select(.title == $t) | .number' | head -1)"
+          if [[ -z "$existing" ]]; then
+            gh issue create --title "$title" --body "Official TPWD county rules did not pass the bounded live-source integrity check. Do not fabricate or carry over obsolete legal guidance. Batch $BATCH run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
+      - name: Automatically close this batch's issue after recovery
+        if: success() && steps.official.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BATCH: ${{ steps.batch.outputs.batch }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="TPWD deer county rules verification failed (batch $BATCH)"
+          gh issue list --state open --search "$title in:title" --json title,number --jq --arg t "$title" '.[] | select(.title == $t) | .number' |
+            while read -r number; do
+              gh issue close "$number" --comment "Official TPWD county sources for batch $BATCH now pass. https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            done
