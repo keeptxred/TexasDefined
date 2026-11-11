@@ -31,7 +31,7 @@ export const Route = createFileRoute("/explore/painted-churches/people/$slug")({
       scripts: [jsonLd({
         "@context": "https://schema.org",
         "@graph": [
-          { "@type": "WebPage", "@id": `${pageUrl}#webpage`, url: pageUrl, name: isFlury ? "Gottfried (Godfrey) Flury | Praha Painted Church Artist" : `${person.name} | Texas Painted Churches`, description, mainEntity: { "@id": `${pageUrl}#person` }, ...(isFlury ? { author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk", url: `${siteUrl}/about` }, dateModified: "2026-11-10", citation: ["https://www.tshaonline.org/handbook/entries/flury-godfrey", "https://austinpbs.org/paintedchurches/praha", "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138"] } : {}) },
+          { "@type": "WebPage", "@id": `${pageUrl}#webpage`, url: pageUrl, name: isFlury ? "Gottfried (Godfrey) Flury | Praha Painted Church Artist" : `${person.name} | Texas Painted Churches`, description, mainEntity: { "@id": `${pageUrl}#person` }, ...(isFlury ? { author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk", url: `${siteUrl}/about` }, dateModified: "2026-11-11", citation: ["https://www.tshaonline.org/handbook/entries/flury-godfrey", "https://austinpbs.org/paintedchurches/praha", "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138", "https://npgallery.nps.gov/AssetDetail/NRIS/83003138", "https://w3.biosci.utexas.edu/prc/Sabal/Praha-hist.html", "https://austinpbs.org/paintedchurches/highhill", "https://austinpbs.org/paintedchurches/filmupdates"] } : {}) },
           { "@type": "Person", "@id": `${pageUrl}#person`, name: person.name, alternateName: isFlury ? "Godfrey Flury" : undefined, birthDate: isFlury ? "1864-07-06" : undefined, deathDate: isFlury ? "1936-10-28" : undefined, birthPlace: isFlury ? { "@type": "Place", name: "Oensingen, Switzerland" } : undefined, hasOccupation: isFlury ? ["Decorative painter", "Commercial artist"] : undefined, url: pageUrl, description: person.answer, mainEntityOfPage: { "@id": `${pageUrl}#webpage` }, sameAs: isFlury ? ["https://www.tshaonline.org/handbook/entries/flury-godfrey"] : undefined, subjectOf: person.churchSlugs.map((slug) => `${siteUrl}/explore/painted-churches/${slug}`), knowsAbout: person.techniqueSlugs?.map((slug) => `${siteUrl}/explore/painted-churches/techniques/${slug}`) },
           { "@type": "BreadcrumbList", itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
@@ -60,7 +60,7 @@ function PersonPage() {
           {person.slug === "gottfried-flury" && (
             <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">
               Research by <Link to="/about" className="underline underline-offset-2">Texas Defined History &amp; Heritage Desk</Link>
-              {" · "}Published sources and archive catalogs cross-checked November 10, 2026
+              {" · "}Published sources and archive catalogs cross-checked November 10, 2026; botanical and inter-church research sources cross-checked November 11, 2026
             </p>
           )}
         </Container>

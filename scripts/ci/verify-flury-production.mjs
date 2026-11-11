@@ -15,6 +15,12 @@ const pages = [
       "Key dates in Flury’s life and legacy",
       "March 24, 2018",
       "The shared decorative vocabulary",
+      "Did Praha’s palm trees find their way into Flury’s paintings?",
+      "Praha, High Hill and Moravia: three different painting campaigns",
+      "the proposed local inspiration remains a hypothesis",
+      "botanical and inter-church research sources cross-checked November 11, 2026",
+      "https://w3.biosci.utexas.edu/prc/Sabal/Praha-hist.html",
+      "https://npgallery.nps.gov/AssetDetail/NRIS/83003138",
       "A church made by more than one pair of hands",
       "After 1901 · Father Louis Netardus",
       "Later 20th century · Gene A. Mikulik",
@@ -125,7 +131,7 @@ for (const origin of origins) {
     const start = xml.indexOf(fluryLoc);
     const ending = start >= 0 ? xml.indexOf("</url>", start) : -1;
     const entryXml = start >= 0 && ending > start ? xml.slice(start, ending) : "";
-    const accurateLastmod = entryXml.includes("<lastmod>2026-11-10</lastmod>");
+    const accurateLastmod = entryXml.includes("<lastmod>2026-11-11</lastmod>");
     const report = {
       origin,
       path: "/sitemap-explore.xml",

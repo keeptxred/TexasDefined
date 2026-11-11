@@ -65,10 +65,30 @@ describe("Painted Churches reference-page depth", () => {
       expect(flury).toContain(fact);
     }
     expect(people).toContain("Published sources and archive catalogs cross-checked November 10, 2026");
-    expect(people).toContain('dateModified: "2026-11-10"');
+    expect(people).toContain('dateModified: "2026-11-11"');
     expect(people).toContain('author: { "@type": "Organization", name: "Texas Defined History & Heritage Desk"');
     expect(flury).not.toContain("How Texas Defined handles attribution");
-    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-10" : "2026-08-18"');
+    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-11" : "2026-08-18"');
+  });
+
+  it("compares independently documented painting campaigns and keeps palm hypothesis qualified", () => {
+    for (const claim of [
+      "Did Praha’s palm trees find their way into Flury’s paintings?",
+      "Bob Harms",
+      "the proposed local inspiration remains a hypothesis",
+      "Praha, High Hill and Moravia: three different painting campaigns",
+      "Ferdinand Stockert and Hermann Kern",
+      "Fred Donecker and his sons",
+      "https://w3.biosci.utexas.edu/prc/Sabal/Praha-hist.html",
+      "https://npgallery.nps.gov/AssetDetail/NRIS/83003138",
+      "https://austinpbs.org/paintedchurches/highhill",
+      "https://austinpbs.org/paintedchurches/filmupdates",
+      "November 11, 2026",
+    ]) expect(flury).toContain(claim);
+    expect(people).toContain("botanical and inter-church research sources cross-checked November 11, 2026");
+    expect(people).toContain('dateModified: "2026-11-11"');
+    expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-11"');
+    expect(flury).not.toContain("It is proven that local palms inspired");
   });
 
   it("distinguishes original fabric, repainting, reconstruction and conservation", () => {
