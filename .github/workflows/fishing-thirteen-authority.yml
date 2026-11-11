@@ -1,0 +1,69 @@
+name: Fishing thirteen-page authority and TPWD source governance
+on:
+  pull_request:
+    paths:
+      - 'src/components/fishing/**'
+      - 'src/data/fishing/**'
+      - 'src/routes/fishing.**'
+      - 'scripts/data/validate-fishing-species-depth.mjs'
+      - 'scripts/ci/validate-fishing-thirteen-authority.mjs'
+      - '.github/workflows/fishing-thirteen-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/fishing/**'
+      - 'src/data/fishing/**'
+      - 'src/routes/fishing.**'
+      - 'scripts/ci/validate-fishing-thirteen-authority.mjs'
+      - '.github/workflows/fishing-thirteen-authority.yml'
+  schedule:
+    - cron: '13 11 * * 1,4'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: fishing-thirteen-authority-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  editorial-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate the thirteen fishing authority pages
+        run: node scripts/ci/validate-fishing-thirteen-authority.mjs
+      - name: Existing fishing techniques validation
+        run: node scripts/data/validate-fishing-techniques.mjs
+      - name: Existing fishing species depth validation
+        run: node scripts/data/validate-fishing-species-depth.mjs
+      - name: Existing fishing regulations validation
+        run: node scripts/data/validate-fishing-regulations.mjs
+  check-tpwd-official-sources:
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - id: tpwd
+        name: Confirm 2026-27 rule signatures and live park alert
+        run: node scripts/ci/check-fishing-13-source-state.mjs
+      - name: Open deduplicated official source investigation issue
+        if: ${{ failure() && steps.tpwd.conclusion == 'failure' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          count="$(gh issue list --repo "$GH_REPO" --state open --search 'Fishing authority official TPWD source review' --json number --jq 'length')"
+          if [[ "$count" == "0" ]]; then
+            gh issue create --repo "$GH_REPO" --title 'Fishing authority official TPWD source review required' \
+              --body 'Scheduled source verification could not confirm one or more official TPWD signatures for the thirteen fishing authority pages. Investigate the failed run, confirm the active rules and Lake Abilene closure against TPWD, update code and evidence only after factual verification, then rerun. Do not stamp unchanged source dates from a link-only check.'
+          fi
