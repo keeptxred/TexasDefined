@@ -78,6 +78,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       { name: 'Texas Medical Center', summary: 'A major employment and institutional district beside the Museum District whose hospitals, research campuses and transit patterns shape nearby housing and commuting.' },
     ],
     featured: [
+      { eyebrow: 'Garden & ecology', title: 'Houston Botanic Garden', summary: 'Plan a ticketed visit to plant collections, coastal prairie and wetlands near Sims Bayou; use the operator for current admission and closures.', href: '/destination/houston-botanic-garden' },
       { eyebrow: 'Space & science', title: 'Space Center Houston', summary: 'Plan a visit to the official visitor center for NASA Johnson Space Center and connect the city trip to Houston’s human-spaceflight history.', href: '/destination/space-center-houston' },
       { eyebrow: 'Family', title: 'Houston Zoo', summary: 'Use the dedicated Hermann Park zoo guide for one of the strongest family anchors in the Museum District.', href: '/destination/houston-zoo' },
       { eyebrow: 'Nearby trips', title: 'Explore near Houston', summary: 'Build lake, small-town, state-park and weekend-trip ideas around the Gulf Coast metro.', href: '/explore/near/houston' },
@@ -274,7 +275,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Cultural District / West 7th', summary: 'Useful for museums, Dickies Arena, restaurants and west-side access while staying close to downtown.' },
       ],
       freeThings: [
-        { title: 'Fort Worth Water Gardens', summary: 'Explore the downtown public architectural landscape and water features without an admission ticket.' },
+        { title: 'Fort Worth Water Gardens', summary: 'Explore the free downtown architectural landscape and its three pools; check city construction notices and do not enter the water.', href: '/destination/fort-worth-water-gardens' },
         { title: 'Trinity Trails', summary: 'Walk or bike the public river trail system for skyline, park and neighborhood connections.' },
         { title: 'Sundance Square & downtown walk', summary: 'Use central plazas, architecture and public spaces as a no-ticket orientation to the city center.' },
       ],
@@ -427,6 +428,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       { name: 'Northwest & Medical Center', summary: 'Major health-care, university and suburban employment districts make northwest San Antonio a practical but car-oriented base.' },
     ],
     featured: [
+      { eyebrow: 'Free gardens', title: 'Japanese Tea Garden', summary: 'See the former limestone quarry, koi ponds and stone bridges at Brackenridge Park; the lower garden requires stairs.', href: '/destination/san-antonio-japanese-tea-garden' },
       { eyebrow: 'Texas history', title: 'The Alamo', summary: 'Start with the former mission and battle site, then connect it to the wider Spanish colonial mission story.', href: '/destination/the-alamo' },
       { eyebrow: 'Historic itinerary', title: 'Two-day San Antonio heritage route', summary: 'Plan the downtown Spanish plazas, José Antonio Navarro’s home, King William and all four NPS missions with verified access caveats.', href: '/article/historic-san-antonio-heritage-road-trip' },
       { eyebrow: 'World Heritage', title: 'Four NPS missions', summary: 'Compare Concepción, San José, San Juan and Espada, including ranger programs, access conditions and the Indigenous/colonial landscape.', href: '/destination/san-antonio-missions-national-historical-park' },
