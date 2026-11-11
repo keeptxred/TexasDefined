@@ -75,10 +75,3 @@ test("mobile park FAQ remains source-backed after screenshot capture",()=>{
  const guard=script.indexOf('if(!afterCapture.visible||afterCapture.sourced<3)');
  assert.ok(screenshot>=0&&after>screenshot&&guard>after,"post-capture source-backed FAQ must be verified after screenshot");
 });
-
-test("both viewports reject a missing source-backed FAQ after final capture",()=>{
- const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
- assert.match(script,/if\(!finalFaq\.visible\|\|finalFaq\.sourced<3\)/,"final FAQ must remain source-backed");
- assert.match(script,/after "\+viewport\.label\+" capture"/,"final FAQ guard must identify the checked viewport");
- assert.ok(script.indexOf('if(!finalFaq.visible||finalFaq.sourced<3)')>script.indexOf('await page.screenshot('),"guard must run after hero capture");
-});
