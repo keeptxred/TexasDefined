@@ -86,7 +86,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
-  // Exact twelve source-verified GSC ImageObject examples only. Test their *deployed* JSON-LD
+  // Exact thirteen source-verified GSC ImageObject examples only. Test their *deployed* JSON-LD
   // when the shared rights registry changes; no sitewide image crawl.
   const imageRightsPages = new Set();
   if (changedFiles.includes('src/data/image-rights.ts')) {
@@ -97,6 +97,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       '/article/state-fair-texas-2026-new-foods-guide',
       '/article/texas-borderlands-historic-sites-guide',
       '/article/texas-german-belt',
+      '/article/texas-before-united-states-how-texas-began',
       '/article/texas-high-school-football-playoffs-explained',
       '/article/texas-six-man-football-rules-explained',
       '/article/texas-cultural-regions-explained',
