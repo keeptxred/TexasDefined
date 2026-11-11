@@ -17,7 +17,7 @@ export function isSubstantiveTexasDefinedDraftSource(item) {
   // of independence; final draft provenance checks still apply.
   let host = '';
   try { host = new URL(String(item?.link ?? '')).hostname.toLowerCase(); } catch { /* held */ }
-  const institutionalOriginal = /(?:^|\\.)(?:gov|edu)$/.test(host);
+  const institutionalOriginal = /(?:^|\.)(?:gov|edu)$/.test(host);
   const sourceCount = Number(item?.source_count);
   if (!institutionalOriginal && (!Number.isInteger(sourceCount) || sourceCount < 2)) return false;
 
