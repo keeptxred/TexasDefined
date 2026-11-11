@@ -99,6 +99,37 @@ test("Blue Bell factory photo uses verified 2008 photographer rights on exact Co
   assert.ok(ledger.includes("File:Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg"));
 });
 
+test("Big Tex, Magoffin Home and Fredericksburg Marktplatz use exact source-verified rights", () => {
+  const cases = [
+    ["State_Fair_of_Texas_September_2019_13_(Big_Tex).jpg", "Michael Barera",
+      "https://creativecommons.org/licenses/by-sa/4.0/", "© Michael Barera"],
+    ["Magoffin_home_2009.jpg", "Larry D. Moore",
+      "https://creativecommons.org/licenses/by/4.0/", "© 2009 Larry D. Moore"],
+    ["Fredericksburg July 2017 5 (Marktplatz).jpg", "Michael Barera",
+      "https://creativecommons.org/licenses/by-sa/4.0/", "© Michael Barera"],
+  ];
+  for (const [file, creator, license, copyrightNotice] of cases) {
+    const src = "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + encodeURIComponent(file);
+    const expected = {
+      license, creator: { "@type": "Person", name: creator },
+      copyrightNotice,
+      acquireLicensePage: "https://commons.wikimedia.org/wiki/File:" + file.replaceAll(" ", "_"),
+    };
+    for (const candidate of [
+      src, "/remote?url=" + encodeURIComponent(src),
+      "/media/remote?url=" + encodeURIComponent(src),
+    ]) assert.deepEqual(imageRightsFor(candidate), expected, candidate);
+    for (const candidate of [
+      "https://example.com/wiki/Special:Redirect/file/" + encodeURIComponent(file),
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/replaced-" + encodeURIComponent(file),
+    ]) assert.equal(imageRightsFor(candidate), null, candidate);
+  }
+  const route = readFileSync("src/routes/article.$slug.tsx", "utf8");
+  for (const marker of ["State_Fair_of_Texas_September_2019_13", "Magoffin_home_2009", "Fredericksburg(?:%20| )July"]) {
+    assert.ok(route.includes(marker), marker);
+  }
+});
+
 test("Ocho Restaurant cafe-table photo uses independently sourced Nan Palmero CC BY 2.0 rights", () => {
   const file = "Cafe_Table_at_Ocho_Restaurant,_San_Antonio,_Texas_(2014-12-10_16.51.3_by_Nan_Palmero).jpg";
   const source = "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + file;
