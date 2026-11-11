@@ -379,6 +379,7 @@ for (const marker of [
 for (const marker of [
   'data-polar-express-editorial-intro="true"',
   'data-polar-express-editorial-essentials="true"',
+  'Trip essentials',
   'isPalestinePolarExpress ? "" : `<section data-major-event-snapshot',
   'Where to board',
   'Allow enough time',
