@@ -158,20 +158,23 @@ export function refreshCadenceDays(event, asOf = new Date()) {
   return 30;
 }
 
-export function nextSourceReviewAt(event, asOf = new Date()) {
+export function nextSourceReviewAt(event, asOf = new Date(), cadenceCeilingDays = null) {
   // Date distribution is stable across runs and includes today's due cohort.
   // Iterate rather than just adding N days because priority can increase when
   // an approaching event crosses a 90/14-day escalation threshold.
   for (let offset = 0; offset <= 30; offset++) {
     const reviewDay = new Date(Date.UTC(asOf.getUTCFullYear(), asOf.getUTCMonth(),
       asOf.getUTCDate() + offset));
-    if (dueForReview(event, reviewDay)) return reviewDay.toISOString().slice(0, 10);
+    const cadence = cadenceCeilingDays == null ? null
+      : Math.min(cadenceCeilingDays, refreshCadenceDays(event, reviewDay));
+    if (dueForReview(event, reviewDay, cadence)) return reviewDay.toISOString().slice(0, 10);
   }
   throw new Error('Unable to schedule event source review for ' + event.path);
 }
 
-export function dueForReview(event, asOf = new Date()) {
-  const cadence = refreshCadenceDays(event, asOf);
+export function dueForReview(event, asOf = new Date(), cadenceOverrideDays = null) {
+  const cadence = cadenceOverrideDays ?? refreshCadenceDays(event, asOf);
+  if (!Number.isInteger(cadence) || cadence < 1) throw new Error('Invalid event review cadence');
   if (cadence === 1) return true;
   const day = Math.floor(Date.parse(asOf.toISOString().slice(0, 10) + 'T00:00:00Z') / 86400000);
   let hash = 2166136261;
