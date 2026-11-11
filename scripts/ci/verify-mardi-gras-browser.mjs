@@ -134,7 +134,7 @@ try {
               return nodes.flatMap(node => Array.isArray(node?.["@graph"]) ? node["@graph"] : [node]);
             } catch { return []; }
           });
-          const marker = type => ld.some(node => [node?.["@type"]].flat().includes(type));
+          const marker = type => ld.some(node => [node?.["@type"], node?.mainEntity?.["@type"]].flat().includes(type));
           const pageText = document.body?.innerText || "";
           return {
             h1: document.querySelector("h1")?.innerText?.trim() || "",
