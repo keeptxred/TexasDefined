@@ -129,6 +129,21 @@ try{
      });
      if(!afterCapture.visible||afterCapture.sourced<3)throw new Error("FAQ disappeared or lost TPWD-sourced answers after mobile screenshot");
     }
+    // Desktop hydration can also replace the FAQ after the initial facts check.
+    // Apply the same strict sourced-answer acceptance after the final capture
+    // for both viewports, not only inside the mobile screenshot branch.
+    const finalFaq=await page.evaluate(()=>{
+     const heading=document.querySelector("#destination-visitor-faqs");
+     const section=heading?.closest('section[aria-labelledby="destination-visitor-faqs"]');
+     const box=section?.getBoundingClientRect();
+     const sourced=[...(section?.querySelectorAll("dl > div")||[])].filter(row=>{
+      const question=row.querySelector("dt")?.textContent?.trim()||"";
+      const answer=row.querySelector("dd")?.textContent?.trim()||"";
+      return question.length>=12&&answer.length>=25&&!!row.querySelector('dd a[href^="https://tpwd.texas.gov/"]');
+     }).length;
+     return {visible:!!box&&box.width>0&&box.height>0,sourced};
+    });
+    if(!finalFaq.visible||finalFaq.sourced<3)throw new Error("FAQ disappeared or lost TPWD-sourced answers after "+viewport.label+" capture");
     await sampleFaq("after-screenshots");
     results.push({slug,viewport:viewport.label,status:"passed",faqTimeline,...facts});
     console.log("PASS "+viewport.label+" "+slug+" image="+facts.heroNaturalWidth+" overflow="+(facts.documentWidth-facts.viewport));
