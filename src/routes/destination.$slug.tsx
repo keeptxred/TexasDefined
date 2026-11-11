@@ -236,7 +236,10 @@ export const Route = createFileRoute("/destination/$slug")({
       : relationshipGroups;
     // Source-specific rights stay in the lazily loaded route data, not the
     // shared main-client bundle (which has a strict byte budget).
-    const imageRights = /South_Padre_Island_beach_panorama/.test(destination.hero.src)
+    // These three canonical reviewed Commons heroes have exact-source licenses
+    // in image-rights.ts. Lazy-load the registry only for those real photos,
+    // retaining the bounded main-client performance budget.
+    const imageRights = /South_Padre_Island_beach_panorama|San_Antonio_Japanese_Tea_Garden_2022|Fort_Worth_Water_Gardens_01|Houston_Botanic_Garden/.test(destination.hero.src)
       ? (await import("@/data/image-rights")).imageRightsFor(destination.hero.src) : null;
     return { destination, graph, categories, regions, relatedArticles, relationshipGroups: relevantRelationshipGroups, dallasHeritage, imageRights };
   },
