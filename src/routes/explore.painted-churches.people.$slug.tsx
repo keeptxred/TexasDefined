@@ -60,7 +60,7 @@ function PersonPage() {
           {person.slug === "gottfried-flury" && (
             <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">
               Research by <Link to="/about" className="underline underline-offset-2">Texas Defined History &amp; Heritage Desk</Link>
-              {" · "}Published sources and archive catalogs cross-checked November 10, 2026; comparative research added November 11, 2026
+              {" · "}Published sources and archive catalogs cross-checked November 10, 2026; botanical and inter-church research sources cross-checked November 11, 2026
             </p>
           )}
         </Container>
