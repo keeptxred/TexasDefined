@@ -51,7 +51,7 @@ function fixture() {
     'events.tsx', 'events.index.tsx', 'events.$collection.tsx',
     'events.air-shows.tsx', 'events.mardi-gras.tsx', 'event.$slug.tsx',
     'holiday.enchant-christmas-arlington.tsx', 'holiday.magical-winter-lights.tsx',
-    'texas-state-fair.tsx', 'horse-racing.tsx', 'horse-racing_.$slug.tsx',
+    'texas-state-fair.tsx', 'horse-racing.tsx', 'horse-racing_.$slug.tsx', 'corporate-events.tsx',
   ]) put('src/routes/' + file, '// route');
   return { root, put, dispose: () => fs.rmSync(root, { recursive: true, force: true }) };
 }
@@ -67,6 +67,8 @@ test('covers all permanent index, supplemental, temporal and specialized route f
     assert.ok(i.permanent.some(x => x.path === '/event/river-festival'));
     assert.ok(i.permanent.some(x => x.path === '/event/winter-parade'));
     assert.ok(i.permanent.some(x => x.path === '/event/golf-championship'));
+    assert.ok(i.dedicated.some(x => x.path === '/corporate-events' &&
+      x.workflow === 'corporate-event-source-monitor.yml' && x.cadenceDays === 7));
     assert.deepEqual(validateEventRefreshCoverage(i), []);
     f.put('src/routes/events.unregistered.tsx', '// new undisclosed event page');
     assert.ok(validateEventRefreshCoverage(collectEventPageRefreshInventory(f.root))
@@ -244,10 +246,12 @@ test('scheduled source monitor enumerates all URLs with bounded calls and writes
     assert.equal(result.coverage.permanent, 4);
     assert.ok(result.due >= 1);
     assert.equal(result.attempted, result.due);
-    assert.equal(result.scheduledPages, 4 + 2 + 3 + 5);
+    assert.equal(result.scheduledPages, 4 + 2 + 3 + 6);
     assert.equal(result.schedule.length, result.scheduledPages);
     assert.ok(result.schedule.every(row => row.workflow && row.nextSourceReviewAt));
     assert.ok(result.schedule.some(row => row.path === '/events' && row.workflow === 'sync-texas-events.yml'));
+    assert.ok(result.schedule.some(row => row.path === '/corporate-events' &&
+      row.workflow === 'corporate-event-source-monitor.yml' && row.cadenceDays === 7));
     assert.ok(result.schedule.some(row => row.path === '/event/river-festival' && row.officialSource));
     assert.ok(result.schedule.some(row => row.path === '/holiday/magical-winter-lights'));
     assert.equal(result.state, 'observed');
