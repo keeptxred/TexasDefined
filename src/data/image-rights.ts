@@ -12,6 +12,39 @@ const commonsRights = [
   { file: "South_Padre_Island_beach_panorama.jpg", creator: "Spheroidite" },
 ] as const;
 
+const REVIEWED_ATTRACTION_IMAGE_RIGHTS = [
+  { file: "San_Antonio_Japanese_Tea_Garden_2022.jpg", creator: "Jouaienttoi", license: "https://creativecommons.org/licenses/by-sa/4.0/", copyrightNotice: "© Jouaienttoi" },
+  { file: "Fort_Worth_Water_Gardens_01.jpg", creator: "Farragutful", license: "https://creativecommons.org/licenses/by-sa/4.0/", copyrightNotice: "© Farragutful" },
+  { file: "Houston_Botanic_Garden.jpg", creator: "WhisperToMe", license: "https://creativecommons.org/publicdomain/zero/1.0/", copyrightNotice: "CC0 1.0 public-domain dedication by WhisperToMe; no copyright claim" },
+] as const;
+
+/** Rights are licensed per exact Commons file, never by attraction slug or image search. */
+function reviewedAttractionImageRights(src: string) {
+  let candidate = src;
+  for (let depth = 0; depth < 4; depth += 1) {
+    let parsed: URL;
+    try { parsed = new URL(candidate, "https://texasdefined.com"); }
+    catch { return null; }
+    if (parsed.hostname === "commons.wikimedia.org") {
+      const prefix = "/wiki/Special:Redirect/file/";
+      const name = decodeURIComponent(parsed.pathname).startsWith(prefix)
+        ? decodeURIComponent(parsed.pathname).slice(prefix.length) : "";
+      const verified = REVIEWED_ATTRACTION_IMAGE_RIGHTS.find((image) => image.file === name);
+      return verified ? {
+        license: verified.license,
+        creator: { "@type": "Person" as const, name: verified.creator },
+        copyrightNotice: verified.copyrightNotice,
+        acquireLicensePage: "https://commons.wikimedia.org/wiki/File:" + verified.file,
+      } : null;
+    }
+    if (parsed.hostname !== "texasdefined.com" || !/^\/(?:media\/)?remote$/.test(parsed.pathname)) return null;
+    const nested = parsed.searchParams.get("url");
+    if (!nested) return null;
+    candidate = nested;
+  }
+  return null;
+}
+
 function decodedImageSource(src: string): string {
   // The delivery proxy /remote?url=... and Wikimedia redirects may encode
   // filenames once or twice (%252C, %2528, etc). Decode without inventing a URL.
@@ -30,6 +63,8 @@ function decodedImageSource(src: string): string {
 
 /** Wikimedia attribution for historically verified seasonal photos and Guadalupe River. */
 export const imageRightsFor = (src: string) => {
+  const reviewedRights = reviewedAttractionImageRights(src);
+  if (reviewedRights) return reviewedRights;
   const source = decodedImageSource(src);
   // Do not reuse Commons ownership or rights for an unrelated similarly named
   // local image. Both the source host and original Commons filename must match.

@@ -204,3 +204,36 @@ test("both SEO head routes attach the verified data to the published ImageObject
   assert.ok(destination.includes("...magoffinImageRights, ...moodyGardensImageRights"),
     "Existing one-off verified rights must not be removed");
 });
+
+
+test("three reviewed attraction heroes use exact-source verified Commons rights", () => {
+  const verified = [
+    ["san-antonio-japanese-tea-garden", "San_Antonio_Japanese_Tea_Garden_2022.jpg", "Jouaienttoi", "https://creativecommons.org/licenses/by-sa/4.0/"],
+    ["fort-worth-water-gardens", "Fort_Worth_Water_Gardens_01.jpg", "Farragutful", "https://creativecommons.org/licenses/by-sa/4.0/"],
+    ["houston-botanic-garden", "Houston_Botanic_Garden.jpg", "WhisperToMe", "https://creativecommons.org/publicdomain/zero/1.0/"],
+  ];
+  const records = readFileSync("src/data/reviewed-attraction-authorities.ts", "utf8");
+  for (const [slug, file, photographer, license] of verified) {
+    const source = "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + file + "?width=1600";
+    const expected = imageRightsFor(source);
+    assert.ok(expected, slug);
+    assert.equal(expected.creator.name, photographer);
+    assert.equal(expected.license, license);
+    assert.equal(expected.acquireLicensePage, "https://commons.wikimedia.org/wiki/File:" + file);
+    assert.ok(records.includes('"slug": "' + slug + '"'));
+    assert.ok(records.includes(file));
+    assert.ok(records.includes(photographer));
+    for (const candidate of [
+      "/remote?url=" + encodeURIComponent(source),
+      "/media/remote?url=" + encodeURIComponent(source),
+      "/remote?url=" + encodeURIComponent("/media/remote?url=" + encodeURIComponent(source)),
+    ]) assert.deepEqual(imageRightsFor(candidate), expected, slug);
+    for (const unverified of [
+      "https://example.com/wiki/Special:Redirect/file/" + file,
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/unrelated-" + file,
+      "https://commons.wikimedia.org/wiki/File:" + file,
+      "/remote?url=" + encodeURIComponent("https://example.com/?filename=" + file),
+    ]) assert.equal(imageRightsFor(unverified), null, unverified);
+  }
+  assert.match(imageRightsFor("https://commons.wikimedia.org/wiki/Special:Redirect/file/Houston_Botanic_Garden.jpg")?.copyrightNotice ?? "", /no copyright claim/);
+});

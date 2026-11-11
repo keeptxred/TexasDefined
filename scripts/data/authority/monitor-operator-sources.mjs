@@ -22,6 +22,27 @@ export function sourceIndex(offerRows, independentRows) {
   return [...indexed.values()].sort((a, b) => a.url.localeCompare(b.url));
 }
 
+/** Read the three already-approved attraction records directly; no duplicate fact dates. */
+export function reviewedAttractionMonitorRows(sourceText) {
+  const marker = "export const reviewedAttractionDestinations: Destination[] = ";
+  const start = sourceText.indexOf(marker);
+  if (start < 0) throw new Error("Reviewed attraction catalog export missing");
+  const raw = sourceText.slice(start + marker.length).trim().replace(/;\s*$/, "");
+  const records = JSON.parse(raw);
+  const expected = [
+    "san-antonio-japanese-tea-garden",
+    "fort-worth-water-gardens",
+    "houston-botanic-garden",
+  ];
+  if (!Array.isArray(records) || records.length !== expected.length ||
+    expected.some((slug) => !records.some((item) => item.slug === slug))) {
+    throw new Error("Reviewed attraction source-monitor inventory changed; review scope");
+  }
+  return records.map((item) => ({
+    id: item.slug, sourceUrl: item.officialUrl, checkedAt: item.sourceCheckedAt,
+  }));
+}
+
 export function normalizedSourceFingerprint(html) {
   const text = html.replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<(script|style|noscript|svg)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, " ")
@@ -79,7 +100,8 @@ async function main() {
   if (previous.version && previous.version !== 1)
     throw new Error("Unsupported operator source monitor baseline version");
   const asOf = new Date().toISOString().slice(0, 10);
-  const sources = sourceIndex(offers, operators);
+  const reviewed = await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8");
+  const sources = sourceIndex(offers, [...operators, ...reviewedAttractionMonitorRows(reviewed)]);
   const state = { version: 1, asOf, sources: {} };
   let alerts = 0;
   for (let i = 0; i < sources.length; i += 3) {
