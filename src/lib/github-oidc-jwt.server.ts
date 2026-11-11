@@ -1,12 +1,12 @@
 /**
- * GitHub Actions OIDC verifier for a single, environment-protected sync workflow.
+ * GitHub Actions OIDC verifier for a single workflow on protected main.\n * That workflow is gated by its existing publication-environment authorization job.
  * No shared password or CJ credential is ever sent by GitHub.
  */
 const ISSUER = 'https://token.actions.githubusercontent.com';
 const AUDIENCE = 'texasdefined-cj-reconciliation-v1';
 const WORKFLOW_REF =
   'keeptxred/TexasDefined/.github/workflows/sync-partner-referral-analytics.yml@refs/heads/main';
-const ENVIRONMENT_SUB = 'repo:keeptxred/TexasDefined:environment:texasdefined-publication';
+const ENVIRONMENT_SUB = 'repo:keeptxred/TexasDefined:ref:refs/heads/main';
 const JWKS_URL = 'https://token.actions.githubusercontent.com/.well-known/jwks';
 
 function decodeJwtPart(part: string): unknown {
