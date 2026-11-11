@@ -35,6 +35,30 @@ jobs:
       - name: Run fail-closed park verifier regression
         run: node --test scripts/production/__tests__/verify-six-park-authority-production.test.mjs
 
+      - name: Pin the live Worker to a signed successful production source release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/ci/pin-football-b010-production-release.mjs
+          grep -qx 'ready=true' "$GITHUB_OUTPUT" || {
+            echo 'No signed source/Worker proof; refuse park production certification.' >&2
+            exit 1
+          }
+          echo "PARK_QA_SOURCE_SHA=$(grep '^sha=' "$GITHUB_OUTPUT" | cut -d= -f2)" >> "$GITHUB_ENV"
+          echo "PARK_QA_WORKER_VERSION=$(grep '^worker=' "$GITHUB_OUTPUT" | cut -d= -f2)" >> "$GITHUB_ENV"
+
+      - name: Require exact deployed source for park acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$PARK_QA_SOURCE_SHA" = "$GITHUB_SHA" || {
+            echo "Verifier SHA $GITHUB_SHA differs from signed active source $PARK_QA_SOURCE_SHA; no release-matched acceptance." >&2
+            exit 1
+          }
+
       - name: Prepare free Chrome and Playwright Core
         shell: bash
         run: |
