@@ -56,6 +56,10 @@ export const imageRightsFor = (src: string) => {
     try { parsed = new URL(original, "https://texasdefined.com"); }
     catch { break; }
     if (parsed.hostname === "commons.wikimedia.org") {
+      // Malformed percent escapes in an unrelated image URL must not crash SSR.
+      let decodedPath: string;
+      try { decodedPath = decodeURIComponent(parsed.pathname); }
+      catch { break; }
       // The precise Britten USA photograph used on the unusual-businesses guide.
       // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
       // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
@@ -63,7 +67,7 @@ export const imageRightsFor = (src: string) => {
       // Original 1836 map by Edmund Francis Lee, preserved by UTA Libraries.
       // Its individual Commons record marks the historical work public domain;
       // the archival institution is a source, not a private copyright holder.
-      if (decodeURIComponent(parsed.pathname) === "/wiki/Special:Redirect/file/Lee_Map_of_Texas_1836_UTA.jpg") {
+      if (decodedPath === "/wiki/Special:Redirect/file/Lee_Map_of_Texas_1836_UTA.jpg") {
         return {
           license: "https://creativecommons.org/publicdomain/mark/1.0/",
           creator: { "@type": "Person", name: "Edmund Francis Lee" },
@@ -95,7 +99,7 @@ export const imageRightsFor = (src: string) => {
         },
       ] as const;
       const matched = verified.find(({ file }) =>
-        decodeURIComponent(parsed.pathname) === `/wiki/Special:Redirect/file/${file}`);
+        decodedPath === `/wiki/Special:Redirect/file/${file}`);
       if (matched) {
         return {
           license: matched.license,
@@ -110,7 +114,7 @@ export const imageRightsFor = (src: string) => {
       // 15877517800 and license: https://www.oeglobal.org/event/two-conferences-cafe/
       // Do not infer rights from other photos in the same Flickr stream.
       const ochoFile = "Cafe_Table_at_Ocho_Restaurant,_San_Antonio,_Texas_(2014-12-10_16.51.3_by_Nan_Palmero).jpg";
-      if (decodeURIComponent(parsed.pathname) === `/wiki/Special:Redirect/file/${ochoFile}`) {
+      if (decodedPath === `/wiki/Special:Redirect/file/${ochoFile}`) {
         return {
           license: "https://creativecommons.org/licenses/by/2.0/",
           creator: { "@type": "Person", name: "Nan Palmero" },
@@ -118,7 +122,7 @@ export const imageRightsFor = (src: string) => {
           acquireLicensePage: `https://commons.wikimedia.org/wiki/File:${ochoFile}`,
         } as const;
       }
-      if (decodeURIComponent(parsed.pathname) === "/wiki/Special:Redirect/file/Britten USA.jpg") {
+      if (decodedPath === "/wiki/Special:Redirect/file/Britten USA.jpg") {
         return {
           license: "https://creativecommons.org/licenses/by/2.0/",
           creator: { "@type": "Person", name: "Dustin Moore" },
