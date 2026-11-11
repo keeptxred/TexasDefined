@@ -1,19 +1,7 @@
 {
-  "generatedAt": "2026-11-11T03:26:50.136Z",
+  "generatedAt": "2026-11-11T18:44:05.087Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Birding with a Ranger",
-      "startDate": "2026-11-11",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/birding-with-a-ranger/2026-11-11"
-    },
-    {
-      "title": "Morning Nature Walk",
-      "startDate": "2026-11-11",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-11"
-    },
     {
       "title": "Awesome Opossums",
       "startDate": "2026-11-12",
@@ -247,6 +235,12 @@
       "startDate": "2026-11-18",
       "parkKey": "lake-somerville-birch-creek",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/senior-stroll-3/2026-11-18"
+    },
+    {
+      "title": "Sky Island Yoga",
+      "startDate": "2026-11-18",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/mountain-yoga/2026-11-18"
     },
     {
       "title": "Awesome Opossums",
@@ -723,6 +717,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/coffee-with-the-superintendents/2026-12-03"
     },
     {
+      "title": "Hike With Homeless Dogs",
+      "startDate": "2026-12-03",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/hike-with-homeless-dogs/2026-12-03"
+    },
+    {
       "title": "Homeschool Hour at Pedernales Falls!",
       "startDate": "2026-12-03",
       "parkKey": "pedernales-falls",
@@ -865,6 +865,12 @@
       "startDate": "2026-12-09",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/homeschool-classes-at-the-park/2026-12-09"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-12-09",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-09"
     },
     {
       "title": "Homeschool Classes at the Park",
@@ -1017,10 +1023,22 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/buescher/reading-ranger/2026-12-16"
     },
     {
+      "title": "Hike With Homeless Dogs",
+      "startDate": "2026-12-17",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/hike-with-homeless-dogs/2026-12-17"
+    },
+    {
       "title": "Arts & Crafts",
       "startDate": "2026-12-18",
       "parkKey": "choke-canyon",
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-12-18"
+    },
+    {
+      "title": "Invasive vs. Native Species",
+      "startDate": "2026-12-18",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/invasive-vs-native-species/2026-12-18"
     },
     {
       "title": "Master Naturalist Hike",
@@ -1191,7 +1209,7 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/first-day-hike-self-guided/2027-01-01"
     },
     {
-      "title": "Mile - High First Day Hike",
+      "title": "Mile-High First Day Hike",
       "startDate": "2027-01-01",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/mile-high-1st-day-hike/2027-01-01"
