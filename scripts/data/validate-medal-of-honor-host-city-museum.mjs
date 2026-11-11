@@ -43,7 +43,7 @@ const route = read("src/routes/destination.$slug.tsx");
 const monitorWorkflow = read(".github/workflows/medal-of-honor-museum-authority.yml");
 const liveVerifier = read("scripts/data/verify-medal-of-honor-host-city-museum-live.mjs");
 requireAll(route, ["Medal of Honor Host City Museum, Gainesville: Hours & Visitor Guide", "isGainesvilleMedalMuseum", 'sameAs: "https://www.nctc.edu/museum/"', "Gainesville’s separate Medal of Honor Park: 2017 photos"], "museum unique metadata and schema");
-requireAll(subject, ["Duane E. Dewey", "Roger Hugh C. Donlon", "Michael John Fitzmaurice", "veteransDayCampusClosure", "Date.UTC(2026, 10, 12)", "Gainesville_June_2017_24_", "Gainesville_June_2017_25_", "not the NCTC museum", "Michael Barera · June 17, 2017 · CC BY-SA 4.0"], "exhibit evidence and expiring closure");
+requireAll(subject, ["Duane E. Dewey", "Roger Hugh C. Donlon", "Michael John Fitzmaurice", "veteransDayCampusClosure", "Date.UTC(2026, 10, 12, 6)", "Gainesville_June_2017_24_", "Gainesville_June_2017_25_", "not the NCTC museum", "Michael Barera · June 17, 2017 · CC BY-SA 4.0"], "exhibit evidence and expiring closure");
 requireAll(monitorWorkflow, ["verify-live:", "steps.live.outcome == 'failure'", "scripts/data/verify-medal-of-honor-host-city-museum-live.mjs"], "postdeploy and scheduled verifier");
 requireAll(liveVerifier, ["/sitemap-explore.xml", "museum-canonical", "museum-jsonld", "museum-search-title", "incoming-link", "PUBLICATION NOT CERTIFIED"], "live acceptance");
 
