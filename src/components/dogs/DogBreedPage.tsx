@@ -1,11 +1,11 @@
 import { getRouteApi, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
-import type { DogBreedProfile, DogBreedSummary, DogDesignCollection } from "@/data/texas-dogs";
+import type { DogBreedProfile, DogBreedSummary } from "@/data/texas-dogs";
 
 const routeApi = getRouteApi("/dogs/{-$breed}");
 
 export default function DogBreedPage() {
-  const { breed, related, collections } = routeApi.useLoaderData() as { breed: DogBreedProfile; related: DogBreedSummary[]; collections: DogDesignCollection[] };
+  const { breed, related } = routeApi.useLoaderData() as { breed: DogBreedProfile; related: DogBreedSummary[] };
   return <>
     <article>
       <header className="border-b border-border bg-surface/40">
@@ -41,9 +41,7 @@ export default function DogBreedPage() {
             <section><p className="eyebrow text-primary">Creative culture, not care advice</p><h2 className="mt-3 font-display text-4xl leading-tight">The shirt ideas that feel native to the breed</h2>
               <div className="mt-7 grid gap-4 sm:grid-cols-2">{breed.designHooks.map((hook, index) => <div key={hook} className="border border-border p-5"><span className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, "0")}</span><h3 className="mt-3 font-display text-2xl capitalize">{hook}</h3></div>)}</div>
             </section>
-            <section className="border-t border-border pt-10"><p className="eyebrow text-primary">Collection families</p><h2 className="mt-3 font-display text-4xl leading-tight">One {breed.shortName}, several completely different looks</h2>
-              <div className="mt-7 grid gap-5 md:grid-cols-2">{collections.map((collection) => <div key={collection.slug} className="border border-border p-5"><p className="eyebrow text-muted-foreground">{collection.tagline}</p><h3 className="mt-2 font-display text-2xl">{collection.name}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{collection.description}</p><a href={`/dogs#${collection.slug}`} className="eyebrow mt-4 inline-block text-primary">See the collection idea →</a></div>)}</div>
-            </section>
+            <section className="border-t border-border pt-10"><p className="eyebrow text-primary">Further reading</p><h2 className="mt-3 font-display text-3xl">Turn general breed advice into a local plan</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Before choosing a Texas park or lake, check local pet access and your dog's individual health and fitness. Veterinary advice and official destination rules outrank general breed averages.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/article/$slug" params={{slug:"taking-your-dog-to-texas-state-parks"}} className="text-primary underline">State park pet rules →</Link><Link to="/article/$slug" params={{slug:"texas-dog-lake-river-safety"}} className="text-primary underline">Water safety →</Link><Link to="/article/$slug" params={{slug:"camping-in-texas-with-your-dog"}} className="text-primary underline">Camping with dogs →</Link></div><p className="mt-5 text-sm leading-7 text-muted-foreground">For playful breed design collections, <Link to="/dogs/{-$breed}" params={{ breed: undefined }} className="font-semibold text-primary underline">return to the Texas Dogs hub</Link>; this breed guide prioritizes actual owner decisions.</p></section>
           </div>
           <aside><div className="sticky top-24 border border-border p-6"><p className="eyebrow text-primary">Creative brief</p><h2 className="mt-3 font-display text-3xl">{breed.shortName} shirt signals</h2><ul className="mt-5 space-y-3 text-sm leading-6 text-muted-foreground">{breed.designHooks.map((hook) => <li key={hook}>— {hook}</li>)}</ul></div></aside>
         </div>
