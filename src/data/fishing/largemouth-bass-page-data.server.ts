@@ -50,7 +50,7 @@ async function buildLargemouthBassPageData() {
     .map((relation) => {
       const lake = lakeById.get(relation.lakeId);
       if (!lake) return null;
-      const score = qualityScore[relation.quality] + prominenceScore[relation.prominence] + (lake.featured ? 1 : 0);
+      const score = qualityScore[relation.quality] + prominenceScore[relation.prominence];
       return { lake, relation, score, href: fishingFoundationAnchor("lake", lake.slug) };
     })
     .filter((row): row is NonNullable<typeof row> => Boolean(row) && !isFishingCurrentlyClosed(row.lake.slug))

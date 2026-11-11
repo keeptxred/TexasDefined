@@ -63,7 +63,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-3" aria-label="Technique coverage">
         <div><p className="eyebrow text-muted-foreground">Lake guides</p><p className="mt-2 font-display text-4xl">{data.lakeCount}</p></div>
         <div><p className="eyebrow text-muted-foreground">Verified species</p><p className="mt-2 font-display text-4xl">{data.species.length}</p></div>
-        <div><p className="eyebrow text-muted-foreground">Documented seasons</p><p className="mt-2 font-display text-4xl">{data.seasons.filter((season) => season !== "year-round").length}</p><p className="mt-1 text-xs text-muted-foreground">{data.seasons.includes("year-round") ? "Year-round applicability recorded separately" : "Season-specific records"}</p></div>
+        <div><p className="eyebrow text-muted-foreground">Documented seasons</p><p className="mt-2 font-display text-4xl">{data.seasons.includes("year-round") ? 4 : data.seasons.filter((season) => season !== "year-round").length}</p><p className="mt-1 text-xs text-muted-foreground">{data.seasons.includes("year-round") ? "Year-round coverage spans four seasons, not five" : "Season-specific records"}</p></div>
       </section>
 
       {guide ? <>
