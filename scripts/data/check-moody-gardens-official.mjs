@@ -80,8 +80,10 @@ export function validateEditorialReview(curation, now = Date.now()) {
   const issues = [];
   const checkedAt = curation.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
   if (!checkedAt) return ["Moody Gardens editorial source-review date is absent."];
-  const ageDays = (now - Date.parse(checkedAt + "T00:00:00Z")) / 86400000;
-  if (ageDays < -1 || ageDays > 30) {
+  const checkedTime = Date.parse(checkedAt + "T00:00:00Z");
+  if (!Number.isFinite(checkedTime)) return ["Moody Gardens editorial source-review date is invalid."];
+  const ageDays = (now - checkedTime) / 86400000;
+  if (!Number.isFinite(ageDays) || ageDays < -1 || ageDays > 30) {
     issues.push("Moody Gardens editorial review is " + Math.floor(ageDays) + " days old; recheck the operator's facts before changing the review date.");
   }
 
