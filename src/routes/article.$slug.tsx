@@ -291,8 +291,12 @@ export const Route = createFileRoute("/article/$slug")({
       loadTexasKnowledgeGraph(),
     ]);
     const graph = articleAutoLinkGraph(article, completeGraph);
-    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg|Celina_High_School|Bart_Coan_Field_from_west|Panna_Maria_|Houston_texas_usa_skyline|ray-roberts-lake-isle-du-bois-unit|Modern_Blue_Bell_Creameries_factory_located_in_Brenham|Britten(?:%20| )USA|Cafe_Table_at_Ocho_Restaurant/.test(article.hero.src)
-      ? (await import("@/data/image-rights")).imageRightsFor(article.hero.src) : null;
+    // Evaluate the exact asset against the verified provenance registry rather
+    // than a filename regex. The previous prefilter skipped legitimately
+    // licensed photos after /remote proxies double-encoded their names.
+    // imageRightsFor returns null for unknown/replaced sources; never
+    // attach rights based on article slug or an unverified lookalike.
+    const imageRights = (await import("@/data/image-rights")).imageRightsFor(article.hero.src);
     return { article, authors, categories, related, destinations, graph, imageRights };
   },
   head: ({ loaderData, params }) => {
