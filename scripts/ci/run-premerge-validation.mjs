@@ -67,6 +67,8 @@ const prebuildChecks = [
   ['FOOTBALL/B015/CHROME', 'Syntax-check bounded 25-school signed production Chrome evidence verifier', 'node', ['--check', 'scripts/ci/verify-football-b015-production.mjs']],
   ['COMMERCE/CJ', 'Syntax-check bounded first-party CJ production verification', 'node', ['--check', 'scripts/ci/verify-cj-account-production.mjs']],
   ['COMMERCE/CJ', 'Verify account-specific CJ creatives, exact destinations, stable SIDs and expired relationship fallback', 'node', ['--test', 'scripts/data/cj-account-links.test.mjs']],
+  ['COMMERCE/CJ/PRIVATE', 'Verify signed GitHub OIDC, bounded CJ commissions, correction deltas and exact source SID', 'node', ['--experimental-strip-types', '--test', 'src/lib/github-oidc-jwt.server.test.ts', 'src/lib/cj-account-reconciliation.test.ts']],
+  ['COMMERCE/CJ/PRIVATE', 'Reject public CJ tokens, unprotected webhooks or incomplete provider snapshots', 'node', ['scripts/data/validate-cj-private-sync.mjs']],
   ['CONTENT/GOVERNANCE', 'Reject internal workflow language from public narratives', 'node', ['scripts/data/validate-reader-facing-copy.mjs']],
   ['SPORTS/TRAVEL', 'Verify pro-team home-game filtering, major updates and distinct weekend guides', 'node', ['--experimental-strip-types', '--test', 'src/data/pro-teams.test.mjs']],
   ['DATA/BLS', 'Validate fail-closed scheduled BLS table parser and release freshness rules', 'node', ['--test', 'scripts/data/refresh-texas-metro-payrolls.test.mjs']],
