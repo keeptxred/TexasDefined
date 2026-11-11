@@ -25,6 +25,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Verify source monitor regression tests
+        run: node --test scripts/data/check-moody-gardens-official.test.mjs
       - name: Run bounded official-source monitor
         id: check
         continue-on-error: true
