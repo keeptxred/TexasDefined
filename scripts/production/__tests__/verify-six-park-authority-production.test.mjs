@@ -61,3 +61,17 @@ test("park screenshot must show the full three-answer TPWD FAQ rather than just 
  assert.ok(script.includes('if(facts.faqSourcedAnswers<3)throw new Error("Three TPWD-sourced park FAQ answers not rendered")'),"fewer than three linked question/answer pairs fails");
  assert.ok(script.includes("page.locator('section[aria-labelledby=\"destination-visitor-faqs\"]')"),"screenshot must capture full FAQ section, not just h2");
 });
+
+test("failed park Chrome cases retain pre-failure hydration evidence without accepting a failure",()=>{
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ assert.match(script,/const faqTimeline=\[\];\s*try\{/,"timeline must be scoped outside try so failures can preserve it");
+ assert.match(script,/results\.push\(\{slug,viewport:viewport\.label,status:"failed",error:message,faqTimeline\}\)/,"failed cases must be machine-readable");
+ assert.match(script,/if\(failures\.length\)process\.exitCode=1/,"Chrome acceptance must still fail closed");
+});
+test("mobile park FAQ remains source-backed after screenshot capture",()=>{
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ const screenshot=script.indexOf('await faq.screenshot(');
+ const after=script.indexOf('const afterCapture=await page.evaluate(');
+ const guard=script.indexOf('if(!afterCapture.visible||afterCapture.sourced<3)');
+ assert.ok(screenshot>=0&&after>screenshot&&guard>after,"post-capture source-backed FAQ must be verified after screenshot");
+});
