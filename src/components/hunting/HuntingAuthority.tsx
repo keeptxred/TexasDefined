@@ -50,11 +50,11 @@ function DeerSeasonTable() {
         <p className="eyebrow text-primary">{deerSeasonYear} season at a glance</p>
         <h2 id="deer-season-dates" className="mt-2 font-display text-3xl md:text-4xl">Texas white-tailed deer hunting dates</h2>
         <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">This table summarizes TPWD's zone calendar. Dates do not override county-specific legal deer, antler restrictions, land access or special permit requirements.</p>
-        <div className="mt-6 overflow-x-auto rounded-sm border border-border">
-          <table className="w-full min-w-[36rem] text-left text-sm">
+        <div className="mt-6 rounded-sm border border-border">
+          <table className="w-full text-left text-sm">
             <caption className="sr-only">{deerSeasonYear} Texas white-tailed deer season dates by season and zone</caption>
-            <thead className="bg-muted/50 text-foreground"><tr><th scope="col" className="px-4 py-3 font-semibold">Season</th><th scope="col" className="px-4 py-3 font-semibold">Area</th><th scope="col" className="px-4 py-3 font-semibold">Dates</th></tr></thead>
-            <tbody className="divide-y divide-border">{rows.map(([season, area, dates], index) => <tr key={index}><th scope="row" className="px-4 py-3 font-semibold">{season}</th><td className="px-4 py-3 text-muted-foreground">{area}</td><td className="px-4 py-3 whitespace-nowrap">{dates}</td></tr>)}</tbody>
+            <thead className="hidden bg-muted/50 text-foreground md:table-header-group"><tr><th scope="col" className="px-4 py-3 font-semibold">Season</th><th scope="col" className="px-4 py-3 font-semibold">Area</th><th scope="col" className="px-4 py-3 font-semibold">Dates</th></tr></thead>
+            <tbody className="divide-y divide-border">{rows.map(([season, area, dates], index) => <tr key={index} className="block p-4 md:table-row md:p-0"><th scope="row" className="block pb-1 text-base font-semibold md:table-cell md:px-4 md:py-3 md:text-sm">{season}</th><td className="block text-muted-foreground md:table-cell md:px-4 md:py-3">{area}</td><td className="block pt-2 font-semibold text-foreground md:table-cell md:px-4 md:py-3 md:pt-0 md:font-normal"><span className="mr-2 text-xs uppercase tracking-wide text-muted-foreground md:hidden">Dates</span>{dates}</td></tr>)}</tbody>
           </table>
         </div>
         <p className="mt-4 text-sm leading-6 text-muted-foreground">Late seasons have limits on legal deer; youth-only hunts have age restrictions. Always check the official county listing before hunting.</p>
