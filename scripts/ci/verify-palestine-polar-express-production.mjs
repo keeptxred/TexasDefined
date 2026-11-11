@@ -77,6 +77,7 @@ function verifyHtml(html, label) {
   if (!html.includes('data-polar-express-editorial-intro="true"')) missing.push("Editorial header missing");
   if (!html.includes('data-polar-express-editorial-essentials="true"')) missing.push("Editorial visit essentials missing");
   if (!html.includes("Where to board") || !html.includes("Allow enough time")) missing.push("Concise reader-first visitor details missing");
+  if (/\bLast reviewed\s+\d{4}-\d{2}-\d{2}/.test(html)) missing.push("Duplicate misleading event-review timestamp remains on Palestine guide");
   if (html.includes('data-major-event-snapshot="true"')) missing.push("Repetitive four-card dashboard still visible");
   if (html.includes("/event/polar-express-palestine-2026") || html.includes("/event/polar-express-palestine-2027")) missing.push("Year-specific event URL found");
   if (today > "2026-12-28" && manifest.year !== 2027 && html.includes('data-polar-express-2026-schedule="true"')) missing.push("Expired 2026 booking panel still shown");
