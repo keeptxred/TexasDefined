@@ -28,7 +28,7 @@ for (const [source, snippet, label] of [
   [handler, "Cache-Control': 'private, no-store, max-age=0'", 'No caching sensitive response'],
   [core, "CJ_PUBLISHER_CID = '8062457'", 'CJ publisher CID not website PID'],
   [core, "PALESTINE_SID = 'td_polar_palestine'", 'Exact Palestine source SID'],
-  [core, 'if (!complete) throw new Error', 'No truncated commission snapshots'],
+  [handler, 'if (!complete) throw new Error', 'No truncated commission snapshots'],
   [migration, 'enable row level security;', 'Private RLS'],
   [migration, 'revoke all on table public.texasdefined_cj_account_sync from public, anon, authenticated', 'No consumer Data API access'],
   [migration, 'to service_role', 'Service role only'],
