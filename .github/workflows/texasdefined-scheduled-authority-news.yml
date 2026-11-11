@@ -6,6 +6,17 @@ on:
   schedule:
     - cron: '13 3,9,15,21 * * *'
   workflow_dispatch:
+  # Deployment acceptance: exercise real Supabase queue/quality selection on
+  # protected main without activating the publisher or issuing an AI request.
+  # Restricted paths avoid an extra job for unrelated website releases.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/texasdefined-scheduled-authority-news.yml'
+      - 'scripts/news/texasdefined-auto-publisher.mjs'
+      - 'scripts/news/texasdefined-draft-evidence-gate.mjs'
+      - 'scripts/news/texasdefined-authority-review.mjs'
+      - 'scripts/news/texasdefined-live-destination-catalog.mjs'
 
 permissions:
   contents: read
@@ -65,7 +76,7 @@ jobs:
           if (process.env.TEXASDEFINED_AUTO_PUBLISH_ENABLED!=='true') console.log('::warning::Owner activation is not enabled. No automated publishing will occur.');
           NODE
       - name: Publish exactly one current authority-qualified source
-        if: ${{ env.TEXASDEFINED_AUTO_PUBLISH_ENABLED == 'true' && steps.queue.outputs.selected_id != '' }}
+        if: ${{ github.event_name != 'push' && env.TEXASDEFINED_AUTO_PUBLISH_ENABLED == 'true' && steps.queue.outputs.selected_id != '' }}
         shell: bash
         run: |
           set -euo pipefail
