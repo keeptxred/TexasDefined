@@ -3,12 +3,28 @@
  * Read-only, no third-party analytics, no sitewide crawl and no publishing.
  */
 import assert from 'node:assert/strict';
+import deerData from '../../src/data/hunting/deer-season-dates.json' with { type: 'json' };
 import { createRequire } from 'node:module';
 import { mkdir, writeFile } from 'node:fs/promises';
 const pagePath = '/hunting/texas-deer-hunting';
 const origin = 'https://texasdefined.com';
 const dir = 'artifacts/texas-deer-live-visual';
 const photoSource = 'https://www.fws.gov/sites/default/files/styles/max_1300x1300/public/banner_images/2021-05/White-tailed%20deer.jpg?itok=tsL8BNDt';
+function displayDate(iso, includeYear) {
+  const date = new Date(iso + 'T12:00:00Z');
+  const result = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'UTC', month: 'short', day: 'numeric',
+    ...(includeYear ? { year: 'numeric' } : {}),
+  }).format(date);
+  return result.replace(/^(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec) /, '$1. ');
+}
+function displaySeason(row) {
+  const sameYear=row.start.slice(0,4)===row.end.slice(0,4);
+  const sameMonth=sameYear&&row.start.slice(5,7)===row.end.slice(5,7);
+  const first=displayDate(row.start,!sameYear);
+  return sameMonth ? first+'–'+Number(row.end.slice(8))+', '+row.end.slice(0,4)
+    : first+'–'+displayDate(row.end,true);
+}
 const viewports = [
   { name: 'desktop', width: 1365, height: 900, isMobile: false },
   { name: 'mobile', width: 390, height: 844, isMobile: true },
@@ -18,6 +34,12 @@ if (process.argv.includes('--self-test')) {
   assert.deepEqual(viewports.map(x => x.name), ['desktop', 'mobile']);
   assert.ok(viewports.every(x => x.width >= 390 && x.height >= 800));
   assert.ok(photoSource.startsWith('https://www.fws.gov/'));
+  assert.equal(deerData.rows.length,8);
+  assert.ok(deerData.rows.every(row=>displaySeason(row).includes(String(deerData.startYear))||
+    displaySeason(row).includes(String(deerData.startYear+1))));
+  assert.equal(displaySeason({start:'2026-10-30',end:'2026-11-01'}),'Oct. 30–Nov. 1, 2026');
+  assert.equal(displaySeason({start:'2027-01-04',end:'2027-01-17'}),'Jan. 4–17, 2027');
+
   console.log('Texas deer Chrome desktop/mobile acceptance contract passed.');
   process.exit(0);
 }
@@ -66,6 +88,12 @@ try {
       const table = page.locator('table').filter({ has: page.locator('caption', { hasText: 'white-tailed deer season' }) }).first();
       verify('governed deer season table has eight entries', await table.locator('tbody tr').count() === 8,
         await table.locator('tbody tr').count().catch(() => 0));
+      const liveRows=await table.locator('tbody tr').allTextContents();
+      verify('all eight live date ranges match the current official TPWD snapshot',
+        liveRows.length===deerData.rows.length && deerData.rows.every((row,i)=>
+          liveRows[i].includes(displaySeason(row))),
+        liveRows.map((line,i)=>({id:deerData.rows[i]?.id,found:line.slice(0,110)})).slice(0,8).map(x=>JSON.stringify(x)).join(' | '));
+
       verify('eleven-section guide navigation', await page.locator('#deer-guide-11').count() === 1);
       const countySelect = page.locator('#deer-tpwd-county');
       verify('all 254 counties listed in the official-rules finder', await countySelect.locator('option').count() === 255);
