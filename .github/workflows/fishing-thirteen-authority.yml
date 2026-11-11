@@ -39,6 +39,7 @@ jobs:
           node --check scripts/ci/validate-fishing-thirteen-authority.mjs
           node --check scripts/ci/check-fishing-13-source-state.mjs
           node --check scripts/ci/verify-fishing-thirteen-production.mjs
+          node --check scripts/ci/verify-fishing-thirteen-mobile.mjs
       - name: Validate the thirteen fishing authority pages
         run: node scripts/ci/validate-fishing-thirteen-authority.mjs
       - name: Existing fishing techniques validation

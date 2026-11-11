@@ -14,6 +14,6 @@
 
 ## Review and completion criteria
 - Validate CI and type/build checks. Investigate and repair errors rather than rerunning an unchanged failure.
-- Merge after checks pass; wait for successful deployment verification; check all thirteen public pages for 200 status, canonical, crawl/index directives, links, and distinct visible content.
+- Merge after checks pass; wait for successful deployment verification; check all thirteen public pages for 200 status, canonical, crawl/index directives, links, and distinct visible content. A post-deploy GitHub workflow also verifies all thirteen in real 390px mobile Chrome (CSS settled, single H1, no overflow), including opening all technique lake relationships.
 - Investigate any regulatory-year/source-signature changes before rewriting law. The source monitor deliberately does not invent legal updates or fake review dates.
 - No claim of Google endorsement/ranking or 95+ editorial certification without live evidence.
