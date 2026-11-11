@@ -49,7 +49,7 @@ for (const marker of [
   '"@type": "Article"',
   '"@type": "ItemList"',
   '"@type": "BreadcrumbList"',
-  'dateModified: "2026-08-30"',
+  'dateModified: "2026-11-11"',
   'articleSection: "Texas Sports & Game Day"',
 ]) {
   assert(tailgatingRoute.includes(marker), `Texas tailgating structured authority missing marker: ${marker}`);
@@ -62,12 +62,15 @@ for (const marker of [
   'Austin · Texas',
   'Lubbock · Texas Tech',
   'Arlington · major pro events',
-  'Source review: August 30, 2026.',
+  'Selected official venue and USDA policy references checked November 11, 2026.',
   'https://12thman.com/tailgating',
   'https://12thman.com/tailgating/rules',
   'https://texaslonghorns.com/sports/2026/2/10/football-fan-guide',
   'https://texastech.com/sports/2026/8/18/football-parking-map',
   'https://texastech.com/sports/2026/8/20/raider-alley',
+  'https://attstadium.com/stadium-info/parking/',
+  'https://www.houstontexans.com/stadium/parking-tailgating/tailgate-guidelines',
+  'https://ask.fsis.usda.gov/article/What-is-the-Danger-Zone',
 ]) {
   assert(tailgatingLazy.includes(marker), `Texas tailgating visitor/source authority missing marker: ${marker}`);
 }
