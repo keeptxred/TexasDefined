@@ -88,12 +88,19 @@ try {
       const table = page.locator('table').filter({ has: page.locator('caption', { hasText: 'white-tailed deer season' }) }).first();
       verify('governed deer season table has eight entries', await table.locator('tbody tr').count() === 8,
         await table.locator('tbody tr').count().catch(() => 0));
-      const dateCellBounds=await table.locator('tbody tr td:last-child').evaluateAll(nodes =>
-        nodes.map(node=>({left:node.getBoundingClientRect().left,right:node.getBoundingClientRect().right})));
-      verify('all eight dates visible without mobile horizontal scrolling',
-        !viewport.isMobile || (dateCellBounds.length===8 &&
-          dateCellBounds.every(rect=>rect.left>=-2 && rect.right<=viewport.width+3)),
-        JSON.stringify(dateCellBounds));
+      const mobileDates = page.locator('[data-deer-mobile-date]');
+      const mobileDateReport = await mobileDates.evaluateAll(nodes => nodes.map(node => ({
+        text: node.textContent || '',
+        left: node.getBoundingClientRect().left,
+        right: node.getBoundingClientRect().right,
+        visible: getComputedStyle(node).display !== 'none',
+      })));
+      verify('all eight mobile date cards readable without horizontal swipe',
+        !viewport.isMobile || (mobileDateReport.length === deerData.rows.length &&
+          mobileDateReport.every((item,i) =>
+            item.visible && item.text.includes(displaySeason(deerData.rows[i])) &&
+            item.left >= -2 && item.right <= viewport.width + 3)),
+        JSON.stringify(mobileDateReport).slice(0,700));
       const liveRows=await table.locator('tbody tr').allTextContents();
       verify('all eight live date ranges match the current official TPWD snapshot',
         liveRows.length===deerData.rows.length && deerData.rows.every((row,i)=>
