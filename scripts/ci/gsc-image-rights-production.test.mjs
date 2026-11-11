@@ -5,6 +5,8 @@ import { buildChangePlan, PAGE_BUDGET } from './production-change-scope.mjs';
 
 const CC = 'https://creativecommons.org/licenses/by-sa/4.0/';
 const entries = [
+  ['/article/texas-restaurants-for-out-of-town-visitors', 'Nan Palmero', 'Person', '© Nan Palmero',
+    'https://creativecommons.org/licenses/by/2.0/', 'Cafe_Table_at_Ocho_Restaurant,_San_Antonio,_Texas_(2014-12-10_16.51.3_by_Nan_Palmero).jpg'],
   ['/article/unusual-texas-businesses-services', 'Dustin Moore', 'Person', '© Dustin Moore',
     'https://creativecommons.org/licenses/by/2.0/', 'Britten_USA.jpg'],
   ['/article/blue-bell-ice-cream-brenham-texas-history', 'Larry D. Moore', 'Person', '© 2008 Larry D. Moore',
@@ -36,7 +38,7 @@ function mockHtml(path, creator, type, copyright, license, file, edits = {}) {
     + '</script></head><body><p>Photo: ' + creator + '</p></body></html>';
 }
 
-test('release and canonical image-rights acceptance selects exactly eight URLs within existing 40-page budget', () => {
+test('release and canonical image-rights acceptance selects exactly nine URLs within existing 40-page budget', () => {
   const plan = buildChangePlan({
     baseline: 'a'.repeat(40), head: 'b'.repeat(40),
     changedFiles: ['src/data/image-rights.ts'],
@@ -48,10 +50,10 @@ test('release and canonical image-rights acceptance selects exactly eight URLs w
     baseline: 'a'.repeat(40), head: 'b'.repeat(40),
     changedFiles: ['src/data/fixtures/texas-life-split-source.ts'],
   });
-  assert.deepEqual(unrelated.imageRightsPages, [], 'No permanent eight-page crawl for unrelated changes');
+  assert.deepEqual(unrelated.imageRightsPages, [], 'No permanent nine-page crawl for unrelated changes');
 });
 
-test('actual ImageObject parsing accepts all eight source-authenticated article/destination SSR structures', () => {
+test('actual ImageObject parsing accepts all nine source-authenticated article/destination SSR structures', () => {
   for (const fields of entries) assert.doesNotThrow(() => assertGscImageRights(mockHtml(...fields), fields[0]), fields[0]);
 });
 
