@@ -116,7 +116,30 @@ for (const guide of attractionCertification) {
     if (!picture.ok || !/^image\/(?:jpeg|png|webp)/i.test(mediaType)) {
       throw Error("hero delivery failed: HTTP " + picture.status + " content type " + mediaType);
     }
-    await picture.body?.cancel();
+    // All three vetted Commons originals are JPEG. Decode the delivered pixel
+    // dimensions instead of trusting the ImageObject width/height declarations.
+    if (!/^image\/jpeg\b/i.test(mediaType)) throw Error("unrecognized hero media: " + mediaType);
+    const bytes = new Uint8Array(await picture.arrayBuffer());
+    if (bytes.length < 500 || bytes.length > 2_000_000 || bytes[0] !== 0xff || bytes[1] !== 0xd8) {
+      throw Error("invalid or oversized delivered JPEG");
+    }
+    let dimensions = null;
+    for (let i = 2; i + 9 < bytes.length;) {
+      if (bytes[i] !== 0xff) { i++; continue; }
+      const marker = bytes[i + 1];
+      if (marker === 0xd9 || marker === 0xda) break;
+      if (marker === 0xd8 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) { i += 2; continue; }
+      const length = (bytes[i + 2] << 8) | bytes[i + 3];
+      if (length < 2 || i + 2 + length > bytes.length) break;
+      if ([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker)) {
+        dimensions = { height: (bytes[i + 5] << 8) | bytes[i + 6], width: (bytes[i + 7] << 8) | bytes[i + 8] };
+        break;
+      }
+      i += 2 + length;
+    }
+    if (dimensions?.width !== image.width || dimensions?.height !== image.height) {
+      throw Error("actual hero pixels " + JSON.stringify(dimensions) + " differ from ImageObject " + image.width + "x" + image.height);
+    }
   } catch (error) {
     failures.push({ path: guide.path, error: "attraction certification: " + String(error) });
   }
