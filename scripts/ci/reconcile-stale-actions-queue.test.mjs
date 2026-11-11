@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { classifyQueuedRun, classifyOrphanedInProgressRun, shouldCancel, mayDeleteAfterBackend409, MIN_STALE_MS, SCHEDULE_EXPIRY_MS, ORPHANED_IN_PROGRESS_MS } from "./reconcile-stale-actions-queue.mjs";
@@ -67,4 +68,12 @@ test("permanent deletion is permitted only for proved jobless superseded queue r
   assert.equal(mayDeleteAfterBackend409({ ...orphan, event: "issue_comment" }, "cancel:superseded-release", noJobs), false);
   assert.equal(mayDeleteAfterBackend409({ ...orphan, status: "in_progress" }, "cancel:superseded-release", noJobs), false);
   assert.equal(mayDeleteAfterBackend409(orphan, "cancel:superseded-release", { total_count: 1, jobs: [{ status: "queued" }] }), false);
+});
+
+test("automatic queue inventory is read-only until GitHub repairs its pre-queue 409/403 state", () => {
+  const workflow = readFileSync(new URL("../../.github/workflows/reconcile-stale-actions-queue.yml", import.meta.url), "utf8");
+  assert.match(workflow, /default: true/);
+  assert.match(workflow, /if \[\[ "\$GITHUB_EVENT_NAME" != "workflow_dispatch" \]\]; then/);
+  assert.match(workflow, /reconcile-stale-actions-queue\.mjs --inventory-only/);
+  assert.doesNotMatch(workflow, /restore-mcallen:/);
 });
