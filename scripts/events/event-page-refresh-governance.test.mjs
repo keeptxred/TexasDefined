@@ -301,3 +301,25 @@ test('overdue distant event guides receive weekly source verification slots with
       'HTTP reachability never clears overdue editorial-verification debt');
   } finally { f.dispose(); }
 });
+
+
+test('the entire real editorial backlog has a bounded seven-day GitHub source-check schedule', () => {
+  const inventory = collectEventPageRefreshInventory();
+  const asOf = new Date();
+  const backlog = fullEditorialFreshnessBacklog(inventory, asOf);
+  const slots = new Map();
+  for (let i = 0; i < 7; i++) {
+    const day = new Date(Date.UTC(asOf.getUTCFullYear(), asOf.getUTCMonth(),
+      asOf.getUTCDate() + i, 13, 7));
+    for (const record of selectSourceReviewTargets(inventory, day)) {
+      if (!slots.has(record.path)) slots.set(record.path, day.toISOString().slice(0, 10));
+    }
+  }
+  for (const record of backlog) {
+    assert.ok(slots.has(record.path),
+      'No seven-day verification slot for stale event: ' + record.path);
+    assert.ok(record.nextSourceReviewAt <= slots.get(record.path),
+      'Inventory next-review metadata must match the actual scheduled date: ' + record.path);
+  }
+  assert.deepEqual(validateEventRefreshCoverage(inventory), []);
+});
