@@ -56,6 +56,32 @@ export const imageRightsFor = (src: string) => {
     try { parsed = new URL(original, "https://texasdefined.com"); }
     catch { break; }
     if (parsed.hostname === "commons.wikimedia.org") {
+      // The precise Britten USA photograph used on the unusual-businesses guide.
+      // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
+      // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
+      // Never attach these rights to other photos, even from the same creator.
+      // The Ocho Restaurant cafe-table photograph is individually attributed
+      // to Nan Palmero with CC BY 2.0 at its original Flickr record.
+      // Independent 2024 reuse identifies the exact photo, source Flickr ID
+      // 15877517800 and license: https://www.oeglobal.org/event/two-conferences-cafe/
+      // Do not infer rights from other photos in the same Flickr stream.
+      const ochoFile = "Cafe_Table_at_Ocho_Restaurant,_San_Antonio,_Texas_(2014-12-10_16.51.3_by_Nan_Palmero).jpg";
+      if (decodeURIComponent(parsed.pathname) === `/wiki/Special:Redirect/file/${ochoFile}`) {
+        return {
+          license: "https://creativecommons.org/licenses/by/2.0/",
+          creator: { "@type": "Person", name: "Nan Palmero" },
+          copyrightNotice: "© Nan Palmero",
+          acquireLicensePage: `https://commons.wikimedia.org/wiki/File:${ochoFile}`,
+        } as const;
+      }
+      if (decodeURIComponent(parsed.pathname) === "/wiki/Special:Redirect/file/Britten USA.jpg") {
+        return {
+          license: "https://creativecommons.org/licenses/by/2.0/",
+          creator: { "@type": "Person", name: "Dustin Moore" },
+          copyrightNotice: "© Dustin Moore",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Britten_USA.jpg",
+        } as const;
+      }
       if (parsed.pathname === `/wiki/Special:Redirect/file/${blueBellFile}`) {
         return {
           license: "https://creativecommons.org/licenses/by/4.0/",

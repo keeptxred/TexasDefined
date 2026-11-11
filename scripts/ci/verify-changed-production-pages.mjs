@@ -391,9 +391,19 @@ export function assertCompleted2026EventFacts(path, body, surface = 'release') {
   }
 }
 
-// Source-verified, fixed seven-URL regression contract for the 2026-11-08
+// Source-verified, fixed nine-URL regression contract for the 2026-11-08
 // Google Search Console image metadata warning. No unrelated page crawling.
 const GSC_IMAGE_RIGHTS_EXPECTED = Object.freeze({
+  '/article/texas-restaurants-for-out-of-town-visitors': {
+    creator: 'Nan Palmero', type: 'Person', copyright: '© Nan Palmero',
+    license: 'https://creativecommons.org/licenses/by/2.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Cafe_Table_at_Ocho_Restaurant,_San_Antonio,_Texas_(2014-12-10_16.51.3_by_Nan_Palmero).jpg',
+  },
+  '/article/unusual-texas-businesses-services': {
+    creator: 'Dustin Moore', type: 'Person', copyright: '© Dustin Moore',
+    license: 'https://creativecommons.org/licenses/by/2.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Britten_USA.jpg',
+  },
   '/article/blue-bell-ice-cream-brenham-texas-history': {
     creator: 'Larry D. Moore', type: 'Person', copyright: '© 2008 Larry D. Moore',
     license: 'https://creativecommons.org/licenses/by/4.0/',
@@ -509,7 +519,7 @@ if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
 if (!Array.isArray(moodyGardensPages) || moodyGardensPages.length > 1 || moodyGardensPages.some(p => p !== '/destination/moody-gardens' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Moody Gardens production metadata contract');
-if (!Array.isArray(imageRightsPages) || imageRightsPages.length > 7
+if (!Array.isArray(imageRightsPages) || imageRightsPages.length > 9
   || imageRightsPages.some(path => !Object.hasOwn(GSC_IMAGE_RIGHTS_EXPECTED, path) || !plan.selectedPaths?.includes(path)))
   throw new Error('Invalid bounded GSC ImageObject production acceptance contract');
 if (!Array.isArray(davisHillPages) || davisHillPages.length > 1 || davisHillPages.some(p => p !== '/destination/davis-hill-state-park' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Davis Hill image acceptance contract');
