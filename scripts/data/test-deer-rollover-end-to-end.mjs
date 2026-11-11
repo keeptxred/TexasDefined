@@ -23,7 +23,8 @@ for(const phrase of [
 ])assert.ok(finisher.includes(phrase),'Protected release gate missing '+phrase);
 assert.ok(sourceWorkflow.includes('gh pr create'));
 assert.ok(sourceWorkflow.includes('gh workflow run')||finisher.includes('gh workflow run'));
-assert.equal(baseline.startYear,2026,'Fixture expects 2026–27 baseline; refresh its fixture when genuinely published');
+const nextYear=baseline.startYear+1;
+const followingYear=nextYear+1;
 
 const dates=[
  ['Oct. 3 - Nov. 6, 2027','2027-10-03','2027-11-06'],
@@ -34,9 +35,9 @@ const dates=[
  ['Jan. 4 - 17, 2028','2028-01-04','2028-01-17'],
  ['Jan. 4 - 17, 2028','2028-01-04','2028-01-17'],
  ['Jan. 18 - 31, 2028','2028-01-18','2028-01-31'],
-];
+].map(row=>row.map(value=>value.replace(/2027/g,'__START__').replace(/2028/g,'__END__').replace(/__START__/g,String(nextYear)).replace(/__END__/g,String(followingYear))));
 const deer=[
- 'White-tailed Deer 2027-2028 Seasons & Regulations',
+ 'White-tailed Deer '+nextYear+'-'+followingYear+' Seasons & Regulations',
  'Season Dates & County Regulations',
  'Archery Only All counties with an open season '+dates[0][0],
  'General Season North Zone '+dates[1][0]+' South Zone '+dates[2][0],
@@ -52,7 +53,7 @@ const deer=[
  'Chronic Wasting Disease In counties with a Special Late Season, harvest is restricted to antlerless and unbranched antlered deer.',
  'Additional official TPWD wildlife information. '.repeat(70),
 ].join(' ');
-const calendar=['2027 2028 White-tailed Deer',...dates.map(x=>x[0]),'Upland Game Birds',
+const calendar=[nextYear+' '+followingYear+' White-tailed Deer',...dates.map(x=>x[0]),'Upland Game Birds',
   'Statewide official Texas hunting calendar source notes. '.repeat(60)].join(' ');
 
 async function verify(badCalendar,index){
@@ -90,14 +91,14 @@ async function verify(badCalendar,index){
     assert.ok(rejected,'Contradictory statewide calendar must stop publication');
     assert.deepEqual(actual,baseline,'Contradictory data must leave last verified published file intact');
   }else{
-    assert.equal(actual.startYear,2027);
-    assert.equal(actual.seasonYear,'2027–28');
+    assert.equal(actual.startYear,nextYear);
+    assert.equal(actual.seasonYear,nextYear+'–'+String(followingYear).slice(-2));
     assert.equal(actual.regulations.annualBagMax,6);
     assert.equal(actual.regulations.annualBuckMax,4);
     assert.equal(actual.regulations.reportingHours,36);
     assert.equal(actual.regulations.specialAntlerSpreadInches,15);
     assert.match(actual.regulations.buckAndAntlerlessReportingCounties,/Zavala/);
-    assert.ok(actual.officialCalendarUrl.endsWith('/2027-2028-hunting-season-dates'));
+    assert.ok(actual.officialCalendarUrl.endsWith('/'+nextYear+'-'+followingYear+'-hunting-season-dates'));
     assert.deepEqual(actual.rows.map(x=>[x.start,x.end]),dates.map(x=>x.slice(1)));
     assert.match(fs.readFileSync(logFile,'utf8'),/changed=true/);
     const oldShape={...baseline,sourceCheckedAt:null,startYear:null,seasonYear:null,officialCalendarUrl:null,regulations:null,rows:baseline.rows.map(x=>({...x,start:null,end:null}))};
@@ -108,4 +109,4 @@ async function verify(badCalendar,index){
 }
 await verify(false,1);
 await verify(true,2);
-console.log('Automated 2027–28 deer rollover, legal fact refresh, dual-source rejection, protected-PR metadata and exact release contract validated offline.');
+console.log('Automated next-year TPWD deer rollover, legal fact refresh, dual-source rejection, protected-PR metadata and release contract validated offline.');
