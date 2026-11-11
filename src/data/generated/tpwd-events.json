@@ -1,13 +1,7 @@
 {
-  "generatedAt": "2026-11-10T18:42:31.297Z",
+  "generatedAt": "2026-11-11T03:26:50.136Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Nature's Classroom Homeschool Program",
-      "startDate": "2026-11-10",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/home-school-program/2026-11-10"
-    },
     {
       "title": "Birding with a Ranger",
       "startDate": "2026-11-11",
@@ -1369,6 +1363,12 @@
       "startDate": "2027-02-07",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-02-07"
+    },
+    {
+      "title": "Nature's Classroom Homeschool Program",
+      "startDate": "2027-02-09",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/home-school-program/2027-02-09"
     }
   ]
 }
