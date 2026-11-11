@@ -187,6 +187,25 @@ async function main() {
     platformBlocked: null,
   };
 
+  // GitHub itself reported an impossible state: GET queued / jobs=0, while
+  // cancel and force-cancel return 409 and DELETE returns 403. Routine checks
+  // must not hammer this unchanged backend failure every six hours.
+  if (process.argv.includes("--inventory-only")) {
+    report.inventoryOnly = true;
+    report.byEvent = Object.fromEntries([...new Set(queue.map(run => run.event))]
+      .map(event => [event, queue.filter(run => run.event === event).length]));
+    report.oldest = queue.slice(-8).map(run => ({
+      id: run.id, event: run.event, status: run.status, createdAt: run.created_at,
+    }));
+    await mkdir("artifacts/actions-queue-recovery", { recursive: true });
+    await writeFile(OUT, JSON.stringify(report, null, 2) + "\n");
+    console.log("Read-only queue census: " + JSON.stringify({
+      queued: report.originalQueued, inProgress: report.orphanedInProgressScanned,
+      eventCounts: report.byEvent, report: OUT,
+    }));
+    return;
+  }
+
   // Probe the user's concrete stuck McAllen run first. If the backend rejects
   // BOTH cancellation and deletion, stop rather than repeat 125 identical 409s.
   queue.sort((a, b) => (a.id === 43095110357 ? -1 : b.id === 43095110357 ? 1 : 0));
