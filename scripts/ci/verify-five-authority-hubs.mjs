@@ -33,7 +33,7 @@ includesAll("category", ["showDestinations = true", "showDestinations && destina
 includesAll("sports", ["showDestinations={false}", "What are you planning to follow or visit?", "/sports-venues/college-sports", "/sports-venues/motorsports", "/sports/softball"]);
 includesAll("football", ["Curated matchups & documented scores (not a live statewide scoreboard)", "Don't mistake a curated matchup archive", "https://www.uiltexas.org/football/playoff-brackets"]);
 includesAll("hunt", ["Four checks before you treat an area as available", "Match legal game and dates", "Confirm the exact boundaries"]);
-includesAll("tailgate", ["A comparison that changes your packing list", "AT&T Stadium · Arlington", "Houston Texans · NRG Stadium", "USDA FSIS", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
+includesAll("tailgate", ["A comparison that changes your packing list", "AT&amp;T Stadium · Arlington", "Houston Texans · NRG Stadium", "USDA FSIS", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
 includesAll("tailgateHead", ['dateModified: "2026-11-11"']);
 console.log("PASS five-hub focused authority content, source and topical-scope guards");
 
