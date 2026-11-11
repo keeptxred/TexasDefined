@@ -218,6 +218,13 @@ test("three reviewed attraction heroes use exact-source verified Commons rights"
     ["fort-worth-water-gardens", "Fort_Worth_Water_Gardens_01.jpg", "Farragutful", "https://creativecommons.org/licenses/by-sa/4.0/"],
     ["houston-botanic-garden", "Houston_Botanic_Garden.jpg", "WhisperToMe", "https://creativecommons.org/publicdomain/zero/1.0/"],
   ];
+  const route = readFileSync("src/routes/destination.$slug.tsx", "utf8");
+  // Verify the real destination loader selects the source-specific rights
+  // registry; testing imageRightsFor alone misses SSR ImageObject omissions.
+  for (const token of ["San_Antonio_Japanese_Tea_Garden_2022", "Fort_Worth_Water_Gardens_01", "Houston_Botanic_Garden"]) {
+    assert.ok(route.includes(token), "Destination loader excludes licensed hero " + token);
+  }
+  assert.ok(route.includes("...(imageRights ?? {})"), "ImageObject must spread exact-source verified rights");
   const records = readFileSync("src/data/reviewed-attraction-authorities.ts", "utf8");
   for (const [slug, file, photographer, license] of verified) {
     const source = "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + file + "?width=1600";
