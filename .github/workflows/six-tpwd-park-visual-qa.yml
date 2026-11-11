@@ -73,6 +73,17 @@ jobs:
       - name: Verify all six parks in desktop and mobile Chrome
         run: node scripts/ci/verify-six-state-park-visual.mjs
 
+      - name: Reject mixed Worker or source during Chrome capture
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/ci/pin-football-b010-production-release.mjs
+          grep -qx 'ready=true' "$GITHUB_OUTPUT"
+          test "$(grep '^sha=' "$GITHUB_OUTPUT" | tail -1 | cut -d= -f2)" = "$PARK_QA_SOURCE_SHA"
+          test "$(grep '^worker=' "$GITHUB_OUTPUT" | tail -1 | cut -d= -f2)" = "$PARK_QA_WORKER_VERSION"
+
       - name: Preserve executed 12-viewport browser evidence
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
