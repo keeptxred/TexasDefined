@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
+import { FishingPhoto } from "@/components/fishing/FishingPhoto";
+import { getFishingFishImage } from "@/data/fishing/image-library";
 import type { loadLargemouthBassPageDataServer } from "@/data/fishing/largemouth-bass-page-data.server";
 
 type PageData = Awaited<ReturnType<typeof loadLargemouthBassPageDataServer>>;
@@ -102,6 +104,20 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
         <section className="mt-16 border-t border-border pt-10" aria-labelledby="bass-identification">
           <p className="eyebrow text-primary">Identification and handling</p>
           <h2 id="bass-identification" className="mt-3 font-display text-4xl">Identify Your Bass Before Checking a Limit</h2>
+          <div className="mt-7 grid gap-6 md:grid-cols-3">
+            {[
+              { slug: "largemouth-bass", label: "Largemouth bass" },
+              { slug: "spotted-bass", label: "Spotted bass" },
+              { slug: "smallmouth-bass", label: "Smallmouth bass" },
+            ].map((fish) => {
+              const photo = getFishingFishImage(fish.slug);
+              return <article key={fish.slug} className="border-t border-border py-4">
+                <h3 className="mb-4 font-display text-xl">{fish.label}</h3>
+                {photo ? <FishingPhoto image={photo} imageClassName="aspect-[4/3] w-full object-contain bg-muted/30 p-3" /> : <p className="text-sm text-muted-foreground">Identification photo not available</p>}
+              </article>;
+            })}
+          </div>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Compare the mouth, lateral markings and dorsal fins across these sourced reference photos. Individual variation and hybridization mean a photograph alone may not settle every identification; use official TPWD species descriptions where uncertain.</p>
           <div className="mt-7 grid gap-6 md:grid-cols-3">
             <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">Check several features</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Largemouth bass commonly display a dark lateral band and a broad mouth. Compare mouth extension, body markings and dorsal fins together; color alone is not enough to distinguish every black-bass species.</p></article>
             <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">Consider similar bass</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Spotted, smallmouth and Guadalupe bass occur in Texas. Habitat and appearance can overlap. If a retained fish is uncertain, consult official identification guidance before applying its limit.</p></article>
