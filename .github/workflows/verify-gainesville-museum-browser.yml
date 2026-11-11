@@ -6,6 +6,9 @@ on:
       - "scripts/ci/verify-gainesville-museum-browser.mjs"
       - ".github/workflows/verify-gainesville-museum-browser.yml"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
   schedule:
     # Weekly targeted visual acceptance, not a site-wide Chrome sweep.
     - cron: "11 16 * * 1"
@@ -18,7 +21,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  lint:
+    if: github.event_name == 'pull_request'
+    name: Validate museum Chrome verifier syntax
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --check scripts/ci/verify-gainesville-museum-browser.mjs
+
   verify:
+    # PRs have no live preview: testing stale production images on a PR is a false blocker.
+    # Run full Chrome only AFTER successful production deploy, or scheduled/manual review.
+    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     name: Museum responsive + accessible-page acceptance
     runs-on: ubuntu-latest
     timeout-minutes: 10
