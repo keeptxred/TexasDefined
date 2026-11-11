@@ -13,6 +13,7 @@ const requireText = (source, snippet, label) => {
 };
 for (const [source, snippet, label] of [
   [entry, 'await cjAccountSyncResponse(request, env)', 'Worker-only route'],
+  [entry, 'await import("./lib/cj-account-sync.server")', 'Lazy private-only bundle'],
   [oidc, 'verifyCjGitHubOidc', 'Exact RSA-signed GitHub OIDC'],
   [oidc, 'RS256', 'RSA signature restriction'],
   [oidc, 'crypto.subtle.verify(', 'Cryptographic verification'],
