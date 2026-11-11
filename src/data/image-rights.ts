@@ -56,17 +56,61 @@ export const imageRightsFor = (src: string) => {
     try { parsed = new URL(original, "https://texasdefined.com"); }
     catch { break; }
     if (parsed.hostname === "commons.wikimedia.org") {
-      // The precise Britten USA photograph used on the unusual-businesses guide.
-      // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
-      // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
-      // Never attach these rights to other photos, even from the same creator.
+      // Malformed percent escapes in an unrelated image URL must not crash SSR.
+      let decodedPath: string;
+      try { decodedPath = decodeURIComponent(parsed.pathname); }
+      catch { break; }
+      // Original 1836 map by Edmund Francis Lee, preserved by UTA Libraries.
+      // Its individual Commons record marks the historical work public domain;
+      // the archival institution is a source, not a private copyright holder.
+      if (decodedPath === "/wiki/Special:Redirect/file/Lee_Map_of_Texas_1836_UTA.jpg") {
+        return {
+          license: "https://creativecommons.org/publicdomain/mark/1.0/",
+          creator: { "@type": "Person", name: "Edmund Francis Lee" },
+          copyrightNotice: "Public domain — 1836 map by Edmund Francis Lee; no copyright claim",
+          acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Lee_Map_of_Texas_1836_UTA.jpg",
+        } as const;
+      }
+      // Each of these files has its own Wikimedia Commons file page confirming
+      // photographer and license; matching is by exact decoded Commons path.
+      // No other Michael Barera or Larry D. Moore image inherits these rights.
+      const verified = [
+        {
+          file: "State_Fair_of_Texas_September_2019_13_(Big_Tex).jpg",
+          creator: "Michael Barera",
+          license: "https://creativecommons.org/licenses/by-sa/4.0/",
+          copyright: "© Michael Barera",
+        },
+        {
+          file: "Magoffin_home_2009.jpg",
+          creator: "Larry D. Moore",
+          license: "https://creativecommons.org/licenses/by/4.0/",
+          copyright: "© 2009 Larry D. Moore",
+        },
+        {
+          file: "Fredericksburg July 2017 5 (Marktplatz).jpg",
+          creator: "Michael Barera",
+          license: "https://creativecommons.org/licenses/by-sa/4.0/",
+          copyright: "© Michael Barera",
+        },
+      ] as const;
+      const matched = verified.find(({ file }) =>
+        decodedPath === `/wiki/Special:Redirect/file/${file}`);
+      if (matched) {
+        return {
+          license: matched.license,
+          creator: { "@type": "Person", name: matched.creator },
+          copyrightNotice: matched.copyright,
+          acquireLicensePage: `https://commons.wikimedia.org/wiki/File:${matched.file.replaceAll(" ", "_")}`,
+        } as const;
+      }
       // The Ocho Restaurant cafe-table photograph is individually attributed
       // to Nan Palmero with CC BY 2.0 at its original Flickr record.
       // Independent 2024 reuse identifies the exact photo, source Flickr ID
       // 15877517800 and license: https://www.oeglobal.org/event/two-conferences-cafe/
       // Do not infer rights from other photos in the same Flickr stream.
       const ochoFile = "Cafe_Table_at_Ocho_Restaurant,_San_Antonio,_Texas_(2014-12-10_16.51.3_by_Nan_Palmero).jpg";
-      if (decodeURIComponent(parsed.pathname) === `/wiki/Special:Redirect/file/${ochoFile}`) {
+      if (decodedPath === `/wiki/Special:Redirect/file/${ochoFile}`) {
         return {
           license: "https://creativecommons.org/licenses/by/2.0/",
           creator: { "@type": "Person", name: "Nan Palmero" },
@@ -74,7 +118,11 @@ export const imageRightsFor = (src: string) => {
           acquireLicensePage: `https://commons.wikimedia.org/wiki/File:${ochoFile}`,
         } as const;
       }
-      if (decodeURIComponent(parsed.pathname) === "/wiki/Special:Redirect/file/Britten USA.jpg") {
+      // The precise Britten USA photograph used on the unusual-businesses guide.
+      // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
+      // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
+      // Never attach these rights to other photos, even from the same creator.
+      if (decodedPath === "/wiki/Special:Redirect/file/Britten USA.jpg") {
         return {
           license: "https://creativecommons.org/licenses/by/2.0/",
           creator: { "@type": "Person", name: "Dustin Moore" },

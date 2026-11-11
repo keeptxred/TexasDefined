@@ -391,9 +391,30 @@ export function assertCompleted2026EventFacts(path, body, surface = 'release') {
   }
 }
 
-// Source-verified, fixed nine-URL regression contract for the 2026-11-08
+// Source-verified, fixed thirteen-URL regression contract for the 2026-11-08
 // Google Search Console image metadata warning. No unrelated page crawling.
 const GSC_IMAGE_RIGHTS_EXPECTED = Object.freeze({
+  '/article/state-fair-texas-2026-new-foods-guide': {
+    creator: 'Michael Barera', type: 'Person', copyright: '© Michael Barera',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:State_Fair_of_Texas_September_2019_13_(Big_Tex).jpg',
+  },
+  '/article/texas-borderlands-historic-sites-guide': {
+    creator: 'Larry D. Moore', type: 'Person', copyright: '© 2009 Larry D. Moore',
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg',
+  },
+  '/article/texas-before-united-states-how-texas-began': {
+    creator: 'Edmund Francis Lee', type: 'Person',
+    copyright: 'Public domain — 1836 map by Edmund Francis Lee; no copyright claim',
+    license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Lee_Map_of_Texas_1836_UTA.jpg',
+  },
+  '/article/texas-german-belt': {
+    creator: 'Michael Barera', type: 'Person', copyright: '© Michael Barera',
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Fredericksburg_July_2017_5_(Marktplatz).jpg',
+  },
   '/article/texas-restaurants-for-out-of-town-visitors': {
     creator: 'Nan Palmero', type: 'Person', copyright: '© Nan Palmero',
     license: 'https://creativecommons.org/licenses/by/2.0/',
@@ -519,7 +540,7 @@ if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
 if (!Array.isArray(moodyGardensPages) || moodyGardensPages.length > 1 || moodyGardensPages.some(p => p !== '/destination/moody-gardens' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Moody Gardens production metadata contract');
-if (!Array.isArray(imageRightsPages) || imageRightsPages.length > 9
+if (!Array.isArray(imageRightsPages) || imageRightsPages.length > 13
   || imageRightsPages.some(path => !Object.hasOwn(GSC_IMAGE_RIGHTS_EXPECTED, path) || !plan.selectedPaths?.includes(path)))
   throw new Error('Invalid bounded GSC ImageObject production acceptance contract');
 if (!Array.isArray(davisHillPages) || davisHillPages.length > 1 || davisHillPages.some(p => p !== '/destination/davis-hill-state-park' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Davis Hill image acceptance contract');
