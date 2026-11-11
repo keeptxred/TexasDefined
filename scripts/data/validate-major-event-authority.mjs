@@ -341,13 +341,29 @@ if (!loader.includes('data-major-event-quick-facts') || !loader.includes('event.
 
 const palestineAuthority = read(path.join(dataDir, "major-event-expanded-authority-tranche58.server.ts"));
 const stayClient = read(path.join(root, "public", "stay-affiliate-options.js"));
+
+// A real organizer re-review changes this date. Validate provenance freshness
+// without freezing one historical editorial timestamp into the merge gate.
+const palestineRecord = palestineAuthority.match(
+  /slug:\s*"polar-express-palestine"[\s\S]{0,1400}?sourceCheckedAt:\s*"(\d{4}-\d{2}-\d{2})"/,
+);
+if (!palestineRecord) {
+  fail("Palestine Polar Express booking authority missing ISO editorial source-review date");
+} else {
+  const checkedAt = palestineRecord[1];
+  const parsed = Date.parse(checkedAt + "T00:00:00Z");
+  const validCalendarDate = Number.isFinite(parsed) && new Date(parsed).toISOString().slice(0, 10) === checkedAt;
+  const asOf = new Date().toISOString().slice(0, 10);
+  if (!validCalendarDate || checkedAt < "2026-10-26" || checkedAt > asOf) {
+    fail("Palestine Polar Express editorial review must be a real past date no earlier than the verified 2026 source baseline");
+  }
+}
 // A season window is not daily service or a ticket-availability guarantee.
 // Keep publisher links first-party or via the existing approved CJ deep-link path.
 for (const marker of [
   'slug: "polar-express-palestine"',
   'startDate: "2026-11-13"',
   'endDate: "2026-12-28"',
-  'sourceCheckedAt: "2026-10-26"',
   'officialUrl: "https://texasstaterailroad.net/the-polar-express/"',
   'Texas State Railroad’s own November and December 2026',
   'November 13–15, 19–24 and 27–29',
