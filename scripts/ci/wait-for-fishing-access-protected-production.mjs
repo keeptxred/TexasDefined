@@ -27,6 +27,7 @@ async function github(path) {
 let last = "missing";
 let previousMain = "";
 let ancestry = false;
+let lastAncestorScan = 0;
 // A busy main can advance through protected merges while its latest deployment
 // is still queued. An already-successful protected ancestor that includes the
 // source is eligible for the downstream *release-pinned* Chrome checks. Those
@@ -71,7 +72,9 @@ for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     // Do not strand a source-specific browser gate behind unrelated newer
     // merges. Require an actual successful protected descendant, never a
     // pending/failed status; downstream Chrome independently pins live release.
-    const deployed = await findSuccessfulProtectedAncestor(main, sha);
+    const deployed = (attempt === 1 || attempt - lastAncestorScan >= 6)
+      ? await findSuccessfulProtectedAncestor(main, sha) : null;
+    if (attempt === 1 || attempt - lastAncestorScan >= 6) lastAncestorScan = attempt;
     if (deployed) {
       const confirmedMain = (await github("/branches/main")).commit?.sha;
       if (confirmedMain === main) {
