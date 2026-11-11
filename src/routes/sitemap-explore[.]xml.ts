@@ -488,7 +488,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
         const destinationEntries = sitemapIndexableDestinations
-          .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
+          .map((item) => entry(`/destination/${item.slug}`, item.updatedAt ?? item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
         // A remote or curated catalog may omit the canonical town record; do
         // not bypass the destination quality gate or create duplicate XML rows.
