@@ -9,8 +9,8 @@ export const B016_SLUGS=Object.freeze([
   'el-paso-bowie','el-paso-burges','el-paso-chapin','el-paso-coronado','el-paso-del-valle',
 ]);
 const SIGNED=Object.freeze({
-  // INCOMPLETE BY DESIGN: no technical promotion until immutable success evidence.
-  runId:0, artifactId:0, sourceSha:'', worker:'', ledgerId:0, cloudflareDeploymentId:'',
+  // Immutable 2026-11-11 release, GitHub source-to-Worker verified ledger and Chrome artifact.
+  runId:42963063896, artifactId:13830655076, sourceSha:'c66606d9389864e16a225725370219587707fb8f', worker:'45caae09-8abf-47e5-9995-e64999355a0a', ledgerId:7702183974, cloudflareDeploymentId:'0d66ccf0-c5ad-403a-8e84-5b189a109750',
 });
 export function certifiedBatch016(registry) {
   if (!SIGNED.runId || !SIGNED.artifactId || !SIGNED.ledgerId ||
