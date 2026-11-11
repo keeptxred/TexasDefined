@@ -60,10 +60,6 @@ export const imageRightsFor = (src: string) => {
       let decodedPath: string;
       try { decodedPath = decodeURIComponent(parsed.pathname); }
       catch { break; }
-      // The precise Britten USA photograph used on the unusual-businesses guide.
-      // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
-      // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
-      // Never attach these rights to other photos, even from the same creator.
       // Original 1836 map by Edmund Francis Lee, preserved by UTA Libraries.
       // Its individual Commons record marks the historical work public domain;
       // the archival institution is a source, not a private copyright holder.
@@ -122,6 +118,10 @@ export const imageRightsFor = (src: string) => {
           acquireLicensePage: `https://commons.wikimedia.org/wiki/File:${ochoFile}`,
         } as const;
       }
+      // The precise Britten USA photograph used on the unusual-businesses guide.
+      // Commons File:Britten_USA.jpg credits Dustin Moore, Flickr-confirmed
+      // CC BY 2.0 (https://commons.wikimedia.org/wiki/File:Britten_USA.jpg).
+      // Never attach these rights to other photos, even from the same creator.
       if (decodedPath === "/wiki/Special:Redirect/file/Britten USA.jpg") {
         return {
           license: "https://creativecommons.org/licenses/by/2.0/",
