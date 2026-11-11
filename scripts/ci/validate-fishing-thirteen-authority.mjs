@@ -29,7 +29,7 @@ for (const slug of paths.slice(1, 10).map((p) => p.split("/").at(-1))) {
   assert(field.includes(`${JSON.stringify(slug)}:`), `Missing unique field guidance for ${slug}`);
 }
 assert.equal((field.match(/situation:/g) ?? []).length, 28, "Expect 27 independent decision records and one type declaration");
-assert(tServer.includes("allProfiles: profiles"), "Complete lake registry was hidden behind featured selection");
+assert(tServer.includes("allProfiles: profiles.map"), "Complete lake registry was hidden behind featured selection");
 assert(tProfile.includes("data.allProfiles.map"), "Page does not link the complete verified source-backed lake set");
 assert(tProfile.includes("fieldGuide.decisions.map"), "Unique editorial decisions not displayed");
 assert(tProfile.includes('season !== "year-round"'), "Season tally counts year-round as fifth season");

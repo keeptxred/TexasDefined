@@ -151,7 +151,10 @@ export async function loadFishingTechniqueDirectoryServer() {
         technique,
         canonicalPath: fishingTechniqueCanonicalPath(technique.slug),
         profileCount: profiles.length,
-        allProfiles: profiles,
+        allProfiles: profiles.map(({ profile, lake }) => ({
+          profile: { id: profile.id, seasons: profile.seasons },
+          lake: { name: lake.name, slug: lake.slug },
+        })),
         featuredProfiles,
         featuredSources,
         species: relatedSpecies,
