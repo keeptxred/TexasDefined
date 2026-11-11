@@ -1,0 +1,62 @@
+name: Monitor five TexasDefined authority hubs
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/components/dogs/**'
+      - 'src/data/texas-dogs*'
+      - 'src/routes/dogs.*'
+      - 'src/routes/sports*'
+      - 'src/routes/texas-tailgating-guide*'
+      - 'src/components/hunting/**'
+      - 'src/components/editorial/CategoryPage.tsx'
+      - 'scripts/ci/verify-five-authority-hubs.mjs'
+      - '.github/workflows/monitor-five-authority-hubs.yml'
+  schedule:
+    - cron: '15 15 * * 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: five-hub-authority-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate focused five-hub editorial authority
+        run: |
+          node --check scripts/ci/verify-five-authority-hubs.mjs
+          node scripts/ci/verify-five-authority-hubs.mjs
+          node scripts/data/validate-texas-dogs-authority.mjs
+          node scripts/data/validate-sports-editorial-authority.mjs
+          node scripts/data/validate-hunting-authority.mjs
+      - name: Verify deployed pages on schedule
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/ci/verify-five-authority-hubs.mjs --production
+      - name: Open a single tracked maintenance issue on scheduled failure
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="Five authority hubs: scheduled verification failure"
+          existing="$(gh issue list --repo "$REPOSITORY" --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [[ -n "$existing" ]]; then
+            gh issue comment "$existing" --repo "$REPOSITORY" --body "Scheduled source/production validation still needs a real correction: $RUN_URL"
+          else
+            gh issue create --repo "$REPOSITORY" --title "$title" --body "The weekly five-hub authority monitor failed. Investigate the exact guard and fix its underlying issue; do not rerun unchanged checks or advance source-review timestamps without verifying sources. Run: $RUN_URL. Hubs: /hunting, /dogs, /sports, /sports/friday-night-lights, /texas-tailgating-guide."
+          fi
