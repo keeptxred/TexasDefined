@@ -133,7 +133,7 @@ function isAutomationSafeQueueItem(item) {
   const signals = item?.viral_signals && typeof item.viral_signals === 'object' && !Array.isArray(item.viral_signals)
     ? item.viral_signals
     : {};
-  if (signals.auto_publish_eligible !== true) return false;
+  if (signals.auto_publish_eligible !== true || signals.post_rewrite_review_required === true) return false;
   if (String(signals.editorial_lane || '').toUpperCase() !== 'AUTO_PUBLISH') return false;
 
   const pillar = String(item?.pillar_slug || '').trim().toLowerCase();
