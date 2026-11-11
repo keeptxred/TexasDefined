@@ -1985,7 +1985,7 @@
         "Offers a source-backed school-trip checklist, family fit, sensible museum-and-downtown outing, primary references, and admission/parking cautions",
         "Compares three named recipients from dated museum-gallery documentation against primary and institutional citations, marking 2025 panels as historical rather than confirmed current exhibits",
         "Automates expiry of the verified November 11, 2026 NCTC campus closure warning and schedules a separate fail-closed postdeployment HTML, Museum JSON-LD, canonical, sitemap and inbound-link audit",
-        "Uses two accurately labeled public-domain U.S. Air Force photographs of the historical Gainesville Host City parade and separate memorial, with original source links and photographer credits; neither is presented as a museum photograph",
+        "Replaces two broken remote Defense.gov image loads with documented 2017 Michael Barera CC BY-SA 4.0 photographs of Gainesville’s separate Medal of Honor Park; credits, license and original Wikimedia Commons links are preserved and neither image is labeled as the museum",
         "Official NCTC campus map now identifies museum Building 2700, with visitor warning about the distinct CAF Medal of Honor memorial formerly listed at the campus library",
         "Replaces three generic preserved-historic-site itineraries with exhibit-reading, named-recipient and Gainesville civic-history routes, and replaces generic mixed-indoor/outdoor effort and duration assumptions",
         "GitHub production run 42624799017 and independent museum acceptance run 42626791774 verified publication and 21 of 21 public HTTP, title, canonical, Museum JSON-LD, sitemap and three inbound-link checks"
@@ -1993,7 +1993,7 @@
       "openGaps": [
         "Exact-location museum photography reuse permission has not been documented; the published public-domain medals illustration is explicitly not a photograph of the institution",
         "Confirm mobility routes, accessible parking, restrooms, sensory services and current special-event visitor rules directly with operator",
-        "A separate museum-specific mobile/desktop assistive-technology review remains necessary for 95+ editorial certification; production HTML/metadata/schema/sitemap acceptance passed 21/21 checks",
+        "True mobile/desktop Chrome acceptance found inaccessible photo hotlinks and false link-name assertions on November 9; source repairs now require postdeployment Chrome proof. A separate assistive-technology review remains necessary for 95+ editorial certification; HTML/metadata/schema/sitemap acceptance previously passed 21/21 checks",
         "Conduct formal side-by-side editorial review against the museum's live pages and visitor experience, not only static CI"
       ],
       "decision": "not-certified",
