@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { certifiedBatch016 } from './verified-football-b016-certificate.mjs';
 import {readFileSync} from 'node:fs';
 const read=(p)=>readFileSync(p,'utf8');
 const expected=[
@@ -11,8 +12,9 @@ assert.equal(new Set(expected).size,25);
 const loader=read('src/data/high-school-football/football-program-profile.server.ts');
 const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const records=new Map(registry.schoolRecords.map(row=>[row.slug,row]));
-for(const slug of expected)assert.equal(records.get(slug)?.status,'NOT_REVIEWED',slug+' must not be prematurely certified');
-assert.equal(registry.schoolRecords.filter(x=>x.status==='VERIFIED').length,355,'historical 355 certificates must remain untouched');
+const graduated=certifiedBatch016(registry);
+for(const slug of expected)assert.equal(records.get(slug)?.status,graduated?'VERIFIED':'NOT_REVIEWED',slug+' must not be prematurely certified');
+assert.equal(registry.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduated?380:355,'355 historical certifications plus 25 only with signed Batch016 evidence');
 const files=[
 ['program-editorial-b016-early.ts',['early']],
 ['program-editorial-b016-earth.ts',['earth-springlake']],

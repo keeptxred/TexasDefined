@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { certifiedBatch015 } from '../ci/verified-football-b015-certificate.mjs';
+import { certifiedBatch016 } from '../ci/verified-football-b016-certificate.mjs';
 
 const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
@@ -3149,6 +3150,11 @@ for (const cohort of ['first','second','third','fourth','fifth']) {
       // unchanged 330 older certificates and all 25 individual school records.
       if(!certifiedBatch015(r))
         errors.push('Batch015 certification requires exact 25-school signed 75+25 Chrome evidence, source/Worker identity and preserved 330 historical certificates');
+    } else if(r.batch.number===16 && r.batch.state==='VERIFIED_BATCH_016_COMPLETE'){
+      // New batch cannot inherit Batch015 or an arbitrary run's success.
+      // Exact immutable source/Worker/75+25 Chrome and 355 older certificates.
+      if(!certifiedBatch016(r))
+        errors.push('Batch016 certification requires exact 25-school signed 75+25 Chrome evidence, source/Worker identity and 355 historic certificates');
     } else if(r.batch.slugs.length!==25 || new Set(r.batch.slugs).size!==25 ||
        r.schoolRecords.filter(x=>x.status==='VERIFIED').length<280 ||
        r.batch.slugs.some(slug=>{

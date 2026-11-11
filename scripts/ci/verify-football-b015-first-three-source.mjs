@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { certifiedBatch015 } from './verified-football-b015-certificate.mjs';
+import { certifiedBatch016 } from './verified-football-b016-certificate.mjs';
 const read = (p) => readFileSync(p, 'utf8');
 const slugs = ['dell-city', 'denison', 'denton', 'denton-braswell', 'denton-guyer'];
 const newSlugs = ['dimmitt', 'donna', 'donna-north', 'dripping-springs', 'dublin'];
@@ -16,7 +17,7 @@ assert.ok(loader.includes("import('./program-editorial-b015')"), 'missing lazy l
 assert.ok(loader.includes('!BATCH015_FIRST_TWENTY_FIVE.has(slug)'), 'Batch015 loader must check the defined twenty-five-school allowlist, not an obsolete variable');
 assert.ok(!loader.includes('BATCH015_FIRST_THREE.has(slug)'), 'obsolete loader identifier causes production SSR ReferenceError');
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
-assert.equal(registry.schoolRecords.filter(s => s.status === 'VERIFIED').length,certifiedBatch015(registry)?355:330, 'do not change historical certifications');
+assert.equal(registry.schoolRecords.filter(s => s.status === 'VERIFIED').length,certifiedBatch016(registry)?380:certifiedBatch015(registry)?355:330, 'do not change historical certifications');
 for (const slug of slugs) {
   const g = guides[slug];
   assert.equal(g.slug, slug);

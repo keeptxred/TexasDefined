@@ -36,10 +36,15 @@ export function certifiedBatch015(registry) {
       e?.manualAccessibilityAccepted !== false || e?.schoolPhotoReuseRightsAccepted !== false ||
       e?.editorialHumanSignoffsClaimed !== 0) return false;
   const rows = registry.schoolRecords;
+  // Historical Batch015 proof remains valid after a separately signed Batch016
+  // graduation. No unrelated school can become VERIFIED without the active
+  // batch's independent certificate guard in validate-high-school-football-platform.
+  const nextCertified=registry.batch?.number===16 && registry.batch?.state==='VERIFIED_BATCH_016_COMPLETE';
   if (rows.length !== 1292 || rows.filter(r => r.batch === 15).length !== 25 ||
-      rows.filter(r => r.status === 'VERIFIED' && r.batch !== 15).length !== 330 ||
-      rows.filter(r => r.status === 'VERIFIED').length !== 355 ||
-      rows.filter(r => r.status === 'NOT_REVIEWED').length !== 937 ||
+      rows.filter(r => r.status === 'VERIFIED' && r.batch !== 15 && r.batch !== 16).length !== 330 ||
+      rows.filter(r => r.status === 'VERIFIED' && r.batch===15).length !== 25 ||
+      rows.filter(r => r.status === 'VERIFIED').length !== (nextCertified?380:355) ||
+      rows.filter(r => r.status === 'NOT_REVIEWED').length !== (nextCertified?912:937) ||
       rows.some(r => r.status === 'IMPLEMENTED')) return false;
   return B015_SLUGS.every(slug => {
     const row = rows.find(r => r.slug === slug);

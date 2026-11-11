@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import { certifiedBatch015 } from './verified-football-b015-certificate.mjs';
+import { certifiedBatch016 } from './verified-football-b016-certificate.mjs';
 const read=p=>readFileSync(p,'utf8');
 const slugs=['dhanis','diana-new-diana','diboll','dickinson','dilley'];
 const source=read('src/data/high-school-football/program-editorial-b015.ts');
@@ -17,6 +18,6 @@ assert.ok(guides.dickinson.overview.join(' ').includes('3300 Baker'),'Dickinson 
 assert.ok(guides['diana-new-diana'].overview.join(' ').includes('259 South'),'New Diana campus versus district-office distinction');
 assert.ok(guides.dhanis.overview.join(' ').includes('2026 Football Schedule'),'D Hanis official schedule context');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
-assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,certifiedBatch015(reg)?355:330,'preserve certified history');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,certifiedBatch016(reg)?380:certifiedBatch015(reg)?355:330,'preserve certified history');
 for(const slug of slugs)assert.equal(reg.schoolRecords.find(x=>x.slug===slug)?.status,certifiedBatch015(reg)?'VERIFIED':'NOT_REVIEWED','no premature promotion');
 console.log('PASS Batch015 third-five sourced SSR school guides and unmodified certification ledger');
