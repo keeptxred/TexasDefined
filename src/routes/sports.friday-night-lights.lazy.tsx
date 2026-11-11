@@ -151,7 +151,7 @@ function FridayNightLightsPage() {
       </Container>
     </section>
 
-    <section className="border-b border-border bg-surface"><Container className="py-12 sm:py-16" aria-labelledby="football-postseason-verify">
+    <section className="border-b border-border bg-surface"><Container className="py-12 sm:py-16">
       <p className="eyebrow text-primary">2026 postseason · verified planning</p><h2 id="football-postseason-verify" className="mt-3 max-w-4xl font-display text-4xl">Don't mistake a curated matchup archive for this week's scores</h2>
       <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The local matchup directory documents only games for which individual evidence was saved; it is not a complete or real-time scoreboard. With the 2026 district certification deadline on November 7 and the first playoff round scheduled November 12–14, bracket updates, opponents and game sites should be rechecked against the UIL and the participating schools. The official UIL site remains the rule and postseason source.</p>
       <div className="mt-7 grid gap-5 md:grid-cols-3">
