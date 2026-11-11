@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { classifyQueuedRun, classifyOrphanedInProgressRun, shouldCancel, MIN_STALE_MS, SCHEDULE_EXPIRY_MS, ORPHANED_IN_PROGRESS_MS } from "./reconcile-stale-actions-queue.mjs";
+import { classifyQueuedRun, classifyOrphanedInProgressRun, shouldCancel, mayDeleteAfterBackend409, MIN_STALE_MS, SCHEDULE_EXPIRY_MS, ORPHANED_IN_PROGRESS_MS } from "./reconcile-stale-actions-queue.mjs";
 
 const now = Date.UTC(2026, 10, 11, 22);
 const current = "a".repeat(40);
@@ -57,4 +57,14 @@ test("only orphaned in-progress run with all job steps finished qualifies for se
   assert.equal(classifyOrphanedInProgressRun({ ...orphan, head_sha: current }, ctx), "current-main");
   assert.equal(classifyOrphanedInProgressRun({ ...orphan, event: "push" }, ctx), "non-workflow-run-protect");
   assert.equal(classifyOrphanedInProgressRun({ ...orphan, status: "completed" }, ctx), "not-in-progress");
+});
+
+test("permanent deletion is permitted only for proved jobless superseded queue records", () => {
+  const orphan = run("workflow_run", MIN_STALE_MS + 60000);
+  const noJobs = { total_count: 0, jobs: [] };
+  assert.equal(mayDeleteAfterBackend409(orphan, "cancel:superseded-release", noJobs), true);
+  assert.equal(mayDeleteAfterBackend409(orphan, "open-pr-protect", noJobs), false);
+  assert.equal(mayDeleteAfterBackend409({ ...orphan, event: "issue_comment" }, "cancel:superseded-release", noJobs), false);
+  assert.equal(mayDeleteAfterBackend409({ ...orphan, status: "in_progress" }, "cancel:superseded-release", noJobs), false);
+  assert.equal(mayDeleteAfterBackend409(orphan, "cancel:superseded-release", { total_count: 1, jobs: [{ status: "queued" }] }), false);
 });
