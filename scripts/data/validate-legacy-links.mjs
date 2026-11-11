@@ -46,6 +46,11 @@ const ALLOWED_FILES = new Set([
   "src/lib/brand-route-ownership.ts",
   // Intentional server-only sibling-site government bridge. Keep this list
   // exact: broad src/lib allowlisting would weaken the brand-separation gate.
+  // Protected GitHub OIDC identity must name the repository's exact GitHub
+  // owner. These two server-only files require that literal identifier for
+  // JWT signature and claim validation, never for visitor-facing links.
+  "src/lib/github-oidc-jwt.server.ts",
+  "src/lib/github-oidc-jwt.server.test.ts",
   "src/lib/keeptxred-government.server.ts",
   "src/lib/texas-defined-government-ai.server.ts",
   "src/lib/texas-defined-government-ai.contract.test.ts",
