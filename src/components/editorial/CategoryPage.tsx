@@ -49,13 +49,14 @@ function CategoryBreadcrumb({ belongsToExplore, belongsToTexasLife, current, inv
   );
 }
 
-export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml: originalAuthorityHtml }: {
+export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml: originalAuthorityHtml, showDestinations = true }: {
   category: CategorySlug;
   eyebrow: string;
   title: string;
   intro: string;
   image?: ImageRef | undefined;
   authorityHtml?: string | null;
+  showDestinations?: boolean;
 }) {
   const { data: articles } = useSuspenseQuery(articlesQuery({ category }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ category }));
@@ -123,7 +124,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
         </Section>
       )}
 
-      {destinations.length > 0 && (
+      {showDestinations && destinations.length > 0 && (
         <Section tone="surface">
           <Container>
             <SectionHeader eyebrow="The field guide" title={`${eyebrow}, mapped`} description={`${destinations.length.toLocaleString("en-US")} places in the Texas Defined guide, with the details you need to choose where to go next.`} />
