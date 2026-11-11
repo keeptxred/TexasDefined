@@ -56,6 +56,48 @@ export function shouldCancel(reason, jobs) {
     Array.isArray(jobs.jobs) && jobs.jobs.length === 0;
 }
 
+export function mayDeleteAfterBackend409(run, reason, jobs) {
+  return shouldCancel(reason, jobs) &&
+    ["workflow_run", "pull_request", "schedule"].includes(run.event) &&
+    run.status === "queued";
+}
+
+function isPreQueueConflict(error) {
+  return /HTTP 409/.test(String(error)) && /not been queued yet/i.test(String(error));
+}
+
+async function cancelOrRemoveProvablyDeadRun(api, run, reason, jobs) {
+  const path = "/actions/runs/" + run.id;
+  try {
+    await api(path + "/cancel", { method: "POST" });
+    return "cancel-requested";
+  } catch (normalError) {
+    if (!isPreQueueConflict(normalError)) throw normalError;
+  }
+  // Official documented fallback after normal cancellation fails.
+  try {
+    await api(path + "/force-cancel", { method: "POST" });
+    return "force-cancel-requested";
+  } catch (forceError) {
+    if (!isPreQueueConflict(forceError)) throw forceError;
+  }
+  if (!mayDeleteAfterBackend409(run, reason, jobs))
+    throw new Error("Backend pre-queue deadlock; deletion not authorized for run " + run.id);
+
+  // Last-resort deletion is ONLY for a run with zero created jobs and
+  // independent proof that its source is obsolete. No logs or output exist.
+  await api(path, { method: "DELETE" });
+  for (let retry = 0; retry < 3; retry++) {
+    try { await api(path); }
+    catch (error) {
+      if (/HTTP 404/.test(String(error))) return "deletion-verified";
+      throw error;
+    }
+    await new Promise(done => setTimeout(done, 800));
+  }
+  throw new Error("DELETE accepted but run " + run.id + " remains visible; inspect GitHub backend before retrying");
+}
+
 function apiFactory(repo, token) {
   return async (route, opts = {}) => {
     const method = opts.method || "GET";
@@ -141,9 +183,13 @@ async function main() {
     runId: context.selfId, checkedAt: new Date(context.now).toISOString(),
     dryRun, mainSha, successfulDeployment: { id: deployed.id, sha: deployed.head_sha,
       completed: deployed.updated_at }, originalQueued: queue.length, orphanedInProgressScanned: active.workflow_runs.length,
-    cancelled: [], selectedDryRun: [], protected: [], errors: [],
+    cancelled: [], deleted: [], selectedDryRun: [], protected: [], errors: [],
+    platformBlocked: null,
   };
 
+  // Probe the user's concrete stuck McAllen run first. If the backend rejects
+  // BOTH cancellation and deletion, stop rather than repeat 125 identical 409s.
+  queue.sort((a, b) => (a.id === 43095110357 ? -1 : b.id === 43095110357 ? 1 : 0));
   for (const run of queue) {
     let pr = null;
     if (run.event === "pull_request" && Array.isArray(run.pull_requests) &&
@@ -176,18 +222,22 @@ async function main() {
         report.selectedDryRun.push({ id: run.id, reason, name: run.name });
         continue;
       }
-      await api("/actions/runs/" + run.id + "/cancel", { method: "POST" });
-      report.cancelled.push({ id: run.id, reason, name: run.name });
-      console.log("Cancellation requested for verified jobless superseded run " + run.id + ": " + reason);
+      const outcome = await cancelOrRemoveProvablyDeadRun(api, run, reason, jobs);
+      const entry = { id: run.id, reason, name: run.name, outcome };
+      if (outcome === "deletion-verified") report.deleted.push(entry);
+      else report.cancelled.push(entry);
+      console.log("Resolved jobless superseded Actions run " + run.id + " via " + outcome);
     } catch (err) {
-      report.errors.push({ id: run.id, stage: "cancel", error: String(err) });
-      console.error("Failed to cancel obsolete run " + run.id + ": " + String(err));
+      report.errors.push({ id: run.id, stage: "cancel-force-delete", error: String(err) });
+      report.platformBlocked = { id: run.id, reason, error: String(err) };
+      console.error("GitHub backend refused normal cancellation, force-cancellation, or safe deletion for " + run.id + "; stopping further mutations: " + String(err));
+      break;
     }
   }
 
   // The October 22 zombie is a workflow marked in progress despite every job
   // having finished successfully. Never cancel an actually running job.
-  for (const run of active.workflow_runs) {
+  for (const run of report.platformBlocked ? [] : active.workflow_runs) {
     const reason = classifyOrphanedInProgressRun(run, context);
     if (!reason.startsWith("cancel:")) {
       report.protected.push({ id: run.id, reason, event: run.event });
@@ -223,6 +273,7 @@ async function main() {
   await writeFile(OUT, JSON.stringify(report, null, 2) + "\n");
   console.log(JSON.stringify({
     total: queue.length, orphanedInProgressScanned: active.workflow_runs.length, cancellationRequests: report.cancelled.length,
+    verifiedDeleted: report.deleted.length,
     dryRunSelections: report.selectedDryRun.length, protected: report.protected.length,
     errors: report.errors.length, report: OUT,
   }));
