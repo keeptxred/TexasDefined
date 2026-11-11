@@ -1122,6 +1122,14 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
   },
   {
     "county": "harris",
+    "name": "Houston Botanic Garden",
+    "category": "Parks & recreation",
+    "description": "Ticketed botanical garden on a former golf-course site, with global plant collections, Gulf Coast prairie and stormwater wetlands; check the operator for current admission and opening rules.",
+    "sourceUrl": "https://hbg.org/visit/",
+    "relatedGuideHref": "/destination/houston-botanic-garden"
+  },
+  {
+    "county": "harris",
     "name": "Buffalo Bayou Park",
     "category": "Parks & recreation",
     "description": "Houston bayou green space with paved walking and biking trails, gardens and views of downtown; check closures and park-specific restrictions.",
@@ -2175,7 +2183,8 @@ export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
     "name": "Fort Worth Water Gardens",
     "category": "Art & architecture",
     "description": "Downtown architectural water garden with multiple pools and plaza walkways; no swimming or wading is permitted, and construction notices may affect access.",
-    "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/water-gardens"
+    "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
+    "relatedGuideHref": "/destination/fort-worth-water-gardens"
   },
   {
     "county": "taylor",
