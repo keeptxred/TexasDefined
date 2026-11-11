@@ -5,6 +5,8 @@ import { buildChangePlan, PAGE_BUDGET } from './production-change-scope.mjs';
 
 const CC = 'https://creativecommons.org/licenses/by-sa/4.0/';
 const entries = [
+  ['/article/unusual-texas-businesses-services', 'Dustin Moore', 'Person', '© Dustin Moore',
+    'https://creativecommons.org/licenses/by/2.0/', 'Britten_USA.jpg'],
   ['/article/blue-bell-ice-cream-brenham-texas-history', 'Larry D. Moore', 'Person', '© 2008 Larry D. Moore',
     'https://creativecommons.org/licenses/by/4.0/', 'Modern_Blue_Bell_Creameries_factory_located_in_Brenham,_Texas.jpg'],
   ['/article/texas-high-school-football-playoffs-explained', 'Heidi Knapp', 'Person', '© Heidi Knapp', CC, 'Celina_High_School,_Friday_Night_Football.jpg'],
@@ -34,7 +36,7 @@ function mockHtml(path, creator, type, copyright, license, file, edits = {}) {
     + '</script></head><body><p>Photo: ' + creator + '</p></body></html>';
 }
 
-test('release and canonical image-rights acceptance selects exactly seven URLs within existing 40-page budget', () => {
+test('release and canonical image-rights acceptance selects exactly eight URLs within existing 40-page budget', () => {
   const plan = buildChangePlan({
     baseline: 'a'.repeat(40), head: 'b'.repeat(40),
     changedFiles: ['src/data/image-rights.ts'],
@@ -46,10 +48,10 @@ test('release and canonical image-rights acceptance selects exactly seven URLs w
     baseline: 'a'.repeat(40), head: 'b'.repeat(40),
     changedFiles: ['src/data/fixtures/texas-life-split-source.ts'],
   });
-  assert.deepEqual(unrelated.imageRightsPages, [], 'No permanent seven-page crawl for unrelated changes');
+  assert.deepEqual(unrelated.imageRightsPages, [], 'No permanent eight-page crawl for unrelated changes');
 });
 
-test('actual ImageObject parsing accepts all seven source-authenticated article/destination SSR structures', () => {
+test('actual ImageObject parsing accepts all eight source-authenticated article/destination SSR structures', () => {
   for (const fields of entries) assert.doesNotThrow(() => assertGscImageRights(mockHtml(...fields), fields[0]), fields[0]);
 });
 
