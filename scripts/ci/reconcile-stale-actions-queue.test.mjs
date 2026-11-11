@@ -77,3 +77,17 @@ test("automatic queue inventory is read-only until GitHub repairs its pre-queue 
   assert.match(workflow, /reconcile-stale-actions-queue\.mjs --inventory-only/);
   assert.doesNotMatch(workflow, /restore-mcallen:/);
 });
+
+test("read-only census returns before GitHub's inconsistent pagination and mutation paths", () => {
+  const source = readFileSync(new URL("./reconcile-stale-actions-queue.mjs", import.meta.url), "utf8");
+  const branchProbe = source.indexOf('const branch = await api("/branches/main")');
+  const fastPath = source.indexOf('if (process.argv.includes("--inventory-only"))');
+  const fullQueue = source.indexOf("const queue = await listQueued(api)");
+  assert.ok(fastPath > 0 && fastPath < branchProbe && branchProbe < fullQueue);
+  const census = source.slice(fastPath, branchProbe);
+  assert.match(census, /Promise\.allSettled/);
+  assert.match(census, /per_page=5/);
+  assert.match(census, /return;/);
+  assert.doesNotMatch(census, /method:\s*["'](?:DELETE|POST)["']/);
+  assert.doesNotMatch(census, /cancelOrRemoveProvablyDeadRun/);
+});

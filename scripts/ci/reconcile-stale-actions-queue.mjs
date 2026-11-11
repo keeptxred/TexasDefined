@@ -155,6 +155,62 @@ async function main() {
   if (!token || !/^[\w.-]+\/[\w.-]+$/.test(repo || ""))
     throw new Error("Missing scoped GITHUB_TOKEN or repository name");
   const api = apiFactory(repo, token);
+
+  // Read-only scheduled monitoring must never depend on complete pagination,
+  // runner state coherence, a recent deploy, or mutation permissions. GitHub
+  // has returned inconsistent queued/in_progress counts and refused to cancel
+  // its own pre-queue ghost records (409) or delete them (403).
+  if (process.argv.includes("--inventory-only")) {
+    const checks = [
+      { label: "queued", route: "/actions/runs?status=queued&per_page=5" },
+      { label: "inProgress", route: "/actions/runs?status=in_progress&per_page=5" },
+      { label: "stuckMcAllen", route: "/actions/runs/43095110357" },
+    ];
+    const responses = await Promise.allSettled(checks.map(({ route }) => api(route)));
+    const report = {
+      checkedAt: new Date().toISOString(),
+      mode: "read-only",
+      explanation: "GitHub API rejects cancellation of jobless queued runs with 409 and deletion with 403",
+      counts: {},
+      samples: {},
+      warnings: [],
+    };
+    for (let i = 0; i < checks.length; i++) {
+      const label = checks[i].label;
+      const result = responses[i];
+      if (result.status !== "fulfilled") {
+        report.warnings.push(label + ": " + String(result.reason));
+        continue;
+      }
+      const payload = result.value;
+      if (label === "stuckMcAllen") {
+        report.stuckMcAllen = {
+          id: payload.id,
+          status: payload.status,
+          conclusion: payload.conclusion,
+          createdAt: payload.created_at,
+          updatedAt: payload.updated_at,
+        };
+      } else {
+        report.counts[label] = Number.isInteger(payload.total_count) ? payload.total_count : null;
+        report.samples[label] = Array.isArray(payload.workflow_runs)
+          ? payload.workflow_runs.map(run => ({
+            id: run.id, status: run.status, event: run.event, createdAt: run.created_at,
+          }))
+          : [];
+        if (!Number.isInteger(payload.total_count) || !Array.isArray(payload.workflow_runs))
+          report.warnings.push(label + ": GitHub returned an incomplete listing");
+      }
+    }
+    await mkdir("artifacts/actions-queue-recovery", { recursive: true });
+    await writeFile(OUT, JSON.stringify(report, null, 2) + "\n");
+    console.log("Read-only GitHub Actions queue census: " + JSON.stringify({
+      counts: report.counts, stuckMcAllen: report.stuckMcAllen?.status ?? "unavailable",
+      warnings: report.warnings.length, report: OUT,
+    }));
+    return;
+  }
+
   const branch = await api("/branches/main");
   const mainSha = branch.commit?.sha;
   if (!/^[0-9a-f]{40}$/i.test(mainSha || "")) throw new Error("Cannot establish current main SHA");
@@ -186,25 +242,6 @@ async function main() {
     cancelled: [], deleted: [], selectedDryRun: [], protected: [], errors: [],
     platformBlocked: null,
   };
-
-  // GitHub itself reported an impossible state: GET queued / jobs=0, while
-  // cancel and force-cancel return 409 and DELETE returns 403. Routine checks
-  // must not hammer this unchanged backend failure every six hours.
-  if (process.argv.includes("--inventory-only")) {
-    report.inventoryOnly = true;
-    report.byEvent = Object.fromEntries([...new Set(queue.map(run => run.event))]
-      .map(event => [event, queue.filter(run => run.event === event).length]));
-    report.oldest = queue.slice(-8).map(run => ({
-      id: run.id, event: run.event, status: run.status, createdAt: run.created_at,
-    }));
-    await mkdir("artifacts/actions-queue-recovery", { recursive: true });
-    await writeFile(OUT, JSON.stringify(report, null, 2) + "\n");
-    console.log("Read-only queue census: " + JSON.stringify({
-      queued: report.originalQueued, inProgress: report.orphanedInProgressScanned,
-      eventCounts: report.byEvent, report: OUT,
-    }));
-    return;
-  }
 
   // Probe the user's concrete stuck McAllen run first. If the backend rejects
   // BOTH cancellation and deletion, stop rather than repeat 125 identical 409s.
