@@ -1,0 +1,25 @@
+name: Fishing thirteen-page production acceptance
+on:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+  schedule:
+    - cron: '37 12 * * 2,5'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: fishing-13-production-${{ github.event_name }}
+  cancel-in-progress: true
+jobs:
+  verify-13-pages:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify all thirteen public HTML routes and editorial content
+        run: node scripts/ci/verify-fishing-thirteen-production.mjs
