@@ -27,7 +27,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
         <Container className="py-16 sm:py-24">
           <p className="eyebrow text-ink-foreground/70">Texas fish species</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas Fish Species</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Start with the fish, then move to Texas lakes where TexasDefined has a verified lake-to-species relationship. Every published fish record opens a standalone Texas guide.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Start with the fish, then move to Texas lakes where TexasDefined has a verified lake-to-species relationship. Some records have standalone guides; other records remain sourced directory entries until they qualify for a complete guide.</p>
           <div className="mt-8 flex flex-wrap gap-5 text-sm">
             <Link to="/fishing/species/largemouth-bass" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open largemouth bass guide →</Link>
             <Link to="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Compare complete fishing lakes →</Link>
@@ -35,7 +35,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
           </div>
           <dl className="mt-10 grid gap-5 border-t border-ink-foreground/20 pt-6 sm:grid-cols-2 lg:grid-cols-4">
             <Stat label="Published records" value={pageData.totalSpecies} />
-            <Stat label="Species guides" value={pageData.completeSpeciesGuides} />
+            <Stat label="Standalone guides" value={pageData.completeSpeciesGuides} />
             <Stat label="Complete lake guides" value={pageData.completeLakeGuides} />
             <Stat label="Species families" value={pageData.groups.length} />
           </dl>
@@ -44,10 +44,10 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
 
       <Container className="py-14 sm:py-20">
         <section className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="species-directory-policy">
-          <div><p className="eyebrow text-primary">Directory policy</p><h2 id="species-directory-policy" className="mt-2 font-display text-3xl">Every published fish has a guide</h2></div>
+          <div><p className="eyebrow text-primary">Directory policy</p><h2 id="species-directory-policy" className="mt-2 font-display text-3xl">Directory records versus standalone guides</h2></div>
           <div className="grid gap-x-8 md:grid-cols-2">
             <Answer question="How many fish records are published here?" answer={`TexasDefined currently has ${pageData.totalSpecies} published freshwater fish species or practical fishing groups in this directory.`} />
-            <Answer question="Do all published fish have their own guide?" answer={`${pageData.completeSpeciesGuides} published records currently have standalone Texas fish guides, with lake links added only where verified relationships exist.`} />
+            <Answer question="Does every record have a standalone guide?" answer={`No. ${pageData.completeSpeciesGuides} of ${pageData.totalSpecies} published records currently have standalone guides. Other records remain source-backed directory entries instead of being represented as complete authority guides.`} />
             <Answer question="How are fish connected to lakes?" answer={`A species guide links to lake pages only where the fishing catalog contains a verified lake-to-species relationship. Full lake guides carry deeper planning detail than basic lake profiles.`} />
             <Answer question="Are these links live fishing reports?" answer="No. Lake-to-species relationships describe durable fishery context. Current bite, regulations, stocking, levels and access can change and should be confirmed with current official sources." />
           </div>
@@ -67,7 +67,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
                     {image ? <FishingPhoto image={image} showCredit={false} className="mb-5" imageClassName="aspect-[4/3] w-full object-contain bg-muted/30 p-3" /> : null}
                     <div className="flex flex-wrap items-center gap-2">
                       <p className="eyebrow text-primary">{row.taxonKind === "group" ? "Fishing group" : "Fish species"}</p>
-                      <span className="border border-primary px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] text-primary">Species guide</span>
+                      <span className="border border-primary px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] text-primary">{row.completeGuide ? "Standalone guide" : "Directory record"}</span>
                     </div>
                     <h3 className="mt-2 font-display text-2xl"><a href={fishingFoundationAnchor("species", row.slug)} className="hover:text-primary">{row.commonName}</a></h3>
                     {row.scientificName && <p className="mt-1 text-xs italic text-muted-foreground">{row.scientificName}</p>}
@@ -81,7 +81,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
                     </div> : <p className="mt-5 text-xs leading-5 text-muted-foreground">No completed TexasDefined lake guide currently carries a source-backed relationship for this record. That does not mean the fish is absent from other Texas waters.</p>}
 
                     <div className="mt-5 flex flex-wrap gap-4">
-                      <a href={fishingFoundationAnchor("species", row.slug)} className="eyebrow border-b border-primary pb-1 text-primary">Species guide →</a>
+                      {row.completeGuide ? <a href={fishingFoundationAnchor("species", row.slug)} className="eyebrow border-b border-primary pb-1 text-primary">Open species guide →</a> : <a href={`#species-${row.slug}`} className="eyebrow border-b border-primary pb-1 text-primary">Directory entry</a>}
                       {row.sources[0] && <a href={row.sources[0].url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-border pb-1 text-muted-foreground hover:text-foreground">Official source →</a>}
                     </div>
                   </article>;
@@ -94,7 +94,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
         <section className="mt-16 border-t border-border pt-8">
           <p className="eyebrow text-primary">Lake coverage</p>
           <h2 className="mt-3 font-display text-3xl">How Lake Coverage Expands</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every published fish record has a sourced species page. Lake recommendations expand separately as verified lake-to-species relationships are added, so a fish page can exist without inventing places to catch it.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every published fish has a sourced directory entry; only complete records receive a standalone species page. Lake recommendations expand separately as verified lake-to-species relationships are added, so a fish page can exist without inventing places to catch it.</p>
           <p className="mt-6 text-xs leading-6 text-muted-foreground">Species catalog sources checked {formatDate(pageData.verifiedAt)}. Regulations, stockings and waterbody conditions can change; always confirm current TPWD information before fishing.</p>
         </section>
       </Container>

@@ -23,7 +23,7 @@ function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargem
     { "@type": "ListItem", position: 4, name: "Largemouth bass", item: url },
   ] };
   return {
-    meta: buildMeta(texasDefinedBrand, { title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes", description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, ranked lakes, regulations and verified guide listings.", canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, { title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes", description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, documented lake quality tiers, regulations and verified guide listings.", canonicalPath }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPage, speciesEntity, breadcrumb] }) }],
   };
@@ -45,13 +45,14 @@ async function buildLargemouthBassPageData() {
 
   const lakeById = new Map(lakes.map((lake) => [lake.id, lake]));
   const rankedLakes = relations
+    .filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0)
     .map((relation) => {
       const lake = lakeById.get(relation.lakeId);
       if (!lake) return null;
       const score = qualityScore[relation.quality] + prominenceScore[relation.prominence] + (lake.featured ? 1 : 0);
       return { lake, relation, score, href: fishingFoundationAnchor("lake", lake.slug) };
     })
-    .filter((row): row is NonNullable<typeof row> => Boolean(row))
+    .filter((row): row is NonNullable<typeof row> => Boolean(row) && row.lake.slug !== "lake-abilene")
     .sort((left, right) => right.score - left.score || left.lake.name.localeCompare(right.lake.name));
 
   const techniqueById = new Map(techniques.map((row) => [row.id, row]));

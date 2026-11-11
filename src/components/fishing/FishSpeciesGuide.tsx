@@ -99,20 +99,32 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           </div>
         </section>
 
+        <section className="mt-16 border-t border-border pt-10" aria-labelledby="bass-identification">
+          <p className="eyebrow text-primary">Identification and handling</p>
+          <h2 id="bass-identification" className="mt-3 font-display text-4xl">Identify Your Bass Before Checking a Limit</h2>
+          <div className="mt-7 grid gap-6 md:grid-cols-3">
+            <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">Check several features</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Largemouth bass commonly display a dark lateral band and a broad mouth. Compare mouth extension, body markings and dorsal fins together; color alone is not enough to distinguish every black-bass species.</p></article>
+            <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">Consider similar bass</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Spotted, smallmouth and Guadalupe bass occur in Texas. Habitat and appearance can overlap. If a retained fish is uncertain, consult official identification guidance before applying its limit.</p></article>
+            <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">Release responsibly</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Wet your hands, minimize air exposure and support the body of a large fish rather than holding it horizontally by the jaw alone. Check handling advisories for deep-caught fish.</p></article>
+          </div>
+          <a href={profile.sources[0].url} target="_blank" rel="noreferrer noopener" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Consult TPWD largemouth species guidance →</a>
+        </section>
+
         <section className="mt-16 border-t border-border pt-10" aria-labelledby="best-lakes">
           <p className="eyebrow text-primary">Texas bass lakes</p>
           <h2 id="best-lakes" className="mt-3 font-display text-4xl">Texas Lakes for Largemouth Bass</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{profile.rankingMethod}</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Lake Abilene is excluded while the TPWD park alert prohibits fishing due to low water. <a href="https://tpwd.texas.gov/state-parks/abilene/alert/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/50">Check the official Lake Abilene closure alert</a>. Confirm current access at every destination before traveling.</p>
           <div className="mt-8 divide-y divide-border border-y border-border">
-            {rankedLakes.map((row, index) => (
-              <article key={row.relation.id} className="grid gap-4 py-6 sm:grid-cols-[70px_1fr_auto] sm:items-start">
-                <p className="font-display text-3xl text-primary">#{index + 1}</p>
+            {rankedLakes.map((row) => (
+              <article key={row.relation.id} className="grid gap-4 py-6 sm:grid-cols-[105px_1fr_auto] sm:items-start">
+                <p className="font-display text-lg capitalize text-primary">{row.relation.quality}</p>
                 <div>
                   <h3 className="font-display text-2xl"><a href={row.href} className="hover:text-primary">{row.lake.name}</a></h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{row.lake.summary}</p>
                   {row.relation.seasonalPatterns.length > 0 && <ul className="mt-3 space-y-1 text-xs leading-5 text-muted-foreground">{row.relation.seasonalPatterns.map((pattern, index) => <li key={`${pattern.season}-${index}`}><strong className="text-foreground">{seasonLabel[pattern.season] ?? (pattern.season === "year-round" ? "Year-round" : pattern.season)}:</strong> {pattern.summary}</li>)}</ul>}
                 </div>
-                <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground"><p>{row.relation.quality}</p><p className="mt-1">{row.relation.prominence}</p></div>
+                <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground"><p>Species role</p><p className="mt-1">{row.relation.prominence}</p></div>
               </article>
             ))}
           </div>
