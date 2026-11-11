@@ -269,5 +269,8 @@ if (errors.length) {
   process.exit(1);
 }
 
+// The bounded Moody Gardens operator monitor is exercised offline in PR CI
+// before its Friday scheduled network check; no external fetch in pre-merge.
+execFileSync(process.execPath, ['--test', 'scripts/data/check-moody-gardens-official.test.mjs'], { stdio: 'inherit' });
 execFileSync(process.execPath, ['scripts/data/validate-dallas-black-history.mjs'], { stdio: 'inherit' });
 console.log('Article and destination data, single robots policy, indexing quality gate, lazy destination query resolution, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
