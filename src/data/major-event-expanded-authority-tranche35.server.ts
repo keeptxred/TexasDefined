@@ -71,7 +71,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-11-27",
     venue: "San Antonio River Walk",
     officialUrl: "https://www.thesanantonioriverwalk.com/events/ford-holiday-river-parade/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-11-10",
     whyItMatters: "The Ford Holiday River Parade is San Antonio's signature start to the Christmas season, combining illuminated river floats, live entertainment and the River Walk lighting ceremony in one of Texas's most recognizable visitor districts.",
     quickFacts: [
       { label: "Confirmed date", value: "Friday, November 27, 2026" },
@@ -80,6 +80,7 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Free viewing", value: "East River Walk between Pecan Street and Richmond Avenue, first come" },
       { label: "Reserved seats", value: "Official paid sections; children age 2+ need tickets" },
       { label: "Access", value: "Special ADA viewing locations and event-day restrictions" },
+      { label: "2026 theme", value: "Holiday Wishes Come True; Witte Museum is Grand Marshal" },
     ],
     planningSections: [
       { title: "Use the correct parade timing and starting point", body: "The 45th Ford Holiday River Parade and River Walk lighting ceremony is scheduled November 27, 2026, beginning at 6 p.m. by the Tobin Center; its televised segment begins at 7:05 p.m. at the Arneson River Theatre. Those times describe different parts of the river route, not the arrival time at every viewing section." },
