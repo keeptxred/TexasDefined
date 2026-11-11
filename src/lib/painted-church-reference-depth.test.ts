@@ -85,7 +85,7 @@ describe("Painted Churches reference-page depth", () => {
       "https://austinpbs.org/paintedchurches/filmupdates",
       "November 11, 2026",
     ]) expect(flury).toContain(claim);
-    expect(people).toContain("comparative research added November 11, 2026");
+    expect(people).toContain("botanical and inter-church research sources cross-checked November 11, 2026");
     expect(people).toContain('dateModified: "2026-11-11"');
     expect(exploreSitemap).toContain('item.slug === "gottfried-flury" ? "2026-11-11"');
     expect(flury).not.toContain("It is proven that local palms inspired");
