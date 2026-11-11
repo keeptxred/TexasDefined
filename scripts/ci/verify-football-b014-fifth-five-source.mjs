@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import { certifiedBatch015 } from './verified-football-b015-certificate.mjs';
+import { certifiedBatch016 } from './verified-football-b016-certificate.mjs';
 const read = p => readFileSync(p,'utf8');
 const slugs=['de-soto','decatur','deer-park','del-rio','del-valle'];
 const expectedCounties=new Map([['de-soto','dallas'],['decatur','wise'],['deer-park','harris'],['del-rio','val-verde'],['del-valle','travis']]);
@@ -14,7 +15,7 @@ const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const b014Certified = reg.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE' && b.technicalAcceptance?.schoolCasesPassed===75 && b.technicalAcceptance?.countyCasesPassed===25 && b.technicalAcceptance?.browserExecutionCount===1 && b.technicalAcceptance?.githubWorkerLedgerDeploymentId===7613348297 && b.technicalAcceptance?.productionDeploymentGitSha==='851bff976c187e841a178e58984068ec19b06744' && b.technicalAcceptance?.observedWorkerVersions?.[0]==='93fe54dd-9155-49cd-a4e9-7c2d6d7b8ca2') && reg.schoolRecords.filter(x=>x.batch===14&&x.status==='VERIFIED'&&x.actualProductionVerified===true).length===25;
 assert.ok(reg.completedBatches.some(b=>b.number===14 && b.state==='VERIFIED_BATCH_014_COMPLETE'),'Batch014 signed graduation must remain archived');
 assert.deepEqual(reg.completedBatches.find(b=>b.number===14).slugs.slice(20,25),slugs,'final five canonical assigned order');
-assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,certifiedBatch015(reg)?355:b014Certified?330:305,'preserve all earlier production certificates');
+assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,certifiedBatch016(reg)?380:certifiedBatch015(reg)?355:b014Certified?330:305,'preserve all earlier production certificates');
 
 
 assert.equal((reg.completedBatches||[]).some(b=>b.number===14),b014Certified,'only signed production Chrome permits archived B014 certificate');
