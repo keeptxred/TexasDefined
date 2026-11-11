@@ -24,6 +24,7 @@ on:
 permissions:
   contents: read
   actions: write
+  pull-requests: read
 
 concurrency:
   group: texasdefined-stale-actions-reconciliation
