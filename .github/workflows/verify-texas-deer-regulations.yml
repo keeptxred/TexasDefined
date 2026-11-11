@@ -13,6 +13,7 @@ on:
       - 'scripts/data/sync-texas-deer-seasons.mjs'
       - 'scripts/data/verify-texas-deer-production.mjs'
       - 'scripts/data/verify-texas-deer-related-rules.mjs'
+      - 'scripts/data/test-deer-rollover-end-to-end.mjs'
       - '.github/workflows/verify-texas-deer-regulations.yml'
   pull_request:
     paths:
@@ -21,6 +22,7 @@ on:
       - 'src/data/hunting/deer-season-format.ts'
       - 'scripts/data/verify-texas-deer-regulations.mjs'
       - 'scripts/data/sync-texas-deer-seasons.mjs'
+      - 'scripts/data/test-deer-rollover-end-to-end.mjs'
       - 'scripts/data/verify-texas-deer-production.mjs'
       - '.github/workflows/verify-texas-deer-regulations.yml'
       - '.github/workflows/finish-texas-deer-season-sync.yml'
@@ -50,6 +52,7 @@ jobs:
         run: |
           node scripts/data/sync-texas-deer-seasons.mjs --offline
           node scripts/data/sync-texas-deer-seasons.mjs --self-test
+          node scripts/data/test-deer-rollover-end-to-end.mjs
           node scripts/data/verify-texas-deer-regulations.mjs --offline
           node scripts/data/validate-hunting-authority.mjs
           node scripts/data/verify-texas-deer-production.mjs --self-test
