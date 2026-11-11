@@ -222,6 +222,7 @@ test("unrelated, replaced or spoofed photos never inherit another creator's righ
   for (const src of [
     "https://example.com/images/Celina_High_School,_Friday_Night_Football.jpg",
     "https://commons.wikimedia.org/wiki/Special:Redirect/file/unverified-photo.jpg",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/%E0%A4%A",
     "/images/explore/lakes-rivers/replacement.jpg",
     "/remote?url=https%3A%2F%2Fexample.com%2FCelina_High_School%2C_Friday_Night_Football.jpg",
     "",
