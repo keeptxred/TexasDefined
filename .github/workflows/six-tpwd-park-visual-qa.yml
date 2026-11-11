@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: read
+  actions: read
+  deployments: read
 
 # Runs independently of the frequently superseded sitewide production deploy
 # queue. Keep each real browser QA run; do not cancel a pending run on new pushes.
