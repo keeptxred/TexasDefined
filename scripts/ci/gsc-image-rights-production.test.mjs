@@ -9,6 +9,9 @@ const entries = [
     'https://creativecommons.org/licenses/by-sa/4.0/', 'State_Fair_of_Texas_September_2019_13_(Big_Tex).jpg'],
   ['/article/texas-borderlands-historic-sites-guide', 'Larry D. Moore', 'Person', '© 2009 Larry D. Moore',
     'https://creativecommons.org/licenses/by/4.0/', 'Magoffin_home_2009.jpg'],
+  ['/article/texas-before-united-states-how-texas-began', 'Edmund Francis Lee', 'Person',
+    'Public domain — 1836 map by Edmund Francis Lee; no copyright claim',
+    'https://creativecommons.org/publicdomain/mark/1.0/', 'Lee_Map_of_Texas_1836_UTA.jpg'],
   ['/article/texas-german-belt', 'Michael Barera', 'Person', '© Michael Barera',
     'https://creativecommons.org/licenses/by-sa/4.0/', 'Fredericksburg_July_2017_5_(Marktplatz).jpg'],
   ['/article/texas-restaurants-for-out-of-town-visitors', 'Nan Palmero', 'Person', '© Nan Palmero',
@@ -44,7 +47,7 @@ function mockHtml(path, creator, type, copyright, license, file, edits = {}) {
     + '</script></head><body><p>Photo: ' + creator + '</p></body></html>';
 }
 
-test('release and canonical image-rights acceptance selects exactly twelve URLs within existing 40-page budget', () => {
+test('release and canonical image-rights acceptance selects exactly thirteen URLs within existing 40-page budget', () => {
   const plan = buildChangePlan({
     baseline: 'a'.repeat(40), head: 'b'.repeat(40),
     changedFiles: ['src/data/image-rights.ts'],
@@ -56,10 +59,10 @@ test('release and canonical image-rights acceptance selects exactly twelve URLs 
     baseline: 'a'.repeat(40), head: 'b'.repeat(40),
     changedFiles: ['src/data/fixtures/texas-life-split-source.ts'],
   });
-  assert.deepEqual(unrelated.imageRightsPages, [], 'No permanent twelve-page crawl for unrelated changes');
+  assert.deepEqual(unrelated.imageRightsPages, [], 'No permanent thirteen-page crawl for unrelated changes');
 });
 
-test('actual ImageObject parsing accepts all twelve source-authenticated article/destination SSR structures', () => {
+test('actual ImageObject parsing accepts all thirteen source-authenticated article/destination SSR structures', () => {
   for (const fields of entries) assert.doesNotThrow(() => assertGscImageRights(mockHtml(...fields), fields[0]), fields[0]);
 });
 
