@@ -24,5 +24,9 @@ export function isSubstantiveTexasDefinedDraftSource(item) {
   if (/\b(?:beat|beats|defeat(?:s|ed)?|top(?:s|ped)?|edge(?:s|d)?|triumph(?:s|ed)? over)\b.{0,120}\b(?:nets|pacers|colts|cowboys|mavericks|texans|spurs|rockets|longhorns|aggies|cougars)\b/.test(title)) return false;
   if (/\b(?:mavericks|cowboys|texans|spurs|rockets|longhorns|aggies|cougars)\b.{0,120}\b(?:beat|beats|defeat(?:s|ed)?|triumph(?:s|ed)? over|edge(?:s|d)?)\b/.test(title)) return false;
   if (/^(?:what is|explained: what is|how is)\b/.test(title) && !/\b(?:texas|dallas|houston|austin|san antonio|el paso|fort worth|lubbock)\b/.test(title)) return false;
+  // Other outlets' curated destination/dining lists are their editorial work,
+  // not a standalone news event to rewrite into an AI-generated 'authority' page.
+  // Surface them for subject research and update an existing authority guide instead.
+  if (/\b(?:ultimate (?:local )?(?:dining|travel|visitor) guide|where to take out-of-town guests|best \d+|top \d+|events roundup|weekend roundup)\b/.test(title)) return false;
   return true;
 }
