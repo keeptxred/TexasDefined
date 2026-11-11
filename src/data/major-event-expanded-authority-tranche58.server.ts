@@ -136,7 +136,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2026-12-28",
     venue: "Texas State Railroad Palestine Depot, 789 Park Road 70",
     officialUrl: "https://texasstaterailroad.net/the-polar-express/",
-    sourceCheckedAt: "2026-10-26",
+    sourceCheckedAt: "2026-11-10",
     seoTitle: "Palestine Polar Express 2026: Dates, Tickets & Train Guide",
     seoDescription: "Plan Palestine Polar Express 2026 train rides with verified Nov. 13–Dec. 28 departures, seating classes, fares, access details and official ticket links.",
     dateNote: "Verified against Texas State Railroad’s own November and December 2026 departure-calendar graphics: scheduled trains begin November 13 and end December 28, with service only on the listed days. November 13 has 5:30 and 7:00 PM departures; December 28 has 3:00, 4:30, 6:00 and 7:30 PM departures. December 18 is also scheduled. These are advertised departure times, not a guarantee seats remain available; check the railroad ticket checkout or call 855-632-7729.",

@@ -18,8 +18,8 @@ const records: ChristmasExtendedRecord[] = [
     "startDate": "2026-11-13",
     "endDate": "2027-01-03",
     "venue": "Gaylord Texan Resort & Convention Center · Lake Grapevine",
-    "officialUrl": "https://www.marriott.com/en-us/hotels/dalgt-gaylord-texan-resort-and-convention-center/overview/",
-    "sourceCheckedAt": "2026-10-23",
+    "officialUrl": "https://tickets.gaylordtexan.com/eventperformances.asp?evt=243",
+    "sourceCheckedAt": "2026-11-10",
     "seoTitle": "Gaylord Texan ICE! 2026: Harry Potter, Tickets & Grapevine Christmas",
     "seoDescription": "Plan Gaylord Texan ICE! featuring Harry Potter, Nov. 13, 2026–Jan. 3, 2027: timed tickets, cold-room advice, resort attractions and a Grapevine holiday weekend.",
     "whyItMatters": "ICE! is a ticketed resort attraction, not the free historic Grapevine Main Street Christmas experience. In the 2026–27 season, Gaylord Texan displays ice-carved scenes themed to Harry Potter in a temperature-controlled cold room with ice slides, with separate resort holiday offerings. It is especially worthwhile for travelers who want to pair a centerpiece indoor experience with a full Grapevine Christmas trip.",
@@ -42,17 +42,17 @@ const records: ChristmasExtendedRecord[] = [
       },
       {
         "label": "Booking",
-        "value": "Choose a dated admission slot; resort rooms and other activities are separate products"
+        "value": "Timed ticket required; children 3 and under free, guests under 18 must have a paid adult"
       }
     ],
     planningSections: [
       {
         title: "Book the exact ICE! time, not just the holiday resort visit",
-        "body": "The published November–January season does not imply unlimited daily capacity. Select a dated entry from the official Gaylord Texan ticket options and confirm ticket type, age limits, cancellation rules and taxes before relying on a reservation. A hotel room is not automatically admission to ICE!."
+        "body": "Gaylord's official ICE! ticket page confirms November 13, 2026–January 3, 2027. Choose a specific date and entry time: early or late admission is not permitted. Children ages three and under enter free; guests under 18 must be accompanied by a paid adult. Tickets are non-refundable, and parking charges and taxes are additional. A resort hotel reservation is not by itself an ICE! ticket."
       },
       {
         title: "Prepare for the cold-room experience",
-        "body": "The icy exhibit is maintained around 9°F. The ICE! attraction provides signature parkas, but closed-toe shoes, full-length trousers and warm layers are still appropriate. Young children may need extra insulation. Guests sensitive to cold or needing accessibility accommodations should consult the event's current access guidelines."
+        "body": "The official event page confirms the display stays near 9°F and provides parkas. Allow approximately 20–40 minutes inside, plus arrival and other activities; wear closed-toe shoes, full-length trousers and warm layers. Young children may need extra insulation. Visitors with cold-sensitivity or access concerns should consult the current organizer guidance before purchasing."
       },
       {
         title: "Compare resort attractions as separate purchases",
@@ -97,6 +97,10 @@ const records: ChristmasExtendedRecord[] = [
       {
         "label": "Gaylord Texan official 2026 ICE! and resort page",
         "url": "https://www.marriott.com/en-us/hotels/dalgt-gaylord-texan-resort-and-convention-center/overview/"
+      },
+      {
+        "label": "Gaylord Texan direct dated ICE! tickets, entry rules and 2026–27 calendar",
+        "url": "https://tickets.gaylordtexan.com/eventperformances.asp?evt=243"
       },
       {
         "label": "Gaylord Hotels 2026 ICE! themed announcements",
@@ -321,7 +325,7 @@ const records: ChristmasExtendedRecord[] = [
     "endDate": "2026-12-30",
     "venue": "Grapevine Vintage Railroad · Grapevine / December 3 Fort Worth Stockyards",
     "officialUrl": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/",
-    "sourceCheckedAt": "2026-10-23",
+    "sourceCheckedAt": "2026-11-10",
     "seoTitle": "Grapevine North Pole Express 2026: Train Dates, Tickets & Boarding",
     "seoDescription": "Find 2026 Grapevine North Pole Express boarding dates Nov. 27–Dec. 30, special Fort Worth Dec. 3 departures, holiday closures, official tickets and arrival tips.",
     "whyItMatters": "The North Pole Express is a timed, ticketed Grapevine Vintage Railroad holiday excursion, not the same attraction as the licensed Polar Express rail events elsewhere in Texas. Most departures board in Grapevine, but the organizer publishes a special December 3, 2026 Fort Worth Stockyards departure series. December 24 and 25 do not operate.",
@@ -350,11 +354,11 @@ const records: ChristmasExtendedRecord[] = [
     planningSections: [
       {
         title: "Buy the precise boarding time from Grapevine's approved ticketing",
-        "body": "Use the city's official Grapevine Christmas or railroad ticketing sites. The organizer cautions against unofficial resale and does not guarantee third-party tickets. A generic Grapevine Main Street event page is not proof of a train seat."
+        "body": "Use Grapevine's official railroad or Christmas ticketing links rather than unverified resellers. The city says everyone age two and older needs a ticket, benches normally seat two and prices vary by departure; its published September 2026 guide quoted roughly $45–$50 per passenger. Verify the actual date, price and boarding station in checkout. A generic Main Street event page is not proof of a seat."
       },
       {
         title: "December 3 has a different departure station",
-        "body": "The 2026 dated departures page identifies Historic Stockyards Station in Fort Worth for December 3 trains. Do not arrive at Grapevine's normal departure location for that special date. Check the printed station and current ticket confirmation."
+        "body": "The organizer's current date-by-date 2026 schedule explicitly lists December 3 departures from Historic Stockyards Station in Fort Worth at 1:30, 3:00, 4:30, 6:00 and 7:30 p.m.—not from Grapevine. An earlier September announcement described December 3 as a no-service date for the regular Grapevine operation; the detailed dated schedule is the more specific guidance for these Fort Worth departures. Check the station on your purchased ticket before traveling."
       },
       {
         title: "Do not book for Christmas Eve or Christmas Day",
@@ -407,6 +411,10 @@ const records: ChristmasExtendedRecord[] = [
       {
         "label": "Grapevine approved train ticket and resale policy",
         "url": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/"
+      },
+      {
+        "label": "Grapevine 2026 North Pole Express ticket announcement and age/bench rules",
+        "url": "https://www.grapevinetexasusa.com/articles/post/christmas-tickets-on-sale-oct-1/"
       },
       {
         "label": "Grapevine official Christmas attraction ticket hub",
