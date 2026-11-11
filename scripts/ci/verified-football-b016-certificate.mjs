@@ -10,7 +10,7 @@ export const B016_SLUGS=Object.freeze([
 ]);
 const SIGNED=Object.freeze({
   // Immutable 2026-11-11 release, GitHub source-to-Worker verified ledger and Chrome artifact.
-  runId:42963063896, artifactId:13830655076, sourceSha:'c66606d9389864e16a225725370219587707fb8f', worker:'45caae09-8abf-47e5-9995-e64999355a0a', ledgerId:7702183974, cloudflareDeploymentId:'0d66ccf0-c5ad-403a-8e84-5b189a109750',
+  runId:42973704827, artifactId:13834158441, sourceSha:'14047a3934631991008361e77cd68401be493138', worker:'71fbb9a5-0dba-403a-abce-20c76dc20f8d', ledgerId:7703563654, cloudflareDeploymentId:'ce0ba0e5-4680-46e4-a6b7-acdb087d8b78',
 });
 export function certifiedBatch016(registry) {
   if (!SIGNED.runId || !SIGNED.artifactId || !SIGNED.ledgerId ||
