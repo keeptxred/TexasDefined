@@ -16,11 +16,8 @@ on:
     inputs:
       dry_run:
         type: boolean
-        default: false
-        description: "Inspect only; do not cancel obsolete runs"
-  workflow_run:
-    workflows: ["Deploy TexasDefined production"]
-    types: [completed]
+        default: true
+        description: "Inspect only; deselect only after GitHub Support repairs queued-run state"
   schedule:
     - cron: "13 */6 * * *"
 
@@ -63,29 +60,20 @@ jobs:
           node-version: "22"
       - name: Verify safety invariants before performing any cancellation
         run: node --test scripts/ci/reconcile-stale-actions-queue.test.mjs
-      - name: Cancel only verified jobless superseded Actions runs
+      - name: Observe stalled queue; mutate only on explicit manual opt-in
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
         run: |
           set -euo pipefail
-          if [[ "$DRY_RUN" == "true" ]]; then
+          if [[ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ]]; then
+            node scripts/ci/reconcile-stale-actions-queue.mjs --inventory-only
+          elif [[ "$DRY_RUN" == "true" ]]; then
             node scripts/ci/reconcile-stale-actions-queue.mjs --dry-run
           else
             node scripts/ci/reconcile-stale-actions-queue.mjs --cancel
           fi
-      - name: Independently recover the McAllen two-viewport Chrome QA
-        # The legacy run may be stuck before queue creation, so its recovery
-        # must not depend on GitHub accepting cancellation or deletion.
-        if: always() && github.event_name == 'push'
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/mcallen-day-trips-visual-qa.yml/dispatches" -f ref=main
-          echo "Fresh McAllen production Chrome acceptance dispatched."
       - name: Preserve machine-readable reconciliation results
         if: always()
         continue-on-error: true
@@ -97,24 +85,3 @@ jobs:
           if-no-files-found: warn
           retention-days: 7
 
-  restore-mcallen:
-    # This scoped recovery runs only after the new reconciliation commit has
-    # actually reached healthy production, not while an old release is live.
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && contains(github.event.workflow_run.head_commit.message, 'Recover stalled, obsolete GitHub Actions queue')
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    steps:
-      - name: Dispatch one fresh McAllen mobile and desktop Chrome run after successful production deploy
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-          DEPLOYED_SHA: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          set -euo pipefail
-          current_main="$(gh api "repos/$GITHUB_REPOSITORY/branches/main" --jq '.commit.sha')"
-          if [[ "$DEPLOYED_SHA" != "$current_main" ]]; then
-            echo "Superseded deployment; do not certify a stale source."
-            exit 0
-          fi
-          gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/mcallen-day-trips-visual-qa.yml/dispatches" -f ref=main
-          echo "Triggered McAllen exact-current-main two-viewport Chrome acceptance."
