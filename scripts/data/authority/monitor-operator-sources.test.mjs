@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  sourceIndex, normalizedSourceFingerprint, reconcile,
+  sourceIndex, normalizedSourceFingerprint, reconcile, reviewedAttractionMonitorRows,
 } from "./monitor-operator-sources.mjs";
 
 const html = (text) => "<html><body><main><h1>Operator experience</h1><p>" +
@@ -47,4 +47,21 @@ test("changed operator page stays in review until all dependent facts are rechec
 
 test("unverified or insecure source rows are rejected before network requests", () => {
   assert.throws(() => sourceIndex([{id:"x",sourceUrl:"http://example.com",checkedAt:"2026-11-02"}],[]));
+});
+
+
+test("three approved attraction sources are monitored from real canonical records", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const source = await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8");
+  const records = reviewedAttractionMonitorRows(source);
+  assert.equal(records.length, 3);
+  assert.deepEqual(records.map((r) => r.id).sort(), [
+    "fort-worth-water-gardens", "houston-botanic-garden", "san-antonio-japanese-tea-garden",
+  ]);
+  for (const row of records) {
+    assert.match(row.sourceUrl, /^https:\/\//);
+    assert.match(row.checkedAt, /^\d{4}-\d{2}-\d{2}$/);
+  }
+  assert.throws(() => reviewedAttractionMonitorRows("export const other = [];"), /missing/);
+  assert.throws(() => reviewedAttractionMonitorRows(source.replace('"slug": "houston-botanic-garden"', '"slug": "other"')), /inventory changed/);
 });
