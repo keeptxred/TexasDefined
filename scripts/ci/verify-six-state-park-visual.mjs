@@ -30,6 +30,22 @@ try{
    try{
     const response=await page.goto(origin+"/destination/"+slug+"?visual_qa="+(process.env.GITHUB_SHA||"manual").slice(0,10),{waitUntil:"domcontentloaded",timeout:40000});
     if(response?.status()!==200)throw new Error("HTTP "+response?.status());
+    // Capture both sides of hydration to distinguish a missing source FAQ from
+    // a client remount. Diagnostic snapshots do not relax the acceptance gate.
+    const faqTimeline=[];
+    const sampleFaq=async phase=>{
+     const state=await page.evaluate(()=>{
+      const faq=document.querySelector("#destination-visitor-faqs");
+      const section=faq?.closest('section[aria-labelledby="destination-visitor-faqs"]');
+      return {hydrated:document.documentElement.dataset.tdRootHydrated||null,
+       faqPresent:!!faq,faqVisible:!!faq&&faq.getBoundingClientRect().width>0,
+       sourcedAnswers:[...(section?.querySelectorAll("dl > div")||[])].filter(row=>
+        !!row.querySelector('dd a[href^="https://tpwd.texas.gov/"]')).length,
+       pathname:location.pathname};
+     });
+     faqTimeline.push({phase,...state});
+    };
+    await sampleFaq("domcontentloaded");
     await page.locator("h1").first().waitFor({state:"visible",timeout:15000});
     const hero=page.locator('img[fetchpriority="high"]').first();
     await hero.waitFor({state:"visible",timeout:12000});
@@ -53,6 +69,7 @@ try{
      }
      return performance.now()-observed.since>=1200;
     },null,{timeout:20000,polling:100});
+    await sampleFaq("faq-stable-after-hydration");
     const facts=await page.evaluate(()=>{
      const hero=document.querySelector('img[fetchpriority="high"]');
      const heading=document.querySelector("h1")?.textContent?.trim();
@@ -112,7 +129,8 @@ try{
      });
      if(!afterCapture.visible||afterCapture.sourced<3)throw new Error("FAQ disappeared or lost TPWD-sourced answers after mobile screenshot");
     }
-    results.push({slug,viewport:viewport.label,status:"passed",...facts});
+    await sampleFaq("after-screenshots");
+    results.push({slug,viewport:viewport.label,status:"passed",faqTimeline,...facts});
     console.log("PASS "+viewport.label+" "+slug+" image="+facts.heroNaturalWidth+" overflow="+(facts.documentWidth-facts.viewport));
    }catch(err){
     const message=viewport.label+" "+slug+": "+String(err?.message||err);
