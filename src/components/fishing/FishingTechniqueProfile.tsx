@@ -165,14 +165,14 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             <div>
               <p className="eyebrow text-primary">Where to fish</p>
               <h2 className="mt-3 font-display text-4xl">{technique.slug === "trolling" ? "Where to Troll for Fish" : `Where to Fish ${technique.name}`}</h2>
-              <ol className="mt-7 list-decimal space-y-4 pl-7 marker:font-display marker:text-primary">
+              <ol className="mt-7 space-y-4" style={{ listStyleType: "decimal", paddingLeft: "1.75rem" }}>
                 {guide.whereToFish.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
               </ol>
             </div>
             <div>
               <p className="eyebrow text-primary">How to fish</p>
               <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">{technique.slug === "trolling" ? "How to Troll for Fish" : `How to Fish ${technique.name}`}</h2>
-              <ol className="mt-7 list-decimal space-y-4 pl-7 marker:font-display marker:text-primary">
+              <ol className="mt-7 space-y-4" style={{ listStyleType: "decimal", paddingLeft: "1.75rem" }}>
                 {guide.howToFish.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
               </ol>
             </div>
