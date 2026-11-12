@@ -74,6 +74,30 @@ test('only one known post-deploy browser failure can qualify an otherwise fully 
   assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],id:130834293836}]}),/unapproved/);
   assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],run_id:43113183644}]}),/unapproved/);
   assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify base production surfaces'])),/unapproved/);
+  // Nov 12, 2026: a real Worker with complete two-origin original JS/CSS
+  // proof may contribute assets despite the later independent Fredericksburg
+  // direct-Worker transport timeout. Do NOT call the failed release successful.
+  const timeoutIncident=make('failure',['Verify base production surfaces']);
+  timeoutIncident.jobs[0].id=130964877163;
+  timeoutIncident.jobs[0].run_id=43152537155;
+  const timeoutApproval=qualifyPriorDeployJob(timeoutIncident);
+  assert.equal(timeoutApproval.mode,'exact-published-worker-transport-timeout-assets-only');
+  assert.equal(timeoutApproval.exactRun,43152537155);
+  const wrongTimeoutRun=structuredClone(timeoutIncident);
+  wrongTimeoutRun.jobs[0].run_id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(wrongTimeoutRun),/unapproved/);
+  const wrongTimeoutJob=structuredClone(timeoutIncident);
+  wrongTimeoutJob.jobs[0].id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(wrongTimeoutJob),/unapproved/);
+  const timeoutWithExtraFailure=structuredClone(timeoutIncident);
+  timeoutWithExtraFailure.jobs[0].steps.push({name:'Other production failure',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(timeoutWithExtraFailure),/unapproved/);
+  const timeoutWithMissingHealth=structuredClone(timeoutIncident);
+  timeoutWithMissingHealth.jobs[0].steps=timeoutWithMissingHealth.jobs[0].steps.filter(x=>x.name!=='Verify canonical production health');
+  assert.throws(()=>qualifyPriorDeployJob(timeoutWithMissingHealth),/Required published-Worker safety gate/);
+  const productionTransportTest=readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs','utf8');
+  assert.match(productionTransportTest,/const MAX_TRANSPORT_ATTEMPTS = 3;/);
+  assert.match(productionTransportTest,/attempt === MAX_TRANSPORT_ATTEMPTS/);
   const twoFailures=make('failure',['Verify base production surfaces','Verify current and previous release JS/CSS on both public origins']);
   twoFailures.jobs[0].id=130834293835;twoFailures.jobs[0].run_id=43113183643;
   assert.throws(()=>qualifyPriorDeployJob(twoFailures),/Required published|unapproved/);
