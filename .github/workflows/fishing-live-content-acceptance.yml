@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-fishing-live-content.mjs'
+      - 'scripts/ci/audit-fishing-planner-fresh-live.mjs'
       - 'scripts/ci/verify-fishing-seasons-live.mjs'
       - 'scripts/ci/verify-fishing-compare-html.mjs'
       - 'scripts/ci/verify-fishing-compare-html.test.mjs'
@@ -27,6 +28,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Independently audit uncached canonical and direct Worker fishing planner
+        run: |
+          node --check scripts/ci/audit-fishing-planner-fresh-live.mjs
+          node scripts/ci/audit-fishing-planner-fresh-live.mjs
+      - name: Preserve independently fetched planner authority evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-planner-uncached-live-audit
+          path: .artifacts/fishing-planner-fresh-live-audit.json
+          retention-days: 30
+          if-no-files-found: warn
       - name: Validate acceptance verifier syntax in PR
         if: github.event_name == 'pull_request'
         run: node --check scripts/ci/verify-fishing-live-content.mjs
