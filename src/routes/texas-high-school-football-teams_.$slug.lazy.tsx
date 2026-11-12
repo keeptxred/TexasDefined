@@ -182,6 +182,7 @@ function Page() {
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
     ...Object.fromEntries(BATCH016_FOOTBALL_COUNTY_EDGES.map(({ slug, county }) => [slug, county])), // shared B016 school-campus county edges
+    ...Object.fromEntries(BATCH017_FOOTBALL_COUNTY_EDGES.map(({ slug, county }) => [slug, county])), // shared B017 school-campus county edges
     'dell-city': 'hudspeth', // Dell City ISD 110 N Main, Hudspeth County; no 2026 varsity fixture inferred.
     'denison': 'grayson', // Denison High 4200 N State Hwy 91 Grayson County; Munson Stadium separate.
     'denton': 'denton', // Denton High 3001 Bronco Way Denton County; C.H. Collins district venue separate.
