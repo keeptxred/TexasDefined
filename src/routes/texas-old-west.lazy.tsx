@@ -51,7 +51,7 @@ function TexasOldWestPage() {
             ["Young County Museum of History & Culture", "/destination/young-county-museum-of-history-and-culture", "Explore the Brazos Indian Reservation, Fort Belknap, cattle history and primary-source research from Graham."],
             ["Young County frontier history", "/county/young", "Connect Graham, Fort Belknap and the Brazos frontier with the county\x27s changing communities and landscape."],
             ["Texas dance halls", "/texas-dance-halls-honky-tonks", "Follow the social rooms where western swing, country music and community life became lived culture."],
-            ["Texas two-step", "/texas-two-step", "Understand the dance tradition before building a dance-hall or honky-tonk night into the trip."],
+            ["Texas two-step dance", "/texas-dance-halls-honky-tonks", "Learn how two-step dancing fits the music and social culture of Texas dance halls before planning a night out."],
             ["Historic sites & museums", "/explore/historic-sites", "Browse the larger preserved-site catalog for forts, battlefields, homes, missions and museums."],
           ].map(([title, href, body]) => <Link key={href} to={href} className="group border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl group-hover:text-primary">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p><span className="mt-4 inline-block text-sm font-semibold text-primary">Open guide →</span></Link>)}
         </div>
