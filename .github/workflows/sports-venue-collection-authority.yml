@@ -59,6 +59,10 @@ jobs:
       issues: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          # A deployment completion verifies the exact published commit,
+          # not whichever unrelated commit happens to be on main later.
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
