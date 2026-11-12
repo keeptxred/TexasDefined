@@ -90,13 +90,16 @@ requireText(files.server, "Boolean(profile.verifiedAt) && profile.sources.length
 requireText(files.server, "!technique.verifiedAt || !technique.sources.length", "technique records must be verified and sourced");
 requireText(files.server, "sponsorship", "commercial/editorial separation missing");
 requireText(files.server, "not a live bite report", "live-condition separation missing");
+requireText(files.server, "fishingTechniqueFaq.map", "structured FAQ must use the shared visible answers");
+requireText(files.directoryComponent, "fishingTechniqueFaq.map", "visible FAQ must use the shared structured answers");
+requireText(read("src/data/fishing/technique-faq.ts"), "Which fishing technique should I start with?", "practical directory FAQ missing");
 requireText(files.functions, "loadFishingTechniqueDirectoryServer", "directory server boundary missing");
 requireText(files.functions, "loadFishingTechniqueProfileServer", "profile server boundary missing");
 
 for (const token of ["buildFishingTechniqueDirectoryHead",'"@type": "CollectionPage"','"@type": "ItemList"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(files.server, token, `directory server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques")','head: ({ loaderData }) => loaderData?.head ?? {}']) requireText(files.directoryRoute, token, `directory critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques")','useRouterState','state.location.pathname','pathname !== FISHING_TECHNIQUES_DIRECTORY_PATH','return <Outlet />','FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}']) requireText(files.directoryLazy, token, `directory native lazy route missing ${token}`);
-for (const token of ["Texas Fishing Techniques","How We Verify Technique Guides","Browse techniques","Check Conditions Before You Go",'method="get"','name="category"','name="species"','name="season"',"fresh fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
+for (const token of ["Texas Fishing Techniques","Match the Method to the Water","Browse techniques","Check Conditions Before You Go",'method="get"','name="category"','name="species"','name="season"',"fresh fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
 
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
@@ -167,7 +170,7 @@ const techniqueRouteSmokeExpectations = [
   ["/fishing/techniques/crankbaits", "How to Fish Crankbaits in Texas"],
   ["/fishing/techniques/spinnerbaits", "How to Fish Spinnerbaits in Texas"],
   ["/fishing/techniques/topwater", "How to Fish Topwater in Texas"],
-  ["/fishing/techniques/trolling", "How to Fish Trolling in Texas"],
+  ["/fishing/techniques/trolling", "How to Troll for Fish in Texas"],
   ["/fishing/techniques/vertical-jigging", "How to Fish Vertical Jigging in Texas"],
   ["/fishing/techniques/jigs-and-minnows", "How to Fish Jigs and Minnows in Texas"],
   ["/fishing/techniques/live-bait", "How to Fish Live Bait in Texas"],
