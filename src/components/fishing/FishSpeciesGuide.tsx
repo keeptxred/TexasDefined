@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
@@ -9,9 +10,21 @@ import type { loadLargemouthBassPageDataServer } from "@/data/fishing/largemouth
 type PageData = Awaited<ReturnType<typeof loadLargemouthBassPageDataServer>>;
 
 const seasonLabel: Record<string, string> = { spring: "Spring", summer: "Summer", fall: "Fall", winter: "Winter" };
+const formatRegion = (value: string) => value.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
 export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
   const { species, profile, rankedLakes, recommendedTechniques, relatedSpecies, verifiedGuides, sponsoredPlacements, regions } = pageData;
+  const [lakeSearch, setLakeSearch] = useState("");
+  const [qualityFilter, setQualityFilter] = useState("all");
+  const [regionFilter, setRegionFilter] = useState("all");
+  const regionOptions = [...new Set(rankedLakes.map((row) => row.lake.region))].sort();
+  const searchTerm = lakeSearch.trim().toLocaleLowerCase();
+  const filteredLakes = rankedLakes.filter((row) =>
+    (!searchTerm || row.lake.name.toLocaleLowerCase().includes(searchTerm)) &&
+    (qualityFilter === "all" || row.relation.quality === qualityFilter) &&
+    (regionFilter === "all" || row.lake.region === regionFilter)
+  );
+  const hasLakeFilters = Boolean(lakeSearch || qualityFilter !== "all" || regionFilter !== "all");
 
   return (
     <>
@@ -37,7 +50,7 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           <a href="/shop/fishing-shirts" className="mt-5 inline-block border-b border-ink-foreground/50 pb-1 text-sm font-semibold text-ink-foreground/85 hover:text-ink-foreground">Browse Texas fishing shirts →</a>
           <dl className="mt-8 grid max-w-4xl gap-5 border-t border-ink-foreground/20 pt-6 text-sm sm:grid-cols-3">
             <div><dt className="eyebrow text-ink-foreground/55">Scientific name</dt><dd className="mt-2 text-ink-foreground">{species.scientificName}</dd></div>
-            <div><dt className="eyebrow text-ink-foreground/55">Texas regions represented</dt><dd className="mt-2 text-ink-foreground">{regions.length ? regions.map((row) => row.replaceAll("-", " ")).join(", ") : "Statewide"}</dd></div>
+            <div><dt className="eyebrow text-ink-foreground/55">Texas regions represented</dt><dd className="mt-2 text-ink-foreground">{regions.length ? regions.map(formatRegion).join(", ") : "Statewide"}</dd></div>
             <div><dt className="eyebrow text-ink-foreground/55">Source review</dt><dd className="mt-2 text-ink-foreground">{profile.verifiedAt}</dd></div>
           </dl>
         </Container>
@@ -131,9 +144,40 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           <h2 id="best-lakes" className="mt-3 font-display text-4xl">Texas Lakes for Largemouth Bass</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{profile.rankingMethod}</p>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Lake Abilene is excluded while the TPWD park alert prohibits fishing due to low water. <a href="https://tpwd.texas.gov/state-parks/abilene/alert/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/50">Check the official Lake Abilene closure alert</a>. Confirm current access at every destination before traveling.</p>
-          <div className="mt-8 divide-y divide-border border-y border-border">
-            {rankedLakes.map((row) => (
-              <article key={row.relation.id} className="grid gap-4 py-6 sm:grid-cols-[105px_1fr_auto] sm:items-start">
+          <div className="mt-8 grid gap-4 border-y border-border py-6 md:grid-cols-3">
+            <label htmlFor="bass-lake-search" className="flex flex-col gap-2 text-sm font-semibold">
+              Search by lake name
+              <input id="bass-lake-search" type="search" value={lakeSearch} onChange={(event) => setLakeSearch(event.target.value)}
+                placeholder="e.g. Lake Fork" autoComplete="off" className="w-full rounded-sm border border-border bg-background px-3 py-3 font-normal text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" />
+            </label>
+            <label htmlFor="bass-lake-quality" className="flex flex-col gap-2 text-sm font-semibold">
+              TPWD-backed fishery quality
+              <select id="bass-lake-quality" value={qualityFilter} onChange={(event) => setQualityFilter(event.target.value)}
+                className="w-full rounded-sm border border-border bg-background px-3 py-3 font-normal text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                <option value="all">All quality tiers</option>
+                {(["excellent", "good", "fair", "poor", "unknown"] as const).filter((quality) => rankedLakes.some((row) => row.relation.quality === quality)).map((quality) => (
+                  <option key={quality} value={quality}>{quality.charAt(0).toUpperCase() + quality.slice(1)}</option>
+                ))}
+              </select>
+            </label>
+            <label htmlFor="bass-lake-region" className="flex flex-col gap-2 text-sm font-semibold">
+              Texas region
+              <select id="bass-lake-region" value={regionFilter} onChange={(event) => setRegionFilter(event.target.value)}
+                className="w-full rounded-sm border border-border bg-background px-3 py-3 font-normal text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                <option value="all">All regions</option>
+                {regionOptions.map((region) => <option key={region} value={region}>{formatRegion(region)}</option>)}
+              </select>
+            </label>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
+            <p role="status" aria-live="polite">{filteredLakes.length} of {rankedLakes.length} source-backed lakes shown. Quality tiers describe documented fishery context, not current bite conditions.</p>
+            {hasLakeFilters ? <button type="button" onClick={() => { setLakeSearch(""); setQualityFilter("all"); setRegionFilter("all"); }}
+              className="border-b border-primary pb-1 font-semibold text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Clear lake filters</button> : null}
+          </div>
+          {filteredLakes.length === 0 ? <p className="mt-7 border border-border p-6 text-sm text-muted-foreground">No lakes match the selected filters. Try another lake name, region or quality tier.</p> : null}
+          <div className="mt-6 divide-y divide-border border-y border-border">
+            {filteredLakes.map((row) => (
+              <article key={row.relation.id} data-bass-lake={row.lake.slug} className="grid gap-4 py-6 sm:grid-cols-[105px_1fr_auto] sm:items-start">
                 <p className="font-display text-lg capitalize text-primary">{row.relation.quality}</p>
                 <div>
                   <h3 className="font-display text-2xl"><a href={row.href} className="hover:text-primary">{row.lake.name}</a></h3>

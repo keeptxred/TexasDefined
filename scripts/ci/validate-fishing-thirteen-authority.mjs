@@ -43,6 +43,8 @@ assert(tServer.includes("isFishingCurrentlyClosed"), "Technique pages expose clo
 assert(bassServer.includes("isFishingCurrentlyClosed"), "Bass destinations expose closed fishing sites");
 assert(!bassGuide.includes("#{index + 1}"), "Unjustified numerical bass-lake ranking");
 assert(bassGuide.includes("bass-identification"), "Bass species identification guidance missing");
+assert(bassGuide.includes('id="bass-lake-search"') && bassGuide.includes('id="bass-lake-quality"') && bassGuide.includes('id="bass-lake-region"'), "Long bass lake list must have accessible search, quality and region controls");
+assert(bassGuide.includes("filteredLakes.map") && bassGuide.includes("Clear lake filters") && bassGuide.includes("aria-live"), "Bass lake filtering must be interactive and expose accessible result feedback");
 assert(bassProfile.includes("not measured head-to-head catch-rate rankings"), "Bass ranking methodology remains misleading");
 assert(closures.includes("lake-abilene") && closures.includes("fishing-prohibited"), "Official Lake Abilene closure missing");
 assert(regulations.includes("rules-explained") && regulations.includes("bait-transport"), "Regulations still links-only");

@@ -23,7 +23,14 @@ const getAttr = (tag, key) => {
   return found?.[2] ?? "";
 };
 const meta = (html,name) => [...html.matchAll(/<meta\b[^>]*>/gi)].map(x=>x[0]).find(x=>getAttr(x,"name").toLowerCase()===name);
-const htmlText = (html) => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi," ").replace(/<[^>]*>/g," ").replace(/&(?:nbsp|amp|quot);/gi," ").replace(/\s+/g," ");
+const decodeHtmlEntities = (value) => value
+  .replace(/&#(x[0-9a-f]+|[0-9]+);/gi, (match, entity) => {
+    const codepoint = entity[0].toLowerCase() === "x" ? Number.parseInt(entity.slice(1), 16) : Number.parseInt(entity, 10);
+    return Number.isInteger(codepoint) && codepoint >= 0 && codepoint <= 0x10ffff ? String.fromCodePoint(codepoint) : match;
+  })
+  .replace(/&(nbsp|amp|quot|apos|lt|gt);/gi, (match, entity) => ({nbsp:" ",amp:"&",quot:'"',apos:"'",lt:"<",gt:">"}[entity.toLowerCase()] ?? match));
+const htmlText = (html) => decodeHtmlEntities(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi," ").replace(/<[^>]*>/g," ")).replace(/\s+/g," ");
+if(htmlText("<h2>Keep the lure in the fish&#x27;s depth band</h2>").trim() !== "Keep the lure in the fish's depth band") throw new Error("SSR text decoding regression");
 const failures = [];
 const reports = [];
 let cursor=0;

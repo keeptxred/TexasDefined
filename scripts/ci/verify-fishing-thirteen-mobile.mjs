@@ -42,6 +42,21 @@ try {
         await details.locator("summary").click();
         assert((await details.locator('a[href^="/fishing/lakes/"]').count())>0,`${path}: full lake relationships cannot be explored`);
       }
+      if(path==="/fishing/species/largemouth-bass") {
+        const rows=page.locator("[data-bass-lake]");
+        const initialCount=await rows.count();
+        assert(initialCount>40,`${path}: expected published source-backed lake choices`);
+        const search=page.locator("#bass-lake-search");
+        await search.fill("Lake Fork");
+        await page.waitForFunction(()=>document.querySelectorAll("[data-bass-lake]").length===1,null,{timeout:15000});
+        assert.equal(await rows.first().getAttribute("data-bass-lake"),"lake-fork",`${path}: search returned wrong lake`);
+        await page.locator("#bass-lake-quality").selectOption("poor");
+        await page.waitForFunction(()=>document.querySelectorAll("[data-bass-lake]").length===0,null,{timeout:10000});
+        await page.getByRole("button",{name:"Clear lake filters"}).click();
+        await page.waitForFunction((count)=>document.querySelectorAll("[data-bass-lake]").length===count,initialCount,{timeout:10000});
+        assert.equal(await rows.count(),initialCount,`${path}: clearing filters did not restore lake list`);
+        result.lakeFiltersVerified=true;
+      }
       result.h1=await page.locator("h1").first().innerText();
     }catch(e){result.error=String(e);}
     result.jsErrors=errors.slice(0,10);
