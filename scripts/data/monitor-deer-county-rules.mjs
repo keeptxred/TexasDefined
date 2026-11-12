@@ -14,7 +14,7 @@ const raw = fs.readFileSync('src/data/texas-county-slugs.ts', 'utf8');
 const list = raw.split('const COUNTY_NAMES = ')[1]?.split(".split('|')")[0];
 if (!list || list.length < 1500) throw new Error('Cannot read all 254 official Texas county names');
 const counties = list.slice(1, -1).split('|');
-const toSlug = value => value.toLowerCase().replace(/[^a-z0-9]/g, '');
+const toSlug = value => value === 'La Salle' ? 'lasalle' : value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const allSlugs = counties.map(toSlug);
 if (counties.length !== 254 || new Set(allSlugs).size !== 254) {
   throw new Error('Expected exactly 254 unique counties and TPWD URL slugs');
@@ -87,7 +87,7 @@ function selfTest() {
   const counts = Array.from({length:shardCount}, (_,i) =>
     counties.filter((_,j) => j % shardCount === i).length);
   if (counts.reduce((a,b)=>a+b,0) !== 254 || Math.min(...counts) < 36 ||
-      toSlug('La Salle') !== 'lasalle' || toSlug('Fort Bend') !== 'fortbend') {
+      toSlug('La Salle') !== 'lasalle' || toSlug('Fort Bend') !== 'fort-bend' || toSlug('Deaf Smith') !== 'deaf-smith') {
     throw new Error('Deer county enumeration or partition test failed');
   }
   const item = { name:'Tarrant', slug:'tarrant' };
