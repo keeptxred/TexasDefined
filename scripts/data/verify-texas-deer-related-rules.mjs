@@ -4,6 +4,8 @@
  * scrape 254 counties, guess boundaries or republish unverified local laws.
  */
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import fs from 'node:fs';
 import data from '../../src/data/hunting/deer-season-dates.json' with { type: 'json' };
 
 const base = 'https://tpwd.texas.gov/regulations/outdoor-annual';
@@ -41,6 +43,9 @@ if (process.argv.includes('--self-test')) {
   verifySource(sources[0],fixture);
   assert.throws(()=>verifySource(sources[0],fixture.replace('Antler Restrictions','incorrect title')));
   assert.throws(()=>verifySource(sources[0],fixture.replace(String(data.startYear),'1998')));
+  const hash=crypto.createHash('sha256').update(fixture).digest('hex');
+  assert.equal(hash.length,64);
+  assert.notEqual(hash,crypto.createHash('sha256').update(fixture+'changed').digest('hex'));
   console.log('TPWD six-source county/CWD/tagging integrity contract passed.');
   process.exit(0);
 }
@@ -53,14 +58,21 @@ async function fetchSource(source) {
       const response=await fetch(source.url,{headers:{accept:'text/html','user-agent':'TexasDefined-deer-related-rules-verification/1.0'},signal:AbortSignal.timeout(25000)});
       if(!response.ok)throw new Error(source.id+' HTTP '+response.status);
       if(new URL(response.url).hostname!=='tpwd.texas.gov')throw new Error(source.id+' redirected off official TPWD domain');
-      verifySource(source,visible(await response.text()));
-      return;
+      const text = visible(await response.text());
+      verifySource(source,text);
+      return text;
     }catch(error){last=error;if(i<delays.length-1)console.warn(source.id+' attempt '+(i+1)+' failed: '+String(error).slice(0,170));}
   }
   throw last;
 }
+const provenance=[];
 for(const source of sources){
-  await fetchSource(source);
-  console.log('TPWD related rule verified: '+source.id);
+  const text=await fetchSource(source);
+  provenance.push({id:source.id,url:source.url,seasonYear:data.seasonYear,
+    sha256:crypto.createHash('sha256').update(text).digest('hex'),bytes:text.length});
+  console.log('TPWD related rule verified and fingerprinted: '+source.id);
 }
-console.log('TPWD six official deer county/CWD/tagging sources are live and identify current rule categories.');
+fs.mkdirSync('artifacts/deer-related-legal',{recursive:true});
+fs.writeFileSync('artifacts/deer-related-legal/current.json',
+  JSON.stringify({checkedAt:new Date().toISOString(),seasonYear:data.seasonYear,sources:provenance},null,2)+'\n');
+console.log('TPWD six official county/CWD/tagging sources monitored with content fingerprints.');
