@@ -25,7 +25,7 @@ function TexasOldWestPage() {
         <nav aria-label="Breadcrumb" className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"><Link to="/">Home</Link> <span aria-hidden> / </span><Link to="/explore">Explore</Link> <span aria-hidden> / </span><span aria-current="page">Texas Old West</span></nav>
         <p className="eyebrow mt-10 text-primary">Old West · ranch · rodeo</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas Old West is bigger than the cowboy myth</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use forts, ranches, longhorns, Native history, Buffalo Soldiers, rodeo grounds and dance halls to follow western Texas as a connected landscape. This guide organizes existing Texas Defined destination and history authority into trips you can actually plan.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use forts, ranches, longhorns, Native history, Buffalo Soldiers, rodeo grounds and dance halls to follow western Texas as a connected landscape. Use the places themselves to trace how people lived, fought, worked and made music, and build a route without losing the history behind the scenery.</p>
       </Container>
     </section>
 
