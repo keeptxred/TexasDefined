@@ -9,8 +9,11 @@ const files = await Promise.all([
   read('src/routes/sports-venues.compare.tsx'),
   read('src/components/editorial/TexasEventCarousel.tsx'),
   read('src/data/sports-venue-images.ts'),
+  read('src/data/knowledge-graph/major-sports-venues.ts'),
+  read('src/data/knowledge-graph/sports-venues-tier2.ts'),
+  read('src/data/knowledge-graph/seed.ts'),
 ]);
-const [choices, landingRoute, directory, comparison, events, images] = files;
+const [choices, landingRoute, directory, comparison, events, images, majorVenues, tier2Venues, seed] = files;
 const errors = [];
 const check = (condition, message) => { if (!condition) errors.push(message); };
 
@@ -38,6 +41,10 @@ for (const slug of slugs) {
     check(!titles.has(record[1]), 'Repeated decision heading: ' + record[1]);
     titles.add(record[1]);
   }
+}
+const knownVenueSeeds = majorVenues + '\n' + tier2Venues + '\n' + seed;
+for (const [, slug] of choices.matchAll(/venueSlug: '([^']+)'/g)) {
+  check(knownVenueSeeds.includes("'" + slug + "'") || knownVenueSeeds.includes("slug:'" + slug + "'"), 'Trip choice links to a non-existent sports venue slug: ' + slug);
 }
 check(titles.size >= 45, 'Original visitor decisions are missing or too repetitive');
 for (const phrase of ['delve into', 'hidden gem', 'vibrant tapestry', 'unlock the magic', 'unforgettable journey']) {
