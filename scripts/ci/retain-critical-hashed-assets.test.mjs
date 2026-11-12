@@ -380,8 +380,8 @@ test('old-only transfer attempts stop at 6144 and block deployment if eligible h
     assert.equal(report.ignoredOld, 3);
     assert.deepEqual(new Set(report.ignoredOldPaths), new Set([
       '/assets/ArticleCard-Historical6144.js',
-      '/assets/ArticleCard-Historical4097.js',
-      '/assets/ArticleCard-Historical4098.js',
+      '/assets/ArticleCard-Historical6145.js',
+      '/assets/ArticleCard-Historical6146.js',
     ]));
     assert.equal(report.unavailable.length, 0);
     assert.ok(report.bytes < 64 * 1024 * 1024);
