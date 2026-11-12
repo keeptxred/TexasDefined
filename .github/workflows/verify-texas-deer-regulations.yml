@@ -13,6 +13,7 @@ on:
       - 'scripts/data/sync-texas-deer-seasons.mjs'
       - 'scripts/data/verify-texas-deer-production.mjs'
       - 'scripts/data/verify-texas-deer-related-rules.mjs'
+      - 'scripts/data/compare-texas-deer-related-sources.mjs'
       - 'scripts/data/test-deer-rollover-end-to-end.mjs'
       - '.github/workflows/verify-texas-deer-regulations.yml'
   pull_request:
@@ -57,6 +58,7 @@ jobs:
           node scripts/data/validate-hunting-authority.mjs
           node scripts/data/verify-texas-deer-production.mjs --self-test
           node scripts/data/verify-texas-deer-related-rules.mjs --self-test
+          node --check scripts/data/compare-texas-deer-related-sources.mjs
       - name: Verify current live deer page on date-neutral PRs
         if: github.event_name == 'pull_request'
         shell: bash
@@ -101,8 +103,58 @@ jobs:
             --body 'Automated TPWD deer season and structured-regulation sync, including consecutive annual season rollover. Both current official TPWD calendars must match all eight date ranges. Structured legal facts (bag limits, harvest reporting, antler spread and special-late eligibility) must parse from the current official deer page, and only src/data/hunting/deer-season-dates.json can change. The trusted finisher independently re-fetches the sources and validates protected CI, auto-merge and production deployment. Unparseable/contradictory official sources fail safely with a deduplicated issue; routine annual rollovers do not require manual approval.'
       - name: Verify official county rules, CWD and tagging resources
         id: related
-        if: success() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        if: success() && github.event_name != 'pull_request'
         run: node scripts/data/verify-texas-deer-related-rules.mjs
+      - name: Locate previous successful official legal-source fingerprint artifact
+        if: steps.related.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          previous="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=deer-related-legal-snapshot&per_page=30" \
+            --jq '.artifacts[] | select(.expired == false) | .workflow_run.id' | head -1)"
+          if [[ -n "$previous" ]] && gh run download "$previous" --repo "$GITHUB_REPOSITORY" \
+            -n deer-related-legal-snapshot -D artifacts/deer-related-legal/prior; then
+            echo 'DEER_RELATED_PREVIOUS=artifacts/deer-related-legal/prior/current.json' >> "$GITHUB_ENV"
+          else
+            echo 'First six-source legal fingerprint baseline; no earlier snapshot.'
+          fi
+      - name: Compare current CWD/tagging/county legal-source digests
+        id: fingerprint
+        if: steps.related.outcome == 'success'
+        run: node scripts/data/compare-texas-deer-related-sources.mjs
+      - name: Record official changes and automatically resolve stable-source alerts
+        if: steps.fingerprint.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='TPWD deer CWD/tagging official rules changed'
+          comparison='artifacts/deer-related-legal/comparison.json'
+          changed="$(jq -r '.changedCount' "$comparison")"
+          existing="$(gh issue list --state open --search "$title in:title" \
+            --json title,number --jq '.[] | select(.title == "TPWD deer CWD/tagging official rules changed") | .number' | head -1)"
+          if [[ "$changed" -gt 0 ]]; then
+            echo "Official TPWD county/CWD/tagging guidance changed in $changed monitored sources." >> "$GITHUB_STEP_SUMMARY"
+            if [[ -z "$existing" ]]; then
+              links="$(jq -r '.changed[] | "- " + .id + ": " + .url' "$comparison")"
+              gh issue create --title "$title" --body "Official source fingerprints changed; TexasDefined links users to the current TPWD pages and does not automatically republish unverified county/CWD instructions. Changed sources:\n$links\nWorkflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            fi
+          elif [[ -n "$existing" ]]; then
+            gh issue close "$existing" --comment "All six current official legal sources remained stable at the latest automated verification: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          fi
+      - name: Preserve six official TPWD regulatory source fingerprints
+        if: always() && steps.related.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: deer-related-legal-snapshot
+          path: |
+            artifacts/deer-related-legal/current.json
+            artifacts/deer-related-legal/comparison.json
+          if-no-files-found: error
+          retention-days: 30
       - name: Resolve previous linked-rule failure after official-source recovery
         if: success() && steps.related.outcome == 'success'
         env:
