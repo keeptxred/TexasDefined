@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { TEXAS_VS_STATE_GROUPS, texasVsCanonicalPath } from "@/data/texas-vs-states-index";
+import { TEXAS_VS_STATE_SNAPSHOTS } from "@/data/texas-vs-state-snapshots";
 
 const faq = [
   { q: "Is Texas cheaper than every other state?", a: "No. Costs vary by household and by the specific cities or counties being compared. Housing, insurance, utilities, transportation, wages and taxes should be compared together rather than relying on one statewide average." },
@@ -12,6 +13,7 @@ const faq = [
 export const Route = createLazyFileRoute("/texas-vs-every-state")({ component: TexasVsEveryStatePage });
 
 function TexasVsEveryStatePage() {
+  const newYorkSample = TEXAS_VS_STATE_SNAPSHOTS["New York"];
   return <main>
     <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><p className="eyebrow text-primary">Texas compared</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas vs Every Other State</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Find all 49 state comparisons, understand the sources behind them, and compare real communities rather than trusting a blanket claim about taxes or cost of living.</p></Container></section>
 
@@ -26,6 +28,14 @@ function TexasVsEveryStatePage() {
       <ol className="mt-6 list-decimal space-y-3 pl-6 leading-7 text-muted-foreground"><li>Choose two realistic cities and the neighborhood or county that matters to you.</li><li>Compare rent or ownership costs, property taxes and insurance premiums at the same household size.</li><li>Compare occupation-specific wages and commute time rather than only statewide median earnings.</li><li>Check climate hazards, flood and wildfire exposure, and summer utility costs.</li><li>Read the date, geographic scope and definition for each public data series before drawing conclusions.</li></ol>
       <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/texas-data" className="text-primary">Texas by the Numbers →</Link><a href="https://data.census.gov/" target="_blank" rel="noreferrer" className="text-primary">Census ACS comparisons ↗</a><a href="https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area" target="_blank" rel="noreferrer" className="text-primary">BEA regional prices ↗</a><a href="https://www.bls.gov/oes/" target="_blank" rel="noreferrer" className="text-primary">BLS occupation wages ↗</a></div>
       </div></Container></section>
+
+    {newYorkSample ? <section className="border-b border-border bg-muted/30 py-12 md:py-16"><Container>
+      <p className="eyebrow text-primary">Example of a same-metric comparison</p><h2 className="mt-3 font-display text-4xl">Texas and New York: what actual state data shows</h2>
+      <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">This is one example, not a ranking of 49 states. The figures are U.S. Census statewide baselines for 2020–2024 unless otherwise stated. They do not substitute for comparing specific homes, occupations or local taxes; read the source and year attached to each metric.</p>
+      <div className="mt-7 overflow-x-auto border border-border"><table className="w-full min-w-[44rem] text-left text-sm"><caption className="px-4 py-3 text-left text-xs text-muted-foreground">{newYorkSample.period}</caption><thead className="border-y border-border bg-background"><tr><th scope="col" className="p-4">Measure</th><th scope="col" className="p-4">Texas</th><th scope="col" className="p-4">New York</th><th scope="col" className="p-4">How to read it</th></tr></thead><tbody className="divide-y divide-border">{newYorkSample.rows.map((item) => <tr key={item.metric}><th scope="row" className="p-4 font-semibold">{item.metric}</th><td className="p-4">{item.texas}</td><td className="p-4">{item.state}</td><td className="p-4 text-muted-foreground">{item.context}</td></tr>)}</tbody></table></div>
+      <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Read the complete comparison for tax caveats, context and decision guidance. Median statewide figures describe different mixes of people and homes; they are not an estimate of what any one household will pay.</p>
+      <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/texas-vs/new-york" className="text-primary">Complete Texas vs New York guide →</Link>{newYorkSample.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="text-primary">{source.label} ↗</a>)}</div>
+    </Container></section> : null}
 
     <section className="border-t border-border bg-surface py-12"><Container><div className="max-w-4xl"><p className="eyebrow text-primary">Comparison questions</p><h2 className="mt-2 font-display text-4xl">Texas vs other states FAQ</h2><div className="mt-7 divide-y divide-border border-y border-border">{faq.map((item) => <details key={item.q} className="group py-5"><summary className="cursor-pointer list-none pr-8 font-display text-xl marker:hidden">{item.q}<span className="float-right text-primary group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{item.a}</p></details>)}</div></div></Container></section>
 
