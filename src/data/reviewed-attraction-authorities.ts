@@ -16,10 +16,10 @@ export const reviewedAttractionDestinations: Destination[] = [
       "lng": -98.4732
     },
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Antonio_Japanese_Tea_Garden_2022.jpg?width=1600",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Antonio_Japanese_Tea_Garden_2022.jpg?width=1280",
       "alt": "Stone paths, ponds and garden landscape at the San Antonio Japanese Tea Garden",
-      "width": 1600,
-      "height": 1200,
+      "width": 1280,
+      "height": 960,
       "credit": "Jouaienttoi · Wikimedia Commons · CC BY-SA 4.0 · https://creativecommons.org/licenses/by-sa/4.0/ · thumbnail resized for web display"
     },
     "bestSeason": "Spring and fall offer milder temperatures for the outdoor paths; summer visits are more comfortable early in the day.",
@@ -45,6 +45,7 @@ export const reviewedAttractionDestinations: Destination[] = [
     "managingAuthority": "San Antonio Parks Foundation",
     "officialUrl": "https://saparks.org/japanese-tea-garden/",
     "sourceCheckedAt": "2026-11-03",
+    "updatedAt": "2026-11-11",
     "address": "3853 N St Mary's St, San Antonio, TX 78212",
     "visitorFaqs": [
       {
@@ -135,10 +136,10 @@ export const reviewedAttractionDestinations: Destination[] = [
       "lng": -97.3257861
     },
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Water_Gardens_01.jpg?width=1600",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Water_Gardens_01.jpg?width=1280",
       "alt": "Concrete water features and pools at Fort Worth Water Gardens",
-      "width": 1600,
-      "height": 1200,
+      "width": 1280,
+      "height": 960,
       "credit": "Farragutful · Wikimedia Commons · CC BY-SA 4.0 · https://creativecommons.org/licenses/by-sa/4.0/ · thumbnail resized for web display"
     },
     "bestSeason": "Spring and fall are comfortable for walking among the exposed concrete terraces; bring water during summer.",
@@ -168,6 +169,7 @@ export const reviewedAttractionDestinations: Destination[] = [
     "managingAuthority": "City of Fort Worth",
     "officialUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
     "sourceCheckedAt": "2026-10-29",
+    "updatedAt": "2026-11-11",
     "address": "1502 Commerce St, Fort Worth, TX 76102",
     "visitorFaqs": [
       {
@@ -259,14 +261,14 @@ export const reviewedAttractionDestinations: Destination[] = [
     },
     "address": "One Botanic Lane, Houston, TX 77017",
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Houston_Botanic_Garden.jpg?width=1600",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Houston_Botanic_Garden.jpg?width=1280",
       "alt": "Plantings and paths at Houston Botanic Garden",
-      "width": 1600,
-      "height": 1200,
+      "width": 1280,
+      "height": 960,
       "credit": "WhisperToMe · Wikimedia Commons · CC0 1.0 · https://creativecommons.org/publicdomain/zero/1.0/"
     },
     "bestSeason": "Spring and fall are comfortable for longer outdoor walks; summer brings heat and humidity, while plant displays change throughout the year.",
-    "entryNote": "Operator ticket or member reservation required, including for infants. Normally 9 a.m.–5 p.m.; last entry 4:30 p.m. Check closures and current prices directly.",
+    "entryNote": "Operator ticket or member reservation required at every age. Published daytime rates: adults $12, ages 3–17 $8, and under-3s free (ticket still required); other discounts apply. Normally 9 a.m.–5 p.m., last entry 4:30 p.m. Confirm rates and event closures before travel.",
     "highlights": [
       "Global Collection Garden and themed plant collections",
       "Coastal Prairie and wetland ecology",
@@ -274,7 +276,7 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Official timed general admission and member reservations"
     ],
     "body": [
-      "The Houston Botanic Garden normally opens 9 a.m.–5 p.m., with last entry at 4:30 p.m. The garden is closed on Thanksgiving Day, Christmas Day, and New Year's Day. Every person entering requires a ticket or member reservation, including infants and young children. On-site parking is free. The main public entrance is One Botanic Lane, Houston, TX 77017, off Park Place Boulevard. Verify hours, current admission, weather-related closures, programs and tickets through the official garden.",
+      "The Houston Botanic Garden normally opens 9 a.m.–5 p.m., with last entry at 4:30 p.m. The garden lists Thanksgiving Day and Christmas Day closures; check the official calendar for any additional holiday or event changes. Every person entering requires a ticket or member reservation, including infants and young children. The official current daytime rates are $12 for adults, $8 for ages 3–17, and free for children under 3 (who still need a ticket or member reservation). Senior, student, military, group and Museums for All rates are different; verify your eligibility and the live price before purchasing. On-site parking is free. The main public entrance is One Botanic Lane, Houston, TX 77017, off Park Place Boulevard. Verify hours, current admission, weather-related closures, programs and tickets through the official garden.",
       "Houston Botanic Garden occupies a former golf-course site near Sims Bayou. Its cultivated plant collections sit alongside coastal prairie and stormwater wetlands. The planted displays, prairie and wetlands serve different purposes, so the visit changes noticeably as you move between them.",
       "The grounds contain both planted collections and restored habitat. The different sections have separate paths and planting schemes. Plan your route around the garden areas you most want to explore, your companions' stamina, the temperature and the current operator map.",
       "The Global Collection Garden groups plants from different climates. The operator describes themed tropical, subtropical and arid areas. It is a good first stop for travelers who want the broadest plant variety rather than a single native habitat.",
@@ -294,23 +296,24 @@ export const reviewedAttractionDestinations: Destination[] = [
     ],
     "managingAuthority": "Houston Botanic Garden",
     "officialUrl": "https://hbg.org/visit/",
-    "sourceCheckedAt": "2026-10-29",
+    "sourceCheckedAt": "2026-11-11",
+    "updatedAt": "2026-11-11",
     "address": "One Botanic Lane, Houston, TX 77017",
     "visitorFaqs": [
       {
         "question": "Does every visitor need a reservation?",
         "answer": "Yes. The operator requires a ticket or member reservation, including for infants.",
-        "sourceUrl": "https://hbg.org/visit/"
+        "sourceUrl": "https://hbg.org/about/questions/"
       },
       {
         "question": "Is parking free?",
         "answer": "Yes, the operator lists free on-site parking, subject to space availability.",
-        "sourceUrl": "https://hbg.org/visit/"
+        "sourceUrl": "https://hbg.org/about/questions/"
       },
       {
         "question": "How long should I plan to stay?",
         "answer": "The operator estimates a typical visit at 1.5–2 hours.",
-        "sourceUrl": "https://hbg.org/visit/"
+        "sourceUrl": "https://hbg.org/about/questions/"
       }
     ],
     "authorityGuide": {
@@ -357,6 +360,11 @@ export const reviewedAttractionDestinations: Destination[] = [
           "label": "Houston Botanic Garden — official visit and ticket information",
           "url": "https://hbg.org/visit/",
           "scope": "Official visitor rules, operating details and access information"
+        },
+        {
+          "label": "Houston Botanic Garden — official ticket, parking and accessibility FAQs",
+          "url": "https://hbg.org/about/questions/",
+          "scope": "Timed tickets and infant reservations, visit length, parking, accessibility, transit and visitor rules"
         }
       ]
     },
@@ -364,9 +372,9 @@ export const reviewedAttractionDestinations: Destination[] = [
       {
         "topic": "admission",
         "label": "Admission",
-        "detail": "Operator ticket or member reservation required, including for infants. Normally 9 a.m.–5 p.m.; last entry 4:30 p.m. Check closures and current prices directly.",
+        "detail": "Current daytime general admission: adults $12, ages 3–17 $8, under 3 free but all ages require a ticket or member reservation. Usually 9 a.m.–5 p.m., last entry 4:30 p.m.; check dates, discounts and live prices at the operator.",
         "sourceUrl": "https://hbg.org/visit/",
-        "checkedAt": "2026-10-29"
+        "checkedAt": "2026-11-11"
       }
     ]
   }

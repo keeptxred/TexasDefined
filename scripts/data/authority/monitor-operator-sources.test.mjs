@@ -54,10 +54,13 @@ test("three approved attraction sources are monitored from real canonical record
   const { readFile } = await import("node:fs/promises");
   const source = await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8");
   const records = reviewedAttractionMonitorRows(source);
-  assert.equal(records.length, 3);
-  assert.deepEqual(records.map((r) => r.id).sort(), [
+  assert.equal(records.length, 4, "Three attraction visit pages plus Houston's separate official ticket/FAQ page");
+  assert.deepEqual([...new Set(records.map((r) => r.id))].sort(), [
     "fort-worth-water-gardens", "houston-botanic-garden", "san-antonio-japanese-tea-garden",
   ]);
+  assert.ok(records.some((r) => r.id === "houston-botanic-garden" && r.sourceUrl === "https://hbg.org/about/questions/"),
+    "Infant ticketing, timed admission, parking, accessibility and visitor rules must be checked at their primary FAQ source");
+  assert.equal(new Set(records.map((r) => r.sourceUrl)).size, records.length, "Never duplicate official monitor probes");
   for (const row of records) {
     assert.match(row.sourceUrl, /^https:\/\//);
     assert.match(row.checkedAt, /^\d{4}-\d{2}-\d{2}$/);

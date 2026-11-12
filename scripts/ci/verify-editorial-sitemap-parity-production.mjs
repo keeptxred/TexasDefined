@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 // Site-owned, bounded verifier. Execute after deployment and on the weekly GitHub schedule.
 const origin = "https://texasdefined.com";
 const headers = { "user-agent": "TexasDefined-EditorialSitemapParity/1.0", "cache-control": "no-cache" };
@@ -32,6 +33,27 @@ for (const path of ["/sitemap-explore.xml", "/sitemap.xml"]) {
 }
 const sitemapUrls = { explore: locs(exploreSitemap.body), main: locs(mainSitemap.body) };
 const failures = [];
+// Sitemaps must reflect real reviewed edit dates, not the date a Worker happened
+// to deploy. The three editorial records are source-pinned and parsed here.
+const reviewedSource = readFileSync('src/data/reviewed-attraction-authorities.ts', 'utf8');
+const reviewedMarker = 'export const reviewedAttractionDestinations: Destination[] = ';
+if (!reviewedSource.includes(reviewedMarker)) throw Error('Missing canonical reviewed attraction catalog export');
+const reviewedRecords = JSON.parse(reviewedSource.split(reviewedMarker)[1].trim().replace(/;\s*$/, ''));
+for (const slug of ['san-antonio-japanese-tea-garden', 'fort-worth-water-gardens', 'houston-botanic-garden']) {
+  const source = reviewedRecords.find((row) => row.slug === slug);
+  if (!source || !/^\d{4}-\d{2}-\d{2}$/.test(source.updatedAt ?? source.sourceCheckedAt ?? '')) {
+    failures.push({ path: '/destination/' + slug, error: 'missing real editorial/source date for sitemap lastmod' });
+    continue;
+  }
+  const pageUrl = origin + '/destination/' + slug;
+  const rows = [...exploreSitemap.body.matchAll(/<url>\s*([\s\S]*?)<\/url>/g)]
+    .map((match) => match[1]).filter((row) => row.includes('<loc>' + pageUrl + '</loc>'));
+  const actual = rows[0]?.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+  const expected = source.updatedAt ?? source.sourceCheckedAt;
+  if (rows.length !== 1 || actual !== expected) {
+    failures.push({ path: '/destination/' + slug, error: 'sitemap lastmod ' + (actual ?? 'missing') + ' differs from source-backed ' + expected });
+  }
+}
 for (const [owner, paths] of [["explore", explore], ["main", main]]) {
   for (const path of paths) {
     const found = sitemapUrls[owner].filter(value => value === origin + path).length;
@@ -122,7 +144,7 @@ for (const guide of attractionCertification) {
     if (!image || image.creator?.name !== guide.creator || image.license !== guide.license ||
       image.acquireLicensePage !== "https://commons.wikimedia.org/wiki/File:" + guide.file ||
       image["@id"] !== canonical + "#primaryimage" ||
-      !image.contentUrl?.includes(guide.file) || image.width !== 1600 || image.height !== 1200 ||
+      !image.contentUrl?.includes(guide.file) || image.width !== 1280 || image.height !== 960 ||
       !image.copyrightNotice) {
       throw Error("licensed image provenance, identity or declared dimensions mismatched");
     }

@@ -38,9 +38,20 @@ export function reviewedAttractionMonitorRows(sourceText) {
     expected.some((slug) => !records.some((item) => item.slug === slug))) {
     throw new Error("Reviewed attraction source-monitor inventory changed; review scope");
   }
-  return records.map((item) => ({
-    id: item.slug, sourceUrl: item.officialUrl, checkedAt: item.sourceCheckedAt,
-  }));
+  // Hours/tickets often live on the official visit page while the booking,
+  // accessibility and age rules are on a separate official FAQ. Monitor both,
+  // plus directly cited visitor-fact sources; never expand to unrelated hosts.
+  return records.flatMap((item) => {
+    const urls = new Set([
+      item.officialUrl,
+      ...(item.authorityGuide?.sources ?? []).map((row) => row.url),
+      ...(item.visitorFaqs ?? []).map((row) => row.sourceUrl),
+      ...(item.visitorFacts ?? []).map((row) => row.sourceUrl),
+    ]);
+    return [...urls].map((sourceUrl) => ({
+      id: item.slug, sourceUrl, checkedAt: item.sourceCheckedAt,
+    }));
+  });
 }
 
 export function normalizedSourceFingerprint(html) {

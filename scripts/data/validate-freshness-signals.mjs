@@ -68,9 +68,25 @@ for (const required of [
 if (!primarySitemap.includes('lastmod: toDate(entity.sourceCheckedAt)')) {
   failures.push('Primary sitemap entity lastmod must remain tied to the governed sourceCheckedAt field.');
 }
-if (!exploreSitemap.includes('entry(`/destination/${item.slug}`, item.sourceCheckedAt)')) {
-  failures.push('Explore sitemap destination lastmod must remain tied to sourceCheckedAt rather than request time.');
+// Edited attraction guides use dated, author-asserted content updates;
+// ordinary destinations retain their last official source check. Never generate
+// lastmod from request/deployment time, which would mislead crawlers.
+if (!exploreSitemap.includes('entry(`/destination/${item.slug}`, item.updatedAt ?? item.sourceCheckedAt)')) {
+  failures.push('Explore sitemap destination lastmod must prefer a genuine editorial updatedAt and fall back to sourceCheckedAt; never request time.');
 }
+const reviewedAttractions = fs.readFileSync('src/data/reviewed-attraction-authorities.ts', 'utf8');
+const marker = 'export const reviewedAttractionDestinations: Destination[] = ';
+if (!reviewedAttractions.includes(marker)) throw Error('Reviewed attraction catalog export missing');
+const reviewedRecords = JSON.parse(reviewedAttractions.split(marker)[1].trim().replace(/;\s*$/, ''));
+const checkedSlugs = ['san-antonio-japanese-tea-garden', 'fort-worth-water-gardens', 'houston-botanic-garden'];
+if (!Array.isArray(reviewedRecords) || reviewedRecords.length !== checkedSlugs.length || reviewedRecords.some((item) =>
+  !checkedSlugs.includes(item.slug) || !/^\d{4}-\d{2}-\d{2}$/.test(item.sourceCheckedAt ?? '') ||
+  !/^\d{4}-\d{2}-\d{2}$/.test(item.updatedAt ?? '') ||
+  !Number.isFinite(Date.parse(item.sourceCheckedAt)) || !Number.isFinite(Date.parse(item.updatedAt)) ||
+  Date.parse(item.updatedAt) < Date.parse(item.sourceCheckedAt) || Date.parse(item.updatedAt) > Date.now())) {
+  failures.push('Reviewed attraction lastmod must be a source-backed, dated editorial change on exactly three original records.');
+}
+
 if (!countyRoute.includes('...(county.lastVerifiedAt ? { dateModified: county.lastVerifiedAt } : {})')) {
   failures.push('County structured-data dateModified must remain conditional on a real lastVerifiedAt value.');
 }

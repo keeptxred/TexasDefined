@@ -227,7 +227,7 @@ test("three reviewed attraction heroes use exact-source verified Commons rights"
   assert.ok(route.includes("...(imageRights ?? {})"), "ImageObject must spread exact-source verified rights");
   const records = readFileSync("src/data/reviewed-attraction-authorities.ts", "utf8");
   for (const [slug, file, photographer, license] of verified) {
-    const source = "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + file + "?width=1600";
+    const source = "https://commons.wikimedia.org/wiki/Special:Redirect/file/" + file + "?width=1280";
     const expected = imageRightsFor(source);
     assert.ok(expected, slug);
     assert.equal(expected.creator.name, photographer);
@@ -236,6 +236,8 @@ test("three reviewed attraction heroes use exact-source verified Commons rights"
     assert.ok(records.includes('"slug": "' + slug + '"'));
     assert.ok(records.includes(file));
     assert.ok(records.includes(photographer));
+    assert.ok(records.includes('"src": "' + source + '"'));
+    assert.match(records, /"width": 1280,\s*"height": 960/);
     for (const candidate of [
       "/remote?url=" + encodeURIComponent(source),
       "/media/remote?url=" + encodeURIComponent(source),
