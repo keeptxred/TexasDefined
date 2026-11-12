@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
@@ -17,6 +17,8 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
   const [lakeSearch, setLakeSearch] = useState("");
   const [qualityFilter, setQualityFilter] = useState("all");
   const [regionFilter, setRegionFilter] = useState("all");
+  const [finderHydrated, setFinderHydrated] = useState(false);
+  useEffect(() => { setFinderHydrated(true); }, []);
   const regionOptions = [...new Set(rankedLakes.map((row) => row.lake.region))].sort();
   const searchTerm = lakeSearch.trim().toLocaleLowerCase();
   const filteredLakes = rankedLakes.filter((row) =>
@@ -144,7 +146,7 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           <h2 id="best-lakes" className="mt-3 font-display text-4xl">Texas Lakes for Largemouth Bass</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{profile.rankingMethod}</p>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Lake Abilene is excluded while the TPWD park alert prohibits fishing due to low water. <a href="https://tpwd.texas.gov/state-parks/abilene/alert/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/50">Check the official Lake Abilene closure alert</a>. Confirm current access at every destination before traveling.</p>
-          <div className="mt-8 grid gap-4 border-y border-border py-6 md:grid-cols-3">
+          <div data-bass-lake-finder-ready={finderHydrated ? "true" : "false"} className="mt-8 grid gap-4 border-y border-border py-6 md:grid-cols-3">
             <label htmlFor="bass-lake-search" className="flex flex-col gap-2 text-sm font-semibold">
               Search by lake name
               <input id="bass-lake-search" type="search" value={lakeSearch} onChange={(event) => setLakeSearch(event.target.value)}
