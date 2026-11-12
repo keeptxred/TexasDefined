@@ -19,11 +19,28 @@ const SportsVenueLandingIndex = lazy(() => import('@/components/sports/SportsVen
 export const Route = createFileRoute('/sports-venues')({
   loader: async () => {
     const { entitiesByKind } = await import('@/data/knowledge-graph');
+    const { getSportsVenueEditorialDescriptions } = await import('@/data/sports-venue-editorial.functions');
+    // The curated and full comparison counts share the static venue inventory.
+    // Do not import the entire 84-profile enrichment/comparison bundle just to count it.
+    const allSportsVenues = entitiesByKind('sports-venue');
+    const seenVenuePaths = new Set<string>();
+    const curatedVenues = allSportsVenues
+      .map(applyCurrentEntityCorrections)
+      .filter(isIndexableEntityPage)
+      .filter((venue) => {
+        const venuePath = canonicalEntityPath(venue);
+        if (seenVenuePaths.has(venuePath)) return false;
+        seenVenuePaths.add(venuePath);
+        return true;
+      });
+    const editorialDescriptions = await getSportsVenueEditorialDescriptions({
+      data: { ids: curatedVenues.map((venue) => venue.id) },
+    });
     return {
-      venues: entitiesByKind('sports-venue')
-        .filter(isIndexableEntityPage)
-        .map(applyCurrentEntityCorrections)
+      venues: curatedVenues
+        .map((venue) => editorialDescriptions[venue.id] ? { ...venue, description: editorialDescriptions[venue.id] } : venue)
         .sort((a, b) => a.name.localeCompare(b.name)),
+      catalogCount: allSportsVenues.length,
       sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: '/sports-venues' } }),
     };
   },
@@ -39,23 +56,60 @@ export const Route = createFileRoute('/sports-venues')({
 });
 
 function SportsVenuesPage() {
-  const { venues, sponsorPlacement } = Route.useLoaderData();
+  const { venues, catalogCount, sponsorPlacement } = Route.useLoaderData();
   const groups = groupVenues(venues);
   const motorsports = venues.filter((venue) => venue.tags?.includes('motorsports')).length;
   const college = venues.filter((venue) => venue.tags?.includes('college')).length;
   const professional = venues.filter((venue) => venue.tags?.includes('professional')).length;
   const golf = venues.filter((venue) => venue.tags?.includes('golf')).length;
   const highSchool = venues.filter((venue) => venue.tags?.includes('high-school')).length;
+  const canonicalUrl = 'https://texasdefined.com/sports-venues';
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': canonicalUrl + '#page',
+        url: canonicalUrl,
+        name: 'Texas sports venues by region and sport',
+        description,
+        mainEntity: { '@id': canonicalUrl + '#venues' },
+        isPartOf: { '@id': 'https://texasdefined.com/#website' },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': canonicalUrl + '#venues',
+        name: 'Curated Texas sports venue visitor guides',
+        numberOfItems: venues.length,
+        itemListElement: venues.map((venue, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: venue.name,
+          url: 'https://texasdefined.com' + canonicalEntityPath(venue),
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': canonicalUrl + '#breadcrumb',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Front page', item: 'https://texasdefined.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Texas Sports', item: 'https://texasdefined.com/sports' },
+          { '@type': 'ListItem', position: 3, name: 'Sports Venues', item: canonicalUrl },
+        ],
+      },
+    ],
+  };
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <main className="mx-auto max-w-6xl">
       <header className="border-b border-border pb-10">
         <p className="eyebrow text-primary">Texas Sports Destinations</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Stadiums, arenas, racetracks and sports destinations worth traveling for</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
-        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">Every curated venue guide includes verified trip details such as event-day planning, parking or access guidance, arrival strategy, nearby trip ideas and official planning links.</p>
+        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">These {venues.length} selected guides are the venues currently eligible for our public directory. The <a href="/sports-venues/compare" className="font-semibold text-primary underline underline-offset-4">full comparison has {catalogCount} source-reviewed records</a>, including venues outside this curated set. Check each venue's own site for current tickets, parking and operating rules.</p>
         <dl className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          <Stat label="Venue guides" value={venues.length} />
+          <Stat label="Curated guides" value={venues.length} />
           <Stat label="Professional" value={professional} />
           <Stat label="College" value={college} />
           <Stat label="Motorsports" value={motorsports} />
@@ -80,7 +134,7 @@ function SportsVenuesPage() {
               <span className="eyebrow text-primary">{venueLabel(venue)}</span>
               <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{venue.name}</strong>
               <span className="mt-2 block text-sm leading-6 text-muted-foreground">{venueLocation(venue)}</span>
-              <span className="mt-3 inline-block border border-primary/30 px-2 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-primary">Verified trip details</span>
+              {venue.description ? <span className="mt-3 block line-clamp-3 text-sm leading-6 text-muted-foreground">{venue.description}</span> : null}
               <span className="mt-3 block text-sm font-semibold text-primary">Open venue guide →</span>
             </a>)}
           </div>
@@ -165,5 +219,7 @@ function venueLocation(venue: TexasEntityRecord) {
 }
 
 function title(value: string) {
+  if (value === 'mclennan') return 'McLennan';
+  if (value === 'el-paso') return 'El Paso';
   return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
 }

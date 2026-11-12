@@ -14,8 +14,9 @@ const readRouteSurface = async (file) => {
   }
 };
 
-const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, sportsSearch, directory, sports, genericVenue, galaxyVenue, galaxySharedGuide, sharedGuideContent, sharedGuidePage, entityRoute, searchRoute, homepage, guidebook, queries, searchRuntime, types, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
+const [landings, tripDecisions, landingPaths, route, indexComponent, quickAnswers, countySports, sportsSearch, directory, sports, genericVenue, galaxyVenue, galaxySharedGuide, sharedGuideContent, sharedGuidePage, entityRoute, searchRoute, homepage, guidebook, queries, searchRuntime, types, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
   read('src/data/sports-venue-landings.ts'),
+  read('src/data/sports-venue-trip-decisions.ts'),
   read('src/data/sports-venue-landing-paths.ts'),
   read('src/routes/sports-venues.$landing.tsx'),
   read('src/components/sports/SportsVenueLandingIndex.tsx'),
@@ -76,6 +77,14 @@ for (const slug of expectedLandings) {
   assert(landingPaths.includes(`'${concretePath}'`), `Concrete sports landing discovery registry is missing ${concretePath}.`);
 }
 
+// Editorial choice cards are required for every landing; new generic placeholders fail CI.
+for (const slug of expectedLandings) {
+  const key = slug.includes('-') ? `  '${slug}': [` : `  ${slug}: [`;
+  assert(tripDecisions.includes(key), `Missing original visitor decision guidance for ${slug}.`);
+}
+assert((tripDecisions.match(/title:/g) ?? []).length >= expectedLandings.length * 3, 'Every sports collection needs at least three real visitor decisions.');
+assert(tripDecisions.includes('venueSlug?: string'), 'Trip choice links must target an actual eligible venue guide, never an inferred URL.');
+
 const concretePathMatches = [...landingPaths.matchAll(/'\/sports-venues\/([a-z0-9-]+)'/g)].map((match) => match[1]);
 assert(concretePathMatches.length === expectedLandings.length, `Expected ${expectedLandings.length} concrete sports venue landing paths, found ${concretePathMatches.length}.`);
 assert(new Set(concretePathMatches).size === concretePathMatches.length, 'Concrete sports venue landing paths must be unique.');
@@ -91,23 +100,21 @@ for (const marker of [
   'canonicalPath',
   "'@type': 'CollectionPage'",
   "'@type': 'ItemList'",
-  "'@type': 'FAQPage'",
-  "'@type': 'Question'",
-  "'@type': 'Answer'",
   "'@type': 'BreadcrumbList'",
-  'buildQuickAnswers(landing, venues, lastReviewed)',
+  'sportsVenueTripDecisions(landing.slug)',
   'getSportsVenueReviewDates',
   'venueReviewDates[venue.slug] ?? venue.sourceCheckedAt',
   'dateModified: lastReviewed',
-  'Quick answers',
-  'What travelers ask first',
-  'Short answers drawn from the same verified venue inventory used by this guide.',
-  'Venue-by-venue trip guides',
+  'Which outing fits your plans?',
+  'tripChoices.map((choice)',
+  'seenVenuePaths.has(path)',
+  'Venues in this collection',
   'More Texas sports markets',
   'More sports venue guides',
   'Browse all Texas sports venues',
 ]) assert(route.includes(marker), `Sports venue landing route is missing SEO/AEO/discovery marker: ${marker}.`);
 
+assert(!route.includes("'@type': 'FAQPage'"), 'Regular sports collection pages must not imply Google FAQ-rich-result eligibility.');
 assert(!route.includes('sports-venue-enrichment-all'), 'Sports venue landing pages must not import the full venue enrichment payload.');
 assert(route.includes("sports-venue-review-dates.functions"), 'Sports venue landing pages must use the lightweight server review-date boundary.');
 assert(!route.includes('.map((venue) => venue.sourceCheckedAt)'), 'Sports venue landing freshness must not rely only on stale seed review dates.');

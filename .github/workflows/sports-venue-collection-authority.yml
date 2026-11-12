@@ -1,0 +1,98 @@
+name: Sports venue collection authority and live audit
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/sports-venues*'
+      - 'src/data/sports-venue-trip-decisions.ts'
+      - 'src/data/sports-venue-guide-galaxy.ts'
+      - 'src/data/sports-venue-images.ts'
+      - 'src/components/editorial/TexasEventCarousel.tsx'
+      - 'scripts/data/validate-sports-venue-*.mjs'
+      - 'scripts/ci/verify-sports-venues-live.mjs'
+      - '.github/workflows/sports-venue-collection-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/routes/sports-venues*'
+      - 'src/data/sports-venue-trip-decisions.ts'
+      - 'src/data/sports-venue-guide-galaxy.ts'
+      - 'src/components/editorial/TexasEventCarousel.tsx'
+      - '.github/workflows/sports-venue-collection-authority.yml'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  schedule:
+    # Weekly Monday morning Central time. Validate both code and uncached live output.
+    - cron: '23 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  content-and-build:
+    name: Collection integrity, editorial quality, production bundle
+    # Deploy-complete events need only the cheap 21-page smoke, not another build.
+    if: github.event_name != 'workflow_run'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node scripts/data/validate-sports-venue-landings.mjs
+      - run: node scripts/data/validate-sports-venue-comparison.mjs
+      - run: node scripts/data/validate-sports-venue-phase3-galaxy.mjs
+      - run: node scripts/data/validate-sports-venue-trip-decisions.mjs
+      - run: npm run build
+      - run: npm run performance:validate
+
+  uncached-production:
+    name: Fresh 21-page SSR/canonical/source-view audit
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # A deployment completion verifies the exact published commit,
+          # not whichever unrelated commit happens to be on main later.
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch all 21 live pages without cached copies
+        run: node scripts/ci/verify-sports-venues-live.mjs
+      - name: Maintain one actionable source or production drift issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const title = 'Sports venues: 21-page authority/source drift needs repair';
+            const open = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+            const body = [
+              'The weekly no-cache sports-venue authority audit detected a failing live page, canonical or missing destination-specific planning content.',
+              '',
+              'Reproduce the failing path using scripts/ci/verify-sports-venues-live.mjs, correct the underlying source/template or deployment fault, run the validator and deploy the verified repair. Do not resolve this by suppressing the failing assertion.',
+              '',
+              'Actions run: ' + context.serverUrl + '/' + owner + '/' + repo + '/actions/runs/' + context.runId,
+              '',
+              'Scope: /sports-venues, /sports-venues/compare, 17 market/sport landings, /sports-venue/jones-att-stadium and /events.',
+              'Re-check official source pages for naming, event calendars, capacity and visitor rules before changing factual claims.',
+            ].join('\n');
+            const existing = open.find((issue) => !issue.pull_request && issue.title === title);
+            if (existing) {
+              await github.rest.issues.createComment({owner, repo, issue_number: existing.number, body});
+            } else {
+              await github.rest.issues.create({owner, repo, title, body});
+            }

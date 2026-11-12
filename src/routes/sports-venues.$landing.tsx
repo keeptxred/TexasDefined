@@ -6,6 +6,7 @@ import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-en
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import type { SportsVenueLanding } from '@/data/sports-venue-landings';
+import { sportsVenueTripDecisions } from '@/data/sports-venue-trip-decisions';
 import { getSportsVenueReviewDates } from '@/data/sports-venue-review-dates.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
@@ -29,11 +30,18 @@ export const Route = createFileRoute('/sports-venues/$landing')({
     const editorialDescriptions = await getSportsVenueEditorialDescriptions({
       data: { ids: correctedVenues.map((venue) => venue.id) },
     });
+    const seenVenuePaths = new Set<string>();
     const venues = correctedVenues
       .map((venue) => editorialDescriptions[venue.id] ? { ...venue, description: editorialDescriptions[venue.id] } : venue)
       .filter(isIndexableEntityPage)
       .map(applyCurrentEntityCorrections)
       .filter((venue) => matchesSportsVenueLanding(venue, landing))
+      .filter((venue) => {
+        const path = canonicalEntityPath(venue);
+        if (seenVenuePaths.has(path)) return false;
+        seenVenuePaths.add(path);
+        return true;
+      })
       .sort((a, b) => venueSortKey(a).localeCompare(venueSortKey(b)) || a.name.localeCompare(b.name));
 
     if (!venues.length) throw notFound();
@@ -74,7 +82,7 @@ function SportsVenueLandingPage() {
     .filter((date): date is string => Boolean(date))
     .sort()
     .at(-1);
-  const quickAnswers = buildQuickAnswers(landing, venues, lastReviewed);
+  const tripChoices = sportsVenueTripDecisions(landing.slug);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -100,15 +108,6 @@ function SportsVenueLandingPage() {
           position: index + 1,
           name: venue.name,
           url: `${siteUrl}${canonicalEntityPath(venue)}`,
-        })),
-      },
-      {
-        '@type': 'FAQPage',
-        '@id': `${siteUrl}${canonicalPath}#quick-answers`,
-        mainEntity: quickAnswers.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: { '@type': 'Answer', text: item.answer },
         })),
       },
       {
@@ -153,17 +152,21 @@ function SportsVenueLandingPage() {
           {lastReviewed ? <p className="mt-5 text-xs leading-5 text-muted-foreground">The most recently checked individual venue record in this collection was verified {formatDate(lastReviewed)}. Other listings may have older reviews; consult the dated sources on each guide for schedules, parking and operating status.</p> : null}
         </header>
 
-        <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="quick-answers-heading">
+        <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="trip-choices-heading">
           <div>
-            <p className="eyebrow text-primary">Quick answers</p>
-            <h2 id="quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">What travelers ask first</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Short answers drawn from the same verified venue inventory used by this guide.</p>
+            <p className="eyebrow text-primary">Plan the actual trip</p>
+            <h2 id="trip-choices-heading" className="mt-2 font-display text-3xl leading-tight">Which outing fits your plans?</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">These options have different travel, access and scheduling considerations. Check the linked venue's current event instructions before booking.</p>
           </div>
           <div className="grid gap-x-8 md:grid-cols-2">
-            {quickAnswers.map((item) => <article key={item.question} className="border-t border-border py-5">
-              <h3 className="font-display text-2xl leading-tight">{item.question}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</p>
-            </article>)}
+            {tripChoices.map((choice) => {
+              const matchedVenue = choice.venueSlug ? venues.find((venue) => venue.slug === choice.venueSlug) : undefined;
+              return <article key={choice.title} className="border-t border-border py-5">
+                <h3 className="font-display text-2xl leading-tight">{choice.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{choice.detail}</p>
+                {matchedVenue ? <a href={canonicalEntityPath(matchedVenue)} className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read the {matchedVenue.name} guide →</a> : null}
+              </article>;
+            })}
           </div>
         </section>
 
@@ -183,9 +186,9 @@ function SportsVenueLandingPage() {
         <section className="border-b border-border py-12" aria-labelledby="venue-list-heading">
           <div className="grid gap-7 lg:grid-cols-[15rem_1fr]">
             <div>
-              <p className="eyebrow text-primary">Verified directory</p>
-              <h2 id="venue-list-heading" className="mt-2 font-display text-3xl leading-tight">Venue-by-venue trip guides</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">Open a venue for event-day planning, parking or access guidance, arrival strategy, official planning links and same-county TexasDefined visitor ideas.</p>
+              <p className="eyebrow text-primary">Choose a venue</p>
+              <h2 id="venue-list-heading" className="mt-2 font-display text-3xl leading-tight">Venues in this collection</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Each guide covers the venue itself, practical visitor details and source links. Parking arrangements, prices and entry rules can change for a particular event.</p>
             </div>
             <div className="grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
               {venues.map((venue) => <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5">
@@ -215,41 +218,6 @@ function SportsVenueLandingPage() {
       </main>
     </Container>
   </>;
-}
-
-function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecord[], lastReviewed?: string) {
-  const examples = venues.slice(0, 5).map((venue) => venue.name);
-  const exampleSentence = formatList(examples);
-  const answerLabel = landing.eyebrow.replace(/ sports travel$/i, '').trim();
-  const sourceAnswer = lastReviewed
-    ? `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. The latest individual venue source check was ${formatDate(lastReviewed)}; other venue records may be older. Recheck official links for operating status and event details.`
-    : `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Each venue page links to an official source for details that can change before an event.`;
-
-  return [
-    {
-      question: `What major sports venues are covered in this ${answerLabel} guide?`,
-      answer: `This TexasDefined collection currently covers ${venues.length} verified venue guide${venues.length === 1 ? '' : 's'}, including ${exampleSentence}. Open any venue below for its visitor-planning page and official source links.`,
-    },
-    {
-      question: `How many venue guides are in the ${answerLabel} collection?`,
-      answer: sourceAnswer,
-    },
-    {
-      question: 'Where can I find parking, arrival and official event information?',
-      answer: 'Open the individual venue guide. TexasDefined separates durable trip-planning context from details that can change and links to official venue planning sources for current parking, entry and event information.',
-    },
-    {
-      question: 'Can I use this page to compare venues for a Texas sports trip?',
-      answer: 'Yes. The directory keeps the matching venues in one crawlable collection, while each venue page adds its county, region, venue type and visitor guidance. Use the market and sport links farther down the page to move between related Texas sports-trip ideas.',
-    },
-  ];
-}
-
-function formatList(items: string[]) {
-  if (!items.length) return 'the venues listed below';
-  if (items.length === 1) return items[0];
-  if (items.length === 2) return `${items[0]} and ${items[1]}`;
-  return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`;
 }
 
 function LandingLinks({ eyebrow, title, items }: { eyebrow: string; title: string; items: readonly { slug: string; title: string }[] }) {
@@ -295,6 +263,8 @@ function venueLocation(venue: TexasEntityRecord) {
 }
 
 function titleCase(value: string) {
+  if (value === 'mclennan') return 'McLennan';
+  if (value === 'el-paso') return 'El Paso';
   return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
 }
 

@@ -54,7 +54,9 @@ for (const marker of [
   "venueType: 'College football stadium'",
   "homeTeam: 'Texas Tech Red Raiders football'",
   "officialUrl: 'https://texastech.com/facilities/jones-at-t-stadium/2'",
-  "reviewedAt: '2026-09-10'",
+  "reviewedAt: '2026-11-12'",
+  "capacity: '60,229 (Texas Tech 2026 football game notes)'",
+  '2026 Texas Tech football game notes — official 60,229 capacity',
   'formerly Jones AT&T Stadium',
   'Galaxy Stadium naming announcement',
 ]) requireText(guide, marker, 'Galaxy verified shared-guide record');
