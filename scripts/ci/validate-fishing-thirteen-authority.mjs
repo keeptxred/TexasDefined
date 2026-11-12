@@ -16,6 +16,7 @@ const tServer = read("src/data/fishing/technique-data.server.ts");
 const techniqueGuide = read("src/data/fishing/technique-guide-content.ts");
 const techniqueAuthority = read("src/data/fishing/technique-authority-content.ts");
 const pairWatch = read("scripts/ci/verify-42-page-pairs-production.mjs");
+const productionWorkflow = read(".github/workflows/fishing-thirteen-production.yml");
 const tProfile = read("src/components/fishing/FishingTechniqueProfile.tsx");
 const tDirectory = read("src/components/fishing/FishingTechniqueDirectory.tsx");
 const speciesDirectory = read("src/components/fishing/FishSpeciesDirectory.tsx");
@@ -72,6 +73,7 @@ for (const phrase of ["functioning aerator", "slip-sinker", "crappie brush", "ho
 for (const phrase of ["dated receipt", "public water", "drain vessels", "lake water"]) {
   assert(techniqueAuthority.includes(phrase), `Live-bait TPWD handling explanation missing: ${phrase}`);
 }
+assert(productionWorkflow.includes("run: node scripts/ci/verify-42-page-pairs-production.mjs"), "A successful production fishing release must exercise the strict live 42-pair editorial watchdog");
 assert(pairWatch.includes("incomplete/duplicate SSR lake inventory") && pairWatch.includes("new Set(lakeLinks).size"),
   "The 42-pair watchdog must verify complete, unique SSR lake links rather than a retired copy string");
 assert(pairWatch.includes('path === "/fishing/techniques/trolling" ? "How to Troll for Fish in Texas"'),
