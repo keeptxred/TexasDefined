@@ -8,7 +8,7 @@ const {chromium}=require('/tmp/td-b017-chrome/node_modules/playwright-core');
 const origin='https://texasdefined.com';
 const source=process.env.FOOTBALL_CHROME_SOURCE_SHA||'';
 const worker=process.env.FOOTBALL_EXPECTED_WORKER_VERSION||'';
-const report={batch:16,sourceCommit:source,workerVersion:worker,schoolSlugs:[],schoolChecks:[],countyChecks:[],screenshots:[],failures:[],technicalOnly:true};
+const report={batch:17,sourceCommit:source,workerVersion:worker,schoolSlugs:[],schoolChecks:[],countyChecks:[],screenshots:[],failures:[],technicalOnly:true};
 mkdirSync('artifacts',{recursive:true});
 mkdirSync('artifacts/b017-chrome-screenshots',{recursive:true});
 const save=()=>writeFileSync('artifacts/b017-chrome-report.json',JSON.stringify(report,null,2)+'\n');
@@ -16,6 +16,7 @@ const preflight=(name,fn)=>{try{fn();}catch(error){report.failures.push({slug:'p
 const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
 report.schoolSlugs=["el-paso-eastlake","el-paso-eastwood","el-paso-el-dorado","el-paso-franklin","el-paso-hanks","el-paso-irvin","el-paso-jefferson","el-paso-montwood","el-paso-parkland","el-paso-pebble-hills","el-paso-riverside","el-paso-socorro","el-paso-ysleta","eldorado","electra","elgin","elkhart","elysian-fields","ennis","era","euless-trinity","eustace","evadale","evant","everman"];
 preflight('registry and source boundary',()=>{
+ assert.equal(report.batch,17,'Batch017 evidence must identify Batch017, not prior batch');
  assert.equal(new Set(report.schoolSlugs).size,25,'exact 25 distinct canonical slugs');
  assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,380,'preserve 380 historic certifications');
  for(const slug of report.schoolSlugs)assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'IMPLEMENTED','no source-only production graduation: '+slug);
