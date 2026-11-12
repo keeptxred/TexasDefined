@@ -177,7 +177,7 @@ export async function loadFishingTechniqueDirectoryServer() {
     categories: [...new Set(entries.map((entry) => entry.technique.category))].sort(),
     policy: {
       sourcing: "Start with cover and depth: soft plastics work precisely around cover, while spinnerbaits and crankbaits help search larger areas.",
-      conditions: "Topwater suits visible surface activity; trolling is an option for open-water fish. Conditions and the target species decide which method makes sense.",
+      conditions: "Topwater suits visible surface activity; trolling is an option for open-water fish. These guides are not a live bite report; conditions and target species decide which method makes sense.",
       commerce: "Open an individual lake guide for method-specific examples, then check current reports, closures and fishing regulations before you go.",
     },
     head: buildFishingTechniqueDirectoryHead(entries),
