@@ -110,4 +110,4 @@ assert.equal(report.schoolChecks.length,75,'all 75 viewports required');
 assert.equal(report.screenshots.length,75,'all 75 screenshot artifacts required');
 assert.equal(report.countyChecks.length,25,'all 25 county reciprocal checks required');
 assert.deepEqual(report.failures,[],'Batch017 Chrome failure');
-console.log('PASS: 25 Batch017 source-authored schools x 3 viewports, 25 reciprocal county checks, one exact signed Worker; registry and indexing remain NOT_REVIEWED.');
+console.log('PASS: 25 Batch017 source-authored schools x 3 viewports, 25 reciprocal county checks, one exact signed Worker; Batch017 registry remains source-IMPLEMENTED pending signed graduation; indexability is unasserted.');
