@@ -31,7 +31,8 @@ for (const { device, viewport, mobile } of [
   await context.route(/google-analytics|googletagmanager|connect\.facebook\.net|facebook\.com\/tr|\/api\/analytics|\/api\/track/i, route => route.abort());
   const page = await context.newPage();
   const errors = [];
-  page.on("pageerror", e => errors.push(String(e)));
+  let phase = "initial-navigation";
+  page.on("pageerror", e => errors.push({ phase, url: page.url(), message: String(e), stack: e.stack ?? null }));
   const check = (value, message) => assert.ok(value, device + ": " + message);
   const path = "/fishing/plan?independent_fishing_chrome_review=" + randomUUID();
   try {
@@ -80,8 +81,10 @@ for (const { device, viewport, mobile } of [
     check(initial.contentWidth <= initial.viewportWidth + 1, "horizontal overflow on list view");
     await page.screenshot({ path: outputDir + "/" + device + "-list.png", fullPage: false });
     const more = page.getByRole("button", { name: /Show 12 more lake cards/ });
+    phase = "show-more-cards";
     await more.click({ timeout: 15000 });
     await page.getByText("Showing 24 of 72 matching lake cards").waitFor({ state: "visible", timeout: 10000 });
+    phase = "map-navigation";
     await page.getByRole("link", { name: "Map", exact: true }).click();
     await page.waitForURL(/view=map/, { timeout: 12000 });
     const mapReady = await page.waitForFunction(() => {
@@ -99,10 +102,13 @@ for (const { device, viewport, mobile } of [
     const values = await picker.locator("option").evaluateAll(options => options.map(x => x.value));
     check(new Set(values).size === 72, "duplicate / unselectable reservoir options");
     const last = values.at(-1);
+    phase = "map-lake-selection";
     await picker.selectOption(last);
     check(await picker.inputValue() === last, "map dropdown is not interactive after hydration");
     await page.screenshot({ path: outputDir + "/" + device + "-map.png", fullPage: false });
-    check(errors.length === 0, "JavaScript runtime exceptions: " + errors.join(" | "));
+    phase = "post-hydration-stability";
+    await page.waitForTimeout(850);
+    check(errors.length === 0, "JavaScript runtime exceptions: " + JSON.stringify(errors));
     findings.push({ device, status: "PASS", cache: headers["cf-cache-status"] ?? null,
       age: headers.age ?? null, responseDate: headers.date ?? null,
       initial, map: mapSnapshot, interaction: "12→24 lake cards; live map route; 72 dropdown choices; last selected", pageErrors: errors });
