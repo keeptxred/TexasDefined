@@ -63,6 +63,21 @@ const KNOWN_PUBLISHED_SPORTS_DIRECTORY_ASSERTION = Object.freeze({
   failedStep: 'Verify sports venue editorial production',
 });
 
+// Nov 12 run #43314663760/job #131519408864 actually published the
+// 100%-traffic Worker 2f9420e0-0eba-4721-8727-a338a82cba72 from SHA
+// 05719211996457c662e8d6d176883937ba9cf98e. GitHub logged success for
+// deploy, Worker-version capture, both health probes, and full dual-origin
+// original-byte JS/CSS verification. The only later failed step was the
+// independent Fredericksburg Explore sitemap canonical assertion.
+// This exception qualifies ORIGINAL BYTES ONLY after the exact-sitemap
+// uniqueness repair (#7050) and diagnostic strict gate (#7049) are in source;
+// neither the failed full release nor its broken sitemap is certified.
+const KNOWN_PUBLISHED_FREDERICKSBURG_SITEMAP = Object.freeze({
+  runId: 43314663760,
+  jobId: 131519408864,
+  failedStep: 'Verify base production surfaces',
+});
+
 // Historical 2026-11-09 run #42640439772 actually published the Worker and
 // passed the deployment, health and BOTH-origin original JS/CSS checks.
 // The two later title checks failed after publication because the initial Bing
@@ -129,6 +144,24 @@ export function qualifyPriorDeployJob(payload) {
     }
     return { eligible: true, mode: 'exact-published-worker-sports-date-assertion-assets-only',
       criticalChecks: CRITICAL.length, permittedFailure: failures[0], exactRun: sportsIncident.runId };
+  }
+  const sitemapIncident = KNOWN_PUBLISHED_FREDERICKSBURG_SITEMAP;
+  if (job.run_id === sitemapIncident.runId &&
+      job.id === sitemapIncident.jobId &&
+      failures.length === 1 && failures[0] === sitemapIncident.failedStep) {
+    const sitemapSource = readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+    const liveVerifier = readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs', 'utf8');
+    if (!sitemapSource.includes('function dedupeUrlEntries(') ||
+        (sitemapSource.match(/const entries = dedupeUrlEntries\(\[/g) ?? []).length !== 2 ||
+        !sitemapSource.includes('await auditedFredericksburgSitemapEntry()') ||
+        !liveVerifier.includes('const expectedMatches = sitemap.split(expected).length - 1;')) {
+      throw Error('Published Fredericksburg sitemap incident needs source-level duplicate fix and strict measured live verifier');
+    }
+    // The separate old-Worker handoff still verifies exact live 100%-traffic
+    // version, source SHA, every original asset SHA and both public origins.
+    return { eligible: true, mode: 'exact-published-worker-fredericksburg-sitemap-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailure: failures[0],
+      exactRun: sitemapIncident.runId };
   }
   const fredericksburgIncident = KNOWN_PUBLISHED_FREDERICKSBURG_TIMEOUT;
   if (job.run_id === fredericksburgIncident.runId &&
