@@ -8,13 +8,22 @@ const directWorkerOrigin = "https://texasdefined-site.freddy-coppola.workers.dev
 const token = [process.env.GITHUB_SHA || "local", process.env.GITHUB_RUN_ID || "manual"].join("-");
 const headers = { "cache-control": "no-cache", "user-agent": "TexasDefined-ElPaso-Fredericksburg-Release/1.0" };
 
+// Retest only transient transport timeouts: a 301/200, canonical, content,
+// schema, or rights assertion must still pass on the actual public response.
+// The Nov 12 release delivered the same page successfully on four surfaces
+// before one direct-Worker fetch timed out twice. Three bounded attempts keep
+// that isolated transport fault from stranding the verified asset handoff.
+const MAX_TRANSPORT_ATTEMPTS = 3;
 async function request(url, redirect = "manual") {
-  for (let attempt = 1; attempt <= 2; attempt += 1) {
+  for (let attempt = 1; attempt <= MAX_TRANSPORT_ATTEMPTS; attempt += 1) {
     try {
       return await fetch(url, { redirect, cache: "no-store", headers, signal: AbortSignal.timeout(30000) });
     } catch (error) {
-      if (attempt === 2 || !["AbortError", "TimeoutError"].includes(error?.name)) throw error;
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (attempt === MAX_TRANSPORT_ATTEMPTS || !["AbortError", "TimeoutError"].includes(error?.name)) {
+        throw error;
+      }
+      console.warn(JSON.stringify({ kind: "temporary-live-request-timeout", origin: new URL(url).origin, attempt }));
+      await new Promise(resolve => setTimeout(resolve, attempt * 1000));
     }
   }
 }
