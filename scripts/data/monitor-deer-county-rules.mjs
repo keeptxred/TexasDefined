@@ -44,9 +44,13 @@ function extractDeerSection(html) {
 }
 function parseCounty(item, html) {
   const text = visible(html);
-  const pattern = new RegExp('(?:^|\\s)' + item.name + '\\s+' + data.startYear + '-' +
-    (data.startYear+1) + '\\s+Hunting Seasons\\b', 'i');
-  if (!pattern.test(text)) throw new Error(item.name + ': official county heading/year missing');
+  const h1 = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i);
+  const title = h1 ? visible(h1[1]) : '';
+  const seasonMarker = data.startYear + '-' + (data.startYear+1) + ' Hunting Seasons';
+  const foundIndex = title.indexOf(seasonMarker);
+  if (foundIndex < 0 || toSlug(title.slice(0, foundIndex).trim()) !== item.slug) {
+    throw new Error(item.name + ': official county heading/year/identity mismatch: ' + title.slice(0,110));
+  }
   if (text.length < 350) throw new Error(item.name + ': official TPWD county page unexpectedly short');
   const section = extractDeerSection(html);
   if (section && section.length < 75) throw new Error(item.name + ': deer rules section unexpectedly short');
@@ -89,7 +93,7 @@ function selfTest() {
   const item = { name:'Tarrant', slug:'tarrant' };
   const html = '<h1>Tarrant ' + data.startYear + '-' + (data.startYear+1) + ' Hunting Seasons</h1>' +
     '<h2>White-tailed Deer</h2><p>Bag Limit 4 deer, no more than 2 bucks, and no more than 2 antlerless. ' +
-    'Antler restrictions and all hunting means are county specific.</p><h2>Wild Turkey</h2>';
+    'Antler restrictions and all hunting means are county specific. More hunting regulation information. '.repeat(4) + '</p><h2>Wild Turkey</h2>';
   const actual = parseCounty(item, html);
   if (!actual.hasDeerSection || actual.sourceExcerpt.includes('Wild Turkey'))
     throw new Error('Deer-only section extraction failed');
