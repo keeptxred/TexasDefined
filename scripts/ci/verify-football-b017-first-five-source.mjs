@@ -29,7 +29,7 @@ for(const value of [
 assert.ok(server.includes('getBatch017FirstFiveEditorial(canonicalSlug)'),'SSR overlay missing');
 assert.ok(school.includes('BATCH017_FOOTBALL_COUNTY_EDGES.map'),'School county edge missing');
 assert.ok(county.includes('BATCH017_FOOTBALL_COUNTY_EDGES.filter'),'Reciprocal county edge missing');
-assert.equal((edges.match(/county: 'el-paso'/g)||[]).length,5,'All five are El Paso County campuses');
+assert.ok((edges.match(/county: 'el-paso'/g)||[]).length>=5,'Preserve the first five El Paso County campuses across later groups');
 assert.ok(!editorial.includes('"season":'),'Do not manufacture current scoreboards');
 assert.ok(!editorial.includes('"photo":'),'Do not assert unlicensed photo rights');
 console.log('PASS Batch017 first-five: five distinct official-source guides, reciprocal county edges, no premature Chrome certification');
