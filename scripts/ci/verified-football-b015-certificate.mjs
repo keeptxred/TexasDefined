@@ -1,3 +1,4 @@
+import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
 // Read-only certificate guard: never promote a school or infer human review.
 // Run #42495534916 was executed AFTER 19 school identity-source changes, on deployed source
 // 0621a341 and matched the exact 100%-traffic Worker and signed GitHub release ledger.
@@ -36,6 +37,7 @@ export function certifiedBatch015(registry) {
       e?.manualAccessibilityAccepted !== false || e?.schoolPhotoReuseRightsAccepted !== false ||
       e?.editorialHumanSignoffsClaimed !== 0) return false;
   const rows = registry.schoolRecords;
+  const nextCertified017 = certifiedBatch017(registry);
   // A completed Batch016 must remain a valid successor when Batch017 starts.
   // Never rely on the active batch number alone: archive the exact signed B016
   // witness and preserve all 25 independently verified rows. The B016 guard
@@ -60,12 +62,12 @@ export function certifiedBatch015(registry) {
     release?.cloudflareDeploymentId==='ce0ba0e5-4680-46e4-a6b7-acdb087d8b78' &&
     rows.filter(r=>r.batch===16&&r.status==='VERIFIED'&&r.actualProductionVerified===true).length===25;
   if (rows.length !== 1292 || rows.filter(r => r.batch === 15).length !== 25 ||
-      rows.filter(r => r.status === 'VERIFIED' && r.batch !== 15 && r.batch !== 16).length !== 330 ||
+      rows.filter(r => r.status === 'VERIFIED' && r.batch !== 15 && r.batch !== 16 && r.batch !== 17).length !== 330 ||
       rows.filter(r => r.status === 'VERIFIED' && r.batch===15).length !== 25 ||
-      rows.filter(r => r.status === 'VERIFIED').length !== (nextCertified?380:355) ||
-      rows.filter(r => r.status === 'NOT_REVIEWED' || r.status === 'IMPLEMENTED').length !== (nextCertified?912:937) ||
+      rows.filter(r => r.status === 'VERIFIED').length !== (nextCertified017?405:nextCertified?380:355) ||
+      rows.filter(r => r.status === 'NOT_REVIEWED' || r.status === 'IMPLEMENTED').length !== (nextCertified017?887:nextCertified?912:937) ||
       rows.some(r => r.status === 'IMPLEMENTED' && !(r.batch > 16 && r.actualProductionVerified !== true)) ||
-      rows.some(r => r.status === 'VERIFIED' && r.batch > 16)) return false;
+      rows.some(r => r.status === 'VERIFIED' && r.batch > 17)) return false;
   return B015_SLUGS.every(slug => {
     const row = rows.find(r => r.slug === slug);
     return row?.batch === 15 && row?.status === 'VERIFIED' && row?.actualProductionVerified === true &&
