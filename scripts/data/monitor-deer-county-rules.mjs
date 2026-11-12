@@ -24,6 +24,12 @@ const shard = Number(process.env.DEER_COUNTY_SHARD ?? process.argv.find(x => x.s
 if (!Number.isInteger(shard) || shard < 0 || shard >= shardCount) throw new Error('Invalid deer county shard');
 const partition = counties.map((name, i) => ({ name, slug: allSlugs[i], index: i }))
   .filter(x => x.index % shardCount === shard);
+const smokeNames = (process.env.DEER_COUNTY_SMOKE || '').split(',').map(x=>x.trim()).filter(Boolean);
+const selected = smokeNames.length ? smokeNames.map(name=>{
+  const index = counties.indexOf(name);
+  if (index < 0) throw new Error('Unknown official smoke county ' + name);
+  return { name, slug: allSlugs[index], index };
+}) : partition;
 const urlFor = slug => 'https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/' + slug + '/';
 function visible(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
@@ -106,7 +112,7 @@ function selfTest() {
 if (process.argv.includes('--self-test')) { selfTest(); process.exit(0); }
 const output = { seasonYear: data.seasonYear, shard, checkedAt: new Date().toISOString(),
   checked: [], failures: [] };
-const queue = partition.slice();
+const queue = selected.slice();
 async function worker() {
   while (queue.length) {
     const item = queue.shift();
@@ -120,4 +126,4 @@ mkdirSync('artifacts/deer-county-monitor', {recursive:true});
 const target = join('artifacts/deer-county-monitor', 'shard-' + shard + '.json');
 writeFileSync(target, JSON.stringify(output,null,2)+'\n');
 console.log(JSON.stringify({shard,checked:output.checked.length,failed:output.failures}));
-if (output.failures.length || output.checked.length !== partition.length) process.exitCode = 1;
+if (output.failures.length || output.checked.length !== selected.length) process.exitCode = 1;
