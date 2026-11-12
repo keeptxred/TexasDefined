@@ -18,6 +18,6 @@ assert.ok(guides.dickinson.overview.join(' ').includes('3300 Baker'),'Dickinson 
 assert.ok(guides['diana-new-diana'].overview.join(' ').includes('259 South'),'New Diana campus versus district-office distinction');
 assert.ok(guides.dhanis.overview.join(' ').includes('2026 Football Schedule'),'D Hanis official schedule context');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
-assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,certifiedBatch016(reg)?380:certifiedBatch015(reg)?355:330,'preserve certified history');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,certifiedBatch016(reg)?380:certifiedBatch015(reg)?355:330,'preserve certified history');
 for(const slug of slugs)assert.equal(reg.schoolRecords.find(x=>x.slug===slug)?.status,certifiedBatch015(reg)?'VERIFIED':'NOT_REVIEWED','no premature promotion');
 console.log('PASS Batch015 third-five sourced SSR school guides and unmodified certification ledger');
