@@ -26,7 +26,7 @@ for(const javascriptEnabled of [false,true]){
         }
       };
       walk(node);
-      return {found:true,outerHtmlChars:node.outerHTML.length,structure:tree.join("\n"),text:node.textContent?.slice(0,600),head:node.outerHTML.slice(0,350)};
+      return {found:true,outerHtmlChars:node.outerHTML.length,structure:tree.join("\n"),raw:node.outerHTML,text:node.textContent?.slice(0,600),head:node.outerHTML.slice(0,350)};
     }
     return {
       svg:describe(map),selection:describe(select),side:describe(aside),
@@ -43,9 +43,12 @@ await browser.close();
 const [server,client]=snapshots.map(x=>x.snapshot);
 const result={urlPath:"/fishing/plan?view=map",conditions:snapshots.map(x=>({javascriptEnabled:x.javascriptEnabled,errors:x.errors,hydrated:x.snapshot.hydrated,svg:{found:x.snapshot.svg.found,outerHtmlChars:x.snapshot.svg.outerHtmlChars},selection:{found:x.snapshot.selection.found,outerHtmlChars:x.snapshot.selection.outerHtmlChars},side:{found:x.snapshot.side.found,outerHtmlChars:x.snapshot.side.outerHtmlChars},main:{found:x.snapshot.main.found,outerHtmlChars:x.snapshot.main.outerHtmlChars}})),diffs:{}};
 for(const key of ["svg","selection","side","main"]){
-  const a=server[key]?.structure??"";const b=client[key]?.structure??"";
-  let pos=0;while(pos<a.length&&pos<b.length&&a[pos]===b[pos])pos++;
-  result.diffs[key]={same:a===b,serverChars:a.length,clientChars:b.length,firstDiffIndex:pos,serverContext:a.slice(Math.max(0,pos-250),pos+350),clientContext:b.slice(Math.max(0,pos-250),pos+350)};
+  result.diffs[key]={};
+  for(const field of ["structure","raw"]){
+    const a=server[key]?.[field]??"";const b=client[key]?.[field]??"";
+    let pos=0;while(pos<a.length&&pos<b.length&&a[pos]===b[pos])pos++;
+    result.diffs[key][field]={same:a===b,serverChars:a.length,clientChars:b.length,firstDiffIndex:pos,serverContext:a.slice(Math.max(0,pos-250),pos+350),clientContext:b.slice(Math.max(0,pos-250),pos+350)};
+  }
 }
 await mkdir("artifacts/fishing-planner-dom-diff",{recursive:true});
 await writeFile("artifacts/fishing-planner-dom-diff/result.json",JSON.stringify(result,null,2)+"\n");
