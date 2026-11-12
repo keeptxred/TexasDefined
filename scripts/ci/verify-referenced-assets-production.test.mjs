@@ -142,8 +142,8 @@ test('only one known post-deploy browser failure can qualify an otherwise fully 
   badSitemapExtraFailure.jobs[0].steps.push({name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'});
   assert.throws(()=>qualifyPriorDeployJob(badSitemapExtraFailure),/Required published|unapproved/);
   const repairedSitemapSource=readFileSync('src/routes/sitemap-explore[.]xml.ts','utf8');
-  assert.equal((repairedSitemapSource.match(/const entries = dedupeUrlEntries\\(\\[/g)??[]).length,2);
-  assert.match(readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs','utf8'),/const expectedMatches = sitemap\\.split\\(expected\\)\\.length - 1;/);
+  assert.equal((repairedSitemapSource.match(/const entries = dedupeUrlEntries\(\[/g)??[]).length,2);
+  assert.match(readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs','utf8'),/const expectedMatches = sitemap\.split\(expected\)\.length - 1;/);
   const productionTransportTest=readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs','utf8');
   assert.match(productionTransportTest,/const MAX_TRANSPORT_ATTEMPTS = 3;/);
   assert.match(productionTransportTest,/attempt === MAX_TRANSPORT_ATTEMPTS/);
