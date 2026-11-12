@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { readFile } from "node:fs/promises";
 // Site-owned, bounded verifier. Execute after deployment and on the weekly GitHub schedule.
 const origin = "https://texasdefined.com";
@@ -33,6 +34,27 @@ for (const path of ["/sitemap-explore.xml", "/sitemap.xml"]) {
 }
 const sitemapUrls = { explore: locs(exploreSitemap.body), main: locs(mainSitemap.body) };
 const failures = [];
+// Sitemaps must reflect real reviewed edit dates, not the date a Worker happened
+// to deploy. The three editorial records are source-pinned and parsed here.
+const reviewedSource = readFileSync('src/data/reviewed-attraction-authorities.ts', 'utf8');
+const reviewedMarker = 'export const reviewedAttractionDestinations: Destination[] = ';
+if (!reviewedSource.includes(reviewedMarker)) throw Error('Missing canonical reviewed attraction catalog export');
+const reviewedRecords = JSON.parse(reviewedSource.split(reviewedMarker)[1].trim().replace(/;\s*$/, ''));
+for (const slug of ['san-antonio-japanese-tea-garden', 'fort-worth-water-gardens', 'houston-botanic-garden']) {
+  const source = reviewedRecords.find((row) => row.slug === slug);
+  if (!source || !/^\d{4}-\d{2}-\d{2}$/.test(source.updatedAt ?? source.sourceCheckedAt ?? '')) {
+    failures.push({ path: '/destination/' + slug, error: 'missing real editorial/source date for sitemap lastmod' });
+    continue;
+  }
+  const pageUrl = origin + '/destination/' + slug;
+  const rows = [...exploreSitemap.body.matchAll(/<url>\s*([\s\S]*?)<\/url>/g)]
+    .map((match) => match[1]).filter((row) => row.includes('<loc>' + pageUrl + '</loc>'));
+  const actual = rows[0]?.match(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/)?.[1];
+  const expected = source.updatedAt ?? source.sourceCheckedAt;
+  if (rows.length !== 1 || actual !== expected) {
+    failures.push({ path: '/destination/' + slug, error: 'sitemap lastmod ' + (actual ?? 'missing') + ' differs from source-backed ' + expected });
+  }
+}
 for (const [owner, paths] of [["explore", explore], ["main", main]]) {
   for (const path of paths) {
     const found = sitemapUrls[owner].filter(value => value === origin + path).length;
@@ -123,7 +145,7 @@ for (const guide of attractionCertification) {
     if (!/<meta\b[^>]*name=["']description["'][^>]*content=["'][^"']{50,}["']/i.test(body)) {
       throw Error("missing substantial SSR meta description");
     }
-    if (!new RegExp("<h1\\b[^>]*>\\s*" + guide.name + "\\s*</h1>", "i").test(body)) {
+    if (!new RegExp("<h1\\b[^>]*>\s*" + guide.name + "\s*</h1>", "i").test(body)) {
       throw Error("missing original named SSR H1");
     }
     if (!body.includes("Research sources") || !body.includes("Planning your visit")) {
