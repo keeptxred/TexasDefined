@@ -40,19 +40,19 @@
       "evant",
       "everman"
     ],
-    "state": "SOURCE_IMPLEMENTED_IN_PROGRESS",
+    "state": "SOURCE_IMPLEMENTED_PENDING_PRODUCTION_PROOF",
     "dateAssigned": "2026-11-11",
     "selectionRule": "First 25 canonical NOT_REVIEWED records with null batch in stable registry order after protected Batch016 graduation PR #6969",
     "individuallyVerified": 0,
-    "remainingAssigned": 5,
+    "remainingAssigned": 0,
     "assignmentBranch": "feat/football-b017-assign-25-20261111",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "euless-trinity",
-    "nextSchool": "euless-trinity",
-    "implementedOnBranch": 20,
-    "remainingToImplement": 5,
+    "currentSchool": null,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "Twenty distinct official-source guides authored. Elgin school campus linked to Travis County using TDLR location record; Elkhart mailing and NCES physical address distinguished. No signed Batch017 Chrome or Worker evidence. 380 historical VERIFIED retained.",
+    "notes": "All 25 Batch017 schools have authored official-source editorial, unique campuses and county reciprocal edges. Pending full protected CI, immutable deployment, 75+25 release-pinned Chrome checks and separately signed graduation; 380 earlier verified records preserved.",
     "noNextBatchAssigned": false
   },
   "statusValues": [
@@ -15184,8 +15184,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/euless-trinity",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:eustace",
@@ -15198,8 +15202,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/eustace",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:evadale",
@@ -15212,8 +15220,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/evadale",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:evant",
@@ -15226,8 +15238,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/evant",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:everman",
@@ -15240,8 +15256,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/everman",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:fabens",
