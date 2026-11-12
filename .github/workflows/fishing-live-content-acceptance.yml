@@ -7,6 +7,7 @@ on:
       - 'scripts/ci/audit-fishing-planner-fresh-live.mjs'
       - 'scripts/ci/verify-fishing-planner-fresh-chrome.mjs'
       - 'scripts/ci/diagnose-fishing-planner-hydration.mjs'
+      - 'scripts/ci/compare-fishing-map-ssr-dom.mjs'
       - 'scripts/ci/verify-fishing-seasons-live.mjs'
       - 'scripts/ci/verify-fishing-compare-html.mjs'
       - 'scripts/ci/verify-fishing-compare-html.test.mjs'
@@ -78,6 +79,10 @@ jobs:
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/td-planner-fresh-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Compare map SSR parser and after-hydration DOM structures
+        run: |
+          node --check scripts/ci/compare-fishing-map-ssr-dom.mjs
+          node scripts/ci/compare-fishing-map-ssr-dom.mjs
       - name: Diagnose live React hydration mismatches on planner and controls
         run: |
           node --check scripts/ci/diagnose-fishing-planner-hydration.mjs
@@ -93,5 +98,6 @@ jobs:
           name: fishing-planner-desktop-mobile-fresh
           path: artifacts/fishing-planner-fresh-chrome
             artifacts/fishing-planner-hydration-diagnostics
+            artifacts/fishing-planner-dom-diff
           retention-days: 30
           if-no-files-found: warn
