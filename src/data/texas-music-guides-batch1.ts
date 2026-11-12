@@ -68,7 +68,7 @@ export const TEXAS_MUSIC_GUIDES_BATCH1: Record<string, TexasEvergreenGuide> = {
       }
     ],
     related: [
-      { href: "/texas-music", label: "Texas Music", description: "The statewide authority hub connecting blues to Texas country, conjunto, western swing, jazz, rock, gospel and hip-hop." },
+      { href: "/texas-music", label: "Texas Music", description: "Start with the statewide overview, then follow how blues relates to country, conjunto, western swing, jazz, rock, gospel and hip-hop." },
       { href: "/texas-western-swing", label: "Texas Western Swing", description: "See another Texas tradition built from blues, jazz, country and dance-floor culture." },
       { href: "/texas-dance-halls-honky-tonks", label: "Texas live-music spaces", description: "Understand how halls, clubs and honky-tonks turn musical history into a physical Texas landscape." }
     ]
@@ -205,7 +205,7 @@ export const TEXAS_MUSIC_GUIDES_BATCH1: Record<string, TexasEvergreenGuide> = {
       }
     ],
     related: [
-      { href: "/texas-music", label: "Texas Music", description: "The authority hub connecting western swing to blues, country, conjunto, jazz, rock and other Texas traditions." },
+      { href: "/texas-music", label: "Texas Music", description: "Explore how western swing fits with blues, country, conjunto, jazz, rock and other Texas traditions." },
       { href: "/texas-dance-halls-honky-tonks", label: "Texas Dance Halls & Honky-Tonks", description: "The physical spaces that explain why western swing developed as dance music." },
       { href: "/texas-blues", label: "Texas Blues", description: "Trace another Texas tradition whose guitar, rhythm and improvisation fed directly into later popular music." }
     ]
