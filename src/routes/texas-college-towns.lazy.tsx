@@ -16,6 +16,7 @@ const towns = [
 const officialSources = [
   ["UT Austin campus visits", "https://admissions.utexas.edu/explore/visit-campus/"],
   ["Texas A&M Appelt Aggieland Visitor Center", "https://www.tamu.edu/visit/visitor-center.html"],
+  ["Baylor University campus tours", "https://apply.baylor.edu/portal/visit_experience"],
   ["Texas Tech campus visits", "https://www.depts.ttu.edu/admissions/visit-events/index-1.php"],
   ["UTEP campus visits", "https://www.utep.edu/visit/"],
   ["TCU campus visitor programs", "https://admissions.tcu.edu/visit/programs-events.php"],
@@ -47,7 +48,7 @@ function TexasCollegeTownsPage() {
     </Container></section>
 
     <section className="bg-background"><Container className="py-12 sm:py-16">
-      <p className="eyebrow text-primary">Official campus sources</p><h2 className="mt-3 font-display text-3xl">Check campus rules before the visit</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Tours, visitor parking, event access and campus schedules change. These first-party university pages are the final authority for current campus-visit details. Source review: August 30, 2026.</p>
+      <p className="eyebrow text-primary">Official campus sources</p><h2 className="mt-3 font-display text-3xl">Check campus rules before the visit</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Tours, visitor parking, event access and campus schedules change. These first-party university pages are the final authority for current campus-visit details. Campus listings were reviewed for this guide in November 2026; confirm live tour dates with each university.</p>
       <ul className="mt-6 grid gap-3 text-sm font-semibold md:grid-cols-2 lg:grid-cols-3">{officialSources.map(([label, href]) => <li key={href}><a href={href} target="_blank" rel="noreferrer" className="text-primary">{label} ↗</a></li>)}</ul>
     </Container></section>
   </>;
