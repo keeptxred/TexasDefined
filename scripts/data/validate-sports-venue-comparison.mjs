@@ -33,12 +33,14 @@ for (const marker of [
   "encodingFormat: 'text/csv'",
   'contentUrl: csvUrl',
   "'@type': 'ItemList'",
-  "'@type': 'FAQPage'",
   "'@type': 'BreadcrumbList'",
   'numberOfItems: rows.length',
   'Compare Texas sports venues',
-  'How many Texas sports venues are in this comparison?',
-  'missing values are left blank rather than inferred',
+  'What the figures can and cannot tell you',
+  'Why some capacity cells are blank',
+  'What the opening field means',
+  'Blank means no comparable figure is recorded',
+  'Current operations need current sources',
   'Venue-by-venue comparison',
   'useMemo',
   'typeFilter',
@@ -56,6 +58,8 @@ for (const marker of [
   'Download comparison CSV',
   '<SportsVenueLandingIndex compact />',
 ]) assert(route.includes(marker), `Sports venue comparison route is missing quality/SEO/download marker: ${marker}.`);
+
+assert(!route.includes("'@type': 'FAQPage'"), 'Venue comparison should use direct editorial methodology rather than FAQ rich-result markup.');
 
 for (const forbidden of [
   'TEXAS_ENTITY_REGISTRY',
