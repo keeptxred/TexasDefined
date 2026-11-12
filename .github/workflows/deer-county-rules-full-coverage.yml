@@ -39,6 +39,7 @@ jobs:
           node --check scripts/data/monitor-deer-county-rules.mjs
           node --check scripts/data/aggregate-deer-county-rules.mjs
           node scripts/data/monitor-deer-county-rules.mjs --self-test
+          node scripts/data/test-deer-rollover-end-to-end.mjs
 
   shards:
     name: Official county shard ${{ matrix.shard }}
