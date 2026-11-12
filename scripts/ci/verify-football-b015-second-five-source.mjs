@@ -21,7 +21,7 @@ for(const slug of slugs) {
  assert.ok(g.overview.length>=4 && g.faq.length>=3 && g.milestones.length>=2);
 }
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
-assert.equal(registry.schoolRecords.filter(s=>s.status==='VERIFIED').length,certifiedBatch016(registry)?380:certifiedBatch015(registry)?355:330,'preserve historical certified count');
+assert.equal(registry.schoolRecords.filter(s=>s.status==='VERIFIED'&&s.batch<17).length,certifiedBatch016(registry)?380:certifiedBatch015(registry)?355:330,'preserve historical certified count');
 for(const slug of slugs)assert.equal(registry.schoolRecords.find(s=>s.slug===slug)?.status,certifiedBatch015(registry)?'VERIFIED':'NOT_REVIEWED','no unverified promotion');
 const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
