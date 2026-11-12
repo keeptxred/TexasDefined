@@ -15,6 +15,7 @@ import {
 } from '@/data/high-school-football/enrollment-bands';
 import { footballIdentityAccentFromColors } from '@/data/high-school-football/football-identity-accent';
 import { BATCH016_FOOTBALL_COUNTY_EDGES } from '@/data/high-school-football/batch016-county-edges';
+import { BATCH017_FOOTBALL_COUNTY_EDGES } from '@/data/high-school-football/batch017-county-edges';
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
