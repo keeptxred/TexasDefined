@@ -152,7 +152,7 @@ export const TEXAS_MUSIC_GUIDES_BATCH1: Record<string, TexasEvergreenGuide> = {
           "The easiest way to misunderstand western swing is to treat it only as a recording genre. Its arrangements were built for halls, pavilions and clubs where dancers expected a band to cover waltzes, fiddle tunes, blues, pop songs and hot instrumental numbers across a long evening. Versatility was not a side effect; it was the job.",
           "That dance-floor purpose explains the music's breadth. A western swing band could borrow from rural fiddle traditions, African American blues and jazz, Mexican and Central European dance forms and nationally popular big-band sounds without treating those categories as mutually exclusive. The blend is the identity."
         ],
-        links: [{ href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and honky-tonks" }, { href: "/texas-two-step", label: "Texas two-step" }]
+        links: [{ href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and honky-tonks" }, { href: "/texas-dance-halls-honky-tonks", label: "Two-step dancing and dance halls" }]
       },
       {
         heading: "Fort Worth and the Light Crust Doughboys",
