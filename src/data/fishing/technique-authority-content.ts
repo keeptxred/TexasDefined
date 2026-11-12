@@ -78,7 +78,8 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Tandem blades", depth: "Shallow–mid", bestFor: "General-purpose balance of flash, vibration and lift" },
       { label: "Heavier slow-roll setup", depth: "Mid-depth–deep", bestFor: "Deeper cover, ledges and keeping the bait down during a controlled retrieve" },
     ],
-    speciesTitle: "Best Fits for Spinnerbaits",
+    speciesTitle: "Spinnerbait Targets: Documented and Other Possibilities",
+    speciesIntro: "The lake-linked species count above comes from cited records. Smallmouth and Guadalupe bass notes below are general technique applications, not additional verified lake associations.",
     speciesGuide: [
       { label: "Largemouth bass", guidance: "Use the lure as a cover-oriented search bait around wood, grass, docks, riprap and wind-blown banks." },
       { label: "Smallmouth bass", guidance: "On waters where they are present, spinnerbaits can cover wind-exposed rocky structure and points when fish are willing to chase." },
@@ -141,10 +142,11 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Slow natural-bait troll", depth: "Variable", bestFor: "Open-water fish that are following forage but not responding to fast artificials" },
     ],
     speciesTitle: "Trolling by Fishery",
+    speciesIntro: "The verified lake links above focus on the fish recorded in the fishing catalog. The black-bass note below explains another possible use; it is not a verified black-bass trolling entry for each linked lake.",
     speciesGuide: [
       { label: "Striped and hybrid bass", guidance: "Use electronics and bait location to set the target depth rather than trolling an arbitrary contour." },
       { label: "White bass", guidance: "Smaller profiles and repeatable passes can work around schooling fish and channel-oriented movement." },
-      { label: "Black bass", guidance: "Where source-backed for a lake, contour trolling can cover points, creek channels and offshore structure efficiently." },
+      { label: "Black bass — general technique note", guidance: "Contouring points and creek channels can be a presentation option where local fisheries guidance supports it. Do not treat that as a source-backed black-bass trolling claim for every linked lake." },
     ],
     diagram: {
       eyebrow: "Trolling at a glance",
