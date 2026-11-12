@@ -13,6 +13,8 @@ const paths = {
   directoryComponent: "src/components/fishing/FishingTechniqueDirectory.tsx",
   profileComponent: "src/components/fishing/FishingTechniqueProfile.tsx",
   guideContent: "src/data/fishing/technique-guide-content.ts",
+  decisionGuide: "src/data/fishing/technique-decision-guide.ts",
+  sourceNotes: "src/data/fishing/technique-source-notes.ts",
   authorityContent: "src/data/fishing/technique-authority-content.ts",
   prototypeTechniques: "src/data/fishing/prototype-technique-profiles.ts",
   fishingIndex: "src/data/fishing/index.ts",
@@ -195,6 +197,18 @@ for (const routeText of [files.directoryRoute, files.profileRoute]) {
     if (routeText.includes(eagerHeadToken)) throw new Error(`Fishing Batch 13 validation failed: eager SEO/schema payload leaked into critical technique route (${eagerHeadToken}).`);
   }
 }
+// Regrade regression gates: protect honest source attribution, editorial clarity,
+// unique method comparisons and the distinction between lake-linked records and general advice.
+for (const token of ["fishingTechniqueDecisionGuide.map", "Which Fishing Method Fits Your Water?", "Depth and cover:", "Switch if:"]) requireText(files.directoryComponent, token, "decision framework missing " + token);
+for (const slug of techniqueSlugs) requireText(files.decisionGuide, `slug: "${slug}"`, "method comparison missing " + slug);
+for (const token of ["fishingTechniqueSourceNotes", "sourceNote.officialUrl", "sourceNote.officialFinding", "sourceNote.interpretation", "editorial interpretation", "lake connections"]) requireText(files.profileComponent, token, "transparent sourcing/limits missing " + token);
+for (const slug of ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"]) if (!files.sourceNotes.includes(`${slug}:`) && !files.sourceNotes.includes(`"${slug}":`)) throw new Error("TPWD case study missing " + slug);
+for (const slug of ["sam_rayburn","texoma","fork","canyon","conroe"]) requireText(files.sourceNotes, `/${slug}/`, "TPWD reservoir citation missing " + slug);
+requireText(files.imageRegistry, "Lake_Texoma,_Eisenhower_State_Park.jpg", "trolling image lacks verified Texas location and licensing");
+if (files.imageRegistry.includes("Hauling%20in%20salmon")) throw new Error("Fishing authority validation failed: non-Texas archival salmon photo still used as trolling hero.");
+if (files.profileComponent.includes("four seasons, not five")) throw new Error("Fishing authority validation failed: editorial seasonal count jargon returned.");
+if (files.server.includes(". sponsorship")) throw new Error("Fishing authority validation failed: broken commercial policy sentence returned.");
+
 for (const forbidden of ["guaranteed catch","today's best technique","affiliate pick","sponsored ranking","buy this lure"]) if (`${files.directoryRoute}\n${files.profileRoute}\n${files.directoryComponent}\n${files.profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked (${forbidden}).`);
 
 requireText(files.hubRoute, 'lazy(() => import("@/components/fishing/FishingHub")', "statewide hub UI split missing");

@@ -178,7 +178,7 @@ export async function loadFishingTechniqueDirectoryServer() {
     policy: {
       sourcing: "Start with cover and depth: soft plastics work precisely around cover, while spinnerbaits and crankbaits help search larger areas.",
       conditions: "Topwater suits visible surface activity; trolling is an option for open-water fish. These guides are not a live bite report; conditions and target species decide which method makes sense.",
-      commerce: "Choose a lake guide for method-specific examples. sponsorship does not affect technique placement. Check current reports, closures and fishing regulations before you go.",
+      commerce: "Lake examples come from documented source records; sponsorship cannot buy a technique placement or change a lake link. Check current reports, closures and fishing regulations before you go.",
     },
     head: buildFishingTechniqueDirectoryHead(entries),
   };
