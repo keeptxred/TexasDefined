@@ -74,6 +74,31 @@ test('only one known post-deploy browser failure can qualify an otherwise fully 
   assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],id:130834293836}]}),/unapproved/);
   assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],run_id:43113183644}]}),/unapproved/);
   assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify base production surfaces'])),/unapproved/);
+  // Exact November 12 published Worker passed all original-byte and dual-origin
+  // runtime checks; the sole later directory check demanded nonexistent copy.
+  const sportsIncident=make('failure',['Verify sports venue editorial production']);
+  sportsIncident.jobs[0].run_id=43251806283;
+  sportsIncident.jobs[0].id=131299301592;
+  const sportsHandoff=qualifyPriorDeployJob(sportsIncident);
+  assert.equal(sportsHandoff.mode,'exact-published-worker-sports-date-assertion-assets-only');
+  assert.equal(sportsHandoff.exactRun,43251806283);
+  const sportsWrongRun=structuredClone(sportsIncident);
+  sportsWrongRun.jobs[0].run_id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(sportsWrongRun),/unapproved/);
+  const sportsWrongJob=structuredClone(sportsIncident);
+  sportsWrongJob.jobs[0].id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(sportsWrongJob),/unapproved/);
+  const sportsExtraFailure=structuredClone(sportsIncident);
+  sportsExtraFailure.jobs[0].steps.push({name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(sportsExtraFailure),/Required published|unapproved/);
+  const sportsMissingHealth=structuredClone(sportsIncident);
+  sportsMissingHealth.jobs[0].steps=sportsMissingHealth.jobs[0].steps.filter(x=>x.name!=='Verify direct Worker health');
+  assert.throws(()=>qualifyPriorDeployJob(sportsMissingHealth),/Required published-Worker safety gate/);
+  const sportsVerifier=readFileSync('scripts/production/verify-sports-venue-editorial-production.mjs','utf8');
+  assert.match(sportsVerifier,/The most recently checked individual venue record in this collection was verified/);
+  assert.match(sportsVerifier,/karting operation announced a temporary closure/);
+  assert.doesNotMatch(sportsVerifier,/assertIncludes\(html, 'The latest individual venue source check was'/);
+
   // Nov 12, 2026: a real Worker with complete two-origin original JS/CSS
   // proof may contribute assets despite the later independent Fredericksburg
   // direct-Worker transport timeout. Do NOT call the failed release successful.
