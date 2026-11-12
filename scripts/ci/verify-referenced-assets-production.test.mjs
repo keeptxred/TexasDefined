@@ -120,6 +120,30 @@ test('only one known post-deploy browser failure can qualify an otherwise fully 
   const timeoutWithMissingHealth=structuredClone(timeoutIncident);
   timeoutWithMissingHealth.jobs[0].steps=timeoutWithMissingHealth.jobs[0].steps.filter(x=>x.name!=='Verify canonical production health');
   assert.throws(()=>qualifyPriorDeployJob(timeoutWithMissingHealth),/Required published-Worker safety gate/);
+  // The newer Nov 12 Worker is live and its exact original JS/CSS was verified
+  // on both public origins, but the independent sitemap check failed later.
+  // Reuse only that asset proof after #7050's sitemap uniqueness repair.
+  const sitemapIncident=make('failure',['Verify base production surfaces']);
+  sitemapIncident.jobs[0].run_id=43314663760;
+  sitemapIncident.jobs[0].id=131519408864;
+  const sitemapApproval=qualifyPriorDeployJob(sitemapIncident);
+  assert.equal(sitemapApproval.mode,'exact-published-worker-fredericksburg-sitemap-assets-only');
+  assert.equal(sitemapApproval.exactRun,43314663760);
+  const badSitemapRun=structuredClone(sitemapIncident);
+  badSitemapRun.jobs[0].run_id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(badSitemapRun),/unapproved/);
+  const badSitemapJob=structuredClone(sitemapIncident);
+  badSitemapJob.jobs[0].id+=1;
+  assert.throws(()=>qualifyPriorDeployJob(badSitemapJob),/unapproved/);
+  const badSitemapCritical=structuredClone(sitemapIncident);
+  badSitemapCritical.jobs[0].steps=badSitemapCritical.jobs[0].steps.filter(x=>x.name!=='Verify canonical production health');
+  assert.throws(()=>qualifyPriorDeployJob(badSitemapCritical),/Required published-Worker safety gate/);
+  const badSitemapExtraFailure=structuredClone(sitemapIncident);
+  badSitemapExtraFailure.jobs[0].steps.push({name:'Verify current and previous release JS/CSS on both public origins',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(badSitemapExtraFailure),/Required published|unapproved/);
+  const repairedSitemapSource=readFileSync('src/routes/sitemap-explore[.]xml.ts','utf8');
+  assert.equal((repairedSitemapSource.match(/const entries = dedupeUrlEntries\\(\\[/g)??[]).length,2);
+  assert.match(readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs','utf8'),/const expectedMatches = sitemap\\.split\\(expected\\)\\.length - 1;/);
   const productionTransportTest=readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs','utf8');
   assert.match(productionTransportTest,/const MAX_TRANSPORT_ATTEMPTS = 3;/);
   assert.match(productionTransportTest,/attempt === MAX_TRANSPORT_ATTEMPTS/);
