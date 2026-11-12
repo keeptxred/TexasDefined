@@ -49,6 +49,10 @@ jobs:
           node-version: '22'
       - name: Validate all 32 authority routes and content guards
         run: node scripts/data/validate-texas-32-authority.mjs
+      - name: Check production and browser verifier syntax
+        run: |
+          node --check scripts/ci/verify-texas-32-production.mjs
+          node --check scripts/ci/verify-texas-32-browser.mjs
       - name: Validate source-backed Texas state comparisons
         run: node scripts/data/validate-texas-vs-state-promotions.mjs
       - name: Validate Texas flag primary-source history
