@@ -47,6 +47,9 @@ const changed = previous ? entries.filter(x => {
     last.hasDeerSection !== x.hasDeerSection;
 }).map(x=>({county:x.county,url:x.url,
   oldDigest:prior.get(x.slug)?.deerRulesDigest||null,newDigest:x.deerRulesDigest})) : [];
+if (entries.length === 254 && entries.filter(x=>x.hasDeerSection).length < 240) {
+  failures.push({error:'TPWD deer section extraction covered fewer than 240 of 254 counties; do not certify misleading completeness'});
+}
 const snapshot={seasonYear:data.seasonYear,checkedAt:new Date().toISOString(),
   count:entries.length,withDeer:entries.filter(x=>x.hasDeerSection).length,
   entries};
