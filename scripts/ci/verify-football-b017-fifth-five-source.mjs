@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
 const read=p=>fs.readFileSync(p,'utf8');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const source=read('src/data/high-school-football/program-editorial-b017-group5.ts');
@@ -8,10 +9,12 @@ const server=read('src/data/high-school-football/football-program-profile.server
 const slugs=["euless-trinity","eustace","evadale","evant","everman"];
 assert.equal(reg.batch.number,17);
 assert.deepEqual(reg.batch.slugs.slice(20,25),slugs);
-assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,380);
-assert.equal(reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length,25);
+const graduatedB017=certifiedBatch017(reg);
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,380,'Preserve 380 earlier signed certificates');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB017?405:380,'Only exact signed Chrome may certify Batch017');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length,graduatedB017?0:25);
 assert.equal(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length,887);
-for(const slug of slugs){const row=reg.schoolRecords.find(x=>x.slug===slug);assert.equal(row?.status,'IMPLEMENTED');assert.equal(row?.actualProductionVerified,false);assert.ok(source.includes(JSON.stringify(slug)+': {'));assert.ok(edges.includes("slug: '"+slug+"'"));}
+for(const slug of slugs){const row=reg.schoolRecords.find(x=>x.slug===slug);assert.equal(row?.status,graduatedB017?'VERIFIED':'IMPLEMENTED');assert.equal(row?.actualProductionVerified,graduatedB017);assert.ok(source.includes(JSON.stringify(slug)+': {'));assert.ok(edges.includes("slug: '"+slug+"'"));}
 assert.equal((source.match(/"slug": "/g)||[]).length,5);
 assert.ok(server.includes('getBatch017FifthFiveEditorial(canonicalSlug)'));
 for(const s of ['1968','Trojans','350 FM 316 South','Eustace Bulldogs','908 FM 105','2026 campus construction','six-man','339 N Memory Ln','1000 S Race St','Hall of Honor','6ABBFB2026.pdf','3AD1FB2026.pdf','2AD2FB2026.pdf','1AD1FB2026.pdf','5AD2FB2026.pdf'])assert.ok(source.includes(s),'Missing source-specific fact '+s);
