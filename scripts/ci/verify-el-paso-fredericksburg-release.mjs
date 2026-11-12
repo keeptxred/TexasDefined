@@ -58,8 +58,25 @@ if (sitemapResponse.status !== 200 ||
 }
 const sitemap = await sitemapResponse.text();
 const expected = "<loc>https://texasdefined.com/destination/fredericksburg</loc>";
-if (!sitemap.startsWith("<?xml") || sitemap.split(expected).length !== 2) {
-  throw new Error("Fredericksburg canonical is absent, duplicated or not XML in live Explore sitemap");
+const expectedMatches = sitemap.split(expected).length - 1;
+const nearbyFredericksburgLocs = [...sitemap.matchAll(new RegExp("<loc>[^<]*fredericksburg[^<]*</loc>", "gi"))]
+  .slice(0, 8)
+  .map(([loc]) => loc);
+if (!sitemap.startsWith("<?xml") || expectedMatches !== 1) {
+  // Evidence only: never relax the sitemap contract, and never print the
+  // entire sitemap or any request credentials into the public build log.
+  const evidence = {
+    url: sitemapResponse.url,
+    xmlDeclaration: sitemap.startsWith("<?xml"),
+    responseBytes: Buffer.byteLength(sitemap, "utf8"),
+    exactCanonicalMatches: expectedMatches,
+    fredericksburgLocs: nearbyFredericksburgLocs,
+    fallback: sitemapResponse.headers.get("x-texasdefined-sitemap-fallback"),
+    cache: sitemapResponse.headers.get("cf-cache-status"),
+    age: sitemapResponse.headers.get("age"),
+    workerRevision: sitemapResponse.headers.get("x-texasdefined-build-sha"),
+  };
+  throw new Error(`Explore sitemap canonical integrity failed: ${JSON.stringify(evidence)}`);
 }
 if (sitemap.includes("<loc>https://texasdefined.com/destination/el-paso</loc>")) {
   throw new Error("Legacy El Paso destination should not remain indexable in Explore sitemap");
