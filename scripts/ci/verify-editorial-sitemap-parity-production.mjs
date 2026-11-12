@@ -122,7 +122,7 @@ for (const guide of attractionCertification) {
     if (!image || image.creator?.name !== guide.creator || image.license !== guide.license ||
       image.acquireLicensePage !== "https://commons.wikimedia.org/wiki/File:" + guide.file ||
       image["@id"] !== canonical + "#primaryimage" ||
-      !image.contentUrl?.includes(guide.file) || image.width !== 1600 || image.height !== 1200 ||
+      !image.contentUrl?.includes(guide.file) || image.width !== 1280 || image.height !== 960 ||
       !image.copyrightNotice) {
       throw Error("licensed image provenance, identity or declared dimensions mismatched");
     }
