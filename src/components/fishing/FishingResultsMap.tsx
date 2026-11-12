@@ -67,11 +67,11 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
         <rect x="0" y="0" width={mapWidth} height={mapHeight} className="fill-background" />
         {[30, 32, 34, 36].map((lat) => {
           const y = project({ lat, lng: -100 }).y;
-          return <g key={lat}><line x1={pad} x2={mapWidth - pad} y1={y} y2={y} className="stroke-border" strokeDasharray="4 8" /><text x={pad + 4} y={y - 5} className="fill-muted-foreground text-[11px]">{lat}°N</text></g>;
+          return <g key={lat}><line x1={pad} x2={mapWidth - pad} y1={y} y2={y} className="stroke-border" strokeDasharray="4 8" /><text x={pad + 4} y={y - 5} className="fill-muted-foreground text-[11px]">{`${lat}°N`}</text></g>;
         })}
         {[-104, -102, -100, -98, -96, -94].map((lng) => {
           const x = project({ lat: 31, lng }).x;
-          return <g key={lng}><line y1={pad} y2={mapHeight - pad} x1={x} x2={x} className="stroke-border" strokeDasharray="4 8" /><text x={x + 4} y={mapHeight - pad - 5} className="fill-muted-foreground text-[11px]">{Math.abs(lng)}°W</text></g>;
+          return <g key={lng}><line y1={pad} y2={mapHeight - pad} x1={x} x2={x} className="stroke-border" strokeDasharray="4 8" /><text x={x + 4} y={mapHeight - pad - 5} className="fill-muted-foreground text-[11px]">{`${Math.abs(lng)}°W`}</text></g>;
         })}
         <polyline points={outlinePoints} className="fill-background stroke-foreground/40" strokeWidth="3" />
         {visible.map((row) => {
@@ -92,7 +92,7 @@ export function FishingResultsMap({ rows, totalMatching, listHref }: { rows: Fis
             className="cursor-pointer focus:outline-none"
           >
             <circle cx={x} cy={y} r={selectedPin ? 10 : 7} className={selectedPin ? "fill-primary stroke-background" : "fill-foreground stroke-background"} strokeWidth="3">
-              <title>{row.name}{row.distanceMiles != null ? ` · ${Math.round(row.distanceMiles)} miles` : ""}</title>
+              <title>{`${row.name}${row.distanceMiles != null ? ` · ${Math.round(row.distanceMiles)} miles` : ""}`}</title>
             </circle>
             {selectedPin ? <text x={x + 13} y={y + 4} className="fill-foreground text-[12px] font-semibold">{row.name}</text> : null}
           </g>;
