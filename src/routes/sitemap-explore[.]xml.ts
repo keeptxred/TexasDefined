@@ -68,6 +68,18 @@ function validLastModified(value?: string): string | undefined {
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
 }
 
+// One canonical URL can arise from several independent Explore lists.
+// Enforce a whole-sitemap uniqueness invariant, not merely a per-list one.
+function dedupeUrlEntries(entries: readonly string[]): string[] {
+  const seen = new Set<string>();
+  return entries.filter((xml) => {
+    const match = xml.match(/<loc>([^<]+)<\/loc>/);
+    if (!match || seen.has(match[1])) return false;
+    seen.add(match[1]);
+    return true;
+  });
+}
+
 function entry(path: string, lastModified?: string): string | null {
   const normalized = normalizePublicPath(path);
   if (!normalized || !isExploreSitemapOwnedPath(normalized) || !isIndexablePublicPath(normalized)) return null;
@@ -211,13 +223,11 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),
     ...METRO_PROXIMITY_METROS.map((metro) => `/explore/near/${metro.slug}`),
   ];
-  const entries = [
+  const entries = dedupeUrlEntries([
     ...[...new Set(fallbackPaths)].map((path) => entry(path)),
     await auditedFredericksburgSitemapEntry(),
     await auditedMagoffinSitemapEntry(),
-  ]
-    .filter((item): item is string => Boolean(item))
-    .join("\n");
+  ].filter((item): item is string => Boolean(item))).join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
   return new Response(xml, {
     status: 200,
@@ -532,7 +542,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const itineraryEntries = paintedChurchItineraries.map((item) => entry(`/explore/painted-churches/routes/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const searchGuideEntries = paintedChurchSearchGuides.map((item) => entry(`/explore/painted-churches/guides/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const staticEntries = [...new Set(staticPaths)].map((path) => entry(path)).filter((item): item is string => Boolean(item));
-        const entries = [
+        const entries = dedupeUrlEntries([
           ...staticEntries,
           ...destinationEntries,
           ...proximityEntries,
@@ -545,7 +555,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...glossaryEntries,
           ...itineraryEntries,
           ...searchGuideEntries,
-        ].join("\n");
+        ]).join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {
