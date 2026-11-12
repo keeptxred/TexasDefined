@@ -13,7 +13,7 @@ const guides = {
 };
 const entries = [
   ["/fishing/techniques", ["Texas Fishing Techniques","Year-round is an applicability label"]],
-  ...Object.entries(guides).map(([slug, heading]) => [`/fishing/techniques/${slug}`, [heading,"Explore all"]]),
+  ...Object.entries(guides).map(([slug, heading]) => [`/fishing/techniques/${slug}`, [heading,"Browse all"]]),
   ["/fishing/regulations", ["Decide Which Rule Applies Before You Go","Bait Sourcing, Transport and Clean-Water Rules"]],
   ["/fishing/species", ["Directory records versus standalone guides","Standalone guides"]],
   ["/fishing/species/largemouth-bass", ["Identify Your Bass Before Checking a Limit","Lake Abilene is excluded"]],
