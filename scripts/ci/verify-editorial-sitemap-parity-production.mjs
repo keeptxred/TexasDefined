@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 // Site-owned, bounded verifier. Execute after deployment and on the weekly GitHub schedule.
 const origin = "https://texasdefined.com";
 const headers = { "user-agent": "TexasDefined-EditorialSitemapParity/1.0", "cache-control": "no-cache" };
@@ -62,6 +63,24 @@ for (let i = 0; i < allPaths.length; i += 3) {
 
 // These three previously approved attractions also require independently checked
 // production JSON-LD, licensed image delivery, and relevant city/county discovery.
+const reviewedCatalogSource = await readFile(new URL("../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8");
+const reviewedCatalogMarker = "export const reviewedAttractionDestinations: Destination[] = ";
+if (!reviewedCatalogSource.includes(reviewedCatalogMarker)) throw Error("Missing reviewed attraction ledger");
+const reviewedCatalog = JSON.parse(reviewedCatalogSource.split(reviewedCatalogMarker)[1].trim().replace(/;\s*$/, ""));
+const sourceLastmod = new Map(reviewedCatalog.map((guide) => ["/destination/" + guide.slug, guide.updatedAt ?? guide.sourceCheckedAt]));
+// Compare against actual live <lastmod>, not merely the presence of a URL.
+for (const path of explore.filter((name) => sourceLastmod.has(name))) {
+  const loc = "<loc>" + origin + path + "</loc>";
+  const offset = exploreSitemap.body.indexOf(loc);
+  const start = exploreSitemap.body.lastIndexOf("<url>", offset);
+  const end = exploreSitemap.body.indexOf("</url>", offset);
+  const row = start >= 0 && end >= 0 ? exploreSitemap.body.slice(start, end + 6) : "";
+  const expected = sourceLastmod.get(path);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(expected ?? "") || !row.includes("<lastmod>" + expected + "</lastmod>")) {
+    failures.push({ path, error: "live sitemap lastmod differs from verified source/editorial change date: " + String(expected) });
+  }
+}
+
 const attractionCertification = [
   { path: "/destination/san-antonio-japanese-tea-garden", name: "San Antonio Japanese Tea Garden",
     creator: "Jouaienttoi", license: "https://creativecommons.org/licenses/by-sa/4.0/",
