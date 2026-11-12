@@ -36,10 +36,29 @@ export function certifiedBatch015(registry) {
       e?.manualAccessibilityAccepted !== false || e?.schoolPhotoReuseRightsAccepted !== false ||
       e?.editorialHumanSignoffsClaimed !== 0) return false;
   const rows = registry.schoolRecords;
-  // Historical Batch015 proof remains valid after a separately signed Batch016
-  // graduation. No unrelated school can become VERIFIED without the active
-  // batch's independent certificate guard in validate-high-school-football-platform.
-  const nextCertified=registry.batch?.number===16 && registry.batch?.state==='VERIFIED_BATCH_016_COMPLETE';
+  // A completed Batch016 must remain a valid successor when Batch017 starts.
+  // Never rely on the active batch number alone: archive the exact signed B016
+  // witness and preserve all 25 independently verified rows. The B016 guard
+  // additionally checks every per-row immutable evidence identity.
+  const b016 = registry.batch?.number===16 ? registry.batch
+    : registry.completedBatches?.find(b=>b.number===16);
+  const release = b016?.technicalAcceptance;
+  const nextCertified = b016?.state==='VERIFIED_BATCH_016_COMPLETE' &&
+    b016?.individuallyVerified===25 && b016?.remainingAssigned===0 &&
+    b016?.remainingToImplement===0 && b016?.remainingToVerify===0 &&
+    b016?.noNextBatchAssigned===true &&
+    release?.schoolCount===25 && release?.schoolCasesPassed===75 &&
+    release?.schoolCasesFailed===0 && release?.countyCasesPassed===25 &&
+    release?.countyCasesFailed===0 && release?.browserExecutionCount===1 &&
+    release?.workerVersionMatchesDeploy===true &&
+    release?.chromeRunId===42973704827 &&
+    release?.chromeArtifactId===13834158441 &&
+    release?.productionDeploymentGitSha==='14047a3934631991008361e77cd68401be493138' &&
+    release?.observedWorkerVersions?.length===1 &&
+    release.observedWorkerVersions[0]==='71fbb9a5-0dba-403a-abce-20c76dc20f8d' &&
+    release?.githubWorkerLedgerDeploymentId===7703563654 &&
+    release?.cloudflareDeploymentId==='ce0ba0e5-4680-46e4-a6b7-acdb087d8b78' &&
+    rows.filter(r=>r.batch===16&&r.status==='VERIFIED'&&r.actualProductionVerified===true).length===25;
   if (rows.length !== 1292 || rows.filter(r => r.batch === 15).length !== 25 ||
       rows.filter(r => r.status === 'VERIFIED' && r.batch !== 15 && r.batch !== 16).length !== 330 ||
       rows.filter(r => r.status === 'VERIFIED' && r.batch===15).length !== 25 ||
