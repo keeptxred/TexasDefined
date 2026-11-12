@@ -51,6 +51,18 @@ const KNOWN_PUBLISHED_FREDERICKSBURG_TIMEOUT = Object.freeze({
   failedStep: 'Verify base production surfaces',
 });
 
+// Nov 12 #43251806283 published its Worker, passed direct/canonical health
+// and the complete dual-origin old/new SHA asset audit. A later sports-venue
+// checker demanded a second source-review sentence that was never in the
+// actual directory. PR #7039 removed only that impossible assertion, preserving
+// current individual-record date and karting closure checks. Eligible ONLY to
+// reuse verified original bytes after separate active Worker/source/hash checks.
+const KNOWN_PUBLISHED_SPORTS_DIRECTORY_ASSERTION = Object.freeze({
+  runId: 43251806283,
+  jobId: 131299301592,
+  failedStep: 'Verify sports venue editorial production',
+});
+
 // Historical 2026-11-09 run #42640439772 actually published the Worker and
 // passed the deployment, health and BOTH-origin original JS/CSS checks.
 // The two later title checks failed after publication because the initial Bing
@@ -105,6 +117,18 @@ export function qualifyPriorDeployJob(payload) {
     }
     return { eligible: true, mode: 'exact-image-rights-incident-assets-only',
       criticalChecks: CRITICAL.length, permittedFailure: failures[0], exactRun: imageIncident.runId };
+  }
+  const sportsIncident = KNOWN_PUBLISHED_SPORTS_DIRECTORY_ASSERTION;
+  if (job.run_id === sportsIncident.runId && job.id === sportsIncident.jobId &&
+      failures.length === 1 && failures[0] === sportsIncident.failedStep) {
+    const source = readFileSync('scripts/production/verify-sports-venue-editorial-production.mjs', 'utf8');
+    if (!source.includes("assertIncludes(html, 'The most recently checked individual venue record in this collection was verified'") ||
+        !source.includes("assertIncludes(html, 'karting operation announced a temporary closure'") ||
+        source.includes("assertIncludes(html, 'The latest individual venue source check was'")) {
+      throw Error('Exact motorsports source-review verifier is not repaired without relaxing dated-record and closure checks');
+    }
+    return { eligible: true, mode: 'exact-published-worker-sports-date-assertion-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailure: failures[0], exactRun: sportsIncident.runId };
   }
   const fredericksburgIncident = KNOWN_PUBLISHED_FREDERICKSBURG_TIMEOUT;
   if (job.run_id === fredericksburgIncident.runId &&
