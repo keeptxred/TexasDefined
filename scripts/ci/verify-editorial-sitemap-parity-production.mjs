@@ -218,7 +218,7 @@ for (const guide of attractionCertification) {
         response = await fetch(target, { headers, redirect: "manual", signal: AbortSignal.timeout(15000) });
       }
       // A deliberately absent 404/410 variant cannot create duplicate indexable HTML.
-      if ([404, 410].includes(response.status)) continue;
+      if (variant.endsWith("/") && [404, 410].includes(response.status)) continue;
       if (response.status !== 200) throw Error("variant HTTP " + response.status);
       const html = await response.text();
       const tags = html.match(/<link\b[^>]*>/gi) ?? [];
