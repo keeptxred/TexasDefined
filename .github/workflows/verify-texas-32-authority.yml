@@ -28,6 +28,9 @@ on:
       - 'scripts/ci/verify-texas-32-production.mjs'
       - 'scripts/ci/verify-texas-32-browser.mjs'
   workflow_dispatch:
+  # Exact owner-authorized checkpoint comment, not a follower of deployments.
+  issue_comment:
+    types: [created]
   schedule:
     - cron: '23 13 * * 1'
 
@@ -40,6 +43,7 @@ concurrency:
 
 jobs:
   quality-contract:
+    if: github.event_name != 'issue_comment'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -62,7 +66,7 @@ jobs:
   # permanent deployment follower. The canonical deployment smoke covers
   # changed routes and the protected merge gate owns deterministic QA.
   production-acceptance:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'issue_comment' && github.event.issue.number == 7036 && github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-texas-32-production')
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -82,7 +86,7 @@ jobs:
           retention-days: 30
 
   browser-acceptance:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'issue_comment' && github.event.issue.number == 7036 && github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-texas-32-production')
     needs: [production-acceptance]
     runs-on: ubuntu-latest
     timeout-minutes: 14
