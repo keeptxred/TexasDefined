@@ -53,12 +53,17 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
  // 3,072 verified original-byte hashes (229,046,997 bytes) fit, but 27 further
  // previously healthy in-window hashes were omitted ONLY by the local file cap.
  // Cloudflare Workers Free permits 20,000 static assets/version; Wrangler 4.120+
- // is installed. Keep finite 4,096 old-hash files/384 MiB capacity, still well
+ // is installed. Maintain a finite old-hash file/384 MiB capacity, still well
  // below Cloudflare's file limit even alongside the current generated assets.
  // No asset is eligible without prior 200/MIME/original SHA-256 proof, exact bytes,
  // its firstSeenAt inside 72h, and strict 4 MiB/asset size. If ANY candidate
  // exceeds either finite cap or cannot be retrieved, fail BEFORE Worker replace.
-const LIMIT_FILES = 4096;
+// Nov 12 run 43329087899 proved that 4,096 verified old-only hashes (280,133,020
+// bytes) fit under 384 MiB while 79 more healthy in-window originals were omitted
+// solely by the file count ceiling. Raise this finite local retention headroom
+// to 6,144, still far below the Workers Free 20,000 static-asset platform cap;
+// preserve every original SHA, 72-hour expiry, MIME and per-file/total byte cap.
+const LIMIT_FILES = 6144;
 const LIMIT_BYTES = 384 * 1024 * 1024;
 // 2026-11-08 incident: run 42450404917 preserved each original SHA but
 // refused /assets/state-park-heroes-BZc-RXc8.js (3,004,913 bytes) under the
