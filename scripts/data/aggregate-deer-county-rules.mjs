@@ -31,7 +31,7 @@ if (entries.length !== 254 || unique.size !== 254) {
 }
 const unsafe = entries.filter(x => x.seasonYear !== data.seasonYear ||
   !x.url.startsWith('https://tpwd.texas.gov/regulations/outdoor-annual/regs/counties/') ||
-  !/^[a-z0-9]+$/.test(x.slug) ||
+  !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(x.slug) ||
   (x.hasDeerSection && !/^[a-f0-9]{64}$/.test(x.deerRulesDigest || '')));
 if (unsafe.length) failures.push({ error:'Invalid official-source record',count:unsafe.length });
 entries.sort((a,b)=>a.county.localeCompare(b.county));
