@@ -91,7 +91,7 @@ export const SPORTS_VENUE_TRIP_DECISIONS: Record<string, readonly SportsVenueTri
     { title: 'Public golf in Houston', detail: 'Memorial Park Golf Course has a different access model from a private-club tournament. Tee-time reservation and spectator-event arrangements are separate questions.', venueSlug: 'memorial-park-golf-course' },
   ],
   soccer: [
-    { title: 'An Austin FC match', detail: 'Q2 Stadium is purpose-built for soccer in north Austin. Its match-day transit and parking choices are not the same as visiting the University of Texas or COTA.', venueSlug: 'q2-stadium' },
+    { title: 'Q2 Stadium for an MLS match', detail: 'Q2 Stadium is purpose-built for soccer in north Austin. Its match-day transit and parking choices are not the same as visiting the University of Texas or COTA.', venueSlug: 'q2-stadium' },
     { title: 'Houston Dynamo and Dash games', detail: 'Shell Energy Stadium’s EaDo setting makes rail and downtown access worth considering. Confirm the service and match-specific instructions for the date you attend.', venueSlug: 'shell-energy-stadium' },
     { title: 'Big matches in multipurpose grounds', detail: 'International fixtures and tournaments can use much larger stadiums than a regular MLS match. Check the precise host, seating configuration and event operator before booking travel.' },
   ],
