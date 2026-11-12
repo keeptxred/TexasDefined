@@ -1,0 +1,79 @@
+name: Deer authority desktop/mobile visual QA
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-deer-production-visual.mjs'
+      - '.github/workflows/deer-authority-visual-qa.yml'
+      - 'src/data/hunting/authority-deer.ts'
+      - 'src/components/hunting/HuntingAuthority.tsx'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '47 14 * * 2'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deer-production-visual-${{ github.event.workflow_run.head_sha || github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  real-browser-verification:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out verifier commit or deployed revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 25
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check visual test contract and syntax
+        run: |
+          node --check scripts/ci/verify-deer-production-visual.mjs
+          node scripts/ci/verify-deer-production-visual.mjs --self-test
+      - name: Bound post-deployment runs to deer-specific changed files
+        id: scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" != 'workflow_run' ]]; then
+            echo 'run=yes' >> "$GITHUB_OUTPUT"
+          elif git rev-parse HEAD~20 >/dev/null 2>&1 && \
+            git diff --name-only HEAD~20 HEAD -- \
+              'src/data/hunting/authority-deer.ts' 'src/components/hunting/HuntingAuthority.tsx' \
+              'src/data/hunting/deer-season-dates.json' 'scripts/ci/verify-deer-production-visual.mjs' \
+              '.github/workflows/deer-authority-visual-qa.yml' | grep -q .; then
+            echo 'run=yes' >> "$GITHUB_OUTPUT"
+          else
+            echo 'run=no' >> "$GITHUB_OUTPUT"
+            echo 'No deer-specific edits in bounded deployed commit window.'
+          fi
+      - name: Prepare preinstalled Chrome and isolated Playwright core
+        if: steps.scope.outputs.run == 'yes'
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-deer-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify real deer guide at 320, 390 and 1440 pixels
+        if: steps.scope.outputs.run == 'yes'
+        run: node scripts/ci/verify-deer-production-visual.mjs
+      - name: Retain screenshots and browser acceptance report
+        if: always() && steps.scope.outputs.run == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: deer-visual-qa-${{ github.run_id }}
+          path: artifacts/deer-production-visual/
+          if-no-files-found: warn
+          retention-days: 14
