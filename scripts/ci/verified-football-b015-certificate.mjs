@@ -63,8 +63,9 @@ export function certifiedBatch015(registry) {
       rows.filter(r => r.status === 'VERIFIED' && r.batch !== 15 && r.batch !== 16).length !== 330 ||
       rows.filter(r => r.status === 'VERIFIED' && r.batch===15).length !== 25 ||
       rows.filter(r => r.status === 'VERIFIED').length !== (nextCertified?380:355) ||
-      rows.filter(r => r.status === 'NOT_REVIEWED').length !== (nextCertified?912:937) ||
-      rows.some(r => r.status === 'IMPLEMENTED')) return false;
+      rows.filter(r => r.status === 'NOT_REVIEWED' || r.status === 'IMPLEMENTED').length !== (nextCertified?912:937) ||
+      rows.some(r => r.status === 'IMPLEMENTED' && !(r.batch > 16 && r.actualProductionVerified !== true)) ||
+      rows.some(r => r.status === 'VERIFIED' && r.batch > 16)) return false;
   return B015_SLUGS.every(slug => {
     const row = rows.find(r => r.slug === slug);
     return row?.batch === 15 && row?.status === 'VERIFIED' && row?.actualProductionVerified === true &&

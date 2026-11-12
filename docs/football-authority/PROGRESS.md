@@ -1,3 +1,9 @@
+## 2026-11-11 — Batch017 first five source-authored (NOT production certified)
+
+The five distinct El Paso County guides for `el-paso-eastlake`, `el-paso-eastwood`, `el-paso-el-dorado`, `el-paso-franklin` and `el-paso-hanks` now have official UIL 2026–28 alignments, official campus addresses, individually sourced school histories or athletics notices, truthful 2026 coaching where the school publishes it, and bidirectional El Paso County school links. Source contract: `node scripts/ci/verify-football-b017-first-five-source.mjs`.
+
+**Status after source merge only:** 380/1292 historically production VERIFIED, 5 individually source IMPLEMENTED, 907 NOT_REVIEWED. No new Chrome, Worker deployment, sitemap indexing, licensed photography, manual WCAG or editorial human approval is claimed. El Paso Hanks November 12 playoff is a *future fixture* on the source date, never a claimed score. Keep the remaining 20 school records untouched until each has its own official source evidence. Next source cohort: `el-paso-irvin`, `el-paso-jefferson`, `el-paso-montwood`, `el-paso-parkland`, `el-paso-pebble-hills`. No technical graduation until one real 75+25 production Chrome report tied to the signed exact deployed Worker and separate protected evidence PR.
+
 ## 2026-11-11 — Batch016 genuinely graduated; Batch017 next 25 ASSIGNMENT proposed
 
 Protected Batch016 graduation [PR #6969](https://github.com/keeptxred/TexasDefined/pull/6969) merged at `ad549c87440ad44e168a96669676e41ead1dd647`, with genuine 75/75 school viewport plus 25/25 county Chrome [#42973704827](https://github.com/keeptxred/TexasDefined/actions/runs/42973704827), signed Worker ledger `7703563654`, source `14047a39`, Worker `71fbb9a5`. **380 VERIFIED / 912 NOT_REVIEWED / 0 IMPLEMENTED** remain the only technical certification counts.
