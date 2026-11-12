@@ -96,17 +96,17 @@ async function check(path) {
       // Validate the ACTUAL complete lake inventory, not a retired sentence from an
       // earlier design. SSR must expose the displayed count as real lake links.
       // Featured examples are a subset and may not substitute for the full list.
-      const completeLakeList = [...html.matchAll(/<details\\b[^>]*>([\\s\\S]*?)<\\/details>/gi)]
+      const completeLakeList = [...html.matchAll(/<details\b[^>]*>([\s\S]*?)<\/details>/gi)]
         .map((match) => match[1])
-        .find((fragment) => /\\bBrowse all\\s+\\d+\\s+lakes for\\b/i.test(visibleText(fragment)));
+        .find((fragment) => /\bBrowse all\s+\d+\s+lakes for\b/i.test(visibleText(fragment)));
       if (!completeLakeList) {
         failures.push(path + ": missing complete SSR lake inventory");
       } else {
-        const advertisedCount = Number(visibleText(completeLakeList).match(/\\bBrowse all\\s+(\\d+)\\s+lakes for\\b/i)?.[1]);
-        const listHtml = completeLakeList.match(/<ul\\b[^>]*>([\\s\\S]*?)<\\/ul>/i)?.[1] ?? "";
-        const lakeLinks = [...listHtml.matchAll(/<a\\b[^>]*\\bhref\\s*=\\s*([\\"'])(.*?)\\1/gi)]
+        const advertisedCount = Number(visibleText(completeLakeList).match(/\bBrowse all\s+(\d+)\s+lakes for\b/i)?.[1]);
+        const listHtml = completeLakeList.match(/<ul\b[^>]*>([\s\S]*?)<\/ul>/i)?.[1] ?? "";
+        const lakeLinks = [...listHtml.matchAll(/<a\b[^>]*\bhref\s*=\s*([\"'])(.*?)\1/gi)]
           .map((match) => match[2])
-          .filter((href) => /^\\/fishing\\/lakes\\/[a-z0-9-]+$/.test(href));
+          .filter((href) => /^\/fishing\/lakes\/[a-z0-9-]+$/.test(href));
         if (!Number.isSafeInteger(advertisedCount) || advertisedCount <= 0 ||
             lakeLinks.length !== advertisedCount || new Set(lakeLinks).size !== advertisedCount)
           failures.push(path + ": incomplete/duplicate SSR lake inventory: advertised " + advertisedCount +
