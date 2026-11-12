@@ -19,6 +19,9 @@ on:
       - 'src/data/sports-venue-guide-galaxy.ts'
       - 'src/components/editorial/TexasEventCarousel.tsx'
       - '.github/workflows/sports-venue-collection-authority.yml'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
   schedule:
     # Weekly Monday morning Central time. Validate both code and uncached live output.
     - cron: '23 14 * * 1'
@@ -48,7 +51,7 @@ jobs:
 
   uncached-production:
     name: Fresh 21-page SSR/canonical/source-view audit
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
