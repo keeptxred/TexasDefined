@@ -8,6 +8,7 @@ on:
       - 'scripts/ci/verify-fishing-planner-fresh-chrome.mjs'
       - 'scripts/ci/diagnose-fishing-planner-hydration.mjs'
       - 'scripts/ci/compare-fishing-map-ssr-dom.mjs'
+      - 'src/components/fishing/FishingResultsMap.tsx'
       - 'scripts/ci/verify-fishing-seasons-live.mjs'
       - 'scripts/ci/verify-fishing-compare-html.mjs'
       - 'scripts/ci/verify-fishing-compare-html.test.mjs'
@@ -43,9 +44,13 @@ jobs:
           path: .artifacts/fishing-planner-fresh-live-audit.json
           retention-days: 30
           if-no-files-found: warn
-      - name: Validate acceptance verifier syntax in PR
+      - name: Validate acceptance and Chrome verifier source syntax in PR
         if: github.event_name == 'pull_request'
-        run: node --check scripts/ci/verify-fishing-live-content.mjs
+        run: |
+          node --check scripts/ci/verify-fishing-live-content.mjs
+          node --check scripts/ci/verify-fishing-planner-fresh-chrome.mjs
+          node --check scripts/ci/diagnose-fishing-planner-hydration.mjs
+          node --check scripts/ci/compare-fishing-map-ssr-dom.mjs
       - name: Test semantic fishing comparison and source-policy acceptance
         run: node --test scripts/ci/verify-fishing-compare-html.test.mjs
       - name: Check access browser verifier syntax in PR
@@ -64,7 +69,7 @@ jobs:
 
 
   browser-regrade:
-    if: github.event_name == 'pull_request'
+    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     name: Fresh Chrome desktop/mobile fishing planner authority
     runs-on: ubuntu-latest
     timeout-minutes: 12
@@ -96,7 +101,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fishing-planner-desktop-mobile-fresh
-          path: artifacts/fishing-planner-fresh-chrome
+          path: |
+            artifacts/fishing-planner-fresh-chrome
             artifacts/fishing-planner-hydration-diagnostics
             artifacts/fishing-planner-dom-diff
           retention-days: 30
