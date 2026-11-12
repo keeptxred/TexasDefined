@@ -61,6 +61,7 @@ const prebuildChecks = [
   ['SEO/BING/FOOTBALL', 'Keep Bing staged-school discovery separate from Google indexability', 'node', ['scripts/ci/validate-bing-football-sitemap-policy.mjs']],
   ['SEO/BING/FOOTBALL', 'Syntax-check bounded production Bing supplemental sitemap acceptance', 'node', ['--check', 'scripts/ci/verify-bing-football-sitemap-production.mjs']],
   ['FOOTBALL/DIRECTORY', 'Validate UIL directory URLs, reciprocal links and canonical/indexing guards', 'python3', ['scripts/ci/validate_football_directory_navigation.py']],
+  ['FOOTBALL/B017/THIRD-FIVE', 'Verify third five distinct campus county and school source guides', 'node', ['scripts/ci/verify-football-b017-third-five-source.mjs']],
   ['FOOTBALL/B017/SECOND-FIVE', 'Verify five additional school-specific guides and exact source-only registry status', 'node', ['scripts/ci/verify-football-b017-second-five-source.mjs']],
   ['FOOTBALL/B017/FIRST-FIVE', 'Verify five distinct official-source Batch017 football guides and reciprocal county links without Chrome promotion', 'node', ['scripts/ci/verify-football-b017-first-five-source.mjs']],
   ['FOOTBALL/B015', 'Validate first three Batch015 school guides, canonical SSR and reciprocal county links without promotion', 'node', ['scripts/ci/verify-football-b015-first-three-source.mjs']],

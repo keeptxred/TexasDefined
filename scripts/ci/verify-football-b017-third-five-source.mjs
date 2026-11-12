@@ -1,0 +1,32 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const read=p=>fs.readFileSync(p,'utf8');
+const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+const source=read('src/data/high-school-football/program-editorial-b017-group3.ts');
+const edges=read('src/data/high-school-football/batch017-county-edges.ts');
+const server=read('src/data/high-school-football/football-program-profile.server.ts');
+const county=read('src/routes/$kind.$slug.lazy.tsx');
+const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const slugs=['el-paso-riverside','el-paso-socorro','el-paso-ysleta','eldorado','electra'];
+assert.equal(reg.batch.number,17);
+assert.deepEqual(reg.batch.slugs.slice(10,15),slugs);
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,380);
+assert.equal(reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length,15);
+assert.equal(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length,897);
+for(const slug of slugs){
+ const row=reg.schoolRecords.find(x=>x.slug===slug);
+ assert.equal(row?.status,'IMPLEMENTED',slug+' source-only status');
+ assert.equal(row?.actualProductionVerified,false,'No unearned Chrome verification '+slug);
+ assert.ok(source.includes(JSON.stringify(slug)+': {'),'Distinct editorial missing '+slug);
+ assert.ok(edges.includes("slug: '"+slug+"'"),'Missing reciprocal county edge '+slug);
+}
+assert.equal((source.match(/"slug": "/g)||[]).length,5);
+for(const s of ['301 Midway Dr','10150 Alameda Ave','8600 Alameda Ave','205 W Fields Ave','200 W Anderson','Schleicher','Wichita','4AD1FB2026.pdf','6ABBFB2026.pdf','2AD2FB2026.pdf','Eldorado Eagles','El Paso El Dorado','2025 coaching'])assert.ok(source.includes(s),'Missing distinct official source fact '+s);
+assert.ok(server.includes('getBatch017ThirdFiveEditorial(canonicalSlug)'));
+assert.ok(county.includes('BATCH017_FOOTBALL_COUNTY_EDGES.filter'));
+assert.ok(school.includes('BATCH017_FOOTBALL_COUNTY_EDGES.map'));
+assert.equal((edges.match(/county: 'el-paso'/g)||[]).length,13);
+assert.equal((edges.match(/county: 'schleicher'/g)||[]).length,1);
+assert.equal((edges.match(/county: 'wichita'/g)||[]).length,1);
+assert.ok(!source.includes('"season":')&&!source.includes('"photo":'));
+console.log('PASS Batch017 third five: fifteen source implemented, 380 signed historical VERIFIED, distinct El Paso/Schleicher/Wichita counties');
