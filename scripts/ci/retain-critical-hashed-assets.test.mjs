@@ -351,7 +351,7 @@ test('current-build duplicate hashes do not consume bounded old-binary retention
   }
 });
 
-test('old-only transfer attempts stop at 4096 and block deployment if eligible hashes are omitted', async () => {
+test('old-only transfer attempts stop at 6144 and block deployment if eligible hashes are omitted', async () => {
   const tmp = mkdtempSync(join(tmpdir(), 'td-retention-hard-cap-'));
   try {
     const assetFolder = join(tmp, 'assets');
@@ -361,7 +361,7 @@ test('old-only transfer attempts stop at 4096 and block deployment if eligible h
     const digest = createHash('sha256').update(body).digest('hex');
     const now = Date.parse('2026-11-02T17:00:00.000Z');
     const at = new Date(now - 1000).toISOString();
-    const assets = Array.from({ length: 4099 }, (_, i) => ({
+    const assets = Array.from({ length: 6147 }, (_, i) => ({
       path: '/assets/ArticleCard-Historical' + String(i).padStart(4, '0') + '.js',
       wasAvailable: true, preSha256: digest, firstSeenAt: at,
     }));
@@ -374,14 +374,14 @@ test('old-only transfer attempts stop at 4096 and block deployment if eligible h
         return new Response(body, { status: 200, headers: { 'Content-Type': 'text/javascript' } });
       } }), /Old-only asset retention cap exceeded: 3/);
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
-    assert.equal(requests, 4096);
-    assert.equal(report.inspected, 4096);
-    assert.equal(report.retainedCount, 4096);
+    assert.equal(requests, 6144);
+    assert.equal(report.inspected, 6144);
+    assert.equal(report.retainedCount, 6144);
     assert.equal(report.ignoredOld, 3);
     assert.deepEqual(new Set(report.ignoredOldPaths), new Set([
-      '/assets/ArticleCard-Historical4096.js',
-      '/assets/ArticleCard-Historical4097.js',
-      '/assets/ArticleCard-Historical4098.js',
+      '/assets/ArticleCard-Historical6144.js',
+      '/assets/ArticleCard-Historical6145.js',
+      '/assets/ArticleCard-Historical6146.js',
     ]));
     assert.equal(report.unavailable.length, 0);
     assert.ok(report.bytes < 64 * 1024 * 1024);
@@ -395,7 +395,7 @@ test('old-only transfer attempts stop at 4096 and block deployment if eligible h
       retainedAssets: failedSnapshot.retainedAssets,
       omittedAssets: failedSnapshot.omittedAssets,
     }] }, now);
-    assert.equal(recovery.length, 4099);
+    assert.equal(recovery.length, 6147);
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }
@@ -441,7 +441,7 @@ test('1091 observed old-only hashes fit the measured finite 384 MiB budget with 
     assert.equal(report.retainedCount, count);
     assert.equal(report.ignoredOld, 0);
     assert.equal(report.unavailable.length, 0);
-    assert.equal(report.budget.maxFiles, 4096);
+    assert.equal(report.budget.maxFiles, 6144);
     assert.equal(report.budget.maxBytes, 384 * 1024 * 1024);
     assert.equal(report.bytes, count * 56_400);
     assert.ok(report.bytes < report.budget.maxBytes);
@@ -530,7 +530,7 @@ test('verified 72-hour assets exceeding capacity still fail closed at the 384 Mi
     // Every matching original SHA remains mandatory; we increase finite capacity,
     // never silently skip a 72-hour URL or disable the over-budget failure.
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
-    assert.equal(report.budget.maxFiles, 4096);
+    assert.equal(report.budget.maxFiles, 6144);
     assert.equal(report.budget.maxBytes, 384 * 1024 * 1024);
     assert.equal(report.retainedCount, 220);
     assert.equal(requests, 221);
@@ -649,7 +649,7 @@ test('verified original 3 MB state-park chunk survives finite 4 MiB per-file bri
     assert.equal(report.bytes, body.byteLength);
     assert.equal(report.omittedDetails.length, 0);
     assert.equal(report.budget.maxBytes, 384 * 1024 * 1024);
-    assert.equal(report.budget.maxFiles, 4096);
+    assert.equal(report.budget.maxFiles, 6144);
     assert.deepEqual(readFileSync(join(temp, 'assets', 'state-park-heroes-BZc-RXc8.js')), body);
   } finally {
     rmSync(temp, { recursive: true, force: true });
@@ -709,7 +709,7 @@ test('unavailable previously healthy original blocks deployment and preserves it
     assert.equal(report.copied.length,1);
     assert.equal(report.ignoredOld,0);
     assert.equal(report.capacity.remainingOldFileSlots,4094);
-    assert.equal(report.budget.maxFiles,4096);
+    assert.equal(report.budget.maxFiles,6144);
     assert.equal(report.budget.maxBytes,384*1024*1024);
     const snapshot=JSON.parse(readFileSync(snapshotPath,'utf8')).snapshots.at(-1);
     assert.equal(snapshot.omittedAssets.length,1);
