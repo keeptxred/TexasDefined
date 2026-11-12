@@ -35,6 +35,7 @@ assert.equal((field.match(/situation:/g) ?? []).length, 28, "Expect 27 independe
 assert(tServer.includes("allProfiles: profiles.map"), "Complete lake registry was hidden behind featured selection");
 assert(tProfile.includes("data.allProfiles.map"), "Page does not link the complete verified source-backed lake set");
 assert(tProfile.includes("fieldGuide.decisions.map"), "Unique editorial decisions not displayed");
+assert(tProfile.includes("guide.whereToFish.map((item) =>") && tProfile.includes("guide.howToFish.map((item) =>") && (tProfile.match(/list-decimal space-y-4/g) ?? []).length === 2, "Technique numbered lists must use one native ordered-list marker, without duplicate printed numbers");
 assert(tProfile.includes('data.seasons.includes("year-round") ? "All year"') && !tProfile.includes("four seasons, not five"), "Seasonal scope must be described for readers without counting year-round as a fifth season");
 assert(tDirectory.includes("Year-round means a narrower season was not recorded"), "Directory must explain applicability without internal taxonomy language");
 assert(speciesDirectory.includes("Directory records versus standalone guides"), "Directory claims all species have full guides");
