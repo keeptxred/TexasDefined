@@ -12,12 +12,161 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     eyebrow: "Texas outdoors",
     title: "Texas Fishing License: Requirements, Options and Official Links",
     intro: "What to know before you fish Texas public waters, including freshwater and saltwater endorsements, resident and nonresident options, exceptions, digital licenses and where to buy an official license.",
-    updated: "August 20, 2026",
-    quickAnswer: "Most people fishing Texas public waters need a current Texas fishing license with the appropriate freshwater or saltwater endorsement unless a statutory exception applies. Texas Parks and Wildlife is the official source for current packages, fees and exceptions.",
+    updated: "November 12, 2026",
+    quickAnswer: "For public waters, most anglers need a Texas fishing license with the freshwater or saltwater endorsement that matches the water. A resident freshwater package is $30, saltwater $35 and all-water $40 under the current TPWD schedule. Exceptions include children under 17 and most fishing within Texas State Park boundaries; check the exceptions and 2026 ID rules below.",
     sections: [
-      { heading: "Who generally needs a Texas fishing license", paragraphs: ["Texas Parks and Wildlife requires a current license for most people who take or attempt to take fish or other aquatic life from public waters. Resident and nonresident requirements differ, and the Outdoor Annual lists exceptions such as certain age-based and location-based situations."], links: [{ label: "Official TPWD fishing-license requirements", href: "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/fishing-licenses-stamps-tags-packages", external: true }] },
-      { heading: "Freshwater, saltwater and packages", paragraphs: ["The correct package depends on where you fish and your residency status. Freshwater and saltwater endorsements are separate, while all-water and combination packages can cover broader use cases."], links: [{ label: "Fishing licenses and packages", href: "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/fishing-licenses-stamps-tags-packages/fishing-licenses-and-packages", external: true }] },
-      { heading: "Where to buy", paragraphs: ["Official licenses can be purchased through Texas Parks and Wildlife's authorized online sales system and at participating license retailers. Verify the current season and identification requirements before purchase."], links: [{ label: "Official online license sales", href: "https://tpwd.texas.gov/business/licenses/online_sales/index.phtml", external: true }, { label: "Texas fishing guide", href: "/fishing" }] },
+      {
+        "heading": "Which license should you buy?",
+        "paragraphs": [
+          "A freshwater package covers public lakes and rivers. A saltwater package covers coastal waters. If you fish both, an all-water package avoids buying separate endorsements. The numbers below are TPWD's posted recreational package fees, not estimates; confirm the package in the official store before paying.",
+          "For example, a Texas resident planning a weekend at Lake Conroe generally needs the $30 resident freshwater package unless an exception applies. A resident fishing Galveston Bay instead generally needs the $35 saltwater package. Someone fishing both could choose the $40 resident all-water package. These examples concern ordinary adult recreational anglers, not commercial fishing or guide licenses."
+        ],
+        "table": {
+          "caption": "Texas Parks and Wildlife recreational fishing license package fees — official fee schedule checked November 12, 2026",
+          "columns": [
+            "Package",
+            "Texas resident",
+            "Nonresident"
+          ],
+          "rows": [
+            [
+              "Freshwater (standard)",
+              "$30",
+              "$58"
+            ],
+            [
+              "Saltwater (standard)",
+              "$35",
+              "$63"
+            ],
+            [
+              "All-water (standard)",
+              "$40",
+              "$68"
+            ],
+            [
+              "One-day all-water",
+              "$11",
+              "$16"
+            ],
+            [
+              "Senior resident freshwater (65+)",
+              "$12",
+              "Not applicable"
+            ],
+            [
+              "Senior resident saltwater (65+)",
+              "$17",
+              "Not applicable"
+            ],
+            [
+              "Senior resident all-water (65+)",
+              "$22",
+              "Not applicable"
+            ],
+            [
+              "Year-from-purchase all-water",
+              "$47",
+              "Not available"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "label": "TPWD official packages and fees",
+            "href": "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/fishing-licenses-stamps-tags-packages/fishing-licenses-and-packages",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Understand the license year before buying",
+        "paragraphs": [
+          "Most standard annual freshwater, saltwater and all-water packages expire August 31 of the license year, regardless of when you purchase them. That means an ordinary annual license bought late in August has a shorter useful life than one bought in early September. TPWD also sells a $47 year-from-purchase all-water package for Texas residents, valid through the end of the purchase month in the following license year.",
+          "A one-day all-water license is a different choice: select the day you intend to fish. For a short visit, compare that cost against an annual package before buying. License fees are nonrefundable and cannot be transferred or exchanged."
+        ],
+        "links": [
+          {
+            "label": "TPWD license duration and purchasing options",
+            "href": "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/fishing-licenses-stamps-tags-packages/fishing-licenses-and-packages",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Who can fish without buying a license?",
+        "paragraphs": [
+          "Everyone under age 17 is exempt from the recreational fishing-license requirement, whether resident or nonresident. Texas residents born before January 1, 1931 are also exempt. Other exemptions are narrower, including specific disability-related supervised fishing and certain older Louisiana or Oklahoma nonresidents. Age 65 alone does not make most Texas residents exempt; discounted senior packages generally apply.",
+          "Within the boundaries of a Texas State Park, visitors can generally fish without buying a fishing license or endorsement. This is not a blanket exemption for every city, county or Corps of Engineers park, and the state-park exception does not cancel bag limits, length limits or special tagging rules. Check the park boundary with staff, especially on a shoreline that crosses park property."
+        ],
+        "links": [
+          {
+            "label": "TPWD license exemptions",
+            "href": "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/fishing-licenses-stamps-tags-packages/fishing-licenses-and-packages",
+            "external": true
+          },
+          {
+            "label": "TPWD state park fishing FAQ",
+            "href": "https://tpwd.texas.gov/fishboat/fish/programs/familyfish/faqs/",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "ID checks changed on August 3, 2026",
+        "paragraphs": [
+          "TPWD's new purchase requirement means a recreational hunting or fishing license holder age 17 or older must be present and show valid proof of identification for an in-person purchase. An unexpired REAL ID from a U.S. state or territory satisfies the ID rule. Temporary or limited-term driver licenses and ID documents may require additional supporting documentation.",
+          "Online buyers must have each individual license holder's identity verified. TPWD says foreign residents cannot currently purchase online. Check the official ID validation guidance before travelling to a retailer, and avoid a third-party site that requests identity information without an official state checkout."
+        ],
+        "links": [
+          {
+            "label": "Official 2026 TPWD purchase and ID requirements",
+            "href": "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/purchase-requirements",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Freshwater versus saltwater endorsements",
+        "paragraphs": [
+          "A freshwater endorsement is ordinarily required in Texas public fresh water, and a saltwater endorsement is ordinarily required in Texas public salt water when a license is required. These endorsements are already included in the corresponding packages in the table above; do not add the same endorsement twice. A red drum tag and spotted seatrout tag may come with qualifying saltwater packages under TPWD's current rules.",
+          "Fish limits still depend on the waterbody and species. A freshwater package does not exempt you from lake-specific length or bag limits; a coastal package does not replace rules for red drum, spotted seatrout or other regulated species. Check the Outdoor Annual before the trip, not only the license receipt."
+        ],
+        "links": [
+          {
+            "label": "TPWD fishing endorsements",
+            "href": "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/fishing-licenses-stamps-tags-packages/fishing-endorsements-and-tags",
+            "external": true
+          },
+          {
+            "label": "2026–27 fishing regulations",
+            "href": "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/general-fishing-regulations",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Where to buy and what to keep",
+        "paragraphs": [
+          "Buy from TPWD's official online sales system or a listed authorized retailer. Have identification ready, confirm resident status, select the correct water type and season, review any required tags, and save the license or its permitted digital proof before leaving home.",
+          "A common mistake is buying an annual freshwater package when you intend to fish a coastal bay, or assuming a state-park fishing exemption applies to a nearby municipal shoreline. Check the actual location on a map before paying; if you change plans after purchase, license fees are not refundable."
+        ],
+        "links": [
+          {
+            "label": "Official TPWD online sales",
+            "href": "https://tpwd.texas.gov/business/licenses/online_sales/index.phtml",
+            "external": true
+          },
+          {
+            "label": "Texas fishing access directory",
+            "href": "/fishing/access"
+          },
+          {
+            "label": "Texas fishing regulations",
+            "href": "/fishing/regulations"
+          }
+        ]
+      }
     ],
     related: [{ label: "Texas fishing", href: "/fishing" }, { label: "Fishing regulations", href: "/fishing/regulations" }, { label: "Texas lakes", href: "/fishing/lakes" }, { label: "Best places to camp in Texas", href: "/best-places-to-go-camping-in-texas" }],
   },
