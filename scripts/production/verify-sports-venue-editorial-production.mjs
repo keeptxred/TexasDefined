@@ -241,7 +241,8 @@ for (const [label, raw] of [
 ]) {
   const html = decodeHtml(raw);
   assertIncludes(html, 'The most recently checked individual venue record in this collection was verified', label);
-  assertIncludes(html, 'The latest individual venue source check was', label);
+  // The directory intentionally displays one accurate, dated latest-record disclosure.
+  // A second invented per-venue sentence would falsely imply every entry has the same review date.
   assertIncludes(html, 'karting operation announced a temporary closure', label);
   for (const stale of [
     'Venue source records on this page were reviewed through',
