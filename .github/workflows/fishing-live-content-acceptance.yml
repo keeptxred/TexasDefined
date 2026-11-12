@@ -4,6 +4,11 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-fishing-live-content.mjs'
+      - 'scripts/ci/audit-fishing-planner-fresh-live.mjs'
+      - 'scripts/ci/verify-fishing-planner-fresh-chrome.mjs'
+      - 'scripts/ci/diagnose-fishing-planner-hydration.mjs'
+      - 'scripts/ci/compare-fishing-map-ssr-dom.mjs'
+      - 'src/components/fishing/FishingResultsMap.tsx'
       - 'scripts/ci/verify-fishing-seasons-live.mjs'
       - 'scripts/ci/verify-fishing-compare-html.mjs'
       - 'scripts/ci/verify-fishing-compare-html.test.mjs'
@@ -27,9 +32,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate acceptance verifier syntax in PR
+      - name: Independently audit uncached canonical and direct Worker fishing planner
+        run: |
+          node --check scripts/ci/audit-fishing-planner-fresh-live.mjs
+          node scripts/ci/audit-fishing-planner-fresh-live.mjs
+      - name: Preserve independently fetched planner authority evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-planner-uncached-live-audit
+          path: .artifacts/fishing-planner-fresh-live-audit.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Validate acceptance and Chrome verifier source syntax in PR
         if: github.event_name == 'pull_request'
-        run: node --check scripts/ci/verify-fishing-live-content.mjs
+        run: |
+          node --check scripts/ci/verify-fishing-live-content.mjs
+          node --check scripts/ci/verify-fishing-planner-fresh-chrome.mjs
+          node --check scripts/ci/diagnose-fishing-planner-hydration.mjs
+          node --check scripts/ci/compare-fishing-map-ssr-dom.mjs
       - name: Test semantic fishing comparison and source-policy acceptance
         run: node --test scripts/ci/verify-fishing-compare-html.test.mjs
       - name: Check access browser verifier syntax in PR
@@ -46,3 +67,43 @@ jobs:
           node scripts/ci/verify-fishing-live-content.mjs
           node scripts/ci/verify-fishing-seasons-live.mjs
 
+
+  browser-regrade:
+    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    name: Fresh Chrome desktop/mobile fishing planner authority
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Use isolated system Chrome and Playwright without changing dependencies
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-planner-fresh-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Compare map SSR parser and after-hydration DOM structures
+        run: |
+          node --check scripts/ci/compare-fishing-map-ssr-dom.mjs
+          node scripts/ci/compare-fishing-map-ssr-dom.mjs
+      - name: Diagnose live React hydration mismatches on planner and controls
+        run: |
+          node --check scripts/ci/diagnose-fishing-planner-hydration.mjs
+          node scripts/ci/diagnose-fishing-planner-hydration.mjs
+      - name: Verify real uncached visitor page on desktop and mobile
+        run: |
+          node --check scripts/ci/verify-fishing-planner-fresh-chrome.mjs
+          node scripts/ci/verify-fishing-planner-fresh-chrome.mjs
+      - name: Retain fresh Chrome screenshots and interaction evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fishing-planner-desktop-mobile-fresh
+          path: |
+            artifacts/fishing-planner-fresh-chrome
+            artifacts/fishing-planner-hydration-diagnostics
+            artifacts/fishing-planner-dom-diff
+          retention-days: 30
+          if-no-files-found: warn
