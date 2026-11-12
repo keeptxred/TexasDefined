@@ -179,7 +179,7 @@ const surfaces = [
   ['fishing-vegetation-guide', '/fishing/vegetation', 'Fishing Aquatic Vegetation in Texas'],
   ['spinnerbaits-detail-route', '/fishing/techniques/spinnerbaits', 'How to Fish Spinnerbaits in Texas'],
   ['topwater-detail-route', '/fishing/techniques/topwater', 'How to Fish Topwater in Texas'],
-  ['trolling-detail-route', '/fishing/techniques/trolling', 'How to Fish Trolling in Texas'],
+  ['trolling-detail-route', '/fishing/techniques/trolling', 'How to Troll for Fish in Texas'],
   ['vertical-jigging-detail-route', '/fishing/techniques/vertical-jigging', 'How to Fish Vertical Jigging in Texas'],
   ['jigs-and-minnows-detail-route', '/fishing/techniques/jigs-and-minnows', 'How to Fish Jigs and Minnows in Texas'],
   ['live-bait-detail-route', '/fishing/techniques/live-bait', 'How to Fish Live Bait in Texas'],
