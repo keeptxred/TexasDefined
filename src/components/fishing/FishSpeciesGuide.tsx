@@ -169,8 +169,8 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
               </select>
             </label>
           </div>
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground" role="status" aria-live="polite">
-            <p>{filteredLakes.length} of {rankedLakes.length} source-backed lakes shown. Quality tiers describe documented fishery context, not current bite conditions.</p>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
+            <p role="status" aria-live="polite">{filteredLakes.length} of {rankedLakes.length} source-backed lakes shown. Quality tiers describe documented fishery context, not current bite conditions.</p>
             {hasLakeFilters ? <button type="button" onClick={() => { setLakeSearch(""); setQualityFilter("all"); setRegionFilter("all"); }}
               className="border-b border-primary pb-1 font-semibold text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Clear lake filters</button> : null}
           </div>
