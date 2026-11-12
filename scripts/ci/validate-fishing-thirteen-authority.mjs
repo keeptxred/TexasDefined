@@ -13,6 +13,9 @@ assert.equal(paths.length, 13, "Exactly 13 authority URLs must be checked");
 const route = read("src/data/fishing/technique-routing.ts");
 const field = read("src/data/fishing/technique-field-guide.ts");
 const tServer = read("src/data/fishing/technique-data.server.ts");
+const techniqueGuide = read("src/data/fishing/technique-guide-content.ts");
+const techniqueAuthority = read("src/data/fishing/technique-authority-content.ts");
+const pairWatch = read("scripts/ci/verify-42-page-pairs-production.mjs");
 const tProfile = read("src/components/fishing/FishingTechniqueProfile.tsx");
 const tDirectory = read("src/components/fishing/FishingTechniqueDirectory.tsx");
 const speciesDirectory = read("src/components/fishing/FishSpeciesDirectory.tsx");
@@ -61,4 +64,15 @@ for (const p of paths) {
     : "src/routes/fishing.species.largemouth-bass.tsx";
   assert(fs.existsSync(sourcePath), `Missing route for ${p}`);
 }
+// Editorial depth and legality are content contracts, not assertions against retired wording.
+for (const phrase of ["functioning aerator", "slip-sinker", "crappie brush", "hook placement", "float stop", "personally caught bait"]) {
+  assert(techniqueGuide.includes(phrase), `Live-bait field guide lost method-specific practical advice: ${phrase}`);
+}
+for (const phrase of ["dated receipt", "public water", "drain vessels", "lake water"]) {
+  assert(techniqueAuthority.includes(phrase), `Live-bait TPWD handling explanation missing: ${phrase}`);
+}
+assert(pairWatch.includes("incomplete/duplicate SSR lake inventory") && pairWatch.includes("new Set(lakeLinks).size"),
+  "The 42-pair watchdog must verify complete, unique SSR lake links rather than a retired copy string");
+assert(pairWatch.includes('path === "/fishing/techniques/trolling" ? "How to Troll for Fish in Texas"'),
+  "The 42-pair watchdog must accept the naturally worded trolling title");
 console.log("PASS: 13 Texas fishing authority routes; 9 unique field guides; verified relationships; honest coverage; central closure exclusion; current TPWD legal explanations.");
