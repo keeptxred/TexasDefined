@@ -19,18 +19,26 @@ const SportsVenueLandingIndex = lazy(() => import('@/components/sports/SportsVen
 export const Route = createFileRoute('/sports-venues')({
   loader: async () => {
     const { entitiesByKind } = await import('@/data/knowledge-graph');
-    const { SPORTS_VENUE_COMPARISON_ROWS } = await import('@/data/sports-venue-comparison');
+    const [{ SPORTS_VENUE_COMPARISON_ROWS }, { getSportsVenueEditorialDescriptions }] = await Promise.all([
+      import('@/data/sports-venue-comparison'),
+      import('@/data/sports-venue-editorial.functions'),
+    ]);
     const seenVenuePaths = new Set<string>();
+    const curatedVenues = entitiesByKind('sports-venue')
+      .map(applyCurrentEntityCorrections)
+      .filter(isIndexableEntityPage)
+      .filter((venue) => {
+        const venuePath = canonicalEntityPath(venue);
+        if (seenVenuePaths.has(venuePath)) return false;
+        seenVenuePaths.add(venuePath);
+        return true;
+      });
+    const editorialDescriptions = await getSportsVenueEditorialDescriptions({
+      data: { ids: curatedVenues.map((venue) => venue.id) },
+    });
     return {
-      venues: entitiesByKind('sports-venue')
-        .filter(isIndexableEntityPage)
-        .map(applyCurrentEntityCorrections)
-        .filter((venue) => {
-          const venuePath = canonicalEntityPath(venue);
-          if (seenVenuePaths.has(venuePath)) return false;
-          seenVenuePaths.add(venuePath);
-          return true;
-        })
+      venues: curatedVenues
+        .map((venue) => editorialDescriptions[venue.id] ? { ...venue, description: editorialDescriptions[venue.id] } : venue)
         .sort((a, b) => a.name.localeCompare(b.name)),
       catalogCount: SPORTS_VENUE_COMPARISON_ROWS.length,
       sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: '/sports-venues' } }),
