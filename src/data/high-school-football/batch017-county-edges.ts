@@ -11,4 +11,9 @@ export const BATCH017_FOOTBALL_COUNTY_EDGES = [
   { slug: 'el-paso-montwood', name: 'Montwood Rams', county: 'el-paso', context: 'Socorro ISD Montwood High School, 12000 Montwood Drive; UIL 6A District 1' },
   { slug: 'el-paso-parkland', name: 'Parkland Matadors', county: 'el-paso', context: 'Ysleta ISD Parkland High School, 5932 Quail Ave; UIL 5A Division I District 1' },
   { slug: 'el-paso-pebble-hills', name: 'Pebble Hills Spartans', county: 'el-paso', context: 'Socorro ISD Pebble Hills High School, 14400 Pebble Hills Blvd; UIL 6A District 1' },
+  { slug: 'el-paso-riverside', name: 'Riverside Rangers', county: 'el-paso', context: 'Ysleta ISD Riverside High School campus, 301 Midway Dr; UIL 4A Division I District 1' },
+  { slug: 'el-paso-socorro', name: 'Socorro Bulldogs', county: 'el-paso', context: 'Socorro ISD Socorro High School campus, 10150 Alameda Ave in Socorro; UIL 6A District 1' },
+  { slug: 'el-paso-ysleta', name: 'Ysleta Indians', county: 'el-paso', context: 'Ysleta ISD Ysleta High School campus, 8600 Alameda Ave; UIL 4A Division I District 1' },
+  { slug: 'eldorado', name: 'Eldorado Eagles', county: 'schleicher', context: 'Schleicher County ISD Eldorado High School, 205 W Fields Ave; distinct from El Paso El Dorado Aztecs' },
+  { slug: 'electra', name: 'Electra Tigers', county: 'wichita', context: 'Electra ISD JH/HS campus, 200 W Anderson; UIL 2A Division II District 6' },
 ] as const;

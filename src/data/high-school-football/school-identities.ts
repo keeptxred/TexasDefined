@@ -14,6 +14,10 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'electra', mascot: 'Tigers', sourceUrl: 'https://www.electraisd.net/jhhs-home', sourceLabel: 'Electra Texas ISD official Electra Tigers JH/HS school identity', verifiedAt: '2026-11-12' },
+  { slug: 'eldorado', mascot: 'Eagles', sourceUrl: 'https://www.scisd.net/', sourceLabel: 'Schleicher County ISD official Eldorado Eagles school program; not El Paso El Dorado Aztecs', verifiedAt: '2026-11-12' },
+  { slug: 'el-paso-ysleta', mascot: 'Indians', sourceUrl: 'https://ysletahigh.yisd.net/', sourceLabel: 'Ysleta High first-party Indians team and Once an Indian school identity', verifiedAt: '2026-11-12' },
+  { slug: 'el-paso-riverside', mascot: 'Rangers', sourceUrl: 'https://www.yisd.net/o/riversidehigh', sourceLabel: 'Riverside High official Ysleta ISD campus identifies the Rangers and Pride of the Lower Valley', verifiedAt: '2026-11-12' },
   // Batch017 second five: official school-controlled mascot sources. Identity only; not results, photographs or Chrome certification.
   { slug: 'el-paso-irvin', mascot: 'Rockets', sourceUrl: 'https://www.episd.org/o/ihs/live-feed', sourceLabel: 'Irvin High School first-party 2026 Rocket student and football posts', verifiedAt: '2026-11-12' },
   { slug: 'el-paso-jefferson', mascot: 'Silver Foxes', sourceUrl: 'https://www.episd.org/o/jhs/page/school-information/', sourceLabel: 'Jefferson High School school information identifies mascot Silver Fox, Silver Foxes as campus collective', verifiedAt: '2026-11-12' },
