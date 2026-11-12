@@ -1,0 +1,135 @@
+name: Complete TPWD deer county rule monitoring
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/data/monitor-deer-county-rules.mjs'
+      - 'scripts/data/aggregate-deer-county-rules.mjs'
+      - '.github/workflows/deer-county-rules-full-coverage.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/data/monitor-deer-county-rules.mjs'
+      - 'scripts/data/aggregate-deer-county-rules.mjs'
+      - '.github/workflows/deer-county-rules-full-coverage.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '17 15 * * 3'
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+concurrency:
+  group: deer-all-county-rules-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  source-contract:
+    name: Check full 254-county coverage contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          node --check scripts/data/monitor-deer-county-rules.mjs
+          node --check scripts/data/aggregate-deer-county-rules.mjs
+          node scripts/data/monitor-deer-county-rules.mjs --self-test
+
+  shards:
+    name: Official county shard ${{ matrix.shard }}
+    needs: source-contract
+    if: github.event_name != 'pull_request'
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify unique official county subset
+        env:
+          DEER_COUNTY_SHARD: ${{ matrix.shard }}
+        run: node scripts/data/monitor-deer-county-rules.mjs
+      - name: Keep per-county official source and fault evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deer-county-shard-${{ matrix.shard }}
+          path: artifacts/deer-county-monitor/shard-${{ matrix.shard }}.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  full-audit:
+    name: Confirm all 254 official TPWD county sources
+    needs: [source-contract, shards]
+    if: always() && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Download the seven current county subsets
+        uses: actions/download-artifact@v4
+        with:
+          pattern: deer-county-shard-*
+          path: artifacts/deer-county-monitor
+          merge-multiple: true
+      - name: Recover previous successful source-only snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          previous="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow deer-county-rules-full-coverage.yml \
+            --status success --limit 3 --json databaseId --jq '.[0].databaseId // empty')"
+          if [[ -n "$previous" ]] && gh run download "$previous" --repo "$GITHUB_REPOSITORY" \
+            -n deer-county-complete-snapshot -D artifacts/deer-county-prior; then
+            echo 'DEER_COUNTY_PREVIOUS=artifacts/deer-county-prior/county-snapshot.json' >> "$GITHUB_ENV"
+          else
+            echo 'Initial 254-county baseline or expired prior artifact; retain fresh evidence only.'
+          fi
+      - name: Verify full coverage and detect county-specific legal source changes
+        id: aggregate
+        run: node scripts/data/aggregate-deer-county-rules.mjs
+      - name: Open or resolve one deduplicated coverage alert
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='TPWD deer 254-county verification requires attention'
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$title in:title" \
+            --json title,number --jq '.[] | select(.title == "TPWD deer 254-county verification requires attention") | .number' | head -1)"
+          if [[ -f artifacts/deer-county-monitor/summary.json ]] && \
+             [[ "$(jq -r '.failures | length' artifacts/deer-county-monitor/summary.json)" == '0' ]]; then
+            if [[ -n "$existing" ]]; then
+              gh issue close "$existing" --repo "$GITHUB_REPOSITORY" \
+                --comment "All 254 TPWD deer county URLs have recovered and passed. Official source evidence: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            fi
+            echo 'All 254 official county records verified without publishing inferred legal claims.'
+          elif [[ -z "$existing" ]]; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" \
+              --body "At least one official TPWD county source, date or digest failed bounded verification. No unverified legal instructions were published. Run and reports: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          fi
+      - name: Retain complete source snapshot, county changes and validation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deer-county-complete-snapshot
+          path: |
+            artifacts/deer-county-monitor/county-snapshot.json
+            artifacts/deer-county-monitor/summary.json
+          if-no-files-found: warn
+          retention-days: 30
