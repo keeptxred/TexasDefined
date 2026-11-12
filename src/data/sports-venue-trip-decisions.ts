@@ -47,7 +47,7 @@ export const SPORTS_VENUE_TRIP_DECISIONS: Record<string, readonly SportsVenueTri
   ],
   lubbock: [
     { title: 'Texas Tech football', detail: 'Galaxy Stadium is the university’s football ground, formerly called Jones AT&T Stadium. Use the current athletics parking, shuttle and gate instructions; older maps may still use the prior venue name.', venueSlug: 'jones-att-stadium' },
-    { title: 'Arena nights', detail: 'United Supermarkets Arena hosts basketball and other indoor events with different arrival needs. For a single arena event, do not plan around football Saturday’s campus traffic assumptions.', venueSlug: 'united-supermarkets-arena' },
+    { title: 'United Supermarkets Arena nights', detail: 'United Supermarkets Arena hosts basketball and other indoor events with different arrival needs. For a single arena event, do not plan around football Saturday’s campus traffic assumptions.', venueSlug: 'united-supermarkets-arena' },
     { title: 'Make the travel distance count', detail: 'Lubbock is far from Texas’s largest metros. For an evening event, compare overnight lodging with a late return drive before buying tickets.' },
   ],
   football: [
