@@ -58,7 +58,13 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
  // No asset is eligible without prior 200/MIME/original SHA-256 proof, exact bytes,
  // its firstSeenAt inside 72h, and strict 4 MiB/asset size. If ANY candidate
  // exceeds either finite cap or cannot be retrieved, fail BEFORE Worker replace.
-const LIMIT_FILES = 4096;
+// On Nov 12, 2026 the live handoff proved 4,175 distinct healthy in-window
+// hashes (about 286 MiB), exceeding the former 4,096-file cap by 79.
+// Keep fail-closed original-byte/SHA/MIME, 72h and 384 MiB checks unchanged.
+// 6,144 retained old files plus the current build stay below Cloudflare's
+// documented 20,000 static assets/Worker-version Free-plan ceiling. Keep
+// checking the real per-version platform count at publication as well.
+const LIMIT_FILES = 6144;
 const LIMIT_BYTES = 384 * 1024 * 1024;
 // 2026-11-08 incident: run 42450404917 preserved each original SHA but
 // refused /assets/state-park-heroes-BZc-RXc8.js (3,004,913 bytes) under the
@@ -168,7 +174,7 @@ export async function retain({
         firstSeenAt: asset.firstSeenAt });
       continue;
     }
-    // Enforce a bounded ceiling of 4,096 attempted old-only
+    // Enforce a bounded ceiling of 6,144 attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
