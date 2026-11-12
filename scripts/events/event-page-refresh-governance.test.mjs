@@ -261,3 +261,65 @@ test('scheduled source monitor enumerates all URLs with bounded calls and writes
     assert.ok(selectSourceReviewTargets(collectEventPageRefreshInventory(f.root), new Date('2026-11-07T13:00:00Z')).length > 0);
   } finally { f.dispose(); }
 });
+
+
+test('overdue distant event guides receive weekly source verification slots without fake date refreshes', async () => {
+  const f = fixture();
+  try {
+    const file = 'src/data/major-event-index.ts';
+    f.put(file, fs.readFileSync(path.join(f.root, file), 'utf8').replace(
+      '    ];',
+      `      { slug: "long-range-overdue", startDate: "2028-04-01",
+        officialUrl: "https://example.org/old-event", sourceCheckedAt: "2026-01-01" },
+    ];`,
+    ));
+    const inventory = collectEventPageRefreshInventory(f.root);
+    const asOf = new Date('2026-11-07T13:00:00Z');
+    const target = inventory.permanent.find(e => e.slug === 'long-range-overdue');
+    assert.equal(refreshCadenceDays(target, asOf), 30, 'distant guides otherwise have monthly checks');
+    const slots = Array.from({ length: 14 }, (_, i) =>
+      new Date(asOf.getTime() + i * 86400000))
+      .filter(day => selectSourceReviewTargets(inventory, day)
+        .some(item => item.path === '/event/long-range-overdue'));
+    assert.equal(slots.length, 2, 'overdue source must receive a deterministic weekly check');
+    const report = await reviewEventSources({
+      root: f.root, now: slots[0],
+      outputPath: path.join(f.root, 'overdue-weekly.json'),
+      fetchImpl: async () => new Response(
+        '<html><body>' + 'Official organizer event details '.repeat(12) + '</body></html>',
+        { status: 200, headers: { 'Content-Type': 'text/html' } },
+      ),
+    });
+    const scheduled = report.schedule.find(e => e.path === '/event/long-range-overdue');
+    assert.equal(scheduled.cadenceDays, 7);
+    assert.equal(scheduled.editorialCadenceDays, 30);
+    assert.equal(scheduled.expeditedOverdueReview, true);
+    assert.equal(scheduled.nextSourceReviewAt, slots[0].toISOString().slice(0, 10));
+    assert.equal(report.observations.find(e => e.path === scheduled.path)?.sourceState,
+      'reachable-not-date-verified');
+    assert.ok(report.editorialBacklog.some(e => e.path === scheduled.path),
+      'HTTP reachability never clears overdue editorial-verification debt');
+  } finally { f.dispose(); }
+});
+
+
+test('the entire real editorial backlog has a bounded seven-day GitHub source-check schedule', () => {
+  const inventory = collectEventPageRefreshInventory();
+  const asOf = new Date();
+  const backlog = fullEditorialFreshnessBacklog(inventory, asOf);
+  const slots = new Map();
+  for (let i = 0; i < 7; i++) {
+    const day = new Date(Date.UTC(asOf.getUTCFullYear(), asOf.getUTCMonth(),
+      asOf.getUTCDate() + i, 13, 7));
+    for (const record of selectSourceReviewTargets(inventory, day)) {
+      if (!slots.has(record.path)) slots.set(record.path, day.toISOString().slice(0, 10));
+    }
+  }
+  for (const record of backlog) {
+    assert.ok(slots.has(record.path),
+      'No seven-day verification slot for stale event: ' + record.path);
+    assert.ok(record.nextSourceReviewAt <= slots.get(record.path),
+      'Inventory next-review metadata must match the actual scheduled date: ' + record.path);
+  }
+  assert.deepEqual(validateEventRefreshCoverage(inventory), []);
+});
