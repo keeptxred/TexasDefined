@@ -303,17 +303,17 @@ export const reviewedAttractionDestinations: Destination[] = [
       {
         "question": "Does every visitor need a reservation?",
         "answer": "Yes. The operator requires a ticket or member reservation, including for infants.",
-        "sourceUrl": "https://hbg.org/visit/"
+        "sourceUrl": "https://hbg.org/about/questions/"
       },
       {
         "question": "Is parking free?",
         "answer": "Yes, the operator lists free on-site parking, subject to space availability.",
-        "sourceUrl": "https://hbg.org/visit/"
+        "sourceUrl": "https://hbg.org/about/questions/"
       },
       {
         "question": "How long should I plan to stay?",
         "answer": "The operator estimates a typical visit at 1.5–2 hours.",
-        "sourceUrl": "https://hbg.org/visit/"
+        "sourceUrl": "https://hbg.org/about/questions/"
       }
     ],
     "authorityGuide": {
@@ -360,6 +360,11 @@ export const reviewedAttractionDestinations: Destination[] = [
           "label": "Houston Botanic Garden — official visit and ticket information",
           "url": "https://hbg.org/visit/",
           "scope": "Official visitor rules, operating details and access information"
+        },
+        {
+          "label": "Houston Botanic Garden — official ticket, parking and accessibility FAQs",
+          "url": "https://hbg.org/about/questions/",
+          "scope": "Timed tickets and infant reservations, visit length, parking, accessibility, transit and visitor rules"
         }
       ]
     },
