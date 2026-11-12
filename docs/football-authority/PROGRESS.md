@@ -1,3 +1,7 @@
+## 2026-11-12 — Batch017 fourth five campus sources authored (not production verified)
+
+Elgin (school campus Travis County, state TDLR 14000 County Line Road), Elkhart (Anderson, school contact differs from NCES physical address), Elysian Fields (Harrison campus distinct from Panola-reaching district), Ennis (Ellis, school address vs match venue), and Era (Cooke, JV and varsity distinguished) each now have a separate first-party/UIL research guide, matching county reciprocal edges, and a mandatory source check. Exactly **380 previous VERIFIED / 20 IMPLEMENTED / 892 NOT_REVIEWED**. No Batch017 Chrome acceptance. Next: Euless Trinity, Eustace, Evadale, Evant, Everman.
+
 ## 2026-11-12 — Batch017 third five source-authored, no production certification
 
 Official-source SSR guides now include Riverside Rangers (Ysleta ISD, El Paso County), Socorro Bulldogs (Socorro ISD, El Paso County), Ysleta Indians (Ysleta ISD, El Paso County), Eldorado Eagles (Schleicher County ISD, Schleicher County), and Electra Tigers (Electra ISD, Wichita County). Eldorado is *not* El Paso El Dorado; Electra district office and JH/HS campus have different addresses. Current coach identities, scores, venues and licensed media are intentionally not fabricated. Shared reciprocal county edges are sourced from official school or state report-card campus contacts. Source-only check `node scripts/ci/verify-football-b017-third-five-source.mjs` is required by canonical Merge Gate.

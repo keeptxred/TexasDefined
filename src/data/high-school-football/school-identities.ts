@@ -14,6 +14,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'era', mascot: 'Hornets', sourceUrl: 'https://www.eraisd.net/athletics', sourceLabel: 'Era ISD school athletics first-party Hornets identity', verifiedAt: '2026-11-12' },
+  { slug: 'ennis', mascot: 'Lions', sourceUrl: 'https://ehs.ennis.k12.tx.us/', sourceLabel: 'Ennis High School district and official school football branding Lions', verifiedAt: '2026-11-12' },
+  { slug: 'elysian-fields', mascot: 'Yellowjackets', sourceUrl: 'https://efhs.efisd.net/', sourceLabel: 'Elysian Fields High official Yellowjackets athletics and 2026 football notices', verifiedAt: '2026-11-12' },
+  { slug: 'elkhart', mascot: 'Elks', sourceUrl: 'https://www.elkhartisd.org/superintendents-message', sourceLabel: 'Elkhart Texas ISD official superintendent letter identifies Elkhart Elks', verifiedAt: '2026-11-12' },
+  { slug: 'elgin', mascot: 'Wildcats', sourceUrl: 'https://ehs.elginisd.net/', sourceLabel: 'Official Elgin High School campus names Wildcats and publishes Texas 2026 school notices', verifiedAt: '2026-11-12' },
   { slug: 'electra', mascot: 'Tigers', sourceUrl: 'https://www.electraisd.net/jhhs-home', sourceLabel: 'Electra Texas ISD official Electra Tigers JH/HS school identity', verifiedAt: '2026-11-12' },
   { slug: 'eldorado', mascot: 'Eagles', sourceUrl: 'https://www.scisd.net/', sourceLabel: 'Schleicher County ISD official Eldorado Eagles school program; not El Paso El Dorado Aztecs', verifiedAt: '2026-11-12' },
   { slug: 'el-paso-ysleta', mascot: 'Indians', sourceUrl: 'https://ysletahigh.yisd.net/', sourceLabel: 'Ysleta High first-party Indians team and Once an Indian school identity', verifiedAt: '2026-11-12' },

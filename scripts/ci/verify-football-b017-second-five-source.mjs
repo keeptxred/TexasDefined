@@ -11,7 +11,7 @@ const slugs=['el-paso-irvin','el-paso-jefferson','el-paso-montwood','el-paso-par
 assert.equal(reg.batch.number,17);
 assert.deepEqual(reg.batch.slugs.slice(5,10),slugs);
 assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,380,'Preserve signed 380 previous certifications');
-assert.ok(reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length>=10,'Keep ten sourced schools as later cohorts land');
+assert.ok(reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length>=10,'Retain at least ten sourced schools');
 assert.ok(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length<=902);
 assert.ok(reg.schoolRecords.filter(x=>x.batch===17).every(x=>x.status!=='VERIFIED'&&x.actualProductionVerified!==true),'No false Batch017 Chrome promotion');
 for(const slug of slugs){
