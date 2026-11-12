@@ -56,25 +56,6 @@ function SportsVenueComparisonPage() {
       return left.localeCompare(right) || a.venue.name.localeCompare(b.venue.name);
     });
   }, [rows, term, typeFilter, sortBy]);
-  const quickAnswers = [
-    {
-      question: 'How many Texas sports venues are in this comparison?',
-      answer: `TexasDefined currently compares ${rows.length} verified sports venue guides across professional, college, high-school, motorsports, golf, Western-sports, tournament and other destination categories.`,
-    },
-    {
-      question: 'Does every Texas sports venue have a capacity listed?',
-      answer: `No. Capacity is shown only when the verified venue profile contains a useful figure. ${withCapacity} of ${rows.length} venue records currently display capacity information; missing values are left blank rather than inferred.`,
-    },
-    {
-      question: 'Are opening dates available for every venue?',
-      answer: `No. ${withOpened} of ${rows.length} venue records currently include an opening year or opening-history note. TexasDefined leaves the field blank when the profile does not contain a verified value.`,
-    },
-    {
-      question: 'Where should I verify current parking, ticketing and entry rules?',
-      answer: 'Open the individual TexasDefined venue guide, then use its official planning links for current parking maps, tickets, gate times, entry rules and event-specific instructions. Those details can change after this comparison is reviewed.',
-    },
-  ];
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -116,15 +97,6 @@ function SportsVenueComparisonPage() {
         })),
       },
       {
-        '@type': 'FAQPage',
-        '@id': `${canonicalUrl}#answers`,
-        mainEntity: quickAnswers.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: { '@type': 'Answer', text: item.answer },
-        })),
-      },
-      {
         '@type': 'BreadcrumbList',
         '@id': `${canonicalUrl}#breadcrumb`,
         itemListElement: [
@@ -163,15 +135,27 @@ function SportsVenueComparisonPage() {
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="comparison-answers-heading">
           <div>
-            <p className="eyebrow text-primary">Quick answers</p>
-            <h2 id="comparison-answers-heading" className="mt-2 font-display text-3xl leading-tight">How to read the comparison</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Blank fields mean the verified profile does not currently contain that comparison value; TexasDefined does not fill gaps with guesses.</p>
+            <p className="eyebrow text-primary">Before choosing a venue</p>
+            <h2 id="comparison-answers-heading" className="mt-2 font-display text-3xl leading-tight">What the figures can and cannot tell you</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">A comparison of source-reviewed records, not a live ticket, parking or accessibility inventory.</p>
           </div>
           <div className="grid gap-x-8 md:grid-cols-2">
-            {quickAnswers.map((item) => <article key={item.question} className="border-t border-border py-5">
-              <h3 className="font-display text-2xl leading-tight">{item.question}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</p>
-            </article>)}
+            <article className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">Why some capacity cells are blank</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{withCapacity} of {rows.length} venues currently have a sourced capacity figure in their profiles. Blank means no comparable figure is recorded, not that a venue has no seats. Football, arena, concert and tournament configurations can differ, so published capacities should not be treated as a ranking.</p>
+            </article>
+            <article className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">What the opening field means</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{withOpened} of {rows.length} profiles include an opening year or opening-history note. Expansions, replacement stadiums and venue renamings may need more context than a single year. Use the individual guide to understand the timeline.</p>
+            </article>
+            <article className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">Choose by destination as well as sport</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">The Houston, Dallas–Fort Worth, Austin and smaller-market collections compare actual visitor journeys. A venue's county or sport does not show whether it is close to your hotel, transit stop or another event.</p>
+            </article>
+            <article className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">Current operations need current sources</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">The newest individual profile review is {latestReview ? formatDate(latestReview) : 'not recorded here'}; older records may have older checks. Parking assignments, ticket sale dates, accessibility arrangements and admission requirements must be confirmed with the venue for the specific event.</p>
+            </article>
           </div>
         </section>
 
