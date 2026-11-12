@@ -16,10 +16,10 @@ export const reviewedAttractionDestinations: Destination[] = [
       "lng": -98.4732
     },
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Antonio_Japanese_Tea_Garden_2022.jpg?width=1600",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Antonio_Japanese_Tea_Garden_2022.jpg?width=1280",
       "alt": "Stone paths, ponds and garden landscape at the San Antonio Japanese Tea Garden",
-      "width": 1600,
-      "height": 1200,
+      "width": 1280,
+      "height": 960,
       "credit": "Jouaienttoi · Wikimedia Commons · CC BY-SA 4.0 · https://creativecommons.org/licenses/by-sa/4.0/ · thumbnail resized for web display"
     },
     "bestSeason": "Spring and fall offer milder temperatures for the outdoor paths; summer visits are more comfortable early in the day.",
@@ -136,10 +136,10 @@ export const reviewedAttractionDestinations: Destination[] = [
       "lng": -97.3257861
     },
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Water_Gardens_01.jpg?width=1600",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Water_Gardens_01.jpg?width=1280",
       "alt": "Concrete water features and pools at Fort Worth Water Gardens",
-      "width": 1600,
-      "height": 1200,
+      "width": 1280,
+      "height": 960,
       "credit": "Farragutful · Wikimedia Commons · CC BY-SA 4.0 · https://creativecommons.org/licenses/by-sa/4.0/ · thumbnail resized for web display"
     },
     "bestSeason": "Spring and fall are comfortable for walking among the exposed concrete terraces; bring water during summer.",
@@ -261,10 +261,10 @@ export const reviewedAttractionDestinations: Destination[] = [
     },
     "address": "One Botanic Lane, Houston, TX 77017",
     "hero": {
-      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Houston_Botanic_Garden.jpg?width=1600",
+      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Houston_Botanic_Garden.jpg?width=1280",
       "alt": "Plantings and paths at Houston Botanic Garden",
-      "width": 1600,
-      "height": 1200,
+      "width": 1280,
+      "height": 960,
       "credit": "WhisperToMe · Wikimedia Commons · CC0 1.0 · https://creativecommons.org/publicdomain/zero/1.0/"
     },
     "bestSeason": "Spring and fall are comfortable for longer outdoor walks; summer brings heat and humidity, while plant displays change throughout the year.",
