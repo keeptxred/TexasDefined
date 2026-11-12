@@ -42,12 +42,17 @@ function SportsVenueComparisonPage() {
   const { rows, withCapacity, withOpened, latestReview } = Route.useLoaderData();
   const [term, setTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
+  const [regionFilter, setRegionFilter] = useState('all');
+  const [capacityOnly, setCapacityOnly] = useState(false);
   const [sortBy, setSortBy] = useState<'name' | 'location' | 'type'>('name');
   const types = useMemo(() => [...new Set(rows.map((row) => row.type))].sort(), [rows]);
+  const regions = useMemo(() => [...new Set(rows.map((row) => row.region).filter((value): value is string => Boolean(value)))].sort(), [rows]);
   const visibleRows = useMemo(() => {
     const query = term.trim().toLocaleLowerCase('en-US');
     const filtered = rows.filter((row) =>
       (typeFilter === 'all' || row.type === typeFilter)
+      && (regionFilter === 'all' || row.region === regionFilter)
+      && (!capacityOnly || Boolean(row.capacity))
       && (!query || [row.venue.name, row.city, row.county, row.type]
         .some((value) => value?.toLocaleLowerCase('en-US').includes(query))));
     return filtered.sort((a, b) => {
@@ -55,7 +60,7 @@ function SportsVenueComparisonPage() {
       const right = sortBy === 'location' ? b.city ?? b.county ?? '' : sortBy === 'type' ? b.type : b.venue.name;
       return left.localeCompare(right) || a.venue.name.localeCompare(b.venue.name);
     });
-  }, [rows, term, typeFilter, sortBy]);
+  }, [rows, term, typeFilter, regionFilter, capacityOnly, sortBy]);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -170,6 +175,12 @@ function SportsVenueComparisonPage() {
                 {types.map((type) => <option key={type} value={type}>{type}</option>)}
               </select>
             </label>
+            <label className="block text-sm font-semibold" htmlFor="venue-region-filter">Texas region
+              <select id="venue-region-filter" value={regionFilter} onChange={(event) => setRegionFilter(event.target.value)} className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
+                <option value="all">All regions</option>
+                {regions.map((region) => <option key={region} value={region}>{region}</option>)}
+              </select>
+            </label>
             <label className="block text-sm font-semibold" htmlFor="venue-sort">Sort by
               <select id="venue-sort" value={sortBy} onChange={(event) => setSortBy(event.target.value as 'name' | 'location' | 'type')} className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
                 <option value="name">Venue name</option>
@@ -177,8 +188,12 @@ function SportsVenueComparisonPage() {
                 <option value="type">Venue type</option>
               </select>
             </label>
+            <label className="block text-sm font-semibold" htmlFor="venue-capacity-only">
+              <input id="venue-capacity-only" type="checkbox" checked={capacityOnly} onChange={(event) => setCapacityOnly(event.target.checked)} className="mr-2" />
+              Show only venues with published capacity
+            </label>
           </form>
-          <p role="status" aria-live="polite" className="mb-6 text-sm text-muted-foreground">Showing {visibleRows.length} of {rows.length} venues. <button type="button" className="font-semibold text-primary underline underline-offset-4" onClick={() => { setTerm(''); setTypeFilter('all'); setSortBy('name'); }}>Reset filters</button></p>
+          <p role="status" aria-live="polite" className="mb-6 text-sm text-muted-foreground">Showing {visibleRows.length} of {rows.length} venues. <button type="button" className="font-semibold text-primary underline underline-offset-4" onClick={() => { setTerm(''); setTypeFilter('all'); setRegionFilter('all'); setCapacityOnly(false); setSortBy('name'); }}>Reset filters</button></p>
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>
               <p className="eyebrow text-primary">All verified venues</p>
