@@ -18,7 +18,7 @@ export const SPORTS_VENUE_TRIP_DECISIONS: Record<string, readonly SportsVenueTri
   houston: [
     { title: 'Downtown baseball and basketball', detail: 'Daikin Park and Toyota Center are downtown destinations. An Astros game or Rockets night can fit with downtown dining, but the event calendar should drive parking and hotel decisions.', venueSlug: 'daikin-park' },
     { title: 'Soccer in EaDo', detail: 'Shell Energy Stadium sits just east of downtown and has nearby METRORail service. Check the service schedule and your return journey as carefully as the trip to the match.', venueSlug: 'shell-energy-stadium' },
-    { title: 'Football in the NRG district', detail: 'A Texans game is not a downtown stadium visit. Plan for the NRG complex and verify the event-specific transit, parking and gate rules before departure.', venueSlug: 'nrg-stadium' },
+    { title: 'Texans football at Reliant Stadium', detail: 'A Texans game is not a downtown stadium visit. Plan for the stadium south of downtown near the Texas Medical Center, and verify the event-specific transit, parking and gate rules before departure.', venueSlug: 'reliant-stadium' },
   ],
   'austin-central-texas': [
     { title: 'Race weekend at COTA', detail: 'Circuit of The Americas is southeast of central Austin. Treat race-day transport as part of the event, and do not assume that a downtown hotel means a short arrival.', venueSlug: 'circuit-of-the-americas' },
