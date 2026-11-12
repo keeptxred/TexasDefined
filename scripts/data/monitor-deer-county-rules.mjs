@@ -36,7 +36,7 @@ function visible(html) {
 }
 function extractDeerSection(html) {
   const matches = [...html.matchAll(/<h[23]\b[^>]*>([\s\S]*?)<\/h[23]>/gi)];
-  const deer = matches.find(m => visible(m[1]).trim().toLowerCase() === 'white-tailed deer');
+  const deer = matches.find(m => visible(m[1]).trim().toLowerCase().startsWith('white-tailed deer'));
   if (!deer) return null;
   const start = deer.index + deer[0].length;
   const next = matches.find(m => m.index > deer.index && /^<h2\b/i.test(m[0]));
