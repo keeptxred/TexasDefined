@@ -59,7 +59,7 @@ if (sitemapResponse.status !== 200 ||
 const sitemap = await sitemapResponse.text();
 const expected = "<loc>https://texasdefined.com/destination/fredericksburg</loc>";
 const expectedMatches = sitemap.split(expected).length - 1;
-const nearbyFredericksburgLocs = [...sitemap.matchAll(/<loc>[^<]*fredericksburg[^<]*<\\/loc>/gi)]
+const nearbyFredericksburgLocs = [...sitemap.matchAll(new RegExp("<loc>[^<]*fredericksburg[^<]*</loc>", "gi"))]
   .slice(0, 8)
   .map(([loc]) => loc);
 if (!sitemap.startsWith("<?xml") || expectedMatches !== 1) {
