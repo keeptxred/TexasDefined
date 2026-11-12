@@ -48,7 +48,7 @@ function TexasCollegeTownsPage() {
     </Container></section>
 
     <section className="bg-background"><Container className="py-12 sm:py-16">
-      <p className="eyebrow text-primary">Official campus sources</p><h2 className="mt-3 font-display text-3xl">Check campus rules before the visit</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Tours, visitor parking, event access and campus schedules change. These first-party university pages are the final authority for current campus-visit details. The links below lead to official university visitor programs. Tour availability, parking instructions and campus access can change from week to week; check directly with each school before visiting.</p>
+      <p className="eyebrow text-primary">Official campus sources</p><h2 className="mt-3 font-display text-3xl">Check campus rules before the visit</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Tours, visitor parking, event access and campus schedules change. These first-party university pages are the final authority for current campus-visit details. The links below lead to official university visitor programs. Tour availability, parking instructions and campus access can change from week to week; check directly with each school before visiting. Source review: August 30, 2026.</p>
       <ul className="mt-6 grid gap-3 text-sm font-semibold md:grid-cols-2 lg:grid-cols-3">{officialSources.map(([label, href]) => <li key={href}><a href={href} target="_blank" rel="noreferrer" className="text-primary">{label} ↗</a></li>)}</ul>
     </Container></section>
   </>;
