@@ -187,7 +187,7 @@ const smokeTargets = [
   { path: '/fishing/techniques/crankbaits', requiredText: 'How to Fish Crankbaits in Texas', label: 'crankbaits technique detail route' },
   { path: '/fishing/techniques/spinnerbaits', requiredText: 'How to Fish Spinnerbaits in Texas', label: 'spinnerbaits technique detail route' },
   { path: '/fishing/techniques/topwater', requiredText: 'How to Fish Topwater in Texas', label: 'topwater technique detail route' },
-  { path: '/fishing/techniques/trolling', requiredText: 'How to Fish Trolling in Texas', label: 'trolling technique detail route' },
+  { path: '/fishing/techniques/trolling', requiredText: 'How to Troll for Fish in Texas', label: 'trolling technique detail route' },
   { path: '/fishing/techniques/vertical-jigging', requiredText: 'How to Fish Vertical Jigging in Texas', label: 'vertical-jigging technique detail route' },
   { path: '/fishing/techniques/jigs-and-minnows', requiredText: 'How to Fish Jigs and Minnows in Texas', label: 'jigs-and-minnows technique detail route' },
   { path: '/fishing/techniques/live-bait', requiredText: 'How to Fish Live Bait in Texas', label: 'live-bait technique detail route' },
