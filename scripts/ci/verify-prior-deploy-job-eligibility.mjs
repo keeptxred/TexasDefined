@@ -37,6 +37,20 @@ const KNOWN_PUBLISHED_IMAGE_RIGHTS_REGRESSION = Object.freeze({
   failedStep: 'Verify base production surfaces',
 });
 
+// Nov 12 run #43152537155 published the active Worker and passed all original
+// JS/CSS bytes on both origins. Its sole later failure was a 30-second
+// direct-Worker Fredericksburg HTML transport timeout, retried twice: all
+// earlier El Paso redirects, sitemap and canonical page checks had passed.
+// This exact run may provide ORIGINAL asset bytes to the next deploy only
+// after the bounded transport retry has been fixed in source AND the separate
+// exact active Worker/source SHA/two-origin-hash gate passes. The failed
+// independent page QA remains failed and must run again on the new release.
+const KNOWN_PUBLISHED_FREDERICKSBURG_TIMEOUT = Object.freeze({
+  runId: 43152537155,
+  jobId: 130964877163,
+  failedStep: 'Verify base production surfaces',
+});
+
 // Historical 2026-11-09 run #42640439772 actually published the Worker and
 // passed the deployment, health and BOTH-origin original JS/CSS checks.
 // The two later title checks failed after publication because the initial Bing
@@ -91,6 +105,19 @@ export function qualifyPriorDeployJob(payload) {
     }
     return { eligible: true, mode: 'exact-image-rights-incident-assets-only',
       criticalChecks: CRITICAL.length, permittedFailure: failures[0], exactRun: imageIncident.runId };
+  }
+  const fredericksburgIncident = KNOWN_PUBLISHED_FREDERICKSBURG_TIMEOUT;
+  if (job.run_id === fredericksburgIncident.runId &&
+      job.id === fredericksburgIncident.jobId &&
+      failures.length === 1 && failures[0] === fredericksburgIncident.failedStep) {
+    const source = readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs', 'utf8');
+    if (!source.includes('const MAX_TRANSPORT_ATTEMPTS = 3;') ||
+        !source.includes('attempt === MAX_TRANSPORT_ATTEMPTS')) {
+      throw Error('The exact Fredericksburg transport timeout retry is not repaired');
+    }
+    return { eligible: true, mode: 'exact-published-worker-transport-timeout-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailure: failures[0],
+      exactRun: fredericksburgIncident.runId };
   }
   if (failures.length !== 1 || failures[0] !== ALLOWED_POSTDEPLOY_NON_ASSET_FAILURE) {
     throw Error('Failed deploy job includes unapproved or missing failure evidence: ' + failures.join(', '));
