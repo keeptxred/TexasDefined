@@ -1,3 +1,9 @@
+## 2026-11-11 — Batch016 genuinely graduated; Batch017 next 25 ASSIGNMENT proposed
+
+Protected Batch016 graduation [PR #6969](https://github.com/keeptxred/TexasDefined/pull/6969) merged at `ad549c87440ad44e168a96669676e41ead1dd647`, with genuine 75/75 school viewport plus 25/25 county Chrome [#42973704827](https://github.com/keeptxred/TexasDefined/actions/runs/42973704827), signed Worker ledger `7703563654`, source `14047a39`, Worker `71fbb9a5`. **380 VERIFIED / 912 NOT_REVIEWED / 0 IMPLEMENTED** remain the only technical certification counts.
+
+This assignment-only branch archives that Batch016 signed certificate without altering its evidence and assigns exactly the first 25 unassigned canonical NOT_REVIEWED schools to **Batch017**, El Paso Eastlake through Everman. No new school status promotion, original page content or CI/production/browser approval is claimed. Five source cohorts of five schools follow the protected assignment PR; start with El Paso Eastlake, Eastwood, El Dorado, Franklin and Hanks, all requiring distinct official source research and reciprocal campus-county correctness. See [BATCH017-INTAKE.md](./BATCH017-INTAKE.md). Do not certify until one complete release-pinned genuine Chrome 75+25 result and separate protected evidence graduation. Keep event #6998 and asset-retention #4913 independently outstanding.
+
 ## 2026-11-11 — Batch016 25/25 independently production Chrome VERIFIED (protected graduation merged)
 
 Live production source [`14047a39`](https://github.com/keeptxred/TexasDefined/commit/14047a3934631991008361e77cd68401be493138) passed [deploy run #42971791245](https://github.com/keeptxred/TexasDefined/actions/runs/42971791245), including asset-handoff, dual-origin JS/CSS verification and postdeploy checks. GitHub verified source-to-Worker ledger `7703563654`; authenticated Cloudflare 100%-traffic deployment `ce0ba0e5-4680-46e4-a6b7-acdb087d8b78` served Worker `71fbb9a5-0dba-403a-abce-20c76dc20f8d`.
