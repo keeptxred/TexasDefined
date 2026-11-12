@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { useMemo, useState } from 'react';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { SportsVenueLandingIndex } from '@/components/sports/SportsVenueLandingIndex';
@@ -9,7 +10,7 @@ const siteUrl = 'https://texasdefined.com';
 const canonicalPath = '/sports-venues/compare';
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const csvUrl = `${siteUrl}/sports-venues/compare.csv`;
-const description = 'Compare 84 verified Texas sports venues by location, venue type, capacity and opening date where those details are available, then open the full visitor guide for each stadium, arena, ballpark, racetrack or sports destination.';
+const description = 'Compare Texas sports venues by location, venue type, capacity and opening date where those details are available. Search the source-reviewed inventory and open individual visitor guides.';
 
 export const Route = createFileRoute('/sports-venues/compare')({
   loader: async () => {
@@ -39,6 +40,22 @@ export const Route = createFileRoute('/sports-venues/compare')({
 
 function SportsVenueComparisonPage() {
   const { rows, withCapacity, withOpened, latestReview } = Route.useLoaderData();
+  const [term, setTerm] = useState('');
+  const [typeFilter, setTypeFilter] = useState('all');
+  const [sortBy, setSortBy] = useState<'name' | 'location' | 'type'>('name');
+  const types = useMemo(() => [...new Set(rows.map((row) => row.type))].sort(), [rows]);
+  const visibleRows = useMemo(() => {
+    const query = term.trim().toLocaleLowerCase('en-US');
+    const filtered = rows.filter((row) =>
+      (typeFilter === 'all' || row.type === typeFilter)
+      && (!query || [row.venue.name, row.city, row.county, row.type]
+        .some((value) => value?.toLocaleLowerCase('en-US').includes(query))));
+    return filtered.sort((a, b) => {
+      const left = sortBy === 'location' ? a.city ?? a.county ?? '' : sortBy === 'type' ? a.type : a.venue.name;
+      const right = sortBy === 'location' ? b.city ?? b.county ?? '' : sortBy === 'type' ? b.type : b.venue.name;
+      return left.localeCompare(right) || a.venue.name.localeCompare(b.venue.name);
+    });
+  }, [rows, term, typeFilter, sortBy]);
   const quickAnswers = [
     {
       question: 'How many Texas sports venues are in this comparison?',
@@ -159,6 +176,25 @@ function SportsVenueComparisonPage() {
         </section>
 
         <section className="border-b border-border py-12" aria-labelledby="comparison-table-heading">
+          <form role="search" aria-label="Filter venue comparison" className="mb-8 grid gap-4 border-y border-border py-5 sm:grid-cols-3" onSubmit={(event) => event.preventDefault()}>
+            <label className="block text-sm font-semibold" htmlFor="venue-search">Venue or location
+              <input id="venue-search" type="search" value={term} onChange={(event) => setTerm(event.target.value)} placeholder="e.g. Lubbock or ballpark" className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground" />
+            </label>
+            <label className="block text-sm font-semibold" htmlFor="venue-type-filter">Venue type
+              <select id="venue-type-filter" value={typeFilter} onChange={(event) => setTypeFilter(event.target.value)} className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
+                <option value="all">All types</option>
+                {types.map((type) => <option key={type} value={type}>{type}</option>)}
+              </select>
+            </label>
+            <label className="block text-sm font-semibold" htmlFor="venue-sort">Sort by
+              <select id="venue-sort" value={sortBy} onChange={(event) => setSortBy(event.target.value as 'name' | 'location' | 'type')} className="mt-2 block min-h-11 w-full border border-border bg-background px-3 py-2 text-foreground">
+                <option value="name">Venue name</option>
+                <option value="location">Location</option>
+                <option value="type">Venue type</option>
+              </select>
+            </label>
+          </form>
+          <p role="status" aria-live="polite" className="mb-6 text-sm text-muted-foreground">Showing {visibleRows.length} of {rows.length} venues. <button type="button" className="font-semibold text-primary underline underline-offset-4" onClick={() => { setTerm(''); setTypeFilter('all'); setSortBy('name'); }}>Reset filters</button></p>
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>
               <p className="eyebrow text-primary">All verified venues</p>
@@ -166,8 +202,8 @@ function SportsVenueComparisonPage() {
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Capacity may vary by event configuration. Opening fields can include redevelopment context when a simple year would be misleading.</p>
             </div>
             <div className="min-w-0 overflow-x-auto border-t border-border">
-              <table className="w-full min-w-[760px] border-collapse text-left text-sm">
-                <caption className="sr-only">Comparison of {rows.length} verified Texas sports venues by location, type, capacity and opening information.</caption>
+              <table className="w-full min-w-[900px] border-collapse text-left text-sm">
+                <caption className="sr-only">Comparison of {visibleRows.length} matching Texas sports venues by location, type, capacity and opening information.</caption>
                 <thead>
                   <tr className="border-b border-border text-xs uppercase tracking-[0.12em] text-muted-foreground">
                     <th scope="col" className="py-4 pr-5 font-semibold">Venue</th>
@@ -175,16 +211,19 @@ function SportsVenueComparisonPage() {
                     <th scope="col" className="py-4 pr-5 font-semibold">Type</th>
                     <th scope="col" className="py-4 pr-5 font-semibold">Capacity</th>
                     <th scope="col" className="py-4 pr-5 font-semibold">Opened</th>
+                    <th scope="col" className="py-4 pr-5 font-semibold">Official source</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map((row) => <tr key={row.venue.id} className="border-b border-border align-top">
+                  {visibleRows.map((row) => <tr key={row.venue.id} className="border-b border-border align-top">
                     <td className="py-4 pr-5"><a href={row.canonicalPath} className="font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">{row.venue.name}</a></td>
                     <td className="py-4 pr-5 text-muted-foreground">{row.city ?? row.county ?? 'Texas'}</td>
                     <td className="py-4 pr-5 text-muted-foreground">{row.type}</td>
                     <td className="py-4 pr-5 text-muted-foreground">{row.capacity ?? '—'}</td>
                     <td className="py-4 pr-5 text-muted-foreground">{row.opened ?? '—'}</td>
+                    <td className="py-4 pr-5 text-muted-foreground">{row.officialUrl ? <a href={row.officialUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Venue site ↗</a> : '—'}</td>
                   </tr>)}
+                  {!visibleRows.length ? <tr><td colSpan={6} className="py-8 text-muted-foreground">No venues match those filters. Try another sport or location.</td></tr> : null}
                 </tbody>
               </table>
             </div>
