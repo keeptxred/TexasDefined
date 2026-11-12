@@ -14,7 +14,7 @@ assert.ok(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length<=892);
 for(const slug of slugs){const row=reg.schoolRecords.find(x=>x.slug===slug);assert.equal(row?.status,'IMPLEMENTED');assert.equal(row?.actualProductionVerified,false);assert.ok(source.includes(JSON.stringify(slug)+': {'));assert.ok(edges.includes("slug: '"+slug+"'"));}
 assert.ok(server.includes('getBatch017FourthFiveEditorial(canonicalSlug)'));
 assert.equal((source.match(/"slug": "/g)||[]).length,5);
-for(const s of ['Travis','TDLR','Jerry Ives Memorial Stadium','Harrison','Ennis','Don Drake','Era','Cooke','5AD2FB2026.pdf','3AD2FB2026.pdf','2AD1FB2026.pdf','2AD2FB2026.pdf'])assert.ok(source.includes(s),'Missing specific primary-source distinction '+s);
+for(const s of ['Travis','Texas Department of Licensing and Regulation','Jerry Ives Memorial Stadium','Harrison','Ennis','Don Drake','Era','Cooke','5AD2FB2026.pdf','3AD2FB2026.pdf','2AD1FB2026.pdf','2AD2FB2026.pdf'])assert.ok(source.includes(s),'Missing specific primary-source distinction '+s);
 for(const county of ['travis','anderson','harrison','ellis','cooke'])assert.ok(edges.includes("county: '"+county+"'"),county+' missing');
 assert.ok(!source.includes('"season":')&&!source.includes('"photo":'));
 console.log('PASS Batch017 fourth five: distinct UIL, campus county, original editorial, no false production certification');
