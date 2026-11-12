@@ -39,8 +39,9 @@ export function certifiedBatch016(registry) {
   if(rows.length!==1292 || rows.filter(x=>x.batch===16).length!==25 ||
      rows.filter(x=>x.status==='VERIFIED'&&x.batch!==16).length!==355 ||
      rows.filter(x=>x.status==='VERIFIED').length!==380 ||
-     rows.filter(x=>x.status==='NOT_REVIEWED').length!==912 ||
-     rows.some(x=>x.status==='IMPLEMENTED'))return false;
+     rows.filter(x=>x.status==='NOT_REVIEWED'||x.status==='IMPLEMENTED').length!==912 ||
+     rows.some(x=>x.status==='IMPLEMENTED' && !(x.batch>16 && x.actualProductionVerified!==true)) ||
+     rows.some(x=>x.status==='VERIFIED' && x.batch>16))return false;
   return B016_SLUGS.every(slug=>{
     const x=rows.find(row=>row.slug===slug);
     return x?.batch===16 && x.status==='VERIFIED' && x.actualProductionVerified===true &&
