@@ -152,7 +152,7 @@ export function qualifyPriorDeployJob(payload) {
     const sitemapSource = readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
     const liveVerifier = readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs', 'utf8');
     if (!sitemapSource.includes('function dedupeUrlEntries(') ||
-        (sitemapSource.match(/const entries = dedupeUrlEntries\\(\\[/g) ?? []).length !== 2 ||
+        (sitemapSource.match(/const entries = dedupeUrlEntries\(\[/g) ?? []).length !== 2 ||
         !sitemapSource.includes('await auditedFredericksburgSitemapEntry()') ||
         !liveVerifier.includes('const expectedMatches = sitemap.split(expected).length - 1;')) {
       throw Error('Published Fredericksburg sitemap incident needs source-level duplicate fix and strict measured live verifier');
