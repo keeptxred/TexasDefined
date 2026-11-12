@@ -263,6 +263,8 @@ function venueLocation(venue: TexasEntityRecord) {
 }
 
 function titleCase(value: string) {
+  if (value === 'mclennan') return 'McLennan';
+  if (value === 'el-paso') return 'El Paso';
   return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
