@@ -11,6 +11,7 @@ on:
       - 'src/components/editorial/PrioritySearchPage.tsx'
       - 'src/data/texas-music-guides-*.ts'
       - 'scripts/data/validate-texas-32-authority.mjs'
+      - 'scripts/ci/verify-texas-32-production.mjs'
       - '.github/workflows/verify-texas-32-authority.yml'
   push:
     branches: [main]
@@ -23,6 +24,7 @@ on:
       - 'src/components/editorial/PrioritySearchPage.tsx'
       - 'src/data/texas-music-guides-*.ts'
       - 'scripts/data/validate-texas-32-authority.mjs'
+      - 'scripts/ci/verify-texas-32-production.mjs'
   workflow_dispatch:
   schedule:
     - cron: '23 13 * * 1'
@@ -49,3 +51,26 @@ jobs:
         run: node scripts/data/validate-texas-vs-state-promotions.mjs
       - name: Validate Texas flag primary-source history
         run: node scripts/data/validate-texas-flag-authority.mjs
+
+  # Full live checks are intentionally weekly/on-demand, not another
+  # permanent deployment follower. The canonical deployment smoke covers
+  # changed routes and the protected merge gate owns deterministic QA.
+  production-acceptance:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fresh uncached live HTTP, canonical, indexability and content check for all 32
+        run: node scripts/ci/verify-texas-32-production.mjs
+      - name: Preserve per-route production acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-32-production-acceptance
+          path: .artifacts/texas-32-production-acceptance.json
+          if-no-files-found: warn
+          retention-days: 30
