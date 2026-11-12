@@ -14,6 +14,10 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'everman', mascot: 'Bulldogs', sourceUrl: 'https://www.evermanisdathletics.org/', sourceLabel: 'Everman ISD athletics first-party November 2026 #gameonbulldogs school sports announcement', verifiedAt: '2026-11-12' },
+  { slug: 'evant', mascot: 'Elks', sourceUrl: 'https://www.evantisd.org/District/About-Us/index.html', sourceLabel: 'Evant Texas ISD official about and school song say good day to be an Elk; six-man school', verifiedAt: '2026-11-12' },
+  { slug: 'evadale', mascot: 'Rebels', sourceUrl: 'https://evadalek12.net/en-US/our-superintendent-6db0e77d', sourceLabel: 'Evadale ISD 2026 first-party superintendent GO REBELS official nickname', verifiedAt: '2026-11-12' },
+  { slug: 'eustace', mascot: 'Bulldogs', sourceUrl: 'https://www.eustaceisd.net/154534_2', sourceLabel: 'Eustace Texas High School official school page says home of the Bulldogs', verifiedAt: '2026-11-12' },
   { slug: 'era', mascot: 'Hornets', sourceUrl: 'https://www.eraisd.net/athletics', sourceLabel: 'Era ISD school athletics first-party Hornets identity', verifiedAt: '2026-11-12' },
   { slug: 'ennis', mascot: 'Lions', sourceUrl: 'https://ehs.ennis.k12.tx.us/', sourceLabel: 'Ennis High School district and official school football branding Lions', verifiedAt: '2026-11-12' },
   { slug: 'elysian-fields', mascot: 'Yellowjackets', sourceUrl: 'https://efhs.efisd.net/', sourceLabel: 'Elysian Fields High official Yellowjackets athletics and 2026 football notices', verifiedAt: '2026-11-12' },

@@ -1,0 +1,110 @@
+name: Football Batch017 25-school live Chrome evidence (no graduation)
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  issue_comment:
+    types: [created]
+permissions:
+  contents: read
+  deployments: read
+  actions: read
+# Only eligible Chrome jobs join this queue. Unrelated issue comments must
+# not consume a pending slot or displace an authorized 25-school acceptance.
+jobs:
+  chrome:
+    if: ${{ (github.event_name == 'issue_comment' && github.event.issue.number == 5794 && github.actor == 'keeptxred' && github.event.comment.body == '/run-b017-chrome') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'workflow_dispatch' }}
+    # Share deploy-production's actual publish lock. A new Worker release
+    # cannot replace the pinned UUID halfway through 75 real browser checks.
+    # Still require exact signed source/Worker equality in the browser.
+    concurrency:
+      group: texasdefined-production
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || 'main' }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require 25 authored Batch017 guides without premature registry promotion
+        id: batch_scope
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync,appendFileSync} from 'node:fs';
+          const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
+          const source=readFileSync('src/data/high-school-football/football-program-profile.server.ts','utf8');
+          const slugs=["el-paso-eastlake","el-paso-eastwood","el-paso-el-dorado","el-paso-franklin","el-paso-hanks","el-paso-irvin","el-paso-jefferson","el-paso-montwood","el-paso-parkland","el-paso-pebble-hills","el-paso-riverside","el-paso-socorro","el-paso-ysleta","eldorado","electra","elgin","elkhart","elysian-fields","ennis","era","euless-trinity","eustace","evadale","evant","everman"];
+          if(slugs.length!==25 || !['getBatch017EarlyEditorial','getBatch017EarthEditorial','getBatch017GroupOneEditorial','getBatch017SecondFiveEditorial','getBatch017ThirdFiveEditorial','getBatch017FourthFiveEditorial','getBatch017FifthFiveEditorial'].every(method=>source.includes(method+'(canonicalSlug)')))throw Error('Batch017 source roster not fully authored');
+          if(reg.batch?.number!==17 && !reg.completedBatches?.some(x=>x.number===17))throw Error('Batch017 registry missing');
+          const statuses=slugs.map(slug=>reg.schoolRecords.find(s=>s.slug===slug)?.status);
+          if(statuses.every(status=>status==='VERIFIED')){
+            appendFileSync(process.env.GITHUB_OUTPUT,'active=false'+String.fromCharCode(10));
+            console.log('Batch017 already graduated; no redundant Chrome job.');
+          }else if(statuses.every(status=>status==='IMPLEMENTED')){
+            appendFileSync(process.env.GITHUB_OUTPUT,'active=true'+String.fromCharCode(10));
+          }else throw Error('Batch017 mixed or unsupported certification state; fail closed');
+          NODE
+      - name: Resolve exact live Worker to verified GitHub source SHA
+        if: steps.batch_scope.outputs.active == 'true'
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          # The verified Worker deployment ledger can arrive after the successful
+          # production workflow event. Retry only the strict identity check;
+          # never relax the signed SHA, Worker UUID or success-status assertions.
+          for attempt in 1 2 3 4 5; do
+            node scripts/ci/pin-football-b010-production-release.mjs
+            if grep -q '^ready=true$' "$GITHUB_OUTPUT"; then
+               echo "Verified Worker ledger pinned on attempt $attempt"
+               exit 0
+             fi
+             if [ "$attempt" -lt 5 ]; then
+               echo "Exact signed Worker ledger not yet visible; retry in 30s ($attempt/5)"
+               sleep 30
+             fi
+           done
+           echo "No exact signed source release after bounded retries" >&2
+           exit 1
+      - name: Require exact signed production release for active Batch017
+        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready != 'true'
+        run: |
+          echo 'No exact signed Worker/source release: cannot skip 75 Chrome cases.' >&2
+          exit 1
+      - name: Check out exact published source
+        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.sha }}
+      - name: Install isolated real Chrome driver
+        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b017-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify all Batch017 schools and counties in real Chrome
+        if: steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
+        env:
+          FOOTBALL_CHROME_SOURCE_SHA: ${{ steps.release.outputs.sha }}
+          FOOTBALL_EXPECTED_WORKER_VERSION: ${{ steps.release.outputs.worker }}
+        run: |
+          node --check scripts/ci/verify-football-b017-production.mjs
+          node scripts/ci/verify-football-b017-production.mjs
+      - name: Upload compact Batch017 machine evidence
+        if: always() && steps.batch_scope.outputs.active == 'true' && steps.release.outputs.ready == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b017-25-school-live-chrome-evidence
+          path: |
+            artifacts/b017-chrome-report.json
+            artifacts/b017-chrome-screenshots/*.png
+          retention-days: 7
+          if-no-files-found: error
