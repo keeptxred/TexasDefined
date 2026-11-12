@@ -174,12 +174,158 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     eyebrow: "Texas driving",
     title: "Texas Driver License: Renewals, Appointments, REAL ID and Address Changes",
     intro: "A practical Texas driver-license guide covering who runs the system, online services, office appointments, renewals, replacements, REAL ID and address changes.",
-    updated: "August 20, 2026",
+    updated: "November 12, 2026",
     quickAnswer: "Texas driver licenses are issued by the Texas Department of Public Safety, not TxDMV. DPS handles driver-license and ID services; TxDMV handles vehicle titles and registration.",
     sections: [
-      { heading: "DPS, not DMV, handles Texas driver licenses", paragraphs: ["One of the most common Texas service mix-ups is the division between DPS and TxDMV. Driver licenses and state identification cards are DPS services. Vehicle registration and titles are TxDMV services."], links: [{ label: "Official DPS driver-license services", href: "https://www.dps.texas.gov/section/driver-license", external: true }] },
-      { heading: "Renew, replace or change your address", paragraphs: ["Many eligible Texans can renew, replace or update a license or ID through DPS online services. Eligibility varies, so use the official DPS service to determine whether an office visit is required."], links: [{ label: "DPS online driver-license services", href: "https://www.dps.texas.gov/apps/DriverLicense/", external: true }] },
-      { heading: "Appointments and REAL ID", paragraphs: ["Texas driver-license offices operate primarily by appointment. If you need an in-person visit, review the required documents before booking. DPS also publishes REAL ID information and document-check resources."], links: [{ label: "Driver-license appointments and information", href: "https://www.dps.texas.gov/section/driver-license", external: true }] },
+      {
+        "heading": "Choose the correct DPS transaction",
+        "paragraphs": [
+          "A first Texas driver license is not the same transaction as renewing one you already have. First-time applicants, new residents exchanging an out-of-state license, people changing legal names and applicants needing an in-person vision or identity check may have different appointment and document requirements. Start with DPS, not TxDMV or the county tax office.",
+          "If an existing Texas license is still valid or expired less than two years ago, check online renewal eligibility before booking an appointment. For a replacement card or address correction, use the corresponding DPS service instead of a first-time application. Commercial licenses, limited-term documents and applicants age 79 or older have additional restrictions."
+        ],
+        "table": {
+          "caption": "Where to begin: Texas DPS driver license transactions",
+          "columns": [
+            "Your situation",
+            "First step",
+            "Common pitfall"
+          ],
+          "rows": [
+            [
+              "First Texas license",
+              "Check DPS first-time application and documents; book appointment",
+              "An online renewal portal cannot issue a first license"
+            ],
+            [
+              "Renew existing Texas license",
+              "Check online/phone renewal eligibility",
+              "Not everyone can renew online two consecutive times"
+            ],
+            [
+              "Replace lost or damaged card",
+              "DPS replacement service",
+              "A replacement is not an extension of expiration"
+            ],
+            [
+              "Update residential address",
+              "DPS change-of-address process",
+              "Mailing address and physical residence rules differ"
+            ],
+            [
+              "Card mailed but missing",
+              "DPS card-status tracker",
+              "TxDMV does not issue or track driver licenses"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "label": "DPS driver-license applications",
+            "href": "https://www.dps.texas.gov/section/driver-license",
+            "external": true
+          },
+          {
+            "label": "Texas license delivery tracking",
+            "href": "/track-texas-drivers-license",
+            "external": false
+          }
+        ]
+      },
+      {
+        "heading": "Online renewal: the main eligibility rules",
+        "paragraphs": [
+          "DPS lists a number of conditions for standard online or telephone renewal: the previous renewal was in person, the applicant is generally under age 79, the license is in good standing, and it is within the permitted renewal window. Certain CDL endorsements, provisional or limited-term licenses and records requiring a citizenship or lawful-presence check are excluded.",
+          "DPS generally permits standard renewal within two years before expiration or less than two years afterward. Even when a license is eligible by date, an outstanding license-status issue or a changed medical or vision condition may require visiting an office. Confirm eligibility inside the official DPS service rather than assuming the checklist guarantees approval."
+        ],
+        "links": [
+          {
+            "label": "DPS renewal rules and options",
+            "href": "https://www.dps.texas.gov/section/driver-license/renew-your-texas-dl-cdl-motorcycle-license-or-id",
+            "external": true
+          },
+          {
+            "label": "DPS license eligibility",
+            "href": "https://www.dps.texas.gov/section/driver-license",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Documents to check before an appointment",
+        "paragraphs": [
+          "DPS may require proof of identity, Texas residency, Social Security number, U.S. citizenship or lawful presence and vehicle-registration or insurance-related documentation when applicable. The required combinations depend on whether you are applying for a first license, changing a name, renewing a limited-term credential or replacing a card.",
+          "Do not rely on a generic list copied from another state. Use the DPS document checklist for your exact transaction. Bring original or otherwise acceptable documents, confirm names and dates match, and verify that your appointment location performs the service you need."
+        ],
+        "links": [
+          {
+            "label": "DPS official driver license checklist",
+            "href": "https://www.dps.texas.gov/section/driver-license",
+            "external": true
+          },
+          {
+            "label": "DPS appointment and application FAQ",
+            "href": "https://www.dps.texas.gov/section/driver-license/faq/section-1-applying-or-renewing-driver-license-identification-card-or",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "REAL ID: what it does and does not mean",
+        "paragraphs": [
+          "REAL ID is a federal identification standard for certain purposes, including domestic air travel and access to some federal facilities. A compliant Texas license or ID generally has the required star marking. It does not replace a passport for international travel or guarantee that every name-change or identity situation can be handled online.",
+          "If your current Texas card is not compliant, check DPS instructions before scheduling a visit. An applicant who needs additional documentation for REAL ID may be unable to renew online even if the card's expiration date is within the ordinary renewal window."
+        ],
+        "links": [
+          {
+            "label": "DPS driver license and REAL ID information",
+            "href": "https://www.dps.texas.gov/section/driver-license",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "After you apply: temporary credentials and tracking",
+        "paragraphs": [
+          "A successful online or in-person transaction may provide a temporary credential while DPS prints and mails the permanent card. Preserve the temporary document and follow the restrictions printed on it. DPS says mailing usually takes two to three weeks from the transaction date.",
+          "If the permanent card has not arrived, use DPS's card-status lookup. Do not enter your driver license number or birth date on a third-party tracking website. TexasDefined does not receive applications or track individual records."
+        ],
+        "links": [
+          {
+            "label": "Track your Texas driver license",
+            "href": "/track-texas-drivers-license",
+            "external": false
+          },
+          {
+            "label": "DPS official license status",
+            "href": "https://www.dps.texas.gov/section/driver-license/wheres-my-driver-license-or-id-card",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Driver license versus vehicle paperwork",
+        "paragraphs": [
+          "The Texas Department of Public Safety issues driver licenses and state ID cards. The Texas Department of Motor Vehicles and county tax offices handle vehicle title and registration transactions. A new resident may need both, but should not assume they happen at the same office or on the same timetable.",
+          "Use the registration guide for plate, sticker, emissions and title questions; use DPS for driving privileges, identification and appointment booking."
+        ],
+        "links": [
+          {
+            "label": "Texas DMV and TxDMV services",
+            "href": "/texas-dmv",
+            "external": false
+          },
+          {
+            "label": "Texas vehicle registration",
+            "href": "/texas-vehicle-registration",
+            "external": false
+          },
+          {
+            "label": "Moving to Texas",
+            "href": "/moving-to-texas",
+            "external": false
+          }
+        ]
+      }
     ],
     related: [{ label: "Texas DMV", href: "/texas-dmv" }, { label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, { label: "Find my DMV", href: "/find-my-dmv" }, { label: "Moving to Texas", href: "/moving-to-texas" }],
   },
@@ -187,12 +333,130 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     eyebrow: "Texas driving",
     title: "Texas DMV: Vehicle Registration, Titles and TxDMV Services",
     intro: "What the Texas Department of Motor Vehicles actually handles, how it differs from DPS, and where to go for registration, titles, dealer and motor-carrier services.",
-    updated: "August 20, 2026",
+    updated: "November 12, 2026",
     quickAnswer: "TxDMV handles vehicle registration, titles, dealer licensing and motor-carrier services. Texas DPS handles driver licenses and identification cards.",
     sections: [
-      { heading: "What TxDMV handles", paragraphs: ["The Texas Department of Motor Vehicles oversees vehicle titles and registration, motor carriers, dealer licensing and related motor-vehicle programs."], links: [{ label: "Official TxDMV website", href: "https://www.txdmv.gov/", external: true }] },
-      { heading: "Vehicle registration", paragraphs: ["Texas registration transactions are closely tied to county tax assessor-collector offices, while TxDMV sets statewide requirements and provides online renewal services and guidance."], links: [{ label: "Texas vehicle registration guide", href: "/texas-vehicle-registration" }, { label: "Find my DMV and local office", href: "/find-my-dmv" }] },
-      { heading: "Need a driver license instead?", paragraphs: ["Driver licenses are a Department of Public Safety service, not a TxDMV service. If your task is a license renewal, replacement, appointment or REAL ID question, use the Texas Defined driver-license guide or the official DPS service."], links: [{ label: "Texas driver-license guide", href: "/texas-drivers-license" }, { label: "Official DPS driver-license services", href: "https://www.dps.texas.gov/section/driver-license", external: true }] },
+      {
+        "heading": "Which Texas agency handles your task?",
+        "paragraphs": [
+          "Texas divides driving paperwork between the Department of Public Safety (DPS), the Texas Department of Motor Vehicles (TxDMV), and county tax assessor-collector offices. DPS issues driver licenses and state IDs. TxDMV sets statewide title and registration rules, while many motorist transactions are completed through county tax offices.",
+          "This matters most when a person searches for a nearby “DMV” and arrives at an office that does not provide the requested service. Before you travel, check the responsible agency, office, acceptable payment methods and whether the task is available online."
+        ],
+        "table": {
+          "caption": "Texas driver and vehicle agencies",
+          "columns": [
+            "Task",
+            "Responsible office or system",
+            "Start here"
+          ],
+          "rows": [
+            [
+              "Driver license, ID or REAL ID",
+              "Texas DPS",
+              "DPS driver license services"
+            ],
+            [
+              "Vehicle registration renewal",
+              "TxDMV / TxT / county tax office",
+              "Vehicle registration renewal guide"
+            ],
+            [
+              "Title transfer, registration receipt",
+              "County tax office / TxDMV",
+              "Texas vehicle registration guide"
+            ],
+            [
+              "Dealer licensing or motor carriers",
+              "Texas Department of Motor Vehicles",
+              "TxDMV official site"
+            ],
+            [
+              "Property tax or license plate fees",
+              "County tax office / published TxDMV fees",
+              "Registration fees and taxes guide"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "label": "Official TxDMV",
+            "href": "https://www.txdmv.gov/",
+            "external": true
+          },
+          {
+            "label": "Official DPS driver license",
+            "href": "https://www.dps.texas.gov/section/driver-license",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Registration and title are separate transactions",
+        "paragraphs": [
+          "Renewing a registration sticker does not transfer ownership of a vehicle. A buyer or seller handling a Texas title transfer needs the appropriate title paperwork, tax treatment and county submission method. Other cases such as a lost title, out-of-state vehicle or gifted vehicle have separate requirements.",
+          "If you only need to renew, use the dedicated renewal instructions. If you bought a vehicle, begin with the title and registration requirements instead of using the renewal portal. A receipt replacement is also distinct from obtaining a new sticker."
+        ],
+        "links": [
+          {
+            "label": "Register your vehicle — TxDMV",
+            "href": "https://www.txdmv.gov/motorists/register-your-vehicle",
+            "external": true
+          },
+          {
+            "label": "Texas registration guide",
+            "href": "/texas-vehicle-registration",
+            "external": false
+          },
+          {
+            "label": "Renewal instructions",
+            "href": "/texas-vehicle-registration-renewal",
+            "external": false
+          },
+          {
+            "label": "Replace registration receipt",
+            "href": "/replace-texas-registration-receipt",
+            "external": false
+          }
+        ]
+      },
+      {
+        "heading": "Where fees, taxes and emissions rules differ",
+        "paragraphs": [
+          "Statewide registration rates do not tell you the full amount due. County charges, vehicle type, specialty plates, transfer fees and sales/use tax can change a transaction. Texas also has a separate electric-vehicle registration fee regime.",
+          "For most noncommercial vehicles the statewide annual safety-inspection requirement ended January 1, 2025. Emissions inspections can still apply in designated counties; commercial vehicles remain subject to different safety rules. Check the registration guide for the current county list before assuming no inspection is required."
+        ],
+        "links": [
+          {
+            "label": "Official TxDMV register your vehicle",
+            "href": "https://www.txdmv.gov/motorists/register-your-vehicle",
+            "external": true
+          },
+          {
+            "label": "Texas registration fees and taxes",
+            "href": "/texas-vehicle-registration-fees-taxes",
+            "external": false
+          }
+        ]
+      },
+      {
+        "heading": "A practical checklist before visiting an office",
+        "paragraphs": [
+          "Write down the exact transaction, county of residence, vehicle type and whether you have title or registration documents in hand. Then verify the location and hours on the official TxDMV or county page. Some county subcontractor locations only perform renewals and cannot process complicated title corrections.",
+          "Use the official online service whenever eligible, but do not assume the state portal can fix every problem. Missing emissions records, an expired registration with a citation, unusual title ownership and certain commercial transactions can require an office visit."
+        ],
+        "links": [
+          {
+            "label": "Find your DMV or county office",
+            "href": "/find-my-dmv",
+            "external": false
+          },
+          {
+            "label": "Texas by Texas services",
+            "href": "/texas-by-texas-txt",
+            "external": false
+          }
+        ]
+      }
     ],
     related: [{ label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, { label: "Find my DMV", href: "/find-my-dmv" }, { label: "Moving to Texas", href: "/moving-to-texas" }],
   },
@@ -213,12 +477,99 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     eyebrow: "Texas symbols",
     title: "Texas Flag: History, Meaning, Rules and the Lone Star",
     intro: "A complete starting point for the Texas flag: where the Lone Star design came from, what its colors represent, how Texas law describes the flag and how to display it respectfully.",
-    updated: "August 20, 2026",
+    updated: "November 12, 2026",
     quickAnswer: "The modern Texas flag uses one vertical blue stripe with a single white five-pointed star and two horizontal stripes, white over red. It was adopted by the Republic of Texas in 1839 and remains the state flag today.",
     sections: [
-      { heading: "History of the Lone Star flag", paragraphs: ["The familiar Lone Star design dates to the Republic of Texas era and was adopted in 1839. Its continued use makes the flag one of the strongest visual links between the Republic and the modern state."], links: [{ label: "TSLAC: original 1839 Lone Star flag design", href: "https://www.tsl.texas.gov/exhibits/texas175/flag.html", external: true }, { label: "History of the Texas flag", href: "/article/history-of-the-texas-flag" }, { label: "Texas history", href: "/texas-history" }] },
-      { heading: "Design and meaning", paragraphs: ["Texas law specifies the flag's basic colors and geometry. The Lone Star is the defining symbol, while state law also assigns meanings to the colors: blue for loyalty, white for purity and red for bravery."], links: [{ label: "Texas Government Code Chapter 3100 — State Flag", href: "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf", external: true }, { label: "Texas State Library flag description", href: "https://www.tsl.texas.gov/ref/abouttx/flagdes", external: true }, { label: "Texas symbols", href: "/texas-symbols" }] },
-      { heading: "How to display the Texas flag", paragraphs: ["Texas has statutory flag-display rules and customs covering placement, respect and use alongside other flags. For practical examples, use the dedicated etiquette guide."], links: [{ label: "Texas Government Code Chapter 3100 — display rules", href: "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf", external: true }, { label: "Texas flag etiquette and display guide", href: "/article/texas-flag-etiquette-display-guide" }] },
+      {
+        "heading": "What the flag looks like — and what the law specifies",
+        "paragraphs": [
+          "The state flag has a blue vertical field at the hoist containing one white five-pointed star. The remaining fly is split horizontally: white above red. Texas Government Code Chapter 3100 specifies the flag's overall length-to-width ratio as 3:2; the blue stripe spans one-third of the flag's length and the white and red stripes each fill half of the remaining field's height.",
+          "A common illustration error is treating the flag as three equal vertical panels, moving the star into the center of the full flag or reversing the white and red horizontal stripes. The historical design file at the Texas State Library offers a reliable visual reference."
+        ],
+        "links": [
+          {
+            "label": "Texas Government Code, Chapter 3100",
+            "href": "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf",
+            "external": true
+          },
+          {
+            "label": "State Library flag description",
+            "href": "https://www.tsl.texas.gov/ref/abouttx/flagdes",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "How the Lone Star flag became the state flag",
+        "paragraphs": [
+          "The familiar Lone Star design was adopted by the Republic of Texas in 1839, years before Texas joined the United States. The design survived annexation and became central to state symbolism. Texas flags from the revolution and early republic period were not all identical, so the 1839 design should not be projected onto every earlier historic flag.",
+          "For primary documents, compare the Republic-era design held by the Texas State Library and Archives Commission with later statutory language. Questions about who drew the earliest version deserve careful sourcing rather than a single unsourced designer attribution."
+        ],
+        "links": [
+          {
+            "label": "Texas State Library 1839 design",
+            "href": "https://www.tsl.texas.gov/exhibits/texas175/flag.html",
+            "external": true
+          },
+          {
+            "label": "Flag history and chronology",
+            "href": "/article/history-of-the-texas-flag",
+            "external": false
+          }
+        ]
+      },
+      {
+        "heading": "Blue, white, red and the Lone Star",
+        "paragraphs": [
+          "Texas law associates blue with loyalty, white with purity and red with bravery. These are statutory meanings, not scientific claims about color psychology. The single white star is the identifying feature of the Lone Star flag and a symbol used across many Texas institutions.",
+          "Use the official state description for exact terminology. Historical stories about what particular individuals intended each element to mean may require separate documentary evidence."
+        ],
+        "links": [
+          {
+            "label": "Official law for the state flag",
+            "href": "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Displaying the Texas and United States flags",
+        "paragraphs": [
+          "Flag order, height, placement, orientation and half-staff decisions depend on the setting. In ordinary joint displays, do not treat Texas as a nation entitled to outrank the United States flag. The dedicated flag etiquette guide walks through separate poles, vertical hanging, folding and half-staff examples.",
+          "For schools, businesses and public events, check Texas Government Code requirements as well as the U.S. Flag Code where applicable. Images found through search can mistakenly reverse the flag when viewed from different sides."
+        ],
+        "links": [
+          {
+            "label": "Texas flag etiquette guide",
+            "href": "/article/texas-flag-etiquette-display-guide",
+            "external": false
+          },
+          {
+            "label": "Texas flag statutes",
+            "href": "https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "See related Texas symbols and their legal sources",
+        "paragraphs": [
+          "The Texas flag belongs in a larger set of designated state symbols. Many such emblems have their own legislation or historical records, and a popular nickname is not automatically an official designation.",
+          "For the complete history of the flag and its changing design, use the historical article; for practical displays, use the etiquette guide. Those topics are maintained separately rather than repeating the same account on each page."
+        ],
+        "links": [
+          {
+            "label": "Texas state symbols",
+            "href": "/texas-symbols",
+            "external": false
+          },
+          {
+            "label": "Texas history",
+            "href": "/texas-history",
+            "external": false
+          }
+        ]
+      }
     ],
     related: [{ label: "Texas symbols", href: "/texas-symbols" }, { label: "Texas history", href: "/texas-history" }, { label: "Texas facts", href: "/texas-facts" }, { label: "Things unique to Texas", href: "/things-unique-to-texas" }],
   },
@@ -410,12 +761,137 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     eyebrow: "Texas explained",
     title: "Texas Two Step: How the Texas Lottery Game Works",
     intro: "A plain-English guide to Texas Two Step, including the number draw, Bonus Ball, drawing schedule, prize structure, odds and the official rules that control the game.",
-    updated: "August 20, 2026",
-    quickAnswer: "Texas Two Step is a Texas Lottery draw game. Players select four numbers from 1 to 35 plus a Bonus Ball number from 1 to 35. Drawings are held Mondays and Thursdays, and the jackpot starts at $200,000 under the current official game information.",
+    updated: "November 12, 2026",
+    quickAnswer: "Texas Two Step is a $1-per-play lottery game with four distinct numbers from 1–35 and a separate Bonus Ball from 1–35. Drawings are Mondays and Thursdays at 10:12 p.m. Central. Overall prize odds are 1 in 32.4; official results and payouts take precedence over this guide.",
     sections: [
-      { heading: "How Texas Two Step is played", paragraphs: ["A play consists of four different numbers from 1 through 35 plus one Bonus Ball number from 1 through 35. The official Texas Lottery game rule controls if promotional material and the rule ever differ."], links: [{ label: "Official Texas Two Step how-to-play guide", href: "https://www.texaslottery.com/export/sites/lottery/Documents/HTP_TexasTwoStep_ENG.pdf", external: true }] },
-      { heading: "Drawings, prizes and odds", paragraphs: ["The Texas Lottery currently advertises drawings on Monday and Thursday. The game includes a jackpot and lower prize tiers, including a guaranteed prize for matching only the Bonus Ball. Prize amounts and pari-mutuel tiers can change, so verify the current prize table before relying on an amount."], links: [{ label: "Texas Lottery", href: "https://www.texaslottery.com/", external: true }] },
-      { heading: "Use the official rules", paragraphs: ["Lottery drawings and prize claims are governed by official Texas Lottery rules, not summaries. Players must meet the legal age requirement and should treat lottery play as entertainment rather than a financial strategy."], links: [{ label: "Texas facts", href: "/texas-facts" }] },
+      {
+        "heading": "What you pay and how the numbers are selected",
+        "paragraphs": [
+          "A Texas Two Step play costs $1. Choose four different numbers from 1 through 35 and a Bonus Ball number from 1 through 35, or use Quick Pick at a licensed retailer. The Bonus Ball is selected separately from the four main numbers, so it may match one of them.",
+          "You can play the same selection for up to 10 consecutive drawings using Multi-Draw. Check the printed ticket against your selections before leaving the counter; the ticket, not the playslip, is the proof of purchase."
+        ],
+        "links": [
+          {
+            "label": "Official Texas Two Step rules and how to play",
+            "href": "https://www.texaslottery.com/export/sites/lottery/Games/Texas_Two_Step/index.html",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Draw times and cutoff",
+        "paragraphs": [
+          "Drawings are scheduled on Mondays and Thursdays at 10:12 p.m. Central Time. The published draw break runs from 10:02 through 10:15 p.m., when tickets are not sold. Verify any special scheduling changes with the official Lottery page rather than relying on a past drawing listing.",
+          "Winning numbers and jackpots change after every drawing. TexasDefined intentionally does not publish a static current jackpot in this evergreen explanation."
+        ],
+        "links": [
+          {
+            "label": "Official drawing page",
+            "href": "https://www.texaslottery.com/export/sites/lottery/Games/Texas_Two_Step/index.html",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Texas Two Step prize levels and probabilities",
+        "paragraphs": [
+          "The jackpot is won by matching all four main numbers plus the Bonus Ball. Four main numbers without the Bonus Ball win a separate prize tier, as do three or two main numbers with specified Bonus Ball combinations. Several higher tiers are pari-mutuel: their amount depends on the prize allocation and number of winners rather than an invariant cash value.",
+          "The Lottery reports overall odds of winning any prize of approximately 1 in 32.4. That means the majority of tickets do not win; the jackpot odds are approximately 1 in 1,832,600. The two lowest tiers matching the Bonus Ball pay guaranteed $5 or $7 under the published game rules. Never mistake a frequently changing advertised jackpot or estimated pari-mutuel prize for a fixed payout."
+        ],
+        "table": {
+          "caption": "Match combinations, approximate odds and payout type — Texas Lottery game information",
+          "columns": [
+            "Main matches",
+            "Bonus Ball",
+            "Prize type",
+            "Approximate odds"
+          ],
+          "rows": [
+            [
+              "4",
+              "Yes",
+              "Jackpot (pari-mutuel)",
+              "1 in 1,832,600"
+            ],
+            [
+              "4",
+              "No",
+              "Pari-mutuel",
+              "1 in 53,900"
+            ],
+            [
+              "3",
+              "Yes",
+              "Pari-mutuel",
+              "1 in 14,779"
+            ],
+            [
+              "3",
+              "No",
+              "Pari-mutuel",
+              "1 in 435"
+            ],
+            [
+              "2",
+              "Yes",
+              "Pari-mutuel",
+              "1 in 657"
+            ],
+            [
+              "1",
+              "Yes",
+              "$7 guaranteed",
+              "1 in 102"
+            ],
+            [
+              "0",
+              "Yes",
+              "$5 guaranteed",
+              "1 in 58"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "label": "Official game rules and results",
+            "href": "https://www.texaslottery.com/export/sites/lottery/Games/Texas_Two_Step/index.html",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Checking and claiming a prize",
+        "paragraphs": [
+          "Compare the official winning numbers with your ticket, including the separate Bonus Ball. Prize claims must be submitted within 180 days of the draw date. The Lottery controls ticket validation and instructions for claiming at a retailer, claim center or by mail.",
+          "Keep the physical ticket safe, follow the official claim procedure for its value and never share ticket details in messages from strangers offering to process prizes. No mathematical strategy changes the probability of an individual random combination."
+        ],
+        "links": [
+          {
+            "label": "Texas Lottery claim instructions",
+            "href": "https://www.texaslottery.com/export/sites/lottery/Games/Texas_Two_Step/index.html",
+            "external": true
+          }
+        ]
+      },
+      {
+        "heading": "Looking for the Texas two-step dance instead?",
+        "paragraphs": [
+          "The Texas two-step dance is a different topic entirely. For the dance, western swing, honky-tonks and venues where people actually dance, use the dance-hall guide. This page covers only the state lottery game.",
+          "Lottery play should be treated as discretionary entertainment, not a way to pay living expenses. Check the official rules for age, prize-claim and responsible-play requirements."
+        ],
+        "links": [
+          {
+            "label": "Texas dance halls and honky-tonks",
+            "href": "/texas-dance-halls-honky-tonks",
+            "external": false
+          },
+          {
+            "label": "Texas western swing",
+            "href": "/texas-western-swing",
+            "external": false
+          }
+        ]
+      }
     ],
     related: [{ label: "Texas facts", href: "/texas-facts" }, { label: "Things unique to Texas", href: "/things-unique-to-texas" }, { label: "Texas history", href: "/texas-history" }, { label: "Texas guidebook", href: "/guides" }],
   },
