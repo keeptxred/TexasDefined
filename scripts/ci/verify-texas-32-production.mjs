@@ -93,8 +93,9 @@ async function check(slug) {
     for(const tag of html.match(/<meta\b[^>]*>/gi)??[]) {
       if(tagAttr(tag,"name")?.toLowerCase()==="robots" && /\bnoindex\b/i.test(tagAttr(tag,"content")??"")) errors.push("Meta robots contains noindex");
     }
-    const visible=textOnly(html);
-    if(visible.length < 900) errors.push("Suspiciously short server-rendered document; investigate visitor value");
+    const mainHtml = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
+    const visible = textOnly(mainHtml);
+    if(visible.length < 1000) errors.push("Thin or missing first-party main content (under 1000 readable characters)");
     for(const marker of requiredText.get(slug)??[]) {
       if(!visible.includes(marker)) errors.push("Missing release-specific visible content: " + marker);
     }
