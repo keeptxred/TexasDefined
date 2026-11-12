@@ -57,6 +57,20 @@ const KNOWN_PUBLISHED_FREDERICKSBURG_TIMEOUT = Object.freeze({
 // actual directory. PR #7039 removed only that impossible assertion, preserving
 // current individual-record date and karting closure checks. Eligible ONLY to
 // reuse verified original bytes after separate active Worker/source/hash checks.
+// Nov 12 production run #43314663760 published Worker version
+// 2f9420e0-0eba-4721-8727-a338a82cba72, passed both direct/canonical
+// health and the original-byte dual-origin JS/CSS audit, then failed only
+// the independent Fredericksburg Explore sitemap parity assertion. PR #7049
+// now emits exact mismatch evidence and #7050 added whole-sitemap URL dedup.
+// Preserve its OLD CLIENT ASSETS only after the other verifier confirms the
+// exact active Worker version, source SHA, and every original hash on both
+// origins. This is NOT certification of the failed sitemap release.
+const KNOWN_PUBLISHED_FREDERICKSBURG_SITEMAP_REGRESSION = Object.freeze({
+  runId: 43314663760,
+  jobId: 131519408864,
+  failedStep: 'Verify base production surfaces',
+});
+
 const KNOWN_PUBLISHED_SPORTS_DIRECTORY_ASSERTION = Object.freeze({
   runId: 43251806283,
   jobId: 131299301592,
@@ -117,6 +131,25 @@ export function qualifyPriorDeployJob(payload) {
     }
     return { eligible: true, mode: 'exact-image-rights-incident-assets-only',
       criticalChecks: CRITICAL.length, permittedFailure: failures[0], exactRun: imageIncident.runId };
+  }
+  const fredericksburgSitemapIncident = KNOWN_PUBLISHED_FREDERICKSBURG_SITEMAP_REGRESSION;
+  if (job.run_id === fredericksburgSitemapIncident.runId &&
+      job.id === fredericksburgSitemapIncident.jobId &&
+      failures.length === 1 && failures[0] === fredericksburgSitemapIncident.failedStep) {
+    // Require BOTH the actual sitemap fix and the no-bypass live diagnostics.
+    // If either is removed by a future change, the exceptional asset reuse
+    // fails closed, even for this exact historical run and job.
+    const sitemapRoute = readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+    const liveVerifier = readFileSync('scripts/ci/verify-el-paso-fredericksburg-release.mjs', 'utf8');
+    if (!sitemapRoute.includes('function dedupeUrlEntries(') ||
+        !sitemapRoute.includes('const entries = dedupeUrlEntries([') ||
+        !liveVerifier.includes('exactCanonicalMatches: expectedMatches') ||
+        !liveVerifier.includes('expectedMatches !== 1')) {
+      throw Error('The exact Fredericksburg sitemap gate and dedup fix must remain active');
+    }
+    return { eligible: true, mode: 'exact-published-worker-fredericksburg-sitemap-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailure: failures[0],
+      exactRun: fredericksburgSitemapIncident.runId };
   }
   const sportsIncident = KNOWN_PUBLISHED_SPORTS_DIRECTORY_ASSERTION;
   if (job.run_id === sportsIncident.runId && job.id === sportsIncident.jobId &&
