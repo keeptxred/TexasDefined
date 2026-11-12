@@ -874,6 +874,17 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
         ]
       },
       {
+        "heading": "Who oversees the game and where tickets are sold",
+        "paragraphs": [
+          "The Texas Department of Licensing and Regulation has overseen the Texas Lottery since September 1, 2025, when the former Texas Lottery Commission was abolished. TDLR links directly to the official Texas Two Step game information and regulations. Older references to the Lottery Commission describe the former agency, not the current regulator.",
+          "Tickets are sold by authorized Texas Lottery retailers, not through TexasDefined. You must be at least 18 to play. Use the state's published results and claim rules, and do not send money or identity documents to anyone who claims you won without a valid ticket."
+        ],
+        "links": [
+          { "label": "TDLR Texas Lottery program and rules", "href": "https://www.tdlr.texas.gov/lottery/", "external": true },
+          { "label": "Official Texas Lottery retailer and player protection information", "href": "https://www.texaslottery.com/", "external": true }
+        ]
+      },
+      {
         "heading": "Looking for the Texas two-step dance instead?",
         "paragraphs": [
           "The Texas two-step dance is a different topic entirely. For the dance, western swing, honky-tonks and venues where people actually dance, use the dance-hall guide. This page covers only the state lottery game.",
