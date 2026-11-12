@@ -44,15 +44,15 @@
     "dateAssigned": "2026-11-11",
     "selectionRule": "First 25 canonical NOT_REVIEWED records with null batch in stable registry order after protected Batch016 graduation PR #6969",
     "individuallyVerified": 0,
-    "remainingAssigned": 15,
+    "remainingAssigned": 10,
     "assignmentBranch": "feat/football-b017-assign-25-20261111",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "el-paso-riverside",
-    "nextSchool": "el-paso-riverside",
-    "implementedOnBranch": 10,
-    "remainingToImplement": 15,
+    "currentSchool": "elgin",
+    "nextSchool": "elgin",
+    "implementedOnBranch": 15,
+    "remainingToImplement": 10,
     "remainingToVerify": 25,
-    "notes": "Ten school-specific source overlays and bidirectional El Paso campus-county links authored. All 25 Batch017 remain NOT production VERIFIED; preserve 380 earlier signed VERIFIED. Next five: Riverside, Socorro, Ysleta, Eldorado, Electra.",
+    "notes": "Fifteen school-specific official-source guides authored, with correct El Paso/Schleicher/Wichita campus counties. Ten remain source-unreviewed. No new signed Chrome or Worker certification. 380 earlier VERIFIED preserved.",
     "noNextBatchAssigned": false
   },
   "statusValues": [
@@ -15004,8 +15004,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/el-paso-riverside",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:el-paso-socorro",
@@ -15018,8 +15022,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/el-paso-socorro",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:el-paso-ysleta",
@@ -15032,8 +15040,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/el-paso-ysleta",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:eldorado",
@@ -15046,8 +15058,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/eldorado",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:electra",
@@ -15060,8 +15076,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/electra",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:elgin",
