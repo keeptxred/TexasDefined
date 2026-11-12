@@ -55,7 +55,7 @@ check(landingRoute.includes('const matchedVenue = choice.venueSlug ? venues.find
 check(landingRoute.includes('seenVenuePaths.has(path)'), 'Landing directory needs canonical path deduplication');
 check(directory.includes('seenVenuePaths.has(venuePath)'), 'Statewide directory needs canonical path deduplication');
 check(directory.includes('getSportsVenueEditorialDescriptions') && directory.includes('editorialDescriptions[venue.id]'), 'Statewide directory must show original verified venue editorial instead of generic seed descriptions');
-check(directory.includes('catalogCount: SPORTS_VENUE_COMPARISON_ROWS.length'), 'Curated vs complete inventory must be explained with live counts');
+check(directory.includes('catalogCount: allSportsVenues.length'), 'Curated vs complete inventory must be explained with live counts');
 check(directory.includes("'@type': 'CollectionPage'") && directory.includes("'@type': 'ItemList'") && directory.includes("'@type': 'BreadcrumbList'"), 'Statewide sports directory must expose factual collection, unique links and breadcrumb schema');
 check(!landingRoute.includes("'@type': 'FAQPage'"), 'Non-government sports collection must not emit generic FAQ markup');
 check(comparison.includes('visibleRows.map((row)'), 'Comparison must provide functional venue filters');
