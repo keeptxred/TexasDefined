@@ -18,7 +18,7 @@ function TexasSacredPlacesPage() {
         <nav aria-label="Breadcrumb" className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"><Link to="/">Home</Link> <span aria-hidden> / </span><Link to="/explore">Explore</Link> <span aria-hidden> / </span><span aria-current="page">Sacred Places</span></nav>
         <p className="eyebrow mt-10 text-primary">Faith · heritage · remembrance</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Visit sacred Texas with history and respect intact</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas religious heritage includes active parishes, Spanish mission landscapes, immigrant churches, painted interiors, cemeteries and memorial places. This guide connects the strongest source-backed Texas Defined collections while keeping worship, burial, cultural sensitivity and visitor access distinct.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas religious heritage includes active parishes, Spanish mission landscapes, immigrant churches, painted interiors, cemeteries and memorial places. Follow the communities and preserved places behind these traditions, while recognizing that prayer, burial and community life take priority over sightseeing.</p>
       </Container>
     </section>
 
@@ -58,7 +58,7 @@ function TexasSacredPlacesPage() {
 
     <section className="bg-surface">
       <Container className="py-12 sm:py-16">
-        <p className="eyebrow text-primary">Current scope & official sources</p><h2 className="mt-3 max-w-4xl font-display text-3xl">Coverage grows only when visitor access and source depth justify it</h2><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Texas Defined's current source-backed visitor authority is strongest for Painted Churches, Spanish mission and borderlands heritage, selected immigrant religious communities and national-cemetery memorial landscapes. We will not create thin pages for synagogues, temples, monasteries, shrines or culturally sensitive sacred sites merely to fill a taxonomy; those areas should become indexable only when access, history and authoritative sourcing are strong enough to serve visitors responsibly.</p>
+        <p className="eyebrow text-primary">Current scope & official sources</p><h2 className="mt-3 max-w-4xl font-display text-3xl">Respect access limits and the people who use these places</h2><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The guides here focus on painted churches, Spanish missions, borderlands heritage and national cemeteries. Other places of worship and sacred landscapes deserve careful treatment too. Some have no public visitor program, some are active community spaces, and others are not appropriate to publish as tourist stops. When access is uncertain or restricted, we do not suggest an uninvited visit.</p>
         <ul className="mt-6 grid gap-3 text-sm font-semibold md:grid-cols-3"><li><a href="https://www.nps.gov/saan/index.htm" target="_blank" rel="noreferrer" className="text-primary">NPS San Antonio Missions ↗</a></li><li><a href="https://thc.texas.gov/historic-sites" target="_blank" rel="noreferrer" className="text-primary">Texas Historical Commission historic sites ↗</a></li><li><a href="https://www.cem.va.gov/find-cemetery/state.asp?STATE=TX" target="_blank" rel="noreferrer" className="text-primary">VA National Cemeteries in Texas ↗</a></li></ul>
       </Container>
     </section>

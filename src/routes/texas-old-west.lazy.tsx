@@ -25,7 +25,7 @@ function TexasOldWestPage() {
         <nav aria-label="Breadcrumb" className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"><Link to="/">Home</Link> <span aria-hidden> / </span><Link to="/explore">Explore</Link> <span aria-hidden> / </span><span aria-current="page">Texas Old West</span></nav>
         <p className="eyebrow mt-10 text-primary">Old West · ranch · rodeo</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas Old West is bigger than the cowboy myth</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use forts, ranches, longhorns, Native history, Buffalo Soldiers, rodeo grounds and dance halls to follow western Texas as a connected landscape. This guide organizes existing Texas Defined destination and history authority into trips you can actually plan.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use forts, ranches, longhorns, Native history, Buffalo Soldiers, rodeo grounds and dance halls to follow western Texas as a connected landscape. Use the places themselves to trace how people lived, fought, worked and made music, and build a route without losing the history behind the scenery.</p>
       </Container>
     </section>
 
@@ -51,7 +51,7 @@ function TexasOldWestPage() {
             ["Young County Museum of History & Culture", "/destination/young-county-museum-of-history-and-culture", "Explore the Brazos Indian Reservation, Fort Belknap, cattle history and primary-source research from Graham."],
             ["Young County frontier history", "/county/young", "Connect Graham, Fort Belknap and the Brazos frontier with the county\x27s changing communities and landscape."],
             ["Texas dance halls", "/texas-dance-halls-honky-tonks", "Follow the social rooms where western swing, country music and community life became lived culture."],
-            ["Texas two-step", "/texas-two-step", "Understand the dance tradition before building a dance-hall or honky-tonk night into the trip."],
+            ["Texas two-step dance", "/texas-dance-halls-honky-tonks", "Learn how two-step dancing fits the music and social culture of Texas dance halls before planning a night out."],
             ["Historic sites & museums", "/explore/historic-sites", "Browse the larger preserved-site catalog for forts, battlefields, homes, missions and museums."],
           ].map(([title, href, body]) => <Link key={href} to={href} className="group border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl group-hover:text-primary">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p><span className="mt-4 inline-block text-sm font-semibold text-primary">Open guide →</span></Link>)}
         </div>
