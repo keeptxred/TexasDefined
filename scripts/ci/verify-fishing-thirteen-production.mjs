@@ -12,7 +12,7 @@ const guides = {
   "cut-bait": "Choose cut-bait rigs by current and depth",
 };
 const entries = [
-  ["/fishing/techniques", ["Texas Fishing Techniques","Year-round is an applicability label"]],
+  ["/fishing/techniques", ["Texas Fishing Techniques","Year-round is an applicability label","Match the Method to the Water","Which fishing technique should I start with?","Where can I check fishing rules for a particular lake?"]],
   ...Object.entries(guides).map(([slug, heading]) => [`/fishing/techniques/${slug}`, [heading,"Browse all"]]),
   ["/fishing/regulations", ["Decide Which Rule Applies Before You Go","Bait Sourcing, Transport and Clean-Water Rules"]],
   ["/fishing/species", ["Directory records versus standalone guides","Standalone guides"]],
@@ -45,6 +45,7 @@ async function worker() {
       if(res.status!==200)issues.push("HTTP_"+res.status);
       if(!/<title[\s>]/i.test(body))issues.push("no_title");
       if(!/<h1[\s>]/i.test(body))issues.push("no_ssr_h1");
+      if(path==="/fishing/techniques/trolling" && !visible.includes("How to Troll for Fish in Texas"))issues.push("unnatural_trolling_h1");
       const canonTag=[...body.matchAll(/<link\b[^>]*>/gi)].map(x=>x[0]).find(tag=>getAttr(tag,"rel").toLowerCase().split(/\s+/).includes("canonical"));
       const actual=getAttr(canonTag??"","href").replace(/\/$/,"");
       if(actual!==root+path)issues.push("bad_canonical:"+actual);
