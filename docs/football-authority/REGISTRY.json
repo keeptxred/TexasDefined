@@ -44,15 +44,15 @@
     "dateAssigned": "2026-11-11",
     "selectionRule": "First 25 canonical NOT_REVIEWED records with null batch in stable registry order after protected Batch016 graduation PR #6969",
     "individuallyVerified": 0,
-    "remainingAssigned": 20,
+    "remainingAssigned": 15,
     "assignmentBranch": "feat/football-b017-assign-25-20261111",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "el-paso-irvin",
-    "nextSchool": "el-paso-irvin",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "currentSchool": "el-paso-riverside",
+    "nextSchool": "el-paso-riverside",
+    "implementedOnBranch": 10,
+    "remainingToImplement": 15,
     "remainingToVerify": 25,
-    "notes": "First five individually official-sourced SSR editorial overlays and El Paso County reciprocal links authored on Batch017 first-five branch. NOT production Chrome verified; 380 older VERIFIED unchanged. Remaining 20 schools require distinct research and release-pinned evidence.",
+    "notes": "Ten school-specific source overlays and bidirectional El Paso campus-county links authored. All 25 Batch017 remain NOT production VERIFIED; preserve 380 earlier signed VERIFIED. Next five: Riverside, Socorro, Ysleta, Eldorado, Electra.",
     "noNextBatchAssigned": false
   },
   "statusValues": [
@@ -14914,8 +14914,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/el-paso-irvin",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:el-paso-jefferson",
@@ -14928,8 +14932,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/el-paso-jefferson",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:el-paso-montwood",
@@ -14942,8 +14950,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/el-paso-montwood",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:el-paso-parkland",
@@ -14956,8 +14968,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/el-paso-parkland",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:el-paso-pebble-hills",
@@ -14970,8 +14986,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/el-paso-pebble-hills",
-      "status": "NOT_REVIEWED",
-      "batch": 17
+      "status": "IMPLEMENTED",
+      "batch": 17,
+      "actualProductionVerified": false,
+      "manualAccessibilityAccepted": false,
+      "schoolPhotoReuseRightsAccepted": false,
+      "editorialHumanSignoff": false
     },
     {
       "id": "uil:el-paso-riverside",

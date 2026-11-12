@@ -14,6 +14,9 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  // Batch017 second five: official school-controlled mascot sources. Identity only; not results, photographs or Chrome certification.
+  { slug: 'el-paso-irvin', mascot: 'Rockets', sourceUrl: 'https://www.episd.org/o/ihs/live-feed', sourceLabel: 'Irvin High School first-party 2026 Rocket student and football posts', verifiedAt: '2026-11-12' },
+  { slug: 'el-paso-jefferson', mascot: 'Silver Foxes', sourceUrl: 'https://www.episd.org/o/jhs/page/school-information/', sourceLabel: 'Jefferson High School school information identifies mascot Silver Fox, Silver Foxes as campus collective', verifiedAt: '2026-11-12' },
 // Batch016 identities: school-/district-controlled sources preferred, DCTF 2026 team pages
 // where original campus pages lack a text-rendered mascot. Identity only: not scores,
 // photography permissions, individual schedules or human editorial acceptance.
