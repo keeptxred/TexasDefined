@@ -1,0 +1,51 @@
+name: Texas 32-page authority contract
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/priority-search-pages*.ts'
+      - 'src/routes/texas-*.tsx'
+      - 'src/routes/gruene-hall-history*.tsx'
+      - 'src/routes/track-texas-drivers-license*.tsx'
+      - 'src/routes/replace-texas-registration-receipt*.tsx'
+      - 'src/components/editorial/PrioritySearchPage.tsx'
+      - 'src/data/texas-music-guides-*.ts'
+      - 'scripts/data/validate-texas-32-authority.mjs'
+      - '.github/workflows/verify-texas-32-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/priority-search-pages*.ts'
+      - 'src/routes/texas-*.tsx'
+      - 'src/routes/gruene-hall-history*.tsx'
+      - 'src/routes/track-texas-drivers-license*.tsx'
+      - 'src/routes/replace-texas-registration-receipt*.tsx'
+      - 'src/components/editorial/PrioritySearchPage.tsx'
+      - 'src/data/texas-music-guides-*.ts'
+      - 'scripts/data/validate-texas-32-authority.mjs'
+  workflow_dispatch:
+  schedule:
+    - cron: '23 13 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-32-authority-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate all 32 authority routes and content guards
+        run: node scripts/data/validate-texas-32-authority.mjs
+      - name: Validate source-backed Texas state comparisons
+        run: node scripts/data/validate-texas-vs-state-promotions.mjs
+      - name: Validate Texas flag primary-source history
+        run: node scripts/data/validate-texas-flag-authority.mjs
