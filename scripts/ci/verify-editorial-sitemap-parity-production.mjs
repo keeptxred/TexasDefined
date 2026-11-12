@@ -197,6 +197,47 @@ for (const guide of attractionCertification) {
   }
 }
 
+
+// Canonical consolidation is not established solely by one clean URL's tag.
+// Independently probe a tracking query and trailing slash for each attraction:
+// a single direct redirect to the canonical is acceptable, or a served 200
+// with exactly one clean self-canonical and no noindex; chains/other targets fail.
+for (const guide of attractionCertification) {
+  for (const variant of [guide.path + "/", guide.path + "?utm_source=attraction-canonical-audit"]) {
+    try {
+      let response = await fetch(origin + variant, {
+        headers, redirect: "manual", signal: AbortSignal.timeout(15000),
+      });
+      if ([301, 302, 307, 308].includes(response.status)) {
+        const location = response.headers.get("location");
+        if (!location) throw Error("redirect missing Location");
+        const target = new URL(location, origin);
+        if (target.toString() !== origin + guide.path) {
+          throw Error("variant redirects somewhere other than exact self canonical: " + target.toString());
+        }
+        response = await fetch(target, { headers, redirect: "manual", signal: AbortSignal.timeout(15000) });
+      }
+      // A deliberately absent 404/410 variant cannot create duplicate indexable HTML.
+      if (variant.endsWith("/") && [404, 410].includes(response.status)) continue;
+      if (response.status !== 200) throw Error("variant HTTP " + response.status);
+      const html = await response.text();
+      const tags = html.match(/<link\b[^>]*>/gi) ?? [];
+      const canonicals = tags.filter((tag) => /\brel\s*=\s*["']canonical["']/i.test(tag));
+      if (canonicals.length !== 1 || canonicals[0].match(/\bhref\s*=\s*(["'])(.*?)\1/i)?.[2] !== origin + guide.path) {
+        throw Error("variant has missing, conflicting or wrong canonical");
+      }
+      if (!html.includes(guide.name) ||
+        /\bnoindex\b/i.test(response.headers.get("x-robots-tag") ?? "") ||
+        (html.match(/<meta\b[^>]*>/gi) ?? []).some((tag) =>
+          /\bname\s*=\s*["'](?:robots|googlebot)["']/i.test(tag) && /\bnoindex\b/i.test(tag))) {
+        throw Error("variant lacks named SSR content or became noindex");
+      }
+    } catch (error) {
+      failures.push({ path: variant, error: "canonical variant: " + String(error) });
+    }
+  }
+}
+
 console.log(JSON.stringify({
   date: new Date().toISOString(),
   editorialPages: explore.length, legalPages: main.length, inspected: allPaths.length,
