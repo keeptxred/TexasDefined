@@ -202,7 +202,7 @@ function SportsVenueComparisonPage() {
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Capacity may vary by event configuration. Opening fields can include redevelopment context when a simple year would be misleading.</p>
             </div>
             <div className="min-w-0 overflow-x-auto border-t border-border">
-              <table className="w-full min-w-[900px] border-collapse text-left text-sm">
+              <table className="w-full min-w-[760px] border-collapse text-left text-sm">
                 <caption className="sr-only">Comparison of {visibleRows.length} matching Texas sports venues by location, type, capacity and opening information.</caption>
                 <thead>
                   <tr className="border-b border-border text-xs uppercase tracking-[0.12em] text-muted-foreground">
