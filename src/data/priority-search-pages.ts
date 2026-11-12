@@ -576,15 +576,15 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
   "texas-state-fair": {
     eyebrow: "Texas events",
     title: "State Fair of Texas 2026: Dates, Hours, Tickets, Food, Rides and Fair Park",
-    intro: "A current 2026 State Fair of Texas planning guide for Fair Park in Dallas, including hours, admission, parking and DART, coupons, discounts, new foods, Big Tex Choice Award winners, rides, college football, family planning and first-timer itineraries.",
-    updated: "September 25, 2026",
-    quickAnswer: "The 2026 State Fair of Texas is now open at Fair Park in Dallas and runs September 25 through October 18. Gates are open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays, with last entry at 9 p.m. Ticket prices vary by day and discount, so check the official ticket page before you go.",
+    intro: "An archive of the 2026 State Fair of Texas at Fair Park in Dallas, including hours, admission, parking and DART, coupons, discounts, new foods, Big Tex Choice Award winners, rides, college football, family planning and first-timer itineraries.",
+    updated: "November 12, 2026",
+    quickAnswer: "The 2026 State Fair of Texas concluded October 18 at Fair Park in Dallas. The 2026 prices, hours and food information below are historical; future event dates and admission must be confirmed by the organizer.",
     sections: [
       {
         heading: "2026 dates, hours and Fair Park location",
         paragraphs: [
-          "The 2026 State Fair of Texas runs Friday, September 25 through Sunday, October 18 at Fair Park in Dallas. The Fair is open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry is 9 p.m.",
-          "Parking gates and ticket booths open daily at 9:30 a.m. The Midway opens at 11 a.m. Sundays through Fridays and 10 a.m. Saturdays. Fair Park museum hours can differ from the Fair's operating hours, so check individual museum schedules if they are part of your visit."
+          "The 2026 State Fair of Texas ran Friday, September 25 through Sunday, October 18 at Fair Park in Dallas. The Fair was open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry was 9 p.m.",
+          "Parking gates and ticket booths opened daily at 9:30 a.m. The Midway opened at 11 a.m. Sundays through Fridays and 10 a.m. Saturdays. Fair Park museum hours can differ from the Fair's operating hours, so check individual museum schedules if they are part of your visit."
         ],
         links: [
           { label: "Official State Fair hours", href: "https://bigtex.com/faqs/fair-hours/", external: true },
@@ -594,7 +594,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
       {
         heading: "2026 ticket prices and admission",
         paragraphs: [
-          "State Fair admission is dynamically priced by day and discount. The Fair currently lists general admission from $7 to $25, children ages 3–12 from $7 to $10, children age 2 and younger free, and senior admission from $7 to $20. Season-pass options are also available.",
+          "State Fair admission is dynamically priced by day and discount. For 2026 the Fair listed general admission from $7 to $25, children ages 3–12 from $7 to $10, children age 2 and younger free, and senior admission from $7 to $20. Season-pass options are also available.",
           "Because prices and promotions can change by date, buy from the official Fair ticket page and compare the day's general admission price with any discount that applies to you before checkout."
         ],
         links: [
