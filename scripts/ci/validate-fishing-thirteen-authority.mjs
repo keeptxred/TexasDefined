@@ -32,8 +32,8 @@ assert.equal((field.match(/situation:/g) ?? []).length, 28, "Expect 27 independe
 assert(tServer.includes("allProfiles: profiles.map"), "Complete lake registry was hidden behind featured selection");
 assert(tProfile.includes("data.allProfiles.map"), "Page does not link the complete verified source-backed lake set");
 assert(tProfile.includes("fieldGuide.decisions.map"), "Unique editorial decisions not displayed");
-assert(tProfile.includes('season !== "year-round"'), "Season tally counts year-round as fifth season");
-assert(tDirectory.includes("Year-round is an applicability label"), "Directory taxonomy remains misleading");
+assert(tProfile.includes('data.seasons.includes("year-round") ? "All year"') && !tProfile.includes("four seasons, not five"), "Seasonal scope must be described for readers without counting year-round as a fifth season");
+assert(tDirectory.includes("Year-round means a narrower season was not recorded"), "Directory must explain applicability without internal taxonomy language");
 assert(speciesDirectory.includes("Directory records versus standalone guides"), "Directory claims all species have full guides");
 assert(speciesDirectory.includes("row.completeGuide ?"), "Directory incorrectly labels non-complete species");
 assert(!speciesDirectory.includes("Every published fish record opens a standalone Texas guide"), "Untrue blanket promise");
