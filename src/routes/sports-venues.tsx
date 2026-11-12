@@ -55,8 +55,45 @@ function SportsVenuesPage() {
   const professional = venues.filter((venue) => venue.tags?.includes('professional')).length;
   const golf = venues.filter((venue) => venue.tags?.includes('golf')).length;
   const highSchool = venues.filter((venue) => venue.tags?.includes('high-school')).length;
+  const canonicalUrl = 'https://texasdefined.com/sports-venues';
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': canonicalUrl + '#page',
+        url: canonicalUrl,
+        name: 'Texas sports venues by region and sport',
+        description,
+        mainEntity: { '@id': canonicalUrl + '#venues' },
+        isPartOf: { '@id': 'https://texasdefined.com/#website' },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': canonicalUrl + '#venues',
+        name: 'Curated Texas sports venue visitor guides',
+        numberOfItems: venues.length,
+        itemListElement: venues.map((venue, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: venue.name,
+          url: 'https://texasdefined.com' + canonicalEntityPath(venue),
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': canonicalUrl + '#breadcrumb',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Front page', item: 'https://texasdefined.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Texas Sports', item: 'https://texasdefined.com/sports' },
+          { '@type': 'ListItem', position: 3, name: 'Sports Venues', item: canonicalUrl },
+        ],
+      },
+    ],
+  };
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <main className="mx-auto max-w-6xl">
       <header className="border-b border-border pb-10">
         <p className="eyebrow text-primary">Texas Sports Destinations</p>
