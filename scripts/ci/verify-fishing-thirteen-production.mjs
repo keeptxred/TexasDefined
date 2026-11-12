@@ -29,7 +29,7 @@ const decodeHtmlEntities = (value) => value
     return Number.isInteger(codepoint) && codepoint >= 0 && codepoint <= 0x10ffff ? String.fromCodePoint(codepoint) : match;
   })
   .replace(/&(nbsp|amp|quot|apos|lt|gt);/gi, (match, entity) => ({nbsp:" ",amp:"&",quot:'"',apos:"'",lt:"<",gt:">"}[entity.toLowerCase()] ?? match));
-const htmlText = (html) => decodeHtmlEntities(html.replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi," ").replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi," ").replace(/<[^>]*>/g," ")).replace(/\\s+/g," ");
+const htmlText = (html) => decodeHtmlEntities(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi," ").replace(/<[^>]*>/g," ")).replace(/\s+/g," ");
 if(htmlText("<h2>Keep the lure in the fish&#x27;s depth band</h2>").trim() !== "Keep the lure in the fish's depth band") throw new Error("SSR text decoding regression");
 const failures = [];
 const reports = [];
