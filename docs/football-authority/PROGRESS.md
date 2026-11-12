@@ -1,3 +1,9 @@
+## 2026-11-12 — Batch017 second five official-source guides authored, NOT Chrome certified
+
+El Paso Irvin, Jefferson, Montwood, Parkland and Pebble Hills have individual UIL alignment, first-party campus and athletics sources, separate program history, school-published coaching where current evidence supports it, and shared reciprocal El Paso County links. Irvin's current Sanders Avenue school address must not be replaced by an older Roanoke athletics inventory. Jefferson opened in 1949, Parkland's school football staff page names Leigh McWhorter, Montwood's Ivan Rangel appointment was in 2023 (not silently current), and Pebble Hills' Ryan Warner appointment was in 2024 (not silently current). New source contract `node scripts/ci/verify-football-b017-second-five-source.mjs` is mandatory in protected Merge Gate.
+
+After protected source merge: **380 historical VERIFIED / 10 source IMPLEMENTED / 902 NOT_REVIEWED**, zero new production acceptance. Remaining 15 schools start `el-paso-riverside`, `el-paso-socorro`, `el-paso-ysleta`, `eldorado`, `electra`. Batch017 requires independent release-pinned Chrome 75/75 viewport + 25/25 reciprocal county evidence and separate graduation PR after all 25 authored.
+
 ## 2026-11-11 — Batch017 first five source-authored (NOT production certified)
 
 The five distinct El Paso County guides for `el-paso-eastlake`, `el-paso-eastwood`, `el-paso-el-dorado`, `el-paso-franklin` and `el-paso-hanks` now have official UIL 2026–28 alignments, official campus addresses, individually sourced school histories or athletics notices, truthful 2026 coaching where the school publishes it, and bidirectional El Paso County school links. Source contract: `node scripts/ci/verify-football-b017-first-five-source.mjs`.
