@@ -58,7 +58,7 @@ export function PrioritySearchPage({
 
   const officialSourceLinks = <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{officialSources.map((link) => <ResourceLink key={`source-${link.href}`} link={link} />)}</div>;
 
-  return <main>
+  return <div>
     <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><p className="eyebrow text-primary">{data.eyebrow}</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">{titleOverride ?? data.title}</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{introOverride ?? data.intro}</p><p className="mt-5 text-xs uppercase tracking-[0.18em] text-muted-foreground">Updated {updatedOverride ?? data.updated}</p></Container></section>
     {data.quickAnswer ? <section className="border-b border-border py-8"><Container><div className="max-w-4xl border-l-2 border-primary pl-5"><p className="eyebrow text-primary">Quick answer</p><p className="mt-3 text-lg leading-8">{data.quickAnswer}</p></div></Container></section> : null}
     {afterQuickAnswer}
@@ -67,5 +67,5 @@ export function PrioritySearchPage({
     {officialSources.length ? <section className="border-t border-border py-10"><Container>{collapsibleOfficialSources ? <details className="max-w-4xl border border-border p-5"><summary className="cursor-pointer font-display text-xl">{officialSourcesHeading}</summary><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{officialSourcesIntro}</p>{officialSourceLinks}</details> : <div className="grid max-w-4xl gap-6 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">Verify with the source</p><h2 className="mt-2 font-display text-3xl">{officialSourcesHeading}</h2></div><div><p className="text-sm leading-7 text-muted-foreground">{officialSourcesIntro}</p>{officialSourceLinks}</div></div>}</Container></section> : null}
     {beforeRelated}
     <section className="border-t border-border bg-muted/30 py-10"><Container><h2 className="font-display text-3xl">Related Texas guides</h2><div className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-sm">{data.related.map((link) => <ResourceLink key={`${link.href}-${link.label}`} link={link} />)}</div></Container></section>
-  </main>;
+  </div>;
 }
