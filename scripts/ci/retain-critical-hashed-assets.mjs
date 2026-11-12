@@ -58,7 +58,12 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
  // No asset is eligible without prior 200/MIME/original SHA-256 proof, exact bytes,
  // its firstSeenAt inside 72h, and strict 4 MiB/asset size. If ANY candidate
  // exceeds either finite cap or cannot be retrieved, fail BEFORE Worker replace.
-const LIMIT_FILES = 4096;
+// Nov 12 protected deploy #43329087899 exhausted the former local 4096-file
+// cap: 4096 proven old-only bytes copied / 79 healthy 72h originals omitted.
+// This is a measured compatibility obligation, not a Cloudflare file ceiling.
+// Keep an explicit finite cap well below the Workers Free 20,000-assets/version
+// platform limit; never skip SHA, firstSeenAt, MIME, original bytes or expiry.
+const LIMIT_FILES = 6144;
 const LIMIT_BYTES = 384 * 1024 * 1024;
 // 2026-11-08 incident: run 42450404917 preserved each original SHA but
 // refused /assets/state-park-heroes-BZc-RXc8.js (3,004,913 bytes) under the
