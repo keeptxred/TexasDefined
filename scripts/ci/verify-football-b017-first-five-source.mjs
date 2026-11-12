@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
 const read=p=>fs.readFileSync(p,'utf8');
 const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const editorial=read('src/data/high-school-football/program-editorial-b017-group1.ts');
@@ -10,12 +11,15 @@ const county=read('src/routes/$kind.$slug.lazy.tsx');
 const expected=['el-paso-eastlake','el-paso-eastwood','el-paso-el-dorado','el-paso-franklin','el-paso-hanks'];
 assert.equal(registry.batch.number,17);
 assert.deepEqual(registry.batch.slugs.slice(0,5),expected);
-assert.equal(registry.schoolRecords.filter(r=>r.status==='VERIFIED').length,380,'No unearned production certification');
-assert.ok(!registry.schoolRecords.some(r=>r.batch===17&&r.status==='VERIFIED'),'Batch017 must not claim production Chrome');
+const graduatedB017=certifiedBatch017(registry);
+assert.equal(registry.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,380,'Preserve 380 signed earlier school records');
+assert.equal(registry.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB017?405:380,'Only signed Batch017 evidence permits 25 more certified schools');
+assert.ok(graduatedB017||!registry.schoolRecords.some(r=>r.batch===17&&r.status==='VERIFIED'),'Batch017 may be VERIFIED only by signed Chrome witness');
 for(const slug of expected){
   const row=registry.schoolRecords.find(r=>r.slug===slug);
   assert.equal(row?.batch,17);
-  assert.equal(row?.status,'IMPLEMENTED','First five are authored, not production VERIFIED');
+  assert.equal(row?.status,graduatedB017?'VERIFIED':'IMPLEMENTED','First five must be sourced, and Chrome VERIFIED only if signed');
+  assert.equal(row?.actualProductionVerified,graduatedB017);
   assert.ok(editorial.includes(JSON.stringify(slug)+': {'),'Missing individually sourced editorial '+slug);
   assert.ok(edges.includes("slug: '"+slug+"'"),'Missing county edge '+slug);
 }

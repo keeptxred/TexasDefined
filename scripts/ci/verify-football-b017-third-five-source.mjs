@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
 const read=p=>fs.readFileSync(p,'utf8');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const source=read('src/data/high-school-football/program-editorial-b017-group3.ts');
@@ -10,13 +11,15 @@ const school=read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx')
 const slugs=['el-paso-riverside','el-paso-socorro','el-paso-ysleta','eldorado','electra'];
 assert.equal(reg.batch.number,17);
 assert.deepEqual(reg.batch.slugs.slice(10,15),slugs);
-assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,380);
-assert.ok(reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length>=15);
+const graduatedB017=certifiedBatch017(reg);
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,380,'Preserve 380 earlier signed certificates');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB017?405:380,'Only exact signed Chrome may certify Batch017');
+assert.ok(graduatedB017||reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length>=15);
 assert.ok(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length<=897);
 for(const slug of slugs){
  const row=reg.schoolRecords.find(x=>x.slug===slug);
- assert.equal(row?.status,'IMPLEMENTED',slug+' source-only status');
- assert.equal(row?.actualProductionVerified,false,'No unearned Chrome verification '+slug);
+ assert.equal(row?.status,graduatedB017?'VERIFIED':'IMPLEMENTED',slug+' signed graduation or source-only status');
+ assert.equal(row?.actualProductionVerified,graduatedB017,'No unearned Chrome verification '+slug);
  assert.ok(source.includes(JSON.stringify(slug)+': {'),'Distinct editorial missing '+slug);
  assert.ok(edges.includes("slug: '"+slug+"'"),'Missing reciprocal county edge '+slug);
 }

@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import { certifiedBatch017 } from './verified-football-b017-certificate.mjs';
 const read=p=>fs.readFileSync(p,'utf8');
 const reg=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const source=read('src/data/high-school-football/program-editorial-b017-group2.ts');
@@ -10,13 +11,16 @@ const county=read('src/routes/$kind.$slug.lazy.tsx');
 const slugs=['el-paso-irvin','el-paso-jefferson','el-paso-montwood','el-paso-parkland','el-paso-pebble-hills'];
 assert.equal(reg.batch.number,17);
 assert.deepEqual(reg.batch.slugs.slice(5,10),slugs);
-assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,380,'Preserve signed 380 previous certifications');
-assert.ok(reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length>=10,'Retain at least ten sourced schools');
+const graduatedB017=certifiedBatch017(reg);
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,380,'Preserve 380 signed earlier school records');
+assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB017?405:380,'Only signed Batch017 evidence permits 25 more certified schools');
+assert.ok(graduatedB017||reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length>=10,'Retain at least ten sourced schools or signed graduation');
 assert.ok(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length<=902);
-assert.ok(reg.schoolRecords.filter(x=>x.batch===17).every(x=>x.status!=='VERIFIED'&&x.actualProductionVerified!==true),'No false Batch017 Chrome promotion');
+assert.ok(graduatedB017||reg.schoolRecords.filter(x=>x.batch===17).every(x=>x.status!=='VERIFIED'&&x.actualProductionVerified!==true),'No false Batch017 Chrome promotion');
 for(const slug of slugs){
   const row=reg.schoolRecords.find(x=>x.slug===slug);
-  assert.equal(row?.status,'IMPLEMENTED',slug+' must be source authored only');
+  assert.equal(row?.status,graduatedB017?'VERIFIED':'IMPLEMENTED',slug+' source status or signed Chrome graduation');
+  assert.equal(row?.actualProductionVerified,graduatedB017);
   assert.ok(source.includes(JSON.stringify(slug)+': {'),'Missing unique guide '+slug);
   assert.ok(edges.includes("slug: '"+slug+"'"),'Missing shared campus-county edge '+slug);
 }
