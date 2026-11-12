@@ -4,6 +4,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 import { fishingPlatform, fishingScope } from "./index";
 import { isFishingCurrentlyClosed } from "./operational-closures";
 import { fishingTechniqueAuthorityContent } from "./technique-authority-content";
+import { fishingTechniqueFaq } from "./technique-faq";
 import { selectFeaturedLakeApplications } from "./technique-content-quality";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
 import { fishingTechniqueImages, isFishingTechniqueHeroReady } from "./technique-images";
@@ -16,12 +17,7 @@ import {
 } from "./technique-routing";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
-const directoryDescription = "Browse source-backed Texas fishing techniques and see the complete lakes, target species and seasons where each method has a verified relationship in TexasDefined's fishing catalog.";
-const directoryFaq = [
-  { question: "Are these live fishing recommendations?", answer: "No. Technique pages organize durable, source-backed lake relationships. Check fresh fishing reports and current conditions before a trip." },
-  { question: "Does TexasDefined recommend specific tackle brands?", answer: "No. The technique directory explains verified methods and lake applications without product rankings, affiliate weighting or sponsor influence." },
-  { question: "Why are some fishing techniques not listed?", answer: "A public technique page requires a verified technique record plus at least one verified application on a complete TexasDefined lake guide. Missing coverage is not a judgment that another method does not work." },
-];
+const directoryDescription = "Choose a fishing method for Texas lakes by cover, depth and target species, with practical setup guides, seasonal notes and links to individual lake guides.";
 
 type DirectoryHeadEntry = { technique: { name: string }; canonicalPath: string };
 type ProfileHeadEntry = {
@@ -43,7 +39,7 @@ function buildFishingTechniqueDirectoryHead(entries: DirectoryHeadEntry[]) {
     "@graph": [
       { "@type": "CollectionPage", url: `${origin}${FISHING_TECHNIQUES_DIRECTORY_PATH}`, name: "Texas Fishing Techniques", description: directoryDescription, mainEntity: { "@id": `${origin}${FISHING_TECHNIQUES_DIRECTORY_PATH}#techniques` } },
       { "@type": "ItemList", "@id": `${origin}${FISHING_TECHNIQUES_DIRECTORY_PATH}#techniques`, numberOfItems: entries.length, itemListElement: entries.map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.technique.name, url: `${origin}${entry.canonicalPath}` })) },
-      { "@type": "FAQPage", mainEntity: directoryFaq.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
+      { "@type": "FAQPage", mainEntity: fishingTechniqueFaq.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Front page", item: origin },
         { "@type": "ListItem", position: 2, name: "Fishing", item: `${origin}/fishing` },
@@ -61,7 +57,9 @@ function buildFishingTechniqueDirectoryHead(entries: DirectoryHeadEntry[]) {
 
 function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   const { technique, canonicalPath, featuredProfiles, featuredSources, species } = entry;
-  const description = `How to fish ${technique.name.toLowerCase()} in Texas: practical setup, where and when to use it, seasonal guidance, and source-backed lake and species applications.`;
+  const description = technique.slug === "trolling"
+    ? "How to troll for fish in Texas lakes: boat routes, running depth, safe passes, seasonal choices and water-specific species guidance."
+    : `How to fish ${technique.name.toLowerCase()} in Texas: practical setup, where and when to use it, seasonal guidance, and source-backed lake and species applications.`;
   const images = fishingTechniqueImages[technique.slug];
   const imageReady = isFishingTechniqueHeroReady(technique.slug);
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
@@ -85,7 +83,7 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
 
   return {
     meta: buildMeta(texasDefinedBrand, {
-      title: `${technique.name} Fishing in Texas — Guide, Lakes & Seasons`,
+      title: technique.slug === "trolling" ? "Trolling for Fish in Texas — Boat Setup, Depth & Lakes" : `${technique.name} Fishing in Texas — Guide, Lakes & Seasons`,
       description,
       canonicalPath,
       robots: imageReady ? undefined : "noindex, follow, max-image-preview:large",
@@ -178,9 +176,9 @@ export async function loadFishingTechniqueDirectoryServer() {
       .sort((a, b) => a.commonName.localeCompare(b.commonName)),
     categories: [...new Set(entries.map((entry) => entry.technique.category))].sort(),
     policy: {
-      sourcing: "Technique pages publish only when the technique and at least one complete-lake application have verified source relationships.",
-      conditions: "Technique guidance is durable planning context, not a live bite report, forecast, or claim that a method is productive today.",
-      commerce: "TexasDefined does not rank technique guidance by sponsorship, brand, product price, affiliate value, or advertiser status.",
+      sourcing: "Start with cover and depth: soft plastics work precisely around cover, while spinnerbaits and crankbaits help search larger areas.",
+      conditions: "Topwater suits visible surface activity; trolling is an option for open-water fish. These guides are not a live bite report; conditions and target species decide which method makes sense.",
+      commerce: "Choose a lake guide for method-specific examples. sponsorship does not affect technique placement. Check current reports, closures and fishing regulations before you go.",
     },
     head: buildFishingTechniqueDirectoryHead(entries),
   };

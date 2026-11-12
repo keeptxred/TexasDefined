@@ -64,7 +64,7 @@ assert.ok(fishingServer.includes("featuredSources: featuredSources") || fishingS
 assert.ok(!fishingProfile.includes("data.profiles.map"), "The full repeated lake directory has returned");
 assert.ok(fishingServer.includes("profileCount: profiles.length"), "Do not lose the count of verified lake-technique relationships");
 assert.ok(!fishingServer.includes("        profiles,\n        featuredProfiles,"), "Do not serialize the full verified catalog into every technique page");
-assert.ok(fishingProfile.includes("data.profileCount"), "Visible count must be server-derived without rehydrating 72 full records");
+assert.ok(fishingProfile.includes("data.lakeCount") && fishingProfile.includes("data.allProfiles.map"), "Visible complete-lake count and navigable registry must come from the lean server payload rather than rehydrating 72 full records");
 assert.ok(fishingServer.includes("lakeCount: relatedLakes.length"), "Do not lose complete verified lake counts");
 assert.ok(!fishingServer.includes("        lakes: relatedLakes,"), "Do not serialize every lake object in all nine pages");
 assert.ok(fishingServer.includes("canonicalLink(texasDefinedBrand, canonicalPath)"), "Techniques must retain self-canonicals");

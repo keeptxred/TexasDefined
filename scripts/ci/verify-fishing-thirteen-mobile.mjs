@@ -38,7 +38,7 @@ try {
       await page.waitForFunction(()=>document.documentElement.scrollWidth<=window.innerWidth+12,null,{timeout:12000});
       result.noHorizontalOverflow=true;
       if(path.startsWith("/fishing/techniques/")) {
-        const details=page.locator("details").filter({has:page.locator("summary", {hasText:/Explore all/})}).first();
+        const details=page.locator("details").filter({has:page.locator("summary", {hasText:/Browse all/})}).first();
         await details.locator("summary").click();
         assert((await details.locator('a[href^="/fishing/lakes/"]').count())>0,`${path}: full lake relationships cannot be explored`);
       }
@@ -46,6 +46,7 @@ try {
         const rows=page.locator("[data-bass-lake]");
         const initialCount=await rows.count();
         assert(initialCount>40,`${path}: expected published source-backed lake choices`);
+        await page.locator('[data-bass-lake-finder-ready="true"]').waitFor({state:"attached",timeout:30000});
         const search=page.locator("#bass-lake-search");
         await search.fill("Lake Fork");
         await page.waitForFunction(()=>document.querySelectorAll("[data-bass-lake]").length===1,null,{timeout:15000});

@@ -90,18 +90,21 @@ requireText(files.server, "Boolean(profile.verifiedAt) && profile.sources.length
 requireText(files.server, "!technique.verifiedAt || !technique.sources.length", "technique records must be verified and sourced");
 requireText(files.server, "sponsorship", "commercial/editorial separation missing");
 requireText(files.server, "not a live bite report", "live-condition separation missing");
+requireText(files.server, "fishingTechniqueFaq.map", "structured FAQ must use the shared visible answers");
+requireText(files.directoryComponent, "fishingTechniqueFaq.map", "visible FAQ must use the shared structured answers");
+requireText(read("src/data/fishing/technique-faq.ts"), "Which fishing technique should I start with?", "practical directory FAQ missing");
 requireText(files.functions, "loadFishingTechniqueDirectoryServer", "directory server boundary missing");
 requireText(files.functions, "loadFishingTechniqueProfileServer", "profile server boundary missing");
 
 for (const token of ["buildFishingTechniqueDirectoryHead",'"@type": "CollectionPage"','"@type": "ItemList"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(files.server, token, `directory server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques")','head: ({ loaderData }) => loaderData?.head ?? {}']) requireText(files.directoryRoute, token, `directory critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques")','useRouterState','state.location.pathname','pathname !== FISHING_TECHNIQUES_DIRECTORY_PATH','return <Outlet />','FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}']) requireText(files.directoryLazy, token, `directory native lazy route missing ${token}`);
-for (const token of ["Texas Fishing Techniques","How We Verify Technique Guides","Browse techniques","Check Conditions Before You Go",'method="get"','name="category"','name="species"','name="season"',"fresh fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
+for (const token of ["Texas Fishing Techniques","Match the Method to the Water","Browse techniques","Check Conditions Before You Go",'method="get"','name="category"','name="species"','name="season"',"fresh fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
 
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
-for (const token of ["How to Fish","When to Use","Where to Fish","Basic Tackle and Rigging Setup","Season-by-Season Guide","Common Mistakes to Avoid","Texas Lakes Covered in This Guide","Check Current Conditions Before You Fish","Sources and Verification","not a current bite report","fishingTechniqueImages","images?.hero","images?.depthGuide",'technique.slug === "crankbaits"','technique.slug === "soft-plastics"',"Rigging at a glance","Recognize the Basic Layout Before You Tie It","/images/fishing/rigs/texas-rig.svg","/images/fishing/rigs/carolina-rig.svg","/images/fishing/rigs/drop-shot.svg","/images/fishing/rigs/wacky-rig.svg",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
+for (const token of ["How to Fish","When to Use","Where to Fish","Basic Tackle and Rigging Setup","Season-by-Season Guide","Common Mistakes to Avoid","Texas Lakes Covered in This Guide","Check Current Conditions Before You Fish","Sources and Verification","not a prediction of current fishing conditions","fishingTechniqueImages","images?.hero","images?.depthGuide",'technique.slug === "crankbaits"','technique.slug === "soft-plastics"',"Rigging at a glance","Recognize the Basic Layout Before You Tie It","/images/fishing/rigs/texas-rig.svg","/images/fishing/rigs/carolina-rig.svg","/images/fishing/rigs/drop-shot.svg","/images/fishing/rigs/wacky-rig.svg",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
 for (const token of ["relatedFishingTechniques","Related Fishing Techniques","FISHING_STRUCTURE_PATH","FISHING_VEGETATION_PATH","Read the structure guide","Read the vegetation guide"]) requireText(files.profileComponent, token, "technique cross-link contract missing " + token);
 for (const slug of techniqueSlugs) requireText(files.relatedTechniques, `"${slug}":`, "related technique map missing " + slug);
 for (const token of ['FISHING_STRUCTURE_PATH = "/fishing/structure"','FISHING_VEGETATION_PATH = "/fishing/vegetation"',"structure is the shape or contour","Aquatic vegetation is cover and habitat","TPWD — Locations of Fish Habitat Structures","TPWD — Native Aquatic Vegetation"]) requireText(files.habitatData, token, "fishing habitat authority data missing " + token);
@@ -167,7 +170,7 @@ const techniqueRouteSmokeExpectations = [
   ["/fishing/techniques/crankbaits", "How to Fish Crankbaits in Texas"],
   ["/fishing/techniques/spinnerbaits", "How to Fish Spinnerbaits in Texas"],
   ["/fishing/techniques/topwater", "How to Fish Topwater in Texas"],
-  ["/fishing/techniques/trolling", "How to Fish Trolling in Texas"],
+  ["/fishing/techniques/trolling", "How to Troll for Fish in Texas"],
   ["/fishing/techniques/vertical-jigging", "How to Fish Vertical Jigging in Texas"],
   ["/fishing/techniques/jigs-and-minnows", "How to Fish Jigs and Minnows in Texas"],
   ["/fishing/techniques/live-bait", "How to Fish Live Bait in Texas"],
