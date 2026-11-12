@@ -57,7 +57,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           decoding="async"
           className="aspect-[16/9] w-full object-cover"
         />
-        <figcaption className="border-t border-border px-5 py-3 text-xs leading-5 text-muted-foreground">{images.hero.caption}</figcaption>
+        <figcaption className="border-t border-border px-5 py-3 text-xs leading-5 text-muted-foreground">{images.hero.caption}{images.hero.sourceUrl ? <> · <a href={images.hero.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Photo source</a></> : null}{images.hero.licenseUrl ? <> · <a href={images.hero.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></> : null}</figcaption>
       </figure>
     </Container> : null}
 
