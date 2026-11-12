@@ -29,7 +29,7 @@ function TexasScienceTechnologyIndustryPage() {
         <nav aria-label="Breadcrumb" className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"><Link to="/">Home</Link> <span aria-hidden> / </span><Link to="/explore">Explore</Link> <span aria-hidden> / </span><span aria-current="page">Science, Space & Industry</span></nav>
         <p className="eyebrow mt-10 text-primary">Science · space · technology · industry</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">See the systems Texas built—and the science behind them</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use space centers, observatories, flight museums, rail collections, maritime museums and energy exhibits to connect Texas innovation with the cities, landscapes and industries that made it possible. This guide connects existing destination pages and guides into one visitor-focused path instead of duplicating the museum directory.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use space centers, observatories, flight museums, rail collections, maritime museums and energy exhibits to connect Texas innovation with the cities, landscapes and industries that made it possible. Choose an accessible visitor program, then follow the local history, engineering and natural landscape behind it.</p>
       </Container>
     </section>
 
@@ -43,6 +43,20 @@ function TexasScienceTechnologyIndustryPage() {
         </div>
       </Container>
     </section>
+
+    <section className="border-b border-border bg-background"><Container className="py-12 sm:py-16">
+      <p className="eyebrow text-primary">Where visitors can start</p><h2 className="mt-3 font-display text-4xl">Six public-facing places that explain bigger systems</h2>
+      <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">You cannot walk into an operating mission-control facility, observatory instrument building or shipping terminal just because it appears on a tourist map. These museums and visitor programs offer a safer and more useful first stop. Confirm admission and event access with the named operator, particularly for demonstrations and nighttime programs.</p>
+      <div className="mt-6 overflow-x-auto border border-border"><table className="w-full min-w-[40rem] text-left text-sm"><caption className="px-4 py-3 text-left text-xs text-muted-foreground">Texas science and industry visit selector — official operators provide current access details</caption><thead className="border-y border-border bg-muted/40"><tr><th scope="col" className="p-4">Place</th><th scope="col" className="p-4">Understand</th><th scope="col" className="p-4">Check before visiting</th></tr></thead><tbody className="divide-y divide-border">
+      <tr><th scope="row" className="p-4">Space Center Houston</th><td className="p-4">Human spaceflight and mission-history interpretation</td><td className="p-4"><a href="https://spacecenter.org/visitor-information" className="font-semibold text-primary">Visitor tickets and tours ↗</a></td></tr>
+      <tr><th scope="row" className="p-4">McDonald Observatory</th><td className="p-4">Astronomy research and dark-sky observing</td><td className="p-4"><a href="https://mcdonaldobservatory.org/visit/" className="font-semibold text-primary">Program times and reservations ↗</a></td></tr>
+      <tr><th scope="row" className="p-4">Lone Star Flight Museum</th><td className="p-4">Texas and U.S. aviation technology</td><td className="p-4"><a href="https://lonestarflight.org/" className="font-semibold text-primary">Museum admission and exhibits ↗</a></td></tr>
+      <tr><th scope="row" className="p-4">Galveston Railroad Museum</th><td className="p-4">Rail transport, terminals and preservation</td><td className="p-4"><a href="https://galvestonrrmuseum.org/about-us/" className="font-semibold text-primary">Operating schedule and collections ↗</a></td></tr>
+      <tr><th scope="row" className="p-4">Texas Maritime Museum</th><td className="p-4">Ports, ships and Gulf Coast maritime communities</td><td className="p-4"><a href="https://texasmaritimemuseum.org/" className="font-semibold text-primary">Current visitor information ↗</a></td></tr>
+      <tr><th scope="row" className="p-4">Permian Basin Petroleum Museum</th><td className="p-4">Energy engineering and the regional oil economy</td><td className="p-4"><a href="https://petroleummuseum.org/" className="font-semibold text-primary">Exhibits and visitor hours ↗</a></td></tr>
+      </tbody></table></div>
+      <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">A museum visit demonstrates how a technology works, but it does not itself grant entry to restricted work sites. For school groups, ask about education programs and age suitability; for mobility needs, verify accessible galleries, routes and seating with the venue.</p>
+    </Container></section>
 
     <section className="border-b border-border bg-surface">
       <Container className="py-12 sm:py-16">
