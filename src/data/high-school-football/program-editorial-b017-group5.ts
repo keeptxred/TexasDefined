@@ -42,7 +42,7 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "2026–28",
         "title": "Official two-year UIL football placement",
-        "body": "The UIL's published alignment lists Trinity Trojans in 6A District 8. For Evant, one-player six-man differs materially from traditional 11-man alignment.",
+        "body": "The UIL's published alignment lists Trinity Trojans in 6A District 8. UIL alignment is not evidence of a current-season result, confirmed home stadium or staff assignment.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
         "sourceLabel": "2026–28 UIL football alignment PDF"
       },
@@ -121,7 +121,7 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "2026–28",
         "title": "Official two-year UIL football placement",
-        "body": "The UIL's published alignment lists Eustace Bulldogs in 3A Division I District 7. For Evant, one-player six-man differs materially from traditional 11-man alignment.",
+        "body": "The UIL's published alignment lists Eustace Bulldogs in 3A Division I District 7. UIL alignment is not evidence of a current-season result, confirmed home stadium or staff assignment.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
         "sourceLabel": "2026–28 UIL football alignment PDF"
       },
@@ -200,7 +200,7 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "2026–28",
         "title": "Official two-year UIL football placement",
-        "body": "The UIL's published alignment lists Evadale Rebels in 2A Division II District 12. For Evant, one-player six-man differs materially from traditional 11-man alignment.",
+        "body": "The UIL's published alignment lists Evadale Rebels in 2A Division II District 12. UIL alignment is not evidence of a current-season result, confirmed home stadium or staff assignment.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
         "sourceLabel": "2026–28 UIL football alignment PDF"
       },
@@ -279,7 +279,7 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "2026–28",
         "title": "Official two-year UIL football placement",
-        "body": "The UIL's published alignment lists Evant Elks in 1A Division I District 15. For Evant, one-player six-man differs materially from traditional 11-man alignment.",
+        "body": "The UIL's published alignment lists Evant Elks in 1A Division I District 15. UIL alignment is not evidence of a current-season result, confirmed home stadium or staff assignment.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
         "sourceLabel": "2026–28 UIL football alignment PDF"
       },
@@ -358,7 +358,7 @@ const EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "2026–28",
         "title": "Official two-year UIL football placement",
-        "body": "The UIL's published alignment lists Everman Bulldogs in 5A Division II District 7. For Evant, one-player six-man differs materially from traditional 11-man alignment.",
+        "body": "The UIL's published alignment lists Everman Bulldogs in 5A Division II District 7. UIL alignment is not evidence of a current-season result, confirmed home stadium or staff assignment.",
         "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
         "sourceLabel": "2026–28 UIL football alignment PDF"
       },
