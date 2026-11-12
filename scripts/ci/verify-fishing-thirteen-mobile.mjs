@@ -46,6 +46,7 @@ try {
         const rows=page.locator("[data-bass-lake]");
         const initialCount=await rows.count();
         assert(initialCount>40,`${path}: expected published source-backed lake choices`);
+        await page.locator('[data-bass-lake-finder-ready="true"]').waitFor({state:"attached",timeout:30000});
         const search=page.locator("#bass-lake-search");
         await search.fill("Lake Fork");
         await page.waitForFunction(()=>document.querySelectorAll("[data-bass-lake]").length===1,null,{timeout:15000});
