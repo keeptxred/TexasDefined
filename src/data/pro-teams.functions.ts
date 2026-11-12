@@ -13,9 +13,7 @@ export const getProTeamGuide = createServerFn({ method: 'GET' })
     // Keep the independently authored team guide available if an optional,
     // large event-catalogue import fails under the Worker's memory ceiling.
     // Never invent game times or ticket links to compensate for missing data.
-    const [{ getSportsVenuePhoto }, { loadProTeamLiveServer }, { proTeamGuideHead }] = await Promise.all([
-      import('./sports-venue-images-all'), import('./pro-team-live.server'), import('./pro-team-seo.server'),
-    ]);
+    const { proTeamGuideHead } = await import('./pro-team-seo.server');
     const eventSelection = await (async () => {
       try {
         const [{ loadTexasEventRecordsServer }, { buildTexasEventCarouselItemsServer }, { isProTeamHomeGame }] = await Promise.all([
@@ -48,9 +46,23 @@ export const getProTeamGuide = createServerFn({ method: 'GET' })
         return { firstVenue: undefined, games: [] };
       }
     })();
-    const live = await loadProTeamLiveServer(team);
     const primaryVenue = team.slug === 'san-antonio-spurs' ? 'frost-bank-center'
       : eventSelection.firstVenue ?? (team.slug === 'dallas-wings' && new Date().getFullYear() >= 2027 ? 'american-airlines-center' : team.venues[0]);
-    const photo = getSportsVenuePhoto(primaryVenue) ?? null;
+    // Both enrichments are optional: a slow provider or a memory-limited photo
+    // import must not erase the authored guide and its official source links.
+    const [live, photo] = await Promise.all([
+      import('./pro-team-live.server')
+        .then(({ loadProTeamLiveServer }) => loadProTeamLiveServer(team))
+        .catch((error) => {
+          console.warn('Pro-team live season summary unavailable:', String(error));
+          return { season: null, updates: [] };
+        }),
+      import('./sports-venue-images-all')
+        .then(({ getSportsVenuePhoto }) => getSportsVenuePhoto(primaryVenue) ?? null)
+        .catch((error) => {
+          console.warn('Optional pro-team venue photo unavailable:', String(error));
+          return null;
+        }),
+    ]);
     return { index: null, guide: { team, primaryVenue, photo, seo: proTeamGuideHead(team, photo), games: eventSelection.games, ...live } };
   });
