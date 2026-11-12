@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-11T18:44:05.127Z",
+  "fetchedAt": "2026-11-12T18:58:32.996Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -612,7 +612,12 @@
         "2026-12-03",
         "2026-12-04",
         "2026-12-05",
-        "2026-12-06"
+        "2026-12-06",
+        "2026-12-09",
+        "2026-12-10",
+        "2026-12-11",
+        "2026-12-12",
+        "2026-12-13"
       ],
       "venues": [
         "McAllen Convention Center"
@@ -625,7 +630,12 @@
         "G5dIZ_pCQ0gbx",
         "G5dIZ_pCQNPbj",
         "G5dIZ_pCQO4bA",
-        "G5dIZ_pCQxPbK"
+        "G5dIZ_pCQxPbK",
+        "G5dIZ_pR6SmVi",
+        "G5dIZ_pR6YCVp",
+        "G5dIZ_pR6mXVA",
+        "G5dIZ_pR6srVh",
+        "G5dIZ_pR6wrVO"
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-27-2026/event/3A0064FBEC2319F3",
@@ -635,7 +645,12 @@
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-03-2026/event/3A0065639A85560A",
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-04-2026/event/3A0065639A8A5613",
         "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-05-2026/event/3A0065639A8E561C",
-        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-06-2026/event/3A0065639A935622"
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-06-2026/event/3A0065639A935622",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-09-2026/event/3A00656BC7BBED05",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-10-2026/event/3A00656BC7C0ED16",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-11-2026/event/3A00656BC7C5ED1B",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-12-2026/event/3A00656BC7C9ED20",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-12-13-2026/event/3A00656BC7CEED2C"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
