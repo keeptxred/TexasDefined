@@ -23,6 +23,8 @@ jobs:
           node-version: '22'
       - name: Verify all thirteen public HTML routes and editorial content
         run: node scripts/ci/verify-fishing-thirteen-production.mjs
+      - name: Verify all 42 live editorial-similarity pairs and canonical links
+        run: node scripts/ci/verify-42-page-pairs-production.mjs
       - name: Install isolated Chrome driver
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"

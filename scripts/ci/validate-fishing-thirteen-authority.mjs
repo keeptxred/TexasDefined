@@ -13,6 +13,10 @@ assert.equal(paths.length, 13, "Exactly 13 authority URLs must be checked");
 const route = read("src/data/fishing/technique-routing.ts");
 const field = read("src/data/fishing/technique-field-guide.ts");
 const tServer = read("src/data/fishing/technique-data.server.ts");
+const techniqueGuide = read("src/data/fishing/technique-guide-content.ts");
+const techniqueAuthority = read("src/data/fishing/technique-authority-content.ts");
+const pairWatch = read("scripts/ci/verify-42-page-pairs-production.mjs");
+const productionWorkflow = read(".github/workflows/fishing-thirteen-production.yml");
 const tProfile = read("src/components/fishing/FishingTechniqueProfile.tsx");
 const tDirectory = read("src/components/fishing/FishingTechniqueDirectory.tsx");
 const speciesDirectory = read("src/components/fishing/FishSpeciesDirectory.tsx");
@@ -32,6 +36,7 @@ assert.equal((field.match(/situation:/g) ?? []).length, 28, "Expect 27 independe
 assert(tServer.includes("allProfiles: profiles.map"), "Complete lake registry was hidden behind featured selection");
 assert(tProfile.includes("data.allProfiles.map"), "Page does not link the complete verified source-backed lake set");
 assert(tProfile.includes("fieldGuide.decisions.map"), "Unique editorial decisions not displayed");
+assert(tProfile.includes("guide.whereToFish.map((item) =>") && tProfile.includes("guide.howToFish.map((item) =>") && (tProfile.match(/<ol className="mt-7 space-y-4" style=\{\{ listStyleType: "decimal", paddingLeft: "1.75rem" \}\}>/g) ?? []).length === 2, "Technique numbered lists must use one native ordered-list marker, without duplicate printed numbers");
 assert(tProfile.includes('data.seasons.includes("year-round") ? "All year"') && !tProfile.includes("four seasons, not five"), "Seasonal scope must be described for readers without counting year-round as a fifth season");
 assert(tDirectory.includes("Year-round means a narrower season was not recorded"), "Directory must explain applicability without internal taxonomy language");
 assert(speciesDirectory.includes("Directory records versus standalone guides"), "Directory claims all species have full guides");
@@ -61,4 +66,16 @@ for (const p of paths) {
     : "src/routes/fishing.species.largemouth-bass.tsx";
   assert(fs.existsSync(sourcePath), `Missing route for ${p}`);
 }
+// Editorial depth and legality are content contracts, not assertions against retired wording.
+for (const phrase of ["functioning aerator", "slip-sinker", "crappie brush", "hook placement", "float stop", "personally caught bait"]) {
+  assert(techniqueGuide.includes(phrase), `Live-bait field guide lost method-specific practical advice: ${phrase}`);
+}
+for (const phrase of ["dated receipt", "public water", "drain vessels", "lake water"]) {
+  assert(techniqueAuthority.includes(phrase), `Live-bait TPWD handling explanation missing: ${phrase}`);
+}
+assert(productionWorkflow.includes("run: node scripts/ci/verify-42-page-pairs-production.mjs"), "A successful production fishing release must exercise the strict live 42-pair editorial watchdog");
+assert(pairWatch.includes("incomplete/duplicate SSR lake inventory") && pairWatch.includes("new Set(lakeLinks).size"),
+  "The 42-pair watchdog must verify complete, unique SSR lake links rather than a retired copy string");
+assert(pairWatch.includes('path === "/fishing/techniques/trolling" ? "How to Troll for Fish in Texas"'),
+  "The 42-pair watchdog must accept the naturally worded trolling title");
 console.log("PASS: 13 Texas fishing authority routes; 9 unique field guides; verified relationships; honest coverage; central closure exclusion; current TPWD legal explanations.");

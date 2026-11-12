@@ -165,19 +165,15 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             <div>
               <p className="eyebrow text-primary">Where to fish</p>
               <h2 className="mt-3 font-display text-4xl">{technique.slug === "trolling" ? "Where to Troll for Fish" : `Where to Fish ${technique.name}`}</h2>
-              <ol className="mt-7 list-none space-y-4">
-                {guide.whereToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
-                  <span aria-hidden="true" className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
-                </li>)}
+              <ol className="mt-7 space-y-4" style={{ listStyleType: "decimal", paddingLeft: "1.75rem" }}>
+                {guide.whereToFish.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
               </ol>
             </div>
             <div>
               <p className="eyebrow text-primary">How to fish</p>
               <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">{technique.slug === "trolling" ? "How to Troll for Fish" : `How to Fish ${technique.name}`}</h2>
-              <ol className="mt-7 list-none space-y-4">
-                {guide.howToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
-                  <span aria-hidden="true" className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
-                </li>)}
+              <ol className="mt-7 space-y-4" style={{ listStyleType: "decimal", paddingLeft: "1.75rem" }}>
+                {guide.howToFish.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
               </ol>
             </div>
           </div>
