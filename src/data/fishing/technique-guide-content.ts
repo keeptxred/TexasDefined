@@ -197,7 +197,6 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
       "Choose a legal bait source before packing the boat. When buying live minnows or shad, keep the dated receipt that identifies the seller; personally caught bait has different water-to-water restrictions.",
       "Inspect the bait tank before leaving: functioning aerator, sufficient clean source water, secure lid and a way to avoid heat buildup in the afternoon sun.",
       "Decide whether the fish you want are cruising a bank, holding over brush or suspended above a channel. Pack a float, a freeline option and a depth-controlled setup instead of only one bottom rig.",
-      "Before leaving a Texas public freshwater body, follow the current drain-water and invasive-species rules for livewells, onboard receptacles and bait buckets.",
     ],
     plainEnglish: "Live bait depends on keeping the bait alive and swimming naturally at the correct depth. A lively minnow hovering above a crappie brush pile calls for a different hook, leader and presentation than shad suspended over open water for stripers. Bait origin and transport rules matter before either rig goes into a lake.",
     whenToUse: [
