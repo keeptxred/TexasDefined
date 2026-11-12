@@ -117,7 +117,7 @@ for (const marker of [
   "key: 'regional'",
   "entitiesByKind('sports-venue')",
   'These {venues.length} selected guides are the venues currently eligible',
-  'catalogCount: SPORTS_VENUE_COMPARISON_ROWS.length',
+  'catalogCount: allSportsVenues.length',
   '{venue.description ? <span',
   'Business partnerships',
   'type=sports-travel&source=%2Fsports-venues',
