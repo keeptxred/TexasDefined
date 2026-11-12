@@ -40,7 +40,7 @@ jobs:
           const reg=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
           const source=readFileSync('src/data/high-school-football/football-program-profile.server.ts','utf8');
           const slugs=["el-paso-eastlake","el-paso-eastwood","el-paso-el-dorado","el-paso-franklin","el-paso-hanks","el-paso-irvin","el-paso-jefferson","el-paso-montwood","el-paso-parkland","el-paso-pebble-hills","el-paso-riverside","el-paso-socorro","el-paso-ysleta","eldorado","electra","elgin","elkhart","elysian-fields","ennis","era","euless-trinity","eustace","evadale","evant","everman"];
-          if(slugs.length!==25 || !['getBatch017EarlyEditorial','getBatch017EarthEditorial','getBatch017GroupOneEditorial','getBatch017SecondFiveEditorial','getBatch017ThirdFiveEditorial','getBatch017FourthFiveEditorial','getBatch017FifthFiveEditorial'].every(method=>source.includes(method+'(canonicalSlug)')))throw Error('Batch017 source roster not fully authored');
+          if(slugs.length!==25 || !['getBatch017FirstFiveEditorial','getBatch017SecondFiveEditorial','getBatch017ThirdFiveEditorial','getBatch017FourthFiveEditorial','getBatch017FifthFiveEditorial'].every(method=>source.includes(method+'(canonicalSlug)')))throw Error('Batch017 source roster not fully authored');
           if(reg.batch?.number!==17 && !reg.completedBatches?.some(x=>x.number===17))throw Error('Batch017 registry missing');
           const statuses=slugs.map(slug=>reg.schoolRecords.find(s=>s.slug===slug)?.status);
           if(statuses.every(status=>status==='VERIFIED')){
