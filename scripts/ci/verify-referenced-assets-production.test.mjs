@@ -99,6 +99,31 @@ test('only one known post-deploy browser failure can qualify an otherwise fully 
   assert.match(sportsVerifier,/karting operation announced a temporary closure/);
   assert.doesNotMatch(sportsVerifier,/assertIncludes\(html, 'The latest individual venue source check was'/);
 
+  // Nov 12 release published a real Worker and passed exact originals on
+  // both public origins before the separate Fredericksburg XML gate failed.
+  const sitemapIncident=make('failure',['Verify base production surfaces']);
+  sitemapIncident.jobs[0].run_id=43314663760;
+  sitemapIncident.jobs[0].id=131519408864;
+  const sitemapProof=qualifyPriorDeployJob(sitemapIncident);
+  assert.equal(sitemapProof.mode,'exact-published-worker-fredericksburg-sitemap-assets-only');
+  assert.equal(sitemapProof.exactRun,43314663760);
+  const wrongSitemapRun=structuredClone(sitemapIncident);
+  wrongSitemapRun.jobs[0].run_id++;
+  assert.throws(()=>qualifyPriorDeployJob(wrongSitemapRun),/unapproved/);
+  const wrongSitemapJob=structuredClone(sitemapIncident);
+  wrongSitemapJob.jobs[0].id++;
+  assert.throws(()=>qualifyPriorDeployJob(wrongSitemapJob),/unapproved/);
+  const sitemapWithOtherFailure=structuredClone(sitemapIncident);
+  sitemapWithOtherFailure.jobs[0].steps.push({name:'Verify site SEO indexing',conclusion:'failure'});
+  assert.throws(()=>qualifyPriorDeployJob(sitemapWithOtherFailure),/unapproved/);
+  const sitemapWithoutOriginalBytes=structuredClone(sitemapIncident);
+  sitemapWithoutOriginalBytes.jobs[0].steps=sitemapWithoutOriginalBytes.jobs[0].steps.filter(
+    x=>x.name!=='Verify current and previous release JS/CSS on both public origins');
+  assert.throws(()=>qualifyPriorDeployJob(sitemapWithoutOriginalBytes),/Required published-Worker safety gate/);
+  const sitemapAfterFix=readFileSync('src/routes/sitemap-explore[.]xml.ts','utf8');
+  assert.match(sitemapAfterFix,/function dedupeUrlEntries\(/);
+  assert.match(sitemapAfterFix,/const entries = dedupeUrlEntries\(\[/);
+
   // Nov 12, 2026: a real Worker with complete two-origin original JS/CSS
   // proof may contribute assets despite the later independent Fredericksburg
   // direct-Worker transport timeout. Do NOT call the failed release successful.
