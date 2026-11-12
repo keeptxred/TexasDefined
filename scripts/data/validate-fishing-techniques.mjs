@@ -202,7 +202,7 @@ for (const routeText of [files.directoryRoute, files.profileRoute]) {
 for (const token of ["fishingTechniqueDecisionGuide.map", "Which Fishing Method Fits Your Water?", "Depth and cover:", "Switch if:"]) requireText(files.directoryComponent, token, "decision framework missing " + token);
 for (const slug of techniqueSlugs) requireText(files.decisionGuide, `slug: "${slug}"`, "method comparison missing " + slug);
 for (const token of ["fishingTechniqueSourceNotes", "sourceNote.officialUrl", "sourceNote.officialFinding", "sourceNote.interpretation", "editorial interpretation", "lake connections"]) requireText(files.profileComponent, token, "transparent sourcing/limits missing " + token);
-for (const slug of ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"]) requireText(files.sourceNotes, `${slug}:`, "TPWD case study missing " + slug);
+for (const slug of ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"]) if (!files.sourceNotes.includes(`${slug}:`) && !files.sourceNotes.includes(`"${slug}":`)) throw new Error("TPWD case study missing " + slug);
 for (const slug of ["sam_rayburn","texoma","fork","canyon","conroe"]) requireText(files.sourceNotes, `/${slug}/`, "TPWD reservoir citation missing " + slug);
 requireText(files.imageRegistry, "Lake_Texoma,_Eisenhower_State_Park.jpg", "trolling image lacks verified Texas location and licensing");
 if (files.imageRegistry.includes("Hauling%20in%20salmon")) throw new Error("Fishing authority validation failed: non-Texas archival salmon photo still used as trolling hero.");
