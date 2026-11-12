@@ -42,7 +42,14 @@ async function check(path, attempt = 1) {
     failures.push(path + ': HTTP ' + response.status);
     return;
   }
-  if (!/<h1(?:\s|>)/i.test(html)) failures.push(path + ': missing rendered H1');
+  if (!/<h1(?:\\s|>)/i.test(html)) failures.push(path + ': missing rendered H1');
+  const robotsHeader = response.headers.get('x-robots-tag') ?? '';
+  if (/\\bnoindex\\b/i.test(robotsHeader)) failures.push(path + ': X-Robots-Tag unexpectedly blocks indexing');
+  for (const metaTag of html.match(/<meta\\b[^>]*>/gi) ?? []) {
+    if (/name=["']robots["']/i.test(metaTag) && /\\bnoindex\\b/i.test(metaTag)) {
+      failures.push(path + ': meta robots unexpectedly contains noindex');
+    }
+  }
   // Exact canonical URL may appear inside the head in either attribute order.
   const canonicalTag = html.match(/<link\b[^>]*\brel=["']canonical["'][^>]*>/i)?.[0]
     ?? html.match(/<link\b[^>]*\bhref=["'][^"']+["'][^>]*\brel=["']canonical["'][^>]*>/i)?.[0];
