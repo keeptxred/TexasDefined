@@ -40,6 +40,11 @@ jobs:
           node --check scripts/data/aggregate-deer-county-rules.mjs
           node scripts/data/monitor-deer-county-rules.mjs --self-test
           node scripts/data/test-deer-rollover-end-to-end.mjs
+      - name: Probe real TPWD county sources for spaces, hyphens and exceptional slugs
+        if: github.event_name == 'pull_request'
+        env:
+          DEER_COUNTY_SMOKE: 'Tarrant,Fort Bend,La Salle'
+        run: node scripts/data/monitor-deer-county-rules.mjs --shard=0
 
   shards:
     name: Official county shard ${{ matrix.shard }}
