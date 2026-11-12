@@ -43,7 +43,7 @@ function TexasUniqueLodgingPage() {
       <nav aria-label="Breadcrumb" className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"><Link to="/">Home</Link> <span aria-hidden> / </span><Link to="/explore">Explore</Link> <span aria-hidden> / </span><span aria-current="page">Unique Lodging</span></nav>
       <p className="eyebrow mt-10 text-primary">Historic stays · park lodges · cabins</p>
       <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Stay somewhere that is part of the Texas destination</h1>
-      <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas has thousands of hotels, rentals and resorts. This is deliberately not a statewide hotel ranking. It is a visitor guide to distinctive lodging where the building, park or landscape materially changes the trip: a historic adobe lodge in the Davis Mountains, CCC motor courts beside a desert spring, 1930s cabins in the Lost Pines, cabins in Caddo Lake's cypress country and lodging on the rim of Palo Duro Canyon.</p>
+      <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A stay can be the reason to visit, not just somewhere to sleep. Compare five places where the history, park or landscape shapes the overnight experience: a historic adobe lodge in the Davis Mountains, CCC motor courts beside a desert spring, 1930s cabins in the Lost Pines, cabins in Caddo Lake's cypress country and lodging on the rim of Palo Duro Canyon.</p>
     </Container></section>
 
     <section className="border-b border-border bg-background"><Container className="py-12 sm:py-16">
@@ -61,6 +61,19 @@ function TexasUniqueLodgingPage() {
         <article className="bg-background p-6"><h3 className="font-display text-2xl">For a dramatic view</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Palo Duro's rim cabins place guests directly on one of Texas's signature landscapes; its Cow Camp and glamping options broaden the comfort and experience range.</p></article>
         <article className="bg-background p-6"><h3 className="font-display text-2xl">For a road-trip pair</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Indian Lodge and Balmorhea are especially useful as complementary West Texas stays: mountains and adobe at one stop, spring-fed desert history at the other.</p></article>
       </div>
+    </Container></section>
+
+    <section className="border-b border-border bg-surface"><Container className="py-12 sm:py-16">
+      <p className="eyebrow text-primary">Compare before you reserve</p><h2 className="mt-3 font-display text-4xl">Which historic Texas stay fits your trip?</h2>
+      <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">The five options are not interchangeable. Historic buildings may have different sleeping arrangements and access limitations, and a room reservation does not automatically include every park activity. Pick the setting first, then verify the exact unit, access requirements and cancellation policy with Texas Parks and Wildlife.</p>
+      <div className="mt-7 overflow-x-auto border border-border"><table className="w-full min-w-[42rem] text-left text-sm"><caption className="px-4 py-3 text-left text-xs text-muted-foreground">Editorial comparison based on TPWD descriptions; no unverified prices or accessibility promises</caption><thead className="border-y border-border bg-muted/40"><tr><th scope="col" className="p-4">Stay</th><th scope="col" className="p-4">Best reason to choose it</th><th scope="col" className="p-4">What to confirm before payment</th></tr></thead><tbody className="divide-y divide-border">
+      <tr><th scope="row" className="p-4 font-semibold">Indian Lodge</th><td className="p-4">Historic hotel inside Davis Mountains State Park</td><td className="p-4">Room type, park admission, mobility access and check-in details</td></tr>
+      <tr><th scope="row" className="p-4 font-semibold">San Solomon Motor Courts</th><td className="p-4">CCC-era rooms beside Balmorhea's spring-fed pool</td><td className="p-4">Room availability, pool access, park reservation rules and seasonal alerts</td></tr>
+      <tr><th scope="row" className="p-4 font-semibold">Bastrop cabins</th><td className="p-4">Historic 1930s cabins and Lost Pines trails</td><td className="p-4">Kitchen or cooking facilities, bedding, pets and accessible-unit details</td></tr>
+      <tr><th scope="row" className="p-4 font-semibold">Caddo Lake cabins</th><td className="p-4">Cypress forest and paddling landscape near your room</td><td className="p-4">Cabin capacity, amenities, weather and boat-launch conditions</td></tr>
+      <tr><th scope="row" className="p-4 font-semibold">Palo Duro cabins and glamping</th><td className="p-4">Canyon views or a different level of outdoor comfort</td><td className="p-4">Rim versus Cow Camp versus private glamping booking, weather and facilities</td></tr>
+      </tbody></table></div>
+      <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">For step-free access, accessible bathrooms or assistance equipment, contact the operator about the particular unit; a park listing or a photograph does not establish accessibility. Ask whether your reservation covers the number of guests, vehicles and days planned.</p>
     </Container></section>
 
     <section className="border-b border-border bg-background"><Container className="py-12 sm:py-16">
