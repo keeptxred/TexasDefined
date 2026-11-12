@@ -9,6 +9,9 @@ const browser = await chromium.launch({ headless: true, executablePath: process.
 const all = [];
 for (const [name,path,transition] of [
   ["list-idle","/fishing/plan",false],
+  ["list-explicit","/fishing/plan?view=list",false],
+  ["list-filtered","/fishing/plan?species=largemouth-bass",false],
+  ["map-with-query","/fishing/plan?view=map&q=Houston",false],
   ["map-idle","/fishing/plan?view=map",false],
   ["list-to-map","/fishing/plan",true],
   ["directory-idle","/fishing/lakes",false],
