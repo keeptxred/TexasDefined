@@ -42,6 +42,10 @@ const citySources: Record<string, readonly SourceNote[]> = {
     { label: "Handbook of Texas — Blues", href: "https://www.tshaonline.org/handbook/entries/blues", note: "Documents Deep Ellum, Central Track and the Dallas musicians central to early Texas blues." },
     { label: "Handbook of Texas — Jazz", href: "https://www.tshaonline.org/handbook/entries/jazz", note: "Documents Fort Worth's Ornette Coleman network and its importance to modern jazz." },
     { label: "Handbook of Texas — Recording Industry", href: "https://www.tshaonline.org/handbook/entries/recording-industry", note: "Documents early Dallas recording studios and North Texas country, R&B and rockabilly recording activity." },
+    { label: "Handbook of Texas — WBAP", href: "https://www.tshaonline.org/handbook/entries/wbap", note: "Documents Fort Worth radio's 1922 start, the January 1923 barn dance and regional broadcasting." },
+    { label: "Handbook of Texas — Radio", href: "https://www.tshaonline.org/handbook/entries/radio", note: "Clarifies the Light Crust Doughboys' KFJZ start before their later move to WBAP in 1931." },
+    { label: "Handbook of Texas — James Earl 'Pop' Sellers", href: "https://www.tshaonline.org/handbook/entries/sellers-james-earl-j-e-pop", note: "Biographical account of the Dallas recording engineer, early studios and commercial recordings." },
+    { label: "Handbook of Texas — Longhorn Ballroom", href: "https://www.tshaonline.org/handbook/entries/longhorn-ballroom", note: "Describes the room's 1950 Bob Wills origins, later name and wider genre history." },
   ],
 };
 
