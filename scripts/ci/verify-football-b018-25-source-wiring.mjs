@@ -7,12 +7,13 @@ assert.equal(registry.batch.number, 18, 'Batch018 registry active');
 assert.deepEqual(registry.batch.slugs, expected, 'one stable 25-school Batch018 roster');
 assert.equal(registry.schoolRecords.filter(record => record.status === 'VERIFIED').length, 405, 'do not alter prior signed 405 VERIFIED');
 const identities = read('src/data/high-school-football/school-identities.ts');
-const identitySlugs = [...identities.matchAll(/slug:\\s*['"]([^'"]+)['"]/g)].map(match => match[1]);
+const identitySlugs = [...identities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map(match => match[1]);
 assert.equal(new Set(identitySlugs).size, identitySlugs.length,
   'school mascot identity must be unique across the verified directory');
+const identityLines = identities.split('\n');
 for (const slug of expected) {
-  const entry = identities.match(new RegExp("slug: ['\\\"]" + slug + "['\\\"], mascot: ['\\\"]([^'\\\"]+)['\\\"], sourceUrl: ['\\\"](https:\\/\\/[^'\\\"]+)['\\\"]"));
-  assert.ok(entry && entry[1].trim() && entry[2],
+  const row = identityLines.find(line => line.includes("slug: '" + slug + "'"));
+  assert.ok(row && /mascot: '[^']+'/.test(row) && /sourceUrl: 'https:\/\/[^']+'/.test(row),
     'missing independently sourced mascot and school or TAPPS campus identity: ' + slug);
 }
 const states = expected.map(slug => {
