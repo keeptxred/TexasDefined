@@ -249,6 +249,10 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/destination/ray-roberts-lake-isle-du-bois-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'Ray Roberts unit legacy GSC alias to sourced shared guide' },
+  { path: '/state-park/ray-roberts-lake-isle-du-bois-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'Ray Roberts unit legacy GSC alias to sourced shared guide' },
+  { path: '/destination/ray-roberts-lake-johnson-branch-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'Ray Roberts unit legacy GSC alias to sourced shared guide' },
+  { path: '/state-park/ray-roberts-lake-johnson-branch-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'Ray Roberts unit legacy GSC alias to sourced shared guide' },
   { path: '/attraction/dr-pepper-museum?source=gsc', expectedStatus: 301, expectedPath: '/destination/dr-pepper-museum-waco', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/destination/dr-pepper-museum?source=gsc', expectedStatus: 301, expectedPath: '/destination/dr-pepper-museum-waco', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/attraction/hill-country-louise-merrick-unit-state-natural-area?source=gsc', expectedStatus: 301, expectedPath: '/destination/hill-country-state-natural-area', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
