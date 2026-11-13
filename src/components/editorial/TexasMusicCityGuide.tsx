@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 import { musicCitiesComparison, musicHistoryMilestones, musicSourceReviewedAt } from "@/data/texas-music-history-evidence";
 
@@ -94,6 +95,7 @@ export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
           <p className="eyebrow text-primary">Documented milestones</p><h2 id="music-city-milestones" className="mt-2 font-display text-4xl">A source-linked chronology</h2>
           <ol className="mt-7 grid gap-5 md:grid-cols-3">{milestones.map((milestone) => <li key={milestone.period} className="border-t border-primary/40 pt-5"><p className="font-semibold">{milestone.period}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.event}</p><a href={milestone.sourceUrl} rel="noopener noreferrer" target="_blank" className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a></li>)}</ol>
         </section> : null}
+        <TexasMusicEvidenceDossier slug={guide.slug} />
         <section className="border-b border-border py-10" aria-labelledby="city-source-notes"><p className="eyebrow text-primary">Sources</p><h2 id="city-source-notes" className="mt-2 font-display text-3xl">Sources and further reading</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This guide distinguishes historical evidence from editorial interpretation. The research links above document specific dates and institutions; this list supplies further context. Current venue schedules and ticket arrangements are outside the scope of this historical source review.</p><ul className="mt-6 divide-y divide-border border-y border-border">{sources.map((source) => <li key={source.href} className="py-4"><a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a><p className="mt-1 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}</ul></section>
         <section className="py-12" aria-labelledby="related-reading"><p className="eyebrow text-primary">Keep exploring</p><h2 id="related-reading" className="mt-2 font-display text-4xl">Related TexasDefined guides</h2><div className="mt-6 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">{guide.related.map((item) => <Link key={item.href} to={item.href} className="group bg-background p-6"><strong className="font-display text-2xl leading-tight group-hover:text-primary">{item.label}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-5 block text-sm font-semibold text-primary">Read next →</span></Link>)}</div></section>
       </article>
