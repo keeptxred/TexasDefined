@@ -48,12 +48,15 @@ jobs:
       - run: node scripts/data/validate-sports-venue-comparison.mjs
       - run: node scripts/data/validate-sports-venue-phase3-galaxy.mjs
       - run: node scripts/data/validate-sports-venue-trip-decisions.mjs
+      - run: node --check scripts/ci/verify-sports-venues-live.mjs
       - run: npm run build
       - run: npm run performance:validate
 
   uncached-production:
     name: Fresh 21-page SSR/canonical/source-view audit
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    # Also check main immediately when this cluster changes, even if another
+    # release gate prevents a deployment. Post-success checks still run.
+    if: github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
