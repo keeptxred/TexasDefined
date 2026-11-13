@@ -4,6 +4,8 @@
  * infer" cautions are Texas Defined editorial analysis, not firsthand tests
  * or reports of today's fishing. Keep source titles and slugs exact.
  */
+export const TECHNIQUE_RESEARCH_REVIEWED_AT = "2026-11-13" as const;
+
 export type ReservoirComparison = {
   headline: string;
   intro: string;
