@@ -15,7 +15,7 @@ const cases = [
   {slug:"track-texas-drivers-license",marker:"DPS"},
   {slug:"texas-vs-every-state",marker:"Census"},
   {slug:"texas-unique-lodging",table:true,marker:"Indian Lodge"},
-  {slug:"texas-music-timeline",marker:"Texas"},
+  {slug:"texas-music-timeline",marker:"Texas",expectedH1:"Texas Music Timeline"},
 ];
 const viewports = [
   {name:"mobile",width:390,height:844,isMobile:true},
@@ -49,13 +49,15 @@ try {
       verify("one main landmark",await page.locator("main").count()===1,await page.locator("main").count());
       verify("one H1",await page.locator("h1").count()===1,await page.locator("h1").count());
       const heading=(await page.locator("h1").first().textContent().catch(()=>""))??"";
-      verify("specific H1",heading.trim().length>20,heading.slice(0,100));
+      verify("specific H1",pageCase.expectedH1 ? heading.trim()===pageCase.expectedH1 : heading.trim().length>20,heading.slice(0,100));
       const visible=await page.locator("body").innerText();
       verify("page-specific first-party content visible",visible.includes(pageCase.marker),pageCase.marker);
       const canonical=await page.locator('link[rel="canonical"]').getAttribute("href").catch(()=>null);
       verify("canonical route",canonical===base+rec.path,canonical);
       const robots=await page.locator('meta[name="robots"]').getAttribute("content").catch(()=>"");
       verify("not noindex",!/\bnoindex\b/i.test(robots??""),robots);
+      const googlebot=await page.locator('meta[name="googlebot"]').getAttribute("content").catch(()=>"");
+      verify("Googlebot not noindex",!/\bnoindex\b/i.test(googlebot??""),googlebot);
       await page.waitForLoadState("load",{timeout:30000}).catch(()=>{});
       const measure=await page.evaluate(()=>({
         documentWidth:document.documentElement.scrollWidth,

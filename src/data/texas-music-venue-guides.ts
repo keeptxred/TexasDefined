@@ -14,7 +14,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "Genres do not develop in isolation. Musicians need rooms where they can work repeatedly, audiences need places where styles become social habits, and promoters need stages that connect local performers with touring acts. Texas dance halls, clubs and honky-tonks supplied that infrastructure across very different eras.",
           "A venue guide therefore answers a different question from an artist biography. Instead of asking who made the music, it asks where people heard it, danced to it, argued about it, mixed genres and passed a local sound to the next generation."
         ],
-        links: [{ href: "/texas-music", label: "Texas Music authority hub" }]
+        links: [{ href: "/texas-music", label: "Texas music and its history" }]
       },
       {
         heading: "Gruene Hall and the community dance-hall tradition",
@@ -44,7 +44,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "Antone's and Austin blues",
         body: [
           "Clifford Antone opened Antone's in 1975 as a club centered on blues. Touring masters and younger Austin musicians shared the same ecosystem, and the venue became a bridge between older blues traditions and a new generation of Texas players.",
-          "Antone's moved several times, so its authority does not depend on one building. The durable institution is the programming idea: preserve direct contact with blues history while giving local musicians a place to learn, perform and develop their own voices."
+          "Antone's has moved several times. Its place in Texas music history comes from the musicians and audiences it brought together, not from a single building. It gave touring blues performers and younger Austin players a shared stage."
         ],
         links: [{ href: "/antones-austin-history", label: "Antone's history" }, { href: "/texas-blues", label: "Texas Blues guide" }]
       },
@@ -60,13 +60,13 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "The next layer: historic and lost rooms",
         body: [
           "A complete Texas venue history cannot stop with places that still sell tickets. Deep Ellum clubs, Houston's Eldorado Ballroom, Austin's Armadillo World Headquarters, Pasadena's Gilley's, Dallas's Longhorn Ballroom, East Austin's Victory Grill and many other rooms shaped scenes even when the original operation changed or disappeared.",
-          "TexasDefined treats those places as a second research layer rather than folding them into thin profiles. The goal is to preserve what each room contributed, distinguish surviving buildings from vanished institutions, and connect the venue to the genre and neighborhood histories it helped create."
+          "Some of those rooms have closed, moved or changed ownership, but their stories remain. The guide distinguishes surviving buildings from lost stages and follows the musicians, neighborhoods and local scenes linked to each place."
         ],
         links: [{ href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and honky-tonks" }]
       }
     ],
     related: [
-      { href: "/texas-music", label: "Texas Music", description: "The statewide authority hub for Texas genres, musicians, scenes and places." },
+      { href: "/texas-music", label: "Texas Music", description: "Explore Texas genres, musicians, recording scenes and historic performance spaces." },
       { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls & honky-tonks", description: "The broader cultural guide to dance floors, two-step etiquette and community halls." },
       { href: "/texas-country-outlaw", label: "Texas country & outlaw country", description: "The country-music history that overlaps many of the state's landmark rooms." }
     ]
@@ -263,7 +263,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "The Handbook of Texas credits Antone's with helping Austin's broader live-music reputation. That does not mean the club created the city's music culture by itself; Austin already had dance halls, country rooms, psychedelic venues and other scenes.",
           "What Antone's added was a strong blues institution with national relationships. It made the preservation of an older Black American music tradition central to the story Austin told about contemporary live music."
         ],
-        links: [{ href: "/texas-music", label: "Texas Music authority hub" }]
+        links: [{ href: "/texas-music", label: "Texas music and its history" }]
       },
       {
         heading: "The current club is a doorway into the longer story",
