@@ -56,7 +56,12 @@ const venueSources: Record<string, readonly SourceNote[]> = {
     {
       label: "Continental Club — Official history",
       href: "https://continentalclub.com/about/",
-      note: "Documents the 1955 supper-club opening, later burlesque and bar phases, live-music eras and 1987 restoration toward the original mid-century appearance.",
+      note: "Gives 1955 as the opening year and describes the supper-club, burlesque and bar phases, live-music eras and 1987 restoration. The 1955 claim conflicts with the Handbook of Texas and Austin's 2005 neighborhood plan.",
+    },
+    {
+      label: "Handbook of Texas — Continental Club",
+      href: "https://www.tshaonline.org/handbook/entries/continental-club",
+      note: "Dates opening to 1957, documents 1987 restoration of four wall murals, successive music programmers and the 2000 Houston sister club. This chronology disagrees with the venue's 1955 date.",
     },
     {
       label: "City of Austin — Historic Landmark Ordinance 20080821-059",
