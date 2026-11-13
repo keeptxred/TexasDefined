@@ -15,7 +15,7 @@ const states = expected.map(slug => {
 assert.ok(states.every(state => state === 'NOT_REVIEWED') || states.every(state => state === 'IMPLEMENTED'),
   'no partial source-status promotion: all 25 school statuses must advance together');
 const filenames = ['batch018-county-edges.ts','batch018-second-five-county-edges.ts','batch018-third-five-county-edges.ts','batch018-fourth-five-county-edges.ts','batch018-fifth-five-county-edges.ts'];
-const edges = filenames.flatMap(name => [...read('src/data/high-school-football/' + name).matchAll(/\\{ slug: '([a-z0-9-]+)', name: '[^']+', county: '([a-z0-9-]+)'/g)].map(([,slug,county]) => ({slug,county})));
+const edges = filenames.flatMap(name => [...read('src/data/high-school-football/' + name).matchAll(/[{] slug: '([a-z0-9-]+)', name: '[^']+', county: '([a-z0-9-]+)'/g)].map(([,slug,county]) => ({slug,county})));
 assert.deepEqual(edges.map(edge => edge.slug), expected, '25 source-backed distinct campus counties in stable roster order');
 const server = read('src/data/high-school-football/football-program-profile.server.ts');
 const school = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
