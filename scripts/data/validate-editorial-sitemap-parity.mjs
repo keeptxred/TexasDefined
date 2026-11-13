@@ -7,6 +7,10 @@ const primary = read("src/routes/sitemap[.]xml.ts");
 const routes = read("src/lib/public-routes.ts");
 const fixture = read("src/data/fixtures/texas.ts");
 const reviewed = read("src/data/reviewed-attraction-authorities.ts");
+const reviewedCanonical = read("src/lib/reviewed-attraction-canonical-redirect.ts");
+const cachePolicy = read("src/lib/hashed-asset-document-cache-policy.ts");
+const worker = read("src/server.ts");
+
 const preserved = read("src/data/small-town-destinations-wave7.ts");
 const terms = read("src/routes/network.terms.tsx");
 
@@ -25,6 +29,15 @@ for (const slug of ["caddo-lake", "blue-hole-wimberley"]) {
 }
 assert.ok(preserved.includes('slug: "blanco"'), "Town authority source missing");
 assert.ok(sitemap.includes('item.slug === "blanco"'), "Town authority not reconciled");
+assert.ok(worker.includes("reviewedAttractionCanonicalRedirect(request)"),
+  "Worker must consolidate reviewed attraction query/slash variants before SSR.");
+for (const path of ["/destination/san-antonio-japanese-tea-garden","/destination/fort-worth-water-gardens","/destination/houston-botanic-garden","/city/san-antonio","/city/fort-worth","/city/houston","/county/bexar","/county/tarrant","/county/harris"]) {
+  assert.ok(cachePolicy.includes('"' + path + '"'), `Attraction/city/county HTML must not retain stale cached versions: ${path}`);
+}
+for (const path of ["/destination/san-antonio-japanese-tea-garden","/destination/fort-worth-water-gardens","/destination/houston-botanic-garden"]) {
+  assert.ok(reviewedCanonical.includes('"' + path + '"'), `Reviewed attraction canonical redirect missing: ${path}`);
+}
+
 for (const slug of ["san-antonio-japanese-tea-garden", "fort-worth-water-gardens", "houston-botanic-garden"]) {
   assert.ok(reviewed.includes(`"slug": "${slug}"`), `Reviewed attraction source missing: ${slug}`);
   assert.ok(sitemap.includes(`"${slug}"`), `Reviewed attraction absent from sitemap reconcile: ${slug}`);
