@@ -61,8 +61,8 @@ function PartnerWithUsRoute() {
 
 function PartnerWithUsPage() {
   const search = Route.useSearch();
-  const incomingFootballPackage = search.sourcePath?.startsWith('/texas-high-school-football-teams/')
-    ? 'school' : search.sourcePath?.startsWith('/texas-high-school-football-districts/') ? 'district' : null;
+  const incomingFootballPackage = search.source?.startsWith('/texas-high-school-football-teams/')
+    ? 'school' : search.source?.startsWith('/texas-high-school-football-districts/') ? 'district' : null;
   const [billingCycle, setBillingCycle] = useState<AdvertiserBillingCycle>(incomingFootballPackage ? 'monthly' : search.billing ?? 'monthly');
   const [selectedFootballPackage, setSelectedFootballPackage] = useState<FootballFoundingPackageId | null>(incomingFootballPackage);
   const [selectedTier, setSelectedTier] = useState<AdvertiserTierId>(incomingFootballPackage ? 'custom' : search.tier ?? 'growth');
@@ -111,7 +111,7 @@ function PartnerWithUsPage() {
             : '',
           String(form.get('notes') || ''),
         ].filter(Boolean).join('\n').slice(0, 3000),
-        sourcePath: search.sourcePath,
+        sourcePath: search.source,
         addressLine2: String(form.get('addressLine2') || ''),
       } });
       setStatus('sent');
@@ -252,8 +252,8 @@ function PartnerWithUsPage() {
           <section aria-labelledby="partnership-form-heading">
             <h3 id="partnership-form-heading" className="font-display text-3xl">Request information / proposal</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">Business and sponsorship inquiries are stored privately for Texas Defined to review.</p>
-            {search.partnershipType === 'sports-travel' ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">Sports-travel partnership is preselected because you arrived from a Texas Defined sports venue resource.</p> : null}
-            {search.partnershipType === 'brand-retail' ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">Texas brand / grocery / retail is preselected because you arrived from the Texas Brands directory. Inclusion and editorial treatment are not for sale.</p> : null}
+            {search.type === 'sports-travel' ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">Sports-travel partnership is preselected because you arrived from a Texas Defined sports venue resource.</p> : null}
+            {search.type === 'brand-retail' ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">Texas brand / grocery / retail is preselected because you arrived from the Texas Brands directory. Inclusion and editorial treatment are not for sale.</p> : null}
             {status === 'sent' ? <div className="mt-7 border-y border-border py-6" role="status"><p className="font-semibold">Inquiry received.</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Texas Defined will review the business and proposed fit before any agreement or payment step is issued.</p></div> : null}
             <form onSubmit={submitInquiry} className="mt-8 grid gap-5" noValidate>
               <div className="grid gap-5 sm:grid-cols-2"><Field label="Your name" name="contactName" autoComplete="name" required /><Field label="Work email" name="email" type="email" autoComplete="email" required /></div>
@@ -263,7 +263,7 @@ function PartnerWithUsPage() {
                 <label className="grid gap-2 text-sm font-semibold" htmlFor="requestedTier">Package interest<select id="requestedTier" value={selectedFootballPackage ? `football-${selectedFootballPackage}` : selectedTier} onChange={(event) => { setSelectedFootballPackage(null); setSelectedTier(event.target.value as AdvertiserTierId); }} className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground">{selectedFootballPackage && <option value={`football-${selectedFootballPackage}`}>{footballFoundingPackages.find((item) => item.id === selectedFootballPackage)?.name} · football pilot</option>}<option value="local">Local Partner</option><option value="growth">Growth Partner</option><option value="premier">Premier Partner</option><option value="custom">Custom Partnership</option></select></label>
                 <label className="grid gap-2 text-sm font-semibold" htmlFor="billingCycle">Billing preference<select id="billingCycle" value={billingCycle} onChange={(event) => { setSelectedFootballPackage(null); setBillingCycle(event.target.value as AdvertiserBillingCycle); }} className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></label>
               </div>
-              <label className="grid gap-2 text-sm font-semibold" htmlFor="partnershipType">Business category<select key={search.partnershipType ?? 'other'} id="partnershipType" name="partnershipType" className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground" defaultValue={search.partnershipType ?? 'other'} required>{partnershipOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+              <label className="grid gap-2 text-sm font-semibold" htmlFor="partnershipType">Business category<select key={search.type ?? 'other'} id="partnershipType" name="partnershipType" className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground" defaultValue={search.type ?? 'other'} required>{partnershipOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
               <Field label="Target Texas locations" name="targetTexasLocations" placeholder="Cities, regions, counties or statewide" />
               <Field label="Desired start date" name="desiredStartDate" type="date" />
               <label className="grid gap-2 text-sm font-semibold" htmlFor="objectives">Campaign objectives<textarea id="objectives" name="objectives" minLength={20} maxLength={3000} rows={6} required className="border border-border bg-background px-3 py-3 font-normal text-foreground" placeholder="What should this campaign help your business accomplish, and which Texas audience or context matters most?" /></label>
