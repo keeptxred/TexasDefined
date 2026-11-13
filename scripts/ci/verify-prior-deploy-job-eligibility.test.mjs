@@ -81,3 +81,46 @@ test('turkey timeout handoff rejects any other run, job, failure or unsafe origi
     })), /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
   }
 });
+
+test('exact Nov13 MSR and District21 page-check failures permit only proven original assets', () => {
+  const original = evidence({
+    runId: 43460115327,
+    jobId: 132004453072,
+    failure: 'Verify MSR Houston responsive visitor page and licensed photo',
+    additional: ['Verify District 21 hub and eight team scorecards on production'],
+  });
+  const qualified = qualifyPriorDeployJob(original);
+  assert.equal(qualified.eligible, true);
+  assert.equal(qualified.mode, 'exact-nov13-msr-district21-original-assets-only');
+  assert.equal(qualified.criticalChecks, 5);
+  assert.equal(qualified.exactRun, 43460115327);
+  assert.equal(qualified.requiredSourceSha, '3836f5f8d492b970ba6a6e7edb10679309250479');
+  assert.equal(qualified.requiredWorkerVersion, '6f58c413-3ace-4666-9fd3-dba3afb7d5da');
+  assert.deepEqual(qualified.permittedFailures, [
+    'Verify MSR Houston responsive visitor page and licensed photo',
+    'Verify District 21 hub and eight team scorecards on production',
+  ]);
+});
+
+test('MSR/District21 original asset rescue rejects any alternate job, extra failure or failed safety step', () => {
+  const baseline = {
+    runId: 43460115327,
+    jobId: 132004453072,
+    failure: 'Verify MSR Houston responsive visitor page and licensed photo',
+    additional: ['Verify District 21 hub and eight team scorecards on production'],
+  };
+  for (const mutation of [
+    { runId: 43460115328 },
+    { jobId: 132004453073 },
+    { additional: ['Verify District 21 hub and eight team scorecards on production', 'Verify base production surfaces'] },
+    { failure: 'Verify Event structured-data production' },
+    { omit: 'Verify direct Worker health' },
+    { omit: 'Verify canonical production health' },
+    { omit: 'Verify current and previous release JS/CSS on both public origins' },
+    { omit: 'Deploy TexasDefined Worker' },
+    { omit: 'Capture deployed Worker version' },
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({ ...baseline, ...mutation })),
+      /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
