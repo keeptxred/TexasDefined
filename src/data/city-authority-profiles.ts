@@ -751,6 +751,107 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
     ],
   },
+  'del-rio': {
+    population2020: 34_673,
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/delriocitytexas/PST045225',
+    populationEstimate: { value: 34_496, year: 2025, asOf: 'July 1, 2025' },
+    jurisdiction: {
+      primaryCounty: 'Val Verde County',
+      counties: ['Val Verde County'],
+      note: 'Del Rio is the Val Verde County seat and lies across the Rio Grande from Ciudad Acuña, Mexico. A Del Rio mailing address is not enough to decide whether a parcel is within incorporated city limits, a particular school attendance zone or a city utility service area. Verify those boundaries and any border-crossing requirements against the actual address and current government information.',
+      sourceUrl: 'https://www.cityofdelrio.com/',
+    },
+    hero: {
+      src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Brown_Plaza.jpg?width=1600',
+      alt: 'Brown Plaza historic public square in Del Rio, Texas',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Brown_Plaza.jpg',
+      credit: 'JherreraCODR · CC BY-SA 4.0 · Wikimedia Commons',
+    },
+    districts: [
+      { name: 'Downtown and historic South Main', summary: 'City Hall at 109 West Broadway, community institutions and the Whitehead Memorial Museum at 1308 South Main make this the most practical cultural and history district to explore without driving out toward the lake.' },
+      { name: 'San Felipe Creek and San Felipe neighborhood', summary: 'Spring-fed San Felipe Creek passes through the city. Local parks and creek corridors offer a different experience from the large Amistad reservoir; use posted city rules, water advisories and designated public access points rather than assuming every bank is a swimming area.' },
+      { name: 'US 90 west and Amistad approach', summary: 'The highway west leads to the National Park Service visitor center at 10477 Highway 90 West and then different reservoir access points. The lake is not a single downtown waterfront, and boat ramps can be affected by changing water levels.' },
+      { name: 'US 90 and US 277 connections', summary: 'US 90 connects Del Rio toward San Antonio and west toward the Pecos crossing, while US 277 carries north–south regional travel. Distances, travel times and services between towns deserve more planning than they do in a large metro.' },
+      { name: 'Laughlin Air Force Base area', summary: 'The base is a major local aviation employer southeast of the city, but an active military installation is not an ordinary public tourist attraction. Visitor access is controlled and should be confirmed with the installation.' },
+    ],
+    featured: [
+      { eyebrow: 'Reservoir & archaeology', title: 'Amistad National Recreation Area', summary: 'Plan from the National Park Service visitor center and check current lake levels, access-point closures, boating permits and separate camping requirements before choosing a shore or ramp.', href: '/destination/amistad-national-recreation-area' },
+      { eyebrow: 'Borderlands history', title: 'Whitehead Memorial Museum', summary: 'Visit the outdoor museum campus at 1308 South Main for Del Rio and Val Verde history; check admission, weather closures and the museum’s one-way approach to South Main.', href: '/destination/whitehead-memorial-museum-del-rio' },
+      { eyebrow: 'River communities', title: 'Val Verde County', summary: 'Put Del Rio in the larger county context, including Amistad, the Devils River watershed and borderland roads; the city and county are not interchangeable jurisdictions.', href: '/county/val-verde' },
+      { eyebrow: 'Historic region', title: 'Lower Pecos and San Felipe settlements', summary: 'Pair local museum history with the National Park Service’s Lower Pecos cultural interpretation; early river and spring settlement predates the modern border city.', href: '/article/val-verde-county-del-rio-amistad-devils-river-lower-pecos' },
+    ],
+    tripPlanning: {
+      firstTime: [
+        { title: 'Start in downtown Del Rio', summary: 'Use City Hall and the Main Street district to get oriented, then visit the Whitehead Memorial Museum for an account of Val Verde County’s borderlands, community and early trade. A museum visit is best planned during staffed hours, not as an unannounced evening stop.', href: '/destination/whitehead-memorial-museum-del-rio' },
+        { title: 'Give Amistad a separate outing', summary: 'The National Park Service visitor center is west of Del Rio at 10477 US 90. Start there to select a suitable boat launch, overlook or short stop; water levels and facilities are variable and the reservoir is spread across multiple sites.', href: '/destination/amistad-national-recreation-area' },
+        { title: 'See the spring-fed city side', summary: 'Walk an officially accessible San Felipe Creek park segment during cooler hours. The spring ecosystem and local creek parks are not the same as Amistad’s open-water boat ramps, and individual recreation rules vary.' },
+        { title: 'Build the itinerary around your reason for visiting', summary: 'A history-focused visit can stay mostly downtown; a fishing or boating trip should start with NPS current conditions and the correct launch; a family or military visit may need more time across the east side of town.' },
+      ],
+      stayAreas: [
+        { title: 'Downtown and South Main', summary: 'Practical for museum, civic and heritage stops; verify parking and operating times, particularly at the Whitehead Museum campus.' },
+        { title: 'US 90 west', summary: 'Better aligned with the NPS visitor center and lake access routes than the historic downtown streets, but check which ramp or day-use point you actually need.' },
+        { title: 'Near major US 90 / US 277 connections', summary: 'Useful when a stay involves regional driving, Laughlin AFB appointments or quick departure, though individual hotels and neighborhoods have different road access.' },
+      ],
+      freeThings: [
+        { title: 'Public San Felipe Creek corridors', summary: 'Enjoy a designated public creekside park or walking area while observing the city’s park rules and any posted water-access restrictions. Do not assume a creek swimming hole is supervised or always open.' },
+        { title: 'Downtown architecture', summary: 'A self-guided walk around the civic and Main Street streetscapes costs no admission; historic museums and private attractions may charge their own fees.' },
+        { title: 'National Park Service orientation', summary: 'Amistad National Recreation Area does not charge a general entrance fee, and the visitor center has maps and exhibits. Motorboat-use passes, camping and special activities may cost extra.', href: '/destination/amistad-national-recreation-area' },
+      ],
+      family: [
+        { title: 'Whitehead Memorial Museum', summary: 'The museum uses historic buildings and grounds rather than one indoor gallery. Check the museum’s admission schedule, summer heat and any special-event closure before taking children.', href: '/destination/whitehead-memorial-museum-del-rio' },
+        { title: 'Amistad visitor center', summary: 'Use the NPS orientation displays, ranger advice and Junior Ranger resources before choosing a family-accessible lakeshore area. Check water levels and swimming conditions separately.', href: '/destination/amistad-national-recreation-area' },
+        { title: 'Municipal parks', summary: 'Pick a maintained Del Rio public park for a low-key outing and follow posted operating hours; the municipal parks department publishes local recreation and pool information.' },
+      ],
+      gettingAround: [
+        { title: 'Expect to drive between the city and lake', summary: 'The Amistad NPS visitor center is around ten miles west of Del Rio’s center; individual boat launches and picnic spots are farther apart. Do not rely on a single map pin to represent the recreation area.' },
+        { title: 'Use Del Rio city transportation when eligible and practical', summary: 'The city operates a fixed-route bus service and advance-booked curb-to-curb transport within Val Verde County. Check updated schedules, eligibility and reservations at the city department; it is not a substitute for visiting remote lake access roads.' },
+        { title: 'Verify the Del Rio airport’s airline status', summary: 'Del Rio International Airport is city-managed, but the nearby Laughlin AFB installation’s current guidance says ordinary scheduled commercial airline service is not available. Confirm current options rather than assuming a terminal listing means bookable passenger flights.' },
+        { title: 'Allow for long borderland distances', summary: 'US 90 and US 277 connect this area, but fuel, cellular coverage, lake conditions and weather become more important when heading west or north. Carry maps and water when the trip leaves the city.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Historic downtown', summary: 'Look for local food, civic arts and downtown businesses rather than treating the US 90 retail strip as the whole city. Consult City Main Street listings for current business openings.' },
+        { title: 'Cultural institutions', summary: 'The city lists the Council for the Arts, Casa de la Cultura and local theater alongside the Whitehead Museum. Check each operator’s current program instead of inventing a year-round festival calendar.' },
+        { title: 'Museum and history afternoon', summary: 'Schedule Whitehead Memorial Museum before closing and leave an outdoor walking window for South Main. Its exhibit campus has an entry charge rather than free general admission.', href: '/destination/whitehead-memorial-museum-del-rio' },
+      ],
+    },
+    systems: [
+      {
+        title: 'City government and jurisdiction',
+        summary: 'Del Rio City Hall is at 109 West Broadway. Municipal water, sewer, city parks and streets differ from services provided by Val Verde County or agencies at the international border. Before relying on taxes, utility service or school assignment, confirm the exact address and city limits.',
+        links: [{ label: 'City of Del Rio', href: 'https://www.cityofdelrio.com/' }, { label: 'City visitor resources', href: 'https://www.cityofdelrio.com/community/visiting' }, { label: 'Val Verde County guide', href: '/county/val-verde' }],
+      },
+      {
+        title: 'Water, gas and wastewater',
+        summary: 'Del Rio’s municipal Utility Billing department handles city water, sewer and gas billing and account setup; it publishes different service rates and tools for locations inside and outside city limits. Do not confuse those city water and gas accounts with a separate electric provider or assume every property is in the municipal service area.',
+        links: [{ label: 'City utility billing, official rates and new accounts', href: 'https://www.cityofdelrio.com/government/departments/utility-billing' }, { label: 'Utility operations and water-conservation notices', href: 'https://www.cityofdelrio.com/government/departments/utilities-department' }],
+      },
+      {
+        title: 'Public transportation',
+        summary: 'The City of Del Rio Transportation Program operates within Val Verde County. The city describes fixed-route stops around medical, civic and retail destinations plus curb-to-curb demand-response trips scheduled in advance; fare and operating details differ by program. Call 830-774-8690 or check the city timetable before relying on a route or medical trip.',
+        links: [{ label: 'Del Rio Transportation Department', href: 'https://www.cityofdelrio.com/government/departments/transportation' }, { label: 'TxDOT Texas transit agency register', href: 'https://www.txdot.gov/discover/texas-transit-agencies.html' }],
+      },
+      {
+        title: 'Schools and enrollment',
+        summary: 'San Felipe–Del Rio CISD is the main local public-school district; the Texas Education Agency reports district ID 233901 and publishes current performance and enrollment. A Del Rio mailing address does not prove a particular school attendance boundary. Verify your address with the district before a move.',
+        links: [{ label: 'San Felipe–Del Rio CISD', href: 'https://www.sfdr-cisd.org/' }, { label: 'Texas Education Agency district profile', href: 'https://txschools.gov/?id=233901&view=district' }, { label: 'TexasDefined school-district lookup', href: '/find-my-school-district' }],
+      },
+      {
+        title: 'Visitor history and museums',
+        summary: 'The Whitehead Memorial Museum preserves a campus of historic buildings and exhibits about the city, county and border region at 1308 South Main. Its own plan-your-visit page gives admission, hours and weather or event closures; the city separately lists local arts organizations. A museum admission should not be inferred from free public park access.',
+        links: [{ label: 'Whitehead Museum visitor information', href: 'https://whiteheadmuseum.org/plan-your-visit.html' }, { label: 'Texas Historical Commission Pecos Trail region', href: 'https://www.thc.texas.gov/public/upload/publications/pecos.pdf' }, { label: 'City visitor listings', href: 'https://www.cityofdelrio.com/community/visiting' }],
+      },
+      {
+        title: 'Amistad recreation and access',
+        summary: 'The National Park Service administers Amistad National Recreation Area west of town. It has a separate visitor center at 10477 Highway 90 West and multiple boat and day-use locations. No general entrance fee is required, but boating and camping permits have separate rules, and water-level changes can affect ramp and shoreline access. Check NPS alerts before a lake trip.',
+        links: [{ label: 'NPS Amistad visitor guide', href: 'https://www.nps.gov/amis/planyourvisit/basicinfo.htm' }, { label: 'NPS current conditions and closures', href: 'https://www.nps.gov/amis/planyourvisit/conditions.htm' }, { label: 'TexasDefined Amistad guide', href: '/destination/amistad-national-recreation-area' }],
+      },
+      {
+        title: 'Airport and Laughlin Air Force Base',
+        summary: 'The city manages Del Rio International Airport; Laughlin Air Force Base is a separate federal installation with access controls. Do not treat airport certification as evidence of a current scheduled airline, or treat the military base as an open tourist site. Use the city airport and military installation pages for current passenger and visitor information.',
+        links: [{ label: 'City of Del Rio Airport', href: 'https://www.cityofdelrio.com/government/departments/international-airport' }, { label: 'Laughlin AFB visitor and check-in details', href: 'https://installations.militaryonesource.mil/military-installation/laughlin-afb/base-essentials/check-in-procedures' }],
+      },
+    ],
+  },
   'corpus-christi': {
     population2020: 317_863,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/corpuschristicitytexas/PST045225',
