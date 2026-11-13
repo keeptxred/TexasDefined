@@ -53,7 +53,7 @@ jobs:
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-city-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Run 11 city live Chrome checks at all 3 viewports
+      - name: Run 12 city live Chrome checks at all 3 viewports
         run: node scripts/ci/verify-city-authority-browser.mjs
       - name: Retain actual viewport screenshots and machine-readable results
         if: always()
