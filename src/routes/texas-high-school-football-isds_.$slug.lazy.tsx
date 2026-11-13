@@ -30,7 +30,9 @@ function Page() {
           <p className="eyebrow text-primary">Texas football by school district</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{district.districtName} football programs</h1>
           <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">
-            Current UIL football schools matched to {district.districtName} through Texas Education Agency AskTED, with classification, exact UIL enrollment and school-profile links for relocation research.
+            {district.verifiedEvidence
+              ? `The official UIL 2026–28 alignment and Texas Education Agency campus record independently verify this district's current football program, campus and classification. Review the separate school and league boundaries before using this page for a move.`
+              : `Current UIL football schools matched to ${district.districtName} through Texas Education Agency AskTED, with classification, exact UIL enrollment and school-profile links for relocation research.`}
           </p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
@@ -71,6 +73,27 @@ function Page() {
         </div>
       </section>
 
+      {district.verifiedEvidence && <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="verified-isd-identity">
+        <div>
+          <p className="eyebrow text-primary">TEA and UIL cross-check</p>
+          <h2 id="verified-isd-identity" className="mt-2 font-display text-3xl">One school, two sets of boundaries</h2>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">Source records checked November 13, 2026. The UIL classification and district apply to the 2026–28 alignment, not every future season.</p>
+        </div>
+        <div className="max-w-3xl space-y-5">
+          <p className="text-sm leading-7">{district.verifiedEvidence.authoritySummary}</p>
+          <p className="text-sm leading-7">{district.verifiedEvidence.sourceDistinction}</p>
+          <dl className="grid gap-px border-y border-border bg-border sm:grid-cols-2 text-sm">
+            <div className="bg-background px-4 py-5"><dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Official TEA campus</dt><dd className="mt-2 font-medium">{district.verifiedEvidence.schoolName}</dd><dd className="mt-1 font-mono text-xs">{district.verifiedEvidence.campusId}</dd></div>
+            <div className="bg-background px-4 py-5"><dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">School's current UIL alignment</dt><dd className="mt-2 font-medium">{district.highestClassification} · Division II · UIL District {district.programs[0]?.district} · {district.programs[0]?.footballType}</dd></div>
+          </dl>
+          <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href={district.verifiedEvidence.teaSource} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA campus accountability record ↗</a>
+            <a href={district.verifiedEvidence.uilSource} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL 2026–28 official district alignment ↗</a>
+            <a href={district.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district data ↗</a>
+          </div>
+        </div>
+      </section>}
+
       <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Enrollment research</p>
@@ -104,7 +127,7 @@ function Page() {
         <div>
           {district.cities.length > 0 && <p className="text-sm leading-7"><strong>Cities in matched school records:</strong> {district.cities.join(', ')}</p>}
           {district.countyNames.length > 0 && <p className="mt-3 text-sm leading-7"><strong>Counties in matched school records:</strong> {district.countyNames.join(', ')}</p>}
-          <p className="mt-4 text-xs leading-6 text-muted-foreground">These place labels come from TEA school-directory records. They do not replace attendance-zone maps and should not be used to infer that every address in a city or county belongs to this ISD.</p>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">These place labels come from TEA school-directory records or, for the independently cross-checked four-campus cohort, the original TEA campus documents. They do not replace attendance-zone maps and should not be used to infer that every address in a city or county belongs to this ISD.</p>
         </div>
       </section>
 
