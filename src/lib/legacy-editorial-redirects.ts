@@ -49,6 +49,13 @@ LEGACY_EDITORIAL_REDIRECTS["/state-park/indian-lodge-state-park-lodge"] = "/dest
 LEGACY_EDITORIAL_REDIRECTS["/destination/indian-lodge-state-park-lodge"] = "/destination/indian-lodge";
 // Seminole Canyon's 200 canonical remains editorially noindex today.
 LEGACY_EDITORIAL_REDIRECTS["/destination/seminole-canyon-state-park-historic-site"] = "/destination/seminole-canyon-state-park";
+// Both Ray Roberts Lake developed units have separate entrances, and their
+// full unit-specific visitor information is already in the one published park
+// authority guide. Never redirect to missing standalone legacy unit slugs.
+LEGACY_EDITORIAL_REDIRECTS["/destination/ray-roberts-lake-isle-du-bois-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/ray-roberts-lake-isle-du-bois-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/destination/ray-roberts-lake-johnson-branch-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/ray-roberts-lake-johnson-branch-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
 
 const historicalArticleSlugs = [
   "audie-murphy-texas-war-hero-actor",
