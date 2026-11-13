@@ -73,9 +73,9 @@ test('read-only project uses separate generated override; no edits to giant auth
 test('manually double-cited 2026 Aubrey finals survive later sparse authorized feeds',()=>{
   const raw=readFileSync('src/data/high-school-football/program-editorial.ts','utf8');
   const start=raw.indexOf('  "aubrey": {');
-  const end=raw.indexOf('\\n  "',start+14);
+  const end=raw.indexOf('\n  "',start+14);
   assert.ok(start>=0 && end>start);
-  const editorial=JSON.parse('{'+raw.slice(start,end).trim().replace(/,\\s*$/,'')+'}').aubrey;
+  const editorial=JSON.parse('{'+raw.slice(start,end).trim().replace(/,\s*$/,'')+'}').aubrey;
   const snapshot=JSON.parse(readFileSync('src/data/high-school-football/aubrey-auto-results.snapshot.json','utf8'));
   assert.equal(snapshot.verifiedResults.length,3,'Three individual, cited late-season finals');
   assert.deepEqual(snapshot.verifiedResults.map(x=>[x.date,x.opponent,x.aubreyScore,x.opponentScore]),[
