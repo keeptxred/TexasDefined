@@ -105,7 +105,7 @@ jobs:
         id: related
         if: success() && github.event_name != 'pull_request'
         run: node scripts/data/verify-texas-deer-related-rules.mjs
-      - name: Locate previous successful official legal-source fingerprint artifact
+      - name: Locate previous successful wildlife-health and legal-source fingerprint artifact
         if: steps.related.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -118,9 +118,9 @@ jobs:
             -n deer-related-legal-snapshot -D artifacts/deer-related-legal/prior; then
             echo 'DEER_RELATED_PREVIOUS=artifacts/deer-related-legal/prior/current.json' >> "$GITHUB_ENV"
           else
-            echo 'First six-source legal fingerprint baseline; no earlier snapshot.'
+            echo 'First seven-source legal fingerprint baseline; no earlier snapshot.'
           fi
-      - name: Compare current CWD/tagging/county legal-source digests
+      - name: Compare current CWD/tagging/county/screwworm source digests
         id: fingerprint
         if: steps.related.outcome == 'success'
         run: node scripts/data/compare-texas-deer-related-sources.mjs
@@ -137,15 +137,15 @@ jobs:
           existing="$(gh issue list --state open --search "$title in:title" \
             --json title,number --jq '.[] | select(.title == "TPWD deer CWD/tagging official rules changed") | .number' | head -1)"
           if [[ "$changed" -gt 0 ]]; then
-            echo "Official TPWD county/CWD/tagging guidance changed in $changed monitored sources." >> "$GITHUB_STEP_SUMMARY"
+            echo "Official TPWD county/CWD/tagging/screwworm guidance changed in $changed monitored sources." >> "$GITHUB_STEP_SUMMARY"
             if [[ -z "$existing" ]]; then
               links="$(jq -r '.changed[] | "- " + .id + ": " + .url' "$comparison")"
               gh issue create --title "$title" --body "Official source fingerprints changed; TexasDefined links users to the current TPWD pages and does not automatically republish unverified county/CWD instructions. Changed sources:\n$links\nWorkflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
             fi
           elif [[ -n "$existing" ]]; then
-            gh issue close "$existing" --comment "All six current official legal sources remained stable at the latest automated verification: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            gh issue close "$existing" --comment "All seven current official legal and wildlife-health sources remained stable at the latest automated verification: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           fi
-      - name: Preserve six official TPWD regulatory source fingerprints
+      - name: Preserve seven official TPWD regulatory and screwworm source fingerprints
         if: always() && steps.related.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -175,7 +175,7 @@ jobs:
           title='Texas deer TPWD county/CWD/tagging sources failed verification'
           existing="$(gh issue list --state open --search "$title in:title" --json title,number --jq '.[] | select(.title == "Texas deer TPWD county/CWD/tagging sources failed verification") | .number' | head -1)"
           if [[ -z "$existing" ]]; then
-            gh issue create --title "$title" --body "The official TPWD county, CWD or deer-tagging references did not verify. No guessed changes should be published. Source run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+            gh issue create --title "$title" --body "The official TPWD county, CWD, deer-tagging or screwworm references did not verify. No guessed changes should be published. Source run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
           fi
       - name: Verify live deer guide, all eight dates, image and structured data
         id: live
