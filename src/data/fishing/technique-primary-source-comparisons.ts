@@ -85,7 +85,7 @@ export const techniqueReservoirComparisons: Record<string, ReservoirComparison> 
     },
     second: {
       lake: "Sam Rayburn Reservoir",
-      lakePath: "/fishing/lakes/sam_rayburn_reservoir",
+      lakePath: "/fishing/lakes/sam-rayburn-reservoir",
       sourceUrl: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/sam_rayburn/",
       fact: "TPWD highlights summer low-light topwater opportunities; after sunrise, bass often move toward vegetation edges, brush piles, deeper ledges and channels.",
       implication: "Fish a reachable edge at first light, then change depth or use a weedless presentation instead of continuing a surface retrieve over inactive water.",
