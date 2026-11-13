@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { CAPITAL_STATUS_LABELS, OFFICIAL_CAPITALS, TSLAC_CAPITAL_SOURCE, type CapitalStatus } from "@/data/texas-capital-designations-official";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
@@ -27,7 +29,7 @@ const currentDesignations: CapitalDesignation[] = [
   { place: "Kyle", title: "Pie Capital of Texas", legislature: "87th Legislature", resolution: "S.C.R. 22", designatedYear: 2021, sourceUrl: "https://capitol.texas.gov/tlodocs/87R/billtext/html/SC00022F.htm", context: "Kyle's pie festivals, business initiatives and community branding led to the official statewide designation." },
 ];
 
-const description = "A source-backed guide to official Texas 'capital' place designations created by the Texas Legislature, including Cowboy, Fishing, Pie, Garden, Peanut and other capitals.";
+const description = "Search 94 Texas legislative place designations, with official citations, statutory status distinctions and the pre-September 2001 exemption explained.";
 const canonicalPath = "/texas-capital-designations";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
@@ -43,7 +45,7 @@ export const Route = createFileRoute("/texas-capital-designations")({
       "@context": "https://schema.org",
       "@graph": [
         { "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: "Official Texas Capital Designations", description },
-        { "@type": "ItemList", "@id": `${pageUrl}#list`, name: "Current verified Texas capital designations", numberOfItems: currentDesignations.length, itemListElement: currentDesignations.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: `${item.place} — ${item.title}`, url: item.sourceUrl })) },
+        { "@type": "ItemList", "@id": `${pageUrl}#list`, name: "Featured Texas capital designations within their ten-year terms", numberOfItems: currentDesignations.length, itemListElement: currentDesignations.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: `${item.place} — ${item.title}`, url: item.sourceUrl })) },
         { "@type": "BreadcrumbList", "@id": `${pageUrl}#breadcrumb`, itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
           { "@type": "ListItem", position: 2, name: "Texas History", item: absoluteUrl(texasDefinedBrand, "/texas-history") },
@@ -56,6 +58,12 @@ export const Route = createFileRoute("/texas-capital-designations")({
 });
 
 function TexasCapitalDesignationsPage() {
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<CapitalStatus | "all">("all");
+  const filtered = OFFICIAL_CAPITALS.filter((item) => {
+    const matchesSearch = `${item.title} ${item.place} ${item.resolution} ${item.year}`.toLowerCase().includes(search.trim().toLowerCase());
+    return matchesSearch && (statusFilter === "all" || item.status === statusFilter);
+  });
   return (
     <main>
       <section className="border-b border-border bg-muted/30 py-16 sm:py-24">
@@ -67,9 +75,9 @@ function TexasCapitalDesignationsPage() {
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">Texas has more than one kind of capital</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Austin is the state capital. But the Texas Legislature also gives cities and counties official specialty titles — Cowboy Capital, Fishing Capital, Pie Capital and many more. This guide keeps those legislative place designations separate from the official state-symbol directory and links every listing back to its legislative source.</p>
           <div className="mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
-            <Stat value={String(currentDesignations.length)} label="Verified listings" />
-            <Stat value="10 years" label="Typical statutory term" />
-            <Stat value="TLO" label="Primary source" />
+            <Stat value={String(OFFICIAL_CAPITALS.length)} label="Adopted designations" />
+            <Stat value={String(currentDesignations.length)} label="Featured current records" />
+            <Stat value="TSLAC" label="Official registry" />
           </div>
         </Container>
       </section>
@@ -79,7 +87,7 @@ function TexasCapitalDesignationsPage() {
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Current verified directory</p>
             <h2 className="mt-3 font-display text-4xl sm:text-5xl">Legislatively designated capitals of Texas</h2>
-            <p className="mt-5 leading-7 text-muted-foreground">The entries below are limited to designations verified against Texas Legislature Online enrolled-resolution records and still within their statutory 10-year designation window as of 2026. This is a growing source-backed directory, not a list of unofficial tourism slogans.</p>
+            <p className="mt-5 leading-7 text-muted-foreground">These nine featured examples link directly to enrolled legislative resolutions. They are not the complete register: the searchable directory below includes all 94 entries published by the Texas State Library and Archives Commission through the 89th Legislature. Historical records and legally current titles must not be confused.</p>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {currentDesignations.map((item) => (
@@ -98,14 +106,47 @@ function TexasCapitalDesignationsPage() {
         </Container>
       </section>
 
+      <section className="border-t border-border py-16 sm:py-20" aria-labelledby="full-capital-register">
+        <Container>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Official state library register</p>
+          <h2 id="full-capital-register" className="mt-3 font-display text-4xl sm:text-5xl">Search all {OFFICIAL_CAPITALS.length} adopted titles</h2>
+          <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">The State Library and Archives Commission maintains the official adopted-designations list. It includes historic resolutions that should not automatically be described as current law. The statuses below interpret only the ten-year rule and its pre-September 1, 2001 exception; 2001 resolutions must be checked against their actual approval dates before asserting whether the exception applies.</p>
+          <p className="mt-4 text-sm"><a className="font-semibold text-primary underline underline-offset-4" href={TSLAC_CAPITAL_SOURCE} target="_blank" rel="noopener noreferrer">Verify the complete state-library register and original resolution references ↗</a></p>
+          <div className="mt-8 grid gap-4 md:grid-cols-[minmax(0,1fr)_17rem]">
+            <label className="text-sm font-semibold" htmlFor="capital-filter">Search by title, place, resolution or year
+              <input id="capital-filter" value={search} onChange={(event) => setSearch(event.target.value)} type="search" placeholder="Try Fort Worth, ice cream, H.C.R. 80…" className="mt-2 block min-h-11 w-full border border-border bg-background px-4 py-2 font-normal" />
+            </label>
+            <label className="text-sm font-semibold" htmlFor="capital-status">Ten-year designation status
+              <select id="capital-status" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as CapitalStatus | "all")} className="mt-2 block min-h-11 w-full border border-border bg-background px-4 py-2 font-normal">
+                <option value="all">All adopted designations</option>
+                {Object.entries(CAPITAL_STATUS_LABELS).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+              </select>
+            </label>
+          </div>
+          <p className="mt-4 text-sm text-muted-foreground" aria-live="polite">Showing {filtered.length} of {OFFICIAL_CAPITALS.length} official register entries.</p>
+          <div className="mt-6 overflow-x-auto border border-border">
+            <table className="min-w-[48rem] w-full text-left text-sm">
+              <caption className="sr-only">Texas legislative capital and place designations, official citations and expiration treatment</caption>
+              <thead className="bg-muted/40"><tr><th scope="col" className="px-4 py-3">Designation</th><th scope="col" className="px-4 py-3">Place</th><th scope="col" className="px-4 py-3">Resolution and year</th><th scope="col" className="px-4 py-3">Statutory treatment</th></tr></thead>
+              <tbody className="divide-y divide-border">{filtered.map((item) => <tr key={`${item.title}-${item.place}-${item.year}`} className="align-top"><th scope="row" className="px-4 py-4 font-semibold">{item.title}</th><td className="px-4 py-4">{item.place}</td><td className="px-4 py-4 tabular-nums">{item.resolution} · {item.year}</td><td className="px-4 py-4 text-muted-foreground">{CAPITAL_STATUS_LABELS[item.status]}</td></tr>)}</tbody>
+            </table>
+            {!filtered.length && <p className="p-5 text-sm">No entries match those filters. Clear the search or choose another status.</p>}
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            <div className="border border-border p-6"><h3 className="font-display text-2xl">Before September 1, 2001</h3><p className="mt-3 leading-7 text-muted-foreground">The ten-year expiration law expressly exempts resolutions approved before this date. An older adopted title is not automatically expired merely because it predates the modern statute.</p></div>
+            <div className="border border-border p-6"><h3 className="font-display text-2xl">After August 31, 2001</h3><p className="mt-3 leading-7 text-muted-foreground">Ten-year expiration applies unless a later valid act renews the title. For resolutions from 2001, the year alone cannot establish which rule controls; the actual approval date must be verified.</p></div>
+          </div>
+        </Container>
+      </section>
+
       <section className="border-y border-border bg-muted/25 py-16 sm:py-20">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1.1fr_.9fr]">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Why the expiration matters</p>
               <h2 className="mt-3 font-display text-4xl">These titles are official — but they are not necessarily permanent</h2>
-              <p className="mt-5 leading-7 text-muted-foreground">Texas Government Code §391.003 provides for many official place designations to expire on the tenth anniversary of the designation. That means an old resolution can be historically real without still being a current official title. TexasDefined therefore separates current, source-verified designations from expired or purely promotional nicknames.</p>
-              <p className="mt-4 leading-7 text-muted-foreground">The Legislature can also renew or replace a designation. When that happens, the newer enacted resolution controls this directory. We use enrolled resolutions wherever available and do not treat a filed bill, committee hearing or tourism slogan as an enacted designation.</p>
+              <p className="mt-5 leading-7 text-muted-foreground">Texas Government Code §391.003 establishes a ten-year expiration for modern designations, but expressly exempts resolutions approved before September 1, 2001. Older exempt resolutions stay in the official register. For later resolutions the ten-year rule applies, and an entry may be historically real even when its current term has ended.</p>
+              <p className="mt-4 leading-7 text-muted-foreground">The Legislature can also renew or replace a designation. When that happens, the newer enacted resolution controls this directory. For featured modern examples we link enrolled resolutions directly. For the complete register we use the Texas State Library and Archives Commission’s official record of adopted titles; a filed bill, hearing or marketing slogan alone does not establish an official designation.</p>
             </div>
             <aside className="border border-border bg-background p-7">
               <h2 className="font-display text-3xl">Related TexasDefined guides</h2>
