@@ -255,14 +255,15 @@ const targetCalendarUrl=existing.officialCalendarUrl.replace(/\d{4}-\d{4}-huntin
 const calendar=await getText(targetCalendarUrl);
 const updated=buildVerifiedSnapshot(official, calendar);
 
-const before=JSON.stringify(existing,{});
-const after=JSON.stringify(updated,{});
-const changed=before!==after;
+// This timestamp represents the last successful *dual-source verified* check,
+// even when the legal facts are unchanged. Never advance it for an offline test,
+// an unsuccessful request, a mere HTML fingerprint, or an editorial-only change.
+updated.sourceCheckedAt=new Date().toISOString().slice(0,10);
+const changed=JSON.stringify(existing)!==JSON.stringify(updated);
 if (process.env.GITHUB_OUTPUT)fs.appendFileSync(process.env.GITHUB_OUTPUT,'changed='+(changed?'true':'false')+'\n');
 if (!changed) {
-  console.log('Verified TPWD deer page and current statewide calendar agree; all eight dates and current regulatory facts unchanged.');
+  console.log('TPWD deer and statewide official calendars checked today; all eight dates and regulatory facts unchanged.');
 } else {
-  updated.sourceCheckedAt=new Date().toISOString().slice(0,10);
   fs.writeFileSync(file,JSON.stringify(updated,null,2)+'\n');
-  console.log('Verified TPWD deer season '+updated.seasonYear+', date ranges and regulatory facts from official sources. Protected PR required.');
+  console.log('Verified TPWD deer season '+updated.seasonYear+', full regulatory facts and actual successful check date. Protected PR required.');
 }
