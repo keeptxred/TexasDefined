@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
+import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 import { HISTORIC_TEXAS_MUSIC_VENUES } from "@/data/texas-music-historic-venues";
 import { musicHistoryMilestones, musicSourceReviewedAt, musicVenuePhotography } from "@/data/texas-music-history-evidence";
@@ -138,6 +139,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
         articleSection: "Texas Music",
         citation: [
           ...sources.map((source) => source.href),
+          ...(musicResearchDossiers[guide.slug]?.findings.map((finding) => finding.href) ?? []),
           ...historicVenues.flatMap((venue) => venue.sources.map((source) => source.href)),
         ],
         isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` },
