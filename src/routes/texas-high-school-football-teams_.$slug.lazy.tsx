@@ -158,7 +158,9 @@ function Page() {
     faq,
   } = Route.useLoaderData();
   const schoolName = displayName;
-  const district21Team = program?.classification === '6A' && program.district === 21 && !editorial?.season && !editorial?.notice && hasDistrict21TeamScorecard(schoolName);
+  // District 21's separately source-checked team scorecard must remain visible even
+  // after a Batch018 editorial overlay adds its own season notes or visitor notice.
+  const district21Team = program?.classification === '6A' && program.district === 21 && hasDistrict21TeamScorecard(schoolName);
   // Authored football-page titles contain the verified school-specific mascot.
   // Fall back to the reference directory for schools without an editorial title;
   // the optional TEA identity join may be unavailable in deployed SSR.
