@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import type { ReactNode } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
@@ -49,7 +50,7 @@ function CategoryBreadcrumb({ belongsToExplore, belongsToTexasLife, current, inv
   );
 }
 
-export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml: originalAuthorityHtml, showDestinations = true }: {
+export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml: originalAuthorityHtml, showDestinations = true, beforeStories, featuredTitle = "This month’s selection" }: {
   category: CategorySlug;
   eyebrow: string;
   title: string;
@@ -57,6 +58,8 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
   image?: ImageRef | undefined;
   authorityHtml?: string | null;
   showDestinations?: boolean;
+  beforeStories?: ReactNode;
+  featuredTitle?: string;
 }) {
   const { data: articles } = useSuspenseQuery(articlesQuery({ category }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ category }));
@@ -115,10 +118,12 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
         <LivingAuthorityPaths currentCategory={category} />
       </Suspense>
 
+      {beforeStories}
+
       {lead && (
         <Section>
           <Container>
-            <SectionHeader eyebrow="Featured story" title="This month’s selection" description="A closer look at one story from this section, selected by Texas Defined." />
+            <SectionHeader eyebrow="Featured story" title={featuredTitle} description="A closer look at one story from this section, selected by Texas Defined." />
             <div className="mt-10 max-w-5xl"><ArticleCard article={lead} size="feature" /></div>
           </Container>
         </Section>
