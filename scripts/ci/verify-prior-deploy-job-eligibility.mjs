@@ -207,6 +207,12 @@ export function qualifyPriorDeployJob(payload) {
       exactRun: msrD21.runId, requiredSourceSha: msrD21.sourceSha,
       requiredWorkerVersion: msrD21.workerVersion };
   }
+  // The older generic MSR-only screenshot exception must not accidentally
+  // qualify a falsified one-failure version of THIS exact known two-failure
+  // publish. Every stage for this run is individually evidenced above.
+  if (job.run_id === msrD21.runId || job.id === msrD21.jobId) {
+    throw Error('Failed deploy job includes unapproved or missing failure evidence for exact Nov13 MSR/D21 release: ' + failures.join(', '));
+  }
   const turkeyTimeout = NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT;
   if (job.run_id === turkeyTimeout.runId && job.id === turkeyTimeout.jobId &&
       failures.length === 1 && failures[0] === turkeyTimeout.failedStep) {
