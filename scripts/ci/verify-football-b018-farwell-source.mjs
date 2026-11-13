@@ -24,4 +24,6 @@ for (const fact of ['1025 E 8th St', '301 E 5th St', '4A Division I', 'District 
 assert.ok(!/\b(photoUrl|imageUrl|finalScore)\s*:/.test(ferris));
 assert.ok(guide.includes('designated home team'));
 assert.ok(!/\b(photoUrl|imageUrl|finalScore|headCoach)\s*:/.test(guide), 'Unlicensed media or unverified result/coach');
+const loader = read('src/data/high-school-football/program-editorial-b018-second-five.ts');
+assert.ok(loader.includes('export function getBatch018SecondFiveEditorial(slug: string)'), 'Missing typed second cohort loader');
 console.log('PASS five second-cohort source-only editorial guides; SSR and county integration still pending');
