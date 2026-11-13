@@ -18,4 +18,6 @@ const edges = read('src/data/high-school-football/batch018-fourth-five-county-ed
 for (const [slug,county] of [['forsan','howard'],['fort-bend-austin','fort-bend'],['fort-bend-bush','fort-bend'],['fort-bend-christian','fort-bend'],['fort-bend-clements','fort-bend']]) {
   assert.ok(edges.includes("slug: '" + slug + "'") && edges.includes("county: '" + county + "'"), 'Missing campus county: ' + slug);
 }
+const loader = read('src/data/high-school-football/program-editorial-b018-fourth-five.ts');
+assert.ok(loader.includes('export function getBatch018FourthFiveEditorial(slug: string)'), 'Missing typed fourth cohort loader');
 console.log('PASS Batch018 fourth five source-authored modules and staged county records; NOT SSR/county integrated or certified');
