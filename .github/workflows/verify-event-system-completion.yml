@@ -6,6 +6,10 @@ on:
       - '.github/workflows/verify-event-system-completion.yml'
       - 'scripts/data/validate-events-system-completion.mjs'
       - 'scripts/ci/verify-event-expansion-production.mjs'
+      - 'scripts/ci/verify-gsc-alternates-production.mjs'
+      - 'scripts/data/validate-gsc-indexation-remediation.mjs'
+      - 'src/components/events/EventsLandingPage.tsx'
+      - 'src/components/events/events-landing.css'
       - 'src/data/major-event-expanded-authority-tranche48.server.ts'
       - 'src/data/major-event-supplemental-registry.server.ts'
       - 'src/data/events/weekend-editorial-package.server.ts'
@@ -53,6 +57,10 @@ jobs:
         run: node scripts/data/validate-events-system-completion.mjs
       - name: Validate TPWD calendar parser and exclusion policy
         run: node --test scripts/events/sync-tpwd-calendar.test.mjs
+      - name: Validate GSC alternate canonicals and acceptance probe syntax
+        run: |
+          node scripts/data/validate-gsc-indexation-remediation.mjs
+          node --check scripts/ci/verify-gsc-alternates-production.mjs
 
   live-production:
     if: >-
@@ -70,6 +78,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Verify GSC alternate-canonical routes and crawler-safe calendar controls
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-gsc-alternates-production.mjs
       - name: Verify expanded Events production surfaces
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
