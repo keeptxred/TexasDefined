@@ -52,11 +52,31 @@ export const regionalAuthorityEnrichment: Record<string, Partial<Article>> = {
       },
       {
         "type": "heading",
-        "text": "Texas 16 — Kerrville and Medina hill-and-valley corridor"
+        "text": "Texas 16 — Bandera, Medina and Kerrville: choose the actual Hill Country segment"
       },
       {
         "type": "paragraph",
-        "text": "Travel this central-to-western Hill Country road for changes in terrain, ranchland and small towns. Use town stops and designated parks as breaks, not roadside private property. This is best enjoyed in daylight with no hurry to make a distant appointment."
+        "text": "State Highway 16 is a long Texas highway, not a single short scenic road or an officially branded sightseeing loop. TxDOT's historic designation follows SH 16 through Llano, Fredericksburg, Kerrville, Medina and Bandera toward San Antonio. For the more concentrated Hill Country drive, Bandera, Medina and Kerrville make a realistic northbound or southbound corridor. The segment is about a 36-mile drive between Bandera and Kerrville; do not confuse that practical visitor stretch with the highway's full state route or with the separate FM 335, 336 and 337 roads called the Twisted Sisters."
+      },
+      {
+        "type": "paragraph",
+        "text": "From Bandera, leave the small downtown center on SH 16 toward Medina. The road follows the Medina River valley through ranchland, slopes and small communities. Medina is a useful deliberate stop before the hillier terrain: turn west onto RM 337 only if you have actually planned the additional Vanderpool, Leakey or Lost Maples loop. Continue north on SH 16 for the road's climb over the divide and descent toward the Guadalupe country around Kerrville. In the reverse direction, Kerrville to Medina to Bandera is equally sensible; choose the direction based on daylight, where you are staying and the next planned stop."
+      },
+      {
+        "type": "paragraph",
+        "text": "The Texas Historical Commission's Texas Time Travel scenic-driving entry describes a much longer Western Kerr, Bandera and Real County loop. It starts on SH 16 south from Kerrville, then takes FM 337 to Vanderpool, SH 187 toward Hunt, FM 1340 toward Mountain Home and roads through Ingram to return to Kerrville. That is NOT an all-SH-16 journey: it is a regional loop using several other state and ranch roads. Readers should use the official route description as a map-planning reference, check which roads meet vehicle and accessibility needs and avoid turning a 30- to 40-mile highway segment into an unsupported four-hour promise."
+      },
+      {
+        "type": "paragraph",
+        "text": "Useful public stops change the journey more than adding stops to private ranch entrances. In Bandera, the town center and designated visitor facilities provide a meal and walking break; in Medina, use actual commercial or public parking rather than blocking a narrow shoulder; in Kerrville, riverfront public parks and downtown offer a longer stop. A motorcycle or bicycle itinerary needs a different approach to pavement, visibility and distance from a casual car trip. The centerline and shoulder widths vary along the road, and hill curves limit sight lines. Make daylight the default and drive at a safe speed for conditions."
+      },
+      {
+        "type": "paragraph",
+        "text": "TxDOT separately lists the stretch of SH 16 between the northern Kerrville city limits and Interstate 20 among routes eligible for scenic-byway consideration. That eligibility does not mean the Bandera–Medina–Kerrville segment is a formally designated scenic byway. It also does not imply that private land beside the roadway is public. The Bandera County visitor bureau publishes a Scenic Sampler loop that combines SH 16 through Medina and Kerrville with SH 27, FM 480 and SH 173 on the return; use it as a tourism itinerary, not an official TxDOT road-condition bulletin."
+      },
+      {
+        "type": "paragraph",
+        "text": "Before leaving, check TxDOT's live travel conditions for SH 16 and cross-check any planned river, ranch-road or park detour. Flash flooding can make low-water crossings dangerous even when the highway itself looks dry. Long vehicles and RVs should verify grades and tight turns before committing to the steep Kerrville–Medina hills; some local operators warn that their larger rigs should use a different approach. The essential planning order is simple: choose the segment, pick public stops, check conditions, download maps and leave time to turn around safely. Do not drive into water across a road or stop in a blind curve to take a photograph."
       },
       {
         "type": "heading",
