@@ -761,6 +761,12 @@ const profiles: Record<string, CityAuthorityProfile> = {
       note: 'Del Rio is the Val Verde County seat and lies across the Rio Grande from Ciudad Acuña, Mexico. A Del Rio mailing address is not enough to decide whether a parcel is within incorporated city limits, a particular school attendance zone or a city utility service area. Verify those boundaries and any border-crossing requirements against the actual address and current government information.',
       sourceUrl: 'https://www.cityofdelrio.com/',
     },
+    hero: {
+      src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Brown_Plaza.jpg?width=1600',
+      alt: 'Brown Plaza historic public square in Del Rio, Texas',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Brown_Plaza.jpg',
+      credit: 'JherreraCODR · CC BY-SA 4.0 · Wikimedia Commons',
+    },
     districts: [
       { name: 'Downtown and historic South Main', summary: 'City Hall at 109 West Broadway, community institutions and the Whitehead Memorial Museum at 1308 South Main make this the most practical cultural and history district to explore without driving out toward the lake.' },
       { name: 'San Felipe Creek and San Felipe neighborhood', summary: 'Spring-fed San Felipe Creek passes through the city. Local parks and creek corridors offer a different experience from the large Amistad reservoir; use posted city rules, water advisories and designated public access points rather than assuming every bank is a swimming area.' },
