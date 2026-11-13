@@ -5,41 +5,86 @@ on:
   # Weekly read-only recheck of exact historic GSC 404 sample; no site-wide crawl.
   schedule:
     - cron: '13 10 * * 1'
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/gsc-404-sample-audit.yml
-      - scripts/ci/audit-gsc-404-sample.mjs
-      - scripts/ci/gsc-404-classification.mjs
-      - scripts/ci/gsc-404-classification.test.mjs
-      - ops/seo/gsc-404-2026-11-13-paths.txt
-      - src/server.ts
-      - src/lib/legacy-editorial-redirects.ts
-      - src/lib/public-route-tokens.ts
+  # A push-time HTTP scan measures OLD live Worker code before GitHub's protected
+  # deployment finishes. Wait for successful, exact-commit production instead.
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
 
 permissions:
+  actions: read
   contents: read
+  statuses: read
 
 concurrency:
-  group: gsc-404-99-${{ github.ref }}
+  group: gsc-404-99-${{ github.event.workflow_run.head_sha || github.sha }}
   cancel-in-progress: true
 
 jobs:
   audit:
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out the exact production source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+
+      - name: Verify protected production status and bounded change scope
+        id: scope
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_run" ]]; then
+            checked_out_sha="$(git rev-parse HEAD)"
+            if [[ "${checked_out_sha}" != "${DEPLOY_SHA}" ]]; then
+              echo "::error title=Deployment SHA mismatch::Checkout ${checked_out_sha} differs from completed release ${DEPLOY_SHA}."
+              exit 1
+            fi
+            release_status="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${DEPLOY_SHA}/status" --jq '[.statuses[] | select(.context == "texasdefined-production") | .state] | first // "missing"')"
+            if [[ "${release_status}" != "success" ]]; then
+              echo "::error title=Not a protected production release::Refusing to attribute audit to unverified ${DEPLOY_SHA} (status ${release_status})."
+              exit 1
+            fi
+            # Do not audit 99 URLs for every unrelated article or merchandise
+            # deploy. Only source/routing/sitemap changes that can affect this
+            # issue, and the incident auditor itself, need an immediate audit.
+            if git rev-parse HEAD^ >/dev/null 2>&1; then
+              changed_files="$(git diff --name-only HEAD^ HEAD)"
+              if ! grep -Eq '^((src/server\.ts)|(src/lib/(legacy-editorial-redirects|public-route-tokens)\.ts)|(src/data/(fort-leaton-historic-site-authority|destination-preserved-catalog|destination-curation-batch(8|12))\.ts)|(scripts/ci/(audit-gsc-404-sample|gsc-404-classification|gsc-404-classification\.test)\.mjs)|(ops/seo/gsc-404-2026-11-13-paths\.txt)|(\.github/workflows/gsc-404-sample-audit\.yml))$' <<<"${changed_files}"; then
+                echo "run=false" >> "${GITHUB_OUTPUT}"
+                echo "No GSC-404-relevant paths changed in exact protected release ${DEPLOY_SHA}; skip remote scan."
+                exit 0
+              fi
+            fi
+            echo "Protected exact production release: ${DEPLOY_SHA}"
+          else
+            echo "Read-only scheduled/manual audit; no exact deploy-SHA claim."
+          fi
+          echo "run=true" >> "${GITHUB_OUTPUT}"
+
       - uses: actions/setup-node@v4
+        if: ${{ steps.scope.outputs.run == 'true' }}
         with:
           node-version: '22'
+
       - name: Test historical 404 response classifications
+        if: ${{ steps.scope.outputs.run == 'true' }}
         run: node --test scripts/ci/gsc-404-classification.test.mjs
+
       - name: Inspect 99 exact historical GSC URLs (read-only)
+        if: ${{ steps.scope.outputs.run == 'true' }}
         run: node scripts/ci/audit-gsc-404-sample.mjs
+
       - name: Preserve exact HTTP audit results
-        if: always()
+        if: ${{ always() && steps.scope.outputs.run == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: gsc-404-99-exact-urls
