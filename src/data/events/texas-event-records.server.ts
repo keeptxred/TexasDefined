@@ -180,7 +180,20 @@ function normalizeEvent(event: TexasEvent, guide?: MajorEventGuideDirectoryItem)
 }
 
 /** Normalize every source-qualified upcoming event into one reusable server-side shape. */
+// The reviewed provider and organizer catalogs are bundled with this Worker.
+// Coalesce repeated SSR joins in one isolate, but re-evaluate every minute and
+// at the Texas-local day boundary so dated offers never persist indefinitely.
+const EVENT_RECORD_REUSE_MS = 60_000;
+let eventRecordsCache: { createdAt: number; day: string; rows: TexasEventRecord[] } | undefined;
+
 export function loadTexasEventRecordsServer(): TexasEventRecord[] {
+  const now = Date.now();
+  const day = texasTodayIso(new Date(now));
+  if (eventRecordsCache && eventRecordsCache.day === day
+      && now >= eventRecordsCache.createdAt
+      && now - eventRecordsCache.createdAt < EVENT_RECORD_REUSE_MS) {
+    return eventRecordsCache.rows.slice();
+  }
   const guides = loadMajorEventGuideDirectoryServer();
   const guideBySlug = new Map(guides.map((guide) => [guide.slug, guide] as const));
   const guideByIdentity = new Map(guides.map((guide) => [eventIdentity(guide.name, guide.city), guide] as const));
@@ -401,8 +414,10 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
       lastUpdatedAt: [editorialRecord.lastUpdatedAt, providerRecord.lastUpdatedAt].sort().at(-1) ?? editorialRecord.lastUpdatedAt,
     };
   }
-  return [...new Map(records.map((record) => [record.id, record] as const)).values()]
+  const unique = [...new Map(records.map((record) => [record.id, record] as const)).values()]
     .sort((left, right) => left.startDate.localeCompare(right.startDate) || left.title.localeCompare(right.title));
+  eventRecordsCache = { createdAt: now, day, rows: unique };
+  return unique.slice();
 }
 
 export function queryTexasEventRecordsServer(query: TexasEventQuery = {}) {
