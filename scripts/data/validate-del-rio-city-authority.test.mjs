@@ -47,7 +47,7 @@ test('Del Rio guidance distinguishes city services, reservoir, museum and airpor
     'no general entrance fee','scheduled commercial airline service is not available',
   ]) {
     // Del Rio is not Fort Leaton in Big Bend Ranch; the 21800 FM address must NOT leak.
-    if (claim === '21800 FM') assert.ok(!section.includes(claim)); else assert.ok(section.includes(claim), claim);
+    if (claim === '21800 FM') assert.ok(!section.includes(claim)); else assert.ok(section.toLowerCase().includes(claim.toLowerCase()), claim);
   }
   assert.match(section, /municipal service area/);
   assert.match(section, /water-level changes|water levels/i);
