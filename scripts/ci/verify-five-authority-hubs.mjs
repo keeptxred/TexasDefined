@@ -61,6 +61,20 @@ if (process.argv.includes("--production")) {
       assert.ok(html.length > 800, `${path} unexpectedly empty`);
       assert.ok(html.includes('rel="canonical"') || html.includes('rel=\"canonical\"'), `${path} missing canonical`);
       for (const needle of needles) assert.ok(html.includes(needle), `${path} missing deployed marker ${needle}`);
+      if (path === "/sports") {
+        const discoveryAt = html.indexOf("What are you planning to follow or visit?");
+        const featuredAt = html.indexOf("Featured from the sports desk");
+        assert.ok(discoveryAt >= 0 && featuredAt > discoveryAt, "Sport-first navigation must precede the featured editorial feed in live HTML");
+        assert.ok(!html.includes("This month’s selection"), "Sports cannot present old articles as this month's selection");
+      }
+      if (path === "/dogs") {
+        assert.ok(html.includes("list-decimal"), "Dog outing checklist must render a numbered semantic list");
+        assert.ok(!html.includes("<strong>1. Heat and pavement."), "Dog outing checklist must not duplicate list numbering");
+      }
+      if (path === "/texas-tailgating-guide") {
+        assert.ok(html.includes("https://www.foodsafety.gov/blog/game-day-food-safety-tips"), "Tailgating must link to current official game-day food safety");
+        assert.ok(!html.includes("https://ask.fsis.usda.gov/article/What-is-the-Danger-Zone"), "Tailgating must not retain an intermittently inaccessible source URL");
+      }
       assert.ok(!/<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html), `${path} is noindex`);
       console.log("LIVE PASS " + path);
     } catch (error) {
