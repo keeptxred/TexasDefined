@@ -142,7 +142,7 @@ function TexasIconCategoryPage() {
               )}
 
               <div className="grid gap-4 sm:grid-cols-2">
-                {category.items.map((entry) => {
+                {category.items.map((entry, chapterIndex) => {
                   const href = isTexasBrands && entry.id === 38
                     ? "/article/heb-texas-grocery-history-culture"
                     : isTexasBrands && entry.id === 36
@@ -150,7 +150,7 @@ function TexasIconCategoryPage() {
                       : texasIconCanonicalHref(entry);
                   const content = (
                     <div className="flex items-start gap-4">
-                      <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{entry.id}</span>
+                      <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{chapterIndex + 1}</span>
                       <div>
                         <h2 className="font-display text-2xl leading-tight">{entry.name}</h2>
                         <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
