@@ -5,6 +5,7 @@ export type CitySocialImage = {
 
 const CITY_SOCIAL_IMAGES: Readonly<Record<string, CitySocialImage>> = import.meta.env.SSR ? {
   houston: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Houston_texas_usa_skyline.jpg?width=1600', alt: 'Houston skyline viewed across the city' },
+  'del-rio': { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Brown_Plaza.jpg?width=1600', alt: 'Brown Plaza historic square in Del Rio, Texas' },
   dallas: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Dallas_Texas_Skyline.jpg?width=1600', alt: 'Dallas skyline viewed across the Trinity River corridor' },
   'fort-worth': { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1600', alt: 'Entrance sign and historic buildings in the Fort Worth Stockyards' },
   austin: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin%2C_TX_skyline_2026.jpg?width=1600', alt: 'Austin skyline in 2026' },
