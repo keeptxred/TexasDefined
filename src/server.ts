@@ -33,6 +33,8 @@ const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const MAX_REMOTE_IMAGE_REDIRECTS = 4;
 const ENTITY_REDIRECTS: Record<string, string> = {
   ...LEGACY_EDITORIAL_REDIRECTS,
+  // Historical SH16 destination import now has a substantive route-specific section in the sourced scenic-drive authority guide.
+  "/destination/texas-highway-16-hill-country": "/article/scenic-drives-in-texas",
   // Historic GSC State Fair event slug resolves to the already published evergreen fair guide.
   "/event/state-fair-of-texas": "/texas-state-fair",
   // Old TanStack path spelling with a route-group underscore is not a distinct guide.

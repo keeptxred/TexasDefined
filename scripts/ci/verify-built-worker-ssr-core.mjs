@@ -31,6 +31,8 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/article/scenic-drives-in-texas', requiredText: 'Texas 16 — Bandera, Medina and Kerrville', label: 'Real scenic-drive article adds specific Texas Highway 16 route rather than generic redirect hub' },
+  { path: '/article/scenic-drives-in-texas', requiredText: 'https://www.dot.state.tx.us/tpp/hwy/SH/SH0016.htm', label: 'Texas Highway 16 scenic-drive research displays primary TxDOT SH16 designation reference' },
   // Search Console's /texas-icons/shaquille-oneal was HTTP 404 because the
   // research record used a different slug from the actual owner roster.
   { path: '/texas-icons/shaquille-oneal', requiredText: '1989 Class 3A', label: 'Shaquille icon now publishes exact Cole championship and not a 404' },
@@ -254,6 +256,7 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/destination/texas-highway-16-hill-country?source=gsc', expectedStatus: 301, expectedPath: '/article/scenic-drives-in-texas', expectedQuery: ['source','gsc'], label: 'substantive SH16 route-specific authority guide historical GSC alias' },
   { path: '/article/cameron-county-brownsville-harlingen-south-padre-rio-grande?source=gsc', expectedStatus: 301, expectedPath: '/county/cameron', expectedQuery: ['source','gsc'], label: 'historical Cameron County series legacy alias to county authority' },
   { path: '/article/texas-home-insurance-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-homeowners-insurance-guide', expectedQuery: ['source','gsc'], label: 'published homeowner insurance historical GSC alias' },
   { path: '/article/texas-hurricane-preparation-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-hurricane-preparation-homeowners-renters', expectedQuery: ['source','gsc'], label: 'published hurricane preparedness historical GSC alias' },

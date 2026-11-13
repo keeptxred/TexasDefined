@@ -76,6 +76,21 @@ const baseRegionalAuthorityArticles: Article[] = [
         "href": "/article/texas-farm-to-market-roads-explained",
         "label": "FM roads explained",
         "description": "Understand the rural route-numbering system."
+      },
+      {
+        "href": "https://www.dot.state.tx.us/tpp/hwy/SH/SH0016.htm",
+        "label": "TxDOT highway designation history — SH 16",
+        "description": "Official routing through Fredericksburg, Kerrville, Medina and Bandera; not a standalone scenic-byway designation."
+      },
+      {
+        "href": "https://texastimetravel.com/directory/western-kerr-bandera-real-county-scenic-drive/",
+        "label": "Texas Time Travel — Western Kerr, Bandera and Real County drive",
+        "description": "Texas Historical Commission scenic loop adds FM 337, RM 187, FM 1340 and other roads to SH 16."
+      },
+      {
+        "href": "https://www.drivetexas.org/",
+        "label": "DriveTexas — current TxDOT road conditions",
+        "description": "Check official closures and travel advisories before approaching Hill Country grades or river crossings."
       }
     ],
     "relatedCollections": [],
