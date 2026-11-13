@@ -6,6 +6,12 @@ on:
       - 'scripts/ci/verify-city-authority-browser.mjs'
       - '.github/workflows/verify-city-authority-browser.yml'
       - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/city-metro-authority.ts'
+      - 'src/data/city-industry-paths.ts'
+      - 'src/data/city-social-images.ts'
+      - 'src/data/texas-places.ts'
+      - 'scripts/data/validate-del-rio-city-authority.test.mjs'
       - 'src/components/content/EntityDepthSections.tsx'
   push:
     branches: [main]
@@ -13,6 +19,12 @@ on:
       - 'scripts/ci/verify-city-authority-browser.mjs'
       - '.github/workflows/verify-city-authority-browser.yml'
       - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/city-metro-authority.ts'
+      - 'src/data/city-industry-paths.ts'
+      - 'src/data/city-social-images.ts'
+      - 'src/data/texas-places.ts'
+      - 'scripts/data/validate-del-rio-city-authority.test.mjs'
       - 'src/components/content/EntityDepthSections.tsx'
   workflow_dispatch:
 permissions:
@@ -32,6 +44,7 @@ jobs:
         with:
           node-version: '22'
       - run: node --check scripts/ci/verify-city-authority-browser.mjs
+      - run: node --test scripts/data/validate-del-rio-city-authority.test.mjs
 
   verify:
     if: ${{ github.event_name != 'pull_request' }}
@@ -53,7 +66,7 @@ jobs:
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-city-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Run 11 city live Chrome checks at all 3 viewports
+      - name: Run 12 city live Chrome checks at all 3 viewports
         run: node scripts/ci/verify-city-authority-browser.mjs
       - name: Retain actual viewport screenshots and machine-readable results
         if: always()
