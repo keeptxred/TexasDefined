@@ -1,0 +1,99 @@
+name: Texas culture eleven-page authority validation
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/texas-capital-designations.tsx'
+      - 'src/routes/texas-symbols*.tsx'
+      - 'src/routes/texas-facts*.tsx'
+      - 'src/routes/everything-bigger-in-texas.tsx'
+      - 'src/routes/dallas-fort-worth-music-history*.tsx'
+      - 'src/routes/things-unique-to-texas*.tsx'
+      - 'src/data/texas-capital-designations-official.ts'
+      - 'src/data/texas-icon-chapter-evidence.ts'
+      - 'src/data/things-unique-to-texas*.ts'
+      - 'src/data/priority-search-pages-public-services.ts'
+      - 'src/data/texas-music-city-guides.ts'
+      - 'src/components/editorial/TexasMusicCityGuide.tsx'
+      - 'scripts/data/validate-texas-culture-authority.mjs'
+      - 'scripts/data/validate-texas-icon-link-depth.mjs'
+      - 'scripts/data/validate-things-unique-to-texas.mjs'
+      - '.github/workflows/validate-texas-culture-authority.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '17 13 1 1,4,7,10 *' # Jan/Apr/Jul/Oct quarterly source-review checkpoint
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-culture-authority-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Validate 11-page authority invariants
+        run: |
+          node scripts/data/validate-texas-culture-authority.mjs
+          node scripts/data/validate-things-unique-to-texas.mjs
+          node scripts/data/validate-texas-icon-link-depth.mjs
+      - name: Install dependencies
+        run: npm ci
+      - name: Build SSR route output and check client imports
+        run: npm run build
+      - name: Verify the eleven published authority URLs on quarterly review
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          check() {
+            local path="$1"
+            local marker="$2"
+            local file
+            file="$(mktemp)"
+            if ! curl --fail --silent --show-error --location --retry 1 --max-time 40 "${origin}${path}?authority_check=${GITHUB_RUN_ID}" -o "$file"; then
+              echo "::error title=Public authority URL unavailable::${path}"
+              rm -f "$file"
+              exit 1
+            fi
+            if ! grep -Fqi "$marker" "$file" || grep -Eqi '<meta[^>]+name=["\x27]robots["\x27][^>]+content=["\x27][^"\x27]*noindex' "$file"; then
+              echo "::error title=Public authority page stale or noindex::${path} must contain ${marker}"
+              rm -f "$file"
+              exit 1
+            fi
+            echo "PASS ${path}"
+            rm -f "$file"
+          }
+          check '/dallas-fort-worth-music-history' 'Dallas–Fort Worth Music History'
+          check '/texas-capital-designations' 'full-capital-register'
+          check '/texas-symbols' 'Official Texas Symbols'
+          check '/texas-facts' '100 Essential Facts About Texas'
+          check '/everything-bigger-in-texas' 'Six Texas superlatives at a glance'
+          check '/things-unique-to-texas' 'What Makes Texas, Texas?'
+          check '/things-unique-to-texas/methodology' 'How we decide what defines Texas'
+          check '/things-unique-to-texas/food-drink' 'How geography and migration shaped the Texas table'
+          check '/things-unique-to-texas/texas-brands' 'What makes a company a Texas brand?'
+          check '/things-unique-to-texas/natural-wonders' 'Four very different ways Texas landscapes were made'
+          check '/things-unique-to-texas/landmarks' 'How to evaluate a Texas landmark beyond a photo'
+
+      - name: Report validated content
+        if: success()
+        run: |
+          {
+            echo '### Texas culture authority validation passed'
+            echo '- 94 official capital place designations: source, legal status and searchable registry'
+            echo '- 250 editorial records: unique IDs and accurate category reassignment'
+            echo '- Original evidence sections for food, brands, natural wonders and landmarks'
+            echo '- Dallas–Fort Worth sourced history, Texas facts and symbols additions'
+            echo '- Exact internal links, category data, source-level guards and SSR build'
+            echo '- Google Search ranking and actual indexation are not guaranteed by passing this gate'
+          } >> "$GITHUB_STEP_SUMMARY"

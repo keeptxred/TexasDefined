@@ -150,6 +150,42 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
       { heading: "Dallas helped turn Texas blues into recorded history", body: ["Important blues musicians recorded in Dallas during the Deep Ellum era, giving commercial form to music that had circulated in live settings. Jefferson's highly individual guitar language influenced later Texas players, including T-Bone Walker.", "As transportation and urban development changed the district, blues activity shifted geographically, but Dallas remained part of the state's recording and performance network."], links: [{ href: "/texas-blues", label: "Texas blues history" }] },
       { heading: "North Texas also built an early recording business", body: ["Dallas engineer J. E. 'Pop' Sellers began professional recording in the 1930s, and Sellers Company Recording Studios has been credited as an early independent studio in the Southwest. Country, western swing and later rockabilly musicians all used North Texas recording infrastructure.", "That business history matters because scenes require preservation and distribution as well as performance. Studios made it possible for local music to leave the room where it was played."], links: [{ href: "/texas-rock-rockabilly", label: "Texas rock and rockabilly" }, { href: "/texas-western-swing", label: "Texas western swing" }] },
       { heading: "Fort Worth produced a remarkable modern-jazz network", body: ["Fort Worth's I. M. Terrell High School became associated with an extraordinary cluster of jazz musicians. Ornette Coleman attended alongside or near figures who would become important collaborators and innovators, including Dewey Redman, Charles Moffett, Prince Lasha and John Carter.", "Coleman's later work transformed modern jazz, but the Fort Worth context matters because he did not emerge in complete isolation. School music, local bands, touring acts and a network of peers gave young musicians material to absorb and challenge."], links: [{ href: "/texas-jazz", label: "Texas jazz" }] },
+      {
+        heading: "Radio made Fort Worth a regional music crossroads",
+        body: [
+          "WBAP began broadcasting from Fort Worth on May 2, 1922. By January 4, 1923, it was airing an early barn-dance program featuring fiddles and square-dance entertainment. These performances mattered because radio crossed county lines more easily than a touring band could, giving rural and city audiences access to some of the same repertoire.",
+          "The Light Crust Doughboys added another chapter in the 1930s. Their early broadcasts began on KFJZ in 1931 before the group moved to WBAP later that year. The band's success shows how a flour-company sponsor, radio program and working musicians could combine to build an audience. This is part of Fort Worth music history even though the performers' careers later reached well beyond the city.",
+          "Radio history complicates the notion that the two cities simply copied each other's tastes. Dallas had dense neighborhood performance and recording networks; Fort Worth radio helped shape western-swing and country circulation across a wider listening region."
+        ],
+        links: [{ href: "/texas-western-swing", label: "Western swing and the early radio era" }]
+      },
+      {
+        heading: "From Deep Ellum's commercial district to later music revivals",
+        body: [
+          "Deep Ellum developed around a Black commercial community and rail corridor. By the early twentieth century it supported clubs, cafes and streets where blues, jazz and popular entertainment met everyday trade. This is why a history of Deep Ellum needs to discuss segregation and commerce along with individual musicians: the venues did not appear in a social vacuum.",
+          "Urban infrastructure changed that setting. The Texas State Historical Association documents how the construction of Central Expressway in 1969 removed a section of Elm Street and disrupted the older district. A later wave of art spaces, clubs and alternative music beginning in the 1980s revived the neighborhood's entertainment identity without recreating its original community or economic conditions.",
+          "Calling both eras simply 'the Deep Ellum music scene' can erase the people and institutions of the earlier Black district. The historical continuity lies in the geography and the repeated use of streets for culture, not in an unchanged roster of venues."
+        ],
+        links: [{ href: "/texas-blues", label: "The Black blues tradition in Texas" }, { href: "/texas-music-venues", label: "Texas music venues and their histories" }]
+      },
+      {
+        heading: "A Dallas recording engineer made local music portable",
+        body: [
+          "James Earl 'Pop' Sellers began recording experiments in 1935 and opened a professional recording operation during the 1930s. His Dallas studio and mobile recording work document a business side of music that is easy to miss when a history is organized only around stars. A performance did not become a record on its own: engineers, recording facilities and distribution decisions shaped what audiences could hear later.",
+          "The Handbook of Texas records Sellers's 1936 Rose Bowl recording assignment and traces his studio's connection to Texas performers. That history is distinct from the major national record labels associated with other music centers. North Texas could sustain local recording expertise, commercially useful recordings and artists moving among country, jazz and emerging popular styles.",
+          "Recording technology helps explain Dallas's role alongside Fort Worth broadcasting. The cities provided more than stages: they supplied ways to capture, transmit and sell performances beyond a single room."
+        ],
+        links: [{ href: "/texas-rock-rockabilly", label: "North Texas and the wider rockabilly recording circuit" }]
+      },
+      {
+        heading: "The Longhorn Ballroom connects western swing with changing Dallas audiences",
+        body: [
+          "The Longhorn Ballroom opened in Dallas in 1950 as Bob Wills's Ranch House, built around the western-swing bandleader and dance audience. The venue took the Longhorn name in 1958. Its history follows changes in ownership, city nightlife and the reach of country, western swing and other touring genres.",
+          "The room did not remain a museum of one sound. Its later bookings extended into other music scenes, including the Sex Pistols' notorious Dallas appearance in January 1978. This unusual pairing of western-swing origins and punk-era notoriety shows why a surviving venue's history may be much broader than the genre of its founder.",
+          "For a modern reader, the useful comparison is with Fort Worth's continuing stockyards dance-hall culture: North Texas rooms have repeatedly adapted to changing audiences. Present-day schedules, ownership and ticket arrangements should be verified separately rather than inferred from the historical account."
+        ],
+        links: [{ href: "/texas-dance-halls-honky-tonks", label: "Dance halls, honky-tonks and social music" }, { href: "/texas-western-swing", label: "Bob Wills and western swing" }]
+      },
       { heading: "Why Dallas and Fort Worth belong together—and apart", body: ["Dallas and Fort Worth developed different neighborhoods, institutions and musical identities. Treating them as interchangeable would flatten the history. But musicians, recordings, touring routes and audiences moved throughout North Texas, making the larger Metroplex a useful frame when the differences are kept visible.", "Dallas contributes the Deep Ellum blues and recording story; Fort Worth contributes western swing history and a uniquely important jazz lineage. Together they form one of the state's richest multi-genre regions."], links: [{ href: "/texas-music-cities", label: "Compare Texas music cities" }] }
     ],
     related: [

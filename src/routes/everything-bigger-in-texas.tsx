@@ -28,7 +28,7 @@ export const Route = createFileRoute("/everything-bigger-in-texas")({
 function Page() {
   return (
     <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas culture guide…</div>}>
-      <PrioritySearchPage data={Route.useLoaderData()} />
+      <PrioritySearchPage data={Route.useLoaderData()} officialSourcesIntro="Each numerical claim above names the public agency or historical institution that supplies the underlying measurement. Check the linked source for its definition and date; comparisons and conversions are TexasDefined editorial calculations." />
     </Suspense>
   );
 }

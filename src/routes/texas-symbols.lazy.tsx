@@ -52,6 +52,23 @@ function TexasSymbolsPage() {
         </Container>
       </section>
 
+      <section className="border-b border-border py-12 sm:py-16" aria-labelledby="symbols-comparison">
+        <Container>
+          <div className="max-w-4xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Reading the legal record</p>
+            <h2 id="symbols-comparison" className="mt-3 font-display text-4xl sm:text-5xl">A state symbol is not just something Texans recognize</h2>
+            <p className="mt-5 leading-8 text-muted-foreground">The mockingbird, bluebonnet and pecan tree are official symbols because Texas adopted them through specific legislative acts. Other things may feel no less Texan—barbecue, Buc-ee's or the San Antonio River Walk—but cultural recognition alone does not turn them into state symbols. This directory follows the legal record rather than an informal popularity test.</p>
+            <p className="mt-4 leading-8 text-muted-foreground">The designation year is not necessarily the year a custom began. The official state bird was adopted in 1927, while the bluebonnet's original state-flower designation dates to 1901; the Legislature later clarified which bluebonnet species are covered. Reading an official year therefore tells you when the state acted, not when Texans first encountered the bird or flower.</p>
+          </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            <article className="border border-border p-6"><h3 className="font-display text-2xl">Symbol</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">A named plant, animal, food or other emblem adopted by legislative action. This directory supplies its category, year and official reference where available.</p><a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">Official State Library symbol list ↗</a></article>
+            <article className="border border-border p-6"><h3 className="font-display text-2xl">Place designation</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">A legislative title such as a city's fishing or pie capital designation. Modern place titles are generally subject to a ten-year rule, unlike the ordinary state-symbol entries here.</p><Link to="/texas-capital-designations" className="mt-4 inline-block text-sm font-semibold text-primary underline">Compare official capital designations →</Link></article>
+            <article className="border border-border p-6"><h3 className="font-display text-2xl">Cultural icon</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Something associated with Texas through history, geography or daily life, even when it has no formal designation. A cultural list must not borrow the authority of the statute.</p><Link to="/things-unique-to-texas" className="mt-4 inline-block text-sm font-semibold text-primary underline">Browse Texas culture →</Link></article>
+          </div>
+          <p className="mt-7 max-w-4xl text-sm leading-7 text-muted-foreground">For newly adopted or amended symbols, verify the enrolled act or resolution and the current state-library compilation. Featured TexasDefined profiles add context only where a separate researched article is useful; every minor designation does not need a near-identical standalone page.</p>
+        </Container>
+      </section>
+
       <section className="py-16 sm:py-20">
         <Container>
           <div className="max-w-3xl">

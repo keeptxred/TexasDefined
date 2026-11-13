@@ -1,0 +1,36 @@
+/** Texas State Library and Archives Commission official place-designation register.
+ * Snapshot: published source last modified 2025-12-05; checked 2026-11-13.
+ * Chapter 391.003 exempts resolutions adopted before September 1, 2001.
+ * Every 2001 entry in this TSLAC register identifies the 77th Regular Session,
+ * which adjourned May 28, 2001 (Texas Legislative Reference Library).
+ * Source discrepancy: TSLAC prints San Angelo as H.R. 24 but the enrolled,
+ * governor-signed primary legislative act is H.C.R. 24, 87th R.S. (2021).
+ * Use the latter with a transparent on-page correction note.
+ * Historical entries remain visible even if a later ten-year term elapsed.
+ * Year-only precision is insufficient in an anniversary year, so the status
+ * is dynamically marked for exact-date verification, not silently renewed.
+ * Source: https://www.tsl.texas.gov/ref/abouttx/capitals
+ */
+export const TSLAC_CAPITAL_SOURCE = "https://www.tsl.texas.gov/ref/abouttx/capitals";
+export type CapitalStatus = "not-subject-to-ten-year-expiration" | "within-ten-year-window" | "anniversary-year-review" | "ten-year-window-elapsed";
+export type OfficialCapital = { title: string; place: string; resolution: string; year: number; status: CapitalStatus };
+const sourceRows = "Alligator Capital of Texas|Anahuac|H.R. 1151 / S.R. 730|1989\nAntique Capital of Texas|Baird|H.R. 316|1993\nAviation and Defense Capital of Texas|Fort Worth|H.C.R. 142|2025\nBanana Pudding Capital of Texas|Slaton|H.C.R. 135|2025\nBarbecue Capital of Texas|Lockhart|H.R. 1024|1999\nBass Fishing Capital of Texas|Hemphill|H.C.R. 75|2025\nBed and Breakfast Capital of Texas|Jefferson|H.C.R. 3|1997\nBee Capital of Texas|Combes|H.C.R. 111|2025\nBicycling Capital of the Rio Grande Valley|Brownsville|H.C.R. 116|2025\nBirding Capital of Texas|Matagorda County|S.C.R. 30|2025\nBluebird Capital of Texas|Wills Point|H.C.R. 6 / S.C.R. 40|1995\nBluebonnet Co-capital of Texas|Burnet County|S.C.R. 108|1981\nBluebonnet Co-capital of Texas|Llano County|S.C.R. 108|1981\nBois d'Arc Capital of Texas|Commerce|H.C.R. 31|1999\nBoot Capital of Texas|El Paso|S.C.R. 29|2025\nCactus Capital of Texas|Sanderson|S.C.R. 1|1999\nCajun Capital of Texas|Port Arthur|H.C.R. 61|2023\nCatfish Capital of Texas|West Tawakoni|H.C.R. 74|2001\nCelebration Capital of Texas|Granbury|H.C.R. 104|2023\nCitrus Capital of Texas|Weslaco|H.C.R. 149|1997\nCorn Dog Capital of Texas|Bridge City|H.C.R. 148|2025\nCountry Music Capital of Texas|Carthage|H.C.R. 74|2025\nCowboy Capital of Texas|Bandera|S.C.R. 3|2025\nCrape Myrtle Capital of Texas|Waxahachie|H.C.R. 14|1997\nCrape Myrtle City|Paris|H.C.R. 14|1997\nCrape Myrtle County Capital|Lamar County|H.C.R. 14|1997\nCrawfish Capital of Texas|Mauriceville|H.C.R. 42|1983\nCzech Heritage Capital of Texas|West|H.C.R. 185|1997\nDanish Capital of Texas|Danevang|H.C.R. 21|1990\nDeer Capital of the Texas Hill Country|Llano|H.C.R. 82|2023\nDinosaur Capital of Texas|Glen Rose|H.R. 1299|1997\nDogwood Trails Capital of Texas|Palestine|H.C.R. 105|2023\nEagle Capital of Texas|Rains County|S.C.R. 164|1995\nFilm Hospitality Capital of Texas|Bastrop County|H.C.R. 131|2019\nFishing Capital of Texas|Port Aransas|H.C.R. 117|2025\nGarden Capital of Texas|Nacogdoches|H.C.R. 93|2025\nGateway Capital of Texas|Milam|H.C.R. 81|2025\nHalloween Capital of Texas|Denton|H.C.R. 86|2025\nHighest Town in Texas|Fort Davis|S.C.R. 11|2021\nHome of the Official Kolache of the Texas Legislature|West|H.C.R. 185|1997\nHorned Lizard Capital of Texas|Kenedy|H.C.R. 41|2001\nHot Air Balloon Capital of Texas|Plano|H.C.R. 181|1999\nHot Link Capital of Texas|Pittsburg|H.C.R. 122|2019\nIce Cream Capital of Texas|Brenham|H.C.R. 80|2025\nJackrabbit-Roping Capital of Texas|Odessa|H.C.R. 42|2001\nJuneteenth Capital of Texas|Galveston|H.C.R. 6|2025\nKnife Capital of Texas|Spurger|H.C.R. 27|2017\nKolache Capital of Texas|Caldwell|H.C.R. 171|1989\nKoreatown Dallas|Dallas (Royal Lane and Harry Hines Boulevard)|S.C.R. 31|2023\nLighted Poinsettia Capital of Texas|Big Spring|H.C.R. 72 / S.C.R. 17|2017\nLineman Capital of Texas|Pearsall|H.C.R. 153|2025\nLive Music Capital of North Texas|Rockwall|H.C.R. 42 / S.C.R. 5|2017\nMardi Gras Capital of Texas|Galveston|H.C.R. 50|2025\nMarriage Capital of Texas|Rockwall County|S.C.R. 6|2025\nMermaid Capital of Texas|San Marcos|S.C.R. 9|2021\nMosaics, Texas City of|Levelland|S.C.R. 58|2019\nMural Capital of Texas|Breckenridge|H.C.R. 30|2001\nNorwegian Capital of Texas|Clifton|H.R. 1330 / S.R. 704|1997\nOstrich Capital of Texas|Midland|H.R. 779|1991\nPancake Capital of Texas|Hawkins|S.C.R. 73|1995\nPeach Capital of Texas|Parker County|H.C.R. 203|1991\nPeanut Capital of Texas|Floresville|H.C.R. 83|2023\nPickle Capital of Texas|Mansfield|H.C.R. 45|2023\nPie Capital of Texas|Kyle|S.C.R. 22|2021\nPolka Capital of Texas|Fredericksburg|S.C.R. 99|1993\nPump Jack Capital of Texas|Electra|S.C.R. 33|2001\nPurple Martin Capital of Texas|Longview|H.R. 848 / S.R. 822|1991\nRed Poppy Capital of Texas|Georgetown|H.C.R. 41|1990\nRedbud Capital of Texas|Denton|S.C.R. 71|1993\nRedfish Capital of Texas|Rockport|H.C.R. 157|2025\nRice Capital of Texas|Winnie|H.C.R. 42|2023\nRodeo Capital of Texas|Mesquite|H.C.R. 14|1993\nSausage Capital of Texas|Elgin|H.R. 705|1995\nSawmill Capital of Texas|Pineland|H.C.R. 84|2025\nSeedless Watermelon Capital of Texas|Knox City|H.C.R. 245|1997\nSpur Capital of Texas|Gatesville|H.C.R. 197|2001\nStagecoach Capital of Texas|Bridgeport|H.C.R. 27|2023\nStoryfest Capital of Texas|George West|H.R. 517|1995\nStrawberry Capital of Texas|Poteet|H.C.R. 55|2025\nSunflower Capital of Texas|Hearne|H.C.R. 256|1997\nSyrup Capital of Texas|Rusk County|H.C.R. 83|2025\nTexas Town of Patriotism|Trophy Club|S.C.R. 18|2025\nTimber Products Capital of Texas|Corrigan|H.C.R. 126|2025\nTrail Capital of Texas|Pflugerville|S.C.R. 4|2025\nVaquero Capital of Texas|Jim Hogg County|H.C.R. 70|2025\nVisual Arts Capital of Texas|San Angelo|H.C.R. 24|2021\nVolunteer Capital of Texas|Comal County|H.R. 592|1997\nWedding Capital of Texas|Dripping Springs|H.C.R. 58|2025\nWellness Capital of Texas|Mineral Wells|H.C.R. 4|2023\nWestern Art Show Capital of Texas|Stamford|H.C.R. 83 / S.C.R. 27|2017\nWild Hog Capital of Texas|La Salle County|H.C.R. 71|2025\nWildflower Capital of Texas|Temple|H.C.R. 73|1989\nWildflower Capital of Texas|DeWitt County|H.R. 769|1999\nWind Energy Capital of Texas|McCamey|H.R. 472 / S.R. 134|2001";
+export const OFFICIAL_CAPITALS: OfficialCapital[] = sourceRows.trim().split("\n").map((line) => {
+  const [title, place, resolution, yearText] = line.split("|");
+  const year = Number(yearText);
+  const anniversaryYear = new Date().getUTCFullYear() - 10;
+  const status: CapitalStatus = year <= 2001
+    ? "not-subject-to-ten-year-expiration"
+    : year > anniversaryYear
+      ? "within-ten-year-window"
+      : year < anniversaryYear
+        ? "ten-year-window-elapsed"
+        : "anniversary-year-review";
+  return { title, place, resolution, year, status };
+});
+export const CAPITAL_STATUS_LABELS: Record<CapitalStatus, string> = {
+  "not-subject-to-ten-year-expiration": "Approved before September 2001 — exempt",
+  "within-ten-year-window": "Within 10-year term",
+  "anniversary-year-review": "Ten-year anniversary this year — date check needed",
+  "ten-year-window-elapsed": "Ten-year term elapsed",
+};

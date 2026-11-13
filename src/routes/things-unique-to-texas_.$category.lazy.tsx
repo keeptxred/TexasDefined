@@ -3,6 +3,7 @@ import { Link, createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { TEXAS_BRAND_DIRECTORY_COUNT, TEXAS_GROCERY_BRAND_EXPANSION } from "@/data/texas-brand-directory";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
+import { TEXAS_CHAPTER_EVIDENCE } from "@/data/texas-icon-chapter-evidence";
 
 const FEATURED_GUIDES: Record<string, { href: string; label: string; description: string }[]> = {
   "food-drink": [
@@ -68,6 +69,7 @@ export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({ 
 
 function TexasIconCategoryPage() {
   const category = Route.useLoaderData();
+  const chapterEvidence = TEXAS_CHAPTER_EVIDENCE[category.slug];
   const isTexasBrands = category.slug === "texas-brands";
   const isLandmarks = category.slug === "landmarks";
   const tripPlanningCategory = ["natural-wonders", "landmarks", "roadside-small-towns", "food-drink"].includes(category.slug);
@@ -120,8 +122,27 @@ function TexasIconCategoryPage() {
                 </section>
               )}
 
+              {chapterEvidence && (
+                <section aria-labelledby="chapter-meaning" className="mb-12 border-y border-border py-10">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Editorial context and sources</p>
+                  <h2 id="chapter-meaning" className="mt-3 max-w-3xl font-display text-4xl">{chapterEvidence.title}</h2>
+                  <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">{chapterEvidence.introduction}</p>
+                  <div className="mt-8 space-y-9">
+                    {chapterEvidence.findings.map((finding) => (
+                      <article key={finding.heading} className="border-l-2 border-primary/40 pl-5">
+                        <h3 className="font-display text-2xl leading-tight">{finding.heading}</h3>
+                        {finding.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-8 text-muted-foreground">{paragraph}</p>)}
+                        <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Sources and further reading</p>
+                        <ul className="mt-2 flex flex-wrap gap-x-6 gap-y-2 text-sm">{finding.sources.map((source) => <li key={source.url}><a href={source.url} className="font-semibold text-primary underline decoration-primary/30 underline-offset-4" {...(source.url.startsWith("https://") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{source.label} ↗</a></li>)}</ul>
+                      </article>
+                    ))}
+                  </div>
+                  <p className="mt-8 max-w-3xl text-sm leading-7 text-muted-foreground">This analysis compares historical and institutional sources. It does not represent first-hand site visits, consumer testing, or current operating-hour verification.</p>
+                </section>
+              )}
+
               <div className="grid gap-4 sm:grid-cols-2">
-                {category.items.map((entry) => {
+                {category.items.map((entry, chapterIndex) => {
                   const href = isTexasBrands && entry.id === 38
                     ? "/article/heb-texas-grocery-history-culture"
                     : isTexasBrands && entry.id === 36
@@ -129,11 +150,11 @@ function TexasIconCategoryPage() {
                       : texasIconCanonicalHref(entry);
                   const content = (
                     <div className="flex items-start gap-4">
-                      <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{entry.id}</span>
+                      <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{chapterIndex + 1}</span>
                       <div>
                         <h2 className="font-display text-2xl leading-tight">{entry.name}</h2>
                         <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
-                        {href && <p className="mt-4 text-sm font-semibold text-primary">Explore the deeper TexasDefined guide →</p>}
+                        {href && <p className="mt-4 text-sm font-semibold text-primary">Read the related TexasDefined coverage →</p>}
                       </div>
                     </div>
                   );
