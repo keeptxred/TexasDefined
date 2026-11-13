@@ -30,7 +30,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "The Broken Spoke opened in 1964 on South Lamar and grew from a cafe into a dance hall associated with traditional country, Western swing and the social ritual of the Texas two-step. Its history overlaps both older country stars and the 1970s Austin progressive-country movement.",
           "What makes the Spoke especially useful as a reference point is continuity. The venue links touring legends, local regulars, dance lessons and a physical floor where country music is still treated as participatory culture rather than only a concert product."
         ],
-        links: [{ href: "/broken-spoke-austin-history", label: "Broken Spoke history" }, { href: "/texas-two-step", label: "Texas two-step guide" }]
+        links: [{ href: "/broken-spoke-austin-history", label: "Broken Spoke history" }, { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and two-step culture" }]
       },
       {
         heading: "The Continental Club and South Congress",
@@ -160,7 +160,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
           "The Broken Spoke remains strongly associated with the Texas two-step. The venue's official programming still includes dance instruction, reinforcing the idea that country music here is meant to move a floor rather than only face a stage.",
           "For a first-time visitor, the useful lesson is not to romanticize choreography. Watch the room, follow the flow of traffic and understand that partner dancing is part of the venue's living etiquette."
         ],
-        links: [{ href: "/texas-two-step", label: "Texas two-step guide" }]
+        links: [{ href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and two-step culture" }]
       },
       {
         heading: "Preservation in a changing South Austin",
@@ -173,7 +173,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
     ],
     related: [
       { href: "/texas-country-outlaw", label: "Texas country & outlaw country", description: "The Austin movement that overlapped the Broken Spoke's traditional-country history." },
-      { href: "/texas-two-step", label: "Texas two-step", description: "How to understand the partner-dance tradition still associated with the Spoke." },
+      { href: "/texas-dance-halls-honky-tonks", label: "Texas two-step and dance halls", description: "How to understand the partner-dance tradition still associated with the Spoke." },
       { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls & honky-tonks", description: "The larger statewide culture of live music and social dancing." }
     ]
   },
