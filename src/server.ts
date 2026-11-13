@@ -32,6 +32,10 @@ const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const MAX_REMOTE_IMAGE_REDIRECTS = 4;
 const ENTITY_REDIRECTS: Record<string, string> = {
   ...LEGACY_EDITORIAL_REDIRECTS,
+  // Historic GSC State Fair event slug resolves to the already published evergreen fair guide.
+  "/event/state-fair-of-texas": "/texas-state-fair",
+  // Old TanStack path spelling with a route-group underscore is not a distinct guide.
+  "/things-unique-to-texas_/methodology": "/things-unique-to-texas/methodology",
   // Previously generated 2027-only Carnival occurrence URLs have no standalone
   // major-Event guide. Their closest published evergreen visitor guide is this hub.
   // Never redirect to a non-existent /event/<yearless-slug> authority page.

@@ -243,6 +243,8 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/event/state-fair-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/texas-state-fair', expectedQuery: ['source', 'gsc'], label: 'historical State Fair event alias to existing guide' },
+  { path: '/things-unique-to-texas_/methodology?source=gsc', expectedStatus: 301, expectedPath: '/things-unique-to-texas/methodology', expectedQuery: ['source', 'gsc'], label: 'historical methodology path typo to existing guide' },
   // Preserve incoming dated Carnival links without serving an unverified leaf
   // or tying the canonical destination to the 2027 occurrence.
   { path: '/event/crystal-beach-mardi-gras-chicken-run-2027?source=legacy', expectedStatus: 301, expectedPath: '/events/mardi-gras', expectedQuery: ['source','legacy'], label: 'retired dated Mardi Gras companion' },
