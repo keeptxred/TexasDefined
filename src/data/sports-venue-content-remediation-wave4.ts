@@ -37,7 +37,7 @@ const sources = {
     { label: 'Berry Center visitor planning', url: 'https://berrycenter.cfisd.net/plan-your-visit' },
   ],
   galaxy: [
-    { label: 'Galaxy Stadium facility page', url: 'https://texastech.com/facilities/jones-at-t-stadium/2' },
+    { label: 'Galaxy Stadium facility page', url: 'https://texastech.com/facilities/galaxy-stadium/2' },
     { label: '2026 Galaxy Stadium fan information', url: 'https://texastech.com/news/2026/9/2/football-texas-tech-announces-fan-information-for-2026-season' },
     { label: 'Gameday in Raiderland', url: 'https://texastech.com/sports/2026/7/15/gameday-in-raiderland' },
     { label: 'Galaxy Stadium naming announcement', url: 'https://texastech.com/news/2026/7/17/football-texas-tech-secures-landmark-naming-rights-agreement-with-galaxy' },
@@ -105,7 +105,7 @@ export const SPORTS_VENUE_QUALITY_PROFILES_WAVE4: Record<string, SportsVenueQual
       leagueOrConference: 'NCAA Division I FBS — Big 12 Conference',
       bagAndEntry: 'For the 2026 season, Texas Tech uses a clear-bag policy allowing clear bags up to 12 by 6 by 12 inches, one-gallon clear freezer bags, small clutches and inspected medical items. Most Galaxy Stadium gates open 90 minutes before kickoff, selected premium/student gates open two hours before kickoff and re-entry is not permitted without a new ticket.',
     },
-    editorialStory: 'Texas Tech’s football stadium has anchored Red Raider game day since 1947 and took the Galaxy Stadium name for the 2026 season under a 15-year naming-rights agreement. The current visitor experience combines the historic campus venue with modern security, cashless operations, shuttle service and a stable TexasDefined route retained under the former Jones AT&T Stadium slug so older links do not break.',
+    editorialStory: 'Texas Tech’s football stadium opened in 1947 and carried the Jones name through several naming-rights eras. A $242 million south-end-zone and Womble Football Center project added new circulation space, entries and premium seating before the 2026 Galaxy Stadium naming agreement. The university’s current gate and shuttle maps, rather than older Jones AT&T Stadium references, are the practical starting point for a football visit.',
     sourceReview: { reviewedAt, authoritativeSources: sources.galaxy },
   },
   'moody-center': {
@@ -203,7 +203,7 @@ export const SPORTS_VENUE_CONTENT_REMEDIATION_WAVE4: Record<string, SportsVenueE
     primaryEvents: ['Texas Tech Red Raiders football', 'Big 12 game weekends', 'Major stadium events when scheduled'],
     history: SPORTS_VENUE_QUALITY_PROFILES_WAVE4['jones-att-stadium'].editorialStory,
     parking: 'Texas Tech publishes season-specific football parking and shuttle information. For 2026, Citibus service begins three hours before kickoff and campus lot access is event-controlled; use the current football parking map instead of ordinary university-day parking assumptions.',
-    arrival: 'Most Galaxy Stadium gates currently open 90 minutes before kickoff, while student, club, suite and selected premium gates open two hours before kickoff. Security screening, clear-bag enforcement and no-re-entry apply, so the current Gameday in Raiderland guide should control.',
+    arrival: 'Texas Tech lists different opening times for general seating and student or premium entrances. Check the gate on your ticket and allow time for shuttle drop-off, walking across campus and security screening; ordinary university-day parking is not a football parking plan.',
     stayAndEat: 'Galaxy Stadium is a Texas Tech campus venue in Lubbock. Campus-adjacent lodging and dining can simplify football travel, but off-campus city attractions should remain separate itinerary choices rather than filler inside the venue guide.',
     nearby: 'United Supermarkets Arena and other Texas Tech athletics facilities are meaningful campus connections. Each should be treated as its own stop with separate event operations.',
     planningLinks: [...sources.galaxy],

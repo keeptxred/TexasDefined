@@ -4,9 +4,11 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [route, data, csv, publicRoutes, landingIndex, sportsSearch, llms, citationGuide, citationManifest] = await Promise.all([
+const [route, data, inventory, directory, csv, publicRoutes, landingIndex, sportsSearch, llms, citationGuide, citationManifest] = await Promise.all([
   read('src/routes/sports-venues.compare.tsx'),
   read('src/data/sports-venue-comparison.ts'),
+  read('src/data/sports-venue-comparison-inventory.ts'),
+  read('src/routes/sports-venues.tsx'),
   read('src/routes/sports-venues.compare[.]csv.ts'),
   read('src/lib/public-routes.ts'),
   read('src/components/sports/SportsVenueLandingIndex.tsx'),
@@ -70,15 +72,11 @@ for (const forbidden of [
   'entitiesByKind',
   'loadTexasKnowledgeGraph',
   'SponsoredSportsPlacement',
-  'CURATED_KNOWLEDGE_GRAPH_SEED',
   'getSportsVenueEnrichmentAll',
 ]) assert(!route.includes(forbidden), `Sports venue comparison route must use the shared comparison module rather than heavy or duplicated dependency: ${forbidden}.`);
 
 for (const marker of [
-  'CURATED_KNOWLEDGE_GRAPH_SEED',
-  "entity.kind === 'sports-venue'",
-  '.map(applyCurrentEntityCorrections)',
-  'new Map(',
+  'SPORTS_VENUE_COMPARISON_INVENTORY',
   'getSportsVenueEnrichmentAll(venue.slug)',
   'getSportsVenueGuideGalaxy(venue.slug)',
   'getSportsVenueGuideWave7(venue.slug)',
@@ -161,6 +159,18 @@ if (manifest) {
     }
   }
 }
+
+for (const marker of [
+  "import { CURATED_KNOWLEDGE_GRAPH_SEED } from './knowledge-graph/seed'",
+  "entity.kind === 'sports-venue'",
+  '.map(applyCurrentEntityCorrections)',
+  'new Map(',
+  'SPORTS_VENUE_COMPARISON_INVENTORY_COUNT',
+]) assert(inventory.includes(marker), 'Comparison seed inventory missing parity marker: ' + marker);
+assert(data.includes('const venueRecords = SPORTS_VENUE_COMPARISON_INVENTORY'), 'Comparison table must use shared slug-deduplicated seed.');
+assert(directory.includes("import('@/data/sports-venue-comparison-inventory')"), 'Directory must lazy-load lightweight comparison inventory.');
+assert(directory.includes('catalogCount: SPORTS_VENUE_COMPARISON_INVENTORY_COUNT'), 'Directory must display comparison inventory count, not dynamic graph length.');
+assert(!directory.includes('catalogCount: allSportsVenues.length'), 'Directory cannot claim graph length as comparison-table count.');
 
 if (errors.length) {
   console.error('Sports venue comparison validation failed:');

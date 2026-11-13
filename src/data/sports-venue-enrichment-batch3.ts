@@ -97,7 +97,7 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH3: Record<string, SportsVenueEnrichmen
     stayAndEat: 'A Red Raider football weekend is a major Lubbock travel occasion. Lodging near campus or along a direct campus route simplifies arrival and leaves more time for local dining and university traditions.',
     nearby: 'Texas Tech’s campus and Lubbock attractions can fill the rest of the weekend without long regional drives.',
     planningLinks: [
-      { label: 'Galaxy Stadium facility page', url: 'https://texastech.com/facilities/jones-at-t-stadium/2' },
+      { label: 'Galaxy Stadium facility page', url: 'https://texastech.com/facilities/galaxy-stadium/2' },
       { label: 'Galaxy naming announcement', url: 'https://texastech.com/news/2026/7/17/football-texas-tech-secures-landmark-naming-rights-agreement-with-galaxy' },
     ],
     imageBrief: 'Large West Texas college football stadium in Lubbock under dramatic evening sky, game-day crowd and campus context, no added sponsor logo or text.',
