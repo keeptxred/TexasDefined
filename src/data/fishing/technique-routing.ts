@@ -3,7 +3,7 @@ import type { FishingTechniqueCategory } from "./types";
 export const FISHING_TECHNIQUES_DIRECTORY_PATH = "/fishing/techniques";
 export const FISHING_TECHNIQUES_VERIFIED_AT = "2026-08-13";
 // Actual material editorial content revision, distinct from underlying TPWD source checks.
-export const FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT = "2026-11-12";
+export const FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT = "2026-11-13";
 
 export const PUBLISHED_FISHING_TECHNIQUE_SLUGS = [
   "soft-plastics",
