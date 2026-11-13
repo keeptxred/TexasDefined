@@ -18,4 +18,11 @@ const edges = read('src/data/high-school-football/batch018-fifth-five-county-edg
 for (const [slug] of entries) assert.ok(edges.includes("slug: '" + slug + "'") && edges.includes("county: 'fort-bend'"), 'Missing Fort Bend campus county: ' + slug);
 const loader = read('src/data/high-school-football/program-editorial-b018-fifth-five.ts');
 assert.ok(loader.includes('export function getBatch018FifthFiveEditorial(slug: string)'), 'Missing typed fifth cohort loader');
-console.log('PASS Batch018 final five original source modules and staged county records; NOT integrated/certified');
+const server = read('src/data/high-school-football/football-program-profile.server.ts');
+const schoolRoute = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const countyRoute = read('src/routes/$kind.$slug.lazy.tsx');
+assert.ok(server.includes('getBatch018FifthFiveEditorial(canonicalSlug)'), 'Missing UIL SSR fifth cohort');
+assert.ok(server.includes('getBatch018FifthFiveEditorial(legacy.featured.slug)'), 'Missing private fallback fifth cohort');
+assert.ok(schoolRoute.includes('BATCH018_FIFTH_FIVE_COUNTY_EDGES.map'), 'Missing school-to-county fifth links');
+assert.ok(countyRoute.includes('BATCH018_FIFTH_FIVE_COUNTY_EDGES.filter'), 'Missing county-to-school fifth links');
+console.log('PASS Batch018 final five original source modules and staged county records; SSR/county source-integrated; NOT production certified');
