@@ -3,7 +3,7 @@ import type { FishingTechniqueDirectoryData } from "@/data/fishing/technique-dat
 import { FISHING_TECHNIQUES_DIRECTORY_PATH } from "@/data/fishing/technique-routing";
 import { fishingTechniqueFaq } from "@/data/fishing/technique-faq";
 import { fishingTechniqueDecisionGuide } from "@/data/fishing/technique-decision-guide";
-import { texasFishingTechniqueScenarios } from "@/data/fishing/technique-primary-source-comparisons";
+import { texasFishingTechniqueScenarios, TECHNIQUE_RESEARCH_REVIEWED_AT } from "@/data/fishing/technique-primary-source-comparisons";
 
 type TechniqueSearch = { category?: string; species?: string; season?: string };
 
@@ -71,7 +71,7 @@ export function FishingTechniqueDirectory({ data, search }: { data: FishingTechn
       </section>
 
       <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Editorial research</p><h2 className="mt-2 font-display text-3xl">Where These Comparisons Come From</h2></div><div className="max-w-3xl space-y-3 text-sm leading-7 text-muted-foreground">
-        <p>Texas Defined's editorial team compares published Texas Parks &amp; Wildlife reservoir tactics with the lake-and-species relationships in our fishing guides. Every example above links directly to its agency source. Suggested adjustments are our interpretation, not an agency endorsement or firsthand field-test result.</p>
+        <p>Texas Defined's editorial team compares published Texas Parks &amp; Wildlife reservoir tactics with the lake-and-species relationships in our fishing guides. Every example above links directly to its agency source. We reviewed those TPWD lake profiles on {TECHNIQUE_RESEARCH_REVIEWED_AT}. Suggested adjustments are our interpretation, not an agency endorsement or firsthand field-test result.</p>
         <p>TPWD's <a href="https://tpwd.texas.gov/fishboat/fish/recreational/fishreport.phtml" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">weekly fishing reports are on hold</a>. The <a href="/fishing/reports" className="text-primary underline underline-offset-4">reports archive</a> provides dated observations, not a current forecast. Check <a href="/fishing/regulations" className="text-primary underline underline-offset-4">current regulations</a>, lake notices and access before going; report errors through our <a href="/corrections-policy" className="text-primary underline underline-offset-4">corrections policy</a>.</p>
       </div></section>
 
