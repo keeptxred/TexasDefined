@@ -35,7 +35,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
       {
         heading: "The Continental Club and South Congress",
         body: [
-          "The Continental Club opened in 1955 and changed identities repeatedly: supper club, burlesque venue, workingman's bar and eventually one of Austin's best-known live-music rooms. Its later history includes blues, country, roots rock, rockabilly, punk and other scenes that reflect the city's habit of letting genres share geography.",
+          "The Continental Club's own history gives 1955 as its opening year, while the Handbook of Texas gives 1957. Across the decades it changed identities repeatedly: supper club, burlesque venue, workingman's bar and eventually one of Austin's best-known live-music rooms. Its later history includes blues, country, roots rock, rockabilly, punk and other scenes that reflect the city's habit of letting genres share geography.",
           "The City of Austin designated the South Congress property as a historic landmark in 2008. That status reinforces an important point: the building itself, not only the names that played there, is part of Austin's cultural record."
         ],
         links: [{ href: "/continental-club-austin-history", label: "Continental Club history" }]
@@ -179,15 +179,15 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
   },
   "continental-club-austin-history": {
     slug: "continental-club-austin-history",
-    eyebrow: "South Congress since 1955",
+    eyebrow: "South Congress since the 1950s",
     title: "Continental Club Austin History: From 1950s Supper Club to a South Congress Music Landmark",
-    dek: "The Continental Club's changing identities—from supper club to roots-music landmark—mirror more than seven decades of Austin nightlife and live-music history.",
-    quickAnswer: "Austin's Continental Club opened on South Congress in 1955 as a private supper club. Over the following decades it operated through burlesque and workingman's-bar phases before becoming deeply associated with live music, including late-1970s and early-1980s blues, country and rock performers and later roots rock, rockabilly and garage music. The City of Austin designated the property a historic landmark in 2008. Its significance comes from continuity: one small South Congress room has absorbed multiple eras of Austin nightlife while remaining a working live-music venue.",
+    dek: "The Continental Club's changing identities—from supper club to roots-music landmark—mirror roughly seven decades of Austin nightlife and live-music history.",
+    quickAnswer: "Austin's Continental Club began as a private supper club on South Congress in the 1950s: the venue gives 1955, while the Handbook of Texas and Austin's adopted neighborhood plan give 1957. Its precise opening year is unresolved in these published accounts. Over the following decades it operated through burlesque and workingman's-bar phases before becoming deeply associated with live music, including late-1970s and early-1980s blues, country and rock performers and later roots rock, rockabilly and garage music. The City of Austin designated the property a historic landmark in 2008. Its significance comes from continuity: one small South Congress room has absorbed multiple eras of Austin nightlife while remaining a working live-music venue.",
     sections: [
       {
         heading: "The club began before modern 'music Austin'",
         body: [
-          "The Continental Club opened in 1955 as a private supper club, long before Austin's current live-music brand existed. Its earliest identity was tied to mid-century nightlife rather than the singer-songwriter and roots scenes that later made the address famous.",
+          "The Continental Club's own account dates its supper-club opening to 1955; both the Handbook of Texas and Austin's 2005 adopted neighborhood plan state 1957. That discrepancy should remain visible until contemporary licensing or newspaper records settle the original opening date. The room predates Austin's current live-music branding either way. Its earliest identity was tied to mid-century nightlife rather than the singer-songwriter and roots scenes that later made the address famous.",
           "The room subsequently passed through burlesque and workingman's-bar phases. Those changes are not side notes; they show how entertainment districts evolve as neighborhoods, audiences and business models change."
         ]
       },
@@ -217,7 +217,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "How to use the Continental Club in a Texas music itinerary",
         body: [
           "Treat the club as a bridge between Austin eras rather than as a checklist stop for one genre. Pair its South Congress location with the city's blues, country and rock histories, then compare the room with a larger dance hall such as the Broken Spoke or a blues-specific institution such as Antone's.",
-          "The official venue remains the controlling source for the current calendar, admission rules and operating details. The historical value is more durable: a 1955 room still functioning inside a radically changed Austin corridor."
+          "The official venue remains the controlling source for the current calendar, admission rules and operating details. The historical value is more durable: a mid-century room still functioning inside a radically changed Austin corridor, regardless of the unresolved 1955/1957 opening-date conflict."
         ],
         links: [{ href: "/texas-music-venues", label: "Legendary Texas music venues" }, { href: "/broken-spoke-austin-history", label: "Broken Spoke history" }, { href: "/antones-austin-history", label: "Antone's history" }]
       }
