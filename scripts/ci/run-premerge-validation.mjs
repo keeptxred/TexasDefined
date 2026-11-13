@@ -67,6 +67,7 @@ const prebuildChecks = [
   ['FOOTBALL/B017/SECOND-FIVE', 'Verify five additional school-specific guides and exact source-only registry status', 'node', ['scripts/ci/verify-football-b017-second-five-source.mjs']],
   ['FOOTBALL/B018/CHROME-WORKFLOW', 'Require signed 25-school Batch018 production Chrome workflow invariants', 'node', ['scripts/ci/verify-football-b018-chrome-workflow-source.mjs']],
   ['FOOTBALL/B018/CHROME-SYNTAX', 'Syntax-check future signed Batch018 75-viewports and 25-county production acceptance', 'node', ['--check', 'scripts/ci/verify-football-b018-production.mjs']],
+  ['FOOTBALL/B018/FARWELL-SOURCE', 'Verify official Farwell school and neutral-site playoff facts without registry promotion', 'node', ['scripts/ci/verify-football-b018-farwell-source.mjs']],
   ['FOOTBALL/B018/FABENS', 'Verify source-backed Fabens guide, SSR and reciprocal county links without production promotion', 'node', ['scripts/ci/verify-football-b018-fabens-source.mjs']],
   ['FOOTBALL/B017/FIRST-FIVE', 'Verify five distinct official-source Batch017 football guides and reciprocal county links without Chrome promotion', 'node', ['scripts/ci/verify-football-b017-first-five-source.mjs']],
   ['FOOTBALL/B015', 'Validate first three Batch015 school guides, canonical SSR and reciprocal county links without promotion', 'node', ['scripts/ci/verify-football-b015-first-three-source.mjs']],
