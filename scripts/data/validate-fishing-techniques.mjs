@@ -16,6 +16,8 @@ const paths = {
   decisionGuide: "src/data/fishing/technique-decision-guide.ts",
   sourceNotes: "src/data/fishing/technique-source-notes.ts",
   sourceComparisons: "src/data/fishing/technique-primary-source-comparisons.ts",
+  sourceMonitor: "scripts/ci/check-fishing-13-source-state.mjs",
+  sourceWorkflow: ".github/workflows/fishing-thirteen-authority.yml",
   authorityContent: "src/data/fishing/technique-authority-content.ts",
   prototypeTechniques: "src/data/fishing/prototype-technique-profiles.ts",
   fishingIndex: "src/data/fishing/index.ts",
@@ -219,6 +221,11 @@ for (const token of [
 ]) requireText(files.profileComponent, token, "Individual source comparison/editorial method missing " + token);
 const sourcedTPWDLakeUrls = [...files.sourceComparisons.matchAll(/sourceUrl:\s*"(https:\/\/tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\/[^"]+)"/g)].map((match) => match[1]);
 if (sourcedTPWDLakeUrls.length !== 15) throw new Error("Five independent research contrasts plus five directory examples must link to 15 original TPWD lake source references");
+for (const officialSource of ["sam_rayburn", "texoma", "fork", "canyon", "conroe", "fishreport.phtml"]) {
+  requireText(files.sourceMonitor, officialSource, "Official fishing source refresh monitor omits " + officialSource);
+}
+requireText(files.sourceWorkflow, "check-fishing-13-source-state.mjs", "Source governance workflow disconnected");
+requireText(files.sourceWorkflow, "cron: '13 11 * * 1,4'", "Twice-weekly primary source checking lost");
 const canonicalSourcePaths = [...files.sourceComparisons.matchAll(/lakePath:\s*"([^"]+)"/g)].map((match) => match[1]);
 if (canonicalSourcePaths.length !== 10 || canonicalSourcePaths.some((item) => !/^\/fishing\/lakes\/[a-z0-9-]+$/.test(item)))
   throw new Error("Research comparisons must link ten complete canonical lake paths, without underscore slugs");
