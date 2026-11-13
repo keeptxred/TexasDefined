@@ -63,6 +63,16 @@ if (!errors.length) {
     'score >= 90 && score === bestScore',
   ]) requireText(directory, marker, 'Indexed, tie-safe AskTED matcher');
   if (directory.includes('const ranked = matcher.rows')) errors.push('Football ISD matching must not rescan the entire TEA directory for every program.');
+  // The ISD index and profile never render UIL championship history. Keep
+  // those optional archive chunks out of the cold Worker route import graph.
+  // Dynamic lookups are still required for explicit team-history searches.
+  for (const symbol of ['loadUilRecentFootballHistory', 'loadUilAllTimeFootballHistory']) {
+    if (directory.includes('  ' + symbol + ',')) errors.push('Eager heavyweight UIL history import in ISD SSR: ' + symbol);
+  }
+  for (const module of ['./uil-football-recent-history.server', './uil-football-all-time-history.server']) {
+    requireText(directory, "import('" + module + "')", 'Lazy archive imports for explicit football search');
+    requireText(directory, 'import type {', 'History types must be erased from Worker SSR runtime');
+  }
 
   for (const marker of [
     'isdProfilePath?: string',
