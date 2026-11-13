@@ -31,6 +31,11 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // A genuine /city/del-rio 404 requires a sourced city authority, not a hub redirect.
+  { path: '/city/del-rio', requiredText: 'https://texasdefined.com/city/del-rio', label: 'Del Rio GSC 404 repaired with self-canonical municipal guide' },
+  { path: '/city/del-rio', requiredText: '34,673', label: 'Del Rio 2020 Census population visible in server HTML' },
+  { path: '/city/del-rio', requiredText: 'San Felipe Creek', label: 'Del Rio distinctive spring-fed visitor and water-system research' },
+  { path: '/city/del-rio', requiredText: 'JherreraCODR', label: 'Del Rio licensed Brown Plaza hero attribution visible' },
   { path: '/destination/fort-leaton-state-historic-site', requiredText: 'Juana Pedrasa', label: 'Source-backed Fort Leaton borderlands heritage guide restores GSC 404' },
   { path: '/destination/fort-leaton-state-historic-site', requiredText: '16952 FM 170 East', label: 'Fort Leaton real western gateway address' },
   { path: '/destination/fort-leaton-state-historic-site', requiredText: 'https://tpwd.texas.gov/state-parks/fort-leaton', label: 'Fort Leaton official TPWD source visible' },
