@@ -61,7 +61,7 @@ for (const slug of ["broken-spoke-austin-history","continental-club-austin-histo
   const begin=evidence.indexOf('  "'+slug+'": {',evidence.indexOf('export const musicVenuePhotography'));
   const end=evidence.indexOf('\n  "',begin+6);
   const photo=evidence.slice(begin,end<0?evidence.length:end);
-  for (const field of ["src:", "alt:", "caption:", "credit:", "sourcePage:", "license:", "licenseUrl:"]) {
+  for (const field of ["src:", "width:", "height:", "alt:", "caption:", "credit:", "sourcePage:", "license:", "licenseUrl:"]) {
     if(begin<0 || !photo.includes(field))fail("Verified photo attribution missing: "+slug+" / "+field);
   }
   if(!photo.includes('creativecommons.org/licenses/'))fail("Creative Commons license source missing: "+slug);
