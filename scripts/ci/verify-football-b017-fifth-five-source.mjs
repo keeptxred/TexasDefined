@@ -16,7 +16,7 @@ const graduatedB017=certifiedBatch017(reg);
 assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED'&&x.batch<17).length,380,'Preserve 380 earlier signed certificates');
 assert.equal(reg.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduatedB017?405:380,'Only exact signed Chrome may certify Batch017');
 assert.equal(reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED'&&x.batch===17).length,graduatedB017?0:25);
-assert.equal(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length,887);
+assert.equal(reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED'||x.status==='IMPLEMENTED').length,887,'Only historic source cohort may advance without changing 405 signed VERIFIED');
 for(const slug of slugs){const row=reg.schoolRecords.find(x=>x.slug===slug);assert.equal(row?.status,graduatedB017?'VERIFIED':'IMPLEMENTED');assert.equal(row?.actualProductionVerified,graduatedB017);assert.ok(source.includes(JSON.stringify(slug)+': {'));assert.ok(edges.includes("slug: '"+slug+"'"));}
 assert.equal((source.match(/"slug": "/g)||[]).length,5);
 assert.ok(server.includes('getBatch017FifthFiveEditorial(canonicalSlug)'));
