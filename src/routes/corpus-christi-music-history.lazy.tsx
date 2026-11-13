@@ -157,7 +157,7 @@ function CorpusChristiMusicHistoryPage() {
           <section className="border-b border-border py-10" aria-labelledby="corpus-chronology">
             <p className="eyebrow text-primary">The evidence trail</p>
             <h2 id="corpus-chronology" className="mt-2 font-display text-4xl">Milestones in a Coastal Bend recording center</h2>
-            <ol className="mt-7 grid gap-5 md:grid-cols-3">{milestones.map((milestone) => <li key={milestone.period} className="border-t-2 border-primary/40 pt-5"><p className="font-semibold">{milestone.period}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.event}</p><a href={milestone.sourceUrl} rel="noopener noreferrer" target="_blank" className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a></li>)}</ol>
+            <ol className="mt-7 grid gap-5 md:grid-cols-3">{milestones.map((milestone) => <li key={milestone.period} className="border-t border-primary/40 pt-5"><p className="font-semibold">{milestone.period}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.event}</p><a href={milestone.sourceUrl} rel="noopener noreferrer" target="_blank" className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a></li>)}</ol>
           </section>
 
           <section className="border-b border-border py-10" aria-labelledby="corpus-sources">
