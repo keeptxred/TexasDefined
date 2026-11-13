@@ -1,25 +1,7 @@
 {
-  "generatedAt": "2026-11-12T18:58:32.956Z",
+  "generatedAt": "2026-11-13T14:52:11.103Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Awesome Opossums",
-      "startDate": "2026-11-12",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-11-12"
-    },
-    {
-      "title": "Critters of East Texas",
-      "startDate": "2026-11-12",
-      "parkKey": "lake-livingston",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/copy_of_critters-of-east-texas/2026-11-12"
-    },
-    {
-      "title": "Miles of Stars",
-      "startDate": "2026-11-12",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/miles-of-stars/2026-11-12"
-    },
     {
       "title": "Birding For Beginners",
       "startDate": "2026-11-13",
@@ -31,6 +13,12 @@
       "startDate": "2026-11-13",
       "parkKey": "falcon",
       "officialUrl": "https://tpwd.texas.gov/calendar/falcon/copy2_of_birding-with-a-ranger/2026-11-13"
+    },
+    {
+      "title": "Butterfly and Dragonfly Tours",
+      "startDate": "2026-11-13",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-11-13"
     },
     {
       "title": "Indian Lodge Tour",
@@ -123,6 +111,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-14/2026-11-14"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-11-14",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-14"
+    },
+    {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-11-15",
       "parkKey": "brazos-bend",
@@ -169,6 +163,12 @@
       "startDate": "2026-11-15",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-11-15"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-11-15",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-15"
     },
     {
       "title": "Armadillo Antics",
@@ -225,6 +225,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/mountain-yoga/2026-11-18"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-11-18",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-18"
+    },
+    {
       "title": "Awesome Opossums",
       "startDate": "2026-11-19",
       "parkKey": "martin-dies-jr",
@@ -265,6 +271,12 @@
       "startDate": "2026-11-20",
       "parkKey": "lake-brownwood",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/birding-101/2026-11-20"
+    },
+    {
+      "title": "Butterfly and Dragonfly Tours",
+      "startDate": "2026-11-20",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-11-20"
     },
     {
       "title": "Homeschool Classes at the Park",
@@ -387,6 +399,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/huntsville/skins-skulls-and-gators-in-the-day-use/2026-11-21"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-11-21",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-21"
+    },
+    {
       "title": "All About Nature",
       "startDate": "2026-11-22",
       "parkKey": "lake-livingston",
@@ -441,6 +459,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-22"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-11-22",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-22"
+    },
+    {
       "title": "Birding with a Ranger",
       "startDate": "2026-11-25",
       "parkKey": "choke-canyon",
@@ -451,6 +475,12 @@
       "startDate": "2026-11-25",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-25"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-11-25",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-25"
     },
     {
       "title": "Armadillo Antics",
@@ -469,6 +499,12 @@
       "startDate": "2026-11-27",
       "parkKey": "lake-brownwood",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/birding-101/2026-11-27"
+    },
+    {
+      "title": "Butterfly and Dragonfly Tours",
+      "startDate": "2026-11-27",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-11-27"
     },
     {
       "title": "Indian Lodge Tour",
@@ -627,6 +663,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2026-11-28"
     },
     {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-11-28",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-28"
+    },
+    {
       "title": "All About Nature",
       "startDate": "2026-11-29",
       "parkKey": "lake-livingston",
@@ -673,6 +715,12 @@
       "startDate": "2026-11-29",
       "parkKey": "bentsen-rio-grande-valley",
       "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy8_of_birding-tram-tour/2026-11-29"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-11-29",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-11-29"
     },
     {
       "title": "Pictograph Tours (Reservations Required)",
@@ -837,6 +885,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-12-06"
     },
     {
+      "title": "Track Talk",
+      "startDate": "2026-12-06",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-06"
+    },
+    {
       "title": "Nature's Classroom Homeschool Program",
       "startDate": "2026-12-08",
       "parkKey": "davis-mountains",
@@ -969,6 +1023,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/star-party-12/2026-12-12"
     },
     {
+      "title": "Track Talk",
+      "startDate": "2026-12-12",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-12"
+    },
+    {
       "title": "Trail Mix: Edible Plants Guided Hike",
       "startDate": "2026-12-12",
       "parkKey": "buescher",
@@ -991,6 +1051,12 @@
       "startDate": "2026-12-13",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-12-13"
+    },
+    {
+      "title": "Track Talk",
+      "startDate": "2026-12-13",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-13"
     },
     {
       "title": "Morning Nature Walk",
@@ -1065,6 +1131,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-19"
     },
     {
+      "title": "Track Talk",
+      "startDate": "2026-12-19",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-19"
+    },
+    {
       "title": "Trail of Lights",
       "startDate": "2026-12-19",
       "parkKey": "lake-mineral-wells",
@@ -1099,6 +1171,12 @@
       "startDate": "2026-12-20",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-12-20"
+    },
+    {
+      "title": "Track Talk",
+      "startDate": "2026-12-20",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-20"
     },
     {
       "title": "Winter Solstice Hike",
@@ -1155,6 +1233,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-12-26"
     },
     {
+      "title": "Track Talk",
+      "startDate": "2026-12-26",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-15/2026-12-26"
+    },
+    {
       "title": "Winter Birding",
       "startDate": "2026-12-26",
       "parkKey": "galveston-island",
@@ -1165,6 +1249,12 @@
       "startDate": "2026-12-27",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-27"
+    },
+    {
+      "title": "Learn to Bird",
+      "startDate": "2026-12-27",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/birding-101/2026-12-27"
     },
     {
       "title": "Sunday Honey Creek Guided Walk--Registration Required",
@@ -1459,12 +1549,6 @@
       "startDate": "2027-02-07",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2027-02-07"
-    },
-    {
-      "title": "Nature's Classroom Homeschool Program",
-      "startDate": "2027-02-09",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/home-school-program/2027-02-09"
     }
   ]
 }
