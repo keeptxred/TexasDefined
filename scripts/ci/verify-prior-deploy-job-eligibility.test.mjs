@@ -81,3 +81,34 @@ test('turkey timeout handoff rejects any other run, job, failure or unsafe origi
     })), /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
   }
 });
+
+const NOV13_MSR = 'Verify MSR Houston responsive visitor page and licensed photo';
+const NOV13_D21 = 'Verify District 21 hub and eight team scorecards on production';
+test('Nov 13 real 100%-traffic Worker can provide exact original assets, never certify either failed page', () => {
+  const qualified = qualifyPriorDeployJob(evidence({
+    runId: 43460115327, jobId: 132004453072, failure: NOV13_MSR, additional: [NOV13_D21],
+  }));
+  assert.equal(qualified.eligible, true);
+  assert.equal(qualified.mode, 'exact-nov13-msr-d21-original-assets-only');
+  assert.equal(qualified.criticalChecks, 5);
+  assert.equal(qualified.exactRun, 43460115327);
+  assert.equal(qualified.requiredSourceSha, '3836f5f8d492b970ba6a6e7edb10679309250479');
+  assert.equal(qualified.requiredWorkerVersion, '6f58c413-3ace-4666-9fd3-dba3afb7d5da');
+  assert.deepEqual(qualified.permittedFailures, [NOV13_MSR, NOV13_D21]);
+});
+
+test('Nov 13 dual-failure original asset exception rejects extra failures, missing gates and any other run/job', () => {
+  for (const altered of [
+    { runId: 43460115328 },
+    { jobId: 132004453073 },
+    { failure: 'Verify direct Worker health' },
+    { additional: [NOV13_D21, 'Verify base production surfaces'] },
+    { failure: NOV13_MSR, additional: [] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({
+      runId: 43460115327, jobId: 132004453072,
+      failure: NOV13_MSR, additional: [NOV13_D21], ...altered,
+    })), /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
