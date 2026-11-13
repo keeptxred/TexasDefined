@@ -127,3 +127,40 @@ test('MSR/District21 original asset rescue rejects any alternate job, extra fail
       /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
   }
 });
+
+test('exact District16 published attempt 1 supplies old bytes only after narrow retry source fix', () => {
+  const original = evidence({
+    runId:43509240362, jobId:132174849722,
+    failure:'Verify District 16 mobile and desktop rendered layout'
+  });
+  original.jobs[0].run_attempt=1;
+  const qualified=qualifyPriorDeployJob(original);
+  assert.equal(qualified.eligible,true);
+  assert.equal(qualified.mode,'exact-nov13-district16-transport-original-assets-only');
+  assert.equal(qualified.criticalChecks,5);
+  assert.equal(qualified.exactRun,43509240362);
+  assert.equal(qualified.requiredSourceSha,'9019a46c4317fbbbd69ceb348fc2f02d2e589498');
+  assert.equal(qualified.requiredWorkerVersion,'79902b61-3641-48db-a400-ddc81e71a162');
+  assert.deepEqual(qualified.permittedFailures,['Verify District 16 mobile and desktop rendered layout']);
+});
+test('District16 failed Worker rejects retry attempt, wrong job, wrong failure and any missing asset gate', () => {
+  for(const mutation of [
+    {run_attempt:2},{run_id:43509240363},{id:132174849723},
+    {failure:'Verify base production surfaces'},
+    {additional:['Verify base production surfaces']},
+    ...required.map(omit=>({omit}))
+  ]){
+    const sample=evidence({
+      runId:43509240362,jobId:132174849722,
+      failure:'Verify District 16 mobile and desktop rendered layout',
+      additional:mutation.additional||[],
+      omit:mutation.omit||null
+    });
+    Object.assign(sample.jobs[0],Object.fromEntries(
+      Object.entries(mutation).filter(([key])=>!['failure','omit','additional'].includes(key))));
+    if(mutation.failure)sample.jobs[0].steps.at(-1).name=mutation.failure;
+    if(sample.jobs[0].run_attempt===undefined)sample.jobs[0].run_attempt=1;
+    assert.throws(()=>qualifyPriorDeployJob(sample),
+      /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
