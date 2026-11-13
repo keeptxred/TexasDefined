@@ -18,4 +18,6 @@ const edges = read('src/data/high-school-football/batch018-third-five-county-edg
 for (const [slug,county] of [['floresville','wilson'],['floydada','floyd'],['follett','lipscomb'],['forestburg','montague'],['forney','kaufman']]) {
   assert.ok(edges.includes("slug: '" + slug + "'") && edges.includes("county: '" + county + "'"), 'Missing county edge: ' + slug);
 }
+const loader = read('src/data/high-school-football/program-editorial-b018-third-five.ts');
+assert.ok(loader.includes('export function getBatch018ThirdFiveEditorial(slug: string)'), 'Missing typed third cohort loader');
 console.log('PASS Batch018 third-five source modules and staged county records; NOT SSR/county integrated or production certified');
