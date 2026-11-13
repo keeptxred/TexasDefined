@@ -9,9 +9,17 @@
 - This is an *alignment*, not a schedule or a record of completed games. Do not derive 2026 scores, a winning record, a current coach, or a home stadium from it.
 - El Paso Bowie and Irvin are separate El Paso ISD programs. Do not conflate Fabens with either campus or assign their district's visitor rules to Fabens.
 
+## Verified first-party campus and athletics contacts (November 13, 2026)
+
+- **Fabens High School campus:** 601 NE “G” Avenue, Fabens, TX 79838. Official campus directory: https://fhs.fabensisd.net/ . This is a **campus address**, not a verified game-day stadium gate.
+- **Fabens ISD athletics office:** 600 NE 4th Street, Fabens, TX 79838; telephone **(915) 765-2634**. Official district athletics: https://www.fabensisd.net/departments/athletics/wildcats . This **different address** is the athletics department contact and must not be silently substituted for the high-school campus or an event entrance.
+- **County:** El Paso County. The Fabens ISD district and high school are identified in El Paso County in the Texas Tribune school explorer: https://schools.texastribune.org/districts/fabens-isd/fabens-high-school/student-teacher/ . County reciprocal linking still requires implementation and test coverage.
+- **School-specific distinction:** Fabens ISD's own athletics department describes the Wildcats as a 4A program; the governing UIL 2026–28 alignment establishes the precise football **4A Division II District 1** classification. The campus and athletics-office addresses differ, making host-specific venue confirmation especially important.
+- **Date boundary:** A third-party November 9, 2026 football schedule exists (https://www.maxpreps.com/tx/fabens/fabens-wildcats/football/schedule/), but is **not** a first-party current game-host notice. No score or W/L is imported from it; a dated first-party match record is required for publication of results.
+
 ## Required independent official-source checks before publication
 
-- Obtain the **Fabens ISD high-school campus** primary-source address, campus-versus-stadium distinction, and **physical-campus county** from the school and a reliable geographic/education record. Do not infer the county solely from the school district's service area.
+- **Completed:** Official campus address, separately listed athletics-office address, and El Paso County school-district attribution. **Still needed:** independent event-specific stadium entrance confirmation; the addresses above are not evidence of a stadium gate.
 - Obtain a current **Fabens ISD athletics schedule or football notice** and a current host-game ticket/venue announcement. A district alignment is not a current fixture.
 - Check the school/district's dated coaching appointment before naming any head coach; otherwise omit.
 - Confirm accessible entry, parking and gate rules with the specific event host; otherwise tell visitors where to check without claiming amenities.
