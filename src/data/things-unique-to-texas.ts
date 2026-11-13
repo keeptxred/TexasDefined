@@ -72,6 +72,8 @@ export const TEXAS_ICON_CATEGORIES: TexasIconCategory[] = [
       item(32, "Migas breakfast tacos", "Eggs scrambled with tortilla strips or chips, cheese and salsa are a Central Texas breakfast-taco mainstay."),
       item(33, "Extra-cold sweet tea", "Oversized cups of iced tea remain a familiar companion to barbecue, burgers and roadside meals."),
       item(34, "Cornmeal-fried catfish", "Catfish with hushpuppies connects East Texas, lake country and fish-fry traditions."),
+      item(52, "Topo Chico in Texas", "Topo Chico comes from Monterrey, Nuevo León, not Texas. Its popularity in South Texas and its use in ranch water illustrate a borderland drinking tradition without changing the product’s Mexican origin.")
+      item(55, "Texas pecan candy", "Pralines, pecan logs and brittle make use of a nut with a long Texas agricultural history. The ingredients and recipes are not exclusively Texan; the roadside candy-shop tradition gives them their local association.")
       item(35, "Venison sausage", "Deer season, home processing and smokehouse traditions make wild-game sausage part of rural Texas food culture."),
     ],
   },
@@ -100,12 +102,8 @@ export const TEXAS_ICON_CATEGORIES: TexasIconCategory[] = [
       item(47, "Half Price Books", "Founded in Dallas, the bookstore chain built its identity around used books, records and the thrill of browsing."),
       item(48, "Shipley Do-Nuts", "Houston-born Shipley made hot glazed doughnuts and kolaches part of the Texas morning commute."),
       item(49, "Kolache Factory", "The Houston-founded chain helped spread Texas-style kolache-shop culture far beyond the state's Czech communities."),
-      item(50, "Texas leather makers", "Belts, tack, wallets and hand-tooled leather remain part of the state's ranching and Western-goods economy."),
-      item(51, "Texas-shaped decor", "From metal wall art to cutting boards, the state's unmistakable outline may be its most merchandised symbol."),
-      item(52, "Topo Chico in Texas", "The mineral water is from Monterrey, Mexico, but generations of Texas drinkers made the glass bottle a borderlands and ranch-water staple."),
       item(53, "Tiff's Treats", "Austin-born warm-cookie delivery turned a college-town idea into a recognizable Texas gifting ritual."),
       item(54, "Chuy's", "Austin-born Chuy's mixed Tex-Mex food with maximalist rooms, local murals and a deliberately eccentric personality."),
-      item(55, "Texas pecan candy", "Pralines, pecan logs and gift tins turn the state tree's nut into road-trip and holiday souvenirs."),
     ],
   },
   {
@@ -151,9 +149,7 @@ export const TEXAS_ICON_CATEGORIES: TexasIconCategory[] = [
       item(85, "Lake Travis", "A winding Highland Lakes reservoir known for limestone cliffs, marinas and dramatic water-level swings."),
       item(86, "Possum Kingdom Lake and Hell's Gate", "Twin cliffs mark a famous cove entrance on one of North Texas's most scenic reservoirs."),
       item(87, "Mustang Island", "Barrier-island dunes and beach camping keep Corpus Christi close to a wilder Gulf shoreline."),
-      item(88, "Caddo Mounds", "An important East Texas archaeological landscape preserves the story of the Caddo people and their ceremonial center."),
       item(89, "Davis Mountains", "High elevation brings cooler air, dark skies and pine-oak mountain scenery to far West Texas."),
-      item(90, "San Antonio River Walk", "The landscaped urban river corridor turns downtown San Antonio into one of the state's most distinctive pedestrian environments."),
     ],
   },
   {
@@ -167,6 +163,8 @@ export const TEXAS_ICON_CATEGORIES: TexasIconCategory[] = [
       { href: "/article/texas-courthouses-town-square", label: "Texas courthouse squares", description: "Why so many towns formed around a courthouse and central square." },
     ],
     items: [
+      item(88, "Caddo Mounds State Historic Site", "An archaeological landscape in East Texas preserves evidence of a Caddo ceremonial and community center. This is a cultural historic site, not a naturally formed mound.")
+      item(90, "San Antonio River Walk", "This designed and maintained downtown river corridor is an urban cultural landmark, not an undeveloped natural river landscape.")
       item(91, "The Alamo", "San Antonio's former mission became the state's most recognized historic landmark and a central symbol of the Texas Revolution."),
       item(92, "Texas State Capitol", "Pink granite, a commanding dome and a monumental grounds plan make Austin's Capitol one of Texas's defining civic buildings."),
       item(93, "Space Center Houston and NASA Johnson Space Center", "Houston's visitor center and neighboring NASA campus connect Texas to Mission Control, astronaut training and human spaceflight."),
@@ -215,6 +213,8 @@ export const TEXAS_ICON_CATEGORIES: TexasIconCategory[] = [
       { href: "/article/texas-farm-to-market-roads-explained", label: "Farm-to-market roads explained", description: "Why the best detours often begin on an FM or RM road." },
     ],
     items: [
+      item(50, "Leather workshops and Western craft", "Tack, belts, saddles and hand-tooled goods survive in Texas Western craft shops. Individual makers and places of production require separate verification; this is a trade, not a single brand.")
+      item(51, "Texas-shaped roadside souvenirs", "The state's outline appears on metal signs, woodwork and other small-town roadside merchandise. These are a product category, not a company or proof an item was manufactured in Texas.")
       item(126, "Paris, Texas Eiffel Tower", "A cowboy hat on a scaled Eiffel Tower replica makes the Paris landmark unmistakably Texan."),
       item(127, "Stonehenge II", "The Hill Country replica near Ingram turns an English prehistoric icon into Texas roadside surrealism."),
       item(128, "Cadillac Ranch", "Ten graffiti-covered Cadillacs planted nose-first in an Amarillo field became a Route 66-era art landmark."),
