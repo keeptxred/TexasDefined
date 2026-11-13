@@ -68,3 +68,46 @@ test('read-only project uses separate generated override; no edits to giant auth
   assert.ok(helper.includes('Conflicting historical Aubrey final'));
   assert.ok(schedule.includes("cron: '15 15 * * *'"));
 });
+
+
+test('manually double-cited 2026 Aubrey finals survive later sparse authorized feeds',()=>{
+  const raw=readFileSync('src/data/high-school-football/program-editorial.ts','utf8');
+  const start=raw.indexOf('  "aubrey": {');
+  const end=raw.indexOf('\n  "',start+14);
+  assert.ok(start>=0 && end>start);
+  const editorial=JSON.parse('{'+raw.slice(start,end).trim().replace(/,\s*$/,'')+'}').aubrey;
+  const snapshot=JSON.parse(readFileSync('src/data/high-school-football/aubrey-auto-results.snapshot.json','utf8'));
+  assert.equal(snapshot.verifiedResults.length,3,'Three individual, cited late-season finals');
+  assert.deepEqual(snapshot.verifiedResults.map(x=>[x.date,x.opponent,x.aubreyScore,x.opponentScore]),[
+    ['2026-10-23','Lake Dallas',28,21],
+    ['2026-10-30','Alvarado',70,40],
+    ['2026-11-06','Godley',55,22],
+  ]);
+  for(const result of snapshot.verifiedResults){
+    assert.equal(result.verificationMethod,'manual-editorial-review');
+    assert.ok(result.primarySourceUrl.startsWith('https://') && result.secondarySourceUrl.startsWith('https://'));
+    assert.notEqual(new URL(result.primarySourceUrl).hostname,new URL(result.secondarySourceUrl).hostname);
+  }
+  const primary={season:'2026',teamSlug:'aubrey',games:[]};
+  const secondary={season:'2026',teamSlug:'aubrey',games:[]};
+  const result=reconcileAubreyResults({editorial,snapshot,primary,secondary,primaryHost,secondaryHost,today:'2026-11-13'});
+  assert.equal(result.added,0);
+  assert.deepEqual(result.pending,[],'Historical verified scores cannot be flagged missing due to sparse feeds');
+  const games=editorial.season.games.map(game=>{
+    const extra=snapshot.verifiedResults.find(x=>x.date===game.date);
+    return { ...game, result:game.result || (extra ? (extra.aubreyScore>extra.opponentScore?'W ':'L ')+extra.aubreyScore+'–'+extra.opponentScore:undefined) };
+  });
+  assert.equal(games.filter(game=>game.result?.startsWith('W ')).length,7);
+  assert.equal(games.filter(game=>game.result?.startsWith('L ')).length,3);
+  assert.equal(games.filter(game=>game.district && game.result?.startsWith('W ')).length,7);
+  assert.equal(games.filter(game=>game.district && game.result?.startsWith('L ')).length,0);
+  assert.throws(()=>reconcileAubreyResults({
+    editorial,snapshot,primary,
+    secondary:{...secondary,games:[{
+      date:'2026-10-30',opponent:'Alvarado',status:'final',
+      aubreyScore:71,opponentScore:40,
+      sourceUrl:'https://'+secondaryHost+'/2026-10-30',
+    }]},
+    primaryHost,secondaryHost,today:'2026-11-13',
+  }),/published Aubrey final was contradicted/);
+});

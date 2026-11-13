@@ -73,6 +73,20 @@ export function reconcileAubreyResults({ editorial, snapshot, primary, secondary
   for (const game of editorial.season.games) {
     if (game.result || game.date >= today) continue;
     const a = first.get(game.date), b = second.get(game.date);
+    const old = published.get(game.date);
+    if (old) {
+      // An already-corroborated and published result is not "overdue" just
+      // because a provider omitted that historical game in today's feed.
+      // Nevertheless, any new contradictory report is a hard stop.
+      for (const report of [a, b].filter(Boolean)) {
+        if (report.opponent !== game.opponent
+          || report.aubreyScore !== old.aubreyScore
+          || report.opponentScore !== old.opponentScore) {
+          throw new Error('A published Aubrey final was contradicted by a provider: ' + game.date);
+        }
+      }
+      continue;
+    }
     if (!a || !b) {
       pending.push(game.date + ' / ' + game.opponent + ': independent confirmation missing');
       continue;
@@ -88,15 +102,8 @@ export function reconcileAubreyResults({ editorial, snapshot, primary, secondary
       primarySourceUrl: a.sourceUrl, secondarySourceUrl: b.sourceUrl,
       verifiedAt: today,
     };
-    const old = published.get(game.date);
-    if (old) {
-      for (const key of ['opponent','aubreyScore','opponentScore','district']) {
-        if (old[key] !== candidate[key]) throw new Error('A published Aubrey result was revised: ' + game.date);
-      }
-    } else {
-      merged.push(candidate);
-      added++;
-    }
+    merged.push({ ...candidate, verificationMethod: 'dual-authorized-feed' });
+    added++;
   }
   for (const row of merged) {
     const game = known.get(row.date);

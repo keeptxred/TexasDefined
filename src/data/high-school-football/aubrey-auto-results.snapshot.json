@@ -1,5 +1,39 @@
 {
   "season": "2026",
   "teamSlug": "aubrey",
-  "verifiedResults": []
+  "verifiedResults": [
+    {
+      "date": "2026-10-23",
+      "opponent": "Lake Dallas",
+      "aubreyScore": 28,
+      "opponentScore": 21,
+      "district": true,
+      "primarySourceUrl": "https://www.maxpreps.com/tx/football/game/aubrey-vs-lake-dallas-corinth/10-23-2026/?c=5c4d82c3-101a-4f9e-b7d3-db9701873193",
+      "secondarySourceUrl": "https://www.dentoncountyfb.com/event/2026-aubrey-vs-lake-dallas/",
+      "verifiedAt": "2026-11-12",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "date": "2026-10-30",
+      "opponent": "Alvarado",
+      "aubreyScore": 70,
+      "opponentScore": 40,
+      "district": true,
+      "primarySourceUrl": "https://www.maxpreps.com/tx/football/game/alvarado-vs-aubrey/10-30-2026/?c=90afab36-dc46-44fc-8df8-bd3c9ea0f8b9",
+      "secondarySourceUrl": "https://www.si.com/high-school/stats/texas/29243-division-4a1/football/scores?date=2026-10-30",
+      "verifiedAt": "2026-11-12",
+      "verificationMethod": "manual-editorial-review"
+    },
+    {
+      "date": "2026-11-06",
+      "opponent": "Godley",
+      "aubreyScore": 55,
+      "opponentScore": 22,
+      "district": true,
+      "primarySourceUrl": "https://www.maxpreps.com/tx/football/game/aubrey-vs-godley/11-6-2026/?c=a0a3b34c-60a4-482e-b20b-dac3abb57b93",
+      "secondarySourceUrl": "https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-november-6-01m6rw22dr0m",
+      "verifiedAt": "2026-11-12",
+      "verificationMethod": "manual-editorial-review"
+    }
+  ]
 }
