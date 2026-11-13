@@ -20,4 +20,11 @@ for (const [slug,county] of [['floresville','wilson'],['floydada','floyd'],['fol
 }
 const loader = read('src/data/high-school-football/program-editorial-b018-third-five.ts');
 assert.ok(loader.includes('export function getBatch018ThirdFiveEditorial(slug: string)'), 'Missing typed third cohort loader');
+const server = read('src/data/high-school-football/football-program-profile.server.ts');
+const schoolRoute = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const countyRoute = read('src/routes/$kind.$slug.lazy.tsx');
+assert.ok(server.includes('getBatch018ThirdFiveEditorial(canonicalSlug)'), 'Missing UIL SSR third cohort');
+assert.ok(server.includes('getBatch018ThirdFiveEditorial(legacy.featured.slug)'), 'Missing private fallback third cohort');
+assert.ok(schoolRoute.includes('BATCH018_THIRD_FIVE_COUNTY_EDGES.map'), 'Missing school-to-county third links');
+assert.ok(countyRoute.includes('BATCH018_THIRD_FIVE_COUNTY_EDGES.filter'), 'Missing county-to-school third links');
 console.log('PASS Batch018 third-five source modules and staged county records; NOT SSR/county integrated or production certified');
