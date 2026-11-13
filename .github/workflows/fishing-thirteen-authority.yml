@@ -58,7 +58,7 @@ jobs:
         with:
           node-version: '22'
       - id: tpwd
-        name: Confirm 2026-27 rule signatures and live park alert
+        name: Confirm regulations, lake technique evidence and report state
         run: node scripts/ci/check-fishing-13-source-state.mjs
       - name: Open deduplicated official source investigation issue
         if: ${{ failure() && steps.tpwd.conclusion == 'failure' }}
@@ -71,5 +71,5 @@ jobs:
           count="$(gh issue list --repo "$GH_REPO" --state open --search 'Fishing authority official TPWD source review' --json number --jq 'length')"
           if [[ "$count" == "0" ]]; then
             gh issue create --repo "$GH_REPO" --title 'Fishing authority official TPWD source review required' \
-              --body 'Scheduled source verification could not confirm one or more official TPWD signatures for the thirteen fishing authority pages. Investigate the failed run, confirm the active rules and Lake Abilene closure against TPWD, update code and evidence only after factual verification, then rerun. Do not stamp unchanged source dates from a link-only check.'
+              --body 'Scheduled source verification could not confirm one or more official TPWD regulations, reservoir technique examples, lake alerts or paused report availability signatures. Investigate the failed run, confirm the affected reservoir evidence, report publication state, active fishing rules and Lake Abilene closure against TPWD, update code and evidence only after factual verification, then rerun. Do not stamp unchanged source dates from a link-only check.'
           fi
