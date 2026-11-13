@@ -16,12 +16,12 @@ function attr(tag, name) {
   return (tag.match(re)?.[2] || "").replace(/&amp;/gi, "&").replace(/&#38;/gi, "&");
 }
 function canonicalLinks(html) {
-  return (html.match(/<link\\b[^>]*>/gi) || [])
-    .filter(tag => attr(tag, "rel").toLowerCase().split(/\\s+/).includes("canonical"))
+  return (html.match(/<link\b[^>]*>/gi) || [])
+    .filter(tag => attr(tag, "rel").toLowerCase().split(/\s+/).includes("canonical"))
     .map(tag => attr(tag, "href"));
 }
 function robots(html) {
-  return (html.match(/<meta\\b[^>]*>/gi) || [])
+  return (html.match(/<meta\b[^>]*>/gi) || [])
     .filter(tag => ["robots", "googlebot"].includes(attr(tag, "name").toLowerCase()))
     .map(tag => attr(tag, "content").toLowerCase()).join(",");
 }
@@ -45,13 +45,13 @@ async function fetchPage(path) {
   throw new Error("Production fetch failed for " + path + ": " + last);
 }
 function assertCalendarButtons(html, path) {
-  const grid = html.match(/class=["']ev-days["'][^>]*>([\\s\\S]*?)<\\/div>/i)?.[1] || "";
-  const nav = html.match(/class=["']ev-cal-nav["'][^>]*>([\\s\\S]*?)<\\/div>/i)?.[1] || "";
+  const grid = html.match(/class=["']ev-days["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "";
+  const nav = html.match(/class=["']ev-cal-nav["'][^>]*>([\s\S]*?)<\/div>/i)?.[1] || "";
   assert(grid, path + ": SSR calendar day grid missing");
   assert(nav, path + ": SSR calendar month navigation missing");
-  assert((grid.match(/<button\\b/gi) || []).length === 42, path + ": expected 42 keyboard-accessible day buttons");
-  assert((nav.match(/<button\\b/gi) || []).length === 4, path + ": expected four month/date navigation buttons");
-  assert(!/<a\\b/gi.test(grid + nav), path + ": crawlable calendar date/month link graph reintroduced");
+  assert((grid.match(/<button\b/gi) || []).length === 42, path + ": expected 42 keyboard-accessible day buttons");
+  assert((nav.match(/<button\b/gi) || []).length === 4, path + ": expected four month/date navigation buttons");
+  assert(!/<a\b/gi.test(grid + nav), path + ": crawlable calendar date/month link graph reintroduced");
   assert(grid.includes("aria-label="), path + ": calendar day buttons need accessible names");
 }
 for (const [path, preferred, filtered, calendar] of checks) {
@@ -60,8 +60,8 @@ for (const [path, preferred, filtered, calendar] of checks) {
   assert(links.length === 1, path + ": must render exactly one canonical, found " + links.length);
   assert(links[0] === origin + preferred, path + ": canonical mismatch " + links[0]);
   const robot = robots(html);
-  if (filtered) assert(/(?:^|[,\\s])noindex(?:$|[,\\s])/.test(robot), path + ": filtered calendar must noindex");
-  else assert(!/(?:^|[,\\s])noindex(?:$|[,\\s])/.test(robot), path + ": clean canonical landing must not noindex");
+  if (filtered) assert(/(?:^|[,\s])noindex(?:$|[,\s])/.test(robot), path + ": filtered calendar must noindex");
+  else assert(!/(?:^|[,\s])noindex(?:$|[,\s])/.test(robot), path + ": clean canonical landing must not noindex");
   if (calendar) assertCalendarButtons(html, path);
   console.log("[GSC alternate] OK " + path + " -> " + preferred + "; robots=" + (robot || "default"));
 }
