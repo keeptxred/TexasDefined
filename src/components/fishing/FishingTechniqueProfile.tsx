@@ -3,7 +3,7 @@ import { fishingTechniqueAuthorityContent, type FishingTechniqueAuthorityContent
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
 import { fishingTechniqueFieldGuide } from "@/data/fishing/technique-field-guide";
 import { fishingTechniqueSourceNotes } from "@/data/fishing/technique-source-notes";
-import { techniqueReservoirComparisons } from "@/data/fishing/technique-primary-source-comparisons";
+import { techniqueReservoirComparisons, TECHNIQUE_RESEARCH_REVIEWED_AT } from "@/data/fishing/technique-primary-source-comparisons";
 import { isGenericLakeTechniqueSummary } from "@/data/fishing/technique-content-quality";
 import { fishingTechniqueImages } from "@/data/fishing/technique-images";
 import { FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "@/data/fishing/habitat-guides";
@@ -107,7 +107,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <p className="mt-2 text-sm leading-7">{reservoirContrast.choice}</p>
           <p className="mt-3 text-xs leading-6 text-muted-foreground">{reservoirContrast.limit}</p>
         </div>
-        <p className="mt-6 max-w-4xl text-xs leading-6 text-muted-foreground">Texas Defined editorial analysis based on linked Texas Parks & Wildlife reservoir guides. These are comparisons of published fishery descriptions, not firsthand trip reports or evidence of today's catch.</p>
+        <p className="mt-6 max-w-4xl text-xs leading-6 text-muted-foreground">Texas Defined editorial analysis based on linked Texas Parks & Wildlife reservoir guides. These are comparisons of published fishery descriptions, not firsthand trip reports or evidence of today's catch. TPWD pages reviewed {TECHNIQUE_RESEARCH_REVIEWED_AT}; the date is not a current fishing report.</p>
       </section> : null}
 
       {guide ? <>
@@ -331,7 +331,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="py-12" aria-labelledby="technique-sources">
         <p className="eyebrow text-primary">Sources</p>
         <h2 id="technique-sources" className="mt-2 font-display text-4xl">Sources and Verification</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Compiled by the Texas Defined editorial team from cited TPWD reservoir descriptions and the linked fishing lake records. The original comparisons distinguish published findings from editorial interpretation and practical planning advice. They are not independent field tests, proof of an active bite, or a substitute for current regulations and notices. Each lake guide retains its own source trail.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Compiled by the Texas Defined editorial team from cited TPWD reservoir descriptions and the linked fishing lake records. The original comparisons distinguish published findings from editorial interpretation and practical planning advice. They are not independent field tests, proof of an active bite, or a substitute for current regulations and notices. Each lake guide retains its own source trail. Read our <a href="/editorial-policy" className="text-primary underline underline-offset-4">editorial policy</a>, <a href="/sourcing-methodology" className="text-primary underline underline-offset-4">source methodology</a> or <a href="/corrections-policy" className="text-primary underline underline-offset-4">request a correction</a>.</p>
         <div className="mt-7 grid gap-5 md:grid-cols-2">{data.featuredSources.map((source) => <article key={source.url} className="border-t border-border pt-5">
           <h3 className="font-display text-xl">{source.name}</h3>
           <p className="mt-2 text-xs text-muted-foreground">Checked {source.checkedAt}</p>
