@@ -132,6 +132,22 @@ const NOV13_PUBLISHED_WORKER_EVENTS_VISUAL_FAILURE = Object.freeze({
   workerVersion: '14cd9057-b9e3-4cf6-b2f8-3e103afe7657',
 });
 
+// Nov 13 #43447328975 actually published 100%-traffic Worker
+// 1e9cbeec-7e97-470f-9531-91ce2ab0946b from exact SHA 3cd985...
+// and passed all five critical publish/health/dual-origin old+new asset
+// hash checks. The sole later failure was the independent turkey Chrome
+// test's 25-second /hunting internal request timeout, while its hunting
+// hub browser passed. Do not mark that page/test/release as successful.
+// Eligible only to preserve the exact published ORIGINAL asset bytes once
+// the narrowly bounded timeout retry is present in the next source.
+const NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT = Object.freeze({
+  runId: 43447328975,
+  jobId: 131960103008,
+  failedStep: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+  sourceSha: '3cd9851671f9077f9f57e4bc7d648816826002f2',
+  workerVersion: '1e9cbeec-7e97-470f-9531-91ce2ab0946b',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -148,6 +164,21 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const turkeyTimeout = NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT;
+  if (job.run_id === turkeyTimeout.runId && job.id === turkeyTimeout.jobId &&
+      failures.length === 1 && failures[0] === turkeyTimeout.failedStep) {
+    const visualVerifier = readFileSync('scripts/ci/verify-turkey-hunting-browser.mjs', 'utf8');
+    if (!visualVerifier.includes('TURKEY_TRANSIENT_LINK_TIMEOUT') ||
+        !visualVerifier.includes('attempt <= 3') ||
+        !visualVerifier.includes('attempt === 3') ||
+        !visualVerifier.includes('assert.ok(verified, "linked TexasDefined route was not verified: " + path)')) {
+      throw Error('Published turkey link timeout cannot qualify until narrow retries preserve strict link assertions');
+    }
+    return { eligible: true, mode: 'exact-nov13-turkey-timeout-original-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      exactRun: turkeyTimeout.runId, requiredSourceSha: turkeyTimeout.sourceSha,
+      requiredWorkerVersion: turkeyTimeout.workerVersion };
   }
   const exactNov13 = NOV13_PUBLISHED_WORKER_EVENTS_VISUAL_FAILURE;
   if (job.run_id === exactNov13.runId && job.id === exactNov13.jobId

@@ -138,10 +138,26 @@ try {
       if (spec.name === "desktop-canonical") {
         for (const path of ["/hunting", "/hunting/public-hunting", "/hunting/texas-hunting-license", "/hunting/drawn-hunts"]) {
           assert.ok(snapshot.links.some(link => new URL(link.href).pathname === path), "missing internal link " + path);
-          const internal = await context.request.get(origin + path + "?__td_turkey_link_check=" + runToken, {
-            timeout: 25000, headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
-          });
-          assert.ok(internal.ok(), "broken linked TexasDefined route " + path + ": HTTP " + internal.status());
+          // A published Worker can occasionally hit an isolated cold SSR 25s
+          // timeout while its next request passes. Retry only transport
+          // timeouts and transient 5xx, never broken links/4xx or a content
+          // assertion. Every internal route still MUST return HTTP 2xx.
+          let verified = false;
+          for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+              const internal = await context.request.get(origin + path + "?__td_turkey_link_check=" + runToken, {
+                timeout: 25000, headers: { "Cache-Control": "no-cache", Pragma: "no-cache" },
+              });
+              if (internal.ok()) { verified = true; break; }
+              if (![500, 502, 503, 504].includes(internal.status()) || attempt === 3)
+                throw Error("broken linked TexasDefined route " + path + ": HTTP " + internal.status());
+              console.warn("TURKEY_TRANSIENT_LINK_SERVER_HTTP", JSON.stringify({path,attempt,status:internal.status()}));
+            } catch (error) {
+              if (error?.name !== "TimeoutError" || attempt === 3) throw error;
+              console.warn("TURKEY_TRANSIENT_LINK_TIMEOUT", JSON.stringify({path,attempt}));
+            }
+          }
+          assert.ok(verified, "linked TexasDefined route was not verified: " + path);
         }
       }
       assert.equal(errors.length, 0, "browser runtime errors: " + errors.join(" | "));

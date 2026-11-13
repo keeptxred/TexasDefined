@@ -29,7 +29,41 @@ if (!yoakumSVG.includes('<svg') || !yoakumSVG.includes('</svg>')) {
 // AAM Dallas currently publishes conflicting normal/event-day hours.
 // Treat this as a disclosure requirement, not a reason to invent one schedule.
 const aamRecords = read("src/data/museum-authority-new-destinations.ts");
+ 
+// Fort Worth Water Gardens links to this museum's destination dossier. A past
+// October installation closure must not keep advertising CLOSED galleries or a
+// completed free workshop after the collection galleries reopened October 31.
+// Verified with the operator's current /visit/hours-and-admission and homepage.
+const modernArtRecord = aamRecords.split('slug: "modern-art-museum-fort-worth"')[1]?.split('slug: "', 1)[0] ?? "";
+if (!modernArtRecord.includes("In the Making: Stories from the Collection") ||
+    !modernArtRecord.includes("August 15, 2027") ||
+    !modernArtRecord.includes('sourceCheckedAt: "2026-11-13"')) {
+  failures.push("Fort Worth Modern must show post-installation exhibition and source-reviewed visitor details");
+}
+if (/galleries CLOSED|All exhibition galleries are CLOSED|October lobby sculpture activities are free|galleries reopening after installation/i.test(modernArtRecord)) {
+  failures.push("Fort Worth Water Gardens' linked Modern Art Museum preview still advertises past gallery closures or workshops");
+}
+
+const modernSourceManifest = read("public/museum-verification-manifest.json");
+const modernSourceEntry = modernSourceManifest.split('"path": "/destination/modern-art-museum-fort-worth"')[1]?.split('"path": "', 1)[0] ?? "";
+if (!modernSourceEntry.includes("https://www.themodern.org/exhibitions/current") ||
+    modernSourceEntry.includes("https://www.themodern.org/exhibition/making-sculpture-project")) {
+  failures.push("Fort Worth Modern source-refresh manifest still monitors an expired October lobby workshop instead of current exhibitions");
+}
+const modernSourceBenchmark = read("docs/museum-official-site-benchmarks.json");
+if (modernSourceBenchmark.includes('"https://www.themodern.org/exhibition/making-sculpture-project"')) {
+  failures.push("Fort Worth Modern museum-source benchmark retains an expired, time-limited workshop source");
+}
 const aamFaqSource = read("src/data/museum-visitor-faqs.ts");
+const modernFaqSection = aamFaqSource.split('"modern-art-museum-fort-worth": [')[1]?.split('"american-quarter-horse-hall-of-fame-museum-amarillo": [')[0] ?? "";
+if (!modernFaqSection.includes("In the Making: Stories from the Collection") ||
+    !modernFaqSection.includes("August 15, 2027") ||
+    !modernFaqSection.includes("Sunday Family Tour") ||
+    !modernFaqSection.includes('"reviewed": "2026-11-13"') ||
+    /making-sculpture-project|gallery closure supersedes|galleries closed the entire|when exhibition rooms reopen/i.test(modernFaqSection)) {
+  failures.push("Modern Fort Worth FAQs still promote expired October gallery closure or lack current visit/tour evidence");
+}
+
 const aamRecord = aamRecords.split('slug: "african-american-museum-dallas-fair-park"')[1]?.split('slug: "', 1)[0] || "";
 const aamFaq = aamFaqSource.split('"african-american-museum-dallas-fair-park": [')[1]?.split('"texas-forestry-museum-lufkin": [')[0] || "";
 for (const [label, content] of [["destination", aamRecord], ["FAQ", aamFaq]]) {

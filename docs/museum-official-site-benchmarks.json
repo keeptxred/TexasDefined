@@ -639,8 +639,8 @@
     "modern-art-museum-fort-worth": {
       "name": "Modern Art Museum of Fort Worth",
       "operatorStrengths": [
-        "Current operator gallery closure, tickets, full-service restaurant, accessibility and family programming evidence individually researched",
-        "Visitor intent FAQs distinguish free 2026 lobby activities from unavailable collection galleries"
+        "Current open-gallery exhibition, tickets, full-service restaurant, accessibility and family programming independently researched",
+        "Visitor guidance distinguishes the ended October 2026 free lobby workshop from the reopened In the Making: Stories from the Collection galleries"
       ],
       "openGaps": [
         "Post-deployment image, structured data, FAQ and reciprocal link browser QA",
@@ -651,7 +651,7 @@
       "independentReviewer": null,
       "certifiedAt": null,
       "operatorPagesToBenchmark": [
-        "https://www.themodern.org/exhibition/making-sculpture-project",
+        "https://www.themodern.org/exhibitions/current",
         "https://www.themodern.org/visit/hours-and-admission",
         "https://www.themodern.org/caf%C3%A9-modern",
         "https://www.themodern.org/tours",

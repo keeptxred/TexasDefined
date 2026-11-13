@@ -8,6 +8,11 @@ const primary = read("src/routes/sitemap[.]xml.ts");
 const routes = read("src/lib/public-routes.ts");
 const fixture = read("src/data/fixtures/texas.ts");
 const reviewed = read("src/data/reviewed-attraction-authorities.ts");
+const curatedTourism = read("src/data/curated-tourism-collections.ts");
+const houstonBotanicCard = curatedTourism.split('"name": "Houston Botanic Garden"')[1]?.split('"officialUrl":', 1)[0] ?? "";
+assert.ok(houstonBotanicCard.includes('"destinationSlug": "houston-botanic-garden"'),
+  "Existing Explore botanical gardens shortlist must link the published Houston Botanic Garden authority guide");
+
 const reviewedCanonical = read("src/lib/reviewed-attraction-canonical-redirect.ts");
 const cachePolicy = read("src/lib/hashed-asset-document-cache-policy.ts");
 const worker = read("src/server.ts");

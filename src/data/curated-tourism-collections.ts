@@ -226,6 +226,7 @@ export const CURATED_TOURISM_COLLECTIONS = [
         "name": "Houston Botanic Garden",
         "town": "Houston",
         "countySlug": "harris",
+        "destinationSlug": "houston-botanic-garden",
         "why": "A destination garden with themed displays and nature landscapes near Sims Bayou, providing a different outdoor experience from Houston's museum attractions.",
         "plan": "Check current entry, events and heat-sensitive visiting hours; weekday and morning visits may offer a different experience from festivals.",
         "officialUrl": "https://hbg.org/"
