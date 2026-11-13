@@ -44,6 +44,16 @@ if (/galleries CLOSED|All exhibition galleries are CLOSED|October lobby sculptur
   failures.push("Fort Worth Water Gardens' linked Modern Art Museum preview still advertises past gallery closures or workshops");
 }
 
+const modernSourceManifest = read("public/museum-verification-manifest.json");
+const modernSourceEntry = modernSourceManifest.split('"path": "/destination/modern-art-museum-fort-worth"')[1]?.split('"path": "', 1)[0] ?? "";
+if (!modernSourceEntry.includes("https://www.themodern.org/exhibitions/current") ||
+    modernSourceEntry.includes("https://www.themodern.org/exhibition/making-sculpture-project")) {
+  failures.push("Fort Worth Modern source-refresh manifest still monitors an expired October lobby workshop instead of current exhibitions");
+}
+const modernSourceBenchmark = read("docs/museum-official-site-benchmarks.json");
+if (modernSourceBenchmark.includes('"https://www.themodern.org/exhibition/making-sculpture-project"')) {
+  failures.push("Fort Worth Modern museum-source benchmark retains an expired, time-limited workshop source");
+}
 const aamFaqSource = read("src/data/museum-visitor-faqs.ts");
 const aamRecord = aamRecords.split('slug: "african-american-museum-dallas-fair-park"')[1]?.split('slug: "', 1)[0] || "";
 const aamFaq = aamFaqSource.split('"african-american-museum-dallas-fair-park": [')[1]?.split('"texas-forestry-museum-lufkin": [')[0] || "";
