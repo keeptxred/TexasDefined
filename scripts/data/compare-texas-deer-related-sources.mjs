@@ -15,11 +15,15 @@ for(const source of current.sources) {
 }
 const prevPath=process.env.DEER_RELATED_PREVIOUS || '';
 const prior=prevPath&&fs.existsSync(prevPath)?JSON.parse(fs.readFileSync(prevPath,'utf8')):null;
-const validPrior=prior?.seasonYear===current.seasonYear&&prior.sources?.length===7?prior:null;
+// A pre-upgrade six-source snapshot remains valid for comparing its six unchanged
+// identifiers; the seventh newly monitored source gets its own baseline.
+const validPrior=prior?.seasonYear===current.seasonYear &&
+  Array.isArray(prior.sources) && prior.sources.length >= 6 ? prior : null;
 const old=new Map((validPrior?.sources||[]).map(s=>[s.id,s]));
-const changed=validPrior?current.sources.filter(s=>s.sha256!==old.get(s.id)?.sha256)
+const newlyMonitored=current.sources.filter(s=>!old.has(s.id)).map(s=>({id:s.id,url:s.url}));
+const changed=validPrior?current.sources.filter(s=>old.has(s.id) && s.sha256!==old.get(s.id)?.sha256)
   .map(s=>({id:s.id,url:s.url,oldHash:old.get(s.id)?.sha256||null,newHash:s.sha256})):[];
 const report={checkedAt:current.checkedAt,seasonYear:current.seasonYear,
-  complete:true,firstBaseline:!validPrior,changedCount:changed.length,changed};
+  complete:true,firstBaseline:!validPrior,newlyMonitored,changedCount:changed.length,changed};
 fs.writeFileSync(root+'/comparison.json',JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({verifiedSources:7,firstBaseline:!validPrior,changed:changed.map(s=>s.id)}));
