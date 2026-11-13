@@ -15,7 +15,10 @@ for (const [slug, facts] of entries) {
   assert.ok(!/\b(photoUrl|imageUrl|finalScore)\s*:/.test(s), 'Unlicensed image or unsourced final score: ' + slug);
 }
 const edges = read('src/data/high-school-football/batch018-fifth-five-county-edges.ts');
-for (const [slug] of entries) assert.ok(edges.includes("slug: '" + slug + "'") && edges.includes("county: 'fort-bend'"), 'Missing Fort Bend campus county: ' + slug);
+for (const [slug] of entries) {
+  const exactEdge = new RegExp("\\\\{ slug: '" + slug + "', name: '[^']+', county: 'fort-bend'");
+  assert.ok(exactEdge.test(edges), 'Missing exact Fort Bend campus county for: ' + slug);
+}
 const loader = read('src/data/high-school-football/program-editorial-b018-fifth-five.ts');
 assert.ok(loader.includes('export function getBatch018FifthFiveEditorial(slug: string)'), 'Missing typed fifth cohort loader');
 const server = read('src/data/high-school-football/football-program-profile.server.ts');
