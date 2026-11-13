@@ -30,6 +30,9 @@ export const LEGACY_EDITORIAL_REDIRECTS: Record<string, string> = Object.fromEnt
   ),
 );
 LEGACY_EDITORIAL_REDIRECTS["/museum/barrington-farm-site"] = "/destination/barrington-living-history-farm";
+// Barton Warnock visitor interpretation and permits are covered in the Big Bend Ranch guide.
+LEGACY_EDITORIAL_REDIRECTS["/destination/barton-warnock-environmental-educational-center-state-park"] = "/destination/big-bend-ranch-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/barton-warnock-environmental-educational-center-state-park"] = "/destination/big-bend-ranch-state-park";
 // Historical San Antonio links: the city guide is /city/, not a destination.
 LEGACY_EDITORIAL_REDIRECTS["/destination/san-antonio"] = "/city/san-antonio";
 // El Paso's researched city authority lives at /city/el-paso, not a second
