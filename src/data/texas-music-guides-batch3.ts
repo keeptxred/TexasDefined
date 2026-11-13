@@ -88,7 +88,7 @@ export const TEXAS_MUSIC_GUIDES_BATCH3: Record<string, TexasEvergreenGuide> = {
       }
     ],
     related: [
-      { href: "/texas-music", label: "Texas Music", description: "Return to the statewide authority hub connecting gospel, R&B and pop to Texas blues, jazz, rock, country, Tejano and hip-hop." },
+      { href: "/texas-music", label: "Texas Music", description: "Explore how gospel, R&B and pop intersect with Texas blues, jazz, rock, country, Tejano and hip-hop." },
       { href: "/texas-blues", label: "Texas Blues", description: "Trace the blues vocabulary and Black Texas performance networks that overlapped with early gospel and R&B." },
       { href: "/texas-jazz", label: "Texas Jazz", description: "Hear the improvisational and urban traditions that later intersected with soul and neo-soul." },
       { href: "/texas-hip-hop", label: "Texas Hip-Hop", description: "Follow Houston and Dallas-Fort Worth into the later production and independent systems that also shaped contemporary R&B and gospel." }
