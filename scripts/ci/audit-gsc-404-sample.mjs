@@ -130,7 +130,7 @@ await Promise.all(Array.from({ length: concurrency }, async () => {
     const index = nextIndex++;
     if (index >= paths.length) return;
     results[index] = await inspect(paths[index]);
-    console.log(String(index + 1).padStart(2, '0') + '/99 ' + paths[index] + ': ' + results[index].outcome);
+    console.log(String(index + 1).padStart(2, '0') + '/99 ' + paths[index] + ': ' + results[index].outcome + ' [HTTP ' + (results[index].firstStatus ?? 'network') + ' -> ' + (results[index].finalStatus ?? 'network') + '] final=' + (results[index].finalUrl ?? 'unavailable') + (results[index].canonical ? ' canonical=' + results[index].canonical : '') + (results[index].error ? ' error=' + results[index].error : ''));
   }
 }));
 const counts = Object.fromEntries([...new Set(results.map((r) => r.outcome))].sort().map((name) => [
