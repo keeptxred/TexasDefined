@@ -24,6 +24,30 @@ function TexasFactsPage() {
         </Container>
       </section>
 
+      <section className="border-b border-border py-12 sm:py-16" aria-labelledby="texas-facts-comparison">
+        <Container>
+          <div className="max-w-4xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Compare the evidence</p>
+            <h2 id="texas-facts-comparison" className="mt-3 font-display text-4xl sm:text-5xl">What the numbers and dates mean</h2>
+            <p className="mt-4 leading-8 text-muted-foreground">Texas facts are easy to repeat and surprisingly easy to misstate. Land area is not total area, a legislative designation is not a timeless cultural tradition, and a historical founding date tells a different story from a company's modern ownership. The comparisons below use clearly named sources and measurement definitions.</p>
+          </div>
+          <div className="mt-8 overflow-x-auto border border-border">
+            <table className="min-w-[40rem] w-full text-left text-sm">
+              <caption className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">Selected Texas comparisons, source definitions and review dates</caption>
+              <thead className="border-b border-border bg-muted/40"><tr><th scope="col" className="px-4 py-3">Question</th><th scope="col" className="px-4 py-3">Evidence and interpretation</th><th scope="col" className="px-4 py-3">Check the source</th></tr></thead>
+              <tbody className="divide-y divide-border">
+                <tr><th scope="row" className="px-4 py-4 font-semibold">Is Texas the largest U.S. state?</th><td className="px-4 py-4 leading-7 text-muted-foreground">No. The 2020 Census land-area comparison reports approximately 261,268 square miles for Texas and 571,022 for Alaska. Texas ranks first among the contiguous 48 states. These are land areas, not total land and water.</td><td className="px-4 py-4"><a href="https://www2.census.gov/programs-surveys/sis/activities/math/mm-10_student.pdf" target="_blank" rel="noopener noreferrer" className="text-primary underline">U.S. Census Bureau</a></td></tr>
+                <tr><th scope="row" className="px-4 py-4 font-semibold">When did Texas become independent and then a state?</th><td className="px-4 py-4 leading-7 text-muted-foreground">The Texas declaration of independence was adopted March 2, 1836. Texas joined the United States on December 29, 1845. The nearly ten-year Republic period is the crucial interval, not an implication of uninterrupted independence since Spanish rule.</td><td className="px-4 py-4"><a href="https://www.tshaonline.org/handbook/entries/texas-declaration-of-independence" target="_blank" rel="noopener noreferrer" className="text-primary underline">Handbook of Texas</a></td></tr>
+                <tr><th scope="row" className="px-4 py-4 font-semibold">Are Texas's local 'capitals' state symbols?</th><td className="px-4 py-4 leading-7 text-muted-foreground">No. The State Library separately compiles symbols and local place designations. Modern place titles ordinarily expire after ten years, but resolutions approved before September 1, 2001 are excepted.</td><td className="px-4 py-4"><Link to="/texas-capital-designations" className="text-primary underline">Compare official capital titles</Link></td></tr>
+                <tr><th scope="row" className="px-4 py-4 font-semibold">Was every well-known Texas product invented here?</th><td className="px-4 py-4 leading-7 text-muted-foreground">No. Dr Pepper has documented Waco origins; Topo Chico comes from Monterrey, Mexico, despite its longstanding popularity in Texas. Birthplace, manufacturing location and regional adoption are distinct facts.</td><td className="px-4 py-4"><Link to="/things-unique-to-texas/food-drink" className="text-primary underline">Texas food and drink histories</Link></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">Figures can change when agencies revise datasets, particularly population, business, agriculture and economic measures. The table labels the Census vintage for land measurements; source links following each of the 100 individual facts take precedence for more current figures. This is an editorial selection and not a replacement for the responsible agency's current records.</p>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/everything-bigger-in-texas" className="text-primary underline">See the detailed Texas superlatives fact-check →</Link><Link to="/texas-symbols" className="text-primary underline">Official state symbols →</Link></div>
+        </Container>
+      </section>
+
       <section className="py-16 sm:py-20">
         <Container>
           <div className="max-w-4xl">
