@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL('../../' + path, import.meta.url), 'utf8');
 const guide = read('src/data/high-school-football/program-editorial-b018-fabens.ts');
+const fallsCity = read('src/data/high-school-football/program-editorial-b018-falls-city.ts');
 const falfurrias = read('src/data/high-school-football/program-editorial-b018-falfurrias.ts');
 const fairfield = read('src/data/high-school-football/program-editorial-b018-fairfield.ts');
 const edges = read('src/data/high-school-football/batch018-county-edges.ts');
@@ -18,6 +19,10 @@ for (const value of [
   '2026-11-13', 'Class 4A Division II', 'stadium',
 ]) assert.ok(guide.includes(value), 'Missing Fabens sourced detail: ' + value);
 assert.ok(ledger.includes('El Paso County'));
+for (const value of ['700 N. Nelson St.', '525 N. Nelson St.', 'Beaver Stadium', 'District 15', '2026_RR-Packet.pdf', 'fcisd.net/contact-us/visiting-campus', 'fcisd.net/athletics/athletic-schedules']) assert.ok(fallsCity.includes(value), 'Missing Falls City source: ' + value);
+assert.ok(server.includes('getBatch018FallsCityEditorial(canonicalSlug)'));
+assert.ok(edges.includes("county: 'karnes'") && edges.includes("slug: 'falls-city'"));
+assert.ok(!/\b(photoUrl|imageUrl|finalScore)\s*:/.test(fallsCity));
 for (const value of ['100 Jersey Drive', 'Alpha_26-28.pdf', 'District 16', 'Lamar Rodriguez', 'fhs.bcisd.us/activities/athletics', 'Hometown Ticketing', 'Brooks County', '2026-11-13']) assert.ok(falfurrias.includes(value), 'Missing Falfurrias source: ' + value);
 assert.ok(server.includes('getBatch018FalfurriasEditorial(canonicalSlug)'));
 assert.ok(edges.includes("county: 'brooks'") && edges.includes("slug: 'falfurrias'"));
@@ -31,4 +36,4 @@ assert.ok(server.includes('getBatch018FirstFabensEditorial(canonicalSlug)'));
 assert.ok(school.includes('BATCH018_FOOTBALL_COUNTY_EDGES.map'));
 assert.ok(county.includes('BATCH018_FOOTBALL_COUNTY_EDGES.filter'));
 assert.ok(!/\b(photoUrl|imageUrl|headCoach|finalScore)\s*:/.test(guide), 'Unlicensed media or unverified claims');
-console.log('PASS Batch018 Fabens, Fairfield and Falfurrias source-backed guides, SSR and reciprocal campus-county edges; NOT production certified');
+console.log('PASS Batch018 Fabens, Fairfield, Falfurrias and Falls City source-backed guides, SSR and reciprocal campus-county edges; NOT production certified');
