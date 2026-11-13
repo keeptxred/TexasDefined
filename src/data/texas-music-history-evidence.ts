@@ -17,6 +17,7 @@ export const musicHistoryMilestones: Record<string, readonly MusicMilestone[]> =
     { period: "November 10, 1964", event: "James White opens the Broken Spoke as a cafe on South Lamar; dancing becomes central to the business.", sourceUrl: "https://www.tshaonline.org/handbook/entries/broken-spoke", sourceLabel: "Handbook of Texas" },
     { period: "1960s–1970s", event: "Country and Western-swing figures including Bob Wills and Ernest Tubb play the room as Austin's music audience broadens.", sourceUrl: "https://www.txst.edu/ctmh/publications/hartman-series/broken-spoke.html", sourceLabel: "Texas State music history center" },
     { period: "2021 marker record", event: "The Texas Historical Commission records a marker recognizing the venue's role in Austin's country-music and dance history.", sourceUrl: "https://atlas.thc.texas.gov/Details?atlasnumber=5000023384&fn=print", sourceLabel: "Texas Historical Commission" },
+    { period: "April 2023 dedication", event: "Texas officials dedicate the Broken Spoke historical marker, distinct from the 2021 year in the state marker record.", sourceUrl: "https://gov.texas.gov/news/post/first-lady-abbott-dedicates-broken-spoke-texas-historical-marker-in-austin", sourceLabel: "Texas Governor's Office" },
   ],
   "continental-club-austin-history": [
     { period: "1955", event: "The Continental Club opens as a supper club on South Congress, before its later burlesque and neighborhood-bar phases.", sourceUrl: "https://continentalclub.com/about/", sourceLabel: "Continental Club history" },
@@ -26,7 +27,7 @@ export const musicHistoryMilestones: Record<string, readonly MusicMilestone[]> =
   "antones-austin-history": [
     { period: "July 15, 1975", event: "Clifford Antone opens his blues club on Sixth Street, with Clifton Chenier as the first act.", sourceUrl: "https://www.tshaonline.org/handbook/entries/antones", sourceLabel: "Handbook of Texas" },
     { period: "1980–1997", event: "Antone's relocates through Anderson Lane, Guadalupe Street and West Fifth Street, showing that the institution outlived any single address.", sourceUrl: "https://www.tshaonline.org/handbook/entries/antones", sourceLabel: "Handbook of Texas" },
-    { period: "2015", event: "A new team restores Antone's downtown at 305 East Fifth Street, its present-day address.", sourceUrl: "https://antonesnightclub.com/about/", sourceLabel: "Antone's official information" },
+    { period: "December 31, 2015", event: "Antone\'s reopens on East Fifth Street with C. J. Chenier, returning the club near its original downtown neighborhood.", sourceUrl: "https://antonesnightclub.com/history/", sourceLabel: "Antone\'s official chronology" },
   ],
   "billy-bobs-texas-history": [
     { period: "1910", event: "The future Billy Bob's building begins as an open-air cattle barn at the Fort Worth Stockyards.", sourceUrl: "https://www.billybobstexas.com/about/history", sourceLabel: "Billy Bob's official history" },
