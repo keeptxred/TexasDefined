@@ -15,11 +15,9 @@ function SportsRoute() {
 }
 
 function SportsPage() {
-  return <>
-    <CategoryPage category="sports" eyebrow="Texas Sports" title="Texas sports: the games, rituals and rivalries that matter here" intro={description} showDestinations={false} />
-    <Container className="pb-16 sm:pb-24">
-      <div className="mx-auto max-w-6xl">
-        <section className="border-t border-border py-10" aria-labelledby="sports-finder-start"><p className="eyebrow text-primary">Choose the sport first</p><h2 id="sports-finder-start" className="mt-3 font-display text-4xl">What are you planning to follow or visit?</h2><p className="mt-4 max-w-3xl leading-8 text-muted-foreground">The editorial story feed is not a complete venue inventory. Start with the dedicated, topic-specific directories below, then check the team's official schedule and game-day rules for dates, tickets and access.</p><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  const sportFirstNavigation = (
+    <Container className="py-10 sm:py-14"><div className="mx-auto max-w-6xl">
+      <section className="border-t border-border py-10" aria-labelledby="sports-finder-start"><p className="eyebrow text-primary">Choose the sport first</p><h2 id="sports-finder-start" className="mt-3 font-display text-4xl">What are you planning to follow or visit?</h2><p className="mt-4 max-w-3xl leading-8 text-muted-foreground">The editorial story feed is not a complete venue inventory. Start with the dedicated, topic-specific directories below, then check the team's official schedule and game-day rules for dates, tickets and access.</p><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <a href="/sports/teams" className="border-t-2 border-foreground pt-4"><strong className="font-display text-2xl">Professional teams</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Browse the Texas pro-team guides and weekend planning.</span></a>
           <a href="/sports/friday-night-lights" className="border-t-2 border-foreground pt-4"><strong className="font-display text-2xl">High-school football</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">UIL districts, teams, playoff explainers and traditions.</span></a>
           <a href="/sports-venues/college-sports" className="border-t-2 border-foreground pt-4"><strong className="font-display text-2xl">College sports</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Campus venue planning and local travel context.</span></a>
@@ -27,6 +25,12 @@ function SportsPage() {
           <a href="/sports-venues/motorsports" className="border-t-2 border-foreground pt-4"><strong className="font-display text-2xl">Motorsports</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Tracks, racing destinations and visitor logistics.</span></a>
           <a href="/sports/softball" className="border-t-2 border-foreground pt-4"><strong className="font-display text-2xl">Softball</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">UIL championships, college programs and profiles.</span></a>
         </div></section>
+    </div></Container>
+  );
+  return <>
+    <CategoryPage category="sports" eyebrow="Texas Sports" title="Texas sports: the games, rituals and rivalries that matter here" intro={description} showDestinations={false} beforeStories={sportFirstNavigation} featuredTitle="Featured from the sports desk" />
+    <Container className="pb-16 sm:pb-24">
+      <div className="mx-auto max-w-6xl">
         <section className="border-t border-border py-10"><p className="eyebrow text-primary">Worth the trip</p><h2 className="mt-3 font-display text-4xl">Pick a team. Build a game weekend.</h2><p className="mt-4 max-w-3xl leading-8">Explore 13 Texas pro teams, from the Texans and Cowboys to the Dash and Wings, with home games, tickets, team history and a plan for the rest of your stay.</p><a href="/sports/teams" className="mt-5 inline-block font-semibold text-primary">Find your Texas team and weekend guide →</a></section>
         <section className="border-t border-border pt-10" aria-labelledby="sports-culture-reading">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">

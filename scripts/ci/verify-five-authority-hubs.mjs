@@ -22,6 +22,9 @@ const includesAll = (key, markers) => {
 };
 includesAll("dogs", ["Texas dog life: parks, heat, travel and breeds", "Plan a safe Texas dog outing in four checks", "texas-dog-heat-safety", "adopting-a-dog-in-texas", "Texas dog life: useful first, funny when it fits"]);
 assert.ok(source.dogs.indexOf("From the Dog Desk") < source.dogs.indexOf("Choosing a breed"), "Dog care must lead breed catalog");
+includesAll("dogs", ['style={{ listStyleType: "decimal", listStylePosition: "inside" }}', "<strong>Heat and pavement.", "<strong>Actual pet access.", "<strong>Wildlife and water.", "<strong>Backup plan."]);
+assert.ok(!/<strong>[1-4]\. (Heat and pavement|Actual pet access|Wildlife and water|Backup plan)\./.test(source.dogs), "Do not duplicate numbers inside semantic ordered list");
+assert.ok(!source.dogs.includes("is built to grow into"), "Do not substitute aspirational editorial filler for current coverage");
 assert.ok(source.dogs.indexOf("Choosing a breed") < source.dogs.indexOf("Creative ideas · separate from care guidance"), "Shirt concepts must not lead care");
 includesAll("breed", ["breed.care.movement", "breed.care.coatAndHome", "breed.care.texasPlan", "breed.care.sourceUrl", "Texas heat-safety guide"]);
 includesAll("dogServer", ["care: DOG_BREED_CARE[breed.slug]", "Texas Dogs Guide: Heat Safety, Parks, Travel & Breeds"]);
@@ -29,11 +32,12 @@ const slugs = [...source.dogSlugs.matchAll(/^  "([a-z-]+)",$/gm)].map(x => x[1])
 assert.equal(slugs.length, 12, "Expected the governed twelve breeds");
 for (const slug of slugs) assert.ok(source.breedData.includes('"' + slug + '": { movement:'), "Missing original care entry for " + slug);
 assert.equal((source.breedData.match(/sourceUrl: "https:\/\/www.akc.org\/dog-breeds\//g) ?? []).length, slugs.length);
-includesAll("category", ["showDestinations = true", "showDestinations && destinations.length > 0"]);
-includesAll("sports", ["showDestinations={false}", "What are you planning to follow or visit?", "/sports-venues/college-sports", "/sports-venues/motorsports", "/sports/softball"]);
+includesAll("category", ["showDestinations = true", "showDestinations && destinations.length > 0", "beforeStories?: ReactNode", "{beforeStories}", "title={featuredTitle}"]);
+assert.ok(source.category.indexOf("{beforeStories}") < source.category.indexOf("{lead &&"), "Discovery content must precede featured story");
+includesAll("sports", ["showDestinations={false}", "What are you planning to follow or visit?", "/sports-venues/college-sports", "/sports-venues/motorsports", "/sports/softball", "beforeStories={sportFirstNavigation}", 'featuredTitle="Featured from the sports desk"']);
 includesAll("football", ["Curated matchups & documented scores (not a live statewide scoreboard)", "Don't mistake a curated matchup archive", "https://www.uiltexas.org/football/playoff-brackets"]);
 includesAll("hunt", ["Four checks before you treat an area as available", "Match legal game and dates", "Confirm the exact boundaries"]);
-includesAll("tailgate", ["A comparison that changes your packing list", "AT&amp;T Stadium · Arlington", "Houston Texans · NRG Stadium", "USDA FSIS", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
+includesAll("tailgate", ["A comparison that changes your packing list", "AT&amp;T Stadium · Arlington", "Houston Texans · NRG Stadium", "FoodSafety.gov", "https://www.foodsafety.gov/blog/game-day-food-safety-tips", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
 includesAll("tailgateHead", ['dateModified: "2026-11-11"']);
 console.log("PASS five-hub focused authority content, source and topical-scope guards");
 
@@ -57,6 +61,20 @@ if (process.argv.includes("--production")) {
       assert.ok(html.length > 800, `${path} unexpectedly empty`);
       assert.ok(html.includes('rel="canonical"') || html.includes('rel=\"canonical\"'), `${path} missing canonical`);
       for (const needle of needles) assert.ok(html.includes(needle), `${path} missing deployed marker ${needle}`);
+      if (path === "/sports") {
+        const discoveryAt = html.indexOf("What are you planning to follow or visit?");
+        const featuredAt = html.indexOf("Featured from the sports desk");
+        assert.ok(discoveryAt >= 0 && featuredAt > discoveryAt, "Sport-first navigation must precede the featured editorial feed in live HTML");
+        assert.ok(!html.includes("This month’s selection"), "Sports cannot present old articles as this month's selection");
+      }
+      if (path === "/dogs") {
+        assert.ok(/<ol[^>]*style=["'][^"']*list-style-type:\s*decimal/i.test(html), "Dog outing checklist must render visible semantic decimal numbering");
+        assert.ok(!html.includes("<strong>1. Heat and pavement."), "Dog outing checklist must not duplicate list numbering");
+      }
+      if (path === "/texas-tailgating-guide") {
+        assert.ok(html.includes("https://www.foodsafety.gov/blog/game-day-food-safety-tips"), "Tailgating must link to current official game-day food safety");
+        assert.ok(!html.includes("https://ask.fsis.usda.gov/article/What-is-the-Danger-Zone"), "Tailgating must not retain an intermittently inaccessible source URL");
+      }
       assert.ok(!/<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html), `${path} is noindex`);
       console.log("LIVE PASS " + path);
     } catch (error) {
