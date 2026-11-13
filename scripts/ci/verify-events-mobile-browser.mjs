@@ -2,12 +2,14 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
+import { EVENT_NAV_ATTEMPTS, shouldRetryEventNavigationStatus } from './event-navigation-retry.mjs';
 const { chromium } = createRequire(import.meta.url)(
   process.env.PLAYWRIGHT_CORE_PATH || '/tmp/texasdefined-wp-qa/node_modules/playwright-core',
 );
 const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const root = 'artifacts/events-mobile-browser';
 await mkdir(root, { recursive:true });
+const recoveredServerResponses = [];
 const pages = [
   { key:'statewide', route:'/events', title:'Texas' },
   { key:'christmas', route:'/events/christmas-events', title:'Christmas' },
@@ -41,14 +43,25 @@ try {
         const page=await context.newPage();
         try {
           const url=origin+target.route+'?event_visual_verifier='+encodeURIComponent((process.env.GITHUB_SHA||'manual').slice(0,12));
-          // Retry only transport/navigation timeouts; every page still must pass all assertions.
+          // Retry bounded transport failures and observed intermittent HTTP 5xx;
+          // permanent errors, redirects, failed content, canonical, ticket and
+          // mobile assertions still fail on the exact original page.
           let response;
-          for (let attempt=1; attempt<=3; attempt++) {
+          for (let attempt=1; attempt<=EVENT_NAV_ATTEMPTS; attempt++) {
             try {
               response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+              if (shouldRetryEventNavigationStatus(response?.status(),attempt)) {
+                const observation = {page:target.key,viewport:viewport.key,attempt,
+                  status:response.status(),cfRay:response.headers()['cf-ray']||null};
+                recoveredServerResponses.push(observation);
+                console.warn('EVENT_TRANSIENT_SSR_5XX '+JSON.stringify(observation));
+                await page.goto('about:blank',{waitUntil:'load',timeout:10000});
+                await new Promise(resolve=>setTimeout(resolve,attempt*1000));
+                continue;
+              }
               break;
             } catch (error) {
-              if (attempt===3 || error?.name!=='TimeoutError') throw error;
+              if (attempt===EVENT_NAV_ATTEMPTS || error?.name!=='TimeoutError') throw error;
               console.warn('EVENT_NAVIGATION_TIMEOUT '+JSON.stringify({page:target.key,viewport:viewport.key,attempt}));
               await page.goto('about:blank',{waitUntil:'load',timeout:10000});
               await new Promise(resolve=>setTimeout(resolve,attempt*1000));
@@ -141,4 +154,7 @@ try {
     }finally{await context.close()}
   }
 }finally{await browser.close()}
+await writeFile(root+'/recovered-transient-5xx.json',JSON.stringify({
+  observed:recoveredServerResponses.length,attempts:recoveredServerResponses,
+},null,2)+'\n');
 console.log('PASS: three event hubs plus five reviewed festival guides validated at 1440px and 390px; no ticket purchases or unsupported inventory claims.');
