@@ -20,5 +20,6 @@ assert.ok(wf.includes('"fort-bend-kempner"') && wf.includes('"fabens"'));
 assert.ok(script.includes('assert.equal(report.schoolChecks.length,75'));
 assert.ok(script.includes('assert.equal(report.countyChecks.length,25'));
 assert.ok(script.includes("assert.equal(report.screenshots.length,75"));
+assert.ok(wf.includes('Batch018 not fully IMPLEMENTED; no Chrome evidence produced'), 'Partial cohorts must skip without claiming acceptance');
 assert.ok(!wf.includes('continue-on-error: true'));
 console.log('PASS Batch018 protected signed-source Chrome workflow contract; no production execution or graduation claimed');
