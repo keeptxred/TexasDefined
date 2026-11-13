@@ -161,7 +161,9 @@ requireText(turkeyUpdateWorkflow, 'cron:', 'scheduled TPWD season refresh missin
 requireText(turkeyFinishWorkflow, 'dispatch-validate-branch.sh', 'protected TPWD PR finisher missing');
 requireText(turkeyFinishWorkflow, '--check-only --strict-check-only', 'protected TPWD finisher must fail closed if source transport fails');
 requireText(turkeyDateTests, 'protected finisher fails closed when TPWD is unavailable', 'strict TPWD merge safety test missing');
-requireText(deer, 'reviewedOn: "2026-10-28"', 'deer-specific review metadata missing');
+if (!/reviewedOn:\\s*"20\\d{2}-\\d{2}-\\d{2}"/.test(deer)) throw new Error("Hunting authority validation failed: deer-specific review metadata missing");
+requireText(deer, "New World screwworm", "new wildlife health advisory missing");
+requireText(huntingHub, "DeerRegionPlanningMatrix", "distinctive deer region planning comparison missing");
 requireText(deer, 'deerSeasonRange(', 'deer guide does not use centralized TPWD dates');
 requireText(deerSeasonDates, '"generalNorth"', 'deer date dataset must include North Zone');
 requireText(deerSeasonSync, 'parseDeerPage', 'official deer date synchronizer missing');
