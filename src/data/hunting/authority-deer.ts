@@ -3,7 +3,7 @@ import { deerSeasonRange, deerSeasonStart, deerSeasonYear, texasDeerSeason } fro
 
 /**
  * Texas white-tailed deer authority guide with TPWD-synced season dates.
- * Human-reviewed against TPWD Outdoor Annual on 2026-10-28.
+ * Editorial review of TPWD primary rules and screwworm advisories updated 2026-11-13.
  *
  * Annual season dates, official calendar and structured legal facts are synchronized
  * only after dual-source TPWD verification, protected CI and production deployment.
@@ -13,9 +13,9 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   slug: "texas-deer-hunting",
   eyebrow: `${deerSeasonYear} Texas white-tailed deer guide`,
   title: "Texas White-Tailed Deer Hunting Guide",
-  description: `${deerSeasonYear} Texas deer season dates, county limits, antler rules, licenses, tagging, CWD precautions, public hunts and region-by-region planning, with links to TPWD.`,
-  reviewedOn: "2026-10-28",
-  reviewedLabel: "October 28, 2026",
+  description: `${deerSeasonYear} Texas deer season dates, county limits, antler rules, licenses, tagging, CWD and screwworm precautions, public hunts and regional planning, with links to TPWD.`,
+  reviewedOn: "2026-11-13",
+  reviewedLabel: "November 13, 2026",
   quickAnswer: `Texas\'s ${deerSeasonYear} white-tailed deer archery-only season runs ${deerSeasonRange("archery")}. General season runs ${deerSeasonRange("generalNorth")} in the North Zone and ${deerSeasonRange("generalSouth")} in the South Zone. Those are statewide zone frameworks, not permission to hunt every county or property: check the exact county\'s season, legal deer, bag and antler limits, access, and harvest requirements with TPWD before you go.`,
   about: [
     `${deerSeasonYear} Texas white-tailed deer season`,
@@ -29,7 +29,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: `${deerSeasonYear} Texas white-tailed deer season dates`,
       paragraphs: [
-        `For counties with an open season, archery-only season is ${deerSeasonRange("archery")}. General season is ${deerSeasonRange("generalNorth")} in the North Zone and ${deerSeasonRange("generalSouth")} in the South Zone. These are different from the mule-deer calendar.`,
+        "Use the season table above for the eight statewide white-tailed deer date ranges. It includes both general-season zones and archery-only dates. This table is a planning reference—not a license to hunt in every county, or a mule-deer calendar.",
         `The early youth-only season is ${deerSeasonRange("earlyYouth")}. The North Zone also has a late youth-only season ${deerSeasonRange("lateYouthNorth")}. Muzzleloader season is ${deerSeasonRange("muzzleloader")} only in designated counties. Special late season runs ${deerSeasonRange("specialNorth")} (North) and ${deerSeasonRange("specialSouth")} (South) where offered; TPWD currently restricts eligible harvest to ${texasDeerSeason.regulations.specialLateRestriction}; confirm the county.`,
         `TPWD lists white-tailed deer seasons in ${texasDeerSeason.regulations.openCountyCount} of Texas\'s 254 counties for ${deerSeasonYear}, but county exceptions, land-management permits and restrictions on methods or sex of deer matter. Use the official county selector rather than assuming a North/South date applies automatically. MLDP properties can have different authorized frameworks.`,
       ],
@@ -43,11 +43,12 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       heading: "Start with the county, not just the season zone",
       paragraphs: [
         "The North/South zone tells you which general-season framework may apply; it does not tell you whether you may take a buck or antlerless deer on a particular date. Locate the property on a map, establish the county, and read TPWD's county-specific white-tailed deer rules for the type of hunt planned.",
-        "Check whether the county has an open archery, general, muzzleloader, youth-only or special-late season; whether antlerless harvest is restricted to specified days; whether antler restrictions apply; and whether the location is subject to special harvest reporting or CWD rules. Some boundary descriptions use highways or portions of counties, not simply county names.",
+        "Check whether the county has an open season for your method, whether antlerless harvest is limited to specific days, and whether antler, reporting or CWD restrictions apply. TPWD expanded antlerless doe days to November 14–29, 2026 in 21 designated counties or portions of counties; it is not a statewide antlerless season. Boundary descriptions sometimes use highways, so the property location matters.",
         "Private-property permission, hunting leases, Wildlife Management Area (WMA) hunt notices and other public-land permits are separate from the statewide season. A legal season does not itself authorize entry or hunting on a property.",
       ],
       links: [
         { label: "TPWD white-tailed deer county regulations", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true },
+        { label: "TPWD 2026–27 hunting rule changes, including antlerless deer dates", href: "https://tpwd.texas.gov/newsmedia/releases/?req=20260904a", external: true },
         { label: "Browse Texas counties", href: "/browse/counties" },
         { label: "Texas public hunting access", href: "/hunting/public-hunting" },
       ],
@@ -110,11 +111,13 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       paragraphs: [
         "Chronic wasting disease (CWD) is a fatal neurological disease affecting deer and certain other cervids. TPWD uses containment, surveillance and other designated zones where harvest testing, carcass movement and disposal restrictions may apply. Zone boundaries and check-station details can change, so consult the current map for the exact property.",
         "TPWD may require timely testing, designated check-station submission, and specific specimen handling in CWD zones. Testing windows and requirements vary by zone and season; consult the current TPWD CWD zone instructions before field dressing or transporting a deer.",
-        "Avoid moving high-risk carcass parts contrary to TPWD requirements, and use available voluntary testing outside mandatory zones when appropriate. Report visibly sick animals to TPWD rather than assuming symptoms are harmless.",
+        "Avoid moving high-risk carcass parts contrary to TPWD requirements, and consider voluntary testing outside mandatory zones. Report visibly sick animals to TPWD.",
+        "New World screwworm is a separate 2026 wildlife-health concern, not a form of CWD. TPWD advises hunters to inspect harvested animals for suspicious wounds or live larvae and promptly report suspected infestation in living native wildlife to a local TPWD biologist or (512) 389-4505. Do not transport or dispose of a potentially infested carcass without consulting current TPWD guidance; check the official, changing NWS zone map before a trip. Avoid handling suspicious larvae without appropriate precautions.",
       ],
       links: [
         { label: "TPWD CWD regulations, zones and check stations", href: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/after-killing-a-deer/", external: true },
         { label: "TPWD white-tailed deer CWD information", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true },
+        { label: "TPWD New World screwworm hunter and landowner guidance", href: "https://tpwd.texas.gov/huntwild/wild/diseases/screwworm/", external: true },
       ],
     },
     {
@@ -162,7 +165,7 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
       paragraphs: [
         "Before departure: identify the property and county; verify its exact TPWD season and legal deer; confirm your current license, archery endorsement if applicable, hunter-education compliance and property access; check whether county reporting, MLDP or CWD requirements apply.",
         "For the trip: plan legal and safe access routes; check weather, wind and daylight; carry communication, water, navigation and first aid supplies; confirm firearms and archery safety practices, blaze-orange requirements where applicable, and emergency contact arrangements. Do not trespass to retrieve an animal—arrange legal access.",
-        "After harvest: confirm species, sex and antler legality; complete the correct paper or digital tag before movement or field dressing; fill in the white-tailed deer harvest log where required; complete county reporting; follow CWD check-station and carcass movement rules; preserve proof of sex during transport.",
+        "After harvest: confirm species, sex and antler legality; complete the correct paper or digital tag before movement or field dressing; fill in the required harvest log and county reporting; follow CWD check-station and carcass rules; inspect for possible screwworm larvae and consult TPWD if infestation is suspected; preserve proof of sex during transport.",
       ],
       links: [
         { label: "TPWD deer regulations and county exceptions", href: "https://tpwd.texas.gov/regulations/outdoor-annual/regs/animals/white-tailed-deer", external: true },
