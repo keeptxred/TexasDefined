@@ -249,6 +249,10 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/destination/ray-roberts-lake-isle-du-bois-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
+  { path: '/state-park/ray-roberts-lake-isle-du-bois-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
+  { path: '/destination/ray-roberts-lake-johnson-branch-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
+  { path: '/state-park/ray-roberts-lake-johnson-branch-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
   { path: '/news/davy-crockett-texas-alamo-legend?source=gsc', expectedStatus: 301, expectedPath: '/article/davy-crockett-texas-alamo-legend', expectedQuery: ['source','gsc'], label: 'published Crockett historical GSC news alias' },
   { path: '/news/san-antonio-stock-show-rodeo-history-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/san-antonio-stock-show-rodeo-history-guide', expectedQuery: ['source','gsc'], label: 'published San Antonio Stock Show historical GSC alias' },
   { path: '/news/stephen-f-austin-father-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/article/stephen-f-austin-father-of-texas', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
