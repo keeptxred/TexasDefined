@@ -19,9 +19,9 @@ check(keys.length === new Set(keys).size, "Duplicate official designation entrie
 for (const token of ["Aviation and Defense Capital of Texas|Fort Worth|H.C.R. 142|2025", "Banana Pudding Capital of Texas|Slaton|H.C.R. 135|2025", "Ice Cream Capital of Texas|Brenham|H.C.R. 80|2025"]) {
   check(rows.includes(token), `Missing official designation: ${token}`);
 }
-check(capitals.includes("year < 2001") && capitals.includes("date-review-needed"), "Place-designation statuses must preserve the pre-September 2001 exception and uncertain 2001 approvals.");
+check(capitals.includes("year <= 2001") && capitals.includes("77th Regular Session"), "Place-designation statuses must document the pre-September 2001 exemption and 77th Regular Session evidence.");
 const capitalRoute = read("src/routes/texas-capital-designations.tsx");
-for (const token of ["OFFICIAL_CAPITALS.length", "TSLAC_CAPITAL_SOURCE", "CAPITAL_STATUS_LABELS", "H.R. 24", "aria-labelledby=\"full-capital-register\""]) check(capitalRoute.includes(token), `Capital register missing UI/content token: ${token}`);
+for (const token of ["OFFICIAL_CAPITALS.length", "TSLAC_CAPITAL_SOURCE", "CAPITAL_STATUS_LABELS", "H.C.R. 24", "aria-labelledby=\"full-capital-register\""]) check(capitalRoute.includes(token), `Capital register missing UI/content token: ${token}`);
 check(!capitalRoute.includes('resolution: "H.C.R. 24"'), "San Angelo's official citation must not use incorrect H.C.R. 24.");
 
 const iconCatalog = read("src/data/things-unique-to-texas.ts");
