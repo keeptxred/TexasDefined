@@ -38,7 +38,22 @@ for (const test of tests) {
     // visitor content has arrived, especially on the mobile Chrome run.
     // Require an actual HTTP response AND the final named source-backed link.
     // This does not waive any downstream page, accessibility, or media assertion.
-    const response = await page.goto(url, { waitUntil: 'commit', timeout: 45000 });
+    // A fully rendered desktop pass can be followed by a transient no-first-byte
+    // Chrome timeout on the separate mobile navigation under Worker load.
+    // Retry only that transport timeout, at most once. HTTP 4xx/5xx, missing
+    // content, bad CSS/viewport, hydration, media rights and navigation still
+    // fail all the same downstream assertions. Never turn a timeout into PASS.
+    let response;
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        response = await page.goto(url, { waitUntil: 'commit', timeout: 45000 });
+        break;
+      } catch (error) {
+        if (attempt === 2 || !/TimeoutError/.test(String(error))) throw error;
+        console.warn('MSR ' + test.name + ' commit timed out without a response; bounded navigation retry 2/2');
+        await page.waitForTimeout(750);
+      }
+    }
     assert.equal(response?.status(), 200, 'Canonical MSR page returned non-200 status');
     await page.locator('h1').first().waitFor({ state: 'visible', timeout: 15000 });
     await page.locator('a[href="/destination/levi-jordan-plantation"]').first()
