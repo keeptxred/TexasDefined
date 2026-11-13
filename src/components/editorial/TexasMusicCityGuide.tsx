@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
+import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 import { musicCitiesComparison, musicHistoryMilestones, musicSourceReviewedAt } from "@/data/texas-music-history-evidence";
 
@@ -66,7 +67,7 @@ export function TexasMusicCityGuide({ guide }: { guide: TexasEvergreenGuide }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Article", "@id": `${canonicalUrl}#article`, headline: guide.title, description: guide.dek, url: canonicalUrl, mainEntityOfPage: { "@id": `${canonicalUrl}#page` }, publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl }, author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/editorial-policy` }, dateModified: musicSourceReviewedAt, isAccessibleForFree: true, articleSection: "Texas Music", citation: sources.map((source) => source.href), isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` }, about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading })) },
+      { "@type": "Article", "@id": `${canonicalUrl}#article`, headline: guide.title, description: guide.dek, url: canonicalUrl, mainEntityOfPage: { "@id": `${canonicalUrl}#page` }, publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl }, author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/editorial-policy` }, dateModified: musicSourceReviewedAt, isAccessibleForFree: true, articleSection: "Texas Music", citation: [...sources.map((source) => source.href), ...(musicResearchDossiers[guide.slug]?.findings.map((finding) => finding.href) ?? [])], isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` }, about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading })) },
       { "@type": "WebPage", "@id": `${canonicalUrl}#page`, url: canonicalUrl, name: guide.title, description: guide.dek, isPartOf: { "@type": "WebSite", "@id": `${siteUrl}/#website`, name: "TexasDefined", url: siteUrl }, breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` }, mainEntity: { "@id": `${canonicalUrl}#article` } },
       { "@type": "BreadcrumbList", "@id": `${canonicalUrl}#breadcrumb`, itemListElement: breadcrumbs },
     ],
