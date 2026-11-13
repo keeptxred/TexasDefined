@@ -1,5 +1,5 @@
 import type { HuntingAuthorityTopic } from "./authority";
-import { deerSeasonRange, deerSeasonStart, deerSeasonYear, texasDeerSeason } from "./deer-season-format";
+import { deerSeasonRange, deerSeasonYear, texasDeerSeason } from "./deer-season-format";
 
 /**
  * Texas white-tailed deer authority guide with TPWD-synced season dates.
@@ -123,10 +123,9 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
     {
       heading: "Where to hunt: Texas deer habitat by region",
       paragraphs: [
-        "Hill Country and Edwards Plateau: oak-juniper hills, creek bottoms and agricultural edges support many white-tailed deer, but density varies with rainfall, forage and local management. Glassing openings and evaluating browse, acorn availability, water and travel corridors are more helpful than assuming all Hill Country ranches hunt alike.",
-        "South Texas brush country: thornscrub, mesquite flats, senderos and riparian corridors create a different landscape from wooded Central Texas. Deer movement depends on cover, forage, pressure and weather. Some ranches use intensive herd management, but private ranch access and MLDP rules must be checked independently.",
-        "East Texas Pineywoods and Post Oak Savannah: timber, hardwood bottoms, cutovers and food-source edges are central. Visibility is often shorter, so safe shot selection and identifying backstops matter. Cross Timbers and North Texas add patchworks of oak woodland, pasture and cropland with a mix of cover and open areas.",
-        "West Texas: white-tailed deer are present in portions of western Texas, but do not confuse their hunt rules or habitat with mule deer, especially in Trans-Pecos and Panhandle country. Property-scale conditions, altitude and species identification matter.",
+        "The regional comparison above identifies useful differences between Texas landscapes, but a region name cannot tell you how deer use a specific property. During a scouting visit, locate legal entry points, likely food sources, water, cover and travel corridors without crossing a boundary you do not have permission to enter.",
+        "For a dry fall, prioritize recent signs near dependable water and forage rather than last year's trail patterns; after heavy rain, use fresh tracks and browse to reassess. In timber, look at safe visibility and backstops. In open country, plan distance, wind and approach routes without treating a long sightline as permission to shoot.",
+        "Before deciding on a region, check the current county-specific legal deer, access type and whether the area's public-hunting dates actually overlap the trip. Neither this editorial comparison nor an observed deer track proves a property is open to hunting.",
       ],
       links: [
         { label: "Texas white-tailed deer species profile", href: "/wildlife-species/white-tailed-deer" },
@@ -184,12 +183,12 @@ export const TEXAS_DEER_AUTHORITY_TOPIC: HuntingAuthorityTopic = {
   ],
   faq: [
     {
-      question: `When does Texas deer season start in ${texasDeerSeason.startYear}?`,
-      answer: `White-tailed deer archery-only season begins ${deerSeasonStart("archery")} in counties with an open season. The general North and South Zone dates are ${deerSeasonRange("generalNorth")} and ${deerSeasonRange("generalSouth")}, respectively. County exceptions and property-specific rules still apply.`,
+      question: "Can I take an antlerless deer throughout general deer season?",
+      answer: "Not automatically. Antlerless harvest dates, legal methods, tags and limits are county-specific. TPWD expanded 2026 doe days to November 14–29 for 21 designated counties or county portions, but that is not a statewide permission. Check the exact property and county listing.",
     },
     {
-      question: `When does the ${deerSeasonYear} general deer season end?`,
-      answer: `The standard North Zone general season runs ${deerSeasonRange("generalNorth")}; the South Zone general season runs ${deerSeasonRange("generalSouth")}. Some counties offer late or muzzleloader seasons under different restrictions.`,
+      question: "What if my deer-hunting property crosses a county line?",
+      answer: "Locate where you intend to hunt, check the applicable county or county-portion TPWD regulations for each location, and confirm boundaries and permission with the property owner. Highway-based exceptions and nearby CWD zones can matter. Ask TPWD if a boundary is unclear.",
     },
     {
       question: "How many bucks can I shoot in Texas?",
