@@ -67,7 +67,7 @@ for (const marker of [
   "'jones-att-stadium': {",
   'Texas Tech Red Raiders football',
   'Big 12 Conference',
-  'Galaxy Stadium name for the 2026 season',
+  '2026 Galaxy Stadium naming agreement',
   "url: 'https://texastech.com/facilities/galaxy-stadium/2'",
   'parking:',
   'arrival:',

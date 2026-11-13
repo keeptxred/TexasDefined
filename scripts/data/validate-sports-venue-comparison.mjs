@@ -76,7 +76,6 @@ for (const forbidden of [
 ]) assert(!route.includes(forbidden), `Sports venue comparison route must use the shared comparison module rather than heavy or duplicated dependency: ${forbidden}.`);
 
 for (const marker of [
-  'CURATED_KNOWLEDGE_GRAPH_SEED',
   'SPORTS_VENUE_COMPARISON_INVENTORY',
   'getSportsVenueEnrichmentAll(venue.slug)',
   'getSportsVenueGuideGalaxy(venue.slug)',
