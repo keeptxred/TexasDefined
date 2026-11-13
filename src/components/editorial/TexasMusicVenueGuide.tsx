@@ -186,7 +186,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
         </header>
 
         {photograph ? <figure className="border-b border-border py-8">
-          <img src={photograph.src} alt={photograph.alt} width={1200} height={800} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="w-full max-w-4xl h-auto rounded-sm" />
+          <img src={photograph.src} alt={photograph.alt} width={photograph.width} height={photograph.height} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="w-full max-w-4xl h-auto rounded-sm" />
           <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
             {photograph.caption} Photo: <a href={photograph.sourcePage} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{photograph.credit}</a>, <a href={photograph.licenseUrl} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{photograph.license}</a> via Wikimedia Commons; displayed without image editing.
           </figcaption>
