@@ -31,6 +31,8 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/article/scenic-drives-in-texas', requiredText: 'Texas 16 — Bandera, Medina and Kerrville', label: 'Real scenic-drive article adds specific Texas Highway 16 route rather than generic redirect hub' },
+  { path: '/article/scenic-drives-in-texas', requiredText: 'https://www.dot.state.tx.us/tpp/hwy/SH/SH0016.htm', label: 'Texas Highway 16 scenic-drive research displays primary TxDOT SH16 designation reference' },
   // Search Console's /texas-icons/shaquille-oneal was HTTP 404 because the
   // research record used a different slug from the actual owner roster.
   { path: '/texas-icons/shaquille-oneal', requiredText: '1989 Class 3A', label: 'Shaquille icon now publishes exact Cole championship and not a 404' },
