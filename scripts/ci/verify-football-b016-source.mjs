@@ -17,7 +17,7 @@ const graduated=certifiedBatch016(registry);
 for(const slug of expected)assert.equal(records.get(slug)?.status,graduated?'VERIFIED':'NOT_REVIEWED',slug+' must not be prematurely certified');
 const verifiedCount=registry.schoolRecords.filter(x=>x.status==='VERIFIED').length;
 const expectedVerified=certifiedBatch017(registry)?405:(graduated?380:355);
-assert.equal(verifiedCount,expectedVerified,'Historical signed Batch016/017 graduations must be preserved');
+assert.equal(verifiedCount,expectedVerified,'Historical certified batches must remain VERIFIED; Batch017 requires signed 75/25 Chrome evidence');
 const files=[
 ['program-editorial-b016-early.ts',['early']],
 ['program-editorial-b016-earth.ts',['earth-springlake']],
@@ -54,4 +54,4 @@ for(const name of ['program-editorial-b016-group1.ts','program-editorial-b016-gr
   for(const m of g.milestones)assert.ok(m.sourceUrl?.startsWith('https://'),slug+' missing milestone source');
  }
 }
-console.log('PASS: Batch016 25 distinct source-authored SSR guides; historical VERIFIED preserved; later signed cohorts allowed; no premature Batch016 certification. This is NOT production/Chrome certification.');
+console.log('PASS: Batch016 25 distinct source-authored SSR guides; historical signed Batch016/017 VERIFIED preserved; no premature certification. This is NOT production/Chrome certification.');
