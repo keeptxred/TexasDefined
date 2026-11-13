@@ -856,3 +856,81 @@ test('Nov9 real crawler-missing module families permit only safe original SHA-ba
     'https://bad.example/assets/DepartmentHero-DzKzXHIb.js',
   ]) assert.equal(safeCriticalAsset(path),false,path);
 });
+
+test('bounded parallel old-byte downloads retain ordered exact SHA proofs and never bypass invalid originals', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-bounded-retention-'));
+  try {
+    const snapshotPath = join(temp, 'snapshot.json');
+    const reportPath = join(temp, 'report.json');
+    const folder = join(temp, 'assets');
+    const now = Date.parse('2026-11-13T17:00:00.000Z');
+    const at = new Date(now - 1000).toISOString();
+    const fileCount = 24;
+    const original = i => 'export const persistedOriginal' + i + ' = true;';
+    const assets = Array.from({ length: fileCount }, (_, i) => ({
+      path: '/assets/ArticleCard-Concurrent' + String(i).padStart(3, '0') + '.js',
+      wasAvailable: true, preSha256: createHash('sha256').update(original(i)).digest('hex'),
+      firstSeenAt: at,
+    }));
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      capturedAt: at, pages: [{ assets }],
+    }] }));
+    let active = 0, peak = 0;
+    const requested = [];
+    const report = await retain({
+      snapshotPath, reportPath, assetFolder: folder, now, historicalProof: [],
+      fetchImpl: async url => {
+        const i = Number(url.match(/Concurrent(\d{3})\.js$/)?.[1]);
+        assert.ok(Number.isInteger(i), 'No unrelated asset URL was requested');
+        active++;
+        peak = Math.max(peak, active);
+        requested.push(i);
+        await new Promise(resolve => setTimeout(resolve, (i % 5 + 1) * 4));
+        active--;
+        return new Response(original(i), {
+          status: 200, headers: { 'Content-Type': 'application/javascript' },
+        });
+      },
+    });
+    assert.equal(requested.length, fileCount);
+    assert.ok(peak > 1 && peak <= 8, 'bounded parallel requests are required: ' + peak);
+    assert.equal(report.retainedCount, fileCount);
+    assert.equal(report.unavailable.length, 0);
+    assert.equal(report.ignoredOld, 0);
+    assert.deepEqual(report.copied.map(entry => entry.path), assets.map(a => a.path),
+      'out-of-order responses must not change persisted original ledger order');
+    for (let i = 0; i < fileCount; i++) {
+      assert.equal(readFileSync(join(folder, 'ArticleCard-Concurrent' + String(i).padStart(3, '0') + '.js'), 'utf8'), original(i));
+      assert.equal(report.copied[i].preSha256, assets[i].preSha256);
+    }
+  } finally { rmSync(temp, { recursive: true, force: true }); }
+});
+
+test('bounded prefetch never materializes a wrong-SHA old file or turns it into successful retention', async () => {
+  const temp = mkdtempSync(join(tmpdir(), 'td-bounded-retention-badsha-'));
+  try {
+    const at = new Date().toISOString();
+    const snapshotPath = join(temp, 'snapshot.json');
+    const folder = join(temp, 'assets');
+    const files = [0, 1, 2].map(i => ({
+      path: '/assets/ArticleCard-Exact' + i + '.js', wasAvailable: true,
+      preSha256: createHash('sha256').update('original ' + i).digest('hex'),
+      firstSeenAt: at,
+    }));
+    writeFileSync(snapshotPath, JSON.stringify({ snapshots: [{
+      capturedAt: at, pages: [{ assets: files }],
+    }] }));
+    await assert.rejects(() => retain({
+      historicalProof: [], snapshotPath,
+      assetFolder: folder, reportPath: join(temp, 'report.json'),
+      fetchImpl: async url => {
+        const i = Number(url.match(/Exact(\d+)\.js$/)?.[1]);
+        return new Response(i === 1 ? 'tampered bytes' : 'original ' + i, {
+          status: 200, headers: { 'Content-Type': 'application/javascript' },
+        });
+      },
+    }), /Old static asset changed under identical hashed filename/);
+    assert.equal(existsSync(join(folder, 'ArticleCard-Exact1.js')), false);
+    assert.equal(existsSync(join(folder, 'ArticleCard-Exact2.js')), false);
+  } finally { rmSync(temp, { recursive: true, force: true }); }
+});
