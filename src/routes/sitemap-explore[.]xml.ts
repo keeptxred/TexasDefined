@@ -189,6 +189,13 @@ async function auditedMagoffinSitemapEntry(): Promise<string | null> {
     return null;
   }
 }
+// This individually researched, canonical town guide is already present
+// in the checked-in Sept 19, 2026 reviewed destination authority catalog.
+// An outage of the large remote Explore registry must not silently erase it
+// from the fallback sitemap. This single allowed canonical is never a
+// blanket exception for other unreviewed destination routes.
+const FREDERICKSBURG_EMERGENCY_CANONICAL = "/destination/fredericksburg";
+
 async function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
@@ -225,7 +232,10 @@ async function emergencyExploreSitemapResponse(error: unknown) {
   ];
   const entries = dedupeUrlEntries([
     ...[...new Set(fallbackPaths)].map((path) => entry(path)),
-    await auditedFredericksburgSitemapEntry(),
+    await auditedFredericksburgSitemapEntry()
+      ?? (isIndexablePublicPath(FREDERICKSBURG_EMERGENCY_CANONICAL)
+        ? entry(FREDERICKSBURG_EMERGENCY_CANONICAL)
+        : null),
     await auditedMagoffinSitemapEntry(),
   ].filter((item): item is string => Boolean(item))).join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
