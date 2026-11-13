@@ -39,6 +39,21 @@ const city = (
 });
 
 const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
+  'del-rio': {
+    ...city(
+      'Del Rio is Val Verde County\'s seat and an international gateway on the Rio Grande opposite Ciudad Acuña, Mexico. The city combines an older San Felipe Springs and historic downtown community with the Del Rio International Bridge, Laughlin Air Force Base, and access to Amistad National Recreation Area. Amistad is a separate federal recreation area west of town, not a municipal lake with uniformly available launches. Its boat ramps and shoreline facilities can close as water levels change. The Del Rio urban core, border crossing, school attendance zones, city transit network, county taxes and the NPS recreation facilities each have different responsible operators; readers must verify their exact address or planned entrance before relying on an outdated citywide claim.',
+      'https://www.cityofdelrio.com/community/visiting',
+      'big-bend',
+      undefined,
+      ['border-city', 'val-verde', 'amistad', 'rio-grande', 'san-felipe-springs', 'laughlin-air-force-base', 'mexico-crossing', 'lower-pecos'],
+      [
+        { type: 'jurisdiction-overlap', targetId: 'county:val-verde' },
+        { type: 'regional-destination', targetId: 'national-park:amistad-national-recreation-area' },
+      ],
+    ),
+    sourceCheckedAt: '2026-11-13',
+    coordinates: { latitude: 29.3709, longitude: -100.8959 },
+  },
   houston: city(
     'Houston is a Gulf Coast metropolis shaped by bayous, the Houston Ship Channel, energy, medicine, aerospace, international trade and one of the country’s most diverse food and cultural landscapes. Downtown, the Museum District, the Texas Medical Center, neighborhoods inside the Loop and far-reaching suburban corridors make Houston a collection of distinct activity centers rather than a single compact core; local taxes, schools, flood exposure, utilities and services still depend on the exact address.',
     'https://www.houstontx.gov/', 'gulf-coast', 'metro-area:greater-houston', ['major-city', 'metro-core', 'airports', 'energy', 'port-logistics', 'aerospace'],
