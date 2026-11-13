@@ -211,6 +211,12 @@ export function qualifyPriorDeployJob(payload) {
       exactRun: repairedRelease.runId, requiredSourceSha: repairedRelease.sourceSha,
       requiredWorkerVersion: repairedRelease.workerVersion };
   }
+  // This exact failed publish is KNOWN to have two independent failed checks.
+  // A forged one-failure transcript would otherwise fall through to the
+  // historical generic MSR-only exception below. Reject it explicitly.
+  if (job.run_id === repairedRelease.runId || job.id === repairedRelease.jobId) {
+    throw Error('Failed deploy job includes unapproved or missing failure evidence for exact Nov13 MSR/District21 published Worker: ' + failures.join(', '));
+  }
   const turkeyTimeout = NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT;
   if (job.run_id === turkeyTimeout.runId && job.id === turkeyTimeout.jobId &&
       failures.length === 1 && failures[0] === turkeyTimeout.failedStep) {
