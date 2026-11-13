@@ -21,7 +21,7 @@ preflight('registry and source boundary',()=>{
  assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,405,'preserve 405 historically certified schools before Batch018 graduation');
  for(const slug of report.schoolSlugs)assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'IMPLEMENTED','no source-only production graduation: '+slug);
  const authored=readFileSync('src/data/high-school-football/football-program-profile.server.ts','utf8');
- for(const method of ['getBatch018FirstFiveEditorial','getBatch018SecondFiveEditorial','getBatch018ThirdFiveEditorial','getBatch018FourthFiveEditorial','getBatch018FifthFiveEditorial'])assert.ok(authored.includes(method+'(canonicalSlug)'),'missing authored SSR loader '+method);
+ for(const method of ['getBatch018FirstFabensEditorial','getBatch018FairfieldEditorial','getBatch018FalfurriasEditorial','getBatch018FallsCityEditorial','getBatch018FarmersvilleEditorial','getBatch018SecondFiveEditorial','getBatch018ThirdFiveEditorial','getBatch018FourthFiveEditorial','getBatch018FifthFiveEditorial'])assert.ok(authored.includes(method+'(canonicalSlug)'),'missing authored SSR loader '+method);
 });
 preflight('release identity',()=>{
  assert.match(source,/^[a-f0-9]{40}$/);
