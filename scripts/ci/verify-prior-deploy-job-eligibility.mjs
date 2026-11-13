@@ -72,6 +72,26 @@ const KNOWN_PUBLISHED_SPORTS_DIRECTORY_ASSERTION = Object.freeze({
 // This exception qualifies ORIGINAL BYTES ONLY after the exact-sitemap
 // uniqueness repair (#7050) and diagnostic strict gate (#7049) are in source;
 // neither the failed full release nor its broken sitemap is certified.
+// Nov 12 exact Worker 632decb8: immutable run #43331358104/job #131576580894
+// deployed the Worker and proved 4,191 JS/CSS original SHA values HTTP 200 on
+// BOTH origins (8,382 requests; zero asset failures). Three LATER, independent
+// non-asset checks failed: a transient events route HTTP 500, a Fredericksburg
+// fallback sitemap omission and a lazy-rendered school-supply link assertion.
+// This narrow exception may reuse ONLY that proven old hashed-asset handoff.
+// It NEVER certifies the failed release, bypasses content checks, or accepts
+// any other run, Worker, source SHA, failure signature or missing health check.
+const EXACT_PUBLISHED_NOV12_POSTDEPLOY_REGRESSIONS = Object.freeze({
+  runId: 43331358104,
+  jobId: 131576580894,
+  sourceSha: 'ab4becf67b1e4bdd4d04f204f0f32beffccfa1ef',
+  workerVersion: '632decb8-3e25-43dd-a42f-73b236ea6336',
+  failedSteps: Object.freeze([
+    'Verify ticketing and Christmas pages at mobile and desktop widths',
+    'Verify base production surfaces',
+    'Verify changed CJ account tracking without affiliate clicks',
+  ]),
+});
+
 const KNOWN_PUBLISHED_FREDERICKSBURG_SITEMAP = Object.freeze({
   runId: 43314663760,
   jobId: 131519408864,
@@ -144,6 +164,25 @@ export function qualifyPriorDeployJob(payload) {
     }
     return { eligible: true, mode: 'exact-published-worker-sports-date-assertion-assets-only',
       criticalChecks: CRITICAL.length, permittedFailure: failures[0], exactRun: sportsIncident.runId };
+  }
+  const exactNov12 = EXACT_PUBLISHED_NOV12_POSTDEPLOY_REGRESSIONS;
+  if (job.run_id === exactNov12.runId && job.id === exactNov12.jobId
+      && (!job.head_sha || job.head_sha === exactNov12.sourceSha)
+      && failures.length === exactNov12.failedSteps.length
+      && exactNov12.failedSteps.every(name => failures.includes(name))) {
+    const events = readFileSync('scripts/ci/verify-events-mobile-browser.mjs','utf8');
+    const sitemap = readFileSync('src/routes/sitemap-explore[.]xml.ts','utf8');
+    const cj = readFileSync('scripts/ci/verify-cj-account-production.mjs','utf8');
+    if (!events.includes('RETRY_STATEWIDE_500')
+        || !sitemap.includes('FREDERICKSBURG_EMERGENCY_CANONICAL')
+        || !cj.includes('verifyClientOnlySchoolSupplyAnchor')) {
+      throw Error('Exact November 12 postdeploy failures must be corrected before reusing asset-only proof');
+    }
+    // The calling workflow separately validates immutable handoff bytes:
+    // exact 100%-traffic Worker 632decb8, exact ab4bec source,
+    // and 4,191 identical JS/CSS SHA-256 values on each public origin.
+    return {eligible:true,mode:'exact-nov12-postdeploy-regressions-ASSETS-ONLY',
+      criticalChecks:CRITICAL.length,permittedFailures:failures,exactRun:exactNov12.runId};
   }
   const sitemapIncident = KNOWN_PUBLISHED_FREDERICKSBURG_SITEMAP;
   if (job.run_id === sitemapIncident.runId &&
