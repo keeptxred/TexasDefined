@@ -50,6 +50,22 @@ LEGACY_EDITORIAL_REDIRECTS["/destination/indian-lodge-state-park-lodge"] = "/des
 // Seminole Canyon's 200 canonical remains editorially noindex today.
 LEGACY_EDITORIAL_REDIRECTS["/destination/seminole-canyon-state-park-historic-site"] = "/destination/seminole-canyon-state-park";
 
+// Historical GSC article aliases; preserve the original published authority page.
+LEGACY_EDITORIAL_REDIRECTS["/news/stephen-f-austin-father-of-texas"] = "/article/stephen-f-austin-father-of-texas";
+LEGACY_EDITORIAL_REDIRECTS["/news/juan-seguin-tejano-texas-revolution"] = "/article/juan-seguin-tejano-texas-revolution";
+LEGACY_EDITORIAL_REDIRECTS["/news/san-antonio-spurs-texas-basketball-culture"] = "/article/san-antonio-spurs-texas-basketball-culture";
+LEGACY_EDITORIAL_REDIRECTS["/news/texas-oil-boom-wichita-falls-west-texas-rigs"] = "/article/texas-oil-boom-wichita-falls-west-texas-rigs";
+LEGACY_EDITORIAL_REDIRECTS["/news/dr-pepper-waco-texas-history"] = "/dr-pepper-texas-history";
+LEGACY_EDITORIAL_REDIRECTS["/news/davy-crockett-texas-alamo-legend"] = "/article/davy-crockett-texas-alamo-legend";
+LEGACY_EDITORIAL_REDIRECTS["/news/san-antonio-stock-show-rodeo-history-guide"] = "/article/san-antonio-stock-show-rodeo-history-guide";
+// The published Ray Roberts State Park guide independently covers both units
+// and their separate actual addresses, campground facilities and access notes.
+LEGACY_EDITORIAL_REDIRECTS["/destination/ray-roberts-lake-isle-du-bois-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/ray-roberts-lake-isle-du-bois-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/destination/ray-roberts-lake-johnson-branch-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/ray-roberts-lake-johnson-branch-unit-state-park"] = "/destination/ray-roberts-lake-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/destination/fredericksburg-texas-wineries-things-to-do-guide"] = "/article/fredericksburg-texas-wineries-things-to-do-guide";
+
 const historicalArticleSlugs = [
   "audie-murphy-texas-war-hero-actor",
   "fort-worth-stockyards-history-cattle-culture",
