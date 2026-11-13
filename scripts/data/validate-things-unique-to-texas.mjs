@@ -98,7 +98,7 @@ if (!categoryRoute.includes('...(href ? { url: `${origin}${href}` } : {})')) fai
 if (!categoryRoute.includes('await import("@/data/things-unique-to-texas")') || /import\s*\{\s*getTexasIconCategory\s*\}\s*from/.test(categoryRoute)) {
   failures.push('Chapter loader must dynamically import the research catalog without bundling all reference records into the global client entry.');
 }
-for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-10-29"']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
+for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-11-13"']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
 if (!lazyRoute.includes('to="/things-unique-to-texas/methodology"')) failures.push('Every magazine chapter must visibly link the collection methodology.');
 
 if (!/createFileRoute\(["']\/things-unique-to-texas_?\/methodology["']\)/.test(methodologyRoute)) failures.push('Magazine methodology route must remain canonical.');
@@ -111,7 +111,7 @@ for (const download of ['/things-that-define-texas.csv', '/things-that-define-te
 if (!publicRoutes.includes('"/things-unique-to-texas/methodology"')) failures.push('Magazine methodology must remain governed as an indexable static path.');
 if (!rootLazy.includes('to="/things-unique-to-texas/methodology"')) failures.push('Magazine collection must visibly link its methodology.');
 if (!rootRoute.includes('isBasedOn: methodologyUrl')) failures.push('Magazine CollectionPage schema must identify the methodology as its basis.');
-if (!rootRoute.includes('dateModified: "2026-10-29"')) failures.push('Magazine collection schema must retain its current editorial modification date.');
+if (!rootRoute.includes('dateModified: "2026-11-13"')) failures.push('Magazine collection schema must retain its current editorial modification date.');
 if (!rootRoute.includes('Texas Defined Editorial Desk')) failures.push('Magazine collection schema must retain editorial authorship.');
 for (const token of ['"@type": "Dataset"', 'encodingFormat: "text/csv"', 'encodingFormat: "application/json"', 'contentUrl: csvUrl', 'contentUrl: jsonUrl']) if (!rootRoute.includes(token)) failures.push(`Magazine root schema must retain dataset distribution token: ${token}.`);
 
@@ -129,7 +129,7 @@ for (const token of ['schemaVersion: 1', 'count: TEXAS_ICON_REFERENCE_ROWS.lengt
 for (const token of ["'deeper_guide'", "'canonical_collection'", "'methodology'"]) if (!csvRoute.includes(token)) failures.push(`CSV distribution must retain column: ${token}.`);
 
 for (const path of ['/things-unique-to-texas', '/things-unique-to-texas/methodology']) if (!trustRouter.includes(`'${path}'`)) failures.push(`Collection trust router must cover ${path}.`);
-if (!trustRouter.includes('Editorial selection, methodology and deeper-link policy reviewed October 29, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
+if (!trustRouter.includes('Editorial selection, methodology and deeper-link policy reviewed November 13, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
 
 for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"', 'publisher:', 'articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas"', 'citation: sources.length', 'Sources', 'Where the historical claims come from']) if (!evergreenComponent.includes(token)) failures.push(`Shared evergreen guide schema/source layer must retain token: ${token}.`);
 for (const sourceUrl of ['https://www.tshaonline.org/handbook/entries/san-antonio-tx','https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company','https://www.tshaonline.org/handbook/entries/chicken-fried-steak','https://drpeppermuseum.com/history/']) if (!evergreenComponent.includes(sourceUrl)) failures.push(`Evergreen source notes missing authoritative source ${sourceUrl}.`);
