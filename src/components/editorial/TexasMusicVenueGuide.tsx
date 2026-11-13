@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 import { HISTORIC_TEXAS_MUSIC_VENUES } from "@/data/texas-music-historic-venues";
 import { musicHistoryMilestones, musicSourceReviewedAt, musicVenuePhotography } from "@/data/texas-music-history-evidence";
@@ -248,6 +249,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
           </div>
         </section> : null}
 
+        <TexasMusicEvidenceDossier slug={guide.slug} />
         <section className="border-b border-border py-10" aria-labelledby="venue-source-notes">
           <p className="eyebrow text-primary">Sources</p>
           <h2 id="venue-source-notes" className="mt-2 font-display text-3xl">Sources for the venue’s history</h2>
