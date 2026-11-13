@@ -466,6 +466,28 @@ jobs:
             echo "Recertified the exact active Worker with two fresh original-byte proofs; prior job remains FAILED."
             restored=1
           fi
+          # One-time original-byte restoration for the Nov12 published Worker.
+          # Entire previous site release remains failed; preserve all 5 exact
+          # deploy/version/dual-origin health + original SHA asset gates.
+          if [[ "$restored" != 1 && "$EXPECTED_ACTIVE_WORKER_VERSION" == '632decb8-3e25-43dd-a42f-73b236ea6336' ]]; then
+            if [[ "$(date -u +%s)" -gt "$(date -u -d '2026-11-15T23:50:11Z' +%s)" ]]; then
+              echo '::error title=Expired asset recovery::Nov12 handoff is older than 72 hours.'
+              exit 1
+            fi
+            prior_run=43331358104
+            prior_sha=ab4becf67b1e4bdd4d04f204f0f32beffccfa1ef
+            candidate=".artifacts/prior-asset-extraction/$prior_run"
+            mkdir -p "$candidate"
+            gh run download "$prior_run" -n "asset-handoff-$prior_run" -D "$candidate"
+            node scripts/ci/verify-prior-asset-handoff.mjs \
+              "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
+              "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100" \
+              | node scripts/ci/verify-prior-deploy-job-eligibility.mjs
+            cp "$candidate/asset-handoff-snapshot.json" .artifacts/prior-asset-handoff.json
+            echo "Recovered exact-active-Worker source-verified original bytes from run $prior_run; independent failed page checks remain failed."
+            restored=1
+          fi
           if [[ "$restored" != 1 ]]; then
           while IFS=$'\t' read -r prior_run prior_sha; do
             [[ "$prior_run" =~ ^[0-9]+$ && "$prior_sha" =~ ^[0-9a-f]{40}$ ]] || continue
