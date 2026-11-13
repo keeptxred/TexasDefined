@@ -525,7 +525,7 @@ export const museumAuthorityDestinations: Destination[] = [
     brandId: "texasdefined",
     slug: "modern-art-museum-fort-worth",
     name: "Modern Art Museum of Fort Worth",
-    summary: "Fort Worth Modern visitor guide: Tadao Ando architecture, contemporary art, family programs, Café Modern and the reopened galleries featuring In the Making: Stories from the Collection, on view October 31, 2026–August 15, 2027.",
+    summary: "Tadao Ando’s concrete-and-glass galleries, reflecting pond and Café Modern make this a distinctive Fort Worth art stop. The galleries are open for In the Making: Stories from the Collection, scheduled through August 15, 2027.",
     category: "historic-sites",
     region: "prairies-lakes",
     nearestTown: "Fort Worth",
