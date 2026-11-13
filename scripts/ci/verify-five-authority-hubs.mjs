@@ -22,7 +22,7 @@ const includesAll = (key, markers) => {
 };
 includesAll("dogs", ["Texas dog life: parks, heat, travel and breeds", "Plan a safe Texas dog outing in four checks", "texas-dog-heat-safety", "adopting-a-dog-in-texas", "Texas dog life: useful first, funny when it fits"]);
 assert.ok(source.dogs.indexOf("From the Dog Desk") < source.dogs.indexOf("Choosing a breed"), "Dog care must lead breed catalog");
-includesAll("dogs", ["list-inside list-decimal", "<strong>Heat and pavement.", "<strong>Actual pet access.", "<strong>Wildlife and water.", "<strong>Backup plan."]);
+includesAll("dogs", ['style={{ listStyleType: "decimal", listStylePosition: "inside" }}', "<strong>Heat and pavement.", "<strong>Actual pet access.", "<strong>Wildlife and water.", "<strong>Backup plan."]);
 assert.ok(!/<strong>[1-4]\. (Heat and pavement|Actual pet access|Wildlife and water|Backup plan)\./.test(source.dogs), "Do not duplicate numbers inside semantic ordered list");
 assert.ok(!source.dogs.includes("is built to grow into"), "Do not substitute aspirational editorial filler for current coverage");
 assert.ok(source.dogs.indexOf("Choosing a breed") < source.dogs.indexOf("Creative ideas · separate from care guidance"), "Shirt concepts must not lead care");
@@ -68,7 +68,7 @@ if (process.argv.includes("--production")) {
         assert.ok(!html.includes("This month’s selection"), "Sports cannot present old articles as this month's selection");
       }
       if (path === "/dogs") {
-        assert.ok(html.includes("list-decimal"), "Dog outing checklist must render a numbered semantic list");
+        assert.ok(/<ol[^>]*list-style-type:\\s*decimal/i.test(html) || /<ol[^>]*list-style-type:decimal/i.test(html), "Dog outing checklist must render visible semantic decimal numbering");
         assert.ok(!html.includes("<strong>1. Heat and pavement."), "Dog outing checklist must not duplicate list numbering");
       }
       if (path === "/texas-tailgating-guide") {
