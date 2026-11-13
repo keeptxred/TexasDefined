@@ -60,7 +60,16 @@ export const getDestinationsBySlugs = createServerFn({ method: "GET" })
       import("@/lib/editorial-image-delivery"),
     ]);
 
-    const destinations = await Promise.all(data.slugs.map((slug) => getResolvedDestination(slug)));
+    // Bound peak request memory: 100 parallel destination resolutions can each
+    // import heavyweight research catalogs in the same Worker isolate.
+    // Preserve the original slug order and all resolved source-backed detail.
+    const destinations: Array<Awaited<ReturnType<typeof getResolvedDestination>>> = [];
+    for (let offset = 0; offset < data.slugs.length; offset += 4) {
+      const batch = await Promise.all(
+        data.slugs.slice(offset, offset + 4).map((slug) => getResolvedDestination(slug)),
+      );
+      destinations.push(...batch);
+    }
     return destinations
       .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
       .map(prepareDestinationForDelivery);
