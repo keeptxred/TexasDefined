@@ -4,6 +4,7 @@
  * Fail closed if an apparently healthy release omits the league schedule or records.
  */
 import assert from 'node:assert/strict';
+import { setTimeout as delay } from 'node:timers/promises';
 
 const path = '/texas-high-school-football-districts/6a-district-5';
 const origins = [
@@ -11,22 +12,52 @@ const origins = [
   'https://texasdefined.com',
 ];
 
+// Retry only transport-level failures. An HTTP response, invalid SSR HTML or
+// missing official source evidence must always fail immediately, not be
+// masked by a second request. The retry window is finite for deploy budgets.
+const MAX_TRANSIENT_ATTEMPTS = 3;
+const isTransientTransportError = (error) =>
+  error?.name === 'TimeoutError' ||
+  error?.name === 'AbortError' ||
+  (error instanceof TypeError && /fetch failed|network|socket|timeout|terminated/i.test(error.message));
+
+async function fetchLiveHtml(url, origin) {
+  for (let attempt = 1; attempt <= MAX_TRANSIENT_ATTEMPTS; attempt++) {
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: {
+          'user-agent': 'TexasDefined-District5-Production-Smoke/1.0',
+          'cache-control': 'no-cache',
+          'accept': 'text/html',
+        },
+      });
+      // An actual HTTP response is authoritative and is never retried.
+      assert.equal(response.status, 200, `${origin} returned ${response.status}`);
+      return await response.text();
+    } catch (error) {
+      if (!isTransientTransportError(error) || attempt === MAX_TRANSIENT_ATTEMPTS) {
+        throw new Error(
+          `${origin}: District 5 production HTTP request failed after ${attempt} attempt(s): ${error?.message ?? String(error)}`,
+          { cause: error },
+        );
+      }
+      console.warn(
+        `::warning title=District 5 transient transport error::${origin} attempt ${attempt}/${MAX_TRANSIENT_ATTEMPTS} failed (${error.name}); retrying the same canonical URL.`,
+      );
+      await delay(750 * attempt);
+    }
+  }
+  throw new Error(`${origin}: unreachable transport retry state`);
+}
+
 async function check(origin) {
   const url = new URL(path, origin);
   // Query parameter avoids mistaking a previously cached HTML page for the new release.
   url.searchParams.set('district5_acceptance', (process.env.GITHUB_SHA ?? 'manual').slice(0, 12));
-  const response = await fetch(url, {
-    redirect: 'follow',
-    cache: 'no-store',
-    signal: AbortSignal.timeout(30_000),
-    headers: {
-      'user-agent': 'TexasDefined-District5-Production-Smoke/1.0',
-      'cache-control': 'no-cache',
-      'accept': 'text/html',
-    },
-  });
-  assert.equal(response.status, 200, `${origin} returned ${response.status}`);
-  const html = await response.text();
+  const html = await fetchLiveHtml(url, origin);
   assert.ok(html.length > 6_000, `${origin}: HTML response unexpectedly short (${html.length})`);
 
   for (const marker of [
