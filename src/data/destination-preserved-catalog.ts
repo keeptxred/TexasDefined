@@ -1,5 +1,6 @@
 import { bigThicketNationalPreserveAuthority } from "./big-thicket-national-preserve-authority";
 import { blackwellSchoolNationalHistoricSite } from "./blackwell-school-national-historic-site";
+import { fortLeatonHistoricSiteAuthority } from "./fort-leaton-historic-site-authority";
 import { esteroLlanoGrandeStateParkAuthority } from "./estero-llano-grande-state-park-authority";
 import { rayRobertsLakeStateParkAuthority } from "./ray-roberts-lake-state-park-authority";
 import { lakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
@@ -240,6 +241,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
+  [fortLeatonHistoricSiteAuthority],
   [blackwellSchoolNationalHistoricSite],
   [bigThicketNationalPreserveAuthority],
   olivewoodCemeteryDestinations,
