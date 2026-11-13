@@ -16,4 +16,6 @@ for (const [slug, facts] of entries) {
 }
 const edges = read('src/data/high-school-football/batch018-fifth-five-county-edges.ts');
 for (const [slug] of entries) assert.ok(edges.includes("slug: '" + slug + "'") && edges.includes("county: 'fort-bend'"), 'Missing Fort Bend campus county: ' + slug);
+const loader = read('src/data/high-school-football/program-editorial-b018-fifth-five.ts');
+assert.ok(loader.includes('export function getBatch018FifthFiveEditorial(slug: string)'), 'Missing typed fifth cohort loader');
 console.log('PASS Batch018 final five original source modules and staged county records; NOT integrated/certified');
