@@ -1,0 +1,39 @@
+name: Validate four verified GSC football ISD restorations
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/high-school-football/verified-uil-isd-bridges.ts'
+      - 'src/data/high-school-football/football-isds.server.ts'
+      - 'src/routes/texas-high-school-football-isds_.$slug.tsx'
+      - 'src/routes/texas-high-school-football-isds_.$slug.lazy.tsx'
+      - 'scripts/data/validate-gsc-four-uil-isds.test.mjs'
+      - '.github/workflows/validate-gsc-four-uil-isds.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/high-school-football/verified-uil-isd-bridges.ts'
+      - 'src/data/high-school-football/football-isds.server.ts'
+      - 'src/routes/texas-high-school-football-isds_.$slug.tsx'
+      - 'src/routes/texas-high-school-football-isds_.$slug.lazy.tsx'
+      - 'scripts/data/validate-gsc-four-uil-isds.test.mjs'
+      - '.github/workflows/validate-gsc-four-uil-isds.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify four official UIL/TEA ownership bridges and source publication
+        run: |
+          node --test scripts/data/validate-gsc-four-uil-isds.test.mjs
+          node scripts/data/validate-high-school-football-isds.mjs
