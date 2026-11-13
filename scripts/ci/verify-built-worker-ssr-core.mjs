@@ -31,6 +31,11 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // Genuine former GSC /city/del-rio 404 requires the sourced municipal guide.
+  { path: '/city/del-rio', requiredText: 'https://texasdefined.com/city/del-rio', label: 'Del Rio GSC 404 repaired with self-canonical municipal guide' },
+  { path: '/city/del-rio', requiredText: '34,673', label: 'Del Rio Census 2020 population in server HTML' },
+  { path: '/city/del-rio', requiredText: 'San Felipe Creek', label: 'Del Rio spring-fed visitor and water-system context' },
+  { path: '/city/del-rio', requiredText: 'JherreraCODR', label: 'Del Rio Brown Plaza photo source credit visible' },
   { path: '/texas-high-school-football-isds/brookesmith-isd', requiredText: '025908001', label: 'independent Brookesmith ISD recovery: exact TEA campus ID renders on restored page' },
   { path: '/texas-high-school-football-isds/morgan-isd', requiredText: '018903001', label: 'independent Morgan ISD recovery: exact TEA campus ID renders on restored page' },
   { path: '/texas-high-school-football-isds/walnut-springs-isd', requiredText: '018905003', label: 'independent Walnut Springs ISD recovery: exact TEA campus ID renders on restored page' },
