@@ -33,6 +33,8 @@ export const musicHistoryMilestones: Record<string, readonly MusicMilestone[]> =
     { period: "1910", event: "The future Billy Bob's building begins as an open-air cattle barn at the Fort Worth Stockyards.", sourceUrl: "https://www.billybobstexas.com/about/history", sourceLabel: "Billy Bob's official history" },
     { period: "1936–1943", event: "Fort Worth encloses the building for the Texas Centennial, and livestock use continues until the stock show moves.", sourceUrl: "https://www.billybobstexas.com/about/history", sourceLabel: "Billy Bob's official history" },
     { period: "April 1, 1981", event: "Billy Bob's opens as a large-scale country venue; its first week includes Waylon Jennings, Janie Fricke and Willie Nelson.", sourceUrl: "https://www.tshaonline.org/handbook/entries/billy-bobs-texas", sourceLabel: "Handbook of Texas" },
+    { period: "January–November 1988", event: "Financial troubles force Billy Bob's to close in January; Fort Worth investors reopen the honky-tonk on November 28, linking its survival to Stockyards renewal.", sourceUrl: "https://www.tshaonline.org/handbook/entries/billy-bobs-texas", sourceLabel: "Handbook of Texas" },
+    { period: "1998", event: "Billy Bob's and Smith Music Group start the Live at Billy Bob's recording series, making the club a recording venue as well as a concert destination.", sourceUrl: "https://www.tshaonline.org/handbook/entries/billy-bobs-texas", sourceLabel: "Handbook of Texas" },
   ],
   "austin-music-history": [
     { period: "Early 1970s", event: "Progressive country joins folk, rock and traditional country audiences in Austin's growing club network.", sourceUrl: "https://www.tshaonline.org/handbook/entries/country-music", sourceLabel: "Handbook of Texas" },
