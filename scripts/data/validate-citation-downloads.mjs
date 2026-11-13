@@ -9,6 +9,7 @@ const cityCountyCsv = await read('src/routes/texas-data.city-county-relationship
 const sportsRoute = await read('src/routes/sports-venues.compare.tsx');
 const sportsCsv = await read('src/routes/sports-venues.compare[.]csv.ts');
 const sportsData = await read('src/data/sports-venue-comparison.ts');
+const sportsInventory = await read('src/data/sports-venue-comparison-inventory.ts');
 const topRoute = await read('src/routes/explore.top-attractions.tsx');
 const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
 const topMethodologyContent = await read('src/components/explore/TopAttractionsMethodologyContent.tsx');
@@ -96,6 +97,10 @@ for (const token of [
   'CURATED_KNOWLEDGE_GRAPH_SEED',
   "entity.kind === 'sports-venue'",
   '.map(applyCurrentEntityCorrections)',
+  'SPORTS_VENUE_COMPARISON_INVENTORY_COUNT',
+]) expect(sportsInventory.includes(token), `sports venue comparison inventory missing: ${token}`);
+for (const token of [
+  'SPORTS_VENUE_COMPARISON_INVENTORY',
   'getSportsVenueEnrichmentAll(venue.slug)',
   'canonicalPath: canonicalEntityPath(venue)',
 ]) expect(sportsData.includes(token), `sports venue comparison shared-data contract missing: ${token}`);

@@ -48,11 +48,15 @@ jobs:
       - run: node scripts/data/validate-sports-venue-comparison.mjs
       - run: node scripts/data/validate-sports-venue-phase3-galaxy.mjs
       - run: node scripts/data/validate-sports-venue-trip-decisions.mjs
+      - run: node --check scripts/ci/verify-sports-venues-live.mjs
       - run: npm run build
       - run: npm run performance:validate
 
   uncached-production:
     name: Fresh 21-page SSR/canonical/source-view audit
+    # Test main code on push, but audit public HTML only after a successful
+    # production deployment. A predeploy push audit races the old live Worker
+    # and reports false source drift while the replacement is still queued.
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 10

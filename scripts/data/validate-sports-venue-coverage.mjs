@@ -117,7 +117,7 @@ for (const marker of [
   "key: 'regional'",
   "entitiesByKind('sports-venue')",
   'These {venues.length} selected guides are the venues currently eligible',
-  'catalogCount: allSportsVenues.length',
+  'catalogCount: SPORTS_VENUE_COMPARISON_INVENTORY_COUNT',
   '{venue.description ? <span',
   'Business partnerships',
   'type=sports-travel&source=%2Fsports-venues',
@@ -395,7 +395,7 @@ assert(galaxyGuide.includes("getSportsVenueUpcomingEvents({ data: { slug: stable
 assert(galaxyGuide.includes('sponsorPlacement={sponsorPlacement}'), 'Galaxy Stadium must pass its governed sponsor placement into the shared guide.');
 assert(galaxySharedGuide.includes("canonicalPath: '/sports-venue/jones-att-stadium'"), 'Galaxy shared guide must preserve the established canonical path.');
 assert(galaxySharedGuide.includes('formerly Jones AT&T Stadium'), 'Galaxy shared guide must explain the former venue name.');
-assert(galaxySharedGuide.includes("officialUrl: 'https://texastech.com/facilities/jones-at-t-stadium/2'"), 'Galaxy shared guide must use the current Texas Tech facility source.');
+assert(galaxySharedGuide.includes("officialUrl: 'https://texastech.com/facilities/galaxy-stadium/2'"), 'Galaxy shared guide must use the current Texas Tech facility source.');
 assert(sharedGuideContent.includes('getSportsVenueGuideGalaxy(slug) ?? getSportsVenueGuideWave7(slug)'), 'Shared guide resolver must recognize Galaxy before statewide wave registries.');
 assert(sharedGuideContent.includes('getSportsVenueEnrichmentAll(slug)'), 'Galaxy shared guide must retain verified enrichment-backed parking and arrival context.');
 assert(sharedGuidePage.includes('mainEntityOfPage: canonicalUrl'), 'Shared venue structured data must identify the canonical main entity page for Galaxy and other redesigned venues.');

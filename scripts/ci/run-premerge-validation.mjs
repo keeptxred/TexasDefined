@@ -99,6 +99,7 @@ const prebuildChecks = [
   ['CI/COST', 'Scope Batch004 live GIS/Chrome audit to true Batch004 changes; fail closed', 'node', ['scripts/ci/should-run-football-b004.test.mjs']],
   ['CI/COST', 'Protect all six remaining local audit migrations and authority reporting', 'node', ['--test', 'scripts/ci/local-audit-migrations.test.mjs', 'scripts/ci/authority-master-issue.test.mjs']],
   ['CI/COST', 'Protect local-only full-site crawls and request budgets', 'node', ['--test', 'scripts/ci/local-audit-fetch.test.mjs']],
+  ['SEO/EXPLORE/FREDERICKSBURG', 'Verify fail-closed canonical sitemap fallback and diagnostic codes', 'node', ['scripts/ci/verify-fredericksburg-sitemap-fallback-source.mjs']],
   ['SEO/LINKS', 'Distinguish HTTP errors from failed transport without relaxing strict link audit', 'node', ['--test', 'scripts/ci/internal-link-failure-diagnostics.test.mjs']],
   ['SEO/LINKS', 'Ensure every Texas-vs-state comparison receives regional peer links', 'node', ['--experimental-strip-types', '--test', 'scripts/data/texas-vs-related-states.test.mjs']],
   ['COMMERCE/CHECKOUT', 'Verify Texas Defined shipping terms and safe handoff correlation', 'node', ['--experimental-strip-types', '--test', 'scripts/data/validate-shop-checkout-shipping.test.mjs']],
