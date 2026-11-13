@@ -16,6 +16,7 @@ import {
 import { footballIdentityAccentFromColors } from '@/data/high-school-football/football-identity-accent';
 import { BATCH016_FOOTBALL_COUNTY_EDGES } from '@/data/high-school-football/batch016-county-edges';
 import { BATCH017_FOOTBALL_COUNTY_EDGES } from '@/data/high-school-football/batch017-county-edges';
+import { BATCH018_FIFTH_FIVE_COUNTY_EDGES } from '@/data/high-school-football/batch018-fifth-five-county-edges';
 import { BATCH018_FOURTH_FIVE_COUNTY_EDGES } from '@/data/high-school-football/batch018-fourth-five-county-edges';
 import { BATCH018_THIRD_FIVE_COUNTY_EDGES } from '@/data/high-school-football/batch018-third-five-county-edges';
 import { BATCH018_SECOND_FIVE_COUNTY_EDGES } from '@/data/high-school-football/batch018-second-five-county-edges';
@@ -190,6 +191,7 @@ function Page() {
     ...Object.fromEntries(BATCH018_FOOTBALL_COUNTY_EDGES.map(({ slug, county }) => [slug, county])),
     ...Object.fromEntries(BATCH018_THIRD_FIVE_COUNTY_EDGES.map(({ slug, county }) => [slug, county])),
     ...Object.fromEntries(BATCH018_FOURTH_FIVE_COUNTY_EDGES.map(({ slug, county }) => [slug, county])),
+    ...Object.fromEntries(BATCH018_FIFTH_FIVE_COUNTY_EDGES.map(({ slug, county }) => [slug, county])),
     ...Object.fromEntries(BATCH018_SECOND_FIVE_COUNTY_EDGES.map(({ slug, county }) => [slug, county])), // shared B018 campus county edges
     'dell-city': 'hudspeth', // Dell City ISD 110 N Main, Hudspeth County; no 2026 varsity fixture inferred.
     'denison': 'grayson', // Denison High 4200 N State Hwy 91 Grayson County; Munson Stadium separate.
