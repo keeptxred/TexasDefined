@@ -78,11 +78,12 @@ export const musicCitiesComparison = [
  * Keep original author/license attribution attached to each rendering.
  */
 export const musicVenuePhotography: Record<string, {
-  src: string; alt: string; caption: string; credit: string; sourcePage: string;
+  src: string; width: number; height: number; alt: string; caption: string; credit: string; sourcePage: string;
   license: string; licenseUrl: string;
 }> = {
   "broken-spoke-austin-history": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Broken_Spoke_Austin_Texas_2024.jpg?width=1200",
+    width: 3556, height: 2000,
     alt: "The Broken Spoke honky-tonk building on South Lamar in Austin photographed in 2024",
     caption: "The Broken Spoke in 2024, decades after its 1964 opening. This is a modern documentary photograph, not an opening-day image.",
     credit: "Larry D. Moore",
@@ -92,6 +93,7 @@ export const musicVenuePhotography: Record<string, {
   },
   "continental-club-austin-history": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/The_Continental_Club_Austin_2019.jpg?width=1200",
+    width: 2400, height: 1600,
     alt: "Exterior of the Continental Club in Austin on South Congress Avenue, photographed in 2019",
     caption: "The Continental Club on South Congress in 2019. The building has carried several musical identities since opening in 1955.",
     credit: "Larry D. Moore",
@@ -101,6 +103,7 @@ export const musicVenuePhotography: Record<string, {
   },
   "antones-austin-history": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Antone%27s_on_Lavaca_%285224333547%29.jpg?width=1200",
+    width: 1500, height: 1072,
     alt: "Exterior of the former Antone's blues club location on Lavaca Street in 2010, before the move to East Fifth Street",
     caption: "Antone's former Lavaca Street location photographed in 2010. The club later moved; this is not the present East Fifth Street entrance.",
     credit: "Seth Anderson / B12 Partners",
@@ -110,6 +113,7 @@ export const musicVenuePhotography: Record<string, {
   },
   "billy-bobs-texas-history": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Billy_Bobs_Texas_%282%29.jpg?width=1200",
+    width: 2048, height: 1536,
     alt: "Billy Bob's Texas honky-tonk in the Fort Worth Stockyards, photographed in 2005",
     caption: "Billy Bob's Texas photographed in 2005. The present music venue opened in 1981 in a much older Stockyards building.",
     credit: "David Herrera",
