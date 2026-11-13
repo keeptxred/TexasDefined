@@ -73,6 +73,9 @@ const LIMIT_BYTES = 384 * 1024 * 1024;
 const LIMIT_ONE_FILE = 4 * 1024 * 1024;
 const RETENTION_MS = 72 * 60 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 20000;
+// Keep original-byte fetching bounded, while avoiding thousands of serial edge round trips.
+// No bytes enter the next Worker until each candidate passes its original SHA, MIME and budget checks.
+const MAX_CONCURRENT_FETCHES = 8;
 
 export function safeCriticalAsset(path) {
   if (typeof path !== 'string' || !/^\/assets\/[A-Za-z0-9_][A-Za-z0-9._-]{1,155}\.(?:js|css)$/.test(path)) return false;
@@ -156,6 +159,47 @@ export async function retain({
   report.expiredOldCopyPaths = expired.filter(a =>
     !existsSync(resolve(assetFolder, basename(a.path)))).map(a => a.path);
   report.expiredOldCopyCount = report.expiredOldCopyPaths.length;
+  // The historical retention ledger is deduped and ordered; fetch its old-only
+  // files in a bounded window while CONSUMING and validating in that same order.
+  // Keep at most eight downloaded responses in memory at once. Current Vite
+  // outputs are never fetched, and no file above the exact 6144-slot cap is fetched.
+  const oldOnly = candidates.filter(asset =>
+    !existsSync(resolve(assetFolder, basename(asset.path))));
+  const inFlight = new Map();
+  let nextFetch = 0;
+  let nextConsume = 0;
+  async function fetchOriginal(asset) {
+    let response;
+    let body;
+    let networkError;
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      try {
+        response = await fetchImpl(sourceOrigin + asset.path, {
+          redirect: 'manual', cache: 'no-store',
+          headers: { 'User-Agent': 'TexasDefined-Predeploy-Chunk-Retention/1.0' },
+          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        });
+        if ([408, 429, 500, 502, 503, 504].includes(response.status) && attempt < 3) {
+          await new Promise((resolve) => setTimeout(resolve, attempt * 250));
+          continue;
+        }
+        body = Buffer.from(await response.arrayBuffer());
+        networkError = null;
+        break;
+      } catch (error) {
+        networkError = String(error);
+        if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt * 250));
+      }
+    }
+    return { response, body, networkError };
+  }
+  function prefetch() {
+    while (inFlight.size < MAX_CONCURRENT_FETCHES &&
+      nextFetch < Math.min(oldOnly.length, LIMIT_FILES)) {
+      const index = nextFetch++;
+      inFlight.set(index, fetchOriginal(oldOnly[index]));
+    }
+  }
   for (const asset of candidates) {
     const destination = resolve(assetFolder, basename(asset.path));
     // A chunk already emitted by Vite is guaranteed to enter Wrangler's
@@ -186,32 +230,16 @@ export async function retain({
     }
     attemptedOld += 1;
     report.inspected += 1;
-    // A one-off edge/network timeout must not strand an otherwise safe
-    // release after thousands of SHA-verified original assets were fetched.
-    // Retry only transient request/stream errors and retryable HTTP responses;
-    // never substitute synthetic bytes or skip SHA/MIME/budget verification.
-    let response;
-    let body;
-    let networkError;
-    for (let attempt = 1; attempt <= 3; attempt += 1) {
-      try {
-        response = await fetchImpl(sourceOrigin + asset.path, {
-          redirect: 'manual', cache: 'no-store',
-          headers: { 'User-Agent': 'TexasDefined-Predeploy-Chunk-Retention/1.0' },
-          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        });
-        if ([408, 429, 500, 502, 503, 504].includes(response.status) && attempt < 3) {
-          await new Promise((resolve) => setTimeout(resolve, attempt * 250));
-          continue;
-        }
-        body = Buffer.from(await response.arrayBuffer());
-        networkError = null;
-        break;
-      } catch (error) {
-        networkError = String(error);
-        if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt * 250));
-      }
+    // The original source proof is checked in candidate order. Prefetching
+    // accelerates the network stage, never the SHA/MIME/budget acceptance gate.
+    prefetch();
+    const task = inFlight.get(nextConsume);
+    if (!task || oldOnly[nextConsume]?.path !== asset.path) {
+      throw new Error('Old-only retention queue lost original candidate order: ' + asset.path);
     }
+    const { response, body, networkError } = await task;
+    inFlight.delete(nextConsume++);
+    prefetch();
     if (!response || !body) {
       markUnavailable(asset,{ status:'network-error', detail:networkError || 'Exhausted bounded retries' });
       continue;
