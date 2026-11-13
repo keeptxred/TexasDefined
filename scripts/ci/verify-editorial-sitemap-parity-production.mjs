@@ -208,6 +208,19 @@ for (const guide of attractionCertification) {
 }
 
 
+// The existing botanical-garden Explore shortlist lists Houston Botanic Garden
+// as a reviewed stop; its SSR must link the researched canonical guide, not
+// only the operator. This is checked after every applicable deployment.
+try {
+  const botanical = await fetchLive("/explore/botanical-gardens");
+  if (!botanical.body.includes("Houston Botanic Garden") ||
+      !botanical.body.includes('href="/destination/houston-botanic-garden"')) {
+    throw Error("Houston Botanic Garden guide missing from botanical Explore shortlist");
+  }
+} catch (error) {
+  failures.push({ path: "/explore/botanical-gardens", error: "Houston botanical inbound: " + String(error) });
+}
+
 // Canonical consolidation is not established solely by one clean URL's tag.
 // Independently probe a tracking query and trailing slash for each attraction:
 // a single direct redirect to the canonical is acceptable, or a served 200
