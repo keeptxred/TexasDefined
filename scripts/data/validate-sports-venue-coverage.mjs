@@ -32,6 +32,7 @@ const [
   currentCorrections,
   partnerRouteEager,
   partnerRouteLazy,
+  partnerQuery,
   partnerFunctions,
   partnerServer,
   partnerMigration,
@@ -63,6 +64,7 @@ const [
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/routes/partner-with-us.tsx'),
   read('src/routes/partner-with-us.lazy.tsx'),
+  read('src/lib/partner-search.ts'),
   read('src/data/partner-inquiry.functions.ts'),
   read('src/data/partner-inquiry.server.ts'),
   read('supabase/migrations/20260814034617_allow_sports_travel_partner_inquiries.sql'),
@@ -363,22 +365,28 @@ for (const [sourceName, source] of [
 ]) {
   assert(source.includes('sports-travel'), `Sports-travel partnership type is missing from ${sourceName}.`);
 }
+// Guard both route halves and the extracted search parser; do not require
+// internal implementation details to remain in the route file.
 for (const marker of [
-  'validateSearch:',
+  'validateSearch: parsePartnerSearch',
+  "links: [canonicalLink(texasDefinedBrand, canonicalPath)]",
+]) assert(partnerRouteEager.includes(marker), `Partner route missing canonical/search contract: ${marker}`);
+for (const marker of [
   'sanitizePartnerSource',
-  'sports-venues|things-unique-to-texas\\/texas-brands|events\\/christmas-events',
-  '/^\\/(?:sports-venues|things-unique-to-texas\\/texas-brands|events\\/christmas-events|sports-venue\\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\\/[a-z0-9-]+|explore\\/near\\/[a-z0-9-]+\\/day-trips)$/',
+  'sports-venues|things-unique-to-texas',
+  'texas-high-school-football-(?:teams|districts)',
+  'const incomingSource = search.source ?? search.sourcePath',
+]) assert(partnerQuery.includes(marker), `Partner query parser missing safe source contract: ${marker}`);
+for (const marker of [
   'Route.useSearch()',
-  'sourcePath: search.sourcePath',
-  "search.partnershipType === 'sports-travel'",
-  "defaultValue={search.partnershipType ?? 'other'}",
-]) {
-  assert(partnerRoute.includes(marker), `Partner page is missing safe sports lead-attribution marker: ${marker}.`);
-}
+  'sourcePath: search.source',
+  "search.type === 'sports-travel'",
+  "defaultValue={search.type ?? 'other'}",
+]) assert(partnerRouteLazy.includes(marker), `Partner form missing attribution/prefill contract: ${marker}`);
 // Preserve exact internal-path attribution and extend only to safe football pages.
 assert(partnerFunctions.includes('regex(/^\\/(?:partner-with-us|sports-venues|sports-venue\\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\\/[a-z0-9-]+)$/)'),
   'Partner server function must independently restrict source attribution to venue and football internal paths.');
-assert(partnerRouteEager.includes('texas-high-school-football-(?:teams|districts)'), 'Partner source sanitization must cover the same football paths as server validation.');
+assert(partnerQuery.includes('texas-high-school-football-(?:teams|districts)'), 'Partner source sanitization must cover the same football paths as server validation.');
 assert(partnerRoute.includes('Sports travel / local visitor business'), 'Partner form must expose a human-readable sports-travel option.');
 assert(partnerRoute.includes('Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions.'), 'Partner page must preserve the editorial-independence disclosure.');
 assert(partnerMigration.includes('texasdefined_partner_inquiries_partnership_type_check'), 'Sports-travel database migration must update the partner inquiry type constraint.');

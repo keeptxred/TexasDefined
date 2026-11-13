@@ -16,6 +16,7 @@ const majorIndex = read("src/data/major-event-index.ts");
 const candidates = JSON.parse(read("src/data/events/christmas-candidates-250.json"));
 const schemaRegistry = read("src/data/major-event-schema-enrichment.server.ts");
 const partnerRoute = read("src/routes/partner-with-us.tsx");
+const partnerQuery = read("src/lib/partner-search.ts");
 const partnerForm = read("src/routes/partner-with-us.lazy.tsx");
 const partnerServer = read("src/data/partner-inquiry.functions.ts");
 const monetizationPolicy = read("docs/holidays/christmas-2026-monetization.md");
@@ -576,8 +577,8 @@ for (const [city, destination] of [
 }
 assert.ok(collection.includes("christmasOfferCities.has(event.city)"), "Limit redundant Christmas affiliate offers to one per city");
 assert.ok(page.includes("source=%2Fevents%2Fchristmas-events"), "Christmas sponsor inquiry link must carry its origin");
-assert.ok(partnerRoute.includes("sanitizePartnerSource") && partnerRoute.includes("events\\/christmas-events"), "Route must explicitly whitelist Christmas sponsor origin");
-assert.ok(partnerForm.includes("const search = Route.useSearch()") && partnerForm.includes("sourcePath: search.sourcePath"), "Partner form must preserve router-validated sponsor attribution");
+assert.ok(partnerRoute.includes("validateSearch: parsePartnerSearch") && partnerQuery.includes("sanitizePartnerSource") && partnerQuery.includes("events\\/christmas-events"), "Normalized partner query must explicitly whitelist Christmas sponsor origin");
+assert.ok(partnerForm.includes("const search = Route.useSearch()") && partnerForm.includes("sourcePath: search.source"), "Partner form must preserve router-validated sponsor attribution");
 assert.ok(partnerServer.includes("z.literal('/events/christmas-events')"), "Server must enforce Christmas inquiry source allowlist");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense on Christmas calendars");
 assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Retain actual AdSense approval status in Christmas policy");

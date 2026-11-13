@@ -103,6 +103,7 @@ test('football monetization is shared, disclosed, source-preserving, and payment
   const districtLoader = read('src/routes/texas-high-school-football-districts_.$slug.tsx');
   const sponsorForm = read('src/routes/partner-with-us.lazy.tsx');
   const partnerHead = read('src/routes/partner-with-us.tsx');
+  const partnerQuery = read('src/lib/partner-search.ts');
   const inquiry = read('src/data/partner-inquiry.functions.ts');
   const prices = read('src/data/football-sponsorship-packages.ts');
   const districtMigration = read('supabase/migrations/20261025184500_extend_sports_sponsor_football_district_surfaces.sql');
@@ -115,7 +116,9 @@ test('football monetization is shared, disclosed, source-preserving, and payment
   assert.match(districtPage, /<SponsoredSportsPlacement/);
   assert.match(districtLoader, /getActiveSportsSponsorPlacement/);
   assert.match(functions, /texas-high-school-football-\(\?:teams\|districts\)/);
-  assert.match(partnerHead, /texas-high-school-football-\(\?:teams\|districts\)/);
+  assert.match(partnerHead, /validateSearch: parsePartnerSearch/);
+  assert.match(partnerQuery, /texas-high-school-football-\(\?:teams\|districts\)/);
+  assert.match(partnerQuery, /source: typeof incomingSource === 'string' \? sanitizePartnerSource\(incomingSource\)/);
   assert.match(inquiry, /texas-high-school-football-\(\?:teams\|districts\)/);
   assert.match(prices, /footballFoundingPackages/);
   assert.match(panel, /Founding placements start at \$9\/month/);

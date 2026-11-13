@@ -19,6 +19,7 @@ const advertiserLeadWriter = read('src/data/advertiser-leads.server.ts');
 const advertiserLeadFn = read('src/data/advertiser-leads.functions.ts');
 const advertisingProgram = read('src/data/advertising-program.ts');
 const route = read('src/routes/partner-with-us.tsx');
+const partnerQuery = read('src/lib/partner-search.ts');
 const lazyRoute = read('src/routes/partner-with-us.lazy.tsx');
 const billingRoute = read('src/routes/partner-with-us.billing.tsx');
 const billingLazyRoute = read('src/routes/partner-with-us.billing.lazy.tsx');
@@ -161,8 +162,12 @@ requireTokens('Advertising program model', advertisingProgram, [
 
 requireTokens('Partner With Us route shell', route, [
   "createFileRoute('/partner-with-us')", "title: 'Advertise & Partner With Texas Defined'",
-  'sourcePath?: string;', 'validateSearch:',
-  "sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined",
+  'validateSearch: parsePartnerSearch', 'links: [canonicalLink(texasDefinedBrand, canonicalPath)]',
+]);
+requireTokens('Partner search parameter parser', partnerQuery, [
+  'source?: string;', 'type?:', 'sanitizePartnerSource',
+  'const incomingSource = search.source ?? search.sourcePath',
+  'const incomingType = search.type ?? search.partnershipType',
 ]);
 requireTokens('Partner With Us sales and inquiry page', lazyRoute, [
   "createLazyFileRoute('/partner-with-us')", 'A professional sponsorship program, not a link marketplace.',
@@ -170,7 +175,7 @@ requireTokens('Partner With Us sales and inquiry page', lazyRoute, [
   'Packages & pricing', '/partner-with-us/examples', '/partner-with-us/terms', '/partner-with-us/billing',
   'Media kit', 'Frequently asked questions', 'phone:', 'targetTexasLocations:', 'desiredStartDate:', 'objectives:', 'notes:',
   'requestedTier: selectedTier', 'billingCycle', 'name="addressLine2"',
-  'await submitPartnerInquiry({ data:', 'Submit partnership inquiry',
+  'await submitPartnerInquiry({ data:', 'Submit partnership inquiry', 'sourcePath: search.source',
 ]);
 if (lazyRoute.includes('href="/partner-with-us/agreement"') || lazyRoute.includes('submitAdvertiserAgreement') || lazyRoute.includes('Accept & submit agreement')) {
   errors.push('Public sales page must not expose or duplicate the approved-advertiser signing form.');
