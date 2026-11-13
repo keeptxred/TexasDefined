@@ -32,8 +32,8 @@ export const Route = createFileRoute("/things-unique-to-texas/methodology")({
               description,
               isPartOf: { "@id": `${origin}/#website` },
               about: { "@id": `${origin}/things-unique-to-texas#collection` },
-              author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
-              dateModified: "2026-10-29",
+              author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/editorial-policy` },
+              dateModified: "2026-11-13",
             },
             {
               "@type": "BreadcrumbList",
@@ -83,6 +83,19 @@ function ThingsThatDefineTexasMethodology() {
             <MethodSection title="Cross-link policy">
               <p>The research pool is an internal reference map, not a promise to publish a fixed number of entries. When TexasDefined already maintains a strong destination guide, Texas Explained article, state-symbol page, sports reference, food guide or other canonical resource, the magazine entry links into that deeper page instead of creating duplicate thin content.</p>
               <p>Automatic canonical links are limited to direct, high-confidence matches. We do not force a link simply because two places are nearby or broadly related. A more general guide may still appear in a chapter's related-reading section when it adds context without presenting itself as the exact entity.</p>
+            </MethodSection>
+
+            <MethodSection title="What a fact check looks like in this collection">
+              <p>Three examples illustrate our editorial boundary. Topo Chico was created in Monterrey, Mexico and is included as an adopted Texas drinking tradition, not a Texas-invented brand. Caddo Mounds is a historic Caddo archaeological landscape rather than a naturally formed geological wonder. The San Antonio River Walk is a designed urban corridor, not an undeveloped river ecosystem. We classify these subjects by what they actually are rather than the category that makes the longest list.</p>
+              <p>When a source conflicts with a popular story, the source wins for measurable dates, designations and legal facts. Historical context can draw from the Handbook of Texas, the Texas Historical Commission, the Texas State Library and Archives Commission, universities, museums and other accountable institutions. Attraction closures, permitted activities and prices require a current managing-agency or operator notice; a cultural overview must not promise live access.</p>
+              <p>We do not claim first-hand experience unless reporting evidence supports it. Summaries should identify origins, regional differences and disputed claims; unsupported statements that an item is the first, largest, oldest, most popular or uniquely Texan are excluded or qualified with source definitions.</p>
+              <p>Examples can be checked in <Link to="/things-unique-to-texas/food-drink" className="text-primary underline">Food &amp; Drink</Link>, <Link to="/things-unique-to-texas/natural-wonders" className="text-primary underline">Natural Wonders</Link>, <Link to="/things-unique-to-texas/landmarks" className="text-primary underline">Landmarks</Link>, and the <a href="https://www.tsl.texas.gov/ref/abouttx/capitals" target="_blank" rel="noopener noreferrer" className="text-primary underline">State Library's official place-designation register</a>.</p>
+            </MethodSection>
+
+            <MethodSection title="Corrections, unresolved claims and evidence confidence">
+              <p>Editors compare an entry's wording against the controlling historical, government or original institutional source. Where the source provides a range, era, approval-date exception or category distinction, the published wording must preserve that qualification. For a disputed birthplace or origin, we say what is known and what is contested rather than selecting a tidy unsupported story.</p>
+              <p>When a factual problem is confirmed, we correct the public description and its dataset record together, review the canonical link and category assignment, and update the affected validation rules. If an exact guide does not exist, a related page is labelled as related coverage; it should not masquerade as a standalone guide to that one item. We retain stable IDs even when moving an entry to a more accurate category.</p>
+              <p>For visitor-facing claims that cannot be checked at the time of publication, we omit temporary hours or prices and link to the responsible agency. Corrections may be sent through the <Link to="/about" className="text-primary underline">site contact and editorial information</Link>. Changes to durable facts are reflected in the public guide; a review date does not guarantee that volatile information remains current indefinitely.</p>
             </MethodSection>
 
             <MethodSection title="Changing information">
