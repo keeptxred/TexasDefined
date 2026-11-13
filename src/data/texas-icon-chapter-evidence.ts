@@ -117,7 +117,7 @@ export const TEXAS_CHAPTER_EVIDENCE: Record<string, ChapterEvidence> = {
           "The Alamo cannot be understood only through the 1836 battle: its mission origins and the Indigenous, Spanish and Mexican histories of San Antonio came first. The San Antonio Missions form a larger cultural landscape, while Presidio La Bahía and Mission Espíritu Santo place Goliad inside a different regional story.",
           "The Texas State Capitol, opened in 1888, connects the state's political institutions to nineteenth-century building technology, granite quarries and land-based financing. Those details explain far more than the building's familiar silhouette."
         ],
-        sources: [{ label: "Texas Historical Commission: Texas Capitol record", url: "https://atlas.thc.texas.gov/Details/5507014150" }, { label: "NPS: San Antonio Missions", url: "https://www.nps.gov/saan/index.htm" }]
+        sources: [{ label: "State Preservation Board: Texas Capitol history", url: "https://tspb.texas.gov/prop/tc/tc-history/index.html" }, { label: "NPS: San Antonio Missions", url: "https://www.nps.gov/saan/index.htm" }]
       },
       {
         heading: "Oil, commerce and modern civic memory",
