@@ -109,7 +109,17 @@ function texasTodayIso(now = new Date()) {
   return `${value("year")}-${value("month")}-${value("day")}`;
 }
 
+// Directory source is an immutable, deploy-versioned editorial registry. Reuse
+// its expensive record joins during a Texas-local day; still refresh ordering
+// when a new day begins. Copy the returned rows so callers cannot mutate the
+// cross-request snapshot.
+let guideDirectoryCache: { day: string; rows: MajorEventGuideDirectoryItem[] } | undefined;
+
 export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryItem[] {
+  const today = texasTodayIso();
+  if (guideDirectoryCache?.day === today) {
+    return guideDirectoryCache.rows.map((row) => ({ ...row, image: row.image ? { ...row.image } : undefined }));
+  }
   const coreSlugs = new Set(majorEventIndexRecords.map((event) => event.slug));
   const coreEvents = majorEventIndexRecords.map(({ slug }) => {
     const event = getMajorEventRecordServer(slug);
@@ -120,10 +130,9 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
     ...coreEvents,
     ...loadSupplementalMajorEventRecordsServer().filter((event) => !coreSlugs.has(event.slug)),
   ];
-  const today = texasTodayIso();
   const prioritySlugs = new Set(priorityEventGuides.map((event) => event.slug));
 
-  return [
+  const rows = [
     ...priorityEventGuides,
     ...events
       .filter((event) => !prioritySlugs.has(event.slug))
@@ -150,6 +159,8 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
     if (leftPast !== rightPast) return leftPast ? 1 : -1;
     return left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name);
   });
+  guideDirectoryCache = { day: today, rows };
+  return rows.map((row) => ({ ...row, image: row.image ? { ...row.image } : undefined }));
 }
 
 export function loadMajorEventLandingDirectoryServer() {
