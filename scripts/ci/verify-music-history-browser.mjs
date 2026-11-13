@@ -49,6 +49,20 @@ try{
      check("mobile table scroll container",scroller);
     }
    }
+   if(["broken-spoke-austin-history","continental-club-austin-history","antones-austin-history","billy-bobs-texas-history"].includes(slug)){
+    const documentaryPhoto=page.locator("main figure img");
+    check("licensed documentary photo present",await documentaryPhoto.count()>=1);
+    if(await documentaryPhoto.count()){
+     await documentaryPhoto.first().scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+     const picture=await documentaryPhoto.first().evaluate(async img=>{
+      if(!img.complete)await new Promise(resolve=>{img.addEventListener("load",resolve,{once:true});img.addEventListener("error",resolve,{once:true});setTimeout(resolve,8000)});
+      return {loaded:img.complete&&img.naturalWidth>0,alt:img.alt,src:img.currentSrc};
+     });
+     check("documentary photo loads",picture.loaded,JSON.stringify(picture));
+     check("documentary photo has specific alternative text",picture.alt.length>30,picture.alt);
+     check("photo author and license are visible",await page.locator("main figure figcaption a").count()>=2);
+    }
+   }
    check("no uncaught browser exceptions",!errors.length,errors.join(" | "));
    if(["texas-music-cities","corpus-christi-music-history","broken-spoke-austin-history"].includes(slug)){
     record.screenshot=dir+"/"+slug+"-"+viewport.name+".png";
