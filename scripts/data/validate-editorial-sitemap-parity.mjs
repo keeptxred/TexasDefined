@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 
 const read = (path) => readFileSync(path, "utf8");
 const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
@@ -79,5 +80,14 @@ for (const privatePath of ["/network/apply", "/network/billing", "/network/check
 }
 assert.ok(terms.includes("canonicalLink(texasDefinedBrand,canonicalPath)"), "Terms page lost its self canonical");
 assert.ok(primary.includes("INDEXABLE_STATIC_PATHS"), "Main sitemap must use public route registry");
+
+// Execute request-level redirects and the nine scoped no-store HTML contracts in
+// every canonical premerge run. Source grep alone does not prove response behavior.
+execFileSync(process.execPath, [
+  "--experimental-strip-types",
+  "--test",
+  "src/lib/reviewed-attraction-canonical-redirect.test.ts",
+  "src/lib/hashed-asset-document-cache-policy.test.ts",
+], { stdio: "inherit" });
 
 console.log("PASS: eight existing editorial pages and public membership terms have canonical sitemap sources; protected quality gates and private network exclusions retained.");

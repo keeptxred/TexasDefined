@@ -2,25 +2,26 @@
 // Applies to bounded public SSR sections where verified Googlebot requested
 // stale main/Container/lazy-route bundles or source-reviewed attraction links. No UA sniffing, no index directive,
 // no changes to hashed asset caching, APIs, redirects or error responses.
+// Nine exactly scoped editorial source/inbound pages once survived a Worker
+// replacement as outdated HTML. Keep their HTML revalidated against the
+// active module hashes without changing unrelated sections or static assets.
+const reviewedAttractionAuthorityHtmlPaths = new Set([
+  "/destination/san-antonio-japanese-tea-garden",
+  "/destination/fort-worth-water-gardens",
+  "/destination/houston-botanic-garden",
+  "/city/san-antonio",
+  "/city/fort-worth",
+  "/city/houston",
+  "/county/bexar",
+  "/county/tarrant",
+  "/county/harris"
+]);
+
 export function applyHashedModuleDocumentCachePolicy(request: Request, response: Response): Response {
   if (request.method !== "GET" && request.method !== "HEAD") return response;
   if (response.status !== 200) return response;
   if (!(response.headers.get("content-type") || "").toLowerCase().includes("text/html")) return response;
   const path = new URL(request.url).pathname;
-  // Nine exactly scoped editorial source/inbound pages once survived a Worker
-  // replacement as outdated HTML. Keep their HTML revalidated against the
-  // active module hashes without changing unrelated sections or static assets.
-  const reviewedAttractionAuthorityHtmlPaths = new Set([
-    "/destination/san-antonio-japanese-tea-garden",
-    "/destination/fort-worth-water-gardens",
-    "/destination/houston-botanic-garden",
-    "/city/san-antonio",
-    "/city/fort-worth",
-    "/city/houston",
-    "/county/bexar",
-    "/county/tarrant",
-    "/county/harris"
-]);
   if (!(path.startsWith("/property-tax/") ||
         path.startsWith("/texas-high-school-football-teams/") ||
         reviewedAttractionAuthorityHtmlPaths.has(path))) {
