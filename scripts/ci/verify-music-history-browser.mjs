@@ -32,7 +32,16 @@ try{
    check("historical content visible",mainText.length>1300,mainText.length);
    check("accountable editorial desk visible",mainText.includes("Texas Defined Editorial Desk"));
    check("source chronology or city comparison visible",/documented milestones|source-linked chronology|Milestones in a Coastal Bend recording center|What made each Texas music city different\?/i.test(mainText));
-   check("research dossier visible",mainText.includes("Research file")&&mainText.includes("What the record establishes")&&mainText.includes("Our reading")&&mainText.includes("What remains uncertain:"));
+   // innerText reflects CSS text-transform; the eyebrow is uppercase on
+   // screen. Use visible semantic section and its original textContent, not
+   // brittle case-sensitive screen text, while retaining source checks below.
+   const research=page.locator('section[aria-labelledby="music-research-dossier"]');
+   const researchText=await research.textContent().catch(()=>"");
+   check("research dossier visible",await research.isVisible().catch(()=>false)
+     && /research file/i.test(researchText)
+     && /what the record establishes/i.test(researchText)
+     && /our reading/i.test(researchText)
+     && /what remains uncertain:/i.test(researchText));
    check("at least four checked findings",((mainText.match(/What the record establishes/g)||[]).length)>=4);
    const links=await page.locator('section[aria-labelledby="music-research-dossier"] a[href^="https://"]').count();
    check("four or more linked records",links>=4,links);
