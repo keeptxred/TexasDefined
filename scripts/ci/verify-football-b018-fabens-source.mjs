@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL('../../' + path, import.meta.url), 'utf8');
 const guide = read('src/data/high-school-football/program-editorial-b018-fabens.ts');
+const fairfield = read('src/data/high-school-football/program-editorial-b018-fairfield.ts');
 const edges = read('src/data/high-school-football/batch018-county-edges.ts');
 const server = read('src/data/high-school-football/football-program-profile.server.ts');
 const school = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
@@ -16,9 +17,13 @@ for (const value of [
   '2026-11-13', 'Class 4A Division II', 'stadium',
 ]) assert.ok(guide.includes(value), 'Missing Fabens sourced detail: ' + value);
 assert.ok(ledger.includes('El Paso County'));
+for (const value of ['631 Post Oak Road', '3AD1FB2026.pdf', 'Berton A. Yates Stadium', 'East Chambers', '2026-11-13', 'fairfieldisd.net/fairfieldhighschool', 'fairfieldeagles.net/sport/football/boys/', 'November 9', 'Willis']) assert.ok(fairfield.includes(value), 'Missing Fairfield first-party source: ' + value);
+assert.ok(server.includes('getBatch018FairfieldEditorial(canonicalSlug)'));
+assert.ok(edges.includes("county: 'freestone'") && edges.includes("slug: 'fairfield'"));
+assert.ok(!/\b(photoUrl|imageUrl|headCoach|finalScore)\s*:/.test(fairfield), 'Unlicensed Fairfield media or unsourced final result');
 assert.ok(edges.includes("county: 'el-paso'") && edges.includes("slug: 'fabens'"));
 assert.ok(server.includes('getBatch018FirstFabensEditorial(canonicalSlug)'));
 assert.ok(school.includes('BATCH018_FOOTBALL_COUNTY_EDGES.map'));
 assert.ok(county.includes('BATCH018_FOOTBALL_COUNTY_EDGES.filter'));
 assert.ok(!/\b(photoUrl|imageUrl|headCoach|finalScore)\s*:/.test(guide), 'Unlicensed media or unverified claims');
-console.log('PASS Batch018 Fabens source-backed guide, SSR and reciprocal campus-county edges; NOT production certified');
+console.log('PASS Batch018 Fabens and Fairfield source-backed guides, SSR and reciprocal campus-county edges; NOT production certified');
