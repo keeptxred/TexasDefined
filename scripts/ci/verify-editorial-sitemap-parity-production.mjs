@@ -137,7 +137,7 @@ for (const guide of attractionCertification) {
       // The 1940 Air Terminal Museum ceased public operations in March 2026.
       // Its historical page may remain indexed, but the live Garden itinerary
       // must never suggest the CLOSED museum as a visitable stop.
-      if (!related || /href=["']\\/destination\\/1940-air-terminal-museum-houston(?:["'?#/])/i.test(related)) {
+      if (!related || /href=["']\/destination\/1940-air-terminal-museum-houston(?:["'?#/])/i.test(related)) {
         throw Error("Houston Botanic Garden still recommends closed 1940 Air Terminal Museum as a related trip stop");
       }
     }
