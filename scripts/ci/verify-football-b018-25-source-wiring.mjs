@@ -20,6 +20,10 @@ assert.deepEqual(edges.map(edge => edge.slug), expected, '25 source-backed disti
 const server = read('src/data/high-school-football/football-program-profile.server.ts');
 const school = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
+assert.ok(school.includes("program.district === 21 && hasDistrict21TeamScorecard(schoolName)"),
+  'retain source-checked 6A District 21 scorecards for Hightower, Elkins and all Batch018 overlays');
+assert.ok(!school.includes('&& !editorial?.season && !editorial?.notice && hasDistrict21TeamScorecard(schoolName)'),
+  'new editorial overlays must not suppress independently verified District 21 results');
 const loaders = ['getBatch018SecondFiveEditorial','getBatch018ThirdFiveEditorial','getBatch018FourthFiveEditorial','getBatch018FifthFiveEditorial'];
 for (const name of loaders) {
   assert.ok(server.includes(name + '(canonicalSlug)'), 'missing public SSR loader ' + name);
