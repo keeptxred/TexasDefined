@@ -164,6 +164,23 @@ const NOV13_PUBLISHED_WORKER_MSR_DISTRICT21 = Object.freeze({
 // hub browser passed. Do not mark that page/test/release as successful.
 // Eligible only to preserve the exact published ORIGINAL asset bytes once
 // the narrowly bounded timeout retry is present in the next source.
+// Nov 13 publish run #43509240362 attempt 1 shipped the current 100%-traffic
+// Worker 79902b61 and passed deploy, version capture, both public-origin
+// health probes, and complete old/new JS/CSS original-byte validation. Only
+// a later District 16 Chrome navigation reached TimeoutError after 45s.
+// Attempt 2 of the SAME run was correctly rejected as a stale source and must
+// never stand in for the published attempt 1. This exact exception qualifies
+// immutable original asset bytes ONLY once the District 16 verifier has its
+// narrowly bounded transport retry. It does not certify the failed release,
+// nor skip independent next-release browser acceptance.
+const NOV13_PUBLISHED_DISTRICT16_NAV_TIMEOUT = Object.freeze({
+  runId: 43509240362,
+  jobId: 132174849722,
+  sourceSha: '9019a46c4317fbbbd69ceb348fc2f02d2e589498',
+  workerVersion: '79902b61-3641-48db-a400-ddc81e71a162',
+  failedStep: 'Verify District 16 mobile and desktop rendered layout',
+});
+
 const NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT = Object.freeze({
   runId: 43447328975,
   jobId: 131960103008,
@@ -216,6 +233,28 @@ export function qualifyPriorDeployJob(payload) {
   // historical generic MSR-only exception below. Reject it explicitly.
   if (job.run_id === repairedRelease.runId || job.id === repairedRelease.jobId) {
     throw Error('Failed deploy job includes unapproved or missing failure evidence for exact Nov13 MSR/District21 published Worker: ' + failures.join(', '));
+  }
+  const district16 = NOV13_PUBLISHED_DISTRICT16_NAV_TIMEOUT;
+  if (job.run_id === district16.runId && job.id === district16.jobId &&
+      job.run_attempt === 1 && failures.length === 1 && failures[0] === district16.failedStep) {
+    const browserSource = readFileSync('scripts/ci/verify-district16-responsive-browser.mjs', 'utf8');
+    if (!browserSource.includes("for (let attempt = 1; attempt <= 2; attempt++)") ||
+        !browserSource.includes("if (attempt === 2 || !/TimeoutError/.test(String(error))) throw error") ||
+        !browserSource.includes("assert.equal(response?.status(),200") ||
+        !browserSource.includes("assert.equal(facts.rows,8)") ||
+        !browserSource.includes("assert.equal(facts.finals,4)") ||
+        !browserSource.includes("assert.equal(facts.fixtures,12)") ||
+        !browserSource.includes("assert.deepEqual(errors,[]")) {
+      throw Error('Exact District 16 timeout retry not repaired without weakening full browser assertions');
+    }
+    return {eligible:true,mode:'exact-nov13-district16-transport-original-assets-only',
+      exactRun:district16.runId,criticalChecks:CRITICAL.length,permittedFailures:failures,
+      requiredSourceSha:district16.sourceSha,requiredWorkerVersion:district16.workerVersion};
+  }
+  // Prevent another attempt of this failed run (or a substituted job ID)
+  // from qualifying through the less specific historical visual exception.
+  if (job.run_id === district16.runId || job.id === district16.jobId) {
+    throw Error('Failed deploy job includes unapproved or missing failure evidence for exact Nov13 District16: ' + failures.join(', '));
   }
   const turkeyTimeout = NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT;
   if (job.run_id === turkeyTimeout.runId && job.id === turkeyTimeout.jobId &&

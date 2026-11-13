@@ -500,7 +500,14 @@ jobs:
             if node scripts/ci/verify-prior-asset-handoff.mjs \
               "$candidate/asset-handoff-snapshot.json" "$candidate/asset-delivery-report.json" \
               "$EXPECTED_ACTIVE_WORKER_VERSION" "$prior_sha"; then
-              jobs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100")"
+              # Run 43509240362 has a *published* attempt 1 and a later
+              # rejected stale-source attempt 2. Only the immutable original
+              # attempt 1 job may qualify; never treat a retry as publication.
+              if [[ "$prior_run" == '43509240362' ]]; then
+                jobs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/attempts/1/jobs?per_page=100")"
+              else
+                jobs_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$prior_run/jobs?per_page=100")"
+              fi
               if ! printf '%s\n' "$jobs_json" | node scripts/ci/verify-prior-deploy-job-eligibility.mjs; then
                 echo "Reject candidate $prior_run: published Worker provenance or postdeploy failure evidence is unsafe."
                 continue
