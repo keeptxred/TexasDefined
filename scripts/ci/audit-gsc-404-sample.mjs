@@ -146,6 +146,32 @@ const summary = {
   caveat: 'This is an ordinary-agent production HTTP sample, not authenticated GSC URL Inspection and not a Googlebot simulation.',
   results,
 };
+// Inspect plausible editorial replacement targets separately. Candidates never
+// automatically authorize a redirect: source equivalence and editorial readiness
+// still require a human-readable disposition in the checkpoint.
+const candidateUrls = [
+  '/texas-state-fair',
+  '/things-unique-to-texas/methodology',
+  '/destination/fort-leaton',
+  '/destination/dr-pepper-museum-waco',
+  '/destination/barton-warnock-visitor-center',
+  '/destination/ray-roberts-lake-state-park-isle-du-bois-unit',
+  '/destination/ray-roberts-lake-state-park-johnson-branch-unit',
+  '/destination/hill-country-state-natural-area',
+  '/destination/indian-lodge',
+  '/destination/seminole-canyon-state-park-and-historic-site',
+  '/destination/seminole-canyon-state-park',
+  '/destination/fredericksburg-wineries',
+  '/destination/lake-somerville-state-park',
+  '/dr-pepper-texas-history',
+  '/texas-home-insurance-calculator',
+];
+const candidateResults = await Promise.all(candidateUrls.map((url) => inspect(url)));
+summary.candidates = candidateResults;
+for (const item of candidateResults) {
+  console.log('[candidate] ' + item.path + ': HTTP ' + (item.firstStatus ?? 'network') + ' -> ' + (item.finalStatus ?? 'network') + ' final=' + (item.finalUrl ?? 'unavailable') + (item.canonical ? ' canonical=' + item.canonical : '') + (item.robots ? ' robots=' + item.robots : ''));
+}
+
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, 'results.json'), JSON.stringify(summary, null, 2) + '\n');
 const cols = ['path','invalidTemplate','outcome','firstStatus','finalStatus','finalUrl','canonical','robots','redirectCount','error'];
