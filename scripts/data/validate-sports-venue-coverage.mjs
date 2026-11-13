@@ -373,7 +373,7 @@ for (const marker of [
 ]) assert(partnerRouteEager.includes(marker), `Partner route missing canonical/search contract: ${marker}`);
 for (const marker of [
   'sanitizePartnerSource',
-  'sports-venues|horse-racing|things-unique-to-texas',
+  'sports-venues|things-unique-to-texas',
   'texas-high-school-football-(?:teams|districts)',
   'const incomingSource = search.source ?? search.sourcePath',
 ]) assert(partnerQuery.includes(marker), `Partner query parser missing safe source contract: ${marker}`);
