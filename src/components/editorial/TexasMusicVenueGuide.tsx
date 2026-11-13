@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 import { HISTORIC_TEXAS_MUSIC_VENUES } from "@/data/texas-music-historic-venues";
+import { musicHistoryMilestones, musicSourceReviewedAt, musicVenuePhotography } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
 
@@ -96,6 +97,16 @@ const venueSources: Record<string, readonly SourceNote[]> = {
 export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) {
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const sources = venueSources[guide.slug] ?? [];
+  const milestones = musicHistoryMilestones[guide.slug] ?? [];
+  const photograph = musicVenuePhotography[guide.slug];
+  const shortAnswerHeading: Record<string, string> = {
+    "broken-spoke-austin-history": "A South Lamar dance floor that endured",
+    "continental-club-austin-history": "From supper club to Austin landmark",
+    "antones-austin-history": "One blues institution, several addresses",
+    "billy-bobs-texas-history": "How a Stockyards barn became a music destination",
+    "gruene-hall-history": "A nineteenth-century community floor still in use",
+    "texas-music-venues": "Why Texas dance halls and clubs matter",
+  };
   const isHub = guide.slug === "texas-music-venues";
   const historicVenues = isHub ? HISTORIC_TEXAS_MUSIC_VENUES : [];
   const breadcrumbItems = [
@@ -115,6 +126,9 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
         url: canonicalUrl,
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
+        author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/editorial-policy` },
+        dateModified: musicSourceReviewedAt,
+        isAccessibleForFree: true,
         articleSection: "Texas Music",
         citation: [
           ...sources.map((source) => source.href),
@@ -164,15 +178,22 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
           <p className="eyebrow text-primary">{guide.eyebrow}</p>
           <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{guide.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{guide.dek}</p>
+          <p className="mt-5 text-sm text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={musicSourceReviewedAt}>November 13, 2026</time></p>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             <Link to="/texas-music" className="border-b border-primary pb-1 text-primary">Explore the full Texas Music collection →</Link>
             {!isHub ? <Link to="/texas-music-venues" className="border-b border-primary pb-1 text-primary">Browse landmark Texas music venues →</Link> : null}
           </div>
         </header>
 
-        <section className="border-b border-border py-8" aria-labelledby="quick-answer">
+        {photograph ? <figure className="border-b border-border py-8">
+          <img src={photograph.src} alt={photograph.alt} width={photograph.width} height={photograph.height} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="w-full max-w-4xl h-auto rounded-sm" />
+          <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
+            {photograph.caption} Photo: <a href={photograph.sourcePage} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{photograph.credit}</a>, <a href={photograph.licenseUrl} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{photograph.license}</a> via Wikimedia Commons; displayed without image editing.
+          </figcaption>
+        </figure> : null}
+                <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
-          <h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2>
+          <h2 id="quick-answer" className="mt-2 font-display text-3xl">{shortAnswerHeading[guide.slug] ?? "How this venue fits Texas music history"}</h2>
           <p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p>
         </section>
 
@@ -193,6 +214,13 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
             </div>
           </section>)}
         </div>
+
+        {milestones.length ? <section className="border-b border-border py-10" aria-labelledby="venue-history-chronology">
+          <p className="eyebrow text-primary">A timeline you can check</p>
+          <h2 id="venue-history-chronology" className="mt-2 font-display text-4xl">The venue's documented milestones</h2>
+          <ol className="mt-7 grid gap-5 md:grid-cols-3">{milestones.map((milestone) => <li key={milestone.period} className="border-t border-primary/40 pt-5"><p className="font-semibold">{milestone.period}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.event}</p><a href={milestone.sourceUrl} rel="noopener noreferrer" target="_blank" className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a></li>)}</ol>
+          <p className="mt-6 text-sm leading-7 text-muted-foreground">Dated opening records and property history are distinguished from later programming. A venue's current location or weekly calendar should be checked on its official site before a visit.</p>
+        </section> : null}
 
         {historicVenues.length ? <section className="border-b border-border py-12" aria-labelledby="historic-rooms">
           <p className="eyebrow text-primary">Historic and lost rooms</p>
@@ -222,8 +250,8 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
 
         <section className="border-b border-border py-10" aria-labelledby="venue-source-notes">
           <p className="eyebrow text-primary">Sources</p>
-          <h2 id="venue-source-notes" className="mt-2 font-display text-3xl">Where the venue history comes from</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Historical claims are anchored to institutional records and venue histories. Current schedules, hours, ticket rules, access policies and event details can change; the official venue should control those time-sensitive facts.</p>
+          <h2 id="venue-source-notes" className="mt-2 font-display text-3xl">Sources for the venue’s history</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The source-linked chronology above identifies the records behind individual dates. Additional historical and official references follow. Current schedules, admission rules and access policies may change; confirm those directly with the venue.</p>
           <ul className="mt-6 divide-y divide-border border-y border-border">
             {sources.map((source) => <li key={source.href} className="py-4">
               <a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a>
