@@ -148,6 +148,26 @@ const NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT = Object.freeze({
   workerVersion: '1e9cbeec-7e97-470f-9531-91ce2ab0946b',
 });
 
+// Nov 13 #43460115327 published 100%-traffic Worker 6f58c413... from
+// SHA 3836f5..., and passed all five critical worker/health/dual-origin
+// original JS/CSS checks. The asset-handoff-43460115327 artifact exists.
+// Its two LATER independent failures were MSR mobile Chrome navigation
+// transport timeout and three missing District 21 team scorecards (HTTP 200).
+// Neither is certified here: qualify *original-byte asset preservation only*
+// for this exact run/job/source/version after targeted source diagnostics and
+// fail-closed smoke checks are present. The downstream original-byte validator
+// still pins the active Worker/source SHA and every old hash on both origins.
+const NOV13_PUBLISHED_WORKER_MSR_D21_FAILURES = Object.freeze({
+  runId: 43460115327,
+  jobId: 132004453072,
+  sourceSha: '3836f5f8d492b970ba6a6e7edb10679309250479',
+  workerVersion: '6f58c413-3ace-4666-9fd3-dba3afb7d5da',
+  failedSteps: [
+    'Verify MSR Houston responsive visitor page and licensed photo',
+    'Verify District 21 hub and eight team scorecards on production',
+  ],
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -164,6 +184,26 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const msrD21 = NOV13_PUBLISHED_WORKER_MSR_D21_FAILURES;
+  if (job.run_id === msrD21.runId && job.id === msrD21.jobId &&
+      failures.length === msrD21.failedSteps.length &&
+      msrD21.failedSteps.every((step) => failures.includes(step))) {
+    const msr = readFileSync('scripts/ci/verify-msr-houston-browser.mjs', 'utf8');
+    const smoke = readFileSync('scripts/ci/verify-built-worker-ssr-core.mjs', 'utf8');
+    const d21 = readFileSync('scripts/ci/verify-district21-football-production.mjs', 'utf8');
+    if (!msr.includes('MSR_TRANSIENT_NAVIGATION_TIMEOUT') ||
+        !msr.includes("error?.name !== 'TimeoutError' || attempt === 3") ||
+        !msr.includes('assert.equal(response?.status(), 200') ||
+        !d21.includes('cfCacheStatus: response.headers.get') ||
+        !['fort-bend-austin', 'fort-bend-bush', 'fort-bend-clements']
+          .every((slug) => smoke.includes('data-football-d21-team-section="' + slug + '"'))) {
+      throw Error('Exact published Worker source repair required: MSR transport and strict District 21 SSR diagnostics');
+    }
+    return { eligible: true, mode: 'exact-nov13-msr-d21-original-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      exactRun: msrD21.runId, requiredSourceSha: msrD21.sourceSha,
+      requiredWorkerVersion: msrD21.workerVersion };
   }
   const turkeyTimeout = NOV13_PUBLISHED_WORKER_TURKEY_TIMEOUT;
   if (job.run_id === turkeyTimeout.runId && job.id === turkeyTimeout.jobId &&
