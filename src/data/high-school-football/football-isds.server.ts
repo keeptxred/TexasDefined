@@ -5,6 +5,7 @@ import {
 import { footballIsdProfilePath, footballIsdSlug } from './football-isd-slugs';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
 import { footballClassificationRank } from './program-slugs';
+import { reconcileVerifiedFootballIsdBridge } from './verified-uil-isd-bridges';
 
 export type FootballIsdProgram = Pick<
   FootballProgramDirectoryResult,
@@ -72,7 +73,8 @@ async function assembleFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory
   const districtNameBySlug = new Map<string, string>();
   let unmatchedProgramCount = 0;
 
-  for (const program of programs) {
+  for (const uilProgram of programs) {
+    const program = reconcileVerifiedFootballIsdBridge(uilProgram);
     if (!program.districtName) {
       unmatchedProgramCount += 1;
       continue;
