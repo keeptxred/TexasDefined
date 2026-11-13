@@ -1,6 +1,8 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
+import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
 import { musicHistoryMilestones, musicSourceReviewedAt } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
@@ -49,7 +51,7 @@ function CorpusChristiMusicHistoryPage() {
         dateModified: musicSourceReviewedAt,
         isAccessibleForFree: true,
         articleSection: "Texas Music",
-        citation: sources.map((source) => source.href),
+        citation: [...sources.map((source) => source.href), ...musicResearchDossiers["corpus-christi-music-history"].findings.map((finding) => finding.href)],
         isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` },
         about: [
           { "@type": "Place", name: "Corpus Christi, Texas" },
@@ -160,6 +162,7 @@ function CorpusChristiMusicHistoryPage() {
             <ol className="mt-7 grid gap-5 md:grid-cols-3">{milestones.map((milestone) => <li key={milestone.period} className="border-t border-primary/40 pt-5"><p className="font-semibold">{milestone.period}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.event}</p><a href={milestone.sourceUrl} rel="noopener noreferrer" target="_blank" className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a></li>)}</ol>
           </section>
 
+          <TexasMusicEvidenceDossier slug="corpus-christi-music-history" />
           <section className="border-b border-border py-10" aria-labelledby="corpus-sources">
             <p className="eyebrow text-primary">Sources</p>
             <h2 id="corpus-sources" className="mt-2 font-display text-3xl">Sources for Corpus Christi’s music history</h2>

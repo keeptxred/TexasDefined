@@ -39,6 +39,13 @@ async function verify(slug){
   if(robots.some(x=>/\bnoindex\b/i.test(attrs(x,"content")??"")))errors.push(kind+" meta robots noindex");
   const main=html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1]??"";
   if(visible(main).length<1300)errors.push(kind+" thin server-rendered main");
+  if(visible(main).length<2500)errors.push(kind+" insufficient researched server-rendered main");
+  for(const heading of ["Research file", "What the record establishes", "Our reading", "What remains uncertain:"]) {
+   if(!visible(main).includes(heading))errors.push(kind+" missing source/interpretation research section: "+heading);
+  }
+  if(((main.match(/What the record establishes/g)||[]).length)<4) errors.push(kind+" fewer than four grounded research findings");
+  if(slug==="continental-club-austin-history"&&!visible(main).includes("1955")||slug==="continental-club-austin-history"&&!visible(main).includes("1957"))errors.push(kind+" Continental opening-date dispute was not published");
+
   for(const marker of ["Texas Defined Editorial Desk","November 13, 2026","Historical source"]){
    if(!visible(html).includes(marker) && marker!=="Historical source")errors.push(kind+" missing published evidence: "+marker);
   }

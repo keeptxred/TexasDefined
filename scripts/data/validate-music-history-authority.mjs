@@ -20,6 +20,8 @@ const venue = read("src/data/texas-music-venue-guides.ts");
 const city = read("src/data/texas-music-city-guides.ts");
 const corpus = read("src/routes/corpus-christi-music-history.lazy.tsx");
 const evidence = read("src/data/texas-music-history-evidence.ts");
+const dossiers = read("src/data/texas-music-history-dossiers.ts");
+const dossierView = read("src/components/editorial/TexasMusicEvidenceDossier.tsx");
 const venueView = read("src/components/editorial/TexasMusicVenueGuide.tsx");
 const cityView = read("src/components/editorial/TexasMusicCityGuide.tsx");
 const hub = read("src/data/texas-music-cities-hub.ts");
@@ -45,11 +47,26 @@ for(const slug of slugs) {
   if(slug !== "texas-music-cities" && !evidence.includes('  "'+slug+'": [')) fail("Missing sourced chronology: "+slug);
   const base = slug === "corpus-christi-music-history" ? corpus : block(slug.includes("austin-history") && !slug.startsWith("broken") && !slug.startsWith("continental") && !slug.startsWith("antones") ? city : ["broken-spoke-austin-history","continental-club-austin-history","antones-austin-history","billy-bobs-texas-history"].includes(slug) ? venue : city,slug);
   if(!base) fail("Guide content missing: "+slug);
+  const research = block(dossiers,slug);
+  if(!research) fail("Missing individual research dossier: "+slug);
+  for(const field of ["heading:", "record:", "reading:", "source:", "href:"]) {
+    const count = (research.match(new RegExp("\\b"+field,"g"))||[]).length;
+    if(count < 4) fail("Music dossier needs at least four independently annotated findings: "+slug+" / "+field+" = "+count);
+  }
+  const researchSources=[...research.matchAll(/href: "(https:\/\/[^"]+)"/g)].map(x=>x[1]);
+  if(new Set(researchSources).size < 2)fail("No independent corroboration across music research findings: "+slug);
+  if(boilerplate.test(research))fail("Boilerplate in researched findings: "+slug);
   if(boilerplate.test(base)) fail("Boilerplate wording: "+slug);
   const words = (base.replace(/https?:\/\/\S+/g," ").match(/\b[A-Za-z][A-Za-z'-]*\b/g)||[]).length;
   if(words<520) fail("Insufficient contextual body text: "+slug+" ("+words+" words)");
   if(slug!=="corpus-christi-music-history" && (base.match(/heading:/g)||[]).length < 5) fail("Incomplete guide structure: "+slug);
 }
+if(!dossierView.includes("What the record establishes") || !dossierView.includes("Our reading") || !dossierView.includes("What remains uncertain:"))fail("Dossier must distinguish verified record, editorial interpretation and unresolved issues");
+if(!dossierView.includes("rel=\"noopener noreferrer\"") || !dossierView.includes("finding.href"))fail("Original research lacks source links");
+for(const view of [cityView,venueView,corpus]) {
+  if(!view.includes("TexasMusicEvidenceDossier"))fail("One route family is missing researched dossier rendering");
+}
+if(!venue.includes('the venue gives 1955, while the Handbook of Texas') || !evidence.includes('1955 / 1957 (disputed)') || !dossiers.includes("the exact opening year should be marked disputed"))fail("Continental opening year must remain explicitly disputed");
 if(!hub.includes('"/corpus-christi-music-history"')) fail("Statewide city hub omits Corpus Christi");
 if(!cityView.includes('musicCitiesComparison.map') || !cityView.includes('scope="col"') || !cityView.includes('<caption')) fail("Missing accessible city-by-city comparison");
 if(!cityView.includes('musicHistoryMilestones') || !venueView.includes('musicHistoryMilestones') || !corpus.includes('musicHistoryMilestones')) fail("Unlinked evidence-based chronologies");
@@ -72,4 +89,4 @@ for(const x of ["Austin","Houston","San Antonio","Lubbock","Dallas–Fort Worth"
  if(!evidence.includes('name: "'+x+'"')) fail("Six-city comparison missing "+x);
 }
 if(issues.length){issues.forEach(x=>console.error("FAIL:",x));process.exitCode=1}
-else console.log("10 music history routes: content, citations, author desk, accessible comparison and source chronology contract PASS; external crawl, visual and originality certification remain separate");
+else console.log("10 music history routes: deep source findings, disputed dates, content, citations, author desk and comparisons PASS; external link audit, visual and editorial originality review remain separate");

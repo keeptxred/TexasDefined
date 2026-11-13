@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
+import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 import { HISTORIC_TEXAS_MUSIC_VENUES } from "@/data/texas-music-historic-venues";
 import { musicHistoryMilestones, musicSourceReviewedAt, musicVenuePhotography } from "@/data/texas-music-history-evidence";
@@ -55,7 +57,12 @@ const venueSources: Record<string, readonly SourceNote[]> = {
     {
       label: "Continental Club — Official history",
       href: "https://continentalclub.com/about/",
-      note: "Documents the 1955 supper-club opening, later burlesque and bar phases, live-music eras and 1987 restoration toward the original mid-century appearance.",
+      note: "Gives 1955 as the opening year and describes the supper-club, burlesque and bar phases, live-music eras and 1987 restoration. The 1955 claim conflicts with the Handbook of Texas and Austin's 2005 neighborhood plan.",
+    },
+    {
+      label: "Handbook of Texas — Continental Club",
+      href: "https://www.tshaonline.org/handbook/entries/continental-club",
+      note: "Dates opening to 1957, documents 1987 restoration of four wall murals, successive music programmers and the 2000 Houston sister club. This chronology disagrees with the venue's 1955 date.",
     },
     {
       label: "City of Austin — Historic Landmark Ordinance 20080821-059",
@@ -132,6 +139,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
         articleSection: "Texas Music",
         citation: [
           ...sources.map((source) => source.href),
+          ...(musicResearchDossiers[guide.slug]?.findings.map((finding) => finding.href) ?? []),
           ...historicVenues.flatMap((venue) => venue.sources.map((source) => source.href)),
         ],
         isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` },
@@ -248,6 +256,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
           </div>
         </section> : null}
 
+        <TexasMusicEvidenceDossier slug={guide.slug} />
         <section className="border-b border-border py-10" aria-labelledby="venue-source-notes">
           <p className="eyebrow text-primary">Sources</p>
           <h2 id="venue-source-notes" className="mt-2 font-display text-3xl">Sources for the venue’s history</h2>
