@@ -69,3 +69,50 @@ export const musicCitiesComparison = [
   { name: "Dallas–Fort Worth", href: "/dallas-fort-worth-music-history", signature: "Deep Ellum blues, jazz, western swing", infrastructure: "Black commercial districts, recording businesses, North Texas stages", sourceUrl: "https://www.tshaonline.org/handbook/entries/deep-ellum" },
   { name: "Corpus Christi", href: "/corpus-christi-music-history", signature: "Conjunto, Tejano, border-music crossover", infrastructure: "House of Music, Freddie and Hacienda recording and distribution", sourceUrl: "https://www.tshaonline.org/handbook/entries/recording-industry" },
 ] as const;
+
+/**
+ * Licensed, exact-subject documentary photographs. These are photographs of
+ * buildings at the dated moment indicated, not simulated archival scenes.
+ * Keep original author/license attribution attached to each rendering.
+ */
+export const musicVenuePhotography: Record<string, {
+  src: string; alt: string; caption: string; credit: string; sourcePage: string;
+  license: string; licenseUrl: string;
+}> = {
+  "broken-spoke-austin-history": {
+    src: "https://commons.wikimedia.org/wiki/Special:FilePath/Broken_Spoke_Austin_Texas_2024.jpg?width=1200",
+    alt: "The Broken Spoke honky-tonk building on South Lamar in Austin photographed in 2024",
+    caption: "The Broken Spoke in 2024, decades after its 1964 opening. This is a modern documentary photograph, not an opening-day image.",
+    credit: "Larry D. Moore",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Broken_Spoke_Austin_Texas_2024.jpg",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  "continental-club-austin-history": {
+    src: "https://commons.wikimedia.org/wiki/Special:FilePath/The_Continental_Club_Austin_2019.jpg?width=1200",
+    alt: "Exterior of the Continental Club in Austin on South Congress Avenue, photographed in 2019",
+    caption: "The Continental Club on South Congress in 2019. The building has carried several musical identities since opening in 1955.",
+    credit: "Larry D. Moore",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:The_Continental_Club_Austin_2019.jpg",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  "antones-austin-history": {
+    src: "https://commons.wikimedia.org/wiki/Special:FilePath/Antone%27s_on_Lavaca_%285224333547%29.jpg?width=1200",
+    alt: "Exterior of the former Antone's blues club location on Lavaca Street in 2010, before the move to East Fifth Street",
+    caption: "Antone's former Lavaca Street location photographed in 2010. The club later moved; this is not the present East Fifth Street entrance.",
+    credit: "Seth Anderson / B12 Partners",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Antone%27s_on_Lavaca_(5224333547).jpg",
+    license: "CC BY-SA 2.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+  },
+  "billy-bobs-texas-history": {
+    src: "https://commons.wikimedia.org/wiki/Special:FilePath/Billy_Bobs_Texas_%282%29.jpg?width=1200",
+    alt: "Billy Bob's Texas honky-tonk in the Fort Worth Stockyards, photographed in 2005",
+    caption: "Billy Bob's Texas photographed in 2005. The present music venue opened in 1981 in a much older Stockyards building.",
+    credit: "David Herrera",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Billy_Bobs_Texas_(2).jpg",
+    license: "CC BY 2.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  },
+};
