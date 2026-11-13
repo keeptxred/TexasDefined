@@ -249,6 +249,7 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/article/cameron-county-brownsville-harlingen-south-padre-rio-grande?source=gsc', expectedStatus: 301, expectedPath: '/county/cameron', expectedQuery: ['source','gsc'], label: 'historical Cameron County series legacy alias to county authority' },
   { path: '/article/texas-home-insurance-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-homeowners-insurance-guide', expectedQuery: ['source','gsc'], label: 'published homeowner insurance historical GSC alias' },
   { path: '/article/texas-hurricane-preparation-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-hurricane-preparation-homeowners-renters', expectedQuery: ['source','gsc'], label: 'published hurricane preparedness historical GSC alias' },
   { path: '/destination/ray-roberts-lake-isle-du-bois-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/ray-roberts-lake-state-park', expectedQuery: ['source','gsc'], label: 'source-verified Ray Roberts unit historical alias' },
