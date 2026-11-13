@@ -31,6 +31,7 @@ import { getBatch016SecondFiveEditorial } from './program-editorial-b016-group2'
 import { getBatch016ThirdFiveEditorial } from './program-editorial-b016-group3';
 import { getBatch016FourthFiveEditorial } from './program-editorial-b016-group4';
 import { getBatch016FifthFiveEditorial } from './program-editorial-b016-group5';
+import { getBatch018FourthFiveEditorial } from './program-editorial-b018-fourth-five';
 import { getBatch017FirstFiveEditorial } from './program-editorial-b017-group1';
 import { getBatch017SecondFiveEditorial } from './program-editorial-b017-group2';
 import { getBatch017ThirdFiveEditorial } from './program-editorial-b017-group3';
@@ -157,7 +158,8 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     if (!legacy) return null;
     // Featured private-school programs (such as TAPPS Castle Hills) require
     // the same source-backed batch overlay without entering the UIL dataset.
-    const authoredEditorial = (await loadBatch011FootballProgramEditorial(legacy.featured.slug))
+    const authoredEditorial = getBatch018FourthFiveEditorial(legacy.featured.slug)
+      ?? (await loadBatch011FootballProgramEditorial(legacy.featured.slug))
       ?? (await loadBatch010FootballProgramEditorial(legacy.featured.slug))
       ?? (await loadBatch009FootballProgramEditorial(legacy.featured.slug))
       ?? getFootballProgramEditorial(legacy.featured.slug);
@@ -296,7 +298,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const loneStarEditorial = canonicalSlug === 'frisco-lone-star'
     ? (await import('./program-editorial-frisco-lone-star')).getFriscoLoneStarEditorial()
     : undefined;
-  const baseEditorial = loneStarEditorial ?? getBatch017FirstFiveEditorial(canonicalSlug) ?? getBatch017SecondFiveEditorial(canonicalSlug) ?? getBatch017ThirdFiveEditorial(canonicalSlug) ?? getBatch017FourthFiveEditorial(canonicalSlug) ?? getBatch017FifthFiveEditorial(canonicalSlug) ?? (await loadBatch012Group5FootballProgramEditorial(canonicalSlug)) ?? getBatch016EarlyEditorial(canonicalSlug) ?? getBatch016GroupOneEditorial(canonicalSlug) ?? getBatch016EarthEditorial(canonicalSlug) ?? getBatch016SecondFiveEditorial(canonicalSlug) ?? getBatch016ThirdFiveEditorial(canonicalSlug) ?? getBatch016FourthFiveEditorial(canonicalSlug) ?? getBatch016FifthFiveEditorial(canonicalSlug) ?? (await loadBatch015FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch014FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch013FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012Group4FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012Group3FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012GroupTwoEditorial(canonicalSlug)) ?? (await loadBatch012FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch011FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch010FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
+  const baseEditorial = loneStarEditorial ?? getBatch018FourthFiveEditorial(canonicalSlug) ?? getBatch017FirstFiveEditorial(canonicalSlug) ?? getBatch017SecondFiveEditorial(canonicalSlug) ?? getBatch017ThirdFiveEditorial(canonicalSlug) ?? getBatch017FourthFiveEditorial(canonicalSlug) ?? getBatch017FifthFiveEditorial(canonicalSlug) ?? (await loadBatch012Group5FootballProgramEditorial(canonicalSlug)) ?? getBatch016EarlyEditorial(canonicalSlug) ?? getBatch016GroupOneEditorial(canonicalSlug) ?? getBatch016EarthEditorial(canonicalSlug) ?? getBatch016SecondFiveEditorial(canonicalSlug) ?? getBatch016ThirdFiveEditorial(canonicalSlug) ?? getBatch016FourthFiveEditorial(canonicalSlug) ?? getBatch016FifthFiveEditorial(canonicalSlug) ?? (await loadBatch015FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch014FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch013FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012Group4FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012Group3FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch012GroupTwoEditorial(canonicalSlug)) ?? (await loadBatch012FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch011FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch010FootballProgramEditorial(canonicalSlug)) ?? (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
   const aubreyAdjustedEditorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;
