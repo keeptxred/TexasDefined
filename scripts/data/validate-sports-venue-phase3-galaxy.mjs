@@ -47,14 +47,16 @@ for (const marker of [
 ]) requireText(galaxyRoute, marker, 'Galaxy static shared-guide wrapper');
 
 if (dynamicRoute.includes("'jones-att-stadium'")) failures.push('Galaxy must remain outside the ordinary dynamic allowlist.');
+if (remediation.includes('route retained under the former Jones')) failures.push('Venue history cannot discuss site-maintenance and SEO routing decisions.');
 
 for (const marker of [
   "canonicalPath: '/sports-venue/jones-att-stadium'",
   "city: 'Lubbock'",
   "venueType: 'College football stadium'",
   "homeTeam: 'Texas Tech Red Raiders football'",
-  "officialUrl: 'https://texastech.com/facilities/jones-at-t-stadium/2'",
+  "officialUrl: 'https://texastech.com/facilities/galaxy-stadium/2'",
   "reviewedAt: '2026-11-12'",
+  "eventScheduleUrl: 'https://texastech.com/sports/football/schedule'",
   "capacity: '60,229 (Texas Tech 2026 football game notes)'",
   '2026 Texas Tech football game notes — official 60,229 capacity',
   'formerly Jones AT&T Stadium',
@@ -66,7 +68,7 @@ for (const marker of [
   'Texas Tech Red Raiders football',
   'Big 12 Conference',
   'Galaxy Stadium name for the 2026 season',
-  "url: 'https://texastech.com/facilities/jones-at-t-stadium/2'",
+  "url: 'https://texastech.com/facilities/galaxy-stadium/2'",
   'parking:',
   'arrival:',
   'planningLinks:',

@@ -18,10 +18,13 @@ const SportsVenueLandingIndex = lazy(() => import('@/components/sports/SportsVen
 
 export const Route = createFileRoute('/sports-venues')({
   loader: async () => {
-    const { entitiesByKind } = await import('@/data/knowledge-graph');
+    const [{ entitiesByKind }, { SPORTS_VENUE_COMPARISON_INVENTORY_COUNT }] = await Promise.all([
+      import('@/data/knowledge-graph'),
+      // Share the comparison's seed/slug inventory without loading enriched profiles.
+      import('@/data/sports-venue-comparison-inventory'),
+    ]);
     const { getSportsVenueEditorialDescriptions } = await import('@/data/sports-venue-editorial.functions');
-    // The curated and full comparison counts share the static venue inventory.
-    // Do not import the entire 84-profile enrichment/comparison bundle just to count it.
+    // Curated guide eligibility is independent of the full comparison inventory.
     const allSportsVenues = entitiesByKind('sports-venue');
     const seenVenuePaths = new Set<string>();
     const curatedVenues = allSportsVenues
@@ -40,7 +43,7 @@ export const Route = createFileRoute('/sports-venues')({
       venues: curatedVenues
         .map((venue) => editorialDescriptions[venue.id] ? { ...venue, description: editorialDescriptions[venue.id] } : venue)
         .sort((a, b) => a.name.localeCompare(b.name)),
-      catalogCount: allSportsVenues.length,
+      catalogCount: SPORTS_VENUE_COMPARISON_INVENTORY_COUNT,
       sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: '/sports-venues' } }),
     };
   },

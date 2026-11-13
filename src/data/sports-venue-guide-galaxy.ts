@@ -8,7 +8,8 @@ const GALAXY_STADIUM_GUIDE: SportsVenueGuidePilot = {
   homeTeam: 'Texas Tech Red Raiders football',
   capacity: '60,229 (Texas Tech 2026 football game notes)',
   opened: 'Texas Tech football home since 1947; Galaxy Stadium name began in 2026',
-  officialUrl: 'https://texastech.com/facilities/jones-at-t-stadium/2',
+  officialUrl: 'https://texastech.com/facilities/galaxy-stadium/2',
+  eventScheduleUrl: 'https://texastech.com/sports/football/schedule',
   reviewedAt: '2026-11-12',
   sources: [
     { label: 'Galaxy Stadium facility page', href: 'https://texastech.com/facilities/galaxy-stadium/2' },

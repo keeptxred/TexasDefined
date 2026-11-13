@@ -1,7 +1,6 @@
-import { applyCurrentEntityCorrections } from './knowledge-graph/current-entity-corrections';
 import { canonicalEntityPath } from './knowledge-graph/relationships';
-import { CURATED_KNOWLEDGE_GRAPH_SEED } from './knowledge-graph/seed';
 import type { TexasEntityRecord } from './knowledge-graph/types';
+import { SPORTS_VENUE_COMPARISON_INVENTORY } from './sports-venue-comparison-inventory';
 import { getSportsVenueEnrichmentAll } from './sports-venue-enrichment-all';
 import { getSportsVenueGuideGalaxy } from './sports-venue-guide-galaxy';
 import { getSportsVenueGuidePilot } from './sports-venue-guide-pilots';
@@ -23,12 +22,7 @@ export type SportsVenueComparisonRow = {
   officialUrl?: string;
 };
 
-const venueRecords = [...new Map(
-  CURATED_KNOWLEDGE_GRAPH_SEED
-    .filter((entity) => entity.kind === 'sports-venue')
-    .map(applyCurrentEntityCorrections)
-    .map((entity) => [entity.slug, entity] as const),
-).values()];
+const venueRecords = SPORTS_VENUE_COMPARISON_INVENTORY;
 
 export const SPORTS_VENUE_COMPARISON_ROWS: readonly SportsVenueComparisonRow[] = venueRecords
   .map((venue) => {
