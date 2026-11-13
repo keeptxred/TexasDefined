@@ -67,6 +67,7 @@ const prebuildChecks = [
   ['FOOTBALL/B017/SECOND-FIVE', 'Verify five additional school-specific guides and exact source-only registry status', 'node', ['scripts/ci/verify-football-b017-second-five-source.mjs']],
   ['FOOTBALL/B018/CHROME-WORKFLOW', 'Require signed 25-school Batch018 production Chrome workflow invariants', 'node', ['scripts/ci/verify-football-b018-chrome-workflow-source.mjs']],
   ['FOOTBALL/B018/CHROME-SYNTAX', 'Syntax-check future signed Batch018 75-viewports and 25-county production acceptance', 'node', ['--check', 'scripts/ci/verify-football-b018-production.mjs']],
+  ['FOOTBALL/B018/ALL-25-WIRING', 'Require 25 separately authored school guides and all five bidirectional campus county cohorts', 'node', ['scripts/ci/verify-football-b018-25-source-wiring.mjs']],
   ['FOOTBALL/B018/FIFTH-FIVE-SOURCE', 'Validate five sourced Fort Bend fifth-cohort school guides and county links', 'node', ['scripts/ci/verify-football-b018-fifth-five-source.mjs']],
   ['FOOTBALL/B018/FOURTH-FIVE-SOURCE', 'Validate five sourced Forsan and Fort Bend UIL/TAPPS programs with reciprocal county links', 'node', ['scripts/ci/verify-football-b018-fourth-five-source.mjs']],
   ['FOOTBALL/B018/THIRD-FIVE-SOURCE', 'Verify source-backed Floresville through Forney SSR and reciprocal county links', 'node', ['scripts/ci/verify-football-b018-third-five-source.mjs']],
