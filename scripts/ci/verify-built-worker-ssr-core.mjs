@@ -31,6 +31,10 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/texas-high-school-football-isds/brookesmith-isd', requiredText: '025908001', label: 'independent Brookesmith ISD recovery: exact TEA campus ID renders on restored page' },
+  { path: '/texas-high-school-football-isds/morgan-isd', requiredText: '018903001', label: 'independent Morgan ISD recovery: exact TEA campus ID renders on restored page' },
+  { path: '/texas-high-school-football-isds/walnut-springs-isd', requiredText: '018905003', label: 'independent Walnut Springs ISD recovery: exact TEA campus ID renders on restored page' },
+  { path: '/texas-high-school-football-isds/three-rivers-isd', requiredText: '149902001', label: 'independent Three Rivers ISD recovery: exact TEA campus ID renders on restored page' },
   { path: '/destination/fort-leaton-state-historic-site', requiredText: 'Juana Pedrasa', label: 'Source-backed Fort Leaton borderlands heritage guide restores GSC 404' },
   { path: '/destination/fort-leaton-state-historic-site', requiredText: '16952 FM 170 East', label: 'Fort Leaton real western gateway address' },
   { path: '/destination/fort-leaton-state-historic-site', requiredText: 'https://tpwd.texas.gov/state-parks/fort-leaton', label: 'Fort Leaton official TPWD source visible' },
