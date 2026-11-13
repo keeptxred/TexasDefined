@@ -10,6 +10,7 @@ on:
       - 'src/data/city-metro-authority.ts'
       - 'src/data/city-social-images.ts'
       - 'src/data/texas-places.ts'
+      - 'scripts/data/validate-del-rio-city-authority.test.mjs'
       - 'src/components/content/EntityDepthSections.tsx'
   push:
     branches: [main]
@@ -21,6 +22,7 @@ on:
       - 'src/data/city-metro-authority.ts'
       - 'src/data/city-social-images.ts'
       - 'src/data/texas-places.ts'
+      - 'scripts/data/validate-del-rio-city-authority.test.mjs'
       - 'src/components/content/EntityDepthSections.tsx'
   workflow_dispatch:
 permissions:
@@ -40,6 +42,7 @@ jobs:
         with:
           node-version: '22'
       - run: node --check scripts/ci/verify-city-authority-browser.mjs
+      - run: node --test scripts/data/validate-del-rio-city-authority.test.mjs
 
   verify:
     if: ${{ github.event_name != 'pull_request' }}
