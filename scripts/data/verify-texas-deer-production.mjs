@@ -1,5 +1,9 @@
 import fs from 'node:fs';
 
+const guideSource = fs.readFileSync('src/data/hunting/authority-deer.ts', 'utf8');
+const reviewedOn = guideSource.match(/reviewedOn:\s*"(\d{4}-\d\d-\d\d)"/)?.[1];
+if (!reviewedOn) throw new Error('Deer guide lacks editorial review provenance');
+
 const data = JSON.parse(fs.readFileSync('src/data/hunting/deer-season-dates.json', 'utf8'));
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const path = '/hunting/texas-deer-hunting';
@@ -62,6 +66,9 @@ export function verifyDeerDocument(html) {
     'Texas white-tailed deer hunting dates',
     'Start with the county, not just the season zone',
     'Chronic wasting disease',
+    'New World screwworm',
+    'TexasDefined\'s regional comparison',
+    'Editorial responsibility: TexasDefined.',
     'Current official sources',
     'Tom Koerner',
     displayDate(data.sourceCheckedAt, 'long', true),
@@ -96,6 +103,11 @@ export function verifyDeerDocument(html) {
   if (!article || article.image?.url !== imageUrl || article.image?.license !== 'https://www.fws.gov/media/white-tailed-deer-buck-0') {
     throw new Error('Deer guide Article schema or licensed image metadata is missing');
   }
+  if (article.dateModified !== reviewedOn || article.author?.name !== 'TexasDefined') {
+    throw new Error('Deer article schema must reflect the actual editorial update and owner, not the automated season-data snapshot');
+  }
+  const webPage = entities.find((entity) => entity['@type'] === 'WebPage');
+  if (webPage?.dateModified !== reviewedOn) throw new Error('Deer WebPage editorial date does not match article review');
   if (!entities.some((entity) => entity['@type'] === 'FAQPage' && entity.mainEntity?.length)) {
     throw new Error('Deer guide FAQ structured data is missing');
   }
@@ -138,15 +150,16 @@ async function verifyDeerImage() {
 
 function selfTest() {
   const allDates = data.rows.map(row => row.season + ' ' + displayRange(row)).join(' ');
-  const article = { '@type': 'Article', image: { url: imageUrl, license: 'https://www.fws.gov/media/white-tailed-deer-buck-0' } };
+  const article = { '@type': 'Article', dateModified: reviewedOn, author: { name: 'TexasDefined' }, image: { url: imageUrl, license: 'https://www.fws.gov/media/white-tailed-deer-buck-0' } };
+  const webPage = { '@type': 'WebPage', dateModified: reviewedOn };
   const faq = { '@type': 'FAQPage', mainEntity: [{ name: 'Test question' }] };
   const example = '<!DOCTYPE html><html><head><link rel="canonical" href="' + canonical + '"><meta property="og:image" content="' + imageUrl + '"></head><body>'
-    + 'Texas White-Tailed Deer Hunting Guide Texas white-tailed deer hunting dates Start with the county, not just the season zone Chronic wasting disease Current official sources Tom Koerner '
+    + 'Texas White-Tailed Deer Hunting Guide Texas white-tailed deer hunting dates Start with the county, not just the season zone Chronic wasting disease New World screwworm TexasDefined\'s regional comparison Editorial responsibility: TexasDefined. Current official sources Tom Koerner '
     + displayDate(data.sourceCheckedAt, 'long', true) + ' ' + allDates
     + '<nav><a href="#deer-guide-1">Introduction</a></nav><section id="deer-guide-11">Final section</section>'
     + '<img src="' + imageUrl + '" alt="Close view of a white-tailed buck in grass">'
     + '<a href="https://www.fws.gov/media/white-tailed-deer-buck-0">Photo rights</a>'
-    + '<script type="application/ld+json">' + JSON.stringify({ '@graph': [article, faq] }) + '</script></body></html>';
+    + '<script type="application/ld+json">' + JSON.stringify({ '@graph': [article, webPage, faq] }) + '</script></body></html>';
   verifyDeerDocument(example);
   const jpeg = new Uint8Array(1024);
   jpeg[0] = 0xff; jpeg[1] = 0xd8; jpeg[1022] = 0xff; jpeg[1023] = 0xd9;
