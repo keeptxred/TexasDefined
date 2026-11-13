@@ -56,6 +56,8 @@ try {
       verify("canonical route",canonical===base+rec.path,canonical);
       const robots=await page.locator('meta[name="robots"]').getAttribute("content").catch(()=>"");
       verify("not noindex",!/\bnoindex\b/i.test(robots??""),robots);
+      const googlebot=await page.locator('meta[name="googlebot"]').getAttribute("content").catch(()=>"");
+      verify("Googlebot not noindex",!/\bnoindex\b/i.test(googlebot??""),googlebot);
       await page.waitForLoadState("load",{timeout:30000}).catch(()=>{});
       const measure=await page.evaluate(()=>({
         documentWidth:document.documentElement.scrollWidth,
