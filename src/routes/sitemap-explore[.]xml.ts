@@ -160,10 +160,29 @@ async function auditedFredericksburgSitemapEntry(): Promise<string | null> {
   try {
     const { smallTownWave1Destinations } = await import("@/data/small-town-destinations-wave1");
     const canonical = smallTownWave1Destinations.find((destination) => destination.slug === "fredericksburg");
-    if (!canonical || !isPrimaryTripPlannerDestination(canonical) || !auditDestination(canonical).readyForIndexing) {
+    if (!canonical) {
+      console.error("Fredericksburg sitemap source missing from reviewed small-town wave1 catalog");
       return null;
     }
-    return entry(`/destination/${canonical.slug}`, canonical.sourceCheckedAt);
+    if (!isPrimaryTripPlannerDestination(canonical)) {
+      console.error("Fredericksburg sitemap canonical is not an eligible primary trip-planner destination");
+      return null;
+    }
+    const audit = auditDestination(canonical);
+    if (!audit.readyForIndexing) {
+      // Keep fail-closed publication, but preserve actionable quality codes in
+      // Cloudflare logs instead of silently returning an empty sitemap entry.
+      console.error("Fredericksburg sitemap canonical failed quality gate", {
+        score: audit.score,
+        issueCodes: audit.issues.map((issue) => issue.code),
+      });
+      return null;
+    }
+    const canonicalEntry = entry(`/destination/${canonical.slug}`, canonical.sourceCheckedAt);
+    if (!canonicalEntry) {
+      console.error("Fredericksburg audited sitemap canonical rejected by route/indexability policy");
+    }
+    return canonicalEntry;
   } catch (error) {
     console.error("Fredericksburg audited sitemap source unavailable", error);
     return null;
