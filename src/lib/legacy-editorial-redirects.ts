@@ -56,6 +56,8 @@ LEGACY_EDITORIAL_REDIRECTS["/news/juan-seguin-tejano-texas-revolution"] = "/arti
 LEGACY_EDITORIAL_REDIRECTS["/news/san-antonio-spurs-texas-basketball-culture"] = "/article/san-antonio-spurs-texas-basketball-culture";
 LEGACY_EDITORIAL_REDIRECTS["/news/texas-oil-boom-wichita-falls-west-texas-rigs"] = "/article/texas-oil-boom-wichita-falls-west-texas-rigs";
 LEGACY_EDITORIAL_REDIRECTS["/news/dr-pepper-waco-texas-history"] = "/dr-pepper-texas-history";
+LEGACY_EDITORIAL_REDIRECTS["/news/davy-crockett-texas-alamo-legend"] = "/article/davy-crockett-texas-alamo-legend";
+LEGACY_EDITORIAL_REDIRECTS["/news/san-antonio-stock-show-rodeo-history-guide"] = "/article/san-antonio-stock-show-rodeo-history-guide";
 LEGACY_EDITORIAL_REDIRECTS["/destination/fredericksburg-texas-wineries-things-to-do-guide"] = "/article/fredericksburg-texas-wineries-things-to-do-guide";
 
 const historicalArticleSlugs = [
