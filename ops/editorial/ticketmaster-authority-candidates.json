@@ -1,11 +1,10 @@
 {
-  "fetchedAt": "2026-11-12T18:58:32.996Z",
+  "fetchedAt": "2026-11-13T14:52:11.139Z",
   "candidates": [
     {
       "name": "Austin Championship",
       "city": "Austin",
       "dates": [
-        "2026-11-12",
         "2026-11-13",
         "2026-11-14",
         "2026-11-15"
@@ -16,14 +15,12 @@
       "ticketmasterIds": [
         "G5dIZ_kRZQHmN",
         "G5dIZ_kRZ_imp",
-        "G5dIZ_kRZbjm8",
         "G5dIZ_kRZhHmi"
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/austin-championship-friday-austin-texas-11-13-2026/event/3A00646BC066CB96",
         "https://www.ticketmaster.com/austin-championship-saturday-austin-texas-11-14-2026/event/3A00646BC06BCBA3",
-        "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC",
-        "https://www.ticketmaster.com/austin-championship-thursday-austin-texas-11-12-2026/event/3A00646BC061CB90"
+        "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -423,54 +420,6 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/2026-ncaa-division-i-womens-volleyball-san-antonio-texas-12-20-2026/event/3A0064E6DB4EB81B"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Nutcracker Market Early Bird: Thurs & Fri 8:30am, Sat & Sun 10:00am",
-      "city": "Houston",
-      "dates": [
-        "2026-11-12"
-      ],
-      "venues": [
-        "Reliant Center"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_82to2GU"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/nutcracker-market-early-bird-thurs-fri-houston-texas-11-12-2026/event/3A006503E944F336"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Nutcracker Market General Admission: Good for ONE Entry",
-      "city": "Houston",
-      "dates": [
-        "2026-11-12"
-      ],
-      "venues": [
-        "Reliant Center"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_82xmrPQ"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/nutcracker-market-general-admission-good-for-houston-texas-11-12-2026/event/3A006503E2B9E95A"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
