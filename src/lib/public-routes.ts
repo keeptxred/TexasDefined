@@ -373,13 +373,6 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
-  "/attraction/dr-pepper-museum",
-  "/destination/dr-pepper-museum",
-  "/attraction/hill-country-louise-merrick-unit-state-natural-area",
-  "/destination/hill-country-louise-merrick-unit-state-natural-area",
-  "/state-park/indian-lodge-state-park-lodge",
-  "/destination/indian-lodge-state-park-lodge",
-  "/destination/seminole-canyon-state-park-historic-site",
   "/museum/barrington-farm-site",
   "/advertising-billing",
   "/advertising-terms",
