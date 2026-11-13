@@ -91,7 +91,7 @@ async function check(slug) {
     if(!/<main(?:\s|>)/i.test(html)) errors.push("Missing primary content landmark");
     if(/\bnoindex\b/i.test(res.headers.get("x-robots-tag")??"")) errors.push("X-Robots-Tag contains noindex");
     for(const tag of html.match(/<meta\b[^>]*>/gi)??[]) {
-      if(tagAttr(tag,"name")?.toLowerCase()==="robots" && /\bnoindex\b/i.test(tagAttr(tag,"content")??"")) errors.push("Meta robots contains noindex");
+      if(["robots", "googlebot", "googlebot-news"].includes(tagAttr(tag,"name")?.toLowerCase()??"") && /\bnoindex\b/i.test(tagAttr(tag,"content")??"")) errors.push("Crawler-specific meta robots contains noindex");
     }
     const mainHtml = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
     const visible = textOnly(mainHtml);
