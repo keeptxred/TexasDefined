@@ -522,6 +522,14 @@ const forbiddenTemplateRoutes = [
   { path: '/events/%2524collection', label: 'double-escaped event template' },
 ];
 
+// TPWD confirms these legacy imports are not visitor-ready and do not have
+// an independently approved published authority page. No 301-to-404 chain.
+const unavailableHistoricalParkRoutes = [
+  { path: '/state-park/fairfield-lake-state-park?source=gsc', label: 'Fairfield closed state-park import direct HTTP 404' },
+  { path: '/state-park/wyler-aerial-tramway-state-park?source=gsc', label: 'Wyler suspended tramway import direct HTTP 404' },
+  { path: '/attraction/chinati-mountains-state-natural-area?source=gsc', label: 'Chinati not-open attraction import direct HTTP 404' },
+];
+
 // Do not accept a generic 200/hub for an unapproved or invented UIL team.
 // The built Worker must return a real HTTP 404, even before any profiles are live.
 const forbiddenSoftballRoute = { path: '/sports/softball/never-an-approved-uil-school-ci', label: 'Unapproved UIL school must be a 404' };
@@ -628,6 +636,12 @@ try {
       const failure = await verifyWithRetries(target, checkForbiddenSoftballRoute, 'invalid template URL 404', 1);
       if (failure) failures.push(failure);
       else console.log('[route] verified direct HTTP 404: ' + target.path);
+    }
+
+    for (const target of unavailableHistoricalParkRoutes) {
+      const failure = await verifyWithRetries(target, checkForbiddenSoftballRoute, 'closed historic import HTTP 404', 1);
+      if (failure) failures.push(failure);
+      else console.log('[route] verified direct HTTP 404 (no broken redirect): ' + target.path);
     }
 
     for (const target of redirectTargets) {

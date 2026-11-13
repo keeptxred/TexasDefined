@@ -31,6 +31,17 @@ const BING_VERIFICATION_META =
   '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />';
 const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const MAX_REMOTE_IMAGE_REDIRECTS = 4;
+// GSC historical aliases that previously 301'd into non-existent /destination/
+// pages. TPWD confirms that the public campground/attraction represented by
+// each old import is CLOSED or NOT YET OPEN. A direct 404 is more honest than
+// a misleading permanent redirect to an unbuilt guide or a different park.
+// Re-review if TPWD announces public reopening; do not silently index stubs.
+const UNAVAILABLE_HISTORICAL_PARK_ALIASES = new Set([
+  "/state-park/fairfield-lake-state-park",
+  "/state-park/wyler-aerial-tramway-state-park",
+  "/attraction/chinati-mountains-state-natural-area",
+]);
+
 const ENTITY_REDIRECTS: Record<string, string> = {
   ...LEGACY_EDITORIAL_REDIRECTS,
   // Historical SH16 destination import now has a substantive route-specific section in the sourced scenic-drive authority guide.
@@ -136,6 +147,22 @@ export function invalidPublicRouteTemplateResponse(request: Request): Response |
   if (request.method !== "GET" && request.method !== "HEAD") return null;
   const url = new URL(request.url);
   if (!hasUnresolvedPublicRouteToken(url.pathname)) return null;
+  return new Response(request.method === "HEAD" ? null : "Not found", {
+    status: 404,
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "public, max-age=300",
+      "x-robots-tag": "noindex, follow",
+    },
+  });
+}
+
+export function unavailableHistoricalParkAliasResponse(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  let normalized = url.pathname.toLowerCase();
+  while (normalized.length > 1 && normalized.endsWith("/")) normalized = normalized.slice(0, -1);
+  if (!UNAVAILABLE_HISTORICAL_PARK_ALIASES.has(normalized)) return null;
   return new Response(request.method === "HEAD" ? null : "Not found", {
     status: 404,
     headers: {
@@ -762,6 +789,8 @@ export default {
       if (viator) return viator;
       const countyRedirect = legacyCountyRedirect(request);
       if (countyRedirect) return countyRedirect;
+      const unavailableParkAlias = unavailableHistoricalParkAliasResponse(request);
+      if (unavailableParkAlias) return unavailableParkAlias;
       const entityRedirect = canonicalEntityRedirect(request);
       if (entityRedirect) return entityRedirect;
       const handler = await getServerEntry();
