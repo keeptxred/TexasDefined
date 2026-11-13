@@ -6,6 +6,10 @@ on:
       - 'scripts/ci/verify-city-authority-browser.mjs'
       - '.github/workflows/verify-city-authority-browser.yml'
       - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/city-metro-authority.ts'
+      - 'src/data/city-social-images.ts'
+      - 'src/data/texas-places.ts'
       - 'src/components/content/EntityDepthSections.tsx'
   push:
     branches: [main]
@@ -13,6 +17,10 @@ on:
       - 'scripts/ci/verify-city-authority-browser.mjs'
       - '.github/workflows/verify-city-authority-browser.yml'
       - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/city-metro-authority.ts'
+      - 'src/data/city-social-images.ts'
+      - 'src/data/texas-places.ts'
       - 'src/components/content/EntityDepthSections.tsx'
   workflow_dispatch:
 permissions:
