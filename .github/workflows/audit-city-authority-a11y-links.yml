@@ -1,4 +1,4 @@
-name: Audit 11 city accessibility and all rendered links
+name: Audit 12 city accessibility and all rendered links
 on:
   pull_request:
     branches: [main]
@@ -9,6 +9,10 @@ on:
       - 'src/components/monetization/CityPassCalloutContent.tsx'
       - 'src/components/content/EntityDepthSections.tsx'
       - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/city-metro-authority.ts'
+      - 'src/data/city-social-images.ts'
+      - 'src/data/texas-places.ts'
       - 'src/data/citypass.ts'
       - 'public/city-experience-affiliate.js'
   push:
@@ -20,6 +24,10 @@ on:
       - 'src/components/monetization/CityPassCalloutContent.tsx'
       - 'src/components/content/EntityDepthSections.tsx'
       - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/city-metro-authority.ts'
+      - 'src/data/city-social-images.ts'
+      - 'src/data/texas-places.ts'
       - 'src/data/citypass.ts'
       - 'public/city-experience-affiliate.js'
   workflow_dispatch:
