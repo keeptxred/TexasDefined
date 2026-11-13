@@ -38,23 +38,20 @@ for (const test of tests) {
     // visitor content has arrived, especially on the mobile Chrome run.
     // Require an actual HTTP response AND the final named source-backed link.
     // This does not waive any downstream page, accessibility, or media assertion.
-    // The November 13 mobile acceptance got a real transport-level 45-second
-    // navigation timeout before even receiving response headers; Cloudflare
-    // recorded the corresponding client request as cancelled, not an HTTP
-    // page failure. Retry only this exact browser transport condition, then
-    // enforce every original URL, CSS, hydration, content and image assertion.
+    // A fully rendered desktop pass can be followed by a transient no-first-byte
+    // Chrome timeout on the separate mobile navigation under Worker load.
+    // Retry only that transport timeout, at most once. HTTP 4xx/5xx, missing
+    // content, bad CSS/viewport, hydration, media rights and navigation still
+    // fail all the same downstream assertions. Never turn a timeout into PASS.
     let response;
-    for (let attempt = 1; attempt <= 3; attempt++) {
+    for (let attempt = 1; attempt <= 2; attempt++) {
       try {
         response = await page.goto(url, { waitUntil: 'commit', timeout: 45000 });
         break;
       } catch (error) {
-        if (error?.name !== 'TimeoutError' || attempt === 3) throw error;
-        console.warn('MSR_TRANSIENT_NAVIGATION_TIMEOUT ' + JSON.stringify({
-          viewport: test.name, attempt, timeoutMs: 45000,
-        }));
-        await page.goto('about:blank', { waitUntil: 'commit', timeout: 10000 });
-        await page.waitForTimeout(attempt * 500);
+        if (attempt === 2 || !/TimeoutError/.test(String(error))) throw error;
+        console.warn('MSR ' + test.name + ' commit timed out without a response; bounded navigation retry 2/2');
+        await page.waitForTimeout(750);
       }
     }
     assert.equal(response?.status(), 200, 'Canonical MSR page returned non-200 status');
