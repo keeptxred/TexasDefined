@@ -70,6 +70,10 @@ LEGACY_EDITORIAL_REDIRECTS["/destination/fredericksburg-texas-wineries-things-to
 // research guides. Never send visitors to an unrelated calculator or generic hub.
 LEGACY_EDITORIAL_REDIRECTS["/article/texas-home-insurance-guide"] = "/article/texas-homeowners-insurance-guide";
 LEGACY_EDITORIAL_REDIRECTS["/article/texas-hurricane-preparation-guide"] = "/article/texas-hurricane-preparation-homeowners-renters";
+// The former article slug named Spindletop and the Permian Basin. The live
+// canonical oil-boom authority article already covers both regions plus Wichita
+// Falls, and lists TSHA and Railroad Commission primary sources.
+LEGACY_EDITORIAL_REDIRECTS["/article/texas-oil-boom-history-spindletop-permian-basin"] = "/article/texas-oil-boom-wichita-falls-west-texas-rigs";
 // Long-form Cameron County series was consolidated to its canonical county profile.
 LEGACY_EDITORIAL_REDIRECTS["/article/cameron-county-brownsville-harlingen-south-padre-rio-grande"] = "/county/cameron";
 
