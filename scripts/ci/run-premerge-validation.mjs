@@ -65,6 +65,7 @@ const prebuildChecks = [
   ['FOOTBALL/B017/FOURTH-FIVE', 'Verify five individual fourth-group campus guides and counties', 'node', ['scripts/ci/verify-football-b017-fourth-five-source.mjs']],
   ['FOOTBALL/B017/THIRD-FIVE', 'Verify third five distinct campus county and school source guides', 'node', ['scripts/ci/verify-football-b017-third-five-source.mjs']],
   ['FOOTBALL/B017/SECOND-FIVE', 'Verify five additional school-specific guides and exact source-only registry status', 'node', ['scripts/ci/verify-football-b017-second-five-source.mjs']],
+  ['FOOTBALL/B018/FIFTH-FIVE-SOURCE', 'Verify final five independent Batch018 school source modules and county records', 'node', ['scripts/ci/verify-football-b018-fifth-five-source.mjs']],
   ['FOOTBALL/B017/FIRST-FIVE', 'Verify five distinct official-source Batch017 football guides and reciprocal county links without Chrome promotion', 'node', ['scripts/ci/verify-football-b017-first-five-source.mjs']],
   ['FOOTBALL/B015', 'Validate first three Batch015 school guides, canonical SSR and reciprocal county links without promotion', 'node', ['scripts/ci/verify-football-b015-first-three-source.mjs']],
   ['FOOTBALL/B015/SECOND-FIVE', 'Validate next five school guides, distinct campuses and verified reciprocal county links', 'node', ['scripts/ci/verify-football-b015-second-five-source.mjs']],
