@@ -30,6 +30,12 @@ export const LEGACY_EDITORIAL_REDIRECTS: Record<string, string> = Object.fromEnt
   ),
 );
 LEGACY_EDITORIAL_REDIRECTS["/museum/barrington-farm-site"] = "/destination/barrington-living-history-farm";
+// These older Barton Warnock URLs claimed a separate state park. TPWD calls
+// the real place the east visitor and permit entrance of Big Bend Ranch.
+// The published parent park guide covers Barton Warnock specifically rather
+// than redirecting to an unbuilt /destination/barton-warnock-visitor-center.
+LEGACY_EDITORIAL_REDIRECTS["/destination/barton-warnock-environmental-educational-center-state-park"] = "/destination/big-bend-ranch-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/barton-warnock-environmental-educational-center-state-park"] = "/destination/big-bend-ranch-state-park";
 // Historical San Antonio links: the city guide is /city/, not a destination.
 LEGACY_EDITORIAL_REDIRECTS["/destination/san-antonio"] = "/city/san-antonio";
 // El Paso's researched city authority lives at /city/el-paso, not a second
