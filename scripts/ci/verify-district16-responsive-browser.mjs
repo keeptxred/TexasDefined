@@ -10,7 +10,21 @@ try{
   try{
    const page=await context.newPage(), errors=[];
    page.on('pageerror',e=>errors.push(String(e)));
-   const response=await page.goto('https://texasdefined.com/texas-high-school-football-districts/6a-district-16?district16_browser='+(process.env.GITHUB_SHA||'manual').slice(0,12),{waitUntil:'domcontentloaded',timeout:45000});
+   // A transport-only Chrome navigation timeout previously failed an otherwise
+   // healthy deployed release. Retry this one request once; never skip status,
+   // canonical, standings, layout or runtime assertions below.
+   const url='https://texasdefined.com/texas-high-school-football-districts/6a-district-16?district16_browser='+(process.env.GITHUB_SHA||'manual').slice(0,12);
+   let response;
+   for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+     response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+     break;
+    } catch (error) {
+     if (attempt === 2 || !/TimeoutError/.test(String(error))) throw error;
+     console.warn('DISTRICT16_TRANSIENT_NAV_TIMEOUT',spec.name,'attempt',attempt);
+     await page.waitForTimeout(1000);
+    }
+   }
    assert.equal(response?.status(),200,spec.name+' HTTP');
    await page.locator('[data-football-district-section="district-16-2026"]').waitFor({state:'visible',timeout:15000});
    const facts=await page.evaluate(()=>({title:document.title,canonical:document.querySelector('link[rel="canonical"]')?.href,h1:document.querySelectorAll('h1').length,rows:document.querySelectorAll('#district-16-standings tbody tr').length,finals:document.querySelectorAll('[data-district16-result="final"]').length,fixtures:document.querySelectorAll('[data-district16-result="scheduled"]').length,links:new Set([...document.querySelectorAll('a[href^="/texas-high-school-football-teams/"]')].map(a=>a.getAttribute('href'))).size,overflow:document.documentElement.scrollWidth-innerWidth,sectionHeight:document.querySelector('#district-16-results')?.getBoundingClientRect().height||0}));
