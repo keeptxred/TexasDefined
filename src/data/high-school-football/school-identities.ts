@@ -30,6 +30,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   { slug: 'floydada', mascot: 'Whirlwinds', sourceUrl: 'https://www.floydadaisd.esc17.net/athletics/', sourceLabel: 'Floydada Collegiate ISD Whirlwinds athletics', verifiedAt: '2026-11-13' },
   { slug: 'follett', mascot: 'Panthers', sourceUrl: 'https://www.follettisd.net/page/athletics', sourceLabel: 'Follett ISD Panthers six-man athletics', verifiedAt: '2026-11-13' },
   { slug: 'forestburg', mascot: 'Longhorns', sourceUrl: 'https://www.forestburgisd.net/about-fisd', sourceLabel: 'Forestburg ISD Longhorns six-man school athletics and stadium distinction', verifiedAt: '2026-11-13' },
+  { slug: 'forney', mascot: 'Jackrabbits', sourceUrl: 'https://fhs.forneyisd.net/athletics', sourceLabel: 'Forney High School Jackrabbit Athletics (distinct from North Forney Falcons)', verifiedAt: '2026-11-13' },
   { slug: 'forsan', mascot: 'Buffaloes', sourceUrl: 'https://www.forsan.esc18.net/athletics', sourceLabel: 'Forsan ISD Buffaloes athletics', verifiedAt: '2026-11-13' },
   { slug: 'fort-bend-austin', mascot: 'Bulldogs', sourceUrl: 'https://ahs.fortbendisd.gov/athletics/home', sourceLabel: 'Stephen F. Austin High Sugar Land Bulldogs; separate from Austin ISD', verifiedAt: '2026-11-13' },
   { slug: 'fort-bend-bush', mascot: 'Broncos', sourceUrl: 'https://bhs.fortbendisd.gov/', sourceLabel: 'Fort Bend ISD George Bush High Broncos; not Houston Bush', verifiedAt: '2026-11-13' },
