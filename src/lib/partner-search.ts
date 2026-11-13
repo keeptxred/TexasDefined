@@ -16,7 +16,7 @@ const canonicalPath = '/partner-with-us';
 
 function sanitizePartnerSource(value: unknown): string {
   return typeof value === 'string' &&
-    /^\/(?:sports-venues|horse-racing|things-unique-to-texas\/texas-brands|events\/christmas-events|sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+|explore\/near\/[a-z0-9-]+\/day-trips)$/.test(value)
+    /^\/(?:sports-venues|things-unique-to-texas\/texas-brands|events\/christmas-events|sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+|explore\/near\/[a-z0-9-]+\/day-trips)$/.test(value)
     ? value : canonicalPath;
 }
 
