@@ -25,7 +25,7 @@ const currentDesignations: CapitalDesignation[] = [
   { place: "Nacogdoches", title: "Garden Capital of Texas", legislature: "89th Legislature", resolution: "H.C.R. 93", designatedYear: 2025, sourceUrl: "https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00093F.htm", context: "The designation highlights Nacogdoches' gardens, trees, horticultural institutions and long-running public gardening culture." },
   { place: "Port Aransas", title: "Fishing Capital of Texas", legislature: "89th Legislature", resolution: "H.C.R. 117", designatedYear: 2025, sourceUrl: "https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00117F.htm", context: "The resolution recognizes Port Aransas' charter fleet, marinas, fishing businesses, conservation work and deep connection to Gulf Coast angling." },
   { place: "Floresville", title: "Peanut Capital of Texas", legislature: "88th Legislature", resolution: "H.C.R. 83", designatedYear: 2023, sourceUrl: "https://capitol.texas.gov/tlodocs/88R/billtext/html/HC00083F.htm", context: "Floresville's peanut-growing history and its annual Peanut Festival anchor the official designation." },
-  { place: "San Angelo", title: "Visual Arts Capital of Texas", legislature: "87th Legislature", resolution: "H.C.R. 24", designatedYear: 2021, sourceUrl: "https://capitol.texas.gov/tlodocs/87R/billtext/html/HC00024F.htm", context: "The Legislature cited San Angelo's museums, galleries, public art, sculpture and broad community arts culture." },
+  { place: "San Angelo", title: "Visual Arts Capital of Texas", legislature: "87th Legislature", resolution: "H.R. 24", designatedYear: 2021, sourceUrl: TSLAC_CAPITAL_SOURCE, context: "The Legislature cited San Angelo's museums, galleries, public art, sculpture and broad community arts culture." },
   { place: "Kyle", title: "Pie Capital of Texas", legislature: "87th Legislature", resolution: "S.C.R. 22", designatedYear: 2021, sourceUrl: "https://capitol.texas.gov/tlodocs/87R/billtext/html/SC00022F.htm", context: "Kyle's pie festivals, business initiatives and community branding led to the official statewide designation." },
 ];
 
@@ -97,7 +97,7 @@ function TexasCapitalDesignationsPage() {
                 <p className="mt-4 flex-1 text-sm leading-6 text-muted-foreground">{item.context}</p>
                 <div className="mt-6 border-t border-border pt-4 text-sm">
                   <p><strong>{item.resolution}</strong> · {item.legislature} · {item.designatedYear}</p>
-                  <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-block font-semibold text-primary underline-offset-4 hover:underline">Read the enrolled resolution ↗</a>
+                  <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-block font-semibold text-primary underline-offset-4 hover:underline">{item.place === "San Angelo" ? "Check official state-library citation ↗" : "Read the enrolled resolution ↗"}</a>
                   {item.place === "Galveston" ? <Link to="/events/mardi-gras" className="mt-3 block font-semibold text-primary underline-offset-4 hover:underline">See the Texas Mardi Gras calendar and 2027 visitor guides →</Link> : null}
                 </div>
               </article>
