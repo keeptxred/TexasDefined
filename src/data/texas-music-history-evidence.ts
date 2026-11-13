@@ -20,7 +20,7 @@ export const musicHistoryMilestones: Record<string, readonly MusicMilestone[]> =
     { period: "April 2023 dedication", event: "Texas officials dedicate the Broken Spoke historical marker, distinct from the 2021 year in the state marker record.", sourceUrl: "https://gov.texas.gov/news/post/first-lady-abbott-dedicates-broken-spoke-texas-historical-marker-in-austin", sourceLabel: "Texas Governor's Office" },
   ],
   "continental-club-austin-history": [
-    { period: "1955", event: "The Continental Club opens as a supper club on South Congress, before its later burlesque and neighborhood-bar phases.", sourceUrl: "https://continentalclub.com/about/", sourceLabel: "Continental Club history" },
+    { period: "1955 / 1957 (disputed)", event: "The club dates its South Congress supper-club opening to 1955; the Handbook of Texas and Austin’s adopted 2005 neighborhood plan date it to 1957. Both agree it began as a supper club; the exact first year remains unresolved.", sourceUrl: "https://www.tshaonline.org/handbook/entries/continental-club", sourceLabel: "Handbook of Texas; compare the venue’s official account" },
     { period: "Late 1970s–1980s", event: "The stage hosts Stevie Ray Vaughan, Joe Ely, punk and roots-rock performers during successive music eras.", sourceUrl: "https://continentalclub.com/about/", sourceLabel: "Continental Club history" },
     { period: "1987", event: "Restoration work returns the club toward its 1950s appearance and brings the original murals back into view.", sourceUrl: "https://continentalclub.com/about/", sourceLabel: "Continental Club history" },
   ],
@@ -95,7 +95,7 @@ export const musicVenuePhotography: Record<string, {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/The_Continental_Club_Austin_2019.jpg?width=1200",
     width: 2400, height: 1600,
     alt: "Exterior of the Continental Club in Austin on South Congress Avenue, photographed in 2019",
-    caption: "The Continental Club on South Congress in 2019. The building has carried several musical identities since opening in 1955.",
+    caption: "The Continental Club on South Congress in 2019. The building has carried several musical identities since its mid-century opening; published sources disagree on 1955 versus 1957.",
     credit: "Larry D. Moore",
     sourcePage: "https://commons.wikimedia.org/wiki/File:The_Continental_Club_Austin_2019.jpg",
     license: "CC BY 4.0",
