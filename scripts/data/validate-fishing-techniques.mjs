@@ -15,6 +15,7 @@ const paths = {
   guideContent: "src/data/fishing/technique-guide-content.ts",
   decisionGuide: "src/data/fishing/technique-decision-guide.ts",
   sourceNotes: "src/data/fishing/technique-source-notes.ts",
+  sourceComparisons: "src/data/fishing/technique-primary-source-comparisons.ts",
   authorityContent: "src/data/fishing/technique-authority-content.ts",
   prototypeTechniques: "src/data/fishing/prototype-technique-profiles.ts",
   fishingIndex: "src/data/fishing/index.ts",
@@ -101,7 +102,7 @@ requireText(files.functions, "loadFishingTechniqueProfileServer", "profile serve
 for (const token of ["buildFishingTechniqueDirectoryHead",'"@type": "CollectionPage"','"@type": "ItemList"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(files.server, token, `directory server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques")','head: ({ loaderData }) => loaderData?.head ?? {}']) requireText(files.directoryRoute, token, `directory critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques")','useRouterState','state.location.pathname','pathname !== FISHING_TECHNIQUES_DIRECTORY_PATH','return <Outlet />','FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}']) requireText(files.directoryLazy, token, `directory native lazy route missing ${token}`);
-for (const token of ["Texas Fishing Techniques","Match the Method to the Water","Browse techniques","Check Conditions Before You Go",'method="get"','name="category"','name="species"','name="season"',"fresh fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
+for (const token of ["Texas Fishing Techniques","Match the Method to the Water","Browse techniques","Check Conditions Before You Go",'method="get"','name="category"','name="species"','name="season"',"dated fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
 
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
@@ -204,6 +205,31 @@ for (const slug of techniqueSlugs) requireText(files.decisionGuide, `slug: "${sl
 for (const token of ["fishingTechniqueSourceNotes", "sourceNote.officialUrl", "sourceNote.officialFinding", "sourceNote.interpretation", "editorial interpretation", "lake connections"]) requireText(files.profileComponent, token, "transparent sourcing/limits missing " + token);
 for (const slug of ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"]) if (!files.sourceNotes.includes(`${slug}:`) && !files.sourceNotes.includes(`"${slug}":`)) throw new Error("TPWD case study missing " + slug);
 for (const slug of ["sam_rayburn","texoma","fork","canyon","conroe"]) requireText(files.sourceNotes, `/${slug}/`, "TPWD reservoir citation missing " + slug);
+for (const slug of ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"]) {
+  requireText(files.sourceComparisons, `${JSON.stringify(slug)}: {`, "Researched two-water comparison missing " + slug);
+}
+for (const token of [
+  "texasFishingTechniqueScenarios.map", "Five Texas Situations Where the Method Changes",
+  "weekly fishing reports are on hold", "reports archive", "corrections policy",
+]) requireText(files.directoryComponent, token, "Source-backed fishing method directory research missing " + token);
+for (const token of [
+  "techniqueReservoirComparisons", "reservoirContrast.first", "reservoirContrast.second",
+  "Read TPWD lake tactics", "Lake guide", "Documented by TPWD:", "Compiled by the Texas Defined editorial team",
+  "dated fishing reports and archives", "Browse dated fishing reports",
+]) requireText(files.profileComponent, token, "Individual source comparison/editorial method missing " + token);
+const sourcedTPWDLakeUrls = [...files.sourceComparisons.matchAll(/sourceUrl:\s*"(https:\/\/tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\/[^"]+)"/g)].map((match) => match[1]);
+if (sourcedTPWDLakeUrls.length !== 15) throw new Error("Five independent research contrasts plus five directory examples must link to 15 original TPWD lake source references");
+const canonicalSourcePaths = [...files.sourceComparisons.matchAll(/lakePath:\s*"([^"]+)"/g)].map((match) => match[1]);
+if (canonicalSourcePaths.length !== 10 || canonicalSourcePaths.some((item) => !/^\/fishing\/lakes\/[a-z0-9-]+$/.test(item)))
+  throw new Error("Research comparisons must link ten complete canonical lake paths, without underscore slugs");
+for (const lake of ["lake-conroe", "lake-fork", "lake-texoma", "canyon-lake", "sam-rayburn-reservoir"]) {
+  if (!files.sourceComparisons.includes(`/fishing/lakes/${lake}`) || !read("src/data/fishing/slugs.ts").includes(`"${lake}"`))
+    throw new Error("Comparative lake is missing an existing complete fishery guide: " + lake);
+}
+for (const snippet of ["Fresh reports →", "Check current fishing reports →", ">fresh fishing reports</a>"])
+  if (files.directoryComponent.includes(snippet) || files.profileComponent.includes(snippet))
+    throw new Error("Technique navigation falsely labels paused historical reports as fresh: " + snippet);
+
 requireText(files.imageRegistry, "Lake_Texoma,_Eisenhower_State_Park.jpg", "trolling image lacks verified Texas location and licensing");
 if (files.imageRegistry.includes("Hauling%20in%20salmon")) throw new Error("Fishing authority validation failed: non-Texas archival salmon photo still used as trolling hero.");
 if (files.profileComponent.includes("four seasons, not five")) throw new Error("Fishing authority validation failed: editorial seasonal count jargon returned.");
