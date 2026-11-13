@@ -74,6 +74,32 @@ test('only one known post-deploy browser failure can qualify an otherwise fully 
   assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],id:130834293836}]}),/unapproved/);
   assert.throws(()=>qualifyPriorDeployJob({...failedImageIncident,jobs:[{...failedImageIncident.jobs[0],run_id:43113183644}]}),/unapproved/);
   assert.throws(()=>qualifyPriorDeployJob(make('failure',['Verify base production surfaces'])),/unapproved/);
+  // A Nov12 Worker published before unrelated statewide QA failures. This
+  // does not grant permission to bypass ANY direct/canonical/hash/Worker gate.
+  const nov12Failures=[
+    'Verify ticketing and Christmas pages at mobile and desktop widths',
+    'Verify base production surfaces',
+    'Verify changed CJ account tracking without affiliate clicks',
+  ];
+  const nov12=make('failure',nov12Failures);
+  nov12.jobs[0].run_id=43331358104;
+  nov12.jobs[0].id=131576580894;
+  assert.equal(qualifyPriorDeployJob(nov12).mode,'exact-nov12-active-worker-original-assets-only');
+  for (const mutate of [
+    x=>x.jobs[0].run_id++,
+    x=>x.jobs[0].id++,
+    x=>x.jobs[0].steps.push({name:'Unknown failure',conclusion:'failure'}),
+    x=>x.jobs[0].steps.find(s=>s.name==='Verify canonical production health').conclusion='failure',
+  ]) {
+    const forged=structuredClone(nov12);
+    mutate(forged);
+    assert.throws(()=>qualifyPriorDeployJob(forged),/unapproved|Required published/);
+  }
+  const currentHandoffWorkflow=readFileSync('.github/workflows/deploy-production.yml','utf8');
+  assert.match(currentHandoffWorkflow,/EXPECTED_ACTIVE_WORKER_VERSION.*632decb8-3e25-43dd-a42f-73b236ea6336/);
+  assert.match(currentHandoffWorkflow,/verify-prior-asset-handoff\.mjs/);
+  assert.match(currentHandoffWorkflow,/2026-11-15T23:50:11Z/);
+
   // Exact November 12 published Worker passed all original-byte and dual-origin
   // runtime checks; the sole later directory check demanded nonexistent copy.
   const sportsIncident=make('failure',['Verify sports venue editorial production']);
