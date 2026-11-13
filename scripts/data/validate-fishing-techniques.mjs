@@ -206,7 +206,7 @@ for (const token of ["fishingTechniqueSourceNotes", "sourceNote.officialUrl", "s
 for (const slug of ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"]) if (!files.sourceNotes.includes(`${slug}:`) && !files.sourceNotes.includes(`"${slug}":`)) throw new Error("TPWD case study missing " + slug);
 for (const slug of ["sam_rayburn","texoma","fork","canyon","conroe"]) requireText(files.sourceNotes, `/${slug}/`, "TPWD reservoir citation missing " + slug);
 for (const slug of ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"]) {
-  requireText(files.sourceComparisons, `${JSON.stringify(slug)}: {`, "Researched two-water comparison missing " + slug);
+  if (!files.sourceComparisons.includes(`${JSON.stringify(slug)}: {`) && !files.sourceComparisons.includes(`${slug}: {`)) throw new Error("Researched two-water comparison missing " + slug);
 }
 for (const token of [
   "texasFishingTechniqueScenarios.map", "Five Texas Situations Where the Method Changes",
