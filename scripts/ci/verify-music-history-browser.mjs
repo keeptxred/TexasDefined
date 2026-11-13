@@ -32,6 +32,11 @@ try{
    check("historical content visible",mainText.length>1300,mainText.length);
    check("accountable editorial desk visible",mainText.includes("Texas Defined Editorial Desk"));
    check("source chronology or city comparison visible",/documented milestones|source-linked chronology|Milestones in a Coastal Bend recording center|What made each Texas music city different\?/i.test(mainText));
+   check("research dossier visible",mainText.includes("Research file")&&mainText.includes("What the record establishes")&&mainText.includes("Our reading")&&mainText.includes("What remains uncertain:"));
+   check("at least four checked findings",((mainText.match(/What the record establishes/g)||[]).length)>=4);
+   const links=await page.locator('section[aria-labelledby="music-research-dossier"] a[href^="https://"]').count();
+   check("four or more linked records",links>=4,links);
+   if(slug==="continental-club-austin-history")check("1955 and 1957 dispute published",mainText.includes("1955")&&mainText.includes("1957")&&mainText.includes("disputed"));
    const canonical=await page.locator('link[rel="canonical"]').getAttribute("href").catch(()=>null);
    check("self canonical",canonical===base+"/"+slug,canonical);
    const robots=await page.locator('meta[name="robots"]').getAttribute("content").catch(()=>"");
