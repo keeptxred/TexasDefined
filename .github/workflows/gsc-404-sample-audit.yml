@@ -2,6 +2,9 @@ name: Audit historical GSC 404 sample (99 URLs)
 
 on:
   workflow_dispatch:
+  # Weekly read-only recheck of exact historic GSC 404 sample; no site-wide crawl.
+  schedule:
+    - cron: '13 10 * * 1'
   push:
     branches:
       - fix/gsc-404-sample-audit-20261113
