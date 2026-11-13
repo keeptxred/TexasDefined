@@ -38,6 +38,16 @@ LEGACY_EDITORIAL_REDIRECTS["/destination/el-paso"] = "/city/el-paso";
 // County feature was published with a -texas suffix; retain old inbound links.
 LEGACY_EDITORIAL_REDIRECTS["/article/bexar-county-san-antonio-missions-river"] = "/article/bexar-county-san-antonio-missions-river-texas";
 
+// Historical GSC crawl paths still pointing at the old news/destination
+// families. Each replacement already has a published authority page; redirects
+// must not create duplicate story records or bypass the target's SEO gates.
+LEGACY_EDITORIAL_REDIRECTS["/news/stephen-f-austin-father-of-texas"] = "/article/stephen-f-austin-father-of-texas";
+LEGACY_EDITORIAL_REDIRECTS["/news/juan-seguin-tejano-texas-revolution"] = "/article/juan-seguin-tejano-texas-revolution";
+LEGACY_EDITORIAL_REDIRECTS["/news/san-antonio-spurs-texas-basketball-culture"] = "/article/san-antonio-spurs-texas-basketball-culture";
+LEGACY_EDITORIAL_REDIRECTS["/news/texas-oil-boom-wichita-falls-west-texas-rigs"] = "/article/texas-oil-boom-wichita-falls-west-texas-rigs";
+LEGACY_EDITORIAL_REDIRECTS["/news/dr-pepper-waco-texas-history"] = "/dr-pepper-texas-history";
+LEGACY_EDITORIAL_REDIRECTS["/destination/fredericksburg-texas-wineries-things-to-do-guide"] = "/article/fredericksburg-texas-wineries-things-to-do-guide";
+
 const historicalArticleSlugs = [
   "audie-murphy-texas-war-hero-actor",
   "fort-worth-stockyards-history-cattle-culture",
