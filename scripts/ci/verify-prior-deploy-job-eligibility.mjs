@@ -113,6 +113,25 @@ const NOV12_PUBLISHED_WORKER_UNRELATED_LIVE_FAILURES = Object.freeze({
   ],
 });
 
+// Nov 13 run #43440830866 published Worker 14cd9057-b9e3-4cf6-b2f8-3e103afe7657
+// at 100% from source SHA f3e92256e6659d25d03ba2b938f99e09b8702805.
+// All five protected deploy/health/dual-origin byte checks passed, including
+// 6,762 original-byte source/hash records for 139 emitted assets. Its single
+// later failure was the independent /events Chrome SSR HTTP 500 (Cloudflare
+// Ray a59e758888c7a2e0-LAX). This exception can ONLY qualify the immutable
+// exact-run asset handoff to seed the next release. It does NOT certify that
+// event page or this failed release, and the next Worker must pass all real
+// page acceptance checks again, independently of this historical failure.
+// The caller enforces the exact currently-active Worker version, source SHA,
+// original asset hashes and BOTH origins, before using any old bytes.
+const NOV13_PUBLISHED_WORKER_EVENTS_VISUAL_FAILURE = Object.freeze({
+  runId: 43440830866,
+  jobId: 131937683043,
+  failedStep: 'Verify ticketing and Christmas pages at mobile and desktop widths',
+  sourceSha: 'f3e92256e6659d25d03ba2b938f99e09b8702805',
+  workerVersion: '14cd9057-b9e3-4cf6-b2f8-3e103afe7657',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -129,6 +148,14 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const exactNov13 = NOV13_PUBLISHED_WORKER_EVENTS_VISUAL_FAILURE;
+  if (job.run_id === exactNov13.runId && job.id === exactNov13.jobId
+    && failures.length === 1 && failures[0] === exactNov13.failedStep) {
+    return { eligible: true, mode: 'exact-nov13-active-worker-original-assets-only',
+      criticalChecks: CRITICAL.length, permittedFailures: failures,
+      exactRun: exactNov13.runId, requiredSourceSha: exactNov13.sourceSha,
+      requiredWorkerVersion: exactNov13.workerVersion };
   }
   const exactNov12 = NOV12_PUBLISHED_WORKER_UNRELATED_LIVE_FAILURES;
   if (job.run_id === exactNov12.runId && job.id === exactNov12.jobId
