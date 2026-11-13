@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { musicHistoryMilestones, musicSourceReviewedAt } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
 const canonicalUrl = `${siteUrl}/corpus-christi-music-history`;
@@ -31,6 +32,7 @@ const sources = [
 export const Route = createLazyFileRoute("/corpus-christi-music-history")({ component: CorpusChristiMusicHistoryPage });
 
 function CorpusChristiMusicHistoryPage() {
+  const milestones = musicHistoryMilestones["corpus-christi-music-history"];
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -43,6 +45,9 @@ function CorpusChristiMusicHistoryPage() {
         url: canonicalUrl,
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
+        author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/editorial-policy` },
+        dateModified: musicSourceReviewedAt,
+        isAccessibleForFree: true,
         articleSection: "Texas Music",
         citation: sources.map((source) => source.href),
         isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` },
@@ -96,6 +101,7 @@ function CorpusChristiMusicHistoryPage() {
               <Link to="/texas-conjunto-tejano" className="border-b border-primary pb-1 text-primary">Texas conjunto & Tejano →</Link>
               <Link to="/texas-music-timeline" className="border-b border-primary pb-1 text-primary">Texas Music timeline →</Link>
             </div>
+            <p className="mt-5 text-sm text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={musicSourceReviewedAt}>November 13, 2026</time></p>
           </header>
 
           <section className="border-b border-border py-8" aria-labelledby="corpus-quick-answer">
@@ -148,10 +154,16 @@ function CorpusChristiMusicHistoryPage() {
             </div>
           </section>
 
+          <section className="border-b border-border py-10" aria-labelledby="corpus-chronology">
+            <p className="eyebrow text-primary">The evidence trail</p>
+            <h2 id="corpus-chronology" className="mt-2 font-display text-4xl">Milestones in a Coastal Bend recording center</h2>
+            <ol className="mt-7 grid gap-5 md:grid-cols-3">{milestones.map((milestone) => <li key={milestone.period} className="border-t-2 border-primary/40 pt-5"><p className="font-semibold">{milestone.period}</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.event}</p><a href={milestone.sourceUrl} rel="noopener noreferrer" target="_blank" className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a></li>)}</ol>
+          </section>
+
           <section className="border-b border-border py-10" aria-labelledby="corpus-sources">
             <p className="eyebrow text-primary">Sources</p>
             <h2 id="corpus-sources" className="mt-2 font-display text-3xl">Historical authority behind this guide</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This page focuses on durable history and relies primarily on the Texas State Historical Association's Handbook of Texas and Handbook of Texas Music. It does not hardcode changing museum, venue, ticket or visitor information.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The dated milestones above link directly to historical sources. These further references document how the record businesses and performers fit the wider South Texas music economy; current ticket prices, opening hours and visitor policies are not historical claims.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {sources.map((source) => <li key={source.href} className="py-4"><a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a><p className="mt-1 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}
             </ul>
