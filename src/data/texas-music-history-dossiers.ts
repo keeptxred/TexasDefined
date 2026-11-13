@@ -385,6 +385,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "A biography focused only on Holly misses the collaborative writing, rhythm and band identity that shaped early rock-and-roll's sound and its later influence.",
         source: "Handbook of Texas, The Crickets",
         href: "https://www.tshaonline.org/handbook/entries/crickets"
+      },
+      {
+        heading: "A rejected recording became a National Recording Registry selection",
+        record: "The Library of Congress traces 'That'll Be the Day' through failed label pitches, an initial Brunswick pressing of only 1,000 copies and the May 27, 1957 release. Regional radio attention helped the recording grow into a national hit despite lukewarm industry assessments.",
+        reading: "The Crickets' success was not guaranteed when the tape left Clovis. Small initial distribution and disc-jockey support are concrete mechanisms by which a West Texas band reached national listeners.",
+        source: "Library of Congress, National Recording Registry history",
+        href: "https://blogs.loc.gov/now-see-hear/2022/02/from-the-national-recording-registry-thatll-be-the-day-1957/"
       }
     ],
     caution: "Source accounts differ about early recording-session personnel. Date the recording, name the credited band, and avoid treating every rehearsal participant as a member of one fixed line-up."
