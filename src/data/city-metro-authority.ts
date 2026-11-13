@@ -61,6 +61,15 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
       { type: 'jurisdiction-overlap', targetId: 'county:rockwall' },
     ],
   ),
+  'del-rio': city(
+    'Del Rio is the Val Verde County seat along the Rio Grande opposite Ciudad Acuña, built around the spring-fed San Felipe Creek and shaped by the US–Mexico border, Laughlin Air Force Base and nearby Amistad National Recreation Area. Del Rio is not the reservoir itself: the NPS visitor center, boat ramps and recreation sites lie west of the city and have separate lake-use permits and changing water-access conditions. Downtown museums, the San Felipe neighborhood and municipal services belong to the city, while school, utility, property-tax and county-service questions require an exact address.',
+    'https://www.cityofdelrio.com/', 'south-texas', undefined,
+    ['border-city', 'val-verde', 'rio-grande', 'san-felipe-springs', 'amistad-national-recreation-area', 'military-aviation', 'historic-downtown'],
+    [
+      { type: 'located-in-county', targetId: 'county:val-verde' },
+      { type: 'nearby-visitor-area', targetId: 'national-park:amistad-national-recreation-area' },
+    ],
+  ),
   'fort-worth': {
     ...city(
       'Fort Worth is the western anchor of Dallas–Fort Worth, pairing Stockyards cattle and rail history with a nationally significant Cultural District, downtown and Sundance Square, major aviation and defense employment, the Trinity River and a fast-growing urban footprint. Tarrant County is the city’s primary county context, but Fort Worth’s incorporated limits also extend into Denton, Parker, Johnson and Wise counties, so taxes, schools, records and services must be verified by exact address.',
