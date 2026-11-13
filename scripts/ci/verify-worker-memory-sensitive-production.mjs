@@ -15,6 +15,7 @@ const routes = [
   '/texas-high-school-football-isds/fort-worth-isd',
   '/texas-high-school-football-isds/la-joya-isd',
   '/texas-high-school-football-isds/lake-travis-isd',
+  '/texas-high-school-football-isds/stephenville-isd',
   '/fishing/lakes',
   '/fishing/lakes/o-h-ivie-lake',
   '/sports/teams/dallas-mavericks',
