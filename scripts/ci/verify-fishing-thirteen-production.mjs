@@ -12,8 +12,8 @@ const guides = {
   "cut-bait": "Choose cut-bait rigs by current and depth",
 };
 const entries = [
-  ["/fishing/techniques", ["Texas Fishing Techniques","Year-round means a narrower season was not recorded","Match the Method to the Water","Which Fishing Method Fits Your Water?","Switch if:","Which fishing technique should I start with?","Where can I check fishing rules for a particular lake?"]],
-  ...Object.entries(guides).map(([slug, heading]) => [`/fishing/techniques/${slug}`, [heading,"Browse all", ...(["soft-plastics","crankbaits","spinnerbaits","topwater","trolling"].includes(slug) ? ["What Texas Parks & Wildlife documents","How to use that information","Read the TPWD reservoir guide","editorial interpretation"] : [])]]),
+  ["/fishing/techniques", ["Texas Fishing Techniques","Year-round means a narrower season was not recorded","Match the Method to the Water","Which Fishing Method Fits Your Water?","Switch if:","Which fishing technique should I start with?","Where can I check fishing rules for a particular lake?","Five Texas Situations Where the Method Changes","Where These Comparisons Come From","weekly fishing reports are on hold","dated fishing reports"]],
+  ...Object.entries(guides).map(([slug, heading]) => [`/fishing/techniques/${slug}`, [heading,"Browse all", ...(["soft-plastics","crankbaits","spinnerbaits","topwater","trolling"].includes(slug) ? ["What Texas Parks & Wildlife documents","How to use that information","Read the TPWD reservoir guide","editorial interpretation","Compare two actual Texas waters","Documented by TPWD:","Read TPWD lake tactics","What changes your first cast?","Browse dated fishing reports"] : [])]]),
   ["/fishing/regulations", ["Decide Which Rule Applies Before You Go","Bait Sourcing, Transport and Clean-Water Rules"]],
   ["/fishing/species", ["Directory records versus standalone guides","Standalone guides"]],
   ["/fishing/species/largemouth-bass", ["Identify Your Bass Before Checking a Limit","Lake Abilene is excluded"]],

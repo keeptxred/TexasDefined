@@ -64,7 +64,14 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   const imageReady = isFishingTechniqueHeroReady(technique.slug);
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const faq = authority?.faq ?? [];
-  const dateModified = newestDate([FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT, technique.verifiedAt, ...featuredSources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
+  // New original lake comparisons substantially updated these five guides.
+  // Never re-stamp the other four published methods merely because they share
+  // a route/template: Google discourages misleading freshness dates.
+  const researchedGuides = ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"];
+  const editorialDate = researchedGuides.includes(technique.slug)
+    ? "2026-11-13"
+    : FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT;
+  const dateModified = newestDate([editorialDate, technique.verifiedAt, ...featuredSources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
