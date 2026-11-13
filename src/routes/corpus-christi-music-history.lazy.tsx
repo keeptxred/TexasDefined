@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
+import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
 import { musicHistoryMilestones, musicSourceReviewedAt } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
@@ -50,7 +51,7 @@ function CorpusChristiMusicHistoryPage() {
         dateModified: musicSourceReviewedAt,
         isAccessibleForFree: true,
         articleSection: "Texas Music",
-        citation: sources.map((source) => source.href),
+        citation: [...sources.map((source) => source.href), ...musicResearchDossiers["corpus-christi-music-history"].findings.map((finding) => finding.href)],
         isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` },
         about: [
           { "@type": "Place", name: "Corpus Christi, Texas" },
