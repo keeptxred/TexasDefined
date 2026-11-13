@@ -33,3 +33,30 @@ test("ordinary visitor URLs and query-safe slugs are not suppressed", () => {
 test("malformed URL escape sequences fail closed", () => {
   assert.equal(hasUnresolvedPublicRouteToken("/explore/near/%24invalid%"), true);
 });
+
+test("all 16 historical GSC template URL patterns fail closed, even escaped", () => {
+  const malformed = [
+    "/explore/casinos/$slug",
+    "/explore/painted-churches/people/$slug",
+    "/explore/region/$region",
+    "/explore/near/$metro/$collection",
+    "/sports-venue/$slug",
+    "/authors/$author",
+    "/explore/$category",
+    "/texas-vs/$state",
+    "/texas-data/$datasetSlug",
+    "/destination/$slug",
+    "/texas-icons_/$slug",
+    "/texas-symbols/$slug",
+    "/$kind/$slug",
+    "/explore/near/$metro",
+    "/events/$collection",
+    "/explore/painted-churches_/guides_/$slug",
+  ];
+  assert.equal(malformed.length, 16);
+  for (const url of malformed) {
+    assert.equal(hasUnresolvedPublicRouteToken(url), true, url);
+    assert.equal(hasUnresolvedPublicRouteToken(url.replaceAll("$", "%24")), true, "escaped " + url);
+    assert.equal(hasUnresolvedPublicRouteToken(url.replaceAll("$", "%2524")), true, "double escaped " + url);
+  }
+});
