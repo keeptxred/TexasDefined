@@ -339,39 +339,110 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
   },
 
   "everything-bigger-in-texas": {
-    eyebrow: "Texas facts",
+    eyebrow: "Texas claims, checked",
     title: "Is Everything Really Bigger in Texas? Famous Texas Size Claims Fact-Checked",
-    intro: "The slogan is a joke, but some of Texas's best-known size claims are real. Here are a few Texas-scale facts that hold up when checked against authoritative sources—and a reminder not to turn a slogan into a statistic.",
-    updated: "September 1, 2026",
-    quickAnswer: "No, not literally everything is bigger in Texas. But several famous examples are genuinely enormous: the Texas State Historical Association describes King Ranch at about 825,000 acres, larger than Rhode Island, while Texas Parks and Wildlife identifies Bracken Cave near San Antonio as home to the world's largest known bat colony.",
+    intro: "King Ranch, bat colonies, the Texas Capitol and the state's vast territory produce some genuine records. This fact-check separates measurable comparisons from claims that change depending on what is being counted.",
+    updated: "November 13, 2026",
+    quickAnswer: "Not everything is bigger in Texas. The Texas Capitol is 14.64 feet taller than the U.S. Capitol under the State Preservation Board's measuring method, and King Ranch covers more land than Rhode Island does. But Alaska has far more land than Texas, and a ranch is not the same thing as a state with coastal waters.",
     sections: [
       {
-        heading: "King Ranch really is larger than Rhode Island",
-        paragraphs: ["The Texas State Historical Association describes King Ranch as roughly 825,000 acres, or nearly 1,300 square miles, spread across four divisions in South Texas. TSHA states that its area is larger than the state of Rhode Island."],
-        links: [{ label: "Texas State Historical Association: King Ranch", href: "https://www.tshaonline.org/handbook/entries/king-ranch", external: true }, { label: "King Ranch official maps", href: "https://king-ranch.com/about-us/maps/", external: true }],
+        heading: "Six Texas superlatives at a glance",
+        paragraphs: [
+          "Size claims become useful only after the comparison has a unit and a definition. The table pairs each familiar claim with its measurable version, a verdict and the main source. All acre-to-square-mile conversions use 640 acres per square mile; approximate figures remain approximate.",
+          "A claim may be true under one definition and false under another. The important distinction for King Ranch is between Rhode Island's land area and Rhode Island's combined land-and-water area, not a semantic technicality."
+        ],
+        table: {
+          caption: "Texas superlatives, definitions and sourced verdicts — reviewed November 13, 2026",
+          columns: ["Claim", "Measured comparison", "Verdict / qualifier"],
+          rows: [
+            ["King Ranch is bigger than Rhode Island", "About 825,000 acres = 1,289 sq mi; Rhode Island land: 1,033.89 sq mi (2020 Census).", "True when comparing land areas; do not equate this with Rhode Island's total area including water."],
+            ["Texas is the biggest U.S. state", "Texas land: 261,267.85 sq mi; Alaska land: 571,022.38 sq mi (2020 Census).", "False nationwide; Texas is the largest among the contiguous 48 states."],
+            ["Texas Capitol is taller than the U.S. Capitol", "302.64 ft versus 288 ft, measured from specified ground-level points to the statues.", "True by 14.64 ft under the Texas State Preservation Board's definition."],
+            ["Bracken Cave has the largest known bat colony", "Texas Parks and Wildlife describes more than 15 million Mexican free-tailed bats.", "Agency-supported, seasonal estimate; not a fixed census or an unrestricted public attraction."],
+            ["Big Bend National Park is bigger than Rhode Island", "NPS: 801,163 acres = about 1,252 sq mi; Rhode Island land: 1,033.89 sq mi.", "Larger than Rhode Island's land area, smaller than the state's full land-and-water area."],
+            ["Every Texas thing is the largest", "No common unit; broad slogan spans food, geography, history and marketing.", "Not a testable blanket fact. Check individual claims instead."]
+          ]
+        },
+        links: [
+          { label: "U.S. Census: Texas land area", href: "https://www.census.gov/quickfacts/fact/table/TX/LND110210", external: true },
+          { label: "U.S. Census: Rhode Island land area", href: "https://www.census.gov/quickfacts/fact/table/RI/POP060210", external: true },
+          { label: "Census state land-area comparison", href: "https://www2.census.gov/programs-surveys/sis/activities/math/mm-10_student.pdf", external: true }
+        ]
       },
       {
-        heading: "Bracken Cave is a world-scale bat colony",
-        paragraphs: ["Texas Parks and Wildlife identifies Bracken Cave Preserve near San Antonio as the world's largest known bat colony and says it is home to more than 15 million Mexican free-tailed bats. Colony estimates vary over time, so the current agency figure is more useful than repeating a fixed viral number."],
-        links: [{ label: "TPWD: Bracken Cave Preserve", href: "https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/bracken-cave-preserve.phtml", external: true }],
+        heading: "King Ranch: a striking comparison with a hidden definition",
+        paragraphs: [
+          "The Handbook of Texas puts King Ranch at approximately 825,000 acres on four separate South Texas divisions. Dividing by 640 gives roughly 1,289 square miles. The 2020 U.S. Census records Rhode Island at about 1,034 square miles of land; on that basis King Ranch's acreage exceeds Rhode Island's land area by approximately 255 square miles, or about 25%. The calculation compares the ranch's reported acreage to a government's measured land area, not two identical survey methods.",
+          "The familiar claim is often shortened to 'bigger than the entire state of Rhode Island.' That can mislead: Rhode Island includes bays and other water area in total-area figures. The careful version is that King Ranch has greater reported acreage than Rhode Island's land area. The ranch's four divisions are not one unbroken giant square."
+        ],
+        links: [
+          { label: "Handbook of Texas: King Ranch and its four divisions", href: "https://www.tshaonline.org/handbook/entries/king-ranch", external: true },
+          { label: "U.S. Census: Rhode Island area", href: "https://www.census.gov/quickfacts/fact/table/RI/POP060210", external: true },
+          { label: "King Ranch official maps", href: "https://king-ranch.com/about-us/maps/", external: true }
+        ]
       },
       {
-        heading: "Texas itself is huge—but second in U.S. land area",
-        paragraphs: ["Texas is the largest state in the contiguous United States by area, but Alaska is larger overall. That distinction is a useful example of why 'bigger in Texas' claims should be checked rather than repeated automatically."],
-        links: [{ label: "Texas facts", href: "/texas-facts" }, { label: "Texas icons", href: "/texas-icons" }],
+        heading: "Texas land versus Alaska: first among the lower 48 is not first nationally",
+        paragraphs: [
+          "Texas covers about 261,268 square miles of land, compared with Alaska's approximately 571,022 square miles in the 2020 Census geographical comparison. Alaska therefore has more than twice Texas's land area; California, at about 155,858 square miles, ranks below Texas. This is a land-area comparison, not an assertion about population, coastline or total land plus water.",
+          "The difference between 'largest contiguous state' and 'largest state' is not pedantic. It is the whole answer to the familiar Texas question and demonstrates why geographic superlatives need an explicit category."
+        ],
+        links: [{ label: "Census Bureau: state land areas", href: "https://www2.census.gov/programs-surveys/sis/activities/math/mm-10_student.pdf", external: true }]
       },
       {
-        heading: "Treat the slogan as culture, then verify the numbers",
-        paragraphs: ["'Everything is bigger in Texas' works because it compresses Texas geography, ranching, highways, cities, food and state pride into one memorable line. TexasDefined treats each specific superlative as a factual claim that needs its own source, date and definition."],
-        links: [{ label: "Things unique to Texas", href: "/things-unique-to-texas" }, { label: "Texas history", href: "/texas-history" }],
+        heading: "The Texas Capitol really is taller — if you compare the published measuring points",
+        paragraphs: [
+          "The Texas State Preservation Board gives the state Capitol's height as 302.64 feet from the south-front ground level to the Goddess of Liberty star. It measures the U.S. Capitol at 288 feet from the east-front ground level to the top of the Statue of Freedom. That yields a 14.64-foot advantage for the Texas building.",
+          "Buildings can be measured to roofs, domes, statues or other reference points. The comparison is true under the Board's published definition, and that definition belongs beside the number. Texas's Capitol is a historical work of architecture, not proof of any claim about the relative size of the two legislatures."
+        ],
+        links: [{ label: "Texas State Preservation Board: Capitol myths and measurements", href: "https://tspb.texas.gov/prop/tc/tc-history/myths-legends/index.html", external: true }]
       },
+      {
+        heading: "Bracken Cave: a real biological superlative, with seasonal uncertainty",
+        paragraphs: [
+          "Texas Parks and Wildlife describes the Bracken Cave Preserve near San Antonio as the world's largest known bat colony, home to more than 15 million Mexican free-tailed bats. This is a seasonal maternity colony whose numbers change during migration and breeding; the figure is not a permanent count of bats at the cave on any arbitrary day.",
+          "There is also an access distinction. The cave and surrounding habitat are protected by Bat Conservation International. Calling it a world-scale natural wonder should not suggest a visitor can drive up for an unscheduled bat emergence or enter the cave. Use the current land manager's booking and conservation guidance rather than older generic sightseeing descriptions."
+        ],
+        links: [
+          { label: "TPWD: Bracken Cave Preserve", href: "https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/bracken-cave-preserve.phtml", external: true },
+          { label: "TPWD: Texas bat-watching sites", href: "https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/", external: true }
+        ]
+      },
+      {
+        heading: "Big Bend's footprint: another example where the measurement matters",
+        paragraphs: [
+          "The National Park Service records Big Bend National Park at 801,163 acres, about 1,252 square miles. That is larger than Rhode Island's land area and a little smaller than the reported acreage of King Ranch. But Big Bend is a federally protected national park and King Ranch is a privately held ranch complex: their size figures describe completely different institutions.",
+          "The park stretches from Rio Grande canyons to Chisos Mountains habitats and is worth explaining through its geology and conservation role, not only its size. The 'everything bigger' slogan is most useful here as a doorway to the landscape's real natural history."
+        ],
+        links: [
+          { label: "National Park Service: Big Bend statistics", href: "https://home.nps.gov/bibe/learn/management/statistics.htm", external: true },
+          { label: "TexasDefined: Big Bend National Park", href: "/destination/big-bend-national-park" }
+        ]
+      },
+      {
+        heading: "How this fact-check was made",
+        paragraphs: [
+          "Figures above were taken from the Texas State Preservation Board, the U.S. Census Bureau, National Park Service, Texas Parks and Wildlife, and the Handbook of Texas. We convert acres to square miles by dividing by 640 and round figures only after conversion. Estimates are marked as such; historical source figures may change when their publishers revise data.",
+          "Claims about 'largest' are interpreted narrowly: geography uses land area unless total area is expressly stated, biological claims repeat their agencies' 'largest known' qualification, and architectural comparisons specify the measurement endpoints. We have not personally surveyed the ranch, counted bats or measured buildings."
+        ],
+        links: [
+          { label: "More source-backed Texas facts", href: "/texas-facts" },
+          { label: "Official Texas symbols and designations", href: "/texas-symbols" }
+        ]
+      }
     ],
-    related: [{ label: "Texas facts", href: "/texas-facts" }, { label: "Texas icons", href: "/texas-icons" }, { label: "Things unique to Texas", href: "/things-unique-to-texas" }, { label: "Texas history", href: "/texas-history" }],
+    related: [
+      { label: "Texas facts", href: "/texas-facts" },
+      { label: "Texas capitals and local designations", href: "/texas-capital-designations" },
+      { label: "Things unique to Texas", href: "/things-unique-to-texas" },
+      { label: "Texas history", href: "/texas-history" }
+    ],
     faq: [
-      { question: "Is King Ranch really bigger than Rhode Island?", answer: "Yes. The Texas State Historical Association describes King Ranch at about 825,000 acres, nearly 1,300 square miles, and larger in area than Rhode Island." },
-      { question: "Does Texas have the world's largest bat colony?", answer: "Texas Parks and Wildlife identifies Bracken Cave Preserve near San Antonio as the world's largest known bat colony and currently describes it as home to more than 15 million Mexican free-tailed bats." },
-      { question: "Is Texas the largest U.S. state?", answer: "No. Alaska is larger. Texas is the largest state in the contiguous United States." },
-    ],
+      { question: "Is King Ranch bigger than Rhode Island?", answer: "King Ranch's reported 825,000 acres (about 1,289 square miles) exceeds Rhode Island's 1,033.89 square miles of land. The frequently repeated wording does not distinguish that from Rhode Island's full area including water." },
+      { question: "Is Texas the biggest state in the United States?", answer: "No. Alaska is much larger in land area. Texas ranks first among the contiguous 48 states." },
+      { question: "Is the Texas Capitol taller than the U.S. Capitol?", answer: "Yes, by 14.64 feet using the measuring points published by the Texas State Preservation Board." },
+      { question: "Can anyone visit Bracken Cave to see bats?", answer: "Do not assume walk-up access. It is a protected Bat Conservation International property; check current access rules and organized bat-watch opportunities before traveling." }
+    ]
   },
 
   "what-does-chud-mean": {
