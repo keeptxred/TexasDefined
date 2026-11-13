@@ -74,7 +74,7 @@ jobs:
             rm -f "$file"
           }
           check '/dallas-fort-worth-music-history' 'Dallas–Fort Worth Music History'
-          check '/texas-capital-designations' 'Search all 94 adopted titles'
+          check '/texas-capital-designations' 'full-capital-register'
           check '/texas-symbols' 'Official Texas Symbols'
           check '/texas-facts' '100 Essential Facts About Texas'
           check '/everything-bigger-in-texas' 'Six Texas superlatives at a glance'
