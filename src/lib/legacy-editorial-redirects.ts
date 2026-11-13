@@ -38,6 +38,18 @@ LEGACY_EDITORIAL_REDIRECTS["/destination/el-paso"] = "/city/el-paso";
 // County feature was published with a -texas suffix; retain old inbound links.
 LEGACY_EDITORIAL_REDIRECTS["/article/bexar-county-san-antonio-missions-river"] = "/article/bexar-county-san-antonio-missions-river-texas";
 
+// Exact historical GSC aliases: all targets were confirmed HTTP 200 and
+// self-canonical in production on 2026-11-13. The source URL alone is not a
+// reason to create a duplicate authority page or relax any target noindex gate.
+LEGACY_EDITORIAL_REDIRECTS["/attraction/dr-pepper-museum"] = "/destination/dr-pepper-museum-waco";
+LEGACY_EDITORIAL_REDIRECTS["/destination/dr-pepper-museum"] = "/destination/dr-pepper-museum-waco";
+LEGACY_EDITORIAL_REDIRECTS["/attraction/hill-country-louise-merrick-unit-state-natural-area"] = "/destination/hill-country-state-natural-area";
+LEGACY_EDITORIAL_REDIRECTS["/destination/hill-country-louise-merrick-unit-state-natural-area"] = "/destination/hill-country-state-natural-area";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/indian-lodge-state-park-lodge"] = "/destination/indian-lodge";
+LEGACY_EDITORIAL_REDIRECTS["/destination/indian-lodge-state-park-lodge"] = "/destination/indian-lodge";
+// Seminole Canyon's 200 canonical remains editorially noindex today.
+LEGACY_EDITORIAL_REDIRECTS["/destination/seminole-canyon-state-park-historic-site"] = "/destination/seminole-canyon-state-park";
+
 const historicalArticleSlugs = [
   "audie-murphy-texas-war-hero-actor",
   "fort-worth-stockyards-history-cattle-culture",
