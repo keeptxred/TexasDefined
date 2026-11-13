@@ -4,11 +4,19 @@ on:
     branches: [main]
     paths:
       - 'scripts/ci/audit-city-authority-seo.mjs'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-metro-authority.ts'
+      - 'src/data/texas-places.ts'
       - '.github/workflows/audit-city-authority-seo.yml'
   push:
     branches: [main]
     paths:
       - 'scripts/ci/audit-city-authority-seo.mjs'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-metro-authority.ts'
+      - 'src/data/texas-places.ts'
       - '.github/workflows/audit-city-authority-seo.yml'
   workflow_dispatch:
 permissions:
