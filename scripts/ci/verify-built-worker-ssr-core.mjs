@@ -31,6 +31,11 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // Search Console's /texas-icons/shaquille-oneal was HTTP 404 because the
+  // research record used a different slug from the actual owner roster.
+  { path: '/texas-icons/shaquille-oneal', requiredText: '1989 Class 3A', label: 'Shaquille icon now publishes exact Cole championship and not a 404' },
+  { path: '/texas-icons/shaquille-oneal', requiredText: 'tshof.org/inductee/shaquille-oneal', label: 'Shaquille authority guide cites Texas Sports Hall of Fame primary evidence' },
+  { path: '/texas-icons/shaquille-oneal', requiredText: 'https://texasdefined.com/texas-icons/shaquille-oneal', label: 'Shaquille exact historical GSC URL is the self-canonical published page' },
   // Gainesville's user-requested authority page must render locally before deployment.
   // A valid source fixture alone is not publication evidence.
   { path: '/destination/medal-of-honor-host-city-museum-gainesville', requiredText: 'Medal of Honor Host City Museum', label: 'Gainesville Medal of Honor museum SSR renders rather than an unfound route' },
