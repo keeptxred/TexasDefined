@@ -69,7 +69,8 @@ jobs:
 
 
   browser-regrade:
-    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
+    # Diagnostic PR probe; initial run intentionally includes live-production checks.
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') || github.event_name == 'workflow_dispatch'
     name: Fresh Chrome desktop/mobile fishing planner authority
     runs-on: ubuntu-latest
     timeout-minutes: 12
