@@ -12,6 +12,14 @@ const routes = [
     indexable: true,
   },
   {
+    name: 'GSC partner sports-venue duplicate query',
+    path: '/partner-with-us?type=sports-travel&source=%2Fsports-venues&partnershipType=sports-travel&sourcePath=%2Fsports-venues',
+    canonical: '/partner-with-us',
+    needles: ['Sports-travel partnership is preselected because you arrived from a Texas Defined sports venue resource.'],
+    forbidden: ['TEST ONLY', 'test mode'],
+    indexable: true,
+  },
+  {
     name: 'football team sponsorship',
     path: '/texas-high-school-football-teams/aledo',
     canonical: '/texas-high-school-football-teams/aledo',
@@ -76,7 +84,9 @@ const variants = [
 
 function canonicalPresent(html, path) {
   const expected = `${origin}${path}`.toLowerCase();
-  return [...html.matchAll(/<link\b[^>]*>/gi)].some((match) => {
+  const canonicalTags = [...html.matchAll(/<link\\b[^>]*>/gi)].filter((match) => /rel=["']canonical["']/i.test(match[0]));
+  // A conflicting second canonical is invalid even when one link points to the expected URL.
+  return canonicalTags.length === 1 && canonicalTags.some((match) => {
     const tag = match[0].toLowerCase();
     return (/rel=["']canonical["']/.test(tag) && tag.includes(`href="${expected}"`)) ||
       (/rel=["']canonical["']/.test(tag) && tag.includes(`href='${expected}'`));
@@ -96,7 +106,7 @@ function normalizeRenderedHtml(html) {
 
 function routeUrl(route, attempt, variant) {
   if (!variant.cacheBust) return `${origin}${route.path}`;
-  return `${origin}${route.path}?verify-advertiser=${encodeURIComponent(`${revision}-${Date.now()}-${attempt}`)}`;
+  return `${origin}${route.path}${route.path.includes('?') ? '&' : '?'}verify-advertiser=${encodeURIComponent(`${revision}-${Date.now()}-${attempt}`)}`;
 }
 
 function requestInit(variant, redirect) {
