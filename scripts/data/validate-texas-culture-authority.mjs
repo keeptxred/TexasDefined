@@ -22,7 +22,7 @@ for (const token of ["Aviation and Defense Capital of Texas|Fort Worth|H.C.R. 14
 check(capitals.includes("year <= 2001") && capitals.includes("77th Regular Session"), "Place-designation statuses must document the pre-September 2001 exemption and 77th Regular Session evidence.");
 const capitalRoute = read("src/routes/texas-capital-designations.tsx");
 for (const token of ["OFFICIAL_CAPITALS.length", "TSLAC_CAPITAL_SOURCE", "CAPITAL_STATUS_LABELS", "H.C.R. 24", "aria-labelledby=\"full-capital-register\""]) check(capitalRoute.includes(token), `Capital register missing UI/content token: ${token}`);
-check(!capitalRoute.includes('resolution: "H.C.R. 24"'), "San Angelo's official citation must not use incorrect H.C.R. 24.");
+check(!capitalRoute.includes('resolution: "H.R. 24"'), "San Angelo must cite the enacted H.C.R. 24 rather than the state-library transcription.");
 
 const iconCatalog = read("src/data/things-unique-to-texas.ts");
 const allIds = [...iconCatalog.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
