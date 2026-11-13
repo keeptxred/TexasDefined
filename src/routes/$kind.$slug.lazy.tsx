@@ -19,6 +19,7 @@ import { Container } from '@/components/layout/Container';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
 import { BATCH016_FOOTBALL_COUNTY_EDGES } from '@/data/high-school-football/batch016-county-edges';
 import { BATCH017_FOOTBALL_COUNTY_EDGES } from '@/data/high-school-football/batch017-county-edges';
+import { BATCH018_FOOTBALL_COUNTY_EDGES } from '@/data/high-school-football/batch018-county-edges';
 import {
   canonicalEntityPath,
   type RankedRelatedEntity,
@@ -514,7 +515,7 @@ function EntityPage() {
   // Concatenate research batches rather than choosing one map winner.
   // Distinct programs in the same campus county must all remain discoverable.
   const researchedFootballCountyLinks = entity.kind === 'county'
-    ? [...(batch002FootballCountyLinks[entity.slug] ?? []), ...(supplementalFootballCountyLinks[entity.slug] ?? []), ...(batch012FootballCountyLinks[entity.slug] ?? []), ...BATCH016_FOOTBALL_COUNTY_EDGES.filter((edge) => edge.county === entity.slug).map(({ name, slug, context }) => ({ name, slug, context })), ...BATCH017_FOOTBALL_COUNTY_EDGES.filter((edge) => edge.county === entity.slug).map(({ name, slug, context }) => ({ name, slug, context }))]
+    ? [...(batch002FootballCountyLinks[entity.slug] ?? []), ...(supplementalFootballCountyLinks[entity.slug] ?? []), ...(batch012FootballCountyLinks[entity.slug] ?? []), ...BATCH016_FOOTBALL_COUNTY_EDGES.filter((edge) => edge.county === entity.slug).map(({ name, slug, context }) => ({ name, slug, context })), ...BATCH017_FOOTBALL_COUNTY_EDGES.filter((edge) => edge.county === entity.slug).map(({ name, slug, context }) => ({ name, slug, context })), ...BATCH018_FOOTBALL_COUNTY_EDGES.filter((edge) => edge.county === entity.slug).map(({ name, slug, context }) => ({ name, slug, context }))]
         // Imported county-link arrays may temporarily contain missing entries.
         // Do not let one malformed link break an otherwise valid county page.
         .filter((school) => Boolean(school?.slug && school?.name))
