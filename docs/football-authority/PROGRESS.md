@@ -1,3 +1,7 @@
+## 2026-11-13 — Batch018 next 25 canonical assignment proposed (NOT production verified)
+
+Protected Batch017 evidence-only graduation [PR #7054](https://github.com/keeptxred/TexasDefined/pull/7054) merged after actual signed source/Worker-pinned Chrome [#43323945805](https://github.com/keeptxred/TexasDefined/actions/runs/43323945805): 405 previously VERIFIED, 887 NOT_REVIEWED, zero IMPLEMENTED. This assignment-only branch selects the next 25 untouched canonical registry records, `fabens` through `fort-bend-kempner`, in stable order and changes only their batch from null to 18. All statuses, earlier certificates and counts remain unchanged. See [BATCH018-INTAKE.md](./BATCH018-INTAKE.md) for five five-school cohorts and required official-source research. No Batch018 implementation, production acceptance, photo license, indexing or WCAG signoff is claimed. Sitewide production memory incident #7055 and release failures in recovery #5794 remain separate.
+
 ## 2026-11-12 — Batch017 25/25 real Chrome technical VERIFIED (protected graduation proposed)
 
 **Evidence-only promotion pending this PR's own protected gate and merge.** [Production #43322200857](https://github.com/keeptxred/TexasDefined/actions/runs/43322200857) successfully released source `61a59f98ed2507238d3bc8998dd3c80107e0abb4` as Worker `329de1b4-1bf8-48a9-b4c5-7223c1d2c6cc`. Signed GitHub verified Worker deployment ledger `7751927416`; authenticated Cloudflare deployment `81948b24-7ca1-4f5c-bf0b-1210d02f2cb0` served that exact Worker at 100% traffic from 22:47 UTC.

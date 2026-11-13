@@ -12,82 +12,48 @@
     "total": 1292
   },
   "batch": {
-    "number": 17,
+    "number": 18,
     "slugs": [
-      "el-paso-eastlake",
-      "el-paso-eastwood",
-      "el-paso-el-dorado",
-      "el-paso-franklin",
-      "el-paso-hanks",
-      "el-paso-irvin",
-      "el-paso-jefferson",
-      "el-paso-montwood",
-      "el-paso-parkland",
-      "el-paso-pebble-hills",
-      "el-paso-riverside",
-      "el-paso-socorro",
-      "el-paso-ysleta",
-      "eldorado",
-      "electra",
-      "elgin",
-      "elkhart",
-      "elysian-fields",
-      "ennis",
-      "era",
-      "euless-trinity",
-      "eustace",
-      "evadale",
-      "evant",
-      "everman"
+      "fabens",
+      "fairfield",
+      "falfurrias",
+      "falls-city",
+      "farmersville",
+      "farwell",
+      "ferris",
+      "first-baptist-dallas",
+      "flatonia",
+      "florence",
+      "floresville",
+      "floydada",
+      "follett",
+      "forestburg",
+      "forney",
+      "forsan",
+      "fort-bend-austin",
+      "fort-bend-bush",
+      "fort-bend-christian",
+      "fort-bend-clements",
+      "fort-bend-crawford",
+      "fort-bend-dulles",
+      "fort-bend-elkins",
+      "fort-bend-hightower",
+      "fort-bend-kempner"
     ],
-    "state": "VERIFIED_BATCH_017_COMPLETE",
-    "dateAssigned": "2026-11-11",
-    "selectionRule": "First 25 canonical NOT_REVIEWED records with null batch in stable registry order after protected Batch016 graduation PR #6969",
-    "individuallyVerified": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "feat/football-b017-assign-25-20261111",
+    "state": "ASSIGNED_NOT_REVIEWED",
+    "dateAssigned": "2026-11-13",
+    "selectionRule": "First 25 canonical NOT_REVIEWED records with null batch in stable registry order after protected Batch017 graduation PR #7054",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "feat/football-b018-assign-25-20261113",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "25 first-party/UIL sourced school guides passed exact GitHub/Cloudflare-pinned single real Chrome run (75 responsive viewport checks + 25 county reciprocal checks), 75 genuine screenshot files and zero errors. No search-indexing, photo-license, current game-score or manual accessibility certification.",
-    "noNextBatchAssigned": true,
-    "verifiedAt": "2026-11-12",
-    "technicalAcceptance": {
-      "schoolCount": 25,
-      "viewports": [
-        1366,
-        390,
-        320
-      ],
-      "schoolCasesPassed": 75,
-      "schoolCasesFailed": 0,
-      "countyCasesPassed": 25,
-      "countyCasesFailed": 0,
-      "sitemapUrlsPassed": null,
-      "sitemapNotAssertedByThisChromeRun": true,
-      "observedWorkerVersions": [
-        "329de1b4-1bf8-48a9-b4c5-7223c1d2c6cc"
-      ],
-      "workerVersionMatchesDeploy": true,
-      "productionDeploymentGitSha": "61a59f98ed2507238d3bc8998dd3c80107e0abb4",
-      "chromeRunId": 43323945805,
-      "chromeArtifactId": 13992037938,
-      "browserExecutionCount": 1,
-      "githubWorkerLedgerDeploymentId": 7751927416,
-      "cloudflareDeploymentId": "81948b24-7ca1-4f5c-bf0b-1210d02f2cb0",
-      "chromeRunUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/43323945805",
-      "chromeArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/43323945805/artifacts/13992037938",
-      "artifactSha256": "d11710df24fbbf1fea7fb959664e3c02bafe393670c355cb54dd8738ebc05555",
-      "screenshotsSaved": 75,
-      "editorialHumanSignoffsClaimed": 0,
-      "manualAccessibilityAccepted": false,
-      "schoolPhotoReuseRightsAccepted": false,
-      "limitation": "Technical Chrome acceptance and reciprocal county checks only; not a live indexability/sitemap assertion, current 2026 game-score audit, photo rights, manual WCAG, parking/ADA or human editorial signoff."
-    },
-    "completionBasis": "One genuine non-skipped Batch017/75-viewport plus 25 reciprocal counties Chrome run, 75 full screenshots and exact 100%-traffic Worker/source signed ledger; separate protected evidence-only graduation."
+    "currentSchool": "fabens",
+    "nextSchool": "fabens",
+    "implementedOnBranch": 0,
+    "remainingToImplement": 25,
+    "remainingToVerify": 25,
+    "notes": "Assignment only. Preserve all 405 prior technically VERIFIED records and signed certificates. No Batch018 school editorial, source verification, production Chrome or image rights claimed.",
+    "noNextBatchAssigned": false
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -15484,7 +15450,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fabens",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fairfield",
@@ -15498,7 +15464,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fairfield",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:falfurrias",
@@ -15512,7 +15478,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/falfurrias",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:falls-city",
@@ -15526,7 +15492,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/falls-city",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:farmersville",
@@ -15540,7 +15506,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/farmersville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:farwell",
@@ -15554,7 +15520,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/farwell",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:ferris",
@@ -15568,7 +15534,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ferris",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "featured:first-baptist-dallas",
@@ -15582,7 +15548,7 @@
       "source": "src/data/high-school-football/featured-programs.ts",
       "url": "https://texasdefined.com/texas-high-school-football-teams/first-baptist-dallas",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:flatonia",
@@ -15596,7 +15562,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/flatonia",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:florence",
@@ -15610,7 +15576,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/florence",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:floresville",
@@ -15624,7 +15590,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/floresville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:floydada",
@@ -15638,7 +15604,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/floydada",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:follett",
@@ -15652,7 +15618,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/follett",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:forestburg",
@@ -15666,7 +15632,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/forestburg",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:forney",
@@ -15680,7 +15646,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/forney",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:forsan",
@@ -15694,7 +15660,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/forsan",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-austin",
@@ -15708,7 +15674,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-austin",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-bush",
@@ -15722,7 +15688,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-bush",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "featured:fort-bend-christian",
@@ -15736,7 +15702,7 @@
       "source": "src/data/high-school-football/featured-programs.ts",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-christian",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-clements",
@@ -15750,7 +15716,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-clements",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-crawford",
@@ -15764,7 +15730,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-crawford",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-dulles",
@@ -15778,7 +15744,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-dulles",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-elkins",
@@ -15792,7 +15758,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-elkins",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-hightower",
@@ -15806,7 +15772,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-hightower",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-kempner",
@@ -15820,7 +15786,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/fort-bend-kempner",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 18
     },
     {
       "id": "uil:fort-bend-marshall",
@@ -29577,6 +29543,84 @@
         "limitation": "Technical Chrome acceptance and reciprocal county checks only; not a 2026 game-score audit, separate live sitemap assertion, licensed school photography, manual WCAG, venue parking/ADA or human editorial signoff."
       },
       "completionBasis": "One genuine non-skipped 25-school/75-viewport plus 25 county Chrome run, 75 full-page screenshots, signed GitHub source and exact 100%-traffic Cloudflare Worker, separate protected evidence-only graduation."
+    },
+    {
+      "number": 17,
+      "slugs": [
+        "el-paso-eastlake",
+        "el-paso-eastwood",
+        "el-paso-el-dorado",
+        "el-paso-franklin",
+        "el-paso-hanks",
+        "el-paso-irvin",
+        "el-paso-jefferson",
+        "el-paso-montwood",
+        "el-paso-parkland",
+        "el-paso-pebble-hills",
+        "el-paso-riverside",
+        "el-paso-socorro",
+        "el-paso-ysleta",
+        "eldorado",
+        "electra",
+        "elgin",
+        "elkhart",
+        "elysian-fields",
+        "ennis",
+        "era",
+        "euless-trinity",
+        "eustace",
+        "evadale",
+        "evant",
+        "everman"
+      ],
+      "state": "VERIFIED_BATCH_017_COMPLETE",
+      "dateAssigned": "2026-11-11",
+      "selectionRule": "First 25 canonical NOT_REVIEWED records with null batch in stable registry order after protected Batch016 graduation PR #6969",
+      "individuallyVerified": 25,
+      "remainingAssigned": 0,
+      "assignmentBranch": "feat/football-b017-assign-25-20261111",
+      "maxSchoolsPerBatch": 25,
+      "currentSchool": null,
+      "nextSchool": null,
+      "implementedOnBranch": 25,
+      "remainingToImplement": 0,
+      "remainingToVerify": 0,
+      "notes": "25 first-party/UIL sourced school guides passed exact GitHub/Cloudflare-pinned single real Chrome run (75 responsive viewport checks + 25 county reciprocal checks), 75 genuine screenshot files and zero errors. No search-indexing, photo-license, current game-score or manual accessibility certification.",
+      "noNextBatchAssigned": true,
+      "verifiedAt": "2026-11-12",
+      "technicalAcceptance": {
+        "schoolCount": 25,
+        "viewports": [
+          1366,
+          390,
+          320
+        ],
+        "schoolCasesPassed": 75,
+        "schoolCasesFailed": 0,
+        "countyCasesPassed": 25,
+        "countyCasesFailed": 0,
+        "sitemapUrlsPassed": null,
+        "sitemapNotAssertedByThisChromeRun": true,
+        "observedWorkerVersions": [
+          "329de1b4-1bf8-48a9-b4c5-7223c1d2c6cc"
+        ],
+        "workerVersionMatchesDeploy": true,
+        "productionDeploymentGitSha": "61a59f98ed2507238d3bc8998dd3c80107e0abb4",
+        "chromeRunId": 43323945805,
+        "chromeArtifactId": 13992037938,
+        "browserExecutionCount": 1,
+        "githubWorkerLedgerDeploymentId": 7751927416,
+        "cloudflareDeploymentId": "81948b24-7ca1-4f5c-bf0b-1210d02f2cb0",
+        "chromeRunUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/43323945805",
+        "chromeArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/43323945805/artifacts/13992037938",
+        "artifactSha256": "d11710df24fbbf1fea7fb959664e3c02bafe393670c355cb54dd8738ebc05555",
+        "screenshotsSaved": 75,
+        "editorialHumanSignoffsClaimed": 0,
+        "manualAccessibilityAccepted": false,
+        "schoolPhotoReuseRightsAccepted": false,
+        "limitation": "Technical Chrome acceptance and reciprocal county checks only; not a live indexability/sitemap assertion, current 2026 game-score audit, photo rights, manual WCAG, parking/ADA or human editorial signoff."
+      },
+      "completionBasis": "One genuine non-skipped Batch017/75-viewport plus 25 reciprocal counties Chrome run, 75 full screenshots and exact 100%-traffic Worker/source signed ledger; separate protected evidence-only graduation."
     }
   ]
 }
