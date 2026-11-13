@@ -99,6 +99,14 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
   const sources = venueSources[guide.slug] ?? [];
   const milestones = musicHistoryMilestones[guide.slug] ?? [];
   const photograph = musicVenuePhotography[guide.slug];
+  const shortAnswerHeading: Record<string, string> = {
+    "broken-spoke-austin-history": "A South Lamar dance floor that endured",
+    "continental-club-austin-history": "From supper club to Austin landmark",
+    "antones-austin-history": "One blues institution, several addresses",
+    "billy-bobs-texas-history": "How a Stockyards barn became a music destination",
+    "gruene-hall-history": "A nineteenth-century community floor still in use",
+    "texas-music-venues": "Why Texas dance halls and clubs matter",
+  };
   const isHub = guide.slug === "texas-music-venues";
   const historicVenues = isHub ? HISTORIC_TEXAS_MUSIC_VENUES : [];
   const breadcrumbItems = [
@@ -185,7 +193,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
         </figure> : null}
                 <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
-          <h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2>
+          <h2 id="quick-answer" className="mt-2 font-display text-3xl">{shortAnswerHeading[guide.slug] ?? "How this venue fits Texas music history"}</h2>
           <p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p>
         </section>
 
@@ -242,7 +250,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
 
         <section className="border-b border-border py-10" aria-labelledby="venue-source-notes">
           <p className="eyebrow text-primary">Sources</p>
-          <h2 id="venue-source-notes" className="mt-2 font-display text-3xl">Where the venue history comes from</h2>
+          <h2 id="venue-source-notes" className="mt-2 font-display text-3xl">Sources for the venue’s history</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The source-linked chronology above identifies the records behind individual dates. Additional historical and official references follow. Current schedules, admission rules and access policies may change; confirm those directly with the venue.</p>
           <ul className="mt-6 divide-y divide-border border-y border-border">
             {sources.map((source) => <li key={source.href} className="py-4">
