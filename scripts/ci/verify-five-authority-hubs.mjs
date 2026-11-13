@@ -68,7 +68,7 @@ if (process.argv.includes("--production")) {
         assert.ok(!html.includes("This month’s selection"), "Sports cannot present old articles as this month's selection");
       }
       if (path === "/dogs") {
-        assert.ok(/<ol[^>]*list-style-type:\\s*decimal/i.test(html) || /<ol[^>]*list-style-type:decimal/i.test(html), "Dog outing checklist must render visible semantic decimal numbering");
+        assert.ok(/<ol[^>]*style=["'][^"']*list-style-type:\s*decimal/i.test(html), "Dog outing checklist must render visible semantic decimal numbering");
         assert.ok(!html.includes("<strong>1. Heat and pavement."), "Dog outing checklist must not duplicate list numbering");
       }
       if (path === "/texas-tailgating-guide") {
