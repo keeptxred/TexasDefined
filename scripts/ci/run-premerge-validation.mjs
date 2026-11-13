@@ -60,6 +60,7 @@ const prebuildChecks = [
   ['SEO/BING/SHOP', 'Keep product title search snippets concise and preserve complete product names elsewhere', 'node', ['--experimental-strip-types', '--test', 'scripts/seo/shop-product-search-title.test.mjs']],
   ['SEO/BING/FOOTBALL', 'Keep Bing staged-school discovery separate from Google indexability', 'node', ['scripts/ci/validate-bing-football-sitemap-policy.mjs']],
   ['SEO/BING/FOOTBALL', 'Syntax-check bounded production Bing supplemental sitemap acceptance', 'node', ['--check', 'scripts/ci/verify-bing-football-sitemap-production.mjs']],
+  ['VENUE/MSR/CHROME-SOURCE', 'Keep two real MSR responsive viewports, licensed photo and fail-closed bounded mobile transport retry', 'node', ['scripts/ci/verify-msr-houston-browser-source.mjs']],
   ['FOOTBALL/DIRECTORY', 'Validate UIL directory URLs, reciprocal links and canonical/indexing guards', 'python3', ['scripts/ci/validate_football_directory_navigation.py']],
   ['FOOTBALL/B017/FIFTH-FIVE', 'Verify fifth cohort sourced UIL/campus six-man and district facts', 'node', ['scripts/ci/verify-football-b017-fifth-five-source.mjs']],
   ['FOOTBALL/B017/FOURTH-FIVE', 'Verify five individual fourth-group campus guides and counties', 'node', ['scripts/ci/verify-football-b017-fourth-five-source.mjs']],
