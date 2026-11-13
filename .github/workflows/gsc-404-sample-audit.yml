@@ -7,11 +7,16 @@ on:
     - cron: '13 10 * * 1'
   push:
     branches:
-      - fix/gsc-404-sample-audit-20261113
+      - main
     paths:
       - .github/workflows/gsc-404-sample-audit.yml
       - scripts/ci/audit-gsc-404-sample.mjs
+      - scripts/ci/gsc-404-classification.mjs
+      - scripts/ci/gsc-404-classification.test.mjs
       - ops/seo/gsc-404-2026-11-13-paths.txt
+      - src/server.ts
+      - src/lib/legacy-editorial-redirects.ts
+      - src/lib/public-route-tokens.ts
 
 permissions:
   contents: read
@@ -29,6 +34,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test historical 404 response classifications
+        run: node --test scripts/ci/gsc-404-classification.test.mjs
       - name: Inspect 99 exact historical GSC URLs (read-only)
         run: node scripts/ci/audit-gsc-404-sample.mjs
       - name: Preserve exact HTTP audit results
