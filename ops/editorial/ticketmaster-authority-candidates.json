@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-13T14:52:11.139Z",
+  "fetchedAt": "2026-11-13T18:34:04.106Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -59,19 +59,16 @@
       "name": "Breakaway Music Festival",
       "city": "Houston",
       "dates": [
-        "2026-11-13",
         "2026-11-14"
       ],
       "venues": [
         "Shell Energy Stadium"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A70-09",
-        "Z7r9jZ1A70aZJ"
+        "Z7r9jZ1A70-09"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A70-09",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A70aZJ"
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70-09"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
