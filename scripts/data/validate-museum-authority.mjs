@@ -55,6 +55,15 @@ if (modernSourceBenchmark.includes('"https://www.themodern.org/exhibition/making
   failures.push("Fort Worth Modern museum-source benchmark retains an expired, time-limited workshop source");
 }
 const aamFaqSource = read("src/data/museum-visitor-faqs.ts");
+const modernFaqSection = aamFaqSource.split('"modern-art-museum-fort-worth": [')[1]?.split('"american-quarter-horse-hall-of-fame-museum-amarillo": [')[0] ?? "";
+if (!modernFaqSection.includes("In the Making: Stories from the Collection") ||
+    !modernFaqSection.includes("August 15, 2027") ||
+    !modernFaqSection.includes("Sunday Family Tour") ||
+    !modernFaqSection.includes('"reviewed": "2026-11-13"') ||
+    /making-sculpture-project|gallery closure supersedes|galleries closed the entire|when exhibition rooms reopen/i.test(modernFaqSection)) {
+  failures.push("Modern Fort Worth FAQs still promote expired October gallery closure or lack current visit/tour evidence");
+}
+
 const aamRecord = aamRecords.split('slug: "african-american-museum-dallas-fair-park"')[1]?.split('slug: "', 1)[0] || "";
 const aamFaq = aamFaqSource.split('"african-american-museum-dallas-fair-park": [')[1]?.split('"texas-forestry-museum-lufkin": [')[0] || "";
 for (const [label, content] of [["destination", aamRecord], ["FAQ", aamFaq]]) {
