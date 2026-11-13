@@ -20,4 +20,11 @@ for (const [slug,county] of [['forsan','howard'],['fort-bend-austin','fort-bend'
 }
 const loader = read('src/data/high-school-football/program-editorial-b018-fourth-five.ts');
 assert.ok(loader.includes('export function getBatch018FourthFiveEditorial(slug: string)'), 'Missing typed fourth cohort loader');
-console.log('PASS Batch018 fourth five source-authored modules and staged county records; NOT SSR/county integrated or certified');
+const server = read('src/data/high-school-football/football-program-profile.server.ts');
+const schoolRoute = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const countyRoute = read('src/routes/$kind.$slug.lazy.tsx');
+assert.ok(server.includes('getBatch018FourthFiveEditorial(canonicalSlug)'), 'Missing UIL SSR fourth cohort');
+assert.ok(server.includes('getBatch018FourthFiveEditorial(legacy.featured.slug)'), 'Missing private fallback fourth cohort');
+assert.ok(schoolRoute.includes('BATCH018_FOURTH_FIVE_COUNTY_EDGES.map'), 'Missing school-to-county fourth links');
+assert.ok(countyRoute.includes('BATCH018_FOURTH_FIVE_COUNTY_EDGES.filter'), 'Missing county-to-school fourth links');
+console.log('PASS Batch018 fourth five source-authored modules and staged county records; SSR/county source-integrated; NOT production certified');
