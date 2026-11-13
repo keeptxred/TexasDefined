@@ -132,6 +132,15 @@ for (const guide of attractionCertification) {
         throw Error("Fort Worth Water Gardens still renders an expired Modern Art Museum closure/related card");
       }
     }
+    if (guide.path === "/destination/houston-botanic-garden") {
+      const related = body.split("Explore related places")[1]?.split("Texas Explained")[0] ?? "";
+      // The 1940 Air Terminal Museum ceased public operations in March 2026.
+      // Its historical page may remain indexed, but the live Garden itinerary
+      // must never suggest the CLOSED museum as a visitable stop.
+      if (!related || /href=["']\\/destination\\/1940-air-terminal-museum-houston(?:["'?#/])/i.test(related)) {
+        throw Error("Houston Botanic Garden still recommends closed 1940 Air Terminal Museum as a related trip stop");
+      }
+    }
     if (!body.includes("<title>") || !body.includes(guide.name)) throw Error("missing named title");
     if (!/<meta\b[^>]*name=["']description["'][^>]*content=["'][^"']{50,}["']/i.test(body)) {
       throw Error("missing substantial SSR meta description");
