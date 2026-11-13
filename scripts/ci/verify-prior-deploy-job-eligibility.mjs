@@ -192,8 +192,10 @@ export function qualifyPriorDeployJob(payload) {
     const msr = readFileSync('scripts/ci/verify-msr-houston-browser.mjs', 'utf8');
     const smoke = readFileSync('scripts/ci/verify-built-worker-ssr-core.mjs', 'utf8');
     const d21 = readFileSync('scripts/ci/verify-district21-football-production.mjs', 'utf8');
-    if (!msr.includes('MSR_TRANSIENT_NAVIGATION_TIMEOUT') ||
-        !msr.includes("error?.name !== 'TimeoutError' || attempt === 3") ||
+    // Reuse already-merged PR #7091's even tighter second-attempt-only
+    // browser transport safeguard, protected by its own canonical CI gate.
+    if (!msr.includes('for (let attempt = 1; attempt <= 2; attempt++)') ||
+        !msr.includes("attempt === 2 || !/TimeoutError/.test(String(error))") ||
         !msr.includes('assert.equal(response?.status(), 200') ||
         !d21.includes('cfCacheStatus: response.headers.get') ||
         !['fort-bend-austin', 'fort-bend-bush', 'fort-bend-clements']
