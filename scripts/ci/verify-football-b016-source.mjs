@@ -14,7 +14,11 @@ const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const records=new Map(registry.schoolRecords.map(row=>[row.slug,row]));
 const graduated=certifiedBatch016(registry);
 for(const slug of expected)assert.equal(records.get(slug)?.status,graduated?'VERIFIED':'NOT_REVIEWED',slug+' must not be prematurely certified');
-assert.equal(registry.schoolRecords.filter(x=>x.status==='VERIFIED').length,graduated?380:355,'355 historical certifications plus 25 only with signed Batch016 evidence');
+const verifiedCount=registry.schoolRecords.filter(x=>x.status==='VERIFIED').length;
+// Batch016 is historical after Batch017's separately signed graduation. Do not
+// force the global count back to 380 when later cohorts legitimately graduate.
+if (graduated) assert.ok(verifiedCount>=380, 'Signed Batch016 graduation requires at least 380 verified schools');
+else assert.equal(verifiedCount,355,'Unsigned Batch016 must preserve the prior 355 verified schools');
 const files=[
 ['program-editorial-b016-early.ts',['early']],
 ['program-editorial-b016-earth.ts',['earth-springlake']],
@@ -51,4 +55,4 @@ for(const name of ['program-editorial-b016-group1.ts','program-editorial-b016-gr
   for(const m of g.milestones)assert.ok(m.sourceUrl?.startsWith('https://'),slug+' missing milestone source');
  }
 }
-console.log('PASS: Batch016 25 distinct source-authored SSR guides; 355 historical VERIFIED preserved; no premature certification. This is NOT production/Chrome certification.');
+console.log('PASS: Batch016 25 distinct source-authored SSR guides; historical VERIFIED preserved; later signed cohorts allowed; no premature Batch016 certification. This is NOT production/Chrome certification.');
