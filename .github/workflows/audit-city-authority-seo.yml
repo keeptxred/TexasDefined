@@ -1,4 +1,4 @@
-name: Research 11-city production schema and sitemap acceptance
+name: Research 12-city production schema and sitemap acceptance
 on:
   pull_request:
     branches: [main]
@@ -45,7 +45,7 @@ jobs:
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-city-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Check 11 city live HTML, City/Breadcrumb graphs and primary XML sitemap
+      - name: Check 12 city live HTML, City/Breadcrumb graphs and primary XML sitemap
         env:
           PRODUCTION_COMMIT_SHA: ${{ github.sha }}
         run: node scripts/ci/audit-city-authority-seo.mjs
