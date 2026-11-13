@@ -84,6 +84,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The Austin story extends beyond one building when musicians and bookings are shared between cities. That circuit is distinct from, and should not be confused with, the South Congress building's age.",
         source: "Handbook of Texas, sister-club section",
         href: "https://www.tshaonline.org/handbook/entries/continental-club"
+      },
+      {
+        heading: "The city did enact historic zoning in 2008",
+        record: "Austin City Council enacted Ordinance 20080821-059 for 1315 South Congress, adding the Historic Landmark (H) combining district under case C14H-2008-0018. This was an adopted ordinance, unlike the uncompleted preservation recommendation described on the Broken Spoke page.",
+        reading: "The city's legal record protects a property, not every booking, performer or band associated with it. The ordinance is stronger evidence for the 2008 status than a promotional claim that the room is 'legendary'.",
+        source: "City of Austin, enacted ordinance 20080821-059",
+        href: "https://services.austintexas.gov/edims/document.cfm?id=120731"
       }
     ],
     caution: "The 1955/1957 discrepancy remains unresolved without contemporaneous records. Neither date is silently presented as definitive, and the city plan's 1957 wording may trace back to the same historical sources as the Handbook."
@@ -154,6 +161,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The recordings turned performances into objects that could circulate after concerts ended. A venue that once mainly brought crowds into the Stockyards also sent Fort Worth performances to listeners elsewhere.",
         source: "Handbook of Texas, Live at Billy Bob's",
         href: "https://www.tshaonline.org/handbook/entries/billy-bobs-texas"
+      },
+      {
+        heading: "The surrounding Stockyards district has its own preservation rules",
+        record: "Fort Worth identifies the Stockyards as a historic district and describes its transition from the city's livestock and meatpacking economy to a visitor destination. The city adopted the Stockyards form-based district framework in 2017.",
+        reading: "The club is one part of a larger protected urban landscape. Historic district regulations cannot be read as proof that every individual venue building has the same designation, but they explain the preservation pressures surrounding Billy Bob's.",
+        source: "City of Fort Worth, Stockyards Historic and Form-Based Code District",
+        href: "https://www.fortworthtexas.gov/departments/development-services/historic-preservation/historic-stockyards"
       }
     ],
     caution: "The advertised 'world's largest' description is the venue's marketing label, not a globally audited record. Capacity, amenities and bull-riding schedules should be confirmed when planning a visit."
@@ -294,6 +308,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "A page that treats these traditions as interchangeable loses their different instrumental lineages. San Antonio matters precisely because musicians could borrow across established musical practices.",
         source: "Handbook of Texas, Texas-Mexican conjunto",
         href: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto"
+      },
+      {
+        heading: "Living musicians are part of the historical evidence",
+        record: "UT San Antonio reported in 2022 that its West Side Sound Oral History Project was collecting interviews, photographs and records with community partners; a 2025 university update describes further oral-history presentation and archiving work.",
+        reading: "Local testimony can check the gaps left by commercial releases and retrospective genre labels. The project is a research resource, not a license to copy interview audio, photographs or collections without permission.",
+        source: "UT San Antonio, West Side Sound Oral History Project",
+        href: "https://education.utsa.edu/news/2022/02/westside-sound.html"
       }
     ],
     caution: "The history describes cross-community collaboration in a segregated society. It should not romanticize the period as one of universal musical or social equality."
