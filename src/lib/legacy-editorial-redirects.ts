@@ -30,6 +30,11 @@ export const LEGACY_EDITORIAL_REDIRECTS: Record<string, string> = Object.fromEnt
   ),
 );
 LEGACY_EDITORIAL_REDIRECTS["/museum/barrington-farm-site"] = "/destination/barrington-living-history-farm";
+// Barton Warnock is the Big Bend Ranch EAST permit/interpretation gateway,
+// not a stand-alone state park. The published parent guide now covers its
+// visitor center, Una Tierra exhibit, garden, exact address and permits.
+LEGACY_EDITORIAL_REDIRECTS["/destination/barton-warnock-environmental-educational-center-state-park"] = "/destination/big-bend-ranch-state-park";
+LEGACY_EDITORIAL_REDIRECTS["/state-park/barton-warnock-environmental-educational-center-state-park"] = "/destination/big-bend-ranch-state-park";
 // Historical San Antonio links: the city guide is /city/, not a destination.
 LEGACY_EDITORIAL_REDIRECTS["/destination/san-antonio"] = "/city/san-antonio";
 // El Paso's researched city authority lives at /city/el-paso, not a second
