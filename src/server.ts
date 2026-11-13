@@ -2,6 +2,7 @@ import "./lib/error-capture";
 import { applyHashedModuleDocumentCachePolicy } from "./lib/hashed-asset-document-cache-policy";
 import { reviewedAttractionCanonicalRedirect } from "./lib/reviewed-attraction-canonical-redirect";
 import { LEGACY_EDITORIAL_REDIRECTS } from "./lib/legacy-editorial-redirects";
+import { hasUnresolvedPublicRouteToken } from "./lib/public-route-tokens";
 import { legacyAppleIconRedirect } from "./lib/legacy-apple-icon";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
@@ -123,6 +124,24 @@ function legacyCountyRedirect(request: Request) {
   if (!countySlug) return null;
   url.pathname = `/county/${countySlug}`;
   return Response.redirect(url.toString(), 301);
+}
+
+/** A serialized router pattern is not a visitor URL. Fail before TanStack
+ * can normalize literal "$slug" into a 307-to-404 or /undefined chain.
+ * Do not redirect these invalid paths to generic content hubs.
+ */
+export function invalidPublicRouteTemplateResponse(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  if (!hasUnresolvedPublicRouteToken(url.pathname)) return null;
+  return new Response(request.method === "HEAD" ? null : "Not found", {
+    status: 404,
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "public, max-age=300",
+      "x-robots-tag": "noindex, follow",
+    },
+  });
 }
 
 function canonicalEntityRedirect(request: Request) {
@@ -708,6 +727,8 @@ export default {
       if (foliageCanonicalRedirect) return foliageCanonicalRedirect;
       const canonicalRedirect = canonicalHostRedirect(request);
       if (canonicalRedirect) return canonicalRedirect;
+      const unresolvedRoute = invalidPublicRouteTemplateResponse(request);
+      if (unresolvedRoute) return unresolvedRoute;
       const legacyAppleIcon = legacyAppleIconRedirect(request);
       if (legacyAppleIcon) return legacyAppleIcon;
       const adsTxt = adsTxtResponse(request);
