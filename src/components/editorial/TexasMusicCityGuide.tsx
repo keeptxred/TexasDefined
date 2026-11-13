@@ -17,20 +17,24 @@ const citySources: Record<string, readonly SourceNote[]> = {
     { label: "Handbook of Texas — Country Music", href: "https://www.tshaonline.org/handbook/entries/country-music", note: "Documents Austin's 1970s progressive-country movement, its mixed audiences and key venues." },
     { label: "Handbook of Texas — Austin City Limits", href: "https://www.tshaonline.org/handbook/entries/austin-city-limits", note: "Documents the program's 1974–76 origins and connection to Austin's progressive-country scene." },
     { label: "Handbook of Texas — Antone's", href: "https://www.tshaonline.org/handbook/entries/antones", note: "Documents Clifford Antone's blues club and its role in Austin's live-music identity." },
+    { label: "Austin City Limits — Original program history", href: "https://acltv.com/history-of-acl/", note: "Primary production account documenting the 1974 Willie Nelson pilot taping, March 1975 broadcast and the organizers behind the public-broadcast series." },
   ],
   "houston-music-history": [
     { label: "Handbook of Houston — Music", href: "https://www.tshaonline.org/handbook/projects/houston/place/houston/category/music", note: "TSHA's city-specific collection covering Houston musicians, genres, venues and music businesses." },
     { label: "Handbook of Texas — Duke-Peacock Records", href: "https://www.tshaonline.org/handbook/entries/duke-peacock-records", note: "Documents Don Robey's Houston labels and their national role in blues, R&B, gospel and soul." },
     { label: "Handbook of Texas — Rap and Hip-Hop", href: "https://www.tshaonline.org/handbook/entries/rap-and-hip-hop", note: "Documents Houston rap, DJ Screw, chopped-and-screwed music and later independent networks." },
+    { label: "University of Houston — DJ Screw archival collection", href: "https://findingaids.lib.uh.edu/repositories/2/resources/14", note: "Collection 2010-023 describes the equipment, creation, local sale and surviving archive of screw tapes; its access conditions do not grant general republication rights." },
   ],
   "san-antonio-music-history": [
     { label: "Handbook of Texas — Texas-Mexican Conjunto", href: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto", note: "Documents the borderland development of conjunto and its accordion-and-bajo-sexto foundation." },
     { label: "Handbook of Texas — West Side Sound", href: "https://www.tshaonline.org/handbook/entries/west-side-sound", note: "Documents San Antonio's intercultural R&B, rock-and-roll, conjunto and country hybrid beginning in the late 1950s." },
+    { label: "UT San Antonio — West Side Sound oral histories", href: "https://education.utsa.edu/news/2022/02/westside-sound.html", note: "Describes a community-partnered effort to record oral histories, preserve photographs and document cultural memory beyond commercial records." },
   ],
   "lubbock-music-history": [
     { label: "Handbook of Texas — Buddy Holly", href: "https://www.tshaonline.org/handbook/entries/holley-charles-hardin-buddy-holly", note: "Documents Holly's Lubbock upbringing, local radio work and early musical development." },
     { label: "Handbook of Texas — The Crickets", href: "https://www.tshaonline.org/handbook/entries/crickets", note: "Documents the Lubbock formation and early history of the Crickets." },
     { label: "Handbook of Texas — Recording Industry", href: "https://www.tshaonline.org/handbook/entries/recording-industry", note: "Places Lubbock and West Texas musicians inside the regional recording network that helped launch early rock and roll." },
+    { label: "Library of Congress — The Crickets' 1957 national recording", href: "https://blogs.loc.gov/now-see-hear/2022/02/from-the-national-recording-registry-thatll-be-the-day-1957/", note: "Uses National Recording Registry research to document the initially rejected tape, small first pressing, May 27 release and regional radio promotion." },
   ],
   "dallas-fort-worth-music-history": [
     { label: "Handbook of Texas — Deep Ellum", href: "https://www.tshaonline.org/handbook/entries/deep-ellum", note: "Documents the Dallas district's Black commercial, blues and jazz history." },
