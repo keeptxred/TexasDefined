@@ -249,6 +249,12 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/news/stephen-f-austin-father-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/article/stephen-f-austin-father-of-texas', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/news/juan-seguin-tejano-texas-revolution?source=gsc', expectedStatus: 301, expectedPath: '/article/juan-seguin-tejano-texas-revolution', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/news/san-antonio-spurs-texas-basketball-culture?source=gsc', expectedStatus: 301, expectedPath: '/article/san-antonio-spurs-texas-basketball-culture', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/news/texas-oil-boom-wichita-falls-west-texas-rigs?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-oil-boom-wichita-falls-west-texas-rigs', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/news/dr-pepper-waco-texas-history?source=gsc', expectedStatus: 301, expectedPath: '/dr-pepper-texas-history', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
+  { path: '/destination/fredericksburg-texas-wineries-things-to-do-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/fredericksburg-texas-wineries-things-to-do-guide', expectedQuery: ['source','gsc'], label: 'historical GSC editorial alias' },
   { path: '/attraction/dr-pepper-museum?source=gsc', expectedStatus: 301, expectedPath: '/destination/dr-pepper-museum-waco', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/destination/dr-pepper-museum?source=gsc', expectedStatus: 301, expectedPath: '/destination/dr-pepper-museum-waco', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/attraction/hill-country-louise-merrick-unit-state-natural-area?source=gsc', expectedStatus: 301, expectedPath: '/destination/hill-country-state-natural-area', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
