@@ -131,3 +131,15 @@ test('nine-page District 21 diagnostic checker remains available manually', () =
     'fort-bend-hightower', 'fort-bend-ridge-point', 'fort-bend-travis', 'houston-strake-jesuit',
   ]) assert.ok(liveCheck.includes(name), `missing production verification for ${name}`);
 });
+
+test('previously missing Austin Bush Clements scorecards are required in local built-Worker SSR', () => {
+  const smoke = readFileSync(new URL('../../scripts/ci/verify-built-worker-ssr-core.mjs', import.meta.url), 'utf8');
+  for (const slug of ['fort-bend-austin', 'fort-bend-bush', 'fort-bend-clements']) {
+    assert.ok(smoke.includes("path: '/texas-high-school-football-teams/" + slug + "'") &&
+      smoke.includes('data-football-d21-team-section="' + slug + '"'),
+      'The real built Worker must render the source-backed scorecard before deploy: ' + slug);
+  }
+  assert.ok(liveCheck.includes('htmlBytes: html.length') &&
+    liveCheck.includes("cfCacheStatus: response.headers.get('cf-cache-status')"),
+    'Retain diagnostic cache/content evidence when a live District 21 page returns 200 but lacks the scorecard');
+});

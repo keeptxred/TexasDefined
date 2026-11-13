@@ -114,6 +114,9 @@ test('MSR/District21 original asset rescue rejects any alternate job, extra fail
     { jobId: 132004453073 },
     { additional: ['Verify District 21 hub and eight team scorecards on production', 'Verify base production surfaces'] },
     { failure: 'Verify Event structured-data production' },
+    // A falsified MSR-only transcript must NOT fall through to the generic
+    // previously allowed postdeploy MSR visual-only exception.
+    { additional: [] },
     { omit: 'Verify direct Worker health' },
     { omit: 'Verify canonical production health' },
     { omit: 'Verify current and previous release JS/CSS on both public origins' },

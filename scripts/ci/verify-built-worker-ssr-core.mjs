@@ -50,6 +50,12 @@ const smokeTargets = [
   // District 21 previously returned eight HTTP 500s while the district hub was healthy.
   { path: '/texas-high-school-football-teams/fort-bend-hightower', requiredText: 'data-football-d21-team-section="fort-bend-hightower"', label: 'District 21 team SSR must render source-checked football season instead of 500' },
   { path: '/texas-high-school-football-teams/fort-bend-elkins', requiredText: 'data-football-d21-team-section="fort-bend-elkins"', label: 'Second District 21 team SSR must render distinct scorecard' },
+  // Nov 13 production release returned HTTP 200 without these three teams'
+  // source-checked scorecards while the other five members passed. A 200 is
+  // not enough: prove the exact built SSR markup BEFORE Worker replacement.
+  { path: '/texas-high-school-football-teams/fort-bend-austin', requiredText: 'data-football-d21-team-section="fort-bend-austin"', label: 'Fort Bend Austin must SSR its verified District 21 scorecard' },
+  { path: '/texas-high-school-football-teams/fort-bend-bush', requiredText: 'data-football-d21-team-section="fort-bend-bush"', label: 'Fort Bend Bush must SSR its verified District 21 scorecard' },
+  { path: '/texas-high-school-football-teams/fort-bend-clements', requiredText: 'data-football-d21-team-section="fort-bend-clements"', label: 'Fort Bend Clements must SSR its verified District 21 scorecard' },
   { path: '/texas-high-school-football-teams/gunter', requiredText: 'https://texasdefined.com/texas-high-school-football-teams/gunter', label: 'Independent generic UIL team SSR has correct canonical' },
   { path: '/texas-high-school-football-teams/buckholts', requiredText: 'Buckholts Badgers Football', label: 'Batch 008 researched six-man team SSR loads its published individual model' },
 
