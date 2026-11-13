@@ -26,6 +26,7 @@ export const Route = createFileRoute("/hunting/$slug")({
           imageType: "image/jpeg",
           imageWidth: 1300,
           imageHeight: 863,
+          modifiedTime: loaderData.reviewedOn ? loaderData.reviewedOn + "T12:00:00Z" : undefined,
         } : loaderData.slug === "youth-hunting" ? {
           type: "article" as const,
           image: YOUTH_HUNTING_IMAGE.src,
