@@ -63,10 +63,11 @@ try{
     assert.ok(data.scroll<=width+8,'horizontal overflow '+slug+' '+width+' actual '+data.scroll);
     assert.equal(data.brokenImages,0,'broken image '+slug);
     assert.deepEqual(errors,[],'browser errors '+slug);
-    const county=data.links.find(l=>/^\/county\/[a-z0-9-]+\/?$/.test(l||''));
     const expectedCounty=countyBySlug.get(slug);
-    assert.equal(county,'/county/'+expectedCounty,'wrong campus county for '+slug);
-    assert.ok(county,'missing school-to-county link '+slug);
+    const county='/county/'+expectedCounty;
+    // School pages can legitimately link to several counties. Require the
+    // verified campus county, not whichever county anchor happens to come first.
+    assert.ok(data.links.includes(county) || data.links.includes(county+'/'),'missing school-to-campus-county link '+slug+' '+county);
     const screenshotPath='artifacts/b018-chrome-screenshots/'+slug+'-'+width+'.png';
     await page.screenshot({path:screenshotPath,fullPage:true,timeout:30000});
     report.screenshots.push({slug,width,path:screenshotPath});
