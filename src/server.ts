@@ -160,7 +160,8 @@ export function invalidPublicRouteTemplateResponse(request: Request): Response |
 export function unavailableHistoricalParkAliasResponse(request: Request): Response | null {
   if (request.method !== "GET" && request.method !== "HEAD") return null;
   const url = new URL(request.url);
-  const normalized = url.pathname.length > 1 ? url.pathname.replace(/\\/+$/, "").toLowerCase() : url.pathname;
+  let normalized = url.pathname.toLowerCase();
+  while (normalized.length > 1 && normalized.endsWith("/")) normalized = normalized.slice(0, -1);
   if (!UNAVAILABLE_HISTORICAL_PARK_ALIASES.has(normalized)) return null;
   return new Response(request.method === "HEAD" ? null : "Not found", {
     status: 404,
