@@ -226,6 +226,12 @@ for (const officialSource of ["sam_rayburn", "texoma", "fork", "canyon", "conroe
 }
 requireText(files.sourceWorkflow, "check-fishing-13-source-state.mjs", "Source governance workflow disconnected");
 requireText(files.sourceWorkflow, "cron: '13 11 * * 1,4'", "Twice-weekly primary source checking lost");
+for (const slug of ["soft-plastics", "crankbaits", "spinnerbaits", "topwater", "trolling"]) {
+  requireText(files.server, `"${slug}"`, "Research-specific dateModified missing " + slug);
+}
+requireText(files.server, "const editorialDate = researchedGuides.includes(technique.slug)", "Never re-stamp unmodified technique pages");
+if (files.routing.includes('FISHING_TECHNIQUE_EDITORIAL_UPDATED_AT = "2026-11-13"'))
+  throw new Error("All nine technique pages were falsely date-stamped despite research changing only five");
 const canonicalSourcePaths = [...files.sourceComparisons.matchAll(/lakePath:\s*"([^"]+)"/g)].map((match) => match[1]);
 if (canonicalSourcePaths.length !== 10 || canonicalSourcePaths.some((item) => !/^\/fishing\/lakes\/[a-z0-9-]+$/.test(item)))
   throw new Error("Research comparisons must link ten complete canonical lake paths, without underscore slugs");
