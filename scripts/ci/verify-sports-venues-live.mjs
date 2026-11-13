@@ -66,6 +66,45 @@ async function check(path, attempt = 1) {
     ?? html.match(/<link\b[^>]*\bhref=["'][^"']+["'][^>]*\brel=["']canonical["'][^>]*>/i)?.[0];
   const expectedCanonical = origin + path;
   if (!canonicalTag || !canonicalTag.includes(expectedCanonical)) failures.push(path + ': incorrect or missing canonical');
+  // Parse the same JSON-LD emitted to crawlers, not just source-code tokens.
+  const schemaScripts = [...html.matchAll(/<script\b(?=[^>]*type=["']application\/ld\+json["'])[^>]*>([\s\S]*?)<\/script>/gi)];
+  const schemaNodes = [];
+  for (const [, rawJson] of schemaScripts) {
+    try {
+      const record = JSON.parse(rawJson);
+      schemaNodes.push(...(Array.isArray(record['@graph']) ? record['@graph'] : [record]));
+    } catch (error) {
+      failures.push(path + ': invalid published JSON-LD: ' + String(error));
+    }
+  }
+  const typeIncludes = (record, type) => {
+    const actual = record?.['@type'];
+    return Array.isArray(actual) ? actual.includes(type) : actual === type;
+  };
+  if (!schemaNodes.some((record) => typeIncludes(record, 'BreadcrumbList'))) {
+    failures.push(path + ': rendered breadcrumb structured data missing');
+  }
+  if (path === '/sports-venue/jones-att-stadium') {
+    if (!schemaNodes.some((record) => typeIncludes(record, 'StadiumOrArena'))) {
+      failures.push(path + ': venue identity structured data missing');
+    }
+  } else {
+    const list = schemaNodes.find((record) => typeIncludes(record, 'ItemList'));
+    if (!schemaNodes.some((record) => typeIncludes(record, 'CollectionPage')) || !list) {
+      failures.push(path + ': collection page and ItemList structured data missing');
+    } else if (!Array.isArray(list.itemListElement) || list.numberOfItems !== list.itemListElement.length) {
+      failures.push(path + ': ItemList count mismatches published list');
+    }
+    if (path === '/sports-venues/compare' && !schemaNodes.some((record) => typeIncludes(record, 'Dataset'))) {
+      failures.push(path + ': downloadable comparison dataset JSON-LD missing');
+    }
+    if (path.startsWith('/sports-venues') && list && Array.isArray(list.itemListElement)) {
+      const items = list.itemListElement.map((item) => item.url ?? item.item?.url).filter(Boolean);
+      if (new Set(items).size !== items.length) {
+        failures.push(path + ': duplicate canonical venue links in JSON-LD list');
+      }
+    }
+  }
   if (path.startsWith('/sports-venues/') && path !== '/sports-venues/compare') {
     const choices = html.match(/<section\b[^>]*aria-labelledby="trip-choices-heading"[\s\S]*?<\/section>/i)?.[0];
     if (!choices || (choices.match(/<h3\b/gi) ?? []).length !== 3) {
