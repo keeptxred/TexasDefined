@@ -1,6 +1,6 @@
 /** Scoped post-deploy event-page browser acceptance; no outbound ticket clicks. */
 import assert from 'node:assert/strict';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 const { chromium } = createRequire(import.meta.url)(
   process.env.PLAYWRIGHT_CORE_PATH || '/tmp/texasdefined-wp-qa/node_modules/playwright-core',
@@ -53,6 +53,22 @@ try {
               await page.goto('about:blank',{waitUntil:'load',timeout:10000});
               await new Promise(resolve=>setTimeout(resolve,attempt*1000));
             }
+          }
+          if (response?.status() !== 200) {
+            // Keep non-200 responses fail-closed, but retain actionable server evidence.
+            // The former bare assertion lost the response headers/body that can
+            // distinguish a transient edge 500 from a repeatable route exception.
+            const failure = {
+              page:target.key, viewport:viewport.key, route:target.route,
+              status:response?.status() ?? null,
+              finalUrl:page.url(),
+              cfRay:response?.headers()['cf-ray'] ?? null,
+              cacheStatus:response?.headers()['cf-cache-status'] ?? null,
+              contentType:response?.headers()['content-type'] ?? null,
+              bodyExcerpt:(await response?.text().catch(()=>'unavailable') ?? '').slice(0,600),
+            };
+            await writeFile(`${root}/failure-${target.key}-${viewport.key}.json`,JSON.stringify(failure,null,2));
+            console.error('EVENT_HTTP_FAILURE '+JSON.stringify(failure));
           }
           assert.equal(response?.status(),200,target.key+' '+viewport.key+' HTTP');
           await page.locator('h1').first().waitFor({state:'visible',timeout:12000});
