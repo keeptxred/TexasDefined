@@ -7,6 +7,7 @@ on:
       - 'src/data/city-authority-index.ts'
       - 'src/data/city-authority-profiles.ts'
       - 'src/data/city-metro-authority.ts'
+      - 'src/data/city-industry-paths.ts'
       - 'src/data/texas-places.ts'
       - '.github/workflows/audit-city-authority-seo.yml'
   push:
@@ -16,6 +17,7 @@ on:
       - 'src/data/city-authority-index.ts'
       - 'src/data/city-authority-profiles.ts'
       - 'src/data/city-metro-authority.ts'
+      - 'src/data/city-industry-paths.ts'
       - 'src/data/texas-places.ts'
       - '.github/workflows/audit-city-authority-seo.yml'
   workflow_dispatch:
