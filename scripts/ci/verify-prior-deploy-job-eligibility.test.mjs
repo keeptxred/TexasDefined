@@ -51,3 +51,33 @@ test('future failed runs may not silently inherit the Nov13 one-time asset excep
     runId: 43440839999, jobId: 131939999999, failure: failing,
   })), /Failed deploy job includes unapproved or missing failure evidence/);
 });
+
+test('exact published 1e9c Worker after turkey-only transport timeout may seed original assets only', () => {
+  const source = evidence({
+    runId: 43447328975, jobId: 131960103008,
+    failure: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+  });
+  const accepted = qualifyPriorDeployJob(source);
+  assert.equal(accepted.mode, 'exact-nov13-turkey-timeout-original-assets-only');
+  assert.equal(accepted.exactRun, 43447328975);
+  assert.equal(accepted.requiredSourceSha, '3cd9851671f9077f9f57e4bc7d648816826002f2');
+  assert.equal(accepted.requiredWorkerVersion, '1e9cbeec-7e97-470f-9531-91ce2ab0946b');
+  assert.equal(accepted.criticalChecks, 5);
+  assert.deepEqual(accepted.permittedFailures, ['Verify hunting hub and turkey guide in desktop/mobile Chrome']);
+});
+
+test('turkey timeout handoff rejects any other run, job, failure or unsafe original-byte step', () => {
+  for (const altered of [
+    { runId: 43447328976 },
+    { jobId: 131960103009 },
+    { failure: 'Verify base production surfaces' },
+    { additional: ['Verify base production surfaces'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({
+      runId: 43447328975, jobId: 131960103008,
+      failure: 'Verify hunting hub and turkey guide in desktop/mobile Chrome',
+      ...altered,
+    })), /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
