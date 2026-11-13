@@ -31,6 +31,11 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: 'Juana Pedrasa', label: 'Real Fort Leaton historical narrative serves original GSC URL instead of HTTP404' },
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: '16952 FM 170 East', label: 'Fort Leaton genuine western gateway address survives SSR' },
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: 'https://tpwd.texas.gov/state-parks/fort-leaton', label: 'Fort Leaton original TPWD evidence appears in authoritative destination' },
+  { path: '/destination/big-bend-ranch-state-park', requiredText: 'Una Tierra', label: 'Barton Warnock interpretive visitor center researched in real parent park guide' },
+  { path: '/destination/big-bend-ranch-state-park', requiredText: '21800 FM 170', label: 'Big Bend Ranch visitor guide retains separate east entrance address' },
   // Search Console's /texas-icons/shaquille-oneal was HTTP 404 because the
   // research record used a different slug from the actual owner roster.
   { path: '/texas-icons/shaquille-oneal', requiredText: '1989 Class 3A', label: 'Shaquille icon now publishes exact Cole championship and not a 404' },
@@ -254,6 +259,9 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/historic-site/fort-leaton-state-historic-site?source=gsc', expectedStatus: 301, expectedPath: '/destination/fort-leaton-state-historic-site', expectedQuery: ['source','gsc'], label: 'existing Fort Leaton historic-site 301 now lands on real researched page' },
+  { path: '/state-park/barton-warnock-environmental-educational-center-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/big-bend-ranch-state-park', expectedQuery: ['source','gsc'], label: 'Barton Warnock former state-park import to actual visitor gateway guide' },
+  { path: '/destination/barton-warnock-environmental-educational-center-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/big-bend-ranch-state-park', expectedQuery: ['source','gsc'], label: 'Barton Warnock former destination import to actual visitor gateway guide' },
   { path: '/article/cameron-county-brownsville-harlingen-south-padre-rio-grande?source=gsc', expectedStatus: 301, expectedPath: '/county/cameron', expectedQuery: ['source','gsc'], label: 'historical Cameron County series legacy alias to county authority' },
   { path: '/article/texas-home-insurance-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-homeowners-insurance-guide', expectedQuery: ['source','gsc'], label: 'published homeowner insurance historical GSC alias' },
   { path: '/article/texas-hurricane-preparation-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-hurricane-preparation-homeowners-renters', expectedQuery: ['source','gsc'], label: 'published hurricane preparedness historical GSC alias' },
