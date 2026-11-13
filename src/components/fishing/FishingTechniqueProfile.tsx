@@ -331,7 +331,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="py-12" aria-labelledby="technique-sources">
         <p className="eyebrow text-primary">Sources</p>
         <h2 id="technique-sources" className="mt-2 font-display text-4xl">Sources and Verification</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Compiled by the Texas Defined editorial team from cited TPWD reservoir descriptions and the linked fishing lake records. The original comparisons above separate agency observations from our planning advice. They are not independent field tests, proof of an active bite, or a substitute for current regulations and notices. Each lake guide retains its own source trail.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Compiled by the Texas Defined editorial team from cited TPWD reservoir descriptions and the linked fishing lake records. The original comparisons distinguish published findings from editorial interpretation and practical planning advice. They are not independent field tests, proof of an active bite, or a substitute for current regulations and notices. Each lake guide retains its own source trail.</p>
         <div className="mt-7 grid gap-5 md:grid-cols-2">{data.featuredSources.map((source) => <article key={source.url} className="border-t border-border pt-5">
           <h3 className="font-display text-xl">{source.name}</h3>
           <p className="mt-2 text-xs text-muted-foreground">Checked {source.checkedAt}</p>
