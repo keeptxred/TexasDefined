@@ -162,7 +162,7 @@ function CorpusChristiMusicHistoryPage() {
 
           <section className="border-b border-border py-10" aria-labelledby="corpus-sources">
             <p className="eyebrow text-primary">Sources</p>
-            <h2 id="corpus-sources" className="mt-2 font-display text-3xl">Historical authority behind this guide</h2>
+            <h2 id="corpus-sources" className="mt-2 font-display text-3xl">Sources for Corpus Christi’s music history</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The dated milestones above link directly to historical sources. These further references document how the record businesses and performers fit the wider South Texas music economy; current ticket prices, opening hours and visitor policies are not historical claims.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {sources.map((source) => <li key={source.href} className="py-4"><a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a><p className="mt-1 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}
