@@ -8,6 +8,7 @@ const index = read('src/data/city-authority-index.ts');
 const graph = read('src/data/city-metro-authority.ts');
 const profile = read('src/data/city-authority-profiles.ts');
 const social = read('src/data/city-social-images.ts');
+const industries = read('src/data/city-industry-paths.ts');
 const browse = read('src/routes/browse.cities.tsx');
 const route = read('src/routes/$kind.$slug.tsx');
 const section = profile.split("  'del-rio': {")[1]?.split("  'corpus-christi': {")[0] || '';
@@ -59,6 +60,15 @@ test('Del Rio hero is distinct, right-attributed and linked to an original licen
   assert.match(section, /JherreraCODR · CC BY-SA 4\.0 · Wikimedia Commons/);
   assert.match(section, /commons\.wikimedia\.org\/wiki\/File:Brown_Plaza\.jpg/);
   assert.match(social, /'del-rio': \{ src:.*Brown_Plaza\.jpg/);
+});
+
+test('Del Rio industry cross-links preserve verified local subjects', () => {
+  const block = industries.split("  'del-rio': [")[1]?.split("  'fort-worth': [")[0] || '';
+  assert.match(block, /Aerospace, Aviation & Defense/);
+  assert.match(block, /Hospitality, Tourism & Culture/);
+  assert.match(block, /Laughlin Air Force Base/);
+  assert.match(block, /Amistad National Recreation Area/);
+  assert.ok(!block.includes('/texas-industries/energy-power'), 'Do not treat Del Rio as a generic Permian oil city');
 });
 
 test('Del Rio is covered by existing 12-city production monitors and exact audit sample', () => {
