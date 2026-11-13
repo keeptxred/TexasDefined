@@ -1,0 +1,38 @@
+name: Audit historical GSC 404 sample (99 URLs)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - fix/gsc-404-sample-audit-20261113
+    paths:
+      - .github/workflows/gsc-404-sample-audit.yml
+      - scripts/ci/audit-gsc-404-sample.mjs
+      - ops/seo/gsc-404-2026-11-13-paths.txt
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gsc-404-99-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect 99 exact historical GSC URLs (read-only)
+        run: node scripts/ci/audit-gsc-404-sample.mjs
+      - name: Preserve exact HTTP audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gsc-404-99-exact-urls
+          path: artifacts/gsc-404-2026-11-13/
+          if-no-files-found: warn
+          retention-days: 30
