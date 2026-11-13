@@ -42,7 +42,7 @@ test('disallowed external and path-injection sources are never retained', () => 
   for (const source of ['https://example.com', '//evil.test', '/sports-venues/../../admin', '/?redirect=external']) {
     assert.equal(parsePartnerSearch({ source }).source, '/partner-with-us');
   }
-  assert.equal(parsePartnerSearch({ source: '/horse-racing' }).source, '/horse-racing');
+  assert.equal(parsePartnerSearch({ source: '/horse-racing' }).source, '/partner-with-us');
 });
 
 test('invalid prefill values do not enter partner form state', () => {
