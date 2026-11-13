@@ -57,6 +57,16 @@ for (const [label, view] of [["city",cityView],["venue",venueView],["Corpus",cor
   if(!view.includes('Texas Defined Editorial Desk') || !view.includes('dateModified: musicSourceReviewedAt') || !view.includes('to="/editorial-policy"')) fail("Editorial byline and structured date missing: "+label);
   if(!view.includes('sourceUrl') || !view.includes('sourceLabel')) fail("Point-of-claim citation links missing: "+label);
 }
+for (const slug of ["broken-spoke-austin-history","continental-club-austin-history","antones-austin-history","billy-bobs-texas-history"]) {
+  const begin=evidence.indexOf('  "'+slug+'": {',evidence.indexOf('export const musicVenuePhotography'));
+  const end=evidence.indexOf('\n  "',begin+6);
+  const photo=evidence.slice(begin,end<0?evidence.length:end);
+  for (const field of ["src:", "alt:", "caption:", "credit:", "sourcePage:", "license:", "licenseUrl:"]) {
+    if(begin<0 || !photo.includes(field))fail("Verified photo attribution missing: "+slug+" / "+field);
+  }
+  if(!photo.includes('creativecommons.org/licenses/'))fail("Creative Commons license source missing: "+slug);
+}
+if(!venueView.includes("photograph.sourcePage") || !venueView.includes("photograph.licenseUrl") || !venueView.includes('alt={photograph.alt}') || !venueView.includes('loading="lazy"')) fail("Venue photos missing visible author/license, alt or deferred loading");
 if(!evidence.includes('https://atlas.thc.texas.gov/Details') || !evidence.includes('https://www.tshaonline.org/handbook/entries/billy-bobs-texas')) fail("Historical marker / Billy Bob primary source missing");
 for(const x of ["Austin","Houston","San Antonio","Lubbock","Dallas–Fort Worth","Corpus Christi"]){
  if(!evidence.includes('name: "'+x+'"')) fail("Six-city comparison missing "+x);
