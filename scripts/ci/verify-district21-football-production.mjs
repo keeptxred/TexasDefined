@@ -60,7 +60,22 @@ async function verifyPage(pathname, label, check) {
           console.log('PASS ' + label + ' (' + response.status + ', ' + html.length + ' bytes)');
           return;
         } catch (error) {
-          lastError = error instanceof Error ? error.message : String(error);
+          // A 200 can still be old HTML, a partial streamed SSR payload or
+          // a school-identity mismatch. Preserve enough real HTTP evidence to
+          // diagnose instead of blindly accepting a retry or weakening markers.
+          const title = html.match(/<title[^>]*>([^<]{0,180})<\/title>/i)?.[1] ?? null;
+          lastError = (error instanceof Error ? error.message : String(error)) +
+            '; production SSR ' + JSON.stringify({
+              htmlBytes: html.length, title,
+              hasDistrict21Season: html.includes('data-football-d21-team-section='),
+              hasSeasonSection: html.includes('id="football-current-season"'),
+              hasReported2026Season: html.includes('district scores and remaining games'),
+              hasFootballPageHeading: html.includes('Football</h1>'),
+              hasRenderFailure: /An error occurred|Unexpected Application Error|Internal Server Error/i.test(html),
+              cacheControl: response.headers.get('cache-control'),
+              cfCacheStatus: response.headers.get('cf-cache-status'),
+              cfRay: response.headers.get('cf-ray'),
+            });
         }
       }
     } catch (error) {
