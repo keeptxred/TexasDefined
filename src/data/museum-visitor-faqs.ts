@@ -4979,31 +4979,31 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
   ],
   "modern-art-museum-fort-worth": [
     {
-      "question": "Are the galleries at the Modern Art Museum of Fort Worth open in October 2026?",
-      "answer": "No. The museum officially closes its exhibition galleries September 29 through October 30, 2026 while installing the next collection presentation. The rest of the building offers FREE In the Making sculpture-making activities, cinema and performance programming, its shop and Café Modern. Verify the announced October 31 gallery reopening before making a gallery-focused trip.",
-      "verificationUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "question": "Are the Modern Art Museum of Fort Worth's galleries open after the 2026 installation?",
+      "answer": "Yes. The September 29–October 30 installation closure has ended. The museum opened In the Making: Stories from the Collection on October 31, 2026, with the exhibition scheduled through August 15, 2027. Check the current exhibitions and visitor-hours pages for later installation days or holiday closures before traveling.",
+      "verificationUrl": "https://www.themodern.org/exhibitions/current",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
     },
     {
-      "question": "Is the Modern free to visit in October 2026?",
-      "answer": "Yes for its special October 2026 lobby sculpture project and museum entry during gallery installation, according to the operator. Galleries are closed the entire September 29–October 30 period. Outside this temporary arrangement regular adult gallery admission is $16, with the museum's weekly free-Friday and half-price Sunday policies.",
-      "verificationUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
-      "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
-      "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
-    },
-    {
-      "question": "When are regular museum galleries normally open?",
-      "answer": "Ordinary public hours are Tuesday–Thursday 10 a.m.–5 p.m., Friday 10 a.m.–8 p.m., Saturday and Sunday 10 a.m.–5 p.m., closed Monday and major holidays. These hours do not mean the exhibition galleries are open during the October 2026 installation period.",
+      "question": "How much does it cost to visit the Modern, and when is admission free?",
+      "answer": "Regular adult admission is $16; visitors under 18 enter free. The museum lists other eligible discounted admission, free general admission on Fridays, and half-price general admission on Sundays. Special programs may have their own rules; verify the visitor page before booking a trip.",
       "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
+    },
+    {
+      "question": "When are the Modern's exhibition galleries normally open?",
+      "answer": "The museum lists Tuesday–Thursday, Saturday and Sunday 10 a.m.–5 p.m.; Friday 10 a.m.–8 p.m.; and closure on Mondays and listed holidays. Its October 2026 installation closure has ended. Confirm any new special closures with the museum, particularly for seasonal holidays and exhibition changes.",
+      "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-11-13"
     },
     {
       "question": "Does Café Modern serve a full meal or just snacks?",
@@ -5015,22 +5015,22 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-13"
     },
     {
-      "question": "Does Modern Art Museum of Fort Worth offer free Fridays or half-price Sundays?",
-      "answer": "Yes, during normal gallery operations Fridays offer free general museum admission and Sundays offer half-price tickets. The October 2026 gallery closure supersedes normal expectations; visitors may instead attend free public lobby programs.",
+      "question": "Does the Modern Art Museum of Fort Worth offer free Fridays or half-price Sundays?",
+      "answer": "Yes. Under the museum's current general admission policy, Fridays are free and Sundays are half-price. Visitors under 18 also receive free general admission. Check special exhibitions, holiday closures and program tickets independently instead of assuming every add-on is free.",
       "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
       "questionOrigin": "editorial-research",
       "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
     },
     {
-      "question": "Are there children's programs and Sunday family tours during the October installation?",
-      "answer": "The free In the Making: The Sculpture Project provides hands-on artmaking suitable for families during the October closure. The operator separately states there are no normal Public Tours or Sunday Family Tours in October 2026, with family tour dates advertised to resume after reopening.",
+      "question": "Does the Modern offer family programs and Sunday family tours?",
+      "answer": "The museum lists a Sunday Family Tour at 2 p.m., plus scheduled docent-led tours and family-oriented programs. These take place during normal museum operations, not the concluded October 2026 gallery installation. Check the published tours calendar for the particular visit date and any registration rules.",
       "verificationUrl": "https://www.themodern.org/tours",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "questionEvidenceUrl": "https://www.themodern.org/tours",
       "reviewCycle": "monthly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
     },
     {
       "question": "Is the museum wheelchair accessible, including Café Modern?",
@@ -5042,13 +5042,13 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-13"
     },
     {
-      "question": "Where is Modern Art Museum of Fort Worth and how long should I allow?",
-      "answer": "The Modern is at 3200 Darnell Street in Fort Worth's Cultural District, a short walk from the Kimbell and Amon Carter. During October 2026 an architecture, free artmaking and restaurant visit may be shorter than a conventional gallery outing. When exhibition rooms reopen, allow roughly 90 minutes to two hours for a selective art-focused visit; this is an editorial estimate.",
+      "question": "Where is the Modern Art Museum of Fort Worth, and how long should I allow?",
+      "answer": "The museum is at 3200 Darnell Street in Fort Worth's Cultural District, within a short walk of the Kimbell and Amon Carter museums. Allow about 90 minutes to two hours for a selective art-focused visit; this is an editorial planning estimate, not an operator time requirement. Include additional time for Café Modern, the architecture and reflecting pond.",
       "verificationUrl": "https://www.themodern.org/visit/hours-and-admission",
       "questionOrigin": "editorial-research",
-      "questionEvidenceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
+      "questionEvidenceUrl": "https://www.themodern.org/visit/hours-and-admission",
       "reviewCycle": "quarterly",
-      "reviewed": "2026-10-13"
+      "reviewed": "2026-11-13"
     },
     {
       "question": "Are visitors allowed to take photos, bring food, or sketch in galleries?",
