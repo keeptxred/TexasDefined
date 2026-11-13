@@ -28,7 +28,7 @@ preflight('release identity',()=>{
  assert.match(worker,/^[a-f0-9-]{36}$/);
 });
 const edgeFiles=['batch018-county-edges.ts','batch018-second-five-county-edges.ts','batch018-third-five-county-edges.ts','batch018-fourth-five-county-edges.ts','batch018-fifth-five-county-edges.ts'];
-const parsed=edgeFiles.flatMap(file=>[...readFileSync('src/data/high-school-football/'+file,'utf8').matchAll(/\\{ slug: '([a-z0-9-]+)', name: '[^']+', county: '([a-z0-9-]+)'/g)].map(([,slug,county])=>({slug,county})));
+const parsed=edgeFiles.flatMap(file=>[...readFileSync('src/data/high-school-football/'+file,'utf8').matchAll(/\{ slug: '([a-z0-9-]+)', name: '[^']+', county: '([a-z0-9-]+)'/g)].map(([,slug,county])=>({slug,county})));
 preflight('exactly 25 uniquely named campus counties',()=>{assert.equal(parsed.length,25);assert.equal(new Set(parsed.map(x=>x.slug)).size,25);assert.deepEqual(parsed.map(x=>x.slug),report.schoolSlugs);});
 const countyBySlug=new Map(parsed.map(({slug,county})=>[slug,county]));
 save();
