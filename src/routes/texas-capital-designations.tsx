@@ -71,7 +71,7 @@ function TexasCapitalDesignationsPage() {
           <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground">
             <Link to="/" className="hover:text-foreground">Home</Link><span className="mx-2">/</span><Link to="/texas-history" className="hover:text-foreground">Texas History</Link><span className="mx-2">/</span><span className="text-foreground">Official Capital Designations</span>
           </nav>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Official place designations</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Official place designations</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">Texas has more than one kind of capital</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Austin is the state capital. But the Texas Legislature also gives cities and counties official specialty titles — Cowboy Capital, Fishing Capital, Pie Capital and many more. This guide keeps those legislative place designations separate from the official state-symbol directory and links every listing back to its legislative source.</p>
           <div className="mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
@@ -113,7 +113,7 @@ function TexasCapitalDesignationsPage() {
           <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">The State Library and Archives Commission maintains the official adopted-designations list. It includes historic resolutions that should not automatically be described as current law. The statuses below interpret only the ten-year rule and its pre-September 1, 2001 exception; the 2001 entries all came from the 77th Regular Session, which adjourned before September 1, so those entries also qualify for the statutory exception. For later designations, the ten-year status is calculated against the current calendar year; entries reaching their tenth anniversary this year are explicitly marked for an exact-date check.</p>
           <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">Source reconciliation: the state-library list labels San Angelo's 2021 Visual Arts Capital resolution “H.R. 24,” but the enacted 87th Legislature resolution is <a href="https://capitol.texas.gov/tlodocs/87R/billtext/html/HC00024F.htm" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">H.C.R. 24</a>, signed by the governor. The searchable table follows the enrolled act; the state-library compilation remains our inventory source. The <a href="https://lrl.texas.gov/sessions/sessionSnapshot.cfm?legSession=77-0" className="font-semibold text-primary underline" target="_blank" rel="noopener noreferrer">Legislative Reference Library confirms</a> that the 77th Regular Session ended May 28, 2001, resolving the pre-September cutoff for its 2001 entries.</p>
           <p className="mt-4 text-sm"><a className="font-semibold text-primary underline-offset-4" href={TSLAC_CAPITAL_SOURCE} target="_blank" rel="noopener noreferrer">Verify the complete state-library register and original resolution references ↗</a></p>
-          <div className="mt-8 grid gap-4 md:grid-cols-[minmax(0,1fr)_17rem]">
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
             <label className="text-sm font-semibold" htmlFor="capital-filter">Search by title, place, resolution or year
               <input id="capital-filter" value={search} onChange={(event) => setSearch(event.target.value)} type="search" placeholder="Try Fort Worth, ice cream, H.C.R. 80…" className="mt-2 block min-h-11 w-full border border-border bg-background px-4 py-2 font-normal" />
             </label>
@@ -126,7 +126,7 @@ function TexasCapitalDesignationsPage() {
           </div>
           <p className="mt-4 text-sm text-muted-foreground" aria-live="polite">Showing {filtered.length} of {OFFICIAL_CAPITALS.length} official register entries.</p>
           <div className="mt-6 overflow-x-auto border border-border">
-            <table className="min-w-[48rem] w-full text-left text-sm">
+            <table className="min-w-[40rem] w-full text-left text-sm">
               <caption className="sr-only">Texas legislative capital and place designations, official citations and expiration treatment</caption>
               <thead className="bg-muted/40"><tr><th scope="col" className="px-4 py-3">Designation</th><th scope="col" className="px-4 py-3">Place</th><th scope="col" className="px-4 py-3">Resolution and year</th><th scope="col" className="px-4 py-3">Statutory treatment</th></tr></thead>
               <tbody className="divide-y divide-border">{filtered.map((item) => <tr key={`${item.title}-${item.place}-${item.year}`} className="align-top"><th scope="row" className="px-4 py-4 font-semibold">{item.title}</th><td className="px-4 py-4">{item.place}</td><td className="px-4 py-4 tabular-nums">{item.resolution} · {item.year}</td><td className="px-4 py-4 text-muted-foreground">{CAPITAL_STATUS_LABELS[item.status]}</td></tr>)}</tbody>
