@@ -55,6 +55,11 @@ export function verifyDeerDocument(html) {
   if (canonicalTags.length !== 1 || !canonicalTags[0].includes('href="' + canonical + '"')) {
     throw new Error('Deer guide canonical link missing, incorrect or duplicated');
   }
+  const botDirectives = [...html.matchAll(/<meta\b[^>]*>/gi)].map(match => match[0])
+    .filter(tag => /name=["'](?:robots|googlebot)["']/i.test(tag));
+  if (botDirectives.some(tag => /(?:noindex|none|nosnippet)/i.test(tag))) {
+    throw new Error('Deer guide has an indexing-restrictive robots meta directive');
+  }
   const socialTags = [...html.matchAll(/<meta\b[^>]*>/gi)].map(match => match[0])
     .filter(tag => /\bproperty=["']og:image["']/i.test(tag));
   if (socialTags.length !== 1 || !socialTags[0].includes(imageUrl)) {
@@ -179,6 +184,7 @@ function selfTest() {
     example.replace(displayRange(data.rows[0]), 'incorrect season date'),
     example.replace('type="application/ld+json"', 'type="text/plain"'),
     example.replace('property="og:image"', 'property="og:wrong"'),
+    example.replace('</head>', '<meta name="robots" content="noindex"></head>'),
   ]) {
     let rejected = false;
     try { verifyDeerDocument(bad); } catch { rejected = true; }
@@ -198,6 +204,7 @@ async function main() {
       });
       if (!response.ok) throw new Error('Deer guide HTTP ' + response.status);
       if (!response.headers.get('content-type')?.includes('text/html')) throw new Error('Deer guide served non-HTML content');
+      if (/noindex/i.test(response.headers.get('x-robots-tag') || '')) throw new Error('Deer guide blocked by X-Robots-Tag');
       if (new URL(response.url).hostname.replace(/^www\./, '') !== 'texasdefined.com') throw new Error('Deer guide redirected off the canonical domain');
       const result = verifyDeerDocument(await response.text());
       await verifyDeerImage();
