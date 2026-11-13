@@ -8,6 +8,13 @@ const primary = read("src/routes/sitemap[.]xml.ts");
 const routes = read("src/lib/public-routes.ts");
 const fixture = read("src/data/fixtures/texas.ts");
 const reviewed = read("src/data/reviewed-attraction-authorities.ts");
+// A postdeploy workflow_run fires after a long protected Worker release. New
+// commits can merge during that release, so checking out latest main instead of
+// the successful workflow_run.head_sha creates false source/release certification.
+const publishedVerifierWorkflow = read(".github/workflows/verify-active-shop-sitemap.yml");
+assert.ok(publishedVerifierWorkflow.includes("github.event.workflow_run.head_sha"),
+  "Postdeploy attraction SEO/Chrome certification must inspect the exact published source revision");
+
 const curatedTourism = read("src/data/curated-tourism-collections.ts");
 const houstonBotanicCard = curatedTourism.split('"name": "Houston Botanic Garden"')[1]?.split('"officialUrl":', 1)[0] ?? "";
 assert.ok(houstonBotanicCard.includes('"destinationSlug": "houston-botanic-garden"'),

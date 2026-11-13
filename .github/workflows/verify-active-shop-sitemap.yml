@@ -34,7 +34,10 @@ jobs:
       - name: Check out verified source
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || 'main' }}
+          # Bind postdeployment validation to the EXACT release source rather
+          # than a newer main commit merged while the long Worker job ran.
+          # Strict live checks must be interpreted against deployed source.
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || 'main' }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22

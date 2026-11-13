@@ -1,4 +1,5 @@
 import { curatedDestinationPairings } from "./destination-curated-pairings";
+import { isPrimaryTripPlannerDestination } from "./destination-availability";
 import type { CategorySlug, Destination } from "./types";
 
 export type DestinationRelationshipGroup = {
@@ -82,7 +83,12 @@ export function buildDestinationRelationshipGroups(
   destination: Destination,
   catalog: Destination[],
 ): DestinationRelationshipGroup[] {
-  const others = catalog.filter((item) => item.slug && item.slug !== destination.slug);
+  // Historical reference pages remain directly readable, but a closed museum
+  // or otherwise unavailable venue must not be sold as a visitable nearby stop.
+  // Apply the same authoritative visitability policy as the Trip Planner to
+  // BOTH editorial pairings and distance-ranked suggestions.
+  const others = catalog.filter((item) => item.slug && item.slug !== destination.slug
+    && isPrimaryTripPlannerDestination(item));
   const used = new Set<string>();
   const take = (items: Destination[], limit = 6) => unique(items)
     .filter((item) => !used.has(item.slug))
