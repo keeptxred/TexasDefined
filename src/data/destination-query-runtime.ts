@@ -349,9 +349,14 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
     wacoPreserved,
   ));
   const merged = mergeReadyCatalogs(reconcileExploreCatalog(mergeDestinations(reviewedAttractionDestinations, primaryReady)), fallbackReady);
-  const scoped = await enhanceWacoMuseumDestinations(filterDestinationsByScope(merged, params));
-  if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
-  return params.limit ? scoped.slice(0, params.limit) : scoped;
+  const scoped = filterDestinationsByScope(merged, params);
+  // For bounded non-featured queries, apply the full Waco museum authority
+  // upgrade only to actual returned rows. This avoids importing the 19 KB
+  // Waco overlay on unrelated county/region pages while keeping the same
+  // ordered results and unmodified detail for the selected records.
+  if (params.featured) return featuredFallback(await enhanceWacoMuseumDestinations(scoped), params.limit ?? 6);
+  if (params.limit) return enhanceWacoMuseumDestinations(scoped.slice(0, params.limit));
+  return enhanceWacoMuseumDestinations(scoped);
 }
 
 async function getResolvedDestinationBase(slug: Slug) {
