@@ -14,6 +14,33 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  // Batch018: first-party campus or district athletic identities cross-checked against each independently authored school guide.
+  // Mascot is not a team trademark license or proof of current scores; no claimed school-color license or photo rights.
+  { slug: 'fabens', mascot: 'Wildcats', sourceUrl: 'https://www.fabensisd.net/departments/athletics/wildcats', sourceLabel: 'Fabens ISD Wildcats athletics branding', verifiedAt: '2026-11-13' },
+  { slug: 'fairfield', mascot: 'Eagles', sourceUrl: 'https://www.fairfieldeagles.net/sport/football/boys/', sourceLabel: 'Fairfield ISD Eagles boys football athletics page', verifiedAt: '2026-11-13' },
+  { slug: 'falfurrias', mascot: 'Jerseys', sourceUrl: 'https://fhs.bcisd.us/activities/athletics', sourceLabel: 'Brooks County ISD Falfurrias High Jerseys athletics page', verifiedAt: '2026-11-13' },
+  { slug: 'falls-city', mascot: 'Beavers', sourceUrl: 'https://www.fcisd.net/athletics/athletic-schedules', sourceLabel: 'Falls City ISD Beaver athletics schedules and separate stadium guidance', verifiedAt: '2026-11-13' },
+  { slug: 'farmersville', mascot: 'Fighting Farmers', sourceUrl: 'https://highschool.farmersvilleisd.net/apps/pages/index.jsp?pREC_ID=1043869&type=d&uREC_ID=456318', sourceLabel: 'Farmersville High Fighting Farmers athletics information', verifiedAt: '2026-11-13' },
+  { slug: 'farwell', mascot: 'Steers', sourceUrl: 'https://www.farwellschools.org/page/article/1671', sourceLabel: 'Farwell ISD Steers official bi-district football announcement', verifiedAt: '2026-11-13' },
+  { slug: 'ferris', mascot: 'Yellowjackets', sourceUrl: 'https://www.jacketnationathletics.com/sport/football/boys/', sourceLabel: 'Ferris Jacket Nation athletics Yellowjackets football', verifiedAt: '2026-11-13' },
+  { slug: 'first-baptist-dallas', mascot: 'Saints', sourceUrl: 'https://fbacademy.com/athletics/dallas-football-program/', sourceLabel: 'First Baptist Academy Dallas TAPPS Saints football; not a UIL identity', verifiedAt: '2026-11-13' },
+  { slug: 'flatonia', mascot: 'Bulldogs', sourceUrl: 'https://www.flatoniaisd.net/athletics', sourceLabel: 'Flatonia ISD Bulldogs athletics', verifiedAt: '2026-11-13' },
+  { slug: 'florence', mascot: 'Buffaloes', sourceUrl: 'https://www.florenceisd.net/o/fhs/page/florence-high-school-links/', sourceLabel: 'Florence High School Buffaloes program school links', verifiedAt: '2026-11-13' },
+  { slug: 'floresville', mascot: 'Tigers', sourceUrl: 'https://tigersjags.fisd.us/', sourceLabel: 'Floresville ISD official Tigers athletics', verifiedAt: '2026-11-13' },
+  { slug: 'floydada', mascot: 'Whirlwinds', sourceUrl: 'https://www.floydadaisd.esc17.net/athletics/', sourceLabel: 'Floydada Collegiate ISD Whirlwinds athletics', verifiedAt: '2026-11-13' },
+  { slug: 'follett', mascot: 'Panthers', sourceUrl: 'https://www.follettisd.net/page/athletics', sourceLabel: 'Follett ISD Panthers six-man athletics', verifiedAt: '2026-11-13' },
+  { slug: 'forestburg', mascot: 'Longhorns', sourceUrl: 'https://www.forestburgisd.net/about-fisd', sourceLabel: 'Forestburg ISD Longhorns six-man school athletics and stadium distinction', verifiedAt: '2026-11-13' },
+  { slug: 'forsan', mascot: 'Buffaloes', sourceUrl: 'https://www.forsan.esc18.net/athletics', sourceLabel: 'Forsan ISD Buffaloes athletics', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-austin', mascot: 'Bulldogs', sourceUrl: 'https://ahs.fortbendisd.gov/athletics/home', sourceLabel: 'Stephen F. Austin High Sugar Land Bulldogs; separate from Austin ISD', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-bush', mascot: 'Broncos', sourceUrl: 'https://bhs.fortbendisd.gov/', sourceLabel: 'Fort Bend ISD George Bush High Broncos; not Houston Bush', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-christian', mascot: 'Eagles', sourceUrl: 'https://www.fortbendchristian.org/athletics/calendar', sourceLabel: 'Fort Bend Christian Academy Eagles TAPPS athletics; not UIL', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-clements', mascot: 'Rangers', sourceUrl: 'https://chs.fortbendisd.gov/', sourceLabel: 'Fort Bend ISD Clements High Rangers', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-crawford', mascot: 'Chargers', sourceUrl: 'https://thebend.fortbendisd.gov/news/news-details/~board/around-the-bend/post/crawford-high-school-head-football-coach-wasnamed-dave-campbells-texas-football5a-coach-of-week-1', sourceLabel: 'Almeta Crawford High Chargers; distinct from McLennan County Crawford Pirates', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-dulles', mascot: 'Vikings', sourceUrl: 'https://dhs.fortbendisd.gov/', sourceLabel: 'Fort Bend ISD John Foster Dulles High Vikings', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-elkins', mascot: 'Knights', sourceUrl: 'https://ehs.fortbendisd.gov/', sourceLabel: 'Fort Bend ISD Lawrence E. Elkins High Knights', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-hightower', mascot: 'Hurricanes', sourceUrl: 'https://hhs.fortbendisd.gov/our-school', sourceLabel: 'Fort Bend ISD Hightower High Hurricanes', verifiedAt: '2026-11-13' },
+  { slug: 'fort-bend-kempner', mascot: 'Cougars', sourceUrl: 'https://khs.fortbendisd.gov/', sourceLabel: 'Fort Bend ISD I.H. Kempner High Cougars', verifiedAt: '2026-11-13' },
+
   { slug: 'everman', mascot: 'Bulldogs', sourceUrl: 'https://www.evermanisdathletics.org/', sourceLabel: 'Everman ISD athletics first-party November 2026 #gameonbulldogs school sports announcement', verifiedAt: '2026-11-12' },
   { slug: 'evant', mascot: 'Elks', sourceUrl: 'https://www.evantisd.org/District/About-Us/index.html', sourceLabel: 'Evant Texas ISD official about and school song say good day to be an Elk; six-man school', verifiedAt: '2026-11-12' },
   { slug: 'evadale', mascot: 'Rebels', sourceUrl: 'https://evadalek12.net/en-US/our-superintendent-6db0e77d', sourceLabel: 'Evadale ISD 2026 first-party superintendent GO REBELS official nickname', verifiedAt: '2026-11-12' },
