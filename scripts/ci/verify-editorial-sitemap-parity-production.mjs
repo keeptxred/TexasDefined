@@ -122,6 +122,16 @@ for (const guide of attractionCertification) {
         /href=["']\/destination\/grapevine(?:["'?#/])/i.test(body)) {
       throw Error("unrelated Grapevine recommendation remains in Fort Worth destination links");
     }
+    if (guide.path === "/destination/fort-worth-water-gardens") {
+      // The linked Modern Art Museum preview used to promote a month-old
+      // gallery closure after the museum reopened on October 31, 2026.
+      // Keep contextual visitor guidance truthful on the actual live SSR page.
+      if (!body.includes('href="/destination/modern-art-museum-fort-worth"') ||
+          !body.includes("In the Making: Stories from the Collection") ||
+          /All exhibition galleries are CLOSED September 29|Galleries CLOSED September 29|Free In the Making: The Sculpture Project \(October 2026\)/i.test(body)) {
+        throw Error("Fort Worth Water Gardens still renders an expired Modern Art Museum closure/related card");
+      }
+    }
     if (!body.includes("<title>") || !body.includes(guide.name)) throw Error("missing named title");
     if (!/<meta\b[^>]*name=["']description["'][^>]*content=["'][^"']{50,}["']/i.test(body)) {
       throw Error("missing substantial SSR meta description");
