@@ -28,6 +28,7 @@ requireFeatures(engine, [
   'Math.atan2',
   'Math.abs(lat) <= 90 && Math.abs(lng) <= 180',
   'const town = destination.nearestTown?.trim().toLowerCase()',
+  'isPrimaryTripPlannerDestination(item)',
   'const sameTown = take(town ? others.filter',
   'miles <= 75',
   'COMPLEMENTARY_CATEGORIES',
