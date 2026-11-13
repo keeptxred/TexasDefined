@@ -54,9 +54,10 @@ jobs:
 
   uncached-production:
     name: Fresh 21-page SSR/canonical/source-view audit
-    # Also check main immediately when this cluster changes, even if another
-    # release gate prevents a deployment. Post-success checks still run.
-    if: github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    # Test main code on push, but audit public HTML only after a successful
+    # production deployment. A predeploy push audit races the old live Worker
+    # and reports false source drift while the replacement is still queued.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
