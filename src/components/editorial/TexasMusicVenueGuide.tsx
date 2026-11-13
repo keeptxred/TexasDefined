@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 import { HISTORIC_TEXAS_MUSIC_VENUES } from "@/data/texas-music-historic-venues";
-import { musicHistoryMilestones, musicSourceReviewedAt } from "@/data/texas-music-history-evidence";
+import { musicHistoryMilestones, musicSourceReviewedAt, musicVenuePhotography } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
 
@@ -98,6 +98,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const sources = venueSources[guide.slug] ?? [];
   const milestones = musicHistoryMilestones[guide.slug] ?? [];
+  const photograph = musicVenuePhotography[guide.slug];
   const isHub = guide.slug === "texas-music-venues";
   const historicVenues = isHub ? HISTORIC_TEXAS_MUSIC_VENUES : [];
   const breadcrumbItems = [
@@ -176,7 +177,13 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
           </div>
         </header>
 
-        <section className="border-b border-border py-8" aria-labelledby="quick-answer">
+        {photograph ? <figure className="border-b border-border py-8">
+          <img src={photograph.src} alt={photograph.alt} width={1200} height={800} loading="lazy" decoding="async" referrerPolicy="no-referrer" className="w-full max-w-4xl h-auto rounded-sm" />
+          <figcaption className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
+            {photograph.caption} Photo: <a href={photograph.sourcePage} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{photograph.credit}</a>, <a href={photograph.licenseUrl} rel="noopener noreferrer" target="_blank" className="text-primary underline underline-offset-4">{photograph.license}</a> via Wikimedia Commons; displayed without image editing.
+          </figcaption>
+        </figure> : null}
+                <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
           <h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2>
           <p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p>
