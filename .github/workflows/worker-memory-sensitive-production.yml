@@ -1,0 +1,37 @@
+name: Worker memory-sensitive production acceptance
+on:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-worker-memory-sensitive-production.mjs'
+      - '.github/workflows/worker-memory-sensitive-production.yml'
+  schedule:
+    - cron: '23 11,23 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: worker-memory-sensitive-${{ github.event_name }}
+  cancel-in-progress: true
+jobs:
+  memory-sensitive-routes:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify incident routes on both live origins without CDN cache masking
+        run: node scripts/ci/verify-worker-memory-sensitive-production.mjs
+      - name: Preserve route-by-route HTTP and latency evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: worker-memory-sensitive-${{ github.run_id }}
+          path: artifacts/worker-memory/production.json
+          if-no-files-found: warn
+          retention-days: 14
