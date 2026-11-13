@@ -31,6 +31,11 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: 'Juana Pedrasa', label: 'Source-backed Fort Leaton borderlands heritage guide restores GSC 404' },
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: '16952 FM 170 East', label: 'Fort Leaton real western gateway address' },
+  { path: '/destination/fort-leaton-state-historic-site', requiredText: 'https://tpwd.texas.gov/state-parks/fort-leaton', label: 'Fort Leaton official TPWD source visible' },
+  { path: '/destination/big-bend-ranch-state-park', requiredText: 'Una Tierra', label: 'Barton Warnock exhibit and park eastern entrance' },
+  { path: '/destination/big-bend-ranch-state-park', requiredText: '21800 FM 170', label: 'Barton Warnock eastern office address' },
   { path: '/article/scenic-drives-in-texas', requiredText: 'Texas 16 — Bandera, Medina and Kerrville', label: 'Real scenic-drive article adds specific Texas Highway 16 route rather than generic redirect hub' },
   { path: '/article/scenic-drives-in-texas', requiredText: 'https://www.dot.state.tx.us/tpp/hwy/SH/SH0016.htm', label: 'Texas Highway 16 scenic-drive research displays primary TxDOT SH16 designation reference' },
   // Search Console's /texas-icons/shaquille-oneal was HTTP 404 because the
@@ -256,6 +261,9 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/historic-site/fort-leaton-state-historic-site?source=gsc', expectedStatus: 301, expectedPath: '/destination/fort-leaton-state-historic-site', expectedQuery: ['source','gsc'], label: 'historic Fort Leaton alias 301 to real destination' },
+  { path: '/state-park/barton-warnock-environmental-educational-center-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/big-bend-ranch-state-park', expectedQuery: ['source','gsc'], label: 'Barton Warnock state-park alias maps to eastern park gateway guide' },
+  { path: '/destination/barton-warnock-environmental-educational-center-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/big-bend-ranch-state-park', expectedQuery: ['source','gsc'], label: 'Barton Warnock destination alias maps to eastern gateway guide' },
   { path: '/article/texas-oil-boom-history-spindletop-permian-basin?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-oil-boom-wichita-falls-west-texas-rigs', expectedQuery: ['source','gsc'], label: 'GSC former Spindletop Permian oil-guide historical alias' },
   { path: '/destination/texas-highway-16-hill-country?source=gsc', expectedStatus: 301, expectedPath: '/article/scenic-drives-in-texas', expectedQuery: ['source','gsc'], label: 'substantive SH16 route-specific authority guide historical GSC alias' },
   { path: '/article/cameron-county-brownsville-harlingen-south-padre-rio-grande?source=gsc', expectedStatus: 301, expectedPath: '/county/cameron', expectedQuery: ['source','gsc'], label: 'historical Cameron County series legacy alias to county authority' },
