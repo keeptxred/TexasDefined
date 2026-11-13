@@ -619,13 +619,14 @@ test("day-trip booking inventory targets verified markets rather than generic pr
 test("day-trip monetization reuses approved booking surfaces and keeps editorial choices independent", () => {
   const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx");
   const partner = readFileSync("src/routes/partner-with-us.tsx");
+  const partnerQuery = readFileSync("src/lib/partner-search.ts");
   assert.ok(rich.includes('data-day-trip-commercial-paths={metro.slug}'));
   assert.ok(rich.includes('pageData.indexReady'), "do not monetize noindex or thin collection");
   assert.ok(rich.includes('href="#expedia-travel-surface"'), "reuse existing booking panel instead of inventing a new affiliate destination");
   assert.ok(rich.includes('Affiliate disclosure: TexasDefined may earn a commission'));
   assert.ok(rich.includes('data-metro-curated-day-trips={metro.slug}'));
   assert.ok(rich.includes('Editorial destinations and rankings are never for sale'));
-  assert.ok(partner.includes("day-trips)$/.test(value)") && partner.includes("explore\\/near\\/[a-z0-9-]+\\/day-trips"), "attribute narrowly scoped lead sources");
+  assert.ok(partner.includes("validateSearch: parsePartnerSearch") && partnerQuery.includes("day-trips)$/.test(value)") && partnerQuery.includes("explore\\/near\\/[a-z0-9-]+\\/day-trips"), "attribute narrowly scoped lead sources");
   assert.ok(rich.includes('hasVerifiedViatorMarketUrl(experienceMarketSlug)'), "only verified Viator market pages can receive a tour CTA");
   assert.ok(rich.includes('buildViatorAffiliateUrl(verifiedViatorMarketUrl(experienceMarketSlug)'), "use the centralized approved Viator affiliate link builder");
   assert.ok(rich.includes('trackAffiliateClick({ partner: "viator"'), "record opted-in Viator link clicks");
