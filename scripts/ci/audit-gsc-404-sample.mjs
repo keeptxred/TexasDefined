@@ -3,6 +3,7 @@
 // that historical Search Console entries represent present-day HTTP failures.
 import { readFile, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import path from 'node:path';
+import { classifyHistoricalGsc404, REVIEW_OUTCOMES } from './gsc-404-classification.mjs';
 
 const origin = new URL(process.env.TD_GSC_404_ORIGIN || 'https://texasdefined.com');
 if (origin.protocol !== 'https:' || !['texasdefined.com', 'www.texasdefined.com'].includes(origin.hostname)) {
@@ -99,20 +100,13 @@ async function inspect(sourcePath) {
   }
   const last = hops[hops.length - 1];
   const finalStatus = last?.status ?? null;
-  const redirected = hops.length > 1;
-  let outcome;
-  if (error) outcome = 'transport_or_chain_problem';
-  else if (finalStatus === 404 || finalStatus === 410) {
-    outcome = redirected ? 'redirect_to_missing' : invalidTemplate ? 'expected_invalid_template' : 'missing_needs_disposition';
-  } else if (finalStatus === 200) {
-    outcome = redirected ? 'redirected_to_200' : 'now_200';
-  } else if (finalStatus != null && finalStatus >= 500) outcome = 'server_error';
-  else outcome = 'other_http_status';
+  const firstStatus = hops[0]?.status ?? null;
+  const outcome = classifyHistoricalGsc404({ invalidTemplate, firstStatus, finalStatus, error });
   return {
     path: sourcePath,
     invalidTemplate,
     outcome,
-    firstStatus: hops[0]?.status ?? null,
+    firstStatus,
     finalStatus,
     finalUrl: last?.url ?? null,
     canonical,
@@ -136,8 +130,17 @@ await Promise.all(Array.from({ length: concurrency }, async () => {
 const counts = Object.fromEntries([...new Set(results.map((r) => r.outcome))].sort().map((name) => [
   name, results.filter((r) => r.outcome === name).length,
 ]));
+const actionableReviewCount = results.filter((r) => REVIEW_OUTCOMES.has(r.outcome)).length;
+const templateCount = results.filter((r) => r.invalidTemplate).length;
+const expectedTemplate404Count = results.filter((r) => r.outcome === 'expected_invalid_template').length;
+const templateRedirectCount = results.filter((r) => r.outcome === 'invalid_template_redirect_chain').length;
 const summary = {
   createdAt: new Date().toISOString(),
+  auditBoundary: 'Read-only HTTP observation; GSC coverage labels may lag and a genuine 404 can remain appropriate.',
+  actionableReviewCount,
+  templateCount,
+  expectedTemplate404Count,
+  templateRedirectCount,
   source: 'TexasDefined GSC 99 historical Not found (404) examples supplied 2026-11-13',
   inventoryPath,
   origin: origin.origin,
@@ -180,7 +183,9 @@ await writeFile(path.join(outDir, 'results.csv'), csv);
 const markdown = '# TexasDefined GSC historical 404 recheck\n\n' +
   '**Sample:** 99 exact historical paths. **Checked:** ' + summary.createdAt + '\n\n' +
   Object.entries(counts).map(([label, count]) => '- ' + label + ': ' + count).join('\n') + '\n\n' +
-  'Do not equate transport failures with HTTP404. An invalid template returning 404 is correct. Review broken redirects and missing meaningful content separately.\n';
+  '- Invalid template URLs: ' + templateCount + ' (direct 404/410: ' + expectedTemplate404Count + ', redirected: ' + templateRedirectCount + ')\n' +
+  '- URLs requiring response/content disposition review: ' + actionableReviewCount + '\n\n' +
+  'Do not equate transport failures with HTTP404, or every remaining 404 with a defect. An invalid route template returning a direct 404 is correct. Review real broken redirects and meaningful missing content separately.\n';
 await writeFile(path.join(outDir, 'summary.md'), markdown);
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, markdown);
 console.log(markdown);
