@@ -15,7 +15,8 @@ const section = profile.split("  'del-rio': {")[1]?.split("  'corpus-christi': {
 test('Del Rio is a real Texas City entity with explicit authority approval', () => {
   assert.match(places, /\['Del Rio','Val Verde','Southwest Texas'\]/);
   assert.match(index, /\{ name: 'Del Rio', slug: 'del-rio' \}/);
-  assert.match(graph, /'del-rio': city\(/);
+  assert.match(graph, /'del-rio': \{/);
+  assert.match(graph, /sourceCheckedAt: '2026-11-13'/);
   assert.match(graph, /'https:\/\/www\.cityofdelrio\.com\/'/);
   assert.match(graph, /'county:val-verde'/);
   assert.match(browse, /CITY_AUTHORITY_SLUGS/);
