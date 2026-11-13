@@ -51,7 +51,9 @@ jobs:
       - name: Validate the ten source-backed music history guides
         run: node scripts/data/validate-music-history-authority.mjs
       - name: Check production acceptance script syntax
-        run: node --check scripts/ci/verify-music-history-production.mjs
+        run: |
+          node --check scripts/ci/verify-music-history-production.mjs
+          node --check scripts/ci/verify-music-history-browser.mjs
 
   live-acceptance:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'issue_comment' && github.event.issue.number == 7081 && github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-music-history')
@@ -72,3 +74,32 @@ jobs:
           path: .artifacts/texas-music-history-production.json
           if-no-files-found: warn
           retention-days: 30
+
+  browser-acceptance:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'issue_comment' && github.event.issue.number == 7081 && github.event.comment.user.login == 'keeptxred' && github.event.comment.body == '/verify-music-history')
+    needs: [live-acceptance]
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated Playwright driver for existing runner Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-music-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Validate mobile and desktop usability for all ten music pages
+        run: node scripts/ci/verify-music-history-browser.mjs
+      - name: Save browser test results and representative screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-music-history-browser
+          path: artifacts/texas-music-history-browser/
+          if-no-files-found: warn
+          retention-days: 14
