@@ -65,10 +65,38 @@ try {
   const roadTrips = '/explore/road-trips';
   verifyAnchor(await read(roadTrips), 'booking.com', expectedCjAccountClick('booking.com', roadTrips));
   for (const path of ['/gaming/latency', '/gaming/why-dallas-matters-online-gaming']) verifyAnchor(await read(path), 'gearup', expectedCjAccountClick('gearup-17255582', path));
-  const school = await read('/article/texas-school-districts-explained');
-  assert.ok(school.includes('href="https://www.reallygoodstuff.com/"'));
-  assert.ok(school.includes('TexasDefined does not earn an affiliate commission from this link'));
-  assert.ok(!school.includes('click-101876465-17106455') && !school.includes('data-commercial-partner="really-good-stuff"'), 'Expired RGS relationship must remain non-affiliate');
+  const schoolPath = '/article/texas-school-districts-explained';
+  const school = await read(schoolPath);
+  // This visitor-only rail is React.lazy with a null SSR Suspense fallback.
+  // A raw HTML absence is not proof that its browser-rendered link is missing.
+  // Keep the raw response non-affiliate check, then verify the real client DOM.
+  assert.ok(!school.includes('click-101876465-17106455') && !school.includes('data-commercial-partner="really-good-stuff"'), 'Expired RGS relationship must remain non-affiliate in SSR');
+  const { createRequire } = await import('node:module');
+  const { chromium } = createRequire(import.meta.url)(
+    process.env.PLAYWRIGHT_CORE_PATH || '/tmp/texasdefined-wp-qa/node_modules/playwright-core',
+  );
+  const browser = await chromium.launch({
+    headless: true,
+    executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome',
+    args: ['--no-sandbox', '--disable-dev-shm-usage'],
+  });
+  try {
+    const page = await browser.newPage();
+    const schoolUrl = new URL(schoolPath, origin);
+    schoolUrl.searchParams.set('td_cj_verify', process.env.GITHUB_SHA || 'manual');
+    const navigation = await page.goto(schoolUrl.href, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    assert.equal(navigation?.status(), 200, 'School article browser HTTP status');
+    const retailer = page.locator('a[href="https://www.reallygoodstuff.com/"]');
+    await retailer.first().waitFor({ state: 'visible', timeout: 20000 });
+    assert.ok((await retailer.count()) > 0, 'Direct editorial retailer link must render in Chrome');
+    const rendered = await page.locator('body').innerText();
+    assert.ok(rendered.includes('TexasDefined does not earn an affiliate commission from this link'), 'Non-affiliate disclosure must render in Chrome');
+    const markup = await page.content();
+    assert.ok(!markup.includes('click-101876465-17106455') && !markup.includes('data-commercial-partner="really-good-stuff"'), 'Expired RGS relationship must remain non-affiliate in browser DOM');
+    evidence.push({ path: schoolPath, browserRendered: true, nonAffiliate: true, retailer: 'https://www.reallygoodstuff.com/', affiliateClicksGenerated: 0 });
+  } finally {
+    await browser.close();
+  }
   // Match the first actual governed Kings Camo hub card (lightweight shirts),
   // not an unused general-shop creative. Never click advertiser redirects.
   // Check only first-party SSR HTML; do not follow CJ redirects or generate paid clicks.
