@@ -482,6 +482,15 @@ async function checkRedirectTarget(target, attemptToken) {
   }
 }
 
+// The same real Worker must 404 historical router-template strings before SSR,
+// including encoded values that previously produced a 307 -> 404 chain.
+const forbiddenTemplateRoutes = [
+  { path: '/explore/casinos/$slug', label: 'unsubstituted casino route' },
+  { path: '/explore/near/$metro/$collection', label: 'unsubstituted proximity route' },
+  { path: '/explore/painted-churches_/guides_/$slug', label: 'legacy guide template must not become undefined' },
+  { path: '/events/%2524collection', label: 'double-escaped event template' },
+];
+
 // Do not accept a generic 200/hub for an unapproved or invented UIL team.
 // The built Worker must return a real HTTP 404, even before any profiles are live.
 const forbiddenSoftballRoute = { path: '/sports/softball/never-an-approved-uil-school-ci', label: 'Unapproved UIL school must be a 404' };
@@ -582,6 +591,12 @@ try {
       const failure = await verifyWithRetries(forbiddenSoftballRoute, checkForbiddenSoftballRoute, 'unapproved softball team 404');
       if (failure) failures.push(failure);
       else console.log('[route] verified (404): '+forbiddenSoftballRoute.path+' (never publish invented UIL schools)');
+    }
+
+    for (const target of forbiddenTemplateRoutes) {
+      const failure = await verifyWithRetries(target, checkForbiddenSoftballRoute, 'invalid template URL 404', 1);
+      if (failure) failures.push(failure);
+      else console.log('[route] verified direct HTTP 404: ' + target.path);
     }
 
     for (const target of redirectTargets) {
