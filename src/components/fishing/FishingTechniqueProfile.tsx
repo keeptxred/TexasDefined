@@ -3,6 +3,7 @@ import { fishingTechniqueAuthorityContent, type FishingTechniqueAuthorityContent
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
 import { fishingTechniqueFieldGuide } from "@/data/fishing/technique-field-guide";
 import { fishingTechniqueSourceNotes } from "@/data/fishing/technique-source-notes";
+import { techniqueReservoirComparisons } from "@/data/fishing/technique-primary-source-comparisons";
 import { isGenericLakeTechniqueSummary } from "@/data/fishing/technique-content-quality";
 import { fishingTechniqueImages } from "@/data/fishing/technique-images";
 import { FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "@/data/fishing/habitat-guides";
@@ -16,6 +17,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
   const guide = fishingTechniqueGuideContent[technique.slug];
   const fieldGuide = fishingTechniqueFieldGuide[technique.slug];
   const sourceNote = fishingTechniqueSourceNotes[technique.slug as keyof typeof fishingTechniqueSourceNotes];
+  const reservoirContrast = techniqueReservoirComparisons[technique.slug];
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const images = fishingTechniqueImages[technique.slug];
   const relatedTechniques = technique.slug in relatedFishingTechniques ? relatedFishingTechniques[technique.slug as keyof typeof relatedFishingTechniques] : [];
@@ -40,7 +42,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <a href="#seasonal-guide" className="border-b border-ink-foreground/50 pb-1">Season guide ↓</a>
           <a href="#lake-applications" className="border-b border-ink-foreground/50 pb-1">Texas lake applications ↓</a>
           <a href="#questions" className="border-b border-ink-foreground/50 pb-1">Questions ↓</a>
-          <a href="/fishing/reports" className="border-b border-ink-foreground/50 pb-1">Fresh reports →</a>
+          <a href="/fishing/reports" className="border-b border-ink-foreground/50 pb-1">Dated reports →</a>
         </div>
       </Container>
     </header>
@@ -83,6 +85,29 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             <p className="mt-4 text-xs leading-6 text-muted-foreground">{sourceNote.limitation}</p>
           </div>
         </div>
+      </section> : null}
+
+      {reservoirContrast ? <section className="border-b border-border py-12" aria-labelledby="lake-contrast-heading">
+        <p className="eyebrow text-primary">Compare two actual Texas waters</p>
+        <h2 id="lake-contrast-heading" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">{reservoirContrast.headline}</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{reservoirContrast.intro}</p>
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          {[reservoirContrast.first, reservoirContrast.second].map((water) => <article key={water.lake} className="border-t border-border py-5">
+            <h3 className="font-display text-2xl">{water.lake}</h3>
+            <p className="mt-4 text-sm leading-7"><strong>Documented by TPWD:</strong> {water.fact}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong>Planning decision:</strong> {water.implication}</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <a href={water.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Read TPWD lake tactics ↗</a>
+              <a href={water.lakePath} className="font-semibold text-primary underline underline-offset-4">Lake guide →</a>
+            </div>
+          </article>)}
+        </div>
+        <div className="mt-6 max-w-4xl border-l-2 border-primary pl-5">
+          <h3 className="font-display text-xl">What changes your first cast?</h3>
+          <p className="mt-2 text-sm leading-7">{reservoirContrast.choice}</p>
+          <p className="mt-3 text-xs leading-6 text-muted-foreground">{reservoirContrast.limit}</p>
+        </div>
+        <p className="mt-6 max-w-4xl text-xs leading-6 text-muted-foreground">Texas Defined editorial analysis based on linked Texas Parks & Wildlife reservoir guides. These are comparisons of published fishery descriptions, not firsthand trip reports or evidence of today's catch.</p>
       </section> : null}
 
       {guide ? <>
@@ -260,7 +285,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           {guide?.tripChecks?.length ? <ul className="space-y-3 border-l-2 border-primary pl-5">
             {guide.tripChecks.map((check) => <li key={check}>{check}</li>)}
           </ul> : null}
-          <p>Confirm the latest <a href="/fishing/reports" className="border-b border-primary text-primary">lake fishing reports</a>, <a href="/fishing/regulations" className="border-b border-primary text-primary">bait and fishing regulations</a>, weather, access and water conditions before a trip.</p>
+          <p>Review <a href="/fishing/reports" className="border-b border-primary text-primary">dated fishing reports and archives</a>, <a href="/fishing/regulations" className="border-b border-primary text-primary">bait and fishing regulations</a>, weather, access and water conditions before a trip.</p>
         </div>
       </section>
 
@@ -306,7 +331,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="py-12" aria-labelledby="technique-sources">
         <p className="eyebrow text-primary">Sources</p>
         <h2 id="technique-sources" className="mt-2 font-display text-4xl">Sources and Verification</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These official and linked-lake sources support the location and seasonal examples. TexasDefined combines published reservoir observations with practical rigging decisions; these explanations are editorial interpretation, not a claim that we field-tested every rig, fished each reservoir, or measured today’s bite. Each lake guide retains its own references.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Compiled by the Texas Defined editorial team from cited TPWD reservoir descriptions and the linked fishing lake records. The original comparisons above separate agency observations from our planning advice. They are not independent field tests, proof of an active bite, or a substitute for current regulations and notices. Each lake guide retains its own source trail.</p>
         <div className="mt-7 grid gap-5 md:grid-cols-2">{data.featuredSources.map((source) => <article key={source.url} className="border-t border-border pt-5">
           <h3 className="font-display text-xl">{source.name}</h3>
           <p className="mt-2 text-xs text-muted-foreground">Checked {source.checkedAt}</p>
@@ -317,7 +342,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       <section className="border-t border-border py-10">
         <div className="flex flex-wrap gap-5 text-sm">
           <a href={FISHING_TECHNIQUES_DIRECTORY_PATH} className="border-b border-primary pb-1 font-semibold text-primary">← Browse all fishing techniques</a>
-          <a href="/fishing/reports" className="border-b border-primary pb-1 font-semibold text-primary">Check current fishing reports →</a>
+          <a href="/fishing/reports" className="border-b border-primary pb-1 font-semibold text-primary">Browse dated fishing reports →</a>
           <a href="/fishing/seasons" className="border-b border-primary pb-1 font-semibold text-primary">Fishing by season →</a>
         </div>
       </section>
