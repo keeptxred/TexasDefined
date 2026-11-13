@@ -78,7 +78,15 @@ const teamSeason = readFileSync(new URL('../../src/components/sports/District21T
 test('every District 21 school profile receives its own opponent-linked, source-dated league scorecard', () => {
   assert.ok(teamPage.includes('hasDistrict21TeamScorecard(schoolName)'), 'team eligibility guard');
   assert.ok(teamPage.includes("program?.classification === '6A' && program.district === 21"), 'restrict to 6A-21');
-  assert.ok(teamPage.includes('!editorial?.season && !editorial?.notice'), 'preserve independently researched team data and notices');
+  // A separate official school research overlay may also have a source-checked
+  // season or cancellation notice. It must never hide the independently
+  // verified District 21 team scores; preserve both editorial surfaces.
+  assert.ok(teamPage.includes("program.district === 21 && hasDistrict21TeamScorecard(schoolName)"),
+    'District 21 source-checked scorecard is always eligible even with editorial');
+  assert.ok(!teamPage.includes('&& !editorial?.season && !editorial?.notice && hasDistrict21TeamScorecard(schoolName)'),
+    'do not hide District 21 team scorecard under Batch018 source overlays');
+  assert.ok(teamPage.includes('{editorial?.notice && <aside'), 'preserve separate sourced notices');
+  assert.ok(teamPage.includes('{editorial?.overview?.length ? <section'), 'preserve independently researched school profile detail');
   assert.ok(teamPage.includes('<District21TeamSeason schoolName={schoolName} />'), 'route integration');
   assert.ok(teamPage.includes('program && !district21Team &&'), 'avoid duplicated current-season tables');
   for (const name of known) assert.ok(teamSeason.includes(`'${name}':`), `missing team: ${name}`);
