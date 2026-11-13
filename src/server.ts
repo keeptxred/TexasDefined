@@ -1,5 +1,6 @@
 import "./lib/error-capture";
 import { applyHashedModuleDocumentCachePolicy } from "./lib/hashed-asset-document-cache-policy";
+import { reviewedAttractionCanonicalRedirect } from "./lib/reviewed-attraction-canonical-redirect";
 import { LEGACY_EDITORIAL_REDIRECTS } from "./lib/legacy-editorial-redirects";
 import { legacyAppleIconRedirect } from "./lib/legacy-apple-icon";
 
@@ -697,6 +698,8 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const reviewedAttractionRedirect = reviewedAttractionCanonicalRedirect(request);
+      if (reviewedAttractionRedirect) return reviewedAttractionRedirect;
       const foliageCanonicalRedirect = eastTexasFoliageCanonicalRedirect(request);
       if (foliageCanonicalRedirect) return foliageCanonicalRedirect;
       const canonicalRedirect = canonicalHostRedirect(request);

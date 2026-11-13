@@ -28,6 +28,17 @@ test("football team HTML uses no-store without affecting SEO or source content",
   assert.equal(await result.text(), "<html>TexasDefined</html>");
 });
 
+test("three owner-approved attraction documents and their exact city/county inbound HTML are never cached stale", async () => {
+  for (const path of ["/destination/san-antonio-japanese-tea-garden","/destination/fort-worth-water-gardens","/destination/houston-botanic-garden","/city/san-antonio","/city/fort-worth","/city/houston","/county/bexar","/county/tarrant","/county/harris"]) {
+    const result = applyHashedModuleDocumentCachePolicy(req(path), html());
+    assert.equal(result.headers.get("Cache-Control"), "no-store, max-age=0", path);
+    assert.equal(result.headers.get("CDN-Cache-Control"), "no-store", path);
+    assert.equal(result.headers.get("Cloudflare-CDN-Cache-Control"), "no-store", path);
+    assert.equal(result.headers.get("age"), null, path);
+    assert.equal(await result.text(), "<html>TexasDefined</html>", path);
+  }
+});
+
 test("other pages, non-HTML responses, non-200 status, and POST retain original cache semantics", () => {
   const other = html();
   assert.strictEqual(applyHashedModuleDocumentCachePolicy(req("/article/example"), other), other);

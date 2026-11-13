@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 
 const read = (path) => readFileSync(path, "utf8");
 const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
@@ -7,6 +8,10 @@ const primary = read("src/routes/sitemap[.]xml.ts");
 const routes = read("src/lib/public-routes.ts");
 const fixture = read("src/data/fixtures/texas.ts");
 const reviewed = read("src/data/reviewed-attraction-authorities.ts");
+const reviewedCanonical = read("src/lib/reviewed-attraction-canonical-redirect.ts");
+const cachePolicy = read("src/lib/hashed-asset-document-cache-policy.ts");
+const worker = read("src/server.ts");
+
 const preserved = read("src/data/small-town-destinations-wave7.ts");
 const terms = read("src/routes/network.terms.tsx");
 
@@ -25,6 +30,15 @@ for (const slug of ["caddo-lake", "blue-hole-wimberley"]) {
 }
 assert.ok(preserved.includes('slug: "blanco"'), "Town authority source missing");
 assert.ok(sitemap.includes('item.slug === "blanco"'), "Town authority not reconciled");
+assert.ok(worker.includes("reviewedAttractionCanonicalRedirect(request)"),
+  "Worker must consolidate reviewed attraction query/slash variants before SSR.");
+for (const path of ["/destination/san-antonio-japanese-tea-garden","/destination/fort-worth-water-gardens","/destination/houston-botanic-garden","/city/san-antonio","/city/fort-worth","/city/houston","/county/bexar","/county/tarrant","/county/harris"]) {
+  assert.ok(cachePolicy.includes('"' + path + '"'), `Attraction/city/county HTML must not retain stale cached versions: ${path}`);
+}
+for (const path of ["/destination/san-antonio-japanese-tea-garden","/destination/fort-worth-water-gardens","/destination/houston-botanic-garden"]) {
+  assert.ok(reviewedCanonical.includes('"' + path + '"'), `Reviewed attraction canonical redirect missing: ${path}`);
+}
+
 for (const slug of ["san-antonio-japanese-tea-garden", "fort-worth-water-gardens", "houston-botanic-garden"]) {
   assert.ok(reviewed.includes(`"slug": "${slug}"`), `Reviewed attraction source missing: ${slug}`);
   assert.ok(sitemap.includes(`"${slug}"`), `Reviewed attraction absent from sitemap reconcile: ${slug}`);
@@ -66,5 +80,14 @@ for (const privatePath of ["/network/apply", "/network/billing", "/network/check
 }
 assert.ok(terms.includes("canonicalLink(texasDefinedBrand,canonicalPath)"), "Terms page lost its self canonical");
 assert.ok(primary.includes("INDEXABLE_STATIC_PATHS"), "Main sitemap must use public route registry");
+
+// Execute request-level redirects and the nine scoped no-store HTML contracts in
+// every canonical premerge run. Source grep alone does not prove response behavior.
+execFileSync(process.execPath, [
+  "--experimental-strip-types",
+  "--test",
+  "src/lib/reviewed-attraction-canonical-redirect.test.ts",
+  "src/lib/hashed-asset-document-cache-policy.test.ts",
+], { stdio: "inherit" });
 
 console.log("PASS: eight existing editorial pages and public membership terms have canonical sitemap sources; protected quality gates and private network exclusions retained.");
