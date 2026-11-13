@@ -84,7 +84,7 @@ const variants = [
 
 function canonicalPresent(html, path) {
   const expected = `${origin}${path}`.toLowerCase();
-  const canonicalTags = [...html.matchAll(/<link\\b[^>]*>/gi)].filter((match) => /rel=["']canonical["']/i.test(match[0]));
+  const canonicalTags = [...html.matchAll(/<link\b[^>]*>/gi)].filter((match) => /rel=["']canonical["']/i.test(match[0]));
   // A conflicting second canonical is invalid even when one link points to the expected URL.
   return canonicalTags.length === 1 && canonicalTags.some((match) => {
     const tag = match[0].toLowerCase();
