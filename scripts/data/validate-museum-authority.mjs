@@ -29,6 +29,21 @@ if (!yoakumSVG.includes('<svg') || !yoakumSVG.includes('</svg>')) {
 // AAM Dallas currently publishes conflicting normal/event-day hours.
 // Treat this as a disclosure requirement, not a reason to invent one schedule.
 const aamRecords = read("src/data/museum-authority-new-destinations.ts");
+ 
+// Fort Worth Water Gardens links to this museum's destination dossier. A past
+// October installation closure must not keep advertising CLOSED galleries or a
+// completed free workshop after the collection galleries reopened October 31.
+// Verified with the operator's current /visit/hours-and-admission and homepage.
+const modernArtRecord = aamRecords.split('slug: "modern-art-museum-fort-worth"')[1]?.split('slug: "', 1)[0] ?? "";
+if (!modernArtRecord.includes("In the Making: Stories from the Collection") ||
+    !modernArtRecord.includes("August 15, 2027") ||
+    !modernArtRecord.includes('sourceCheckedAt: "2026-11-13"')) {
+  failures.push("Fort Worth Modern must show post-installation exhibition and source-reviewed visitor details");
+}
+if (/galleries CLOSED|All exhibition galleries are CLOSED|October lobby sculpture activities are free|galleries reopening after installation/i.test(modernArtRecord)) {
+  failures.push("Fort Worth Water Gardens' linked Modern Art Museum preview still advertises past gallery closures or workshops");
+}
+
 const aamFaqSource = read("src/data/museum-visitor-faqs.ts");
 const aamRecord = aamRecords.split('slug: "african-american-museum-dallas-fair-park"')[1]?.split('slug: "', 1)[0] || "";
 const aamFaq = aamFaqSource.split('"african-american-museum-dallas-fair-park": [')[1]?.split('"texas-forestry-museum-lufkin": [')[0] || "";
