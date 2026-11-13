@@ -249,6 +249,12 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/news/stephen-f-austin-father-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/article/stephen-f-austin-father-of-texas', expectedQuery: ['source', 'gsc'], label: 'verified historical GSC editorial alias' },
+  { path: '/news/juan-seguin-tejano-texas-revolution?source=gsc', expectedStatus: 301, expectedPath: '/article/juan-seguin-tejano-texas-revolution', expectedQuery: ['source', 'gsc'], label: 'verified historical GSC editorial alias' },
+  { path: '/news/san-antonio-spurs-texas-basketball-culture?source=gsc', expectedStatus: 301, expectedPath: '/article/san-antonio-spurs-texas-basketball-culture', expectedQuery: ['source', 'gsc'], label: 'verified historical GSC editorial alias' },
+  { path: '/news/texas-oil-boom-wichita-falls-west-texas-rigs?source=gsc', expectedStatus: 301, expectedPath: '/article/texas-oil-boom-wichita-falls-west-texas-rigs', expectedQuery: ['source', 'gsc'], label: 'verified historical GSC editorial alias' },
+  { path: '/news/dr-pepper-waco-texas-history?source=gsc', expectedStatus: 301, expectedPath: '/dr-pepper-texas-history', expectedQuery: ['source', 'gsc'], label: 'verified historical GSC editorial alias' },
+  { path: '/destination/fredericksburg-texas-wineries-things-to-do-guide?source=gsc', expectedStatus: 301, expectedPath: '/article/fredericksburg-texas-wineries-things-to-do-guide', expectedQuery: ['source', 'gsc'], label: 'verified historical GSC editorial alias' },
   { path: '/event/state-fair-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/texas-state-fair', expectedQuery: ['source', 'gsc'], label: 'historical State Fair event alias to existing guide' },
   { path: '/things-unique-to-texas_/methodology?source=gsc', expectedStatus: 301, expectedPath: '/things-unique-to-texas/methodology', expectedQuery: ['source', 'gsc'], label: 'historical methodology path typo to existing guide' },
   // Preserve incoming dated Carnival links without serving an unverified leaf
