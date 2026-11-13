@@ -1725,14 +1725,14 @@
       "faqCount": 9,
       "sources": [
         {
-          "sourceUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
-          "fetchUrl": "https://www.themodern.org/exhibition/making-sculpture-project",
-          "label": "Modern October sculpture program"
+          "sourceUrl": "https://www.themodern.org/exhibitions/current",
+          "fetchUrl": "https://www.themodern.org/exhibitions/current",
+          "label": "Modern current exhibition and reopened collection galleries"
         },
         {
           "sourceUrl": "https://www.themodern.org/visit/hours-and-admission",
           "fetchUrl": "https://www.themodern.org/visit/hours-and-admission",
-          "label": "Modern official visitor hours and temporary gallery closure"
+          "label": "Modern current visitor hours, admission and closure policies"
         },
         {
           "sourceUrl": "https://www.themodern.org/caf%C3%A9-modern",
