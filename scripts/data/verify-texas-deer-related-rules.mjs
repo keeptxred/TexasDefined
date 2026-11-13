@@ -16,6 +16,7 @@ const sources = [
   { id: 'cwd', url: base + '/hunting/cwd/', terms: ['Chronic Wasting Disease', 'CWD'], year: false },
   { id: 'tagging', url: base + '/licenses/tagging-instructions/tagging-deer', terms: ['Tagging Deer', 'hunting license'], year: false },
   { id: 'after-harvest', url: base + '/hunting/general-regulations/after-killing-a-deer/', terms: ['After Harvesting', 'CWD'], year: false },
+  { id: 'screwworm', url: 'https://tpwd.texas.gov/huntwild/wild/diseases/screwworm/', terms: ['New World Screwworm', 'Report Sightings', 'Hunter and Landowner Guide', 'Interactive Map of NWS Zones'], year: false },
 ];
 function visible(html) {
   return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ')
@@ -36,7 +37,7 @@ function verifySource(source, text) {
   if (text.length < 200) throw new Error('TPWD '+source.id+' legal resource unexpectedly short');
 }
 if (process.argv.includes('--self-test')) {
-  assert.equal(sources.length,6);
+  assert.equal(sources.length,7);
   assert.ok(sources.every(x=>new URL(x.url).hostname==='tpwd.texas.gov'));
   assert.ok(sources.filter(x=>x.year).length===3);
   const fixture='Regulations '+data.startYear+' '+sources[0].terms.join(' ')+' '.repeat(230);
@@ -46,7 +47,7 @@ if (process.argv.includes('--self-test')) {
   const hash=crypto.createHash('sha256').update(fixture).digest('hex');
   assert.equal(hash.length,64);
   assert.notEqual(hash,crypto.createHash('sha256').update(fixture+'changed').digest('hex'));
-  console.log('TPWD six-source county/CWD/tagging integrity contract passed.');
+  console.log('TPWD seven-source county/CWD/tagging/screwworm integrity contract passed.');
   process.exit(0);
 }
 async function fetchSource(source) {
@@ -75,4 +76,4 @@ for(const source of sources){
 fs.mkdirSync('artifacts/deer-related-legal',{recursive:true});
 fs.writeFileSync('artifacts/deer-related-legal/current.json',
   JSON.stringify({checkedAt:new Date().toISOString(),seasonYear:data.seasonYear,sources:provenance},null,2)+'\n');
-console.log('TPWD six official county/CWD/tagging sources monitored with content fingerprints.');
+console.log('TPWD seven official county/CWD/tagging/screwworm sources monitored with content fingerprints.');

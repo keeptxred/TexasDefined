@@ -9,7 +9,7 @@ if (!dates.regulations || !Number.isInteger(dates.regulations.annualBagMax) || !
 
 // Local contract is always checked, including on PRs without external networking.
 for (const marker of [
-  'reviewedOn: "2026-10-28"',
+  'reviewedOn: "2026-11-13"',
   'deerSeasonRange(',
   'regulations.reportingHours',
   'regulations.specialAntlerSpreadInches',
@@ -18,6 +18,8 @@ for (const marker of [
   'regulations.antlerlessReportingCounties',
   'Texas Hunt & Fish',
   'TPWD regional study: rut in white-tailed deer',
+  'New World screwworm',
+  'https://tpwd.texas.gov/huntwild/wild/diseases/screwworm/',
   pageUrl,
 ]) {
   if (!source.includes(marker)) throw new Error('Texas deer authority missing checked editorial fact/source: ' + marker);
