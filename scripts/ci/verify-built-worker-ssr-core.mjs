@@ -249,6 +249,13 @@ requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderl
 requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
+  { path: '/attraction/dr-pepper-museum?source=gsc', expectedStatus: 301, expectedPath: '/destination/dr-pepper-museum-waco', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/dr-pepper-museum?source=gsc', expectedStatus: 301, expectedPath: '/destination/dr-pepper-museum-waco', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/attraction/hill-country-louise-merrick-unit-state-natural-area?source=gsc', expectedStatus: 301, expectedPath: '/destination/hill-country-state-natural-area', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/hill-country-louise-merrick-unit-state-natural-area?source=gsc', expectedStatus: 301, expectedPath: '/destination/hill-country-state-natural-area', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/state-park/indian-lodge-state-park-lodge?source=gsc', expectedStatus: 301, expectedPath: '/destination/indian-lodge', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/indian-lodge-state-park-lodge?source=gsc', expectedStatus: 301, expectedPath: '/destination/indian-lodge', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/seminole-canyon-state-park-historic-site?source=gsc', expectedStatus: 301, expectedPath: '/destination/seminole-canyon-state-park', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/event/state-fair-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/texas-state-fair', expectedQuery: ['source', 'gsc'], label: 'historical State Fair event alias to existing guide' },
   { path: '/things-unique-to-texas_/methodology?source=gsc', expectedStatus: 301, expectedPath: '/things-unique-to-texas/methodology', expectedQuery: ['source', 'gsc'], label: 'historical methodology path typo to existing guide' },
   // Preserve incoming dated Carnival links without serving an unverified leaf
