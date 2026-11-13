@@ -708,7 +708,7 @@ test('unavailable previously healthy original blocks deployment and preserves it
     assert.equal(report.unavailable[0].path,missing);
     assert.equal(report.copied.length,1);
     assert.equal(report.ignoredOld,0);
-    assert.equal(report.capacity.remainingOldFileSlots,4094);
+    assert.equal(report.capacity.remainingOldFileSlots,6142);
     assert.equal(report.budget.maxFiles,6144);
     assert.equal(report.budget.maxBytes,384*1024*1024);
     const snapshot=JSON.parse(readFileSync(snapshotPath,'utf8')).snapshots.at(-1);
