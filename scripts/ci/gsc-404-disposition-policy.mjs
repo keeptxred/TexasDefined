@@ -195,6 +195,20 @@ export const INDEXABLE_RESTORED_GSC_PATHS = Object.freeze(new Set([
   '/article/texas-oil-boom-history-spindletop-permian-basin',
 ]));
 
+/** Google honors the most restrictive matching X-Robots-Tag, robots meta,
+ * and googlebot-specific meta directive. Preserve all of them; later metadata
+ * must never overwrite a header or googlebot noindex.
+ */
+export function collectGscRobotsDirectives(html, xRobotsHeader = null) {
+  const values = xRobotsHeader ? [xRobotsHeader] : [];
+  for (const tag of html.match(/<meta\b[^>]*>/gi) || []) {
+    const name = (tag.match(/\bname\s*=\s*["'](robots|googlebot)["']/i) || [])[1];
+    const content = (tag.match(/\bcontent\s*=\s*["']([^"']+)["']/i) || [])[1];
+    if (name && content) values.push(name.toLowerCase() + ': ' + content);
+  }
+  return values.length ? values.join('; ') : null;
+}
+
 function isExactRestoredCanonical(urlValue, expectedPath) {
   if (!urlValue || !expectedPath) return false;
   try {
