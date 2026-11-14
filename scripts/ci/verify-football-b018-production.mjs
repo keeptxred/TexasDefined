@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Batch018: real production Chrome, fail-closed on every assigned school and viewport.
 import assert from 'node:assert/strict';
+import googleIndexManifest from '../../src/data/high-school-football/google-index-eligibility.generated.json' with { type: 'json' };
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
@@ -8,7 +9,10 @@ const {chromium}=require('/tmp/td-b018-chrome/node_modules/playwright-core');
 const origin='https://texasdefined.com';
 const source=process.env.FOOTBALL_CHROME_SOURCE_SHA||'';
 const worker=process.env.FOOTBALL_EXPECTED_WORKER_VERSION||'';
-const report={batch:18,sourceCommit:source,workerVersion:worker,schoolSlugs:[],schoolChecks:[],countyChecks:[],screenshots:[],failures:[],technicalOnly:true};
+const report={batch:18,sourceCommit:source,workerVersion:worker,schoolSlugs:[],schoolChecks:[],countyChecks:[],screenshots:[],failures:[],googleDeliveryChecks:[],sitemapPolicy:null,technicalOnly:true};
+// Preserve October's evidence-based, Googlebot-only staging rather than
+// treating a passing Chrome render as permission to index thin profiles.
+const googleReady=new Set(googleIndexManifest.teamIndexableSlugs);
 mkdirSync('artifacts',{recursive:true});
 mkdirSync('artifacts/b018-chrome-screenshots',{recursive:true});
 const save=()=>writeFileSync('artifacts/b018-chrome-report.json',JSON.stringify(report,null,2)+'\n');
@@ -18,6 +22,8 @@ report.schoolSlugs=["fabens","fairfield","falfurrias","falls-city","farmersville
 preflight('registry and source boundary',()=>{
  assert.equal(report.batch,18,'Batch018 evidence must identify Batch018, not prior batch');
  assert.equal(new Set(report.schoolSlugs).size,25,'exact 25 distinct canonical slugs');
+ assert.equal(report.schoolSlugs.filter(slug=>googleReady.has(slug)).length,16,'16 evidence-backed B018 URLs must remain Google-indexable');
+ assert.equal(report.schoolSlugs.filter(slug=>!googleReady.has(slug)).length,9,'nine B018 URLs must remain Googlebot-only staged');
  assert.equal(reg.schoolRecords.filter(s=>s.status==='VERIFIED').length,405,'preserve 405 historically certified schools before Batch018 graduation');
  for(const slug of report.schoolSlugs)assert.equal(reg.schoolRecords.find(s=>s.slug===slug)?.status,'IMPLEMENTED','no source-only production graduation: '+slug);
  const authored=readFileSync('src/data/high-school-football/football-program-profile.server.ts','utf8');
@@ -49,12 +55,20 @@ try{
     await page.locator('main h1').first().waitFor({state:'visible',timeout:20000});
     const data=await page.evaluate(()=>({h1:[...document.querySelectorAll('main h1')].map(n=>n.textContent),title:document.title,
       canonical:document.querySelector('link[rel=canonical]')?.href,robots:document.querySelector('meta[name=robots]')?.content||'',
+      googlebot:document.querySelector('meta[name=googlebot]')?.content||'',
       links:[...document.querySelectorAll('main a[href]')].map(a=>a.getAttribute('href')),
       scroll:document.documentElement.scrollWidth,
       brokenImages:[...document.images].filter(i=>i.getBoundingClientRect().width&&i.complete&&!i.naturalWidth).length,
       schema:[...document.querySelectorAll('script[type="application/ld+json"]')].map(n=>n.textContent).join('') }));
     assert.equal(data.canonical,origin+path,'canonical '+slug);
-    // Indexability is deliberately not certified by this source-only browser acceptance.
+    // Delivery policy and sitemap consistency ARE checked below, but search
+    // engine indexing itself is never inferred from a Chrome response.
+    const indexableForGoogle=googleReady.has(slug);
+    assert.ok(!/\\bnoindex\\b/i.test(data.robots),'generic noindex would also hide from Bing: '+slug);
+    assert.equal(/\\bnoindex\\b/i.test(data.googlebot),!indexableForGoogle,'Googlebot staging drift: '+slug);
+    const xRobots=(await response.headerValue('x-robots-tag'))||'';
+    assert.ok(!/\\bnoindex\\b/i.test(xRobots) || (/googlebot:\\s*noindex/i.test(xRobots) && !indexableForGoogle),'generic X-Robots-Tag noindex: '+slug);
+    if (width===1366) report.googleDeliveryChecks.push({slug,indexableForGoogle,googlebot:data.googlebot,robots:data.robots,xRobots});
     assert.equal(data.h1.length,1,'H1 '+slug);
     assert.ok(/football/i.test(data.h1[0]||''),'football H1 '+slug);
     assert.ok(/football/i.test(data.title),'title '+slug);
@@ -109,6 +123,7 @@ try{
  }
 }finally{await browser.close();save();}
 assert.equal(report.schoolChecks.length,75,'all 75 viewports required');
+assert.equal(report.googleDeliveryChecks.length,25,'all 25 Google delivery policies required');
 assert.equal(report.screenshots.length,75,'all 75 screenshot artifacts required');
 assert.equal(report.countyChecks.length,25,'all 25 county reciprocal checks required');
 assert.deepEqual(report.failures,[],'Batch018 Chrome failure');
