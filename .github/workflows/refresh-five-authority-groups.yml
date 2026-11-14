@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: '35 13 * * *'
   workflow_dispatch:
+  issue_comment:
+    types: [created]
   pull_request:
     branches: [main]
     paths:
@@ -19,10 +21,15 @@ permissions:
   contents: read
   issues: write
 concurrency:
-  group: five-authority-source-refresh-\${{ github.ref }}
+  group: five-authority-source-refresh-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   source-refresh:
+    if: >-
+      github.event_name != 'issue_comment' ||
+      (github.event.issue.number == 7170 &&
+       github.event.comment.body == '/refresh-five-hubs' &&
+       github.event.comment.user.login == 'keeptxred')
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -35,14 +42,19 @@ jobs:
           node --check scripts/ci/monitor-five-authority-refresh.mjs
           node scripts/ci/monitor-five-authority-refresh.mjs
       - name: Inspect live five-page HTML and scheduled official sources
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: node scripts/ci/monitor-five-authority-refresh.mjs --production
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
+        run: |
+          if [[ "${{ github.event_name }}" = issue_comment ]]; then
+            node scripts/ci/monitor-five-authority-refresh.mjs --production --all
+          else
+            node scripts/ci/monitor-five-authority-refresh.mjs --production
+          fi
       - name: Keep substantive editorial issues visible when a source check fails
-        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         env:
-          GH_TOKEN: \${{ github.token }}
-          GITHUB_REPOSITORY: \${{ github.repository }}
-          ACTION_RUN: \${{ github.server_url }}/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ACTION_RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
           set -euo pipefail
@@ -50,6 +62,6 @@ jobs:
           gh issue reopen "$issue" --repo "$GITHUB_REPOSITORY" || true
           # Avoid daily duplicate issue comments; CI is already red until fixed.
           weekday="$(date -u +%u)"
-          if [[ "$weekday" = 1 || "\${{ github.event_name }}" = workflow_dispatch ]]; then
+          if [[ "$weekday" = 1 || "${{ github.event_name }}" = workflow_dispatch || "${{ github.event_name }}" = issue_comment ]]; then
             gh issue comment "$issue" --repo "$GITHUB_REPOSITORY" --body "Five-hub authority refresh needs a real source/editorial correction. Inspect grouped official-source and uncached live checks in $ACTION_RUN. Do not re-date articles or rubber-stamp review dates."
           fi
