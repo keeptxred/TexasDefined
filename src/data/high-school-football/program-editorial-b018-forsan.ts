@@ -3,7 +3,7 @@ import type { FootballProgramEditorial } from './program-editorial';
 // Forsan: official coaching and neutral-site game facts; separate attributed Nov13 press final.
 const FORSAN: FootballProgramEditorial = {
   slug: 'forsan',
-  intro: 'Forsan Buffaloes football represents Forsan ISD in Howard County. UIL assigns Forsan to eleven-man Class 2A Division I, District 4 for 2026–28. Forsan ISD identifies Casey Thompson as athletic director/head football coach. For its November 13 bi-district game against Abernathy, the school identified Wigwam Stadium in Seminole and designated Forsan the home team; independent regional reporting records a 35–28 Forsan win.'
+  intro: 'Forsan Buffaloes football represents Forsan ISD in Howard County. UIL assigns Forsan to eleven-man Class 2A Division I, District 4 for 2026–28. Forsan ISD identifies Casey Thompson as athletic director/head football coach. For its November 13 bi-district game against Abernathy, the school identified Wigwam Stadium in Seminole and designated Forsan the home team; independent regional reporting records a 35–28 Forsan win.',
   theme: { accentHex: '#5B7183', label: 'Independent TexasDefined editorial accent; not official Buffaloes colors or licensed school art.' },
   seo: {
     title: 'Forsan Buffaloes Football | 2026 UIL District, Coach & Campus',
