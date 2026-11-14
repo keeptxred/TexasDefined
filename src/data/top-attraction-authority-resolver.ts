@@ -30,6 +30,11 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
       scope: "Operator-confirmed open children's museum, upstairs location, ticket-specific admission requirements, members-only morning hour and Audience Recognition Theater.",
     },
     {
+      label: "Galveston Children's Museum — own hours and admission",
+      url: "https://www.galvestoncm.org/general-info-admission",
+      scope: "First-party museum-specific holiday closures, Galveston Children's Museum-only early member hour, and admission ages; not a generic pyramid schedule.",
+    },
+    {
       label: "Moody Gardens — accessibility",
       url: "https://www.moodygardens.com/visitor-info/accessibility",
       scope: "Wheelchairs, accessible seating, captioning and Rainforest Pyramid service-animal policy.",
