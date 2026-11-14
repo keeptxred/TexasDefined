@@ -131,6 +131,18 @@ if (!ysletaPage.includes('not</strong> a photograph of the museum entrance') ||
   failures.push('Ysleta documentary photo subject, source and entrance caveat missing');
 }
 
+// A missing or rights-restricted photograph must never become a substitute
+// photograph in the El Paso museum/historic-site related-place grid. Protect
+// these two components only; this is not a sitewide photo-license approval.
+const relatedCard = read('src/components/editorial/DestinationCard.tsx');
+const relatedGrid = read('src/components/editorial/DestinationRelationships.tsx');
+for (const marker of ['reserveImageSpace = false', 'No verified site photograph', 'isDestinationPhotoPlaceholder', 'allowOwnerLicensedPhoto = false', '(!licensedOlivePhoto || allowOwnerLicensedPhoto)', 'showOwnerCredit']) {
+  if (!relatedCard.includes(marker)) failures.push('Related destination photo / restricted owner-license safeguard missing: ' + marker);
+}
+if (!relatedGrid.includes('reserveImageSpace />') || !relatedGrid.includes('className="flex h-full min-w-0 flex-col"')) {
+  failures.push('Related-place grid must consistently reserve a sourced image or honest no-verified-photo treatment');
+}
+
 const authority = read('src/components/content/ElPasoAreaAuthority.tsx');
 const links = [...authority.matchAll(/href:\s*'(\/[a-z0-9-]+(?:\/[a-z0-9-]+)*)'/g)].map((match) => match[1]);
 if (new Set(links).size !== links.length) failures.push('Duplicate editorial link in El Paso authority registry');
