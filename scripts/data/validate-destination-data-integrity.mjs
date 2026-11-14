@@ -267,7 +267,7 @@ for (const [name, source] of [['destination curation', moodyCuration], ['spotlig
     if (source.toLowerCase().includes(stale.toLowerCase())) errors.push('Moody Gardens ' + name + ' still publishes obsolete closure: ' + stale);
   }
 }
-for (const marker of ["Galveston Children", "Audience Recognition Theater", "Value Pass", "November 9, 2026", "9 to 10 AM reserved for museum members"]) {
+for (const marker of ["Galveston Children", "Audience Recognition Theater", "Value Pass", "November 9, 2026", "9 to 10 AM reserved for Galveston Children's Museum members"]) {
   if (!(moodyCuration + '\n' + moodySpotlights).includes(marker)) errors.push('Moody Gardens lacks new visitor evidence: ' + marker);
 }
 
