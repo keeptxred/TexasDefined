@@ -40,7 +40,7 @@ function sameCleanCanonical(url, expected) {
 /** Never blindly restore a closed park, deleted store item or invalid route.
  * HTTP404 cases require source-backed editorial review, not automatic 301s.
  */
-export function classifySupplementalResponse({ path, firstStatus, finalStatus, finalUrl, canonical, robots = '', error }) {
+export function classifySupplementalResponse({ path, firstStatus, finalStatus, finalUrl, canonical, robots = '', contentType = '', error }) {
   if (error) return { review: 'transport-or-redirect-review', blocking: true };
   if (firstStatus == null || finalStatus == null) return { review: 'missing-http-evidence', blocking: true };
   if (firstStatus >= 500 || finalStatus >= 500) return { review: 'server-error', blocking: true };
@@ -51,6 +51,9 @@ export function classifySupplementalResponse({ path, firstStatus, finalStatus, f
   if (finalStatus === 404 || finalStatus === 410)
     return { review: 'currently-missing-editorial-review', blocking: false };
   if (finalStatus === 200) {
+    // Apple association JSON is an auxiliary machine resource, not an HTML page.
+    if (path === '/apple-app-site-association' && /application\/(json|pkcs7-mime)/i.test(contentType || ''))
+      return { review: 'valid-apple-association-resource', blocking: false };
     const url = new URL(finalUrl);
     if (url.pathname === '/' && path !== '/') return { review: 'generic-homepage-soft404-risk', blocking: true };
     const content = canonical?.trim();
