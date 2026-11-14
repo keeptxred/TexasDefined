@@ -39,11 +39,11 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         href: "https://gov.texas.gov/news/post/first-lady-abbott-dedicates-broken-spoke-texas-historical-marker-in-austin"
       },
       {
-        heading: "Recognition is different from a local zoning decision",
-        record: "In May 2023, Austin's Music Commission recommended historic zoning for the Broken Spoke. A recommendation is evidence of the preservation argument, not evidence that every subsequent zoning action was adopted.",
-        reading: "Separating state recognition from the city's separate land-use process prevents a common error: describing a preservation proposal as an accomplished legal protection. The structure's continued use is the cultural fact; legal status requires its own record check.",
-        source: "City of Austin Music Commission, Recommendation 20230501-6",
-        href: "https://services.austintexas.gov/edims/document.cfm?id=408615"
+        heading: "The 2023 recommendation was followed by an adopted ordinance",
+        record: "On May 1, 2023, Austin's Music Commission recommended historic zoning for the Broken Spoke. Austin City Council later approved the zoning change on all three readings on May 18, 2023, as Ordinance 20230518-074; the two actions must not be conflated.",
+        reading: "The 2021 state marker record, April 2023 marker dedication, May 2023 commission advice and enacted May 18 historic zoning are four distinct milestones. The original commission recommendation must not be presented as the final city action.",
+        source: "Austin City Council, enacted historic-zoning action May 18, 2023",
+        href: "https://www.austintexas.gov/council/2023/20230518-reg"
       },
       {
         heading: "Country history heard from the dance floor",
@@ -58,6 +58,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "Opening-night economics are easy to lose beneath the later celebrity list. A locally hired band and a small payment show a dance hall building an ordinary working-musician circuit before it became a landmark.",
         source: "Texas State University, Center for Texas Music History",
         href: "https://www.txst.edu/ctmh/publications/hartman-series/broken-spoke.html"
+      },
+      {
+        "heading": "The proposed protection became an enacted city ordinance",
+        "record": "Austin's Music Commission recommended historic zoning on May 1, 2023; the City Council's action notes for May 18 record case C14H-2022-0176 as approved on all three readings, and the city's meeting archive identifies executed Ordinance 20230518-074. The city's adopted action followed its recommendation and the separately dedicated state marker.",
+        "reading": "The venue now has two distinguishable layers of recognition: a state historical marker and a local historic-zoning action. Reporting only the earlier recommendation understates its legal preservation history; neither recognition is the same thing as city ownership or a guarantee of continued operation.",
+        "source": "City of Austin, May 18, 2023 Council action and executed ordinance",
+        "href": "https://www.austintexas.gov/council/2023/20230518-reg"
+      },
+      {
+        "heading": "The rezoning centered on the hall, not the whole commercial tract",
+        "record": "Austin's May 18 agenda identified Annetta White as the business owner and HLLC CWS 704 SPE LLC as the landowner; city staff, Historic Landmark Commission and Planning Commission recommended the commercial-services-to-historic zoning change. The city's planning record specified historic protection for the building footprint.",
+        "reading": "A dance hall can be culturally continuous while its building and surrounding land have distinct ownership and land-use histories. Distinguishing the building-footprint recommendation from the wider parcel avoids suggesting the entire South Lamar commercial tract was made a museum.",
+        "source": "City of Austin, May 18 Council action notes, item 74",
+        "href": "https://services.austintexas.gov/council_meetings/action_notes.cfm?mid=1159"
       }
     ],
     caution: "The state marker and the Handbook of Texas frame the original restaurant and dance floor slightly differently. Both agree on the 1964 establishment and later expansion; neither should be treated as a floor-plan record."
@@ -96,7 +110,7 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
       },
       {
         heading: "The city did enact historic zoning in 2008",
-        record: "Austin City Council enacted Ordinance 20080821-059 for 1315 South Congress, adding the Historic Landmark (H) combining district under case C14H-2008-0018. This was an adopted ordinance, unlike the uncompleted preservation recommendation described on the Broken Spoke page.",
+        record: "Austin City Council enacted Ordinance 20080821-059 for 1315 South Congress, adding the Historic Landmark (H) combining district under case C14H-2008-0018. This was an adopted ordinance, as was the Broken Spoke's later historic-zoning ordinance in May 2023; the dates, case numbers and properties are different.",
         reading: "The city's legal record protects a property, not every booking, performer or band associated with it. The ordinance is stronger evidence for the 2008 status than a promotional claim that the room is 'legendary'.",
         source: "City of Austin, enacted ordinance 20080821-059",
         href: "https://services.austintexas.gov/edims/document.cfm?id=120731"
@@ -107,6 +121,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The survival story is not one unbroken genre. The room remained useful by accommodating different audiences and then reinterpreting its midcentury visual character; that is a stronger preservation explanation than calling it timeless.",
         source: "Continental Club, first-party account of the 1983–1987 bookings",
         href: "https://continentalclub.com/about/"
+      },
+      {
+        "heading": "A city permit file separates the club from its upstairs gallery",
+        "record": "In its 2008 zoning review for 1313 and 1315 South Congress, Austin staff distinguished the main club at 1315 from an upstairs art gallery in the adjoining 1313 building, connected by a rear staircase. Staff described a grandfathering provision for the original club's liquor sales that did not automatically extend to the later gallery space.",
+        "reading": "The club's institutional footprint extended into another building, but the two spaces faced different land-use rules. That evidence is more specific than describing the address simply as one timeless music room, and explains how later cultural functions could depend on ordinary municipal approvals.",
+        "source": "City of Austin, Continental Club zoning review C14-2008-0093",
+        "href": "https://services.austintexas.gov/edims/document.cfm?id=119225"
+      },
+      {
+        "heading": "The city's 2008 staff report is an older witness to the 1957 date",
+        "record": "Austin's 2008 zoning staff report says the club at 1315 South Congress had operated since 1957. That agrees with the Handbook of Texas but differs from the venue's own 1955 date. A retrospective 2008 city report does not itself prove what happened in either year.",
+        "reading": "This provides another dated statement of the 1957 chronology and shows why the date disagreement deserves a clearly labeled note. A permit review written more than fifty years later is not an opening-night advertisement or incorporation record.",
+        "source": "City of Austin, June 2008 Continental Club planning report",
+        "href": "https://services.austintexas.gov/edims/document.cfm?id=119225"
       }
     ],
     caution: "The 1955/1957 discrepancy remains unresolved without contemporaneous records. Neither date is silently presented as definitive, and the city plan's 1957 wording may trace back to the same historical sources as the Handbook."
@@ -212,6 +240,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "Opening-night and closure-era records make the timeline testable. They prevent the public-history mistake of describing the present honky-tonk as if it operated without interruption from 1981.",
         source: "UT Arlington Special Collections, Star-Telegram negative 10016022",
         href: "https://mavmatrix.uta.edu/specialcollections_startelegram1980s/1800/"
+      },
+      {
+        "heading": "A television report is dated to the day the honky-tonk closed",
+        "record": "UNT Libraries holds a KXAS-TV/NBC 5 news-video catalog entry about Billy Bob's dated January 8, 1988 at 10 p.m. The station described the news footage as a 1-minute-35-second Betacam item; its archival subject terms include closures, creditors, debt, employees, layoffs and unpaid taxes. Those subject labels are catalog metadata, not a transcript of the footage.",
+        "reading": "The surviving same-day broadcast record complements the Handbook's closure chronology with an identifiable contemporary news artifact. Its catalog establishes the newsroom's coverage of the financial and employment context without pretending that the complete video was independently transcribed.",
+        "source": "UNT Libraries, NBC 5/KXAS news collection, January 8, 1988",
+        "href": "https://texashistory.unt.edu/ark:/67531/metadc2227177/"
+      },
+      {
+        "heading": "An archival image dates the attempted revival before reopening",
+        "record": "The Fort Worth Star-Telegram's retrospective photo inventory identifies a November 13, 1988 image of Don Jury, Steven Murrin and Ken Brixey working to revive Billy Bob's, attributed to Beatrice Terrazas and the Star-Telegram archive at UT Arlington. The Handbook places the reopening on November 28; the photographic caption establishes organizing activity before that date, not the opening date itself.",
+        "reading": "The closure and relaunch were a process with investors, labor and commercial risk, not an instantaneous continuation of the 1981 business. The image is linked as documentary evidence; its copyright status does not authorize reproduction on this page.",
+        "source": "Fort Worth Star-Telegram, historical photo inventory attributed to UT Arlington",
+        "href": "https://www.star-telegram.com/news/local/fort-worth/article267883027.html"
       }
     ],
     caution: "The advertised 'world's largest' description is the venue's marketing label, not a globally audited record. Capacity, amenities and bull-riding schedules should be confirmed when planning a visit."
@@ -261,6 +303,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "Lubbock shows how a local scene can be remembered through civic institutions after national fame. Its memorial economy should not be confused with the earlier KDAV and Clovis recording network that created the music.",
         source: "Civic Lubbock, history of the West Texas Walk of Fame",
         href: "https://civiclubbock.org/walk-of-fame/history-of-walk-of-fame/"
+      },
+      {
+        "heading": "A preserved Austin broadcast is a different kind of proof from a Houston label ledger",
+        "record": "UNT Libraries describes a U-matic copy of a Willie Nelson and Tracy Nelson Austin City Limits program recorded in 1976 and broadcast in 1977, preserved in its Jack Kendrick Advertising Collection. Separately, the University of Houston describes ACA studio session master books with session dates and artist names in its Duke-Peacock collection.",
+        "reading": "The two collections reveal different paths from place to listener: Austin exported filmed performances through a public-television network, while Houston's business and studio paperwork documented a recording and label industry. This is an evidence-based comparison of institutions, not a claim that either city's music was confined to one medium.",
+        "source": "University of North Texas Libraries, Jack Kendrick Advertising Collection",
+        "href": "https://texashistory.unt.edu/ark:/67531/metadc2572561/"
+      },
+      {
+        "heading": "A San Antonio concert map measures different evidence again",
+        "record": "UT San Antonio's Sounds of San Anto project says its historical concert map draws on research shared by San Antonio Public Library Texana archivist Andrew Crews, includes mapped performances between 1970 and 2010, and is incomplete by the project's own account.",
+        "reading": "A concert map can reconstruct a city's venue geography but cannot tally every audience, musician or informal community dance. Comparing its limits with Austin's television episodes and Houston's session books is more useful than treating each Texas music city as a winner in the same genre contest.",
+        "source": "UT San Antonio, Sounds of San Anto project methodology",
+        "href": "https://cedish.utsa.edu/sounds/about"
       }
     ],
     caution: "The comparison is illustrative, not comprehensive. Dallas–Fort Worth's Deep Ellum and modern-jazz stories and Lubbock's radio-to-Clovis recording pathway are covered in the linked city guides; a city may have all of these kinds of infrastructure."
@@ -303,6 +359,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The official episode list is a direct test of the stereotype. The television series carried zydeco and border accordion music with the country and songwriter culture that shaped its public image; the city story must acknowledge this wider programmed audience.",
         source: "Austin City Limits, original season-one program anthology",
         href: "https://acltv.com/anthology/"
+      },
+      {
+        "heading": "A preserved U-matic program distinguishes taping from broadcast",
+        "record": "UNT Libraries catalogues a 59-minute-37-second U-matic videotape from the Jack Kendrick Advertising Collection featuring Willie Nelson's Red Headed Stranger performance and Tracy Nelson on Austin City Limits. The library dates its production 1976/1977 and notes PBS broadcasts in 1977, rather than calling it the 1974 pilot.",
+        "reading": "Preservation formats and distribution dates matter. The physical videotape is evidence of what a broadcaster archived, while the 1974 pilot, 1975 tapings and 1976 first season form a different sequence. A responsible timeline should not collapse those into a single famous appearance.",
+        "source": "UNT Libraries, Jack Kendrick Advertising Collection ACL tape",
+        "href": "https://texashistory.unt.edu/ark:/67531/metadc2572561/"
+      },
+      {
+        "heading": "Public television funding made Austin's local sound a national experiment",
+        "record": "The Handbook of Texas describes Bill Arhos, Paul Bosner and Bruce Scafe taking the Willie Nelson pilot to a PBS station planning forum. It reports that 34 stations aired the pilot and that the program initially needed backing from five stations to remain in distribution, achieved with help from KQED in San Francisco.",
+        "reading": "Austin's national reputation did not follow automatically from a strong local music scene. A public-media funding and distribution decision converted a local performance experiment into recurring national programming, which helps explain the city's particular institutional advantage.",
+        "source": "Handbook of Texas, Austin City Limits broadcasting history",
+        "href": "https://www.tshaonline.org/handbook/entries/austin-city-limits"
       }
     ],
     caution: "A broadcast record documents what television showed, not a complete census of the city's musicians. Black, Mexican American and local working-band histories should not disappear beneath the Willie Nelson story."
@@ -352,6 +422,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "Houston's R&B and gospel chapters should not be separated into unrelated lists of names. Local ownership, talent and distribution operated across sacred and secular markets even when their audiences and performance contexts differed.",
         source: "Fifth Ward Cultural Arts District, Peacock Records account",
         href: "https://www.5thwardarts.com/history"
+      },
+      {
+        "heading": "Recording-session logbooks survive alongside the record-label publicity",
+        "record": "The University of Houston says its Duke-Peacock digital collection includes artists' publicity photographs and ACA studio master books logging dates, times and performers on recording sessions. UH distinguishes this digitized selection from the larger physical Texas Music Collection.",
+        "reading": "Promotional photographs show whom a label marketed; studio logbooks can help establish where and when recording labor occurred. Neither format alone proves sales figures or artistic influence, so they should be used for different factual claims rather than folded into one vague 'archive' citation.",
+        "source": "University of Houston Special Collections, Duke-Peacock and ACA master books",
+        "href": "https://www.uh.edu/news-events/stories/2015/september/0923dukepeacock.php"
+      },
+      {
+        "heading": "Financial folders make the label's business history researchable",
+        "record": "University of Houston Libraries lists separate Duke/Peacock Records financial files dated 1950–1964 and promotional files dated 1951–1967 in box 6 of its Texas Music Collection. The inventory identifies the material's scope; it does not disclose figures from individual account books.",
+        "reading": "Houston's musical infrastructure can be studied as an employer and an accounting enterprise as well as a roster of artists. The finding aid points a reader toward evidence for future research without claiming to have inspected private financial totals.",
+        "source": "University of Houston Libraries, Texas Music Collection box 6 finding aid",
+        "href": "https://findingaids.lib.uh.edu/repositories/2/top_containers/255"
       }
     ],
     caution: "The archival collection documents DJ Screw's methods; it does not by itself verify every later claim about who invented or adopted the style first. Album or recording rights require separate permission."
@@ -401,6 +485,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "A discography measures what reached commercial recording, not which musicians sustained weddings, dances and neighborhood ensembles. The named oral-history effort supplies a route to evaluate those less visible contributions without inventing first-person testimony.",
         source: "UT San Antonio, 2025 West Side Sound Oral History Project report",
         href: "https://education.utsa.edu/news/2025/10/west-side-sound-oral-history-project-youve-succeeded-event-preview.html"
+      },
+      {
+        "heading": "A public-library concert list has become a time-and-place map",
+        "record": "UT San Antonio's Sounds of San Anto project says it built a concert-mapping project from research shared by San Antonio Public Library Texana archivist Andrew Crews. The map covers concerts and venues between 1970 and 2010; its team explicitly warns that the dataset does not capture every event or venue.",
+        "reading": "An incomplete map can still test where music circulated across the city, not just which hit singles received radio play. The honest limitation matters: absence from the map is not proof that a neighborhood lacked live music.",
+        "source": "UT San Antonio, Sounds of San Anto map methodology",
+        "href": "https://cedish.utsa.edu/sounds/about"
+      },
+      {
+        "heading": "Corrido performance and newspaper accounts offer different kinds of local memory",
+        "record": "The same UT San Antonio project compares the oral-tradition corrido about Gregorio Cortez with historical newspaper coverage, and features musical interpretations by Panfilo's Guera and Pinata Protest. These are modern interpretations in a public-history project, not recovered recordings from the early twentieth century.",
+        "reading": "San Antonio's music history reaches beyond West Side R&B into Spanish-language narrative traditions. Setting songs beside print records demonstrates how musical memory and written journalism can tell different parts of a borderland story without calling a present-day performance an original historical artifact.",
+        "source": "UT San Antonio, Sounds of San Anto Gregorio Cortez research project",
+        "href": "https://cedish.utsa.edu/sounds/about"
       }
     ],
     caution: "The history describes cross-community collaboration in a segregated society. It should not romanticize the period as one of universal musical or social equality."
@@ -499,6 +597,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "These dates help separate two separate historical processes: the 1950s recordings made elsewhere in a regional studio network, and later Lubbock efforts to preserve an increasingly global musical reputation.",
         source: "Civic Lubbock, original West Texas Walk of Fame chronology",
         href: "https://civiclubbock.org/walk-of-fame/history-of-walk-of-fame/"
+      },
+      {
+        "heading": "Texas Tech preserves the researcher's trail as well as Holly's fame",
+        "record": "Texas Tech University's Southwest Collection describes the Bill Griggs Papers, 1926–2016, as holding Buddy Holly Memorial Society correspondence, research and publications, music-event programs, photographs and surviving interview tapes. The finding aid distinguishes the researcher's later memorial materials from the 1950s recording sessions themselves.",
+        "reading": "This archive lets a future historian test how Lubbock preserved and interpreted Holly's legacy, rather than mistaking a 1970s memorial society document for a contemporaneous 1957 studio record. It also reveals where some interview evidence may be held but subject to access and copyright rules.",
+        "source": "Texas Tech Southwest Collection, Guide to the Bill Griggs Papers",
+        "href": "https://txarchives.org/ttusw/finding_aids/40066.xml"
+      },
+      {
+        "heading": "The local radio show predates the national studio breakthrough",
+        "record": "Civic Lubbock's Buddy Holly biographical record describes early on-air performances as 'Buddy & Jack' and later 'Buddy & Bob' on KDAV, before discussing the 1956 Decca contract and 1957 Norman Petty recordings. The account is a later civic biography and does not provide an original broadcast recording.",
+        "reading": "KDAV was a local testing and exposure platform before the Clovis sessions and national releases. Labeling the evidence as retrospective avoids giving the false impression that a surviving 1950s KDAV tape or station log has been examined.",
+        "source": "Civic Lubbock, Buddy Holly West Texas Walk of Fame biography",
+        "href": "https://civiclubbock.org/inductee/buddy-holly/"
       }
     ],
     caution: "Source accounts differ about early recording-session personnel. Date the recording, name the credited band, and avoid treating every rehearsal participant as a member of one fixed line-up."

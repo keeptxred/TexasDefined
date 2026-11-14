@@ -92,6 +92,28 @@ for(const view of [cityView,venueView,corpus]) {
   if(!view.includes("TexasMusicEvidenceDossier"))fail("One route family is missing researched dossier rendering");
 }
 if(!venue.includes('the venue gives 1955, while the Handbook of Texas') || !evidence.includes('1955 / 1957 (disputed)') || !dossiers.includes("the exact opening year should be marked disputed"))fail("Continental opening year must remain explicitly disputed");
+// Protect the documented May 18 historic-zoning enactment from older recommendation-only copy.
+if (!dossiers.includes("20230518-074") || !dossiers.includes("approved on all three readings") || !evidence.includes("May 18, 2023") || !venue.includes("historic-zoning change on May 18, 2023")) fail("Broken Spoke 2023 adopted zoning is missing or misrepresented");
+if (dossiers.includes("uncompleted preservation recommendation described on the Broken Spoke")) fail("Historic-zoning cross-reference is outdated");
+// Document specific new primary/archival research, not a repetitive source-count-only grade.
+const archivalChecks = {
+  "broken-spoke-austin-history":["The proposed protection became an enacted city ordinance","The rezoning centered on the hall"],
+  "continental-club-austin-history":["A city permit file separates the club","The city's 2008 staff report"],
+  "billy-bobs-texas-history":["A television report is dated to the day","An archival image dates the attempted revival"],
+  "texas-music-cities":["A preserved Austin broadcast","A San Antonio concert map"],
+  "austin-music-history":["A preserved U-matic program","Public television funding"],
+  "houston-music-history":["Recording-session logbooks","Financial folders make"],
+  "san-antonio-music-history":["A public-library concert list","Corrido performance and newspaper accounts"],
+  "lubbock-music-history":["Texas Tech preserves the researcher's trail","The local radio show predates"]
+};
+for (const [slug, markers] of Object.entries(archivalChecks)) {
+  const d=block(dossiers, slug);
+  for(const marker of markers) if(!d.includes(marker)) fail("New source-specific archival finding missing: "+slug+" / "+marker);
+}
+if(!dossiers.includes("https://texashistory.unt.edu/ark:/67531/metadc2227177/"))fail("Contemporaneous Billy Bob's TV catalog not cited");
+if(!dossiers.includes("https://cedish.utsa.edu/sounds/about"))fail("San Antonio concert map provenance missing");
+if(!dossiers.includes("https://findingaids.lib.uh.edu/repositories/2/top_containers/255"))fail("Houston historic label accounting archive missing");
+if(!dossiers.includes("https://txarchives.org/ttusw/finding_aids/40066.xml"))fail("Lubbock historical collection provenance missing");
 if(!dossiers.includes("The club dates its Guadalupe opening night to 1982") ||
    !dossiers.includes("Guadalupe Street in 1981") ||
    !dossiers.includes("September 3, 1982"))

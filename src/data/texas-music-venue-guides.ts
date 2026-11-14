@@ -165,7 +165,7 @@ export const TEXAS_MUSIC_VENUE_GUIDES: Record<string, TexasEvergreenGuide> = {
       {
         heading: "Preservation in a changing South Austin",
         body: [
-          "South Lamar has changed dramatically around the Broken Spoke, which makes the survival of the low-slung dance hall especially visible. The venue received an official Texas historical marker, dedicated in 2023, recognizing a history that had already become part of the state's country-music narrative.",
+          "South Lamar has changed dramatically around the Broken Spoke, which makes the survival of the low-slung dance hall especially visible. The venue's Texas historical marker was dedicated in April 2023. Austin City Council also passed its local historic-zoning change on May 18, 2023, by Ordinance 20230518-074. These are separate state-recognition and municipal land-use actions; the local zoning concerned the dance-hall building rather than the entire surrounding commercial tract.",
           "Current calendars and visitor rules should always be checked with the venue. The evergreen value of the place is the surviving relationship between room, dance floor, traditional country and Austin's changing urban landscape."
         ],
         links: [{ href: "/texas-music-venues", label: "Legendary Texas music venues" }]
