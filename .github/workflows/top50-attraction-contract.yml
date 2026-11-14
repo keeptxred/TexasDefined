@@ -53,6 +53,8 @@ jobs:
           node-version: '22'
       - name: Verify parser syntax
         run: node --check scripts/data/validate-top-50-attraction-authority.mjs
+      - name: Syntax-check bounded post-deploy Top 50 HTTP acceptance
+        run: node --check scripts/production/verify-top50-attractions-live.mjs
       - name: Validate 50 canonical attraction guides and evidence
         run: node scripts/data/validate-top-50-attraction-authority.mjs
 
