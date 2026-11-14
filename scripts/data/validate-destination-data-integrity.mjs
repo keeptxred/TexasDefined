@@ -281,6 +281,9 @@ for (const link of [
 if (!moodyAdditionalDepth.includes('Galveston Children')) errors.push('Moody Gardens additional visitor-depth text must describe the currently open children\'s museum.');
 if (!moodySpotlights.includes('strand-historic-district')) errors.push('Moody Gardens Strand pairing must use the dedicated destination route.');
 if (!moodyProduction.includes('staleClosureMarkers') || !moodyProduction.includes('dateModified')) errors.push('Moody Gardens live acceptance must reject old closures and stale structured dates.');
+if (!moodyProduction.includes('Discovery Museum closure guidance') || !moodyProduction.includes('The Rainforest Pyramid, Discovery Museum, theaters')) {
+  errors.push('Moody Gardens live acceptance must reject closure-era text from independently rendered source and directory layers.');
+}
 
 if (errors.length) {
   console.error('Editorial content integrity validation failed:');
