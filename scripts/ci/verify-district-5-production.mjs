@@ -15,16 +15,35 @@ async function check(origin) {
   const url = new URL(path, origin);
   // Query parameter avoids mistaking a previously cached HTML page for the new release.
   url.searchParams.set('district5_acceptance', (process.env.GITHUB_SHA ?? 'manual').slice(0, 12));
-  const response = await fetch(url, {
-    redirect: 'follow',
-    cache: 'no-store',
-    signal: AbortSignal.timeout(30_000),
-    headers: {
-      'user-agent': 'TexasDefined-District5-Production-Smoke/1.0',
-      'cache-control': 'no-cache',
-      'accept': 'text/html',
-    },
-  });
+  // A previous actual Worker publish (run 43524206406) passed canonical
+  // District 5 200/content acceptance but one uncached direct-origin request
+  // exhausted the 30-second network timeout. Retry ONE time only for an actual
+  // transport timeout; never retry a received HTTP failure or suppress any
+  // scorecard, source, fixture, or record assertion.
+  let response;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      response = await fetch(url, {
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: {
+          'user-agent': 'TexasDefined-District5-Production-Smoke/1.0',
+          'cache-control': 'no-cache',
+          'accept': 'text/html',
+        },
+      });
+      break;
+    } catch (error) {
+      const code = String(error?.cause?.code ?? '');
+      const transient = ['TimeoutError', 'AbortError'].includes(String(error?.name ?? ''))
+        || ['ETIMEDOUT', 'UND_ERR_CONNECT_TIMEOUT', 'UND_ERR_HEADERS_TIMEOUT',
+          'UND_ERR_BODY_TIMEOUT'].includes(code);
+      if (attempt === 2 || !transient) throw error;
+      console.warn('Retry only direct/canonical District 5 transport timeout: ' + origin);
+      await new Promise((resolve) => setTimeout(resolve, 400));
+    }
+  }
   assert.equal(response.status, 200, `${origin} returned ${response.status}`);
   const html = await response.text();
   assert.ok(html.length > 6_000, `${origin}: HTML response unexpectedly short (${html.length})`);
