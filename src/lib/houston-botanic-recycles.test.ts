@@ -37,8 +37,11 @@ test("Offer wording is exact, source-linked, and separate from evergreen tickets
   assert.match(admission.detail, /ages 3–17 \$8/);
   assert.match(admission.detail, /under 3 free but all ages require a ticket or member reservation/);
   assert.match(catalog, /New Year's Day/);
-  assert.match(catalog, /its About page also lists New Year's Day/);
-  assert.match(catalog, /published holiday lists differ/);
+  assert.ok(garden.authorityGuide.sources.some((source) => source.url === "https://hbg.org/visit/"),
+    "Holiday visitor claims must retain controlling visit source");
+  assert.ok(garden.authorityGuide.sources.some((source) => source.url === "https://hbg.org/about/"),
+    "Conflicting January 1 notice must retain separate About source");
+  assert.match(route, /Confirm January 1 hours through the official ticket calendar/);
   assert.match(route, /The Visit page lists Thanksgiving and Christmas closures; the About page also lists New Year's Day/);
   assert.doesNotMatch(catalog, /Both the official Visit page and About page list Thanksgiving Day, Christmas Day and New Year's Day closures/);
   assert.doesNotMatch(route, /according to both current operator pages/);
