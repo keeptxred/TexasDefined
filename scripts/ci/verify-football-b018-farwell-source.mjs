@@ -11,6 +11,16 @@ const ledger = read('docs/football-authority/schools/farwell-b018.md');
 for (const fact of ['801 Avenue G', '805 Avenue G', '2A Division I', 'District 2', 'Spearman', 'Happy State Bank Stadium', 'Canyon', 'November 13', '4 p.m.', '$5', '2026-11-13', 'farwellschools.org/page/article/1671']) {
   assert.ok(guide.includes(fact), 'Missing Farwell first-party source detail: ' + fact);
 }
+// The Nov 13 game is over: distinguish dated school pregame primary sources
+// from separately attributed contemporaneous news scores.
+for (const fact of ['64–33', 'KCBD', 'https://www.fox34.com/2026/11/14/end-zone-final-scores-bi-district-playoffs-tapps-semifinal/']) {
+  assert.ok(guide.includes(fact), 'Farwell missing attributed November 13 final ' + fact);
+}
+assert.ok(!guide.includes('Do not promote that title or assert a final playoff result'), 'outdated Farwell no-result wording');
+for (const fact of ['35–20', 'Associated Press', 'https://www.seattlepi.com/sports/friday-s-scores-a22530090']) {
+  assert.ok(flatonia.includes(fact), 'Flatonia missing attributed November 13 final ' + fact);
+}
+assert.ok(!flatonia.includes('This guide therefore does not assert a school-confirmed venue, final score or price'), 'outdated Flatonia result omission');
 assert.ok(ledger.includes('NOT_REVIEWED'));
 for (const [slug, county] of [['farwell','parmer'],['ferris','ellis'],['first-baptist-dallas','dallas'],['flatonia','fayette'],['florence','williamson']]) assert.ok(edges.includes("slug: '" + slug + "'") && edges.includes("county: '" + county + "'"), 'Missing school county edge: ' + slug);
 for (const fact of ['401 FM 970', '306 College Avenue', 'Quentin Posey', 'Russell Porterfield', '3A Division II', 'District 13', 'florenceisd.net/o/fhs/staff', '2026-11-13']) assert.ok(florence.includes(fact), 'Missing Florence official-source fact: ' + fact);
