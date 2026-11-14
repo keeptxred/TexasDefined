@@ -8,6 +8,14 @@ export const verifiedStateParkPhotoCredits: Readonly<Record<string, {
   fileUrl: string;
   licenseUrl: string;
 }>> = {
+  // Wikimedia Commons original: Harvest moon in Big Bend Ranch State Park.JPG,
+  // Jcllorca's own work, CC BY-SA 3.0. The locally resized JPEG is 1600x960.
+  "/images/state-parks/big-bend-ranch-state-park.jpg": {
+    author: "Jcllorca",
+    license: "CC BY-SA 3.0",
+    fileUrl: "https://commons.wikimedia.org/wiki/File:Harvest_moon_in_Big_Bend_Ranch_State_Park.JPG",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+  },
   "/images/state-parks/world-birding-center-bentsen-rio-grande-valley-state-park.jpg": {
     author: "William L. Farr",
     license: "CC BY-SA 4.0",
@@ -48,6 +56,7 @@ export function verifiedLocalParkCredit(hero: { src: string; credit?: string }) 
   if (!photo || !hero.credit?.includes(photo.author) || !hero.credit.includes(photo.license)) return null;
   return {
     credit: hero.credit,
+    author: photo.author,
     fileUrl: photo.fileUrl,
     licenseUrl: photo.licenseUrl,
     licenseCode: photo.license,
