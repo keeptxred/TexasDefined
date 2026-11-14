@@ -18,6 +18,19 @@ for (const attraction of reviewedRecords) {
   assert.ok(!/Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(attraction.body.join(" ")), attraction.slug + " editorial meta-language");
   assert.ok(Number.isFinite(Date.parse(attraction.sourceCheckedAt)) && Date.parse(attraction.sourceCheckedAt) >= Date.parse("2026-11-14") && Date.parse(attraction.sourceCheckedAt) <= Date.now(), attraction.slug + " requires a real verified source date, never a future or pre-audit stamp");
 }
+for (const attraction of reviewedRecords) {
+  const bodyIntro = attraction.body[0] ?? "";
+  assert.ok(!/^(?:Free admission and a 7 a\.m\.|Visit Fort Worth confirms free admission|Houston Botanic Garden is normally open 9 a\.m\.)/.test(bodyIntro),
+    attraction.slug + " must not repeat quick admission facts as article opening");
+}
+const hbgReview = reviewedRecords.find((item) => item.slug === "houston-botanic-garden");
+assert.ok(hbgReview.body.some((paragraph) => paragraph.includes("Museums for All") && paragraph.includes("$3") && paragraph.includes("four daytime general admission tickets")),
+  "Houston original visitor guidance must preserve accurately sourced low-income admission option");
+assert.ok(hbgReview.visitorFaqs.some((faq) => faq.sourceUrl === "https://hbg.gardenexplorer.org/" && /plant/i.test(faq.question)),
+  "Houston guide must provide actionable official plant-collection search instead of generalized copy");
+const routeCopy = read("src/routes/destination.$slug.tsx");
+assert.ok(routeCopy.includes('!isReviewedAttraction && <section aria-labelledby="destination-research-sources"'),
+  "Exactly three reviewed attractions must omit duplicate citation panels while keeping dated authority source list");
 const fortWorth = reviewedRecords.find((item) => item.slug === "fort-worth-water-gardens");
 const visitorBureau = "https://www.fortworth.com/things-to-do/attractions/fort-worth-water-gardens/";
 const freeAdmission = fortWorth.visitorFacts.find((fact) => fact.topic === "admission");
