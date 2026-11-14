@@ -25,7 +25,17 @@ test("Offer wording is exact, source-linked, and separate from evergreen tickets
   assert.match(route, /ticket window/);
   assert.match(route, /daytime general admission/);
   assert.match(route, /https:\/\/hbg\.org\/visit\/texas-recycles\//);
-  assert.match(catalog, /Standard daytime admission is \$12 for adults, \$8 for ages 3–17/);
+  // The opening essay intentionally no longer duplicates prices; check the
+  // canonical primary-source visitor fact instead of matching editorial prose.
+  const marker = "export const reviewedAttractionDestinations: Destination[] = ";
+  const rows = JSON.parse(catalog.split(marker)[1].trim().replace(/;\\s*$/, ""));
+  const garden = rows.find((item) => item.slug === "houston-botanic-garden");
+  assert.ok(garden, "Houston Botanic Garden authority record must remain published");
+  const admission = garden.visitorFacts.find((fact) => fact.topic === "admission");
+  assert.equal(admission.sourceUrl, "https://hbg.org/visit/");
+  assert.match(admission.detail, /adults \$12/);
+  assert.match(admission.detail, /ages 3–17 \$8/);
+  assert.match(admission.detail, /under 3 free but all ages require a ticket or member reservation/);
   assert.match(catalog, /New Year's Day/);
   assert.match(catalog, /its About page also lists New Year's Day/);
   assert.match(catalog, /published holiday lists differ/);
