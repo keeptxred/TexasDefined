@@ -15,6 +15,11 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+
+# Prevent manual dispatch and nightly runs from racing to create duplicate bot PRs.
+concurrency:
+  group: aubrey-verified-score-sync
+  cancel-in-progress: false
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -64,6 +69,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Do not fork a second score PR while the prior protected auto-merge
+          # is still waiting; an older snapshot would conflict with new data.
+          existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --limit 100 --json title,headRefName,url             --jq '.[] | select(.title == "Publish independently verified Aubrey football finals" and (.headRefName | startswith("automation/aubrey-results-"))) | .url' | head -n 1)"
+          if [[ -n "$existing" ]]; then
+            echo "::error title=Existing Aubrey score PR awaits protected merge::$existing; do not create a second competing update."
+            exit 1
+          fi
           branch="automation/aubrey-results-${GITHUB_RUN_ID}"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
