@@ -4,9 +4,9 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "goose-island-state-park",
     "parkName": "Goose Island State Park",
     "sourceUrl": "https://tpwd.texas.gov/state-parks/goose-island/alert",
-    "notice": "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.",
-    "checkedAt": "2026-11-06",
-    "status": "needs-review"
+    "notice": "TPWD warns of intermittent campsite closures (sites 1–24) and water disruptions during construction, and asks visitors to conserve water or bring their own. Check the official alerts before booking.",
+    "checkedAt": "2026-11-14",
+    "status": "confirmed"
   },
   {
     "destinationSlug": "enchanted-rock-state-natural-area",
@@ -20,9 +20,9 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "palo-pinto-mountains-state-park",
     "parkName": "Palo Pinto Mountains State Park",
     "sourceUrl": "https://tpwd.texas.gov/state-parks/palo-pinto-mountains/park-alert",
-    "notice": "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.",
-    "checkedAt": "2026-11-13",
-    "status": "needs-review"
+    "notice": "TPWD recommends reserving both camping and day-use admission in advance because the park often reaches capacity. Check availability for your visit date.",
+    "checkedAt": "2026-11-14",
+    "status": "confirmed"
   },
   {
     "destinationSlug": "big-bend-national-park",
@@ -36,8 +36,8 @@ export const CAMPING_OPERATIONAL_ALERTS = [
     "destinationSlug": "brazos-bend-state-park",
     "parkName": "Brazos Bend State Park",
     "sourceUrl": "https://tpwd.texas.gov/state-parks/brazos-bend/alert",
-    "notice": "The previously recorded advisory could not be verified verbatim. Check the park's current official alerts before travel; no resolution is assumed.",
-    "checkedAt": "2026-11-13",
-    "status": "needs-review"
+    "notice": "TPWD lists park closures November 17–19, 2026 and December 15–17, 2026; only permitted hunters may enter during these closures. The December 5–6, 2026 Brazos Bend 100 Trail Race may limit parking, and day-use passes will not be reservable on December 5. Check current alerts before visiting.",
+    "checkedAt": "2026-11-14",
+    "status": "confirmed"
   }
 ] as const;
