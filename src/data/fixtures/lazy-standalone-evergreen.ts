@@ -6,6 +6,19 @@ import sixFlagsHero from "@/assets/six-flags-hero-photo.jpg";
 import type { Article } from "../types";
 import { USS_LEXINGTON_CV16_READING_MINUTES } from "./uss-lexington-reading-time.generated.ts";
 
+const texasSportsWeekendCalendarGuideStub: Article = {
+  id: "authority-texas-sports-weekend-calendar-guide", brandId: "texasdefined", slug: "texas-sports-weekend-calendar-guide",
+  title: "Texas Sports Weekends: The Calendar Check Before You Buy Tickets",
+  dek: "UIL football playoffs, college games, the NBA, RODEOHOUSTON and COTA each publish different kinds of schedules. Here is the practical way to check the right event, location and admission before committing to a Texas sports trip.",
+  category: "sports",
+  hero: { src: footballHero, alt: "Editorial illustration of Texas high school football players walking toward a stadium under the lights; not a real matchup or current event photograph", width: 1600, height: 900 },
+  authorId: "a-marisol", publishedAt: "2026-11-14", readingMinutes: 10,
+  tags: ["texas sports weekends", "2026 uil playoffs", "college football travel", "nba texas teams", "rodeo calendar", "cota events", "game day planning"],
+  featured: true, sourceName: "UIL, NCAA, NBA, RODEOHOUSTON and Circuit of The Americas",
+  sourceUrl: "https://www.uiltexas.org/football/playoff-brackets",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
 const rodeo101Stub: Article = {
   id: "evergreen-rodeo-101", brandId: "texasdefined", slug: "rodeo-101-guide-events-rules-traditions",
   title: "Rodeo 101: A Texan’s Guide to the Events, Rules and Traditions",
@@ -418,6 +431,7 @@ const fredericksburgJohnsonCityHistoricRoadTripStub: Article = {
 
 export const standaloneEvergreenStubs: Article[] = [
   historicSanAntonioHeritageRoadTripStub,
+  texasSportsWeekendCalendarGuideStub,
   rodeo101Stub,
   texasHighSchoolFootballClassificationsStub,
   texasSixManFootballExplainedStub,
@@ -456,6 +470,7 @@ export const standaloneEvergreenStubs: Article[] = [
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+  if (slug === texasSportsWeekendCalendarGuideStub.slug) return import("./texas-sports-weekend-calendar-guide").then((module) => module.texasSportsWeekendCalendarGuideArticle);
   if (slug === rodeo101Stub.slug) return import("./rodeo-101").then((module) => module.rodeo101Article);
   if (slug === texasHighSchoolFootballClassificationsStub.slug) return import("./texas-high-school-football-classifications").then((module) => module.texasHighSchoolFootballClassificationsArticle);
   if (slug === texasSixManFootballExplainedStub.slug) return import("./texas-six-man-football-explained").then((module) => module.texasSixManFootballExplainedArticle);
