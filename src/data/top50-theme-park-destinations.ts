@@ -90,7 +90,7 @@ export const top50ThemeParkDestinations: Destination[] = [
         {
           "name": "Comal County visitor places",
           "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
-          "href": "/browse/counties#county-comal"
+          "href": "/county/comal"
         }
       ],
       "familyStops": [
@@ -254,7 +254,7 @@ export const top50ThemeParkDestinations: Destination[] = [
         {
           "name": "Tarrant County visitor places",
           "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
-          "href": "/browse/counties#county-tarrant"
+          "href": "/county/tarrant"
         }
       ],
       "familyStops": [
@@ -413,7 +413,7 @@ export const top50ThemeParkDestinations: Destination[] = [
         {
           "name": "Bexar County visitor places",
           "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
-          "href": "/browse/counties#county-bexar"
+          "href": "/county/bexar"
         }
       ],
       "familyStops": [
@@ -577,7 +577,7 @@ export const top50ThemeParkDestinations: Destination[] = [
         {
           "name": "Bexar County visitor places",
           "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
-          "href": "/browse/counties#county-bexar"
+          "href": "/county/bexar"
         }
       ],
       "familyStops": [
