@@ -197,3 +197,22 @@ test('real restored routes require exact published destinations and self-canonic
     assert.equal(observed(path, 301, 200, {finalUrl: expected + '?tracked=1'}).review, 'restore-regression');
   }
 });
+
+test('every one of the frozen 99 GSC source URLs has a distinct evidence-backed expected disposition', () => {
+  const templates = inventory.filter((path) => path.split('/').some((part) => part.startsWith('$')));
+  assert.equal(templates.length, 16);
+  const groups = [
+    templates,
+    Object.keys(INTENTIONAL_404_DISPOSITIONS),
+    [...RESTORE_REQUIRED_GSC_PATHS],
+    Object.keys(LIVE_VERIFIED_GSC_CANONICAL_PATHS),
+  ];
+  assert.deepEqual(groups.map((set) => set.length), [16, 12, 11, 60]);
+  const combined = groups.flat();
+  assert.equal(new Set(combined).size, 99, 'A historical URL has conflicting dispositions');
+  assert.deepEqual(combined.slice().sort(), inventory.slice().sort(), 'Every one of the 99 historic GSC URLs must be explicitly classified');
+
+  for (const path of templates) {
+    assert.equal(observed(path, 404, 404, {invalidTemplate: true}).review, 'expected-404', path);
+  }
+});
