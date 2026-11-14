@@ -204,4 +204,8 @@ test('reject racing score publishes while the prior generated PR is waiting',()=
     'No second score PR while prior protected merge is unresolved');
   assert.ok(workflow.includes('gh pr list --repo "$GITHUB_REPOSITORY"'),
     'Guard must inspect repository-scoped open PRs');
+  assert.ok(workflow.includes("steps.import.outcome == 'failure'"),
+    'A rejected licensed provider result must trigger a review issue');
+  assert.ok(workflow.includes('BLOCKED: Aubrey authorized score feed failed validation'),
+    'Do not silently fail when a source changes or contradicts an existing score');
 });
