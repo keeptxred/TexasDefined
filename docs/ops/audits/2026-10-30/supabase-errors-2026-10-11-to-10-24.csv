@@ -1,0 +1,153 @@
+date_utc,source,signature,events
+2026-10-11,edge_logs,HTTP 400,1
+2026-10-11,edge_logs,HTTP 409,3
+2026-10-11,function_edge_logs,HTTP 404,1
+2026-10-11,function_edge_logs,HTTP 503,129
+2026-10-11,pgbouncer_logs,Other error text,10
+2026-10-11,postgres_logs,ERROR / SQLSTATE 2201B,1
+2026-10-11,postgres_logs,ERROR / SQLSTATE 23505,3
+2026-10-11,postgres_logs,ERROR / SQLSTATE 42601,1
+2026-10-11,postgres_logs,ERROR / SQLSTATE 42703,2
+2026-10-11,postgrest_logs,PostgREST Warp thread timeout,3075
+2026-10-11,storage_logs,HTTP 400,1
+2026-10-12,edge_logs,HTTP 400,1
+2026-10-12,edge_logs,HTTP 409,1
+2026-10-12,function_edge_logs,HTTP 503,336
+2026-10-12,pgbouncer_logs,Other error text,12
+2026-10-12,postgres_logs,ERROR / SQLSTATE 22021,1
+2026-10-12,postgres_logs,ERROR / SQLSTATE 23505,1
+2026-10-12,postgres_logs,ERROR / SQLSTATE 23514,2
+2026-10-12,postgres_logs,ERROR / SQLSTATE 42P01,1
+2026-10-12,postgrest_logs,PostgREST Warp thread timeout,2722
+2026-10-12,storage_logs,HTTP 400,1
+2026-10-13,edge_logs,HTTP 409,2
+2026-10-13,function_edge_logs,HTTP 503,1196
+2026-10-13,pgbouncer_logs,Other error text,6
+2026-10-13,postgres_logs,ERROR / SQLSTATE 23505,3
+2026-10-13,postgres_logs,ERROR / SQLSTATE 23514,1
+2026-10-13,postgres_logs,ERROR / SQLSTATE 42703,12
+2026-10-13,postgres_logs,ERROR / SQLSTATE P0001,1
+2026-10-13,postgrest_logs,PostgREST Warp thread timeout,2898
+2026-10-14,edge_logs,HTTP 400,14
+2026-10-14,edge_logs,HTTP 409,1
+2026-10-14,edge_logs,HTTP 416,3
+2026-10-14,edge_logs,HTTP 500,30
+2026-10-14,function_edge_logs,HTTP 403,1
+2026-10-14,function_edge_logs,HTTP 404,16
+2026-10-14,function_edge_logs,HTTP 405,1
+2026-10-14,function_edge_logs,HTTP 503,369
+2026-10-14,function_edge_logs,HTTP 546,7
+2026-10-14,function_logs,Function error or error text,8
+2026-10-14,pgbouncer_logs,Other error text,28
+2026-10-14,postgres_logs,ERROR / SQLSTATE 2201B,5
+2026-10-14,postgres_logs,ERROR / SQLSTATE 22021,1
+2026-10-14,postgres_logs,ERROR / SQLSTATE 22P02,1
+2026-10-14,postgres_logs,ERROR / SQLSTATE 23505,1
+2026-10-14,postgres_logs,ERROR / SQLSTATE 23514,6
+2026-10-14,postgres_logs,ERROR / SQLSTATE 42601,10
+2026-10-14,postgres_logs,ERROR / SQLSTATE 42702,1
+2026-10-14,postgres_logs,ERROR / SQLSTATE 42703,29
+2026-10-14,postgres_logs,ERROR / SQLSTATE 42804,1
+2026-10-14,postgres_logs,ERROR / SQLSTATE 42809,1
+2026-10-14,postgres_logs,ERROR / SQLSTATE 42883,2
+2026-10-14,postgres_logs,ERROR / SQLSTATE 42P01,4
+2026-10-14,postgres_logs,ERROR / SQLSTATE 57014,43
+2026-10-14,postgrest_logs,PostgREST statement timeout,37
+2026-10-14,postgrest_logs,PostgREST Warp thread timeout,2525
+2026-10-14,storage_logs,HTTP 400,2
+2026-10-15,edge_logs,HTTP 500,1
+2026-10-15,function_edge_logs,HTTP 503,718
+2026-10-15,pgbouncer_logs,Other error text,10
+2026-10-15,postgres_logs,ERROR / SQLSTATE 23514,1
+2026-10-15,postgres_logs,ERROR / SQLSTATE 42601,5
+2026-10-15,postgres_logs,ERROR / SQLSTATE 42702,1
+2026-10-15,postgres_logs,ERROR / SQLSTATE 42703,4
+2026-10-15,postgres_logs,ERROR / SQLSTATE 42883,3
+2026-10-15,postgres_logs,ERROR / SQLSTATE 57014,2
+2026-10-15,postgrest_logs,PostgREST statement timeout,2
+2026-10-15,postgrest_logs,PostgREST Warp thread timeout,2738
+2026-10-16,edge_logs,HTTP 400,2
+2026-10-16,edge_logs,HTTP 416,4
+2026-10-16,function_edge_logs,HTTP 503,231
+2026-10-16,pgbouncer_logs,Other error text,22
+2026-10-16,postgres_logs,ERROR / SQLSTATE 2201B,1
+2026-10-16,postgres_logs,ERROR / SQLSTATE 42703,1
+2026-10-16,postgres_logs,ERROR / SQLSTATE 57014,1
+2026-10-16,postgrest_logs,PostgREST statement timeout,1
+2026-10-16,postgrest_logs,PostgREST Warp thread timeout,2632
+2026-10-16,storage_logs,HTTP 400,1
+2026-10-17,edge_logs,HTTP 416,5
+2026-10-17,function_edge_logs,HTTP 500,2
+2026-10-17,function_edge_logs,HTTP 503,446
+2026-10-17,pgbouncer_logs,Other error text,8
+2026-10-17,postgres_logs,ERROR / SQLSTATE 2201B,2
+2026-10-17,postgres_logs,ERROR / SQLSTATE 23502,1
+2026-10-17,postgres_logs,ERROR / SQLSTATE 23514,1
+2026-10-17,postgres_logs,ERROR / SQLSTATE 42703,2
+2026-10-17,postgres_logs,ERROR / SQLSTATE 42883,1
+2026-10-17,postgrest_logs,PostgREST Warp thread timeout,3006
+2026-10-18,edge_logs,HTTP 400,1
+2026-10-18,edge_logs,HTTP 416,1
+2026-10-18,edge_logs,HTTP 500,1
+2026-10-18,function_edge_logs,HTTP 503,792
+2026-10-18,pgbouncer_logs,Other error text,14
+2026-10-18,postgres_logs,ERROR / SQLSTATE 42703,1
+2026-10-18,postgres_logs,ERROR / SQLSTATE 57014,2
+2026-10-18,postgrest_logs,PostgREST statement timeout,2
+2026-10-18,postgrest_logs,PostgREST Warp thread timeout,3320
+2026-10-18,storage_logs,HTTP 400,1
+2026-10-19,edge_logs,HTTP 401,3
+2026-10-19,edge_logs,HTTP 416,1
+2026-10-19,edge_logs,HTTP 500,4
+2026-10-19,function_edge_logs,HTTP 503,455
+2026-10-19,pgbouncer_logs,Other error text,12
+2026-10-19,postgres_logs,ERROR / SQLSTATE 0A000,1
+2026-10-19,postgres_logs,ERROR / SQLSTATE 42601,2
+2026-10-19,postgres_logs,ERROR / SQLSTATE 42703,3
+2026-10-19,postgres_logs,ERROR / SQLSTATE 42883,1
+2026-10-19,postgres_logs,ERROR / SQLSTATE 42P01,2
+2026-10-19,postgres_logs,ERROR / SQLSTATE 57014,4
+2026-10-19,postgrest_logs,PostgREST statement timeout,4
+2026-10-19,postgrest_logs,PostgREST Warp thread timeout,3056
+2026-10-20,function_edge_logs,HTTP 503,98
+2026-10-20,pgbouncer_logs,Other error text,32
+2026-10-20,postgres_logs,ERROR / SQLSTATE 42703,2
+2026-10-20,postgrest_logs,PostgREST Warp thread timeout,2960
+2026-10-21,edge_logs,HTTP 401,4
+2026-10-21,edge_logs,HTTP 500,2
+2026-10-21,function_edge_logs,HTTP 500,1
+2026-10-21,function_edge_logs,HTTP 503,303
+2026-10-21,function_edge_logs,HTTP 546,3
+2026-10-21,function_logs,Function error or error text,3
+2026-10-21,pgbouncer_logs,Other error text,42
+2026-10-21,postgres_logs,ERROR / SQLSTATE 42601,2
+2026-10-21,postgres_logs,ERROR / SQLSTATE 57014,2
+2026-10-21,postgrest_logs,PostgREST statement timeout,2
+2026-10-21,postgrest_logs,PostgREST Warp thread timeout,3010
+2026-10-22,edge_logs,HTTP 416,1
+2026-10-22,edge_logs,HTTP 500,2
+2026-10-22,function_edge_logs,HTTP 503,661
+2026-10-22,pgbouncer_logs,Other error text,26
+2026-10-22,postgres_logs,ERROR / SQLSTATE 0A000,1
+2026-10-22,postgres_logs,ERROR / SQLSTATE 57014,2
+2026-10-22,postgrest_logs,PostgREST statement timeout,2
+2026-10-22,postgrest_logs,PostgREST Warp thread timeout,2933
+2026-10-23,edge_logs,HTTP 409,18
+2026-10-23,edge_logs,HTTP 500,4
+2026-10-23,function_edge_logs,HTTP 429,79
+2026-10-23,function_edge_logs,HTTP 503,1914
+2026-10-23,pgbouncer_logs,Other error text,44
+2026-10-23,postgres_logs,ERROR / SQLSTATE 23505,18
+2026-10-23,postgres_logs,ERROR / SQLSTATE 42703,1
+2026-10-23,postgres_logs,ERROR / SQLSTATE 57014,4
+2026-10-23,postgrest_logs,PostgREST statement timeout,4
+2026-10-23,postgrest_logs,PostgREST Warp thread timeout,2986
+2026-10-24,edge_logs,HTTP 416,14
+2026-10-24,edge_logs,HTTP 500,3
+2026-10-24,function_edge_logs,HTTP 503,1782
+2026-10-24,pgbouncer_logs,Other error text,26
+2026-10-24,postgres_logs,ERROR / SQLSTATE 42703,1
+2026-10-24,postgres_logs,ERROR / SQLSTATE 42P01,1
+2026-10-24,postgres_logs,ERROR / SQLSTATE 57014,3
+2026-10-24,postgrest_logs,PostgREST statement timeout,3
+2026-10-24,postgrest_logs,PostgREST Warp thread timeout,3101
