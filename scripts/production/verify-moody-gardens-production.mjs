@@ -18,6 +18,7 @@ const requiredFreshnessMarkers = [
   "wheelchairs",
   "accessibility",
   "combined Aquarium + Rainforest ticket",
+  "9 to 10 AM is reserved for museum members",
 ];
 const staleClosureMarkers = [
   "Discovery Museum is temporarily closed",
