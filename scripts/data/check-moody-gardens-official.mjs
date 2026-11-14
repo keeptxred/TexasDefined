@@ -19,6 +19,21 @@ export const targetSources = [
     markers: ["GCM Members Only", "General Admission (Ages 2+)", "Thanksgiving Day", "Christmas Eve", "Sunday after the Momus Parade"],
   },
   {
+    name: "Aquarium Pyramid and Coral Reef Lab exhibit claims",
+    url: "https://www.moodygardens.com/attractions/aquarium-pyramid",
+    markers: ["Jellyfish Gallery", "Coral Reef Lab", "Flower Garden Banks"],
+  },
+  {
+    name: "Rainforest Pyramid exhibit sequence",
+    url: "https://www.moodygardens.com/attractions/rainforest-pyramid",
+    markers: ["Giant River Otters", "Nightfall", "Sunrise Gallery"],
+  },
+  {
+    name: "Galveston Children's Museum named exhibit inventory",
+    url: "https://www.galvestoncm.org/exhibits",
+    markers: ["Our Town", "Room to Grow", "Tinker Workshop"],
+  },
+  {
     name: "Admissions and visitor FAQ",
     url: "https://www.moodygardens.com/visitor-info/faq",
     markers: ["Value Pass", "self-parking", "children", "picnic"],
