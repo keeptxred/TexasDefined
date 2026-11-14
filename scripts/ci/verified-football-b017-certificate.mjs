@@ -42,6 +42,29 @@ export function certifiedBatch017(registry) {
      !/^[a-f0-9-]{36}$/.test(SIGNED.cloudflareDeploymentId))return false;
   const cert=registry.batch?.number===17?registry.batch:registry.completedBatches?.find(x=>x.number===17);
   const e=cert?.technicalAcceptance, rows=registry.schoolRecords;
+  // Batch018 source implementation is NOT a new technical graduation. Preserve
+  // every immutable Batch017 signed witness while allowing exactly 25 newer
+  // non-verified, photo-rights-unclaimed Batch018 guides to be implemented.
+  // A partial, invented, or falsely VERIFIED Batch018 never passes this guard.
+  const b018=registry.batch?.number===18?registry.batch:null;
+  const sourceImplemented018=Boolean(
+    b018?.state==='SOURCE_IMPLEMENTED_PENDING_PRODUCTION_PROOF' &&
+    b018.slugs?.length===25 && new Set(b018.slugs).size===25 &&
+    b018.individuallyVerified===0 && b018.implementedOnBranch===25 &&
+    b018.remainingAssigned===0 && b018.remainingToImplement===0 &&
+    b018.remainingToVerify===25 && b018.currentSchool===null &&
+    b018.nextSchool===null &&
+    rows.filter(x=>x.batch===18).length===25 &&
+    b018.slugs.every(slug=>{
+      const x=rows.find(row=>row.slug===slug);
+      return x?.batch===18 && x.status==='IMPLEMENTED' &&
+        x.actualProductionVerified===false &&
+        x.manualAccessibilityAccepted===false &&
+        x.schoolPhotoReuseRightsAccepted===false &&
+        x.editorialHumanSignoff===false;
+    })
+  );
+  if(b018?.state==='SOURCE_IMPLEMENTED_PENDING_PRODUCTION_PROOF' && !sourceImplemented018)return false;
   if(cert?.state!=='VERIFIED_BATCH_017_COMPLETE' || cert?.individuallyVerified!==25 ||
      cert?.remainingAssigned!==0 || cert?.remainingToImplement!==0 ||
      cert?.remainingToVerify!==0 || cert?.noNextBatchAssigned!==true ||
@@ -63,8 +86,8 @@ export function certifiedBatch017(registry) {
      rows?.length!==1292 || rows.filter(x=>x.batch===17).length!==25 ||
      rows.filter(x=>x.status==='VERIFIED'&&x.batch<17).length!==380 ||
      rows.filter(x=>x.status==='VERIFIED').length!==405 ||
-     rows.filter(x=>x.status==='IMPLEMENTED').length!==0 ||
-     rows.filter(x=>x.status==='NOT_REVIEWED').length!==887 ||
+     rows.filter(x=>x.status==='IMPLEMENTED').length!==(sourceImplemented018?25:0) ||
+     rows.filter(x=>x.status==='NOT_REVIEWED').length!==(sourceImplemented018?862:887) ||
      rows.some(x=>x.status==='VERIFIED'&&x.batch>17))return false;
   return B017_SLUGS.every(slug=>{
     const x=rows.find(y=>y.slug===slug);
