@@ -317,6 +317,21 @@ if (!moodyProduction.includes('"Thanksgiving Day"') || !moodyProduction.includes
 if (!moodySpotlights.includes("9 to 10 AM is reserved for museum members")) {
   errors.push("Moody Gardens prominent visit note must flag the 9-to-10-AM museum members-only hour.");
 }
+if (!moodySpotlights.includes("normally admits the public from 10 AM to 5 PM")
+    || !moodySpotlights.includes("Museum-only cost example")
+    || !moodySpotlights.includes("$15 per person")
+    || !moodySpotlights.includes("$60 before discounts")
+    || !moodySpotlights.includes("Everybody Plays program offers $5 per person for up to five guests")
+    || !moodySpotlights.includes("SNAP or Medicaid benefits")
+    || !moodySpotlights.includes("special events are excluded")
+    || !moodySpotlights.includes("https://www.galvestoncm.org/general-info-admission")) {
+  errors.push("Moody Gardens must retain sourced separate children's museum admission prices, worked family example, accessible discount eligibility and a direct museum source.");
+}
+if (!moodyProduction.includes('"Museum-only cost example"')
+    || !moodyProduction.includes('"Everybody Plays"')
+    || !moodyProduction.includes('"$60 before discounts"')) {
+  errors.push("Moody Gardens production gate must independently check museum price and discount decision guidance.");
+}
 
 for (const link of [
   'https://www.moodygardens.com/attractions/discovery-pyramid',

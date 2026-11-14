@@ -50,7 +50,7 @@ const cards = [
 ] as const;
 
 const currentNotes = [
-  { label: "Discovery Pyramid", value: "Galveston Children's Museum normally opens daily; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). Ages 2+ need admission that explicitly covers the museum. Holiday closures can differ from the pyramids." },
+  { label: "Discovery Pyramid", value: "Galveston Children's Museum normally admits the public from 10 AM to 5 PM; 9 to 10 AM is reserved for museum members (specifically GCM members, not other Moody Gardens memberships). Ages 2+ need admission that explicitly covers the museum. Holiday closures can differ from the pyramids. Special-event opening hours may also change." },
   { label: "Parking", value: "Standard self-parking is free; upgraded parking options cost extra." },
   { label: "Holiday season", value: "Holiday in the Gardens runs Nov. 21, 2026 through Jan. 2, 2027." },
   { label: "Before you buy", value: "Check the official daily schedule and price by age; Palm Beach is seasonal." },
@@ -138,6 +138,13 @@ export function MoodyGardensSpotlights() {
             <div className="mt-5 border-t-2 border-primary py-5">
               <strong className="font-display text-2xl">Best first-time default</strong>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan the Aquarium and Rainforest first for a wildlife-focused visit. Families with younger kids may prefer the Galveston Children's Museum in the Discovery Pyramid instead of a second wildlife stop; check separate museum admission or a ticket that explicitly includes it.</p>
+            </div>
+            <div className="mt-6 border-t border-border pt-5">
+              <h3 className="font-display text-xl">Museum-only cost example</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                On November 14, 2026, the Galveston Children's Museum listed general admission at $15 per person age 2 and older; children under 2 are free. Two adults and two children ages 4–12 would pay $60 before discounts for the museum only, not the Aquarium, Rainforest or theater. The museum separately lists $12 senior (65+) and active military admission. Its Everybody Plays program offers $5 per person for up to five guests with SNAP or Medicaid benefits, using a benefits card and photo ID; special events are excluded. Verify current prices and eligibility before visiting.
+              </p>
+              <a href="https://www.galvestoncm.org/general-info-admission" target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official museum admission and discounts</a>
             </div>
             <div className="mt-6 border-t border-border pt-5">
               <h3 className="font-display text-xl">What a family of four should compare</h3>

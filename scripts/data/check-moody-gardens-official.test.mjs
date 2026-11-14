@@ -39,10 +39,13 @@ test("museum inclusion must be reviewed when the operator no longer confirms it"
 test("GCM's own admission page must preserve separate holiday closures and 9–10 member hour", () => {
   const admission = targetSources.find((source) => source.url === "https://www.galvestoncm.org/general-info-admission");
   assert.ok(admission, "dedicated GCM admission source must remain registered");
-  const page = html("<h2>New Hours at Moody Gardens</h2><p>GCM Members Only 9 to 10 AM</p><p>General Admission (Ages 2+)</p><p>Closed on Thanksgiving Day, Christmas Eve and the Sunday after the Momus Parade.</p>");
+  const page = html("<h2>New Hours at Moody Gardens</h2><p>GCM Members Only 9 to 10 AM; 10:00 AM – 5:00 PM General Admission (Ages 2+) $15 per person.</p><p>Everybody Plays: $5 per person for up to 5 guests with SNAP or Medicaid benefits. Does not include special events.</p><p>Closed on Thanksgiving Day, Christmas Eve and the Sunday after the Momus Parade.</p>");
   assert.deepEqual(validateOperatorEvidence(admission, page), []);
-  const changed = html("<h2>New Hours at Moody Gardens</h2><p>GCM Members Only 9 to 10 AM</p><p>General Admission (Ages 2+)</p>");
+  const changed = page.replace("Thanksgiving Day", "holiday omitted");
   assert.ok(validateOperatorEvidence(admission, changed).some((error) => error.includes("Thanksgiving Day")));
+  assert.ok(validateOperatorEvidence(admission, page.replace("$15 per person", "$18 per person")).some((error) => error.includes("$15 per person")));
+  assert.ok(validateOperatorEvidence(admission, page.replace("$5 per person for up to 5 guests", "$8 per person for up to 5 guests")).some((error) => error.includes("$5 per person")));
+  assert.ok(validateOperatorEvidence(admission, page.replace("SNAP or Medicaid benefits", "other eligibility")).some((error) => error.includes("SNAP or Medicaid benefits")));
 });
 
 test("four first-party exhibit and theater claims have bounded regression evidence", () => {

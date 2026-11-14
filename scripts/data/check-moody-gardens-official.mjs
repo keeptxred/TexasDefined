@@ -16,7 +16,7 @@ export const targetSources = [
   {
     name: "Galveston Children's Museum first-party admission and holiday exclusions",
     url: "https://www.galvestoncm.org/general-info-admission",
-    markers: ["GCM Members Only", "General Admission (Ages 2+)", "Thanksgiving Day", "Christmas Eve", "Sunday after the Momus Parade"],
+    markers: ["GCM Members Only", "10:00 AM", "5:00 PM", "General Admission (Ages 2+)", "$15 per person", "$5 per person for up to 5 guests", "SNAP or Medicaid benefits", "Does not include special events", "Thanksgiving Day", "Christmas Eve", "Sunday after the Momus Parade"],
   },
   {
     name: "Aquarium Pyramid and Coral Reef Lab exhibit claims",
