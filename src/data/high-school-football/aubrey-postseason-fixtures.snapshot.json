@@ -1,0 +1,30 @@
+{
+  "season": "2026",
+  "teamSlug": "aubrey",
+  "verifiedAt": "2026-11-14",
+  "note": "Postseason fixtures are individually verified from two public news sources; these citations are not licensed automatic score feeds.",
+  "games": [
+    {
+      "date": "2026-11-12",
+      "opponent": "Andrews",
+      "site": "Neutral",
+      "district": false,
+      "kickoff": "7:00 p.m. CST",
+      "round": "bi-district",
+      "venue": "Mustang Bowl, Sweetwater, Texas",
+      "sourceUrl": "https://www.mrt.com/sports/highschool/article/andrews-football-faces-aubrey-4a-division-22523740.php",
+      "secondarySourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/schedule/"
+    },
+    {
+      "date": "2026-11-19",
+      "opponent": "Canyon",
+      "site": "Neutral",
+      "district": false,
+      "kickoff": "6:00 p.m. CST",
+      "round": "area",
+      "venue": "Bulldog Stadium, Burkburnett, Texas",
+      "sourceUrl": "https://www.myplainview.com/canyon/sports/article/canyon-randall-west-plains-embrace-tough-22530625.php",
+      "secondarySourceUrl": "https://sports.yahoo.com/articles/fort-worth-area-football-pairings-071331229.html"
+    }
+  ]
+}
