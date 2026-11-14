@@ -256,9 +256,28 @@ export function qualifyPriorDeployJob(payload) {
       failures.length === 1 && failures[0] === district5.failedStep) {
     // Do not weaken the 28-card, 16-result, direct/canonical checks.
     const source = readFileSync('scripts/ci/verify-district-5-production.mjs', 'utf8');
-    if (!source.includes('for (let attempt = 1; attempt <= 2; attempt++)') ||
-        !source.includes("if (attempt === 2 || !transient) throw error") ||
-        !source.includes("assert.equal(response.status, 200") ||
+    // The production verifier originally retried only initial request timeouts.
+    // A newer strict helper also retries aborted response bodies, without retrying
+    // a received HTTP error or omitting a single District 5 content assertion.
+    const originalInlineRetry =
+      source.includes('for (let attempt = 1; attempt <= 2; attempt++)') &&
+      source.includes("if (attempt === 2 || !transient) throw error") &&
+      source.includes("assert.equal(response.status, 200");
+    const helperSource = source.includes("import { fetchLiveDistrict5Html } from './district5-transient-http.mjs';")
+      ? readFileSync('scripts/ci/district5-transient-http.mjs', 'utf8')
+      : '';
+    const strictBodyRetry =
+      source.includes('const html = await fetchLiveDistrict5Html(url, origin);') &&
+      helperSource.includes('const MAX_TRANSIENT_ATTEMPTS = 3;') &&
+      helperSource.includes('attempts >= 1 && attempts <= MAX_TRANSIENT_ATTEMPTS') &&
+      helperSource.includes('if (!isTransientTransportError(error)) throw error;') &&
+      helperSource.includes('assert.equal(response.status, 200') &&
+      helperSource.includes('return await response.text()') &&
+      helperSource.includes('if (attempt === attempts)') &&
+      helperSource.includes('await sleep(750 * attempt)');
+    if (!(originalInlineRetry || strictBodyRetry) ||
+        !source.includes("'https://texasdefined-site.freddy-coppola.workers.dev'") ||
+        !source.includes("'https://texasdefined.com'") ||
         !source.includes("assert.equal(games.length, 28") ||
         !source.includes("assert.ok(reportedFinals.length >= 16") ||
         !source.includes("assert.equal(pending.length + reportedFinals.length, 28") ||
