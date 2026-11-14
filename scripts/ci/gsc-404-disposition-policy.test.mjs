@@ -5,6 +5,7 @@ import {
   INTENTIONAL_404_DISPOSITIONS,
   RESTORE_REQUIRED_GSC_PATHS,
   RESTORED_GSC_CANONICAL_PATHS,
+  LIVE_VERIFIED_GSC_CANONICAL_PATHS,
   reviewGsc404Disposition,
 } from './gsc-404-disposition-policy.mjs';
 import { classifyHistoricalGsc404 } from './gsc-404-classification.mjs';
@@ -16,8 +17,8 @@ const explicit = new Set([...intentionalPaths, ...RESTORE_REQUIRED_GSC_PATHS]);
 
 const observed = (path, firstStatus, finalStatus, {
   invalidTemplate = false, error = null,
-  finalUrl = finalStatus === 200 ? 'https://texasdefined.com' + (RESTORED_GSC_CANONICAL_PATHS[path] || path) : null,
-  canonical = finalStatus === 200 ? 'https://texasdefined.com' + (RESTORED_GSC_CANONICAL_PATHS[path] || path) : null,
+  finalUrl = finalStatus === 200 ? 'https://texasdefined.com' + (RESTORED_GSC_CANONICAL_PATHS[path] || LIVE_VERIFIED_GSC_CANONICAL_PATHS[path] || path) : null,
+  canonical = finalStatus === 200 ? 'https://texasdefined.com' + (RESTORED_GSC_CANONICAL_PATHS[path] || LIVE_VERIFIED_GSC_CANONICAL_PATHS[path] || path) : null,
 } = {}) => {
   const outcome = classifyHistoricalGsc404({ invalidTemplate, firstStatus, finalStatus, error });
   return reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, finalUrl, canonical, outcome, error });
@@ -27,8 +28,14 @@ test('historical 404 policy only covers the exact supplied 99 URLs and is not bl
   assert.equal(inventory.length, 99);
   assert.equal(new Set(inventory).size, 99);
   assert.equal(intentionalPaths.length, 12);
-  assert.equal(RESTORE_REQUIRED_GSC_PATHS.size, 10);
+  assert.equal(RESTORE_REQUIRED_GSC_PATHS.size, 11);
   assert.deepEqual(Object.keys(RESTORED_GSC_CANONICAL_PATHS).sort(), [...RESTORE_REQUIRED_GSC_PATHS].sort());
+  assert.equal(Object.keys(LIVE_VERIFIED_GSC_CANONICAL_PATHS).length, 60);
+  for (const path of Object.keys(LIVE_VERIFIED_GSC_CANONICAL_PATHS)) {
+    assert.ok(inventory.includes(path), 'Live source outside historical GSC inventory: ' + path);
+    assert.ok(!explicit.has(path), 'Canonical ledger overlaps intentional or restored paths: ' + path);
+    assert.ok(!path.includes(String.fromCharCode(36)), 'A route-template token cannot be a live verified path: ' + path);
+  }
   for (const path of explicit) assert.ok(inventory.includes(path), 'Policy refers to a URL not in 99-path inventory: ' + path);
   for (const path of RESTORE_REQUIRED_GSC_PATHS) {
     assert.ok(!intentionalPaths.includes(path), 'Same path cannot be must-restore and intentionally missing');
@@ -84,12 +91,24 @@ test('invalid $slug does not become a 301-to-404 or a 200 thin-page substitute',
   assert.equal(observed(p, 200, 200, {invalidTemplate: true}).review, 'route-leak-regression');
 });
 
-test('unclassified retired articles remain open editorial decisions, not fabricated restored pages', () => {
+test('the new TxDOT/DPS road-trip authority article is explicitly required, not left unclassified', () => {
   const p = '/article/texas-road-trip-rules';
-  assert.ok(!explicit.has(p));
-  assert.equal(observed(p, 404, 404).review, 'editorial-disposition-needed');
-  assert.equal(observed(p, 301, 404).review, 'redirect-to-missing');
-  assert.equal(observed(p, 200, 200).review, 'observed-response');
+  assert.ok(explicit.has(p), 'Article restored in PR #7137');
+  assert.equal(observed(p, 404, 404).review, 'restore-regression');
+  assert.equal(observed(p, 301, 404).review, 'restore-regression');
+  assert.equal(observed(p, 200, 200).review, 'served-200');
+  assert.equal(observed(p, 200, 200, { canonical: 'https://texasdefined.com/article/scenic-drives-in-texas' }).review, 'restore-regression');
+});
+
+test('all sixty 2026-11-13 live verified pages preserve a real self-canonical final authority page', () => {
+  for (const [path, destination] of Object.entries(LIVE_VERIFIED_GSC_CANONICAL_PATHS)) {
+    const expected = 'https://texasdefined.com' + destination;
+    assert.equal(observed(path, path === destination ? 200 : 301, 200, { finalUrl: expected, canonical: expected }).review, 'served-200', path);
+    assert.equal(observed(path, 301, 404).review, 'canonical-regression', path);
+    assert.equal(observed(path, 301, 200, { finalUrl: 'https://texasdefined.com/' }).review, 'canonical-regression', path);
+    assert.equal(observed(path, 301, 200, { canonical: null }).review, 'canonical-regression', path);
+    assert.equal(observed(path, null, null, {error: 'timeout'}).review, 'canonical-regression', path);
+  }
 });
 
 test('real restored routes require exact published destinations and self-canonicals, not arbitrary 200', () => {
@@ -101,5 +120,24 @@ test('real restored routes require exact published destinations and self-canonic
     assert.equal(observed(path, 301, 200, {canonical: 'https://texasdefined.com/'}).review, 'restore-regression');
     assert.equal(observed(path, 301, 200, {canonical: 'http://texasdefined.com' + RESTORED_GSC_CANONICAL_PATHS[path]}).review, 'restore-regression');
     assert.equal(observed(path, 301, 200, {finalUrl: expected + '?tracked=1'}).review, 'restore-regression');
+  }
+});
+
+test('every one of the frozen 99 GSC source URLs has a distinct evidence-backed expected disposition', () => {
+  const templates = inventory.filter((path) => path.split('/').some((part) => part.startsWith('$')));
+  assert.equal(templates.length, 16);
+  const groups = [
+    templates,
+    Object.keys(INTENTIONAL_404_DISPOSITIONS),
+    [...RESTORE_REQUIRED_GSC_PATHS],
+    Object.keys(LIVE_VERIFIED_GSC_CANONICAL_PATHS),
+  ];
+  assert.deepEqual(groups.map((set) => set.length), [16, 12, 11, 60]);
+  const combined = groups.flat();
+  assert.equal(new Set(combined).size, 99, 'A historical URL has conflicting dispositions');
+  assert.deepEqual(combined.slice().sort(), inventory.slice().sort(), 'Every one of the 99 historic GSC URLs must be explicitly classified');
+
+  for (const path of templates) {
+    assert.equal(observed(path, 404, 404, {invalidTemplate: true}).review, 'expected-404', path);
   }
 });
