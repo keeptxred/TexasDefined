@@ -237,6 +237,7 @@ while (sitemapQueue.length && visitedSitemaps.size < 10) {
   }
 }
 if (sitemapQueue.length) sitemapErrors.push({ path: 'sitemap-index', error: 'More than ten distinct XML sources require inspection; bounded audit incomplete' });
+if (sitemapLocations.size === 0) sitemapErrors.push({ path: 'sitemap-set', error: 'No same-host published URLs found; sitemap verification cannot be certified' });
 const intentionallyMissing = [...Object.keys(INTENTIONAL_404_DISPOSITIONS), ...paths.filter(unresolvedToken)];
 const expectedCanonicalBySource = { ...LIVE_VERIFIED_GSC_CANONICAL_PATHS, ...RESTORED_GSC_CANONICAL_PATHS };
 const noncanonicalAliases = Object.entries(expectedCanonicalBySource)
