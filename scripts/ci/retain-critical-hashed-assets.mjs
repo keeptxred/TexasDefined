@@ -63,8 +63,16 @@ const SOURCE_ORIGIN = 'https://texasdefined.com';
 // solely by the file count ceiling. Raise this finite local retention headroom
 // to 6,144, still far below the Workers Free 20,000 static-asset platform cap;
 // preserve every original SHA, 72-hour expiry, MIME and per-file/total byte cap.
-const LIMIT_FILES = 6144;
-const LIMIT_BYTES = 384 * 1024 * 1024;
+// Nov 14 release #43617777094 proved 5,875 distinct original-byte, in-window
+// old-only hashes totaling 402,253,235 bytes; the next original, 568,924 bytes,
+// would reach 402,822,159 bytes, just 168,975 above the arbitrary 384 MiB
+// local byte ceiling. The active Worker and all prior hash proofs remained valid.
+// Increase finite headroom to 8,192 files / 512 MiB, under 20,000 assets/version,
+// without waiving 72-hour firstSeen expiry, exact SHA-256/MIME checks, 4 MiB
+// per-file limit or mandatory fail-closed behavior for ANY still-healthy omission.
+// This is capacity for verified live compatibility, not indefinite asset storage.
+const LIMIT_FILES = 8192;
+const LIMIT_BYTES = 512 * 1024 * 1024;
 // 2026-11-08 incident: run 42450404917 preserved each original SHA but
 // refused /assets/state-park-heroes-BZc-RXc8.js (3,004,913 bytes) under the
 // arbitrary 2 MiB legacy cap. Cloudflare's documented static-asset ceiling is
@@ -162,7 +170,7 @@ export async function retain({
   // The historical retention ledger is deduped and ordered; fetch its old-only
   // files in a bounded window while CONSUMING and validating in that same order.
   // Keep at most eight downloaded responses in memory at once. Current Vite
-  // outputs are never fetched, and no file above the exact 6144-slot cap is fetched.
+  // outputs are never fetched, and no file above the exact finite cap is fetched.
   const oldOnly = candidates.filter(asset =>
     !existsSync(resolve(assetFolder, basename(asset.path))));
   const inFlight = new Map();
@@ -217,7 +225,7 @@ export async function retain({
         firstSeenAt: asset.firstSeenAt });
       continue;
     }
-    // Enforce a bounded ceiling of 4,096 attempted old-only
+    // Enforce the finite, measured ceiling of attempted old-only
     // downloads. Count only candidates actually requiring a request.
     if (attemptedOld >= LIMIT_FILES) {
       report.ignoredOld += 1;
