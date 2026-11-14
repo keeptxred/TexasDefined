@@ -99,7 +99,7 @@
       ],
       "maxReviewAgeDays": 7,
       "lastFactReviewAt": "2026-11-14",
-      "lastFactReviewScope": "UIL verified season/bracket source; other sports must be independently sourced before publication",
+      "lastFactReviewScope": "UIL verified season/bracket source; NCAA FBS, RODEOHOUSTON and COTA official calendars; NBA official schedule linked but current games not replicated. More specific team/venue sources required for live articles.",
       "requiredLiveMarkers": [
         "Find the authoritative schedule, then plan the trip",
         "Choose the sport first"
@@ -111,6 +111,30 @@
           "containsAny": [
             "Football Playoff Brackets",
             "2026-2027"
+          ]
+        },
+        {
+          "name": "NCAA FBS official scoreboard",
+          "url": "https://www.ncaa.com/scoreboard/football/fbs",
+          "containsAny": [
+            "NCAA college football scores",
+            "Football"
+          ]
+        },
+        {
+          "name": "RODEOHOUSTON events",
+          "url": "https://www.rodeohouston.com/event-calendar/",
+          "containsAny": [
+            "RODEOHOUSTON",
+            "Events"
+          ]
+        },
+        {
+          "name": "COTA upcoming events",
+          "url": "https://circuitoftheamericas.com/events/",
+          "containsAny": [
+            "COTA Events",
+            "Calendar"
           ]
         }
       ]
