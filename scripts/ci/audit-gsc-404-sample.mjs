@@ -103,7 +103,7 @@ async function inspect(sourcePath) {
   const finalStatus = last?.status ?? null;
   const firstStatus = hops[0]?.status ?? null;
   const outcome = classifyHistoricalGsc404({ invalidTemplate, firstStatus, finalStatus, error });
-  const policy = reviewGsc404Disposition({ path: sourcePath, invalidTemplate, firstStatus, finalStatus, outcome, error });
+  const policy = reviewGsc404Disposition({ path: sourcePath, invalidTemplate, firstStatus, finalStatus, finalUrl: last?.url ?? null, canonical, outcome, error });
   return {
     path: sourcePath,
     invalidTemplate,
