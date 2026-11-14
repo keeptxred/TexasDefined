@@ -1,6 +1,11 @@
 name: Audit 42 supplemental GSC Crawl stats 404 paths
 
 on:
+  pull_request:
+    paths:
+      - '.github/workflows/gsc-crawlstats-404-extra.yml'
+      - 'ops/seo/gsc-crawlstats-404-extra-2026-10-31-paths.txt'
+      - 'scripts/ci/gsc-crawlstats-404-extra-*.mjs'
   workflow_dispatch:
   schedule:
     # Bounded 42-path audit, staggered after the existing 99-path Monday 10:13 UTC audit.
@@ -21,8 +26,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  premerge-unit:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test immutable source partition and HTTP classification contract
+        run: node --test scripts/ci/gsc-crawlstats-404-extra-policy.test.mjs
+
   audit:
-    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
+    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
