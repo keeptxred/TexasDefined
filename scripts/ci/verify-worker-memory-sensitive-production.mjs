@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from 'node:fs/promises';
+import { checkWorkerIdentity } from './worker-memory-identity.mjs';
 
 // Representative production routes drawn from Cloudflare Worker memory-incident
 // traces, not a sitewide crawl. Check uncached SSR on both origins so a CDN hit
@@ -27,6 +28,9 @@ const routes = [
 ];
 const results = [];
 const run = process.env.GITHUB_RUN_ID || 'local';
+// A transition between Worker versions invalidates a 34-route acceptance even
+// when each individual request happens to return HTTP 200.
+let pinnedWorkerVersion = process.env.MEMORY_EXPECTED_WORKER_VERSION || '';
 
 for (const origin of origins) {
   for (const path of routes) {
@@ -36,6 +40,7 @@ for (const origin of origins) {
     let status = 0;
     let failure = '';
     let bytes = 0;
+    let workerVersion = '';
     try {
       const response = await fetch(url, {
         headers: { accept: path.endsWith('.xml') ? 'application/xml,text/xml' : 'text/html' },
@@ -43,10 +48,14 @@ for (const origin of origins) {
         signal: AbortSignal.timeout(22000),
       });
       status = response.status;
+      const identity = checkWorkerIdentity(response.headers.get('x-texasdefined-worker-version'), pinnedWorkerVersion);
+      workerVersion = identity.workerVersion;
+      if (!identity.failure && !pinnedWorkerVersion) pinnedWorkerVersion = workerVersion;
       const body = await response.text();
       bytes = Buffer.byteLength(body);
       const type = response.headers.get('content-type') || '';
       if (response.status !== 200) failure = 'non-200 HTTP status';
+      else if (identity.failure) failure = identity.failure;
       else if (/Dynamic import exceeded memory limits|Internal Server Error|<title>500\b/i.test(body)) failure = 'Worker/runtime error marker';
       else if (path.endsWith('.xml')) {
         if (!/xml/i.test(type) || !/<(?:urlset|sitemapindex)\b/i.test(body) || !/<loc>/.test(body)) {
@@ -58,7 +67,7 @@ for (const origin of origins) {
     } catch (error) {
       failure = String(error);
     }
-    const result = { origin, path, status, bytes, ms: Math.round(performance.now() - start), failure };
+    const result = { origin, path, status, workerVersion, bytes, ms: Math.round(performance.now() - start), failure };
     results.push(result);
     process.stdout.write(`${failure ? 'FAIL' : 'PASS'} ${origin}${path}: ${status} (${result.ms}ms)${failure ? ' — ' + failure : ''}\n`);
   }
@@ -68,6 +77,8 @@ await mkdir('artifacts/worker-memory', { recursive: true });
 await writeFile('artifacts/worker-memory/production.json', JSON.stringify({
   observedAt: new Date().toISOString(),
   gitSha: process.env.GITHUB_SHA || null,
+  pinnedWorkerVersion: pinnedWorkerVersion || null,
+  liveWorkerVersionProvenConsistent: results.length > 0 && results.every(x => x.workerVersion === pinnedWorkerVersion && !/Worker version/.test(x.failure)),
   originalIncident: 'https://github.com/keeptxred/TexasDefined/issues/7055',
   total: results.length,
   failures: results.filter((result) => result.failure),
