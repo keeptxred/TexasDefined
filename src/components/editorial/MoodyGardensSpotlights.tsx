@@ -200,7 +200,7 @@ export function MoodyGardensSpotlights() {
             <a href="https://www.moodygardens.com/visitor-info/accessibility" target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official accessibility details</a>
           </div>
         </div>
-        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk independently checked these operator-published visitor facts on November 9, 2026. Attraction hours, ticket prices and seasonal availability are controlled by Moody Gardens and may change after review.</p>
+        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk reviewed the core Moody Gardens visitor policies on November 9, 2026. The Galveston Children's Museum's separate admission, early-entry membership and holiday-closure rules were checked against its own visitor page on November 14, 2026. Attraction hours, ticket terms and seasonal availability may change after those reviews.</p>
       </Container>
     </Section>
 
