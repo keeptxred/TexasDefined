@@ -24,6 +24,11 @@ on:
       - 'src/routes/explore.top-50-attractions.tsx'
       - 'scripts/data/validate-top-50-attraction-authority.mjs'
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
   # Once merged, the structural contract runs weekly on the default branch.
   # This is NOT a substitute for operator-fact refresh or manual photo-rights review.
   schedule:
@@ -108,3 +113,42 @@ jobs:
       - name: Preserve failed source-health status after reporting
         if: steps.probe.outcome == 'failure'
         run: exit 1
+
+  live-acceptance:
+    name: Verify Top 50 pages after qualifying production deployment
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - name: Check out deployed source revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Scope verification to actual Top 50 source changes
+        id: scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          changed="$(git diff --name-only HEAD^1 HEAD -- 'src/data/top50-*' 'src/data/texas-top50-ranking.ts' 'src/routes/explore.top-50-attractions.tsx' 'src/data/destination-authority-top50-wave1.ts' 'src/data/congress-avenue-bat-colony-authority.ts')"
+          if [[ -n "$changed" ]]; then echo 'verify=true' >> "$GITHUB_OUTPUT"; else echo 'verify=false' >> "$GITHUB_OUTPUT"; fi
+          printf 'Changed Top 50 sources:\n%s\n' "$changed"
+      - name: Verify exact production pages and photo/source attribution
+        if: steps.scope.outputs.verify == 'true'
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: node scripts/production/verify-top50-attractions-live.mjs
+      - name: Preserve live acceptance audit output
+        if: always() && steps.scope.outputs.verify == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: top50-live-acceptance-${{ github.event.workflow_run.head_sha }}
+          path: artifacts/top50-live-acceptance.json
+          if-no-files-found: warn
+          retention-days: 90
