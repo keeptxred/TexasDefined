@@ -59,6 +59,7 @@ async function verify(slug){
   }
   if(((main.match(/What the record establishes/g)||[]).length)<4) errors.push(kind+" fewer than four grounded research findings");
   if(slug==="continental-club-austin-history"&&!visible(main).includes("1955")||slug==="continental-club-austin-history"&&!visible(main).includes("1957"))errors.push(kind+" Continental opening-date dispute was not published");
+  if(slug==="antones-austin-history" && (!visible(main).includes("Guadalupe Street in 1981") || !visible(main).includes("September 3, 1982"))) errors.push(kind+" Antones disputed Guadalupe 1981/1982 opening evidence absent");
 
   for(const marker of ["Texas Defined Editorial Desk","November 13, 2026","Historical source"]){
    if(!visible(html).includes(marker) && marker!=="Historical source")errors.push(kind+" missing published evidence: "+marker);
@@ -70,6 +71,15 @@ async function verify(slug){
   if(/(?:lorem ipsum|delve into|unlock the secrets|in today's fast.paced world)/i.test(visible(main)))errors.push(kind+" placeholder copy");
   const imgTags=main.match(/<img\b[^>]*>/gi)??[];
   for(const tag of imgTags){if(!/\balt\s*=/.test(tag))errors.push(kind+" image without alt attribute")}
+ }
+ // Each cache-busted variant must serve the SAME server-rendered article as
+ // the ordinary canonical visitor URL, not merely the same minimum headings.
+ // This catches older edge-cached research surviving after a Worker deploy.
+ const articleText=(data)=>data?visible(data.html.match(/<main\\b[^>]*>([\\s\\S]*?)<\\/main>/i)?.[1]??""):null;
+ const cleanArticle=articleText(visitor);
+ for(const [kind,data] of [["desktop",desktop],["mobile",mobile]]){
+  if(cleanArticle!==null && data && articleText(data)!==cleanArticle)
+    errors.push("Clean canonical article differs from cache-busted "+kind+" SSR main");
  }
  if(crawler){
    if(crawler.resp.status!==200) crawlerWarnings.push("Unauthenticated crawler-UA HTTP "+crawler.resp.status);
