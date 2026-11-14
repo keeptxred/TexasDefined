@@ -27,7 +27,7 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
     {
       label: "Moody Gardens — Discovery Pyramid and Galveston Children's Museum",
       url: "https://www.moodygardens.com/attractions/discovery-pyramid",
-      scope: "Operator-confirmed open children's museum, upstairs location, included ticket admission and Audience Recognition Theater.",
+      scope: "Operator-confirmed open children's museum, upstairs location, ticket-specific admission requirements, members-only morning hour and Audience Recognition Theater.",
     },
     {
       label: "Moody Gardens — accessibility",
