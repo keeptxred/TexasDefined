@@ -16,7 +16,7 @@ for (const attraction of reviewedRecords) {
   assert.ok(attraction.authorityGuide.itineraries.length === 2, attraction.slug + " distinct itineraries");
   assert.notEqual(attraction.authorityGuide.itineraries[0].duration, attraction.authorityGuide.itineraries[1].duration, attraction.slug + " redundant itinerary durations");
   assert.ok(!/Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(attraction.body.join(" ")), attraction.slug + " editorial meta-language");
-  assert.equal(attraction.sourceCheckedAt, "2026-11-14", attraction.slug + " must retain actual reviewed source date");
+  assert.ok(Number.isFinite(Date.parse(attraction.sourceCheckedAt)) && Date.parse(attraction.sourceCheckedAt) >= Date.parse("2026-11-14") && Date.parse(attraction.sourceCheckedAt) <= Date.now(), attraction.slug + " requires a real verified source date, never a future or pre-audit stamp");
 }
 const attractionRoute = read("src/routes/destination.$slug.tsx");
 assert.ok(attractionRoute.includes("reviewedAttractionFacts") && attractionRoute.includes('data-attraction-photo-credit'), "Reviewed attraction visitor essentials and compact licensed photo credit missing");
@@ -24,7 +24,7 @@ assert.ok(attractionRoute.includes("isHoustonBotanicRecyclingOfferActive()"), "T
 const attractionPhotoRights = read("src/lib/reviewed-attraction-gallery-rights.ts");
 for (const [slug, count] of [["san-antonio-japanese-tea-garden", 1], ["fort-worth-water-gardens", 2]]) {
   const item = reviewedRecords.find((value) => value.slug === slug);
-  assert.equal(item.gallery?.length, count, slug + " verified subject-specific gallery");
+  assert.ok((item.gallery?.length || 0) >= count, slug + " must retain minimum verified subject-specific views without blocking later rights-cleared additions");
   for (const image of item.gallery) {
     assert.ok(attractionPhotoRights.includes(image.sourceUrl), slug + " image rights missing from exact file ledger");
     assert.ok(image.image.credit.includes("resized") || image.image.credit.includes("web-sized"), slug + " resized derivative not identified");
