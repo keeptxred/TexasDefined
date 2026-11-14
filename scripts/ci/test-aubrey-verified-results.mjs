@@ -170,3 +170,19 @@ test('reject duplicate dates in an already published score snapshot',()=>{
     snapshot:{season:'2026',teamSlug:'aubrey',verifiedResults:[candidate,candidate]},
   })),/Duplicate already-published/);
 });
+
+test('contradictions of already authored game finals cannot silently pass',()=>{
+  const prior = row(primaryHost,{
+    date:'2026-10-16',opponent:'Carrollton Ranchview',
+    aubreyScore:65,opponentScore:14,
+    sourceUrl:'https://'+primaryHost+'/aubrey/2026-10-16',
+  });
+  const primary={season:'2026',teamSlug:'aubrey',games:[prior]};
+  const secondary={season:'2026',teamSlug:'aubrey',games:[]};
+  assert.throws(()=>reconcileAubreyResults(opts({primary,secondary})),
+    /contradicts an authored Aubrey final/);
+  const correct={...prior,aubreyScore:66};
+  assert.equal(reconcileAubreyResults(opts({
+    primary:{...primary,games:[correct]},secondary,
+  })).added,0,'Matching provider report must preserve authored final without republishing');
+});
