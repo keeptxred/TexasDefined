@@ -126,12 +126,12 @@ try {
           assert.ok(photoCount >= expectedGalleryCount, guide.slug + " expected authentic gallery photographs");
           const failedImageRequests = [];
           page.on("requestfailed", (request) => {
-            if (/\\/media\\/remote|commons\\.wikimedia|wikimedia\\.org/.test(request.url())) {
+            if (/\/media\/remote|commons\.wikimedia|wikimedia\.org/.test(request.url())) {
               failedImageRequests.push({ url: request.url(), failure: request.failure()?.errorText ?? "unknown" });
             }
           });
           page.on("response", (response) => {
-            if (response.status() >= 400 && /\\/media\\/remote|commons\\.wikimedia|wikimedia\\.org/.test(response.url())) {
+            if (response.status() >= 400 && /\/media\/remote|commons\.wikimedia|wikimedia\.org/.test(response.url())) {
               failedImageRequests.push({ url: response.url(), status: response.status() });
             }
           });
