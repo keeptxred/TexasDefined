@@ -1,3 +1,5 @@
+import { normalizeMoodyGardensTextEntities } from "./moody-gardens-html-entities.mjs";
+
 const targets = [
   ["direct-worker", "https://texasdefined-site.freddy-coppola.workers.dev/destination/moody-gardens"],
   ["canonical-domain", "https://texasdefined.com/destination/moody-gardens"],
@@ -78,6 +80,7 @@ for (const [label, rawUrl] of targets) {
     },
   });
   const html = await response.text();
+  const decodedVisitorCopy = normalizeMoodyGardensTextEntities(html);
   // The date-bounded SSR alert must not be cached beyond midnight on Nov. 16.
   // Checking both origins catches independent CDN/browser cache regressions.
   if (Date.now() < Date.parse("2026-11-18T06:00:00Z")
@@ -100,10 +103,10 @@ for (const [label, rawUrl] of targets) {
     if (!html.includes(imageMarker)) failures.push(`${label}: Moody Gardens image card missing asset ${imageMarker}`);
   }
   for (const marker of requiredFreshnessMarkers) {
-    if (!html.includes(marker)) failures.push(`${label}: missing current visitor-fact marker: ${marker}`);
+    if (!decodedVisitorCopy.includes(marker)) failures.push(`${label}: missing current visitor-fact marker: ${marker}`);
   }
   for (const marker of forbiddenMarkers) {
-    if (html.includes(marker)) failures.push(`${label}: stale/duplicate authority claim: ${marker}`);
+    if (decodedVisitorCopy.includes(marker)) failures.push(`${label}: stale/duplicate authority claim: ${marker}`);
   }
   if (earlyClosingNoticeActive && !html.includes(earlyClosingMarker)) {
     failures.push(`${label}: Nov. 16 early-closing notice missing while the operator alert is active`);
