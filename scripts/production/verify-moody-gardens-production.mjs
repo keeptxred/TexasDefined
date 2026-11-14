@@ -85,17 +85,22 @@ for (const [label, rawUrl] of targets) {
   if (!earlyClosingNoticeActive && html.includes(earlyClosingMarker)) {
     failures.push(`${label}: expired Nov. 16 early-closing notice remains published`);
   }
-  if (earlyClosingNoticeActive) {
+  if (Date.now() >= Date.parse("2026-11-13T00:00:00Z")
+      && Date.now() < Date.parse("2026-11-17T07:00:00Z")) {
     // A query-string can bypass stale edge HTML even if a real user still
-    // receives an obsolete cached document. Also verify the plain public URL.
+    // receives an obsolete cached document. Recheck the ordinary public URL
+    // on both sides of the Nov. 17 00:00 CST notice-expiry boundary.
     const ordinary = await fetch(rawUrl, {
       redirect: "follow",
       signal: AbortSignal.timeout(20000),
       headers: { "user-agent": "TexasDefined-ordinary-public-HTML/1.0" },
     });
     const ordinaryHtml = await ordinary.text();
-    if (!ordinary.ok || !ordinaryHtml.includes(earlyClosingMarker)) {
-      failures.push(`${label}: ordinary URL still serves old HTML or omits the Nov. 16 alert (HTTP ${ordinary.status})`);
+    const ordinaryNoticeCorrect = earlyClosingNoticeActive
+      ? ordinaryHtml.includes(earlyClosingMarker)
+      : !ordinaryHtml.includes(earlyClosingMarker);
+    if (!ordinary.ok || !ordinaryNoticeCorrect) {
+      failures.push(`${label}: ordinary URL serves the wrong Nov. 16 alert state for the current event window (HTTP ${ordinary.status})`);
     }
     const ordinaryCacheControl = ordinary.headers.get("cache-control")?.toLowerCase() ?? "";
     if (!ordinaryCacheControl.includes("no-store") || ordinary.headers.get("cf-cache-status")?.toUpperCase() === "HIT") {
