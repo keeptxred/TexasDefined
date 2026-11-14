@@ -12,6 +12,8 @@ const destinationRuntime = read('src/data/destination-query-runtime.ts');
 const preservedCatalog = read('src/data/destination-preserved-catalog.ts');
 const legacyLakes = read('src/data/fixtures/legacy-lakes.ts');
 const curationAll = read('src/data/destination-curation-all.ts');
+const legacyRedirects = read('src/lib/legacy-editorial-redirects.ts');
+const seminoleSource = read('src/data/state-park-authority-recovery.ts');
 const waterCuration = read('src/data/destination-curation-batch45.ts');
 const museumCuration = read('src/data/destination-curation-batch49.ts');
 const batch52Curation = read('src/data/destination-curation-batch52.ts');
@@ -145,7 +147,7 @@ if (!aliasBlock) {
   failures.push('Could not parse CURATION_SLUG_ALIASES for duplicate-publication coverage.');
 } else {
   const aliasKeys = [...aliasBlock[1].matchAll(/"([^"]+)"\s*:/g)].map((match) => match[1]);
-  const curationOnlyExceptions = new Set(['possum-kingdom-lake']);
+  const curationOnlyExceptions = new Set(['possum-kingdom-lake', 'seminole-canyon-state-park']);
   // These three *live primary URLs* intentionally resolve to richer curation
   // entries under older long-form keys. A curation lookup key does NOT imply
   // that the public URL is a duplicate. Guard both sides of the relationship.
@@ -165,6 +167,23 @@ if (!aliasBlock) {
       failures.push(`Historic long-form duplicate must be suppressed from discovery: ${curationKey}`);
     if (!route.includes(`"${curationKey}": "${primary}"`) || !route.includes('statusCode: 301'))
       failures.push(`Historic long-form duplicate must permanently redirect to live primary: ${curationKey}`);
+  }
+  // Seminole Canyon is a current, visitable TPWD state park with an
+  // October 2026-reviewed source, exact-location licensed hero and complete
+  // independent visitor content. The short published URL is the ONLY
+  // index-eligible canonical; the long-form source key is not a second page.
+  const seminolePrimary = 'seminole-canyon-state-park';
+  const seminoleCuration = 'seminole-canyon-state-park-and-historic-site';
+  if (!aliasBlock[1].includes(`"${seminolePrimary}": "${seminoleCuration}"`))
+    failures.push('Seminole short canonical must retain complete TPWD curation source.');
+  if (nonPrimaryBlock.includes(`"${seminolePrimary}",`))
+    failures.push('Do not suppress the public Seminole Canyon canonical as a duplicate.');
+  if (!nonPrimaryBlock.includes(`"${seminoleCuration}",`))
+    failures.push('Suppress long-form Seminole source from Explore publication and sitemap.');
+  if (!legacyRedirects.includes(`"${seminoleCuration}": "${seminolePrimary}"`))
+    failures.push('Seminole long-form source must redirect to the short primary authority URL.');
+  for (const marker of [`slug: "${seminoleCuration}"`, 'https://tpwd.texas.gov/state-parks/seminole-canyon', 'sourceCheckedAt: "2026-10-12"', 'CC BY-SA 3.0', 'Fate Bell Shelter guided interpretation']) {
+    if (!seminoleSource.includes(marker)) failures.push(`Seminole indexed authority provenance is missing: ${marker}`);
   }
   for (const slug of aliasKeys) {
     if (curationOnlyExceptions.has(slug) || Object.hasOwn(primaryHistoricLookups, slug)) continue;

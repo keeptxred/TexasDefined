@@ -174,6 +174,8 @@ const smokeTargets = [
   { path: '/county/blanco', requiredText: 'LBJ National Historical Park', label: 'Blanco County SSR includes sourced supplemental visitor place' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: '<meta name="robots" content="index, follow', label: 'canonical LBJ State Park is indexable after ordinary content and photo-quality gates' },
+  { path: '/destination/seminole-canyon-state-park', requiredText: 'Fate Bell Shelter', label: 'complete TPWD-led Seminole Canyon authority content survives SSR' },
+  { path: '/destination/seminole-canyon-state-park', requiredText: '<meta name="robots" content="index, follow', label: 'Seminole primary canonical is indexable after destination quality gate' },
   // Exact corridor publication proofs: 200 alone is insufficient; require
   // researched on-page narrative so remote/generic fallback cannot mask a release.
   { path: '/article/fredericksburg-johnson-city-historic-road-trip', requiredText: 'Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip', label: 'Fredericksburg Johnson City historic itinerary' },
@@ -301,6 +303,7 @@ const redirectTargets = [
   { path: '/state-park/indian-lodge-state-park-lodge?source=gsc', expectedStatus: 301, expectedPath: '/destination/indian-lodge', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/destination/indian-lodge-state-park-lodge?source=gsc', expectedStatus: 301, expectedPath: '/destination/indian-lodge', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
   { path: '/destination/seminole-canyon-state-park-historic-site?source=gsc', expectedStatus: 301, expectedPath: '/destination/seminole-canyon-state-park', expectedQuery: ['source', 'gsc'], label: 'source-verified GSC historical entity alias' },
+  { path: '/destination/seminole-canyon-state-park-and-historic-site?source=crawlstats', expectedStatus: 301, expectedPath: '/destination/seminole-canyon-state-park', expectedQuery: ['source', 'crawlstats'], label: 'long-form Seminole source cannot remain a separate noindexed public canonical' },
   { path: '/event/state-fair-of-texas?source=gsc', expectedStatus: 301, expectedPath: '/texas-state-fair', expectedQuery: ['source', 'gsc'], label: 'historical State Fair event alias to existing guide' },
   { path: '/things-unique-to-texas_/methodology?source=gsc', expectedStatus: 301, expectedPath: '/things-unique-to-texas/methodology', expectedQuery: ['source', 'gsc'], label: 'historical methodology path typo to existing guide' },
   // Preserve incoming dated Carnival links without serving an unverified leaf
