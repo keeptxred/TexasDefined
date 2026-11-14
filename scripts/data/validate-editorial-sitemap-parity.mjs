@@ -9,7 +9,7 @@ const routes = read("src/lib/public-routes.ts");
 const fixture = read("src/data/fixtures/texas.ts");
 const reviewed = read("src/data/reviewed-attraction-authorities.ts");
 const reviewedMarker = "export const reviewedAttractionDestinations: Destination[] = ";
-const reviewedRecords = JSON.parse(reviewed.split(reviewedMarker)[1].trim().replace(/;\\s*$/, ""));
+const reviewedRecords = JSON.parse(reviewed.split(reviewedMarker)[1].trim().replace(/;\s*$/, ""));
 assert.equal(reviewedRecords.length, 3, "Maintain exactly three reviewed attraction source records");
 for (const attraction of reviewedRecords) {
   assert.ok(attraction.body.length >= 6, attraction.slug + " editorial body unexpectedly thin");
