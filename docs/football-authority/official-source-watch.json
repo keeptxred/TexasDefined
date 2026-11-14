@@ -72,182 +72,182 @@
     "maxBodyBytes": 1600000,
     "perRunSourceCap": 25
   },
-  "nextSourceIndex": 0,
+  "nextSourceIndex": 25,
   "sources": [
     {
       "slug": "chilton",
       "url": "https://www.chiltonisd.org/athletics",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "c726773c6cd01e9ba539d97f173a0515acaf632a1e6639d879a35100330fd1da",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "china-spring",
       "url": "https://www.chinaspringisd.net/page/athletics",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "651bf0c04553b96c262f6e5d54e588070c4cabffad96a9583b841bb73a1843d8",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "christoval",
       "url": "https://www.christovalisd.org/events",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "6ef471bcc90f5dec25f26c170c85ca7ccb7dcf0dddc2e9c0cedb522264a1a7e9",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "cibolo-steele",
       "url": "https://www.scucisd.org/o/steele/page/athletics/",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "c4463192c7db0e0e5ac43529ba6aea072fce81fb6436ba01b78144ceea4c25b1",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "cisco",
       "url": "https://www.ciscoisd.net/37047_3",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "b46dfd60168be669793104bb77b18c0869d346d5dda40a6cf821c73f5fcee013",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "clarendon",
       "url": "https://www.clarendonisd.net/",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "72751da2b60c36306836a9f6b4ba2db431ca5193cb687d5fcb0f438c1dade305",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "clarksville",
       "url": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "70ba00b7bd02d9b027d7a6b7804f1413fda48b8e5b67b98f7934f0cc939ce954",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "claude",
       "url": "https://www.claudeisd.net/athletics",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "3335d5776a70ae305c9c6e044f2366044caae4979194cc4282fe8b4750300393",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "cleburne",
       "url": "https://athletics.c-isd.com/sport/football/boys/?tab=schedule",
       "reviewAfter": "2026-10-31",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "79336b1af7e96c7cde901ee5c35b2531f9a8496f3d3ec09285b98b3d61a5bed2",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "cleveland",
       "url": "https://chs.clevelandisd.org/staff/?page_no=25",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "441fc2136f5074b12896ad58c01d3ae622fd5f86d7ff1fa9eaa2ededa7ba5f62",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "cleveland-tarkington",
       "url": "https://www.tarkingtonisd.net/calendar",
       "reviewAfter": "2026-10-31",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "cacf1c176b4068fb458ff0000fee9322b8984af1f3efcf2b57935badcdce09d0",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "clifton",
       "url": "https://www.cliftonisd.org/o/cisda/staff",
       "reviewAfter": "2026-10-31",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "2de65fff7eafd3e8ac4863888e117c05f2fed5a02d6c8dc0465cf3d8b2dafe85",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "clint",
       "url": "https://chs.clintweb.net/athletics/football",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "f6ca6428ad3e32f8dfe8b0574d6b5e9a40863e73b51558fbdef97aadd1e537ca",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "clint-horizon",
       "url": "https://hhs.clintweb.net/athletics",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "e79532d99901d36163f9c77181beaf11e71c8e419f8d0d13b04fbc28759dcad2",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "clint-mountain-view",
       "url": "https://mvhs.clintweb.net/",
       "reviewAfter": "2026-10-31",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "e98d55afabce744d82b481ce7329710451b580ae241c4715c271bf0011b5556e",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "uil-2026-alignment",
       "url": "https://realignment.uiltexas.org/",
       "reviewAfter": "2026-12-01",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "ad923b1560b1a27683516915d62fdc1b91ff9bb49ee38d948e3965ae323c67ce",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "center",
       "url": "https://www.centerisd.org/page/dis.athletics",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "b20e2c83bc26a74e33c5031d2cf9e41fe7e565383e2e1f6c05a2975d89865109",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "center-point",
       "url": "https://cpisd.net/athletics",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "3972867245b8b3d68fcd1d672403fde0382d489e54d888eb4247fdd785d3bb8c",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "centerville",
       "url": "https://www.centerville.k12.tx.us/46669_3",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "e0899be593be202116fd3e27aef4fd1fc3d98c53305d394912312f11f6918024",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "channelview",
       "url": "https://www.cvisd.org/page/athletics/",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "3b32659fe633f290fc74281ccdc2d39fa68f38841d1c0fd4fb82f0c5e06bbf37",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "charlotte",
       "url": "https://www.charlotteisd.net/vnews/display.v/SEC/Athletics",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "6675e56382067ec866531abc48af70ffd61c476a7af501085eb6f1671557076e",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "cherokee",
       "url": "https://www.cherokeeisd.net/live-feed/",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "c020b9cb67d4cdcfc6be989069282d4b007fd2d6050edb0aca2bf4f77812cab5",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "chester",
       "url": "https://www.chesterisd.com/page/athletics",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "c7b96f674396fc788dd16468169f2dcb93081f94fda080eac7bf1b7bb1f61ff2",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "childress",
       "url": "https://www.childressisd.net/o/childress/page/athletic-schedules",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "92c1bfc5c0fe4a206cdad5a998a7a7fed68442433654d6dcef7c719aa305b522",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "chillicothe",
       "url": "https://www.cisd-tx.net/215133_2",
       "reviewAfter": "2026-11-07",
-      "contentFingerprint": null,
-      "lastObservedAt": null
+      "contentFingerprint": "c9c7a6b34b7c79aeb810ff621ed5315d971802ed2885bb884fef485d4582cfbc",
+      "lastObservedAt": "2026-10-31"
     },
     {
       "slug": "chico",
