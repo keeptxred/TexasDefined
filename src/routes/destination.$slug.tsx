@@ -525,11 +525,11 @@ function DestinationPage() {
       <AnswerSummary eyebrow="Plan your visit" title={`${destination.name}: visitor essentials`} items={reviewedAttractionFacts} />
     ) : (
       <AnswerSummary
-        eyebrow="Quick trip facts"
-        title={`${destination.name} at a glance`}
+        eyebrow={destination.slug === "moody-gardens" ? "Start with the essentials" : "Quick trip facts"}
+        title={destination.slug === "moody-gardens" ? "Moody Gardens: address, admission and timing" : `${destination.name} at a glance`}
         items={[
           { question: `Where is ${destination.name}?`, answer: locationAnswer },
-          ...(showSeason ? [{ question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason }] : []),
+          ...(showSeason && destination.slug !== "moody-gardens" ? [{ question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason }] : []),
           ...(showEntryPlanning ? [{ question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote }] : []),
           ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
         ]}
@@ -599,8 +599,8 @@ function DestinationPage() {
     <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-10 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:gap-12 lg:py-16"}>
       <div className="min-w-0">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
-          <p className="eyebrow text-primary">The experience</p>
-          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
+          <p className="eyebrow text-primary">{destination.slug === "moody-gardens" ? "Inside the pyramids" : "The experience"}</p>
+          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destination.slug === "moody-gardens" ? "Aquarium, Rainforest or Discovery: how to choose" : destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
         {destination.gallery && destination.gallery.length > 0 && (
@@ -633,15 +633,15 @@ function DestinationPage() {
         {dallasHeritage && <Suspense fallback={null}><DallasBlackHistoryAuthority slug={destination.slug} /></Suspense>}
         {(destination.category === "beaches-coast" || destination.slug === "galveston-island-state-park" || destination.slug === "goose-island-state-park") && <Suspense fallback={null}><CoastalBeachFieldGuide destinationSlug={destination.slug} /></Suspense>}
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
-          <p className="eyebrow text-primary">The details</p>
-          <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>
+          <p className="eyebrow text-primary">{destination.slug === "moody-gardens" ? "Getting there" : "The details"}</p>
+          <h2 id="before-you-go" className="mt-3 font-display text-3xl">{destination.slug === "moody-gardens" ? "Address, access and arrival" : "Planning your visit"}</h2>
           <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
             <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Area</dt><dd className="mt-2 text-base"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas</dd></div>
-            {showSeason && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>}
+            {showSeason && destination.slug !== "moody-gardens" && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>}
             {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">{isChokeCanyon ? "Counties" : "County"}</dt><dd className="mt-2 text-base">{isChokeCanyon ? "McMullen County (Calliham) · Live Oak County (South Shore)" : countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{countyLabel}</Link> : countyLabel}</dd></div>}
             {destination.address && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-2 text-base">{destination.address}</dd></div>}
-            {showEntryPlanning && <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>}
-            {destination.accessibilityNotes && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
+            {showEntryPlanning && destination.slug !== "moody-gardens" && <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>}
+            {destination.accessibilityNotes && destination.slug !== "moody-gardens" && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
             {destination.directions && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Getting there</dt><dd className="mt-2 text-base leading-7">{destination.directions}</dd></div>}
           </dl>
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
@@ -701,6 +701,6 @@ function DestinationPage() {
 
     {countySlug === "el-paso" ? <Container><ElPasoAreaCrossLinks kind="destination" slug={destination.slug} /></Container> : null}
     {isChokeCanyon ? compactNearby.length > 0 && <Section className="py-10 sm:py-12 lg:py-14" tone="surface"><Container><SectionHeader eyebrow="Nearby" title="Three practical additions near Choke Canyon" description="A short list of close-by stops instead of a long statewide recommendation feed." /><div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{compactNearby.map((item) => <DestinationCard key={item.id} destination={item} regionLabel={item.region === destination.region ? region?.name : undefined} />)}</div></Container></Section> : <DestinationRelationships destination={destination} groups={relationshipGroupsForPage} regionName={region?.name} />}
-    {!isChokeCanyon && relatedArticles.length > 0 && <Section><SectionHeader eyebrow="Read next" title={`More from ${categoryName}`} /><div className="mt-8 grid gap-6 lg:grid-cols-3">{relatedArticles.map((article) => <ArticleCard key={article.id} article={article} />)}</div></Section>}
+    {!isChokeCanyon && destination.slug !== "moody-gardens" && relatedArticles.length > 0 && <Section><SectionHeader eyebrow="Read next" title={`More from ${categoryName}`} /><div className="mt-8 grid gap-6 lg:grid-cols-3">{relatedArticles.map((article) => <ArticleCard key={article.id} article={article} />)}</div></Section>}
   </>;
 }
