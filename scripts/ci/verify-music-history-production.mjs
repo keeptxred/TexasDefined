@@ -74,12 +74,12 @@ async function verify(slug){
  if(crawler){
    if(crawler.resp.status!==200) crawlerWarnings.push("Unauthenticated crawler-UA HTTP "+crawler.resp.status);
    else{
-    const crawlerMain=crawler.html.match(/<main\\b[^>]*>([\\s\\S]*?)<\\/main>/i)?.[1]??"";
+    const crawlerMain=crawler.html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1]??"";
     if(!visible(crawlerMain).includes("What the record establishes") ||
        !visible(crawlerMain).includes("Texas Defined Editorial Desk"))
        crawlerWarnings.push("Crawler-UA content differed from researched visitor article");
-    if(/\\bnoindex\\b/i.test(crawler.resp.headers.get("x-robots-tag")??"") ||
-       /<meta\\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(crawler.html))
+    if(/\bnoindex\b/i.test(crawler.resp.headers.get("x-robots-tag")??"") ||
+       /<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(crawler.html))
        crawlerWarnings.push("Crawler-UA noindex response");
    }
  }
