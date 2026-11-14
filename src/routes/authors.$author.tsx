@@ -81,15 +81,17 @@ export const Route = createFileRoute("/authors/$author")({
             "@id": `${url}#articles`,
             name: `Stories from ${loaderData.author.name}`,
             numberOfItems: loaderData.articles.length + (params.author === "a-hollis" ? musicHistoryEditorialArticles.length : 0),
-            itemListElement: loaderData.articles.map((article, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              item: { "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}` },
-            })),
+            itemListElement: [
+              ...loaderData.articles.map((article, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: { "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}` },
+              })),
               ...(params.author === "a-hollis" ? musicHistoryEditorialArticles.map((article, index) => ({
                 "@type": "ListItem", position: loaderData.articles.length + index + 1,
                 item: { "@type": "Article", name: article.name, url: `${siteUrl}${article.href}` },
               })) : []),
+            ],
           },
           {
             "@type": "BreadcrumbList",
