@@ -83,7 +83,10 @@ export function validateOperatorEvidence(source, html) {
 
 export function validateEditorialReview(curation, now = Date.now()) {
   const issues = [];
-  const checkedAt = curation.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+  // Support the explicit split between a broad source review and a genuine content edit.
+  // Historical fixtures still use the literal sourceCheckedAt form.
+  const checkedAt = curation.match(/fullGuideReviewed: "(\d{4}-\d{2}-\d{2})"/)?.[1]
+    ?? curation.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
   if (!checkedAt) return ["Moody Gardens editorial source-review date is absent."];
   const checkedTime = Date.parse(checkedAt + "T00:00:00Z");
   if (!Number.isFinite(checkedTime)) return ["Moody Gardens editorial source-review date is invalid."];
