@@ -54,7 +54,8 @@ try {
           const image = [...document.images].find((candidate) => candidate.alt === alt);
           return Boolean(image && image.complete && image.naturalWidth > 400 && image.naturalHeight > 300);
         }, guide.alt, { timeout: 25000 });
-        await page.waitForTimeout(600);
+        await page.locator('section[aria-labelledby="destination-authority-sources"], section[aria-labelledby="' + guide.slug + '-sources"]').first().waitFor({ state: "attached", timeout: 20000 });
+        await page.waitForTimeout(300);
         const facts = await page.evaluate((alt) => {
           const image = [...document.images].find((candidate) => candidate.alt === alt);
           const imageBox = image?.getBoundingClientRect();
