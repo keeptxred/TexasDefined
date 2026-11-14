@@ -14,6 +14,8 @@ const imageMarkers = [
   "The_Moody_Gardens_Hotel_pool_at_night_6-10.jpg",
 ];
 const requiredFreshnessMarkers = [
+  "Moody Gardens: address, admission and timing",
+  "Aquarium, Rainforest or Discovery: how to choose",
   "Galveston Children",
   "November 9, 2026",
   "price the exact attractions you will visit",
@@ -54,6 +56,9 @@ const staleClosureMarkers = [
   "scheduled to reopen in November 2026",
 ];
 const forbiddenMarkers = [
+  "What to know about Moody Gardens",
+  "More from Beaches & Coast",
+  "Tours & bookable experiences",
   ...staleClosureMarkers,
   "Discovery Museum closure guidance",
   "The Rainforest Pyramid, Discovery Museum, theaters, seasonal attractions",
