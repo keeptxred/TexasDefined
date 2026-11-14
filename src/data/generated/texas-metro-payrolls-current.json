@@ -1,7 +1,7 @@
 {
   "releaseMonth": "2026-09",
   "publishedDate": "2026-10-28",
-  "sourceUrl": "https://www.bls.gov/news.release/archives/metro_10282026.htm",
+  "sourceUrl": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DALL148NAN,HOUS448NAN,AUST448NAN,SANA748NAN,ELPA348NAN,MCAL548NAN,CORP548NAN,LUBB148NAN,BROW148NAN,COLL748NAN,WACO348NAN,AMAR148NAN,TYLE348NAN",
   "units": "total nonfarm payroll jobs, not seasonally adjusted",
   "rows": [
     {
