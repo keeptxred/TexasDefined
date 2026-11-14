@@ -53,6 +53,25 @@ test('release and canonical image-rights acceptance selects exactly nine URLs wi
   assert.deepEqual(unrelated.imageRightsPages, [], 'No permanent nine-page crawl for unrelated changes');
 });
 
+test('Big Bend locally resized Commons photo is checked only on its exact source or destination schema change', () => {
+  const path = '/destination/big-bend-ranch-state-park';
+  const creator = 'Jcllorca';
+  const entry = [path, creator, 'Person', '© Jcllorca',
+    'https://creativecommons.org/licenses/by-sa/3.0/', 'Harvest_moon_in_Big_Bend_Ranch_State_Park.JPG'];
+  for (const file of ['src/data/verified-local-state-park-photo-credits.ts', 'src/routes/destination.$slug.tsx']) {
+    const plan = buildChangePlan({ baseline: 'a'.repeat(40), head: 'b'.repeat(40), changedFiles: [file] });
+    assert.ok(plan.imageRightsPages.includes(path), file);
+    assert.ok(plan.selectedPaths.includes(path), file);
+    assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET, file);
+  }
+  assert.doesNotThrow(() => assertGscImageRights(mockHtml(...entry), path));
+  assert.throws(() => assertGscImageRights(mockHtml(...entry, { license: 'https://example.com/other-license' }), path), /ImageObject/);
+  assert.throws(() => assertGscImageRights(mockHtml(...entry, { copyrightNotice: undefined }), path), /ImageObject/);
+  assert.throws(() => assertGscImageRights(mockHtml(...entry, { creator: { '@type': 'Person', name: 'TexasDefined' } }), path), /ImageObject/);
+  assert.throws(() => assertGscImageRights(mockHtml(...entry, { acquireLicensePage: 'https://example.com/unverified' }), path), /ImageObject/);
+  assert.throws(() => assertGscImageRights(mockHtml(...entry).replace('<p>Photo: Jcllorca</p>', ''), path), /Visible creator/);
+});
+
 test('actual ImageObject parsing accepts all nine source-authenticated article/destination SSR structures', () => {
   for (const fields of entries) assert.doesNotThrow(() => assertGscImageRights(mockHtml(...fields), fields[0]), fields[0]);
 });
