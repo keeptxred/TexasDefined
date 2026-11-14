@@ -206,6 +206,21 @@ const NOV13_PUBLISHED_DISTRICT5_DIRECT_TIMEOUT = Object.freeze({
   workerVersion: '7d2202c2-619a-458f-be72-ce21eee8c61b',
 });
 
+// Nov 14 run #43608793638 published 100%-traffic Worker 695cd863 from
+// #7159 and passed deployment, both HTTP health checks and the full 11,084-asset
+// old/new dual-origin byte handoff. The only subsequent release failure was
+// Moody Gardens' 1280px hydrated title reverting to a generic browser title.
+// PR #7171 repaired the source and extended all four viewport checks through
+// hydration. Qualify ONLY this immutable, published Worker's old asset bytes;
+// the failed browser and release are NOT certified. The next deploy reruns them.
+const NOV14_PUBLISHED_MOODY_HYDRATED_TITLE = Object.freeze({
+  runId: 43608793638,
+  jobId: 132489033467,
+  sourceSha: '5f80e24f9791b86ec8ab87e9f2fb910cca21521f',
+  workerVersion: '695cd863-f891-4b2b-8c60-22f722f7cc0e',
+  failedStep: 'Verify Moody Gardens four-viewport browser authority and layout',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -222,6 +237,37 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const moody = NOV14_PUBLISHED_MOODY_HYDRATED_TITLE;
+  if (job.run_id === moody.runId && job.id === moody.jobId &&
+      failures.length === 1 && failures[0] === moody.failedStep) {
+    // The source fix must be present in the NEXT deploy. Never waive 1280px
+    // title/description, canonical, dated schema, JS errors or overflow tests.
+    const route = readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+    const browser = readFileSync('scripts/ci/verify-moody-gardens-responsive-browser.mjs', 'utf8');
+    const seo = readFileSync('src/lib/seo.ts', 'utf8');
+    const title = 'Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide';
+    const description = 'Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.';
+    if (!route.includes('"moody-gardens": "' + title + '"') ||
+        !route.includes('"' + description + '"') ||
+        !seo.includes('title: "' + title + '"') ||
+        !seo.includes('description: "' + description + '"') ||
+        !browser.includes('await page.waitForLoadState("load"') ||
+        !browser.includes('await page.waitForTimeout(450)') ||
+        !browser.includes('assert.equal(facts.metaDescription,') ||
+        !browser.includes('assert.match(facts.title, /Moody Gardens Galveston/') ||
+        !browser.includes('assert.ok(facts.horizontalOverflow <= 8') ||
+        !browser.includes('assert.deepEqual(errors, []')) {
+      throw Error('Moody Gardens hydration regression is not repaired with all four viewport assertions intact');
+    }
+    return { eligible: true,
+      mode: 'exact-nov14-moody-hydration-original-assets-only',
+      exactRun: moody.runId, criticalChecks: CRITICAL.length,
+      permittedFailures: failures, requiredSourceSha: moody.sourceSha,
+      requiredWorkerVersion: moody.workerVersion };
+  }
+  if (job.run_id === moody.runId || job.id === moody.jobId) {
+    throw Error('Failed deploy job includes unapproved or missing failure evidence for exact Nov14 Moody Gardens published Worker: ' + failures.join(', '));
   }
   const repairedRelease = NOV13_PUBLISHED_WORKER_MSR_DISTRICT21;
   if (job.run_id === repairedRelease.runId && job.id === repairedRelease.jobId &&
