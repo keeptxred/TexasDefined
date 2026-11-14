@@ -12,6 +12,7 @@ on:
       - 'src/components/hunting/**'
       - 'src/components/editorial/CategoryPage.tsx'
       - 'scripts/ci/verify-five-authority-hubs.mjs'
+      - 'scripts/ci/audit-five-authority-hubs-fresh.mjs'
       - '.github/workflows/monitor-five-authority-hubs.yml'
   schedule:
     - cron: '15 15 * * 2'
@@ -33,7 +34,7 @@ jobs:
     if: >-
       github.event_name != 'issue_comment' ||
       (github.event.issue.number == 7065 &&
-       github.event.comment.body == '/verify-five-hubs' &&
+       (github.event.comment.body == '/verify-five-hubs' || github.event.comment.body == '/grade-five-hubs') &&
        github.event.comment.user.login == 'keeptxred')
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -52,6 +53,11 @@ jobs:
       - name: Verify deployed pages on schedule
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/verify-five-authority-hubs.mjs --production
+      - name: Independent fresh-HTML authority evidence (no cached pages)
+        if: github.event_name == 'issue_comment' && github.event.comment.body == '/grade-five-hubs'
+        run: |
+          node --check scripts/ci/audit-five-authority-hubs-fresh.mjs
+          node scripts/ci/audit-five-authority-hubs-fresh.mjs
       - name: Open a single tracked maintenance issue on scheduled failure
         if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         env:
