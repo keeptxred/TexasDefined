@@ -86,6 +86,28 @@ if (process.argv.includes("--production")) {
         assert.ok(html.includes(marker), "Published hub missing current editorial marker " + marker);
       console.log("REFRESH_LIVE_PASS " + group.path + " cache=" + status +
         " age=" + (age ?? "none") + " ray=" + (response.headers.get("cf-ray") || "unreported"));
+      if (group.path === "/sports" && group.currentEditorialArticle) {
+        const story = group.currentEditorialArticle;
+        const storyUrl = "https://texasdefined.com/article/" + story.slug +
+          "?__td_refresh_proof=" + encodeURIComponent((process.env.GITHUB_RUN_ID || "local") + "-" + randomUUID());
+        try {
+          const sr = await fetch(storyUrl, {
+            headers: {"Cache-Control":"no-cache, no-store, max-age=0",Pragma:"no-cache",
+              "User-Agent":"TexasDefined-Authority-Refresh-Registry/2026"},
+            redirect:"follow",signal:AbortSignal.timeout(25000),
+          });
+          const sh = await sr.text();
+          assert.equal(sr.status, 200, "Current sports story HTTP " + sr.status);
+          assert.ok(sh.includes('href="https://texasdefined.com/article/' + story.slug + '"'),
+            "Current sports article canonical missing or mismatched");
+          assert.ok(sh.includes(story.expectedLiveTitle) && sh.includes("NCAA"),
+            "Current sports article body/source missing");
+          assert.ok(!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(sh), "Current sports story is noindex");
+          console.log("REFRESH_LIVE_PASS /article/" + story.slug + " current sourced editorial detail");
+        } catch (error) {
+          issues.push("/article/" + story.slug + ": current source story not published or indexable: " + error.message);
+        }
+      }
       if (group.path === "/sports" && html.includes("Archive, not current results") &&
           !html.includes("Featured from the sports desk"))
         issues.push("/sports: No original article in the current 35-day feature window. Older articles are archived. Fresh source-backed magazine reporting remains required; do not re-date old copy.");
