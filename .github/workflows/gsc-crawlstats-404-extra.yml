@@ -1,0 +1,73 @@
+name: Audit 42 supplemental GSC Crawl stats 404 paths
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Bounded 42-path audit, staggered after the existing 99-path Monday 10:13 UTC audit.
+    - cron: '43 10 * * 1'
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+  actions: read
+  statuses: read
+
+concurrency:
+  group: gsc-crawlstats-extra-42-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the exact protected production source where available
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 1
+
+      - name: Require protected production status for deployment-triggered audits
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_run" ]]; then
+            current_sha="$(git rev-parse HEAD)"
+            if [[ "${current_sha}" != "${DEPLOY_SHA}" ]]; then
+              echo "::error title=Exact production SHA mismatch::Refusing to attribute live response to another source SHA."
+              exit 1
+            fi
+            release_status="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${DEPLOY_SHA}/status" --jq '[.statuses[] | select(.context == "texasdefined-production") | .state] | first // "missing"')"
+            if [[ "${release_status}" != "success" ]]; then
+              echo "::error title=Unverified production::Protected texasdefined-production status was ${release_status}, expected success."
+              exit 1
+            fi
+          fi
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Test safe source partition and 404 classifications
+        run: node --test scripts/ci/gsc-crawlstats-404-extra-policy.test.mjs
+
+      - name: Recheck 42 supplemental historical Crawl stats paths read-only
+        run: node scripts/ci/audit-gsc-crawlstats-404-extra.mjs
+
+      - name: Preserve complete HTTP evidence regardless of audit result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gsc-crawlstats-404-extra-42
+          path: artifacts/gsc-crawlstats-404-extra-2026-10-31/
+          if-no-files-found: warn
+          retention-days: 30
