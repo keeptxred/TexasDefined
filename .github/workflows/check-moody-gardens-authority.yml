@@ -52,13 +52,13 @@ jobs:
         if: steps.window.outputs.execute == 'true'
         continue-on-error: true
         run: node scripts/data/check-moody-gardens-official.mjs
-      - name: Check public HTML after Nov. 16 advisory expires
-        id: expiry
-        if: steps.window.outputs.execute == 'true' && github.event.schedule == '30 6 17 11 *'
+      - name: Verify public HTML while advisory is active and after it expires
+        id: live_notice
+        if: steps.window.outputs.execute == 'true' && (github.event.schedule == '10 14 14-16 11 *' || github.event.schedule == '30 6 17 11 *')
         continue-on-error: true
         run: node scripts/production/verify-moody-gardens-production.mjs
       - name: Create a single review issue if monitoring finds drift
-        if: steps.window.outputs.execute == 'true' && (steps.check.outcome == 'failure' || steps.expiry.outcome == 'failure')
+        if: steps.window.outputs.execute == 'true' && (steps.check.outcome == 'failure' || steps.live_notice.outcome == 'failure')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
@@ -72,7 +72,7 @@ jobs:
               --body "The bounded Moody Gardens operator-source or post-expiry live HTML check failed. This may indicate the Nov. 16 early closing was CANCELLED, its last-entry time changed, an expired cached warning is still visible, another operator claim drifted, or the editorial review aged past 30 days. Check https://www.moodygardens.com/visitor-info/hours against our published time-boxed advisory. Inspect workflow logs, verify changed facts, then correct the guide and run production acceptance. Do not auto-update sourceCheckedAt without a source-backed review. Page: https://texasdefined.com/destination/moody-gardens"
           fi
       - name: Report validation failure
-        if: steps.check.outcome == 'failure' || steps.expiry.outcome == 'failure'
+        if: steps.check.outcome == 'failure' || steps.live_notice.outcome == 'failure'
         run: |
           echo "Moody Gardens authority facts require review; see the dedicated issue and logs." >&2
           exit 1
