@@ -170,7 +170,7 @@ test('intentional 404s and literal route tokens never leak into the static sitem
         stack.push(filepath);
         continue;
       }
-      if (!/\\.(?:ts|tsx)$/.test(entry.name)) continue;
+      if (!/\.(?:ts|tsx)$/.test(entry.name)) continue;
       const source = readFileSync(filepath, 'utf8');
       for (const item of forbidden) {
         // A TanStack <Link to="/family/$slug" params={...}> is valid;
