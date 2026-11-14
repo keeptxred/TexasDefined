@@ -54,7 +54,7 @@ for (const [label, rawUrl] of targets) {
   const html = await response.text();
   // The date-bounded SSR alert must not be cached beyond midnight on Nov. 16.
   // Checking both origins catches independent CDN/browser cache regressions.
-  if (Date.now() < Date.parse("2026-11-17T07:00:00Z")
+  if (Date.now() < Date.parse("2026-11-18T06:00:00Z")
       && Date.now() >= Date.parse("2026-11-13T00:00:00Z")) {
     const cacheControl = response.headers.get("cache-control")?.toLowerCase() ?? "";
     if (!cacheControl.includes("no-store")) {
@@ -86,7 +86,7 @@ for (const [label, rawUrl] of targets) {
     failures.push(`${label}: expired Nov. 16 early-closing notice remains published`);
   }
   if (Date.now() >= Date.parse("2026-11-13T00:00:00Z")
-      && Date.now() < Date.parse("2026-11-17T07:00:00Z")) {
+      && Date.now() < Date.parse("2026-11-18T06:00:00Z")) {
     // A query-string can bypass stale edge HTML even if a real user still
     // receives an obsolete cached document. Recheck the ordinary public URL
     // on both sides of the Nov. 17 00:00 CST notice-expiry boundary.
