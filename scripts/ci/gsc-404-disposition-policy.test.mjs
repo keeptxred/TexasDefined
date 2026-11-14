@@ -6,6 +6,7 @@ import {
   RESTORE_REQUIRED_GSC_PATHS,
   RESTORED_GSC_CANONICAL_PATHS,
   INDEXABLE_RESTORED_GSC_PATHS,
+  collectGscRobotsDirectives,
   LIVE_VERIFIED_GSC_CANONICAL_PATHS,
   reviewGsc404Disposition,
 } from './gsc-404-disposition-policy.mjs';
@@ -209,4 +210,17 @@ test('restored public editorial and visitor guides cannot silently carry noindex
     assert.ok(path.startsWith('/texas-high-school-football-isds/'));
     assert.equal(observed(path, 200, 200, { robots: 'noindex, follow' }).review, 'served-200');
   }
+});
+
+test('Googlebot-specific robots meta and X-Robots-Tag are cumulative, even when generic meta says index', () => {
+  const page = '<html><head><meta name="robots" content="index, follow">' +
+    '<meta content="noindex, follow" name="googlebot"></head></html>';
+  const combined = collectGscRobotsDirectives(page, 'index, follow');
+  assert.match(combined, /googlebot: noindex/);
+  assert.match(combined, /robots: index/);
+  assert.equal(observed('/article/texas-road-trip-rules', 200, 200, { robots: combined }).review, 'restore-regression');
+  const directHeader = collectGscRobotsDirectives('<meta name="robots" content="index, follow">', 'googlebot: noindex');
+  assert.equal(observed('/city/del-rio', 200, 200, { robots: directHeader }).review, 'restore-regression');
+  const indexable = collectGscRobotsDirectives('<meta name="robots" content="index, follow">');
+  assert.equal(observed('/city/del-rio', 200, 200, { robots: indexable }).review, 'served-200');
 });
