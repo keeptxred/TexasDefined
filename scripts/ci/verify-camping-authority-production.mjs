@@ -62,20 +62,17 @@ function verify(html, { synthetic = false } = {}) {
   // Each notice and operator URL must belong to its OWN park card. Several
   // official alerts intentionally share a needs-review notice; searching the
   // full document masked stale/misassigned cards (false-positive acceptance).
-  const advisorySection = /<section\\b(?=[^>]*\\bid=["']camping-alerts["'])[^>]*>([\\s\\S]*?)<\\/section>/i.exec(html)?.[1] ?? "";
-  const advisoryCards = [...advisorySection.matchAll(/<article\\b[^>]*>([\\s\\S]*?)<\\/article>/gi)].map(([, markup]) => ({
+  const advisorySection = /<section\b(?=[^>]*\bid=["']camping-alerts["'])[^>]*>([\s\S]*?)<\/section>/i.exec(html)?.[1] ?? "";
+  const advisoryCards = [...advisorySection.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/gi)].map(([, markup]) => ({
     markup,
     text: markup.replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
       .replace(/&amp;/gi, "&").replace(/&#(?:x27|39);|&apos;/gi, "'")
-      .replace(/&quot;/gi, '"').replace(/\\s+/g, " "),
+      .replace(/&quot;/gi, '"').replace(/\s+/g, " "),
   }));
   if (advisoryCards.length !== expectedAlerts.length) errors.push("official advisory card count differs from source snapshot");
   for (const alert of expectedAlerts) {
-    const card = advisoryCards.find(({ markup }) => new RegExp("<h3\\\\b[^>]*>\\\\s*" + alert.parkName.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\  for (const alert of expectedAlerts) {
-    if (!text.includes(alert.parkName)) errors.push("missing monitored park: " + alert.parkName);
-    if (!text.includes(alert.notice.slice(0, 48))) errors.push("live notice differs from committed source snapshot: " + alert.parkName);
-    if (!html.includes(alert.sourceUrl)) errors.push("missing live operator source: " + alert.parkName);
-  }") + "\\\\s*<\\\\/h3>", "i").test(markup));
+    const card = advisoryCards.find(({ markup }) => [...markup.matchAll(/<h3\b[^>]*>([\s\S]*?)<\/h3>/gi)]
+      .some(([, heading]) => heading.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() === alert.parkName));
     if (!card) {
       errors.push("missing monitored park advisory card: " + alert.parkName);
       continue;
