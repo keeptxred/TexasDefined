@@ -22,7 +22,7 @@ const expectedArchivalFindings = {
 const nonce=Date.now().toString(36);
 const results=[];
 function attrs(tag,name){return tag.match(new RegExp("\\b"+name+"\\s*=\\s*[\"']([^\"']+)[\"']","i"))?.[1]??null}
-function visible(html){return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi," ").replace(/<[^>]*>/g," ").replace(/&(?:amp|nbsp|lt|gt|quot);/g," ").replace(/\s+/g," ")}
+function visible(html){return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi," ").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi," ").replace(/<[^>]*>/g," ").replace(/&#(?:x27|39);|&apos;/gi,"\u0027").replace(/&(?:amp|nbsp|lt|gt|quot);/g," ").replace(/\s+/g," ")}
 async function get(slug,kind){
  // CRITICAL: exercise the clean visitor/crawler-facing canonical; query nonce
  // tests alone can hide an obsolete HTML object still stored at the edge.
