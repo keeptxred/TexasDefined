@@ -59,10 +59,26 @@ function verify(html, { synthetic = false } = {}) {
       + "; html-bytes=" + html.length);
   }
   if (!text.includes("Official pet rules")) errors.push("no operator-specific pet policy links in live SSR");
+  // Each notice and operator URL must belong to its OWN park card. Several
+  // official alerts intentionally share a needs-review notice; searching the
+  // full document masked stale/misassigned cards (false-positive acceptance).
+  const advisorySection = /<section\b(?=[^>]*\bid=["']camping-alerts["'])[^>]*>([\s\S]*?)<\/section>/i.exec(html)?.[1] ?? "";
+  const advisoryCards = [...advisorySection.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/gi)].map(([, markup]) => ({
+    markup,
+    text: markup.replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
+      .replace(/&amp;/gi, "&").replace(/&#(?:x27|39);|&apos;/gi, "'")
+      .replace(/&quot;/gi, '"').replace(/\s+/g, " "),
+  }));
+  if (advisoryCards.length !== expectedAlerts.length) errors.push("official advisory card count differs from source snapshot");
   for (const alert of expectedAlerts) {
-    if (!text.includes(alert.parkName)) errors.push("missing monitored park: " + alert.parkName);
-    if (!text.includes(alert.notice.slice(0, 48))) errors.push("live notice differs from committed source snapshot: " + alert.parkName);
-    if (!html.includes(alert.sourceUrl)) errors.push("missing live operator source: " + alert.parkName);
+    const card = advisoryCards.find(({ markup }) => [...markup.matchAll(/<h3\b[^>]*>([\s\S]*?)<\/h3>/gi)]
+      .some(([, heading]) => heading.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() === alert.parkName));
+    if (!card) {
+      errors.push("missing monitored park advisory card: " + alert.parkName);
+      continue;
+    }
+    if (!card.text.includes(alert.notice.slice(0, 48))) errors.push("live notice differs from committed source snapshot: " + alert.parkName);
+    if (!card.markup.includes(alert.sourceUrl)) errors.push("missing live operator source: " + alert.parkName);
   }
   if (!text.includes("Notice verified") && !text.includes("Changed; recheck official source"))
     errors.push("missing official advisory status labels");
@@ -98,7 +114,9 @@ if (process.argv.includes("--self-test")) {
     '<h2>Recent official park advisories</h2>',
     '<div>Campground finder Showing 72 of 72 verified profiles.</div>',
     '<div>Park camping / reservation instructions Notice verified</div>',
-    ...expectedAlerts.map(alert => '<div>' + alert.parkName + ' ' + alert.notice + '</div><a href="' + alert.sourceUrl + '">Official park alerts</a>'),
+    '<section id="camping-alerts">',
+    ...expectedAlerts.map(alert => '<article><h3>' + alert.parkName + '</h3><p>' + alert.notice + '</p><a href="' + alert.sourceUrl + '">Official park alerts</a></article>'),
+    '</section>',
     ...[
       "https://www.recreation.gov/camping/campgrounds/258851",
       "https://www.recreation.gov/camping/campgrounds/258852",
