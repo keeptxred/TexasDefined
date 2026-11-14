@@ -30,7 +30,7 @@ const cards = [
     eyebrow: "Best for younger kids",
     title: "Discovery Pyramid & Children's Museum",
     description: "The Galveston Children's Museum is now open upstairs with hands-on STEM, maker and imaginative-play activities. The interactive Audience Recognition Theater is downstairs.",
-    detail: "Operator-confirmed on Nov. 9, 2026 · Check the day's hours and ticket terms",
+    detail: "Admission: qualifying membership, museum-inclusive ticket, or separate museum ticket for ages 2+ · Check today's hours",
     href: "https://www.moodygardens.com/attractions/discovery-pyramid",
     image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Discovery_Pyramid_Moody_Gardens.jpg?width=1200",
     alt: "The Discovery Pyramid at Moody Gardens in Galveston",
@@ -49,7 +49,7 @@ const cards = [
 ] as const;
 
 const currentNotes = [
-  { label: "Discovery Pyramid", value: "Galveston Children's Museum is open daily, but 9 to 10 AM is reserved for museum members. Check today's schedule." },
+  { label: "Discovery Pyramid", value: "Galveston Children's Museum is open daily; 9 to 10 AM is reserved for museum members. Ages 2+ need admission that explicitly covers the museum." },
   { label: "Parking", value: "Standard self-parking is free; upgraded parking options cost extra." },
   { label: "Holiday season", value: "Holiday in the Gardens runs Nov. 21, 2026 through Jan. 2, 2027." },
   { label: "Before you buy", value: "Check the official daily schedule and price by age; Palm Beach is seasonal." },
@@ -134,7 +134,7 @@ export function MoodyGardensSpotlights() {
             </p>
             <div className="mt-5 border-t-2 border-primary py-5">
               <strong className="font-display text-2xl">Best first-time default</strong>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan the Aquarium and Rainforest first for a wildlife-focused visit. Families with younger kids may prefer the Galveston Children's Museum in the Discovery Pyramid instead of a second wildlife stop.</p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan the Aquarium and Rainforest first for a wildlife-focused visit. Families with younger kids may prefer the Galveston Children's Museum in the Discovery Pyramid instead of a second wildlife stop; check separate museum admission or a ticket that explicitly includes it.</p>
             </div>
             <div className="mt-6 border-t border-border pt-5">
               <h3 className="font-display text-xl">What a family of four should compare</h3>
@@ -146,7 +146,7 @@ export function MoodyGardensSpotlights() {
                 Select the lower total that actually covers your itinerary. Children 3 and under are admitted
                 free with a regularly priced ticket, and senior (65+) and other discounts
                 may change the comparison. Taxes, promotions and pass inclusions can change;
-                use the official checkout for the actual amounts.
+                use the official checkout for the actual amounts. The Galveston Children's Museum has its own admission requirements for ages 2 and older; a general Moody Gardens attraction ticket does not necessarily include it.
               </p>
               <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
                 <a href="https://tickets.moodygardens.com/webstore/shop/viewitems.aspx?c=admission&cg=ti" target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">Compare official ticket prices and Value Pass</a>
