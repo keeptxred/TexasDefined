@@ -98,7 +98,12 @@ async function inspect(sourcePath) {
         const body = await response.text();
         canonical = htmlCanonical(body);
         const tag = body.match(/<meta\b(?=[^>]*\bname\s*=\s*["']robots["'])[^>]*>/i);
-        if (tag) robots = (tag[0].match(/\bcontent\s*=\s*["']([^"']+)["']/i) || [])[1] || robots;
+        if (tag) {
+          // X-Robots-Tag and meta robots have cumulative effect. A header
+          // noindex must never be hidden by an HTML `index, follow` meta.
+          const metaRobots = (tag[0].match(/\bcontent\s*=\s*["']([^"']+)["']/i) || [])[1];
+          if (metaRobots) robots = [robots, metaRobots].filter(Boolean).join('; ');
+        }
       } catch (caught) { error = caught instanceof Error ? caught.message : String(caught); }
     } else {
       await response.body?.cancel();
@@ -109,7 +114,7 @@ async function inspect(sourcePath) {
   const finalStatus = last?.status ?? null;
   const firstStatus = hops[0]?.status ?? null;
   const outcome = classifyHistoricalGsc404({ invalidTemplate, firstStatus, finalStatus, error });
-  const policy = reviewGsc404Disposition({ path: sourcePath, invalidTemplate, firstStatus, finalStatus, finalUrl: last?.url ?? null, canonical, outcome, error });
+  const policy = reviewGsc404Disposition({ path: sourcePath, invalidTemplate, firstStatus, finalStatus, finalUrl: last?.url ?? null, canonical, robots, outcome, error });
   return {
     path: sourcePath,
     invalidTemplate,
