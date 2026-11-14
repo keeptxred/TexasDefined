@@ -70,13 +70,41 @@ export function reconcileAubreyResults({ editorial, snapshot, primary, secondary
   const allFixtures = [...editorial.season.games, ...playoffFixtures];
   const known = new Map(allFixtures.map((row) => [row.date, row]));
   if (known.size !== allFixtures.length) throw new Error('Duplicate regular-season and postseason fixture dates');
+  // A provider's "aubrey" feed must not smuggle unrelated games, invented
+  // opponents, or an unreviewed postseason advancement into the scoreboard.
+  // Fail visibly before considering any valid rows from that response.
+  for (const [providerName, reports] of [['primary', first], ['secondary', second]]) {
+    for (const [date, report] of reports) {
+      const fixture = known.get(date);
+      if (!fixture || fixture.opponent !== report.opponent) {
+        throw new Error('Unlisted or wrong-opponent Aubrey result from ' + providerName + ': ' + date);
+      }
+    }
+  }
   const published = new Map(snapshot.verifiedResults.map((row) => [row.date, row]));
+  if (published.size !== snapshot.verifiedResults.length) {
+    throw new Error('Duplicate already-published Aubrey finals must be resolved before importing');
+  }
   const merged = [...published.values()];
   const pending = [];
   let added = 0;
   for (const game of allFixtures) {
-    if (game.result || game.date >= today) continue;
+    if (game.date >= today) continue;
     const a = first.get(game.date), b = second.get(game.date);
+    // A score from either provider contradicting an already authored final
+    // cannot be ignored merely because that game predates this import. This
+    // keeps verified historical records immutable and reviewable.
+    if (game.result) {
+      const parsed = /^([WL]) (\d{1,3})[–-](\d{1,3})(?:\s|$)/.exec(game.result);
+      if (!parsed) throw new Error('Unparseable authored Aubrey final on ' + game.date);
+      const expectedAubrey = Number(parsed[2]), expectedOpponent = Number(parsed[3]);
+      for (const report of [a, b].filter(Boolean)) {
+        if (report.aubreyScore !== expectedAubrey || report.opponentScore !== expectedOpponent) {
+          throw new Error('Authorized provider contradicts an authored Aubrey final on ' + game.date);
+        }
+      }
+      continue;
+    }
     const old = published.get(game.date);
     if (old) {
       // An already-corroborated and published result is not "overdue" just

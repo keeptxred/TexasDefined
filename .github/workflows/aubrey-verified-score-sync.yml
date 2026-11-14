@@ -15,6 +15,11 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+
+# Prevent manual dispatch and nightly runs from racing to create duplicate bot PRs.
+concurrency:
+  group: aubrey-verified-score-sync
+  cancel-in-progress: false
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -46,6 +51,18 @@ jobs:
           AUBREY_SCORE_FEED_PRIMARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_PRIMARY_TOKEN }}
           AUBREY_SCORE_FEED_SECONDARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_SECONDARY_TOKEN }}
         run: node scripts/data/update-aubrey-verified-results.mjs
+      - name: Record score-provider errors or conflicting finals for editorial review
+        if: ${{ failure() && steps.import.outcome == 'failure' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='BLOCKED: Aubrey authorized score feed failed validation'
+          url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          if ! gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "The licensed Aubrey feed import rejected an unavailable provider, wrong opponent, unknown fixture, contradictory historical score, invalid source, or other failed input. Run: $url. No unverified score was published; inspect the run before changing or republishing any result."
+          fi
       - name: Flag overdue games that still lack both matching confirmations
         if: ${{ steps.import.outputs.needs_review == 'true' }}
         env:
@@ -64,6 +81,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Do not fork a second score PR while the prior protected auto-merge
+          # is still waiting; an older snapshot would conflict with new data.
+          existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --search 'Publish independently verified Aubrey football finals in:title' --limit 100 --json title,headRefName,url             --jq '.[] | select(.title == "Publish independently verified Aubrey football finals" and (.headRefName | startswith("automation/aubrey-results-"))) | .url' | head -n 1)"
+          if [[ -n "$existing" ]]; then
+            echo "::error title=Existing Aubrey score PR awaits protected merge::$existing; do not create a second competing update."
+            exit 1
+          fi
           branch="automation/aubrey-results-${GITHUB_RUN_ID}"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
