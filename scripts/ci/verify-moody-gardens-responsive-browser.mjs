@@ -35,6 +35,10 @@ try {
       assert.equal(response?.status(), 200, width + "px HTTP");
       await page.getByRole("heading", { name: "How to visit Moody Gardens without wasting time or ticket money" })
         .waitFor({ state: "visible", timeout: 15000 });
+      // The SSR title is correct, but hydrated route metadata previously reverted
+      // to the generic destination title at 1280px. Check after hydration settles.
+      await page.waitForLoadState("load", { timeout: 15000 });
+      await page.waitForTimeout(450);
       const facts = await page.evaluate(() => {
         const body = document.body.innerText;
         const links = [...document.querySelectorAll("a[href]")].map(a => a.href);
@@ -53,6 +57,7 @@ try {
           robots: document.querySelector('meta[name="robots"]')?.content || "",
           h1Count: document.querySelectorAll("h1").length,
           title: document.title,
+          metaDescription: document.querySelector('meta[name="description"]')?.content || "",
           dateModified: webPages.find(item => item.url === location.origin + location.pathname)?.dateModified || "",
           gallery: document.querySelectorAll("img[src*='commons.wikimedia.org']").length,
           hasGuide: body.includes("Jellyfish Gallery") && body.includes("Flower Garden Banks"),
@@ -65,7 +70,8 @@ try {
         };
       });
       assert.equal(facts.canonical, canonical, width + "px canonical");
-      assert.match(facts.title, /Moody Gardens Galveston/, width + "px title");
+      assert.match(facts.title, /Moody Gardens Galveston/, width + "px hydrated title");
+      assert.equal(facts.metaDescription, "Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.", width + "px hydrated description");
       assert.equal(facts.h1Count, 1, width + "px H1");
       assert.doesNotMatch(facts.robots, /noindex/i, width + "px indexability");
       assert.equal(facts.dateModified, "2026-11-14", width + "px WebPage dateModified");
