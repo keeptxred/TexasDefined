@@ -1,4 +1,4 @@
-import footballHero from "@/assets/high-school-football-hero.jpg";
+import sportsCalendarHero from "@/assets/texas-sports-weekend-calendar-hero.svg?no-inline";
 import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
@@ -18,8 +18,8 @@ export const texasSportsWeekendCalendarGuideArticle: Article = {
   dek: "UIL football playoffs, college games, the NBA, RODEOHOUSTON and COTA each publish different kinds of schedules. Here is the practical way to check the right event, location and admission before committing to a Texas sports trip.",
   category: "sports",
   hero: {
-    src: footballHero,
-    alt: "Editorial illustration of Texas high school football players walking toward a stadium under the lights; not a real matchup or current event photograph",
+    src: sportsCalendarHero,
+    alt: "TexasDefined source-calendar infographic comparing high-school football, college sports, NBA, rodeo and motorsport; a planning diagram, not a photograph of an actual event",
     width: 1600,
     height: 900,
   },
