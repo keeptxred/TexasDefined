@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
+import { Top50EventVisitorAnswers } from "@/components/editorial/Top50EventVisitorAnswers";
 import { hideFailedImageContainer } from "@/lib/image-fallback";
 
 export const Route = createLazyFileRoute("/event/$slug")({
@@ -71,6 +72,7 @@ function MajorEventGuidePage() {
         <article dangerouslySetInnerHTML={{ __html: beforeParking }} />
         <ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} />
         {afterParking ? <article dangerouslySetInnerHTML={{ __html: afterParking }} /> : null}
+        <Top50EventVisitorAnswers slug={page.slug} />
       </main>
     </>
   );

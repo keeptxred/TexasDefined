@@ -1,0 +1,156 @@
+name: Top 50 attraction authority contract
+
+on:
+  push:
+    branches:
+      - feat/top-50-attractions-authority-20261017
+    paths:
+      - 'src/data/top50-*.ts'
+      - 'src/data/texas-top50-ranking.ts'
+      - 'src/data/destination-authority-top50-wave1.ts'
+      - 'src/data/congress-avenue-bat-colony-authority.ts'
+      - 'src/data/destination-authority-presentation.ts'
+      - 'src/routes/explore.top-50-attractions.tsx'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/routeTree.gen.ts'
+      - 'scripts/data/validate-top-50-attraction-authority.mjs'
+      - '.github/workflows/top50-attraction-contract.yml'
+  pull_request:
+    paths:
+      - 'src/data/top50-*.ts'
+      - 'src/data/texas-top50-ranking.ts'
+      - 'src/data/destination-authority-top50-wave1.ts'
+      - 'src/data/congress-avenue-bat-colony-authority.ts'
+      - 'src/routes/explore.top-50-attractions.tsx'
+      - 'scripts/data/validate-top-50-attraction-authority.mjs'
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  # Once merged, the structural contract runs weekly on the default branch.
+  # This is NOT a substitute for operator-fact refresh or manual photo-rights review.
+  schedule:
+    - cron: '23 14 * * 5'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: top50-contract-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  content-contract:
+    name: Check all 50 ranked attraction guide records
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify parser syntax
+        run: node --check scripts/data/validate-top-50-attraction-authority.mjs
+      - name: Syntax-check bounded post-deploy Top 50 HTTP acceptance
+        run: node --check scripts/production/verify-top50-attractions-live.mjs
+      - name: Validate 50 canonical attraction guides and evidence
+        run: node scripts/data/validate-top-50-attraction-authority.mjs
+
+  source-health:
+    name: Check official source links and report broken citations
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect operator and historic source links without changing editorial review dates
+        id: probe
+        continue-on-error: true
+        env:
+          TOP50_SOURCE_HEALTH_REPORT: artifacts/top50-attraction-source-health.json
+        run: node scripts/data/check-top50-attraction-source-health.mjs
+      - name: Upload evidence for editorial and access review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: top50-source-evidence-${{ github.run_id }}
+          path: artifacts/top50-attraction-source-health.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Open or update failed official-source review issue
+        if: steps.probe.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const title = 'Top 50 attractions: official source health needs review';
+            let broken = [];
+            try {
+              const report = JSON.parse(fs.readFileSync('artifacts/top50-attraction-source-health.json','utf8'));
+              broken = report.results.filter(item => !item.ok).slice(0,60);
+            } catch(error) { broken = [{url: 'Source evidence missing', status:0, error:String(error)}]; }
+            const body = [
+              'The scheduled Top 50 attractions source-health audit found broken, unavailable or unverifiable links.',
+              'Do not stamp pages as reviewed until their official visitor facts are independently checked.',
+              '',
+              `Workflow: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              `Evidence artifact: top50-source-evidence-${context.runId}`,
+              '',
+              ...broken.map(item => `- ${item.status || 'NETWORK'} ${item.url} — ${item.error ?? ''}`),
+            ].join('\n');
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              ...context.repo, state:'open', per_page:100,
+            });
+            const existing = issues.find(issue => !issue.pull_request && issue.title === title);
+            if (existing) await github.rest.issues.update({...context.repo,issue_number:existing.number,body});
+            else await github.rest.issues.create({...context.repo,title,body});
+      - name: Preserve failed source-health status after reporting
+        if: steps.probe.outcome == 'failure'
+        run: exit 1
+
+  live-acceptance:
+    name: Verify Top 50 pages after qualifying production deployment
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      contents: read
+    steps:
+      - name: Check out deployed source revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Scope verification to actual Top 50 source changes
+        id: scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          changed="$(git diff --name-only HEAD^1 HEAD -- 'src/data/top50-*' 'src/data/texas-top50-ranking.ts' 'src/routes/explore.top-50-attractions.tsx' 'src/data/destination-authority-top50-wave1.ts' 'src/data/congress-avenue-bat-colony-authority.ts')"
+          if [[ -n "$changed" ]]; then echo 'verify=true' >> "$GITHUB_OUTPUT"; else echo 'verify=false' >> "$GITHUB_OUTPUT"; fi
+          printf 'Changed Top 50 sources:\n%s\n' "$changed"
+      - name: Verify exact production pages and photo/source attribution
+        if: steps.scope.outputs.verify == 'true'
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: node scripts/production/verify-top50-attractions-live.mjs
+      - name: Preserve live acceptance audit output
+        if: always() && steps.scope.outputs.verify == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: top50-live-acceptance-${{ github.event.workflow_run.head_sha }}
+          path: artifacts/top50-live-acceptance.json
+          if-no-files-found: warn
+          retention-days: 90

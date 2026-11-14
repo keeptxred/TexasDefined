@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['CONTENT/AUTHORITY', 'Check fifty canonical attractions, researched guides and routing', 'node', ['scripts/data/validate-top-50-attraction-authority.mjs']],
   ['CONTENT/TEXAS-INDUSTRIES-LABOR', 'Validate dated source-backed Texas industry labor trend comparison and monthly drift gate', 'node', ['scripts/data/validate-texas-industries-job-market.mjs']],
   ['CONTENT/QUESTION-GUIDES', 'Verify researched Texas career and nature guides, site URLs and sourcing', 'node', ['scripts/data/validate-texas-question-guides.mjs']],
   ['SEO/CANONICAL/PARTNER', 'Keep partner inquiry query canonical and remove duplicate alias parameters without losing form attribution', 'node', ['scripts/data/validate-gsc-indexation-remediation.mjs']],

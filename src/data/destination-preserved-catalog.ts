@@ -18,6 +18,7 @@ import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
+import { top50CompactDestinationSummaries } from "./top50-preserved-summaries";
 import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
@@ -258,6 +259,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   dallasBlackHistoryDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
+  top50CompactDestinationSummaries,
   coastalDestinations,
   viatorDestinationExpansion,
   texasVintageMotorcycleMuseumDestinations,

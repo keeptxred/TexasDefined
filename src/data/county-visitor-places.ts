@@ -18,6 +18,11 @@ export type CountyVisitorPlace = {
 };
 
 export const COUNTY_VISITOR_PLACES: readonly CountyVisitorPlace[] = [
+  {"county":"comal","name":"Schlitterbahn New Braunfels","category":"Parks & recreation","description":"The original New Braunfels waterpark blends family pools with major slides and surf-style attractions; operating days, ride access and resort check-in require separate planning.","sourceUrl":"https://www.sixflags.com/schlitterbahnnewbraunfels/park-map-directions","relatedGuideHref":"/destination/schlitterbahn-new-braunfels"},
+  {"county":"tarrant","name":"Six Flags Over Texas","category":"Parks & recreation","description":"Arlington's original 1961 Six Flags theme park offers coasters, family areas and seasonal entertainment; its admission and parking are separate from Hurricane Harbor.","sourceUrl":"https://www.sixflags.com/overtexas/directions","relatedGuideHref":"/destination/six-flags-over-texas"},
+  {"county":"bexar","name":"SeaWorld San Antonio","category":"Parks & recreation","description":"A marine-life and thrill-ride park on San Antonio's west side; visiting Aquatica requires separately eligible admission and seasonal planning.","sourceUrl":"https://seaworld.com/san-antonio/faq/","relatedGuideHref":"/destination/seaworld-san-antonio"},
+  {"county":"bexar","name":"Six Flags Fiesta Texas","category":"Parks & recreation","description":"A quarry-setting theme park in northwest San Antonio combining coasters and shows; check current ride limits, special-event calendars and park directions.","sourceUrl":"https://www.sixflags.com/fiestatexas/directions","relatedGuideHref":"/destination/six-flags-fiesta-texas"},
+  {"county":"travis","name":"Congress Avenue Bridge Bat Colony","category":"Parks & recreation","description":"A seasonal public wildlife-viewing spectacle over Lady Bird Lake where migratory Mexican free-tailed bats emerge around dusk; sightings depend on season and weather.","sourceUrl":"https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/congress-avenue-bridge.phtml","relatedGuideHref":"/destination/congress-avenue-bridge-bat-colony"},
   {
     "county": "anderson",
     "name": "Davey Dogwood Park",

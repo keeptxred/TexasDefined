@@ -370,6 +370,7 @@ import { Route as ExploreWildlifeRouteImport } from './routes/explore.wildlife'
 import { Route as ExploreWaterParksRouteImport } from './routes/explore.water-parks'
 import { Route as ExploreTripPlannerRouteImport } from './routes/explore.trip-planner'
 import { Route as ExploreTopAttractionsRouteImport } from './routes/explore.top-attractions'
+import { Route as ExploreTop50AttractionsRouteImport } from './routes/explore.top-50-attractions'
 import { Route as ExploreTexasWildflowerSeasonsRouteImport } from './routes/explore.texas-wildflower-seasons'
 import { Route as ExploreTexasStateParksGuideRouteImport } from './routes/explore.texas-state-parks-guide'
 import { Route as ExploreTexasScenicDrivesRouteImport } from './routes/explore.texas-scenic-drives'
@@ -2866,6 +2867,11 @@ const ExploreTopAttractionsRoute = ExploreTopAttractionsRouteImport.update({
   path: '/explore/top-attractions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreTop50AttractionsRoute = ExploreTop50AttractionsRouteImport.update({
+  id: '/explore/top-50-attractions',
+  path: '/explore/top-50-attractions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreTexasWildflowerSeasonsRoute =
   ExploreTexasWildflowerSeasonsRouteImport.update({
     id: '/explore/texas-wildflower-seasons',
@@ -4288,6 +4294,7 @@ export interface FileRoutesByFullPath {
   '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/top-50-attractions': typeof ExploreTop50AttractionsRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/water-parks': typeof ExploreWaterParksRouteWithChildren
@@ -4829,6 +4836,7 @@ export interface FileRoutesByTo {
   '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/top-50-attractions': typeof ExploreTop50AttractionsRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/wildlife': typeof ExploreWildlifeRoute
@@ -5374,6 +5382,7 @@ export interface FileRoutesById {
   '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/top-50-attractions': typeof ExploreTop50AttractionsRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/water-parks': typeof ExploreWaterParksRouteWithChildren
@@ -5921,6 +5930,7 @@ export interface FileRouteTypes {
     | '/explore/texas-scenic-drives'
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
+    | '/explore/top-50-attractions'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
     | '/explore/water-parks'
@@ -6462,6 +6472,7 @@ export interface FileRouteTypes {
     | '/explore/texas-scenic-drives'
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
+    | '/explore/top-50-attractions'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
     | '/explore/wildlife'
@@ -7006,6 +7017,7 @@ export interface FileRouteTypes {
     | '/explore/texas-scenic-drives'
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
+    | '/explore/top-50-attractions'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
     | '/explore/water-parks'
@@ -7531,6 +7543,7 @@ export interface RootRouteChildren {
   ExploreTexasScenicDrivesRoute: typeof ExploreTexasScenicDrivesRoute
   ExploreTexasStateParksGuideRoute: typeof ExploreTexasStateParksGuideRoute
   ExploreTexasWildflowerSeasonsRoute: typeof ExploreTexasWildflowerSeasonsRoute
+  ExploreTop50AttractionsRoute: typeof ExploreTop50AttractionsRoute
   ExploreTopAttractionsRoute: typeof ExploreTopAttractionsRouteWithChildren
   ExploreTripPlannerRoute: typeof ExploreTripPlannerRoute
   ExploreWaterParksRoute: typeof ExploreWaterParksRouteWithChildren
@@ -10194,6 +10207,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreTripPlannerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/top-50-attractions': {
+      id: '/explore/top-50-attractions'
+      path: '/explore/top-50-attractions'
+      fullPath: '/explore/top-50-attractions'
+      preLoaderRoute: typeof ExploreTop50AttractionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/top-attractions': {
       id: '/explore/top-attractions'
       path: '/explore/top-attractions'
@@ -12433,6 +12453,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreTexasScenicDrivesRoute: ExploreTexasScenicDrivesRoute,
   ExploreTexasStateParksGuideRoute: ExploreTexasStateParksGuideRoute,
   ExploreTexasWildflowerSeasonsRoute: ExploreTexasWildflowerSeasonsRoute,
+  ExploreTop50AttractionsRoute: ExploreTop50AttractionsRoute,
   ExploreTopAttractionsRoute: ExploreTopAttractionsRouteWithChildren,
   ExploreTripPlannerRoute: ExploreTripPlannerRoute,
   ExploreWaterParksRoute: ExploreWaterParksRouteWithChildren,

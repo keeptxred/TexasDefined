@@ -384,6 +384,17 @@ async function getResolvedDestinationBase(slug: Slug) {
     const readyCurated = resolveSeoReadyDestination(curated);
     if (readyCurated) return readyCurated;
   }
+  if (["schlitterbahn-new-braunfels","six-flags-over-texas","seaworld-san-antonio","six-flags-fiesta-texas"].includes(slug)) {
+    const { top50ThemeParkDestinations } = await import("./top50-theme-park-destinations");
+    const authored = top50ThemeParkDestinations.find(item => item.slug === slug);
+    const ready = resolveSeoReadyDestination(authored);
+    if (ready) return ready;
+  }
+  if (slug === "congress-avenue-bridge-bat-colony") {
+    const { congressAvenueBatDestination } = await import("./congress-avenue-bat-colony-authority");
+    const ready = resolveSeoReadyDestination(congressAvenueBatDestination);
+    if (ready) return ready;
+  }
   const weakCandidates: Destination[] = [];
   let enrichedFailed = false;
   const enriched = await withDestinationRemoteTimeout("Explore destination enrichment", fetchExploreDestination(slug))

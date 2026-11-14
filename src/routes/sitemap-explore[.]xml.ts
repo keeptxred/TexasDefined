@@ -233,6 +233,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/water-towers",
     "/destination/whirlyball-hurst",
     ...PAINTED_CHURCH_STATIC_PATHS,
+    "/explore/top-50-attractions",
     "/explore/top-attractions",
     "/explore/top-attractions/methodology",
     "/explore/top-attractions/road-trips",
@@ -415,6 +416,17 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
 
         const destinations = await resolveDestinationCatalog(rawDestinations);
+        // The preserved index retains compact descriptions. Audit the detailed
+        // destination before including each new attraction in the sitemap.
+        const [{ top50ThemeParkDestinations }, { congressAvenueBatDestination }] = await Promise.all([
+          import("@/data/top50-theme-park-destinations"),
+          import("@/data/congress-avenue-bat-colony-authority"),
+        ]);
+        for (const authored of [...top50ThemeParkDestinations, congressAvenueBatDestination]) {
+          const index = destinations.findIndex(row => row.slug === authored.slug);
+          if (index >= 0) destinations[index] = authored;
+          else destinations.push(authored);
+        }
         // Mirror the full, source-checked records served by the lazy Waco
         // destination resolver, even if the remote catalog has stale summaries.
         for (const canonicalDestination of wacoViatorAttractionDestinations) {
@@ -504,7 +516,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/wildlife",
           "/explore/water-towers",
           ...PAINTED_CHURCH_STATIC_PATHS,
-          "/explore/top-attractions",
+          "/explore/top-50-attractions",
+    "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
           "/explore/big-bend-scenic-drives",

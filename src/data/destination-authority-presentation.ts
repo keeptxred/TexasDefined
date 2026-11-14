@@ -1,4 +1,5 @@
 import { topTexasAttractionRank } from "./top-texas-attractions";
+import { isTop50AuthorityWave1, isTop50ThemeParkDestination, isTop50BatColonyDestination } from "./top50-authority-wave1-slugs";
 import type { Destination } from "./types";
 
 // Canonical guide-placement contract. Both destination rendering surfaces must
@@ -9,6 +10,14 @@ const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
   "whirlyball-hurst",
   "my-story-museum-crystal-city",
+  "uss-lexington-museum-corpus-christi",
+  "waco-mammoth-national-monument",
+  "national-museum-pacific-war",
+  "museum-of-fine-arts-houston",
+  "kimbell-art-museum-fort-worth",
+  "strand-historic-district",
+  "enchanted-rock-state-natural-area",
+  "barton-springs-pool",
   // Include live history destinations curated under other public categories.
   "fort-davis-national-historic-site",
   "san-jacinto-battleground",
@@ -29,5 +38,5 @@ export function shouldRenderFullDestinationAuthorityGuide(destination: Destinati
   const historicGuide = destination.category === "historic-sites" ||
     ["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug);
   const individuallyRegisteredGuide = AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
-  return Boolean(topTexasAttractionRank(destination.slug)) || individuallyRegisteredGuide || historicGuide;
+  return Boolean(topTexasAttractionRank(destination.slug)) || individuallyRegisteredGuide || historicGuide || isTop50AuthorityWave1(destination.slug) || isTop50ThemeParkDestination(destination.slug) || isTop50BatColonyDestination(destination.slug);
 }
