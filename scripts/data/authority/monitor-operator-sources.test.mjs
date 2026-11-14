@@ -54,7 +54,7 @@ test("three approved attraction sources are monitored from real canonical record
   const { readFile } = await import("node:fs/promises");
   const source = await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8");
   const records = reviewedAttractionMonitorRows(source);
-  assert.equal(records.length, 11, "Three attraction visits, San Antonio history, Fort Worth city/project/design/tourism records, Houston FAQ/collections/About and dated recycling terms");
+  assert.equal(records.length, 12, "Three attraction visits, San Antonio history, Fort Worth city/project/design/tourism records, Houston FAQ/collections/About, Garden Explorer and dated recycling terms");
   assert.deepEqual([...new Set(records.map((r) => r.id))].sort(), [
     "fort-worth-water-gardens", "houston-botanic-garden", "san-antonio-japanese-tea-garden",
   ]);
@@ -68,6 +68,7 @@ test("three approved attraction sources are monitored from real canonical record
   ]) assert.ok(records.some((r) => r.id === "fort-worth-water-gardens" && r.sourceUrl === sourceUrl),
     "Fort Worth source-backed construction and historic design references require change monitoring: " + sourceUrl);
   for (const official of [
+    "https://hbg.gardenexplorer.org/",
     "https://hbg.org/gardens/",
     "https://hbg.org/about/",
     "https://hbg.org/visit/texas-recycles/",

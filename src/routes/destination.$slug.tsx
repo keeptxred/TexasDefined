@@ -410,7 +410,7 @@ function DestinationPage() {
     { question: "Time and location", answer: "Allow 30–60 minutes at 1502 Commerce Street, near the downtown convention-center district." },
   ] : destination.slug === "houston-botanic-garden" ? [
     { question: "Daytime tickets and reservations", answer: "Adults $12; ages 3–17, students with ID, seniors and active military $8; under age 3 free but every visitor needs a ticket or member reservation." },
-    { question: "Opening and last entry", answer: "Normally 9 a.m.–5 p.m. with last entry at 4:30 p.m. Closed Thanksgiving Day, Christmas Day and New Year's Day according to both current operator pages. Recheck the ticket calendar for exceptional hours." },
+    { question: "Opening and last entry", answer: "Normally 9 a.m.–5 p.m. with last entry at 4:30 p.m. The Visit page lists Thanksgiving and Christmas closures; the About page also lists New Year's Day. Confirm January 1 hours through the official ticket calendar." },
     { question: "What to explore?", answer: "Global and Culinary gardens, Coastal Prairie, Stormwater Wetlands and the Susan Garver Family Discovery Garden." },
     { question: "Arrival and access", answer: "Enter One Botanic Lane from Park Place Boulevard. Free daytime parking; bring your own wheelchair or stroller if needed. Allow 1.5–2 hours." },
   ] : null;
@@ -649,7 +649,7 @@ function DestinationPage() {
         {/* Keep this contextual hotel module with the visitor planning information;
             without a dedicated slot both commercial layers fall to the guide footer. */}
         {destination.slug === "fort-mckavett" && <div data-stay-nearby-slot aria-label="Places to stay when visiting Fort McKavett" />}
-        {authoritySourceLinks.length > 0 && destination.slug !== "magoffin-home" && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
+        {authoritySourceLinks.length > 0 && destination.slug !== "magoffin-home" && !isReviewedAttraction && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
           <p className="eyebrow text-primary">{documentaryPhotoSource ? "Evidence and photo credits" : "Evidence and citations"}</p>
           <h2 id="destination-research-sources" className="mt-3 font-display text-3xl">{documentaryPhotoSource ? "Research sources and image rights" : "Research sources"}</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{documentaryPhotoSource ? "Read the original operator records, preservation research and documentary photography license for this guide." : "Read the original operator records and supporting research for this guide."}</p>

@@ -31,7 +31,6 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Free admission and Brackenridge Park location"
     ],
     "body": [
-      "Free admission and a 7 a.m.–5 p.m. daily schedule make the Japanese Tea Garden an easy stop next to Brackenridge Park and the San Antonio Zoo. Plan about 30–60 minutes. The upper pavilion and Jingu House are reached by ramp from the upper garden; the lower pond paths and waterfall area require stairs. Accessible parking is available in the garden lot, but a space cannot be guaranteed.",
       "San Antonio's Japanese Tea Garden occupies a former limestone quarry and cement works. Stone bridges cross koi ponds beneath steep quarry walls, while a waterfall and planted terraces turn the industrial excavation into part of the landscape rather than hiding it. The upper level offers the broadest overview without a descent.",
       "San Antonio Parks Commissioner Ray Lambert's project turned an abandoned cement quarry into lily ponds and gardens between 1917 and 1918. Donated bulbs, the city nursery and the public utility helped furnish the early setting; the bridges, pagoda and tiered walls still demonstrate how the former industrial terrain shaped the design. The city records German masons' earlier quarry work, a 1920 Mexican Village supporting local artisans, and a concrete torii-style entrance gate by Dionicio Rodríguez.",
       "The Jingu family's story is essential to the garden's identity. Japanese-American artist Kimi Eizo Jingu and his wife Miyoshi lived and worked at the garden, and the family opened the Bamboo Room for tea and light food in 1926. After Eizo's death in 1938, the family continued operations until they were evicted amid anti-Japanese sentiment during World War II in 1942. The gardens were renamed the Chinese Sunken Garden before the original name was formally restored in the 1980s. Understanding the displacement and later rededication adds historical context beyond the ponds and waterfall.",
@@ -159,7 +158,6 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Swimming and wading prohibited"
     ],
     "body": [
-      "Visit Fort Worth confirms free admission, and the City of Fort Worth lists 6 a.m.–10 p.m. daily hours. The park sits at 1502 Commerce Street near the convention center. Swim and wade nowhere in the pools; this is a civic landscape, not a splash-play attraction. Check the city's construction project and park page before relying on a particular route.",
       "The 1974 downtown landscape designed by Philip Johnson and John Burgee has three deliberately different water environments. The Active Pool's stepped descent surrounds a powerful cascade; the Quiet Pool emphasizes a still surface and enclosure; and the Aerated Pool uses upward-moving fountains. Comparing them is a lesson in how sound and movement change the experience of one urban block.",
       "The Active Pool sends water down tiered concrete walls into a basin 38 feet below the upper plaza, according to the City of Fort Worth. Its descending path uses narrow, table-topped steps; the surrounding rim gives a view without descending. Visitors who have trouble with stairs, balance or heights can appreciate the pool from above.",
       "The Quiet Pool presents a contrasting still surface and a more secluded setting, with planted edges and a reflective mood. Its calmness makes the scale and noise of the Active Pool more noticeable by comparison.",
@@ -318,7 +316,7 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Official timed general admission and member reservations"
     ],
     "body": [
-      "Houston Botanic Garden is normally open 9 a.m.–5 p.m. with last entry at 4:30 p.m. Both the official Visit page and About page list Thanksgiving Day, Christmas Day and New Year's Day closures. Check the current ticket calendar for special events or updated hours before traveling. Standard daytime admission is $12 for adults, $8 for ages 3–17, students with ID, seniors and active military; children under 3 enter free but still need a ticket. All visitors, including infants and members, need a ticket or member reservation. Check the operator's booking page for the current rate, qualifying discounts and event-specific exclusions. Parking is free during daytime visits.",
+      "The garden's daytime ticket program includes more than standard individual admission. Its Museums for All rate is $3 each for up to four daytime general admission tickets when an eligible SNAP-benefit household presents an EBT card and photo ID. Its published group rates for 15 or more are also lower than individual rates. Confirm eligibility and the live checkout requirements directly: neither discount automatically includes separately ticketed seasonal events or an evening show.",
       "Houston Botanic Garden occupies 132 acres of former Glenbrook golf-course land around Sims Bayou. Its cultivated collections sit alongside Gulf Coast prairie and stormwater wetlands. The contrast between planted gardens and ecological restoration is the central reason to visit.",
       "Choose a route based on interests rather than rushing through every garden. The Global Collection Garden and Culinary Garden suit people interested in cultivated plants and their uses; the Coastal Prairie and Stormwater Wetlands focus on native habitat and water systems. Families may prefer a longer stop at the Susan Garver Family Discovery Garden.",
       "The Global Collection Garden has themed planting areas with tropical, subtropical and arid plants. Sheltered alcoves along its route provide places to pause in warm weather; the nearby Culinary Garden explores edible and culturally useful plants.",
@@ -326,7 +324,7 @@ export const reviewedAttractionDestinations: Destination[] = [
       "The Coastal Prairie features native Gulf Coast plants, including grasses and seasonal wildflowers. Its appearance changes with rainfall, growing seasons and maintenance; visitors interested in habitat restoration and pollinators will find a different experience from the formal collections.",
       "The Stormwater Wetlands demonstrate the role of planted wetland systems in handling runoff and supporting habitat. Nearby Sims Bayou and the garden's former golf-course terrain give this section practical Houston-specific context.",
       "The Susan Garver Family Discovery Garden includes features designed for younger visitors. Check current garden notices for operating play and water features; activities and staffing vary.",
-      "The garden's published Gardens & Collections directory also lists the Woodland Glade, Community Garden, Pine Grove and Picnic Grove. Consult the current garden map before choosing a route between The Island and the South Gardens.",
+      "The garden's Gardens & Collections directory lists the Woodland Glade, Community Garden, Pine Grove and Picnic Grove. Visitors looking for a particular tree, flowering plant or accessible stopping point can also use the Garden's official interactive Garden Explorer to search the living collection by plant name, browse mapped gardens and look up waypoints such as benches. Check the current visitor map before deciding how to move between The Island and the South Gardens.",
       "Timed tickets allow entry during their indicated hour; for an arrival more than one hour later, the FAQ says to ask the ticket window for an exchange to the current entry period. The garden encourages advance online purchase and operates cashlessly. Standard daytime tickets do not automatically include separately ticketed evening or seasonal experiences.",
       "The entrance is at One Botanic Lane off Park Place Boulevard, east of I-45 South. For navigation, the operator recommends 8210 Park Place Boulevard as the drive approach. Daytime on-site parking is free on a first-come basis, not a reserved space.",
       "METRO Route 005-Southmore serves Park Place Boulevard; check the current schedule and stops before traveling. Pedestrians and cyclists use the Park Place Boulevard entrance and its bridge. The Sims Bayou Greenway does not provide direct entry into the South Gardens; bicycle racks are available at the Garden.",
@@ -354,6 +352,11 @@ export const reviewedAttractionDestinations: Destination[] = [
         "question": "How long should I plan to stay?",
         "answer": "The operator estimates a typical visit at 1.5–2 hours.",
         "sourceUrl": "https://hbg.org/about/questions/"
+      },
+      {
+        "question": "Can I find a particular plant or garden before my visit?",
+        "answer": "Yes. The official Garden Explorer lets visitors browse the living collection, search for named plants and see mapped gardens and waypoints. Confirm the day's route and any closures at the garden.",
+        "sourceUrl": "https://hbg.gardenexplorer.org/"
       }
     ],
     "authorityGuide": {
@@ -411,6 +414,11 @@ export const reviewedAttractionDestinations: Destination[] = [
           "label": "Houston Botanic Garden — Texas Recycles 2026 offer",
           "url": "https://hbg.org/visit/texas-recycles/",
           "scope": "Nov. 13–15 daytime admission eligibility and ticket-window recycling exchange; dated promotion, not an evergreen price"
+        },
+        {
+          "label": "Houston Botanic Garden — official interactive Garden Explorer",
+          "url": "https://hbg.gardenexplorer.org/",
+          "scope": "Live plant collection search, maps, named specimens and on-site waypoints for planning a specific visit"
         }
       ]
     },

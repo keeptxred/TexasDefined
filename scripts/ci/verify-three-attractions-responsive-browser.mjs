@@ -54,7 +54,8 @@ try {
           const image = [...document.images].find((candidate) => candidate.alt === alt);
           return Boolean(image && image.complete && image.naturalWidth > 400 && image.naturalHeight > 300);
         }, guide.alt, { timeout: 25000 });
-        await page.waitForTimeout(600);
+        await page.locator('section[aria-labelledby="destination-authority-sources"], section[aria-labelledby="' + guide.slug + '-sources"]').first().waitFor({ state: "attached", timeout: 20000 });
+        await page.waitForTimeout(300);
         const facts = await page.evaluate((alt) => {
           const image = [...document.images].find((candidate) => candidate.alt === alt);
           const imageBox = image?.getBoundingClientRect();
@@ -74,6 +75,8 @@ try {
             horizontalOverflow: Math.max(0, document.documentElement.scrollWidth - window.innerWidth),
             noindex: /\bnoindex\b/i.test(robot),
             genericAtGlance: [...document.querySelectorAll("h2")].some((h) => h.textContent?.includes("at a glance")),
+            duplicateResearchPanel: Boolean(document.querySelector("#destination-research-sources")),
+            datedPrimarySources: (document.querySelector("#destination-authority-sources")?.closest("section") ?? document.getElementById(alt.includes("San Antonio Japanese Tea Garden") ? "san-antonio-japanese-tea-garden-sources" : alt.includes("Fort Worth Water Gardens") ? "fort-worth-water-gardens-sources" : "houston-botanic-garden-sources")?.closest("section"))?.querySelectorAll("a[href^='https://']")?.length ?? 0,
             editorialMetaLanguage: /Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(document.body.innerText),
             photoCredit: (() => {
               const el = document.querySelector("[data-attraction-photo-credit]");
@@ -103,6 +106,8 @@ try {
         assert.ok(!facts.noindex, guide.slug + " " + viewport.label + " robots noindex");
         assert.ok(facts.officialSources >= 1, guide.slug + " " + viewport.label + " official references");
         assert.ok(!facts.genericAtGlance, guide.slug + " must lead with location-specific visitor decisions");
+        assert.ok(!facts.duplicateResearchPanel, guide.slug + " must not duplicate source lists");
+        assert.ok(facts.datedPrimarySources >= 1, guide.slug + " must preserve original primary links and source check date");
         assert.ok(!facts.editorialMetaLanguage, guide.slug + " must not show editorial instructions");
         assert.ok(facts.photoCredit.visible && !facts.photoCredit.clipped, guide.slug + " photo credit legibility at " + viewport.width + "px");
         assert.equal(facts.photoCredit.links.length, 2, guide.slug + " exact photograph source and license link");
