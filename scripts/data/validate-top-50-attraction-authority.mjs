@@ -7,8 +7,31 @@ function parseStaticJson(path, before, after) {
   const start = source.indexOf(before);
   assert.ok(start >= 0, `Missing static source marker ${before} in ${path}`);
   const from = start + before.length;
-  const end = source.indexOf(after, from);
-  assert.ok(end >= 0, `Missing end marker ${after} in ${path}`);
+  // Stop at the end of the first JSON literal. Later research tables may be
+  // inserted between it and the next exported function; a string-terminator
+  // search would accidentally capture those declarations and fail JSON.parse.
+  const opener = source[from];
+  assert.ok(opener === "{" || opener === "[", `Expected JSON literal in ${path}`);
+  const closer = opener === "{" ? "}" : "]";
+  let depth = 0;
+  let quoted = false;
+  let escaped = false;
+  let end = -1;
+  for (let index = from; index < source.length; index++) {
+    const char = source[index];
+    if (quoted) {
+      if (escaped) escaped = false;
+      else if (char === "\\\\" ) escaped = true;
+      else if (char === '"') quoted = false;
+    } else if (char === '"') quoted = true;
+    else if (char === "{" || char === "[") depth++;
+    else if (char === "}" || char === "]") {
+      depth--;
+      if (depth === 0) { end = index + 1; break; }
+    }
+  }
+  assert.ok(end > from && source[end - 1] === closer, `Malformed JSON record in ${path}`);
+  assert.ok(source.indexOf(after, end) >= 0, `Missing expected trailing marker ${after} in ${path}`);
   return JSON.parse(source.slice(from, end));
 }
 function assertVisitorGuide(guide, label) {
