@@ -10,6 +10,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH
   || "/tmp/texasdefined-wp-qa/node_modules/playwright-core");
 const canonical = "https://texasdefined.com/destination/moody-gardens";
+let pinnedWorkerVersion = process.env.MOODY_EXPECTED_WORKER_VERSION?.trim() || "";
 const browser = await chromium.launch({
   headless: true,
   executablePath: process.env.CHROME_BIN || "/usr/bin/google-chrome",
@@ -22,6 +23,7 @@ try {
       isMobile: width <= 390,
       hasTouch: width <= 390,
       deviceScaleFactor: 1,
+      extraHTTPHeaders: { "cache-control": "no-cache", pragma: "no-cache" },
     });
     await context.route(/(?:google-analytics|googletagmanager|connect\.facebook\.net|facebook\.com\/tr|\/api\/analytics|\/api\/track)/i,
       route => route.abort());
@@ -33,6 +35,15 @@ try {
         (process.env.GITHUB_SHA || "check").slice(0, 12) + "-" + width,
         { waitUntil: "domcontentloaded", timeout: 45000 });
       assert.equal(response?.status(), 200, width + "px HTTP");
+      // During concurrent releases an old Worker can yield an old client
+      // title after hydration while newer viewport requests use the new code.
+      // Do not call four mixed Worker versions one passed production audit.
+      const workerVersion = (await response.headerValue("x-texasdefined-worker-version"))?.trim() || "";
+      assert.match(workerVersion, /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i,
+        width + "px missing signed Worker version header");
+      if (!pinnedWorkerVersion) pinnedWorkerVersion = workerVersion;
+      assert.equal(workerVersion, pinnedWorkerVersion, width + "px crossed Worker releases mid-browser verification");
+      const initialTitle = await page.title();
       await page.getByRole("heading", { name: "How to visit Moody Gardens without wasting time or ticket money" })
         .waitFor({ state: "visible", timeout: 15000 });
       // The SSR title is correct, but hydrated route metadata previously reverted
@@ -57,6 +68,7 @@ try {
           robots: document.querySelector('meta[name="robots"]')?.content || "",
           h1Count: document.querySelectorAll("h1").length,
           title: document.title,
+          headTitles: [...document.querySelectorAll('head title')].map(node => node.textContent?.trim()),
           metaDescription: document.querySelector('meta[name="description"]')?.content || "",
           dateModified: webPages.find(item => item.url === location.origin + location.pathname)?.dateModified || "",
           gallery: document.querySelectorAll("img[src*='commons.wikimedia.org']").length,
@@ -70,7 +82,9 @@ try {
         };
       });
       assert.equal(facts.canonical, canonical, width + "px canonical");
-      assert.match(facts.title, /Moody Gardens Galveston/, width + "px hydrated title");
+      assert.equal(facts.headTitles.length, 1, width + "px duplicate <title> elements after hydration");
+      assert.match(facts.title, /Moody Gardens Galveston/,
+        width + "px hydrated title; initial=" + initialTitle + "; worker=" + workerVersion);
       assert.equal(facts.metaDescription, "Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.", width + "px hydrated description");
       assert.equal(facts.h1Count, 1, width + "px H1");
       assert.doesNotMatch(facts.robots, /noindex/i, width + "px indexability");
@@ -80,7 +94,8 @@ try {
         assert.equal(facts[key], true, width + "px missing " + key);
       }
       assert.deepEqual(errors, [], width + "px JavaScript errors");
-      console.log("PASS Moody Gardens responsive Chrome", width + "px", JSON.stringify(facts));
+      console.log("PASS Moody Gardens responsive Chrome", width + "px",
+        JSON.stringify({ ...facts, workerVersion, initialTitle }));
     } finally {
       await context.close();
     }
