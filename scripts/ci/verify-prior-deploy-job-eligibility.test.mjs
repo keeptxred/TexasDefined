@@ -194,3 +194,33 @@ test('published District 5 asset handoff rejects fabricated IDs or extra/live-cr
       /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
   }
 });
+
+test('published Nov14 Moody Worker may supply exact original bytes only after hydration repair', () => {
+  const payload=evidence({
+    runId:43608793638,jobId:132489033467,
+    failure:'Verify Moody Gardens four-viewport browser authority and layout',
+  });
+  const answer=qualifyPriorDeployJob(payload);
+  assert.equal(answer.eligible,true);
+  assert.equal(answer.mode,'exact-nov14-moody-posthydration-original-assets-only');
+  assert.equal(answer.exactRun,43608793638);
+  assert.equal(answer.criticalChecks,5);
+  assert.equal(answer.requiredSourceSha,'5f80e24f9791b86ec8ab87e9f2fb910cca21521f');
+  assert.equal(answer.requiredWorkerVersion,'695cd863-f891-4b2b-8c60-22f722f7cc0e');
+  assert.deepEqual(answer.permittedFailures,['Verify Moody Gardens four-viewport browser authority and layout']);
+});
+
+test('Moody asset handoff rejects wrong job, run, extra failure or a failed critical asset/runtime gate', () => {
+  const original={runId:43608793638,jobId:132489033467,
+    failure:'Verify Moody Gardens four-viewport browser authority and layout'};
+  for (const mutation of [
+    {runId:43608793639},{jobId:132489033468},
+    {failure:'Verify canonical production health'},
+    {failure:'Verify current and previous release JS/CSS on both public origins'},
+    {additional:['Verify base production surfaces']},
+    ...required.map(omit=>({omit})),
+  ]) {
+    assert.throws(()=>qualifyPriorDeployJob(evidence({...original,...mutation})),
+      /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence|Moody source-verified published Worker has unexpected failure/);
+  }
+});
