@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
-import { GSC_SITEMAP_SEEDS, parseGscSitemapXml, identifyGscSitemapLeaks } from './gsc-404-sitemap.mjs';
+import { GSC_SITEMAP_SEEDS, parseGscSitemapXml, identifyGscSitemapLeaks, missingRestoredGscSitemapCanonicals } from './gsc-404-sitemap.mjs';
 
 test('sitemap URL set detects encoded and doubly encoded raw router tokens', () => {
   const xml = '<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
@@ -58,4 +58,16 @@ test('all publicly advertised XML sitemaps and children of the canonical index a
     .map((match) => match[1]).sort();
   assert.deepEqual(robotsXml, GSC_SITEMAP_SEEDS.slice().sort(),
     'All canonical XML sitemap entries in robots.txt require audit coverage');
+});
+
+test('restored valuable canonical destinations are present in at least one real sitemap', () => {
+  assert.deepEqual(
+    missingRestoredGscSitemapCanonicals(
+      ['/destination/big-bend-ranch-state-park', '/article/texas-road-trip-rules', '/article/texas-road-trip-rules'],
+      ['/article/texas-road-trip-rules', '/destination/fort-leaton-state-historic-site',
+       '/destination/big-bend-ranch-state-park', '/destination/fort-leaton-state-historic-site']
+    ),
+    ['/destination/fort-leaton-state-historic-site']
+  );
+  assert.deepEqual(missingRestoredGscSitemapCanonicals([], []), []);
 });

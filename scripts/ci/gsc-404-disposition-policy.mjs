@@ -181,6 +181,34 @@ export const LIVE_VERIFIED_GSC_CANONICAL_PATHS = Object.freeze({
   "/things-unique-to-texas_/methodology": "/things-unique-to-texas/methodology",
 });
 
+/** These published visitor/editorial restores are intended for public Google
+ * discovery. The four football ISD restores retain their independent
+ * Googlebot-only indexing policy; do not change that policy from this audit.
+ */
+export const INDEXABLE_RESTORED_GSC_PATHS = Object.freeze(new Set([
+  '/article/texas-road-trip-rules',
+  '/city/del-rio',
+  '/destination/fort-leaton-state-historic-site',
+  '/historic-site/fort-leaton-state-historic-site',
+  '/destination/barton-warnock-environmental-educational-center-state-park',
+  '/state-park/barton-warnock-environmental-educational-center-state-park',
+  '/article/texas-oil-boom-history-spindletop-permian-basin',
+]));
+
+/** Google honors the most restrictive matching X-Robots-Tag, robots meta,
+ * and googlebot-specific meta directive. Preserve all of them; later metadata
+ * must never overwrite a header or googlebot noindex.
+ */
+export function collectGscRobotsDirectives(html, xRobotsHeader = null) {
+  const values = xRobotsHeader ? [xRobotsHeader] : [];
+  for (const tag of html.match(/<meta\b[^>]*>/gi) || []) {
+    const name = (tag.match(/\bname\s*=\s*["'](robots|googlebot)["']/i) || [])[1];
+    const content = (tag.match(/\bcontent\s*=\s*["']([^"']+)["']/i) || [])[1];
+    if (name && content) values.push(name.toLowerCase() + ': ' + content);
+  }
+  return values.length ? values.join('; ') : null;
+}
+
 function isExactRestoredCanonical(urlValue, expectedPath) {
   if (!urlValue || !expectedPath) return false;
   try {
@@ -195,7 +223,7 @@ function isExactRestoredCanonical(urlValue, expectedPath) {
 /** Annotate rather than suppress unexpected HTTP outcomes. Source-backed
  * "intentional 404" is not permission to return HTTP 200 as a thin placeholder.
  */
-export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, finalUrl, canonical, outcome, error }) {
+export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, finalUrl, canonical, robots, outcome, error }) {
   const policy = INTENTIONAL_404_DISPOSITIONS[path] ?? null;
   if (invalidTemplate) {
     return {
@@ -213,7 +241,8 @@ export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, fi
     const expected = RESTORED_GSC_CANONICAL_PATHS[path];
     const served = !error && finalStatus === 200
       && isExactRestoredCanonical(finalUrl, expected)
-      && isExactRestoredCanonical(canonical, expected);
+      && isExactRestoredCanonical(canonical, expected)
+      && (!INDEXABLE_RESTORED_GSC_PATHS.has(path) || !/\bnoindex\b/i.test(robots || ''));
     return { intent: 'restored-valuable-page', policyReason: 'published-authority-or-verified-equivalent', review: served ? 'served-200' : 'restore-regression' };
   }
   if (Object.hasOwn(LIVE_VERIFIED_GSC_CANONICAL_PATHS, path)) {

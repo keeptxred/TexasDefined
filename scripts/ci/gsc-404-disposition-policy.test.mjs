@@ -5,6 +5,8 @@ import {
   INTENTIONAL_404_DISPOSITIONS,
   RESTORE_REQUIRED_GSC_PATHS,
   RESTORED_GSC_CANONICAL_PATHS,
+  INDEXABLE_RESTORED_GSC_PATHS,
+  collectGscRobotsDirectives,
   LIVE_VERIFIED_GSC_CANONICAL_PATHS,
   reviewGsc404Disposition,
 } from './gsc-404-disposition-policy.mjs';
@@ -17,11 +19,12 @@ const explicit = new Set([...intentionalPaths, ...RESTORE_REQUIRED_GSC_PATHS]);
 
 const observed = (path, firstStatus, finalStatus, {
   invalidTemplate = false, error = null,
+  robots = null,
   finalUrl = finalStatus === 200 ? 'https://texasdefined.com' + (RESTORED_GSC_CANONICAL_PATHS[path] || LIVE_VERIFIED_GSC_CANONICAL_PATHS[path] || path) : null,
   canonical = finalStatus === 200 ? 'https://texasdefined.com' + (RESTORED_GSC_CANONICAL_PATHS[path] || LIVE_VERIFIED_GSC_CANONICAL_PATHS[path] || path) : null,
 } = {}) => {
   const outcome = classifyHistoricalGsc404({ invalidTemplate, firstStatus, finalStatus, error });
-  return reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, finalUrl, canonical, outcome, error });
+  return reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, finalUrl, canonical, robots, outcome, error });
 };
 
 test('historical 404 policy only covers the exact supplied 99 URLs and is not blanket URL rewriting', () => {
@@ -190,4 +193,34 @@ test('intentional 404s and literal route tokens never leak into the static sitem
     }
   }
   assert.deepEqual(clickable, [], 'Readers must not discover known nonexistent/unapproved 404 paths from source links');
+});
+
+test('restored public editorial and visitor guides cannot silently carry noindex despite a working 200', () => {
+  assert.equal(INDEXABLE_RESTORED_GSC_PATHS.size, 7);
+  for (const path of INDEXABLE_RESTORED_GSC_PATHS) {
+    assert.ok(RESTORE_REQUIRED_GSC_PATHS.has(path));
+    assert.equal(observed(path, 200, 200, { robots: 'index, follow' }).review, 'served-200');
+    assert.equal(observed(path, 200, 200, { robots: 'noindex, follow' }).review, 'restore-regression');
+    assert.equal(observed(path, 301, 200, { robots: 'googlebot: noindex; index, follow' }).review, 'restore-regression');
+  }
+  // A past football cohort intentionally varies Google-only indexing; the
+  // historical 404 repair may not weaken or override those separate policies.
+  for (const path of RESTORE_REQUIRED_GSC_PATHS) {
+    if (INDEXABLE_RESTORED_GSC_PATHS.has(path)) continue;
+    assert.ok(path.startsWith('/texas-high-school-football-isds/'));
+    assert.equal(observed(path, 200, 200, { robots: 'noindex, follow' }).review, 'served-200');
+  }
+});
+
+test('Googlebot-specific robots meta and X-Robots-Tag are cumulative, even when generic meta says index', () => {
+  const page = '<html><head><meta name="robots" content="index, follow">' +
+    '<meta content="noindex, follow" name="googlebot"></head></html>';
+  const combined = collectGscRobotsDirectives(page, 'index, follow');
+  assert.match(combined, /googlebot: noindex/);
+  assert.match(combined, /robots: index/);
+  assert.equal(observed('/article/texas-road-trip-rules', 200, 200, { robots: combined }).review, 'restore-regression');
+  const directHeader = collectGscRobotsDirectives('<meta name="robots" content="index, follow">', 'googlebot: noindex');
+  assert.equal(observed('/city/del-rio', 200, 200, { robots: directHeader }).review, 'restore-regression');
+  const indexable = collectGscRobotsDirectives('<meta name="robots" content="index, follow">');
+  assert.equal(observed('/city/del-rio', 200, 200, { robots: indexable }).review, 'served-200');
 });
