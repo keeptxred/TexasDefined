@@ -12,8 +12,8 @@ const FARWELL: FootballProgramEditorial = {
   campus: { address: '801 Avenue G, Farwell, TX 79325', sourceUrl: 'https://www.farwellschools.org/upload/page/0018/docs/Campus%20Improvement%20Plans/2025-26/2025%2026%20Farwell%20High%20School%20Campus%20Improvement%20Plan%208%2028%202025.pdf', sourceLabel: 'Farwell ISD high school campus improvement plan, physical address', verifiedAt: '2026-11-13' },
   schedule: { label: 'Consult Farwell ISD varsity football schedule and dated district news for updates', sourceUrl: 'https://www.farwellschools.org/', sourceLabel: 'Farwell ISD official athletics and football schedule links', verifiedAt: '2026-11-13' },
   notice: {
-    title: 'November 13 Farwell–Spearman game was held in Canyon'
-    body: 'Farwell ISD identified Farwell as the designated home team for the November 13 bi-district playoff against Spearman, played at Happy State Bank Stadium in Canyon. The November 4 school notice advertised $5 admission and THSCA/district passes for that completed fixture. KCBD separately reported a 64–33 Spearman win. Neither the pregame notice nor that news report establishes next-game pricing, gate access or a school-issued final.'
+    title: 'November 13 Farwell–Spearman game was held in Canyon',
+    body: 'Farwell ISD identified Farwell as the designated home team for the November 13 bi-district playoff against Spearman, played at Happy State Bank Stadium in Canyon. The November 4 school notice advertised $5 admission and THSCA/district passes for that completed fixture. KCBD separately reported a 64–33 Spearman win. Neither the pregame notice nor that news report establishes next-game pricing, gate access or a school-issued final.',
     sourceUrl: 'https://www.farwellschools.org/page/article/1671',
     sourceLabel: 'Farwell ISD official November 4, 2026 playoff announcement',
     verifiedAt: '2026-11-13'
