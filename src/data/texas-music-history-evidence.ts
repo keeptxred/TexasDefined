@@ -5,6 +5,39 @@
  */
 export const musicSourceReviewedAt = "2026-11-13";
 
+/** Per-article dates are independent from the fallback shared source review date.
+ * Set these only when the article itself was materially revised and its newly
+ * cited research was checked; do not use build/deploy time as a freshness date.
+ */
+export const musicHistoryArticleModifiedAt: Readonly<Record<string, string>> = {
+  "broken-spoke-austin-history": "2026-11-14",
+  "continental-club-austin-history": "2026-11-14",
+  "antones-austin-history": "2026-11-14",
+  "billy-bobs-texas-history": "2026-11-14",
+  "texas-music-cities": "2026-11-14",
+  "austin-music-history": "2026-11-14",
+  "houston-music-history": "2026-11-14",
+  "san-antonio-music-history": "2026-11-14",
+  "corpus-christi-music-history": "2026-11-14",
+  "lubbock-music-history": "2026-11-14",
+};
+export const musicHistoryResearchCheckedAt: Readonly<Record<string, string>> = {
+  "broken-spoke-austin-history": "2026-11-14",
+  "continental-club-austin-history": "2026-11-14",
+  "antones-austin-history": "2026-11-14",
+  "billy-bobs-texas-history": "2026-11-14",
+  "texas-music-cities": "2026-11-14",
+  "austin-music-history": "2026-11-14",
+  "houston-music-history": "2026-11-14",
+  "san-antonio-music-history": "2026-11-14",
+  "corpus-christi-music-history": "2026-11-14",
+  "lubbock-music-history": "2026-11-14",
+};
+export const musicHistoryDateLabel = (iso: string) =>
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", {
+    month: "long", day: "numeric", year: "numeric", timeZone: "UTC",
+  });
+
 export type MusicMilestone = {
   period: string;
   event: string;
