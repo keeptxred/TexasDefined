@@ -20,6 +20,16 @@ const houstonBotanicCard = curatedTourism.split('"name": "Houston Botanic Garden
 assert.ok(houstonBotanicCard.includes('"destinationSlug": "houston-botanic-garden"'),
   "Existing Explore botanical gardens shortlist must link the published Houston Botanic Garden authority guide");
 
+// Keep the canonical Houston visitor address once, rather than allowing a
+// later duplicate object key to silently overwrite an earlier source value.
+const botanicStart = reviewed.indexOf('"slug": "houston-botanic-garden"');
+const botanicEnd = botanicStart < 0 ? -1 : reviewed.indexOf('"visitorFaqs":', botanicStart);
+const botanicRecord = botanicStart < 0 || botanicEnd < 0 ? '' : reviewed.slice(botanicStart, botanicEnd);
+assert.equal((botanicRecord.match(/"address":/g) ?? []).length, 1,
+  "Houston Botanic Garden authority record must have one canonical visitor address");
+assert.ok(botanicRecord.includes('"address": "One Botanic Lane, Houston, TX 77017"'),
+  "Houston Botanic Garden must retain its independently reviewed operator address");
+
 const reviewedCanonical = read("src/lib/reviewed-attraction-canonical-redirect.ts");
 const cachePolicy = read("src/lib/hashed-asset-document-cache-policy.ts");
 const worker = read("src/server.ts");

@@ -298,7 +298,6 @@ export const reviewedAttractionDestinations: Destination[] = [
     "officialUrl": "https://hbg.org/visit/",
     "sourceCheckedAt": "2026-11-11",
     "updatedAt": "2026-11-11",
-    "address": "One Botanic Lane, Houston, TX 77017",
     "visitorFaqs": [
       {
         "question": "Does every visitor need a reservation?",
