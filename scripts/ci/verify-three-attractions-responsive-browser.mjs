@@ -121,11 +121,44 @@ try {
           : guide.slug === "fort-worth-water-gardens" ? 2 : 0;
         if (expectedGalleryCount) {
           const gallery = page.locator("#destination-photo-archive");
-          await gallery.scrollIntoViewIfNeeded();
-          await page.waitForFunction((count) => {
-            const images = [...document.querySelectorAll("#destination-photo-archive figure img")];
-            return images.length >= count && images.every((img) => img.complete && img.naturalWidth >= 500 && img.naturalHeight >= 500);
-          }, expectedGalleryCount, { timeout: 30000 });
+          const galleryPhotos = gallery.locator("figure img");
+          const photoCount = await galleryPhotos.count();
+          assert.ok(photoCount >= expectedGalleryCount, guide.slug + " expected authentic gallery photographs");
+          const failedImageRequests = [];
+          page.on("requestfailed", (request) => {
+            if (/\/media\/remote|commons\.wikimedia|wikimedia\.org/.test(request.url())) {
+              failedImageRequests.push({ url: request.url(), failure: request.failure()?.errorText ?? "unknown" });
+            }
+          });
+          page.on("response", (response) => {
+            if (response.status() >= 400 && /\/media\/remote|commons\.wikimedia|wikimedia\.org/.test(response.url())) {
+              failedImageRequests.push({ url: response.url(), status: response.status() });
+            }
+          });
+          // These photographs use native loading=lazy. Scrolling only the
+          // entire tall gallery SECTION is not sufficient to activate every
+          // image at mobile sizes, and can leave even the first desktop image
+          // outside the viewport. Scroll each real image into view, then
+          // demand decoded pixels: never mark a 404 or empty fallback as PASS.
+          for (let imageIndex = 0; imageIndex < photoCount; imageIndex += 1) {
+            const photo = galleryPhotos.nth(imageIndex);
+            await photo.scrollIntoViewIfNeeded();
+            try {
+              await page.waitForFunction((index) => {
+                const img = document.querySelectorAll("#destination-photo-archive figure img")[index];
+                return Boolean(img?.complete && img.naturalWidth >= 500 && img.naturalHeight >= 500);
+              }, imageIndex, { timeout: 25000 });
+            } catch (error) {
+              const actual = await photo.evaluate((img) => ({
+                src: img.getAttribute("src"), currentSrc: img.currentSrc,
+                complete: img.complete, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight,
+                loading: img.loading, visible: img.getBoundingClientRect().toJSON(),
+              }));
+              await page.screenshot({ path: artifactDir + "/" + guide.slug + "-" + viewport.label + "-gallery-failure.png", fullPage: false });
+              throw Error("Attraction subject photo failed to decode after scrolling into view: " +
+                JSON.stringify({ slug: guide.slug, viewport: viewport.label, imageIndex, actual, failedImageRequests, originalError: String(error) }));
+            }
+          }
           const galleryFacts = await gallery.evaluate((section) => ({
             images: [...section.querySelectorAll("figure img")].map((img) => ({
               alt: img.alt, width: img.naturalWidth, height: img.naturalHeight,
