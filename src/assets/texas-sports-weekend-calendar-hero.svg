@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Texas sports weekend calendar check</title>
+  <desc id="description">Editorial diagram comparing five kinds of source calendars and their verification path: find the event, verify the home venue, then check entry and parking rules. It depicts no actual game or ticket.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#152a35"/>
+      <stop offset=".56" stop-color="#254657"/>
+      <stop offset="1" stop-color="#101c2a"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#f6eee0"/>
+      <stop offset="1" stop-color="#e1e9e7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <path d="M0 724Q384 644 800 727T1600 686V900H0Z" fill="#0e2029" opacity=".62"/>
+  <g stroke="#6d9ba1" stroke-width="2" fill="none" opacity=".35">
+    <path d="M45 120H1555M45 230H1555M45 340H1555M45 450H1555M45 560H1555M45 670H1555"/>
+    <path d="M160 55V750M480 55V750M800 55V750M1120 55V750M1440 55V750"/>
+  </g>
+  <text x="92" y="111" fill="#d3b778" font-family="Arial,sans-serif" font-size="29" letter-spacing="7" font-weight="700">TEXAS DEFINED  /  SPORTS GUIDE</text>
+  <text x="92" y="200" fill="#fff8e9" font-family="Georgia,serif" font-size="76" font-weight="700">One weekend. Five calendars.</text>
+  <text x="96" y="246" fill="#cbdddc" font-family="Arial,sans-serif" font-size="29">Find the event first. Verify where it happens before you travel.</text>
+  <g font-family="Arial,sans-serif">
+    <g transform="translate(85 318)">
+      <rect width="274" height="234" rx="17" fill="url(#panel)"/>
+      <path d="M18 18H256" stroke="#9aa9a2" stroke-width="2"/>
+      <rect x="25" y="33" width="57" height="57" rx="12" fill="#b75642"/>
+      <path d="M38 61H69M53 46V76" stroke="#fff8ef" stroke-width="7" stroke-linecap="round"/>
+      <text x="26" y="140" font-size="27" fill="#193542" font-weight="700">SCHOOL</text>
+      <text x="26" y="172" font-size="25" fill="#193542" font-weight="700">FOOTBALL</text>
+      <text x="26" y="208" font-size="19" fill="#51636a">UIL bracket + host</text>
+    </g>
+    <g transform="translate(374 318)">
+      <rect width="274" height="234" rx="17" fill="url(#panel)"/>
+      <rect x="25" y="33" width="57" height="57" rx="12" fill="#4a7b85"/>
+      <path d="M38 49H69M38 61H69M38 73H69" stroke="#fff8ef" stroke-width="6" stroke-linecap="round"/>
+      <text x="26" y="140" font-size="27" fill="#193542" font-weight="700">COLLEGE</text>
+      <text x="26" y="172" font-size="25" fill="#193542" font-weight="700">SPORTS</text>
+      <text x="26" y="208" font-size="19" fill="#51636a">NCAA + campus</text>
+    </g>
+    <g transform="translate(663 318)">
+      <rect width="274" height="234" rx="17" fill="url(#panel)"/>
+      <rect x="25" y="33" width="57" height="57" rx="12" fill="#a5683b"/>
+      <circle cx="53.5" cy="61.5" r="18" stroke="#fff8ef" stroke-width="4" fill="none"/>
+      <path d="M36 61H71M54 43V79" stroke="#fff8ef" stroke-width="3"/>
+      <text x="26" y="140" font-size="27" fill="#193542" font-weight="700">NBA</text>
+      <text x="26" y="172" font-size="25" fill="#193542" font-weight="700">BASKETBALL</text>
+      <text x="26" y="208" font-size="19" fill="#51636a">Home / away</text>
+    </g>
+    <g transform="translate(952 318)">
+      <rect width="274" height="234" rx="17" fill="url(#panel)"/>
+      <rect x="25" y="33" width="57" height="57" rx="12" fill="#927349"/>
+      <path d="M35 62Q53 36 72 62Q53 88 35 62Z" fill="none" stroke="#fff8ef" stroke-width="4"/>
+      <text x="26" y="140" font-size="27" fill="#193542" font-weight="700">RODEO</text>
+      <text x="26" y="172" font-size="25" fill="#193542" font-weight="700">EVENTS</text>
+      <text x="26" y="208" font-size="19" fill="#51636a">Show vs committee</text>
+    </g>
+    <g transform="translate(1241 318)">
+      <rect width="274" height="234" rx="17" fill="url(#panel)"/>
+      <rect x="25" y="33" width="57" height="57" rx="12" fill="#477163"/>
+      <path d="M36 75L48 45L59 73L72 49" stroke="#fff8ef" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="26" y="140" font-size="27" fill="#193542" font-weight="700">MOTOR</text>
+      <text x="26" y="172" font-size="25" fill="#193542" font-weight="700">RACING</text>
+      <text x="26" y="208" font-size="19" fill="#51636a">Series + event</text>
+    </g>
+  </g>
+  <path d="M125 637H1475" stroke="#d3b778" stroke-width="3" stroke-dasharray="9 15" opacity=".75"/>
+  <g fill="#d3b778"><path d="M1472 627L1495 637L1472 647Z"/></g>
+  <g font-family="Arial,sans-serif" text-anchor="middle" fill="#fff8e9">
+    <text x="305" y="703" font-size="36" font-weight="700">01  EVENT</text>
+    <text x="795" y="703" font-size="36" font-weight="700">02  HOME VENUE</text>
+    <text x="1288" y="703" font-size="36" font-weight="700">03  ACCESS</text>
+    <text x="800" y="806" font-size="24" fill="#cbd8d6">Source-comparison illustration • Verify schedules and rules with the organizer</text>
+  </g>
+</svg>
