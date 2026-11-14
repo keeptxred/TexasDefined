@@ -8,9 +8,10 @@ import {
   reviewGsc404Disposition,
   INTENTIONAL_404_DISPOSITIONS,
   RESTORED_GSC_CANONICAL_PATHS,
+  INDEXABLE_RESTORED_GSC_PATHS,
   LIVE_VERIFIED_GSC_CANONICAL_PATHS,
 } from './gsc-404-disposition-policy.mjs';
-import { GSC_SITEMAP_SEEDS, parseGscSitemapXml, identifyGscSitemapLeaks } from './gsc-404-sitemap.mjs';
+import { GSC_SITEMAP_SEEDS, parseGscSitemapXml, identifyGscSitemapLeaks, missingRestoredGscSitemapCanonicals } from './gsc-404-sitemap.mjs';
 
 const origin = new URL(process.env.TD_GSC_404_ORIGIN || 'https://texasdefined.com');
 if (origin.protocol !== 'https:' || !['texasdefined.com', 'www.texasdefined.com'].includes(origin.hostname)) {
@@ -248,22 +249,36 @@ const expectedCanonicalBySource = { ...LIVE_VERIFIED_GSC_CANONICAL_PATHS, ...RES
 const noncanonicalAliases = Object.entries(expectedCanonicalBySource)
   .filter(([source, destination]) => source !== destination).map(([source]) => source);
 const sitemapLeaks = identifyGscSitemapLeaks([...sitemapLocations], intentionallyMissing, noncanonicalAliases);
+// Five distinct published editor/visitor canonicals are intended to be
+// indexed, even when their historic sources were old redirects or 404s.
+// Never force the four football ISDs into a sitemap: their separate
+// Googlebot-only noindex cohort remains an independent release policy.
+const requiredIndexableCanonicals = [...new Set([...INDEXABLE_RESTORED_GSC_PATHS]
+  .map((source) => RESTORED_GSC_CANONICAL_PATHS[source]))].sort();
+const missingRestoredCanonicals = missingRestoredGscSitemapCanonicals(
+  [...sitemapLocations], requiredIndexableCanonicals);
+
 summary.sitemaps = {
   checkedSources: sitemapSources,
   errors: sitemapErrors,
   locationCount: sitemapLocations.size,
+  requiredIndexableCanonicals,
+  missingRestoredCanonicals,
   ...sitemapLeaks,
   auditComplete: sitemapErrors.length === 0,
 };
 for (const sourcePath of sitemapLeaks.forbiddenListed) blockingRegressions.push({ path: sourcePath, review: 'sitemap-404-leak' });
 for (const sourcePath of sitemapLeaks.redirectSourceListed) blockingRegressions.push({ path: sourcePath, review: 'sitemap-noncanonical-redirect-leak' });
 for (const item of sitemapErrors) blockingRegressions.push({ path: item.path, review: 'sitemap-evidence-incomplete', error: item.error });
+for (const sourcePath of missingRestoredCanonicals)
+  blockingRegressions.push({ path: sourcePath, review: 'sitemap-restored-canonical-missing' });
 summary.blockingRegressions = blockingRegressions.map((row) => ({
   path: row.path, review: row.review, firstStatus: row.firstStatus, finalStatus: row.finalStatus,
   finalUrl: row.finalUrl, error: row.error,
 }));
 console.log('[sitemap] XML sources=' + sitemapSources.length + ' indexed locations=' + sitemapLocations.size
   + ' forbidden=' + sitemapLeaks.forbiddenListed.length + ' redirect-aliases=' + sitemapLeaks.redirectSourceListed.length
+  + ' missing-restored=' + missingRestoredCanonicals.length
   + ' errors=' + sitemapErrors.length);
 
 await mkdir(outDir, { recursive: true });
@@ -281,6 +296,7 @@ const markdown = '# TexasDefined GSC historical 404 recheck\n\n' +
   '- Sitemap XML sources checked: ' + sitemapSources.length + ' (complete: ' + (sitemapErrors.length === 0) + ')\n' +
   '- Forbidden 404/template URLs in sitemap: ' + sitemapLeaks.forbiddenListed.length + '\n' +
   '- Redirect-only historical aliases in sitemap: ' + sitemapLeaks.redirectSourceListed.length + '\n' +
+  '- Missing indexable restored authority canonicals in sitemaps: ' + missingRestoredCanonicals.length + '\n' +
   Object.entries(dispositionCounts).map(([label, count]) => '- Editorial review ' + label + ': ' + count).join('\n') + '\n' +
   '- URLs requiring response/content disposition review: ' + actionableReviewCount + '\n\n' +
   'Do not equate transport failures with HTTP404, or every remaining 404 with a defect. An invalid route template returning a direct 404 is correct. Review real broken redirects and meaningful missing content separately.\n';
