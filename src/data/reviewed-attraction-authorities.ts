@@ -31,21 +31,19 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Free admission and Brackenridge Park location"
     ],
     "body": [
-      "San Antonio's Japanese Tea Garden sits inside the walls of a former limestone quarry. Stone bridges cross koi ponds beneath the quarry walls, and a waterfall runs through the landscaped slopes. The upper pavilion provides a view without taking the stairs into the lower garden. Admission is free.",
-      "This was once a limestone quarry and cement-factory site. Rather than erasing the old pit, the landscape makes its rugged walls and changes in elevation central to the experience. Paths and stone bridges cross the garden; planted slopes and the waterfall create the contrast between an industrial past and a peaceful public landscape.",
-      "The Parks Foundation's history traces the idea to Park Commissioner Ray Lambert in 1916, when he imagined a Japanese-style garden in the abandoned quarry. Work by local residents and businesses helped create the garden's bridges, ponds, walks and pavilion. The site's story also reaches beyond a garden design trend: Japanese immigrants Kimi Eizo and Miyoshi Jingu lived here, and the nearby historic Mexican Village was home to artisan families including the Aguilars. The quarry, Japanese garden and Mexican Village histories are all part of this site's development.",
-      "For architecture and local-history visitors, look at how the stonework relates to the quarry walls and how the paths negotiate the terrain. If you want a brief but meaningful experience, choose a slow circuit and read the on-site interpretation instead of treating every viewpoint as a photo stop.",
-      "A 30–60 minute visit is a sensible planning allowance for most people, not an official ticket duration. Add time if you enjoy photographing the waterfall, reading the historical material, or stopping at Jingu House. Visits in the early part of the day are often more comfortable during a South Texas summer; bring water and sun protection even when you expect some shade. The garden is outdoors, so wet paths or high heat can change what feels comfortable.",
-      "The garden is beside the zoo and within the larger Brackenridge Park area. If you're arranging a family outing, pair the garden with the zoo, a walk in the park, or a nearby museum rather than planning a rushed cross-city drive just to see a single waterfall. You can also make it a quieter stop after sightseeing around the River Walk. These are separate attractions, with their own hours and admissions.",
-      "Access differs between the upper and lower gardens. According to the operator, accessible parking is provided in the garden parking lot, and the upper garden, pavilion and Jingu House areas can be reached by ramp. The lower garden is stairs-only. Visitors using a wheelchair or who have difficulty with stairs should plan to enjoy the upper level rather than assume every bridge, pond-level path and viewing spot is reachable.",
-      "For groups with different mobility needs, agree on a meeting point in the accessible upper area rather than splitting up unpredictably on the stairs. Strollers and families with toddlers should make their own judgment about the stepped lower paths. Do not promise step-free access to the waterfall base or entire garden.",
-      "The Foundation also says leashed dogs are welcome. Its site lists restrictions on drones, balloons, confetti, rose petals, props and wagons. It says casual photography does not require a photography permit, but that statement is not a license to republish someone else's photo on a commercial travel website.",
-      "Use 3853 N. St. Mary's Street, San Antonio, TX 78212 for the entrance area. The on-site designated accessible parking is the best official accessibility reference. Because the zoo and park can be popular, avoid promising a particular space or an unchanged parking arrangement. For a snack or a longer pause, Jingu House operates at the garden; confirm its hours and reservation options directly rather than assuming it matches garden hours."
+      "Free admission and a 7 a.m.–5 p.m. daily schedule make the Japanese Tea Garden an easy stop next to Brackenridge Park and the San Antonio Zoo. Plan about 30–60 minutes. The upper pavilion and Jingu House are reached by ramp from the upper garden; the lower pond paths and waterfall area require stairs. Accessible parking is available in the garden lot, but a space cannot be guaranteed.",
+      "San Antonio's Japanese Tea Garden occupies a former limestone quarry and cement works. Stone bridges cross koi ponds beneath steep quarry walls, while a waterfall and planted terraces turn the industrial excavation into part of the landscape rather than hiding it. The upper level offers the broadest overview without a descent.",
+      "The San Antonio Parks Foundation traces the garden's conception to parks commissioner Ray Lambert in 1916. Local residents and businesses helped build its ponds, bridges, walks and pavilion. Kimi Eizo and Miyoshi Jingu lived at the garden and operated its Bamboo Room from 1926; their family's experience belongs alongside the quarry workers and the artisans of the nearby historic Mexican Village in the site's history.",
+      "Visitors interested in that history can use the Foundation's augmented-reality garden guide, which includes archival photographs, a site map and stories of the Jingu family. The upper quarry overlook also makes it easier to see how paths and stonework follow the site's steep grades.",
+      "Visitors able to use stairs can explore the lower bridges, koi ponds and waterfall approaches. Those who need a step-free visit should stay with the ramp-accessible upper garden and pavilion; the operator does not describe the lower paths or waterfall base as wheelchair accessible. Families with strollers should plan around the stairways and open pond edges.",
+      "Allow 30–60 minutes for the garden itself, or longer for photographs, interpretive material and a stop at Jingu House if it is serving. In summer, the exposed upper areas can be hot; water, shoes with grip and a morning visit are sensible. Wet stairs warrant extra care.",
+      "Leashed dogs are allowed. The Foundation prohibits drones, balloons, confetti, rose petals, equipment, props and wagons; ordinary personal photography does not need a garden permit. Check the operator's event and photography rules for organized shoots.",
+      "Use 3853 N. St. Mary's Street for the entrance. Jingu House food service has its own schedule; confirm availability before counting on a meal. San Antonio Zoo and Brackenridge Park are adjacent, but zoo admission and hours are separate from this free garden."
     ],
     "managingAuthority": "San Antonio Parks Foundation",
     "officialUrl": "https://saparks.org/japanese-tea-garden/",
-    "sourceCheckedAt": "2026-11-03",
-    "updatedAt": "2026-11-11",
+    "sourceCheckedAt": "2026-11-14",
+    "updatedAt": "2026-11-14",
     "address": "3853 N St Mary's St, San Antonio, TX 78212",
     "visitorFaqs": [
       {
@@ -76,30 +74,21 @@ export const reviewedAttractionDestinations: Destination[] = [
       },
       "itineraries": [
         {
-          "label": "Short visit",
-          "duration": "30–60 minutes",
+          "label": "Upper garden without lower stairs",
+          "duration": "20–40 minutes",
           "steps": [
-            "Enter from North St. Mary's Street and check the posted garden rules",
-            "View the former quarry from the upper garden and pavilion",
-            "Use the lower stairs only if everyone in the group is comfortable"
+            "Enter from North St. Mary's Street and use the ramped upper-garden approach",
+            "View the quarry, pavilion and ponds from the upper level",
+            "Pause at Jingu House only if it is open; avoid the lower stairways"
           ]
         },
         {
-          "label": "Closer look",
-          "duration": "30–60 minutes",
+          "label": "Ponds, bridges and quarry history",
+          "duration": "45–75 minutes",
           "steps": [
-            "Explore the koi ponds, bridges and waterfall",
-            "Read the on-site history of the Jingu family and quarry",
-            "Stop at Jingu House only if it is operating"
-          ]
-        },
-        {
-          "label": "Combined outing",
-          "duration": "Half day",
-          "steps": [
-            "Visit the garden before the nearby San Antonio Zoo",
-            "Walk through Brackenridge Park using designated paths",
-            "Allow separate time and admission for the zoo"
+            "Start with the upper quarry overlook and the garden's historical interpretation",
+            "Descend only if comfortable with steps and inspect the pond bridges and waterfall",
+            "Return uphill with time for a rest; consider Brackenridge Park or a separately ticketed zoo visit afterward"
           ]
         }
       ],
@@ -117,7 +106,7 @@ export const reviewedAttractionDestinations: Destination[] = [
         "label": "Admission",
         "detail": "Free public admission; operator lists 7 a.m.–5 p.m. daily. Upper pavilion/Jingu House accessible by ramp; lower garden requires stairs.",
         "sourceUrl": "https://saparks.org/japanese-tea-garden/",
-        "checkedAt": "2026-10-29"
+        "checkedAt": "2026-11-14"
       }
     ]
   },
@@ -151,25 +140,22 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Swimming and wading prohibited"
     ],
     "body": [
-      "Free admission; official listed hours 6 a.m.–10 p.m. every day; 1502 Commerce Street, downtown Fort Worth, beside the convention-center area. This is a civic park and public artwork, not a waterpark. Swimming and wading are prohibited. Check the City of Fort Worth park page for current operating and construction notices before you go.",
-      "Fort Worth Water Gardens occupies a downtown block of concrete terraces, walkways and pools. Visitors encounter three distinct pools: the turbulence and descent of the Active Pool, the contemplative surface of the Quiet Pool, and the rising patterns of the Aerating Pool. The geometry feels deliberately urban, in sharp contrast with more natural garden destinations elsewhere in Texas.",
-      "The park is beside the convention-center district and has no admission charge. But choose your route based on comfort with stairs, slippery surfaces and heights. The center of the Active Pool is not a required part of the visit.",
-      "The Active Pool's water cascades down a series of concrete terraces. Cascading water runs down steeply patterned walls toward a lower point reached by a descending route. The pool is visible from the upper viewing area. For visitors uneasy around heights or wet steps, admiring it from above is a fully worthwhile choice. You do not need to descend to appreciate the architecture.",
-      "At the Quiet Pool, the water is still. Still water, controlled edges, and a more enclosed-feeling setting reduce the park's intensity. It's the place to notice reflective surfaces and the contrast between stone and planted surroundings. This is a good transition if your group has spent time watching the Active Pool.",
-      "The Aerating Pool uses fountains to move water across its geometric basin. It is not a place to wade. Taking in all three pools gives a much richer understanding than visiting a single Instagram-famous viewpoint.",
-      "The Fort Worth tourism bureau identifies architects Philip Johnson and John Burgee with the design. A City of Fort Worth historic-context survey documents the park's 1974 opening and identifies it as a gift associated with the Amon G. Carter Foundation. The 1974 opening places the park in Fort Worth's downtown civic redevelopment history.",
-      "The City's Water Gardens page lists 6 a.m. to 10 p.m. daily. The Fort Worth visitor bureau identifies the park as free to enter. These are separate official-source claims, both checked 2026-10-29. Construction advisory: The City lists a Water Gardens improvement project in final design, with a projected 2027 completion. Work may affect access when construction begins; do not infer an active closure from the project listing. Check the official project status and current park notices before visiting.",
-      "Allow 30–60 minutes if you want to see all three pool environments and spend a few minutes at each viewpoint. That is an independent planning estimate, not a required route or scheduled tour duration. A fast circuit is possible, but it misses the way the park's sound and visual scale change from pool to pool.",
-      "Early morning may provide a quieter setting for photographs; later light can make the architecture more dramatic. Those are visit suggestions, not guarantees about lighting or crowd size. Shade is limited in portions of the paved park, so use water and sensible footwear during hot weather.",
-      "The city explicitly prohibits swimming and wading, and says visitors should take the sort of precautions they would around a natural water feature. Water movement, steps and hard concrete edges all deserve respect. Keep children near adults, and never describe the Active Pool's lower route as a safe activity for everyone.",
-      "The key distinction for accessibility is between seeing the park from its upper public approaches and descending narrow or steep routes within the pools. Do not assume the Active Pool descent is wheelchair accessible or appropriate for visitors with vertigo, mobility limitations or limited balance. We have not independently verified every step-free route or accessible parking space, so this guide intentionally avoids a blanket claim that all three pools are fully accessible. Check with Fort Worth Parks for detailed access arrangements before a mobility-sensitive trip.",
-      "If a visitor has difficulty with stairs, create a flexible visit around upper-level viewpoints and the city's surrounding sidewalks. The architecture remains meaningful from those vantage points.",
-      "Use 1502 Commerce Street, Fort Worth, TX 76102 as the park location. The Water Gardens are close to the convention-center area. Because a downtown street grid can have variable parking rules and changing construction, confirm your garage or transit stop independently; the City's map is the authoritative starting point."
+      "Admission is free at Fort Worth Water Gardens, 1502 Commerce Street, beside the convention-center district. The city lists daily hours of 6 a.m.–10 p.m. Swimming and wading are prohibited. The terraces and pool edges are not a splash-play area, and visitors should check official park and construction notices before leaving.",
+      "The 1974 downtown landscape designed by Philip Johnson and John Burgee has three deliberately different water environments. The Active Pool's stepped descent surrounds a powerful cascade; the Quiet Pool emphasizes a still surface and enclosure; and the Aerating Pool uses upward-moving fountains. Comparing them is a lesson in how sound and movement change the experience of one urban block.",
+      "At the Active Pool, water falls down geometric terraces into a deep central basin. The upper rim provides a clear architectural view; descending is optional and involves stepped surfaces near moving water. Visitors worried about heights, balance or slippery footing can stay on the upper approaches.",
+      "The Quiet Pool presents a contrasting still surface and a more secluded setting, with planted edges and a reflective mood. Its calmness makes the scale and noise of the Active Pool more noticeable by comparison.",
+      "The Aerating Pool brings movement back through fountain jets. Watch from the designated public paths rather than entering the water. Even a brief circuit that includes all three settings tells a fuller story than an Active Pool photo alone.",
+      "The Water Gardens opened in 1974 as part of the city's downtown civic landscape. The city's description reports roughly 19,000 gallons of water circulating per minute across the park, including about 10,500 at the Active Pool. This engineering supports the sensory effect of the architects' concrete forms.",
+      "The City of Fort Worth lists an improvement project in final design with a projected 2027 completion. That schedule does not establish that the park is currently closed or that any particular route is blocked. Review the official park page and the project status before visiting, especially if construction affects access.",
+      "Budget roughly 30–60 minutes for the three pools and upper viewpoints. Longer time suits architectural photography, but changing light, weather and downtown events can alter conditions. Wear secure footwear; exposed terraces can be hot in summer.",
+      "Swimming and wading are forbidden. Supervise children closely near water, drops and hard concrete edges, and do not use the Active Pool's lower steps as a mandatory route.",
+      "Visitors who avoid steps can still view much of the architectural composition from the upper public approaches and adjoining sidewalks. The Active Pool descent uses stairs and is not a suitable mobility route. For detailed step-free access, current entrances or accessible parking arrangements, contact Fort Worth Parks rather than assuming every terrace is barrier-free.",
+      "Use the city's park map for the current entrance arrangement at 1502 Commerce Street. Parking rules and transit stops vary in downtown Fort Worth; confirm any proposed garage or stop before relying on it. The convention-center district and nearby Fort Worth museums can form a separate outing with their own hours."
     ],
     "managingAuthority": "City of Fort Worth",
     "officialUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
-    "sourceCheckedAt": "2026-10-29",
-    "updatedAt": "2026-11-11",
+    "sourceCheckedAt": "2026-11-14",
+    "updatedAt": "2026-11-14",
     "address": "1502 Commerce St, Fort Worth, TX 76102",
     "visitorFaqs": [
       {
@@ -200,30 +186,21 @@ export const reviewedAttractionDestinations: Destination[] = [
       },
       "itineraries": [
         {
-          "label": "Short visit",
-          "duration": "30–60 minutes",
+          "label": "Upper-rim architecture circuit",
+          "duration": "20–40 minutes",
           "steps": [
-            "Enter from Commerce Street and locate the upper viewpoints",
-            "Watch the Active Pool without descending",
-            "Continue to the Quiet Pool"
+            "Enter from Commerce Street and remain on upper public approaches",
+            "View the Active Pool's cascades from above without taking the descent",
+            "Compare the Quiet and Aerating pools wherever the current accessible path permits"
           ]
         },
         {
-          "label": "Closer look",
-          "duration": "30–60 minutes",
+          "label": "Three-pool design walk",
+          "duration": "45–75 minutes",
           "steps": [
-            "Compare the Quiet and Aerating pools",
-            "Notice the contrast in water movement and sound",
-            "Read the city's park rules before approaching stepped areas"
-          ]
-        },
-        {
-          "label": "Combined outing",
-          "duration": "Half day",
-          "steps": [
-            "Visit the Water Gardens before a downtown architecture walk",
-            "Continue toward the convention-center district",
-            "Check city construction notices before relying on a particular entrance"
+            "Begin at the Active Pool's upper rim and decide whether descending is appropriate",
+            "Visit the Quiet Pool to contrast still water with the Active Pool's noise",
+            "Finish at the Aerating Pool and consider a separate downtown architecture or museum outing"
           ]
         }
       ],
@@ -241,7 +218,7 @@ export const reviewedAttractionDestinations: Destination[] = [
         "label": "Admission",
         "detail": "Free public park; city lists 6 a.m.–10 p.m. daily. Swimming and wading are prohibited. Check construction advisories.",
         "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
-        "checkedAt": "2026-10-29"
+        "checkedAt": "2026-11-14"
       }
     ]
   },
@@ -276,29 +253,27 @@ export const reviewedAttractionDestinations: Destination[] = [
       "Official timed general admission and member reservations"
     ],
     "body": [
-      "The Houston Botanic Garden normally opens 9 a.m.–5 p.m., with last entry at 4:30 p.m. The garden lists Thanksgiving Day and Christmas Day closures; check the official calendar for any additional holiday or event changes. Every person entering requires a ticket or member reservation, including infants and young children. The official current daytime rates are $12 for adults, $8 for ages 3–17, and free for children under 3 (who still need a ticket or member reservation). Senior, student, military, group and Museums for All rates are different; verify your eligibility and the live price before purchasing. On-site parking is free. The main public entrance is One Botanic Lane, Houston, TX 77017, off Park Place Boulevard. Verify hours, current admission, weather-related closures, programs and tickets through the official garden.",
-      "Houston Botanic Garden occupies a former golf-course site near Sims Bayou. Its cultivated plant collections sit alongside coastal prairie and stormwater wetlands. The planted displays, prairie and wetlands serve different purposes, so the visit changes noticeably as you move between them.",
-      "The grounds contain both planted collections and restored habitat. The different sections have separate paths and planting schemes. Plan your route around the garden areas you most want to explore, your companions' stamina, the temperature and the current operator map.",
-      "The Global Collection Garden groups plants from different climates. The operator describes themed tropical, subtropical and arid areas. It is a good first stop for travelers who want the broadest plant variety rather than a single native habitat.",
-      "The Culinary Garden focuses on plants used in food and other daily activities. Plants grown for food, flavors, medicines and cultural uses make the garden especially relevant for families and anyone interested in how plants connect to everyday life. Do not assume produce harvesting is a public pick-your-own activity; check the operator for the current visitor program.",
-      "The Coastal Prairie section grows native grasses and other plants adapted to the Gulf Coast. Native grasses and seasonal growth are the point. The area is relevant for visitors interested in conservation, pollinators and how restored habitats respond to Houston's climate. The appearance will change with rain and season; a brown or dormant stretch is not necessarily a neglected garden.",
-      "The Stormwater Wetlands section illustrates how wetland plants interact with urban runoff. The wetland plantings show how water management and habitat restoration can share the same landscape. It is a good stop for adults and older children interested in the real infrastructure behind the landscape, not just flowering displays.",
-      "The Susan Garver Family Discovery Garden has interactive features for younger visitors. The operator lists hands-on garden features and water-play opportunities, but families should verify which features are operating on the day of their visit. Do not treat this as a supervised childcare facility or guarantee that every play element is available.",
-      "The official Gardens & Collections directory and visitor map should control the exact current sequence and route. Visitors often get more from choosing two or three collections carefully than trying to rush across the entire site.",
-      "The garden says timed admission works by entry within the indicated ticket hour. If you arrive more than an hour beyond the listed entry window, the FAQ instructs you to visit the ticket window to exchange it for the current entry period. The operator encourages advance purchase, requires tickets or member reservations even for very young children, and describes the garden as cashless.",
-      "Ordinary daytime admission and a seasonal event are not interchangeable. A winter light installation, a ticketed evening performance, a lecture, or a separately scheduled workshop may use its own booking terms and operating window. The fact that an outside ticketing platform advertises a garden-related product does not establish that it admits you to the general gardens—or that it includes an evening event.",
-      "For navigation, the operator recommends entering 8210 Park Place Boulevard in a mapping app to find the drive leading to One Botanic Lane. The entrance is east of I-45 South. The official FAQ confirms free on-site parking, first come, first served. Free parking is not a guarantee of an empty space during large events.",
-      "If you prefer transit, the operator identifies METRO Route 005-Southmore along Park Place Boulevard. Use the current METRO schedule before setting out; stops and service frequency can change. Cyclists can use the garden's designated bridge approach and bicycle rack, but the FAQ specifically notes that the nearby Sims Bayou Greenway does not provide direct entry into the South Gardens. Guests walking or cycling must enter via Park Place Boulevard.",
-      "The garden's public grounds are largely outdoors. In warm months, carry refillable water and plan for sun and humidity. The operator permits visitors to bring their own food and drink for designated picnic/seating areas and asks that they carry out litter. It also notes limited sheltered seating at certain locations.",
-      "The official FAQ says the average visit is 1.5–2 hours. Use that as a starting point, not a promise that all trails and collections can be seen thoroughly in two hours. A family group spending extra time in the Discovery Garden or an enthusiast studying the plants may want much longer. Start with your priority collections, check the weather and remember the published 5 p.m. closing time.",
-      "The garden states that its walking trails are ADA compliant; however, the FAQ says wheelchairs and strollers are not available to borrow or rent, so bring what your group needs. For a mobility-sensitive visit, confirm the present trail condition and accessible route at the operator before buying admission. Rain can affect footing even when the garden remains open.",
-      "The garden occupies the former Glenbrook Golf Course landscape near Sims Bayou. Its master-planning and planting emphasize both globally diverse collections and Gulf Coast ecological systems. The garden's own historical tour materials date its public opening to September 18, 2020. That makes this a modern civic destination rather than a historic conservatory, and gives the native wetlands and stormwater work a distinctive role."
+      "Houston Botanic Garden is normally open 9 a.m.–5 p.m. with last entry at 4:30 p.m. The official visit page now identifies Thanksgiving Day, Christmas Day and New Year's Day closures. Standard daytime admission is $12 for adults, $8 for ages 3–17, students with ID, seniors and active military; children under 3 enter free but still need a ticket. All visitors, including infants and members, need a ticket or member reservation. Check the operator's booking page for the current rate, qualifying discounts and event-specific exclusions. Parking is free during daytime visits.",
+      "Houston Botanic Garden occupies 132 acres of former Glenbrook golf-course land around Sims Bayou. Its cultivated collections sit alongside Gulf Coast prairie and stormwater wetlands. The contrast between planted gardens and ecological restoration is the central reason to visit.",
+      "Choose a route based on interests rather than rushing through every garden. The Global Collection Garden and Culinary Garden suit people interested in cultivated plants and their uses; the Coastal Prairie and Stormwater Wetlands focus on native habitat and water systems. Families may prefer a longer stop at the Susan Garver Family Discovery Garden.",
+      "The Global Collection Garden has themed planting areas with tropical, subtropical and arid plants. Sheltered alcoves along its route provide places to pause in warm weather; the nearby Culinary Garden explores edible and culturally useful plants.",
+      "The Culinary Garden connects food and garden design through plants used for flavors, cooking and other daily practices. It is an interpretive collection, not a public harvest area.",
+      "The Coastal Prairie features native Gulf Coast plants, including grasses and seasonal wildflowers. Its appearance changes with rainfall, growing seasons and maintenance; visitors interested in habitat restoration and pollinators will find a different experience from the formal collections.",
+      "The Stormwater Wetlands demonstrate the role of planted wetland systems in handling runoff and supporting habitat. Nearby Sims Bayou and the garden's former golf-course terrain give this section practical Houston-specific context.",
+      "The Susan Garver Family Discovery Garden includes features designed for younger visitors. Check current garden notices for operating play and water features; activities and staffing vary.",
+      "The garden's published Gardens & Collections directory also lists the Woodland Glade, Community Garden, Pine Grove and Picnic Grove. Consult the current garden map before choosing a route between The Island and the South Gardens.",
+      "Timed tickets allow entry during their indicated hour; for an arrival more than one hour later, the FAQ says to ask the ticket window for an exchange to the current entry period. The garden encourages advance online purchase and operates cashlessly. Standard daytime tickets do not automatically include separately ticketed evening or seasonal experiences.",
+      "The entrance is at One Botanic Lane off Park Place Boulevard, east of I-45 South. For navigation, the operator recommends 8210 Park Place Boulevard as the drive approach. Daytime on-site parking is free on a first-come basis, not a reserved space.",
+      "METRO Route 005-Southmore serves Park Place Boulevard; check the current schedule and stops before traveling. Pedestrians and cyclists use the Park Place Boulevard entrance and its bridge. The Sims Bayou Greenway does not provide direct entry into the South Gardens; bicycle racks are available at the Garden.",
+      "The mostly outdoor site can be hot and humid. Bring water; bottle fillers are near restrooms, and the operator permits packed food at designated seating or lawn areas if litter is removed. Weather can cancel outdoor operations during dangerous conditions.",
+      "The operator estimates an average visit of 1.5–2 hours. Families spending longer at Discovery Garden or visitors studying plants may need more. Leave room for the published 5 p.m. close rather than treating last entry at 4:30 p.m. as enough time for a full visit.",
+      "The garden describes its walking trails as ADA compliant but does not supply loaner wheelchairs or strollers. Bring equipment your group needs and ask about current path conditions if step-free routing is important. Wheelchair accessibility does not mean every temporary program or feature is operating.",
+      "The garden opened to the public in September 2020. Its setting beside Sims Bayou and focus on both global collections and locally adapted landscapes distinguish it from a conventional historic conservatory."
     ],
     "managingAuthority": "Houston Botanic Garden",
     "officialUrl": "https://hbg.org/visit/",
-    "sourceCheckedAt": "2026-11-11",
-    "updatedAt": "2026-11-11",
-    "address": "One Botanic Lane, Houston, TX 77017",
+    "sourceCheckedAt": "2026-11-14",
+    "updatedAt": "2026-11-14",
     "visitorFaqs": [
       {
         "question": "Does every visitor need a reservation?",
@@ -328,30 +303,21 @@ export const reviewedAttractionDestinations: Destination[] = [
       },
       "itineraries": [
         {
-          "label": "Short visit",
+          "label": "Family gardens and hands-on exploration",
           "duration": "1.5–2 hours",
           "steps": [
-            "Enter from Park Place Boulevard with an official ticket or member reservation",
-            "Start at the Global Collection Garden",
-            "Continue to the Culinary Garden"
+            "Arrive with a reserved general-admission ticket and enter from Park Place Boulevard",
+            "Prioritize the Susan Garver Family Discovery Garden and check current interactive-feature availability",
+            "Take a break at a permitted seating area before choosing a nearby collection"
           ]
         },
         {
-          "label": "Closer look",
-          "duration": "1.5–2 hours",
-          "steps": [
-            "Visit the Coastal Prairie and Stormwater Wetlands",
-            "Compare native habitat with the ornamental collections",
-            "Allow time for interpretive displays"
-          ]
-        },
-        {
-          "label": "Combined outing",
+          "label": "Plants, prairie and water management",
           "duration": "2–3 hours",
           "steps": [
-            "Begin with the Family Discovery Garden",
-            "Take a rest and water break",
-            "Explore another collection if weather and energy permit"
+            "Start at the Global Collection Garden and Culinary Garden for cultivated plants",
+            "Continue to Coastal Prairie and Stormwater Wetlands using the current operator map",
+            "Allow stops for habitat interpretation and the weather; finish before the 5 p.m. closing time"
           ]
         }
       ],
@@ -365,6 +331,21 @@ export const reviewedAttractionDestinations: Destination[] = [
           "label": "Houston Botanic Garden — official ticket, parking and accessibility FAQs",
           "url": "https://hbg.org/about/questions/",
           "scope": "Timed tickets and infant reservations, visit length, parking, accessibility, transit and visitor rules"
+        },
+        {
+          "label": "Houston Botanic Garden — current gardens and collections",
+          "url": "https://hbg.org/gardens/",
+          "scope": "Current names and location of garden collections"
+        },
+        {
+          "label": "Houston Botanic Garden — official about and holiday closures",
+          "url": "https://hbg.org/about/",
+          "scope": "Public opening history, accessibility and New Year's Day/holiday closures"
+        },
+        {
+          "label": "Houston Botanic Garden — Texas Recycles 2026 offer",
+          "url": "https://hbg.org/visit/texas-recycles/",
+          "scope": "Nov. 13–15 daytime admission eligibility and ticket-window recycling exchange; dated promotion, not an evergreen price"
         }
       ]
     },
@@ -374,7 +355,7 @@ export const reviewedAttractionDestinations: Destination[] = [
         "label": "Admission",
         "detail": "Current daytime general admission: adults $12, ages 3–17 $8, under 3 free but all ages require a ticket or member reservation. Usually 9 a.m.–5 p.m., last entry 4:30 p.m.; check dates, discounts and live prices at the operator.",
         "sourceUrl": "https://hbg.org/visit/",
-        "checkedAt": "2026-11-11"
+        "checkedAt": "2026-11-14"
       }
     ]
   }
