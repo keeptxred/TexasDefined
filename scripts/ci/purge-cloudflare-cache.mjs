@@ -50,6 +50,21 @@ async function discoverImagePurgeUrls() {
 const generatedDiscoverImageUrls = await discoverImagePurgeUrls();
 
 const alwaysPurgeUrls = [
+  // Ten source-verified music history authority articles: earlier acceptance
+  // only exercised nonce queries, which may hide older clean HTML at the edge.
+  // Purge canonical HTML after a verified Worker replacement; never purge the zone.
+  ...[
+    "/broken-spoke-austin-history",
+    "/continental-club-austin-history",
+    "/antones-austin-history",
+    "/billy-bobs-texas-history",
+    "/texas-music-cities",
+    "/austin-music-history",
+    "/houston-music-history",
+    "/san-antonio-music-history",
+    "/corpus-christi-music-history",
+    "/lubbock-music-history",
+  ].map((path) => `https://${zoneName}${path}`),
   // Protected attraction PR #7014 changes shared route metadata, city discovery,
   // county visitor links and image rights. Invalidate exactly these canonical
   // pages after successful Worker replacement, never the whole zone.
