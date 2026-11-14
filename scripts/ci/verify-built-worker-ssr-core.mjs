@@ -31,6 +31,10 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/article/texas-road-trip-rules', requiredText: 'Texas Road Trip Rules: What to Check Before You Drive', label: 'Texas road-trip driving rules repaired GSC 404 with original authority' },
+  { path: '/article/texas-road-trip-rules', requiredText: 'DriveTexas.org', label: 'Official live closure tool in new road trip authority' },
+  { path: '/article/texas-road-trip-rules', requiredText: 'Move Over or Slow Down', label: 'Updated protected roadside law present in road trip authority' },
+  { path: '/article/texas-road-trip-rules', requiredText: 'https://texasdefined.com/article/texas-road-trip-rules', label: 'Self canonical of restored GSC road trip article' },
   // Genuine former GSC /city/del-rio 404 requires the sourced municipal guide.
   { path: '/city/del-rio', requiredText: 'https://texasdefined.com/city/del-rio', label: 'Del Rio GSC 404 repaired with self-canonical municipal guide' },
   { path: '/city/del-rio', requiredText: '34,673', label: 'Del Rio Census 2020 population in server HTML' },
