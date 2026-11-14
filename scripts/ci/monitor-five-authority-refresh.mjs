@@ -82,7 +82,7 @@ for (const group of config.groups) {
         assert.ok(typeof phrase === "string" && phrase.length >= 3,
           group.path + ": invalid watchFact for " + item.name);
     }
-    assert.ok(content.includes(item.url) || group.path === "/sports" || group.path === "/sports/friday-night-lights",
+    assert.ok(content.includes(item.url) || group.path === "/sports",
       group.path + ": source not linked from page: " + item.url);
   }
   const reviewed = Date.parse(group.lastFactReviewAt + "T00:00:00Z");
