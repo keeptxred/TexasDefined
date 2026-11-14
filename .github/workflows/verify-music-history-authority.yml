@@ -39,7 +39,10 @@ permissions:
   contents: read
 
 concurrency:
-  group: music-history-authority-${{ github.event_name }}-${{ github.ref }}
+  # A comment on ANY unrelated GitHub issue should never cancel a 10-route
+  # acceptance run requested from music checkpoint #7081. Keep same-issue
+  # duplicate verifications bounded while isolating other issue comments.
+  group: music-history-authority-${{ github.event_name }}-${{ github.event.issue.number || github.ref }}
   cancel-in-progress: true
 
 jobs:

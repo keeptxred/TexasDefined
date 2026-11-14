@@ -103,6 +103,10 @@ const venueSources: Record<string, readonly SourceNote[]> = {
 
 export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) {
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
+  // The Antone's date discrepancy was independently rechecked and corrected on
+  // November 14; other venue histories retain their actual November 13 review.
+  const reviewedAt = guide.slug === "antones-austin-history" ? "2026-11-14" : musicSourceReviewedAt;
+  const reviewedLabel = guide.slug === "antones-austin-history" ? "November 14, 2026" : "November 13, 2026";
   const sources = venueSources[guide.slug] ?? [];
   const milestones = musicHistoryMilestones[guide.slug] ?? [];
   const photograph = musicVenuePhotography[guide.slug];
@@ -134,7 +138,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
         author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/editorial-policy` },
-        dateModified: musicSourceReviewedAt,
+        dateModified: reviewedAt,
         isAccessibleForFree: true,
         articleSection: "Texas Music",
         citation: [
@@ -186,7 +190,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
           <p className="eyebrow text-primary">{guide.eyebrow}</p>
           <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{guide.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{guide.dek}</p>
-          <p className="mt-5 text-sm text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={musicSourceReviewedAt}>November 13, 2026</time></p>
+          <p className="mt-5 text-sm text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={reviewedAt}>{reviewedLabel}</time></p>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             <Link to="/texas-music" className="border-b border-primary pb-1 text-primary">Explore the full Texas Music collection →</Link>
             {!isHub ? <Link to="/texas-music-venues" className="border-b border-primary pb-1 text-primary">Browse landmark Texas music venues →</Link> : null}
