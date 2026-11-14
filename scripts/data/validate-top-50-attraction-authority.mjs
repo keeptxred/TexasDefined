@@ -180,7 +180,7 @@ for (const [slug, dossier] of Object.entries(museumUpgrades)) {
 }
 const museumRoute = read("src/routes/destination.$slug.tsx");
 assert.ok(museumRoute.includes('import("@/data/top50-museum-historic-upgrades")') && museumRoute.includes("applyTop50MuseumHistoricUpgrade(destination)"), "Dossiers must load only on the proper canonical destination route");
-const museumRenderer = read("src/components/editorial/DestinationRelationships.tsx");
+const museumRenderer = read("src/data/destination-authority-presentation.ts");
 assert.ok(museumSlugs.every(slug => museumRenderer.includes(`"${slug}"`)), "Museum and historic dossiers must display visitor guide, FAQ and sources");
 
 
@@ -245,8 +245,9 @@ const sitemap = read("src/routes/sitemap-explore[.]xml.ts");
 assert.ok(sitemap.includes('import("@/data/top50-theme-park-destinations")') && sitemap.includes('import("@/data/congress-avenue-bat-colony-authority")'),"Explore sitemap must audit researched canonical guides, not their previews");
 const loader = read("src/routes/destination.$slug.tsx");
 assert.ok(loader.includes("applyTop50AuthorityWave1(destination)"),"Existing Top-50 destination supplements must load on exact route");
-const renderer = read("src/components/editorial/DestinationRelationships.tsx");
-assert.ok(renderer.includes("isTop50ThemeParkDestination(destination.slug)") && renderer.includes("isTop50BatColonyDestination(destination.slug)") && renderer.includes("isTop50AuthorityWave1(destination.slug)"),"All fifteen guides must render as authority components");
+const renderer = read("src/data/destination-authority-presentation.ts");
+assert.ok(renderer.includes("isTop50ThemeParkDestination(destination.slug)") && renderer.includes("isTop50BatColonyDestination(destination.slug)") && renderer.includes("isTop50AuthorityWave1(destination.slug)"),"All fifteen guides must be enabled through the shared canonical authority presentation contract");
+assert.ok(read("src/components/editorial/DestinationRelationships.tsx").includes("shouldRenderFullDestinationAuthorityGuide(destination)"),"SSR and client relationship surfaces must share the centrally governed authority guide display predicate");
 const sourceRenderer = read("src/components/editorial/DestinationAuthorityGuide.tsx");
 assert.ok(sourceRenderer.includes("destination.visitorFaqs ?? []") && sourceRenderer.includes("Official verification"),"Attraction-specific evidence must remain visible");
 assert.ok(read("src/lib/public-routes.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be indexable");
