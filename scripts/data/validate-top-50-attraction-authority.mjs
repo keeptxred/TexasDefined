@@ -210,7 +210,7 @@ assert.deepEqual(Object.keys(finalDossiers).sort(), ["barton-springs-pool", "enc
 for(const [slug, guide] of Object.entries(finalDossiers)) assertVisitorGuide(guide, slug);
 const finalLoader = read("src/routes/destination.$slug.tsx");
 assert.ok(finalLoader.includes("applyTop50FinalVisitorAnswers(destination)") && finalLoader.includes("applyTop50FinalAuthority(destination)"), "Final fifteen FAQ and three authority upgrades must load on the canonical page");
-const finalRenderer = read("src/components/editorial/DestinationRelationships.tsx");
+const finalRenderer = read("src/data/destination-authority-presentation.ts");
 assert.ok(Object.keys(finalDossiers).every(slug => finalRenderer.includes(`"${slug}"`)), "All three new historic/outdoor authority sections must be displayed");
 const allCovered = new Set([
   ...waveManifest, ...parks.map(item=>item.slug), bats.slug,
