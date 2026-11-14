@@ -70,6 +70,10 @@ for(const view of [cityView,venueView,corpus]) {
   if(!view.includes("TexasMusicEvidenceDossier"))fail("One route family is missing researched dossier rendering");
 }
 if(!venue.includes('the venue gives 1955, while the Handbook of Texas') || !evidence.includes('1955 / 1957 (disputed)') || !dossiers.includes("the exact opening year should be marked disputed"))fail("Continental opening year must remain explicitly disputed");
+if(!dossiers.includes("The club dates its Guadalupe opening night to 1982") ||
+   !dossiers.includes("Guadalupe Street in 1981") ||
+   !dossiers.includes("September 3, 1982"))
+  fail("Antone's official 1982 Guadalupe opening and Handbook 1981 retrospective must remain transparently distinguished");
 if(!liveAcceptance.includes('get(slug,"visitor")') ||
    !liveAcceptance.includes('["visitor",visitor]') ||
    !liveAcceptance.includes('cleanCanonicalStatus') ||
