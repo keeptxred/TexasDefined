@@ -33,11 +33,6 @@ try {
       response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 35000 });
       await page.locator('h1').first().waitFor({ state: 'visible', timeout: 20000 });
       await page.waitForTimeout(900);
-      await page.waitForFunction(
-        () => document.querySelector('main img[src*="photo-1508209495879-445d5febf597"]')?.complete === true,
-        undefined,
-        { timeout: 22000 },
-      );
       const data = await page.evaluate(() => ({
         title: document.title,
         h1: [...document.querySelectorAll('h1')].map((el) => el.innerText.trim()),
@@ -51,7 +46,7 @@ try {
         faqCoach: [...document.querySelectorAll('h3')]
           .map((el) => el.innerText.trim()).filter((str) => /head coach|who coaches/i.test(str)),
         gameRows: [...document.querySelectorAll('#football-current-season table tbody tr')]
-          .map((el) => el.innerText.replace(/\s+/g, ' ').trim()),
+          .map((el) => ((el.querySelector('time[datetime]')?.getAttribute('datetime') || '') + ' ' + el.innerText).replace(/\s+/g, ' ').trim()),
         overflow: document.documentElement.scrollWidth - window.innerWidth,
         brokenImages: [...document.images]
           .filter((el) => el.getBoundingClientRect().width && el.complete && !el.naturalWidth)
@@ -59,19 +54,13 @@ try {
         missingAlt: [...document.images]
           .filter((el) => el.getBoundingClientRect().width && !el.hasAttribute('alt'))
           .map((el) => el.currentSrc),
-        heroPhoto: (() => {
-          const image = document.querySelector('main img[src*="photo-1508209495879-445d5febf597"]');
-          const figure = image?.closest('figure');
-          const rect = image?.getBoundingClientRect();
+        aubreyResultsGraphic: (() => {
+          const figure = document.querySelector('figure[aria-label*="dated visual timeline of reported 2026 football finals"]');
+          if (!figure) return { found: false, games: 0, caption: '' };
           return {
-            found: Boolean(image),
-            loaded: Boolean(image?.complete && image.naturalWidth > 0),
-            alt: image?.alt || '',
-            photoUrl: image?.currentSrc || '',
-            caption: figure?.querySelector('figcaption')?.innerText || '',
-            height: rect?.height || 0,
-            width: rect?.width || 0,
-            oldClipArt: Boolean(document.querySelector('main [role="img"][aria-label*="Original TexasDefined football illustration"]')),
+            found: true,
+            games: figure.querySelectorAll('ol > li').length,
+            caption: figure.querySelector('figcaption')?.innerText || '',
           };
         })(),
       }));
@@ -104,16 +93,12 @@ try {
         'Unpublished editorial notes still visible');
       check(!/Looking for Texas gear\?/.test(data.body),
         'Generic Aubrey shop promotion still visible');
-      check(data.heroPhoto?.found && data.heroPhoto?.loaded,
-        'Credited football photograph missing or not loaded in actual production browser');
-      check(data.heroPhoto?.caption.includes('Representative high-school football photo') &&
-        data.heroPhoto?.caption.includes('not an Aubrey team or stadium image') &&
-        data.heroPhoto?.caption.includes('Tim Mossholder / Unsplash'),
-        'Image source credit and truthful representative caption missing');
-      check(!data.heroPhoto?.oldClipArt, 'Old illustrated football panel still visible');
-      check(data.heroPhoto?.alt.includes('not an Aubrey game'), 'Missing truth-in-imagery alt text');
-      check(data.heroPhoto?.height >= 205 && data.heroPhoto?.height <= (viewport.width < 500 ? 230 : 340),
-        'Photo size is excessive or collapsed on ' + viewport.name + ': ' + data.heroPhoto?.height);
+      check(data.aubreyResultsGraphic?.found && data.aubreyResultsGraphic.games >= 11,
+        'Source-derived timeline must include regular-season finals plus Andrews playoff win');
+      check(data.aubreyResultsGraphic?.caption.includes('Original TexasDefined source-derived graphic'),
+        'Illustrated finals must be source-derived, not an unrelated team photograph');
+      check(!data.body.includes('Representative high-school football photo'),
+        'Old unrelated Colorado football photograph notice must not remain');
       check(data.overflow <= 4, 'Horizontal overflow: ' + data.overflow + 'px');
       check(data.brokenImages.length === 0, 'Visible broken images: ' + data.brokenImages.join(', '));
       check(data.missingAlt.length === 0, 'Visible images without alt text');
@@ -128,7 +113,7 @@ try {
         viewport: viewport.name, http: response?.status(), errors, passed: errors.length === 0,
         h1: data.h1, title: data.title, faqCoach: data.faqCoach,
         gameRows: data.gameRows, sourceLinks: data.links.filter((x) => /GoFan|tickets|stadium|recorded final/i.test(x.text)),
-        overflow: data.overflow, heroPhoto: data.heroPhoto, brokenImages: data.brokenImages, runtimeErrors: runtime,
+        overflow: data.overflow, aubreyResultsGraphic: data.aubreyResultsGraphic, brokenImages: data.brokenImages, runtimeErrors: runtime,
         cfCacheStatus: response?.headers()['cf-cache-status'] || null,
         cfRay: response?.headers()['cf-ray'] || null,
       });
@@ -147,5 +132,5 @@ try {
 }
 for (const result of results) console.log(JSON.stringify(result));
 assert.ok(results.length === 2 && results.every((r) => r.passed),
-  'Aubrey photo desktop/mobile live inspection failed; see screenshot/report artifacts.');
+  'Aubrey dated postseason desktop/mobile verification failed; see screenshot/report artifacts.');
 console.log('Verified Aubrey 8–3 postseason, 63–24 Andrews final and Canyon fixture on 1366px desktop and 390px mobile.');
