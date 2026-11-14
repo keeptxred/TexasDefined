@@ -42,6 +42,8 @@ on:
       - 'src/routes/fishing.lakes.tsx'
       - 'scripts/ci/audit-fishing-lakes-directory-sources.mjs'
       - 'scripts/ci/audit-fishing-lake-regulation-sources.mjs'
+      - 'scripts/ci/tpwd-lake-source-identity.mjs'
+      - 'scripts/ci/tpwd-lake-source-identity.test.mjs'
       - 'scripts/ci/audit-fishing-lake-grade-sources.mjs'
       - 'scripts/ci/tpwd-fishery-grades.mjs'
       - 'scripts/ci/tpwd-fishery-grades.test.mjs'
@@ -80,6 +82,7 @@ jobs:
           node --test scripts/ci/verify-fishing-lakes-fresh-production.test.mjs
           node --check scripts/ci/audit-fishing-lakes-directory-sources.mjs
           node --check scripts/ci/audit-fishing-lake-regulation-sources.mjs
+          node --test scripts/ci/tpwd-lake-source-identity.test.mjs
           node scripts/ci/audit-fishing-lake-regulation-sources.mjs --plan
           node --check scripts/ci/audit-fishing-lake-grade-sources.mjs
           node --test scripts/ci/tpwd-fishery-grades.test.mjs

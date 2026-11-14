@@ -10,6 +10,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { matchesTpwdLakeHeading } from "./tpwd-lake-source-identity.mjs";
 
 const sourceFile = "src/data/fishing/lake-authority-research-wave1.ts";
 const source = fs.readFileSync(sourceFile, "utf8");
@@ -37,7 +38,7 @@ const week = Math.floor((Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.g
 const cohort = ((week * 2 + (now.getUTCDay() === 4 ? 1 : 0)) % 6 + 6) % 6;
 const mode = process.argv.includes("--plan") ? "plan" : process.argv.includes("--smoke") ? "smoke"
   : process.argv.includes("--full") || process.env.FISHING_LAKES_FULL_REVIEW === "1" ? "full" : "cohort";
-const selected = mode === "smoke" ? ["lake-buchanan", "lewisville-lake"].map((slug) => {
+const selected = mode === "smoke" ? ["lake-buchanan", "lewisville-lake", "lake-lbj"].map((slug) => {
   const item = all.find((candidate) => candidate.slug === slug);
   if (!item) throw new Error("Missing smoke-test lake: " + slug);
   return item;
@@ -63,8 +64,6 @@ function plainText(text) {
     .replace(/&(?:nbsp|amp|quot|#39|rsquo);/gi, " ")
     .replace(/\s+/g, " ").trim();
 }
-const normalize = (value) => String(value).normalize("NFKD").toLowerCase().replace(/[^a-z0-9]/g, "");
-const generic = new Set(["lake", "reservoir", "state", "park", "international"]);
 const checkedAt = new Date().toISOString();
 const checks = [];
 const errors = [];
@@ -82,12 +81,8 @@ async function one(item) {
       const html = (await response.text()).slice(0, 850000);
       const headings = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)]
         .map((m) => plainText(m[1])).filter(Boolean);
-      const candidateTokens = item.slug.split("-").filter((token) => token.length >= 3 && !generic.has(token));
-      const heading = headings.find((h) => candidateTokens.some((token) => normalize(h).includes(normalize(token))));
-      const typeMatched = Boolean(heading) && (item.kind === "waterbody-regulations"
-        ? /fishing regulations for/i.test(heading)
-        : /lake|reservoir|fishing/i.test(heading));
-      if (!typeMatched) {
+      const heading = headings.find((h) => matchesTpwdLakeHeading(item, h));
+      if (!heading) {
         throw new Error("TPWD source no longer shows expected lake-specific " + item.kind
           + " heading; received: " + JSON.stringify(headings.slice(0, 3)));
       }
