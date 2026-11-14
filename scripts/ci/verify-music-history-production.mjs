@@ -60,9 +60,11 @@ async function verify(slug){
   if(((main.match(/What the record establishes/g)||[]).length)<4) errors.push(kind+" fewer than four grounded research findings");
   if(slug==="continental-club-austin-history"&&!visible(main).includes("1955")||slug==="continental-club-austin-history"&&!visible(main).includes("1957"))errors.push(kind+" Continental opening-date dispute was not published");
 
-  for(const marker of ["Texas Defined Editorial Desk","November 13, 2026","Historical source"]){
-   if(!visible(html).includes(marker) && marker!=="Historical source")errors.push(kind+" missing published evidence: "+marker);
+  const reviewedLabel=slug==="antones-austin-history"?"November 14, 2026":"November 13, 2026";
+  for(const marker of ["Texas Defined Editorial Desk",reviewedLabel]){
+   if(!visible(html).includes(marker))errors.push(kind+" missing published evidence: "+marker);
   }
+  if(slug==="antones-austin-history"&&!html.includes('dateModified'))errors.push(kind+" revised Antone Article metadata missing");
   if(!html.includes('application/ld+json')||!html.includes('BreadcrumbList')||!html.includes('dateModified'))errors.push(kind+" article/breadcrumb JSON-LD evidence missing");
   if(!html.includes('tshaonline.org') && slug!=="continental-club-austin-history")errors.push(kind+" institutional citations absent");
   if(slug==="texas-music-cities"&&!visible(html).includes("What made each Texas music city different?"))errors.push(kind+" accessible comparison missing");
