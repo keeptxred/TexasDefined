@@ -96,6 +96,55 @@ export function validateEditorialReview(curation, now = Date.now()) {
   return issues;
 }
 
+const monthNames = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+/**
+ * A Friday operator alert must not go unnoticed just because ordinary hours
+ * and attraction names still appear on the site. Compare the date and latest
+ * entry time against the page's short-lived, separately sourced public notice.
+ */
+export function validateOperatorEarlyClosureNotice(officialHtml, editorialNotice, now = Date.now()) {
+  const readable = operatorVisibleText(officialHtml);
+  const index = readable.toLowerCase().indexOf("early closure notice:");
+  if (index < 0) return [];
+  const block = readable.slice(index, index + 650);
+  const datePattern = new RegExp("\\b(" + monthNames.join("|") + ")\\s+(\\d{1,2}),?\\s+(\\d{4})\\b", "i");
+  const matched = datePattern.exec(block);
+  if (!matched) return ["Official hours announce an early closure, but the dated disruption could not be verified."];
+
+  const month = monthNames.findIndex((name) => name.toLowerCase() === matched[1].toLowerCase());
+  const day = Number(matched[2]);
+  const year = Number(matched[3]);
+  const date = Date.UTC(year, month, day);
+  if (new Date(date).getUTCDate() !== day || !Number.isFinite(date)) {
+    return ["Official hours contain an invalid early-closure date."];
+  }
+
+  // Do not demand that the guide resurrect an expired operator announcement.
+  if (now >= date + 2 * 86400000) return [];
+
+  const nextCalendarDay = new Date(date + 86400000).toISOString().slice(0, 10);
+  const operatorLastEntry = /last entry at\s+(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\.?/i.exec(block);
+  const publishedLastEntry = /last entry.{0,80}?\b(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\.?/i.exec(editorialNotice);
+  const timesAgree = operatorLastEntry && publishedLastEntry
+    && operatorLastEntry[1] === publishedLastEntry[1]
+    && (operatorLastEntry[2] || "00") === (publishedLastEntry[2] || "00")
+    && operatorLastEntry[3].toLowerCase() === publishedLastEntry[3].toLowerCase();
+
+  const failures = [];
+  if (!editorialNotice.toLowerCase().includes(matched[1].toLowerCase() + " " + day)
+      || !editorialNotice.includes(nextCalendarDay)) {
+    failures.push("Official hours announce " + matched[0] + " early closing; the time-limited editorial notice is missing or has a different date.");
+  }
+  if (!timesAgree) {
+    failures.push("Official early-closing last-entry time changed or is missing from the editorial notice.");
+  }
+  return failures;
+}
+
 export async function runMoodyGardensMonitor() {
   const failures = [];
   for (const source of targetSources) {
@@ -110,6 +159,15 @@ export async function runMoodyGardensMonitor() {
       }
       const html = await response.text();
       const issues = validateOperatorEvidence(source, html);
+      if (source.url.endsWith("/visitor-info/hours")) {
+        let noticeCode = "";
+        try {
+          noticeCode = readFileSync("src/data/moody-gardens-visit-notice.ts", "utf8");
+        } catch {
+          // The closure check will fail when the operator has an active notice.
+        }
+        issues.push(...validateOperatorEarlyClosureNotice(html, noticeCode));
+      }
       failures.push(...issues);
       if (!issues.length) console.log("Verified operator facts: " + source.name);
     } catch (error) {
