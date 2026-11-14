@@ -248,7 +248,7 @@ if (!moodyDate || moodyDate !== '2026-11-09' || !moodyCuration.includes('sourceC
 const moodyRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 if (!moodyCuration.includes('museumFactsReviewed: "2026-11-14"')
     || !moodyCuration.includes('lastSubstantiveEdit: "2026-11-14"')
-    || !moodySpotlights.includes('This guide was substantively updated on {moodyGardensEditorialDates.lastSubstantiveEdit}')
+    || !moodySpotlights.includes('<time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 14, 2026</time>')
     || !moodyRoute.includes('moodyGardensEditorialDates.lastSubstantiveEdit')) {
   errors.push('Moody Gardens must separate substantive WebPage dateModified from its older, honest source-review dates.');
 }
