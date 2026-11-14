@@ -20,8 +20,14 @@ test("normalizes public HTML entities and removes script false positives", () =>
 });
 
 test("accepts a current museum statement in rendered operator copy", () => {
-  const content = "<h2>Galveston Children&#8217;s Museum</h2><p>Now open daily during attraction hours.</p><p>Audience Recognition Theater downstairs</p>";
+  const content = "<h2>Galveston Children&#8217;s Museum</h2><p>Now open daily during attraction hours, with 9 to 10 AM reserved for museum members.</p><p>Audience Recognition Theater downstairs</p>";
   assert.deepEqual(validateOperatorEvidence(discovery, html(content)), []);
+});
+
+test("a new members-only time must be rechecked if the operator no longer publishes it", () => {
+  const content = "<h2>Galveston Children's Museum</h2><p>Now open daily during attraction hours.</p><p>Audience Recognition Theater downstairs</p>";
+  const errors = validateOperatorEvidence(discovery, html(content));
+  assert.ok(errors.some((message) => message.includes("9 to 10 AM reserved for museum members")));
 });
 
 test("a generic navigation 'now open' cannot hide a museum closure", () => {
