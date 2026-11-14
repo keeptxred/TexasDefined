@@ -223,6 +223,26 @@ const NOV14_MOODY_POSTHYDRATION_TITLE_FAILURE = Object.freeze({
   failedStep: 'Verify Moody Gardens four-viewport browser authority and layout',
 });
 
+// Nov 14 run #43629450047 / deploy job #132552595374 published the now
+// 100%-traffic Worker 4a67cc9a... from exact 9afb270... source. GitHub
+// confirms deploy/version, direct/canonical health and every original-byte
+// current+prior JS/CSS check completed SUCCESS; its only failed step was the
+// independent Moody Gardens production text acceptance. The page did contain
+// the admission guidance but the SSR HTML encoded the apostrophe in the
+// visitor-facing phrase. The next-source verifier now normalizes HTML
+// entities before comparing the fully intact required marker. Recover ONLY
+// the verified original-byte handoff of this EXACT failed job; the failed
+// Moody acceptance must remain failed, and the next release independently
+// reruns ALL production page/asset checks. The caller still verifies exact
+// active Worker + source commit + original hashes on BOTH origins.
+const NOV14_PUBLISHED_MOODY_ENTITY_MARKER_FAILURE = Object.freeze({
+  runId: 43629450047,
+  jobId: 132552595374,
+  sourceSha: '9afb27020d3152c52aed3f2f3241e93330e303bf',
+  workerVersion: '4a67cc9a-616c-4707-9097-541b8fce2138',
+  failedStep: 'Verify Moody Gardens production authority',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -239,6 +259,29 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const moodyEntity = NOV14_PUBLISHED_MOODY_ENTITY_MARKER_FAILURE;
+  if (job.run_id === moodyEntity.runId && job.id === moodyEntity.jobId &&
+      failures.length === 1 && failures[0] === moodyEntity.failedStep) {
+    const verifier = readFileSync('scripts/production/verify-moody-gardens-production.mjs', 'utf8');
+    const normalizer = readFileSync('scripts/production/moody-gardens-html-entities.mjs', 'utf8');
+    const article = readFileSync('src/components/editorial/MoodyGardensSpotlights.tsx', 'utf8');
+    const marker = "a ticket that includes Galveston Children's Museum admission";
+    if (!verifier.includes('normalizeMoodyGardensTextEntities(html)') ||
+        !verifier.includes('if (!decodedVisitorCopy.includes(marker))') ||
+        !verifier.includes(marker) ||
+        !normalizer.includes('export function normalizeMoodyGardensTextEntities') ||
+        !article.includes(marker)) {
+      throw Error('Exact published Moody asset handoff rejected until SSR entity decoding is source-repaired without deleting the admission fact or production verifier');
+    }
+    return { eligible: true, mode: 'exact-nov14-moody-entity-original-assets-only',
+      exactRun: moodyEntity.runId, criticalChecks: CRITICAL.length,
+      permittedFailures: failures,
+      requiredSourceSha: moodyEntity.sourceSha,
+      requiredWorkerVersion: moodyEntity.workerVersion };
+  }
+  if (job.run_id === moodyEntity.runId || job.id === moodyEntity.jobId) {
+    throw Error('Moody entity source-verified active Worker has unexpected run/job/failure evidence: ' + failures.join(', '));
   }
   const moody = NOV14_MOODY_POSTHYDRATION_TITLE_FAILURE;
   if (job.run_id === moody.runId && job.id === moody.jobId &&
