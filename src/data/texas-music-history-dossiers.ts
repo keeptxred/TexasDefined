@@ -437,7 +437,7 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
       },
       {
         heading: "A university collection preserves Freddie Records' working materials",
-        record: "Texas A&M University-Corpus Christi's Bell Library catalog identifies the Freddie Martinez 'Freddie Records' Collection, Coll. 266, covering 1969–2020. The finding aid lists music recordings, promotional flyers and posters from the label's career and its 2019 fiftieth anniversary.",
+        record: "Texas A&M University-Corpus Christi's Bell Library catalog identifies the Freddie Martinez 'Freddie Records' Collection, Coll. 266 (1969–2020). Its historical finding aid credits Freddie and JoAnn Martinez with starting the label in a garage with $400 in November 1969, and inventories early records, period flyers and 2019 fiftieth-anniversary materials. Those figures come from the university's retrospective finding aid, not an independently examined original 1969 ledger.",
         reading: "A dated archive of recordings and advertising offers more precise evidence of a label's regional infrastructure than an unsourced list of famous clients. Catalog descriptions establish what survives; they are not permission to republish the collection.",
         source: "Texas A&M University-Corpus Christi, Freddie Records archival finding aid",
         href: "https://txarchives.org/tamucc/finding_aids/00266.xml"
