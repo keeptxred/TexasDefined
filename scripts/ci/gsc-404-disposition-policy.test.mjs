@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import {
   INTENTIONAL_404_DISPOSITIONS,
   RESTORE_REQUIRED_GSC_PATHS,
+  RESTORED_GSC_CANONICAL_PATHS,
   reviewGsc404Disposition,
 } from './gsc-404-disposition-policy.mjs';
 import { classifyHistoricalGsc404 } from './gsc-404-classification.mjs';
@@ -13,9 +14,13 @@ const inventory = readFileSync('ops/seo/gsc-404-2026-11-13-paths.txt', 'utf8')
 const intentionalPaths = Object.keys(INTENTIONAL_404_DISPOSITIONS);
 const explicit = new Set([...intentionalPaths, ...RESTORE_REQUIRED_GSC_PATHS]);
 
-const observed = (path, firstStatus, finalStatus, { invalidTemplate = false, error = null } = {}) => {
+const observed = (path, firstStatus, finalStatus, {
+  invalidTemplate = false, error = null,
+  finalUrl = finalStatus === 200 ? 'https://texasdefined.com' + (RESTORED_GSC_CANONICAL_PATHS[path] || path) : null,
+  canonical = finalStatus === 200 ? 'https://texasdefined.com' + (RESTORED_GSC_CANONICAL_PATHS[path] || path) : null,
+} = {}) => {
   const outcome = classifyHistoricalGsc404({ invalidTemplate, firstStatus, finalStatus, error });
-  return reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, outcome, error });
+  return reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, finalUrl, canonical, outcome, error });
 };
 
 test('historical 404 policy only covers the exact supplied 99 URLs and is not blanket URL rewriting', () => {
@@ -23,6 +28,7 @@ test('historical 404 policy only covers the exact supplied 99 URLs and is not bl
   assert.equal(new Set(inventory).size, 99);
   assert.equal(intentionalPaths.length, 12);
   assert.equal(RESTORE_REQUIRED_GSC_PATHS.size, 10);
+  assert.deepEqual(Object.keys(RESTORED_GSC_CANONICAL_PATHS).sort(), [...RESTORE_REQUIRED_GSC_PATHS].sort());
   for (const path of explicit) assert.ok(inventory.includes(path), 'Policy refers to a URL not in 99-path inventory: ' + path);
   for (const path of RESTORE_REQUIRED_GSC_PATHS) {
     assert.ok(!intentionalPaths.includes(path), 'Same path cannot be must-restore and intentionally missing');
@@ -84,4 +90,16 @@ test('unclassified retired articles remain open editorial decisions, not fabrica
   assert.equal(observed(p, 404, 404).review, 'editorial-disposition-needed');
   assert.equal(observed(p, 301, 404).review, 'redirect-to-missing');
   assert.equal(observed(p, 200, 200).review, 'observed-response');
+});
+
+test('real restored routes require exact published destinations and self-canonicals, not arbitrary 200', () => {
+  for (const path of RESTORE_REQUIRED_GSC_PATHS) {
+    const expected = 'https://texasdefined.com' + RESTORED_GSC_CANONICAL_PATHS[path];
+    assert.equal(observed(path, 301, 200, {finalUrl: expected, canonical: expected}).review, 'served-200');
+    assert.equal(observed(path, 301, 200, {finalUrl: 'https://texasdefined.com/'}).review, 'restore-regression');
+    assert.equal(observed(path, 200, 200, {canonical: null}).review, 'restore-regression');
+    assert.equal(observed(path, 301, 200, {canonical: 'https://texasdefined.com/'}).review, 'restore-regression');
+    assert.equal(observed(path, 301, 200, {canonical: 'http://texasdefined.com' + RESTORED_GSC_CANONICAL_PATHS[path]}).review, 'restore-regression');
+    assert.equal(observed(path, 301, 200, {finalUrl: expected + '?tracked=1'}).review, 'restore-regression');
+  }
 });
