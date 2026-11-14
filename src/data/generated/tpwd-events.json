@@ -1,25 +1,7 @@
 {
-  "generatedAt": "2026-11-13T18:34:04.058Z",
+  "generatedAt": "2026-11-14T17:11:18.344Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Butterfly and Dragonfly Tours",
-      "startDate": "2026-11-13",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-11-13"
-    },
-    {
-      "title": "Indian Lodge Tour",
-      "startDate": "2026-11-13",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-11-13"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-11-13",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-13"
-    },
     {
       "title": "All About Snakes",
       "startDate": "2026-11-14",
@@ -39,12 +21,6 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-14"
     },
     {
-      "title": "Bird Outing",
-      "startDate": "2026-11-14",
-      "parkKey": "lake-arrowhead",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-arrowhead/bird-outing-13/2026-11-14"
-    },
-    {
       "title": "Coffee with the Bison",
       "startDate": "2026-11-14",
       "parkKey": "caprock-canyons",
@@ -55,12 +31,6 @@
       "startDate": "2026-11-14",
       "parkKey": "huntsville",
       "officialUrl": "https://tpwd.texas.gov/calendar/huntsville/gator-talk-2013-american-alligator-vs-tyrannosaurus-rex-who-is-the-ultimate-survivalist/2026-11-14"
-    },
-    {
-      "title": "Living History Days",
-      "startDate": "2026-11-14",
-      "parkKey": "fort-richardson",
-      "officialUrl": "https://tpwd.texas.gov/calendar/fort-richardson/living-history-days/2026-11-14"
     },
     {
       "title": "Meet The Longhorns",
@@ -85,18 +55,6 @@
       "startDate": "2026-11-14",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-11-14"
-    },
-    {
-      "title": "The Forest You Almost Missed",
-      "startDate": "2026-11-14",
-      "parkKey": "buescher",
-      "officialUrl": "https://tpwd.texas.gov/calendar/buescher/the-forest-you-almost-missed/2026-11-14"
-    },
-    {
-      "title": "Track Talk",
-      "startDate": "2026-11-14",
-      "parkKey": "dinosaur-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/track-talk-14/2026-11-14"
     },
     {
       "title": "World Birding Center Birding Tours",
@@ -127,6 +85,12 @@
       "startDate": "2026-11-15",
       "parkKey": "stephen-f-austin",
       "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-15"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-11-15",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-11-15"
     },
     {
       "title": "Guided Bird Walk at Honey Creek State Natural Area *Registration Required*",
@@ -223,6 +187,12 @@
       "startDate": "2026-11-19",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-11-19"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-11-19",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-11-19"
     },
     {
       "title": "Hike With Homeless Dogs",
@@ -429,6 +399,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-22"
     },
     {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-11-22",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-11-22"
+    },
+    {
       "title": "Mission History Tour",
       "startDate": "2026-11-22",
       "parkKey": "goliad",
@@ -547,6 +523,12 @@
       "startDate": "2026-11-28",
       "parkKey": "caprock-canyons",
       "officialUrl": "https://tpwd.texas.gov/calendar/caprock-canyons/coffee-with-the-bison-1/2026-11-28"
+    },
+    {
+      "title": "Discovery Night",
+      "startDate": "2026-11-28",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/full-moon-hike/2026-11-28"
     },
     {
       "title": "Dogs on the Dogwood",
@@ -685,6 +667,12 @@
       "startDate": "2026-11-29",
       "parkKey": "stephen-f-austin",
       "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-29"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-11-29",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-11-29"
     },
     {
       "title": "Mission History Tour",
@@ -981,6 +969,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/atlanta/christmas-in-the-park/2026-12-12"
     },
     {
+      "title": "Discovery Night",
+      "startDate": "2026-12-12",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/full-moon-hike/2026-12-12"
+    },
+    {
       "title": "Holiday at the Lake",
       "startDate": "2026-12-12",
       "parkKey": "lake-brownwood",
@@ -1189,6 +1183,12 @@
       "startDate": "2026-12-26",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_11-28-26/2026-12-26"
+    },
+    {
+      "title": "Discovery Night",
+      "startDate": "2026-12-26",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/full-moon-hike/2026-12-26"
     },
     {
       "title": "Enchanting Junior Ranger Academy",
