@@ -156,6 +156,11 @@ export const top50ThemeParkDestinations: Destination[] = [
           "label": "Schlitterbahn photograph — rights and provenance",
           "url": "https://commons.wikimedia.org/wiki/File:Schlitterbahn_New_Braunfels_Main_Pool_2004.jpg",
           "scope": "Historic main pool photograph under Creative Commons Attribution-ShareAlike 2.0."
+        },
+        {
+          "label": "CC BY-SA 2.0 — ljpelletier; 2004 archival pool image",
+          "url": "https://creativecommons.org/licenses/by-sa/2.0/",
+          "scope": "Direct author-share-alike license; photo credits identify creator and historic date. Source photograph is linked separately in this guide."
         }
       ]
     }
@@ -464,6 +469,11 @@ export const top50ThemeParkDestinations: Destination[] = [
           "label": "SeaWorld gate photograph and reuse license",
           "url": "https://commons.wikimedia.org/wiki/File:Entrance_to_Sea_World,_San_Antonio,_Texas,_June_4,_2007.JPG",
           "scope": "Historic photo; check the file's specific attribution/share-alike terms before reuse."
+        },
+        {
+          "label": "CC BY-SA 3.0 — TheConduqtor; 2007 archival entry image",
+          "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "scope": "Direct author-share-alike license; photo credits identify creator and historic date. Source photograph is linked separately in this guide."
         }
       ]
     }
@@ -618,6 +628,11 @@ export const top50ThemeParkDestinations: Destination[] = [
           "label": "Six Flags Fiesta Texas 2026 entrance photograph",
           "url": "https://commons.wikimedia.org/wiki/File:Six_Flags_Fiesta_Texas_entrance_gate_1.jpg",
           "scope": "Recent identifiable entrance photo by Wacky Windjammer, CC BY-SA 4.0."
+        },
+        {
+          "label": "CC BY-SA 4.0 — Wacky Windjammer; 2026 entry photograph",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "scope": "Direct author-share-alike license; photo credits identify creator and historic date. Source photograph is linked separately in this guide."
         }
       ]
     }
