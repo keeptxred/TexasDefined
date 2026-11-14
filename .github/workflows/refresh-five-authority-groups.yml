@@ -19,6 +19,17 @@ on:
       - 'src/routes/texas-tailgating-guide.lazy.tsx'
       - 'src/components/dogs/DogsHubPage.tsx'
       - 'src/components/hunting/HuntingAuthority.tsx'
+      - 'src/components/hunting/**'
+      - 'src/data/hunting/**'
+      - 'src/routes/hunting*'
+      - 'src/components/dogs/**'
+      - 'src/data/texas-dogs*'
+      - 'src/routes/dogs.*'
+      - 'src/components/editorial/CategoryPage.tsx'
+      - 'src/routes/sports.*'
+      - 'src/routes/texas-tailgating-guide.*'
+      - 'src/assets/navigation-texas-dogs.svg'
+      - 'src/assets/high-school-football-hero.jpg'
 permissions:
   contents: read
   issues: write

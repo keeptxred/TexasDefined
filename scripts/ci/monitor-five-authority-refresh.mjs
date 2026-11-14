@@ -19,11 +19,25 @@ const selected = config.groups.filter(group =>
   process.argv.includes("--all") || group.runUtcWeekdays.includes(nowDay.getUTCDay()));
 const issues = [];
 const rows = [];
+// These are changes that materially affect permit eligibility, playoff travel
+// or permitted tailgate footprint. A generic HTTP 200 must never override them.
+const requiredMaterialWatch = {
+  "/hunting": ["TPWD APH access", "TPWD regular daily hunt"],
+  "/dogs": ["TPWD pets in state parks", "CDC pet heat precautions"],
+  "/sports": ["RODEOHOUSTON events", "COTA upcoming events"],
+  "/sports/friday-night-lights": ["UIL 2026 schedule", "UIL division qualification", "UIL championship schedule"],
+  "/texas-tailgating-guide": ["AT&T Stadium parking"],
+};
 for (const group of config.groups) {
   const content = await readFile(tasks[group.path], "utf8");
   assert.ok(group.id && group.maxReviewAgeDays >= 1 && group.maxReviewAgeDays <= 90);
   assert.ok(Array.isArray(group.runUtcWeekdays) && group.runUtcWeekdays.length > 0);
   assert.ok(Array.isArray(group.officialSources) && group.officialSources.length > 0);
+  for (const name of requiredMaterialWatch[group.path] || []) {
+    const source = group.officialSources.find(item => item.name === name);
+    assert.ok(source?.watchFacts?.length >= 1,
+      group.path + ": material official-source watch absent for " + name);
+  }
   assert.ok(Array.isArray(group.requiredLiveMarkers) && group.requiredLiveMarkers.length > 0);
   for (const marker of group.requiredLiveMarkers)
     assert.ok(content.includes(marker), group.path + ": required content absent from source: " + marker);
@@ -49,6 +63,12 @@ for (const group of config.groups) {
     const storyDay = Date.parse(lead.publishedAt + "T00:00:00Z");
     const storyAge = Math.floor((nowDay.getTime() - storyDay) / 86_400_000);
     assert.ok(Number.isFinite(storyDay) && storyDay <= nowDay.getTime(), "Sports lead date invalid or future");
+    assert.ok(Number.isInteger(lead.renewalLeadDays) && lead.renewalLeadDays > 0 &&
+      lead.renewalLeadDays <= 14, "Sports lead needs a bounded advance renewal notice");
+    if (storyAge >= lead.maxLeadAgeDays - lead.renewalLeadDays)
+      issues.push("Sports lead is " + storyAge + " days old with " +
+        (lead.maxLeadAgeDays - storyAge) +
+        " days before mandatory archive. Publish a NEW independently researched article before the deadline; never change the original publication date.");
     if (storyAge > lead.maxLeadAgeDays) issues.push("Sports lead is " + storyAge + " days old, over current editorial threshold " + lead.maxLeadAgeDays + ". Publish a substantively new sourced report; never re-date this piece.");
     assert.ok(content.includes("maxFeaturedAgeDays={35}"), "Sports must time-gate current news independently of archives");
     const category = await readFile("src/components/editorial/CategoryPage.tsx", "utf8");
@@ -57,7 +77,14 @@ for (const group of config.groups) {
   for (const item of group.officialSources) {
     assert.equal(new URL(item.url).protocol, "https:", group.path + ": unsafe official source URL");
     assert.ok(item.name && item.containsAny.length > 0, group.path + ": source contract incomplete");
-    assert.ok(content.includes(item.url) || group.path === "/sports" || group.path === "/sports/friday-night-lights",
+    if (item.watchFacts) {
+      assert.ok(Array.isArray(item.watchFacts) && item.watchFacts.length > 0,
+        group.path + ": empty material-fact watch list");
+      for (const phrase of item.watchFacts)
+        assert.ok(typeof phrase === "string" && phrase.length >= 3,
+          group.path + ": invalid watchFact for " + item.name);
+    }
+    assert.ok(content.includes(item.url) || group.path === "/sports",
       group.path + ": source not linked from page: " + item.url);
   }
   const reviewed = Date.parse(group.lastFactReviewAt + "T00:00:00Z");
@@ -138,6 +165,22 @@ if (process.argv.includes("--production")) {
       assert.ok(body.length > 250, "Official source unexpectedly empty");
       assert.ok(source.containsAny.some(needle => body.toLowerCase().includes(needle.toLowerCase())),
         "Expected topic text absent; source may have changed");
+      if (source.watchFacts?.length) {
+        // Inspect plain visible HTML rather than scripts, embedded JSON or stale
+        // page metadata. A missing material claim is an editorial escalation,
+        // not permission to silently rewrite a source-review timestamp.
+        const plainText = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+          .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+          .replace(/<!--[^]*?-->/g, " ").replace(/<[^>]+>/g, " ")
+          .replace(/&amp;/gi, "&").replace(/&nbsp;/gi, " ")
+          .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+          .replace(/\s+/g, " ").toLowerCase();
+        for (const fact of source.watchFacts)
+          assert.ok(plainText.includes(fact.toLowerCase()),
+            "Material published rule not found in official source: " + fact);
+        console.log("REFRESH_MATERIAL_FACTS_PRESENT " + group.id + " " + source.name +
+          " " + source.watchFacts.length + " watched claims (not editorial signoff)");
+      }
       console.log("REFRESH_SOURCE_REACHABLE " + group.id + " " + source.name +
         " HTTP " + response.status + " bytes=" + Buffer.byteLength(body) +
         " (not editorial fact certification)");
