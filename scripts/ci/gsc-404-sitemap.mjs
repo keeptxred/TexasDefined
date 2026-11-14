@@ -50,3 +50,12 @@ export function identifyGscSitemapLeaks(listedPaths, intentionallyMissing, nonca
     redirectSourceListed: [...new Set(noncanonicalAliases)].filter((path) => listed.has(path)).sort(),
   };
 }
+
+/** Fail closed when a substantively restored, indexable authority page is not
+ * listed in ANY first-party public XML sitemap. This is not a claim of Google
+ * indexing; football Google-only exclusion cohorts are deliberately not passed.
+ */
+export function missingRestoredGscSitemapCanonicals(listedPaths, requiredCanons) {
+  const listed = new Set(listedPaths);
+  return [...new Set(requiredCanons)].filter((path) => !listed.has(path)).sort();
+}
