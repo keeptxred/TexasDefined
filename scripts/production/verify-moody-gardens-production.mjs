@@ -85,6 +85,23 @@ for (const [label, rawUrl] of targets) {
   if (!earlyClosingNoticeActive && html.includes(earlyClosingMarker)) {
     failures.push(`${label}: expired Nov. 16 early-closing notice remains published`);
   }
+  if (earlyClosingNoticeActive) {
+    // A query-string can bypass stale edge HTML even if a real user still
+    // receives an obsolete cached document. Also verify the plain public URL.
+    const ordinary = await fetch(rawUrl, {
+      redirect: "follow",
+      signal: AbortSignal.timeout(20000),
+      headers: { "user-agent": "TexasDefined-ordinary-public-HTML/1.0" },
+    });
+    const ordinaryHtml = await ordinary.text();
+    if (!ordinary.ok || !ordinaryHtml.includes(earlyClosingMarker)) {
+      failures.push(`${label}: ordinary URL still serves old HTML or omits the Nov. 16 alert (HTTP ${ordinary.status})`);
+    }
+    const ordinaryCacheControl = ordinary.headers.get("cache-control")?.toLowerCase() ?? "";
+    if (!ordinaryCacheControl.includes("no-store") || ordinary.headers.get("cf-cache-status")?.toUpperCase() === "HIT") {
+      failures.push(`${label}: ordinary URL may serve stale notice HTML; cache-control=${ordinaryCacheControl || "missing"}; cf-cache-status=${ordinary.headers.get("cf-cache-status") || "missing"}`);
+    }
+  }
   const currentSchemaDate = /"dateModified":"(\d{4}-\d{2}-\d{2})"/.exec(html)?.[1];
   if (!currentSchemaDate || currentSchemaDate < "2026-11-09") failures.push(`${label}: wrong or stale schema dateModified: ${currentSchemaDate ?? "missing"}`);
   console.log(`Moody Gardens production acceptance: ${label} HTTP ${response.status}; bytes=${html.length}`);
