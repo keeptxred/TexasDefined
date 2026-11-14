@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { imageRightsFor } from "./image-rights.ts";
+import { verifiedLocalParkCredit } from "./verified-local-state-park-photo-credits.ts";
+import { stateParkHeroMap } from "./state-park-hero-map.ts";
 
 // Photo identity, copyright and reuse terms checked against the *individual*
 // Commons file pages. The URLs below are the published hero asset addresses,
@@ -44,6 +46,26 @@ const photos = [
     fixture: "src/data/coastal-heritage-authority.ts",
   },
 ] as const;
+
+test("Big Bend Ranch original Commons photo rights require exact local file, author and CC BY-SA 3.0", () => {
+  const hero = stateParkHeroMap["big-bend-ranch-state-park"];
+  assert.equal(hero.src, "/images/state-parks/big-bend-ranch-state-park.jpg");
+  assert.equal(hero.width, 1600);
+  assert.equal(hero.height, 960);
+  const rights = verifiedLocalParkCredit(hero);
+  assert.ok(rights);
+  assert.equal(rights.author, "Jcllorca");
+  assert.equal(rights.licenseUrl, "https://creativecommons.org/licenses/by-sa/3.0/");
+  assert.equal(rights.fileUrl, "https://commons.wikimedia.org/wiki/File:Harvest_moon_in_Big_Bend_Ranch_State_Park.JPG");
+  assert.equal(verifiedLocalParkCredit({ ...hero, src: "/images/other.jpg" }), null);
+  assert.equal(verifiedLocalParkCredit({ ...hero, credit: "Unknown · CC BY-SA 3.0" }), null);
+  assert.equal(verifiedLocalParkCredit({ ...hero, credit: "Jcllorca · all rights reserved" }), null);
+  const route = readFileSync("src/routes/destination.$slug.tsx", "utf8");
+  assert.ok(route.includes("verifiedLocalParkCredit(destination.hero)"));
+  assert.ok(route.includes("...localParkImageRights"));
+  assert.ok(route.includes("creator: { \"@type\": \"Person\" as const, name: verifiedParkPhoto.author }"));
+  assert.ok(route.includes("acquireLicensePage: verifiedParkPhoto.fileUrl"));
+});
 
 test("five licensed Commons hero images emit creator, real ownership, license and acquisition page", () => {
   for (const photo of photos) {
