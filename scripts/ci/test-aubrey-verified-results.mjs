@@ -195,3 +195,13 @@ test('contradictions of already authored game finals cannot silently pass',()=>{
     primary:{...primary,games:[correct]},secondary,
   })).added,0,'Matching provider report must preserve authored final without republishing');
 });
+
+test('reject racing score publishes while the prior generated PR is waiting',()=>{
+  const workflow=readFileSync('.github/workflows/aubrey-verified-score-sync.yml','utf8');
+  assert.ok(workflow.includes('group: aubrey-verified-score-sync'), 'Serialized nightly/manual refresh');
+  assert.ok(workflow.includes('cancel-in-progress: false'), 'No cancellation of publishing attempts');
+  assert.ok(workflow.includes('Existing Aubrey score PR awaits protected merge'),
+    'No second score PR while prior protected merge is unresolved');
+  assert.ok(workflow.includes('gh pr list --repo "$GITHUB_REPOSITORY"'),
+    'Guard must inspect repository-scoped open PRs');
+});
