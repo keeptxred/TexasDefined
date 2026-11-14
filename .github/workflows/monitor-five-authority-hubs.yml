@@ -16,6 +16,8 @@ on:
   schedule:
     - cron: '15 15 * * 2'
   workflow_dispatch:
+  issue_comment:
+    types: [created]
 
 permissions:
   contents: read
@@ -27,6 +29,12 @@ concurrency:
 
 jobs:
   validate:
+    # Restrict the comment-driven production check to the tracked issue and repo owner.
+    if: >-
+      github.event_name != 'issue_comment' ||
+      (github.event.issue.number == 7065 &&
+       github.event.comment.body == '/verify-five-hubs' &&
+       github.event.comment.user.login == 'keeptxred')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -42,10 +50,10 @@ jobs:
           node scripts/data/validate-sports-editorial-authority.mjs
           node scripts/data/validate-hunting-authority.mjs
       - name: Verify deployed pages on schedule
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment'
         run: node scripts/ci/verify-five-authority-hubs.mjs --production
       - name: Open a single tracked maintenance issue on scheduled failure
-        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment')
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
