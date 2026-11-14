@@ -201,7 +201,7 @@ export function MoodyGardensSpotlights() {
             <a href="https://www.moodygardens.com/visitor-info/accessibility" target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official accessibility details</a>
           </div>
         </div>
-        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk reviewed the core Moody Gardens visitor policies on November 9, 2026, and checked the Galveston Children's Museum admission, member-hour, exhibits and holiday-closure details on November 14, 2026. This guide was substantively updated on {moodyGardensEditorialDates.lastSubstantiveEdit} (separate from the original full-guide source review). Attraction hours, showtimes and ticket terms can change.</p>
+        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk reviewed the core Moody Gardens visitor policies on November 9, 2026, and checked the Galveston Children's Museum admission, member-hour, exhibits and holiday-closure details on November 14, 2026. This guide was substantively updated on <time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 14, 2026</time> (separate from the original full-guide source review). Attraction hours, showtimes and ticket terms can change.</p>
       </Container>
     </Section>
 
