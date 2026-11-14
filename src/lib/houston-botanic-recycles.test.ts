@@ -5,10 +5,12 @@ import { HBG_RECYCLES_2026, isHoustonBotanicRecyclingOfferActive } from "./houst
 import { applyHashedModuleDocumentCachePolicy } from "./hashed-asset-document-cache-policy.ts";
 
 test("Texas Recycles offer is active only Nov. 13–15, 2026 in Houston local time", () => {
-  assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse("2026-11-13T05:59:59.999Z")), false);
+  assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse("2026-11-13T14:59:59.999Z")), false);
   assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse(HBG_RECYCLES_2026.startsAt)), true);
   assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse("2026-11-14T18:00:00Z")), true);
-  assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse("2026-11-16T05:59:59.999Z")), true);
+  assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse("2026-11-15T22:59:59.999Z")), true);
+  assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse("2026-11-15T23:00:00.000Z")), false);
+  assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse("2026-11-16T05:59:59.999Z")), false);
   assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse(HBG_RECYCLES_2026.expiresAt)), false);
   assert.equal(isHoustonBotanicRecyclingOfferActive(Date.parse("2027-11-14T12:00:00Z")), false);
   assert.equal(isHoustonBotanicRecyclingOfferActive(Number.NaN), false);

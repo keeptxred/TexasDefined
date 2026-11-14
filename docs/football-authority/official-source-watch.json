@@ -4,10 +4,13 @@
   "purpose": "Official-source availability and stable-content-change detection only. A digest change is NOT a verified football score or factual correction.",
   "safety": {
     "approvedDomains": [
+      "achs.fortbendisd.gov",
+      "ahs.fortbendisd.gov",
       "amchs.csisd.org",
       "anderson.conroeisd.net",
       "athletics.c-isd.com",
       "athletics.calallen.org",
+      "bhs.fortbendisd.gov",
       "bwhs.brazosportisd.net",
       "carroll.ccisd.us",
       "cchs.conroeisd.net",
@@ -17,20 +20,30 @@
       "chs.columbusisd.org",
       "chs.commerceisd.org",
       "chs.conroeisd.net",
+      "chs.fortbendisd.gov",
       "clhs.comalisd.org",
       "collinsvilleisd.org",
       "coveathletics.ccisd.com",
       "cpisd.net",
       "cshs.csisd.org",
       "dhs.comalisd.org",
+      "dhs.fortbendisd.gov",
+      "ehs.fortbendisd.gov",
+      "fbacademy.com",
+      "fhs.bcisd.us",
+      "fhs.forneyisd.net",
       "files-backend.assets.thrillshare.com",
       "hhs.clintweb.net",
+      "hhs.fortbendisd.gov",
+      "highschool.farmersvilleisd.net",
       "judsonhs.judsonisd.org",
+      "khs.fortbendisd.gov",
       "mvhs.clintweb.net",
       "orhs.conroeisd.net",
       "phs.comalisd.org",
       "realignment.uiltexas.org",
       "svhs.comalisd.org",
+      "tigersjags.fisd.us",
       "twhs.conroeisd.net",
       "www.ccity.esc14.net",
       "www.centerisd.org",
@@ -62,7 +75,19 @@
       "www.coppellisd.com",
       "www.cpcisd.net",
       "www.cvisd.org",
+      "www.fabensisd.net",
+      "www.fairfieldeagles.net",
+      "www.farwellschools.org",
+      "www.fcisd.net",
+      "www.flatoniaisd.net",
+      "www.florenceisd.net",
+      "www.floydadaisd.esc17.net",
+      "www.follettisd.net",
+      "www.forestburgisd.net",
+      "www.forsan.esc18.net",
+      "www.fortbendchristian.org",
       "www.friscoisd.org",
+      "www.jacketnationathletics.com",
       "www.sa-ccs.org",
       "www.scucisd.org",
       "www.tarkingtonisd.net"
@@ -504,6 +529,181 @@
     {
       "slug": "corpus-christi-carroll",
       "url": "https://carroll.ccisd.us/page/athletics/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fabens",
+      "url": "https://www.fabensisd.net/departments/athletics/wildcats",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fairfield",
+      "url": "https://www.fairfieldeagles.net/sport/football/boys/?tab=schedule",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "falfurrias",
+      "url": "https://fhs.bcisd.us/activities/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "falls-city",
+      "url": "https://www.fcisd.net/athletics/athletic-schedules",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "farmersville",
+      "url": "https://highschool.farmersvilleisd.net/apps/pages/index.jsp?pREC_ID=1043869&type=d&uREC_ID=456318",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "farwell",
+      "url": "https://www.farwellschools.org/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "ferris",
+      "url": "https://www.jacketnationathletics.com/sport/football/boys/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "first-baptist-dallas",
+      "url": "https://fbacademy.com/athletics/athletics-info/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "flatonia",
+      "url": "https://www.flatoniaisd.net/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "florence",
+      "url": "https://www.florenceisd.net/o/fhs/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "floresville",
+      "url": "https://tigersjags.fisd.us/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "floydada",
+      "url": "https://www.floydadaisd.esc17.net/athletics/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "follett",
+      "url": "https://www.follettisd.net/page/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "forestburg",
+      "url": "https://www.forestburgisd.net/about-fisd",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "forney",
+      "url": "https://fhs.forneyisd.net/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "forsan",
+      "url": "https://www.forsan.esc18.net/athletics",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-austin",
+      "url": "https://ahs.fortbendisd.gov/athletics/home",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-bush",
+      "url": "https://bhs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-christian",
+      "url": "https://www.fortbendchristian.org/athletics/calendar",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-clements",
+      "url": "https://chs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-crawford",
+      "url": "https://achs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-dulles",
+      "url": "https://dhs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-elkins",
+      "url": "https://ehs.fortbendisd.gov/",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-hightower",
+      "url": "https://hhs.fortbendisd.gov/our-school",
+      "reviewAfter": "2027-01-29",
+      "contentFingerprint": null,
+      "lastObservedAt": null
+    },
+    {
+      "slug": "fort-bend-kempner",
+      "url": "https://khs.fortbendisd.gov/",
       "reviewAfter": "2027-01-29",
       "contentFingerprint": null,
       "lastObservedAt": null

@@ -13,6 +13,8 @@ on:
       - 'scripts/ci/monitor-five-authority-refresh.mjs'
       - '.github/workflows/refresh-five-authority-groups.yml'
       - 'src/routes/sports.lazy.tsx'
+      - 'src/data/fixtures/texas-sports-weekend-calendar-guide.ts'
+      - 'src/data/fixtures/lazy-standalone-evergreen.ts'
       - 'src/routes/sports.friday-night-lights.lazy.tsx'
       - 'src/routes/texas-tailgating-guide.lazy.tsx'
       - 'src/components/dogs/DogsHubPage.tsx'

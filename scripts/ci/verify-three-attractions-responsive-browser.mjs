@@ -110,7 +110,7 @@ try {
         assert.ok(facts.photoCredit.links[1].startsWith("https://creativecommons.org/"), guide.slug + " exact reuse license");
         if (guide.slug === "houston-botanic-garden") {
           const now = Date.now();
-          const isOfferActive = now >= Date.parse("2026-11-13T06:00:00Z") && now < Date.parse("2026-11-16T06:00:00Z");
+          const isOfferActive = now >= Date.parse("2026-11-13T15:00:00Z") && now < Date.parse("2026-11-15T23:00:00Z");
           assert.equal(facts.offerVisible, isOfferActive, "Houston Nov. 13–15 offer must expire with its official validity");
           if (isOfferActive) assert.ok(facts.pageText.includes("one plastic bag or bottle") && facts.pageText.includes("per person"), "Houston offer eligibility");
           assert.ok(facts.pageText.includes("New Year's Day"), "Houston official holiday closure");

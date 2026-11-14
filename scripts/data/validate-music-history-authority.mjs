@@ -91,6 +91,10 @@ if(!liveAcceptance.includes("Clean canonical article differs from cache-busted")
    !liveAcceptance.includes("Antones disputed Guadalupe 1981/1982 opening evidence absent"))
   fail("Production acceptance must compare every clean music SSR article to its cache-busted variants and guard Antone's 1981/1982 source correction");
 if(!deskProfile.includes('to="/editorial-policy"'))fail("Canonical author profile must link to the one centralized editorial policy");
+if(!deskProfile.includes("itemListElement: [") || deskProfile.includes("itemListElement: loaderData.articles.map"))
+  fail("Central editorial desk JSON-LD ItemList must merge published and music guides as array entries rather than numeric object properties");
+if(!dossiers.includes("garage with $400 in November 1969"))
+  fail("Corpus Christi Freddie Records archival economic context missing");
 if(!deskProfile.includes('musicHistoryEditorialArticles.map'))fail("Music author page omits its own canonical history archive");
 if(!liveAcceptance.includes('PASS editorial desk profile') || !liveAcceptance.includes('expectedArchivalFindings') || !liveAcceptance.includes('article modification date not updated'))fail("Live acceptance missing archive/byline/update provenance checks");
 if(!browserAcceptance.includes('desk byline links to one institutional profile') || !browserAcceptance.includes('at least five independently researched findings'))fail("Mobile and desktop browser acceptance missing upgraded research/byline checks");
@@ -114,6 +118,38 @@ if(!venueView.includes("photograph.sourcePage") || !venueView.includes("photogra
 if(!evidence.includes('https://atlas.thc.texas.gov/Details') || !evidence.includes('https://www.tshaonline.org/handbook/entries/billy-bobs-texas')) fail("Historical marker / Billy Bob primary source missing");
 for(const x of ["Austin","Houston","San Antonio","Lubbock","Dallas–Fort Worth","Corpus Christi"]){
  if(!evidence.includes('name: "'+x+'"')) fail("Six-city comparison missing "+x);
+}
+
+// Editorial uniqueness guard: compare substantial 5-word passages, not shared
+// component styling or short common phrases. Prevent bulk-generated clones
+// from satisfying per-page minimum source/length checks.
+function musicArticleWords(slug) {
+  const venueSlugs = new Set([
+    "broken-spoke-austin-history","continental-club-austin-history",
+    "antones-austin-history","billy-bobs-texas-history"
+  ]);
+  const guide = slug === "corpus-christi-music-history" ? corpus :
+    slug === "texas-music-cities" ? block(city, slug)+" "+hub :
+    block(venueSlugs.has(slug) ? venue : city, slug);
+  const material = guide+" "+block(dossiers, slug);
+  return (material.replace(/https?:\/\/[^\s"]+/g," ").toLowerCase()
+    .match(/[a-z]+(?:'[a-z]+)?/g) || []).filter(word=>word.length>2);
+}
+function fiveWordShingles(words) {
+  const grams = new Set();
+  for(let i=0;i+4<words.length;i++) grams.add(words.slice(i,i+5).join(" "));
+  return grams;
+}
+const uniqueCorpus = Object.fromEntries(slugs.map(slug=>[
+  slug, fiveWordShingles(musicArticleWords(slug))
+]));
+for(let i=0;i<slugs.length;i++)for(let j=i+1;j<slugs.length;j++){
+  const first=uniqueCorpus[slugs[i]],second=uniqueCorpus[slugs[j]];
+  let shared=0;
+  for(const gram of first) if(second.has(gram))shared++;
+  const overlap=shared/(first.size+second.size-shared || 1);
+  if(overlap>0.12)
+    fail("Near-duplicate long-form music history material: "+slugs[i]+" / "+slugs[j]+" 5-gram overlap="+overlap.toFixed(3));
 }
 if(issues.length){issues.forEach(x=>console.error("FAIL:",x));process.exitCode=1}
 else console.log("10 music history routes: deep source findings, disputed dates, content, citations, author desk and comparisons PASS; external link audit, visual and editorial originality review remain separate");

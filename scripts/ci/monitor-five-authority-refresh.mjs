@@ -28,6 +28,28 @@ for (const group of config.groups) {
   for (const marker of group.requiredLiveMarkers)
     assert.ok(content.includes(marker), group.path + ": required content absent from source: " + marker);
   if (group.path === "/sports") {
+    assert.ok(group.currentEditorialArticle, "Current sports story must be enrolled in recurring review");
+    const lead = group.currentEditorialArticle;
+    const catalog = await readFile("src/data/fixtures/lazy-standalone-evergreen.ts", "utf8");
+    const story = await readFile("src/data/fixtures/texas-sports-weekend-calendar-guide.ts", "utf8");
+    assert.ok(catalog.includes('slug: "' + lead.slug + '"') &&
+      catalog.includes('if (slug === texasSportsWeekendCalendarGuideStub.slug)'), "Sports current story not available through catalog and detail route");
+    assert.ok(story.includes('publishedAt: "' + lead.publishedAt + '"'), "Current sports story published date inconsistent with reviewed source manifest");
+    assert.ok(story.includes('sourceUrl: "https://www.uiltexas.org/football/playoff-brackets"'), "Current sports story missing official primary source");
+    assert.ok(story.split('p("').length - 1 >= 12, "New sports story lacks distinct analytical paragraphs");
+    for (const url of [
+      "https://www.uiltexas.org/football/playoff-brackets",
+      "https://www.ncaa.com/scoreboard/football/fbs",
+      "https://www.nba.com/schedule",
+      "https://www.rodeohouston.com/event-calendar/",
+      "https://circuitoftheamericas.com/events/",
+    ]) assert.ok(story.includes(url), "New sports story missing source: " + url);
+    assert.ok(story.includes("Sources") || story.includes("sources: ["), "Sports story must carry a visible primary-source registry");
+
+    const storyDay = Date.parse(lead.publishedAt + "T00:00:00Z");
+    const storyAge = Math.floor((nowDay.getTime() - storyDay) / 86_400_000);
+    assert.ok(Number.isFinite(storyDay) && storyDay <= nowDay.getTime(), "Sports lead date invalid or future");
+    if (storyAge > lead.maxLeadAgeDays) issues.push("Sports lead is " + storyAge + " days old, over current editorial threshold " + lead.maxLeadAgeDays + ". Publish a substantively new sourced report; never re-date this piece.");
     assert.ok(content.includes("maxFeaturedAgeDays={35}"), "Sports must time-gate current news independently of archives");
     const category = await readFile("src/components/editorial/CategoryPage.tsx", "utf8");
     assert.ok(category.includes("Archive, not current results"), "Old sports stories must retain visibly archival labeling");
@@ -74,6 +96,29 @@ if (process.argv.includes("--production")) {
         assert.ok(html.includes(marker), "Published hub missing current editorial marker " + marker);
       console.log("REFRESH_LIVE_PASS " + group.path + " cache=" + status +
         " age=" + (age ?? "none") + " ray=" + (response.headers.get("cf-ray") || "unreported"));
+      if (group.path === "/sports" && group.currentEditorialArticle) {
+        const story = group.currentEditorialArticle;
+        assert.ok(html.includes(story.expectedLiveTitle), "Fresh sports story must lead the live hub while within the 35-day window");
+        const storyUrl = "https://texasdefined.com/article/" + story.slug +
+          "?__td_refresh_proof=" + encodeURIComponent((process.env.GITHUB_RUN_ID || "local") + "-" + randomUUID());
+        try {
+          const sr = await fetch(storyUrl, {
+            headers: {"Cache-Control":"no-cache, no-store, max-age=0",Pragma:"no-cache",
+              "User-Agent":"TexasDefined-Authority-Refresh-Registry/2026"},
+            redirect:"follow",signal:AbortSignal.timeout(25000),
+          });
+          const sh = await sr.text();
+          assert.equal(sr.status, 200, "Current sports story HTTP " + sr.status);
+          assert.ok(sh.includes('href="https://texasdefined.com/article/' + story.slug + '"'),
+            "Current sports article canonical missing or mismatched");
+          assert.ok(sh.includes(story.expectedLiveTitle) && sh.includes("NCAA"),
+            "Current sports article body/source missing");
+          assert.ok(!/<meta[^>]+name=["']robots["'][^>]+noindex/i.test(sh), "Current sports story is noindex");
+          console.log("REFRESH_LIVE_PASS /article/" + story.slug + " current sourced editorial detail");
+        } catch (error) {
+          issues.push("/article/" + story.slug + ": current source story not published or indexable: " + error.message);
+        }
+      }
       if (group.path === "/sports" && html.includes("Archive, not current results") &&
           !html.includes("Featured from the sports desk"))
         issues.push("/sports: No original article in the current 35-day feature window. Older articles are archived. Fresh source-backed magazine reporting remains required; do not re-date old copy.");
