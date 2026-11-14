@@ -130,8 +130,8 @@ test('mature FRED fallback with identical published figures does not create a re
   const ids = ['DALL148NAN','HOUS448NAN','AUST448NAN','SANA748NAN','ELPA348NAN',
     'MCAL548NAN','CORP548NAN','LUBB148NAN','BROW148NAN','COLL748NAN',
     'WACO348NAN','AMAR148NAN','TYLE348NAN'];
-  const csv = 'observation_date,' + ids.join(',') + '\\n2026-08-01,' +
-    areas.map(([, value]) => value).join(',') + '\\n';
+  const csv = 'observation_date,' + ids.join(',') + '\n2026-08-01,' +
+    areas.map(([, value]) => value).join(',') + '\n';
   const writes = [];
   const changed = await refresh({
     fetchSource: async () => { throw new Error('BLS primary temporarily unavailable'); },
