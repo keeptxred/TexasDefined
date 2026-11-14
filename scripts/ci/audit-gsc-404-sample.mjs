@@ -199,7 +199,7 @@ const markdown = '# TexasDefined GSC historical 404 recheck\n\n' +
   '**Sample:** 99 exact historical paths. **Checked:** ' + summary.createdAt + '\n\n' +
   Object.entries(counts).map(([label, count]) => '- ' + label + ': ' + count).join('\n') + '\n\n' +
   '- Invalid template URLs: ' + templateCount + ' (direct 404/410: ' + expectedTemplate404Count + ', redirected: ' + templateRedirectCount + ')\n' +
-  '- Source-backed intentional 404 URLs: ' + (dispositionCounts['expected-404'] - expectedTemplate404Count) + '\n' +
+  '- Source-backed intentional 404 URLs: ' + ((dispositionCounts['expected-404'] ?? 0) - expectedTemplate404Count) + '\n' +
   '- Genuine restored URLs currently served 200: ' + (dispositionCounts['served-200'] ?? 0) + '\n' +
   '- Blocking defects requiring changes: ' + blockingRegressions.length + '\n' +
   Object.entries(dispositionCounts).map(([label, count]) => '- Editorial review ' + label + ': ' + count).join('\n') + '\n' +
