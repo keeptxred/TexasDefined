@@ -28,6 +28,18 @@ for (const group of config.groups) {
   for (const marker of group.requiredLiveMarkers)
     assert.ok(content.includes(marker), group.path + ": required content absent from source: " + marker);
   if (group.path === "/sports") {
+    assert.ok(group.currentEditorialArticle, "Current sports story must be enrolled in recurring review");
+    const lead = group.currentEditorialArticle;
+    const catalog = await readFile("src/data/fixtures/lazy-standalone-evergreen.ts", "utf8");
+    const story = await readFile("src/data/fixtures/texas-sports-weekend-calendar-guide.ts", "utf8");
+    assert.ok(catalog.includes('slug: "' + lead.slug + '"') &&
+      catalog.includes('if (slug === texasSportsWeekendCalendarGuideStub.slug)'), "Sports current story not available through catalog and detail route");
+    assert.ok(story.includes('publishedAt: "' + lead.publishedAt + '"'), "Current sports story published date inconsistent with reviewed source manifest");
+    assert.ok(story.includes('sourceUrl: "https://www.uiltexas.org/football/playoff-brackets"'), "Current sports story missing official primary source");
+    const storyDay = Date.parse(lead.publishedAt + "T00:00:00Z");
+    const storyAge = Math.floor((nowDay.getTime() - storyDay) / 86_400_000);
+    assert.ok(Number.isFinite(storyDay) && storyDay <= nowDay.getTime(), "Sports lead date invalid or future");
+    if (storyAge > lead.maxLeadAgeDays) issues.push("Sports lead is " + storyAge + " days old, over current editorial threshold " + lead.maxLeadAgeDays + ". Publish a substantively new sourced report; never re-date this piece.");
     assert.ok(content.includes("maxFeaturedAgeDays={35}"), "Sports must time-gate current news independently of archives");
     const category = await readFile("src/components/editorial/CategoryPage.tsx", "utf8");
     assert.ok(category.includes("Archive, not current results"), "Old sports stories must retain visibly archival labeling");
