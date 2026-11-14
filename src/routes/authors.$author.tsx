@@ -132,8 +132,8 @@ function AuthorPage() {
     </Section> : null}
     <Section>
       <Container>
-        <SectionHeader eyebrow="Editorial archive" title={`Stories from ${author.name}`} description={`${articles.length.toLocaleString("en-US")} published ${articles.length === 1 ? "story" : "stories"} currently carry this desk byline.`} />
-        {articles.length > 0 ? <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{articles.map((article) => <li key={article.id}><ArticleCard article={article} /></li>)}</ul> : <p className="mt-8 max-w-xl text-sm leading-7 text-muted-foreground">No published stories are currently attached to this editorial desk.</p>}
+        <SectionHeader eyebrow="Editorial archive" title={author.id === "a-hollis" ? "More articles from this editorial desk" : `Stories from ${author.name}`} description={author.id === "a-hollis" ? `${articles.length.toLocaleString("en-US")} additional published ${articles.length === 1 ? "article" : "articles"} in the main story archive. The ten research guides are listed above.` : `${articles.length.toLocaleString("en-US")} published ${articles.length === 1 ? "story" : "stories"} currently carry this desk byline.`} />
+        {articles.length > 0 ? <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{articles.map((article) => <li key={article.id}><ArticleCard article={article} /></li>)}</ul> : <p className="mt-8 max-w-xl text-sm leading-7 text-muted-foreground">{author.id === "a-hollis" ? "No additional articles are currently attached to this desk in the main publishing archive; the music history guides above remain available." : "No published stories are currently attached to this editorial desk."}</p>}
       </Container>
     </Section>
   </>;
