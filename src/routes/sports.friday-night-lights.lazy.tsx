@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import footballEditorialIllustration from "@/assets/high-school-football-hero.jpg";
 import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 
 export const Route = createLazyFileRoute("/sports/friday-night-lights")({ component: FridayNightLightsPage });
@@ -129,6 +130,7 @@ function FridayNightLightsPage() {
         <p className="eyebrow mt-10 text-primary">Texas high school football</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Friday Night Lights, Defined</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas high school football makes more sense when you stop treating it as only a game. This is the hub for the stadiums, school traditions, six-man towns, marching bands, homecoming mums, rivalries, playoff culture and practical details that shape a Friday night across the state.</p>
+        <figure className="mt-9 max-w-5xl"><img src={footballEditorialIllustration} alt="Editorial illustration of Texas high school football players approaching a stadium under the lights" width={1600} height={900} loading="lazy" decoding="async" className="h-auto w-full object-cover" /><figcaption className="mt-3 text-xs leading-6 text-muted-foreground">TexasDefined editorial illustration, not documentary photography of a specific team, school or 2026 game.</figcaption></figure>
       </Container>
     </section>
 
