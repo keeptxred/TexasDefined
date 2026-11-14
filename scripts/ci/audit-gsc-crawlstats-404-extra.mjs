@@ -141,7 +141,7 @@ const report = {
   count: paths.length,
   counts, blockingCount: blockers.length,
   editorialReviewCount: editorialReviews.length,
-  boundary: 'Real-time HTTP and HTML canonical observations, NOT Google's index state or evidence of a Googlebot crawl',
+  boundary: "Real-time HTTP and HTML canonical observations, NOT Google's index state or evidence of a Googlebot crawl",
   blockers: blockers.map(({ path, review, firstStatus, finalStatus, error }) => ({ path, review, firstStatus, finalStatus, error })),
   reviews: editorialReviews.map(({ path, review, firstStatus, finalStatus }) => ({ path, review, firstStatus, finalStatus })),
   results,
