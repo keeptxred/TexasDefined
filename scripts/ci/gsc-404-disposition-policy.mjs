@@ -89,10 +89,39 @@ export const RESTORE_REQUIRED_GSC_PATHS = Object.freeze(new Set([
   '/texas-high-school-football-isds/three-rivers-isd',
 ]));
 
+/** Verified publication owners for restored historical URLs. A generic hub
+ * HTTP200 is not a repaired authority route and must never pass certification.
+ * Original data/redirect owners and SSR contracts: #7127, #7130, #7134, #7135.
+ * This does not override any existing football Google-only noindex cohort.
+ */
+export const RESTORED_GSC_CANONICAL_PATHS = Object.freeze({
+  '/city/del-rio': '/city/del-rio',
+  '/destination/fort-leaton-state-historic-site': '/destination/fort-leaton-state-historic-site',
+  '/historic-site/fort-leaton-state-historic-site': '/destination/fort-leaton-state-historic-site',
+  '/destination/barton-warnock-environmental-educational-center-state-park': '/destination/big-bend-ranch-state-park',
+  '/state-park/barton-warnock-environmental-educational-center-state-park': '/destination/big-bend-ranch-state-park',
+  '/article/texas-oil-boom-history-spindletop-permian-basin': '/article/texas-oil-boom-wichita-falls-west-texas-rigs',
+  '/texas-high-school-football-isds/brookesmith-isd': '/texas-high-school-football-isds/brookesmith-isd',
+  '/texas-high-school-football-isds/morgan-isd': '/texas-high-school-football-isds/morgan-isd',
+  '/texas-high-school-football-isds/walnut-springs-isd': '/texas-high-school-football-isds/walnut-springs-isd',
+  '/texas-high-school-football-isds/three-rivers-isd': '/texas-high-school-football-isds/three-rivers-isd',
+});
+
+function isExactRestoredCanonical(urlValue, expectedPath) {
+  if (!urlValue || !expectedPath) return false;
+  try {
+    const url = new URL(urlValue);
+    return url.protocol === 'https:' && url.host === 'texasdefined.com'
+      && url.pathname === expectedPath && !url.search && !url.hash;
+  } catch {
+    return false;
+  }
+}
+
 /** Annotate rather than suppress unexpected HTTP outcomes. Source-backed
  * "intentional 404" is not permission to return HTTP 200 as a thin placeholder.
  */
-export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, outcome, error }) {
+export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, finalStatus, finalUrl, canonical, outcome, error }) {
   const policy = INTENTIONAL_404_DISPOSITIONS[path] ?? null;
   if (invalidTemplate) {
     return {
@@ -107,7 +136,10 @@ export function reviewGsc404Disposition({ path, invalidTemplate, firstStatus, fi
     return { intent: 'intentional-404', policyReason: policy.reason, source: policy.source, review: expected ? 'expected-404' : 'policy-regression' };
   }
   if (RESTORE_REQUIRED_GSC_PATHS.has(path)) {
-    const served = !error && finalStatus === 200;
+    const expected = RESTORED_GSC_CANONICAL_PATHS[path];
+    const served = !error && finalStatus === 200
+      && isExactRestoredCanonical(finalUrl, expected)
+      && isExactRestoredCanonical(canonical, expected);
     return { intent: 'restored-valuable-page', policyReason: 'published-authority-or-verified-equivalent', review: served ? 'served-200' : 'restore-regression' };
   }
   return { intent: 'unresolved-editorial-review', policyReason: null,
