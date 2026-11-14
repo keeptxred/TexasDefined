@@ -6,7 +6,7 @@ const sources = [
   ['floydada', ['618 S Tree St','215 N White','Jeff Smith','2A Division I','District 2','board agenda','floydadaisd.esc17.net']],
   ['follett', ['205 E Ivanhoe Ave','six-man','Division II','District 1','Groom','Hedley','follettisd.net']],
   ['forestburg', ['16346 FM 455','six-man','off the main campus','District 10','Cori Hayes','forestburgisd.net']],
-  ['forney', ['1800 College Ave','North Forney','Jeff Fleener','Marcus Shavers','Class 6A','District 10','forneyisd.net']],
+  ['forney', ['1800 College Ave','800 FM 741','City Bank Stadium','Lobo Stadium','November 6','North Forney','Jeff Fleener','Marcus Shavers','Class 6A','District 10','forneyisd.net','https://fhs.forneyisd.net/calendar']],
 ];
 for (const [slug, facts] of sources) {
   const s = read('src/data/high-school-football/program-editorial-b018-' + slug + '.ts');
@@ -14,6 +14,13 @@ for (const [slug, facts] of sources) {
   assert.ok(s.includes('2026-11-13'), slug + ': missing verification date');
   assert.ok(!/\b(photoUrl|imageUrl|finalScore)\s*:/.test(s), slug + ': unlicensed photo or unverified result');
 }
+// Campus contact is not evidence of game-night gate: the school actually
+// listed varsity at City Bank Stadium and JV away in Longview on different days.
+const forney = read('src/data/high-school-football/program-editorial-b018-forney.ts');
+assert.ok(forney.includes('November 5 school calendar separately listed ninth-grade football'));
+assert.ok(forney.includes('junior-varsity football at Lobo Stadium in Longview'));
+assert.ok(forney.includes('not a claim that every game takes place there'));
+assert.ok(forney.includes('confirm the current dated calendar entry'));
 const edges = read('src/data/high-school-football/batch018-third-five-county-edges.ts');
 for (const [slug,county] of [['floresville','wilson'],['floydada','floyd'],['follett','lipscomb'],['forestburg','montague'],['forney','kaufman']]) {
   assert.ok(edges.includes("slug: '" + slug + "'") && edges.includes("county: '" + county + "'"), 'Missing county edge: ' + slug);
