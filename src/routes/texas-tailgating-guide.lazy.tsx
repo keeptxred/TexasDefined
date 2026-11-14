@@ -81,7 +81,7 @@ function TexasTailgatingGuide() {
       <figure className="mt-9 max-w-4xl border border-border bg-surface p-5 sm:p-7" aria-labelledby="arlington-footprint-title">
         <h3 id="arlington-footprint-title" className="font-display text-2xl">Why the canopy size matters in Arlington</h3>
         <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">Compare a maximum permitted 9-by-12-foot tailgating area with a typical fully opened 10-by-10-foot canopy. The canopy is wider than the permitted space even though it covers fewer total square feet. Check the actual equipment dimensions and designated lot before packing.</p>
-        <svg className="mt-5 h-auto w-full max-w-[34rem]" viewBox="0 0 520 320" role="img" aria-labelledby="arlington-tailgate-diagram-title arlington-tailgate-diagram-desc">
+        <svg className="mt-5 h-auto w-full max-w-xl" viewBox="0 0 520 320" role="img" aria-labelledby="arlington-tailgate-diagram-title arlington-tailgate-diagram-desc">
           <title id="arlington-tailgate-diagram-title">Arlington nine-foot tailgate width compared with ten-foot canopy</title>
           <desc id="arlington-tailgate-diagram-desc">Scaled rectangles compare a 9-foot-wide, 12-foot-deep permitted tailgate area with a separate 10-by-10-foot canopy. The canopy is one foot too wide to fit across the nine-foot permitted width. These are dimensions only, not a stadium parking map.</desc>
           <text x="32" y="28" fontSize="15" fontWeight="600" fill="currentColor">Maximum tailgate footprint</text>
