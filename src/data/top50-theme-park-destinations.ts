@@ -86,6 +86,11 @@ export const top50ThemeParkDestinations: Destination[] = [
         {
           "name": "New Braunfels and surrounding communities",
           "description": "Explore beyond the park after confirming the day's operating hours and travel logistics."
+        },
+        {
+          "name": "Comal County visitor places",
+          "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
+          "href": "/browse/counties#county-comal"
         }
       ],
       "familyStops": [
@@ -245,6 +250,11 @@ export const top50ThemeParkDestinations: Destination[] = [
         {
           "name": "Arlington and surrounding communities",
           "description": "Explore beyond the park after confirming the day's operating hours and travel logistics."
+        },
+        {
+          "name": "Tarrant County visitor places",
+          "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
+          "href": "/browse/counties#county-tarrant"
         }
       ],
       "familyStops": [
@@ -399,6 +409,11 @@ export const top50ThemeParkDestinations: Destination[] = [
         {
           "name": "San Antonio and surrounding communities",
           "description": "Explore beyond the park after confirming the day's operating hours and travel logistics."
+        },
+        {
+          "name": "Bexar County visitor places",
+          "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
+          "href": "/browse/counties#county-bexar"
         }
       ],
       "familyStops": [
@@ -558,6 +573,11 @@ export const top50ThemeParkDestinations: Destination[] = [
         {
           "name": "San Antonio and surrounding communities",
           "description": "Explore beyond the park after confirming the day's operating hours and travel logistics."
+        },
+        {
+          "name": "Bexar County visitor places",
+          "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
+          "href": "/browse/counties#county-bexar"
         }
       ],
       "familyStops": [
