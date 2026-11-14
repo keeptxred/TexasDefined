@@ -49,6 +49,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "That list spans national touring stars and local working musicians. The room's long-term contribution is the recurring meeting between the two on a public dance floor, not the claim that any one performer or country subgenre began there.",
         source: "Texas Historical Commission, marker text",
         href: "https://atlas.thc.texas.gov/Details?atlasnumber=5000023384&fn=print"
+      },
+      {
+        heading: "The first paid band makes the local economy visible",
+        record: "Texas State University's Center for Texas Music History identifies D. G. Burrow and the Western Melodies as James White's first booked act in 1964 and reports a payment of thirty-two dollars. This is the university's later historical account, not a surviving 1964 receipt.",
+        reading: "Opening-night economics are easy to lose beneath the later celebrity list. A locally hired band and a small payment show a dance hall building an ordinary working-musician circuit before it became a landmark.",
+        source: "Texas State University, Center for Texas Music History",
+        href: "https://www.txst.edu/ctmh/publications/hartman-series/broken-spoke.html"
       }
     ],
     caution: "The state marker and the Handbook of Texas frame the original restaurant and dance floor slightly differently. Both agree on the 1964 establishment and later expansion; neither should be treated as a floor-plan record."
@@ -91,6 +98,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The city's legal record protects a property, not every booking, performer or band associated with it. The ordinance is stronger evidence for the 2008 status than a promotional claim that the room is 'legendary'.",
         source: "City of Austin, enacted ordinance 20080821-059",
         href: "https://services.austintexas.gov/edims/document.cfm?id=120731"
+      },
+      {
+        heading: "New wave and roots rock occupied the same address in different decades",
+        record: "The venue's own historical account describes its 1983–1987 period as a home for new wave, punk and rock performances, followed by a 1987 renovation and new emphasis on roots, country, blues and rockabilly. The venue is describing its own changing programming, not claiming the street itself invented these styles.",
+        reading: "The survival story is not one unbroken genre. The room remained useful by accommodating different audiences and then reinterpreting its midcentury visual character; that is a stronger preservation explanation than calling it timeless.",
+        source: "Continental Club, first-party account of the 1983–1987 bookings",
+        href: "https://continentalclub.com/about/"
       }
     ],
     caution: "The 1955/1957 discrepancy remains unresolved without contemporaneous records. Neither date is silently presented as definitive, and the city plan's 1957 wording may trace back to the same historical sources as the Handbook."
@@ -133,6 +147,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The city's phrase 'historic club' describes a continuing organization and repertoire; it must not be read to imply unbroken occupancy of its original Sixth Street storefront.",
         source: "Antone's official historical chronology",
         href: "https://antonesnightclub.com/history/"
+      },
+      {
+        heading: "A record shop and label extended the club beyond the stage",
+        record: "Antone's Record Shop says Clifford Antone opened the shop across from the Guadalupe Street nightclub in 1987, and its back office supported Antone's Records. The shop reports the label eventually issued more than sixty titles; the statement is the operator's retrospective, not an independent release-by-release discography.",
+        reading: "The venue became a music institution with more than nightly admission. Records and retail gave the club's artists a longer-lived way to circulate music, distinct from the building where a show took place.",
+        source: "Antone's Record Shop, official historical account",
+        href: "https://antonesrecordshop.com/pages/about"
       }
     ],
     caution: "Historical photographs of the Lavaca location must be labeled as former premises, not current visitor directions. Present programming should be checked through the club rather than inferred from earlier eras."
@@ -175,6 +196,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The club is one part of a larger protected urban landscape. Historic district regulations cannot be read as proof that every individual venue building has the same designation, but they explain the preservation pressures surrounding Billy Bob's.",
         source: "City of Fort Worth, Stockyards Historic and Form-Based Code District",
         href: "https://www.fortworthtexas.gov/departments/development-services/historic-preservation/historic-stockyards"
+      },
+      {
+        heading: "An opening-night negative documents dancers, not just celebrities",
+        record: "UT Arlington Special Collections catalogs Rodger Mallison's Fort Worth Star-Telegram negative AR406-6-7478, frame 27, dated April 1, 1981. The description identifies dancers on the dance floor at the opening, rather than a posed publicity image of the headline performer.",
+        reading: "The dated archive shifts attention from the venue's size claim to its actual opening-night use. The dance floor and its patrons are historical evidence of how a huge space functioned as a social club.",
+        source: "UT Arlington Special Collections, Star-Telegram negative 10016028",
+        href: "https://mavmatrix.uta.edu/specialcollections_startelegram1980s/228/"
+      },
+      {
+        heading: "The archive also preserves a photograph from the closure year",
+        record: "Another UT Arlington Star-Telegram catalog record identifies a Billy Bob's exterior photograph by Rodger Mallison dated January 31, 1988, after the Handbook's January 8 closure date. The catalog grants no unrestricted commercial reuse of the image.",
+        reading: "Opening-night and closure-era records make the timeline testable. They prevent the public-history mistake of describing the present honky-tonk as if it operated without interruption from 1981.",
+        source: "UT Arlington Special Collections, Star-Telegram negative 10016022",
+        href: "https://mavmatrix.uta.edu/specialcollections_startelegram1980s/1800/"
       }
     ],
     caution: "The advertised 'world's largest' description is the venue's marketing label, not a globally audited record. Capacity, amenities and bull-riding schedules should be confirmed when planning a visit."
@@ -210,6 +245,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The infrastructure made South Texas songs reproducible and findable. That differs from the original social circulation of music in dance halls and from the worldwide distribution created by a major-label contract.",
         source: "Handbook of Texas, Texas recording industry",
         href: "https://www.tshaonline.org/handbook/entries/recording-industry"
+      },
+      {
+        heading: "Dallas's Deep Ellum used a neighborhood business network",
+        record: "The Handbook of Texas traces Deep Ellum's Black commercial district and its importance to blues and jazz, including venues, businesses and the musicians who circulated there. Its history concerns a place and community rather than a single signature recording.",
+        reading: "Dallas contributes a different mechanism from a television studio or one record company: streets of performance and commercial exchange made visiting musicians and local audiences mutually visible.",
+        source: "Handbook of Texas, Deep Ellum",
+        href: "https://www.tshaonline.org/handbook/entries/deep-ellum"
+      },
+      {
+        heading: "Lubbock built a memorial network after the recordings",
+        record: "Civic Lubbock dates the West Texas Walk of Fame's beginnings to a 1979 Buddy Holly benefit and identifies Littlefield's Waylon Jennings as the next inductee in 1980. The original Holly recording career and this later civic commemoration are separate periods.",
+        reading: "Lubbock shows how a local scene can be remembered through civic institutions after national fame. Its memorial economy should not be confused with the earlier KDAV and Clovis recording network that created the music.",
+        source: "Civic Lubbock, history of the West Texas Walk of Fame",
+        href: "https://civiclubbock.org/walk-of-fame/history-of-walk-of-fame/"
       }
     ],
     caution: "The comparison is illustrative, not comprehensive. Dallas–Fort Worth's Deep Ellum and modern-jazz stories and Lubbock's radio-to-Clovis recording pathway are covered in the linked city guides; a city may have all of these kinds of infrastructure."
@@ -245,6 +294,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "National fame rewarded an already mixed scene. Austin's distinctive contribution is not ownership of any one genre, but the coexistence of dance-floor country, blues institutions and a public media platform.",
         source: "Handbook of Texas, Austin City Limits",
         href: "https://www.tshaonline.org/handbook/entries/austin-city-limits"
+      },
+      {
+        heading: "The first broadcast season reveals a wider Austin than the cowboy shorthand",
+        record: "Austin City Limits' own season-one anthology lists Townes Van Zandt with Clifton Chenier and a program pairing Flaco Jiménez with Ry Cooder, alongside Asleep at the Wheel and the Original Texas Playboys. These are documented 1976 program credits, not a claim that the musicians were all Austin residents.",
+        reading: "The official episode list is a direct test of the stereotype. The television series carried zydeco and border accordion music with the country and songwriter culture that shaped its public image; the city story must acknowledge this wider programmed audience.",
+        source: "Austin City Limits, original season-one program anthology",
+        href: "https://acltv.com/anthology/"
       }
     ],
     caution: "A broadcast record documents what television showed, not a complete census of the city's musicians. Black, Mexican American and local working-band histories should not disappear beneath the Willie Nelson story."
@@ -280,6 +336,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "Readers can check the archive's catalogue, but a history website cannot treat the recordings or photographs as automatically reusable. The provenance is valuable without republishing protected recordings.",
         source: "University of Houston, collection conditions of access and use",
         href: "https://findingaids.lib.uh.edu/repositories/2/resources/14"
+      },
+      {
+        heading: "The Fifth Ward's club history cannot be reduced to the record labels",
+        record: "The Fifth Ward Cultural Arts District identifies Club Matinee as a community music venue operating from 1936 to 1973 and describes how highway and urban-renewal projects fragmented the surrounding neighborhood. The district reports that Hurricane Harvey destroyed many physical records, motivating community oral-history preservation.",
+        reading: "Recording-company history survives more easily in label catalogs than the everyday social geography of Black music. The loss of a room and of its archival traces is itself part of Houston's music story.",
+        source: "Fifth Ward Cultural Arts District, community memory and Club Matinee",
+        href: "https://www.5thwardarts.com/history"
+      },
+      {
+        heading: "Gospel was central to Peacock's business, not an aside",
+        record: "The Fifth Ward Cultural Arts District describes the Peacock and Duke labels' 1950s work with the Five Blind Boys of Mississippi alongside Bobby Bland and Junior Parker, linking gospel and gospel-oriented blues within the same Houston enterprise.",
+        reading: "Houston's R&B and gospel chapters should not be separated into unrelated lists of names. Local ownership, talent and distribution operated across sacred and secular markets even when their audiences and performance contexts differed.",
+        source: "Fifth Ward Cultural Arts District, Peacock Records account",
+        href: "https://www.5thwardarts.com/history"
       }
     ],
     caution: "The archival collection documents DJ Screw's methods; it does not by itself verify every later claim about who invented or adopted the style first. Album or recording rights require separate permission."
@@ -322,6 +392,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "Local testimony can check the gaps left by commercial releases and retrospective genre labels. The project is a research resource, not a license to copy interview audio, photographs or collections without permission.",
         source: "UT San Antonio, West Side Sound Oral History Project",
         href: "https://education.utsa.edu/news/2022/02/westside-sound.html"
+      },
+      {
+        heading: "A 2025 film records musicians whom discographies alone miss",
+        record: "UT San Antonio documented the West Side Sound Oral History Project's 2025 film on Dimas Garza, directed by Chuco Garcia. Its described interviews include musicians, families and local historians; the public project also involves community record collectors and scholars.",
+        reading: "A discography measures what reached commercial recording, not which musicians sustained weddings, dances and neighborhood ensembles. The named oral-history effort supplies a route to evaluate those less visible contributions without inventing first-person testimony.",
+        source: "UT San Antonio, 2025 West Side Sound Oral History Project report",
+        href: "https://education.utsa.edu/news/2025/10/west-side-sound-oral-history-project-youve-succeeded-event-preview.html"
       }
     ],
     caution: "The history describes cross-community collaboration in a segregated society. It should not romanticize the period as one of universal musical or social equality."
@@ -357,6 +434,20 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "Memorial sites explain the city's present-day relationship to Selena, while the earlier business and band history explains what Corpus Christi contributed to the music industry in her lifetime.",
         source: "Handbook of Texas, Selena memorial and museum",
         href: "https://www.tshaonline.org/handbook/entries/quintanilla-perez-selena-selena"
+      },
+      {
+        heading: "A university collection preserves Freddie Records' working materials",
+        record: "Texas A&M University-Corpus Christi's Bell Library catalog identifies the Freddie Martinez 'Freddie Records' Collection, Coll. 266, covering 1969–2020. The finding aid lists music recordings, promotional flyers and posters from the label's career and its 2019 fiftieth anniversary.",
+        reading: "A dated archive of recordings and advertising offers more precise evidence of a label's regional infrastructure than an unsourced list of famous clients. Catalog descriptions establish what survives; they are not permission to republish the collection.",
+        source: "Texas A&M University-Corpus Christi, Freddie Records archival finding aid",
+        href: "https://txarchives.org/tamucc/finding_aids/00266.xml"
+      },
+      {
+        heading: "The museum preserves personal history, not the complete music industry",
+        record: "The Selena Museum's Google Arts and Culture institutional partner profile says the Quintanilla family established its museum in 1998 and describes displays of clothing, awards, memorabilia and family photographs at Q Productions.",
+        reading: "This collection offers a documented route into Selena's life and legacy, but it cannot substitute for separate archives about the broader musicians, record shops and studio workers in the Coastal Bend. Museum hours and fees remain current-operator questions.",
+        source: "Selena Museum, institutional Google Arts and Culture profile",
+        href: "https://artsandculture.google.com/partner/the-selena-museum"
       }
     ],
     caution: "A musical birthplace is not the same as a recording location, a family home or a present-day museum. The Selena Museum's visitor details change; historical sources alone cannot verify opening hours."
@@ -399,6 +490,13 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
         reading: "The Crickets' success was not guaranteed when the tape left Clovis. Small initial distribution and disc-jockey support are concrete mechanisms by which a West Texas band reached national listeners.",
         source: "Library of Congress, National Recording Registry history",
         href: "https://blogs.loc.gov/now-see-hear/2022/02/from-the-national-recording-registry-thatll-be-the-day-1957/"
+      },
+      {
+        heading: "The later West Texas Walk of Fame is an act of memory, not the origin of the hit",
+        record: "Civic Lubbock states that a 1979 concert helped fund a Buddy Holly statue and named him the first West Texas Walk of Fame inductee, with Waylon Jennings following in 1980. Its board assumed stewardship in 1983.",
+        reading: "These dates help separate two separate historical processes: the 1950s recordings made elsewhere in a regional studio network, and later Lubbock efforts to preserve an increasingly global musical reputation.",
+        source: "Civic Lubbock, original West Texas Walk of Fame chronology",
+        href: "https://civiclubbock.org/walk-of-fame/history-of-walk-of-fame/"
       }
     ],
     caution: "Source accounts differ about early recording-session personnel. Date the recording, name the credited band, and avoid treating every rehearsal participant as a member of one fixed line-up."
