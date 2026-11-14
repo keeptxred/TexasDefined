@@ -17,6 +17,7 @@ permissions:
   actions: read
   contents: read
   statuses: read
+  issues: read
 
 concurrency:
   group: gsc-404-99-${{ github.event.workflow_run.head_sha || github.sha }}
@@ -52,6 +53,20 @@ jobs:
             if [[ "${release_status}" != "success" ]]; then
               echo "::error title=Not a protected production release::Refusing to attribute audit to unverified ${DEPLOY_SHA} (status ${release_status})."
               exit 1
+            fi
+            # Multiple overlapping main merges can cancel or supersede earlier
+            # protected deploys. Checking only HEAD^ HEAD loses GSC changes
+            # carried by a skipped release when the next successful SHA has
+            # an unrelated final commit. While the 99-URL incident is OPEN,
+            # always obtain one bounded authoritative live audit after a
+            # successful exact-SHA deploy. This reads exactly 99 fixed URLs,
+            # not the entire site. Once #7097 is closed, resume the usual
+            # changed-file optimization (weekly manual/scheduled remains).
+            incident_state="$(gh api "repos/${GITHUB_REPOSITORY}/issues/7097" --jq '.state')"
+            if [[ "${incident_state}" == "open" ]]; then
+              echo "run=true" >> "${GITHUB_OUTPUT}"
+              echo "Incident #7097 remains open; ensure this protected SHA receives the full bounded 99-URL live audit even after earlier deploy supersession."
+              exit 0
             fi
             # Do not audit 99 URLs for every unrelated article or merchandise
             # deploy. Only source/routing/sitemap changes that can affect this
