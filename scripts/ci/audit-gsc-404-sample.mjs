@@ -4,6 +4,7 @@
 import { readFile, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import path from 'node:path';
 import { classifyHistoricalGsc404, REVIEW_OUTCOMES } from './gsc-404-classification.mjs';
+import { verifyGscExpectedResponse } from './gsc-404-dispositions.mjs';
 
 const origin = new URL(process.env.TD_GSC_404_ORIGIN || 'https://texasdefined.com');
 if (origin.protocol !== 'https:' || !['texasdefined.com', 'www.texasdefined.com'].includes(origin.hostname)) {
@@ -127,6 +128,12 @@ await Promise.all(Array.from({ length: concurrency }, async () => {
     console.log(String(index + 1).padStart(2, '0') + '/99 ' + paths[index] + ': ' + results[index].outcome + ' [HTTP ' + (results[index].firstStatus ?? 'network') + ' -> ' + (results[index].finalStatus ?? 'network') + '] final=' + (results[index].finalUrl ?? 'unavailable') + (results[index].canonical ? ' canonical=' + results[index].canonical : '') + (results[index].error ? ' error=' + results[index].error : ''));
   }
 }));
+// Distinguish real broken 200/301 recoveries from correct 404/410 pages.
+const dispositions = results.map(verifyGscExpectedResponse);
+const passedExpected = dispositions.filter((row) => row.pass).length;
+const failedExpected = dispositions.filter((row) => !row.pass);
+const expectedMissing = dispositions.filter((row) => row.expected === 'direct-missing').length;
+const expectedRecovered = dispositions.filter((row) => row.expected === 'recover-to-200').length;
 const counts = Object.fromEntries([...new Set(results.map((r) => r.outcome))].sort().map((name) => [
   name, results.filter((r) => r.outcome === name).length,
 ]));
@@ -141,6 +148,13 @@ const summary = {
   templateCount,
   expectedTemplate404Count,
   templateRedirectCount,
+  expectedMissing,
+  expectedRecovered,
+  passedExpected,
+  failedExpected: failedExpected.length,
+  failedExpectedCases: failedExpected.map(({path,code,firstStatus,finalStatus,finalUrl,reason}) => ({
+    path,code,firstStatus,finalStatus,finalUrl,reason,
+  })),
   source: 'TexasDefined GSC 99 historical Not found (404) examples supplied 2026-11-13',
   inventoryPath,
   origin: origin.origin,
@@ -177,6 +191,15 @@ for (const item of candidateResults) {
 
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, 'results.json'), JSON.stringify(summary, null, 2) + '\n');
+await writeFile(path.join(outDir, 'dispositions.json'), JSON.stringify({
+  verifiedAt:summary.createdAt,
+  expectedMissing, expectedRecovered, passedExpected, failedExpected:failedExpected.length,
+  caveat:'HTTP evidence only. Do not claim actual Google recrawl, indexing or Search Console validation.',
+  cases:dispositions,
+},null,2)+'\n');
+const dispositionCols=['path','expected','category','reason','pass','code','firstStatus','finalStatus','finalUrl','canonical','robots','detail'];
+await writeFile(path.join(outDir, 'dispositions.csv'),
+  dispositionCols.join(',')+'\n'+dispositions.map(row=>dispositionCols.map(key=>csvCell(row[key])).join(',')).join('\n')+'\n');
 const cols = ['path','invalidTemplate','outcome','firstStatus','finalStatus','finalUrl','canonical','robots','redirectCount','error'];
 const csv = cols.join(',') + '\n' + results.map((row) => cols.map((col) => csvCell(row[col])).join(',')).join('\n') + '\n';
 await writeFile(path.join(outDir, 'results.csv'), csv);
@@ -185,10 +208,22 @@ const markdown = '# TexasDefined GSC historical 404 recheck\n\n' +
   Object.entries(counts).map(([label, count]) => '- ' + label + ': ' + count).join('\n') + '\n\n' +
   '- Invalid template URLs: ' + templateCount + ' (direct 404/410: ' + expectedTemplate404Count + ', redirected: ' + templateRedirectCount + ')\n' +
   '- URLs requiring response/content disposition review: ' + actionableReviewCount + '\n\n' +
+  '- Expected recovered working content/301s: ' + expectedRecovered + '\n' +
+  '- Intentional direct HTTP 404/410s: ' + expectedMissing + '\n' +
+  '- Exact intention/HTTP/canonical contracts passing: ' + passedExpected + '/99\n' +
+  '- Failed contracts requiring real remediation: ' + failedExpected.length + '\n\n' +
+  (failedExpected.length ? failedExpected.map((row) =>
+    '- **' + row.code + '** ' + row.path + ' (' + (row.firstStatus ?? 'network') +
+    ' -> ' + (row.finalStatus ?? 'network') + ')').join('\n')+'\n\n' : '') +
   'Do not equate transport failures with HTTP404, or every remaining 404 with a defect. An invalid route template returning a direct 404 is correct. Review real broken redirects and meaningful missing content separately.\n';
 await writeFile(path.join(outDir, 'summary.md'), markdown);
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, markdown);
 console.log(markdown);
 if (results.every((r) => r.error)) {
   throw new Error('All 99 checks failed on transport or redirect chain; no valid HTTP results obtained');
+}
+if (failedExpected.length) {
+  console.error('GSC expected-route acceptance failed for '+failedExpected.length+
+    ' of 99 exact historical paths. See dispositions.csv; do not mark Search Console Done Fixing.');
+  process.exitCode=1;
 }
