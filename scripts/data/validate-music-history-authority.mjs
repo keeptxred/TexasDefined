@@ -21,6 +21,7 @@ const city = read("src/data/texas-music-city-guides.ts");
 const corpus = read("src/routes/corpus-christi-music-history.lazy.tsx");
 const evidence = read("src/data/texas-music-history-evidence.ts");
 const dossiers = read("src/data/texas-music-history-dossiers.ts");
+const liveAcceptance = read("scripts/ci/verify-music-history-production.mjs");
 const dossierView = read("src/components/editorial/TexasMusicEvidenceDossier.tsx");
 const venueView = read("src/components/editorial/TexasMusicVenueGuide.tsx");
 const cityView = read("src/components/editorial/TexasMusicCityGuide.tsx");
@@ -67,6 +68,13 @@ for(const view of [cityView,venueView,corpus]) {
   if(!view.includes("TexasMusicEvidenceDossier"))fail("One route family is missing researched dossier rendering");
 }
 if(!venue.includes('the venue gives 1955, while the Handbook of Texas') || !evidence.includes('1955 / 1957 (disputed)') || !dossiers.includes("the exact opening year should be marked disputed"))fail("Continental opening year must remain explicitly disputed");
+if(!liveAcceptance.includes('get(slug,"visitor")') ||
+   !liveAcceptance.includes('["visitor",visitor]') ||
+   !liveAcceptance.includes('cleanCanonicalStatus') ||
+   !liveAcceptance.includes('const clean=kind==="visitor"'))
+  fail("Music production verification must test the genuine unmodified canonical URL, not only a query nonce");
+if(!liveAcceptance.includes('googlebot-like') || !liveAcceptance.includes("Unauthenticated crawler-UA"))
+  fail("Crawler-like diagnosis must avoid falsely representing authenticated Googlebot access");
 if(!hub.includes('"/corpus-christi-music-history"')) fail("Statewide city hub omits Corpus Christi");
 if(!cityView.includes('musicCitiesComparison.map') || !cityView.includes('scope="col"') || !cityView.includes('<caption')) fail("Missing accessible city-by-city comparison");
 if(!cityView.includes('musicHistoryMilestones') || !venueView.includes('musicHistoryMilestones') || !corpus.includes('musicHistoryMilestones')) fail("Unlinked evidence-based chronologies");
