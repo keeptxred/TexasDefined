@@ -136,13 +136,13 @@ const counts = Object.fromEntries([...new Set(results.map((r) => r.outcome))].so
 const actionableReviewCount = results.filter((r) =>
   r.review !== 'expected-404' && (
     REVIEW_OUTCOMES.has(r.outcome) ||
-    ['restore-regression','route-leak-regression','policy-regression'].includes(r.review)
+    ['restore-regression','canonical-regression','route-leak-regression','policy-regression'].includes(r.review)
   )).length;
 const dispositionCounts = Object.fromEntries([...new Set(results.map((r) => r.review))].sort().map((review) => [
   review, results.filter((r) => r.review === review).length,
 ]));
 const blockingRegressions = results.filter((r) =>
-  ['restore-regression','route-leak-regression','policy-regression','redirect-to-missing'].includes(r.review)
+  ['restore-regression','canonical-regression','route-leak-regression','policy-regression','redirect-to-missing'].includes(r.review)
   || r.outcome === 'server_error');
 const templateCount = results.filter((r) => r.invalidTemplate).length;
 const expectedTemplate404Count = results.filter((r) => r.outcome === 'expected_invalid_template').length;
