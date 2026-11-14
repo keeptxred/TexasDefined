@@ -98,6 +98,7 @@ if (process.argv.includes("--production")) {
         " age=" + (age ?? "none") + " ray=" + (response.headers.get("cf-ray") || "unreported"));
       if (group.path === "/sports" && group.currentEditorialArticle) {
         const story = group.currentEditorialArticle;
+        assert.ok(html.includes(story.expectedLiveTitle), "Fresh sports story must lead the live hub while within the 35-day window");
         const storyUrl = "https://texasdefined.com/article/" + story.slug +
           "?__td_refresh_proof=" + encodeURIComponent((process.env.GITHUB_RUN_ID || "local") + "-" + randomUUID());
         try {
