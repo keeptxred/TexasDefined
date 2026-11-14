@@ -120,7 +120,8 @@ try {
         const expectedGalleryCount = guide.slug === "san-antonio-japanese-tea-garden" ? 1
           : guide.slug === "fort-worth-water-gardens" ? 2 : 0;
         if (expectedGalleryCount) {
-          const gallery = page.locator("#destination-photo-archive");
+          const gallery = page.locator('section[aria-labelledby="destination-photo-archive"]');
+          assert.equal(await gallery.locator("h2#destination-photo-archive").count(), 1, guide.slug + " gallery section must be labelled by its actual heading");
           const galleryPhotos = gallery.locator("figure img");
           const photoCount = await galleryPhotos.count();
           assert.ok(photoCount >= expectedGalleryCount, guide.slug + " expected authentic gallery photographs");
@@ -145,7 +146,7 @@ try {
             await photo.scrollIntoViewIfNeeded();
             try {
               await page.waitForFunction((index) => {
-                const img = document.querySelectorAll("#destination-photo-archive figure img")[index];
+                const img = document.querySelectorAll('section[aria-labelledby="destination-photo-archive"] figure img')[index];
                 return Boolean(img?.complete && img.naturalWidth >= 500 && img.naturalHeight >= 500);
               }, imageIndex, { timeout: 25000 });
             } catch (error) {
