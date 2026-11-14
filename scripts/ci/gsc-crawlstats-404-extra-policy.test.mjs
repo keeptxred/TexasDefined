@@ -36,3 +36,10 @@ test('unexpected 5xx or transport failure remains blocking',()=>{
   assert.equal(classifySupplementalResponse({path:'/state-park/garner-state-park',firstStatus:503,finalStatus:503}).blocking,true);
   assert.equal(classifySupplementalResponse({path:'/state-park/garner-state-park',error:'Timeout'}).blocking,true);
 });
+
+test('Apple association JSON is not an HTML page requiring rel canonical', () => {
+  assert.deepEqual(classifySupplementalResponse({
+    path:'/apple-app-site-association', firstStatus:200, finalStatus:200,
+    finalUrl:'https://texasdefined.com/apple-app-site-association', contentType:'application/json',
+  }), { review:'valid-apple-association-resource', blocking:false });
+});
