@@ -1114,13 +1114,6 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-20',
   },
   {
-    slug: 'forney',
-    mascot: 'Jackrabbits',
-    sourceUrl: 'https://www.forneyisd.net/departments/athletics/high-school-athletics',
-    sourceLabel: 'Forney ISD Athletics',
-    verifiedAt: '2026-09-20',
-  },
-  {
     slug: 'mesquite-horn',
     mascot: 'Jaguars',
     sourceUrl: 'https://hornhighschool.mesquiteisd.org/',
