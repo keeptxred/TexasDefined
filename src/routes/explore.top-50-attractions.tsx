@@ -68,15 +68,15 @@ export const Route = createFileRoute("/explore/top-50-attractions")({
 function Top50TexasAttractionsPage() {
   return (
     <>
-      <Container className="pb-12 pt-12 sm:pt-16">
-        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wider text-muted-foreground">
+      <Container className="pt-12">
+        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase text-muted-foreground">
           <Link to="/">Texas Defined</Link><span aria-hidden="true" className="mx-2">/</span>
           <Link to="/explore">Explore</Link><span aria-hidden="true" className="mx-2">/</span>
           <span aria-current="page">Top 50 attractions</span>
         </nav>
-        <header className="max-w-5xl py-12 sm:py-16">
+        <header className="max-w-5xl py-12">
           <p className="eyebrow text-primary">The statewide landmark list</p>
-          <h1 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">Top 50 Texas tourist attractions</h1>
+          <h1 className="mt-4 font-display text-5xl leading-tight">Top 50 Texas tourist attractions</h1>
           <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">
             Fifty standout Texas experiences in one statewide ranking: no category quotas,
             no fixed number of parks, and no regional allocations. Open each individual guide
@@ -95,24 +95,24 @@ function Top50TexasAttractionsPage() {
           </div>
         </header>
         <section aria-labelledby="ranking-heading">
-          <div className="flex items-end justify-between gap-4 border-b border-foreground pb-5">
-            <h2 id="ranking-heading" className="font-display text-3xl sm:text-4xl">The full ranking</h2>
+          <div className="flex justify-between gap-4 border-b border-foreground py-4">
+            <h2 id="ranking-heading" className="font-display text-3xl">The full ranking</h2>
             <p className="eyebrow text-muted-foreground">1–50</p>
           </div>
-          <ol className="divide-y divide-border">
+          <ol>
             {TEXAS_TOP50_RANKING.map((item) => (
-              <li key={item.rank} className="flex gap-4 py-6 sm:py-8">
-                <p aria-label={`Rank ${item.rank}`} className="w-12 shrink-0 font-display text-3xl tabular-nums text-primary sm:text-4xl">
+              <li key={item.rank} className="flex gap-4 border-b border-border py-5">
+                <p aria-label={`Rank ${item.rank}`} className="shrink-0 font-display text-3xl text-primary" style={{ minWidth: '3rem' }}>
                   {String(item.rank).padStart(2, "0")}
                 </p>
-                <div className="min-w-0 flex-1">
-                  <h3 className="font-display text-2xl leading-tight sm:text-3xl">
+                <div>
+                  <h3 className="font-display text-2xl leading-tight">
                     <a href={item.href} className="underline hover:text-primary">
                       {item.name}
                     </a>
                   </h3>
                   <p className="mt-2 text-sm text-muted-foreground">{item.location}</p>
-                  <a href={item.href} className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">
+                  <a href={item.href} className="mt-4 inline-block border-b border-primary text-sm font-semibold text-primary">
                     Read the individual visitor guide →
                   </a>
                 </div>
@@ -122,7 +122,7 @@ function Top50TexasAttractionsPage() {
         </section>
         <section className="mt-10 max-w-4xl border-t border-foreground py-10" aria-labelledby="ranking-methodology-heading">
           <h2 id="ranking-methodology-heading" className="font-display text-3xl">How this list was selected</h2>
-          <p className="mt-5 text-base leading-8 text-muted-foreground">
+          <p className="mt-5 leading-8 text-muted-foreground">
             The list considers each attraction's enduring significance, distinctively Texan qualities,
             broad public recognition and appeal to visitors. A historic battlefield, a working zoo
             and a recurring fair can all qualify without being forced into categories. An item's rank

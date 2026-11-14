@@ -7,9 +7,9 @@ export function Top50EventVisitorAnswers({ slug }: { slug: string }) {
   const guide = getTop50EventAnswers(slug);
   if (!guide) return null;
   return (
-    <section aria-labelledby={`top50-event-questions-${slug}`} className="mt-10 border-t-2 border-foreground py-8">
+    <section aria-labelledby={`top50-event-questions-${slug}`} className="mt-10 border-t border-foreground py-8">
       <p className="eyebrow text-primary">Verified visit essentials</p>
-      <h2 id={`top50-event-questions-${slug}`} className="mt-3 font-display text-3xl sm:text-4xl">
+      <h2 id={`top50-event-questions-${slug}`} className="mt-3 font-display text-3xl">
         Important questions about {guide.name}
       </h2>
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -19,7 +19,7 @@ export function Top50EventVisitorAnswers({ slug }: { slug: string }) {
       <dl className="mt-7 divide-y divide-border border-y border-border">
         {guide.questions.map((item) => (
           <div key={item.question} className="py-5">
-            <dt className="font-display text-xl sm:text-2xl">{item.question}</dt>
+            <dt className="font-display text-xl">{item.question}</dt>
             <dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</dd>
             <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer"
                className="mt-3 inline-block border-b border-primary text-xs font-semibold text-primary">
@@ -28,7 +28,7 @@ export function Top50EventVisitorAnswers({ slug }: { slug: string }) {
           </div>
         ))}
       </dl>
-      <a href="/explore/top-50-attractions" className="mt-7 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">
+      <a href="/explore/top-50-attractions" className="mt-7 inline-block border-b border-primary text-sm font-semibold text-primary">
         Explore the statewide Top 50 attractions →
       </a>
     </section>
