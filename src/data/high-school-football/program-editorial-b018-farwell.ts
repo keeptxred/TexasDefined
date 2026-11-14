@@ -3,7 +3,7 @@ import type { FootballProgramEditorial } from './program-editorial';
 // Farwell: official UIL/district stadium notice; Nov13 score independently attributed to KCBD.
 const FARWELL: FootballProgramEditorial = {
   slug: 'farwell',
-  intro: 'Farwell Steers football represents Farwell ISD in Parmer County. The 2026–28 UIL alignment places the Steers in eleven-man Class 2A Division I, District 2. The district designated Farwell the home team for its November 13 bi-district game against Spearman at Happy State Bank Stadium in Canyon, not at the Farwell campus. KCBD subsequently reported Spearman won 64–33; that result is independently reported, not a school-issued final.'
+  intro: 'Farwell Steers football represents Farwell ISD in Parmer County. The 2026–28 UIL alignment places the Steers in eleven-man Class 2A Division I, District 2. The district designated Farwell the home team for its November 13 bi-district game against Spearman at Happy State Bank Stadium in Canyon, not at the Farwell campus. KCBD subsequently reported Spearman won 64–33; that result is independently reported, not a school-issued final.',
   theme: { accentHex: '#52718A', label: 'Independent TexasDefined editorial accent; not an official school color, logo or licensed photo.' },
   seo: {
     title: 'Farwell Steers Football | 2026 UIL District & Canyon Playoff Guide',
