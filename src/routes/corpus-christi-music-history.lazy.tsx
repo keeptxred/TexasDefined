@@ -3,10 +3,12 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { TexasMusicEvidenceDossier } from "@/components/editorial/TexasMusicEvidenceDossier";
 import { musicResearchDossiers } from "@/data/texas-music-history-dossiers";
-import { musicHistoryMilestones, musicSourceReviewedAt } from "@/data/texas-music-history-evidence";
+import { musicHistoryMilestones, musicSourceReviewedAt, musicHistoryArticleModifiedAt, musicHistoryDateLabel, musicHistoryResearchCheckedAt } from "@/data/texas-music-history-evidence";
 
 const siteUrl = "https://texasdefined.com";
 const canonicalUrl = `${siteUrl}/corpus-christi-music-history`;
+const sourceReviewedAt = musicHistoryResearchCheckedAt["corpus-christi-music-history"] ?? musicSourceReviewedAt;
+const articleModifiedAt = musicHistoryArticleModifiedAt["corpus-christi-music-history"] ?? musicSourceReviewedAt;
 
 const sources = [
   {
@@ -47,8 +49,8 @@ function CorpusChristiMusicHistoryPage() {
         url: canonicalUrl,
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
-        author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/editorial-policy` },
-        dateModified: musicSourceReviewedAt,
+        author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` },
+        dateModified: articleModifiedAt,
         isAccessibleForFree: true,
         articleSection: "Texas Music",
         citation: [...sources.map((source) => source.href), ...musicResearchDossiers["corpus-christi-music-history"].findings.map((finding) => finding.href)],
@@ -103,7 +105,7 @@ function CorpusChristiMusicHistoryPage() {
               <Link to="/texas-conjunto-tejano" className="border-b border-primary pb-1 text-primary">Texas conjunto & Tejano →</Link>
               <Link to="/texas-music-timeline" className="border-b border-primary pb-1 text-primary">Texas Music timeline →</Link>
             </div>
-            <p className="mt-5 text-sm text-muted-foreground">By <Link to="/editorial-policy" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={musicSourceReviewedAt}>November 13, 2026</time></p>
+            <p className="mt-5 text-sm text-muted-foreground">By <Link to="/authors/a-hollis" className="font-semibold text-primary underline underline-offset-4">Texas Defined Editorial Desk</Link> · Historical sources checked <time dateTime={sourceReviewedAt}>{musicHistoryDateLabel(sourceReviewedAt)}</time></p>
           </header>
 
           <section className="border-b border-border py-8" aria-labelledby="corpus-quick-answer">
