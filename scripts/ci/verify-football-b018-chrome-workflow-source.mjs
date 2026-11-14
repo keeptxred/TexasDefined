@@ -26,7 +26,7 @@ assert.ok(script.includes("report.closingProof"), "Closing Worker proof must be 
 assert.ok(wf.includes('Batch018 not fully IMPLEMENTED; no Chrome evidence produced'), 'Partial cohorts must skip without claiming acceptance');
 assert.ok(script.includes('googleIndexManifest'), 'Batch018 must follow the generated evidence-based Google eligibility manifest');
 assert.ok(script.includes('report.googleDeliveryChecks.length,25'), 'All 25 browser pages need robot metadata proof');
-assert.ok(script.includes('Google sitemap eligibility drift'), 'Google's primary sitemap must contain only 16 eligible schools');
+assert.ok(script.includes('Google sitemap eligibility drift'), "Google sitemap must contain only 16 eligible schools");
 assert.ok(script.includes('Bing supplemental eligibility drift'), 'Bing supplemental feed must contain exactly nine staged schools');
 assert.ok(script.includes("'sitemap-index-policy'"), 'Sitemap mismatch must fail rather than silently graduate');
 assert.ok(!wf.includes('continue-on-error: true'));
