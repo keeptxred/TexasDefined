@@ -28,7 +28,7 @@ test("Offer wording is exact, source-linked, and separate from evergreen tickets
   // The opening essay intentionally no longer duplicates prices; check the
   // canonical primary-source visitor fact instead of matching editorial prose.
   const marker = "export const reviewedAttractionDestinations: Destination[] = ";
-  const rows = JSON.parse(catalog.split(marker)[1].trim().replace(/;\\s*$/, ""));
+  const rows = JSON.parse(catalog.split(marker)[1].trim().replace(/;\s*$/, ""));
   const garden = rows.find((item) => item.slug === "houston-botanic-garden");
   assert.ok(garden, "Houston Botanic Garden authority record must remain published");
   const admission = garden.visitorFacts.find((fact) => fact.topic === "admission");
