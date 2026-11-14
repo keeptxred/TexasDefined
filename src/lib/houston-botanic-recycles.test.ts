@@ -27,8 +27,11 @@ test("Offer wording is exact, source-linked, and separate from evergreen tickets
   assert.match(route, /https:\/\/hbg\.org\/visit\/texas-recycles\//);
   assert.match(catalog, /Standard daytime admission is \$12 for adults, \$8 for ages 3–17/);
   assert.match(catalog, /New Year's Day/);
-  assert.match(catalog, /Both the official Visit page and About page list Thanksgiving Day, Christmas Day and New Year's Day closures/);
-  assert.match(route, /Closed Thanksgiving Day, Christmas Day and New Year's Day according to both current operator pages/);
+  assert.match(catalog, /its About page also lists New Year's Day/);
+  assert.match(catalog, /published holiday lists differ/);
+  assert.match(route, /The Visit page lists Thanksgiving and Christmas closures; the About page also lists New Year's Day/);
+  assert.doesNotMatch(catalog, /Both the official Visit page and About page list Thanksgiving Day, Christmas Day and New Year's Day closures/);
+  assert.doesNotMatch(route, /according to both current operator pages/);
 });
 
 test("Garden canonical HTML is never cached across offer expiration", () => {
