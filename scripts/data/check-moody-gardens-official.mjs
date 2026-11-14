@@ -109,7 +109,20 @@ const monthNames = [
 export function validateOperatorEarlyClosureNotice(officialHtml, editorialNotice, now = Date.now()) {
   const readable = operatorVisibleText(officialHtml);
   const index = readable.toLowerCase().indexOf("early closure notice:");
-  if (index < 0) return [];
+  if (index < 0) {
+    // Detect operator retractions while the guide is still promoting a
+    // date-specific disruption. The old logic treated a removed announcement
+    // as a clean bill of health, even if the outage had been cancelled.
+    const startsAt = /startsAt:\s*"(\d{4}-\d{2}-\d{2}T[^"]+)"/.exec(editorialNotice)?.[1];
+    const expiresAt = /expiresAt:\s*"(\d{4}-\d{2}-\d{2}T[^"]+)"/.exec(editorialNotice)?.[1];
+    const begins = startsAt ? Date.parse(startsAt) : NaN;
+    const ends = expiresAt ? Date.parse(expiresAt) : NaN;
+    if (Number.isFinite(now) && Number.isFinite(begins) && Number.isFinite(ends)
+        && now >= begins && now < ends) {
+      return ["Moody Gardens removed its early-closure announcement while TexasDefined still displays a timed advisory; verify whether the operator cancelled or modified the closure."];
+    }
+    return [];
+  }
   const block = readable.slice(index, index + 650);
   const datePattern = new RegExp("\\b(" + monthNames.join("|") + ")\\s+(\\d{1,2}),?\\s+(\\d{4})\\b", "i");
   const matched = datePattern.exec(block);
