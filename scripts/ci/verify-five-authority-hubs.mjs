@@ -37,7 +37,7 @@ assert.ok(source.category.indexOf("{beforeStories}") < source.category.indexOf("
 includesAll("sports", ["https://www.ncaa.com/scoreboard/football/fbs", "https://www.nba.com/schedule", "https://www.rodeohouston.com/event-calendar/", "https://circuitoftheamericas.com/events/", "showDestinations={false}", "What are you planning to follow or visit?", "/sports-venues/college-sports", "/sports-venues/motorsports", "/sports/softball", "beforeStories={sportFirstNavigation}", 'featuredTitle="Featured from the sports desk"']);
 includesAll("football", ["high-school-football-hero.jpg", "not documentary photography of a specific team", "Why the playoff path changes by classification", "6A, Divisions I and II", "Curated matchups & documented scores (not a live statewide scoreboard)", "Don't mistake a curated matchup archive", "https://www.uiltexas.org/football/playoff-brackets"]);
 includesAll("hunt", ["Four checks before you treat an area as available", "Match legal game and dates", "Confirm the exact boundaries"]);
-includesAll("tailgate", ["Three trips, three very different packing decisions", "A comparison that changes your packing list", "AT&amp;T Stadium · Arlington", "9 feet wide by 12 feet deep", "Houston Texans · NRG Stadium", "FoodSafety.gov", "https://www.foodsafety.gov/blog/game-day-food-safety-tips", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
+includesAll("tailgate", ["Three trips, three very different packing decisions", "A comparison that changes your packing list", "AT&amp;T Stadium · Arlington", "9 feet wide by 12 feet deep", "arlington-tailgate-diagram-desc", "Original TexasDefined dimensional diagram", "Houston Texans · NRG Stadium", "FoodSafety.gov", "https://www.foodsafety.gov/blog/game-day-food-safety-tips", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
 includesAll("tailgateHead", ['dateModified: "2026-11-14"']);
 console.log("PASS five-hub focused authority content, source and topical-scope guards");
 
@@ -76,6 +76,7 @@ if (process.argv.includes("--production")) {
       if (path === "/texas-tailgating-guide") {
         assert.ok(html.includes("https://www.foodsafety.gov/blog/game-day-food-safety-tips"), "Tailgating must link to current official game-day food safety");
         assert.ok(html.includes("9 feet wide by 12 feet deep"), "Tailgating guide must retain official 9-by-12-foot AT&T Stadium setup dimensions");
+        assert.ok(html.includes("arlington-tailgate-diagram-desc") && html.includes("10 ft wide"), "Tailgating guide must render accessible dimension comparison");
         assert.ok(!html.includes("https://ask.fsis.usda.gov/article/What-is-the-Danger-Zone"), "Tailgating must not retain an intermittently inaccessible source URL");
       }
       assert.ok(!/<meta[^>]*name=["']robots["'][^>]*noindex/i.test(html), `${path} is noindex`);
