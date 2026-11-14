@@ -223,6 +223,23 @@ const NOV14_MOODY_POSTHYDRATION_TITLE_FAILURE = Object.freeze({
   failedStep: 'Verify Moody Gardens four-viewport browser authority and layout',
 });
 
+// The Nov 14 Moody editorial consolidation shipped as source 9afb270 and
+// passed actual Worker publish, version capture, BOTH-origin runtime health,
+// and complete old/new client asset delivery. The sole later failed gate was
+// a literal HTML-string assertion for a correctly rendered museum ticket
+// phrase: React SSR encodes the apostrophe as &#x27; in the page response.
+// PR #7214 fixed the verifier without dropping the entire admission rule.
+// This EXACT published version may hand its original asset bytes to one
+// replacement only after independent active-version/source/hash/origin proof.
+// Never mark that failed full deploy successful or skip the next live check.
+const NOV14_PUBLISHED_MOODY_ENTITY_ASSERTION = Object.freeze({
+  runId: 43629450047,
+  jobId: 132552595374,
+  sourceSha: '9afb27020d3152c52aed3f2f3241e93330e303bf',
+  workerVersion: '4a67cc9a-616c-4707-9097-541b8fce2138',
+  failedStep: 'Verify Moody Gardens production authority',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -239,6 +256,39 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const encodedMoody = NOV14_PUBLISHED_MOODY_ENTITY_ASSERTION;
+  if (job.run_id === encodedMoody.runId && job.id === encodedMoody.jobId &&
+      failures.length === 1 && failures[0] === encodedMoody.failedStep) {
+    // The failed release already proved every original JS/CSS byte on both
+    // origins, and uploaded its immutable handoff artifact; insist on both.
+    const handoff = steps.filter(step =>
+      step.name === 'Preserve old/new asset delivery evidence and next-release handoff');
+    if (handoff.length !== 1 || handoff[0].conclusion !== 'success') {
+      throw Error('Exact Moody failed release lacks verified original-byte artifact publication');
+    }
+    const verifier = readFileSync('scripts/production/verify-moody-gardens-production.mjs', 'utf8');
+    const decoder = readFileSync('scripts/production/moody-gardens-html-entities.mjs', 'utf8');
+    const test = readFileSync('scripts/data/check-moody-gardens-official.test.mjs', 'utf8');
+    // Never recover the old assets unless the actual next release contains
+    // the strict rendered-text correction, retaining the original full phrase.
+    if (!verifier.includes('const decodedVisitorCopy = normalizeMoodyGardensTextEntities(html);') ||
+        !verifier.includes('if (!decodedVisitorCopy.includes(marker))') ||
+        !verifier.includes("a ticket that includes Galveston Children's Museum admission") ||
+        !verifier.includes('Moody Gardens: address, admission and timing') ||
+        !verifier.includes('Tours & bookable experiences') ||
+        !decoder.includes('html.replace(/&#') ||
+        !decoder.includes('normalizeMoodyGardensTextEntities') ||
+        !test.includes('production acceptance handles the apostrophes in rendered museum admissions')) {
+      throw Error('Moody failed-release original asset handoff rejected until strict HTML-entity verification is actually repaired');
+    }
+    return {eligible: true, mode: 'exact-nov14-moody-entity-original-assets-only',
+      exactRun: encodedMoody.runId, criticalChecks: CRITICAL.length,
+      permittedFailures: failures, requiredSourceSha: encodedMoody.sourceSha,
+      requiredWorkerVersion: encodedMoody.workerVersion};
+  }
+  if (job.run_id === encodedMoody.runId || job.id === encodedMoody.jobId) {
+    throw Error('Moody exact published Worker has unexpected run, job or failed-step evidence: ' + failures.join(', '));
   }
   const moody = NOV14_MOODY_POSTHYDRATION_TITLE_FAILURE;
   if (job.run_id === moody.runId && job.id === moody.jobId &&

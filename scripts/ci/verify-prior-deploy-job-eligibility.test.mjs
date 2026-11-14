@@ -224,3 +224,35 @@ test('Moody asset handoff rejects wrong job, run, extra failure or a failed crit
       /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence|Moody source-verified published Worker has unexpected failure/);
   }
 });
+
+
+test('exact Nov14 Moody HTML-entity production false-negative qualifies only immutable original assets', () => {
+  const payload = evidence({runId: 43629450047, jobId: 132552595374,
+    failure: 'Verify Moody Gardens production authority'});
+  payload.jobs[0].steps.push({name: 'Preserve old/new asset delivery evidence and next-release handoff', conclusion: 'success'});
+  const result = qualifyPriorDeployJob(payload);
+  assert.equal(result.eligible, true);
+  assert.equal(result.mode, 'exact-nov14-moody-entity-original-assets-only');
+  assert.equal(result.exactRun, 43629450047);
+  assert.equal(result.requiredSourceSha, '9afb27020d3152c52aed3f2f3241e93330e303bf');
+  assert.equal(result.requiredWorkerVersion, '4a67cc9a-616c-4707-9097-541b8fce2138');
+  assert.equal(result.criticalChecks, 5);
+  assert.deepEqual(result.permittedFailures, ['Verify Moody Gardens production authority']);
+});
+
+test('Moody HTML-entity original asset recovery rejects fabricated provenance and extra failures', () => {
+  const correct={runId:43629450047,jobId:132552595374,
+    failure:'Verify Moody Gardens production authority'};
+  for(const mutation of [
+    {runId:43629450048},{jobId:132552595375},
+    {failure:'Verify base production surfaces'},
+    {additional:['Verify base production surfaces']},
+    {additional:['Verify canonical production health']},
+    ...required.map(omit=>({omit})),
+  ]) {
+    const payload=evidence({...correct,...mutation});
+    payload.jobs[0].steps.push({name:'Preserve old/new asset delivery evidence and next-release handoff',conclusion:'success'});
+    assert.throws(()=>qualifyPriorDeployJob(payload), /Required published-Worker safety gate not successful|unexpected run, job or failed-step evidence|not eligible|unapproved|missing/i);
+  }
+  assert.throws(()=>qualifyPriorDeployJob(evidence(correct)), /lacks verified original-byte artifact publication/);
+});
