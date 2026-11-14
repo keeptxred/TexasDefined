@@ -66,6 +66,10 @@
           "containsAny": [
             "Pets",
             "leash"
+          ],
+          "watchFacts": [
+            "The leash can be no longer than 6 feet",
+            "Pets are not allowed in the water or on the land around a designated swim area"
           ]
         },
         {
@@ -90,6 +94,10 @@
           "containsAny": [
             "Never leave pets in a parked car",
             "Never leave your pet in a parked car"
+          ],
+          "watchFacts": [
+            "Never leave pets in a parked car",
+            "Provide plenty of fresh water"
           ]
         }
       ]
@@ -136,6 +144,9 @@
           "containsAny": [
             "RODEOHOUSTON",
             "Events"
+          ],
+          "watchFacts": [
+            "MARCH 2 - 21, 2027"
           ]
         },
         {
@@ -144,6 +155,9 @@
           "containsAny": [
             "COTA Events",
             "Calendar"
+          ],
+          "watchFacts": [
+            "March 5-7, 2027"
           ]
         }
       ],
