@@ -22,7 +22,7 @@ const FARWELL: FootballProgramEditorial = {
     'The UIL 2026–28 alphabetical listing places Farwell in 2A Division I District 2 for eleven-man football. The alignment is not a schedule or a current win-loss record.',
     'Farwell High School’s campus improvement plan lists 801 Avenue G, Farwell TX 79325. Farwell ISD administration lists a different contact address, 805 Avenue G. Neither address is the venue for the announced November 13 playoff.',
     'On November 4, Farwell ISD announced a November 13, 4 p.m. bi-district game against Spearman at Happy State Bank Stadium in Canyon. Farwell is the designated home team despite playing outside Farwell; do not confuse home-team designation with home-campus location.',
-    'The November 4 school notice advertised $5 admission, acceptance of THSCA/district passes and early dismissal at 12:40 p.m. for the November 13 playoff. Those historical logistics do not provide a ticket link or admission policy for any later event.'
+    'The November 4 school notice advertised $5 admission, acceptance of THSCA/district passes and early dismissal at 12:40 p.m. for the November 13 playoff. Those historical logistics do not provide a ticket link or admission policy for any later event.',
     'KCBD’s November 13 regional scoreboard recorded Spearman 64, Farwell 33. The dated district notice establishes the opponent and neutral-site travel facts; KCBD is the separately identified final-score source. For current personnel or future scores, return to updated district and athletics notices rather than relying on older staff directories.'
   ],
   milestones: [
@@ -35,7 +35,7 @@ const FARWELL: FootballProgramEditorial = {
     { question: 'What UIL district is Farwell in for 2026?', answer: 'Class 2A Division I District 2, eleven-man football, in the UIL 2026–28 alignment.' },
     { question: 'Where is Farwell High School?', answer: 'The official campus improvement plan lists 801 Avenue G, Farwell TX 79325; the district administrative office is separately listed at 805 Avenue G.' },
     { question: 'Where did Farwell play Spearman on November 13?', answer: 'Farwell ISD identified Happy State Bank Stadium in Canyon for the 4 p.m. bi-district playoff and designated Farwell the home team; that designation did not make it a Farwell-campus game.' },
-    { question: 'Who won the November 13 Farwell–Spearman playoff?', answer: 'KCBD’s November 13 regional scoreboard reports Spearman defeated Farwell 64–33. This is attributed to contemporaneous local sports reporting, not represented as a school-published score.' }
+    { question: 'Who won the November 13 Farwell–Spearman playoff?', answer: 'KCBD’s November 13 regional scoreboard reports Spearman defeated Farwell 64–33. This is attributed to contemporaneous local sports reporting, not represented as a school-published score.' },
     { question: 'What tickets were announced for the November 13 game?', answer: 'Farwell ISD’s November 4 notice listed $5 admission and THSCA/district passes for that completed playoff. Those are not current prices or rules for a later fixture.' }
   ]
 };
