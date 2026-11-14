@@ -141,7 +141,7 @@ try{
  // An HTML page can visibly link all ten histories yet publish an invalid
  // schema ItemList. Parse the actual linked-data graph rather than checking
  // for URLs somewhere in the markup.
- const blocks=[...page.matchAll(/<script\\b[^>]*type=["']application\\/ld\\+json["'][^>]*>([\\s\\S]*?)<\\/script>/gi)].map(match=>match[1]);
+ const blocks=[...page.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].map(match=>match[1]);
  const graphs=blocks.flatMap(raw=>{
   try{
    const parsed=JSON.parse(raw);
