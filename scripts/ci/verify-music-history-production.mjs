@@ -138,6 +138,28 @@ try{
   if(!page.includes(marker))throw Error("missing profile field "+marker);
  }
  if(/\bnoindex\b/i.test(profile.headers.get("x-robots-tag")??""))throw Error("profile marked noindex");
+ // An HTML page can visibly link all ten histories yet publish an invalid
+ // schema ItemList. Parse the actual linked-data graph rather than checking
+ // for URLs somewhere in the markup.
+ const blocks=[...page.matchAll(/<script\\b[^>]*type=["']application\\/ld\\+json["'][^>]*>([\\s\\S]*?)<\\/script>/gi)].map(match=>match[1]);
+ const graphs=blocks.flatMap(raw=>{
+  try{
+   const parsed=JSON.parse(raw);
+   return Array.isArray(parsed["@graph"])?parsed["@graph"]:[parsed];
+  }catch{
+   return [];
+  }
+ });
+ const articleList=graphs.find(node=>node["@type"]==="ItemList"&&node["@id"]===base+"/authors/a-hollis#articles");
+ if(!articleList||!Array.isArray(articleList.itemListElement))
+   throw Error("author archive has no valid JSON-LD ItemList array");
+ if(articleList.numberOfItems!==articleList.itemListElement.length)
+   throw Error("author archive JSON-LD count differs from ItemList array");
+ for(const slug of slugs){
+  if(!articleList.itemListElement.some(item=>item.item?.url===base+"/"+slug))
+   throw Error("author archive JSON-LD omits "+slug);
+ }
+
  console.log("PASS editorial desk profile: central policy and 10 historical bylines");
 }catch(e){profileOk=false;console.error("FAIL editorial desk profile: "+String(e))}
 if(results.some(x=>!x.ok)||!profileOk)process.exitCode=1;
