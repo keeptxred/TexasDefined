@@ -39,6 +39,12 @@ test('only an RSA-signed, unexpired, audience-bound, exact protected-main workfl
   assert.equal(await verifyCjGitHubOidc(await sign({ ...claims, workflow_ref: 'rogue.yml' }), mockFetch as typeof fetch, now), false);
   assert.equal(await verifyCjGitHubOidc(await sign({ ...claims, event_name: 'pull_request' }), mockFetch as typeof fetch, now), false);
   assert.equal(await verifyCjGitHubOidc(await sign({ ...claims, exp: nowS - 1 }), mockFetch as typeof fetch, now), false);
-  assert.equal(await verifyCjGitHubOidc(valid.slice(0, -2) + 'xx', mockFetch as typeof fetch, now), false);
+  // Modify a SIGNIFICANT encoded byte, never the trailing base64url padding
+  // bits. For a 2048-bit RSA signature, the final character has unused bits;
+  // replacing the last two characters with a constant can accidentally yield
+  // an equivalent binary signature or the exact same string (flaky CI).
+  const parts = valid.split('.');
+  const alteredSignature = (parts[2][0] === 'A' ? 'B' : 'A') + parts[2].slice(1);
+  assert.equal(await verifyCjGitHubOidc(parts[0] + '.' + parts[1] + '.' + alteredSignature, mockFetch as typeof fetch, now), false);
   assert.equal(await verifyCjGitHubOidc('not-a-jwt', mockFetch as typeof fetch, now), false);
 });
