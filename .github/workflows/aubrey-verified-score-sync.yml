@@ -83,7 +83,7 @@ jobs:
           set -euo pipefail
           # Do not fork a second score PR while the prior protected auto-merge
           # is still waiting; an older snapshot would conflict with new data.
-          existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --limit 100 --json title,headRefName,url             --jq '.[] | select(.title == "Publish independently verified Aubrey football finals" and (.headRefName | startswith("automation/aubrey-results-"))) | .url' | head -n 1)"
+          existing="$(gh pr list --repo "$GITHUB_REPOSITORY" --base main --state open --search 'Publish independently verified Aubrey football finals in:title' --limit 100 --json title,headRefName,url             --jq '.[] | select(.title == "Publish independently verified Aubrey football finals" and (.headRefName | startswith("automation/aubrey-results-"))) | .url' | head -n 1)"
           if [[ -n "$existing" ]]; then
             echo "::error title=Existing Aubrey score PR awaits protected merge::$existing; do not create a second competing update."
             exit 1
