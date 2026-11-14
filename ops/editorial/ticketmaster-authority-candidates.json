@@ -1,11 +1,10 @@
 {
-  "fetchedAt": "2026-11-13T18:34:04.106Z",
+  "fetchedAt": "2026-11-14T17:11:18.384Z",
   "candidates": [
     {
       "name": "Austin Championship",
       "city": "Austin",
       "dates": [
-        "2026-11-13",
         "2026-11-14",
         "2026-11-15"
       ],
@@ -14,11 +13,9 @@
       ],
       "ticketmasterIds": [
         "G5dIZ_kRZQHmN",
-        "G5dIZ_kRZ_imp",
         "G5dIZ_kRZhHmi"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/austin-championship-friday-austin-texas-11-13-2026/event/3A00646BC066CB96",
         "https://www.ticketmaster.com/austin-championship-saturday-austin-texas-11-14-2026/event/3A00646BC06BCBA3",
         "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC"
       ],
@@ -500,6 +497,30 @@
       "publicationAllowed": false
     },
     {
+      "name": "San Antonio Stock Show & Rodeo Followed by Flatland Cavalry",
+      "city": "San Antonio",
+      "dates": [
+        "2027-02-11"
+      ],
+      "venues": [
+        "Frost Bank Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8rnv1mI"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-followed-san-antonio-texas-02-11-2027/event/3A006507AA04ABA8"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
       "name": "San Antonio Stock Show & Rodeo Friday Qualifier",
       "city": "Uvalde",
       "dates": [
@@ -640,7 +661,6 @@
       "name": "Stockyards Championship Rodeo",
       "city": "Fort Worth",
       "dates": [
-        "2026-11-13",
         "2026-11-14",
         "2026-11-20",
         "2026-11-21",
@@ -687,13 +707,11 @@
         "Z7r9jZ1A7OYpF",
         "Z7r9jZ1A7OYpZ",
         "Z7r9jZ1A7OYpa",
-        "Z7r9jZ1A7OYpk",
         "Z7r9jZ1A7OYpv",
         "Z7r9jZ1A7OpP0",
         "Z7r9jZ1A7OpPE",
         "Z7r9jZ1A7OpPI",
         "Z7r9jZ1A7OpPJ",
-        "Z7r9jZ1A7OpPN",
         "Z7r9jZ1A7OpPP",
         "Z7r9jZ1A7OpPY",
         "Z7r9jZ1A7OpPs",
@@ -732,13 +750,11 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpF",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpZ",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpa",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpk",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpv",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpP0",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPE",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPI",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPJ",
-        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPN",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPP",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPY",
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPs",
