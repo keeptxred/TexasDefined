@@ -142,3 +142,31 @@ test('new licensed playoff finals can update the existing verified upcoming Cany
     primary:canyon(primaryHost),secondary:canyon(secondaryHost),primaryHost,secondaryHost,
     today:'2026-11-18'}),/future|Invalid/i);
 });
+
+test('reject unlisted playoff advancement even if both licensed providers agree',()=>{
+  const extra = {date:'2026-11-13',opponent:'Invented School',status:'final',
+    aubreyScore:42,opponentScore:14};
+  assert.throws(()=>reconcileAubreyResults(opts({
+    primary:feed(primaryHost,{...extra,sourceUrl:'https://'+primaryHost+'/2026-11-13'}),
+    secondary:feed(secondaryHost,{...extra,sourceUrl:'https://'+secondaryHost+'/2026-11-13'}),
+    today:'2026-11-14',
+  })),/Unlisted or wrong-opponent/);
+});
+
+test('reject a wrong opponent even when date and scores agree',()=>{
+  assert.throws(()=>reconcileAubreyResults(opts({
+    primary:feed(primaryHost,{opponent:'Not Lake Dallas'}),
+    secondary:feed(secondaryHost,{opponent:'Not Lake Dallas'}),
+  })),/Unlisted or wrong-opponent/);
+});
+
+test('reject duplicate dates in an already published score snapshot',()=>{
+  const candidate = {
+    date:'2026-10-23',opponent:'Lake Dallas',aubreyScore:21,opponentScore:17,
+    district:true,primarySourceUrl:'https://'+primaryHost+'/2026-10-23',
+    secondarySourceUrl:'https://'+secondaryHost+'/2026-10-23',verifiedAt:'2026-10-24',
+  };
+  assert.throws(()=>reconcileAubreyResults(opts({
+    snapshot:{season:'2026',teamSlug:'aubrey',verifiedResults:[candidate,candidate]},
+  })),/Duplicate already-published/);
+});
