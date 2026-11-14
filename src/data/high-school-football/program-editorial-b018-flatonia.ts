@@ -3,7 +3,7 @@ import type { FootballProgramEditorial } from './program-editorial';
 // Flatonia: school/UIL identity with separately attributed AP November 13 playoff result.
 const FLATONIA: FootballProgramEditorial = {
   slug: 'flatonia',
-  intro: 'Flatonia Bulldogs football represents Flatonia ISD in Fayette County. The 2026–28 UIL alignment places Flatonia in eleven-man Class 2A Division I, District 15. Flatonia Secondary School publishes the campus address and the district provides athletics links and Rank One forms. The Associated Press reported a 35–20 win over Dilley in the November 13 bi-district playoff; that result is independently reported, not a school-posted final or proof of a particular stadium entrance.'
+  intro: 'Flatonia Bulldogs football represents Flatonia ISD in Fayette County. The 2026–28 UIL alignment places Flatonia in eleven-man Class 2A Division I, District 15. Flatonia Secondary School publishes the campus address and the district provides athletics links and Rank One forms. The Associated Press reported a 35–20 win over Dilley in the November 13 bi-district playoff; that result is independently reported, not a school-posted final or proof of a particular stadium entrance.',
   theme: { accentHex: '#725F80', label: 'Independent TexasDefined editorial accent; not an official Bulldog logo, color certification or licensed photograph.' },
   seo: {
     title: 'Flatonia Bulldogs Football | 2026 UIL District & Visitor Sources',
