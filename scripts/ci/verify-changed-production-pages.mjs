@@ -440,6 +440,11 @@ const GSC_IMAGE_RIGHTS_EXPECTED = Object.freeze({
     license: 'https://creativecommons.org/licenses/by-sa/4.0/',
     source: 'https://commons.wikimedia.org/wiki/File:South_Padre_Island_beach_panorama.jpg',
   },
+  '/destination/big-bend-ranch-state-park': {
+    creator: 'Jcllorca', type: 'Person', copyright: '© Jcllorca',
+    license: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Harvest_moon_in_Big_Bend_Ranch_State_Park.JPG',
+  },
 });
 
 export function assertGscImageRights(html, path, surface = 'production') {
@@ -519,7 +524,7 @@ if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
 if (!Array.isArray(moodyGardensPages) || moodyGardensPages.length > 1 || moodyGardensPages.some(p => p !== '/destination/moody-gardens' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Moody Gardens production metadata contract');
-if (!Array.isArray(imageRightsPages) || imageRightsPages.length > 9
+if (!Array.isArray(imageRightsPages) || imageRightsPages.length > 10
   || imageRightsPages.some(path => !Object.hasOwn(GSC_IMAGE_RIGHTS_EXPECTED, path) || !plan.selectedPaths?.includes(path)))
   throw new Error('Invalid bounded GSC ImageObject production acceptance contract');
 if (!Array.isArray(davisHillPages) || davisHillPages.length > 1 || davisHillPages.some(p => p !== '/destination/davis-hill-state-park' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Davis Hill image acceptance contract');
