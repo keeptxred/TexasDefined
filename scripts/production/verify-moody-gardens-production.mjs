@@ -19,8 +19,12 @@ const requiredFreshnessMarkers = [
   "accessibility",
   "combined Aquarium + Rainforest ticket",
   "9 to 10 AM is reserved for museum members",
+  "a ticket that includes Galveston Children's Museum admission",
+  "separate museum admission",
 ];
 const staleClosureMarkers = [
+  "children's museum entry is included with a Moody Gardens ticket",
+  "included ticket admission",
   "Discovery Museum is temporarily closed",
   "Discovery Museum scheduled to reopen",
   "Discovery Museum programming and special exhibitions may be separately ticketed or unavailable",
