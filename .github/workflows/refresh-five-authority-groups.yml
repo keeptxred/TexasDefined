@@ -1,0 +1,55 @@
+name: Refresh five TexasDefined editorial authority groups
+
+on:
+  schedule:
+    - cron: '35 13 * * *'
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ops/editorial/five-authority-refresh-groups.json'
+      - 'scripts/ci/monitor-five-authority-refresh.mjs'
+      - '.github/workflows/refresh-five-authority-groups.yml'
+      - 'src/routes/sports.lazy.tsx'
+      - 'src/routes/sports.friday-night-lights.lazy.tsx'
+      - 'src/routes/texas-tailgating-guide.lazy.tsx'
+      - 'src/components/dogs/DogsHubPage.tsx'
+      - 'src/components/hunting/HuntingAuthority.tsx'
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: five-authority-source-refresh-\${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  source-refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prove all five source-refresh group contracts
+        run: |
+          node --check scripts/ci/monitor-five-authority-refresh.mjs
+          node scripts/ci/monitor-five-authority-refresh.mjs
+      - name: Inspect live five-page HTML and scheduled official sources
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/ci/monitor-five-authority-refresh.mjs --production
+      - name: Keep substantive editorial issues visible when a source check fails
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: \${{ github.token }}
+          GITHUB_REPOSITORY: \${{ github.repository }}
+          ACTION_RUN: \${{ github.server_url }}/\${{ github.repository }}/actions/runs/\${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          issue=7170
+          gh issue reopen "$issue" --repo "$GITHUB_REPOSITORY" || true
+          # Avoid daily duplicate issue comments; CI is already red until fixed.
+          weekday="$(date -u +%u)"
+          if [[ "$weekday" = 1 || "\${{ github.event_name }}" = workflow_dispatch ]]; then
+            gh issue comment "$issue" --repo "$GITHUB_REPOSITORY" --body "Five-hub authority refresh needs a real source/editorial correction. Inspect grouped official-source and uncached live checks in $ACTION_RUN. Do not re-date articles or rubber-stamp review dates."
+          fi
