@@ -58,7 +58,7 @@ jobs:
             # issue, and the incident auditor itself, need an immediate audit.
             if git rev-parse HEAD^ >/dev/null 2>&1; then
               changed_files="$(git diff --name-only HEAD^ HEAD)"
-              if ! grep -Eq '^((src/server\.ts)|(src/lib/(legacy-editorial-redirects|public-route-tokens)\.ts)|(src/data/(fort-leaton-historic-site-authority|destination-preserved-catalog|destination-curation-batch(8|12))\.ts)|(scripts/ci/(audit-gsc-404-sample|gsc-404-classification|gsc-404-classification\.test)\.mjs)|(ops/seo/gsc-404-2026-11-13-paths\.txt)|(\.github/workflows/gsc-404-sample-audit\.yml))$' <<<"${changed_files}" &&
+              if ! grep -Eq '^((src/server\.ts)|(src/lib/(legacy-editorial-redirects|public-route-tokens)\.ts)|(src/data/(fort-leaton-historic-site-authority|destination-preserved-catalog|destination-curation-batch(8|12))\.ts)|(scripts/ci/(audit-gsc-404-sample|gsc-404-classification|gsc-404-classification\.test|gsc-404-disposition-policy|gsc-404-disposition-policy\.test)\.mjs)|(ops/seo/gsc-404-2026-11-13-paths\.txt)|(\.github/workflows/gsc-404-sample-audit\.yml))$' <<<"${changed_files}" &&
                ! grep -Eq '^(src/data/(texas-places\.ts|city-(authority-index|authority-profiles|metro-authority|social-images|industry-paths)\.ts)|src/data/high-school-football/(football-isds\.server|football-directory\.server)\.ts)$' <<<"${changed_files}"; then
                 echo "run=false" >> "${GITHUB_OUTPUT}"
                 echo "No GSC-404-relevant paths changed in exact protected release ${DEPLOY_SHA}; skip remote scan."
@@ -78,7 +78,7 @@ jobs:
 
       - name: Test historical 404 response classifications
         if: ${{ steps.scope.outputs.run == 'true' }}
-        run: node --test scripts/ci/gsc-404-classification.test.mjs
+        run: node --test scripts/ci/gsc-404-classification.test.mjs scripts/ci/gsc-404-disposition-policy.test.mjs
 
       - name: Inspect 99 exact historical GSC URLs (read-only)
         if: ${{ steps.scope.outputs.run == 'true' }}

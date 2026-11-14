@@ -4,6 +4,7 @@
 import { readFile, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import path from 'node:path';
 import { classifyHistoricalGsc404, REVIEW_OUTCOMES } from './gsc-404-classification.mjs';
+import { reviewGsc404Disposition } from './gsc-404-disposition-policy.mjs';
 
 const origin = new URL(process.env.TD_GSC_404_ORIGIN || 'https://texasdefined.com');
 if (origin.protocol !== 'https:' || !['texasdefined.com', 'www.texasdefined.com'].includes(origin.hostname)) {
@@ -102,10 +103,12 @@ async function inspect(sourcePath) {
   const finalStatus = last?.status ?? null;
   const firstStatus = hops[0]?.status ?? null;
   const outcome = classifyHistoricalGsc404({ invalidTemplate, firstStatus, finalStatus, error });
+  const policy = reviewGsc404Disposition({ path: sourcePath, invalidTemplate, firstStatus, finalStatus, outcome, error });
   return {
     path: sourcePath,
     invalidTemplate,
     outcome,
+    ...policy,
     firstStatus,
     finalStatus,
     finalUrl: last?.url ?? null,
@@ -124,13 +127,23 @@ await Promise.all(Array.from({ length: concurrency }, async () => {
     const index = nextIndex++;
     if (index >= paths.length) return;
     results[index] = await inspect(paths[index]);
-    console.log(String(index + 1).padStart(2, '0') + '/99 ' + paths[index] + ': ' + results[index].outcome + ' [HTTP ' + (results[index].firstStatus ?? 'network') + ' -> ' + (results[index].finalStatus ?? 'network') + '] final=' + (results[index].finalUrl ?? 'unavailable') + (results[index].canonical ? ' canonical=' + results[index].canonical : '') + (results[index].error ? ' error=' + results[index].error : ''));
+    console.log(String(index + 1).padStart(2, '0') + '/99 ' + paths[index] + ': ' + results[index].outcome + ' (' + results[index].review + ') [HTTP ' + (results[index].firstStatus ?? 'network') + ' -> ' + (results[index].finalStatus ?? 'network') + '] final=' + (results[index].finalUrl ?? 'unavailable') + (results[index].canonical ? ' canonical=' + results[index].canonical : '') + (results[index].error ? ' error=' + results[index].error : ''));
   }
 }));
 const counts = Object.fromEntries([...new Set(results.map((r) => r.outcome))].sort().map((name) => [
   name, results.filter((r) => r.outcome === name).length,
 ]));
-const actionableReviewCount = results.filter((r) => REVIEW_OUTCOMES.has(r.outcome)).length;
+const actionableReviewCount = results.filter((r) =>
+  r.review !== 'expected-404' && (
+    REVIEW_OUTCOMES.has(r.outcome) ||
+    ['restore-regression','route-leak-regression','policy-regression'].includes(r.review)
+  )).length;
+const dispositionCounts = Object.fromEntries([...new Set(results.map((r) => r.review))].sort().map((review) => [
+  review, results.filter((r) => r.review === review).length,
+]));
+const blockingRegressions = results.filter((r) =>
+  ['restore-regression','route-leak-regression','policy-regression','redirect-to-missing'].includes(r.review)
+  || r.outcome === 'server_error');
 const templateCount = results.filter((r) => r.invalidTemplate).length;
 const expectedTemplate404Count = results.filter((r) => r.outcome === 'expected_invalid_template').length;
 const templateRedirectCount = results.filter((r) => r.outcome === 'invalid_template_redirect_chain').length;
@@ -138,6 +151,8 @@ const summary = {
   createdAt: new Date().toISOString(),
   auditBoundary: 'Read-only HTTP observation; GSC coverage labels may lag and a genuine 404 can remain appropriate.',
   actionableReviewCount,
+  dispositionCounts,
+  blockingRegressions: blockingRegressions.map((r) => ({ path: r.path, review: r.review, firstStatus: r.firstStatus, finalStatus: r.finalStatus, finalUrl: r.finalUrl })),
   templateCount,
   expectedTemplate404Count,
   templateRedirectCount,
@@ -177,13 +192,17 @@ for (const item of candidateResults) {
 
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, 'results.json'), JSON.stringify(summary, null, 2) + '\n');
-const cols = ['path','invalidTemplate','outcome','firstStatus','finalStatus','finalUrl','canonical','robots','redirectCount','error'];
+const cols = ['path','invalidTemplate','outcome','intent','review','policyReason','source','firstStatus','finalStatus','finalUrl','canonical','robots','redirectCount','error'];
 const csv = cols.join(',') + '\n' + results.map((row) => cols.map((col) => csvCell(row[col])).join(',')).join('\n') + '\n';
 await writeFile(path.join(outDir, 'results.csv'), csv);
 const markdown = '# TexasDefined GSC historical 404 recheck\n\n' +
   '**Sample:** 99 exact historical paths. **Checked:** ' + summary.createdAt + '\n\n' +
   Object.entries(counts).map(([label, count]) => '- ' + label + ': ' + count).join('\n') + '\n\n' +
   '- Invalid template URLs: ' + templateCount + ' (direct 404/410: ' + expectedTemplate404Count + ', redirected: ' + templateRedirectCount + ')\n' +
+  '- Source-backed intentional 404 URLs: ' + ((dispositionCounts['expected-404'] ?? 0) - expectedTemplate404Count) + '\n' +
+  '- Genuine restored URLs currently served 200: ' + (dispositionCounts['served-200'] ?? 0) + '\n' +
+  '- Blocking defects requiring changes: ' + blockingRegressions.length + '\n' +
+  Object.entries(dispositionCounts).map(([label, count]) => '- Editorial review ' + label + ': ' + count).join('\n') + '\n' +
   '- URLs requiring response/content disposition review: ' + actionableReviewCount + '\n\n' +
   'Do not equate transport failures with HTTP404, or every remaining 404 with a defect. An invalid route template returning a direct 404 is correct. Review real broken redirects and meaningful missing content separately.\n';
 await writeFile(path.join(outDir, 'summary.md'), markdown);
@@ -191,4 +210,7 @@ if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SU
 console.log(markdown);
 if (results.every((r) => r.error)) {
   throw new Error('All 99 checks failed on transport or redirect chain; no valid HTTP results obtained');
+}
+if (blockingRegressions.length) {
+  throw new Error('Historical GSC 404 audit has ' + blockingRegressions.length + ' evidence-backed route regressions; inspect retained results.json and summary.md. Do not convert intentional 404s into 200.');
 }
