@@ -30,6 +30,13 @@ const hub = read("src/data/texas-music-cities-hub.ts");
 const deskProfile = read("src/routes/authors.$author.tsx");
 const browserAcceptance = read("scripts/ci/verify-music-history-browser.mjs");
 const publicRoutes = read("src/lib/public-routes.ts");
+const citiesRoute = read("src/routes/texas-music-cities.tsx");
+
+if (!citiesRoute.includes('title: "Texas Music Cities: Austin, Houston & Beyond"')) fail("Statewide six-city title must not be cut off at a dangling comma");
+const pushPaths = read(".github/workflows/verify-music-history-authority.yml").split('  push:')[1]?.split('  workflow_dispatch:')[0] ?? "";
+for (const path of ["src/data/texas-music-city-guides.ts","src/data/texas-music-cities-hub.ts","src/routes/texas-music-cities.tsx"]) {
+  if(!pushPaths.includes("'"+path+"'")) fail("Push-time music quality gate missing "+path);
+}
 const boilerplate = /(?:in today's fast.paced world|delve into|unlock the secrets|ultimate guide to everything|comprehensive tapestry|lorem ipsum)/i;
 // Public music descriptions should speak about places and records, not our SEO program.
 const publisherJargon = /\\bauthority hub\\b|\\bdifferent kind of authority\\b/i;
