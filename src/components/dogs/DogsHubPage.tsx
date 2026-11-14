@@ -152,7 +152,7 @@ export default function DogsHubPage() {
         <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {breeds.map((breed) => <Link key={breed.slug} to="/dogs/{-$breed}" params={{ breed: breed.slug }} className="group bg-background p-6 sm:p-7">
             <p className="eyebrow text-muted-foreground">{breed.shortName} Defined</p>
-            <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{breed.name}</h2>
+            <h3 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{breed.name}</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{breed.deck}</p>
             <span className="eyebrow mt-6 inline-block text-primary">Meet the breed →</span>
           </Link>)}
@@ -169,7 +169,7 @@ export default function DogsHubPage() {
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {collections.map((collection) => <article key={collection.slug} id={collection.slug} className="border border-border bg-background p-6">
-            <p className="eyebrow text-primary">{collection.tagline}</p><h2 className="mt-3 font-display text-3xl leading-tight">{collection.name}</h2>
+            <p className="eyebrow text-primary">{collection.tagline}</p><h3 className="mt-3 font-display text-3xl leading-tight">{collection.name}</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{collection.description}</p>
             <ul className="mt-5 space-y-2 border-t border-border pt-4 text-sm">{collection.examples.map((example) => <li key={example}>— {example}</li>)}</ul>
           </article>)}
