@@ -6,6 +6,8 @@ on:
   pull_request:
     paths:
       - 'scripts/ci/verify-worker-memory-sensitive-production.mjs'
+      - 'scripts/ci/worker-memory-identity.mjs'
+      - 'scripts/ci/worker-memory-identity.test.mjs'
       - '.github/workflows/worker-memory-sensitive-production.yml'
   schedule:
     - cron: '23 11,23 * * *'
@@ -25,6 +27,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Confirm single-version memory probe safety contract
+        run: node --test scripts/ci/worker-memory-identity.test.mjs
       - name: Verify incident routes on both live origins without CDN cache masking
         run: node scripts/ci/verify-worker-memory-sensitive-production.mjs
       - name: Preserve route-by-route HTTP and latency evidence
