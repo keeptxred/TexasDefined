@@ -29,6 +29,8 @@ const staleClosureMarkers = [
 ];
 const forbiddenMarkers = [
   ...staleClosureMarkers,
+  "Discovery Museum closure guidance",
+  "The Rainforest Pyramid, Discovery Museum, theaters, seasonal attractions",
   "Independent Texas Defined research",
   "Why this place matters",
   "Our trip-planning assessment",
