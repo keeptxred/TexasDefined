@@ -20,6 +20,40 @@ function evidence({ runId = 43440830866, jobId = 131937683043,
     conclusion: 'failure', steps }] };
 }
 
+test('exact Nov14 published Moody Worker supplies original bytes only after hydrated title fix', () => {
+  const proof = evidence({
+    runId: 43608793638,
+    jobId: 132489033467,
+    failure: 'Verify Moody Gardens four-viewport browser authority and layout',
+  });
+  const accepted = qualifyPriorDeployJob(proof);
+  assert.equal(accepted.eligible, true);
+  assert.equal(accepted.mode, 'exact-nov14-moody-hydration-original-assets-only');
+  assert.equal(accepted.exactRun, 43608793638);
+  assert.equal(accepted.requiredSourceSha, '5f80e24f9791b86ec8ab87e9f2fb910cca21521f');
+  assert.equal(accepted.requiredWorkerVersion, '695cd863-f891-4b2b-8c60-22f722f7cc0e');
+  assert.equal(accepted.criticalChecks, 5);
+  assert.deepEqual(accepted.permittedFailures, ['Verify Moody Gardens four-viewport browser authority and layout']);
+});
+
+test('Moody original-asset recovery rejects alternate jobs, extra failed checks and missing byte gates', () => {
+  const base = {
+    runId: 43608793638, jobId: 132489033467,
+    failure: 'Verify Moody Gardens four-viewport browser authority and layout',
+  };
+  for (const modified of [
+    { runId: 43608793639 },
+    { jobId: 132489033468 },
+    { failure: 'Verify canonical production health' },
+    { failure: 'Verify base production surfaces' },
+    { additional: ['Verify base production surfaces'] },
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({ ...base, ...modified })),
+      /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
+
 test('exact Nov 13 published Worker can supply immutable original assets but not release certification', () => {
   const qualified = qualifyPriorDeployJob(evidence());
   assert.equal(qualified.eligible, true);
