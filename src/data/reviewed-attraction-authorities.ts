@@ -228,6 +228,16 @@ export const reviewedAttractionDestinations: Destination[] = [
           "label": "City of Fort Worth — Water Gardens park information",
           "url": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
           "scope": "Official visitor rules, operating details and access information"
+        },
+        {
+          "label": "City of Fort Worth — Water Gardens capital improvements",
+          "url": "https://www.fortworthtexas.gov/projects/pard-projects/pard-water-gardens",
+          "scope": "Official final-design construction phase, scope and projected 2027 completion; no assumed closure"
+        },
+        {
+          "label": "The Cultural Landscape Foundation — Water Garden historical landscape profile",
+          "url": "https://www.tclf.org/landscapes/fort-worth-water-garden",
+          "scope": "1974 dedication, Philip Johnson's landscape design and contrasting pools in cultural context"
         }
       ]
     },
