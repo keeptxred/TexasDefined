@@ -69,14 +69,14 @@ function Top50TexasAttractionsPage() {
   return (
     <>
       <Container className="pb-12 pt-12 sm:pt-16">
-        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wider text-muted-foreground">
           <Link to="/">Texas Defined</Link><span aria-hidden="true" className="mx-2">/</span>
           <Link to="/explore">Explore</Link><span aria-hidden="true" className="mx-2">/</span>
           <span aria-current="page">Top 50 attractions</span>
         </nav>
         <header className="max-w-5xl py-12 sm:py-16">
           <p className="eyebrow text-primary">The statewide landmark list</p>
-          <h1 className="mt-4 font-display text-5xl leading-[1.02] sm:text-7xl">Top 50 Texas tourist attractions</h1>
+          <h1 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">Top 50 Texas tourist attractions</h1>
           <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">
             Fifty standout Texas experiences in one statewide ranking: no category quotas,
             no fixed number of parks, and no regional allocations. Open each individual guide
@@ -89,25 +89,25 @@ function Top50TexasAttractionsPage() {
             visitor statistics. Visit schedules and admission policies may change; confirm details
             with the attraction's own operator before travel.
           </p>
-          <div className="mt-7 flex flex-wrap gap-x-7 gap-y-3 text-sm">
+          <div className="mt-7 flex flex-wrap gap-4 text-sm">
             <Link to="/explore/top-attractions" className="border-b border-primary text-primary">Explore the established Top 25 collection</Link>
             <Link to="/explore/attractions-comparison" className="border-b border-primary text-primary">Compare the broader Texas destinations catalog</Link>
           </div>
         </header>
         <section aria-labelledby="ranking-heading">
-          <div className="flex items-end justify-between gap-5 border-b-2 border-foreground pb-5">
+          <div className="flex items-end justify-between gap-4 border-b border-foreground pb-5">
             <h2 id="ranking-heading" className="font-display text-3xl sm:text-4xl">The full ranking</h2>
             <p className="eyebrow text-muted-foreground">1–50</p>
           </div>
           <ol className="divide-y divide-border">
             {TEXAS_TOP50_RANKING.map((item) => (
-              <li key={item.rank} className="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 gap-y-2 py-6 sm:grid-cols-[5rem_minmax(0,1fr)] sm:py-8">
-                <p aria-label={`Rank ${item.rank}`} className="font-display text-3xl tabular-nums text-primary sm:text-4xl">
+              <li key={item.rank} className="flex gap-4 py-6 sm:py-8">
+                <p aria-label={`Rank ${item.rank}`} className="w-12 shrink-0 font-display text-3xl tabular-nums text-primary sm:text-4xl">
                   {String(item.rank).padStart(2, "0")}
                 </p>
-                <div>
+                <div className="min-w-0 flex-1">
                   <h3 className="font-display text-2xl leading-tight sm:text-3xl">
-                    <a href={item.href} className="underline decoration-transparent underline-offset-4 transition-colors hover:text-primary hover:decoration-primary focus-visible:decoration-primary">
+                    <a href={item.href} className="underline hover:text-primary">
                       {item.name}
                     </a>
                   </h3>
@@ -120,7 +120,7 @@ function Top50TexasAttractionsPage() {
             ))}
           </ol>
         </section>
-        <section className="mt-10 max-w-4xl border-t-2 border-foreground py-10" aria-labelledby="ranking-methodology-heading">
+        <section className="mt-10 max-w-4xl border-t border-foreground py-10" aria-labelledby="ranking-methodology-heading">
           <h2 id="ranking-methodology-heading" className="font-display text-3xl">How this list was selected</h2>
           <p className="mt-5 text-base leading-8 text-muted-foreground">
             The list considers each attraction's enduring significance, distinctively Texan qualities,
