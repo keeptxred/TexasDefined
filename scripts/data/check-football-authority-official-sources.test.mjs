@@ -123,3 +123,28 @@ test('Batch011 school-owned source watch covers all 25 without exceeding the bou
   }
   assert.equal(visited.size,data.sources.length,'Bounded rotating runs cover every source even as inventory grows');
 });
+
+test('all Batch018 canonical schools have one first-party source in the bounded recurring watch', () => {
+  const data=JSON.parse(readFileSync('docs/football-authority/official-source-watch.json','utf8'));
+  const registry=JSON.parse(readFileSync('docs/football-authority/REGISTRY.json','utf8'));
+  const slugs=['fabens','fairfield','falfurrias','falls-city','farmersville',
+    'farwell','ferris','first-baptist-dallas','flatonia','florence',
+    'floresville','floydada','follett','forestburg','forney',
+    'forsan','fort-bend-austin','fort-bend-bush','fort-bend-christian',
+    'fort-bend-clements','fort-bend-crawford','fort-bend-dulles',
+    'fort-bend-elkins','fort-bend-hightower','fort-bend-kempner'];
+  assert.equal(slugs.length,25);
+  assert.equal(validateLedger(data,registry,'2026-11-14'),data.sources.length);
+  assert.equal(data.safety.perRunSourceCap,25,'Never allow an unbounded source crawl');
+  for (const slug of slugs) {
+    const matches=data.sources.filter(s => s.slug===slug);
+    assert.equal(matches.length,1,'Exactly one source watch for '+slug);
+    const row=matches[0];
+    assert.ok(registry.schoolRecords.some(s=>s.slug===slug),'Source must describe a canonical registered school');
+    assert.ok(row.reviewAfter>='2027-01-29','Preserve protected quarterly review date for '+slug);
+    assert.ok(data.safety.approvedDomains.includes(new URL(row.url).hostname),'Explicit first-party allowlist for '+slug);
+    assert.ok(!/maxpreps|scorestream|sblive|espn|hudl\.com/.test(row.url),
+      'Do not scrape protected score/film vendors in official-source monitor: '+slug);
+    assert.equal(row.contentFingerprint,null,'New school source must begin with no fabricated fingerprint');
+  }
+});
