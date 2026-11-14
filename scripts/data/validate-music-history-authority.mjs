@@ -22,6 +22,7 @@ const corpus = read("src/routes/corpus-christi-music-history.lazy.tsx");
 const evidence = read("src/data/texas-music-history-evidence.ts");
 const dossiers = read("src/data/texas-music-history-dossiers.ts");
 const liveAcceptance = read("scripts/ci/verify-music-history-production.mjs");
+const cachePurge = read("scripts/ci/purge-cloudflare-cache.mjs");
 const dossierView = read("src/components/editorial/TexasMusicEvidenceDossier.tsx");
 const venueView = read("src/components/editorial/TexasMusicVenueGuide.tsx");
 const cityView = read("src/components/editorial/TexasMusicCityGuide.tsx");
@@ -42,6 +43,7 @@ for(const slug of slugs) {
   const lazy = "src/routes/"+slug+".lazy.tsx";
   if(!existsSync(route) || !existsSync(lazy)) fail("Route module missing for "+slug);
   if(!publicRoutes.includes('"/'+slug+'"')) fail("Route missing from public route inventory: "+slug);
+  if(!cachePurge.includes('"/'+slug+'"')) fail("Music authority canonical is absent from postdeploy targeted cache invalidation: "+slug);
   const routeData = existsSync(route) ? read(route) : "";
   if(!routeData.includes('canonicalPath') || !routeData.includes('canonicalLink(')) fail("SEO canonical contract missing: "+slug);
   if(!routeData.includes('type: "article"')) fail("Article search metadata missing: "+slug);
