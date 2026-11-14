@@ -195,6 +195,38 @@ test('published District 5 asset handoff rejects fabricated IDs or extra/live-cr
   }
 });
 
+test('exact current 4a67 Worker can supply original bytes after repaired Moody HTML apostrophe parsing, NOT page certification', () => {
+  const caseData = evidence({
+    runId: 43629450047, jobId: 132552595374,
+    failure: 'Verify Moody Gardens production authority',
+  });
+  const certified = qualifyPriorDeployJob(caseData);
+  assert.equal(certified.eligible, true);
+  assert.equal(certified.mode, 'exact-nov14-moody-entity-original-assets-only');
+  assert.equal(certified.exactRun, 43629450047);
+  assert.equal(certified.criticalChecks, 5);
+  assert.equal(certified.requiredWorkerVersion, '4a67cc9a-616c-4707-9097-541b8fce2138');
+  assert.equal(certified.requiredSourceSha, '9afb27020d3152c52aed3f2f3241e93330e303bf');
+  assert.deepEqual(certified.permittedFailures, ['Verify Moody Gardens production authority']);
+});
+
+test('Moody HTML entity handoff fails closed on every wrong provenance or asset/runtime failure', () => {
+  const baseline = {
+    runId: 43629450047, jobId: 132552595374,
+    failure: 'Verify Moody Gardens production authority',
+  };
+  for (const mutation of [
+    {runId: 43629450048}, {jobId: 132552595375},
+    {failure: 'Verify canonical production health'},
+    {failure: 'Verify current and previous release JS/CSS on both public origins'},
+    {additional: ['Verify base production surfaces']},
+    ...required.map(omit => ({ omit })),
+  ]) {
+    assert.throws(() => qualifyPriorDeployJob(evidence({...baseline, ...mutation})),
+      /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence|Moody entity source-verified active Worker has unexpected run\/job\/failure evidence/);
+  }
+});
+
 test('published Nov14 Moody Worker may supply exact original bytes only after hydration repair', () => {
   const payload=evidence({
     runId:43608793638,jobId:132489033467,
