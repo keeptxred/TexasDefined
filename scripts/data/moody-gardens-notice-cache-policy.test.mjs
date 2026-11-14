@@ -19,6 +19,7 @@ test("cache guard protects the full event window and one-hour post-expiry bounda
   assert.equal(shouldPreventMoodyGardensNoticeCaching("/destination/moody-gardens", Date.parse(MOODY_GARDENS_NOTICE_CACHE_WINDOW.startsAt)), true);
   assert.equal(shouldPreventMoodyGardensNoticeCaching("/destination/moody-gardens", Date.parse("2026-11-17T05:59:59Z")), true);
   assert.equal(shouldPreventMoodyGardensNoticeCaching("/destination/moody-gardens", Date.parse("2026-11-17T06:00:00Z")), true);
+  assert.equal(shouldPreventMoodyGardensNoticeCaching("/destination/moody-gardens", Date.parse("2026-11-17T07:00:00Z")), true);
   assert.equal(shouldPreventMoodyGardensNoticeCaching("/destination/moody-gardens", Date.parse(MOODY_GARDENS_NOTICE_CACHE_WINDOW.expiresAt)), false);
   assert.equal(shouldPreventMoodyGardensNoticeCaching("/destination/moody-gardens", NaN), false);
 });
@@ -48,7 +49,7 @@ test("other routes, methods and post-window responses retain their original cach
   assert.equal(applyMoodyGardensNoticeCachePolicy(new Request("https://texasdefined.com/destination/texas-state-aquarium"), other, active), other);
   assert.equal(applyMoodyGardensNoticeCachePolicy(new Request(url + "/extra"), other, active), other);
   assert.equal(applyMoodyGardensNoticeCachePolicy(new Request(url, { method: "POST" }), other, active), other);
-  assert.equal(applyMoodyGardensNoticeCachePolicy(new Request(url), other, Date.parse("2026-11-17T07:00:00Z")), other);
+  assert.equal(applyMoodyGardensNoticeCachePolicy(new Request(url), other, Date.parse("2026-11-18T06:00:00Z")), other);
 });
 
 test("Worker HTML response processing is actually wired to the cache policy", () => {
