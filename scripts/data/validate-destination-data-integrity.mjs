@@ -241,8 +241,17 @@ const moodyAquariumFallback = fs.readFileSync(path.join(root, 'src/data/aquarium
 const moodyAdditionalDepth = fs.readFileSync(path.join(root, 'src/data/attraction-visitor-depth-20261020.ts'), 'utf8');
 const moodySpotlights = fs.readFileSync(path.join(root, 'src/components/editorial/MoodyGardensSpotlights.tsx'), 'utf8');
 const moodyProduction = fs.readFileSync(path.join(root, 'scripts/production/verify-moody-gardens-production.mjs'), 'utf8');
-const moodyDate = moodyCuration.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
-if (!moodyDate || moodyDate < '2026-11-09') errors.push('Moody Gardens visitor source check must not revert to the prior closure-era date.');
+const moodyDate = moodyCuration.match(/fullGuideReviewed: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+if (!moodyDate || moodyDate !== '2026-11-09' || !moodyCuration.includes('sourceCheckedAt: moodyGardensEditorialDates.fullGuideReviewed')) {
+  errors.push('Moody Gardens must retain its Nov. 9 full-guide review separately from modifications.');
+}
+const moodyRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+if (!moodyCuration.includes('museumFactsReviewed: "2026-11-14"')
+    || !moodyCuration.includes('lastSubstantiveEdit: "2026-11-14"')
+    || !moodySpotlights.includes('<time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 14, 2026</time>')
+    || !moodyRoute.includes('moodyGardensEditorialDates.lastSubstantiveEdit')) {
+  errors.push('Moody Gardens must separate substantive WebPage dateModified from its older, honest source-review dates.');
+}
 if (moodyResolver.includes('sourceCheckedAt: "2026-10-05"')) errors.push('Moody Gardens resolver still rewrites the genuine source check date to October 5.');
 
 // The base aquarium listing and the source-citation metadata must not
@@ -309,7 +318,23 @@ for (const link of [
   if (!(moodyResolver + moodySpotlights).includes(link)) errors.push('Moody Gardens lacks official visitor link: ' + link);
 }
 if (!moodyAdditionalDepth.includes('Galveston Children')) errors.push('Moody Gardens additional visitor-depth text must describe the currently open children\'s museum.');
-if (!moodySpotlights.includes('strand-historic-district')) errors.push('Moody Gardens Strand pairing must use the dedicated destination route.');
+if (!moodySpotlights.includes('slug: "galveston-bay"')) {
+  errors.push('Moody Gardens must link directly to its relevant Galveston Bay marine-ecology guide.');
+}
+for (const [name, source, markers] of [
+  ['specific aquarium research', moodyCuration + moodySpotlights, ['Jellyfish Gallery', 'Flower Garden Banks', 'Coral Reef Lab']],
+  ['specific rainforest research', moodyCuration + moodySpotlights, ['Nightfall', 'giant river otters', 'canopy']],
+  ['Discovery exhibit research', moodyCuration + moodySpotlights, ['20,000 Leagues Under the Sea', 'Our Town', 'Room to Grow', '3D/4D']],
+  ['primary exhibit citations', moodyResolver, ['https://www.moodygardens.com/attractions/aquarium-pyramid', 'https://www.moodygardens.com/attractions/rainforest-pyramid', 'https://www.galvestoncm.org/exhibits']],
+]) {
+  for (const marker of markers) {
+    if (!source.includes(marker)) errors.push('Moody Gardens missing ' + name + ': ' + marker);
+  }
+}
+if (moodyCuration.includes("Galveston's strongest all-weather family attraction")
+    || moodyCuration.includes('clearest first priority')) {
+  errors.push('Moody Gardens must make specific visitor recommendations without unsubstantiated superlatives.');
+}
 if (!moodyProduction.includes('staleClosureMarkers') || !moodyProduction.includes('dateModified')) errors.push('Moody Gardens live acceptance must reject old closures and stale structured dates.');
 if (!moodyProduction.includes('Discovery Museum closure guidance') || !moodyProduction.includes('The Rainforest Pyramid, Discovery Museum, theaters')) {
   errors.push('Moody Gardens live acceptance must reject closure-era text from independently rendered source and directory layers.');

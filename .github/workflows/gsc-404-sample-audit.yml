@@ -17,6 +17,7 @@ permissions:
   actions: read
   contents: read
   statuses: read
+  issues: read
 
 concurrency:
   group: gsc-404-99-${{ github.event.workflow_run.head_sha || github.sha }}
@@ -53,12 +54,26 @@ jobs:
               echo "::error title=Not a protected production release::Refusing to attribute audit to unverified ${DEPLOY_SHA} (status ${release_status})."
               exit 1
             fi
+            # Multiple overlapping main merges can cancel or supersede earlier
+            # protected deploys. Checking only HEAD^ HEAD loses GSC changes
+            # carried by a skipped release when the next successful SHA has
+            # an unrelated final commit. While the 99-URL incident is OPEN,
+            # always obtain one bounded authoritative live audit after a
+            # successful exact-SHA deploy. This reads exactly 99 fixed URLs,
+            # not the entire site. Once #7097 is closed, resume the usual
+            # changed-file optimization (weekly manual/scheduled remains).
+            incident_state="$(gh api "repos/${GITHUB_REPOSITORY}/issues/7097" --jq '.state')"
+            if [[ "${incident_state}" == "open" ]]; then
+              echo "run=true" >> "${GITHUB_OUTPUT}"
+              echo "Incident #7097 remains open; ensure this protected SHA receives the full bounded 99-URL live audit even after earlier deploy supersession."
+              exit 0
+            fi
             # Do not audit 99 URLs for every unrelated article or merchandise
             # deploy. Only source/routing/sitemap changes that can affect this
             # issue, and the incident auditor itself, need an immediate audit.
             if git rev-parse HEAD^ >/dev/null 2>&1; then
               changed_files="$(git diff --name-only HEAD^ HEAD)"
-              if ! grep -Eq '^((src/server\.ts)|(src/lib/(legacy-editorial-redirects|public-route-tokens)\.ts)|(src/data/(fort-leaton-historic-site-authority|destination-preserved-catalog|destination-curation-batch(8|12))\.ts)|(scripts/ci/(audit-gsc-404-sample|gsc-404-classification|gsc-404-classification\.test|gsc-404-disposition-policy|gsc-404-disposition-policy\.test)\.mjs)|(ops/seo/gsc-404-2026-11-13-paths\.txt)|(\.github/workflows/gsc-404-sample-audit\.yml))$' <<<"${changed_files}" &&
+              if ! grep -Eq '^((src/server\.ts)|(src/lib/(legacy-editorial-redirects|public-route-tokens)\.ts)|(src/data/(fort-leaton-historic-site-authority|destination-preserved-catalog|destination-curation-batch(8|12))\.ts)|(scripts/ci/(audit-gsc-404-sample|gsc-404-classification|gsc-404-classification\.test|gsc-404-disposition-policy|gsc-404-disposition-policy\.test|gsc-404-sitemap|gsc-404-sitemap\.test)\.mjs)|(ops/seo/gsc-404-2026-11-13-paths\.txt)|(\.github/workflows/gsc-404-sample-audit\.yml))$' <<<"${changed_files}" &&
                ! grep -Eq '^(src/data/(texas-places\.ts|city-(authority-index|authority-profiles|metro-authority|social-images|industry-paths)\.ts)|src/data/high-school-football/(football-isds\.server|football-directory\.server)\.ts)$' <<<"${changed_files}"; then
                 echo "run=false" >> "${GITHUB_OUTPUT}"
                 echo "No GSC-404-relevant paths changed in exact protected release ${DEPLOY_SHA}; skip remote scan."
@@ -78,7 +93,7 @@ jobs:
 
       - name: Test historical 404 response classifications
         if: ${{ steps.scope.outputs.run == 'true' }}
-        run: node --test scripts/ci/gsc-404-classification.test.mjs scripts/ci/gsc-404-disposition-policy.test.mjs
+        run: node --test scripts/ci/gsc-404-classification.test.mjs scripts/ci/gsc-404-disposition-policy.test.mjs scripts/ci/gsc-404-sitemap.test.mjs
 
       - name: Inspect 99 exact historical GSC URLs (read-only)
         if: ${{ steps.scope.outputs.run == 'true' }}

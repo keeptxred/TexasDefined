@@ -4,13 +4,14 @@ import { Container } from "@/components/layout/Container";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { isMoodyGardensNov16NoticeActive, moodyGardensNov16Notice } from "@/data/moody-gardens-visit-notice";
+import { moodyGardensEditorialDates } from "@/data/destination-curation-moody-gardens";
 
 const cards = [
   {
     eyebrow: "Best first stop",
     title: "Aquarium Pyramid",
-    description: "Make this the first priority for the broadest animal-focused experience: marine habitats, penguins, seals, sharks and regional ocean exhibits in a fully indoor setting.",
-    detail: "Best for: first-time visitors · families · rainy or hot days",
+    description: "Choose this for ocean-life galleries, penguins, seals, sharks and the Jellyfish Gallery. Its Coral Reef Lab also connects Gulf conservation with the Flower Garden Banks sanctuary.",
+    detail: "Best for: marine-life watchers · penguins and reef science · rainy days",
     href: "https://www.moodygardens.com/attractions/aquarium-pyramid",
     image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Moody_Gardens_Aquarium_Pyramid_HDR_Galveston_(6971130700).jpg?width=1200",
     alt: "The blue Aquarium Pyramid at Moody Gardens in Galveston",
@@ -19,8 +20,8 @@ const cards = [
   {
     eyebrow: "Best second stop",
     title: "Rainforest Pyramid",
-    description: "Pair it with the aquarium for the strongest two-attraction visit. The warm indoor rainforest has tropical plants, birds and other wildlife in a very different environment.",
-    detail: "Best for: wildlife · photography · a two-pyramid day",
+    description: "Choose this for a warmer, humid walk through canopy and forest-floor habitats, free-roaming birds, giant river otters and a dimly lit Nightfall exhibit.",
+    detail: "Best for: tropical ecology · birdwatching · visitors comfortable with warm, humid spaces",
     href: "https://www.moodygardens.com/attractions/rainforest-pyramid",
     image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Moody_Gardens_Rainforest_Pyramid_(14248736931).jpg?width=1200",
     alt: "The glass Rainforest Pyramid at Moody Gardens in Galveston",
@@ -29,8 +30,8 @@ const cards = [
   {
     eyebrow: "Best for younger kids",
     title: "Discovery Pyramid & Children's Museum",
-    description: "The Galveston Children's Museum is now open upstairs with hands-on STEM, maker and imaginative-play activities. The interactive Audience Recognition Theater is downstairs.",
-    detail: "Admission: qualifying membership, museum-inclusive ticket, or separate museum ticket for ages 2+ · Check today's hours",
+    description: "Upstairs, the children's museum has Our Town fishing-boat play and Room to Grow, a calmer area for ages 2–5. Downstairs, the 20,000 Leagues interactive theater adds a 3D/4D submarine adventure.",
+    detail: "Museum ages 2+: covered membership, museum-inclusive ticket or separate admission · Check theater ticket and showtime separately",
     href: "https://www.moodygardens.com/attractions/discovery-pyramid",
     image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Discovery_Pyramid_Moody_Gardens.jpg?width=1200",
     alt: "The Discovery Pyramid at Moody Gardens in Galveston",
@@ -59,17 +60,17 @@ const itineraries = [
   {
     time: "About 2 hours",
     title: "Pick one pyramid",
-    copy: "Choose the Aquarium Pyramid for the strongest first visit, or the Rainforest Pyramid if tropical wildlife is the priority. Do not buy a broad package just to rush through it.",
+    copy: "Pick Aquarium for marine animals and coral-reef exhibits, or Rainforest for canopy birds and tropical habitats. For toddlers who prefer hands-on play, consider the museum instead; confirm the correct admission.",
   },
   {
     time: "About 4 hours",
     title: "Do the two pyramids",
-    copy: "Aquarium + Rainforest is the best default plan for most first-time visitors. Add a theater only if the showtime fits naturally rather than forcing the schedule.",
+    copy: "An Aquarium + Rainforest visit contrasts ocean habitats with a humid, planted ecosystem. Swap Rainforest for the children's museum if young kids would benefit more from building and pretend play; compare admissions first.",
   },
   {
     time: "About 6+ hours",
     title: "Build a full Moody Gardens day",
-    copy: "Add a theater, the Discovery Pyramid, a meal or an in-season attraction after your priority pyramids. Check the Value Pass inclusions against the activities actually open that day.",
+    copy: "Add 20,000 Leagues Under the Sea if its participatory 3D/4D theater suits your group, then allow time for food or the children's museum. Confirm separate ticket eligibility, showtimes and Value Pass inclusions.",
   },
 ] as const;
 
@@ -80,7 +81,7 @@ export function MoodyGardensSpotlights() {
         <SectionHeader
           eyebrow="Plan the day"
           title="How to visit Moody Gardens without wasting time or ticket money"
-          description="Start with the Aquarium and Rainforest Pyramids. Add theaters, seasonal attractions or a hotel stay only when the schedule has room."
+          description="Choose the Aquarium for sea life, Rainforest for tropical habitats, or Discovery for hands-on play and interactive theater. Check separate tickets before building the day."
         />
 
         {isMoodyGardensNov16NoticeActive() && (
@@ -200,7 +201,7 @@ export function MoodyGardensSpotlights() {
             <a href="https://www.moodygardens.com/visitor-info/accessibility" target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official accessibility details</a>
           </div>
         </div>
-        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk reviewed the core Moody Gardens visitor policies on November 9, 2026. The Galveston Children's Museum's separate admission, early-entry membership and holiday-closure rules were checked against its own visitor page on November 14, 2026. Attraction hours, ticket terms and seasonal availability may change after those reviews.</p>
+        <p className="mt-5 text-xs leading-5 text-muted-foreground">TexasDefined Editorial Desk reviewed the core Moody Gardens visitor policies on November 9, 2026, and checked the Galveston Children's Museum admission, member-hour, exhibits and holiday-closure details on November 14, 2026. This guide was substantively updated on <time dateTime={moodyGardensEditorialDates.lastSubstantiveEdit}>November 14, 2026</time> (separate from the original full-guide source review). Attraction hours, showtimes and ticket terms can change.</p>
       </Container>
     </Section>
 
@@ -222,10 +223,10 @@ export function MoodyGardensSpotlights() {
             <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Galveston Island State Park</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Best add-on when you want beach, bay, paddling or nature instead of another built attraction.</p>
           </Link>
-          <Link to="/destination/$slug" params={{ slug: "strand-historic-district" }} className="group border border-border p-5">
-            <p className="eyebrow text-primary">Historic Galveston</p>
-            <h3 className="mt-2 font-display text-2xl group-hover:text-primary">The Strand and downtown</h3>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Use a separate half-day for architecture, museums, shops and the historic core instead of cramming it into a rushed Moody Gardens visit.</p>
+          <Link to="/destination/$slug" params={{ slug: "galveston-bay" }} className="group border border-border p-5">
+            <p className="eyebrow text-primary">Marine conservation context</p>
+            <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Galveston Bay ecosystems</h3>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Read how the bay and its estuary habitats connect to the Gulf wildlife and reef-conservation topics you encounter inside the Aquarium Pyramid.</p>
           </Link>
         </div>
       </Container>

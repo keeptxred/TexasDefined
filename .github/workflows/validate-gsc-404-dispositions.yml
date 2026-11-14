@@ -8,6 +8,8 @@ on:
       - 'scripts/ci/gsc-404-disposition-policy.test.mjs'
       - 'scripts/ci/gsc-404-classification.mjs'
       - 'scripts/ci/audit-gsc-404-sample.mjs'
+      - 'scripts/ci/gsc-404-sitemap.mjs'
+      - 'scripts/ci/gsc-404-sitemap.test.mjs'
       - 'ops/seo/gsc-404-2026-11-13-paths.txt'
       - '.github/workflows/validate-gsc-404-dispositions.yml'
   push:
@@ -17,6 +19,8 @@ on:
       - 'scripts/ci/gsc-404-disposition-policy.test.mjs'
       - 'scripts/ci/gsc-404-classification.mjs'
       - 'scripts/ci/audit-gsc-404-sample.mjs'
+      - 'scripts/ci/gsc-404-sitemap.mjs'
+      - 'scripts/ci/gsc-404-sitemap.test.mjs'
       - 'ops/seo/gsc-404-2026-11-13-paths.txt'
       - '.github/workflows/validate-gsc-404-dispositions.yml'
   workflow_dispatch:
@@ -37,5 +41,6 @@ jobs:
         run: |
           node --check scripts/ci/gsc-404-disposition-policy.mjs
           node --check scripts/ci/audit-gsc-404-sample.mjs
+          node --check scripts/ci/gsc-404-sitemap.mjs
       - name: Verify exactly adjudicated 404s and real missing-redirect alarms
-        run: node --test scripts/ci/gsc-404-classification.test.mjs scripts/ci/gsc-404-disposition-policy.test.mjs
+        run: node --test scripts/ci/gsc-404-classification.test.mjs scripts/ci/gsc-404-disposition-policy.test.mjs scripts/ci/gsc-404-sitemap.test.mjs

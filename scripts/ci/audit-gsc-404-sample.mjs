@@ -3,8 +3,14 @@
 // that historical Search Console entries represent present-day HTTP failures.
 import { readFile, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import path from 'node:path';
-import { classifyHistoricalGsc404, REVIEW_OUTCOMES } from './gsc-404-classification.mjs';
-import { reviewGsc404Disposition } from './gsc-404-disposition-policy.mjs';
+import { classifyHistoricalGsc404, REVIEW_OUTCOMES, isBlockingGsc404Result } from './gsc-404-classification.mjs';
+import {
+  reviewGsc404Disposition,
+  INTENTIONAL_404_DISPOSITIONS,
+  RESTORED_GSC_CANONICAL_PATHS,
+  LIVE_VERIFIED_GSC_CANONICAL_PATHS,
+} from './gsc-404-disposition-policy.mjs';
+import { GSC_SITEMAP_SEEDS, parseGscSitemapXml, identifyGscSitemapLeaks } from './gsc-404-sitemap.mjs';
 
 const origin = new URL(process.env.TD_GSC_404_ORIGIN || 'https://texasdefined.com');
 if (origin.protocol !== 'https:' || !['texasdefined.com', 'www.texasdefined.com'].includes(origin.hostname)) {
@@ -141,9 +147,7 @@ const actionableReviewCount = results.filter((r) =>
 const dispositionCounts = Object.fromEntries([...new Set(results.map((r) => r.review))].sort().map((review) => [
   review, results.filter((r) => r.review === review).length,
 ]));
-const blockingRegressions = results.filter((r) =>
-  ['restore-regression','canonical-regression','route-leak-regression','policy-regression','redirect-to-missing'].includes(r.review)
-  || r.outcome === 'server_error');
+const blockingRegressions = results.filter(isBlockingGsc404Result);
 const templateCount = results.filter((r) => r.invalidTemplate).length;
 const expectedTemplate404Count = results.filter((r) => r.outcome === 'expected_invalid_template').length;
 const templateRedirectCount = results.filter((r) => r.outcome === 'invalid_template_redirect_chain').length;
@@ -190,6 +194,73 @@ for (const item of candidateResults) {
   console.log('[candidate] ' + item.path + ': HTTP ' + (item.firstStatus ?? 'network') + ' -> ' + (item.finalStatus ?? 'network') + ' final=' + (item.finalUrl ?? 'unavailable') + (item.canonical ? ' canonical=' + item.canonical : '') + (item.robots ? ' robots=' + item.robots : ''));
 }
 
+
+// Sample just the two known XML sitemap entry points and their same-host XML
+// index children. This is not a sitewide crawl or a URL Inspection API call.
+// Use a strict bounded ten-XML budget, no dynamic route scan or writes.
+const sitemapSources = [];
+const sitemapErrors = [];
+const sitemapLocations = new Set();
+const sitemapQueue = [...GSC_SITEMAP_SEEDS];
+const visitedSitemaps = new Set();
+while (sitemapQueue.length && visitedSitemaps.size < 10) {
+  const sourcePath = sitemapQueue.shift();
+  if (visitedSitemaps.has(sourcePath)) continue;
+  visitedSitemaps.add(sourcePath);
+  try {
+    const response = await fetch(new URL(sourcePath, origin), {
+      method: 'GET',
+      redirect: 'manual',
+      signal: AbortSignal.timeout(timeoutMs),
+      headers: {
+        accept: 'application/xml,text/xml;q=0.9,*/*;q=0.1',
+        'user-agent': 'TexasDefined-GSC-404-ReadOnlyAudit/1.0',
+      },
+    });
+    if (response.status !== 200) {
+      await response.body?.cancel();
+      throw new Error('HTTP ' + response.status + ', expected XML HTTP200');
+    }
+    const expectedSize = Number(response.headers.get('content-length') || 0);
+    if (expectedSize > 8_000_000) {
+      await response.body?.cancel();
+      throw new Error('Sitemap XML exceeds 8 MB bounded verification limit');
+    }
+    const xml = await response.text();
+    if (xml.length > 8_000_000) throw new Error('Sitemap XML exceeds bounded verification limit after reading');
+    const parsed = parseGscSitemapXml(xml);
+    for (const entry of parsed.paths) sitemapLocations.add(entry);
+    for (const child of parsed.children) if (!visitedSitemaps.has(child)) sitemapQueue.push(child);
+    sitemapSources.push({ path: sourcePath, status: response.status, kind: parsed.kind, locationCount: parsed.paths.length, childCount: parsed.children.length });
+  } catch (caught) {
+    sitemapErrors.push({ path: sourcePath, error: caught instanceof Error ? caught.message : String(caught) });
+  }
+}
+if (sitemapQueue.length) sitemapErrors.push({ path: 'sitemap-index', error: 'More than ten distinct XML sources require inspection; bounded audit incomplete' });
+if (sitemapLocations.size === 0) sitemapErrors.push({ path: 'sitemap-set', error: 'No same-host published URLs found; sitemap verification cannot be certified' });
+const intentionallyMissing = [...Object.keys(INTENTIONAL_404_DISPOSITIONS), ...paths.filter(unresolvedToken)];
+const expectedCanonicalBySource = { ...LIVE_VERIFIED_GSC_CANONICAL_PATHS, ...RESTORED_GSC_CANONICAL_PATHS };
+const noncanonicalAliases = Object.entries(expectedCanonicalBySource)
+  .filter(([source, destination]) => source !== destination).map(([source]) => source);
+const sitemapLeaks = identifyGscSitemapLeaks([...sitemapLocations], intentionallyMissing, noncanonicalAliases);
+summary.sitemaps = {
+  checkedSources: sitemapSources,
+  errors: sitemapErrors,
+  locationCount: sitemapLocations.size,
+  ...sitemapLeaks,
+  auditComplete: sitemapErrors.length === 0,
+};
+for (const sourcePath of sitemapLeaks.forbiddenListed) blockingRegressions.push({ path: sourcePath, review: 'sitemap-404-leak' });
+for (const sourcePath of sitemapLeaks.redirectSourceListed) blockingRegressions.push({ path: sourcePath, review: 'sitemap-noncanonical-redirect-leak' });
+for (const item of sitemapErrors) blockingRegressions.push({ path: item.path, review: 'sitemap-evidence-incomplete', error: item.error });
+summary.blockingRegressions = blockingRegressions.map((row) => ({
+  path: row.path, review: row.review, firstStatus: row.firstStatus, finalStatus: row.finalStatus,
+  finalUrl: row.finalUrl, error: row.error,
+}));
+console.log('[sitemap] XML sources=' + sitemapSources.length + ' indexed locations=' + sitemapLocations.size
+  + ' forbidden=' + sitemapLeaks.forbiddenListed.length + ' redirect-aliases=' + sitemapLeaks.redirectSourceListed.length
+  + ' errors=' + sitemapErrors.length);
+
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, 'results.json'), JSON.stringify(summary, null, 2) + '\n');
 const cols = ['path','invalidTemplate','outcome','intent','review','policyReason','source','firstStatus','finalStatus','finalUrl','canonical','robots','redirectCount','error'];
@@ -202,6 +273,9 @@ const markdown = '# TexasDefined GSC historical 404 recheck\n\n' +
   '- Source-backed intentional 404 URLs: ' + ((dispositionCounts['expected-404'] ?? 0) - expectedTemplate404Count) + '\n' +
   '- Genuine restored URLs currently served 200: ' + (dispositionCounts['served-200'] ?? 0) + '\n' +
   '- Blocking defects requiring changes: ' + blockingRegressions.length + '\n' +
+  '- Sitemap XML sources checked: ' + sitemapSources.length + ' (complete: ' + (sitemapErrors.length === 0) + ')\n' +
+  '- Forbidden 404/template URLs in sitemap: ' + sitemapLeaks.forbiddenListed.length + '\n' +
+  '- Redirect-only historical aliases in sitemap: ' + sitemapLeaks.redirectSourceListed.length + '\n' +
   Object.entries(dispositionCounts).map(([label, count]) => '- Editorial review ' + label + ': ' + count).join('\n') + '\n' +
   '- URLs requiring response/content disposition review: ' + actionableReviewCount + '\n\n' +
   'Do not equate transport failures with HTTP404, or every remaining 404 with a defect. An invalid route template returning a direct 404 is correct. Review real broken redirects and meaningful missing content separately.\n';

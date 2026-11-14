@@ -31,6 +31,11 @@ try{
    const mainText=await page.locator("main").innerText({timeout:12000}).catch(()=>"");
    check("historical content visible",mainText.length>1300,mainText.length);
    check("accountable editorial desk visible",mainText.includes("Texas Defined Editorial Desk"));
+   check("desk byline links to one institutional profile",await page.locator('main a[href="/authors/a-hollis"]').count()===1);
+   check("source review date is visible",mainText.includes("November 14, 2026"));
+   const articleLd=await page.locator('script[type="application/ld+json"]').allTextContents().catch(()=>[]);
+   check("Article structured metadata identifies real desk profile and update date",
+    articleLd.some(x=>x.includes('"url":"https://texasdefined.com/authors/a-hollis"')&&x.includes('"dateModified":"2026-11-14"')));
    check("source chronology or city comparison visible",/documented milestones|source-linked chronology|Milestones in a Coastal Bend recording center|What made each Texas music city different\?/i.test(mainText));
    // innerText reflects CSS text-transform; the eyebrow is uppercase on
    // screen. Use visible semantic section and its original textContent, not
@@ -42,9 +47,9 @@ try{
      && /what the record establishes/i.test(researchText)
      && /our reading/i.test(researchText)
      && /what remains uncertain:/i.test(researchText));
-   check("at least four checked findings",((mainText.match(/What the record establishes/g)||[]).length)>=4);
+   check("at least five independently researched findings",((mainText.match(/What the record establishes/g)||[]).length)>=5);
    const links=await page.locator('section[aria-labelledby="music-research-dossier"] a[href^="https://"]').count();
-   check("four or more linked records",links>=4,links);
+   check("five or more linked historical records",links>=5,links);
    if(slug==="continental-club-austin-history")check("1955 and 1957 dispute published",mainText.includes("1955")&&mainText.includes("1957")&&mainText.includes("disputed"));
    const canonical=await page.locator('link[rel="canonical"]').getAttribute("href").catch(()=>null);
    check("self canonical",canonical===base+"/"+slug,canonical);

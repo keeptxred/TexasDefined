@@ -45,6 +45,27 @@ test("GCM's own admission page must preserve separate holiday closures and 9–1
   assert.ok(validateOperatorEvidence(admission, changed).some((error) => error.includes("Thanksgiving Day")));
 });
 
+test("four first-party exhibit and theater claims have bounded regression evidence", () => {
+  for (const [url, visible, withdrawn] of [
+    ["https://www.moodygardens.com/attractions/aquarium-pyramid", "Jellyfish Gallery Coral Reef Lab Flower Garden Banks", "Flower Garden Banks"],
+    ["https://www.moodygardens.com/attractions/rainforest-pyramid", "Giant River Otters Nightfall Sunrise Gallery", "Nightfall"],
+    ["https://www.galvestoncm.org/exhibits", "Our Town Room to Grow Tinker Workshop", "Room to Grow"],
+  ]) {
+    const source = targetSources.find((item) => item.url === url);
+    assert.ok(source, "missing exhibit source " + url);
+    assert.deepEqual(validateOperatorEvidence(source, html("<p>" + visible + "</p>")), []);
+    const changed = visible.replace(withdrawn, "");
+    assert.ok(validateOperatorEvidence(source, html("<p>" + changed + "</p>")).some(e => e.includes(withdrawn)), url);
+  }
+});
+
+test("split editorial review and modification dates keep the older source-review clock", () => {
+  const curation = readFileSync("src/data/destination-curation-moody-gardens.ts", "utf8");
+  assert.deepEqual(validateEditorialReview(curation, Date.parse("2026-11-14T12:00:00Z")), []);
+  assert.ok(validateEditorialReview(curation, Date.parse("2026-12-15T12:00:00Z")).some(e => e.includes("days old")));
+  assert.match(curation, /lastSubstantiveEdit: "2026-11-14"/);
+});
+
 test("a generic navigation 'now open' cannot hide a museum closure", () => {
   const content = "<nav>Now open today</nav><h2>Galveston Children's Museum</h2><p>Temporarily closed during renovation; check for reopening.</p><p>Audience Recognition Theater downstairs</p>";
   assert.ok(validateOperatorEvidence(discovery, html(content)).some((error) => error.includes("no longer clearly")));

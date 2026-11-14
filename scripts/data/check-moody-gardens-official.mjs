@@ -19,6 +19,21 @@ export const targetSources = [
     markers: ["GCM Members Only", "General Admission (Ages 2+)", "Thanksgiving Day", "Christmas Eve", "Sunday after the Momus Parade"],
   },
   {
+    name: "Aquarium Pyramid and Coral Reef Lab exhibit claims",
+    url: "https://www.moodygardens.com/attractions/aquarium-pyramid",
+    markers: ["Jellyfish Gallery", "Coral Reef Lab", "Flower Garden Banks"],
+  },
+  {
+    name: "Rainforest Pyramid exhibit sequence",
+    url: "https://www.moodygardens.com/attractions/rainforest-pyramid",
+    markers: ["Giant River Otters", "Nightfall", "Sunrise Gallery"],
+  },
+  {
+    name: "Galveston Children's Museum named exhibit inventory",
+    url: "https://www.galvestoncm.org/exhibits",
+    markers: ["Our Town", "Room to Grow", "Tinker Workshop"],
+  },
+  {
     name: "Admissions and visitor FAQ",
     url: "https://www.moodygardens.com/visitor-info/faq",
     markers: ["Value Pass", "self-parking", "children", "picnic"],
@@ -83,7 +98,10 @@ export function validateOperatorEvidence(source, html) {
 
 export function validateEditorialReview(curation, now = Date.now()) {
   const issues = [];
-  const checkedAt = curation.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
+  // Support the explicit split between a broad source review and a genuine content edit.
+  // Historical fixtures still use the literal sourceCheckedAt form.
+  const checkedAt = curation.match(/fullGuideReviewed: "(\d{4}-\d{2}-\d{2})"/)?.[1]
+    ?? curation.match(/sourceCheckedAt: "(\d{4}-\d{2}-\d{2})"/)?.[1];
   if (!checkedAt) return ["Moody Gardens editorial source-review date is absent."];
   const checkedTime = Date.parse(checkedAt + "T00:00:00Z");
   if (!Number.isFinite(checkedTime)) return ["Moody Gardens editorial source-review date is invalid."];

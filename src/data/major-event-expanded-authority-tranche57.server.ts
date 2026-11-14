@@ -281,7 +281,6 @@ const records: ChristmasAuthorityRecord[] = [
         url: "https://www.santas-wonderland.com/attendance-forecast"
       }
     ],
-    dateNote: "Season spans November 13–January 3; exact operational nights and prices depend on the current official ticket calendar."
   },
   {
     slug: "houston-zoo-lights",

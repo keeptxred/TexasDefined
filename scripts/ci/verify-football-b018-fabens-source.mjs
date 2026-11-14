@@ -33,6 +33,14 @@ assert.ok(server.includes('getBatch018FalfurriasEditorial(canonicalSlug)'));
 assert.ok(edges.includes("county: 'brooks'") && edges.includes("slug: 'falfurrias'"));
 assert.ok(!/\b(photoUrl|imageUrl|finalScore)\s*:/.test(falfurrias));
 for (const value of ['631 Post Oak Road', '3AD1FB2026.pdf', 'Berton A. Yates Stadium', 'East Chambers', '2026-11-13', 'fairfieldisd.net/fairfieldhighschool', 'fairfieldeagles.net/sport/football/boys/', 'November 9', 'Willis']) assert.ok(fairfield.includes(value), 'Missing Fairfield first-party source: ' + value);
+// A 2026-11-13 preview became false after Fairfield officially posted the final.
+// Preserve first-party, timestamped evidence without making a live season-record claim.
+for (const fact of ['39–64', 'November 13, 2026', 'school’s own football schedule',
+  'https://www.fairfieldeagles.net/sport/football/boys/?tab=schedule', '2026-11-14']) {
+  assert.ok(fairfield.includes(fact), 'Missing official Fairfield bi-district final: ' + fact);
+}
+assert.ok(!/announced future event|not a completed result|not a final score/.test(fairfield),
+  'Fairfield guide still presents completed Nov13 playoff as future');
 assert.ok(server.includes('getBatch018FairfieldEditorial(canonicalSlug)'));
 assert.ok(edges.includes("county: 'freestone'") && edges.includes("slug: 'fairfield'"));
 assert.ok(!/\b(photoUrl|imageUrl|headCoach|finalScore)\s*:/.test(fairfield), 'Unlicensed Fairfield media or unsourced final result');

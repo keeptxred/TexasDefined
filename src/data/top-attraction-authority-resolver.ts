@@ -25,6 +25,16 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
       scope: "Current parking, accessibility, ticketing and visitor-policy guidance.",
     },
     {
+      label: "Moody Gardens — Aquarium Pyramid and Coral Reef Lab",
+      url: "https://www.moodygardens.com/attractions/aquarium-pyramid",
+      scope: "First-party marine habitats, Jellyfish Gallery, animal encounters and Flower Garden Banks sanctuary conservation context.",
+    },
+    {
+      label: "Moody Gardens — Rainforest Pyramid exhibit sequence",
+      url: "https://www.moodygardens.com/attractions/rainforest-pyramid",
+      scope: "First-party canopy, Nightfall, rainforest-floor habitats, giant river otters and free-roaming birds.",
+    },
+    {
       label: "Moody Gardens — Discovery Pyramid and Galveston Children's Museum",
       url: "https://www.moodygardens.com/attractions/discovery-pyramid",
       scope: "Operator-confirmed open children's museum, upstairs location, ticket-specific admission requirements, members-only morning hour and Audience Recognition Theater.",
@@ -33,6 +43,11 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
       label: "Galveston Children's Museum — own hours and admission",
       url: "https://www.galvestoncm.org/general-info-admission",
       scope: "First-party museum-specific holiday closures, Galveston Children's Museum-only early member hour, and admission ages; not a generic pyramid schedule.",
+    },
+    {
+      label: "Galveston Children's Museum — named exhibit spaces",
+      url: "https://www.galvestoncm.org/exhibits",
+      scope: "Operator descriptions of Our Town fishing-boat and turtle-clinic play, the Room to Grow age-2-to-5 calm area, and other hands-on exhibits.",
     },
     {
       label: "Moody Gardens — accessibility",
