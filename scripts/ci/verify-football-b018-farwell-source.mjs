@@ -17,7 +17,7 @@ for (const fact of ['64–33', 'KCBD', 'https://www.fox34.com/2026/11/14/end-zon
   assert.ok(guide.includes(fact), 'Farwell missing attributed November 13 final ' + fact);
 }
 assert.ok(!guide.includes('Do not promote that title or assert a final playoff result'), 'outdated Farwell no-result wording');
-for (const fact of ['35–20', 'Associated Press', 'https://www.chron.com/sports/article/friday-s-scores-22530090.php']) {
+for (const fact of ['35–20', 'Associated Press', 'https://www.seattlepi.com/sports/friday-s-scores-a22530090']) {
   assert.ok(flatonia.includes(fact), 'Flatonia missing attributed November 13 final ' + fact);
 }
 assert.ok(!flatonia.includes('This guide therefore does not assert a school-confirmed venue, final score or price'), 'outdated Flatonia result omission');
