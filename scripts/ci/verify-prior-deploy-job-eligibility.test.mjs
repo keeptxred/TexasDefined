@@ -224,3 +224,35 @@ test('Moody asset handoff rejects wrong job, run, extra failure or a failed crit
       /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence|Moody source-verified published Worker has unexpected failure/);
   }
 });
+
+test('exact Nov14 4a67 Moody Worker qualifies only original SHA-backed assets after SSR entity normalization fix', () => {
+  const input=evidence({
+    runId:43629450047,
+    jobId:132552595374,
+    failure:'Verify Moody Gardens production authority',
+  });
+  const result=qualifyPriorDeployJob(input);
+  assert.equal(result.eligible,true);
+  assert.equal(result.mode,'exact-nov14-moody-apostrophe-original-assets-only');
+  assert.equal(result.requiredSourceSha,'9afb27020d3152c52aed3f2f3241e93330e303bf');
+  assert.equal(result.requiredWorkerVersion,'4a67cc9a-616c-4707-9097-541b8fce2138');
+  assert.equal(result.exactRun,43629450047);
+  assert.equal(result.criticalChecks,5);
+  assert.deepEqual(result.permittedFailures,['Verify Moody Gardens production authority']);
+});
+test('Moody 4a67 incident never qualifies wrong run, job, failure, or failed protected asset gates', () => {
+  const baseline={
+    runId:43629450047,jobId:132552595374,
+    failure:'Verify Moody Gardens production authority'
+  };
+  for(const mutation of [
+    {runId:43629450048},{jobId:132552595375},
+    {failure:'Verify current and previous release JS/CSS on both public origins'},
+    {failure:'Verify Moody Gardens four-viewport browser authority and layout'},
+    {additional:['Verify base production surfaces']},
+    ...required.map(omit=>({omit})),
+  ]) {
+    assert.throws(()=>qualifyPriorDeployJob(evidence({...baseline,...mutation})),
+      /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence|Exact Moody published Worker has wrong run\/job\/failed-step evidence/);
+  }
+});
