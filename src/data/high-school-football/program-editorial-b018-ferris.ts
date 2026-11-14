@@ -24,7 +24,7 @@ const FERRIS: FootballProgramEditorial = {
     'Ferris ISD’s official Jacket Nation varsity schedule lists Yellowjacket Stadium for multiple home games, while road games have different venues. The schedule labels Palmer and Mexia dates as scrimmages; they must not be presented as regular-season results.',
     'The school’s official athletics staff page identifies Tony Castillo as head football coach and lists coordinators separately. This is a school-published title, not an inferred assignment from a roster.',
     'The Ferris ISD district calendar distinguishes November 4 JV football versus Kaufman from November 5 varsity football at Kaufman. Check the correct level and current host notice.',
-    'No unverified 2026 scores, stadium street address, gate details, universal accessibility promise or copyrighted Yellowjackets photo is claimed.'
+    'Ferris’s official calendar distinguishes the November 4 junior-varsity trip to Kaufman from the November 5 varsity trip. That one-day difference is why the correct team level and host notice matter more than a generic Yellowjacket Stadium address for away games.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL football alignment', body: 'Ferris is in eleven-man Class 4A Division I District 7.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'Official UIL 2026–28 alphabetical alignment' },

@@ -23,7 +23,7 @@ const CRAWFORD: FootballProgramEditorial = {
     'Almeta Crawford High School’s campus is at 801 Caldwell Ranch Blvd., Rosharon TX 77583, telephone 281-327-6730, according to Fort Bend ISD’s 2026–27 campus directory.',
     'Fort Bend ISD reported September 1, 2026 that head coach David Jackson earned Dave Campbell’s 5A Coach of Week 1 recognition following Crawford’s 51–24 victory against La Porte. The district also describes the prior inaugural varsity team’s two-round playoff run, not a 2026 final season record.',
     'The district’s November 6 varsity schedule lists Crawford at Terry at Traylor Stadium. Do not substitute the school’s Rosharon campus as the road-game stadium.',
-    'No other unverified 2026 results, admission prices, stadium gate details, accessibility guarantees or unlicensed photos are asserted.'
+    'The documented 51–24 victory over La Porte and the November 6 trip to Terry are separate dated events. For later fixtures, compare the Fort Bend ISD varsity calendar with the actual venue notice rather than reusing an earlier score or assuming Traylor Stadium is the permanent home field.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL 5A Division II district', body: 'Fort Bend Crawford is assigned to Class 5A Division II District 11.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'UIL official 2026–28 alphabetical alignment' },

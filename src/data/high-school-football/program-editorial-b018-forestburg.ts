@@ -24,7 +24,7 @@ const FORESTBURG: FootballProgramEditorial = {
     'The school identifies Cori Hayes as athletic director on its About FISD page. That title alone does not establish a current head football coach, so no head-coach appointment is invented.',
     'The school publishes a 2026–27 athletics handbook and forms; visitors should check the actual game host for kickoff, venue, admission, parking and accessibility.',
     'A news report in October 2026 described hog damage to a junior-high practice field. This does not establish any restriction on varsity stadium access or cancellation, and no such inference is made.',
-    'No fabricated game results, off-site stadium street address, parking promise, unlicensed school photo or coach title is asserted.'
+    'Forestburg describes its six-man football complex as off campus. Request event-specific directions from the district at 940-964-2323 rather than navigating automatically to the FM 455 academic building.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL six-man football district', body: 'Forestburg is in 1A Division II six-man District 10 with Bowie Gold-Burg, Harrold, Throckmorton and Woodson.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf', sourceLabel: 'Official UIL 2026–28 six-man alignment' },

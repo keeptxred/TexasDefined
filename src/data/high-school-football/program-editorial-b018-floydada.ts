@@ -23,7 +23,7 @@ const FLOYDADA: FootballProgramEditorial = {
     'The Region 17 ESC directory lists Floydada High School at 618 S Tree St, while the 2025–26 district handbook lists 215 N White for its junior-high/high-school campus contact. Do not quietly choose a stadium entrance from these conflicting school-address references.',
     'Floydada Collegiate ISD’s February 12, 2026 board agenda includes employment of Jeff Smith as athletic director/head football coach; the current district staff page independently lists the same title. Older third-party coaching rosters naming J.R. Compton should not override that dated district evidence.',
     'The district athletics page is the appropriate first-party starting point for current varsity game notices; it lists the district office at 226 W California St, not necessarily the stadium.',
-    'No unsourced 2026 scores, field entrance, accessibility promise, copyrighted image or outdated coach attribution is claimed.'
+    'If a school notice uses 215 N White or 618 S Tree St, confirm which campus or facility it identifies. The Region 17 ESC listing and the 2025–26 district handbook describe different contacts; neither by itself establishes a Friday-night football entrance.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL football district', body: 'Floydada is in eleven-man 2A Division I District 2.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'Official UIL 2026–28 alphabetical alignment' },

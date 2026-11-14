@@ -23,7 +23,7 @@ const CLEMENTS: FootballProgramEditorial = {
     'William P. Clements High School lists 4200 Elkins Dr., Sugar Land TX 77479, telephone 281-634-2150 and principal Tara Baker. Fort Bend ISD’s campus directory writes Elkins Road; both refer to the same school contact, not an automatic stadium gate.',
     'Fort Bend ISD published an October 22, 2026 student-written feature on Clements football player Lamar Lewis, explicitly quoting head coach Bobby Darnell. This is a dated first-party coaching attribution, not a stale third-party roster.',
     'The district’s November 6 varsity calendar identifies Bush at Clements at Mercer Stadium. The named stadium is separate from the school’s Elkins Drive address; verify the host’s current ticket and access rules.',
-    'No unsupported game score, ticket price, parking guarantee, photo reuse rights or general claim that all Clements home games use the same venue is made.'
+    'The November 6 Bush–Clements varsity calendar named Mercer Stadium although Clements High’s office is on Elkins Drive. For another date or opponent, check Fort Bend ISD’s current varsity schedule rather than carrying that stadium assignment forward.'
   ],
   milestones: [
     { date: '2026–28', title: 'UIL Class 6A district', body: 'Fort Bend Clements is in Class 6A District 21.', sourceUrl: 'https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf', sourceLabel: 'UIL official 2026–28 alphabetical alignment' },
