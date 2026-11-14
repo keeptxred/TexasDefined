@@ -27,6 +27,11 @@ assert.equal(cityHours.sourceUrl, fortWorth.officialUrl, "City park listing owns
 assert.ok(fortWorth.authorityGuide.sources.some((source) => source.url === visitorBureau), "Fort Worth tourism source must be linked to readers");
 assert.ok(fortWorth.body.join(" ").includes("38 feet") && fortWorth.body.join(" ").includes("40 nozzles"), "Genuine city-published design facts must be preserved");
 const attractionRoute = read("src/routes/destination.$slug.tsx");
+const galleryBrowser = read("scripts/ci/verify-three-attractions-responsive-browser.mjs");
+assert.ok(attractionRoute.includes('<section aria-labelledby="destination-photo-archive"'), "Destination gallery must retain a labelled section landmark");
+assert.ok(galleryBrowser.includes('section[aria-labelledby="destination-photo-archive"] figure img'), "Real Chrome must locate actual labelled gallery SECTION, not the heading ID");
+assert.ok(!galleryBrowser.includes('#destination-photo-archive figure img'), "Do not regress to searching photos inside an h2 heading; this silently selects zero images");
+
 assert.ok(attractionRoute.includes("reviewedAttractionFacts") && attractionRoute.includes('data-attraction-photo-credit'), "Reviewed attraction visitor essentials and compact licensed photo credit missing");
 assert.ok(attractionRoute.includes("isHoustonBotanicRecyclingOfferActive()"), "Timed Houston Recycles notice must be time gated");
 const attractionPhotoRights = read("src/lib/reviewed-attraction-gallery-rights.ts");
