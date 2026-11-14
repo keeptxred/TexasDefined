@@ -91,6 +91,10 @@ if(!liveAcceptance.includes("Clean canonical article differs from cache-busted")
    !liveAcceptance.includes("Antones disputed Guadalupe 1981/1982 opening evidence absent"))
   fail("Production acceptance must compare every clean music SSR article to its cache-busted variants and guard Antone's 1981/1982 source correction");
 if(!deskProfile.includes('to="/editorial-policy"'))fail("Canonical author profile must link to the one centralized editorial policy");
+if(!deskProfile.includes("itemListElement: [") || deskProfile.includes("itemListElement: loaderData.articles.map"))
+  fail("Central editorial desk JSON-LD ItemList must merge published and music guides as array entries rather than numeric object properties");
+if(!dossiers.includes("garage with $400 in November 1969"))
+  fail("Corpus Christi Freddie Records archival economic context missing");
 if(!deskProfile.includes('musicHistoryEditorialArticles.map'))fail("Music author page omits its own canonical history archive");
 if(!liveAcceptance.includes('PASS editorial desk profile') || !liveAcceptance.includes('expectedArchivalFindings') || !liveAcceptance.includes('article modification date not updated'))fail("Live acceptance missing archive/byline/update provenance checks");
 if(!browserAcceptance.includes('desk byline links to one institutional profile') || !browserAcceptance.includes('at least five independently researched findings'))fail("Mobile and desktop browser acceptance missing upgraded research/byline checks");
