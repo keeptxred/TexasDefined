@@ -341,7 +341,7 @@ for (const [name, liveStep] of [
   ['destination-canonical-smoke', 'Verify canonical destination consolidation live'],
   ['cloudflare-production-smoke', 'Verify Cloudflare Workers, public DNS and production AI binding'],
   ['verify-budget-planner-browser', 'Exercise live budget calculator, privacy, persistence, export'],
-  ['verify-city-authority-browser', 'Run 11 city live Chrome checks at all 3 viewports'],
+  ['verify-city-authority-browser', 'Run 12 city live Chrome checks at all 3 viewports'],
 ]) {
   const source = workflow(name);
   requireMarker(source, 'statuses: read', `${name} must have read-only exact-commit status access`);
