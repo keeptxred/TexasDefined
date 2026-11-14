@@ -75,6 +75,7 @@ try {
             horizontalOverflow: Math.max(0, document.documentElement.scrollWidth - window.innerWidth),
             noindex: /\bnoindex\b/i.test(robot),
             genericAtGlance: [...document.querySelectorAll("h2")].some((h) => h.textContent?.includes("at a glance")),
+            redundantOneQuestionPanel: [...document.querySelectorAll("h2")].some((h) => h.textContent?.trim() === "Common visitor questions"),
             duplicateResearchPanel: Boolean(document.querySelector("#destination-research-sources")),
             datedPrimarySources: (document.querySelector("#destination-authority-sources")?.closest("section") ?? document.getElementById(alt.includes("San Antonio Japanese Tea Garden") ? "san-antonio-japanese-tea-garden-sources" : alt.includes("Fort Worth Water Gardens") ? "fort-worth-water-gardens-sources" : "houston-botanic-garden-sources")?.closest("section"))?.querySelectorAll("a[href^='https://']")?.length ?? 0,
             editorialMetaLanguage: /Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(document.body.innerText),
@@ -106,6 +107,9 @@ try {
         assert.ok(!facts.noindex, guide.slug + " " + viewport.label + " robots noindex");
         assert.ok(facts.officialSources >= 1, guide.slug + " " + viewport.label + " official references");
         assert.ok(!facts.genericAtGlance, guide.slug + " must lead with location-specific visitor decisions");
+        if (guide.slug === "san-antonio-japanese-tea-garden") {
+          assert.ok(!facts.redundantOneQuestionPanel, "Tea Garden must not repeat its 30–60 minute trip answer as a separate one-question panel");
+        }
         assert.ok(!facts.duplicateResearchPanel, guide.slug + " must not duplicate source lists");
         assert.ok(facts.datedPrimarySources >= 1, guide.slug + " must preserve original primary links and source check date");
         assert.ok(!facts.editorialMetaLanguage, guide.slug + " must not show editorial instructions");
