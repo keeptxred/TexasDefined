@@ -148,16 +148,16 @@ export const reviewedAttractionDestinations: Destination[] = [
     "entryNote": "Free public park; city lists 6 a.m.–10 p.m. daily. Swimming and wading are prohibited. Check construction advisories.",
     "highlights": [
       "Philip Johnson and John Burgee civic architecture",
-      "Active, Quiet and Aerating pools",
+      "Active, Quiet and Aerated pools",
       "Free downtown Fort Worth public park",
       "Swimming and wading prohibited"
     ],
     "body": [
       "Admission is free at Fort Worth Water Gardens, 1502 Commerce Street, beside the convention-center district. The city lists daily hours of 6 a.m.–10 p.m. Swimming and wading are prohibited. The terraces and pool edges are not a splash-play area, and visitors should check official park and construction notices before leaving.",
-      "The 1974 downtown landscape designed by Philip Johnson and John Burgee has three deliberately different water environments. The Active Pool's stepped descent surrounds a powerful cascade; the Quiet Pool emphasizes a still surface and enclosure; and the Aerating Pool uses upward-moving fountains. Comparing them is a lesson in how sound and movement change the experience of one urban block.",
+      "The 1974 downtown landscape designed by Philip Johnson and John Burgee has three deliberately different water environments. The Active Pool's stepped descent surrounds a powerful cascade; the Quiet Pool emphasizes a still surface and enclosure; and the Aerated Pool uses upward-moving fountains. Comparing them is a lesson in how sound and movement change the experience of one urban block.",
       "At the Active Pool, water falls down geometric terraces into a deep central basin. The upper rim provides a clear architectural view; descending is optional and involves stepped surfaces near moving water. Visitors worried about heights, balance or slippery footing can stay on the upper approaches.",
       "The Quiet Pool presents a contrasting still surface and a more secluded setting, with planted edges and a reflective mood. Its calmness makes the scale and noise of the Active Pool more noticeable by comparison.",
-      "The Aerating Pool brings movement back through fountain jets. Watch from the designated public paths rather than entering the water. Even a brief circuit that includes all three settings tells a fuller story than an Active Pool photo alone.",
+      "The Aerated Pool brings movement back through fountain jets. Watch from the designated public paths rather than entering the water. Even a brief circuit that includes all three settings tells a fuller story than an Active Pool photo alone.",
       "The Water Gardens opened in 1974 as part of the city's downtown civic landscape. The city's description reports roughly 19,000 gallons of water circulating per minute across the park, including about 10,500 at the Active Pool. This engineering supports the sensory effect of the architects' concrete forms.",
       "The City of Fort Worth lists an improvement project in final design with a projected 2027 completion. That schedule does not establish that the park is currently closed or that any particular route is blocked. Review the official park page and the project status before visiting, especially if construction affects access.",
       "Budget roughly 30–60 minutes for the three pools and upper viewpoints. Longer time suits architectural photography, but changing light, weather and downtown events can alter conditions. Wear secure footwear; exposed terraces can be hot in summer.",
@@ -195,7 +195,7 @@ export const reviewedAttractionDestinations: Destination[] = [
         "weatherExposure": "Fully outdoors",
         "planningLevel": "Low",
         "familyFit": "Children need close supervision around water, drops and steep steps; there is no splash-play area.",
-        "firstTimeValue": "Compare the Active, Quiet and Aerating pools from the upper walkways before choosing any stepped route."
+        "firstTimeValue": "Compare the Active, Quiet and Aerated pools from the upper walkways before choosing any stepped route."
       },
       "itineraries": [
         {
@@ -204,7 +204,7 @@ export const reviewedAttractionDestinations: Destination[] = [
           "steps": [
             "Enter from Commerce Street and remain on upper public approaches",
             "View the Active Pool's cascades from above without taking the descent",
-            "Compare the Quiet and Aerating pools wherever the current accessible path permits"
+            "Compare the Quiet and Aerated pools wherever the current accessible path permits"
           ]
         },
         {
@@ -213,7 +213,7 @@ export const reviewedAttractionDestinations: Destination[] = [
           "steps": [
             "Begin at the Active Pool's upper rim and decide whether descending is appropriate",
             "Visit the Quiet Pool to contrast still water with the Active Pool's noise",
-            "Finish at the Aerating Pool and consider a separate downtown architecture or museum outing"
+            "Finish at the Aerated Pool and consider a separate downtown architecture or museum outing"
           ]
         }
       ],
@@ -249,12 +249,12 @@ export const reviewedAttractionDestinations: Destination[] = [
       {
         "image": {
           "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Water_Gardens_June_2016_4_(Aerated_Pool).jpg?width=1280",
-          "alt": "Fountain jets across the geometric Aerating Pool at Fort Worth Water Gardens",
+          "alt": "Fountain jets across the geometric Aerated Pool at Fort Worth Water Gardens",
           "width": 1280,
           "height": 853,
           "credit": "Michael Barera · CC BY-SA 4.0 · 2016 photo, web-sized thumbnail"
         },
-        "caption": "The Aerating Pool's fountain jets in June 2016. Historical photos do not verify today's construction or fountain operations.",
+        "caption": "The Aerated Pool's fountain jets in June 2016. Historical photos do not verify today's construction or fountain operations.",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fort_Worth_Water_Gardens_June_2016_4_(Aerated_Pool).jpg"
       }
     ]
