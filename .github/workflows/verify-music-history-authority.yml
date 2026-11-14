@@ -23,6 +23,9 @@ on:
   push:
     branches: [main]
     paths:
+      - 'src/data/texas-music-city-guides.ts'
+      - 'src/data/texas-music-cities-hub.ts'
+      - 'src/routes/texas-music-cities.tsx'
       - 'src/components/editorial/TexasMusicCityGuide.tsx'
       - 'src/components/editorial/TexasMusicVenueGuide.tsx'
       - 'src/data/texas-music-venue-guides.ts'
