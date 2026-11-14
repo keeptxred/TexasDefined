@@ -8,7 +8,7 @@
  */
 export const MOODY_GARDENS_NOTICE_CACHE_WINDOW = {
   startsAt: "2026-11-13T00:00:00Z",
-  expiresAt: "2026-11-17T07:00:00Z", // one-hour release grace after CST midnight
+  expiresAt: "2026-11-18T06:00:00Z", // 24h grace after CST midnight for delayed scheduled acceptance
 } as const;
 
 export function shouldPreventMoodyGardensNoticeCaching(
