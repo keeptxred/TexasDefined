@@ -70,7 +70,21 @@ export function reconcileAubreyResults({ editorial, snapshot, primary, secondary
   const allFixtures = [...editorial.season.games, ...playoffFixtures];
   const known = new Map(allFixtures.map((row) => [row.date, row]));
   if (known.size !== allFixtures.length) throw new Error('Duplicate regular-season and postseason fixture dates');
+  // A provider's "aubrey" feed must not smuggle unrelated games, invented
+  // opponents, or an unreviewed postseason advancement into the scoreboard.
+  // Fail visibly before considering any valid rows from that response.
+  for (const [providerName, reports] of [['primary', first], ['secondary', second]]) {
+    for (const [date, report] of reports) {
+      const fixture = known.get(date);
+      if (!fixture || fixture.opponent !== report.opponent) {
+        throw new Error('Unlisted or wrong-opponent Aubrey result from ' + providerName + ': ' + date);
+      }
+    }
+  }
   const published = new Map(snapshot.verifiedResults.map((row) => [row.date, row]));
+  if (published.size !== snapshot.verifiedResults.length) {
+    throw new Error('Duplicate already-published Aubrey finals must be resolved before importing');
+  }
   const merged = [...published.values()];
   const pending = [];
   let added = 0;
