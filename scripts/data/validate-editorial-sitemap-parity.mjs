@@ -18,6 +18,14 @@ for (const attraction of reviewedRecords) {
   assert.ok(!/Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(attraction.body.join(" ")), attraction.slug + " editorial meta-language");
   assert.ok(Number.isFinite(Date.parse(attraction.sourceCheckedAt)) && Date.parse(attraction.sourceCheckedAt) >= Date.parse("2026-11-14") && Date.parse(attraction.sourceCheckedAt) <= Date.now(), attraction.slug + " requires a real verified source date, never a future or pre-audit stamp");
 }
+const fortWorth = reviewedRecords.find((item) => item.slug === "fort-worth-water-gardens");
+const visitorBureau = "https://www.fortworth.com/things-to-do/attractions/fort-worth-water-gardens/";
+const freeAdmission = fortWorth.visitorFacts.find((fact) => fact.topic === "admission");
+const cityHours = fortWorth.visitorFacts.find((fact) => fact.topic === "hours");
+assert.equal(freeAdmission.sourceUrl, visitorBureau, "Only Visit Fort Worth confirms admission is free on the cited official page");
+assert.equal(cityHours.sourceUrl, fortWorth.officialUrl, "City park listing owns verified hours and no-wading rules");
+assert.ok(fortWorth.authorityGuide.sources.some((source) => source.url === visitorBureau), "Fort Worth tourism source must be linked to readers");
+assert.ok(fortWorth.body.join(" ").includes("38 feet") && fortWorth.body.join(" ").includes("40 nozzles"), "Genuine city-published design facts must be preserved");
 const attractionRoute = read("src/routes/destination.$slug.tsx");
 assert.ok(attractionRoute.includes("reviewedAttractionFacts") && attractionRoute.includes('data-attraction-photo-credit'), "Reviewed attraction visitor essentials and compact licensed photo credit missing");
 assert.ok(attractionRoute.includes("isHoustonBotanicRecyclingOfferActive()"), "Timed Houston Recycles notice must be time gated");
