@@ -71,6 +71,9 @@ for(const view of [cityView,venueView,corpus]) {
   if(!view.includes("TexasMusicEvidenceDossier"))fail("One route family is missing researched dossier rendering");
 }
 if(!venue.includes('the venue gives 1955, while the Handbook of Texas') || !evidence.includes('1955 / 1957 (disputed)') || !dossiers.includes("the exact opening year should be marked disputed"))fail("Continental opening year must remain explicitly disputed");
+if(!venueView.includes('guide.slug === "antones-austin-history" ? "2026-11-14"') ||
+   !venueView.includes('guide.slug === "antones-austin-history" ? "November 14, 2026"'))
+  fail("Antone's modified/review dates must reflect Nov 14 source correction, not the earlier Nov 13 date");
 if(!dossiers.includes("The club dates its Guadalupe opening night to 1982") ||
    !dossiers.includes("Guadalupe Street in 1981") ||
    !dossiers.includes("September 3, 1982"))
@@ -87,7 +90,8 @@ if(!hub.includes('"/corpus-christi-music-history"')) fail("Statewide city hub om
 if(!cityView.includes('musicCitiesComparison.map') || !cityView.includes('scope="col"') || !cityView.includes('<caption')) fail("Missing accessible city-by-city comparison");
 if(!cityView.includes('musicHistoryMilestones') || !venueView.includes('musicHistoryMilestones') || !corpus.includes('musicHistoryMilestones')) fail("Unlinked evidence-based chronologies");
 for (const [label, view] of [["city",cityView],["venue",venueView],["Corpus",corpus]]) {
-  if(!view.includes('Texas Defined Editorial Desk') || !view.includes('dateModified: musicSourceReviewedAt') || !view.includes('to="/editorial-policy"')) fail("Editorial byline and structured date missing: "+label);
+  const expectedDateField = label==="venue" ? 'dateModified: reviewedAt' : 'dateModified: musicSourceReviewedAt';
+  if(!view.includes('Texas Defined Editorial Desk') || !view.includes(expectedDateField) || !view.includes('to="/editorial-policy"')) fail("Editorial byline and structured date missing: "+label);
   if(!view.includes('sourceUrl') || !view.includes('sourceLabel')) fail("Point-of-claim citation links missing: "+label);
 }
 for (const slug of ["broken-spoke-austin-history","continental-club-austin-history","antones-austin-history","billy-bobs-texas-history"]) {
