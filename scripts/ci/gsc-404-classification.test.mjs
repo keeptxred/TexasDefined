@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { classifyHistoricalGsc404, REVIEW_OUTCOMES } from './gsc-404-classification.mjs';
+import { classifyHistoricalGsc404, REVIEW_OUTCOMES, isBlockingGsc404Result } from './gsc-404-classification.mjs';
 
 const disposition = (firstStatus, finalStatus, invalidTemplate = false, error = null) =>
   classifyHistoricalGsc404({ firstStatus, finalStatus, invalidTemplate, error });
@@ -39,4 +39,14 @@ test('never collapse transport failures or server errors into a 404 signal', () 
   assert.equal(disposition(null, null, false, 'timeout'), 'transport_or_chain_problem');
   assert.equal(disposition(500, 500), 'server_error');
   assert.equal(disposition(429, 429), 'other_http_status');
+});
+
+test('one unverified template HTTP request blocks a nominal 99-path pass', () => {
+  assert.equal(isBlockingGsc404Result({ review: 'transport-review', outcome: 'transport_or_chain_problem' }), true);
+  assert.equal(isBlockingGsc404Result({ review: 'transport-review', outcome: 'expected_invalid_template' }), true);
+  assert.equal(isBlockingGsc404Result({ review: 'route-leak-regression', outcome: 'invalid_template_redirect_chain' }), true);
+  assert.equal(isBlockingGsc404Result({ review: 'canonical-regression', outcome: 'redirected_to_200' }), true);
+  assert.equal(isBlockingGsc404Result({ review: 'served-200', outcome: 'now_200' }), false);
+  assert.equal(isBlockingGsc404Result({ review: 'expected-404', outcome: 'expected_invalid_template' }), false);
+  assert.equal(isBlockingGsc404Result({ review: 'observed-response', outcome: 'server_error' }), true);
 });
