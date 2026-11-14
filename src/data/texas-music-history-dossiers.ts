@@ -1,8 +1,10 @@
 /**
- * Research findings checked against linked primary, archival and scholarly
- * sources on 2026-11-13. The "reading" fields are Texas Defined's own
- * interpretations, not quotations or claims of firsthand archival access.
- * Each source must actually substantiate its adjacent factual "record".
+ * Individually annotated research against linked primary, archival and
+ * scholarly sources. Per-page research review dates are maintained in
+ * texas-music-history-evidence.ts and must not be inferred from deployment.
+ * The "reading" fields are independent interpretations, not quotations or
+ * claims that Texas Defined personally inspected every archival object.
+ * Each linked source must substantiate its adjacent factual "record".
  */
 export type MusicResearchFinding = {
   heading: string;
