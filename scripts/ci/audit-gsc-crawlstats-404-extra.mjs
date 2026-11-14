@@ -12,6 +12,7 @@ const outDir = process.env.TD_GSC_CRAWLSTATS_OUT || 'artifacts/gsc-crawlstats-40
 const raw = await readFile('ops/seo/gsc-crawlstats-404-extra-2026-10-31-paths.txt', 'utf8');
 const old = await readFile('ops/seo/gsc-404-2026-11-13-paths.txt', 'utf8');
 const paths = parseSupplementalPaths(raw, old);
+const enforcePublishedCanonical = process.env.TD_GSC_CRAWLSTATS_REQUIRE_PUBLISHED_CANONICAL === 'true';
 const timeoutMs = 15000;
 const maxRedirects = 5;
 const concurrency = 3;
@@ -106,7 +107,7 @@ async function inspect(sourcePath) {
   const finalUrl = hops.at(-1)?.url ?? null;
   const disposition = classifySupplementalResponse({
     path: sourcePath, firstStatus, finalStatus, finalUrl,
-    canonical, robots, contentType, error,
+    canonical, robots, contentType, enforcePublishedCanonical, error,
   });
   return {
     path: sourcePath, firstStatus, finalStatus, finalUrl,
