@@ -35,11 +35,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check 42-path live audit and policy JavaScript syntax
+        run: |
+          node --check scripts/ci/audit-gsc-crawlstats-404-extra.mjs
+          node --check scripts/ci/gsc-crawlstats-404-extra-policy.mjs
       - name: Test immutable source partition and HTTP classification contract
         run: node --test scripts/ci/gsc-crawlstats-404-extra-policy.test.mjs
 
   audit:
-    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')) }}
+    # Audit public live HTTP against proposed read-only verifier before merge, too.
+    # A PR audit is OBSERVATION ONLY, never protected production certification.
+    # Genuine detected failures remain failures and retain artifact evidence.
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
