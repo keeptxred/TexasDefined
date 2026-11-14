@@ -19,11 +19,23 @@ const selected = config.groups.filter(group =>
   process.argv.includes("--all") || group.runUtcWeekdays.includes(nowDay.getUTCDay()));
 const issues = [];
 const rows = [];
+// These are changes that materially affect permit eligibility, playoff travel
+// or permitted tailgate footprint. A generic HTTP 200 must never override them.
+const requiredMaterialWatch = {
+  "/hunting": ["TPWD APH access", "TPWD regular daily hunt"],
+  "/sports/friday-night-lights": ["UIL 2026 schedule", "UIL division qualification", "UIL championship schedule"],
+  "/texas-tailgating-guide": ["AT&T Stadium parking"],
+};
 for (const group of config.groups) {
   const content = await readFile(tasks[group.path], "utf8");
   assert.ok(group.id && group.maxReviewAgeDays >= 1 && group.maxReviewAgeDays <= 90);
   assert.ok(Array.isArray(group.runUtcWeekdays) && group.runUtcWeekdays.length > 0);
   assert.ok(Array.isArray(group.officialSources) && group.officialSources.length > 0);
+  for (const name of requiredMaterialWatch[group.path] || []) {
+    const source = group.officialSources.find(item => item.name === name);
+    assert.ok(source?.watchFacts?.length >= 2,
+      group.path + ": material official-source watch absent for " + name);
+  }
   assert.ok(Array.isArray(group.requiredLiveMarkers) && group.requiredLiveMarkers.length > 0);
   for (const marker of group.requiredLiveMarkers)
     assert.ok(content.includes(marker), group.path + ": required content absent from source: " + marker);
