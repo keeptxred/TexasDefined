@@ -78,6 +78,26 @@ function TexasTailgatingGuide() {
         <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">Small group in College Station</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">A&M distinguishes reserved and open-access locations. Decide whether you need a reserved area before bringing a tent or cooking equipment; if you do not have a verified site, plan around approved open-access fan activity instead of assuming an ordinary vehicle space includes a tailgate footprint. Check Kyle Field's gate and bag rules separately.</p><a href="https://12thman.com/tailgating/rules" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">Check Aggieland's location-specific rules ↗</a></article>
         <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">Away fans considering an RV</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Do not buy an oversized vehicle or ordinary parking pass and assume it conveys RV tailgating rights. Baylor and TCU publish distinct RV arrangements; check the actual university and game-specific inventory, vehicle dimensions, access window, and postgame departure rule before reserving a rental.</p><a href="https://baylorbears.com/sports/2019/8/23/football-directions-parking" target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline">Baylor official game-day parking ↗</a></article>
       </div>
+      <figure className="mt-9 max-w-4xl border border-border bg-surface p-5 sm:p-7" aria-labelledby="arlington-footprint-title">
+        <h3 id="arlington-footprint-title" className="font-display text-2xl">Why the canopy size matters in Arlington</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">Compare a maximum permitted 9-by-12-foot tailgating area with a typical fully opened 10-by-10-foot canopy. The canopy is wider than the permitted space even though it covers fewer total square feet. Check the actual equipment dimensions and designated lot before packing.</p>
+        <svg className="mt-5 h-auto w-full max-w-xl" viewBox="0 0 520 320" role="img" aria-labelledby="arlington-tailgate-diagram-title arlington-tailgate-diagram-desc">
+          <title id="arlington-tailgate-diagram-title">Arlington nine-foot tailgate width compared with ten-foot canopy</title>
+          <desc id="arlington-tailgate-diagram-desc">Scaled rectangles compare a 9-foot-wide, 12-foot-deep permitted tailgate area with a separate 10-by-10-foot canopy. The canopy is one foot too wide to fit across the nine-foot permitted width. These are dimensions only, not a stadium parking map.</desc>
+          <text x="32" y="28" fontSize="15" fontWeight="600" fill="currentColor">Maximum tailgate footprint</text>
+          <rect x="46" y="55" width="144" height="192" stroke="currentColor" strokeWidth="3" fill="none" />
+          <text x="118" y="82" fontSize="15" textAnchor="middle" fill="currentColor">9 ft wide</text>
+          <text x="118" y="109" fontSize="13" textAnchor="middle" fill="currentColor">12 ft deep</text>
+          <text x="274" y="28" fontSize="15" fontWeight="600" fill="currentColor">10 ft canopy</text>
+          <rect x="284" y="55" width="160" height="160" stroke="currentColor" strokeWidth="3" strokeDasharray="9 6" fill="none" />
+          <text x="364" y="82" fontSize="15" textAnchor="middle" fill="currentColor">10 ft wide</text>
+          <text x="364" y="109" fontSize="13" textAnchor="middle" fill="currentColor">10 ft deep</text>
+          <line x1="190" y1="260" x2="284" y2="260" stroke="currentColor" strokeWidth="2" />
+          <text x="237" y="283" fontSize="14" textAnchor="middle" fill="currentColor">1 ft wider</text>
+          <text x="46" y="311" fontSize="12" fill="currentColor">Schematic comparing dimensions, not a stadium lot map</text>
+        </svg>
+        <figcaption className="mt-3 max-w-3xl text-xs leading-6 text-muted-foreground">Original TexasDefined dimensional diagram based on <a href="https://attstadium.com/stadium-info/parking/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">AT&amp;T Stadium's parking and tailgating rules ↗</a>. It does not identify an available space, prove a particular event permits tailgating, or show the actual layout of a parking lot.</figcaption>
+      </figure>
       <p className="mt-6 text-xs leading-6 text-muted-foreground">Method: identify the purchased permission first, then allowed setup footprint, then entry and food safety. No estimated travel times, permit prices or access guarantees are inferred. Venue links and restrictions are part of the scheduled five-hub source review.</p>
     </Container></section>
 
