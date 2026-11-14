@@ -34,7 +34,8 @@ test('historical 404 policy only covers the exact supplied 99 URLs and is not bl
   for (const path of Object.keys(LIVE_VERIFIED_GSC_CANONICAL_PATHS)) {
     assert.ok(inventory.includes(path), 'Live source outside historical GSC inventory: ' + path);
     assert.ok(!explicit.has(path), 'Canonical ledger overlaps intentional or restored paths: ' + path);
-    assert.ok(!path.includes('
+    assert.ok(!path.includes(String.fromCharCode(36)), 'A route-template token cannot be a live verified path: ' + path);
+  }
   for (const path of explicit) assert.ok(inventory.includes(path), 'Policy refers to a URL not in 99-path inventory: ' + path);
   for (const path of RESTORE_REQUIRED_GSC_PATHS) {
     assert.ok(!intentionalPaths.includes(path), 'Same path cannot be must-restore and intentionally missing');
