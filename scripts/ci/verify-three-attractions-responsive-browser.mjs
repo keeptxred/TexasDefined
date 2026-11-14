@@ -21,6 +21,7 @@ const guides = [
 const viewports = [
   { label: "desktop", width: 1365, height: 864, mobile: false },
   { label: "mobile", width: 390, height: 844, mobile: true },
+  { label: "narrow-mobile", width: 320, height: 740, mobile: true },
 ];
 const artifactDir = "artifacts/three-attraction-browser";
 await mkdir(artifactDir, { recursive: true });
@@ -72,6 +73,20 @@ try {
             imageVisible: Boolean(imageBox && imageBox.width > 100 && imageBox.height > 100),
             horizontalOverflow: Math.max(0, document.documentElement.scrollWidth - window.innerWidth),
             noindex: /\bnoindex\b/i.test(robot),
+            genericAtGlance: [...document.querySelectorAll("h2")].some((h) => h.textContent?.includes("at a glance")),
+            editorialMetaLanguage: /Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(document.body.innerText),
+            photoCredit: (() => {
+              const el = document.querySelector("[data-attraction-photo-credit]");
+              const box = el?.getBoundingClientRect();
+              return {
+                visible: Boolean(box && box.height > 0 && box.width > 100),
+                clipped: Boolean(el && el.scrollWidth > el.clientWidth + 8),
+                links: [...(el?.querySelectorAll("a") || [])].map((a) => a.href),
+                text: el?.textContent?.trim() ?? "",
+              };
+            })(),
+            offerVisible: Boolean(document.querySelector("[data-hbg-recycles-offer]")),
+            pageText: document.body.innerText,
             officialSources: [...document.querySelectorAll('a[href^="https://"]')].filter((a) =>
               /official|source|visitor/i.test(a.textContent || "")).length,
           };
@@ -87,6 +102,19 @@ try {
         assert.ok(facts.horizontalOverflow <= 8, guide.slug + " " + viewport.label + " overflow " + facts.horizontalOverflow);
         assert.ok(!facts.noindex, guide.slug + " " + viewport.label + " robots noindex");
         assert.ok(facts.officialSources >= 1, guide.slug + " " + viewport.label + " official references");
+        assert.ok(!facts.genericAtGlance, guide.slug + " must lead with location-specific visitor decisions");
+        assert.ok(!facts.editorialMetaLanguage, guide.slug + " must not show editorial instructions");
+        assert.ok(facts.photoCredit.visible && !facts.photoCredit.clipped, guide.slug + " photo credit legibility at " + viewport.width + "px");
+        assert.equal(facts.photoCredit.links.length, 2, guide.slug + " exact photograph source and license link");
+        assert.ok(facts.photoCredit.links[0].startsWith("https://commons.wikimedia.org/wiki/File:"), guide.slug + " original Commons attribution");
+        assert.ok(facts.photoCredit.links[1].startsWith("https://creativecommons.org/"), guide.slug + " exact reuse license");
+        if (guide.slug === "houston-botanic-garden") {
+          const now = Date.now();
+          const isOfferActive = now >= Date.parse("2026-11-13T06:00:00Z") && now < Date.parse("2026-11-16T06:00:00Z");
+          assert.equal(facts.offerVisible, isOfferActive, "Houston Nov. 13–15 offer must expire with its official validity");
+          if (isOfferActive) assert.ok(facts.pageText.includes("one plastic bag or bottle") && facts.pageText.includes("per person"), "Houston offer eligibility");
+          assert.ok(facts.pageText.includes("New Year's Day"), "Houston official holiday closure");
+        }
         assert.deepEqual(pageErrors, [], guide.slug + " " + viewport.label + " client errors");
         await page.screenshot({ path: artifactDir + "/" + guide.slug + "-" + viewport.label + ".png", fullPage: false });
         console.log("PASS attraction Chrome", guide.slug, viewport.label, JSON.stringify(facts));
