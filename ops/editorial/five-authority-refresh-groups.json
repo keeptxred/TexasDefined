@@ -99,7 +99,7 @@
       ],
       "maxReviewAgeDays": 7,
       "lastFactReviewAt": "2026-11-14",
-      "lastFactReviewScope": "UIL verified season/bracket source; NCAA FBS, RODEOHOUSTON and COTA official calendars; NBA official schedule linked but current games not replicated. More specific team/venue sources required for live articles.",
+      "lastFactReviewScope": "UIL verified season/bracket source; NCAA FBS, RODEOHOUSTON and COTA official calendars; NBA official schedule linked but current games not replicated. More specific team/venue sources required for live articles. New November 14 independently sourced cross-sport current analysis registered as a publish-date-locked lead and reviewed by the same refresh group.",
       "requiredLiveMarkers": [
         "Find the authoritative schedule, then plan the trip",
         "Choose the sport first"
@@ -137,7 +137,14 @@
             "Calendar"
           ]
         }
-      ]
+      ],
+      "currentEditorialArticle": {
+        "slug": "texas-sports-weekend-calendar-guide",
+        "publishedAt": "2026-11-14",
+        "maxLeadAgeDays": 35,
+        "sourceReviewRule": "The article is only a fresh sports lead for its first 35 days; do not silently re-date. Archive afterward and require a newer independently sourced article.",
+        "expectedLiveTitle": "Texas Sports Weekends: The Calendar Check Before You Buy Tickets"
+      }
     },
     {
       "id": "football-postseason",
