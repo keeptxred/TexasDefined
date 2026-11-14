@@ -54,7 +54,7 @@ test('all publicly advertised XML sitemaps and children of the canonical index a
     assert.ok(robots.includes('Sitemap: https://texasdefined.com' + path),
       'A publicly advertised XML sitemap is absent from robots.txt: ' + path);
   }
-  const robotsXml = [...robots.matchAll(/^Sitemap: https:\/\/texasdefined\.com(\/sitemap[^\s]+\.xml)$/gm)]
+  const robotsXml = [...robots.matchAll(/^Sitemap: https:\/\/texasdefined\.com(\/sitemap(?:-[^\s]+)?\.xml)$/gm)]
     .map((match) => match[1]).sort();
   assert.deepEqual(robotsXml, GSC_SITEMAP_SEEDS.slice().sort(),
     'All canonical XML sitemap entries in robots.txt require audit coverage');
