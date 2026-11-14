@@ -43,3 +43,23 @@ test('Apple association JSON is not an HTML page requiring rel canonical', () =>
     finalUrl:'https://texasdefined.com/apple-app-site-association', contentType:'application/json',
   }), { review:'valid-apple-association-resource', blocking:false });
 });
+
+test('published active Seminole Canyon indexability becomes a blocking regression only after protected release', () => {
+  const prior = {
+    path:'/destination/seminole-canyon-state-park-and-historic-site',
+    firstStatus:301, finalStatus:200,
+    finalUrl:'https://texasdefined.com/destination/seminole-canyon-state-park',
+    canonical:'https://texasdefined.com/destination/seminole-canyon-state-park',
+    robots:'robots: noindex, follow; googlebot: noindex, follow',
+  };
+  assert.deepEqual(classifySupplementalResponse(prior),{review:'google-indexability-review',blocking:false});
+  assert.deepEqual(classifySupplementalResponse({...prior,enforcePublishedCanonical:true}),{review:'seminole-indexability-regression',blocking:true});
+  assert.deepEqual(classifySupplementalResponse({...prior,robots:'robots: index, follow',enforcePublishedCanonical:true}),{review:'valid-canonical-redirect',blocking:false});
+  const licensedPhotoPending = { ...prior, path:'/destination/lipantitlan-state-historic-site', finalUrl:'https://texasdefined.com/destination/lipantitlan', canonical:'https://texasdefined.com/destination/lipantitlan', enforcePublishedCanonical:true };
+  assert.deepEqual(classifySupplementalResponse(licensedPhotoPending),{review:'rights-restricted-exact-site-noindex',blocking:false});
+});
+
+test('missing optional Apple association resource is a benign non-HTML 404, not a new Google page defect',()=> {
+  assert.deepEqual(classifySupplementalResponse({path:'/apple-app-site-association',firstStatus:404,finalStatus:404}),{review:'optional-app-association-absent',blocking:false});
+  assert.deepEqual(classifySupplementalResponse({path:'/apple-app-site-association',firstStatus:503,finalStatus:503}),{review:'server-error',blocking:true});
+});

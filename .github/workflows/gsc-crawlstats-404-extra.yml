@@ -85,6 +85,11 @@ jobs:
         run: node --test scripts/ci/gsc-crawlstats-404-extra-policy.test.mjs
 
       - name: Recheck 42 supplemental historical Crawl stats paths read-only
+        env:
+          # On PRs, current production is still the predecessor, so inspection
+          # remains observational. A post-successful protected deploy or weekly
+          # main run MUST reject another noindex on reviewed Seminole canonical.
+          TD_GSC_CRAWLSTATS_REQUIRE_PUBLISHED_CANONICAL: ${{ github.event_name != 'pull_request' }}
         run: node scripts/ci/audit-gsc-crawlstats-404-extra.mjs
 
       - name: Preserve complete HTTP evidence regardless of audit result

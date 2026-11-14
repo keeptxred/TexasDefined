@@ -40,7 +40,7 @@ function sameCleanCanonical(url, expected) {
 /** Never blindly restore a closed park, deleted store item or invalid route.
  * HTTP404 cases require source-backed editorial review, not automatic 301s.
  */
-export function classifySupplementalResponse({ path, firstStatus, finalStatus, finalUrl, canonical, robots = '', contentType = '', error }) {
+export function classifySupplementalResponse({ path, firstStatus, finalStatus, finalUrl, canonical, robots = '', contentType = '', enforcePublishedCanonical = false, error }) {
   if (error) return { review: 'transport-or-redirect-review', blocking: true };
   if (firstStatus == null || finalStatus == null) return { review: 'missing-http-evidence', blocking: true };
   if (firstStatus >= 500 || finalStatus >= 500) return { review: 'server-error', blocking: true };
@@ -48,6 +48,11 @@ export function classifySupplementalResponse({ path, firstStatus, finalStatus, f
     return { review: 'redirect-to-missing', blocking: true };
   if (isLiteralRouteLeak(path))
     return { review: firstStatus === 404 || firstStatus === 410 ? 'correct-invalid-route-404' : 'route-template-leak', blocking: firstStatus !== 404 && firstStatus !== 410 };
+  // Apple association is a machine-readable app feature, not an indexable HTML
+  // authority page. Without an associated app deployment an HTTP404 is an
+  // acceptable observed absence. Still fail real server errors above.
+  if (path === '/apple-app-site-association' && (firstStatus === 404 || firstStatus === 410) && firstStatus === finalStatus)
+    return { review: 'optional-app-association-absent', blocking: false };
   if (finalStatus === 404 || finalStatus === 410)
     return { review: 'currently-missing-editorial-review', blocking: false };
   if (finalStatus === 200) {
@@ -58,7 +63,19 @@ export function classifySupplementalResponse({ path, firstStatus, finalStatus, f
     if (url.pathname === '/' && path !== '/') return { review: 'generic-homepage-soft404-risk', blocking: true };
     const content = canonical?.trim();
     if (!sameCleanCanonical(content, url.href)) return { review: 'missing-or-mismatched-final-canonical', blocking: true };
-    if (/\bnoindex\b/i.test(robots || '')) return { review: 'google-indexability-review', blocking: false };
+    if (/\bnoindex\b/i.test(robots || '')) {
+      // Exact Lipantitlán site photography remains unlicensed under
+      // docs/historic-sites/IMAGE_PROVENANCE.md. Deliberately keep the researched
+      // reference out of public indexing rather than invent photo rights.
+      if (path === '/destination/lipantitlan-state-historic-site' && url.pathname === '/destination/lipantitlan')
+        return { review: 'rights-restricted-exact-site-noindex', blocking: false };
+      // Historical alias maps to source-verified, active TPWD visitor page.
+      // Only enforce after a protected release; PR checks against still-old
+      // production must remain observational, never require unshipped code.
+      if (enforcePublishedCanonical && path === '/destination/seminole-canyon-state-park-and-historic-site')
+        return { review: 'seminole-indexability-regression', blocking: true };
+      return { review: 'google-indexability-review', blocking: false };
+    }
     return { review: firstStatus >= 300 && firstStatus < 400 ? 'valid-canonical-redirect' : 'served-self-canonical-200', blocking: false };
   }
   return { review: 'unexpected-http-response', blocking: true };
