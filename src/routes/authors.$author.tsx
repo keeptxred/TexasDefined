@@ -10,6 +10,23 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
+/** Static evergreen music-history essays share the institutional desk byline.
+ * They do not enter the remote published-article feed and must be linked here
+ * rather than displaying a misleading empty author archive.
+ */
+const musicHistoryEditorialArticles = [
+  { href: "/broken-spoke-austin-history", name: "Broken Spoke: Austin dance-hall history" },
+  { href: "/continental-club-austin-history", name: "Continental Club: South Congress history" },
+  { href: "/antones-austin-history", name: "Antone's: Austin blues history" },
+  { href: "/billy-bobs-texas-history", name: "Billy Bob's Texas: Stockyards history" },
+  { href: "/texas-music-cities", name: "Texas Music Cities: six-scene comparison" },
+  { href: "/austin-music-history", name: "Austin music history" },
+  { href: "/houston-music-history", name: "Houston music history" },
+  { href: "/san-antonio-music-history", name: "San Antonio music history" },
+  { href: "/corpus-christi-music-history", name: "Corpus Christi music history" },
+  { href: "/lubbock-music-history", name: "Lubbock music history" },
+] as const;
+
 export const Route = createFileRoute("/authors/$author")({
   loader: async ({ context, params }) => {
     const [authors, articles, remoteEvergreen] = await Promise.all([
@@ -63,12 +80,16 @@ export const Route = createFileRoute("/authors/$author")({
             "@type": "ItemList",
             "@id": `${url}#articles`,
             name: `Stories from ${loaderData.author.name}`,
-            numberOfItems: loaderData.articles.length,
+            numberOfItems: loaderData.articles.length + (params.author === "a-hollis" ? musicHistoryEditorialArticles.length : 0),
             itemListElement: loaderData.articles.map((article, index) => ({
               "@type": "ListItem",
               position: index + 1,
               item: { "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}` },
             })),
+              ...(params.author === "a-hollis" ? musicHistoryEditorialArticles.map((article, index) => ({
+                "@type": "ListItem", position: loaderData.articles.length + index + 1,
+                item: { "@type": "Article", name: article.name, url: `${siteUrl}${article.href}` },
+              })) : []),
           },
           {
             "@type": "BreadcrumbList",
@@ -97,10 +118,18 @@ function AuthorPage() {
         <h1 className="mt-4 font-display text-5xl leading-[0.98] sm:text-7xl">{author.name}</h1>
         <p className="eyebrow mt-5 text-muted-foreground">{author.role}</p>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{author.bio}</p>
-        <p className="mt-6 max-w-2xl text-sm leading-7 text-muted-foreground">This is an institutional Texas Defined byline, not a fictional individual. It identifies the editorial desk responsible for the published work. Editorial and sourcing principles are described on the <Link to="/about" className="border-b border-primary text-primary">About Texas Defined</Link> page.</p>
+        <p className="mt-6 max-w-2xl text-sm leading-7 text-muted-foreground">This is an institutional Texas Defined byline, not a fictional individual. It identifies the editorial desk responsible for the published work. Read the <Link to="/editorial-policy" className="border-b border-primary text-primary">Editorial Policy</Link> for centralized sourcing, review, AI-assisted-workflow, independence, and correction standards. These are not repeated on every article.</p>
       </Container>
     </section>
 
+    {author.id === "a-hollis" ? <Section>
+      <Container>
+        <SectionHeader eyebrow="Texas music history" title="Music history and venue research" description="Ten historical features are published under this desk byline. Each article contains its own source trail and independent interpretation; the editorial policy is maintained here rather than repeated on each article." />
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+          {musicHistoryEditorialArticles.map((item) => <li key={item.href} className="border-t border-border py-4"><Link to={item.href} className="text-base font-semibold text-primary underline underline-offset-4">{item.name}</Link></li>)}
+        </ul>
+      </Container>
+    </Section> : null}
     <Section>
       <Container>
         <SectionHeader eyebrow="Editorial archive" title={`Stories from ${author.name}`} description={`${articles.length.toLocaleString("en-US")} published ${articles.length === 1 ? "story" : "stories"} currently carry this desk byline.`} />
