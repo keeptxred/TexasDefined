@@ -80,6 +80,11 @@ export const congressAvenueBatDestination: Destination = {
       {
         "name": "South Congress and Lady Bird Lake",
         "description": "The bat colony sits at the junction of downtown and the South Congress walking corridor."
+      },
+      {
+        "name": "Travis County visitor places",
+        "description": "Browse the official-source-backed county visitor directory and other nearby Texas Defined destination guides; this list is unranked.",
+        "href": "/browse/counties#county-travis"
       }
     ],
     "familyStops": [
