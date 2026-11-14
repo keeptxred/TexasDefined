@@ -35,3 +35,21 @@ export const REVIEW_OUTCOMES = Object.freeze(new Set([
   'transport_or_chain_problem',
   'other_http_status',
 ]));
+
+/** Every unverified response, including a single literal-router-token timeout,
+ * must fail the 99-path protected audit. Preserve per-path evidence artifacts.
+ */
+export const BLOCKING_GSC_REVIEW_STATES = Object.freeze(new Set([
+  'restore-regression',
+  'canonical-regression',
+  'route-leak-regression',
+  'policy-regression',
+  'redirect-to-missing',
+  'transport-review',
+]));
+
+export function isBlockingGsc404Result(result) {
+  return BLOCKING_GSC_REVIEW_STATES.has(result.review)
+    || result.outcome === 'server_error'
+    || result.outcome === 'transport_or_chain_problem';
+}
