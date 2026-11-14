@@ -57,13 +57,14 @@ test("Worker HTML response processing is actually wired to the cache policy", ()
   assert.match(entry, /const cacheSafeResponse = applyMoodyGardensNoticeCachePolicy\(request,/);
 });
 
-test("post-expiry scheduled check verifies the ordinary public page and deduplicates alerts", () => {
+test("scheduled Nov 14-17 checks verify active/expired ordinary HTML and deduplicate alerts", () => {
   const workflow = readFileSync(".github/workflows/check-moody-gardens-authority.yml", "utf8");
   const acceptance = readFileSync("scripts/production/verify-moody-gardens-production.mjs", "utf8");
+  assert.match(workflow, /cron: "10 14 14-16 11 \*"/);
   assert.match(workflow, /cron: "30 6 17 11 \*"/);
   assert.match(workflow, /Nov\. 16 advisory expires/);
-  assert.match(workflow, /id: expiry/);
-  assert.match(workflow, /steps\.expiry\.outcome == 'failure'/);
+  assert.match(workflow, /id: live_notice/);
+  assert.match(workflow, /steps\.live_notice\.outcome == 'failure'/);
   assert.match(workflow, /node scripts\/production\/verify-moody-gardens-production\.mjs/);
   assert.match(acceptance, /const ordinary = await fetch\(rawUrl/);
   assert.match(acceptance, /ordinaryNoticeCorrect = earlyClosingNoticeActive/);
