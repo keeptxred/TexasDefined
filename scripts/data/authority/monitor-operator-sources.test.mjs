@@ -54,13 +54,18 @@ test("three approved attraction sources are monitored from real canonical record
   const { readFile } = await import("node:fs/promises");
   const source = await readFile(new URL("../../../src/data/reviewed-attraction-authorities.ts", import.meta.url), "utf8");
   const records = reviewedAttractionMonitorRows(source);
-  assert.equal(records.length, 8, "Three attraction visits, San Antonio official history, Houston FAQ, collections, About and dated Texas Recycles terms");
+  assert.equal(records.length, 10, "Three attraction visits, San Antonio municipal history, Fort Worth city project and design history, Houston FAQ, collections, About and dated Texas Recycles terms");
   assert.deepEqual([...new Set(records.map((r) => r.id))].sort(), [
     "fort-worth-water-gardens", "houston-botanic-garden", "san-antonio-japanese-tea-garden",
   ]);
   assert.ok(records.some((r) => r.id === "houston-botanic-garden" && r.sourceUrl === "https://hbg.org/about/questions/"),
     "Infant ticketing, timed admission, parking, accessibility and visitor rules must be checked at their primary FAQ source");
   assert.ok(records.some((r) => r.id === "san-antonio-japanese-tea-garden" && r.sourceUrl === "https://www.sa.gov/Directory/Departments/Parks/Parks-Facilities/Buildings-Centers/Japanese-Tea-Garden"), "City history / Jingu wartime context needs official-source change tracking");
+  for (const sourceUrl of [
+    "https://www.fortworthtexas.gov/projects/pard-projects/pard-water-gardens",
+    "https://www.tclf.org/landscapes/fort-worth-water-garden",
+  ]) assert.ok(records.some((r) => r.id === "fort-worth-water-gardens" && r.sourceUrl === sourceUrl),
+    "Fort Worth source-backed construction and historic design references require change monitoring: " + sourceUrl);
   for (const official of [
     "https://hbg.org/gardens/",
     "https://hbg.org/about/",
