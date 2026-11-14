@@ -108,6 +108,19 @@ export const reviewedAttractionDestinations: Destination[] = [
         "sourceUrl": "https://saparks.org/japanese-tea-garden/",
         "checkedAt": "2026-11-14"
       }
+    ],
+    "gallery": [
+      {
+        "image": {
+          "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bridge_to_the_Falls.jpg?width=1280",
+          "alt": "Arched stone bridges over a pond leading toward the waterfall at San Antonio Japanese Tea Garden",
+          "width": 1280,
+          "height": 1293,
+          "credit": "Corey Leopold · CC BY 2.0 · 2021 photo, web-sized thumbnail"
+        },
+        "caption": "Bridges and waterfall approach in October 2021. The lower paths have stairs and this image does not document a step-free route.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bridge_to_the_Falls.jpg"
+      }
     ]
   },
   {
@@ -219,6 +232,30 @@ export const reviewedAttractionDestinations: Destination[] = [
         "detail": "Free public park; city lists 6 a.m.–10 p.m. daily. Swimming and wading are prohibited. Check construction advisories.",
         "sourceUrl": "https://www.fortworthtexas.gov/departments/parks/parks-and-trails/fort-worth-water-gardens",
         "checkedAt": "2026-11-14"
+      }
+    ],
+    "gallery": [
+      {
+        "image": {
+          "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Water_Gardens_June_2016_2_(Quiet_Pool).jpg?width=1280",
+          "alt": "Still rectangular Quiet Pool with concrete terraces and trees at Fort Worth Water Gardens",
+          "width": 1280,
+          "height": 853,
+          "credit": "Michael Barera · CC BY-SA 4.0 · 2016 photo, web-sized thumbnail"
+        },
+        "caption": "The Quiet Pool photographed in June 2016; its reflective water and enclosed form contrast with the Active Pool.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fort_Worth_Water_Gardens_June_2016_2_(Quiet_Pool).jpg"
+      },
+      {
+        "image": {
+          "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Water_Gardens_June_2016_4_(Aerated_Pool).jpg?width=1280",
+          "alt": "Fountain jets across the geometric Aerating Pool at Fort Worth Water Gardens",
+          "width": 1280,
+          "height": 853,
+          "credit": "Michael Barera · CC BY-SA 4.0 · 2016 photo, web-sized thumbnail"
+        },
+        "caption": "The Aerating Pool's fountain jets in June 2016. Historical photos do not verify today's construction or fountain operations.",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fort_Worth_Water_Gardens_June_2016_4_(Aerated_Pool).jpg"
       }
     ]
   },
