@@ -155,12 +155,12 @@ if (process.argv.includes("--production")) {
         // Inspect plain visible HTML rather than scripts, embedded JSON or stale
         // page metadata. A missing material claim is an editorial escalation,
         // not permission to silently rewrite a source-review timestamp.
-        const plainText = body.replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, " ")
-          .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, " ")
+        const plainText = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+          .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
           .replace(/<!--[^]*?-->/g, " ").replace(/<[^>]+>/g, " ")
           .replace(/&amp;/gi, "&").replace(/&nbsp;/gi, " ")
-          .replace(/&#(\\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-          .replace(/\\s+/g, " ").toLowerCase();
+          .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+          .replace(/\s+/g, " ").toLowerCase();
         for (const fact of source.watchFacts)
           assert.ok(plainText.includes(fact.toLowerCase()),
             "Material published rule not found in official source: " + fact);
