@@ -326,7 +326,7 @@ export const reviewedAttractionDestinations: Destination[] = [
       "The Coastal Prairie features native Gulf Coast plants, including grasses and seasonal wildflowers. Its appearance changes with rainfall, growing seasons and maintenance; visitors interested in habitat restoration and pollinators will find a different experience from the formal collections.",
       "The Stormwater Wetlands demonstrate the role of planted wetland systems in handling runoff and supporting habitat. Nearby Sims Bayou and the garden's former golf-course terrain give this section practical Houston-specific context.",
       "The Susan Garver Family Discovery Garden includes features designed for younger visitors. Check current garden notices for operating play and water features; activities and staffing vary.",
-      "The garden's published Gardens & Collections directory also lists the Woodland Glade, Community Garden, Pine Grove and Picnic Grove. Consult the current garden map before choosing a route between The Island and the South Gardens.",
+      "The garden's Gardens & Collections directory lists the Woodland Glade, Community Garden, Pine Grove and Picnic Grove. Visitors looking for a particular tree, flowering plant or accessible stopping point can also use the Garden's official interactive Garden Explorer to search the living collection by plant name, browse mapped gardens and look up waypoints such as benches. Check the current visitor map before deciding how to move between The Island and the South Gardens.",
       "Timed tickets allow entry during their indicated hour; for an arrival more than one hour later, the FAQ says to ask the ticket window for an exchange to the current entry period. The garden encourages advance online purchase and operates cashlessly. Standard daytime tickets do not automatically include separately ticketed evening or seasonal experiences.",
       "The entrance is at One Botanic Lane off Park Place Boulevard, east of I-45 South. For navigation, the operator recommends 8210 Park Place Boulevard as the drive approach. Daytime on-site parking is free on a first-come basis, not a reserved space.",
       "METRO Route 005-Southmore serves Park Place Boulevard; check the current schedule and stops before traveling. Pedestrians and cyclists use the Park Place Boulevard entrance and its bridge. The Sims Bayou Greenway does not provide direct entry into the South Gardens; bicycle racks are available at the Garden.",
@@ -354,6 +354,11 @@ export const reviewedAttractionDestinations: Destination[] = [
         "question": "How long should I plan to stay?",
         "answer": "The operator estimates a typical visit at 1.5–2 hours.",
         "sourceUrl": "https://hbg.org/about/questions/"
+      },
+      {
+        "question": "Can I find a particular plant or garden before my visit?",
+        "answer": "Yes. The official Garden Explorer lets visitors browse the living collection, search for named plants and see mapped gardens and waypoints. Confirm the day's route and any closures at the garden.",
+        "sourceUrl": "https://hbg.gardenexplorer.org/"
       }
     ],
     "authorityGuide": {
@@ -411,6 +416,11 @@ export const reviewedAttractionDestinations: Destination[] = [
           "label": "Houston Botanic Garden — Texas Recycles 2026 offer",
           "url": "https://hbg.org/visit/texas-recycles/",
           "scope": "Nov. 13–15 daytime admission eligibility and ticket-window recycling exchange; dated promotion, not an evergreen price"
+        },
+        {
+          "label": "Houston Botanic Garden — official interactive Garden Explorer",
+          "url": "https://hbg.gardenexplorer.org/",
+          "scope": "Live plant collection search, maps, named specimens and on-site waypoints for planning a specific visit"
         }
       ]
     },
