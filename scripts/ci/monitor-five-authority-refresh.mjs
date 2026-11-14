@@ -36,7 +36,7 @@ for (const group of config.groups) {
       catalog.includes('if (slug === texasSportsWeekendCalendarGuideStub.slug)'), "Sports current story not available through catalog and detail route");
     assert.ok(story.includes('publishedAt: "' + lead.publishedAt + '"'), "Current sports story published date inconsistent with reviewed source manifest");
     assert.ok(story.includes('sourceUrl: "https://www.uiltexas.org/football/playoff-brackets"'), "Current sports story missing official primary source");
-    assert.ok((story.match(/\\bp\\("/g) ?? []).length >= 12, "New sports story lacks distinct reported/analytical paragraphs");
+    assert.ok(story.split('p("').length - 1 >= 12, "New sports story lacks distinct analytical paragraphs");
     for (const url of [
       "https://www.uiltexas.org/football/playoff-brackets",
       "https://www.ncaa.com/scoreboard/football/fbs",
