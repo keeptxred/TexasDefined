@@ -3,7 +3,7 @@
 // that historical Search Console entries represent present-day HTTP failures.
 import { readFile, mkdir, writeFile, appendFile } from 'node:fs/promises';
 import path from 'node:path';
-import { classifyHistoricalGsc404, REVIEW_OUTCOMES } from './gsc-404-classification.mjs';
+import { classifyHistoricalGsc404, REVIEW_OUTCOMES, isBlockingGsc404Result } from './gsc-404-classification.mjs';
 import { reviewGsc404Disposition } from './gsc-404-disposition-policy.mjs';
 
 const origin = new URL(process.env.TD_GSC_404_ORIGIN || 'https://texasdefined.com');
@@ -141,9 +141,7 @@ const actionableReviewCount = results.filter((r) =>
 const dispositionCounts = Object.fromEntries([...new Set(results.map((r) => r.review))].sort().map((review) => [
   review, results.filter((r) => r.review === review).length,
 ]));
-const blockingRegressions = results.filter((r) =>
-  ['restore-regression','canonical-regression','route-leak-regression','policy-regression','redirect-to-missing'].includes(r.review)
-  || r.outcome === 'server_error');
+const blockingRegressions = results.filter(isBlockingGsc404Result);
 const templateCount = results.filter((r) => r.invalidTemplate).length;
 const expectedTemplate404Count = results.filter((r) => r.outcome === 'expected_invalid_template').length;
 const templateRedirectCount = results.filter((r) => r.outcome === 'invalid_template_redirect_chain').length;
