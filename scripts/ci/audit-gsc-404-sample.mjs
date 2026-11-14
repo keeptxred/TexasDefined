@@ -9,6 +9,7 @@ import {
   INTENTIONAL_404_DISPOSITIONS,
   RESTORED_GSC_CANONICAL_PATHS,
   INDEXABLE_RESTORED_GSC_PATHS,
+  collectGscRobotsDirectives,
   LIVE_VERIFIED_GSC_CANONICAL_PATHS,
 } from './gsc-404-disposition-policy.mjs';
 import { GSC_SITEMAP_SEEDS, parseGscSitemapXml, identifyGscSitemapLeaks, missingRestoredGscSitemapCanonicals } from './gsc-404-sitemap.mjs';
@@ -98,13 +99,7 @@ async function inspect(sourcePath) {
       try {
         const body = await response.text();
         canonical = htmlCanonical(body);
-        const tag = body.match(/<meta\b(?=[^>]*\bname\s*=\s*["']robots["'])[^>]*>/i);
-        if (tag) {
-          // X-Robots-Tag and meta robots have cumulative effect. A header
-          // noindex must never be hidden by an HTML `index, follow` meta.
-          const metaRobots = (tag[0].match(/\bcontent\s*=\s*["']([^"']+)["']/i) || [])[1];
-          if (metaRobots) robots = [robots, metaRobots].filter(Boolean).join('; ');
-        }
+        robots = collectGscRobotsDirectives(body, robots);
       } catch (caught) { error = caught instanceof Error ? caught.message : String(caught); }
     } else {
       await response.body?.cancel();
