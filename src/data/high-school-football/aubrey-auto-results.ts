@@ -1,4 +1,5 @@
 import snapshot from './aubrey-auto-results.snapshot.json';
+import postseason from './aubrey-postseason-fixtures.snapshot.json';
 import { getFootballProgramEditorial } from './program-editorial';
 
 type Editorial = ReturnType<typeof getFootballProgramEditorial>;
@@ -38,7 +39,20 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
   if (byDate.size !== updates.length || snapshot.teamSlug !== 'aubrey' || snapshot.season !== '2026') {
     throw new Error('Invalid Aubrey auto-results snapshot identity');
   }
-  const previous = editorial.season.games;
+  if (postseason.season !== '2026' || postseason.teamSlug !== 'aubrey' || postseason.games.length > 6) {
+    throw new Error('Invalid Aubrey verified postseason fixture registry');
+  }
+  const playoffGames = postseason.games.map((game) => ({
+    date: game.date,
+    opponent: game.opponent,
+    site: 'Neutral' as const,
+    district: false,
+    kickoff: game.kickoff,
+  }));
+  const previous = [...editorial.season.games, ...playoffGames].sort((a, b) => a.date.localeCompare(b.date));
+  if (new Set(previous.map((game) => game.date)).size !== previous.length) {
+    throw new Error('Duplicate Aubrey fixture dates across regular and postseason snapshots');
+  }
   const games = previous.map((game) => {
     const update = byDate.get(game.date);
     if (!update) return game;
@@ -65,12 +79,19 @@ export function applyAubreyAutoResults(editorial: Editorial): Editorial {
   const record = wins + '–' + losses + ' overall · ' + districtWins + '–' + districtLosses + ' district (through ' + dateLabel(endDate) + ')';
   const finalText = latest?.result ?? 'No verified final';
   const recordDescription = 'Aubrey Chaparrals football (2026): ' + wins + '–' + losses + ' overall, ' + districtWins + '–' + districtLosses + ' district through ' + dateLabel(endDate) + '. Latest verified final ' + finalText + ' against ' + latest?.opponent + '. View schedules, tickets and stadium rules.';
+  const nextFixture = games.find((game) => !game.result);
+  const lastReport = latest ? `${latest.result} versus ${latest.opponent} on ${dateLabel(latest.date)}` : 'No verified finals';
+  const nextReport = nextFixture
+    ? ` The next listed matchup is ${nextFixture.opponent} on ${dateLabel(nextFixture.date)}; confirm kickoff and venue with the host.`
+    : '';
+  const updatedOverview = `Aubrey Chaparrals are ${wins}–${losses} overall and ${districtWins}–${districtLosses} in UIL District 4 through ${dateLabel(endDate)}, including ${lastReport}.${nextReport} Results are dated, source-linked reports and not a live score feed.`;
   const existingFaq = editorial.faq ?? [];
   const faq = existingFaq.map((entry) => /(?:2026.*record|record.*2026)/i.test(entry.question)
     ? { ...entry, answer: "Aubrey's verified 2026 record is " + record + '. Check the dated score table and linked results for changes.' }
     : entry);
   return {
     ...editorial,
+    overview: editorial.overview?.length ? [updatedOverview, ...editorial.overview.slice(1)] : editorial.overview,
     season: {
       ...editorial.season, games, record,
       verifiedAt: currentResult?.verifiedAt ?? editorial.season.verifiedAt,
