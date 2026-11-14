@@ -223,6 +223,25 @@ const NOV14_MOODY_POSTHYDRATION_TITLE_FAILURE = Object.freeze({
   failedStep: 'Verify Moody Gardens four-viewport browser authority and layout',
 });
 
+// Nov 14 run #43629450047 published the active 100%-traffic Worker from
+// SHA 9afb27020d3152c52aed3f2f3241e93330e303bf. The original deploy,
+// version capture, direct/canonical health and 12,164 old/new JS/CSS original
+// asset response checks all passed. Its ONLY later failure was the independent
+// Moody Gardens production content checker: React SSR encoded the apostrophe
+// in "Children's" while the checker required an unencoded literal substring.
+// PR #7214 corrected the checker with minimal apostrophe normalization while
+// preserving the full exact visitor-fact text, unrelated SEO/content checks,
+// rights assertions, and testing both public origins. This EXACT-run handoff
+// is eligible ONLY for original verified bytes, not a successful site release;
+// keep all real Moody assertions and full next-deployment verification.
+const NOV14_PUBLISHED_MOODY_APOSTROPHE_CHECKER = Object.freeze({
+  runId: 43629450047,
+  jobId: 132552595374,
+  sourceSha: '9afb27020d3152c52aed3f2f3241e93330e303bf',
+  workerVersion: '4a67cc9a-616c-4707-9097-541b8fce2138',
+  failedStep: 'Verify Moody Gardens production authority',
+});
+
 export function qualifyPriorDeployJob(payload) {
   const jobs = Array.isArray(payload?.jobs) ? payload.jobs.filter((job) => job.name === 'deploy') : [];
   if (jobs.length !== 1) throw Error('Expected exactly one deploy job in GitHub Actions evidence');
@@ -239,6 +258,31 @@ export function qualifyPriorDeployJob(payload) {
   if (job.conclusion === 'success') {
     if (failures.length) throw Error('Success job reports failed substeps');
     return { eligible: true, mode: 'successful-deploy-job', criticalChecks: CRITICAL.length };
+  }
+  const apostrophe = NOV14_PUBLISHED_MOODY_APOSTROPHE_CHECKER;
+  if (job.run_id === apostrophe.runId && job.id === apostrophe.jobId &&
+      failures.length === 1 && failures[0] === apostrophe.failedStep) {
+    const checker = readFileSync('scripts/production/verify-moody-gardens-production.mjs', 'utf8');
+    const normalization = readFileSync('scripts/production/moody-gardens-html-entities.mjs', 'utf8');
+    const test = readFileSync('scripts/data/check-moody-gardens-official.test.mjs', 'utf8');
+    if (!checker.includes('import { normalizeMoodyGardensTextEntities }') ||
+        !checker.includes('const decodedVisitorCopy = normalizeMoodyGardensTextEntities(html);') ||
+        !checker.includes('if (!decodedVisitorCopy.includes(marker)) failures.push') ||
+        !checker.includes('if (decodedVisitorCopy.includes(marker)) failures.push') ||
+        !checker.includes(\"a ticket that includes Galveston Children's Museum admission\") ||
+        !checker.includes('for (const [label, rawUrl] of targets)') ||
+        !normalization.includes('export function normalizeMoodyGardensTextEntities(html)') ||
+        !test.includes('production acceptance handles the apostrophes in rendered museum admissions') ||
+        !test.includes('assert.throws(() => normalizeMoodyGardensTextEntities(null)')) {
+      throw Error('Exact Moody original-byte handoff rejected until strict dual-origin SSR entity checker repair and tests are present');
+    }
+    return { eligible: true, mode: 'exact-nov14-moody-apostrophe-original-assets-only',
+      exactRun: apostrophe.runId, criticalChecks: CRITICAL.length,
+      permittedFailures: failures, requiredSourceSha: apostrophe.sourceSha,
+      requiredWorkerVersion: apostrophe.workerVersion };
+  }
+  if (job.run_id === apostrophe.runId || job.id === apostrophe.jobId) {
+    throw Error('Exact Moody published Worker has wrong run/job/failed-step evidence: ' + failures.join(', '));
   }
   const moody = NOV14_MOODY_POSTHYDRATION_TITLE_FAILURE;
   if (job.run_id === moody.runId && job.id === moody.jobId &&
