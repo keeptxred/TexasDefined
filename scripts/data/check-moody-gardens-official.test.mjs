@@ -83,3 +83,33 @@ test("an undated operator closure notice fails closed", () => {
   );
   assert.ok(issues.some((issue) => issue.includes("could not be verified")));
 });
+
+test("an operator cancellation/removal must fail while a timed editorial alert remains visible", () => {
+  const officialHtml = html("<h2>Daily hours</h2><p>Regular attraction admission hours. Aquarium and Rainforest Pyramids.</p>");
+  const noticeCode = [
+    'heading: "Monday, Nov. 16: attractions close early"',
+    'startsAt: "2026-11-13T00:00:00Z"',
+    'expiresAt: "2026-11-17T06:00:00Z"',
+  ].join("\n");
+  const errors = validateOperatorEarlyClosureNotice(
+    officialHtml, noticeCode, Date.parse("2026-11-14T17:00:00Z"),
+  );
+  assert.ok(errors.some((message) => message.includes("removed its early-closure announcement")));
+});
+
+test("the operator removal no longer triggers an alert after the announcement expires", () => {
+  const officialHtml = html("<h2>Daily hours</h2><p>Regular admission hours.</p>");
+  const noticeCode = 'startsAt: "2026-11-13T00:00:00Z"\nexpiresAt: "2026-11-17T06:00:00Z"';
+  assert.deepEqual(
+    validateOperatorEarlyClosureNotice(officialHtml, noticeCode, Date.parse("2026-11-17T06:00:00Z")), [],
+  );
+  assert.deepEqual(
+    validateOperatorEarlyClosureNotice(officialHtml, noticeCode, Date.parse("2026-11-12T18:00:00Z")), [],
+  );
+});
+
+test("missing or invalid alert dates cannot invent a currently displayed notice", () => {
+  const officialHtml = html("<h2>Daily hours</h2>");
+  assert.deepEqual(validateOperatorEarlyClosureNotice(officialHtml, "", Date.now()), []);
+  assert.deepEqual(validateOperatorEarlyClosureNotice(officialHtml, 'startsAt: "2026-99-99"', Date.now()), []);
+});
