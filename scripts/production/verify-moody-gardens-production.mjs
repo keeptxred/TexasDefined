@@ -24,6 +24,15 @@ const requiredFreshnessMarkers = [
   "Thanksgiving Day",
   "galvestoncm.org/general-info-admission",
   "GCM members",
+  "Jellyfish Gallery",
+  "Flower Garden Banks",
+  "Nightfall",
+  "Our Town",
+  "Room to Grow",
+  "20,000 Leagues Under the Sea",
+  "galvestoncm.org/exhibits",
+  "Galveston Bay ecosystems",
+  "This guide was substantively updated on",
 ];
 const staleClosureMarkers = [
   "children's museum entry is included with a Moody Gardens ticket",
@@ -117,8 +126,27 @@ for (const [label, rawUrl] of targets) {
       failures.push(`${label}: ordinary URL may serve stale notice HTML; cache-control=${ordinaryCacheControl || "missing"}; cf-cache-status=${ordinary.headers.get("cf-cache-status") || "missing"}`);
     }
   }
+  // The original Nov. 9 operator review remains visible, but real editorial
+  // additions on Nov. 14 must have their own accurately dated WebPage markup.
   const currentSchemaDate = /"dateModified":"(\d{4}-\d{2}-\d{2})"/.exec(html)?.[1];
-  if (!currentSchemaDate || currentSchemaDate < "2026-11-09") failures.push(`${label}: wrong or stale schema dateModified: ${currentSchemaDate ?? "missing"}`);
+  if (currentSchemaDate !== "2026-11-14") {
+    failures.push(`${label}: WebPage dateModified must reflect Nov. 14 substantive change, found ${currentSchemaDate ?? "missing"}`);
+  }
+  const canonicalLink = (html.match(/<link\b[^>]*>/gi) ?? [])
+    .find((tag) => /\brel=["']canonical["']/i.test(tag));
+  const canonicalHref = canonicalLink?.match(/\bhref=["']([^"']+)["']/i)?.[1] ?? "";
+  if (canonicalHref !== "https://texasdefined.com/destination/moody-gardens") {
+    failures.push(`${label}: missing or wrong self-canonical: ${canonicalHref || "missing"}`);
+  }
+  const robotsMeta = (html.match(/<meta\b[^>]*>/gi) ?? [])
+    .find((tag) => /\bname=["']robots["']/i.test(tag));
+  if (robotsMeta && /\bnoindex\b/i.test(robotsMeta)) {
+    failures.push(`${label}: unexpected noindex on a certified authority destination`);
+  }
+  const title = /<title[^>]*>([^<]+)<\/title>/i.exec(html)?.[1] ?? "";
+  if (!title.includes("Moody Gardens Galveston")) {
+    failures.push(`${label}: missing descriptive destination title`);
+  }
   console.log(`Moody Gardens production acceptance: ${label} HTTP ${response.status}; bytes=${html.length}`);
 }
 

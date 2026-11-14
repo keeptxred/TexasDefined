@@ -35,7 +35,7 @@ for (const feature of [
 for (const feature of [
   'Official visitor information', 'Reservations', 'Visitor details last reviewed', 'Official source',
   'destination.hero.credit', 'citation: destination.officialUrl',
-  'sameAs: destination.officialUrl', 'dateModified: destination.sourceCheckedAt',
+  'sameAs: destination.officialUrl', 'dateModified: substantiveModifiedAt',
   'provider: { "@type": "Organization"',
   'getDestinationRelationshipGroups({ data: { slug: params.slug } })',
   'relationshipGroups',
@@ -43,6 +43,10 @@ for (const feature of [
   'destination.accessibilityNotes', 'destination.directions', 'destination.address',
   'destination.county', 'DestinationVisitPlanner',
 ]) if (!route.includes(feature)) errors.push(`Destination authority, discovery, or planning feature missing: ${feature}`);
+if (!route.includes('const substantiveModifiedAt = destination.slug === "moody-gardens"')
+    || !route.includes('moodyGardensEditorialDates.lastSubstantiveEdit : destination.sourceCheckedAt')) {
+  errors.push("Destination dateModified must preserve source review dates for other destinations and use the real Moody Gardens substantive edit date.");
+}
 
 for (const feature of [
   'StateParkVisitorEssentials',
