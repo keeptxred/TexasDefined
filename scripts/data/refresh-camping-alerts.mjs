@@ -37,7 +37,12 @@ function parseTPWDClosures(text, park) {
   const markerCount = park === "enchanted-rock-state-natural-area"
     ? (section.match(/12:30 p\.m\.\s+on/gi) ?? []).length
     : (section.match(/\bto\b/gi) ?? []).length;
+  // Every closure contributes exactly TWO dated endpoints. Checking only
+  // "to" tokens missed an unrecognized "Nov. 17 through Nov. 19" interval
+  // beside a valid later range and falsely accepted a partial schedule.
+  const dateEndpoints = [...section.matchAll(/\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\.\s*\d{1,2}\b/gi)].length;
   if (found.length < 1 || found.length > 12 || markerCount !== found.length ||
+      dateEndpoints !== found.length * 2 ||
       /\b(?:cancelled|canceled|reopened|no longer closed)\b/i.test(section)) return null;
   const result = [];
   let previousMonth = anchor.month, year = anchor.year, previousISO = null;
