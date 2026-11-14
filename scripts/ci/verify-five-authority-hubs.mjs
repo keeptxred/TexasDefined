@@ -20,7 +20,7 @@ const source = Object.fromEntries(await Promise.all(Object.entries(paths).map(as
 const includesAll = (key, markers) => {
   for (const marker of markers) assert.ok(source[key].includes(marker), `${paths[key]} missing required authority contract: ${marker}`);
 };
-includesAll("dogs", ["Texas dog life: parks, heat, travel and breeds", "Plan a safe Texas dog outing in four checks", "texas-dog-heat-safety", "adopting-a-dog-in-texas", "Texas dog life: useful first, funny when it fits"]);
+includesAll("dogs", ["Pick the outing before you pack for the dog", "https://www.dshs.texas.gov/notifiable-conditions/zoonosis-control/zoonosis-control-diseases-and-conditions/rabies", "https://www.cdc.gov/harmful-algal-blooms/prevention/preventing-pet-and-livestock-illnesses.html", "Texas dog life: parks, heat, travel and breeds", "Plan a safe Texas dog outing in four checks", "texas-dog-heat-safety", "adopting-a-dog-in-texas", "Texas dog life: useful first, funny when it fits"]);
 assert.ok(source.dogs.indexOf("From the Dog Desk") < source.dogs.indexOf("Choosing a breed"), "Dog care must lead breed catalog");
 includesAll("dogs", ['style={{ listStyleType: "decimal", listStylePosition: "inside" }}', "<strong>Heat and pavement.", "<strong>Actual pet access.", "<strong>Wildlife and water.", "<strong>Backup plan."]);
 assert.ok(!/<strong>[1-4]\. (Heat and pavement|Actual pet access|Wildlife and water|Backup plan)\./.test(source.dogs), "Do not duplicate numbers inside semantic ordered list");
@@ -35,10 +35,10 @@ assert.equal((source.breedData.match(/sourceUrl: "https:\/\/www.akc.org\/dog-bre
 includesAll("category", ["showDestinations = true", "showDestinations && destinations.length > 0", "beforeStories?: ReactNode", "{beforeStories}", "title={featuredTitle}"]);
 assert.ok(source.category.indexOf("{beforeStories}") < source.category.indexOf("{lead &&"), "Discovery content must precede featured story");
 includesAll("sports", ["showDestinations={false}", "What are you planning to follow or visit?", "/sports-venues/college-sports", "/sports-venues/motorsports", "/sports/softball", "beforeStories={sportFirstNavigation}", 'featuredTitle="Featured from the sports desk"']);
-includesAll("football", ["Curated matchups & documented scores (not a live statewide scoreboard)", "Don't mistake a curated matchup archive", "https://www.uiltexas.org/football/playoff-brackets"]);
+includesAll("football", ["Why the playoff path changes by classification", "6A, Divisions I and II", "Curated matchups & documented scores (not a live statewide scoreboard)", "Don't mistake a curated matchup archive", "https://www.uiltexas.org/football/playoff-brackets"]);
 includesAll("hunt", ["Four checks before you treat an area as available", "Match legal game and dates", "Confirm the exact boundaries"]);
-includesAll("tailgate", ["A comparison that changes your packing list", "AT&amp;T Stadium · Arlington", "Houston Texans · NRG Stadium", "FoodSafety.gov", "https://www.foodsafety.gov/blog/game-day-food-safety-tips", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
-includesAll("tailgateHead", ['dateModified: "2026-11-11"']);
+includesAll("tailgate", ["Three trips, three very different packing decisions", "A comparison that changes your packing list", "AT&amp;T Stadium · Arlington", "Houston Texans · NRG Stadium", "FoodSafety.gov", "https://www.foodsafety.gov/blog/game-day-food-safety-tips", "40°F or below", "one hour when outside temperatures exceed 90°F"]);
+includesAll("tailgateHead", ['dateModified: "2026-11-14"']);
 console.log("PASS five-hub focused authority content, source and topical-scope guards");
 
 if (process.argv.includes("--production")) {
@@ -64,7 +64,9 @@ if (process.argv.includes("--production")) {
       if (path === "/sports") {
         const discoveryAt = html.indexOf("What are you planning to follow or visit?");
         const featuredAt = html.indexOf("Featured from the sports desk");
-        assert.ok(discoveryAt >= 0 && featuredAt > discoveryAt, "Sport-first navigation must precede the featured editorial feed in live HTML");
+        const archivedAt = html.indexOf("Archive, not current results");
+        assert.ok(discoveryAt >= 0 && ((featuredAt > discoveryAt) || (archivedAt > discoveryAt)), "Sport-first navigation must precede current stories or a clearly labeled historical archive");
+        assert.ok(html.includes("Find the authoritative schedule, then plan the trip"), "Sports must lead with official schedule and topical source comparisons");
         assert.ok(!html.includes("This month’s selection"), "Sports cannot present old articles as this month's selection");
       }
       if (path === "/dogs") {
