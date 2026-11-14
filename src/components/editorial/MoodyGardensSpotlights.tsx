@@ -84,10 +84,10 @@ export function MoodyGardensSpotlights() {
         />
 
         {isMoodyGardensNov16NoticeActive() && (
-          <aside aria-label="Temporary Moody Gardens operating-hours notice" className="mt-6 border-l-4 border-primary bg-muted/70 px-5 py-4">
+          <aside aria-label="Temporary Moody Gardens operating-hours notice" className="mt-6 border border-primary bg-background p-5">
             <h3 className="font-display text-xl">{moodyGardensNov16Notice.heading}</h3>
-            <p className="mt-2 text-sm leading-6 text-foreground/90">{moodyGardensNov16Notice.explanation}</p>
-            <a href={moodyGardensNov16Notice.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{moodyGardensNov16Notice.explanation}</p>
+            <a href={moodyGardensNov16Notice.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
               Verify the temporary hours with Moody Gardens
             </a>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">
