@@ -271,7 +271,7 @@ for (const marker of ["Galveston Children", "Audience Recognition Theater", "Val
   if (!(moodyCuration + '\n' + moodySpotlights).includes(marker)) errors.push('Moody Gardens lacks new visitor evidence: ' + marker);
 }
 
-if (!moodyCuration.includes("with 9 to 10 AM reserved for museum members")) {
+if (!moodyCuration.includes("with 9 to 10 AM reserved for Galveston Children's Museum members")) {
   errors.push("Moody Gardens admission planning must distinguish the museum's members-only hour from general opening hours.");
 }
 if (moodyCuration.includes("children's museum entry is included with a Moody Gardens ticket")
@@ -286,6 +286,15 @@ if (!moodyCuration.includes("a ticket that includes Galveston Children's Museum 
 }
 if (!moodyProduction.includes("separate museum admission") || !moodyProduction.includes("included ticket admission")) {
   errors.push("Moody Gardens live acceptance must reject overbroad museum ticket-inclusion claims.");
+}
+if (!moodyCuration.includes("Thanksgiving Day") || !moodyCuration.includes("Sunday after the Momus Parade")
+    || !moodySpotlights.includes("Holiday closures can differ from the pyramids.")
+    || !moodySpotlights.includes("https://www.galvestoncm.org/general-info-admission")
+    || !moodyResolver.includes("https://www.galvestoncm.org/general-info-admission")) {
+  errors.push("Moody Gardens must show the children's museum's own verified holiday closures and first-party museum source.");
+}
+if (!moodyProduction.includes('"Thanksgiving Day"') || !moodyProduction.includes("galvestoncm.org/general-info-admission")) {
+  errors.push("Moody Gardens live acceptance must verify distinct GCM holiday closures and linked first-party admission evidence.");
 }
 if (!moodySpotlights.includes("9 to 10 AM is reserved for museum members")) {
   errors.push("Moody Gardens prominent visit note must flag the 9-to-10-AM museum members-only hour.");
