@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { recoverOrHideImage } from "@/lib/image-fallback";
+import { isMoodyGardensNov16NoticeActive, moodyGardensNov16Notice } from "@/data/moody-gardens-visit-notice";
 
 const cards = [
   {
@@ -81,6 +82,19 @@ export function MoodyGardensSpotlights() {
           title="How to visit Moody Gardens without wasting time or ticket money"
           description="Start with the Aquarium and Rainforest Pyramids. Add theaters, seasonal attractions or a hotel stay only when the schedule has room."
         />
+
+        {isMoodyGardensNov16NoticeActive() && (
+          <aside aria-label="Temporary Moody Gardens operating-hours notice" className="mt-6 border border-primary bg-background p-5">
+            <h3 className="font-display text-xl">{moodyGardensNov16Notice.heading}</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{moodyGardensNov16Notice.explanation}</p>
+            <a href={moodyGardensNov16Notice.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
+              Verify the temporary hours with Moody Gardens
+            </a>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">
+              Official operating notice reviewed {moodyGardensNov16Notice.sourceReviewed}. This date-specific notice expires automatically after November 16.
+            </p>
+          </aside>
+        )}
 
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {currentNotes.map((note) => <div key={note.label} className="border-t-2 border-primary bg-background px-5 py-5 shadow-sm">
