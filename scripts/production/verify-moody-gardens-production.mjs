@@ -52,6 +52,19 @@ for (const [label, rawUrl] of targets) {
     },
   });
   const html = await response.text();
+  // The date-bounded SSR alert must not be cached beyond midnight on Nov. 16.
+  // Checking both origins catches independent CDN/browser cache regressions.
+  if (Date.now() < Date.parse("2026-11-18T06:00:00Z")
+      && Date.now() >= Date.parse("2026-11-13T00:00:00Z")) {
+    const cacheControl = response.headers.get("cache-control")?.toLowerCase() ?? "";
+    if (!cacheControl.includes("no-store")) {
+      failures.push(`${label}: Moody Gardens time-sensitive HTML is not protected by no-store; cache-control=${cacheControl || "missing"}`);
+    }
+    const cacheState = response.headers.get("cf-cache-status")?.toUpperCase() ?? "";
+    if (cacheState === "HIT") {
+      failures.push(`${label}: Moody Gardens time-sensitive HTML was served from an old Cloudflare cache`);
+    }
+  }
   if (!response.ok) failures.push(`${label}: HTTP ${response.status}`);
   if (!html.includes(customMarker)) failures.push(`${label}: custom Moody Gardens planning section missing`);
   const customIndex = html.indexOf(customMarker);
@@ -71,6 +84,28 @@ for (const [label, rawUrl] of targets) {
   }
   if (!earlyClosingNoticeActive && html.includes(earlyClosingMarker)) {
     failures.push(`${label}: expired Nov. 16 early-closing notice remains published`);
+  }
+  if (Date.now() >= Date.parse("2026-11-13T00:00:00Z")
+      && Date.now() < Date.parse("2026-11-18T06:00:00Z")) {
+    // A query-string can bypass stale edge HTML even if a real user still
+    // receives an obsolete cached document. Recheck the ordinary public URL
+    // on both sides of the Nov. 17 00:00 CST notice-expiry boundary.
+    const ordinary = await fetch(rawUrl, {
+      redirect: "follow",
+      signal: AbortSignal.timeout(20000),
+      headers: { "user-agent": "TexasDefined-ordinary-public-HTML/1.0" },
+    });
+    const ordinaryHtml = await ordinary.text();
+    const ordinaryNoticeCorrect = earlyClosingNoticeActive
+      ? ordinaryHtml.includes(earlyClosingMarker)
+      : !ordinaryHtml.includes(earlyClosingMarker);
+    if (!ordinary.ok || !ordinaryNoticeCorrect) {
+      failures.push(`${label}: ordinary URL serves the wrong Nov. 16 alert state for the current event window (HTTP ${ordinary.status})`);
+    }
+    const ordinaryCacheControl = ordinary.headers.get("cache-control")?.toLowerCase() ?? "";
+    if (!ordinaryCacheControl.includes("no-store") || ordinary.headers.get("cf-cache-status")?.toUpperCase() === "HIT") {
+      failures.push(`${label}: ordinary URL may serve stale notice HTML; cache-control=${ordinaryCacheControl || "missing"}; cf-cache-status=${ordinary.headers.get("cf-cache-status") || "missing"}`);
+    }
   }
   const currentSchemaDate = /"dateModified":"(\d{4}-\d{2}-\d{2})"/.exec(html)?.[1];
   if (!currentSchemaDate || currentSchemaDate < "2026-11-09") failures.push(`${label}: wrong or stale schema dateModified: ${currentSchemaDate ?? "missing"}`);

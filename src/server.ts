@@ -1,5 +1,6 @@
 import "./lib/error-capture";
 import { applyHashedModuleDocumentCachePolicy } from "./lib/hashed-asset-document-cache-policy";
+import { applyMoodyGardensNoticeCachePolicy } from "./lib/moody-gardens-notice-cache-policy";
 import { reviewedAttractionCanonicalRedirect } from "./lib/reviewed-attraction-canonical-redirect";
 import { LEGACY_EDITORIAL_REDIRECTS } from "./lib/legacy-editorial-redirects";
 import { hasUnresolvedPublicRouteToken } from "./lib/public-route-tokens";
@@ -699,8 +700,9 @@ function applyPlayoffGuideEdgeCachePolicy(request: Request, response: Response):
 }
 
 async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
-  const cacheSafeResponse = applyHashedModuleDocumentCachePolicy(request,
-    applyPlayoffGuideEdgeCachePolicy(request, applyMetroProximityEdgeCachePolicy(request, response)));
+  const cacheSafeResponse = applyMoodyGardensNoticeCachePolicy(request,
+    applyHashedModuleDocumentCachePolicy(request,
+      applyPlayoffGuideEdgeCachePolicy(request, applyMetroProximityEdgeCachePolicy(request, response))));
   const url = new URL(request.url);
   if (request.method !== "GET" || url.pathname !== "/") return cacheSafeResponse;
   const contentType = cacheSafeResponse.headers.get("content-type") ?? "";
