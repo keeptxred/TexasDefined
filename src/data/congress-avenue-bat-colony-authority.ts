@@ -155,6 +155,11 @@ export const congressAvenueBatDestination: Destination = {
         "label": "Photograph license and provenance",
         "url": "https://commons.wikimedia.org/wiki/File:Congress_Avenue_Bridge_Bats_(8095573298).jpg",
         "scope": "Exact dated bat-area photo by Aleksandr Zykov, CC BY-SA 2.0."
+      },
+      {
+        "label": "Congress Avenue bat-viewing photograph — CC BY-SA 2.0 license",
+        "url": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "scope": "Direct reuse license for Aleksandr Zykov's 2012 Colorado River/Bat Bridge photograph; original photograph also cited."
       }
     ]
   }
