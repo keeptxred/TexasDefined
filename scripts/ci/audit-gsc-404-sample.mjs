@@ -272,9 +272,9 @@ const markdown = '# TexasDefined GSC historical 404 recheck\n\n' +
   '- Source-backed intentional 404 URLs: ' + ((dispositionCounts['expected-404'] ?? 0) - expectedTemplate404Count) + '\n' +
   '- Genuine restored URLs currently served 200: ' + (dispositionCounts['served-200'] ?? 0) + '\n' +
   '- Blocking defects requiring changes: ' + blockingRegressions.length + '\n' +
-  '- Sitemap XML sources checked: ' + sitemapSources.length + ' (complete: ' + (sitemapErrors.length === 0) + ')\\n' +
-  '- Forbidden 404/template URLs in sitemap: ' + sitemapLeaks.forbiddenListed.length + '\\n' +
-  '- Redirect-only historical aliases in sitemap: ' + sitemapLeaks.redirectSourceListed.length + '\\n' +
+  '- Sitemap XML sources checked: ' + sitemapSources.length + ' (complete: ' + (sitemapErrors.length === 0) + ')\n' +
+  '- Forbidden 404/template URLs in sitemap: ' + sitemapLeaks.forbiddenListed.length + '\n' +
+  '- Redirect-only historical aliases in sitemap: ' + sitemapLeaks.redirectSourceListed.length + '\n' +
   Object.entries(dispositionCounts).map(([label, count]) => '- Editorial review ' + label + ': ' + count).join('\n') + '\n' +
   '- URLs requiring response/content disposition review: ' + actionableReviewCount + '\n\n' +
   'Do not equate transport failures with HTTP404, or every remaining 404 with a defect. An invalid route template returning a direct 404 is correct. Review real broken redirects and meaningful missing content separately.\n';
