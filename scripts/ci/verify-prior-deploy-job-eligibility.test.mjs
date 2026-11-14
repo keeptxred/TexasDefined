@@ -164,3 +164,33 @@ test('District16 failed Worker rejects retry attempt, wrong job, wrong failure a
       /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
   }
 });
+
+test('exact published 7d Worker may seed only original bytes after District 5 transport-only publication failure', () => {
+  const original=evidence({
+    runId:43524206406,jobId:132225789491,
+    failure:'Verify District 5-6A scorecard on direct Worker and canonical domain',
+  });
+  const x=qualifyPriorDeployJob(original);
+  assert.equal(x.eligible,true);
+  assert.equal(x.mode,'exact-nov13-district5-transport-original-assets-only');
+  assert.equal(x.requiredSourceSha,'4d9b10c7ada94b9843202d0400d59f8ad7b6eec1');
+  assert.equal(x.requiredWorkerVersion,'7d2202c2-619a-458f-be72-ce21eee8c61b');
+  assert.equal(x.exactRun,43524206406);
+  assert.equal(x.criticalChecks,5);
+  assert.deepEqual(x.permittedFailures,['Verify District 5-6A scorecard on direct Worker and canonical domain']);
+});
+
+test('published District 5 asset handoff rejects fabricated IDs or extra/live-critical failures', () => {
+  const baseline={runId:43524206406,jobId:132225789491,
+    failure:'Verify District 5-6A scorecard on direct Worker and canonical domain'};
+  for(const alteration of [
+    {runId:43524206407},{jobId:132225789492},
+    {failure:'Verify base production surfaces'},
+    {additional:['Verify base production surfaces']},
+    {additional:['Verify direct Worker health']},
+    ...required.map(omit=>({omit}))
+  ]){
+    assert.throws(()=>qualifyPriorDeployJob(evidence({...baseline,...alteration})),
+      /Required published-Worker safety gate not successful|Failed deploy job includes unapproved or missing failure evidence/);
+  }
+});
