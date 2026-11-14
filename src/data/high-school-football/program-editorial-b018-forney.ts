@@ -3,7 +3,7 @@ import type { FootballProgramEditorial } from './program-editorial';
 // Forney Jackrabbits: distinguish from separate North Forney Falcons campus.
 const FORNEY: FootballProgramEditorial = {
   slug: 'forney',
-  intro: 'Forney Jackrabbits football represents Forney High School in Kaufman County, not North Forney High School’s Falcons. UIL places Forney in eleven-man Class 6A District 10 for 2026–28. The district lists Jeff Fleener as Forney High’s athletic coordinator/head football coach and Marcus Shavers separately for North Forney. The campus address and a game venue are not interchangeable: the school’s November 6 varsity calendar identified City Bank Stadium at 800 FM 741, not the campus’s 1800 College Avenue contact address.'
+  intro: 'Forney Jackrabbits football represents Forney High School in Kaufman County, not North Forney High School’s Falcons. UIL places Forney in eleven-man Class 6A District 10 for 2026–28. The district lists Jeff Fleener as Forney High’s athletic coordinator/head football coach and Marcus Shavers separately for North Forney. The campus address and a game venue are not interchangeable: the school’s November 6 varsity calendar identified City Bank Stadium at 800 FM 741, not the campus’s 1800 College Avenue contact address.',
   theme: { accentHex: '#596D80', label: 'Independent TexasDefined editorial accent, not an official Jackrabbits mark or licensed school photo.' },
   seo: {
     title: 'Forney Jackrabbits Football | 2026 UIL 6A & Game-Day Guide',
