@@ -12,8 +12,8 @@ const FORSAN: FootballProgramEditorial = {
   campus: { address: '411 West 6th St, Forsan, TX 79733', sourceUrl: 'https://www.forsan.esc18.net/', sourceLabel: 'Forsan ISD official school contact address', verifiedAt: '2026-11-13' },
   schedule: { label: 'Check Forsan ISD official varsity football notices and event-host details', sourceUrl: 'https://www.forsan.esc18.net/athletics', sourceLabel: 'Forsan ISD official athletics and football links', verifiedAt: '2026-11-13' },
   notice: {
-    title: 'Forsan’s November 13 playoff was at Wigwam Stadium, Seminole'
-    body: 'Forsan ISD’s dated live-feed notice identifies its November 13, 2026 bi-district game against Abernathy at 7 p.m. at Wigwam Stadium in Seminole and designates Forsan the home team. That is a game-specific neutral-site destination, not the Forsan campus at 411 West 6th Street. The notice links a Seminole-hosted ticket page; its link and admission/accessibility terms are not assurances for a future game.'
+    title: 'Forsan’s November 13 playoff was at Wigwam Stadium, Seminole',
+    body: 'Forsan ISD’s dated live-feed notice identifies its November 13, 2026 bi-district game against Abernathy at 7 p.m. at Wigwam Stadium in Seminole and designates Forsan the home team. That is a game-specific neutral-site destination, not the Forsan campus at 411 West 6th Street. The notice links a Seminole-hosted ticket page; its link and admission/accessibility terms are not assurances for a future game.',
     sourceUrl: 'https://www.forsan.esc18.net/live-feed',
     sourceLabel: 'Forsan ISD first-party November 13 playoff/game-day notice',
     verifiedAt: '2026-11-14'
