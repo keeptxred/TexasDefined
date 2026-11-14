@@ -52,6 +52,19 @@ for (const [label, rawUrl] of targets) {
     },
   });
   const html = await response.text();
+  // The date-bounded SSR alert must not be cached beyond midnight on Nov. 16.
+  // Checking both origins catches independent CDN/browser cache regressions.
+  if (Date.now() < Date.parse("2026-11-17T07:00:00Z")
+      && Date.now() >= Date.parse("2026-11-13T00:00:00Z")) {
+    const cacheControl = response.headers.get("cache-control")?.toLowerCase() ?? "";
+    if (!cacheControl.includes("no-store")) {
+      failures.push(`${label}: Moody Gardens time-sensitive HTML is not protected by no-store; cache-control=${cacheControl || "missing"}`);
+    }
+    const cacheState = response.headers.get("cf-cache-status")?.toUpperCase() ?? "";
+    if (cacheState === "HIT") {
+      failures.push(`${label}: Moody Gardens time-sensitive HTML was served from an old Cloudflare cache`);
+    }
+  }
   if (!response.ok) failures.push(`${label}: HTTP ${response.status}`);
   if (!html.includes(customMarker)) failures.push(`${label}: custom Moody Gardens planning section missing`);
   const customIndex = html.indexOf(customMarker);
