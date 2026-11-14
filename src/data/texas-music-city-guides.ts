@@ -14,7 +14,7 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
           "Genres travel, but scenes give them infrastructure. A musician needs stages, radio, record stores, studios, churches, school bands, dance halls, promoters and other musicians. Texas cities supplied those systems in different combinations, which is why the state's musical map cannot be reduced to one genre or one capital.",
           "The most useful way to compare Texas music cities is to ask what each place made possible. Some cities excelled as recording centers, some as live-performance networks, some as borderland crossroads and some as training grounds whose musicians later changed national styles."
         ],
-        links: [{ href: "/texas-music", label: "Texas Music authority hub" }, { href: "/texas-music-venues", label: "Landmark Texas music venues" }]
+        links: [{ href: "/texas-music", label: "Texas music overview" }, { href: "/texas-music-venues", label: "Landmark Texas music venues" }]
       },
       {
         heading: "Austin: country, blues and the live-performance machine",
@@ -58,7 +58,7 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
       }
     ],
     related: [
-      { href: "/texas-music", label: "Texas Music", description: "Start with the statewide genre, artist and place authority hub." },
+      { href: "/texas-music", label: "Texas Music", description: "Explore Texas genres, artists and regional music scenes." },
       { href: "/texas-music-venues", label: "Texas Music Venues", description: "See the rooms and stages that gave local scenes physical form." },
       { href: "/texas-history", label: "Texas History", description: "Place musical change inside the state's wider history of migration, cities and industry." }
     ]
@@ -77,7 +77,7 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
       { heading: "How to place Austin in the statewide story", body: ["Austin is essential, but it should not swallow the rest of Texas music history. Blues roots run deeply through Dallas, Houston and East Texas; conjunto and Tejano center South Texas and San Antonio; Houston built enormous gospel, R&B and hip-hop systems; and West Texas helped reshape rock and roll.", "Austin's special contribution was often amplification: it created unusually visible places where traditions met, where musicians could build repeat audiences and where local performance could reach national media."], links: [{ href: "/texas-music-cities", label: "Compare Texas music cities" }] }
     ],
     related: [
-      { href: "/texas-music", label: "Texas Music", description: "The statewide authority hub." },
+      { href: "/texas-music", label: "Texas Music", description: "Explore music history and scenes across Texas." },
       { href: "/texas-country-outlaw", label: "Country & Outlaw Country", description: "The history behind Austin's progressive-country era." },
       { href: "/texas-blues", label: "Texas Blues", description: "Follow Austin blues back through Dallas, Houston and East Texas." }
     ]
@@ -117,7 +117,7 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
     related: [
       { href: "/texas-conjunto-tejano", label: "Texas Conjunto & Tejano", description: "The deeper borderland history behind two defining South Texas traditions." },
       { href: "/texas-rock-rockabilly", label: "Texas Rock & Rockabilly", description: "Follow another part of San Antonio's cross-genre story." },
-      { href: "/texas-music", label: "Texas Music", description: "Return to the statewide authority hub." }
+      { href: "/texas-music", label: "Texas Music", description: "Browse Texas music traditions across the state." }
     ]
   },
   "lubbock-music-history": {
@@ -136,7 +136,7 @@ export const TEXAS_MUSIC_CITY_GUIDES: Record<string, TexasEvergreenGuide> = {
     related: [
       { href: "/texas-rock-rockabilly", label: "Texas Rock & Rockabilly", description: "Place Holly inside the wider West Texas and statewide rock story." },
       { href: "/texas-country-outlaw", label: "Texas Country", description: "Follow Waylon Jennings from West Texas radio into outlaw country." },
-      { href: "/texas-music", label: "Texas Music", description: "Return to the statewide authority hub." }
+      { href: "/texas-music", label: "Texas Music", description: "Browse Texas music traditions across the state." }
     ]
   },
   "dallas-fort-worth-music-history": {

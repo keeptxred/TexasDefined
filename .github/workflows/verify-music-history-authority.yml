@@ -11,6 +11,8 @@ on:
       - 'src/data/texas-music-history-evidence.ts'
       - 'src/data/texas-music-history-dossiers.ts'
       - 'src/components/editorial/TexasMusicEvidenceDossier.tsx'
+      - 'src/routes/authors.$author.tsx'
+      - 'src/routes/editorial-policy*.tsx'
       - 'src/routes/*music-history*.tsx'
       - 'src/routes/*austin-history*.tsx'
       - 'src/routes/billy-bobs-texas-history*.tsx'
@@ -27,6 +29,8 @@ on:
       - 'src/data/texas-music-history-evidence.ts'
       - 'src/data/texas-music-history-dossiers.ts'
       - 'src/components/editorial/TexasMusicEvidenceDossier.tsx'
+      - 'src/routes/authors.$author.tsx'
+      - 'src/routes/editorial-policy*.tsx'
       - 'src/routes/corpus-christi-music-history.lazy.tsx'
       - 'scripts/data/validate-music-history-authority.mjs'
   workflow_dispatch:

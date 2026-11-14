@@ -31,6 +31,16 @@ const deskProfile = read("src/routes/authors.$author.tsx");
 const browserAcceptance = read("scripts/ci/verify-music-history-browser.mjs");
 const publicRoutes = read("src/lib/public-routes.ts");
 const boilerplate = /(?:in today's fast.paced world|delve into|unlock the secrets|ultimate guide to everything|comprehensive tapestry|lorem ipsum)/i;
+// Public music descriptions should speak about places and records, not our SEO program.
+const publisherJargon = /\\bauthority hub\\b|\\bdifferent kind of authority\\b/i;
+for(const [label, content] of [["music city links",city],["Corpus Christi guide",corpus]]){
+  if(publisherJargon.test(content))fail("Publisher-oriented authority jargon on reader-facing "+label);
+}
+// A future change to the editorial desk or single policy page must run the music QA gate.
+const musicWorkflow=read(".github/workflows/verify-music-history-authority.yml");
+for(const route of ["src/routes/authors.$author.tsx","src/routes/editorial-policy*.tsx"]){
+  if(musicWorkflow.split(route).length<3)fail("Music PR and main-push checks must both watch "+route);
+}
 function block(source, slug) {
   const start = source.indexOf('  "'+slug+'": {');
   if(start === -1) return "";
