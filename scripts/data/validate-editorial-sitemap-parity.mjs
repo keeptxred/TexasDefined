@@ -8,6 +8,29 @@ const primary = read("src/routes/sitemap[.]xml.ts");
 const routes = read("src/lib/public-routes.ts");
 const fixture = read("src/data/fixtures/texas.ts");
 const reviewed = read("src/data/reviewed-attraction-authorities.ts");
+const reviewedMarker = "export const reviewedAttractionDestinations: Destination[] = ";
+const reviewedRecords = JSON.parse(reviewed.split(reviewedMarker)[1].trim().replace(/;\s*$/, ""));
+assert.equal(reviewedRecords.length, 3, "Maintain exactly three reviewed attraction source records");
+for (const attraction of reviewedRecords) {
+  assert.ok(attraction.body.length >= 6, attraction.slug + " editorial body unexpectedly thin");
+  assert.ok(attraction.authorityGuide.itineraries.length === 2, attraction.slug + " distinct itineraries");
+  assert.notEqual(attraction.authorityGuide.itineraries[0].duration, attraction.authorityGuide.itineraries[1].duration, attraction.slug + " redundant itinerary durations");
+  assert.ok(!/Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(attraction.body.join(" ")), attraction.slug + " editorial meta-language");
+  assert.ok(Number.isFinite(Date.parse(attraction.sourceCheckedAt)) && Date.parse(attraction.sourceCheckedAt) >= Date.parse("2026-11-14") && Date.parse(attraction.sourceCheckedAt) <= Date.now(), attraction.slug + " requires a real verified source date, never a future or pre-audit stamp");
+}
+const attractionRoute = read("src/routes/destination.$slug.tsx");
+assert.ok(attractionRoute.includes("reviewedAttractionFacts") && attractionRoute.includes('data-attraction-photo-credit'), "Reviewed attraction visitor essentials and compact licensed photo credit missing");
+assert.ok(attractionRoute.includes("isHoustonBotanicRecyclingOfferActive()"), "Timed Houston Recycles notice must be time gated");
+const attractionPhotoRights = read("src/lib/reviewed-attraction-gallery-rights.ts");
+for (const [slug, count] of [["san-antonio-japanese-tea-garden", 1], ["fort-worth-water-gardens", 2]]) {
+  const item = reviewedRecords.find((value) => value.slug === slug);
+  assert.ok((item.gallery?.length || 0) >= count, slug + " must retain minimum verified subject-specific views without blocking later rights-cleared additions");
+  for (const image of item.gallery) {
+    assert.ok(attractionPhotoRights.includes(image.sourceUrl), slug + " image rights missing from exact file ledger");
+    assert.ok(image.image.credit.includes("resized") || image.image.credit.includes("web-sized"), slug + " resized derivative not identified");
+  }
+}
+
 // A postdeploy workflow_run fires after a long protected Worker release. New
 // commits can merge during that release, so checking out latest main instead of
 // the successful workflow_run.head_sha creates false source/release certification.
@@ -110,6 +133,7 @@ execFileSync(process.execPath, [
   "--test",
   "src/lib/reviewed-attraction-canonical-redirect.test.ts",
   "src/lib/hashed-asset-document-cache-policy.test.ts",
+  "src/lib/houston-botanic-recycles.test.ts",
 ], { stdio: "inherit" });
 
 console.log("PASS: eight existing editorial pages and public membership terms have canonical sitemap sources; protected quality gates and private network exclusions retained.");

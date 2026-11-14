@@ -12,6 +12,8 @@ import { verifiedDevilsRiverPhotoRights } from "@/data/verified-devils-river-lan
 import { relatedDestinationHeroSrc } from "@/data/related-destination-hero";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
+import { isHoustonBotanicRecyclingOfferActive } from "@/lib/houston-botanic-recycles";
+import { verifiedReviewedAttractionGalleryRights } from "@/lib/reviewed-attraction-gallery-rights";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
@@ -351,7 +353,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
 });
 
 function DestinationPage() {
-  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage } = Route.useLoaderData();
+  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage, imageRights } = Route.useLoaderData();
   if (destination.slug === "old-socorro-mission") return <Suspense fallback={null}><OldSocorroMissionAuthority /></Suspense>;
   if (destination.slug === "davis-hill-state-park") return <Suspense fallback={null}><DavisHillAuthority /></Suspense>;
 
@@ -380,6 +382,30 @@ function DestinationPage() {
   const devilsRiverPhotoRights = verifiedDevilsRiverPhotoRights(destination.hero);
   const localStateParkPhotoRights = verifiedLocalParkCredit(destination.hero);
   const commonsHeroRights = commonsHeroAttribution(destination.hero.src, destination.hero.credit);
+  // Use the same exact-source rights returned to JSON-LD, never infer a
+  // photographer or license merely from the attraction's name.
+  const isReviewedAttraction = [
+    "san-antonio-japanese-tea-garden",
+    "fort-worth-water-gardens",
+    "houston-botanic-garden",
+  ].includes(destination.slug);
+  const reviewedAttractionFacts = destination.slug === "san-antonio-japanese-tea-garden" ? [
+    { question: "Free admission and hours", answer: "Free daily admission, 7 a.m.–5 p.m. Allow about 30–60 minutes." },
+    { question: "Upper and lower garden access", answer: "The upper pavilion and Jingu House have a ramped approach; the lower ponds and waterfall routes require stairs." },
+    { question: "Entrance and parking", answer: "3853 N. St. Mary's Street beside the zoo. Accessible parking is available in the garden lot; spaces are not guaranteed." },
+    { question: "Pets and nearby stops", answer: "Leashed dogs are welcome. Brackenridge Park is next door; San Antonio Zoo has separate ticketing." },
+  ] : destination.slug === "fort-worth-water-gardens" ? [
+    { question: "Free admission and hours", answer: "The city lists free entry, 6 a.m.–10 p.m. every day. Swimming and wading are prohibited." },
+    { question: "What is there to see?", answer: "The cascading Active Pool, still Quiet Pool and fountain-driven Aerated Pool offer three different experiences." },
+    { question: "Stairs and viewing", answer: "View the Active Pool from upper paths without descending. Ask Fort Worth Parks about current step-free routes and construction notices." },
+    { question: "Time and location", answer: "Allow 30–60 minutes at 1502 Commerce Street, near the downtown convention-center district." },
+  ] : destination.slug === "houston-botanic-garden" ? [
+    { question: "Daytime tickets and reservations", answer: "Adults $12; ages 3–17, students with ID, seniors and active military $8; under age 3 free but every visitor needs a ticket or member reservation." },
+    { question: "Opening and last entry", answer: "Normally 9 a.m.–5 p.m. with last entry at 4:30 p.m. Closed Thanksgiving Day, Christmas Day and New Year's Day according to both current operator pages. Recheck the ticket calendar for exceptional hours." },
+    { question: "What to explore?", answer: "Global and Culinary gardens, Coastal Prairie, Stormwater Wetlands and the Susan Garver Family Discovery Garden." },
+    { question: "Arrival and access", answer: "Enter One Botanic Lane from Park Place Boulevard. Free daytime parking; bring your own wheelchair or stroller if needed. Allow 1.5–2 hours." },
+  ] : null;
+
   const oliveCompanyOwnerPhoto = destination.slug === "texas-hill-country-olive-co"
     && destination.hero.src === "/images/destinations/texas-hill-country-olive-co-bistro.webp";
   const primaryPhotoSourceUrl = documentaryPhotoSource?.url ?? corridorHeroRights?.sourceUrl ?? devilsRiverPhotoRights?.sourceUrl ?? localStateParkPhotoRights?.fileUrl ?? commonsHeroRights?.sourceUrl ?? (oliveCompanyOwnerPhoto ? "https://texashillcountryoliveco.com/" : undefined);
@@ -443,9 +469,23 @@ function DestinationPage() {
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{destination.summary}</p>
-        {destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">{oliveCompanyOwnerPhoto ? "Photo: " : "Photography: "}{primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{localStateParkPhotoRights && <> · <a href={localStateParkPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">Creative Commons license</a></>}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
+        {!isReviewedAttraction && destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">{oliveCompanyOwnerPhoto ? "Photo: " : "Photography: "}{primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{localStateParkPhotoRights && <> · <a href={localStateParkPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">Creative Commons license</a></>}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
       </Container>
+
     </section>
+
+    {isReviewedAttraction && imageRights && (
+      <div data-attraction-photo-credit className="border-b border-border bg-surface py-3 text-sm leading-6 text-muted-foreground">
+        <Container>
+          <span>Photo: {imageRights.creator.name}. </span>
+          <a href={imageRights.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 break-words">Original photograph and attribution</a>
+          <span aria-hidden="true"> · </span>
+          <a href={imageRights.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+            {imageRights.license.includes("/zero/") ? "CC0 1.0 dedication" : "CC BY-SA 4.0 license"}
+          </a>
+        </Container>
+      </div>
+    )}
 
     {destination.slug === "magoffin-home" && (
       <section role="status" aria-label="Magoffin Home restoration and visitor access" className="border-b border-border bg-surface py-6 text-foreground">
@@ -462,16 +502,30 @@ function DestinationPage() {
       </section>
     )}
 
-    <AnswerSummary
-      eyebrow="Quick trip facts"
-      title={`${destination.name} at a glance`}
-      items={[
-        { question: `Where is ${destination.name}?`, answer: locationAnswer },
-        ...(showSeason ? [{ question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason }] : []),
-        ...(showEntryPlanning ? [{ question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote }] : []),
-        ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
-      ]}
-    />
+    {destination.slug === "houston-botanic-garden" && isHoustonBotanicRecyclingOfferActive() && (
+      <section data-hbg-recycles-offer role="status" aria-label="Temporary Houston Botanic Garden admission offer" className="border-b border-border bg-surface py-5">
+        <Container>
+          <p className="text-sm font-semibold text-foreground">Nov. 13–15, 2026 only · H-E-B Texas Recycles</p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">Houston-area residents can receive free <strong>daytime general admission</strong> by bringing one plastic bag or bottle <strong>per person</strong> to exchange at the garden ticket window. Redeem during the 9 a.m.–5 p.m. daytime window; this does not establish free admission to separately ticketed evening events. Normal ticket rates and reservations are listed below.</p>
+          <a href="https://hbg.org/visit/texas-recycles/" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold underline underline-offset-2">Official eligibility and redemption details</a>
+        </Container>
+      </section>
+    )}
+
+    {reviewedAttractionFacts ? (
+      <AnswerSummary eyebrow="Plan your visit" title={`${destination.name}: visitor essentials`} items={reviewedAttractionFacts} />
+    ) : (
+      <AnswerSummary
+        eyebrow="Quick trip facts"
+        title={`${destination.name} at a glance`}
+        items={[
+          { question: `Where is ${destination.name}?`, answer: locationAnswer },
+          ...(showSeason ? [{ question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason }] : []),
+          ...(showEntryPlanning ? [{ question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote }] : []),
+          ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
+        ]}
+      />
+    )}
 
     <Suspense fallback={null}><DestinationVerifiedVisitorFacts destination={destination} /></Suspense>
 
@@ -543,15 +597,24 @@ function DestinationPage() {
         {destination.gallery && destination.gallery.length > 0 && (
           <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
             <p className="eyebrow text-primary">{oliveCompanyOwnerPhoto ? "Photos supplied by the business" : "Documentary photographs"}</p>
-            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">{isHotelPasoDelNorte ? "Hotel Paso del Norte: historic exterior and postcard" : destination.slug === "magoffin-home" ? "Magoffin family: historical portraits" : destination.slug === "fort-mckavett" ? "Fort McKavett: buildings, exhibits and historical interpretation" : oliveCompanyOwnerPhoto ? "A closer look at the bistro exterior" : destination.slug === "medal-of-honor-host-city-museum-gainesville" ? "Gainesville’s separate Medal of Honor Park: 2017 photos" : `Historical photographs of ${destination.name}`}</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{destination.slug === "magoffin-home" ? "These public-domain nineteenth-century portraits document the family behind the adobe house. They do not depict current rooms or visitor access." : destination.slug === "fort-mckavett" ? "Six exact-site photographs from 2013–2017, each linked to its individual Wikimedia Commons source, photographer and Creative Commons license. They document the site at the time of photography, not the condition or exhibitions available today." : oliveCompanyOwnerPhoto ? "This additional exact-property exterior image was supplied directly by Texas Hill Country Olive Co. for noncommercial editorial presentation. Exterior photographs do not establish current menus, tour availability or operating hours." : destination.slug === "medal-of-honor-host-city-museum-gainesville" ? "These 2017 Creative Commons–licensed photographs by Michael Barera document Gainesville’s separate Medal of Honor Park, not the museum that opened on the NCTC campus in 2025. Neither image shows the college museum building or its exhibitions." : "Images are individually dated and licensed. Archival views do not establish current amenities, renovations or visitor access."}</p>
+            <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">{isHotelPasoDelNorte ? "Hotel Paso del Norte: historic exterior and postcard" : destination.slug === "magoffin-home" ? "Magoffin family: historical portraits" : destination.slug === "fort-mckavett" ? "Fort McKavett: buildings, exhibits and historical interpretation" : oliveCompanyOwnerPhoto ? "A closer look at the bistro exterior" : destination.slug === "medal-of-honor-host-city-museum-gainesville" ? "Gainesville’s separate Medal of Honor Park: 2017 photos" : isReviewedAttraction ? `Additional documentary views of ${destination.name}` : `Historical photographs of ${destination.name}`}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{destination.slug === "magoffin-home" ? "These public-domain nineteenth-century portraits document the family behind the adobe house. They do not depict current rooms or visitor access." : destination.slug === "fort-mckavett" ? "Six exact-site photographs from 2013–2017, each linked to its individual Wikimedia Commons source, photographer and Creative Commons license. They document the site at the time of photography, not the condition or exhibitions available today." : oliveCompanyOwnerPhoto ? "This additional exact-property exterior image was supplied directly by Texas Hill Country Olive Co. for noncommercial editorial presentation. Exterior photographs do not establish current menus, tour availability or operating hours." : destination.slug === "medal-of-honor-host-city-museum-gainesville" ? "These 2017 Creative Commons–licensed photographs by Michael Barera document Gainesville’s separate Medal of Honor Park, not the museum that opened on the NCTC campus in 2025. Neither image shows the college museum building or its exhibitions." : isReviewedAttraction ? "Each image documents a named feature at the actual attraction, with its own photographer, original Commons source, and verified Creative Commons license. Photo dates are not proof of current access or operations." : "Images are individually dated and licensed. Archival views do not establish current amenities, renovations or visitor access."}</p>
             <div className="mt-7 grid gap-6 sm:grid-cols-2">
               {destination.gallery.filter((_, index) => !isHotelPasoDelNorte || index > 0).map((item) => (
                 <figure key={item.image.src} className="min-w-0 overflow-hidden border border-border">
                   <img src={editorialImageSrc(item.image.src)} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full bg-surface object-contain" onError={(event) => recoverOrHideImage(event.currentTarget)} />
                   <figcaption className="space-y-2 p-4 text-sm leading-6">
                     <p>{item.caption}</p>
-                    <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline underline-offset-2">{oliveCompanyOwnerPhoto ? "Photo: Texas Hill Country Olive Co." : `Image source and reuse terms — ${item.image.credit}`}</a>
+                    {isReviewedAttraction && verifiedReviewedAttractionGalleryRights(item.sourceUrl) ? (
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-primary">
+                        <span>Photo: {verifiedReviewedAttractionGalleryRights(item.sourceUrl)!.creator} · resized for web</span>
+                        <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Original image</a>
+                        <span aria-hidden="true">·</span>
+                        <a href={verifiedReviewedAttractionGalleryRights(item.sourceUrl)!.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{verifiedReviewedAttractionGalleryRights(item.sourceUrl)!.licenseLabel} license</a>
+                      </div>
+                    ) : (
+                      <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-primary underline underline-offset-2">{oliveCompanyOwnerPhoto ? "Photo: Texas Hill Country Olive Co." : `Image source and reuse terms — ${item.image.credit}`}</a>
+                    )}
                   </figcaption>
                 </figure>
               ))}

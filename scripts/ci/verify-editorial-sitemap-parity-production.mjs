@@ -105,7 +105,46 @@ function structuredGraph(html) {
 }
 for (const guide of attractionCertification) {
   try {
-    const { body } = await fetchLive(guide.path);
+    const canonicalDocument = await fetchLive(guide.path);
+    const { body } = canonicalDocument;
+    // Normal public HTML and cache-busting navigation are both checked.
+    // A nonce redirect is only evidence of URL consolidation; the canonical
+    // response must independently be non-cacheable and have current content.
+    const unique = "authority-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+    const variant = await fetch(origin + guide.path + "?nonce=" + unique, {
+      headers, redirect: "manual", signal: AbortSignal.timeout(15000),
+    });
+    const variantLocation = variant.headers.get("location");
+    if (variant.status !== 301 || variantLocation !== origin + guide.path) {
+      throw Error("fresh nonce must redirect directly to clean canonical, got " + variant.status + " " + variantLocation);
+    }
+    await variant.body?.cancel();
+    const canonicalAgain = await fetchLive(guide.path);
+    for (const [label, result] of [["clean", canonicalDocument], ["after-nonce", canonicalAgain]]) {
+      for (const header of ["cache-control", "cdn-cache-control", "cloudflare-cdn-cache-control"]) {
+        if (!/no-store/i.test(result.headers.get(header) || "")) {
+          throw Error(label + " canonical HTML must not be cached across time-sensitive offers: missing " + header);
+        }
+      }
+      if (result.body.includes("at a glance") || !result.body.includes("visitor essentials")) {
+        throw Error(label + " public HTML still has generic first-screen visitor module");
+      }
+      if (/Do not promise step-free access|not a license to republish|intentionally avoids a blanket claim/i.test(result.body)) {
+        throw Error(label + " public HTML still contains internal editor instructions");
+      }
+    }
+    if (!canonicalAgain.body.includes(guide.name) || !canonicalAgain.body.includes("data-attraction-photo-credit")) {
+      throw Error("nonce-consolidated canonical is missing current named attraction and compact photo credit");
+    }
+    console.log("PASS attraction clean/nonce freshness", guide.path, JSON.stringify({
+      redirect: variant.status, canonical: variantLocation,
+      cleanCache: canonicalDocument.headers.get("cache-control"),
+      freshCache: canonicalAgain.headers.get("cache-control"),
+      cleanCloudflareCache: canonicalDocument.headers.get("cf-cache-status") || "unspecified",
+      postNonceCloudflareCache: canonicalAgain.headers.get("cf-cache-status") || "unspecified",
+      cleanRay: canonicalDocument.headers.get("cf-ray") || "unspecified",
+      postNonceRay: canonicalAgain.headers.get("cf-ray") || "unspecified",
+    }));
     // A Googlebot user-agent probe is useful evidence but does not prove Google IP access.
     const crawler = await fetch(origin + guide.path, {
       headers: { "user-agent": "Googlebot/2.1 (+http://www.google.com/bot.html)", "cache-control": "no-cache" },
