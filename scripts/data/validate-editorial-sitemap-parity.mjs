@@ -39,6 +39,12 @@ assert.equal(freeAdmission.sourceUrl, visitorBureau, "Only Visit Fort Worth conf
 assert.equal(cityHours.sourceUrl, fortWorth.officialUrl, "City park listing owns verified hours and no-wading rules");
 assert.ok(fortWorth.authorityGuide.sources.some((source) => source.url === visitorBureau), "Fort Worth tourism source must be linked to readers");
 assert.ok(fortWorth.body.join(" ").includes("38 feet") && fortWorth.body.join(" ").includes("40 nozzles"), "Genuine city-published design facts must be preserved");
+const fullAuthorityGuide = read("src/components/editorial/DestinationAuthorityGuide.tsx");
+assert.ok(
+  fullAuthorityGuide.includes('const showSeparateVisitorQuestions = destination.slug !== "san-antonio-japanese-tea-garden"')
+    && fullAuthorityGuide.includes("{showSeparateVisitorQuestions && <section"),
+  "Tea Garden must not produce a second one-question duration FAQ panel when its first-screen essentials and real visitor FAQ already cover the decision"
+);
 const attractionRoute = read("src/routes/destination.$slug.tsx");
 const galleryBrowser = read("scripts/ci/verify-three-attractions-responsive-browser.mjs");
 assert.ok(attractionRoute.includes('<section aria-labelledby="destination-photo-archive"'), "Destination gallery must retain a labelled section landmark");
