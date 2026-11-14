@@ -105,6 +105,13 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       imageRightsPages.add(path);
     }
   }
+  // A validated local Wikimedia image-rights entry or the destination JSON-LD
+  // renderer changes exactly one previously flagged Search Console photo here.
+  // Retain separate nine-page checks for the unrelated shared Commons ledger.
+  if (changedFiles.some(p => ['src/data/verified-local-state-park-photo-credits.ts', 'src/routes/destination.$slug.tsx'].includes(p))) {
+    candidates.add('/destination/big-bend-ranch-state-park');
+    imageRightsPages.add('/destination/big-bend-ranch-state-park');
+  }
   const eventAuthorityPages = new Set();
   // A change to the exact-HTML release verifier must exercise its four
   // completed-edition canaries on the live, normal visitor URLs. This is only
