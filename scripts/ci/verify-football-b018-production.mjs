@@ -112,4 +112,22 @@ assert.equal(report.schoolChecks.length,75,'all 75 viewports required');
 assert.equal(report.screenshots.length,75,'all 75 screenshot artifacts required');
 assert.equal(report.countyChecks.length,25,'all 25 county reciprocal checks required');
 assert.deepEqual(report.failures,[],'Batch018 Chrome failure');
-console.log('PASS: 25 Batch018 source-authored schools x 3 viewports, 25 reciprocal county checks, one exact signed Worker; Batch018 registry remains source-IMPLEMENTED pending signed graduation; indexability is unasserted.');
+// Accepting screenshots while a new Worker deployment overtakes the live origin
+// would be misleading even if every earlier response matched the old UUID.
+// Recheck the canonical live Worker after ALL 75/25 cases, outside browser
+// caching, and fail closed if release identity has drifted.
+try {
+ const closingProof=await fetch(origin+'/texas-high-school-football-teams/college-station',{
+  redirect:'manual',headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(12000)
+ });
+ assert.equal(closingProof.status,200,'closing live Worker HTTP status');
+ const closingWorker=closingProof.headers.get('x-texasdefined-worker-version')?.trim()||'';
+ assert.equal(closingWorker,worker,'Worker changed during Batch018 acceptance');
+ report.closingProof={status:closingProof.status,workerVersion:closingWorker,checkedAt:new Date().toISOString()};
+ save();
+}catch(error){
+ report.failures.push({slug:'final-release-identity',width:0,error:String(error.message||error).slice(0,400)});
+ save();
+ throw error;
+}
+console.log('PASS: 25 Batch018 source-authored schools x 3 viewports, 25 reciprocal county checks, closing live Worker identity, one exact signed Worker; Batch018 registry remains source-IMPLEMENTED pending signed graduation; indexability is unasserted.');
