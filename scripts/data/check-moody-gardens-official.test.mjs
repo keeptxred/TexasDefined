@@ -1,3 +1,4 @@
+import { normalizeMoodyGardensTextEntities } from "../production/moody-gardens-html-entities.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -181,4 +182,25 @@ test("Moody Gardens editorial consolidates museum tickets into one sourced decis
   for (const source of ["www.moodygardens.com/visitor-info/faq", "www.visitgalveston.com/directory/moody-gardens/", "www.galvestoncm.org/general-info-admission"]) {
     assert.ok(comparison.includes(source), "missing independently compared source: " + source);
   }
+});
+
+
+test("production acceptance handles the apostrophes in rendered museum admissions", () => {
+  const original = "a ticket that includes Galveston Children's Museum admission";
+  for (const encoded of [
+    "Children&#x27;s",
+    "Children&#39;s",
+    "Children&#8217;s",
+    "Children&#x2019;s",
+    "Children&apos;s",
+    "Children&rsquo;s",
+    "Children’s",
+    "Children's",
+  ]) {
+    const html = `<p>a ticket that includes Galveston ${encoded} Museum admission</p>`;
+    assert.equal(normalizeMoodyGardensTextEntities(html).includes(original), true, encoded);
+  }
+  const incorrect = "<p>a ticket that does not cover the Galveston Children&#x27;s Museum</p>";
+  assert.equal(normalizeMoodyGardensTextEntities(incorrect).includes(original), false);
+  assert.throws(() => normalizeMoodyGardensTextEntities(null), /Expected serialized HTML/);
 });
