@@ -50,3 +50,61 @@ jobs:
         run: node --check scripts/data/validate-top-50-attraction-authority.mjs
       - name: Validate 50 canonical attraction guides and evidence
         run: node scripts/data/validate-top-50-attraction-authority.mjs
+
+  source-health:
+    name: Check official source links and report broken citations
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect operator and historic source links without changing editorial review dates
+        id: probe
+        continue-on-error: true
+        env:
+          TOP50_SOURCE_HEALTH_REPORT: artifacts/top50-attraction-source-health.json
+        run: node scripts/data/check-top50-attraction-source-health.mjs
+      - name: Upload evidence for editorial and access review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: top50-source-evidence-${{ github.run_id }}
+          path: artifacts/top50-attraction-source-health.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Open or update failed official-source review issue
+        if: steps.probe.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const title = 'Top 50 attractions: official source health needs review';
+            let broken = [];
+            try {
+              const report = JSON.parse(fs.readFileSync('artifacts/top50-attraction-source-health.json','utf8'));
+              broken = report.results.filter(item => !item.ok).slice(0,60);
+            } catch(error) { broken = [{url: 'Source evidence missing', status:0, error:String(error)}]; }
+            const body = [
+              'The scheduled Top 50 attractions source-health audit found broken, unavailable or unverifiable links.',
+              'Do not stamp pages as reviewed until their official visitor facts are independently checked.',
+              '',
+              `Workflow: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              `Evidence artifact: top50-source-evidence-${context.runId}`,
+              '',
+              ...broken.map(item => `- ${item.status || 'NETWORK'} ${item.url} — ${item.error ?? ''}`),
+            ].join('\n');
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              ...context.repo, state:'open', per_page:100,
+            });
+            const existing = issues.find(issue => !issue.pull_request && issue.title === title);
+            if (existing) await github.rest.issues.update({...context.repo,issue_number:existing.number,body});
+            else await github.rest.issues.create({...context.repo,title,body});
+      - name: Preserve failed source-health status after reporting
+        if: steps.probe.outcome == 'failure'
+        run: exit 1
