@@ -1,0 +1,41 @@
+name: Validate historical GSC 404 URL dispositions
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/gsc-404-disposition-policy.mjs'
+      - 'scripts/ci/gsc-404-disposition-policy.test.mjs'
+      - 'scripts/ci/gsc-404-classification.mjs'
+      - 'scripts/ci/audit-gsc-404-sample.mjs'
+      - 'ops/seo/gsc-404-2026-11-13-paths.txt'
+      - '.github/workflows/validate-gsc-404-dispositions.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/gsc-404-disposition-policy.mjs'
+      - 'scripts/ci/gsc-404-disposition-policy.test.mjs'
+      - 'scripts/ci/gsc-404-classification.mjs'
+      - 'scripts/ci/audit-gsc-404-sample.mjs'
+      - 'ops/seo/gsc-404-2026-11-13-paths.txt'
+      - '.github/workflows/validate-gsc-404-dispositions.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check audit and 404 policy syntax
+        run: |
+          node --check scripts/ci/gsc-404-disposition-policy.mjs
+          node --check scripts/ci/audit-gsc-404-sample.mjs
+      - name: Verify exactly adjudicated 404s and real missing-redirect alarms
+        run: node --test scripts/ci/gsc-404-classification.test.mjs scripts/ci/gsc-404-disposition-policy.test.mjs
