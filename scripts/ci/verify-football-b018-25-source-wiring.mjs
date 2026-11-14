@@ -48,19 +48,19 @@ for (const name of ['BATCH018_FOOTBALL_COUNTY_EDGES','BATCH018_SECOND_FIVE_COUNT
 // repeated promise about what our AI/editorial process did not invent.
 for (const slug of expected) {
   const editorial=read('src/data/high-school-football/program-editorial-b018-'+slug+'.ts');
-  const overview=editorial.match(/\\n  overview: \\[([\\s\\S]*?)\\n  \\],/);
+  const overview=editorial.match(/\n  overview: \[([\s\S]*?)\n  \],/);
   assert.ok(overview,'Missing original school overview: '+slug);
-  const paragraphs=overview[1].split('\\n').filter(line=>/^    ['"]/.test(line));
+  const paragraphs=overview[1].split('\n').filter(line=>/^    ['"]/.test(line));
   assert.ok(paragraphs.length>=5,'Fewer than five school-specific editorial paragraphs: '+slug);
   assert.equal(new Set(paragraphs).size,paragraphs.length,'Duplicate sourced editorial paragraphs: '+slug);
-  assert.ok((editorial.match(/https:\\/\\//g)||[]).length>=5,
+  assert.ok((editorial.match(/https:\/\//g)||[]).length>=5,
     'Insufficient direct independent school/UIL source links: '+slug);
-  const words=(editorial.replace(/https?:\\/\\/[^\\s'"]+/g,'').match(/[A-Za-zÀ-ÿ0-9’-]+/g)||[]).length;
+  const words=(editorial.replace(/https?:\/\/[^\s'"]+/g,'').match(/[A-Za-zÀ-ÿ0-9’-]+/g)||[]).length;
   assert.ok(words>=460,'Batch018 thin source copy (below 460 bounded words): '+slug+' '+words);
   for (const paragraph of paragraphs) {
-    assert.ok(!/^\\s*['"]No (?:other )?(?:unsourced|unverified|unsupported|unlicensed|fabricated|copyrighted)\\b/i.test(paragraph),
+    assert.ok(!/^\s*['"]No (?:other )?(?:unsourced|unverified|unsupported|unlicensed|fabricated|copyrighted)\b/i.test(paragraph),
       'Replace meta-editorial disclaimers with useful verified visitor detail: '+slug);
-    assert.ok(!/\\b(?:nestled|hidden gem|in conclusion|unparalleled|vibrant tapestry|embark on a journey)\\b/i.test(paragraph),
+    assert.ok(!/\b(?:nestled|hidden gem|in conclusion|unparalleled|vibrant tapestry|embark on a journey)\b/i.test(paragraph),
       'Robotic stock editorial wording in source: '+slug);
   }
 }
