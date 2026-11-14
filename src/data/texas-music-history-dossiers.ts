@@ -108,10 +108,17 @@ export const musicResearchDossiers: Record<string, MusicResearchDossier> = {
       },
       {
         heading: "The club's history is a sequence of addresses",
-        record: "The Handbook traces moves to Anderson Lane around 1980, Guadalupe Street in 1981, West Fifth Street in 1997 and East Riverside in 2013. The current East Fifth Street era began later.",
-        reading: "The surviving brand does not make each historic photograph a view of today's entrance. Chronologies and image captions must identify which room and era they document.",
-        source: "Handbook of Texas, successive sites",
+        record: "The Handbook lists moves to Anderson Lane around 1980, Guadalupe Street in 1981, West Fifth Street in 1997 and East Riverside in 2013. The club's own retrospective instead dates its Guadalupe opening to September 3, 1982. The current East Fifth Street era began in 2015.",
+        reading: "Addresses and opening-night dates are different historical claims. Here, two reputable accounts disagree on the Guadalupe transition; the discrepancy needs to be shown, not rewritten as an undisputed move in 1981.",
+        source: "Handbook of Texas, retrospective of successive sites (1981 date)",
         href: "https://www.tshaonline.org/handbook/entries/antones"
+      },
+      {
+        heading: "The club dates its Guadalupe opening night to 1982",
+        record: "Antone's official venue history specifically dates the Fabulous Thunderbirds' opening of its Guadalupe location to September 3, 1982, while the Handbook of Texas lists the move as 1981. Neither source documents a contemporaneous lease or advertisement here that resolves the difference.",
+        reading: "The club's dated show is stronger evidence for a public opening night than a broad retrospective relocation year. It remains possible the sources describe different phases, but this is an interpretation, not a documented resolution.",
+        source: "Antone's official chronology, September 3, 1982",
+        href: "https://antonesnightclub.com/history/"
       },
       {
         heading: "Black blues masters met younger Austin listeners",
