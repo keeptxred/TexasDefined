@@ -89,8 +89,22 @@ export function reconcileAubreyResults({ editorial, snapshot, primary, secondary
   const pending = [];
   let added = 0;
   for (const game of allFixtures) {
-    if (game.result || game.date >= today) continue;
+    if (game.date >= today) continue;
     const a = first.get(game.date), b = second.get(game.date);
+    // A score from either provider contradicting an already authored final
+    // cannot be ignored merely because that game predates this import. This
+    // keeps verified historical records immutable and reviewable.
+    if (game.result) {
+      const parsed = /^([WL]) (\d{1,3})[–-](\d{1,3})(?:\s|$)/.exec(game.result);
+      if (!parsed) throw new Error('Unparseable authored Aubrey final on ' + game.date);
+      const expectedAubrey = Number(parsed[2]), expectedOpponent = Number(parsed[3]);
+      for (const report of [a, b].filter(Boolean)) {
+        if (report.aubreyScore !== expectedAubrey || report.opponentScore !== expectedOpponent) {
+          throw new Error('Authorized provider contradicts an authored Aubrey final on ' + game.date);
+        }
+      }
+      continue;
+    }
     const old = published.get(game.date);
     if (old) {
       // An already-corroborated and published result is not "overdue" just
