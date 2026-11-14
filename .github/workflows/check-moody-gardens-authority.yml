@@ -61,7 +61,7 @@ jobs:
           if [ "$count" = "0" ]; then
             gh issue create --repo "$GITHUB_REPOSITORY" \
               --title "$title" \
-              --body "The weekly targeted Moody Gardens official-source check failed or the editorial review age exceeded 30 days. Review the workflow logs and operator pages, research the changed facts, update the source-backed destination content, add regression coverage, and verify production. Never auto-update sourceCheckedAt without actual source verification. Page: https://texasdefined.com/destination/moody-gardens"
+              --body "The bounded Moody Gardens operator-source check failed. This may indicate the Nov. 16 early closing was CANCELLED, its last-entry time changed, another operator claim drifted, or the editorial review aged past 30 days. Before the Nov. 16 event, urgently check https://www.moodygardens.com/visitor-info/hours against our published time-boxed advisory. Inspect workflow logs, verify changed facts, then correct the guide and run production acceptance. Do not auto-update sourceCheckedAt without a source-backed review. Page: https://texasdefined.com/destination/moody-gardens"
           fi
       - name: Report validation failure
         if: steps.check.outcome == 'failure'
