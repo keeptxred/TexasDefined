@@ -10,7 +10,7 @@ export const targetSources = [
   {
     name: "Discovery Pyramid / Galveston Children's Museum",
     url: "https://www.moodygardens.com/attractions/discovery-pyramid",
-    markers: ["Galveston Children's Museum", "Audience Recognition Theater", "9 to 10 AM reserved for museum members"],
+    markers: ["Galveston Children's Museum", "Audience Recognition Theater", "9 to 10 AM reserved for museum members", "ticket that includes Galveston Children's Museum admission", "Guests age 2 and older"],
     requiresOpenMuseum: true,
   },
   {
