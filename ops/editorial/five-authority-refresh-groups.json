@@ -24,6 +24,11 @@
           "containsAny": [
             "Annual Public Hunting",
             "2026-27"
+          ],
+          "watchFacts": [
+            "$48",
+            "$12",
+            "2026-27"
           ]
         },
         {
@@ -32,6 +37,10 @@
           "containsAny": [
             "Regular",
             "Permit"
+          ],
+          "watchFacts": [
+            "$20",
+            "check in and out each day"
           ]
         }
       ]
@@ -143,7 +152,8 @@
         "publishedAt": "2026-11-14",
         "maxLeadAgeDays": 35,
         "sourceReviewRule": "The article is only a fresh sports lead for its first 35 days; do not silently re-date. Archive afterward and require a newer independently sourced article.",
-        "expectedLiveTitle": "Texas Sports Weekends: The Calendar Check Before You Buy Tickets"
+        "expectedLiveTitle": "Texas Sports Weekends: The Calendar Check Before You Buy Tickets",
+        "renewalLeadDays": 7
       }
     },
     {
@@ -173,6 +183,10 @@
           "containsAny": [
             "Possible Playing Dates",
             "Playoff Dates"
+          ],
+          "watchFacts": [
+            "November 12, 13, 14",
+            "December 16, 17, 18, 19"
           ]
         },
         {
@@ -181,6 +195,23 @@
           "containsAny": [
             "the top two teams",
             "the top four teams"
+          ],
+          "watchFacts": [
+            "the top two teams",
+            "the top four teams"
+          ]
+        },
+        {
+          "name": "UIL championship schedule",
+          "url": "https://www.uiltexas.org/football/state",
+          "containsAny": [
+            "Football State Championships",
+            "2026-2027 Schedule"
+          ],
+          "watchFacts": [
+            "December 16",
+            "December 19",
+            "AT&T Stadium"
           ]
         }
       ]
@@ -206,6 +237,10 @@
           "containsAny": [
             "Tailgating",
             "Parking"
+          ],
+          "watchFacts": [
+            "9-feet wide and 12-feet deep",
+            "first come/first served"
           ]
         },
         {
