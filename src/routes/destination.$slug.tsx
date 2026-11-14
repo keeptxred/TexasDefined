@@ -12,6 +12,7 @@ import { verifiedDevilsRiverPhotoRights } from "@/data/verified-devils-river-lan
 import { relatedDestinationHeroSrc } from "@/data/related-destination-hero";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
+import { isHoustonBotanicRecyclingOfferActive } from "@/lib/houston-botanic-recycles";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
@@ -344,7 +345,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
 });
 
 function DestinationPage() {
-  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage } = Route.useLoaderData();
+  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage, imageRights } = Route.useLoaderData();
   if (destination.slug === "old-socorro-mission") return <Suspense fallback={null}><OldSocorroMissionAuthority /></Suspense>;
   if (destination.slug === "davis-hill-state-park") return <Suspense fallback={null}><DavisHillAuthority /></Suspense>;
 
@@ -373,6 +374,30 @@ function DestinationPage() {
   const devilsRiverPhotoRights = verifiedDevilsRiverPhotoRights(destination.hero);
   const localStateParkPhotoRights = verifiedLocalParkCredit(destination.hero);
   const commonsHeroRights = commonsHeroAttribution(destination.hero.src, destination.hero.credit);
+  // Use the same exact-source rights returned to JSON-LD, never infer a
+  // photographer or license merely from the attraction's name.
+  const isReviewedAttraction = [
+    "san-antonio-japanese-tea-garden",
+    "fort-worth-water-gardens",
+    "houston-botanic-garden",
+  ].includes(destination.slug);
+  const reviewedAttractionFacts = destination.slug === "san-antonio-japanese-tea-garden" ? [
+    { question: "Free admission and hours", answer: "Free daily admission, 7 a.m.–5 p.m. Allow about 30–60 minutes." },
+    { question: "Upper and lower garden access", answer: "The upper pavilion and Jingu House have a ramped approach; the lower ponds and waterfall routes require stairs." },
+    { question: "Entrance and parking", answer: "3853 N. St. Mary's Street beside the zoo. Accessible parking is available in the garden lot; spaces are not guaranteed." },
+    { question: "Pets and nearby stops", answer: "Leashed dogs are welcome. Brackenridge Park is next door; San Antonio Zoo has separate ticketing." },
+  ] : destination.slug === "fort-worth-water-gardens" ? [
+    { question: "Free admission and hours", answer: "The city lists free entry, 6 a.m.–10 p.m. every day. Swimming and wading are prohibited." },
+    { question: "What is there to see?", answer: "The cascading Active Pool, still Quiet Pool and fountain-driven Aerating Pool offer three different experiences." },
+    { question: "Stairs and viewing", answer: "View the Active Pool from upper paths without descending. Ask Fort Worth Parks about current step-free routes and construction notices." },
+    { question: "Time and location", answer: "Allow 30–60 minutes at 1502 Commerce Street, near the downtown convention-center district." },
+  ] : destination.slug === "houston-botanic-garden" ? [
+    { question: "Daytime tickets and reservations", answer: "Adults $12; ages 3–17, students with ID, seniors and active military $8; under age 3 free but every visitor needs a ticket or member reservation." },
+    { question: "Opening and last entry", answer: "Normally 9 a.m.–5 p.m. with last entry at 4:30 p.m. Closed Thanksgiving, Christmas and New Year's Day." },
+    { question: "What to explore?", answer: "Global and Culinary gardens, Coastal Prairie, Stormwater Wetlands and the Susan Garver Family Discovery Garden." },
+    { question: "Arrival and access", answer: "Enter One Botanic Lane from Park Place Boulevard. Free daytime parking; bring your own wheelchair or stroller if needed. Allow 1.5–2 hours." },
+  ] : null;
+
   const oliveCompanyOwnerPhoto = destination.slug === "texas-hill-country-olive-co"
     && destination.hero.src === "/images/destinations/texas-hill-country-olive-co-bistro.webp";
   const primaryPhotoSourceUrl = documentaryPhotoSource?.url ?? corridorHeroRights?.sourceUrl ?? devilsRiverPhotoRights?.sourceUrl ?? localStateParkPhotoRights?.fileUrl ?? commonsHeroRights?.sourceUrl ?? (oliveCompanyOwnerPhoto ? "https://texashillcountryoliveco.com/" : undefined);
@@ -436,9 +461,23 @@ function DestinationPage() {
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{destination.summary}</p>
-        {destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">{oliveCompanyOwnerPhoto ? "Photo: " : "Photography: "}{primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{localStateParkPhotoRights && <> · <a href={localStateParkPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">Creative Commons license</a></>}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
+        {!isReviewedAttraction && destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">{oliveCompanyOwnerPhoto ? "Photo: " : "Photography: "}{primaryPhotoSourceUrl ? <a href={primaryPhotoSourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{destination.hero.credit}</a> : destination.hero.credit}{localStateParkPhotoRights && <> · <a href={localStateParkPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">Creative Commons license</a></>}{devilsRiverPhotoRights && <> · <a href={devilsRiverPhotoRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">CC BY-SA license and credit terms</a></>}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">License terms</a></>}{commonsHeroRights?.licenseUrl && !corridorHeroRights && !devilsRiverPhotoRights && <> · <a href={commonsHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-ink-foreground">{commonsHeroRights.licenseCode} license ↗</a></>}</p>}
       </Container>
+
     </section>
+
+    {isReviewedAttraction && imageRights && (
+      <div data-attraction-photo-credit className="border-b border-border bg-surface py-3 text-sm leading-6 text-muted-foreground">
+        <Container>
+          <span>Photo: {imageRights.creator.name}. </span>
+          <a href={imageRights.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 break-words">Original photograph and attribution</a>
+          <span aria-hidden="true"> · </span>
+          <a href={imageRights.license} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+            {imageRights.license.includes("/zero/") ? "CC0 1.0 dedication" : "CC BY-SA 4.0 license"}
+          </a>
+        </Container>
+      </div>
+    )}
 
     {destination.slug === "magoffin-home" && (
       <section role="status" aria-label="Magoffin Home restoration and visitor access" className="border-b border-border bg-surface py-6 text-foreground">
@@ -455,16 +494,30 @@ function DestinationPage() {
       </section>
     )}
 
-    <AnswerSummary
-      eyebrow="Quick trip facts"
-      title={`${destination.name} at a glance`}
-      items={[
-        { question: `Where is ${destination.name}?`, answer: locationAnswer },
-        ...(showSeason ? [{ question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason }] : []),
-        ...(showEntryPlanning ? [{ question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote }] : []),
-        ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
-      ]}
-    />
+    {destination.slug === "houston-botanic-garden" && isHoustonBotanicRecyclingOfferActive() && (
+      <section data-hbg-recycles-offer role="status" aria-label="Temporary Houston Botanic Garden admission offer" className="border-b border-border bg-surface py-5">
+        <Container>
+          <p className="text-sm font-semibold text-foreground">Nov. 13–15, 2026 only · H-E-B Texas Recycles</p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">Houston-area residents can receive free <strong>daytime general admission</strong> by bringing one plastic bag or bottle <strong>per person</strong> to exchange at the garden ticket window. Redeem during the 9 a.m.–5 p.m. daytime window; this does not establish free admission to separately ticketed evening events. Normal ticket rates and reservations are listed below.</p>
+          <a href="https://hbg.org/visit/texas-recycles/" target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm font-semibold underline underline-offset-2">Official eligibility and redemption details</a>
+        </Container>
+      </section>
+    )}
+
+    {reviewedAttractionFacts ? (
+      <AnswerSummary eyebrow="Plan your visit" title={`${destination.name}: visitor essentials`} items={reviewedAttractionFacts} />
+    ) : (
+      <AnswerSummary
+        eyebrow="Quick trip facts"
+        title={`${destination.name} at a glance`}
+        items={[
+          { question: `Where is ${destination.name}?`, answer: locationAnswer },
+          ...(showSeason ? [{ question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason }] : []),
+          ...(showEntryPlanning ? [{ question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote }] : []),
+          ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
+        ]}
+      />
+    )}
 
     <Suspense fallback={null}><DestinationVerifiedVisitorFacts destination={destination} /></Suspense>
 
