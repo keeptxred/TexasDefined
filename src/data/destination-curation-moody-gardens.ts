@@ -7,7 +7,7 @@ export function applyMoodyGardensCurrentCuration(destination: Destination): Dest
     ...destination,
     sourceCheckedAt: "2026-11-09",
     entryNote:
-      "Moody Gardens sells individual attraction admission and a Value Pass for multiple attractions. The Discovery Pyramid now houses the Galveston Children's Museum upstairs, open daily during Moody Gardens attraction hours; the Audience Recognition Theater is downstairs. Check the official day-by-day schedule and ticket terms before buying because pyramids, theaters and seasonal activities run on different schedules.",
+      "Moody Gardens sells individual attraction admission and a Value Pass for multiple attractions. The Discovery Pyramid now houses the Galveston Children's Museum upstairs, open daily during Moody Gardens attraction hours, with 9 to 10 AM reserved for museum members; the Audience Recognition Theater is downstairs. Check the official day-by-day schedule and ticket terms before buying because pyramids, theaters and seasonal activities run on different schedules.",
     highlights: [
       "Aquarium Pyramid with marine habitats",
       "Rainforest Pyramid with tropical plants and wildlife",

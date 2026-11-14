@@ -49,7 +49,7 @@ const cards = [
 ] as const;
 
 const currentNotes = [
-  { label: "Discovery Pyramid", value: "Galveston Children's Museum open during attraction hours; check daily schedule." },
+  { label: "Discovery Pyramid", value: "Galveston Children's Museum is open daily, but 9 to 10 AM is reserved for museum members. Check today's schedule." },
   { label: "Parking", value: "Standard self-parking is free; upgraded parking options cost extra." },
   { label: "Holiday season", value: "Holiday in the Gardens runs Nov. 21, 2026 through Jan. 2, 2027." },
   { label: "Before you buy", value: "Check the official daily schedule and price by age; Palm Beach is seasonal." },
