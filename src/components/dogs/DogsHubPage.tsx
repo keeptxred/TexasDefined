@@ -1,5 +1,6 @@
 import { getRouteApi, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
+import texasDogsIllustration from "@/assets/navigation-texas-dogs.svg?no-inline";
 import type { DogBreedSummary, DogDesignCollection } from "@/data/texas-dogs";
 
 const routeApi = getRouteApi("/dogs/{-$breed}");
@@ -99,6 +100,7 @@ export default function DogsHubPage() {
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas dog life: parks, heat, travel and breeds</h1>
         <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
         <p className="mt-5 max-w-3xl font-display text-2xl leading-8">Better Texas days for dogs and their people.</p>
+        <figure className="mt-9 max-w-4xl"><img src={texasDogsIllustration} alt="Editorial illustration of a small long-haired Chihuahua against a warm Texas-evening background" width={1200} height={800} loading="lazy" decoding="async" className="h-auto w-full object-cover" /><figcaption className="mt-2 text-xs leading-6 text-muted-foreground">Texas Dogs Defined editorial illustration—not a photograph of a dog-friendly park or a representation of current outdoor conditions.</figcaption></figure>
       </Container>
     </section>
 
@@ -116,7 +118,7 @@ export default function DogsHubPage() {
         </tbody></table></div>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">The paperwork check</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Texas DSHS says dogs and cats must receive rabies vaccination by four months of age, with a signed vaccination certificate. When traveling with a pet, carry the veterinarian's certificate, not just a tag; local requirements can be stricter.</p><a className="mt-4 inline-block text-sm font-semibold text-primary underline" target="_blank" rel="noopener noreferrer" href="https://www.dshs.texas.gov/notifiable-conditions/zoonosis-control/zoonosis-control-diseases-and-conditions/rabies">Texas DSHS rabies requirements ↗</a></article>
-          <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">When the outing should be canceled</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Choose an indoor alternative if the path is too hot, if shade and drinking water are unreliable or if the destination prohibits the dog. Excessive panting, unsteadiness or collapse require urgent veterinary care, not another mile of walking.</p><a className="mt-4 inline-block text-sm font-semibold text-primary underline" target="_blank" rel="noopener noreferrer" href="https://avma.org/resources/pet-owners/petcare/warm-weather-pet-safety">AVMA heat-stress guidance ↗</a></article>
+          <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">When the outing should be canceled</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Choose an indoor alternative if the path is too hot, if shade and drinking water are unreliable or if the destination prohibits the dog. Excessive panting, unsteadiness or collapse require urgent veterinary care, not another mile of walking.</p><a className="mt-4 inline-block text-sm font-semibold text-primary underline" target="_blank" rel="noopener noreferrer" href="https://avma.org/resources/pet-owners/petcare/warm-weather-pet-safety">AVMA heat-stress guidance ↗</a><a className="ml-4 inline-block text-sm font-semibold text-primary underline" target="_blank" rel="noopener noreferrer" href="https://www.cdc.gov/heat-health/risk-factors/heat-and-pets.html">CDC hot-car pet precautions ↗</a></article>
         </div>
         <p className="mt-6 text-xs leading-6 text-muted-foreground">Editorial method: compare the trip type with TPWD, DSHS, CDC and AVMA primary guidance; no claim is made that any specific park, shoreline or business is currently open or accepting pets. These source rules require periodic review.</p>
       </Container>

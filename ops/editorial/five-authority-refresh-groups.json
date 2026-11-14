@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "maintainedBy": "GitHub Actions — five TexasDefined authority hubs",
-  "policy": "A successful HTTP check is NOT a factual review. lastFactReviewAt changes only after an editor compares official sources and resolves discrepancies. Do not fake dated stories, scores, event times, or source-checked dates.",
+  "policy": "A successful HTTP check is NOT a factual review. lastFactReviewAt changes only after an editor compares official sources and resolves discrepancies. Do not fake dated stories, scores, event times, or source-checked dates. Some expert sources (e.g. AVMA) prohibit automated fetching; retain editorial citation but monitor independently available CDC pet-heat guidance and flag source access for manual review instead of treating an HTML challenge as confirmed factual change.",
   "groups": [
     {
       "id": "hunting-regulations",
@@ -76,11 +76,11 @@
           ]
         },
         {
-          "name": "AVMA warm weather",
-          "url": "https://avma.org/resources/pet-owners/petcare/warm-weather-pet-safety",
+          "name": "CDC pet heat precautions",
+          "url": "https://www.cdc.gov/heat-health/risk-factors/heat-and-pets.html",
           "containsAny": [
-            "warm weather",
-            "heat"
+            "Never leave pets in a parked car",
+            "Never leave your pet in a parked car"
           ]
         }
       ]
@@ -99,7 +99,7 @@
       ],
       "maxReviewAgeDays": 7,
       "lastFactReviewAt": "2026-11-14",
-      "lastFactReviewScope": "UIL verified season/bracket source; other sports must be independently sourced before publication",
+      "lastFactReviewScope": "UIL verified season/bracket source; NCAA FBS, RODEOHOUSTON and COTA official calendars; NBA official schedule linked but current games not replicated. More specific team/venue sources required for live articles.",
       "requiredLiveMarkers": [
         "Find the authoritative schedule, then plan the trip",
         "Choose the sport first"
@@ -111,6 +111,30 @@
           "containsAny": [
             "Football Playoff Brackets",
             "2026-2027"
+          ]
+        },
+        {
+          "name": "NCAA FBS official scoreboard",
+          "url": "https://www.ncaa.com/scoreboard/football/fbs",
+          "containsAny": [
+            "NCAA college football scores",
+            "Football"
+          ]
+        },
+        {
+          "name": "RODEOHOUSTON events",
+          "url": "https://www.rodeohouston.com/event-calendar/",
+          "containsAny": [
+            "RODEOHOUSTON",
+            "Events"
+          ]
+        },
+        {
+          "name": "COTA upcoming events",
+          "url": "https://circuitoftheamericas.com/events/",
+          "containsAny": [
+            "COTA Events",
+            "Calendar"
           ]
         }
       ]
